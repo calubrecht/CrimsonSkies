@@ -1041,7 +1041,7 @@ void init_descriptor (int control)
 			send_to_desc ( help_greeting  , dnew );
 	}
 	else
-	    	send_to_desc ("Do you want ANSI? (Y/n) ", dnew);
+	    	send_to_desc ("Do you want color? (Y/N) -> ", dnew);
 
     return;
 }
