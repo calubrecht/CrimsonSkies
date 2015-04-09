@@ -582,7 +582,7 @@ void game_loop_mac_msdos (void)
 	}
 
 	else
-    	write_to_buffer (&dcon, "Do you want ANSI? (Y/n) ", 0);
+    	write_to_buffer (&dcon, "Do you want color? (Y/N) -> ", 0);
 
     /* Main loop */
     while (!merc_down)

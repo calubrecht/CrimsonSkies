@@ -144,7 +144,6 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (argument[0] == '\0' || UPPER (argument[0]) == 'Y')
             {
                 d->ansi = TRUE;
-                send_to_desc ("{RAnsi enabled!{x\n\r", d);
                 d->connected = CON_GET_NAME;
                 {
                     extern char *help_greeting;
@@ -159,7 +158,6 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (UPPER (argument[0]) == 'N')
             {
                 d->ansi = FALSE;
-                send_to_desc ("Ansi disabled!\n\r", d);
                 d->connected = CON_GET_NAME;
                 {
                     extern char *help_greeting;
@@ -172,7 +170,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
             else
             {
-                send_to_desc ("Do you want ANSI? (Y/n) ", d);
+                send_to_desc ("Do you want color? (Y/N) ->  ", d);
                 return;
             }
 
