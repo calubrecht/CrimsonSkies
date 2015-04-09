@@ -245,7 +245,7 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 
 -1 GREETING~
 .
-{r
+{R
  _______  _______ _________ _______  _______  _______  _       
 (  ____ \(  ____ )\__   __/(       )(  ____ \(  ___  )( (    /|
 | (    \/| (    )|   ) (   | () () || (    \/| (   ) ||  \  ( |
@@ -254,7 +254,7 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 | |      | (\ (      | |   | |   | |      ) || |   | || | \   |
 | (____/\| ) \ \_____) (___| )   ( |/\____) || (___) || )  \  |
 (_______/|/   \__/\_______/|/     \|\_______)(_______)|/    )_)
-                                                               
+{r                                                               
  _______  _       _________ _______  _______                   
 (  ____ \| \    /\\__   __/(  ____ \(  ____ \                  
 | (    \/|  \  / /   ) (   | (    \/| (    \/                  
@@ -264,13 +264,13 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 /\____) ||  /  \ \___) (___| (____/\/\____) |                  
 \_______)|_/    \/\_______/(_______/\_______)                  
 {x                                                      
-      Crimson Skies Version 0.5
-      Based on ROM 2.4 copyright (c) 1993-1998 Russ Taylor
+      {WCrimson Skies Version 0.5
+      {wBased on ROM 2.4 copyright (c) 1993-1998 Russ Taylor
 
       Original DikuMUD by Hans Staerfeldt, Katja Nyboe,
       Tom Madsen, Michael Seifert, and Sebastian Hammer
       Based on MERC 2.1 code by Hatchet, Furey, and Kahn
-      ROM 2.4 copyright (c) 1993-1998 Russ Taylor
+      ROM 2.4 copyright (c) 1993-1998 Russ Taylor{x
 
 By what name do you wish to be known? ~
  
