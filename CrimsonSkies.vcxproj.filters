@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="area\qmconfig.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\act_comm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_enter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_info.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_move.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_obj.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_wiz.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\alias.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ban.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\board.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\const.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\effects.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fight.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\flags.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\healer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hedit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lookup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\magic.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\magic2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mob_cmds.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mob_prog.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\music.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nanny.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\olc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\olc_act.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\olc_mpcode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\olc_save.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\recycle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\save.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scan.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sha256.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skills.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\special.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tables.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\update.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\db.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imccfg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lookup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\magic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\merc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mob_cmds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\olc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\recycle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sha256.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\telnet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="area\air.are" />
+    <None Include="area\arachnos.are" />
+    <None Include="area\area.lst" />
+    <None Include="area\astral.are" />
+    <None Include="area\canyon.are" />
+    <None Include="area\catacomb.are" />
+    <None Include="area\chapel.are" />
+    <None Include="area\daycare.are" />
+    <None Include="area\draconia.are" />
+    <None Include="area\dream.are" />
+    <None Include="area\drow.are" />
+    <None Include="area\dwarven.are" />
+    <None Include="area\dylan.are" />
+    <None Include="area\eastern.are" />
+    <None Include="area\galaxy.are" />
+    <None Include="area\gnome.are" />
+    <None Include="area\grave.are" />
+    <None Include="area\group.are" />
+    <None Include="area\grove.are" />
+    <None Include="area\haon.are" />
+    <None Include="area\help.are" />
+    <None Include="area\hitower.are" />
+    <None Include="area\hood.are" />
+    <None Include="area\immort.are" />
+    <None Include="area\limbo.are" />
+    <None Include="area\mahntor.are" />
+    <None Include="area\marsh.are" />
+    <None Include="area\mega1.are" />
+    <None Include="area\midennir.are" />
+    <None Include="area\midgaard.are" />
+    <None Include="area\mirror.are" />
+    <None Include="area\mobfact.are" />
+    <None Include="area\moria.are" />
+    <None Include="area\newthalos.are" />
+    <None Include="area\nirvana.are" />
+    <None Include="area\ofcol.are" />
+    <None Include="area\ofcol2.are" />
+    <None Include="area\olc.hlp" />
+    <None Include="area\olympus.are" />
+    <None Include="area\plains.are" />
+    <None Include="area\proto.are" />
+    <None Include="area\pyramid.are" />
+    <None Include="area\quifael.are" />
+    <None Include="area\redferne.are" />
+    <None Include="area\rom.are" />
+    <None Include="area\school.are" />
+    <None Include="area\sewer.are" />
+    <None Include="area\shire.are" />
+    <None Include="area\smurf.are" />
+    <None Include="area\social.are" />
+    <None Include="area\startup" />
+    <None Include="area\thalos.are" />
+    <None Include="area\tohell.are" />
+    <None Include="area\trollden.are" />
+    <None Include="area\valley.are" />
+    <None Include="area\wyvern.are" />
+    <None Include="doc\MPDocs\examples.doc" />
+    <None Include="doc\MPDocs\hacker.doc" />
+    <None Include="doc\MPDocs\howto" />
+    <None Include="doc\MPDocs\mobprog.doc" />
+    <None Include="doc\MPDocs\readme" />
+    <None Include="doc\MPDocs\surrender.hlp" />
+    <None Include="doc\CHANGELOG.quickmud" />
+    <None Include="doc\changes.olc" />
+    <None Include="doc\license.doc" />
+    <None Include="doc\README.merc" />
+    <None Include="doc\README.quickmud" />
+    <None Include="doc\README.rom" />
+    <None Include="doc\rom.credits" />
+    <None Include="doc\rom.license" />
+    <None Include="doc\Rom2.4.doc" />
+    <None Include="imc\imc.channels" />
+    <None Include="imc\imc.color" />
+    <None Include="imc\imc.commands" />
+    <None Include="imc\imc.config" />
+    <None Include="imc\imc.help" />
+    <None Include="imc\imc.ignores" />
+    <None Include="imc\imc.who" />
+    <None Include="imc\imc2freedom.license" />
+    <None Include="imc\STRLCPY-STRLCAT-LICENSE" />
+    <None Include="README.md" />
+    <None Include="src\Makefile" />
+    <None Include="src\Makefile.linux" />
+    <None Include="src\Makefile.normal" />
+    <None Include="src\Makefile.solaris" />
+    <None Include="doc\QuickMUD Fixes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="area\music.txt" />
+    <Text Include="area\orphaned_helps.txt" />
+    <Text Include="doc\MPDocs\new_readme.txt" />
+    <Text Include="doc\act.txt" />
+    <Text Include="doc\area.txt" />
+    <Text Include="doc\class.txt" />
+    <Text Include="doc\command.txt" />
+    <Text Include="doc\contrib.txt" />
+    <Text Include="doc\drool.txt" />
+    <Text Include="doc\hacker.txt" />
+    <Text Include="doc\license.txt" />
+    <Text Include="doc\memory.txt" />
+    <Text Include="doc\new.txt" />
+    <Text Include="doc\pfile.txt" />
+    <Text Include="doc\port.txt" />
+    <Text Include="doc\QuickMUD.txt" />
+    <Text Include="doc\security.txt" />
+    <Text Include="doc\sites.txt" />
+    <Text Include="doc\skill.txt" />
+    <Text Include="doc\sky.txt" />
+    <Text Include="doc\trad.txt" />
+    <Text Include="doc\vnum.txt" />
+    <Text Include="imc\Whotemplates.txt" />
+  </ItemGroup>
+</Project>
