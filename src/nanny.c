@@ -741,17 +741,11 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
             {
                 write_to_buffer (d, "Warning! Null password!\n\r", 0);
-                write_to_buffer (d,
-                                 "Please report old password with bug.\n\r",
-                                 0);
-                write_to_buffer (d,
-                                 "Type 'password null <new password>' to fix.\n\r",
-                                 0);
+				write_to_buffer (d, "Please report old password with bug.\n\r", 0);
+				write_to_buffer(d, "Type 'password null <new password>' to fix.\n\r", 0);
             }
 
-            write_to_buffer (d,
-                             "\n\rWelcome to ROM 2.4.  Please don't feed the mobiles!\n\r",
-                             0);
+			write_to_buffer(d, "\n\rWelcome to {RCrimson {rSkies{x.\n\r", 0);
             ch->next = char_list;
             char_list = ch;
             d->connected = CON_PLAYING;
