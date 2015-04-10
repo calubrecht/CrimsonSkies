@@ -41,7 +41,7 @@ const struct clan_type clan_table[MAX_CLAN] = {
     /* independent should be FALSE if is a real clan */
     {"", "", ROOM_VNUM_ALTAR, TRUE},
     {"loner",       "[ {WLoner{x ] ",     ROOM_VNUM_ALTAR, TRUE },
-	{"knighthood",  "[ {bKnighthood{x ]", ROOM_VNUM_ALTAR, FALSE},
+	{"knighthood",  "[ {BKnighthood{x ]", ROOM_VNUM_ALTAR, FALSE},
     {"malice",      "[ {rMalice{x ] ",    ROOM_VNUM_ALTAR, FALSE}
 };
 
