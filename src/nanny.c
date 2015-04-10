@@ -745,7 +745,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 				write_to_buffer(d, "Type 'password null <new password>' to fix.\n\r", 0);
             }
 
-			send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r", d);
+			send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
             ch->next = char_list;
             char_list = ch;
             d->connected = CON_PLAYING;
