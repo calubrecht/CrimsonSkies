@@ -40,8 +40,8 @@ const struct clan_type clan_table[MAX_CLAN] = {
     /*  name,       who entry,  death-transfer room,    independent */
     /* independent should be FALSE if is a real clan */
     {"", "", ROOM_VNUM_ALTAR, TRUE},
-    {"loner", "[ Loner ] ", ROOM_VNUM_ALTAR, TRUE},
-    {"rom", "[  ROM  ] ", ROOM_VNUM_ALTAR, FALSE}
+    {"loner", "[ {WLoner{x ] ", ROOM_VNUM_ALTAR, TRUE},
+    {"malice", "[ {rMalice{x ] ", ROOM_VNUM_ALTAR, FALSE}
 };
 
 /* for position */
