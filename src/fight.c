@@ -1723,7 +1723,6 @@ void raw_kill (CHAR_DATA * victim)
 }
 
 
-
 void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     char buf[MAX_STRING_LENGTH];
@@ -1769,19 +1768,17 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
         if (!is_same_group (gch, ch) || IS_NPC (gch))
             continue;
 
-/*    Taken out, add it back if you want it
-    if ( gch->level - lch->level >= 5 )
-    {
-        send_to_char( "You are too high for this group.\n\r", gch );
-        continue;
-    }
+		if ( gch->level - lch->level >= 8 )
+		{
+			send_to_char( "You are too high for this group.\n\r", gch );
+			continue;
+		}
 
-    if ( gch->level - lch->level <= -5 )
-    {
-        send_to_char( "You are too low for this group.\n\r", gch );
-        continue;
-    }
-*/
+		if ( gch->level - lch->level <= -8 )
+		{
+			send_to_char( "You are too low for this group.\n\r", gch );
+			continue;
+		}
 
         xp = xp_compute (gch, victim, group_levels);
         sprintf (buf, "You receive %d experience points.\n\r", xp);
@@ -1808,7 +1805,6 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 
     return;
 }
-
 
 
 /*
