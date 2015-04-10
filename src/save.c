@@ -284,7 +284,7 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
         /*
          * Write Colour Config Information.
          */
-        fprintf (fp, "Coloura     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
+        fprintf (fp, "Coloura     %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->text[2],
                  ch->pcdata->text[0],
                  ch->pcdata->text[1],
@@ -295,7 +295,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->gossip[0],
                  ch->pcdata->gossip[1],
                  ch->pcdata->question[2],
-                 ch->pcdata->question[0], ch->pcdata->question[1]);
+                 ch->pcdata->question[0], 
+				 ch->pcdata->question[1]);
         fprintf (fp, "Colourb     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->answer[2],
                  ch->pcdata->answer[0],
@@ -310,7 +311,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->immtalk_text[0],
                  ch->pcdata->immtalk_text[1],
                  ch->pcdata->immtalk_type[2],
-                 ch->pcdata->immtalk_type[0], ch->pcdata->immtalk_type[1]);
+                 ch->pcdata->immtalk_type[0], 
+				 ch->pcdata->immtalk_type[1]);
         fprintf (fp, "Colourc     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->info[2],
                  ch->pcdata->info[0],
@@ -325,7 +327,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->gtell_text[0],
                  ch->pcdata->gtell_text[1],
                  ch->pcdata->gtell_type[2],
-                 ch->pcdata->gtell_type[0], ch->pcdata->gtell_type[1]);
+                 ch->pcdata->gtell_type[0], 
+				 ch->pcdata->gtell_type[1]);
         fprintf (fp, "Colourd     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->room_title[2],
                  ch->pcdata->room_title[0],
@@ -340,7 +343,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->room_things[0],
                  ch->pcdata->room_things[1],
                  ch->pcdata->prompt[2],
-                 ch->pcdata->prompt[0], ch->pcdata->prompt[1]);
+                 ch->pcdata->prompt[0], 
+				 ch->pcdata->prompt[1]);
         fprintf (fp, "Coloure     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->fight_death[2],
                  ch->pcdata->fight_death[0],
@@ -355,7 +359,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->fight_thit[0],
                  ch->pcdata->fight_thit[1],
                  ch->pcdata->fight_skill[2],
-                 ch->pcdata->fight_skill[0], ch->pcdata->fight_skill[1]);
+                 ch->pcdata->fight_skill[0], 
+				 ch->pcdata->fight_skill[1]);
         fprintf (fp, "Colourf     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->wiznet[2],
                  ch->pcdata->wiznet[0],
@@ -370,8 +375,9 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->tell_text[0],
                  ch->pcdata->tell_text[1],
                  ch->pcdata->reply_text[2],
-                 ch->pcdata->reply_text[0], ch->pcdata->reply_text[1]);
-        fprintf (fp, "Colourg     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
+                 ch->pcdata->reply_text[0], 
+				 ch->pcdata->reply_text[1]);
+        fprintf (fp, "Colourg     %d%d%d %d%d%d %d%d%d %d%d%d\n",
                  ch->pcdata->auction_text[2],
                  ch->pcdata->auction_text[0],
                  ch->pcdata->auction_text[1],
@@ -382,7 +388,8 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->question_text[0],
                  ch->pcdata->question_text[1],
                  ch->pcdata->answer_text[2],
-                 ch->pcdata->answer_text[0], ch->pcdata->answer_text[1]);
+                 ch->pcdata->answer_text[0], 
+				 ch->pcdata->answer_text[1]);
 
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
