@@ -3326,11 +3326,10 @@ OEDIT (oedit_ed)
         return TRUE;
     }
 
-
+	// Removed the ped variable like above because it wasn't being used which may or may not be, not
+	// sure on the intent.  Will test.
     if (!str_cmp (command, "format"))
     {
-        EXTRA_DESCR_DATA *ped = NULL;
-
         if (keyword[0] == '\0')
         {
             send_to_char ("Syntax:  ed format [keyword]\n\r", ch);
@@ -3341,7 +3340,6 @@ OEDIT (oedit_ed)
         {
             if (is_name (keyword, ed->keyword))
                 break;
-            ped = ed;
         }
 
         if (!ed)
