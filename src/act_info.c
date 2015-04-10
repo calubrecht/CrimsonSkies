@@ -935,9 +935,15 @@ void do_prompt (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!strcmp (argument, "all"))
-        strcpy (buf, "<%hhp %mm %vmv> ");
-    else
+	// Rhien, 04/10/2015, added advanced prompt as the start prompt, can default
+	// back to the basic one if desired.
+	if (!strcmp(argument, "all") || !strmp(argument, "reset")) {
+		strcpy(buf, "<%hhp %mm %vmv {x({c%e{x) {g%r{c> ");
+	}
+	else if (!strcmp(argument, "basic")) {
+		strcpy(buf, "<%hhp %mm %vmv> ");
+	}
+	else
     {
         if (strlen (argument) > 50)
             argument[50] = '\0';

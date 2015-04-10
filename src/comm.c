@@ -1434,12 +1434,11 @@ void bust_a_prompt (CHAR_DATA * ch)
 
     point = buf;
     str = ch->prompt;
-    if (str == NULL || str[0] == '\0')
+
+	// Rhien, 04/10/2015 If the prompt is null, give them the default prompt
+	if (str == NULL || str[0] == '\0')
     {
-        sprintf (buf, "{p<%dhp %dm %dmv>{x %s",
-                 ch->hit, ch->mana, ch->move, ch->prefix);
-        send_to_char (buf, ch);
-        return;
+		ch->prompt = str_dup("<%hhp %mm %vmv {x({c%e{x) {g%r{c> ");
     }
 
     if (IS_SET (ch->comm, COMM_AFK))
