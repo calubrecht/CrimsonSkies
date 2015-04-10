@@ -517,7 +517,6 @@ void new_load_area (FILE * fp)
 {
     AREA_DATA *pArea;
     char *word;
-    bool fMatch;
 
     pArea = alloc_perm (sizeof (*pArea));
     pArea->age = 15;
@@ -535,7 +534,6 @@ void new_load_area (FILE * fp)
     for (;;)
     {
         word = feof (fp) ? "End" : fread_word (fp);
-        fMatch = FALSE;
 
         switch (UPPER (word[0]))
         {
@@ -555,7 +553,6 @@ void new_load_area (FILE * fp)
             case 'E':
                 if (!str_cmp (word, "End"))
                 {
-                    fMatch = TRUE;
                     if (area_first == NULL)
                         area_first = pArea;
                     if (area_last != NULL)
