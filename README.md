@@ -9,6 +9,11 @@ Current Crimson Skies compiles and runs out of the box on:
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
 
+The current development server which is playable and will reflect the latest commits
+here is at (it will be very stock ROM'ish while I work through initial changes):
+
+  - 66.244.102.112 port 4000
+
 ## Project Goals:
 
   - To provide a ROM code base that includes creative additions that keep the same
