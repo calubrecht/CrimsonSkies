@@ -2327,7 +2327,6 @@ OBJ_DATA *create_object (OBJ_INDEX_DATA * pObjIndex, int level)
 {
     AFFECT_DATA *paf;
     OBJ_DATA *obj;
-    int i;
 
     if (pObjIndex == NULL)
     {
