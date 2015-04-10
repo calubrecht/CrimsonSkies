@@ -924,8 +924,9 @@ void do_asave (CHAR_DATA * ch, char *argument)
     char arg1[MAX_INPUT_LENGTH];
     AREA_DATA *pArea;
     //FILE *fp;
-    int value, sec;
+    int value;
 
+	//int sec;
 	// marker - remove if not needed
     //fp = NULL;
     //if (!ch)                    /* Do an autosave */
