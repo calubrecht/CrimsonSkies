@@ -1356,7 +1356,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
                 else if (percent >= 0)
                     sprintf (wound, "is in awful condition.");
                 else
-                    sprintf (wound, "is bleeding to death.");
+                    sprintf (wound, "is {rbleeding{x to death.");
 
                 sprintf (buf, "%s %s \n\r",
                          IS_NPC (victim) ? victim->short_descr : victim->name,
@@ -1487,25 +1487,72 @@ void bust_a_prompt (CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'h':
-                sprintf (buf2, "%d", ch->hit);
+	    {
+		// Rhien,  4/10/2015, color indicators for vitals, 
+		// statement needs wrapped in braces to declare variables
+		// in here.
+		int percent;
+		percent = ch->hit * 100 / ch->max_hit;
+                
+	        if (percent > 70) {
+        	        sprintf(buf2, "{W%d{x", ch->hit);
+	        }
+        	else if (percent > 30 && percent < 70) {
+                	sprintf(buf2, "{Y%d{x", ch->hit);
+	        }
+        	else {
+                	sprintf(buf2, "{R%d{x", ch->hit);
+	        }
+
                 i = buf2;
                 break;
+            }
             case 'H':
                 sprintf (buf2, "%d", ch->max_hit);
                 i = buf2;
                 break;
             case 'm':
-                sprintf (buf2, "%d", ch->mana);
+	    {
+                // Rhien,  4/10/2015, color indicators for vitals
+                int percent;
+                percent = ch->mana * 100 / ch->max_mana;
+
+                if (percent > 70) {
+                        sprintf(buf2, "{W%d{x", ch->mana);
+                }
+                else if (percent > 30 && percent < 70) {
+                        sprintf(buf2, "{Y%d{x", ch->mana);
+                }
+                else {
+                        sprintf(buf2, "{R%d{x", ch->mana);
+                }
+
                 i = buf2;
                 break;
+	    }
             case 'M':
                 sprintf (buf2, "%d", ch->max_mana);
                 i = buf2;
                 break;
             case 'v':
-                sprintf (buf2, "%d", ch->move);
+	    {
+                // Rhien,  4/10/2015, color indicators for vitals
+                int percent;
+                percent = ch->move * 100 / ch->max_move;
+
+                if (percent > 70) {
+                        sprintf(buf2, "{W%d{x", ch->move);
+                }
+                else if (percent > 30 && percent < 70) {
+                        sprintf(buf2, "{Y%d{x", ch->move);
+                }
+                else {
+                        sprintf(buf2, "{R%d{x", ch->move);
+                }
+
                 i = buf2;
                 break;
+	    }
             case 'V':
                 sprintf (buf2, "%d", ch->max_move);
                 i = buf2;
