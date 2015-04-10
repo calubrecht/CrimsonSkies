@@ -20,9 +20,16 @@ Current Crimson Skies compiles and runs out of the box on:
   - I may use ROM as a base to port the code to a modern language like C# that will run on
     both Linux (through Mono) and Windows and implement an easy to use modern database. 
   - I will be using both Nano on the Linux side and Visual Studio on the Windows side to
-    program for this (you can use anything you want).  Visual Studio 2013 allows some pretty
-    cool intellisense which makes coding in C in this project way friendly than back in the
-    day when I was using solely pico.  The solution currently doesn't compile under Windows however.
+    program for this (you can use anything you want if you decide to edit).  Visual Studio 2013 
+    allows some pretty cool intellisense which makes coding in C in this project way friendly 
+    than back in the day when I was using solely pico.  The solution currently doesn't compile 
+    under Windows however.
+  - I will likely be working on alternate tools for building areas via a GUI where you can
+    drag and drop rooms to draw maps quickly and then fill in the text info.  I may work on
+    a mud client that functions like a traditional but also integrates additional input methods
+    like voice recognition and joystick support (e.g. you would be able to use a standard game
+    controller to move and map commands to the different buttons and they communicate via a head
+    set).
 
 ## Resources
 
@@ -36,8 +43,8 @@ which were at:
 
 ## License 
 
-I have no specific license for my code, but as this is a ROM deritivate it must adhear
-to the licenses set before it (specifically the ROM, Merc and Diku licenses).  
+I have no specific license for my code at this time, but as this is a ROM deritivate it must 
+adhear to the licenses set before it (specifically the ROM, Merc and Diku licenses).  
 
 ## Contact Me
 
