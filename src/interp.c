@@ -38,7 +38,6 @@
 #include "merc.h"
 #include "interp.h"
 
-
 bool check_social args ((CHAR_DATA * ch, char *command, char *argument));
 
 /*
@@ -48,14 +47,10 @@ bool check_social args ((CHAR_DATA * ch, char *command, char *argument));
 #define LOG_ALWAYS  1
 #define LOG_NEVER   2
 
-
-
 /*
  * Log-all switch.
  */
 bool fLogAll = FALSE;
-
-
 
 /*
  * Command table.
@@ -117,7 +112,6 @@ const struct cmd_type cmd_table[] = {
     {"credits",   do_credits,   POS_DEAD,     0, LOG_NORMAL, 1},
     {"equipment", do_equipment, POS_DEAD,     0, LOG_NORMAL, 1},
     {"examine",   do_examine,   POS_RESTING,  0, LOG_NORMAL, 1},
-/*  {"groups",    do_groups,    POS_SLEEPING, 0, LOG_NORMAL, 1}, */
     {"help",      do_help,      POS_DEAD,     0, LOG_NORMAL, 1},
     {"info",      do_groups,    POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"motd",      do_motd,      POS_DEAD,     0, LOG_NORMAL, 1},
@@ -152,7 +146,6 @@ const struct cmd_type cmd_table[] = {
     {"autosac", do_autosac, POS_DEAD, 0, LOG_NORMAL, 1},
     {"autosplit", do_autosplit, POS_DEAD, 0, LOG_NORMAL, 1},
     {"brief", do_brief, POS_DEAD, 0, LOG_NORMAL, 1},
-/*  { "channels",    do_channels,    POS_DEAD,     0,  LOG_NORMAL, 1 }, */
     {"colour",		do_colour,	POS_DEAD,	0, LOG_NORMAL, 1},
     {"color",		do_colour,	POS_DEAD,	0, LOG_NORMAL, 1},
     {"combine",		do_combine,	POS_DEAD,	0, LOG_NORMAL, 1},
@@ -177,7 +170,6 @@ const struct cmd_type cmd_table[] = {
      */
     {"afk", do_afk, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"answer", do_answer, POS_SLEEPING, 0, LOG_NORMAL, 1},
-/*  { "auction",    do_auction,    POS_SLEEPING,     0,  LOG_NORMAL, 1 }, */
     {"deaf", do_deaf, POS_DEAD, 0, LOG_NORMAL, 1},
     {"emote", do_emote, POS_RESTING, 0, LOG_NORMAL, 1},
     {"pmote", do_pmote, POS_RESTING, 0, LOG_NORMAL, 1},
@@ -261,11 +253,9 @@ const struct cmd_type cmd_table[] = {
     {"follow", do_follow, POS_RESTING, 0, LOG_NORMAL, 1},
     {"gain", do_gain, POS_STANDING, 0, LOG_NORMAL, 1},
     {"go", do_enter, POS_STANDING, 0, LOG_NORMAL, 0},
-/*  { "group",        do_group,    POS_SLEEPING,     0,  LOG_NORMAL, 1 }, */
     {"groups", do_groups, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"hide", do_hide, POS_RESTING, 0, LOG_NORMAL, 1},
     {"play", do_play, POS_RESTING, 0, LOG_NORMAL, 1},
-/*  { "practice",    do_practice,    POS_SLEEPING,     0,  LOG_NORMAL, 1 }, */
     {"qui", do_qui, POS_DEAD, 0, LOG_NORMAL, 0},
     {"quit", do_quit, POS_DEAD, 0, LOG_NORMAL, 1},
 	{"logout", do_quit, POS_DEAD, 0, LOG_NORMAL, 1},
@@ -304,9 +294,7 @@ const struct cmd_type cmd_table[] = {
     {"set",		do_set,		POS_DEAD, L2, LOG_ALWAYS, 1},
     {"shutdow",		do_shutdow,	POS_DEAD, L1, LOG_NORMAL, 0},
     {"shutdown",	do_shutdown,	POS_DEAD, L1, LOG_ALWAYS, 1},
-/*  { "sockets",    do_sockets,    POS_DEAD,    L4,  LOG_NORMAL, 1 }, */
     {"wizlock",		do_wizlock,	POS_DEAD, L2, LOG_ALWAYS, 1},
-
     {"force",		do_force,	POS_DEAD, L7, LOG_ALWAYS, 1},
     {"load",		do_load,	POS_DEAD, L4, LOG_ALWAYS, 1},
     {"newlock",		do_newlock,	POS_DEAD, L4, LOG_ALWAYS, 1},
@@ -323,12 +311,9 @@ const struct cmd_type cmd_table[] = {
     {"slay",		do_slay,	POS_DEAD, L3, LOG_ALWAYS, 1},
     {"teleport",	do_transfer,	POS_DEAD, L5, LOG_ALWAYS, 1},
     {"transfer",	do_transfer,	POS_DEAD, L5, LOG_ALWAYS, 1},
-
-/*  { "at",        do_at,        POS_DEAD,    L6,  LOG_NORMAL, 1 }, */
     {"poofin",		do_bamfin,	POS_DEAD, L8, LOG_NORMAL, 1},
     {"poofout",		do_bamfout,	POS_DEAD, L8, LOG_NORMAL, 1},
     {"gecho",		do_echo,	POS_DEAD, L4, LOG_ALWAYS, 1},
-/*  { "goto",        do_goto,    POS_DEAD,    L8,  LOG_NORMAL, 1 }, */
     {"holylight",	do_holylight,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"incognito",	do_incognito,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"invis",		do_invis,	POS_DEAD, IM, LOG_NORMAL, 0},
@@ -377,8 +362,6 @@ const struct cmd_type cmd_table[] = {
      */
     {"", 0, POS_DEAD, 0, LOG_NORMAL, 0}
 };
-
-
 
 
 /*
