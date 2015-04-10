@@ -2245,8 +2245,6 @@ void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
     char *point;
     char *pbuff;
     char buffer[MSL * 2];
-    bool fColour = FALSE;
-
 
     /*
      * Discard null and zero-length messages.
@@ -2298,7 +2296,6 @@ void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
                 *point++ = *str++;
                 continue;
             }
-            fColour = TRUE;
             ++str;
             i = " <@@@> ";
 
