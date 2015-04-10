@@ -41,7 +41,6 @@
 #include "merc.h"
 #include "db.h"
 #include "recycle.h"
-#include "music.h"
 #include "tables.h"
 #include "lookup.h"
 #include "olc.h"
@@ -416,7 +415,7 @@ void boot_db ()
      * Fix up exits.
      * Declare db booting over.
      * Reset all areas once.
-     * Load up the songs, notes and ban files.
+     * Load up notes and ban files.
      */
     {
         fix_exits ();
@@ -427,7 +426,6 @@ void boot_db ()
 		load_boards();
 		save_notes();
         load_bans ();
-        load_songs ();
     }
 
     return;
@@ -2405,11 +2403,6 @@ OBJ_DATA *create_object (OBJ_INDEX_DATA * pObjIndex, int level)
         case ITEM_ROOM_KEY:
         case ITEM_GEM:
         case ITEM_JEWELRY:
-            break;
-
-        case ITEM_JUKEBOX:
-            for (i = 0; i < 5; i++)
-                obj->value[i] = -1;
             break;
 
         case ITEM_SCROLL:

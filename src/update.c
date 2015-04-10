@@ -35,7 +35,6 @@
 #include <time.h>
 #include "merc.h"
 #include "interp.h"
-#include "music.h"
 
 /*
  * Local functions.
@@ -1154,19 +1153,12 @@ void update_handler (void)
     static int pulse_mobile;
     static int pulse_violence;
     static int pulse_point;
-    static int pulse_music;
 
     if (--pulse_area <= 0)
     {
         pulse_area = PULSE_AREA;
         /* number_range( PULSE_AREA / 2, 3 * PULSE_AREA / 2 ); */
         area_update ();
-    }
-
-    if (--pulse_music <= 0)
-    {
-        pulse_music = PULSE_MUSIC;
-        song_update ();
     }
 
     if (--pulse_mobile <= 0)

@@ -1346,10 +1346,6 @@ void do_examine (CHAR_DATA * ch, char *argument)
             default:
                 break;
 
-            case ITEM_JUKEBOX:
-                do_function (ch, &do_play, "list");
-                break;
-
             case ITEM_MONEY:
                 if (obj->value[0] == 0)
                 {

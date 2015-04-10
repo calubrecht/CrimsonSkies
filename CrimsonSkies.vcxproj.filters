@@ -104,9 +104,6 @@
     <ClCompile Include="src\mob_prog.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\music.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\nanny.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -176,9 +173,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\mob_cmds.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\music.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\olc.h">
@@ -286,7 +280,6 @@
     <None Include="doc\QuickMUD Fixes" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="area\music.txt" />
     <Text Include="area\orphaned_helps.txt" />
     <Text Include="doc\MPDocs\new_readme.txt" />
     <Text Include="doc\act.txt" />

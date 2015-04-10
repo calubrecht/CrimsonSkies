@@ -155,7 +155,6 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define PULSE_PER_SECOND    4
 #define PULSE_VIOLENCE      ( 3 * PULSE_PER_SECOND)
 #define PULSE_MOBILE        ( 4 * PULSE_PER_SECOND)
-#define PULSE_MUSIC         ( 6 * PULSE_PER_SECOND)
 #define PULSE_TICK          (60 * PULSE_PER_SECOND)
 #define PULSE_AREA          (120 * PULSE_PER_SECOND)
 
@@ -1093,8 +1092,6 @@ struct    kill_data
 #define ITEM_ROOM_KEY    31
 #define ITEM_GEM         32
 #define ITEM_JEWELRY     33
-#define ITEM_JUKEBOX     34
-
 
 
 /*
@@ -1426,7 +1423,6 @@ struct    kill_data
 #define COMM_NOAUCTION          (D)
 #define COMM_NOGOSSIP           (E)
 #define COMM_NOQUESTION         (F)
-#define COMM_NOMUSIC            (G)
 #define COMM_NOCLAN             (H)
 #define COMM_NOQUOTE            (I)
 #define COMM_SHOUTSOFF          (J)
@@ -1670,8 +1666,6 @@ struct    pc_data
     int				auction_text[3];        /* {A */
     int				gossip[3];              /* {d */
     int				gossip_text[3];         /* {9 */
-    int				music[3];               /* {e */
-    int				music_text[3];          /* {E */
     int				question[3];            /* {q */
     int				question_text[3];       /* {Q */
     int				answer[3];              /* {f */
@@ -2336,7 +2330,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #define TYPO_FILE       "typos.txt"           /* For 'typo'            */
 #define SHUTDOWN_FILE   "shutdown.txt"        /* For 'shutdown'        */
 #define BAN_FILE        "ban.txt"
-#define MUSIC_FILE      "music.txt"
 #define OHELPS_FILE	    "orphaned_helps.txt"  /* Unmet 'help' requests */
 
 

@@ -2678,21 +2678,6 @@ int colour (char type, CHAR_DATA * ch, char *string)
                 sprintf (code, "\e[%d;3%dm", col->answer_text[0],
                          col->answer_text[1]);
             break;
-        case 'e':
-            if (col->music[2])
-                sprintf (code, "\e[%d;3%dm%c",
-                         col->music[0], col->music[1], '\a');
-            else
-                sprintf (code, "\e[%d;3%dm", col->music[0], col->music[1]);
-            break;
-        case 'E':
-            if (col->music_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
-                         col->music_text[0], col->music_text[1], '\a');
-            else
-                sprintf (code, "\e[%d;3%dm", col->music_text[0],
-                         col->music_text[1]);
-            break;
         case 'h':
             if (col->quote[2])
                 sprintf (code, "\e[%d;3%dm%c",

@@ -114,12 +114,6 @@ void do_channels (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("OFF\n\r", ch);
 
-    send_to_char ("{emusic{x          ", ch);
-    if (!IS_SET (ch->comm, COMM_NOMUSIC))
-        send_to_char ("ON\n\r", ch);
-    else
-        send_to_char ("OFF\n\r", ch);
-
     send_to_char ("{qQ{x/{fA{x            ", ch);
     if (!IS_SET (ch->comm, COMM_NOQUESTION))
         send_to_char ("ON\n\r", ch);
@@ -609,64 +603,6 @@ void do_answer (CHAR_DATA * ch, char *argument)
                 !IS_SET (victim->comm, COMM_QUIET))
             {
                 act_new ("{f$n answers '{F$t{f'{x",
-                         ch, argument, d->character, TO_VICT, POS_SLEEPING);
-            }
-        }
-    }
-}
-
-/* RT music channel */
-void do_music (CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    DESCRIPTOR_DATA *d;
-
-    if (argument[0] == '\0')
-    {
-        if (IS_SET (ch->comm, COMM_NOMUSIC))
-        {
-            send_to_char ("Music channel is now ON.\n\r", ch);
-            REMOVE_BIT (ch->comm, COMM_NOMUSIC);
-        }
-        else
-        {
-            send_to_char ("Music channel is now OFF.\n\r", ch);
-            SET_BIT (ch->comm, COMM_NOMUSIC);
-        }
-    }
-    else
-    {                            /* music sent, turn music on if it isn't already */
-
-        if (IS_SET (ch->comm, COMM_QUIET))
-        {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
-            return;
-        }
-
-        if (IS_SET (ch->comm, COMM_NOCHANNELS))
-        {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
-            return;
-        }
-
-        REMOVE_BIT (ch->comm, COMM_NOMUSIC);
-
-        sprintf (buf, "{eYou MUSIC: '{E%s{e'{x\n\r", argument);
-        send_to_char (buf, ch);
-        sprintf (buf, "$n MUSIC: '%s'", argument);
-        for (d = descriptor_list; d != NULL; d = d->next)
-        {
-            CHAR_DATA *victim;
-
-            victim = d->original ? d->original : d->character;
-
-            if (d->connected == CON_PLAYING &&
-                d->character != ch &&
-                !IS_SET (victim->comm, COMM_NOMUSIC) &&
-                !IS_SET (victim->comm, COMM_QUIET))
-            {
-                act_new ("{e$n MUSIC: '{E$t{e'{x",
                          ch, argument, d->character, TO_VICT, POS_SLEEPING);
             }
         }
@@ -2095,12 +2031,6 @@ void do_colour (CHAR_DATA * ch, char *argument)
     else if (!str_cmp (arg, "gossip_text"))
     {
     ALTER_COLOUR (gossip_text)}
-    else if (!str_cmp (arg, "music"))
-    {
-    ALTER_COLOUR (music)}
-    else if (!str_cmp (arg, "music_text"))
-    {
-    ALTER_COLOUR (music_text)}
     else if (!str_cmp (arg, "question"))
     {
     ALTER_COLOUR (question)}

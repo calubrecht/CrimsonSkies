@@ -85,7 +85,6 @@ F.  Definitions
 	4.  pickproof
 	5.  dice
 	6.  mobile
-	7.  jukebox
 
 G.  Closing notes
 
@@ -1993,9 +1992,6 @@ would generate a value from 1 to 11.  2d4 would generate a range from 2 to 8.  U
 Mobile or mob
 A being/monster within the game capable of the functions the area 
 builder defines.  Note that mobiles that have ACT_SENTINEL (stay in one place) aren't mobile per se, but why quibble?  :)
-
-Jukebox
-The jukebox will 'play' songs either in the room you are in or play them loud (over the MUSIC channel).  Ask your implementor for a list of songs that the jukebox (if used on your mud) uses.
 
 G.  Closing Notes
 

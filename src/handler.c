@@ -2993,8 +2993,6 @@ char *comm_bit_name (int comm_flags)
         strcat (buf, " no_gossip");
     if (comm_flags & COMM_NOQUESTION)
         strcat (buf, " no_question");
-    if (comm_flags & COMM_NOMUSIC)
-        strcat (buf, " no_music");
     if (comm_flags & COMM_NOQUOTE)
         strcat (buf, " no_quote");
     if (comm_flags & COMM_COMPACT)
@@ -3339,8 +3337,6 @@ void default_colour (CHAR_DATA * ch)
     ch->pcdata->auction_text[1] = (WHITE);
     ch->pcdata->gossip[1] = (MAGENTA);
     ch->pcdata->gossip_text[1] = (MAGENTA);
-    ch->pcdata->music[1] = (RED);
-    ch->pcdata->music_text[1] = (RED);
     ch->pcdata->question[1] = (YELLOW);
     ch->pcdata->question_text[1] = (WHITE);
     ch->pcdata->answer[1] = (YELLOW);
@@ -3374,8 +3370,6 @@ void default_colour (CHAR_DATA * ch)
     ch->pcdata->auction_text[0] = (BRIGHT);
     ch->pcdata->gossip[0] = (NORMAL);
     ch->pcdata->gossip_text[0] = (BRIGHT);
-    ch->pcdata->music[0] = (NORMAL);
-    ch->pcdata->music_text[0] = (BRIGHT);
     ch->pcdata->question[0] = (BRIGHT);
     ch->pcdata->question_text[0] = (BRIGHT);
     ch->pcdata->answer[0] = (BRIGHT);
@@ -3409,8 +3403,6 @@ void default_colour (CHAR_DATA * ch)
     ch->pcdata->auction_text[2] = 0;
     ch->pcdata->gossip[2] = 0;
     ch->pcdata->gossip_text[2] = 0;
-    ch->pcdata->music[2] = 0;
-    ch->pcdata->music_text[2] = 0;
     ch->pcdata->question[2] = 0;
     ch->pcdata->question_text[2] = 0;
     ch->pcdata->answer[2] = 0;
@@ -3555,7 +3547,6 @@ void all_colour (CHAR_DATA * ch, char *argument)
     ch->pcdata->text[1] = colour;
     ch->pcdata->auction[1] = colour;
     ch->pcdata->gossip[1] = colour;
-    ch->pcdata->music[1] = colour;
     ch->pcdata->question[1] = colour;
     ch->pcdata->answer[1] = colour;
     ch->pcdata->quote[1] = colour;
@@ -3585,7 +3576,6 @@ void all_colour (CHAR_DATA * ch, char *argument)
     ch->pcdata->text[0] = bright;
     ch->pcdata->auction[0] = bright;
     ch->pcdata->gossip[0] = bright;
-    ch->pcdata->music[0] = bright;
     ch->pcdata->question[0] = bright;
     ch->pcdata->answer[0] = bright;
     ch->pcdata->quote[0] = bright;

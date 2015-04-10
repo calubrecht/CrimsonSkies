@@ -44,7 +44,7 @@ Syntax: colour <field> <colour>
         current setting are indicated by colour.
 
 fields are:                                    
-  {ttext         {aauction      {dgossip       {emusic        {qquestion
+  {ttext         {aauction      {dgossip       {qquestion
   {fanswer       {hclass_text   {Hclass_name   {iimmtalk_text
 
 {Iimmtalk_type
@@ -1046,7 +1046,7 @@ Characters who are noshout'ed or no'telled will also not receive those
 forms of communication.
 
 The nochannel command is similar, but more drastic. It prevents the victim
-from using any of the channels (gossip, cgossip, Q/A, music) on the game.
+from using any of the channels (gossip, cgossip, Q/A) on the game.
 Nochannels usually result from swearing or spamming on public channels.
 ~
 

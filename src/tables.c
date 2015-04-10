@@ -275,7 +275,6 @@ const struct flag_type comm_flags[] = {
     {"noclangossip", COMM_NOAUCTION, TRUE},
     {"nogossip", COMM_NOGOSSIP, TRUE},
     {"noquestion", COMM_NOQUESTION, TRUE},
-    {"nomusic", COMM_NOMUSIC, TRUE},
     {"noclan", COMM_NOCLAN, TRUE},
     {"noquote", COMM_NOQUOTE, TRUE},
     {"shoutsoff", COMM_SHOUTSOFF, TRUE},
@@ -379,8 +378,6 @@ const struct flag_type room_flags[] = {
     {NULL, 0, 0}
 };
 
-
-
 const struct flag_type sector_flags[] = {
     {"inside", SECT_INSIDE, TRUE},
     {"city", SECT_CITY, TRUE},
@@ -395,8 +392,6 @@ const struct flag_type sector_flags[] = {
     {"desert", SECT_DESERT, TRUE},
     {NULL, 0, 0}
 };
-
-
 
 const struct flag_type type_flags[] = {
     {"light", ITEM_LIGHT, TRUE},
@@ -426,7 +421,6 @@ const struct flag_type type_flags[] = {
     {"roomkey", ITEM_ROOM_KEY, TRUE},
     {"gem", ITEM_GEM, TRUE},
     {"jewelry", ITEM_JEWELRY, TRUE},
-    {"jukebox", ITEM_JUKEBOX, TRUE},
     {NULL, 0, 0}
 };
 

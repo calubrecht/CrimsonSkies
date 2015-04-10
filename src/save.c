@@ -294,9 +294,6 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->gossip[2],
                  ch->pcdata->gossip[0],
                  ch->pcdata->gossip[1],
-                 ch->pcdata->music[2],
-                 ch->pcdata->music[0],
-                 ch->pcdata->music[1],
                  ch->pcdata->question[2],
                  ch->pcdata->question[0], ch->pcdata->question[1]);
         fprintf (fp, "Colourb     %d%d%d %d%d%d %d%d%d %d%d%d %d%d%d\n",
@@ -381,9 +378,6 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->gossip_text[2],
                  ch->pcdata->gossip_text[0],
                  ch->pcdata->gossip_text[1],
-                 ch->pcdata->music_text[2],
-                 ch->pcdata->music_text[0],
-                 ch->pcdata->music_text[1],
                  ch->pcdata->question_text[2],
                  ch->pcdata->question_text[0],
                  ch->pcdata->question_text[1],
@@ -699,12 +693,6 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->gossip_text[0] = (BRIGHT);
     ch->pcdata->gossip_text[1] = (MAGENTA);
     ch->pcdata->gossip_text[2] = 0;
-    ch->pcdata->music[0] = (NORMAL);
-    ch->pcdata->music[1] = (RED);
-    ch->pcdata->music[2] = 0;
-    ch->pcdata->music_text[0] = (BRIGHT);
-    ch->pcdata->music_text[1] = (RED);
-    ch->pcdata->music_text[2] = 0;
     ch->pcdata->question[0] = (BRIGHT);
     ch->pcdata->question[1] = (YELLOW);
     ch->pcdata->question[2] = 0;
@@ -1181,7 +1169,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                     LOAD_COLOUR (text)
                         LOAD_COLOUR (auction)
                         LOAD_COLOUR (gossip)
-                        LOAD_COLOUR (music)
                         LOAD_COLOUR (question) fMatch = TRUE;
                     break;
                 }
@@ -1234,7 +1221,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 {
                     LOAD_COLOUR (auction_text)
                         LOAD_COLOUR (gossip_text)
-						LOAD_COLOUR (music_text)
                         LOAD_COLOUR (question_text)
                         LOAD_COLOUR (answer_text) fMatch = TRUE;
                     break;

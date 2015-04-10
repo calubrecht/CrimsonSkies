@@ -67,7 +67,6 @@ const struct item_type item_table[] = {
     {ITEM_ROOM_KEY, "room_key"},
     {ITEM_GEM, "gem"},
     {ITEM_JEWELRY, "jewelry"},
-    {ITEM_JUKEBOX, "jukebox"},
     {0, NULL}
 };
 

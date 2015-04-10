@@ -95,7 +95,6 @@
     <ClCompile Include="src\mem.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />
-    <ClCompile Include="src\music.c" />
     <ClCompile Include="src\nanny.c" />
     <ClCompile Include="src\olc.c" />
     <ClCompile Include="src\olc_act.c" />
@@ -121,7 +120,6 @@
     <ClInclude Include="src\magic.h" />
     <ClInclude Include="src\merc.h" />
     <ClInclude Include="src\mob_cmds.h" />
-    <ClInclude Include="src\music.h" />
     <ClInclude Include="src\olc.h" />
     <ClInclude Include="src\recycle.h" />
     <ClInclude Include="src\sha256.h" />
@@ -217,7 +215,6 @@
     <None Include="src\Makefile.solaris" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="area\music.txt" />
     <Text Include="area\orphaned_helps.txt" />
     <Text Include="doc\act.txt" />
     <Text Include="doc\area.txt" />
