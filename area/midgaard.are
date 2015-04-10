@@ -2367,6 +2367,14 @@ map olympus~
                             /
                       Mountain
 ~
+#3200 
+juke box music~ 
+the juke~ 
+A neon-lit juke box sits in the corner of the bar.~ 
+glass~ 
+jukebox 0 0 
+0 0 0 0 0 
+0 0 0 P 
 #3237
 pit~
 the donation pit~
@@ -6320,7 +6328,6 @@ E 1 3351  -1   16	*   a standard issue dagger
 M 0 3005   4 3128  2	* the thief
 E 1 3351  -1   16	*   a standard issue dagger
 O 0 3135  10 1200	* a fountain
-O 0 3200  -1 1200
 O 0 3135  10 3005	* a fountain
 O 0 3139  15 3008	* the receptionist's letter of resignation
 O 0 3140  15 3008	* the bank's notice of liquidation
