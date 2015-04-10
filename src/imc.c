@@ -5403,10 +5403,6 @@ bool imc_startup_network( bool connected )
       else
       {
          unlink( IMC_HOTBOOT_FILE );
-
-         int errorcheck = fscanf( fp, "%s %s\n", netname, server );
-         errorcheck = 0; // no purpose of variable, only to avoid warning (void) type casting doesn't work
-
          IMCSTRFREE( this_imcmud->network );
          this_imcmud->network = IMCSTRALLOC( netname );
          IMCSTRFREE( this_imcmud->servername );
