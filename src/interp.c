@@ -268,7 +268,8 @@ const struct cmd_type cmd_table[] = {
 /*  { "practice",    do_practice,    POS_SLEEPING,     0,  LOG_NORMAL, 1 }, */
     {"qui", do_qui, POS_DEAD, 0, LOG_NORMAL, 0},
     {"quit", do_quit, POS_DEAD, 0, LOG_NORMAL, 1},
-    {"recall", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 1},
+	{"logout", do_quit, POS_DEAD, 0, LOG_NORMAL, 1},
+	{"recall", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"/", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 0},
     {"rent", do_rent, POS_DEAD, 0, LOG_NORMAL, 0},
     {"save", do_save, POS_DEAD, 0, LOG_NORMAL, 1},
