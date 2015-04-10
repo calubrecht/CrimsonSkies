@@ -4837,3 +4837,9 @@ void qmconfig_read (void) {
 	exit(0);
 
 }
+
+void do_debug(CHAR_DATA * ch, char *argument)
+{
+	send_to_char("Nothing here currently, move along.\r\n", ch);
+	return;
+}

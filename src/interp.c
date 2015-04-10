@@ -281,8 +281,6 @@ const struct cmd_type cmd_table[] = {
     {"wake", do_wake, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"where", do_where, POS_RESTING, 0, LOG_NORMAL, 1},
 
-
-
     /*
      * Immortal commands.
      */
@@ -347,9 +345,7 @@ const struct cmd_type cmd_table[] = {
     {"wizinvis",	do_invis,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"vnum",		do_vnum,	POS_DEAD, L4, LOG_NORMAL, 1},
     {"zecho",		do_zecho,	POS_DEAD, L4, LOG_ALWAYS, 1},
-
     {"clone",		do_clone,	POS_DEAD, L5, LOG_ALWAYS, 1},
-
     {"wiznet",		do_wiznet,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"immtalk",		do_immtalk,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"imotd",		do_imotd,	POS_DEAD, IM, LOG_NORMAL, 1},
@@ -359,6 +355,7 @@ const struct cmd_type cmd_table[] = {
     {"prefix",		do_prefix,	POS_DEAD, IM, LOG_NORMAL, 1},
     {"mpdump",		do_mpdump,	POS_DEAD, IM, LOG_NEVER, 1},
     {"mpstat",		do_mpstat,	POS_DEAD, IM, LOG_NEVER, 1},
+	{"debug",		do_debug,   POS_DEAD, ML, LOG_NEVER, 0}
 
     /*
      * OLC
