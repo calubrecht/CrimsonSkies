@@ -121,11 +121,15 @@ reading them).
 -1 PROMPT~
 Syntax: prompt
 Syntax: prompt all
+Syntax: prompt basic
+Syntax: prompt reset
 Syntax: prompt <%*>
  
 PROMPT with out an argument will turn your prompt on or off.
  
-PROMPT ALL will give you the standard "<hits mana moves>" prompt.
+PROMPT ALL or PROMPT RESET will give you <hits mana moves (directions) room title>
+
+PROMPT BASIC will give you the standard "<hits mana moves>" prompt.
  
 PROMPT <%*> where the %* are the various variables you may set yourself.
  
