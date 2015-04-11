@@ -39,10 +39,13 @@
 const struct clan_type clan_table[MAX_CLAN] = {
     /*  name,       who entry,  death-transfer room,    independent */
     /* independent should be FALSE if is a real clan */
-    {"", "", ROOM_VNUM_ALTAR, TRUE},
-    {"loner",       "[ {WLoner{x ] ",      ROOM_VNUM_ALTAR, TRUE },
-	{"knighthood",  "[ {BKnighthood{x ] ", ROOM_VNUM_ALTAR, FALSE},
-    {"malice",      "[ {rMalice{x ] ",     ROOM_VNUM_ALTAR, FALSE}
+	{ "", "", ROOM_VNUM_ALTAR, TRUE },
+	{ "loner", "[ {WLoner{x ] ", ROOM_VNUM_ALTAR, TRUE },
+	{ "renegade", "[ {WRenegade{x ] ", ROOM_VNUM_ALTAR, TRUE },
+	{ "knightedorder", "[ {BKnighted Order{x ] ", ROOM_VNUM_ALTAR, FALSE },
+	{ "malice", "[ {rMalice{x ] ", ROOM_VNUM_ALTAR, FALSE },
+	{ "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
+	{ "shafalas", "[ {gSha'falas{x ] ", ROOM_VNUM_ALTAR, FALSE }
 };
 
 /* for position */
