@@ -1496,7 +1496,7 @@ void bust_a_prompt (CHAR_DATA * ch)
 	        if (percent > 70) {
         	        sprintf(buf2, "{W%d{x", ch->hit);
 	        }
-        	else if (percent > 30 && percent < 70) {
+        	else if (percent >= 30 && percent <= 70) {
                 	sprintf(buf2, "{Y%d{x", ch->hit);
 	        }
         	else {
@@ -1519,7 +1519,7 @@ void bust_a_prompt (CHAR_DATA * ch)
                 if (percent > 70) {
                         sprintf(buf2, "{W%d{x", ch->mana);
                 }
-                else if (percent > 30 && percent < 70) {
+                else if (percent >= 30 && percent <= 70) {
                         sprintf(buf2, "{Y%d{x", ch->mana);
                 }
                 else {
