@@ -9,12 +9,12 @@ Current Crimson Skies compiles and runs out of the box on:
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
 
-I am developing and testing on both of the above servers.  The current development server which is playable and 
-will reflect the latest commits here is at (it start eloving from stock ROM'ish while I work through initial changes):
+I am developing and testing on both of the above servers OS's.  The current development server which is playable and 
+will reflect the latest commits here is at (it will start eloving from stock ROM'ish while I work through initial changes):
 
   - 66.244.102.112 port 4000
 
-This isn't advertised with Mud Connector or anywhere, just here for anyone interested while I work on it.  The first things 
+This isn't advertised with Mud Connector or anywhere else, just here for anyone interested while I work on it.  The first things 
 I will be working on is cleaning up formatting, removing some small stuff I didn't think fit a RP mud (like the Jukebox) and 
 then I'll focus on new classes, reclasses, spells and skills.
 

@@ -45,7 +45,7 @@ const struct clan_type clan_table[MAX_CLAN] = {
 	{ "knightedorder", "[ {BKnighted Order{x ] ", ROOM_VNUM_ALTAR, FALSE },
 	{ "malice", "[ {rMalice{x ] ", ROOM_VNUM_ALTAR, FALSE },
 	{ "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
-	{ "shafalas", "[ {gSha'falas{x ] ", ROOM_VNUM_ALTAR, FALSE }
+	{ "alhildr", "[ {gAlhildr{x ] ", ROOM_VNUM_ALTAR, FALSE }
 };
 
 /* for position */
