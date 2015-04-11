@@ -684,14 +684,14 @@ void do_immtalk (CHAR_DATA * ch, char *argument)
 
     REMOVE_BIT (ch->comm, COMM_NOWIZ);
 
-    act_new ("{i[{I$n{i]: $t{x", ch, argument, NULL, TO_CHAR, POS_DEAD);
+    act_new ("{c[{Y$n{c]: {W$t{x", ch, argument, NULL, TO_CHAR, POS_DEAD);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING &&
             IS_IMMORTAL (d->character) &&
             !IS_SET (d->character->comm, COMM_NOWIZ))
         {
-            act_new ("{i[{I$n{i]: $t{x", ch, argument, d->character, TO_VICT,
+            act_new ("{c[{Y$n{c]: {W$t{x", ch, argument, d->character, TO_VICT,
                      POS_DEAD);
         }
     }
