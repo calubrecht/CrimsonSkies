@@ -278,6 +278,7 @@
     <None Include="src\Makefile.normal" />
     <None Include="src\Makefile.solaris" />
     <None Include="doc\QuickMUD Fixes" />
+    <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
