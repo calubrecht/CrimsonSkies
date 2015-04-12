@@ -2216,12 +2216,6 @@ extern  bool				MOBtrigger;
 char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
-#if    defined(apollo)
-int    atoi        args( ( const char *string ) );
-void *    calloc        args( ( unsigned nelem, size_t size ) );
-char *    crypt        args( ( const char *key, const char *salt ) );
-#endif
-
 #if    defined(hpux)
 char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
