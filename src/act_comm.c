@@ -2124,3 +2124,10 @@ void do_colour (CHAR_DATA * ch, char *argument)
     send_to_char_bw ("New Colour Parameter Set.\n\r", ch);
     return;
 }
+
+// Rhien - 04/11/2015
+// Clears the screen using VT100 escape code (if the client supports it)
+void do_clear(CHAR_DATA * ch, char *argument)
+{
+	send_to_char("\033[2J", ch);
+}
