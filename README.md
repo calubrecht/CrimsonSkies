@@ -26,6 +26,7 @@ then I'll focus on new classes, reclasses, spells and skills.
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
     a program that did this back in 2000 and I will start from that concept).
+  - To document the old functions with descriptions and hopefully well document new functions.
   - I may use ROM as a base to port the code to a modern language like C# that will run on
     both Linux (through Mono) and Windows and implement an easy to use modern database. 
   - I will be using both Nano on the Linux side and Visual Studio on the Windows side to
