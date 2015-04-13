@@ -2611,6 +2611,9 @@ int colour (char type, CHAR_DATA * ch, char *string)
         case '{':
             sprintf (code, "%c", '{');
             break;
+		case '!':
+			strcpy(code, "^[[5m");
+			break;
     }
 
     p = code;

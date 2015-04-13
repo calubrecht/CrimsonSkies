@@ -259,7 +259,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     if (IS_AFFECTED (victim, AFF_HIDE))
         strcat (buf, "({DHide{x) ");
 	if (victim->desc == NULL && !IS_NPC(victim))
-		strcat(buf, "({YLink Dead{x) ");
+		strcat(buf, "({Y{!Link Dead{x) ");
     if (IS_AFFECTED (victim, AFF_CHARM))
         strcat (buf, "({YCharmed{x) ");
     if (IS_AFFECTED (victim, AFF_PASS_DOOR))
