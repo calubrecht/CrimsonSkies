@@ -80,9 +80,6 @@
     <ClCompile Include="src\hedit.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\imc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\interp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -125,9 +122,6 @@
     <ClCompile Include="src\scan.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\sha256.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\skills.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -151,12 +145,6 @@
     <ClInclude Include="src\db.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\imc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\imccfg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\interp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -176,9 +164,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\recycle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sha256.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\tables.h">
@@ -260,15 +245,6 @@
     <None Include="doc\rom.credits" />
     <None Include="doc\rom.license" />
     <None Include="doc\Rom2.4.doc" />
-    <None Include="imc\imc.channels" />
-    <None Include="imc\imc.color" />
-    <None Include="imc\imc.commands" />
-    <None Include="imc\imc.config" />
-    <None Include="imc\imc.help" />
-    <None Include="imc\imc.ignores" />
-    <None Include="imc\imc.who" />
-    <None Include="imc\imc2freedom.license" />
-    <None Include="imc\STRLCPY-STRLCAT-LICENSE" />
     <None Include="README.md" />
     <None Include="src\Makefile" />
     <None Include="src\Makefile.linux" />
@@ -299,6 +275,5 @@
     <Text Include="doc\sky.txt" />
     <Text Include="doc\trad.txt" />
     <Text Include="doc\vnum.txt" />
-    <Text Include="imc\Whotemplates.txt" />
   </ItemGroup>
 </Project>

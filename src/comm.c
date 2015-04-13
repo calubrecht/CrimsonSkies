@@ -218,9 +218,6 @@ int main (int argc, char **argv)
 {
     struct timeval now_time;
     bool fCopyOver = FALSE;
-#ifdef IMC
-   int imcsocket = -1;
-#endif
 
     /*
      * Memory debugging if needed.
@@ -277,9 +274,6 @@ int main (int argc, char **argv)
         {
             fCopyOver = TRUE;
             control = atoi (argv[3]);
-#ifdef IMC
-	   imcsocket = atoi( argv[4] );
-#endif
         }
         else
             fCopyOver = FALSE;
@@ -305,19 +299,11 @@ int main (int argc, char **argv)
     boot_db ();
     log_f ("Crimson Skies is ready to rock on port %d (%s).", port, mud_ipaddress);
 
-#ifdef IMC
-   /* Initialize and connect to IMC2 */
-   imc_startup( FALSE, imcsocket, fCopyOver );
-#endif
-
     if (fCopyOver)
         copyover_recover ();
 
     game_loop_unix (control);
     close (control);
-#ifdef IMC
-   imc_shutdown( FALSE );
-#endif
 #endif
 
     /*
@@ -706,11 +692,6 @@ void game_loop_unix (int control)
                 d->incomm[0] = '\0';
             }
         }
-
-
-#ifdef IMC
-	imc_loop();
-#endif
 
         /*
          * Autonomous game motion.
