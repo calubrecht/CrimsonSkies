@@ -312,3 +312,4 @@ DECLARE_DO_FUN(do_hedit);
 DECLARE_DO_FUN(do_qmread);
 DECLARE_DO_FUN(do_debug);
 DECLARE_DO_FUN(do_clear);
+DECLARE_DO_FUN(do_forcetick);

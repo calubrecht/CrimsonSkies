@@ -4838,6 +4838,24 @@ void qmconfig_read (void) {
 
 }
 
+// Rhien - 04/13/2015
+// This will force a tick to happen which will be an immortal only command on the
+// higher levels.  This will allow for testing of tick releated items or to allow
+// an IMM to manipulate tick timing for whatever purpose they need it for.s
+void do_forcetick(CHAR_DATA * ch, char *argument)
+{
+	// We're going to show a WIZNET message for this
+	char buf[100];
+	strcpy(buf, "$N forces a TICK ");
+
+	// Call the update handler
+	update_handler();
+
+	send_to_char("You have forced a tick.\n\r", ch);
+	wiznet("TICK!", ch, NULL, WIZ_TICKS, 0, 0);
+	return;
+}
+
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 	send_to_char("Nothing here currently, move along.\r\n", ch);

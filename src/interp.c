@@ -340,6 +340,7 @@ const struct cmd_type cmd_table[] = {
     {"mpdump",		do_mpdump,	POS_DEAD, IM, LOG_NEVER, 1},
     {"mpstat",		do_mpstat,	POS_DEAD, IM, LOG_NEVER, 1},
     {"debug",		do_debug,   	POS_DEAD, ML, LOG_NEVER, 0},
+	{"forcetick",   do_forcetick, POS_DEAD, ML, LOG_ALWAYS, 1 },
 
     /*
      * OLC
