@@ -92,9 +92,6 @@
     <ClCompile Include="src\magic.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\magic2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\mem.c">
       <Filter>Source Files</Filter>
     </ClCompile>

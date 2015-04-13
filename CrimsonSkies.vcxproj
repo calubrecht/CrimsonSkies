@@ -91,7 +91,6 @@
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
-    <ClCompile Include="src\magic2.c" />
     <ClCompile Include="src\mem.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />
