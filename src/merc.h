@@ -2204,10 +2204,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 #endif
 
-#if    defined(MIPS_OS)
-char *    crypt        args( ( const char *key, const char *salt ) );
-#endif
-
 #if    defined(MSDOS)
 #define NOCRYPT
 #if    defined(unix)

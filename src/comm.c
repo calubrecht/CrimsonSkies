@@ -148,10 +148,6 @@ static long theKeys[4];
 int gettimeofday args ((struct timeval * tp, void *tzp));
 #endif
 
-#if    defined(MIPS_OS)
-extern int errno;
-#endif
-
 #if    defined(MSDOS)
 int gettimeofday args ((struct timeval * tp, void *tzp));
 int kbhit args ((void));
