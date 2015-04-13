@@ -4,10 +4,14 @@ Crimson Skies
 Crimson Skies is an open source MUD based on ROM 2.4b6/QuickMUD.  All new changes
 will be documented in the change log. 
 
-Current Crimson Skies compiles and runs out of the box on:
+Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
+
+Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian) and will 
+likely also be compilable on Windows 7 & 8/8.1 in the future.  My goal is to let the programmer (e.g. you) have the mud be 
+debuggable through Visual Studio which is now free to use for anyone.  
 
 I am developing and testing on both of the above servers OS's.  The current development server which is playable and 
 will reflect the latest commits here is at (it will start eloving from stock ROM'ish while I work through initial changes):
@@ -40,6 +44,9 @@ then I'll focus on new classes, reclasses, spells and skills.
     like voice recognition and joystick support (e.g. you would be able to use a standard game
     controller to move and map commands to the different buttons and they communicate via a head
     set).
+   - Remove legacy OS support and attempt to support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
+     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
+     pretty old and I'm not getting a new one for cost reasons).
 
 ## Resources
 
