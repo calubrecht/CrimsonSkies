@@ -511,7 +511,7 @@ void game_loop_mac_msdos (void)
         /*
          * Autonomous game motion.
          */
-        update_handler ();
+        update_handler (FALSE);
 
 
 
@@ -715,7 +715,7 @@ void game_loop_unix (int control)
         /*
          * Autonomous game motion.
          */
-        update_handler ();
+        update_handler (FALSE);
 
 
 
