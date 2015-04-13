@@ -34,10 +34,6 @@
 int unlink();
 int system();
 
-/*
- * Short scalar types.
- * Diavolo reports AIX compiler has bugs with short types.
- */
 #if    !defined(FALSE)
 #define FALSE     0
 #endif
@@ -46,17 +42,8 @@ int system();
 #define TRUE     1
 #endif
 
-#if    defined(_AIX)
-#if    !defined(const)
-#define const
-#endif
-typedef int                sh_int;
-typedef int                bool;
-#define unix
-#else
 typedef short   int            sh_int;
 typedef unsigned char            bool;
-#endif
 
 /* ea */
 #define MSL MAX_STRING_LENGTH
