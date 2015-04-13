@@ -2563,7 +2563,7 @@ RID *    room_by_name    args( ( char *target, int level, bool error) );
 void    advance_level    args( ( CHAR_DATA *ch, bool hide ) );
 void    gain_exp    args( ( CHAR_DATA *ch, int gain ) );
 void    gain_condition    args( ( CHAR_DATA *ch, int iCond, int value ) );
-void    update_handler    args( ( void ) );
+void    update_handler    args( ( bool forced ) );
 
 /* string.c */
 void    string_edit    args( ( CHAR_DATA *ch, char **pString ) );
