@@ -292,7 +292,7 @@ int main (int argc, char **argv)
 #if defined(macintosh) || defined(MSDOS)
     qmconfig_read(); /* Here because it fits, no conflicts with Linux placement -- JR 05/06/01 */
     boot_db ();
-    log_string ("Merc is ready to rock.");
+    log_string ("Crimson Skies is ready to rock.");
     game_loop_mac_msdos ();
 #endif
 
@@ -303,7 +303,7 @@ int main (int argc, char **argv)
         control = init_socket (port);
 
     boot_db ();
-    log_f ("ROM is ready to rock on port %d (%s).", port, mud_ipaddress);
+    log_f ("Crimson Skies is ready to rock on port %d (%s).", port, mud_ipaddress);
 
 #ifdef IMC
    /* Initialize and connect to IMC2 */
