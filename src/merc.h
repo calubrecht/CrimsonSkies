@@ -2211,10 +2211,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 #endif
 
-#if    defined(NeXT)
-char *    crypt        args( ( const char *key, const char *salt ) );
-#endif
-
 #if    defined(sequent)
 char *    crypt        args( ( const char *key, const char *salt ) );
 int    fclose        args( ( FILE *stream ) );

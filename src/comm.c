@@ -153,21 +153,6 @@ int gettimeofday args ((struct timeval * tp, void *tzp));
 int kbhit args ((void));
 #endif
 
-#if    defined(NeXT)
-int close args ((int fd));
-int fcntl args ((int fd, int cmd, int arg));
-#if    !defined(htons)
-u_short htons args ((u_short hostshort));
-#endif
-#if    !defined(ntohl)
-u_long ntohl args ((u_long hostlong));
-#endif
-int read args ((int fd, char *buf, int nbyte));
-int select args ((int width, fd_set * readfds, fd_set * writefds,
-                  fd_set * exceptfds, struct timeval * timeout));
-int write args ((int fd, char *buf, int nbyte));
-#endif
-
 #if    defined(sequent)
 int accept args ((int s, struct sockaddr * addr, int *addrlen));
 int bind args ((int s, struct sockaddr * name, int namelen));
