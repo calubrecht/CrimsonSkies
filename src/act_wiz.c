@@ -4848,9 +4848,7 @@ void do_forcetick(CHAR_DATA * ch, char *argument)
 	char buf[100];
 	strcpy(buf, "$N forces a TICK ");
 
-	weather_update();
-	char_update();
-	obj_update();
+	update_handler(TRUE);
 
 	send_to_char("You have forced a tick.\n\r", ch);
 	wiznet(buf, ch, NULL, WIZ_TICKS, 0, 0);

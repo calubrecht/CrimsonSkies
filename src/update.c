@@ -1147,7 +1147,7 @@ void aggr_update (void)
  * Random times to defeat tick-timing clients and players.
  */
 
-void update_handler (void)
+void update_handler (bool forced)
 {
     static int pulse_area;
     static int pulse_mobile;
@@ -1172,6 +1172,11 @@ void update_handler (void)
         pulse_violence = PULSE_VIOLENCE;
         violence_update ();
     }
+
+	// Just firing the tick, not messing with violence, mobiles or areas.
+	if (forced) {
+		pulse_point = 0;
+	}
 
     if (--pulse_point <= 0)
     {
