@@ -4852,7 +4852,7 @@ void do_forcetick(CHAR_DATA * ch, char *argument)
 	update_handler();
 
 	send_to_char("You have forced a tick.\n\r", ch);
-	wiznet("TICK!", ch, NULL, WIZ_TICKS, 0, 0);
+	wiznet(buf, ch, NULL, WIZ_TICKS, 0, 0);
 	return;
 }
 
