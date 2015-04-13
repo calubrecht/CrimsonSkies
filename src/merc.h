@@ -25,28 +25,14 @@
  *    ROM license, in the file Rom24/doc/rom.license                       *
  ***************************************************************************/
 
-
-/*
- * Accommodate old non-Ansi compilers.
- */
-#if defined(TRADITIONAL)
-#define const
-#define args( list )            ( )
-#define DECLARE_DO_FUN( fun )        void fun( )
-#define DECLARE_SPEC_FUN( fun )        bool fun( )
-#define DECLARE_SPELL_FUN( fun )    void fun( )
-#else
 #define args( list )            list
 #define DECLARE_DO_FUN( fun )        DO_FUN    fun
 #define DECLARE_SPEC_FUN( fun )        SPEC_FUN  fun
 #define DECLARE_SPELL_FUN( fun )    SPELL_FUN fun
-#endif
 
 /* system calls */
 int unlink();
 int system();
-
-
 
 /*
  * Short scalar types.
