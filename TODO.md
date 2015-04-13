@@ -10,3 +10,4 @@ This is my to do list, mostly will be things big and small as I think about them
     exception of the plumping for socket server, pfile handling, area loading, that are necessary
     for it to run)
   - Keep lope's color but removed the other customized colors.  This can predominately be done via clients these days and something is buggy with it, throwing memory allocation errors.
+  - Make blink in comm.c immortal only.
