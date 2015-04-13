@@ -2612,7 +2612,12 @@ int colour (char type, CHAR_DATA * ch, char *string)
             sprintf (code, "%c", '{');
             break;
 		case '^':
-			strcpy(code, "\e[0;34m");
+			// Blink
+			strcpy(code, "\e[0;5m");
+			break;
+		case '_':
+			// Underline
+			strcpy(code, "\e[0;4m");
 			break;
     }
 
