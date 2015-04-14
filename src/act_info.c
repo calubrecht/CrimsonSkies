@@ -251,31 +251,33 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     buf[0] = '\0';
 
     if (IS_SET (victim->comm, COMM_AFK))
-        strcat (buf, "[AFK] ");
+        strcat(buf, "[AFK] ");
     if (IS_AFFECTED (victim, AFF_INVISIBLE))
-        strcat (buf, "({WInvis{x) ");
+        strcat(buf, "({WInvis{x) ");
     if (victim->invis_level >= LEVEL_HERO)
-        strcat (buf, "({WWizi{x) ");
-    if (IS_AFFECTED (victim, AFF_HIDE))
-        strcat (buf, "({DHide{x) ");
+        strcat(buf, "({WWizi{x) ");
+    if (IS_AFFECTED(victim, AFF_HIDE))
+        strcat(buf, "({wHide{x) ");
+	if (IS_AFFECTED(victim, AFF_SNEAK))
+		strcat(buf, "({wSneak{x) ");
 	if (victim->desc == NULL && !IS_NPC(victim))
 		strcat(buf, "({^{YLink Dead{x) ");
-    if (IS_AFFECTED (victim, AFF_CHARM))
-        strcat (buf, "({YCharmed{x) ");
-    if (IS_AFFECTED (victim, AFF_PASS_DOOR))
-        strcat (buf, "({CTranslucent{x) ");
-    if (IS_AFFECTED (victim, AFF_FAERIE_FIRE))
-        strcat (buf, "({rPink Aura{x) ");
-    if (IS_EVIL (victim) && IS_AFFECTED (ch, AFF_DETECT_EVIL))
-        strcat (buf, "({RRed Aura{x) ");
-    if (IS_GOOD (victim) && IS_AFFECTED (ch, AFF_DETECT_GOOD))
-        strcat (buf, "({YGolden Aura{x) ");
-    if (IS_AFFECTED (victim, AFF_SANCTUARY))
-        strcat (buf, "({WWhite Aura{x) ");
-    if (!IS_NPC (victim) && IS_SET (victim->act, PLR_KILLER))
-        strcat (buf, "({RKILLER{x) ");
-    if (!IS_NPC (victim) && IS_SET (victim->act, PLR_THIEF))
-        strcat (buf, "({RTHIEF{x) ");
+    if (IS_AFFECTED(victim, AFF_CHARM))
+        strcat(buf, "({YCharmed{x) ");
+    if (IS_AFFECTED(victim, AFF_PASS_DOOR))
+        strcat(buf, "({CTranslucent{x) ");
+    if (IS_AFFECTED(victim, AFF_FAERIE_FIRE))
+        strcat(buf, "({rPink Aura{x) ");
+    if (IS_EVIL(victim) && IS_AFFECTED (ch, AFF_DETECT_EVIL))
+        strcat(buf, "({RRed Aura{x) ");
+    if (IS_GOOD(victim) && IS_AFFECTED (ch, AFF_DETECT_GOOD))
+        strcat(buf, "({YGolden Aura{x) ");
+    if (IS_AFFECTED(victim, AFF_SANCTUARY))
+        strcat(buf, "({WWhite Aura{x) ");
+    if (!IS_NPC(victim) && IS_SET (victim->act, PLR_KILLER))
+        strcat(buf, "({RKILLER{x) ");
+    if (!IS_NPC(victim) && IS_SET (victim->act, PLR_THIEF))
+        strcat(buf, "({RTHIEF{x) ");
     if (victim->position == victim->start_pos
         && victim->long_descr[0] != '\0')
     {
