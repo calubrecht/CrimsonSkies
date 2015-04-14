@@ -100,7 +100,6 @@
     <ClCompile Include="src\olc_save.c" />
     <ClCompile Include="src\recycle.c" />
     <ClCompile Include="src\save.c" />
-    <ClCompile Include="src\scan.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
     <ClCompile Include="src\string.c" />

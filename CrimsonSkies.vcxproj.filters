@@ -119,9 +119,6 @@
     <ClCompile Include="src\save.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scan.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\skills.c">
       <Filter>Source Files</Filter>
     </ClCompile>
