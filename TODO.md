@@ -14,3 +14,4 @@ This is my to do list, mostly will be things big and small as I think about them
     going on with this version that I don't find useful.  See if I can cherry pick the best of both.
   - Make blink in comm.c immortal only.
   - Windows support so the code base can be debugged through Visual Studio 2013.
+  - OLC chopped off characters in name in area name after asave area.
