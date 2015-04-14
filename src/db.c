@@ -3226,8 +3226,9 @@ void free_string (char *pstr)
     return;
 }
 
-
-
+// Replace for stock do_areas, shows the areas to the requestor
+// The view is based on whether they are a mortal or immortal, immortals will see more data like VNUMs.
+// Rhien, 4/14/2015
 void do_areas (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -3240,7 +3241,8 @@ void do_areas (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if IS_IMMORTAL(ch) {
+	if IS_IMMORTAL(ch) { 
+		// Immortal View
         send_to_char("[Level] [Credit][Name                ] [VNUMs      ]\n\r", ch);
         send_to_char("----------------------------------------------------\n\r", ch);
 
@@ -3254,6 +3256,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
         } // end for
 
     } else {
+		// Player/Mortal View
         send_to_char("[Level] [Credit][Name                  ]\n\r", ch);
         send_to_char("----------------------------------------\n\r", ch);
 
@@ -3269,8 +3272,6 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
     return;
 }
-
-
 
 void do_memory (CHAR_DATA * ch, char *argument)
 {
