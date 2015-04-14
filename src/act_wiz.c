@@ -4513,11 +4513,9 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     }
 
     /* Consider changing all saved areas here, if you use OLC */
-
     /* do_asave (NULL, ""); - autosave changed areas */
 
-
-    sprintf (buf, "\n\r *** COPYOVER by %s - please remain seated!\n\r",
+    sprintf (buf, "\n\r *** COPYOVER by %s *** - please remain seated!\n\r",
              ch->name);
 
     /* For each playing descriptor, save its state */
@@ -4536,19 +4534,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         else
         {
             fprintf (fp, "%d %s %s\n", d->descriptor, och->name, d->host);
-
-#if 0                            /* This is not necessary for ROM */
-            if (och->level == 1)
-            {
-                write_to_descriptor (d->descriptor,
-                                     "Since you are level one, and level one characters do not save, you gain a free level!\n\r",
-                                     0);
-                advance_level (och);
-                och->level++;    /* Advance_level doesn't do that */
-            }
-#endif
             save_char_obj (och);
-
             write_to_descriptor (d->descriptor, buf, 0);
         }
     }
@@ -4557,7 +4543,6 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     fclose (fp);
 
     /* Close reserve and other always-open files and release other resources */
-
     fclose (fpReserve);
 
     /* exec - descriptors are inherited */
@@ -4568,7 +4553,6 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     execl (EXE_FILE, "rom", buf, "copyover", buf2, buf3, (char *) NULL);
 
     /* Failed - sucessful exec will not return */
-
     perror ("do_copyover: execl");
     send_to_char ("Copyover FAILED!\n\r", ch);
 
