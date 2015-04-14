@@ -28,11 +28,15 @@
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_info.c,v 1.3 2000/12/01 10:48:33 ring0 Exp $ */
 
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -3001,7 +3005,7 @@ void do_password (CHAR_DATA * ch, char *argument)
         send_to_char ("Syntax: password <old> <new>.\n\r", ch);
         return;
     }
-
+	
     if (strcmp (crypt (arg1, ch->pcdata->pwd), ch->pcdata->pwd))
     {
         WAIT_STATE (ch, 40);

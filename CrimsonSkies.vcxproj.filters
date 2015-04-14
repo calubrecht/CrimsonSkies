@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="area\qmconfig.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\act_comm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -272,5 +267,6 @@
     <Text Include="doc\sky.txt" />
     <Text Include="doc\trad.txt" />
     <Text Include="doc\vnum.txt" />
+    <Text Include="doc\WindowsSupport.txt" />
   </ItemGroup>
 </Project>

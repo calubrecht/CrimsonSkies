@@ -25,19 +25,22 @@
  *   ROM license, in the file Rom24/doc/rom.license                        *
  **************************************************************************/
 
+#if defined(macintosh)
+	#include <types.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+#else
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <sys/resource.h>
+#endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#if defined(macintosh)
-#include <types.h>
-#else
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#endif
-
 #include "merc.h"
 #include "db.h"
 #include "recycle.h"
@@ -3102,9 +3105,11 @@ void *alloc_mem (int sMem)
         rgFreeList[iList] = *((void **) rgFreeList[iList]);
     }
 
-    magic = (int *) pMem;
-    *magic = MAGIC_NUM;
-    pMem += sizeof (*magic);
+#if !defined(_WIN32)
+	magic = (int *) pMem;
+	*magic = MAGIC_NUM;
+	pMem += sizeof(*magic);
+#endif
 
     return pMem;
 }
@@ -3118,6 +3123,8 @@ void *alloc_mem (int sMem)
 void free_mem (void *pMem, int sMem)
 {
     int iList;
+
+#if !defined(_WIN32)
     int *magic;
 
     pMem -= sizeof (*magic);
@@ -3132,6 +3139,7 @@ void free_mem (void *pMem, int sMem)
 
     *magic = 0;
     sMem += sizeof (*magic);
+#endif
 
     for (iList = 0; iList < MAX_MEM_LIST; iList++)
     {

@@ -44,10 +44,17 @@
  */
 
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+	#include <io.h>
+	#include <winsock.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
 #endif
 
 #include <ctype.h>
@@ -56,7 +63,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
 #include <stdarg.h>                /* printf_to_char */
 
 #include "merc.h"
@@ -82,6 +88,12 @@ extern int malloc_verify args ((void));
  * Socket and TCP/IP stuff.
  */
 #if    defined(macintosh) || defined(MSDOS)
+const char echo_off_str[] = { '\0' };
+const char echo_on_str[] = { '\0' };
+const char go_ahead_str[] = { '\0' };
+#endif
+
+#if defined(_WIN32)
 const char echo_off_str[] = { '\0' };
 const char echo_on_str[] = { '\0' };
 const char go_ahead_str[] = { '\0' };
@@ -146,6 +158,13 @@ struct timeval {
 static long theKeys[4];
 
 int gettimeofday args ((struct timeval * tp, void *tzp));
+#endif
+
+// marker - this isn't working yet.
+#if defined(_WIN32)
+int gettimeofday args((struct timeval * tp, struct timezone * tzp));
+//int gettimeofday args ((struct timeval * tp, void *tzp));
+int kbhit args ((void));
 #endif
 
 #if    defined(MSDOS)
@@ -949,8 +968,13 @@ void close_socket (DESCRIPTOR_DATA * dclose)
             bug ("Close_socket: dclose not found.", 0);
     }
 
-    close (dclose->descriptor);
-    free_descriptor (dclose);
+#if defined(_WIN32)
+	_close(dclose->descriptor);
+#else
+	close (dclose->descriptor);
+#endif
+
+	free_descriptor (dclose);
 #if defined(MSDOS) || defined(macintosh)
     exit (1);
 #endif
@@ -1554,11 +1578,21 @@ bool write_to_descriptor (int desc, char *txt, int length)
     for (iStart = 0; iStart < length; iStart += nWrite)
     {
         nBlock = UMIN (length - iStart, 4096);
-        if ((nWrite = write (desc, txt + iStart, nBlock)) < 0)
-        {
-            perror ("Write_to_descriptor");
-            return FALSE;
-        }
+
+#if defined(_WIN32)
+		if ((nWrite = _write(desc, txt + iStart, nBlock)) < 0)
+		{
+			perror ("Write_to_descriptor");
+			return FALSE;
+		}
+#else
+		if ((nWrite = write (desc, txt + iStart, nBlock)) < 0)
+		{
+			perror("Write_to_descriptor");
+			return FALSE;
+		}
+#endif
+
     }
 
     return TRUE;
