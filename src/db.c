@@ -3231,10 +3231,8 @@ void free_string (char *pstr)
 void do_areas (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
-    AREA_DATA *pArea1;
-    AREA_DATA *pArea2;
+    AREA_DATA *pArea;
     int iArea;
-    int iAreaHalf;
 
     if (argument[0] != '\0')
     {
@@ -3242,21 +3240,32 @@ void do_areas (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    iAreaHalf = (top_area + 1) / 2;
-    pArea1 = area_first;
-    pArea2 = area_first;
-    for (iArea = 0; iArea < iAreaHalf; iArea++)
-        pArea2 = pArea2->next;
+    if IS_IMMORTAL(ch) {
+        send_to_char("[Level] [Credit][Name                ] [VNUMs      ]\n\r", ch);
+        send_to_char("----------------------------------------------------\n\r", ch);
 
-    for (iArea = 0; iArea < iAreaHalf; iArea++)
-    {
-        sprintf (buf, "%-39s%-39s\n\r",
-                 pArea1->credits, (pArea2 != NULL) ? pArea2->credits : "");
-        send_to_char (buf, ch);
-        pArea1 = pArea1->next;
-        if (pArea2 != NULL)
-            pArea2 = pArea2->next;
-    }
+        pArea = area_first;
+        for (iArea = 0; iArea < top_area; iArea++)
+        {
+            sprintf (buf, "%-39s%i-%i\n\r", pArea->credits, pArea->min_vnum, pArea->max_vnum );
+
+            send_to_char (buf, ch);
+            pArea = pArea->next;
+        } // end for
+
+    } else {
+        send_to_char("[Level] [Credit][Name                  ]\n\r", ch);
+        send_to_char("----------------------------------------\n\r", ch);
+
+        pArea = area_first;
+        for (iArea = 0; iArea < top_area; iArea++)
+        {
+            sprintf (buf, "%-39s\n\r", pArea->credits );
+
+            send_to_char (buf, ch);
+            pArea = pArea->next;
+        } // end for
+    } // end if
 
     return;
 }
