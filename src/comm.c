@@ -51,6 +51,7 @@
 	#include <time.h>
 	#include <io.h>
 	#include <winsock.h>
+    //#include <sys/timeb.h> 
 #else
 	#include <sys/types.h>
 	#include <sys/time.h>
@@ -162,7 +163,8 @@ int gettimeofday args ((struct timeval * tp, void *tzp));
 
 // marker - this isn't working yet.
 #if defined(_WIN32)
-int gettimeofday args((struct timeval * tp, struct timezone * tzp));
+//int gettimeofday args((struct timeval * tp, struct timezone * tzp));
+void gettimeofday args((struct timeval *tp, void *tzp));
 //int gettimeofday args ((struct timeval * tp, void *tzp));
 int kbhit args ((void));
 #endif
@@ -2737,3 +2739,27 @@ void bugf (char *fmt, ...)
 
     bug (buf, 0);
 }
+
+/*
+* Windows 95 support functions
+* (copied from Envy)
+*/
+#if defined( _WIN32 )
+void gettimeofday(struct timeval *tp, void *tzp)
+{
+	tp->tv_sec = time(NULL);
+	tp->tv_usec = 0;
+}
+#endif
+
+
+/*
+* Macintosh support functions.
+*/
+#if defined(macintosh)
+int gettimeofday(struct timeval *tp, void *tzp)
+{
+	tp->tv_sec = time(NULL);
+	tp->tv_usec = 0;
+}
+#endif

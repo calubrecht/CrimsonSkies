@@ -52,6 +52,11 @@
 extern int _filbuf args ((FILE *));
 #endif
 
+#if defined (_WIN32)
+#define random() rand()
+#define srandom( x ) srand( x )
+#endif
+
 #if !defined(OLD_RAND)
 #if !defined(linux)
 #if !defined(QMFIXES)
