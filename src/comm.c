@@ -50,8 +50,10 @@
 	#include <sys/types.h>
 	#include <time.h>
 	#include <io.h>
-	#include <winsock.h>
-    //#include <sys/timeb.h> 
+	//#include <winsock.h>
+	#include <WinSock2.h>
+	#include "telnet.h"
+    #include <sys/timeb.h> 
 #else
 	#include <sys/types.h>
 	#include <sys/time.h>
@@ -76,13 +78,13 @@
  */
 
 #if defined(MALLOC_DEBUG)
-#include <malloc.h>
-extern int malloc_debug args ((int));
-extern int malloc_verify args ((void));
+	#include <malloc.h>
+	extern int malloc_debug args ((int));
+	extern int malloc_verify args ((void));
 #endif
 
-#if defined(unix)
-#include <signal.h>
+#if defined(unix) || defined(_WIN32)
+	#include <signal.h>
 #endif
 
 /*
@@ -98,6 +100,9 @@ const char go_ahead_str[] = { '\0' };
 const char echo_off_str[] = { '\0' };
 const char echo_on_str[] = { '\0' };
 const char go_ahead_str[] = { '\0' };
+//const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+//const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+//const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
 #endif
 
 #if    defined(unix)
@@ -198,7 +203,7 @@ bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 void game_loop_unix args ((int control));
 int init_socket args ((int port));
 void init_descriptor args ((int control));
@@ -311,7 +316,7 @@ int main (int argc, char **argv)
     game_loop_mac_msdos ();
 #endif
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 
     qmconfig_read(); /* Here so we can set the IP adress. -- JR 05/06/01 */
     if (!fCopyOver)
@@ -324,7 +329,14 @@ int main (int argc, char **argv)
         copyover_recover ();
 
     game_loop_unix (control);
-    close (control);
+
+#if defined(_WIN32)
+	closesocket(control);
+	WSACleanup();
+#else
+	close(control);
+#endif
+
 #endif
 
     /*
@@ -337,7 +349,7 @@ int main (int argc, char **argv)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 int init_socket (int port)
 {
     static struct sockaddr_in sa_zero;
@@ -345,18 +357,41 @@ int init_socket (int port)
     int x = 1;
     int fd;
 
+#if !defined(_WIN32)
     if ((fd = socket (AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror ("Init_socket: socket");
         exit (1);
     }
+#else
+	WORD    wVersionRequested = MAKEWORD(1, 1);
+	WSADATA wsaData;
+	int err = WSAStartup(wVersionRequested, &wsaData);
+	if (err != 0)
+	{
+		perror("No useable WINSOCK.DLL");
+		exit(1);
+	}
+
+	if ((fd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+	{
+		perror("Init_socket: socket");
+		exit(1);
+	}
+#endif
 
     if (setsockopt (fd, SOL_SOCKET, SO_REUSEADDR,
                     (char *) &x, sizeof (x)) < 0)
     {
         perror ("Init_socket: SO_REUSEADDR");
-        close (fd);
-        exit (1);
+        
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close (fd);
+#endif
+
+		exit (1);
     }
 
 #if defined(SO_DONTLINGER) && !defined(SYSV)
@@ -370,31 +405,55 @@ int init_socket (int port)
                         (char *) &ld, sizeof (ld)) < 0)
         {
             perror ("Init_socket: SO_DONTLINGER");
-            close (fd);
-            exit (1);
+
+#if defined(_WIN32)
+			closesocket(fd);
+#else
+			close (fd);
+#endif
+
+			exit (1);
         }
     }
 #endif
 
     sa = sa_zero;
-    sa.sin_family = AF_INET;
-    sa.sin_port = htons (port);
+
+#if !defined(_WIN32)
+	sa.sin_family = AF_INET;
+#else
+	sa.sin_family = PF_INET;
+#endif
+
+	sa.sin_port = htons (port);
     sa.sin_addr.s_addr = inet_addr( mud_ipaddress );
     log_f("Set IP address to %s", mud_ipaddress);
 
     if (bind (fd, (struct sockaddr *) &sa, sizeof (sa)) < 0)
     {
         perror ("Init socket: bind");
-        close (fd);
-        exit (1);
+
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close(fd);
+#endif
+
+		exit (1);
     }
 
 
     if (listen (fd, 3) < 0)
     {
         perror ("Init socket: listen");
-        close (fd);
-        exit (1);
+        
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close(fd);
+#endif
+
+		exit (1);
     }
 
     return fd;
@@ -586,14 +645,17 @@ void game_loop_mac_msdos (void)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 void game_loop_unix (int control)
 {
     static struct timeval null_time;
     struct timeval last_time;
 
+#if !defined(_WIN32)
     signal (SIGPIPE, SIG_IGN);
-    gettimeofday (&last_time, NULL);
+#endif
+	
+	gettimeofday (&last_time, NULL);
     current_time = (time_t) last_time.tv_sec;
 
     /* Main loop */
@@ -719,8 +781,6 @@ void game_loop_unix (int control)
          */
         update_handler (FALSE);
 
-
-
         /*
          * Output.
          */
@@ -741,14 +801,13 @@ void game_loop_unix (int control)
             }
         }
 
-
-
         /*
          * Synchronize to a clock.
          * Sleep( last_time + 1/PULSE_PER_SECOND - now ).
          * Careful here of signed versus unsigned arithmetic.
          */
-        {
+#if !defined(_WIN32)
+		{
             struct timeval now_time;
             long secDelta;
             long usecDelta;
@@ -782,7 +841,36 @@ void game_loop_unix (int control)
                 }
             }
         }
+#else
+	{
+		int times_up;
+		int nappy_time;
+		struct _timeb start_time;
+		struct _timeb end_time;
+		_ftime(&start_time);
+		times_up = 0;
 
+		while (times_up == 0)
+		{
+			_ftime(&end_time);
+			if ((nappy_time =
+				(int)(1000 *
+				(double)((end_time.time - start_time.time) +
+				((double)(end_time.millitm -
+				start_time.millitm) /
+				1000.0)))) >=
+				(double)(1000 / PULSE_PER_SECOND))
+				times_up = 1;
+			else
+			{
+				Sleep((int)((double)(1000 / PULSE_PER_SECOND) -
+					(double)nappy_time));
+				times_up = 1;
+			}
+		}
+	}
+
+#endif
         gettimeofday (&last_time, NULL);
         current_time = (time_t) last_time.tv_sec;
     }
@@ -793,7 +881,7 @@ void game_loop_unix (int control)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 
 void init_descriptor (int control)
 {
@@ -801,8 +889,15 @@ void init_descriptor (int control)
     DESCRIPTOR_DATA *dnew;
     struct sockaddr_in sock;
     struct hostent *from;
-    size_t desc;
-    socklen_t size;
+    
+#if defined(_WIN32)
+	int size;
+	int desc;
+	size = sizeof(sock);
+#else
+	size_t desc;
+	socklen_t size;
+#endif
 
     getsockname (control, (struct sockaddr *) &sock, &size);
     if ((desc = accept (control, (struct sockaddr *) &sock, &size)) < 0)
@@ -815,11 +910,13 @@ void init_descriptor (int control)
 #define FNDELAY O_NDELAY
 #endif
 
+#if !defined(_WIN32)
     if (fcntl (desc, F_SETFL, FNDELAY) == -1)
     {
         perror ("New_descriptor: fcntl: FNDELAY");
         return;
     }
+#endif
 
     /*
      * Cons a new descriptor.
@@ -860,9 +957,16 @@ void init_descriptor (int control)
                  (addr >> 8) & 0xFF, (addr) & 0xFF);
         sprintf (log_buf, "Sock.sinaddr:  %s", buf);
         log_string (log_buf);
-        from = gethostbyaddr ((char *) &sock.sin_addr,
+
+#if !defined(_WIN32)
+		from = gethostbyaddr ((char *) &sock.sin_addr,
                               sizeof (sock.sin_addr), AF_INET);
-        dnew->host = str_dup (from ? from->h_name : buf);
+#else
+		from = gethostbyaddr((char *)&sock.sin_addr,
+			sizeof(sock.sin_addr), PF_INET);
+#endif
+
+		dnew->host = str_dup (from ? from->h_name : buf);
     }
 
     /*
@@ -878,8 +982,15 @@ void init_descriptor (int control)
         write_to_descriptor (desc,
                              "Your site has been banned from this mud.\n\r",
                              0);
-        close (desc);
-        free_descriptor (dnew);
+
+#if defined(_WIN32)
+		closesocket(desc);
+#else
+		close (desc);
+#endif
+
+		free_descriptor (dnew);
+
         return;
     }
     /*
@@ -971,7 +1082,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
     }
 
 #if defined(_WIN32)
-	_close(dclose->descriptor);
+	closesocket(dclose->descriptor);
 #else
 	close (dclose->descriptor);
 #endif
@@ -1021,14 +1132,18 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     }
 #endif
 
-#if defined(MSDOS) || defined(unix)
+#if defined(MSDOS) || defined(unix) || defined(_WIN32)
     for (;;)
     {
         int nRead;
 
-        nRead = read (d->descriptor, d->inbuf + iStart,
-                      sizeof (d->inbuf) - 10 - iStart);
-        if (nRead > 0)
+#if !defined(_WIN32)
+        nRead = read (d->descriptor, d->inbuf + iStart, sizeof (d->inbuf) - 10 - iStart);
+#else
+		nRead = recv(d->descriptor, d->inbuf + iStart, sizeof(d->inbuf) - 10 - iStart, 0);
+#endif
+
+		if (nRead > 0)
         {
             iStart += nRead;
             if (d->inbuf[iStart - 1] == '\n' || d->inbuf[iStart - 1] == '\r')
@@ -1039,6 +1154,10 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
             log_string ("EOF encountered on read.");
             return FALSE;
         }
+#if defined( WIN32 )
+		else if (WSAGetLastError() == WSAEWOULDBLOCK || errno == EAGAIN)
+			break;
+#endif
         else if (errno == EWOULDBLOCK)
             break;
         else
@@ -1582,7 +1701,7 @@ bool write_to_descriptor (int desc, char *txt, int length)
         nBlock = UMIN (length - iStart, 4096);
 
 #if defined(_WIN32)
-		if ((nWrite = _write(desc, txt + iStart, nBlock)) < 0)
+		if ((nWrite = send(desc, txt + iStart, nBlock, 0)) < 0)
 		{
 			perror ("Write_to_descriptor");
 			return FALSE;
@@ -2741,7 +2860,7 @@ void bugf (char *fmt, ...)
 }
 
 /*
-* Windows 95 support functions
+* Windows support functions
 * (copied from Envy)
 */
 #if defined( _WIN32 )
