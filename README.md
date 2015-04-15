@@ -8,6 +8,7 @@ Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
+  - Windows 7, Windows 8 & Windows 8.1 (compiles with Visual Studio 2013)
 
 Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian) and will 
 likely also be compilable on Windows 7 & 8/8.1 in the future.  My goal is to let the programmer (e.g. you) have the mud be 
