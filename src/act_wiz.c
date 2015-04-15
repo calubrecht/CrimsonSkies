@@ -28,16 +28,22 @@
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_wiz.c,v 1.3 2000/12/01 10:48:33 ring0 Exp $ */
 
 #if defined(macintosh)
-#include <types.h>
-#include <time.h>
+	#include <types.h>
+	#include <time.h>
+	#include <unistd.h>                /* For execl in copyover() */
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+	#include <io.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <unistd.h>                /* For execl in copyover() */
 #endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>                /* For execl in copyover() */
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -4581,7 +4587,11 @@ void copyover_recover ()
         exit (1);
     }
 
-    unlink (COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
+#if defined(_WIN32)
+	_unlink(COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
+#else
+	unlink (COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
+#endif
 
     for (;;)
     {
@@ -4595,8 +4605,13 @@ void copyover_recover ()
         if (!write_to_descriptor
             (desc, "\n\rRestoring from copyover...\n\r", 0))
         {
-            close (desc);        /* nope */
-            continue;
+#if defined(_WIN32)
+			_close(desc);        /* nope */
+#else
+			close (desc);        /* nope */
+#endif
+
+			continue;
         }
 
         d = new_descriptor ();

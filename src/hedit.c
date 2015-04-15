@@ -1,15 +1,18 @@
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #include "merc.h"
 #include "tables.h"
 #include "olc.h"

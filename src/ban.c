@@ -26,12 +26,16 @@
  **************************************************************************/
 
 #if defined(macintosh)
-#include <types.h>
-#include <time.h>
+	#include <types.h>
+	#include <time.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -64,8 +68,15 @@ void save_bans (void)
 
     fclose (fp);
     fpReserve = fopen (NULL_FILE, "r");
-    if (!found)
-        unlink (BAN_FILE);
+
+	if (!found) {
+#if defined(_WIN32)
+		_unlink(BAN_FILE);
+#else
+		unlink(BAN_FILE);
+#endif
+	}
+
 }
 
 void load_bans (void)

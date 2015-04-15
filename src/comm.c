@@ -44,10 +44,20 @@
  */
 
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+	#include <io.h>
+	//#include <winsock.h>
+	#include <WinSock2.h>
+	#include "telnet.h"
+    #include <sys/timeb.h> 
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
 #endif
 
 #include <ctype.h>
@@ -56,7 +66,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
 #include <stdarg.h>                /* printf_to_char */
 
 #include "merc.h"
@@ -69,13 +78,13 @@
  */
 
 #if defined(MALLOC_DEBUG)
-#include <malloc.h>
-extern int malloc_debug args ((int));
-extern int malloc_verify args ((void));
+	#include <malloc.h>
+	extern int malloc_debug args ((int));
+	extern int malloc_verify args ((void));
 #endif
 
-#if defined(unix)
-#include <signal.h>
+#if defined(unix) || defined(_WIN32)
+	#include <signal.h>
 #endif
 
 /*
@@ -85,6 +94,15 @@ extern int malloc_verify args ((void));
 const char echo_off_str[] = { '\0' };
 const char echo_on_str[] = { '\0' };
 const char go_ahead_str[] = { '\0' };
+#endif
+
+#if defined(_WIN32)
+//const char echo_off_str[] = { '\0' };
+//const char echo_on_str[] = { '\0' };
+//const char go_ahead_str[] = { '\0' };
+const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
 #endif
 
 #if    defined(unix)
@@ -148,6 +166,14 @@ static long theKeys[4];
 int gettimeofday args ((struct timeval * tp, void *tzp));
 #endif
 
+// marker - this isn't working yet.
+#if defined(_WIN32)
+//int gettimeofday args((struct timeval * tp, struct timezone * tzp));
+void gettimeofday args((struct timeval *tp, void *tzp));
+//int gettimeofday args ((struct timeval * tp, void *tzp));
+int kbhit args ((void));
+#endif
+
 #if    defined(MSDOS)
 int gettimeofday args ((struct timeval * tp, void *tzp));
 int kbhit args ((void));
@@ -177,7 +203,7 @@ bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 void game_loop_unix args ((int control));
 int init_socket args ((int port));
 void init_descriptor args ((int control));
@@ -290,7 +316,7 @@ int main (int argc, char **argv)
     game_loop_mac_msdos ();
 #endif
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 
     qmconfig_read(); /* Here so we can set the IP adress. -- JR 05/06/01 */
     if (!fCopyOver)
@@ -303,7 +329,14 @@ int main (int argc, char **argv)
         copyover_recover ();
 
     game_loop_unix (control);
-    close (control);
+
+#if defined(_WIN32)
+	closesocket(control);
+	WSACleanup();
+#else
+	close(control);
+#endif
+
 #endif
 
     /*
@@ -316,7 +349,7 @@ int main (int argc, char **argv)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 int init_socket (int port)
 {
     static struct sockaddr_in sa_zero;
@@ -324,18 +357,41 @@ int init_socket (int port)
     int x = 1;
     int fd;
 
+#if !defined(_WIN32)
     if ((fd = socket (AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror ("Init_socket: socket");
         exit (1);
     }
+#else
+	WORD    wVersionRequested = MAKEWORD(1, 1);
+	WSADATA wsaData;
+	int err = WSAStartup(wVersionRequested, &wsaData);
+	if (err != 0)
+	{
+		perror("No useable WINSOCK.DLL");
+		exit(1);
+	}
+
+	if ((fd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+	{
+		perror("Init_socket: socket");
+		exit(1);
+	}
+#endif
 
     if (setsockopt (fd, SOL_SOCKET, SO_REUSEADDR,
                     (char *) &x, sizeof (x)) < 0)
     {
         perror ("Init_socket: SO_REUSEADDR");
-        close (fd);
-        exit (1);
+        
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close (fd);
+#endif
+
+		exit (1);
     }
 
 #if defined(SO_DONTLINGER) && !defined(SYSV)
@@ -349,31 +405,55 @@ int init_socket (int port)
                         (char *) &ld, sizeof (ld)) < 0)
         {
             perror ("Init_socket: SO_DONTLINGER");
-            close (fd);
-            exit (1);
+
+#if defined(_WIN32)
+			closesocket(fd);
+#else
+			close (fd);
+#endif
+
+			exit (1);
         }
     }
 #endif
 
     sa = sa_zero;
-    sa.sin_family = AF_INET;
-    sa.sin_port = htons (port);
+
+#if !defined(_WIN32)
+	sa.sin_family = AF_INET;
+#else
+	sa.sin_family = PF_INET;
+#endif
+
+	sa.sin_port = htons (port);
     sa.sin_addr.s_addr = inet_addr( mud_ipaddress );
     log_f("Set IP address to %s", mud_ipaddress);
 
     if (bind (fd, (struct sockaddr *) &sa, sizeof (sa)) < 0)
     {
         perror ("Init socket: bind");
-        close (fd);
-        exit (1);
+
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close(fd);
+#endif
+
+		exit (1);
     }
 
 
     if (listen (fd, 3) < 0)
     {
         perror ("Init socket: listen");
-        close (fd);
-        exit (1);
+        
+#if defined(_WIN32)
+		closesocket(fd);
+#else
+		close(fd);
+#endif
+
+		exit (1);
     }
 
     return fd;
@@ -565,14 +645,17 @@ void game_loop_mac_msdos (void)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 void game_loop_unix (int control)
 {
     static struct timeval null_time;
     struct timeval last_time;
 
+#if !defined(_WIN32)
     signal (SIGPIPE, SIG_IGN);
-    gettimeofday (&last_time, NULL);
+#endif
+	
+	gettimeofday (&last_time, NULL);
     current_time = (time_t) last_time.tv_sec;
 
     /* Main loop */
@@ -698,8 +781,6 @@ void game_loop_unix (int control)
          */
         update_handler (FALSE);
 
-
-
         /*
          * Output.
          */
@@ -720,14 +801,13 @@ void game_loop_unix (int control)
             }
         }
 
-
-
         /*
          * Synchronize to a clock.
          * Sleep( last_time + 1/PULSE_PER_SECOND - now ).
          * Careful here of signed versus unsigned arithmetic.
          */
-        {
+#if !defined(_WIN32)
+		{
             struct timeval now_time;
             long secDelta;
             long usecDelta;
@@ -761,7 +841,36 @@ void game_loop_unix (int control)
                 }
             }
         }
+#else
+	{
+		int times_up;
+		int nappy_time;
+		struct _timeb start_time;
+		struct _timeb end_time;
+		_ftime(&start_time);
+		times_up = 0;
 
+		while (times_up == 0)
+		{
+			_ftime(&end_time);
+			if ((nappy_time =
+				(int)(1000 *
+				(double)((end_time.time - start_time.time) +
+				((double)(end_time.millitm -
+				start_time.millitm) /
+				1000.0)))) >=
+				(double)(1000 / PULSE_PER_SECOND))
+				times_up = 1;
+			else
+			{
+				Sleep((int)((double)(1000 / PULSE_PER_SECOND) -
+					(double)nappy_time));
+				times_up = 1;
+			}
+		}
+	}
+
+#endif
         gettimeofday (&last_time, NULL);
         current_time = (time_t) last_time.tv_sec;
     }
@@ -772,7 +881,7 @@ void game_loop_unix (int control)
 
 
 
-#if defined(unix)
+#if defined(unix) || defined(_WIN32)
 
 void init_descriptor (int control)
 {
@@ -780,8 +889,15 @@ void init_descriptor (int control)
     DESCRIPTOR_DATA *dnew;
     struct sockaddr_in sock;
     struct hostent *from;
-    size_t desc;
-    socklen_t size;
+    
+#if defined(_WIN32)
+	int size;
+	int desc;
+	size = sizeof(sock);
+#else
+	size_t desc;
+	socklen_t size;
+#endif
 
     getsockname (control, (struct sockaddr *) &sock, &size);
     if ((desc = accept (control, (struct sockaddr *) &sock, &size)) < 0)
@@ -794,11 +910,13 @@ void init_descriptor (int control)
 #define FNDELAY O_NDELAY
 #endif
 
+#if !defined(_WIN32)
     if (fcntl (desc, F_SETFL, FNDELAY) == -1)
     {
         perror ("New_descriptor: fcntl: FNDELAY");
         return;
     }
+#endif
 
     /*
      * Cons a new descriptor.
@@ -839,9 +957,16 @@ void init_descriptor (int control)
                  (addr >> 8) & 0xFF, (addr) & 0xFF);
         sprintf (log_buf, "Sock.sinaddr:  %s", buf);
         log_string (log_buf);
-        from = gethostbyaddr ((char *) &sock.sin_addr,
+
+#if !defined(_WIN32)
+		from = gethostbyaddr ((char *) &sock.sin_addr,
                               sizeof (sock.sin_addr), AF_INET);
-        dnew->host = str_dup (from ? from->h_name : buf);
+#else
+		from = gethostbyaddr((char *)&sock.sin_addr,
+			sizeof(sock.sin_addr), PF_INET);
+#endif
+
+		dnew->host = str_dup (from ? from->h_name : buf);
     }
 
     /*
@@ -857,8 +982,15 @@ void init_descriptor (int control)
         write_to_descriptor (desc,
                              "Your site has been banned from this mud.\n\r",
                              0);
-        close (desc);
-        free_descriptor (dnew);
+
+#if defined(_WIN32)
+		closesocket(desc);
+#else
+		close (desc);
+#endif
+
+		free_descriptor (dnew);
+
         return;
     }
     /*
@@ -949,8 +1081,13 @@ void close_socket (DESCRIPTOR_DATA * dclose)
             bug ("Close_socket: dclose not found.", 0);
     }
 
-    close (dclose->descriptor);
-    free_descriptor (dclose);
+#if defined(_WIN32)
+	closesocket(dclose->descriptor);
+#else
+	close (dclose->descriptor);
+#endif
+
+	free_descriptor (dclose);
 #if defined(MSDOS) || defined(macintosh)
     exit (1);
 #endif
@@ -995,14 +1132,18 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     }
 #endif
 
-#if defined(MSDOS) || defined(unix)
+#if defined(MSDOS) || defined(unix) || defined(_WIN32)
     for (;;)
     {
         int nRead;
 
-        nRead = read (d->descriptor, d->inbuf + iStart,
-                      sizeof (d->inbuf) - 10 - iStart);
-        if (nRead > 0)
+#if !defined(_WIN32)
+        nRead = read (d->descriptor, d->inbuf + iStart, sizeof (d->inbuf) - 10 - iStart);
+#else
+		nRead = recv(d->descriptor, d->inbuf + iStart, sizeof(d->inbuf) - 10 - iStart, 0);
+#endif
+
+		if (nRead > 0)
         {
             iStart += nRead;
             if (d->inbuf[iStart - 1] == '\n' || d->inbuf[iStart - 1] == '\r')
@@ -1013,6 +1154,10 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
             log_string ("EOF encountered on read.");
             return FALSE;
         }
+#if defined( WIN32 )
+		else if (WSAGetLastError() == WSAEWOULDBLOCK || errno == EAGAIN)
+			break;
+#endif
         else if (errno == EWOULDBLOCK)
             break;
         else
@@ -1554,11 +1699,21 @@ bool write_to_descriptor (int desc, char *txt, int length)
     for (iStart = 0; iStart < length; iStart += nWrite)
     {
         nBlock = UMIN (length - iStart, 4096);
-        if ((nWrite = write (desc, txt + iStart, nBlock)) < 0)
-        {
-            perror ("Write_to_descriptor");
-            return FALSE;
-        }
+
+#if defined(_WIN32)
+	if ( ( nWrite = send( desc, txt + iStart, nBlock , 0) ) < 0 )
+		{
+			perror ("Write_to_descriptor");
+			return FALSE;
+		}
+#else
+		if ((nWrite = write (desc, txt + iStart, nBlock)) < 0)
+		{
+			perror("Write_to_descriptor");
+			return FALSE;
+		}
+#endif
+
     }
 
     return TRUE;
@@ -2290,250 +2445,250 @@ int colour (char type, CHAR_DATA * ch, char *string)
             break;
         case 'p':
             if (col->prompt[2])
-                sprintf (code, "\e[%d;3%dm%c", col->prompt[0],
+                sprintf (code, "\x1B[%d;3%dm%c", col->prompt[0],
                          col->prompt[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->prompt[0], col->prompt[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->prompt[0], col->prompt[1]);
             break;
         case 's':
             if (col->room_title[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_title[0], col->room_title[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_title[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_title[0],
                          col->room_title[1]);
             break;
         case 'S':
             if (col->room_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_text[0], col->room_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_text[0],
                          col->room_text[1]);
             break;
         case 'd':
             if (col->gossip[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gossip[0], col->gossip[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gossip[0], col->gossip[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->gossip[0], col->gossip[1]);
             break;
         case '9':
             if (col->gossip_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gossip_text[0], col->gossip_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gossip_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gossip_text[0],
                          col->gossip_text[1]);
             break;
         case 'Z':
             if (col->wiznet[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->wiznet[0], col->wiznet[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->wiznet[0], col->wiznet[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->wiznet[0], col->wiznet[1]);
             break;
         case 'o':
             if (col->room_exits[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_exits[0], col->room_exits[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_exits[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_exits[0],
                          col->room_exits[1]);
             break;
         case 'O':
             if (col->room_things[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_things[0], col->room_things[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_things[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_things[0],
                          col->room_things[1]);
             break;
         case 'i':
             if (col->immtalk_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->immtalk_text[0], col->immtalk_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->immtalk_text[0], col->immtalk_text[1]);
             break;
         case 'I':
             if (col->immtalk_type[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->immtalk_type[0], col->immtalk_type[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->immtalk_type[0], col->immtalk_type[1]);
             break;
         case '2':
             if (col->fight_yhit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_yhit[0], col->fight_yhit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_yhit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_yhit[0],
                          col->fight_yhit[1]);
             break;
         case '3':
             if (col->fight_ohit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_ohit[0], col->fight_ohit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_ohit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_ohit[0],
                          col->fight_ohit[1]);
             break;
         case '4':
             if (col->fight_thit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_thit[0], col->fight_thit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_thit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_thit[0],
                          col->fight_thit[1]);
             break;
         case '5':
             if (col->fight_skill[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_skill[0], col->fight_skill[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_skill[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_skill[0],
                          col->fight_skill[1]);
             break;
         case '1':
             if (col->fight_death[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_death[0], col->fight_death[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_death[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_death[0],
                          col->fight_death[1]);
             break;
         case '6':
             if (col->say[2])
-                sprintf (code, "\e[%d;3%dm%c", col->say[0], col->say[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->say[0], col->say[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->say[0], col->say[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->say[0], col->say[1]);
             break;
         case '7':
             if (col->say_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->say_text[0], col->say_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->say_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->say_text[0],
                          col->say_text[1]);
             break;
         case 'k':
             if (col->tell[2])
-                sprintf (code, "\e[%d;3%dm%c", col->tell[0], col->tell[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->tell[0], col->tell[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->tell[0], col->tell[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->tell[0], col->tell[1]);
             break;
         case 'K':
             if (col->tell_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->tell_text[0], col->tell_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->tell_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->tell_text[0],
                          col->tell_text[1]);
             break;
         case 'l':
             if (col->reply[2])
-                sprintf (code, "\e[%d;3%dm%c", col->reply[0],
+                sprintf (code, "\x1B[%d;3%dm%c", col->reply[0],
                          col->reply[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->reply[0], col->reply[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->reply[0], col->reply[1]);
             break;
         case 'L':
             if (col->reply_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->reply_text[0], col->reply_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->reply_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->reply_text[0],
                          col->reply_text[1]);
             break;
         case 'n':
             if (col->gtell_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gtell_text[0], col->gtell_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gtell_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gtell_text[0],
                          col->gtell_text[1]);
             break;
         case 'N':
             if (col->gtell_type[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gtell_type[0], col->gtell_type[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gtell_type[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gtell_type[0],
                          col->gtell_type[1]);
             break;
         case 'a':
             if (col->auction[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->auction[0], col->auction[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->auction[0],
+                sprintf (code, "\x1B[%d;3%dm", col->auction[0],
                          col->auction[1]);
             break;
         case 'A':
             if (col->auction_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->auction_text[0], col->auction_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->auction_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->auction_text[0],
                          col->auction_text[1]);
             break;
         case 'q':
             if (col->question[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->question[0], col->question[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->question[0],
+                sprintf (code, "\x1B[%d;3%dm", col->question[0],
                          col->question[1]);
             break;
         case 'Q':
             if (col->question_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->question_text[0], col->question_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->question_text[0], col->question_text[1]);
             break;
         case 'f':
             if (col->answer[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->answer[0], col->answer[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->answer[0], col->answer[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->answer[0], col->answer[1]);
             break;
         case 'F':
             if (col->answer_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->answer_text[0], col->answer_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->answer_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->answer_text[0],
                          col->answer_text[1]);
             break;
         case 'h':
             if (col->quote[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->quote[0], col->quote[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->quote[0], col->quote[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->quote[0], col->quote[1]);
             break;
         case 'H':
             if (col->quote_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->quote_text[0], col->quote_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->quote_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->quote_text[0],
                          col->quote_text[1]);
             break;
         case 'j':
             if (col->info[2])
-                sprintf (code, "\e[%d;3%dm%c", col->info[0], col->info[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->info[0], col->info[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->info[0], col->info[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->info[0], col->info[1]);
             break;
         case 'b':
             strcpy (code, C_BLUE);
@@ -2594,11 +2749,11 @@ int colour (char type, CHAR_DATA * ch, char *string)
             break;
 		case '^':
 			// Blink
-			strcpy(code, "\e[0;5m");
+			strcpy(code, "\x1B[0;5m");
 			break;
 		case '_':
 			// Underline
-			strcpy(code, "\e[0;4m");
+			strcpy(code, "\x1B[0;4m");
 			break;
     }
 
@@ -2703,3 +2858,27 @@ void bugf (char *fmt, ...)
 
     bug (buf, 0);
 }
+
+/*
+* Windows support functions
+* (copied from Envy)
+*/
+#if defined( _WIN32 )
+void gettimeofday(struct timeval *tp, void *tzp)
+{
+	tp->tv_sec = time(NULL);
+	tp->tv_usec = 0;
+}
+#endif
+
+
+/*
+* Macintosh support functions.
+*/
+#if defined(macintosh)
+int gettimeofday(struct timeval *tp, void *tzp)
+{
+	tp->tv_sec = time(NULL);
+	tp->tv_usec = 0;
+}
+#endif

@@ -28,11 +28,15 @@
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_comm.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
 
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -72,8 +76,14 @@ void do_delete (CHAR_DATA * ch, char *argument)
             wiznet ("$N turns $Mself into line noise.", ch, NULL, 0, 0, 0);
             stop_fighting (ch, TRUE);
             do_function (ch, &do_quit, "");
-            unlink (strsave);
-            return;
+
+#if defined(_WIN32)
+			_unlink(strsave);
+#else
+			unlink (strsave);
+#endif
+
+			return;
         }
     }
 

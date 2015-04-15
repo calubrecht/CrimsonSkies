@@ -34,10 +34,16 @@
  ***************************************************************************/
 
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+	#include <io.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
+	#include <unistd.h>                /* OLC -- for close read write etc */
 #endif
 
 #include <ctype.h>
@@ -46,13 +52,17 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
 #include <stdarg.h>                /* printf_to_char */
-
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
+
+#if defined(_WIN32)
+extern const char echo_off_str[];
+extern const char echo_on_str[];
+extern const char go_ahead_str[];
+#endif
 
 #if    defined(macintosh) || defined(MSDOS)
 extern const char echo_off_str[];

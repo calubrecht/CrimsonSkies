@@ -145,22 +145,22 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 /*
  * ColoUr stuff v2.0, by Lope.
  */
-#define CLEAR       "\e[0m"        /* Resets Colour    */
-#define C_RED       "\e[0;31m"    /* Normal Colours    */
-#define C_GREEN     "\e[0;32m"
-#define C_YELLOW    "\e[0;33m"
-#define C_BLUE      "\e[0;34m"
-#define C_MAGENTA   "\e[0;35m"
-#define C_CYAN      "\e[0;36m"
-#define C_WHITE     "\e[0;37m"
-#define C_D_GREY    "\e[1;30m"      /* Light Colors        */
-#define C_B_RED     "\e[1;31m"
-#define C_B_GREEN   "\e[1;32m"
-#define C_B_YELLOW  "\e[1;33m"
-#define C_B_BLUE    "\e[1;34m"
-#define C_B_MAGENTA "\e[1;35m"
-#define C_B_CYAN    "\e[1;36m"
-#define C_B_WHITE   "\e[1;37m"
+#define CLEAR       "\x1B[0m"        /* Resets Colour    */
+#define C_RED       "\x1B[0;31m"    /* Normal Colours    */
+#define C_GREEN     "\x1B[0;32m"
+#define C_YELLOW    "\x1B[0;33m"
+#define C_BLUE      "\x1B[0;34m"
+#define C_MAGENTA   "\x1B[0;35m"
+#define C_CYAN      "\x1B[0;36m"
+#define C_WHITE     "\x1B[0;37m"
+#define C_D_GREY    "\x1B[1;30m"      /* Light Colors        */
+#define C_B_RED     "\x1B[1;31m"
+#define C_B_GREEN   "\x1B[1;32m"
+#define C_B_YELLOW  "\x1B[1;33m"
+#define C_B_BLUE    "\x1B[1;34m"
+#define C_B_MAGENTA "\x1B[1;35m"
+#define C_B_CYAN    "\x1B[1;36m"
+#define C_B_WHITE   "\x1B[1;37m"
 
 #define COLOUR_NONE 7        /* White, hmm...    */
 #define RED         1        /* Normal Colours    */
@@ -2190,6 +2190,14 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
+#if defined(_WIN32)
+//char *    crypt        args((const char *key, const char *salt));
+#define NOCRYPT
+#if    defined(unix)
+#undef    unix
+#endif
+#endif
+
 #if    defined(macintosh)
 #define NOCRYPT
 #if    defined(unix)
@@ -2228,22 +2236,28 @@ char *    crypt        args( ( const char *key, const char *salt ) );
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
 #if defined(macintosh)
-#define PLAYER_DIR      ""                  /* Player files            */
-#define TEMP_FILE       "romtmp"
-#define NULL_FILE       "proto.are"         /* To reserve one stream   */
+	#define PLAYER_DIR      ""                  /* Player files            */
+	#define TEMP_FILE       "romtmp"
+	#define NULL_FILE       "proto.are"         /* To reserve one stream   */
+#endif
+
+#if defined(_WIN32)
+	#define PLAYER_DIR      ""                   /* Player files           */
+	#define TEMP_FILE       "romtmp"
+	#define NULL_FILE       "nul"                /* To reserve one stream  */
 #endif
 
 #if defined(MSDOS)
-#define PLAYER_DIR      ""                   /* Player files           */
-#define TEMP_FILE       "romtmp"
-#define NULL_FILE       "nul"                /* To reserve one stream  */
+	#define PLAYER_DIR      ""                   /* Player files           */
+	#define TEMP_FILE       "romtmp"
+	#define NULL_FILE       "nul"                /* To reserve one stream  */
 #endif
 
 #if defined(unix)
-#define PLAYER_DIR      "../player/"         /* Player files           */
-#define GOD_DIR         "../gods/"           /* list of gods           */
-#define TEMP_FILE       "../player/romtmp"
-#define NULL_FILE       "/dev/null"          /* To reserve one stream  */
+	#define PLAYER_DIR      "../player/"         /* Player files           */
+	#define GOD_DIR         "../gods/"           /* list of gods           */
+	#define TEMP_FILE       "../player/romtmp"
+	#define NULL_FILE       "/dev/null"          /* To reserve one stream  */
 #endif
 
 #define AREA_LIST       "area.lst"            /* List of areas         */
