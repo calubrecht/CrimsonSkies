@@ -97,12 +97,12 @@ const char go_ahead_str[] = { '\0' };
 #endif
 
 #if defined(_WIN32)
-const char echo_off_str[] = { '\0' };
-const char echo_on_str[] = { '\0' };
-const char go_ahead_str[] = { '\0' };
-//const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
-//const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
-//const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
+//const char echo_off_str[] = { '\0' };
+//const char echo_on_str[] = { '\0' };
+//const char go_ahead_str[] = { '\0' };
+const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
 #endif
 
 #if    defined(unix)
@@ -1701,7 +1701,7 @@ bool write_to_descriptor (int desc, char *txt, int length)
         nBlock = UMIN (length - iStart, 4096);
 
 #if defined(_WIN32)
-		if ((nWrite = send(desc, txt + iStart, nBlock, 0)) < 0)
+	if ( ( nWrite = send( desc, txt + iStart, nBlock , 0) ) < 0 )
 		{
 			perror ("Write_to_descriptor");
 			return FALSE;
@@ -2445,250 +2445,250 @@ int colour (char type, CHAR_DATA * ch, char *string)
             break;
         case 'p':
             if (col->prompt[2])
-                sprintf (code, "\e[%d;3%dm%c", col->prompt[0],
+                sprintf (code, "\x1B[%d;3%dm%c", col->prompt[0],
                          col->prompt[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->prompt[0], col->prompt[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->prompt[0], col->prompt[1]);
             break;
         case 's':
             if (col->room_title[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_title[0], col->room_title[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_title[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_title[0],
                          col->room_title[1]);
             break;
         case 'S':
             if (col->room_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_text[0], col->room_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_text[0],
                          col->room_text[1]);
             break;
         case 'd':
             if (col->gossip[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gossip[0], col->gossip[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gossip[0], col->gossip[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->gossip[0], col->gossip[1]);
             break;
         case '9':
             if (col->gossip_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gossip_text[0], col->gossip_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gossip_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gossip_text[0],
                          col->gossip_text[1]);
             break;
         case 'Z':
             if (col->wiznet[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->wiznet[0], col->wiznet[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->wiznet[0], col->wiznet[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->wiznet[0], col->wiznet[1]);
             break;
         case 'o':
             if (col->room_exits[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_exits[0], col->room_exits[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_exits[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_exits[0],
                          col->room_exits[1]);
             break;
         case 'O':
             if (col->room_things[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->room_things[0], col->room_things[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->room_things[0],
+                sprintf (code, "\x1B[%d;3%dm", col->room_things[0],
                          col->room_things[1]);
             break;
         case 'i':
             if (col->immtalk_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->immtalk_text[0], col->immtalk_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->immtalk_text[0], col->immtalk_text[1]);
             break;
         case 'I':
             if (col->immtalk_type[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->immtalk_type[0], col->immtalk_type[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->immtalk_type[0], col->immtalk_type[1]);
             break;
         case '2':
             if (col->fight_yhit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_yhit[0], col->fight_yhit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_yhit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_yhit[0],
                          col->fight_yhit[1]);
             break;
         case '3':
             if (col->fight_ohit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_ohit[0], col->fight_ohit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_ohit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_ohit[0],
                          col->fight_ohit[1]);
             break;
         case '4':
             if (col->fight_thit[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_thit[0], col->fight_thit[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_thit[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_thit[0],
                          col->fight_thit[1]);
             break;
         case '5':
             if (col->fight_skill[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_skill[0], col->fight_skill[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_skill[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_skill[0],
                          col->fight_skill[1]);
             break;
         case '1':
             if (col->fight_death[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->fight_death[0], col->fight_death[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->fight_death[0],
+                sprintf (code, "\x1B[%d;3%dm", col->fight_death[0],
                          col->fight_death[1]);
             break;
         case '6':
             if (col->say[2])
-                sprintf (code, "\e[%d;3%dm%c", col->say[0], col->say[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->say[0], col->say[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->say[0], col->say[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->say[0], col->say[1]);
             break;
         case '7':
             if (col->say_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->say_text[0], col->say_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->say_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->say_text[0],
                          col->say_text[1]);
             break;
         case 'k':
             if (col->tell[2])
-                sprintf (code, "\e[%d;3%dm%c", col->tell[0], col->tell[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->tell[0], col->tell[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->tell[0], col->tell[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->tell[0], col->tell[1]);
             break;
         case 'K':
             if (col->tell_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->tell_text[0], col->tell_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->tell_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->tell_text[0],
                          col->tell_text[1]);
             break;
         case 'l':
             if (col->reply[2])
-                sprintf (code, "\e[%d;3%dm%c", col->reply[0],
+                sprintf (code, "\x1B[%d;3%dm%c", col->reply[0],
                          col->reply[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->reply[0], col->reply[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->reply[0], col->reply[1]);
             break;
         case 'L':
             if (col->reply_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->reply_text[0], col->reply_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->reply_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->reply_text[0],
                          col->reply_text[1]);
             break;
         case 'n':
             if (col->gtell_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gtell_text[0], col->gtell_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gtell_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gtell_text[0],
                          col->gtell_text[1]);
             break;
         case 'N':
             if (col->gtell_type[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->gtell_type[0], col->gtell_type[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->gtell_type[0],
+                sprintf (code, "\x1B[%d;3%dm", col->gtell_type[0],
                          col->gtell_type[1]);
             break;
         case 'a':
             if (col->auction[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->auction[0], col->auction[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->auction[0],
+                sprintf (code, "\x1B[%d;3%dm", col->auction[0],
                          col->auction[1]);
             break;
         case 'A':
             if (col->auction_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->auction_text[0], col->auction_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->auction_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->auction_text[0],
                          col->auction_text[1]);
             break;
         case 'q':
             if (col->question[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->question[0], col->question[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->question[0],
+                sprintf (code, "\x1B[%d;3%dm", col->question[0],
                          col->question[1]);
             break;
         case 'Q':
             if (col->question_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->question_text[0], col->question_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm",
+                sprintf (code, "\x1B[%d;3%dm",
                          col->question_text[0], col->question_text[1]);
             break;
         case 'f':
             if (col->answer[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->answer[0], col->answer[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->answer[0], col->answer[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->answer[0], col->answer[1]);
             break;
         case 'F':
             if (col->answer_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->answer_text[0], col->answer_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->answer_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->answer_text[0],
                          col->answer_text[1]);
             break;
         case 'h':
             if (col->quote[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->quote[0], col->quote[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->quote[0], col->quote[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->quote[0], col->quote[1]);
             break;
         case 'H':
             if (col->quote_text[2])
-                sprintf (code, "\e[%d;3%dm%c",
+                sprintf (code, "\x1B[%d;3%dm%c",
                          col->quote_text[0], col->quote_text[1], '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->quote_text[0],
+                sprintf (code, "\x1B[%d;3%dm", col->quote_text[0],
                          col->quote_text[1]);
             break;
         case 'j':
             if (col->info[2])
-                sprintf (code, "\e[%d;3%dm%c", col->info[0], col->info[1],
+                sprintf (code, "\x1B[%d;3%dm%c", col->info[0], col->info[1],
                          '\a');
             else
-                sprintf (code, "\e[%d;3%dm", col->info[0], col->info[1]);
+                sprintf (code, "\x1B[%d;3%dm", col->info[0], col->info[1]);
             break;
         case 'b':
             strcpy (code, C_BLUE);
@@ -2749,11 +2749,11 @@ int colour (char type, CHAR_DATA * ch, char *string)
             break;
 		case '^':
 			// Blink
-			strcpy(code, "\e[0;5m");
+			strcpy(code, "\x1B[0;5m");
 			break;
 		case '_':
 			// Underline
-			strcpy(code, "\e[0;4m");
+			strcpy(code, "\x1B[0;4m");
 			break;
     }
 
