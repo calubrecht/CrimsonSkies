@@ -33,7 +33,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <sys/types.h>
+// System Specific Includes
+#if defined(macintosh)
+	#include <types.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+#else
+	#include <sys/types.h>
+#endif
+
+// General Includes
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

@@ -27,14 +27,21 @@
 
 /*   QuickMUD - The Lazy Man's ROM - $Id: alias.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
 
+// System Specific Includes
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+	#include <time.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
+// General Includes
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include "merc.h"
 
 /* does aliasing and other fun stuff */

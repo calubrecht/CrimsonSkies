@@ -43,8 +43,10 @@
  * -- Furey  26 Jan 1993
  */
 
+// System Specific Includes
 #if defined(macintosh)
 	#include <types.h>
+	#include <time.h>
 	#include <unistd.h>                /* OLC -- for close read write etc */
 #elif defined(_WIN32)
 	#include <sys/types.h>
@@ -60,14 +62,13 @@
 	#include <unistd.h>                /* OLC -- for close read write etc */
 #endif
 
+// General Includes
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include <stdarg.h>                /* printf_to_char */
-
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -91,92 +92,86 @@
  * Socket and TCP/IP stuff.
  */
 #if    defined(macintosh) || defined(MSDOS)
-const char echo_off_str[] = { '\0' };
-const char echo_on_str[] = { '\0' };
-const char go_ahead_str[] = { '\0' };
+	const char echo_off_str[] = { '\0' };
+	const char echo_on_str[] = { '\0' };
+	const char go_ahead_str[] = { '\0' };
 #endif
 
 #if defined(_WIN32)
-//const char echo_off_str[] = { '\0' };
-//const char echo_on_str[] = { '\0' };
-//const char go_ahead_str[] = { '\0' };
-const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
-const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
-const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
+	const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+	const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+	const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
 #endif
 
 #if    defined(unix)
-#include <fcntl.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include "telnet.h"
-const char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
-const char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
-const char go_ahead_str[] = { IAC, GA, '\0' };
+	#include <fcntl.h>
+	#include <netdb.h>
+	#include <netinet/in.h>
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <arpa/inet.h>
+	#include "telnet.h"
+	const char echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
+	const char echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
+	const char go_ahead_str[] = { IAC, GA, '\0' };
 #endif
-
 
 
 /*
  * OS-dependent declarations.
  */
 #if    defined(interactive)
-#include <net/errno.h>
-#include <sys/fnctl.h>
+	#include <net/errno.h>
+	#include <sys/fnctl.h>
 #endif
 
 #if    defined(linux)
-/* 
-    Linux shouldn't need these. If you have a problem compiling, try
-    uncommenting these functions.
-*/
-/*
-int    accept        args( ( int s, struct sockaddr *addr, int *addrlen ) );
-int    bind        args( ( int s, struct sockaddr *name, int namelen ) );
-int    getpeername    args( ( int s, struct sockaddr *name, int *namelen ) );
-int    getsockname    args( ( int s, struct sockaddr *name, int *namelen ) );
-int    listen        args( ( int s, int backlog ) );
-*/
+	/* 
+		Linux shouldn't need these. If you have a problem compiling, try
+		uncommenting these functions.
+	*/
+	/*
+	int    accept        args( ( int s, struct sockaddr *addr, int *addrlen ) );
+	int    bind        args( ( int s, struct sockaddr *name, int namelen ) );
+	int    getpeername    args( ( int s, struct sockaddr *name, int *namelen ) );
+	int    getsockname    args( ( int s, struct sockaddr *name, int *namelen ) );
+	int    listen        args( ( int s, int backlog ) );
+	*/
 
-int close args ((int fd));
-int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
-/* int    read        args( ( int fd, char *buf, int nbyte ) ); */
-int select args ((int width, fd_set * readfds, fd_set * writefds,
-                  fd_set * exceptfds, struct timeval * timeout));
-int socket args ((int domain, int type, int protocol));
-/* int    write        args( ( int fd, char *buf, int nbyte ) ); *//* read,write in unistd.h */
+	int close args ((int fd));
+	int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
+	/* int    read        args( ( int fd, char *buf, int nbyte ) ); */
+	int select args ((int width, fd_set * readfds, fd_set * writefds,
+					  fd_set * exceptfds, struct timeval * timeout));
+	int socket args ((int domain, int type, int protocol));
+	/* int    write        args( ( int fd, char *buf, int nbyte ) ); *//* read,write in unistd.h */
 #endif
 
 #if    defined(macintosh)
-#include <console.h>
-#include <fcntl.h>
-#include <unix.h>
-struct timeval {
-    time_t tv_sec;
-    time_t tv_usec;
-};
-#if    !defined(isascii)
-#define    isascii(c)        ( (c) < 0200 )
-#endif
-static long theKeys[4];
+	#include <console.h>
+	#include <fcntl.h>
+	#include <unix.h>
+	struct timeval {
+		time_t tv_sec;
+		time_t tv_usec;
+	};
+	#if    !defined(isascii)
+	#define    isascii(c)        ( (c) < 0200 )
+	#endif
+	static long theKeys[4];
 
-int gettimeofday args ((struct timeval * tp, void *tzp));
+	int gettimeofday args ((struct timeval * tp, void *tzp));
 #endif
 
 // marker - this isn't working yet.
 #if defined(_WIN32)
-//int gettimeofday args((struct timeval * tp, struct timezone * tzp));
-void gettimeofday args((struct timeval *tp, void *tzp));
-//int gettimeofday args ((struct timeval * tp, void *tzp));
-int kbhit args ((void));
+	void gettimeofday args((struct timeval *tp, void *tzp));
+	int kbhit args ((void));
 #endif
 
 #if    defined(MSDOS)
-int gettimeofday args ((struct timeval * tp, void *tzp));
-int kbhit args ((void));
+	int gettimeofday args ((struct timeval * tp, void *tzp));
+	int kbhit args ((void));
 #endif
 
 /*
@@ -198,19 +193,18 @@ bool MOBtrigger = TRUE;            /* act() switch                 */
  * OS-dependent local functions.
  */
 #if defined(macintosh) || defined(MSDOS)
-void game_loop_mac_msdos args ((void));
-bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-bool write_to_descriptor args ((int desc, char *txt, int length));
+	void game_loop_mac_msdos args ((void));
+	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+	bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
 #if defined(unix) || defined(_WIN32)
-void game_loop_unix args ((int control));
-int init_socket args ((int port));
-void init_descriptor args ((int control));
-bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-bool write_to_descriptor args ((int desc, char *txt, int length));
+	void game_loop_unix args ((int control));
+	int init_socket args ((int port));
+	void init_descriptor args ((int control));
+	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+	bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
-
 
 
 

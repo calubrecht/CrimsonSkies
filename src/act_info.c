@@ -27,8 +27,10 @@
 
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_info.c,v 1.3 2000/12/01 10:48:33 ring0 Exp $ */
 
+// System Specific Includes
 #if defined(macintosh)
 	#include <types.h>
+	#include <time.h>
 #elif defined(_WIN32)
 	#include <sys/types.h>
 	#include <time.h>
@@ -37,11 +39,11 @@
 	#include <sys/time.h>
 #endif
 
+// General Includes
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <time.h>
 #include "merc.h"
 #include "interp.h"
 #include "magic.h"

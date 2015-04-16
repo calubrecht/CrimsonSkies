@@ -35,11 +35,22 @@
  *                                                                         *
  ***************************************************************************/
 
+// System Specific Includes
+#if defined(macintosh)
+	#include <types.h>
+	#include <time.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
+#else
+	#include <sys/types.h>
+	#include <sys/time.h>
+#endif
+
+// General Includes
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <sys/types.h>
 #include <ctype.h>
 #include "merc.h"
 #include "tables.h"

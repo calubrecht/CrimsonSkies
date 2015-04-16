@@ -27,6 +27,7 @@
 
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_comm.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
 
+// System Specific Includes
 #if defined(macintosh)
 	#include <types.h>
 #elif defined(_WIN32)
@@ -37,10 +38,10 @@
 	#include <sys/time.h>
 #endif
 
+// General Includes
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"

@@ -25,8 +25,10 @@
  *   ROM license, in the file Rom24/doc/rom.license                        *
  **************************************************************************/
 
+// System Specific Includes
 #if defined(macintosh)
 	#include <types.h>
+	#include <time.h>
 #elif defined(_WIN32)
 	#include <sys/types.h>
 	#include <time.h>
@@ -40,7 +42,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <time.h>
 #include "merc.h"
 #include "db.h"
 #include "recycle.h"

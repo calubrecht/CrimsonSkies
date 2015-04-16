@@ -25,13 +25,20 @@
  *   ROM license, in the file Rom24/doc/rom.license                        *
  **************************************************************************/
 
+// System Specific Includes
 #if defined(macintosh)
-#include <types.h>
+	#include <types.h>
+	#include <time.h>
+#elif defined(_WIN32)
+	#include <sys/types.h>
+	#include <time.h>
 #else
-#include <sys/types.h>
+	#include <sys/types.h>
+	#include <sys/time.h>
 #endif
+
+// General Includes
 #include <stdio.h>
-#include <time.h>
 #include "merc.h"
 #include "magic.h"
 #include "interp.h"

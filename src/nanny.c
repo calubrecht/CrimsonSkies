@@ -33,9 +33,11 @@
  *   seems to be a popular task for new mud coders, so what the heck?       *
  ***************************************************************************/
 
+// System Specific Includes
 #if defined(macintosh)
 	#include <types.h>
 	#include <unistd.h>                /* OLC -- for close read write etc */
+	#include <time.h>
 #elif defined(_WIN32)
 	#include <sys/types.h>
 	#include <time.h>
@@ -51,7 +53,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include <stdarg.h>                /* printf_to_char */
 #include "merc.h"
 #include "interp.h"
@@ -59,26 +60,26 @@
 #include "tables.h"
 
 #if defined(_WIN32)
-extern const char echo_off_str[];
-extern const char echo_on_str[];
-extern const char go_ahead_str[];
+	extern const char echo_off_str[];
+	extern const char echo_on_str[];
+	extern const char go_ahead_str[];
 #endif
 
 #if    defined(macintosh) || defined(MSDOS)
-extern const char echo_off_str[];
-extern const char echo_on_str[];
-extern const char go_ahead_str[];
+	extern const char echo_off_str[];
+	extern const char echo_on_str[];
+	extern const char go_ahead_str[];
 #endif
 
 #if    defined(unix)
-#include <fcntl.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include "telnet.h"
-extern const char echo_off_str[];
-extern const char echo_on_str[];
-extern const char go_ahead_str[];
+	#include <fcntl.h>
+	#include <netdb.h>
+	#include <netinet/in.h>
+	#include <sys/socket.h>
+	#include "telnet.h"
+	extern const char echo_off_str[];
+	extern const char echo_on_str[];
+	extern const char go_ahead_str[];
 #endif
 
 /*
