@@ -15,3 +15,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make blink in comm.c immortal only.
   - Windows support so the code base can be debugged through Visual Studio 2013.
   - OLC chopped off characters in name in area name after asave area.
+  - Change the extension on the qmconfig.rc file.  It's messing with VS which wants to open it as a resource.
