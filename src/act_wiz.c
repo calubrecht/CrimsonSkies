@@ -40,6 +40,7 @@
 	#include <sys/types.h>
 	#include <sys/time.h>
 	#include <unistd.h>                /* For execl in copyover() */
+	#include <time.h>
 #endif
 
 // General Includes

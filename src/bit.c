@@ -27,6 +27,7 @@
 #else
 	#include <sys/types.h>
 	#include <sys/time.h>
+	#include <time.h>
 #endif
 
 // General Includes
