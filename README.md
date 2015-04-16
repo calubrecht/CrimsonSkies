@@ -21,7 +21,8 @@ will reflect the latest commits here is at (it will start eloving from stock ROM
 
 This isn't advertised with Mud Connector or anywhere else, just here for anyone interested while I work on it.  The first things 
 I will be working on is cleaning up formatting, removing some small stuff I didn't think fit a RP mud (like the Jukebox) and 
-then I'll focus on new classes, reclasses, spells and skills.
+then I'll focus on new classes, reclasses, spells and skills.  I will be altering the underpinnings before making many area 
+additions (for instance, getting down to one game loop by removing the mac/msdos one).
 
 ## Project Goals:
 
