@@ -190,7 +190,7 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
     fprintf (fp, "Name %s~\n", ch->name);
     fprintf (fp, "Id   %ld\n", ch->id);
     fprintf (fp, "LogO %ld\n", current_time);
-    fprintf (fp, "Vers %d\n", 5);
+    fprintf (fp, "Vers %d\n", 1);
     if (ch->short_descr[0] != '\0')
         fprintf (fp, "ShD  %s~\n", ch->short_descr);
     if (ch->long_descr[0] != '\0')
