@@ -206,7 +206,7 @@ CHANGELOG.quickmud
        Fraktyl and Dingo in #rom for enlightening me!
 
     ** There was a bug introduced by the color login code. Fixed it at
-       colourconv(). Should be good to go now.
+       colorconv(). Should be good to go now.
 
     ** Removed limbo.are from src dir. Forgot to do it before.
 
