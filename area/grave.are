@@ -45,7 +45,7 @@ the ghastly ghoul~
 A ghastly ghoul is here.
 ~
 It is a walking corpse with long fangs and long, sharp nails that most of
-resemble claws.  Its eyes are a dark yellow colour and glare hungrily at you.
+resemble claws.  Its eyes are a dark yellow color and glare hungrily at you.
 ~
 human~
 ABF J -750 0
@@ -114,7 +114,7 @@ light 0 AO
 E
 candlestick~
 It is a rather old-looking three-armed candlestick made from pewter.  Its
-candles are a yellowish white colour.
+candles are a yellowish white color.
 ~
 #3601
 brandy bottle~
@@ -155,7 +155,7 @@ boat 0 A
 E
 wheelbarrow~
 It is a heavy wheelbarrow made from solid oaken planks that have been painted
-a dark, green colour.
+a dark, green color.
 ~
 #3604
 shovel~
@@ -205,7 +205,7 @@ warp_stone T AO
 0 10 2500 P
 E
 amethyst~
-It has a very deep purple colour.
+It has a very deep purple color.
 ~
 #3612
 pendant silver~

@@ -783,7 +783,7 @@ do not use slot numbers; they use names instead.
 	 82	change sex
 	  7	charm person
 	  8	chill touch
-	 10	colour spray
+	 10	color spray
 	 57	continual light
 	 11	control weather
 	 12	create food

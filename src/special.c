@@ -744,7 +744,7 @@ bool spec_cast_mage (CHAR_DATA * ch)
                 break;
             case 4:
                 min_level = 11;
-                spell = "colour spray";
+                spell = "color spray";
                 break;
             case 5:
                 min_level = 12;

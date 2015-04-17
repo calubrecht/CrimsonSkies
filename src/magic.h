@@ -46,7 +46,7 @@ DECLARE_SPELL_FUN(	spell_change_sex	);
 DECLARE_SPELL_FUN(      spell_chain_lightning   );
 DECLARE_SPELL_FUN(	spell_charm_person	);
 DECLARE_SPELL_FUN(	spell_chill_touch	);
-DECLARE_SPELL_FUN(	spell_colour_spray	);
+DECLARE_SPELL_FUN(	spell_color_spray	);
 DECLARE_SPELL_FUN(	spell_continual_light	);
 DECLARE_SPELL_FUN(	spell_control_weather	);
 DECLARE_SPELL_FUN(	spell_create_food	);

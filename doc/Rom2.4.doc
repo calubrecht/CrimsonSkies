@@ -1541,7 +1541,7 @@ quality.
 ~
 extra
 brick~
-The bricks are all in bright different colours.
+The bricks are all in bright different colors.
 ~
 M 110 H 90
 S
@@ -2017,7 +2017,7 @@ them.
 Write utility linker rooms.  If you have a long and winding road going 
 up to the castle -- write at least a couple of road rooms.  Be sure to say 'the castle to the north' and not 'the castle in front of you' since the person might have left it.
 
-Write 'useless' objects for colour.  If the princess is the sort to wear
+Write 'useless' objects for color.  If the princess is the sort to wear
 perfume, put some type furniture perfume in a type object vanity table 
 that could be found if looked for.  It too fleshes out the world.  (Note that Satin wrote 600 useless objects for Cordreas Heart, but you don't have to be asthorough (read, insane) as her.  ;)
 
