@@ -189,7 +189,6 @@ const struct cmd_type cmd_table[] = {
     {"note", do_note, POS_DEAD, 0, LOG_NORMAL, 1},
     {"pose", do_pose, POS_RESTING, 0, LOG_NORMAL, 1},
     {"question", do_question, POS_SLEEPING, 0, LOG_NORMAL, 1},
-    {"quote", do_quote, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"quiet", do_quiet, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"reply", do_reply, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"replay", do_replay, POS_SLEEPING, 0, LOG_NORMAL, 1},
