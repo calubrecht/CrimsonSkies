@@ -1972,7 +1972,6 @@ bool is_same_group (CHAR_DATA * ach, CHAR_DATA * bch)
  */
 void do_color (CHAR_DATA * ch, char *argument)
 {
-    char arg[MAX_STRING_LENGTH];
 
     if (IS_NPC (ch))
     {
