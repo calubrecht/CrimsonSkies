@@ -1441,7 +1441,7 @@ void spell_chill_touch (int sn, int level, CHAR_DATA * ch, void *vo,
 
 
 
-void spell_colour_spray (int sn, int level, CHAR_DATA * ch, void *vo,
+void spell_color_spray (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;

@@ -77,7 +77,6 @@ typedef struct    time_info_data   TIME_INFO_DATA;
 typedef struct    weather_data     WEATHER_DATA;
 typedef struct    mprog_list       MPROG_LIST;
 typedef struct    mprog_code       MPROG_CODE;
-typedef struct    colour_data      COLOUR_DATA;
 
 /*
  * Function types.
@@ -143,10 +142,10 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define HERO        LEVEL_HERO
 
 /*
- * ColoUr stuff v2.0, by Lope.
+ * Color stuff v2.0, by Lope.
  */
-#define CLEAR       "\x1B[0m"        /* Resets Colour    */
-#define C_RED       "\x1B[0;31m"    /* Normal Colours    */
+#define CLEAR       "\x1B[0m"        /* Resets Color    */
+#define C_RED       "\x1B[0;31m"    /* Normal Colors    */
 #define C_GREEN     "\x1B[0;32m"
 #define C_YELLOW    "\x1B[0;33m"
 #define C_BLUE      "\x1B[0;34m"
@@ -162,127 +161,6 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define C_B_CYAN    "\x1B[1;36m"
 #define C_B_WHITE   "\x1B[1;37m"
 
-#define COLOUR_NONE 7        /* White, hmm...    */
-#define RED         1        /* Normal Colours    */
-#define GREEN       2
-#define YELLOW      3
-#define BLUE        4
-#define MAGENTA     5
-#define CYAN        6
-#define WHITE       7
-#define BLACK       0
-
-#define NORMAL      0        /* Bright/Normal colours */
-#define BRIGHT      1
-
-#define ALTER_COLOUR( type )    if( !str_prefix( argument, "red" ) )        \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = RED;            \
-                }                        \
-                else if( !str_prefix( argument, "hi-red" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = RED;            \
-                }                        \
-                else if( !str_prefix( argument, "green" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = GREEN;        \
-                }                        \
-                else if( !str_prefix( argument, "hi-green" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = GREEN;        \
-                }                        \
-                else if( !str_prefix( argument, "yellow" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = YELLOW;        \
-                }                        \
-                else if( !str_prefix( argument, "hi-yellow" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = YELLOW;        \
-                }                        \
-                else if( !str_prefix( argument, "blue" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = BLUE;        \
-                }                        \
-                else if( !str_prefix( argument, "hi-blue" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = BLUE;        \
-                }                        \
-                else if( !str_prefix( argument, "magenta" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = MAGENTA;        \
-                }                        \
-                else if( !str_prefix( argument, "hi-magenta" ) ) \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = MAGENTA;        \
-                }                        \
-                else if( !str_prefix( argument, "cyan" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = CYAN;            \
-                }                        \
-                else if( !str_prefix( argument, "hi-cyan" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = CYAN;            \
-                }                        \
-                else if( !str_prefix( argument, "white" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = NORMAL;        \
-                    ch->pcdata->type[1] = WHITE;        \
-                }                        \
-                else if( !str_prefix( argument, "hi-white" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = WHITE;        \
-                }                        \
-                else if( !str_prefix( argument, "grey" ) )    \
-                {                        \
-                    ch->pcdata->type[0] = BRIGHT;        \
-                    ch->pcdata->type[1] = BLACK;        \
-                }                        \
-                else if( !str_prefix( argument, "beep" ) )    \
-                {                        \
-                    ch->pcdata->type[2] = 1;            \
-                }                        \
-                else if( !str_prefix( argument, "nobeep" ) )    \
-                {                        \
-                    ch->pcdata->type[2] = 0;            \
-                }                        \
-                else                        \
-                {                        \
-        send_to_char_bw( "Unrecognised colour, unchanged.\n\r", ch );    \
-                    return;                    \
-                }
-
-#define LOAD_COLOUR( field )    ch->pcdata->field[1] = fread_number( fp );    \
-                if( ch->pcdata->field[1] > 100 )        \
-                {                        \
-                    ch->pcdata->field[1] -= 100;        \
-                    ch->pcdata->field[2] = 1;            \
-                }                        \
-                else                        \
-                {                        \
-                    ch->pcdata->field[2] = 0;            \
-                }                        \
-                if( ch->pcdata->field[1] > 10 )            \
-                {                        \
-                    ch->pcdata->field[1] -= 10;            \
-                    ch->pcdata->field[0] = 1;            \
-                }                        \
-                else                        \
-                {                        \
-                    ch->pcdata->field[0] = 0;            \
-                }
 
 /*
  * Thanks Dingo for making life a bit easier ;)
@@ -1373,7 +1251,7 @@ struct    kill_data
 #define PLR_CANLOOT        (P)
 #define PLR_NOSUMMON        (Q)
 #define PLR_NOFOLLOW        (R)
-#define PLR_COLOUR        (T)
+#define PLR_COLOR        (T)
 /* 1 bit reserved, S */
 
 /* penalty flags */
@@ -1608,7 +1486,6 @@ struct    pc_data
 {
     PC_DATA *	   next;
     BUFFER *	   buffer;
-    COLOUR_DATA *  code;        /* Data for color configuration    */
     bool		   valid;
     char *			pwd;
     char *			bamfin;
@@ -1629,40 +1506,7 @@ struct    pc_data
 	BOARD_DATA *	board;                  /* The current board        */
 	time_t			last_note[MAX_BOARD];   /* last note for the boards */
 	NOTE_DATA *		in_progress;
-    int				security;               /* OLC */ /* Builder security */
-    int				text[3];                /* {t */
-    int				auction[3];             /* {a */
-    int				auction_text[3];        /* {A */
-    int				gossip[3];              /* {d */
-    int				gossip_text[3];         /* {9 */
-    int				question[3];            /* {q */
-    int				question_text[3];       /* {Q */
-    int				answer[3];              /* {f */
-    int				answer_text[3];         /* {F */
-    int				quote[3];               /* {h */
-    int				quote_text[3];          /* {H */
-    int				immtalk_text[3];        /* {i */
-    int				immtalk_type[3];        /* {I */
-    int				info[3];                /* {j */
-    int				say[3];                 /* {6 */
-    int				say_text[3];            /* {7 */
-    int				tell[3];                /* {k */
-    int				tell_text[3];           /* {K */
-    int				reply[3];               /* {l */
-    int				reply_text[3];          /* {L */
-    int				gtell_text[3];          /* {n */
-    int				gtell_type[3];          /* {N */
-    int				wiznet[3];              /* {B */
-    int				room_title[3];          /* {s */
-    int				room_text[3];           /* {S */   
-    int				room_exits[3];          /* {o */
-    int				room_things[3];         /* {O */
-    int				prompt[3];              /* {p */
-    int				fight_death[3];         /* {1 */
-    int				fight_yhit[3];          /* {2 */
-    int				fight_ohit[3];          /* {3 */
-    int				fight_thit[3];          /* {4 */
-    int				fight_skill[3];         /* {5 */              
+    int				security;               /* OLC */ /* Builder security */        
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2389,10 +2233,10 @@ void     tail_chain          args( ( void ) );
 bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
 
  /*
-  * Colour stuff by Lope
+  * Color stuff by Lope
   */
- int   colour          args( ( char type, CHAR_DATA *ch, char *string ) );
- void  colourconv      args( ( char *buffer, const char *txt, CHAR_DATA*ch)); 
+ int   color          args( ( char type, CHAR_DATA *ch, char *string ) );
+ void  colorconv      args( ( char *buffer, const char *txt, CHAR_DATA*ch)); 
  void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
  void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );    
 
@@ -2504,11 +2348,6 @@ char *    part_bit_name    args( ( int part_flags ) );
 char *    weapon_bit_name    args( ( int weapon_flags ) );
 char *  comm_bit_name    args( ( int comm_flags ) );
 char *    cont_bit_name    args( ( int cont_flags) );
-/*
- * Colour Config
- */
-void    default_colour    args( ( CHAR_DATA *ch ) );
-void    all_colour    args( ( CHAR_DATA *ch, char *argument ) );
 
 /* interp.c */
 void    interpret    args( ( CHAR_DATA *ch, char *argument ) );

@@ -310,7 +310,7 @@ light 0 AO
 E
 candlestick~
 It is a rather old-looking three-armed candlestick made from pewter.  Its
-candles are a yellowish white colour.
+candles are a yellowish white color.
 ~
 #3402
 tickler~
@@ -529,7 +529,7 @@ a tightly rolled scroll~
 A yellowing tightly rolled scroll is here~
 oldstyle~
 scroll G AO
-15 'colour spray' 'create food' 'magic missile' ''
+15 'color spray' 'create food' 'magic missile' ''
 8 50 1070 P
 E
 scroll tightly rolled~

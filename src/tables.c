@@ -129,7 +129,7 @@ const struct flag_type plr_flags[] = {
     {"can_loot", P, FALSE},
     {"nosummon", Q, FALSE},
     {"nofollow", R, FALSE},
-    {"colour", T, FALSE},
+    {"color", T, FALSE},
     {"permit", U, TRUE},
     {"log", W, FALSE},
     {"deny", X, FALSE},

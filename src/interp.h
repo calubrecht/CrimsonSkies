@@ -99,7 +99,7 @@ DECLARE_DO_FUN(do_cast);
 DECLARE_DO_FUN(do_channels);
 DECLARE_DO_FUN(do_clone);
 DECLARE_DO_FUN(do_close);
-DECLARE_DO_FUN(do_colour);
+DECLARE_DO_FUN(do_color);
 DECLARE_DO_FUN(do_commands);
 DECLARE_DO_FUN(do_combine);
 DECLARE_DO_FUN(do_compact);

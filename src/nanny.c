@@ -296,9 +296,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             wiznet (log_buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
 
             if (ch->desc->ansi)
-                SET_BIT (ch->act, PLR_COLOUR);
+                SET_BIT (ch->act, PLR_COLOR);
             else
-                REMOVE_BIT (ch->act, PLR_COLOUR);
+                REMOVE_BIT (ch->act, PLR_COLOR);
 
             if (IS_IMMORTAL (ch))
             {
@@ -372,7 +372,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                     send_to_desc (buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
                     if (ch->desc->ansi)
-                        SET_BIT (ch->act, PLR_COLOUR);
+                        SET_BIT (ch->act, PLR_COLOR);
                     break;
 
                 case 'n':
@@ -766,7 +766,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (ch->level == 0)
             {
 		if(mud_ansicolor)
-                	SET_BIT (ch->act, PLR_COLOUR);
+                	SET_BIT (ch->act, PLR_COLOR);
 		if(mud_telnetga)
 			SET_BIT (ch->comm, COMM_TELNET_GA);
 

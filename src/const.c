@@ -1049,10 +1049,10 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "chilling touch", "You feel less cold.", ""},
 
     {
-     "colour spray", {16, 53, 22, 20}, {1, 1, 2, 2},
-     spell_colour_spray, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
+     "color spray", {16, 53, 22, 20}, {1, 1, 2, 2},
+     spell_color_spray, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
      NULL, SLOT (10), 15, 12,
-     "colour spray", "!Colour Spray!", ""},
+     "color spray", "!Color Spray!", ""},
 
     {
      "continual light", {6, 4, 6, 9}, {1, 1, 2, 2},
@@ -1859,7 +1859,7 @@ const struct group_type group_table[MAX_GROUP] = {
     {
      "combat", {6, -1, 10, 9},
      {"acid blast", "burning hands", "chain lightning", "chill touch",
-      "colour spray", "fireball", "lightning bolt", "magic missile",
+      "color spray", "fireball", "lightning bolt", "magic missile",
       "shocking grasp"}
      },
 

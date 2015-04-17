@@ -761,7 +761,7 @@ temple spire is only a few meters below you.
 0 0 1
 E
 rainbow~
-The rainbow softly glows with beams of light, in colours that defie 
+The rainbow softly glows with beams of light, in colors that defie 
 description.
 ~
 D4
@@ -777,14 +777,14 @@ You can see the Temple of Midgaard below you.
 S
 #7701
 On the Rainbow~
-You are standing on the rainbow, surrounded by many beams of multicoloured
+You are standing on the rainbow, surrounded by many beams of multicolored
 light.  Through the bottom of the rainbow you can barely make out the Temple
 of Midgaard, which is now quite far away.
 ~
 0 0 5
 E
 rainbow~
-The rainbow softly glows with beams of light, in colours that defie 
+The rainbow softly glows with beams of light, in colors that defie 
 description.
 ~
 D4
@@ -800,14 +800,14 @@ The rainbow extends below you towards Midgaard.
 S
 #7702
 On the Rainbow~
-You are standing on the rainbow, surrounded by many beams of multicoloured
+You are standing on the rainbow, surrounded by many beams of multicolored
 light.  Through the bottom of the rainbow you see the City of Midgaard and the 
 land surrounding it.  It seems to be miles below you.
 ~
 0 0 5
 E
 rainbow~
-The rainbow softly glows with beams of light, in colours that
+The rainbow softly glows with beams of light, in colors that
 defie description.
 ~
 D4
@@ -823,13 +823,13 @@ The rainbow extends below you towards the land you once knew as home.
 S
 #7703
 On the Rainbow~
-You are standing on the rainbow, surrounded by many beams of multicoloured
+You are standing on the rainbow, surrounded by many beams of multicolored
 light.  The rainbow extends above and below you as far as you can see.
 ~
 0 0 5
 E
 rainbow~
-The rainbow brightly glows with beams of light, in colours that defie any
+The rainbow brightly glows with beams of light, in colors that defie any
 description.
 ~
 D4
@@ -846,14 +846,14 @@ The rainbow extends far below you, slowly fading into darkness.
 S
 #7704
 On the Rainbow~
-You are nearing the end of the rainbow.  The beams of multicoloured
+You are nearing the end of the rainbow.  The beams of multicolored
 light have begun to merge and solidify.  All around you you see glowing
 starlike motes of dust.  Ahead of you is a bridge.
 ~
 0 0 5
 E
 rainbow~
-The rainbow brilliantly glows with beams of blinding light, in colours that 
+The rainbow brilliantly glows with beams of blinding light, in colors that 
 sweep together and merge before your eyes.
 ~
 E
@@ -881,7 +881,7 @@ S
 #7705
 The Glowing Bridge at the Rainbow's End~
 After a long climb you have reached the end of the rainbow.  The brilliant
-colours have twisted and merged into a beautiful glowing bridge that leads
+colors have twisted and merged into a beautiful glowing bridge that leads
 toward a massive white gate to the north.  All around you is a soft, peaceful 
 glow interrupted only by the passing of starlike dust motes before your eyes.
 ~
@@ -912,7 +912,7 @@ standing there.
 ~
 0 -1 7706
 D5
-The bridge disassociates into a beautiful spectrum of colours that
+The bridge disassociates into a beautiful spectrum of colors that
 drop out of sight below you.
 ~
 ~
@@ -920,7 +920,7 @@ drop out of sight below you.
 S
 #7706
 The Astral Gate~
-Here the bridge ends before a massive, pearly-coloured gate beyond which
+Here the bridge ends before a massive, pearly-colored gate beyond which
 you can see a field of blackness filled with silvery snake-like tendrils,
 stars, and occasional flashes of of light.
 ~
@@ -966,7 +966,7 @@ through the gate to the south.
 0 4 2
 E
 gate~
->From here the pearly-coloured gate seems very small and insubstantial.  Through
+>From here the pearly-colored gate seems very small and insubstantial.  Through
 its bars you can see the Astral Guardian, protecting your world from the perils
 of this plane of existence.
 ~
