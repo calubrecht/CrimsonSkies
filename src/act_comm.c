@@ -132,12 +132,6 @@ void do_channels (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("OFF\n\r", ch);
 
-    send_to_char ("{hQuote{x          ", ch);
-    if (!IS_SET (ch->comm, COMM_NOQUOTE))
-        send_to_char ("ON\n\r", ch);
-    else
-        send_to_char ("OFF\n\r", ch);
-
     send_to_char ("{tgrats{x          ", ch);
     if (!IS_SET (ch->comm, COMM_NOGRATS))
         send_to_char ("ON\n\r", ch);
@@ -444,63 +438,6 @@ void do_grats (CHAR_DATA * ch, char *argument)
                 !IS_SET (victim->comm, COMM_QUIET))
             {
                 act_new ("{x$n grats '{c$t{x'",
-                         ch, argument, d->character, TO_VICT, POS_SLEEPING);
-            }
-        }
-    }
-}
-
-void do_quote (CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    DESCRIPTOR_DATA *d;
-
-    if (argument[0] == '\0')
-    {
-        if (IS_SET (ch->comm, COMM_NOQUOTE))
-        {
-            send_to_char ("{hQuote channel is now ON.{x\n\r", ch);
-            REMOVE_BIT (ch->comm, COMM_NOQUOTE);
-        }
-        else
-        {
-            send_to_char ("{hQuote channel is now OFF.{x\n\r", ch);
-            SET_BIT (ch->comm, COMM_NOQUOTE);
-        }
-    }
-    else
-    {                            /* quote message sent, turn quote on if it isn't already */
-
-        if (IS_SET (ch->comm, COMM_QUIET))
-        {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
-            return;
-        }
-
-        if (IS_SET (ch->comm, COMM_NOCHANNELS))
-        {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
-            return;
-
-        }
-
-        REMOVE_BIT (ch->comm, COMM_NOQUOTE);
-
-        sprintf (buf, "{hYou quote '{H%s{h'{x\n\r", argument);
-        send_to_char (buf, ch);
-        for (d = descriptor_list; d != NULL; d = d->next)
-        {
-            CHAR_DATA *victim;
-
-            victim = d->original ? d->original : d->character;
-
-            if (d->connected == CON_PLAYING &&
-                d->character != ch &&
-                !IS_SET (victim->comm, COMM_NOQUOTE) &&
-                !IS_SET (victim->comm, COMM_QUIET))
-            {
-                act_new ("{h$n quotes '{H$t{h'{x",
                          ch, argument, d->character, TO_VICT, POS_SLEEPING);
             }
         }

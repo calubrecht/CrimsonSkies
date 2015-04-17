@@ -2998,8 +2998,6 @@ char *comm_bit_name (int comm_flags)
         strcat (buf, " no_gossip");
     if (comm_flags & COMM_NOQUESTION)
         strcat (buf, " no_question");
-    if (comm_flags & COMM_NOQUOTE)
-        strcat (buf, " no_quote");
     if (comm_flags & COMM_COMPACT)
         strcat (buf, " compact");
     if (comm_flags & COMM_BRIEF)
