@@ -2057,103 +2057,103 @@ void dam_message (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
     }
     else if (dam_percent <= 5)
     {
-        vs = "scratch";
-        vp = "scratches";
+        vs = "{gscratch{x";
+        vp = "{gscratches{x";
     }
     else if (dam_percent <= 10)
     {
-        vs = "graze";
-        vp = "grazes";
+        vs = "{ggraze{x";
+        vp = "{ggrazes{x";
     }
     else if (dam_percent <= 15)
     {
-        vs = "hit";
-        vp = "hits";
+        vs = "{ghit{x";
+        vp = "{ghits{x";
     }
     else if (dam_percent <= 20)
     {
-        vs = "injure";
-        vp = "injures";
+        vs = "{ginjure{x";
+        vp = "{ginjures{x";
     }
     else if (dam_percent <= 25)
     {
-        vs = "wound";
-        vp = "wounds";
+        vs = "{Gwound{x";
+        vp = "{Gwounds{x";
     }
     else if (dam_percent <= 30)
     {
-        vs = "maul";
-        vp = "mauls";
+        vs = "{ymaul{x";
+        vp = "{ymauls{x";
     }
     else if (dam_percent <= 35)
     {
-        vs = "decimate";
-        vp = "decimates";
+        vs = "{ydecimate{x";
+        vp = "{ydecimates{x";
     }
     else if (dam_percent <= 40)
     {
-        vs = "devastate";
-        vp = "devastates";
+        vs = "{ydevastate{x";
+        vp = "{ydevastates{x";
     }
     else if (dam_percent <= 45)
     {
-        vs = "maim";
-        vp = "maims";
+        vs = "{ymaim{x";
+        vp = "{ymaims{x";
     }
     else if (dam_percent <= 50)
     {
-        vs = "MUTILATE";
-        vp = "MUTILATES";
+        vs = "{YMUTILATE{x";
+        vp = "{YMUTILATES{x";
     }
     else if (dam_percent <= 55)
     {
-        vs = "DISEMBOWEL";
-        vp = "DISEMBOWELS";
+        vs = "{YDISEMBOWEL{x";
+        vp = "{YDISEMBOWELS{x";
     }
     else if (dam_percent <= 60)
     {
-        vs = "DISMEMBER";
-        vp = "DISMEMBERS";
+        vs = "{YDISMEMBER{x";
+        vp = "{YDISMEMBERS{x";
     }
     else if (dam_percent <= 65)
     {
-        vs = "MASSACRE";
-        vp = "MASSACRES";
+        vs = "{YMASSACRE{x";
+        vp = "{YMASSACRES{x";
     }
     else if (dam_percent <= 70)
     {
-        vs = "MANGLE";
-        vp = "MANGLES";
+        vs = "{YMANGLE{x";
+        vp = "{YMANGLES{x";
     }
     else if (dam_percent <= 75)
     {
-        vs = "*** DEMOLISH ***";
-        vp = "*** DEMOLISHES ***";
+        vs = "*** {RDEMOLISH{x ***";
+        vp = "*** {RDEMOLISHES{x ***";
     }
     else if (dam_percent <= 80)
     {
-        vs = "*** DEVASTATE ***";
-        vp = "*** DEVASTATES ***";
+        vs = "*** {RDEVASTATE{x ***";
+        vp = "*** {RDEVASTATES{x ***";
     }
     else if (dam_percent <= 85)
     {
-        vs = "=== OBLITERATE ===";
-        vp = "=== OBLITERATES ===";
+        vs = "=== {ROBLITERATE{x ===";
+        vp = "=== {ROBLITERATES{x ===";
     }
     else if (dam_percent <= 90)
     {
-        vs = ">>> ANNIHILATE <<<";
-        vp = ">>> ANNIHILATES <<<";
+        vs = ">>> {RANNIHILATE{x <<<";
+        vp = ">>> {RANNIHILATES{x <<<";
     }
     else if (dam_percent <= 95)
     {
-        vs = "<<< ERADICATE >>>";
-        vp = "<<< ERADICATES >>>";
+        vs = "<<< {RERADICATE{x >>>";
+        vp = "<<< {RERADICATES{x >>>";
     }
     else
     {
-        vs = "do UNSPEAKABLE things to";
-        vp = "does UNSPEAKABLE things to";
+        vs = "do {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to";
+        vp = "does {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to";
     }
 
     punct = (dam_percent <= 45) ? '.' : '!';
