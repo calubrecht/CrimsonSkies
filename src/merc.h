@@ -35,19 +35,15 @@ int unlink();
 int system();
 
 #if    !defined(FALSE)
-#define FALSE     0
+	#define FALSE     0
 #endif
 
 #if    !defined(TRUE)
-#define TRUE     1
+	#define TRUE     1
 #endif
 
 typedef short   int            sh_int;
 typedef unsigned char            bool;
-
-/* ea */
-#define MSL MAX_STRING_LENGTH
-#define MIL MAX_INPUT_LENGTH
 
 /*
  * Structure types.
@@ -83,10 +79,7 @@ typedef struct    mprog_code       MPROG_CODE;
  */
 typedef void DO_FUN    args( ( CHAR_DATA *ch, char *argument ) );
 typedef bool SPEC_FUN  args( ( CHAR_DATA *ch ) );
-typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
-                int target ) );
-
-
+typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int target ) );
 
 /*
  * String and memory management parameters.
@@ -99,8 +92,6 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 /* I am lazy :) */
 #define MSL MAX_STRING_LENGTH
 #define MIL MAX_INPUT_LENGTH
-
-
 
 /*
  * Game parameters.
