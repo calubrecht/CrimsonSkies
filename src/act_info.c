@@ -1105,8 +1105,8 @@ void do_look (CHAR_DATA * ch, char *argument)
         if ((IS_IMMORTAL (ch)
              && (IS_NPC (ch) || IS_SET (ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER (ch, ch->in_room->area))
-        {
-            sprintf (buf, "{r [{RRoom %d{r]{x", ch->in_room->vnum);
+        {			
+			sprintf(buf, "{r [{RRoom %d{r] {r[{RArea %s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
             send_to_char (buf, ch);
         }
 
