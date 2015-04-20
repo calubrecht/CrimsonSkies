@@ -92,7 +92,7 @@
 /*
  * Socket and TCP/IP stuff.
  */
-#if    defined(__apple__) || defined(MSDOS)
+#if    defined(__apple__) 
 	const char echo_off_str[] = { '\0' };
 	const char echo_on_str[] = { '\0' };
 	const char go_ahead_str[] = { '\0' };
@@ -164,15 +164,8 @@
 	int gettimeofday args ((struct timeval * tp, void *tzp));
 #endif
 
-// marker - this isn't working yet.
 #if defined(_WIN32)
 	void gettimeofday args((struct timeval *tp, void *tzp));
-	int kbhit args ((void));
-#endif
-
-#if    defined(MSDOS)
-	int gettimeofday args ((struct timeval * tp, void *tzp));
-	int kbhit args ((void));
 #endif
 
 /*
@@ -193,7 +186,7 @@ bool MOBtrigger = TRUE;            /* act() switch                 */
 /*
  * OS-dependent local functions.
  */
-#if defined(__apple__) || defined(MSDOS)
+#if defined(__apple__) 
 	void game_loop_mac_msdos args ((void));
 	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 	bool write_to_descriptor args ((int desc, char *txt, int length));
@@ -304,7 +297,7 @@ int main (int argc, char **argv)
     /*
      * Run the game.
      */
-#if defined(__apple__) || defined(MSDOS)
+#if defined(__apple__) 
     qmconfig_read(); /* Here because it fits, no conflicts with Linux placement -- JR 05/06/01 */
     boot_db ();
     log_string ("Crimson Skies is ready to rock.");
@@ -457,7 +450,7 @@ int init_socket (int port)
 
 
 
-#if defined(__apple__) || defined(MSDOS)
+#if defined(__apple__) 
 void game_loop_mac_msdos (void)
 {
     struct timeval last_time;
@@ -515,9 +508,6 @@ void game_loop_mac_msdos (void)
             d_next = d->next;
             d->fcommand = FALSE;
 
-#if defined(MSDOS)
-            if (kbhit ())
-#endif
             {
                 if (d->character != NULL)
                     d->character->timer = 0;
@@ -606,9 +596,6 @@ void game_loop_mac_msdos (void)
         {
             int delta;
 
-#if defined(MSDOS)
-            if (kbhit ())
-#endif
             {
                 if (dcon.character != NULL)
                     dcon.character->timer = 0;
@@ -619,9 +606,6 @@ void game_loop_mac_msdos (void)
                     dcon.outtop = 0;
                     close_socket (&dcon);
                 }
-#if defined(MSDOS)
-                break;
-#endif
             }
 
             gettimeofday (&now_time, NULL);
@@ -1083,7 +1067,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 #endif
 
 	free_descriptor (dclose);
-#if defined(MSDOS) || defined(__apple__)
+#if defined(__apple__)
     exit (1);
 #endif
     return;
@@ -1127,7 +1111,7 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     }
 #endif
 
-#if defined(MSDOS) || defined(unix) || defined(_WIN32)
+#if defined(unix) || defined(_WIN32)
     for (;;)
     {
         int nRead;
@@ -1683,7 +1667,7 @@ bool write_to_descriptor (int desc, char *txt, int length)
     int nWrite;
     int nBlock;
 
-#if defined(__apple__) || defined(MSDOS)
+#if defined(__apple__) 
     if (desc == 0)
         desc = 1;
 #endif
@@ -1763,12 +1747,7 @@ bool check_parse_name (char *name)
     if (strlen (name) < 2)
         return FALSE;
 
-#if defined(MSDOS)
-    if (strlen (name) > 8)
-        return FALSE;
-#endif
-
-#if defined(__apple__) || defined(unix)
+#if defined(__apple__) || defined(unix) || defined(_WIN32)
     if (strlen (name) > 12)
         return FALSE;
 #endif

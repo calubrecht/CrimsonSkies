@@ -2049,13 +2049,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 #endif
 
-#if    defined(MSDOS)
-#define NOCRYPT
-#if    defined(unix)
-#undef    unix
-#endif
-#endif
-
 /*
  * The crypt(3) function is not available on some operating systems.
  * In particular, the U.S. Government prohibits its export from the
@@ -2086,12 +2079,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
 #if defined(_WIN32)
-	#define PLAYER_DIR      ""                   /* Player files           */
-	#define TEMP_FILE       "romtmp"
-	#define NULL_FILE       "nul"                /* To reserve one stream  */
-#endif
-
-#if defined(MSDOS)
 	#define PLAYER_DIR      ""                   /* Player files           */
 	#define TEMP_FILE       "romtmp"
 	#define NULL_FILE       "nul"                /* To reserve one stream  */
