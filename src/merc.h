@@ -2092,8 +2092,8 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
 #define AREA_LIST       "area.lst"            /* List of areas         */
-#define BUG_FILE        "bugs.txt"            /* For 'bug' and bug()   */
-#define TYPO_FILE       "typos.txt"           /* For 'typo'            */
+#define BUG_FILE        "../log/bugs.txt"            /* For 'bug' and bug()   */
+#define TYPO_FILE       "../log/typos.txt"           /* For 'typo'            */
 #define SHUTDOWN_FILE   "shutdown.txt"        /* For 'shutdown'        */
 #define BAN_FILE        "ban.txt"
 #define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
