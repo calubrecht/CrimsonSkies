@@ -186,21 +186,13 @@ bool MOBtrigger = TRUE;            /* act() switch                 */
 /*
  * OS-dependent local functions.
  */
-#if defined(__apple__) 
-	void game_loop_mac_msdos args ((void));
-	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-	bool write_to_descriptor args ((int desc, char *txt, int length));
-#endif
-
-#if defined(unix) || defined(_WIN32)
-	void game_loop_unix args ((int control));
+#if defined(unix) || defined(_WIN32) || defined (__apple__)
+	void game_loop args ((int control));
 	int init_socket args ((int port));
 	void init_descriptor args ((int control));
 	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 	bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
-
-
 
 /*
  * Other local functions (OS-independent).
@@ -297,14 +289,7 @@ int main (int argc, char **argv)
     /*
      * Run the game.
      */
-#if defined(__apple__) 
-    qmconfig_read(); /* Here because it fits, no conflicts with Linux placement -- JR 05/06/01 */
-    boot_db ();
-    log_string ("Crimson Skies is ready to rock.");
-    game_loop_mac_msdos ();
-#endif
-
-#if defined(unix) || defined(_WIN32)
+#if defined(unix) || defined(_WIN32) || defined(__apple__)
 
     qmconfig_read(); /* Here so we can set the IP adress. -- JR 05/06/01 */
     if (!fCopyOver)
@@ -316,7 +301,7 @@ int main (int argc, char **argv)
     if (fCopyOver)
         copyover_recover ();
 
-    game_loop_unix (control);
+    game_loop (control);
 
 #if defined(_WIN32)
 	closesocket(control);
@@ -337,7 +322,7 @@ int main (int argc, char **argv)
 
 
 
-#if defined(unix) || defined(_WIN32)
+#if defined(unix) || defined(_WIN32) || defined(__apple__)
 int init_socket (int port)
 {
     static struct sockaddr_in sa_zero;
@@ -449,183 +434,8 @@ int init_socket (int port)
 #endif
 
 
-
-#if defined(__apple__) 
-void game_loop_mac_msdos (void)
-{
-    struct timeval last_time;
-    struct timeval now_time;
-    static DESCRIPTOR_DATA dcon;
-
-    gettimeofday (&last_time, NULL);
-    current_time = (time_t) last_time.tv_sec;
-
-    /*
-     * New_descriptor analogue.
-     */
-    dcon.descriptor = 0;
-	if (!mud_ansiprompt)
-		dcon.connected = CON_GET_NAME;
-	else
-		dcon.connected = CON_ANSI;
-    dcon.ansi = mud_ansicolor;
-    dcon.host = str_dup ("localhost");
-    dcon.outsize = 2000;
-    dcon.outbuf = alloc_mem (dcon.outsize);
-    dcon.next = descriptor_list;
-    dcon.showstr_head = NULL;
-    dcon.showstr_point = NULL;
-    dcon.pEdit = NULL;            /* OLC */
-    dcon.pString = NULL;        /* OLC */
-    dcon.editor = 0;            /* OLC */
-    descriptor_list = &dcon;
-
-    /*
-     * First Contact!
-     */
-	if (!mud_ansiprompt)
-	{
-		extern char * help_greeting;
-		if ( help_greeting[0] == '.' )
-			send_to_desc ( help_greeting+1, &dcon );
-		else
-			send_to_desc ( help_greeting  , &dcon );
-	}
-
-	else
-    	write_to_buffer (&dcon, "Do you want color? (Y/N) -> ", 0);
-
-    /* Main loop */
-    while (!merc_down)
-    {
-        DESCRIPTOR_DATA *d;
-
-        /*
-         * Process input.
-         */
-        for (d = descriptor_list; d != NULL; d = d_next)
-        {
-            d_next = d->next;
-            d->fcommand = FALSE;
-
-            {
-                if (d->character != NULL)
-                    d->character->timer = 0;
-                if (!read_from_descriptor (d))
-                {
-                    if (d->character != NULL && d->connected == CON_PLAYING)
-                        save_char_obj (d->character);
-                    d->outtop = 0;
-                    close_socket (d);
-                    continue;
-                }
-            }
-
-            if (d->character != NULL && d->character->daze > 0)
-                --d->character->daze;
-
-            if (d->character != NULL && d->character->wait > 0)
-            {
-                --d->character->wait;
-                continue;
-            }
-
-            read_from_buffer (d);
-            if (d->incomm[0] != '\0')
-            {
-                d->fcommand = TRUE;
-                stop_idling (d->character);
-
-                /* OLC */
-                if (d->showstr_point)
-                    show_string (d, d->incomm);
-                else if (d->pString)
-                    string_add (d->character, d->incomm);
-                else
-                    switch (d->connected)
-                    {
-                        case CON_PLAYING:
-                            if (!run_olc_editor (d))
-                                substitute_alias (d, d->incomm);
-                            break;
-                        default:
-                            nanny (d, d->incomm);
-                            break;
-                    }
-
-                d->incomm[0] = '\0';
-            }
-        }
-
-
-
-        /*
-         * Autonomous game motion.
-         */
-        update_handler (FALSE);
-
-
-
-        /*
-         * Output.
-         */
-        for (d = descriptor_list; d != NULL; d = d_next)
-        {
-            d_next = d->next;
-
-            if ((d->fcommand || d->outtop > 0))
-            {
-                if (!process_output (d, TRUE))
-                {
-                    if (d->character != NULL && d->connected == CON_PLAYING)
-                        save_char_obj (d->character);
-                    d->outtop = 0;
-                    close_socket (d);
-                }
-            }
-        }
-
-
-
-        /*
-         * Synchronize to a clock.
-         * Busy wait (blargh).
-         */
-        now_time = last_time;
-        for (;;)
-        {
-            int delta;
-
-            {
-                if (dcon.character != NULL)
-                    dcon.character->timer = 0;
-                if (!read_from_descriptor (&dcon))
-                {
-                    if (dcon.character != NULL && d->connected == CON_PLAYING)
-                        save_char_obj (d->character);
-                    dcon.outtop = 0;
-                    close_socket (&dcon);
-                }
-            }
-
-            gettimeofday (&now_time, NULL);
-            delta = (now_time.tv_sec - last_time.tv_sec) * 1000 * 1000
-                + (now_time.tv_usec - last_time.tv_usec);
-            if (delta >= 1000000 / PULSE_PER_SECOND)
-                break;
-        }
-        last_time = now_time;
-        current_time = (time_t) last_time.tv_sec;
-    }
-
-    return;
-}
-#endif
-
-
-
-#if defined(unix) || defined(_WIN32)
-void game_loop_unix (int control)
+#if defined(unix) || defined(_WIN32) || defined(__apple__)
+void game_loop (int control)
 {
     static struct timeval null_time;
     struct timeval last_time;
@@ -860,7 +670,7 @@ void game_loop_unix (int control)
 
 
 
-#if defined(unix) || defined(_WIN32)
+#if defined(unix) || defined(_WIN32) || defined(__apple__)
 
 void init_descriptor (int control)
 {

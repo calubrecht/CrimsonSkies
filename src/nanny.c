@@ -87,17 +87,17 @@
  * OS-dependent local functions.
  */
 #if defined(__apple__) 
-void game_loop_mac_msdos args ((void));
-bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-bool write_to_descriptor args ((int desc, char *txt, int length));
+	void game_loop args ((int control));
+	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+	bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
-#if defined(unix)
-void game_loop_unix args ((int control));
-int init_socket args ((int port));
-void init_descriptor args ((int control));
-bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-bool write_to_descriptor args ((int desc, char *txt, int length));
+#if defined(unix) 
+	void game_loop args ((int control));
+	int init_socket args ((int port));
+	void init_descriptor args ((int control));
+	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+	bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
 /*
