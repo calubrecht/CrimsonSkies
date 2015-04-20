@@ -1937,7 +1937,7 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
                         if (pObj->level > LastMob->level + 3
                             || (pObj->item_type == ITEM_WEAPON
                                 && pReset->command == 'E'
-                                && pObj->level < LastMob->level - 5
+                                && pObj->level < LastMob->level - 7
                                 && pObj->level < 45)) {
                             log_f ("Check Levels:");
 							log_f ("  Object: (VNUM %5d)(Level %2d) %s",
