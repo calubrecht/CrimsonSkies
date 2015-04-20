@@ -658,27 +658,27 @@ struct    kill_data
 #define RES_WEAPON         (D)
 #define RES_BASH           (E)
 #define RES_PIERCE         (F)
-#define RES_SLASH               (G)
-#define RES_FIRE                (H)
-#define RES_COLD                (I)
-#define RES_LIGHTNING           (J)
-#define RES_ACID                (K)
-#define RES_POISON              (L)
-#define RES_NEGATIVE            (M)
-#define RES_HOLY                (N)
-#define RES_ENERGY              (O)
-#define RES_MENTAL              (P)
-#define RES_DISEASE             (Q)
-#define RES_DROWNING            (R)
-#define RES_LIGHT        (S)
-#define RES_SOUND        (T)
-#define RES_WOOD                (X)
-#define RES_SILVER              (Y)
-#define RES_IRON                (Z)
+#define RES_SLASH          (G)
+#define RES_FIRE           (H)
+#define RES_COLD           (I)
+#define RES_LIGHTNING      (J)
+#define RES_ACID           (K)
+#define RES_POISON         (L)
+#define RES_NEGATIVE       (M)
+#define RES_HOLY           (N)
+#define RES_ENERGY         (O)
+#define RES_MENTAL         (P)
+#define RES_DISEASE        (Q)
+#define RES_DROWNING       (R)
+#define RES_LIGHT          (S)
+#define RES_SOUND          (T)
+#define RES_WOOD           (X)
+#define RES_SILVER         (Y)
+#define RES_IRON           (Z)
  
 /* VULN bits for mobs */
-#define VULN_SUMMON        (A)
-#define VULN_CHARM        (B)
+#define VULN_SUMMON             (A)
+#define VULN_CHARM              (B)
 #define VULN_MAGIC              (C)
 #define VULN_WEAPON             (D)
 #define VULN_BASH               (E)
@@ -695,11 +695,11 @@ struct    kill_data
 #define VULN_MENTAL             (P)
 #define VULN_DISEASE            (Q)
 #define VULN_DROWNING           (R)
-#define VULN_LIGHT        (S)
-#define VULN_SOUND        (T)
+#define VULN_LIGHT              (S)
+#define VULN_SOUND              (T)
 #define VULN_WOOD               (X)
 #define VULN_SILVER             (Y)
-#define VULN_IRON        (Z)
+#define VULN_IRON               (Z)
  
 /* body form */
 #define FORM_EDIBLE             (A)
@@ -731,7 +731,7 @@ struct    kill_data
 #define FORM_DRAGON             (Z)
 #define FORM_AMPHIBIAN          (aa)
 #define FORM_FISH               (bb)
-#define FORM_COLD_BLOOD        (cc)    
+#define FORM_COLD_BLOOD         (cc)    
  
 /* body parts */
 #define PART_HEAD               (A)
@@ -744,7 +744,7 @@ struct    kill_data
 #define PART_FEET               (H)
 #define PART_FINGERS            (I)
 #define PART_EAR                (J)
-#define PART_EYE        (K)
+#define PART_EYE                (K)
 #define PART_LONG_TONGUE        (L)
 #define PART_EYESTALKS          (M)
 #define PART_TENTACLES          (N)
@@ -756,45 +756,43 @@ struct    kill_data
 #define PART_FANGS              (V)
 #define PART_HORNS              (W)
 #define PART_SCALES             (X)
-#define PART_TUSKS        (Y)
+#define PART_TUSKS              (Y)
 
 
 /*
  * Bits for 'affected_by'.
  * Used in #MOBILES.
  */
-#define AFF_BLIND        (A)
+#define AFF_BLIND            (A)
 #define AFF_INVISIBLE        (B)
-#define AFF_DETECT_EVIL        (C)
-#define AFF_DETECT_INVIS    (D)
-#define AFF_DETECT_MAGIC    (E)
+#define AFF_DETECT_EVIL      (C)
+#define AFF_DETECT_INVIS     (D)
+#define AFF_DETECT_MAGIC     (E)
 #define AFF_DETECT_HIDDEN    (F)
-#define AFF_DETECT_GOOD        (G)
+#define AFF_DETECT_GOOD      (G)
 #define AFF_SANCTUARY        (H)
-#define AFF_FAERIE_FIRE        (I)
-#define AFF_INFRARED        (J)
-#define AFF_CURSE        (K)
-#define AFF_UNUSED_FLAG        (L)    /* unused */
-#define AFF_POISON        (M)
-#define AFF_PROTECT_EVIL    (N)
-#define AFF_PROTECT_GOOD    (O)
-#define AFF_SNEAK        (P)
-#define AFF_HIDE        (Q)
-#define AFF_SLEEP        (R)
-#define AFF_CHARM        (S)
-#define AFF_FLYING        (T)
+#define AFF_FAERIE_FIRE      (I)
+#define AFF_INFRARED         (J)
+#define AFF_CURSE            (K)
+#define AFF_UNUSED_FLAG      (L)    /* unused */
+#define AFF_POISON           (M)
+#define AFF_PROTECT_EVIL     (N)
+#define AFF_PROTECT_GOOD     (O)
+#define AFF_SNEAK            (P)
+#define AFF_HIDE             (Q)
+#define AFF_SLEEP            (R)
+#define AFF_CHARM            (S)
+#define AFF_FLYING           (T)
 #define AFF_PASS_DOOR        (U)
-#define AFF_HASTE        (V)
-#define AFF_CALM        (W)
-#define AFF_PLAGUE        (X)
-#define AFF_WEAKEN        (Y)
-#define AFF_DARK_VISION        (Z)
-#define AFF_BERSERK        (aa)
-#define AFF_SWIM        (bb)
-#define AFF_REGENERATION        (cc)
-#define AFF_SLOW        (dd)
-
-
+#define AFF_HASTE            (V)
+#define AFF_CALM             (W)
+#define AFF_PLAGUE           (X)
+#define AFF_WEAKEN           (Y)
+#define AFF_DARK_VISION      (Z)
+#define AFF_BERSERK          (aa)
+#define AFF_SWIM             (bb)
+#define AFF_REGENERATION     (cc)
+#define AFF_SLOW             (dd)
 
 
 /*
@@ -823,8 +821,6 @@ struct    kill_data
 #define SIZE_LARGE   3
 #define SIZE_HUGE    4
 #define SIZE_GIANT   5
-
-
 
 /*
  * Well known object virtual numbers.
@@ -872,8 +868,6 @@ struct    kill_data
 
 #define OBJ_VNUM_WHISTLE           2116
 
-
-
 /*
  * Item types.
  * Used in #OBJECTS.
@@ -907,7 +901,6 @@ struct    kill_data
 #define ITEM_GEM         32
 #define ITEM_JEWELRY     33
 
-
 /*
  * Extra flags.
  * Used in #OBJECTS.
@@ -936,7 +929,6 @@ struct    kill_data
 #define ITEM_SELL_EXTRACT  (W)
 #define ITEM_BURN_PROOF    (Y)
 #define ITEM_NOUNCURSE     (Z)
-
 
 /*
  * Wear flags.
@@ -1006,9 +998,6 @@ struct    kill_data
 #define PUT_IN      (O)
 #define PUT_INSIDE  (P)
 
-
-
-
 /*
  * Apply types (for affects).
  * Used in #OBJECTS.
@@ -1051,8 +1040,6 @@ struct    kill_data
 #define CONT_LOCKED      8
 #define CONT_PUT_ON     16
 
-
-
 /*
  * Well known room virtual numbers.
  * Defined in #ROOMS.
@@ -1067,29 +1054,24 @@ struct    kill_data
 #define ROOM_VNUM_DEMISE   4201
 #define ROOM_VNUM_HONOR    4300
 
-
-
 /*
  * Room flags.
  * Used in #ROOMS.
  */
-#define ROOM_DARK        (A)
-#define ROOM_NO_MOB        (C)
-#define ROOM_INDOORS        (D)
-
-#define ROOM_PRIVATE        (J)
-#define ROOM_SAFE        (K)
-#define ROOM_SOLITARY        (L)
-#define ROOM_PET_SHOP        (M)
-#define ROOM_NO_RECALL        (N)
-#define ROOM_IMP_ONLY        (O)
-#define ROOM_GODS_ONLY        (P)
-#define ROOM_HEROES_ONLY    (Q)
-#define ROOM_NEWBIES_ONLY    (R)
-#define ROOM_LAW        (S)
-#define ROOM_NOWHERE        (T)
-
-
+#define ROOM_DARK         (A)
+#define ROOM_NO_MOB       (C)
+#define ROOM_INDOORS      (D)
+#define ROOM_PRIVATE      (J)
+#define ROOM_SAFE         (K)
+#define ROOM_SOLITARY     (L)
+#define ROOM_PET_SHOP     (M)
+#define ROOM_NO_RECALL    (N)
+#define ROOM_IMP_ONLY     (O)
+#define ROOM_GODS_ONLY    (P)
+#define ROOM_HEROES_ONLY  (Q)
+#define ROOM_NEWBIES_ONLY (R)
+#define ROOM_LAW          (S)
+#define ROOM_NOWHERE      (T)
 
 /*
  * Directions.
@@ -1101,8 +1083,6 @@ struct    kill_data
 #define DIR_WEST   3
 #define DIR_UP     4
 #define DIR_DOWN   5
-
-
 
 /*
  * Exit flags.
@@ -1118,8 +1098,6 @@ struct    kill_data
 #define EX_INFURIATING  (J)
 #define EX_NOCLOSE      (K)
 #define EX_NOLOCK       (L)
-
-
 
 /*
  * Sector types.
@@ -1137,8 +1115,6 @@ struct    kill_data
 #define SECT_AIR            9
 #define SECT_DESERT        10
 #define SECT_MAX           11
-
-
 
 /*
  * Equpiment wear locations.
@@ -1166,8 +1142,6 @@ struct    kill_data
 #define WEAR_FLOAT    18
 #define MAX_WEAR      19
 
-
-
 /***************************************************************************
  *                                                                         *
  *                   VALUES OF INTEREST TO AREA BUILDERS                   *
@@ -1183,8 +1157,6 @@ struct    kill_data
 #define COND_THIRST  2
 #define COND_HUNGER  3
 
-
-
 /*
  * Positions.
  */
@@ -1198,37 +1170,34 @@ struct    kill_data
 #define POS_FIGHTING  7
 #define POS_STANDING  8
 
-
-
 /*
  * ACT bits for players.
  */
-#define PLR_IS_NPC        (A)        /* Don't EVER set.    */
+#define PLR_IS_NPC          (A)        /* Don't EVER set.    */
 
 /* RT auto flags */
-#define PLR_AUTOASSIST        (C)
+#define PLR_AUTOASSIST      (C)
 #define PLR_AUTOEXIT        (D)
 #define PLR_AUTOLOOT        (E)
-#define PLR_AUTOSAC             (F)
+#define PLR_AUTOSAC         (F)
 #define PLR_AUTOGOLD        (G)
-#define PLR_AUTOSPLIT        (H)
+#define PLR_AUTOSPLIT       (H)
 
 /* RT personal flags */
-#define PLR_HOLYLIGHT        (N)
-#define PLR_CANLOOT        (P)
+#define PLR_HOLYLIGHT       (N)
+#define PLR_CANLOOT         (P)
 #define PLR_NOSUMMON        (Q)
 #define PLR_NOFOLLOW        (R)
-#define PLR_COLOR        (T)
+#define PLR_COLOR           (T)
 /* 1 bit reserved, S */
 
 /* penalty flags */
-#define PLR_PERMIT        (U)
-#define PLR_LOG            (W)
-#define PLR_DENY        (X)
-#define PLR_FREEZE        (Y)
-#define PLR_THIEF        (Z)
-#define PLR_KILLER        (aa)
-
+#define PLR_PERMIT          (U)
+#define PLR_LOG             (W)
+#define PLR_DENY            (X)
+#define PLR_FREEZE          (Y)
+#define PLR_THIEF           (Z)
+#define PLR_KILLER          (aa)
 
 /* RT comm flags -- may be used on both mobs and chars */
 #define COMM_QUIET              (A)
@@ -1325,8 +1294,6 @@ struct    mob_index_data
     char *            material;
     long              mprog_flags;
 };
-
-
 
 /* memory settings */
 #define MEM_CUSTOMER  A
@@ -1444,8 +1411,6 @@ struct    char_data
     sh_int             mprog_delay;
 };
 
-
-
 /*
  * Data which only PC's have.
  */
@@ -1486,8 +1451,6 @@ struct gen_data
     int         points_chosen;
 };
 
-
-
 /*
  * Liquids.
  */
@@ -1500,8 +1463,6 @@ struct    liq_type
     sh_int    liq_affect[5];
 };
 
-
-
 /*
  * Extra description data for a room or object.
  */
@@ -1512,8 +1473,6 @@ struct    extra_descr_data
     char *              keyword;      /* Keyword in look/examine */
     char *              description;  /* What to see             */
 };
-
-
 
 /*
  * Prototype for an object.
@@ -1541,8 +1500,6 @@ struct    obj_index_data
     int                 cost;
     int                 value[5];
 };
-
-
 
 /*
  * One object.
@@ -1578,8 +1535,6 @@ struct    obj_data
     int                 value [5];
 };
 
-
-
 /*
  * Exit data.
  */
@@ -1598,8 +1553,6 @@ struct    exit_data
     int          rs_flags;    /* OLC */
     int          orig_door;   /* OLC */
 };
-
-
 
 /*
  * Reset commands:
@@ -1627,8 +1580,6 @@ struct    reset_data
     sh_int        arg4;
 };
 
-
-
 /*
  * Area definition.
  */
@@ -1651,8 +1602,6 @@ struct    area_data
     int            area_flags;    /* OLC */
     int            security;    /* OLC */ /* Value 1-9  */
 };
-
-
 
 /*
  * Room type.
@@ -1679,8 +1628,6 @@ struct    room_index_data
     sh_int        clan;
 };
 
-
-
 /*
  * Types of attacks.
  * Must be non-overlapping with spell/skill types,
@@ -1689,25 +1636,21 @@ struct    room_index_data
 #define TYPE_UNDEFINED               -1
 #define TYPE_HIT                     1000
 
-
-
 /*
  *  Target types.
  */
-#define TAR_IGNORE            0
-#define TAR_CHAR_OFFENSIVE        1
-#define TAR_CHAR_DEFENSIVE        2
-#define TAR_CHAR_SELF            3
+#define TAR_IGNORE             0
+#define TAR_CHAR_OFFENSIVE     1
+#define TAR_CHAR_DEFENSIVE     2
+#define TAR_CHAR_SELF          3
 #define TAR_OBJ_INV            4
-#define TAR_OBJ_CHAR_DEF        5
-#define TAR_OBJ_CHAR_OFF        6
+#define TAR_OBJ_CHAR_DEF       5
+#define TAR_OBJ_CHAR_OFF       6
 
 #define TARGET_CHAR            0
-#define TARGET_OBJ            1
+#define TARGET_OBJ             1
 #define TARGET_ROOM            2
 #define TARGET_NONE            3
-
-
 
 /*
  * Skills include spells as a particular case.
@@ -1739,22 +1682,22 @@ struct  group_type
 /*
  * MOBprog definitions
  */                   
-#define TRIG_ACT    (A)
+#define TRIG_ACT      (A)
 #define TRIG_BRIBE    (B)
 #define TRIG_DEATH    (C)
 #define TRIG_ENTRY    (D)
 #define TRIG_FIGHT    (E)
-#define TRIG_GIVE    (F)
+#define TRIG_GIVE     (F)
 #define TRIG_GREET    (G)
 #define TRIG_GRALL    (H)
-#define TRIG_KILL    (I)
+#define TRIG_KILL     (I)
 #define TRIG_HPCNT    (J)
-#define TRIG_RANDOM    (K)
-#define TRIG_SPEECH    (L)
-#define TRIG_EXIT    (M)
+#define TRIG_RANDOM   (K)
+#define TRIG_SPEECH   (L)
+#define TRIG_EXIT     (M)
 #define TRIG_EXALL    (N)
 #define TRIG_DELAY    (O)
-#define TRIG_SURR    (P)
+#define TRIG_SURR     (P)
 
 struct mprog_list
 {
@@ -1778,7 +1721,7 @@ struct mprog_code
  */
 extern    sh_int    gsn_backstab;
 extern    sh_int    gsn_dodge;
-extern  sh_int  gsn_envenom;
+extern    sh_int  gsn_envenom;
 extern    sh_int    gsn_hide;
 extern    sh_int    gsn_peek;
 extern    sh_int    gsn_pick_lock;
@@ -1798,11 +1741,11 @@ extern    sh_int    gsn_charm_person;
 extern    sh_int    gsn_curse;
 extern    sh_int    gsn_invis;
 extern    sh_int    gsn_mass_invis;
-extern  sh_int  gsn_plague;
+extern    sh_int  gsn_plague;
 extern    sh_int    gsn_poison;
 extern    sh_int    gsn_sleep;
-extern  sh_int  gsn_fly;
-extern  sh_int  gsn_sanctuary;
+extern    sh_int  gsn_fly;
+extern    sh_int  gsn_sanctuary;
 
 /* new gsns */
 extern sh_int  gsn_axe;
@@ -1830,8 +1773,6 @@ extern sh_int  gsn_scrolls;
 extern sh_int  gsn_staves;
 extern sh_int  gsn_wands;
 extern sh_int  gsn_recall;
-
-
 
 /*
  * Utility macros.
@@ -1908,8 +1849,6 @@ extern sh_int  gsn_recall;
 #define WEIGHT_MULT(obj)    ((obj)->item_type == ITEM_CONTAINER ? \
     (obj)->value[4] : 100)
 
-
-
 /*
  * Description macros.
  */
@@ -1933,8 +1872,6 @@ struct    social_type
     char *    others_auto;
 };
 
-
-
 /*
  * Global constants.
  */
@@ -1957,8 +1894,6 @@ extern    const    struct    skill_type      skill_table    [MAX_SKILL];
 extern    const    struct    group_type      group_table    [MAX_GROUP];
 extern             struct    social_type     social_table   [MAX_SOCIALS];
 extern    char *    const    title_table [MAX_CLASS] [MAX_LEVEL+1] [2];
-
-
 
 /*
  * Global variables.
@@ -1989,31 +1924,23 @@ extern  bool				MOBtrigger;
  * These are all very standard library functions,
  *   but some systems have incomplete or non-ansi header files.
  */
-#if    defined(_AIX)
-char *    crypt        args( ( const char *key, const char *salt ) );
-#endif
-
-#if    defined(hpux)
-char *    crypt        args( ( const char *key, const char *salt ) );
-#endif
-
 #if    defined(linux)
-char *    crypt        args( ( const char *key, const char *salt ) );
+	char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
 #if defined(_WIN32)
-//char *    crypt        args((const char *key, const char *salt));
-#define NOCRYPT
-#if    defined(unix)
-#undef    unix
-#endif
+	//char *    crypt        args((const char *key, const char *salt));
+	#define NOCRYPT
+	#if    defined(unix)
+		#undef    unix
+	#endif
 #endif
 
 #if    defined(__apple__)
-#define NOCRYPT
-#if    defined(unix)
-#undef    unix
-#endif
+	#define NOCRYPT
+	#if    defined(unix)
+		#undef    unix
+	#endif
 #endif
 
 /*
@@ -2023,10 +1950,8 @@ char *    crypt        args( ( const char *key, const char *salt ) );
  * Turn on NOCRYPT to keep passwords in plain text.
  */
 #if    defined(NOCRYPT)
-#define crypt(s1, s2)    (s1)
+	#define crypt(s1, s2)    (s1)
 #endif
-
-
 
 /*
  * Data files used by the server.
@@ -2065,8 +1990,6 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 #define BAN_FILE        "ban.txt"
 #define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
 
-
-
 /*
  * Our function prototypes.
  * One big lump ... this is every function in Merc.
@@ -2089,7 +2012,6 @@ void     die_follower        args( ( CHAR_DATA *ch ) );
 bool     is_same_group       args( ( CHAR_DATA *ach, CHAR_DATA *bch ) );
 void     log_f                args( ( char * fmt, ... ) );
 
-
 /* act_enter.c */
 RID      *get_random_room    args( ( CHAR_DATA *ch ) );
 
@@ -2102,14 +2024,12 @@ void     move_char           args( ( CHAR_DATA *ch, int door, bool follow ) );
 /* act_obj.c */
 bool     can_loot            args( ( CHAR_DATA *ch, OBJ_DATA *obj ) );
 void     wear_obj            args( ( CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace ) );
-void     get_obj             args( ( CHAR_DATA *ch, OBJ_DATA *obj,
-                                     OBJ_DATA *container ) );
+void     get_obj             args( ( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container ) );
 
 /* act_wiz.c */
-void     wiznet              args( ( char *string, CHAR_DATA *ch, OBJ_DATA *obj,
-                                     long flag, long flag_skip, int min_level ) );
+void     wiznet              args( ( char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level ) );
 void     copyover_recover    args( ( void ) );
-void	qmconfig_read		args( ( void ) );
+void 	 qmconfig_read		args( ( void ) );
                    
 /* alias.c */
 void     substitute_alias    args( ( DESCRIPTOR_DATA *d, char *input ) );
@@ -2117,20 +2037,15 @@ void     substitute_alias    args( ( DESCRIPTOR_DATA *d, char *input ) );
 /* ban.c */
 bool     check_ban           args( ( char *site, int type) );
 
-
 /* comm.c */
 void     show_string         args( ( struct descriptor_data *d, char *input) );
 void     close_socket        args( ( DESCRIPTOR_DATA *dclose ) );
-void     write_to_buffer     args( ( DESCRIPTOR_DATA *d, const char *txt,
-                                     int length ) );
+void     write_to_buffer     args( ( DESCRIPTOR_DATA *d, const char *txt, int length ) );
 void     send_to_desc        args( ( const char *txt, DESCRIPTOR_DATA *d ) );
 void     send_to_char        args( ( const char *txt, CHAR_DATA *ch ) );
 void     page_to_char        args( ( const char *txt, CHAR_DATA *ch ) );
-void     act                 args( ( const char *format, CHAR_DATA *ch,
-                                     const void *arg1, const void *arg2, int type ) );
-void     act_new             args( ( const char *format, CHAR_DATA *ch, 
-                                     const void *arg1, const void *arg2, int type,
-                                     int min_pos) );
+void     act                 args( ( const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type ) );
+void     act_new             args( ( const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type, int min_pos) );
 void     printf_to_char      args( ( CHAR_DATA *, char *, ... ) );
 void     printf_to_desc      args( ( DESCRIPTOR_DATA *, char *, ... ) );
 void     bugf                args( ( char *, ... ) );
@@ -2194,7 +2109,6 @@ bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
  void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
  void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );    
 
-
 /* effect.c */
 void    acid_effect    args( (void *vo, int level, int dam, int target) );
 void    cold_effect    args( (void *vo, int level, int dam, int target) );
@@ -2202,16 +2116,13 @@ void    fire_effect    args( (void *vo, int level, int dam, int target) );
 void    poison_effect  args( (void *vo, int level, int dam, int target) );
 void    shock_effect   args( (void *vo, int level, int dam, int target) );
 
-
 /* fight.c */
-bool     is_safe        args( (CHAR_DATA *ch, CHAR_DATA *victim ) );
-bool     is_safe_spell    args( (CHAR_DATA *ch, CHAR_DATA *victim, bool area ) );
+bool    is_safe        args( (CHAR_DATA *ch, CHAR_DATA *victim ) );
+bool    is_safe_spell    args( (CHAR_DATA *ch, CHAR_DATA *victim, bool area ) );
 void    violence_update    args( ( void ) );
 void    multi_hit    args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dt ) );
-bool    damage        args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
-                    int dt, int class, bool show ) );
-bool    damage_old      args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam,
-                                int dt, int class, bool show ) );
+bool    damage        args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int class, bool show ) );
+bool    damage_old      args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int class, bool show ) );
 void    update_pos    args( ( CHAR_DATA *victim ) );
 void    stop_fighting    args( ( CHAR_DATA *ch, bool fBoth ) );
 void    check_killer    args( ( CHAR_DATA *ch, CHAR_DATA *victim) );
@@ -2320,12 +2231,9 @@ void    obj_cast_spell    args( ( int sn, int level, CHAR_DATA *ch,
                     CHAR_DATA *victim, OBJ_DATA *obj ) );
 
 /* mob_prog.c */
-void    program_flow    args( ( sh_int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch,
-                const void *arg1, const void *arg2 ) );
-void    mp_act_trigger    args( ( char *argument, CHAR_DATA *mob, CHAR_DATA *ch,
-                const void *arg1, const void *arg2, int type ) );
-bool    mp_percent_trigger args( ( CHAR_DATA *mob, CHAR_DATA *ch,                 
-                const void *arg1, const void *arg2, int type ) );
+void    program_flow    args( ( sh_int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2 ) );
+void    mp_act_trigger    args( ( char *argument, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2, int type ) );
+bool    mp_percent_trigger args( ( CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2, int type ) );
 void    mp_bribe_trigger  args( ( CHAR_DATA *mob, CHAR_DATA *ch, int amount ) );
 bool    mp_exit_trigger   args( ( CHAR_DATA *ch, int dir ) );
 void    mp_give_trigger   args( ( CHAR_DATA *mob, CHAR_DATA *ch, OBJ_DATA *obj ) );
@@ -2340,16 +2248,15 @@ void    save_char_obj    args( ( CHAR_DATA *ch ) );
 bool    load_char_obj    args( ( DESCRIPTOR_DATA *d, char *name ) );
 
 /* skills.c */
-bool     parse_gen_groups args( ( CHAR_DATA *ch,char *argument ) );
-void     list_group_costs args( ( CHAR_DATA *ch ) );
+bool    parse_gen_groups args( ( CHAR_DATA *ch,char *argument ) );
+void    list_group_costs args( ( CHAR_DATA *ch ) );
 void    list_group_known args( ( CHAR_DATA *ch ) );
 int     exp_per_level    args( ( CHAR_DATA *ch, int points ) );
-void     check_improve    args( ( CHAR_DATA *ch, int sn, bool success, 
-                    int multiplier ) );
+void    check_improve    args( ( CHAR_DATA *ch, int sn, bool success, int multiplier ) );
 int     group_lookup    args( (const char *name) );
 void    gn_add        args( ( CHAR_DATA *ch, int gn) );
-void     gn_remove    args( ( CHAR_DATA *ch, int gn) );
-void     group_add    args( ( CHAR_DATA *ch, const char *name, bool deduct) );
+void    gn_remove    args( ( CHAR_DATA *ch, int gn) );
+void    group_add    args( ( CHAR_DATA *ch, const char *name, bool deduct) );
 void    group_remove    args( ( CHAR_DATA *ch, const char *name) );
 
 /* special.c */
@@ -2368,12 +2275,12 @@ void    update_handler    args( ( bool forced ) );
 /* string.c */
 void    string_edit    args( ( CHAR_DATA *ch, char **pString ) );
 void    string_append   args( ( CHAR_DATA *ch, char **pString ) );
-char *    string_replace    args( ( char * orig, char * old, char * new ) );
+char *  string_replace    args( ( char * orig, char * old, char * new ) );
 void    string_add      args( ( CHAR_DATA *ch, char *argument ) );
 char *  format_string   args( ( char *oldstring /*, bool fSpace */ ) );
 char *  first_arg       args( ( char *argument, char *arg_first, bool fCase ) );
-char *    string_unpad    args( ( char * argument ) );
-char *    string_proper    args( ( char * argument ) );
+char *  string_unpad    args( ( char * argument ) );
+char *  string_proper    args( ( char * argument ) );
 
 /* olc.c */
 bool    run_olc_editor    args( ( DESCRIPTOR_DATA *d ) );
@@ -2448,4 +2355,3 @@ extern        char  str_empty [1];
 extern        MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];
 extern        OBJ_INDEX_DATA  *    obj_index_hash  [MAX_KEY_HASH];
 extern        ROOM_INDEX_DATA *    room_index_hash [MAX_KEY_HASH];
-
