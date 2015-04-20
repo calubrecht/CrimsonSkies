@@ -1381,7 +1381,7 @@ void fix_exits (void)
     ROOM_INDEX_DATA *pRoomIndex;
     //ROOM_INDEX_DATA *to_room;
     EXIT_DATA *pexit;
-    EXIT_DATA *pexit_rev;
+    //EXIT_DATA *pexit_rev;
     RESET_DATA *pReset;
     ROOM_INDEX_DATA *iLastRoom, *iLastObj;
     int iHash;
