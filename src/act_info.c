@@ -1106,7 +1106,7 @@ void do_look (CHAR_DATA * ch, char *argument)
              && (IS_NPC (ch) || IS_SET (ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER (ch, ch->in_room->area))
         {			
-			sprintf(buf, "{r [{RRoom %d{r] {r[{RArea %s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
+			sprintf(buf, "{r [{RRoom %d{r] {r[{R%s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
             send_to_char (buf, ch);
         }
 
