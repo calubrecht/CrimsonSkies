@@ -82,14 +82,12 @@ typedef bool SPEC_FUN  args( ( CHAR_DATA *ch ) );
 typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int target ) );
 
 /*
- * String and memory management parameters.
+ * String and memory management parameters / shorthand defs.
  */
 #define MAX_KEY_HASH          1024
 #define MAX_STRING_LENGTH     4608
 #define MAX_INPUT_LENGTH       256
 #define PAGELEN                 22
-
-/* I am lazy :) */
 #define MSL MAX_STRING_LENGTH
 #define MIL MAX_INPUT_LENGTH
 
@@ -133,7 +131,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define HERO        LEVEL_HERO
 
 /*
- * Color stuff v2.0, by Lope.
+ * Color stuff by Lope.
  */
 #define CLEAR       "\x1B[0m"        /* Resets Color    */
 #define C_RED       "\x1B[0;31m"    /* Normal Colors    */
@@ -187,8 +185,6 @@ struct buf_type
     char *      string; /* buffer's string */
 };
 
-
-
 /*
  * Time and weather stuff.
  */
@@ -218,8 +214,6 @@ struct    weather_data
     int        sunlight;
 };
 
-
-
 /*
  * Connected state for a channel.
  */
@@ -247,7 +241,6 @@ struct    weather_data
 #define CON_NOTE_EXPIRE			7
 #define CON_NOTE_TEXT			8
 #define CON_NOTE_FINISH			9
-
 
 /*
  * Descriptor (channel) structure.
@@ -277,8 +270,6 @@ struct    descriptor_data
     char **     pString;       /* OLC */
     int         editor;        /* OLC */
 };
-
-
 
 /*
  * Attribute bonus structures.
@@ -312,8 +303,6 @@ struct    con_app_type
     sh_int    shock;
 };
 
-
-
 /*
  * TO types for act.
  */
@@ -322,8 +311,6 @@ struct    con_app_type
 #define TO_VICT           2
 #define TO_CHAR           3
 #define TO_ALL            4
-
-
 
 /*
  * Help table types.
@@ -364,12 +351,9 @@ struct    shop_data
     sh_int       close_hour;            /* First closing hour        */
 };
 
-
-
 /*
  * Per-class stuff.
  */
-
 #define MAX_GUILD  2
 #define MAX_STATS  5
 #define STAT_STR   0
@@ -437,7 +421,6 @@ struct race_type
     long    parts;    /* default parts for the race     */
 };
 
-
 struct pc_race_type                 /* additional data for pc races    */
 {
     char *  name;                   /* MUST be in race_type            */
@@ -450,19 +433,15 @@ struct pc_race_type                 /* additional data for pc races    */
     sh_int  size;                   /* aff bits for the race           */
 };
 
-
 struct spec_type
 {
     char *      name;      /* special function name */
     SPEC_FUN *  function;  /* the function          */
 };
 
-
-
 /*
  * Data structure for notes.
  */
-
 struct    note_data
 {
     NOTE_DATA *  next;
@@ -476,8 +455,6 @@ struct    note_data
     time_t       date_stamp;
 	time_t		 expire;
 };
-
-
 
 /*
  * An affect.
@@ -513,8 +490,6 @@ struct    kill_data
     sh_int  killed;
 };
 
-
-
 /***************************************************************************
  *                                                                         *
  *                   VALUES OF INTEREST TO AREA BUILDERS                   *
@@ -536,7 +511,6 @@ struct    kill_data
 
 
 /* RT ASCII conversions -- used so we can have letters in this file */
-
 #define A            1
 #define B            2
 #define C            4
@@ -571,6 +545,8 @@ struct    kill_data
 #define cc   268435456    
 #define dd   536870912
 #define ee  1073741824
+#define ff  2147483648
+#define gg	4294967296
 
 /*
  * ACT bits for mobs.
