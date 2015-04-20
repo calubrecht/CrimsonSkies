@@ -4856,7 +4856,6 @@ void do_forcetick(CHAR_DATA * ch, char *argument)
 */
 
 bool check_parse_name(char* name);  /* comm.c */
-char *initial(const char *str);    /* comm.c */
 
 void do_rename(CHAR_DATA* ch, char* argument)
 {
@@ -4917,12 +4916,7 @@ void do_rename(CHAR_DATA* ch, char* argument)
 	}
 
 	/* First, check if there is a player named that off-line */
-#if !defined(machintosh) && !defined(MSDOS) && !defined(_WIN32)
-	sprintf(strsave, "%s%s%s%s", PLAYER_DIR, initial(new_name),
-		"/", capitalize(new_name));
-#else
 	sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(new_name));
-#endif
 
 	fclose(fpReserve); /* close the reserve file */
 	file = fopen(strsave, "r"); /* attempt to to open pfile */
@@ -4935,13 +4929,7 @@ void do_rename(CHAR_DATA* ch, char* argument)
 	}
 	fpReserve = fopen(NULL_FILE, "r");  /* reopen the extra file */
 
-	/* Check .gz file ! */
-#if !defined(machintosh) && !defined(MSDOS) && !defined(_WIN32)
-	sprintf(strsave, "%s%s%s%s.gz", PLAYER_DIR, initial(new_name),
-		"/", capitalize(new_name));
-#else
 	sprintf(strsave, "%s%s.gz", PLAYER_DIR, capitalize(new_name));
-#endif
 
 	fclose(fpReserve); /* close the reserve file */
 	file = fopen(strsave, "r"); /* attempt to to open pfile */
@@ -4961,12 +4949,7 @@ void do_rename(CHAR_DATA* ch, char* argument)
 	}
 
 	/* Save the filename of the old name */
-#if !defined(machintosh) && !defined(MSDOS) && !defined(_WIN32)
-	sprintf(strsave, "%s%s%s%s", PLAYER_DIR, initial(victim->name),
-		"/", capitalize(victim->name));
-#else
 	sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(victim->name));
-#endif
 
 	/* Rename the character and save him to a new file */
 	/* NOTE: Players who are level 1 do NOT get saved under a new name */
