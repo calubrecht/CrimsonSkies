@@ -348,6 +348,8 @@ const struct cmd_type cmd_table[] = {
     {"debug",		do_debug,    POS_DEAD, ML, LOG_NEVER, 0},
 	{"forcetick",   do_forcetick,POS_DEAD, ML, LOG_ALWAYS, 1 },
 	{"rename",      do_rename,   POS_DEAD, L6, LOG_ALWAYS, 1 },
+	{"vlist",       do_vlist,    POS_DEAD, IM, LOG_NEVER, 1  },
+	{"exlist",      do_exlist,   POS_DEAD, IM, LOG_NEVER, 1  },
 
     /*
      * OLC
