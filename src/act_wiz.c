@@ -4783,11 +4783,11 @@ void qmconfig_read (void) {
 	char *word;
 	extern int mud_ansiprompt, mud_ansicolor, mud_telnetga;
 
-	log_f("Loading configuration settings from ../area/qmconfig.rc.");
+	log_f("Loading configuration from ../area/config.txt.");
 
-	fp = fopen("../area/qmconfig.rc","r");
+	fp = fopen("../area/config.txt","r");
 	if (!fp) {
-		log_f("qmconfig.rc not found. Using compiled-in defaults.");
+		log_f("config.txt not found. Using compiled-in defaults.");
 		return;
 	}
 
@@ -4824,7 +4824,7 @@ void qmconfig_read (void) {
 			fread_to_eol(fp);
 		}
 	}
-	log_f("Settings have been read from ../area/qmconfig.rc");
+	log_f("Settings have been read from ../area/config.txt");
 	exit(0);
 
 }

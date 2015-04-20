@@ -268,5 +268,6 @@
     <Text Include="doc\trad.txt" />
     <Text Include="doc\vnum.txt" />
     <Text Include="doc\WindowsSupport.txt" />
+    <Text Include="area\config.txt" />
   </ItemGroup>
 </Project>

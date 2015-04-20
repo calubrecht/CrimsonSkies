@@ -55,7 +55,7 @@ CHANGELOG.quickmud
       code itself. Funny how you can miss these things ;) Thanks
       Mongbat!!
 
-   ** The mud_* variables are now read from ../area/qmconfig.rc. These
+   ** The mud_* variables are now read from ../area/config.txt. These
       values are mud_ansiprompt, mud_ansicolor, and mud_telnetga. I
       think they are fairly self-explanatory. Putting them in the file
       sets the default value at bootup. However, you can set the values

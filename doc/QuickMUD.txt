@@ -62,7 +62,7 @@ QuickMUD stuff:
 		  players by default if this is enabled. Good for
 		  players who use MUD clients like "mcl".
 
-		These variables are set in area/qmconfig.rc. "1" means
+		These variables are set in area/config.txt. "1" means
 		turn it on, "0" means turn it off.
 
 Well, that's enough for now. It's a start. I'll be using emails I

@@ -212,7 +212,7 @@ int port, control;
 
 /* Put global mud config values here. Look at qmconfig command for clues.     */
 /*   -- JR 09/23/2000                                                         */
-/* Set values for all but IP address in ../area/qmconfig.rc file.             */
+/* Set values for all but IP address in ../area/config.txt file.             */
 /*   -- JR 05/10/2001                                                         */
 int mud_ansiprompt, mud_ansicolor, mud_telnetga;
 
