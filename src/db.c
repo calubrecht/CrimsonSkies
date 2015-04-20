@@ -542,6 +542,8 @@ void new_load_area (FILE * fp)
     pArea->area_flags = 0;
 /*  pArea->recall       = ROOM_VNUM_TEMPLE;        ROM OLC */
 
+	log_f("Loading area %s", pArea->file_name);
+
     for (;;)
     {
         word = feof (fp) ? "End" : fread_word (fp);
