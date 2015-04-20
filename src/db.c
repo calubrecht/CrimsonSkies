@@ -1517,7 +1517,7 @@ void fix_exits (void)
 void load_mobprogs (FILE * fp)
 {
     MPROG_CODE *pMprog;
-
+	
     if (area_last == NULL)
     {
         bug ("Load_mobprogs: no #AREA seen yet.", 0);
@@ -1560,7 +1560,10 @@ void load_mobprogs (FILE * fp)
         }
         top_mprog_index++;
     }
-	log_f("Loaded %d mobprogs.", top_mprog_index);
+	// marker (consider advanced logging config feature, commented out for
+    // now as there aren't any mobprogs yet in the stock areas and it spams the
+	// startup logs
+	//log_f("Loaded %d mobprogs.", top_mprog_index);
     return;
 }
 
