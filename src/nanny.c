@@ -34,7 +34,7 @@
  ***************************************************************************/
 
 // System Specific Includes
-#if defined(macintosh)
+#if defined(__apple__)
 	#include <types.h>
 	#include <unistd.h>                /* OLC -- for close read write etc */
 	#include <time.h>
@@ -66,7 +66,7 @@
 	extern const char go_ahead_str[];
 #endif
 
-#if    defined(macintosh) || defined(MSDOS)
+#if    defined(__apple__) || defined(MSDOS)
 	extern const char echo_off_str[];
 	extern const char echo_on_str[];
 	extern const char go_ahead_str[];
@@ -86,7 +86,7 @@
 /*
  * OS-dependent local functions.
  */
-#if defined(macintosh) || defined(MSDOS)
+#if defined(__apple__) || defined(MSDOS)
 void game_loop_mac_msdos args ((void));
 bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
 bool write_to_descriptor args ((int desc, char *txt, int length));

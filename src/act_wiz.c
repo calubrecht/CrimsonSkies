@@ -28,7 +28,7 @@
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_wiz.c,v 1.3 2000/12/01 10:48:33 ring0 Exp $ */
 
 // System Specific Includes
-#if defined(macintosh)
+#if defined(__apple__)
 	#include <types.h>
 	#include <time.h>
 	#include <unistd.h>                /* For execl in copyover() */

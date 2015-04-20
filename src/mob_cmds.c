@@ -34,7 +34,7 @@
  ***************************************************************************/
 
 // System Specific Includes
-#if defined(macintosh)
+#if defined(__apple__)
 	#include <types.h>
 #elif defined(_WIN32)
 	#include <sys/types.h>
