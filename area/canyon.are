@@ -708,8 +708,8 @@ an ice staff~
 An ice staff lies forgotten on the ground.~
 oldstyle~
 wand A AO
-12 3 3 'frost breath' 0
-25 70 13700 P
+10 2 2 'frost breath' 0
+19 70 11200 P
 #9217
 rod earthquake~
 an elemental rod of earthquake~
@@ -2034,7 +2034,6 @@ M 0 9235 2 9249 2 Load a baby rainbow dragon
 M 0 9218 15 9249 15 Load a small spark
 M 0 9205 12 9250 12 Load a small elemental
 M 0 9218 15 9250 15 Load a small spark
-E 0 9219 0 17 Elemental wand of lightning is loaded held in the hands of a small spark
 M 0 9218 15 9251 15 Load a small spark
 M 0 9211 1 9252 1 Load The Lightning Ruler
 E 0 9207 0 16 A sparking lightning sword is loaded wielded of The Lightning Ruler
