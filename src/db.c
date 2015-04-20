@@ -1479,6 +1479,11 @@ void fix_exits (void)
         }
     }
 
+	// It appears this is just reporting the exists that need to be fixed... some areas have
+	// exits that may not go back and forth (like hell).  Commeting this out for now, needless
+	// processing.  Uncomment it if you want to check for exits that don't go back and forth in
+	// the future.  Rhien 4/19/2015
+	/*
     for (iHash = 0; iHash < MAX_KEY_HASH; iHash++)
     {
         for (pRoomIndex = room_index_hash[iHash];
@@ -1501,7 +1506,7 @@ void fix_exits (void)
                 }
             }
         }
-    }
+    }*/
 
     return;
 }
