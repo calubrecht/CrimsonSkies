@@ -4975,8 +4975,8 @@ void do_rename(CHAR_DATA* ch, char* argument)
 } /* do_rename */
 
 // VNUM Utilities from Erwin
-// To have VLIST show more than vnum 0 - 9900, change the number below: 
-#define MAX_SHOW_VNUM   99 /* show only 1 - 100*100 */
+// To have VLIST show more than vnum 0 - 32000, change the number below: 
+#define MAX_SHOW_VNUM   320  /* show only 1 - 100*100 */
 #define NUL '\0'
 extern ROOM_INDEX_DATA * room_index_hash[MAX_KEY_HASH]; /* db.c */
 
