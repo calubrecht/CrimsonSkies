@@ -1,8 +1,7 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6/QuickMUD.  All new changes
-will be documented in the change log. 
+Crimson Skies is an open source MUD based on ROM 2.4b6/QuickMUD.  All new changes will be documented in the change log. 
 
 Currently Crimson Skies compiles and runs out of the box on:
 
@@ -20,19 +19,22 @@ will reflect the latest commits here is at (it will start eloving from stock ROM
   - 66.244.102.112 port 4000
 
 This isn't advertised with Mud Connector or anywhere else, just here for anyone interested while I work on it.  The first things 
-I will be working on is cleaning up formatting, removing some small stuff I didn't think fit a RP mud (like the Jukebox) and 
-then I'll focus on new classes, reclasses, spells and skills.  I will be altering the underpinnings before making many area 
-additions (for instance, getting down to one game loop by removing the mac/msdos one).
+I will be working on is cleaning up formatting, removing some small stuff I didn't think fit an RP mud (like the Jukebox) and 
+then I'll focus on new classes, reclasses, reclass reclasses, spells and skills.  I will be altering the underpinnings before 
+making many area additions.  I will be removing legacy OS support and focus on the above.
 
 ## Project Goals:
 
   - To provide a ROM code base that includes creative additions that keep the same
     feel of what made ROM great.
+  - To document the old functions with descriptions and hopefully well document new functions.
+   - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
+     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
+     pretty old and I'm not getting a new one for cost reasons).
   - To provide modern tools and hooks into ROM to allow it to integrate with services
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
     a program that did this back in 2000 and I will start from that concept).
-  - To document the old functions with descriptions and hopefully well document new functions.
   - I may use this as a base to port the code to a modern language like C# that will run on
     both Linux (through Mono) and Windows and implement an easy to use modern database. 
   - I will be using both Nano on the Linux side and Visual Studio on the Windows side to
@@ -48,9 +50,10 @@ additions (for instance, getting down to one game loop by removing the mac/msdos
     like voice recognition and joystick support (e.g. you would be able to use a standard game
     controller to move and map commands to the different buttons and they communicate via a head
     set).
-   - Remove legacy OS support and attempt to support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
-     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
-     pretty old and I'm not getting a new one for cost reasons).
+   - To provide a branch that is ROM stripped down to the socket server that can be repurposed for other things.
+   - To provide a base branch that has the areas and code stripped down to one area (and any code alterations to 
+     remove vnum usage that uses vnums in other areas, this will allow for people starting a mud from scractch 
+     building their own areas.)
 
 ## Resources
 
