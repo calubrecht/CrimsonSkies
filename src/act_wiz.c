@@ -5121,9 +5121,8 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 }
 
 // Rhien, 04/21/2015
-// This is a little slow even over just 32,000 vnums (would be slower if sh_int vnums were converted to int).  This 
-// checks each one and creates ranges, I wrote this to replace Erwin's vlist since this will show you exact gaps and
-// supports mobs, rooms and objects.  
+// This will determine the max vnum by looping through the areas (which will get us roughly within 100) and then
+// we will loop over all possible vnums from 0 to that value and print out the ranges of empty.
 void do_vnumgap(CHAR_DATA * ch, char *argument)
 {
 	char arg[MAX_INPUT_LENGTH];
@@ -5139,6 +5138,18 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		return;
 	}
 
+	// Find the max vnum that could be in any area.  The ceiling will be the same for mobs, rooms and objects.
+	AREA_DATA *pArea;
+	int vnumCeiling;
+	vnumCeiling = 0;
+
+	for (pArea = area_first; pArea; pArea = pArea->next)
+	{
+		if (pArea->max_vnum > vnumCeiling) {
+			vnumCeiling = pArea->max_vnum;
+		}
+	}
+
 	char buf[MAX_STRING_LENGTH];
 	int startVnum, endVnum, lastFoundVnum;
 
@@ -5151,7 +5162,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		ROOM_INDEX_DATA *room;
 
 		// All VNUMs possible
-		for (startVnum = 0; startVnum < 32767; startVnum++)
+		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
 		{
 			room = get_room_index(startVnum);
 
@@ -5184,7 +5195,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		}
 
 		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
 		write_to_descriptor(ch->desc->descriptor, buf, 0);
 
 		return;
@@ -5194,7 +5205,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		OBJ_INDEX_DATA *obj;
 
 		// All VNUMs possible
-		for (startVnum = 0; startVnum < 32767; startVnum++)
+		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
 		{
 			obj = get_obj_index(startVnum);
 
@@ -5202,7 +5213,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 				int x;
 
 				// find out where the end of this range is, then advance to that position
-				for (x = startVnum; x < 32767; x++)
+				for (x = startVnum; x < vnumCeiling; x++)
 				{
 					obj = get_obj_index(x);
 
@@ -5227,7 +5238,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		}
 
 		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
 		write_to_descriptor(ch->desc->descriptor, buf, 0);
 	}
 	else if (!str_cmp(arg, "mob"))
@@ -5235,7 +5246,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		MOB_INDEX_DATA *mob;
 
 		// All VNUMs possible
-		for (startVnum = 0; startVnum < 32767; startVnum++)
+		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
 		{
 			mob = get_mob_index(startVnum);
 
@@ -5243,7 +5254,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 				int x;
 
 				// find out where the end of this range is, then advance to that position
-				for (x = startVnum; x < 32767; x++)
+				for (x = startVnum; x < vnumCeiling; x++)
 				{
 					mob = get_mob_index(x);
 
@@ -5268,7 +5279,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		}
 
 		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
 		write_to_descriptor(ch->desc->descriptor, buf, 0);
 	}
 
