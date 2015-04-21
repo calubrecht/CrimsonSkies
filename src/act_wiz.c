@@ -4525,7 +4525,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     /* Consider changing all saved areas here, if you use OLC */
     /* do_asave (NULL, ""); - autosave changed areas */
 
-    sprintf (buf, "\n\r *** COPYOVER by %s *** - please remain seated!\n\r",
+    sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
              ch->name);
 
     /* For each playing descriptor, save its state */
