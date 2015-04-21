@@ -5157,8 +5157,10 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 			room = get_room_index(startVnum);
 
 			if (room == NULL) {
+				int x;
+
 				// find out where the end of this range is, then advance to that position
-				for (int x = startVnum; x < 32767; x++)
+				for (x = startVnum; x < 32767; x++)
 				{
 					room = get_room_index(x);
 
@@ -5198,8 +5200,10 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 			obj = get_obj_index(startVnum);
 
 			if (obj == NULL) {
+				int x;
+
 				// find out where the end of this range is, then advance to that position
-				for (int x = startVnum; x < 32767; x++)
+				for (x = startVnum; x < 32767; x++)
 				{
 					obj = get_obj_index(x);
 
@@ -5237,8 +5241,10 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 			mob = get_mob_index(startVnum);
 
 			if (mob == NULL) {
+				int x;
+
 				// find out where the end of this range is, then advance to that position
-				for (int x = startVnum; x < 32767; x++)
+				for (x = startVnum; x < 32767; x++)
 				{
 					mob = get_mob_index(x);
 
