@@ -5282,8 +5282,16 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
 		write_to_descriptor(ch->desc->descriptor, buf, 0);
 	}
+	else
+	{
+		send_to_char("Syntax:\n\r", ch);
+		send_to_char("  vnumgap room\n\r", ch);
+		send_to_char("  vnumgap obj\n\r", ch);
+		send_to_char("  vnumgap mob\n\r", ch);
+		return;
+	}
 
-}
+} // end do_vnumgap
 
 void do_debug(CHAR_DATA * ch, char *argument)
 {
