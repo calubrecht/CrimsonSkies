@@ -5130,6 +5130,31 @@ void do_vlist(CHAR_DATA *ch, char *argument)
 	} /* for rows */
 }
 
+// Rhien, 4/21/2015
+// Broadcasts a message to all connected descriptors regardless of game state and including
+// the login screen.
+// TODO - This is locking up _WIN32 if someone has first connected and is at the ANSI prompt, all
+// buffer processing for all players halts until that person enters Y or N.
+void do_broadcast(CHAR_DATA * ch, char *argument)
+{
+	if (argument[0] == '\0')
+	{
+		send_to_char("You must enter a broadcast message.\n\r", ch);
+		return;
+	}
+
+	DESCRIPTOR_DATA *d;
+	char buf[MAX_STRING_LENGTH];
+
+	sprintf(buf, "\n\r{C[{W%s {WBroadcasts{C] {W%s{x\n\r", ch->name, argument);
+
+	for (d = descriptor_list; d != NULL; d = d->next)
+	{
+		send_to_desc(buf, d);
+	}
+
+}
+
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 	send_to_char("Nothing here currently, move along.\r\n", ch);
