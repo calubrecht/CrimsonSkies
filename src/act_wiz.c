@@ -5146,7 +5146,7 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 	DESCRIPTOR_DATA *d;
 	char buf[MAX_STRING_LENGTH];
 
-	sprintf(buf, "\n\r{C[{W%s {WBroadcasts{C] {W%s{x\n\r", ch->name, argument);
+	sprintf(buf, "\n\r{C[{WBroadcast by %s{C] {W%s{x\n\r", ch->name, argument);
 
 	for (d = descriptor_list; d != NULL; d = d->next)
 	{

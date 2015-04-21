@@ -11,4 +11,6 @@ This is my to do list, mostly will be things big and small as I think about them
     for it to run)
   - Make blink in comm.c immortal only.
   - OLC chopped off characters in name in area name after asave area.
-  - Fix send_to_desc and the bug with d->ansi.  Something is jacked up causing it to not work after copyover's or just not work in some cases.
+  - _WIN32 waits for input when someone connects but doesn't enter anything, if something is sent to
+    the buffer the entire mud hangs until that person enters something.  This behavior isn't happening
+    on Linux.
