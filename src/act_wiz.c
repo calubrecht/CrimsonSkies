@@ -5126,10 +5126,9 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 // supports mobs, rooms and objects.  
 void do_vnumgap(CHAR_DATA * ch, char *argument)
 {
-	char *string;
 	char arg[MAX_INPUT_LENGTH];
 
-	string = one_argument(argument, arg);
+	one_argument(argument, arg);
 	
 	if (arg[0] == '\0')
 	{
