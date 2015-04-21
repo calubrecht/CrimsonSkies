@@ -28,11 +28,6 @@
 *    ROM license, in the file Rom24/doc/rom.license                         *
 ****************************************************************************/
 
-/****************************************************************************
- *   This file is just the stock nanny() function ripped from comm.c. It    *
- *   seems to be a popular task for new mud coders, so what the heck?       *
- ***************************************************************************/
-
 // System Specific Includes
 #if defined(__apple__)
 	#include <types.h>
