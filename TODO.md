@@ -14,3 +14,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - _WIN32 waits for input when someone connects but doesn't enter anything, if something is sent to
     the buffer the entire mud hangs until that person enters something.  This behavior isn't happening
     on Linux.
+  - d->ANSI is getting blown away on copyover causing send_to_desc to not color code things properly.

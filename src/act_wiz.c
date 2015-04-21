@@ -5097,44 +5097,9 @@ void do_exlist(CHAR_DATA *ch, char * argument)
 		}
 }
 
-/* show a list of all used VNUMS */
-#define COLUMNS 		5   /* number of columns */
-#define MAX_ROW 		((MAX_SHOW_VNUM / COLUMNS)+1) /* rows */
-
-void do_vlist(CHAR_DATA *ch, char *argument)
-{
-	int i, j, vnum;
-	ROOM_INDEX_DATA *room;
-	char buffer[MAX_ROW * 100]; /* should be plenty */
-	char buf2[100];
-
-	for (i = 0; i < MAX_ROW; i++)
-	{
-		strcpy(buffer, ""); /* clear the buffer for this row */
-
-		for (j = 0; j < COLUMNS; j++) /* for each column */
-		{
-			vnum = ((j*MAX_ROW) + i); /* find a vnum whih should be there */
-			if (vnum < MAX_SHOW_VNUM)
-			{
-				room = get_room_index(vnum * 100 + 1); /* each zone has to have a XXX01 room */
-				sprintf(buf2, "%3d %-8.8s  ", vnum,
-					room ? area_name(room->area) : "-");
-				/* something there or unused ? */
-				strcat(buffer, buf2);
-			}
-		} /* for columns */
-
-		send_to_char(buffer, ch);
-		send_to_char("\n\r", ch);
-	} /* for rows */
-}
-
 // Rhien, 4/21/2015
 // Broadcasts a message to all connected descriptors regardless of game state and including
 // the login screen.
-// TODO - This is locking up _WIN32 if someone has first connected and is at the ANSI prompt, all
-// buffer processing for all players halts until that person enters Y or N.
 void do_broadcast(CHAR_DATA * ch, char *argument)
 {
 	if (argument[0] == '\0')
@@ -5151,6 +5116,155 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 	for (d = descriptor_list; d != NULL; d = d->next)
 	{
 		send_to_desc(buf, d);
+	}
+
+}
+
+// Rhien, 04/21/2015
+// This is a little slow even over just 32,000 vnums (would be slower if sh_int vnums were converted to int).  This 
+// checks each one and creates ranges, I wrote this to replace Erwin's vlist since this will show you exact gaps and
+// supports mobs, rooms and objects.  
+void do_vnumgap(CHAR_DATA * ch, char *argument)
+{
+	char *string;
+	char arg[MAX_INPUT_LENGTH];
+
+	string = one_argument(argument, arg);
+	
+	if (arg[0] == '\0')
+	{
+		send_to_char("Syntax:\n\r", ch);
+		send_to_char("  vnumgap room\n\r", ch);
+		send_to_char("  vnumgap obj\n\r", ch);
+		send_to_char("  vnumgap mob\n\r", ch);
+		return;
+	}
+
+	char buf[MAX_STRING_LENGTH];
+	int startVnum, endVnum, lastFoundVnum;
+
+	startVnum = 0;
+	endVnum = 0;
+	lastFoundVnum = 0;
+
+	if (!str_cmp(arg, "room"))
+	{
+		ROOM_INDEX_DATA *room;
+
+		// All VNUMs possible
+		for (startVnum = 0; startVnum < 32767; startVnum++)
+		{
+			room = get_room_index(startVnum);
+
+			if (room == NULL) {
+				// find out where the end of this range is, then advance to that position
+				for (int x = startVnum; x < 32767; x++)
+				{
+					room = get_room_index(x);
+
+					if (room != NULL) {
+						endVnum = x - 1; // The last vnum that was used.
+						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+						write_to_descriptor(ch->desc->descriptor, buf, 0);
+
+						// Advance the position
+						startVnum = endVnum;
+						break;
+					}
+
+				}
+
+			}
+			else
+			{
+				lastFoundVnum = startVnum;
+			}
+
+		}
+
+		// And the last one...
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		write_to_descriptor(ch->desc->descriptor, buf, 0);
+
+		return;
+	}
+	else if (!str_cmp(arg, "obj")) 
+	{
+		OBJ_INDEX_DATA *obj;
+
+		// All VNUMs possible
+		for (startVnum = 0; startVnum < 32767; startVnum++)
+		{
+			obj = get_obj_index(startVnum);
+
+			if (obj == NULL) {
+				// find out where the end of this range is, then advance to that position
+				for (int x = startVnum; x < 32767; x++)
+				{
+					obj = get_obj_index(x);
+
+					if (obj != NULL) {
+						endVnum = x - 1; // The last vnum that was used.
+						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+						write_to_descriptor(ch->desc->descriptor, buf, 0);
+
+						// Advance the position
+						startVnum = endVnum;
+						break;
+					}
+
+				}
+
+			}
+			else
+			{
+				lastFoundVnum = startVnum;
+			}
+
+		}
+
+		// And the last one...
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		write_to_descriptor(ch->desc->descriptor, buf, 0);
+	}
+	else if (!str_cmp(arg, "mob"))
+	{
+		MOB_INDEX_DATA *mob;
+
+		// All VNUMs possible
+		for (startVnum = 0; startVnum < 32767; startVnum++)
+		{
+			mob = get_mob_index(startVnum);
+
+			if (mob == NULL) {
+				// find out where the end of this range is, then advance to that position
+				for (int x = startVnum; x < 32767; x++)
+				{
+					mob = get_mob_index(x);
+
+					if (mob != NULL) {
+						endVnum = x - 1; // The last vnum that was used.
+						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+						write_to_descriptor(ch->desc->descriptor, buf, 0);
+
+						// Advance the position
+						startVnum = endVnum;
+						break;
+					}
+
+				}
+
+			}
+			else
+			{
+				lastFoundVnum = startVnum;
+			}
+
+		}
+
+		// And the last one...
+		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, 32767);
+		write_to_descriptor(ch->desc->descriptor, buf, 0);
 	}
 
 }

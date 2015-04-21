@@ -313,6 +313,6 @@ DECLARE_DO_FUN(do_debug);
 DECLARE_DO_FUN(do_clear);
 DECLARE_DO_FUN(do_forcetick);
 DECLARE_DO_FUN(do_rename);
-DECLARE_DO_FUN(do_vlist);
+DECLARE_DO_FUN(do_vnumgap);
 DECLARE_DO_FUN(do_exlist);
 DECLARE_DO_FUN(do_broadcast);
