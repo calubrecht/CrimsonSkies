@@ -1590,8 +1590,67 @@ void do_worth (CHAR_DATA * ch, char *argument)
     return;
 }
 
+void do_score(CHAR_DATA * ch, char *argument)
+{
+	char buf[MAX_STRING_LENGTH];
 
-void do_score (CHAR_DATA * ch, char *argument)
+	printf_to_char(ch, "\r\nScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+
+	if (get_trust(ch) != ch->level)
+		printf_to_char(ch, "You are trusted at level %d.\n\r", get_trust(ch));
+
+	send_to_char("----------------------------------------------------------------------------\n\r", ch);
+
+	printf_to_char(ch, "LEVEL: %-3d         Race : %-10.10s        Played: %ld hours\r\n",
+		ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
+
+	printf_to_char(ch, "YEARS: %-6d      Class: %-11.11s       Log In: %s\r",
+		get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
+
+	// marker
+	printf_to_char(ch, "STR  : %2.2d (%2.2d)   HitRoll: %-4d              Saved:  N/A\n\r",
+		get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch));
+	
+	printf_to_char(ch, "INT  : %2.2d (%2.2d)   DamRoll: %-4d              Time:   %s\r",
+		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch), ctime(&current_time));
+
+	printf_to_char(ch, "WIS  : %2.2d (%2.2d)\n\r",
+		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS]);
+
+	printf_to_char(ch, "DEX  : %2.2d (%2.2d)     Align: TODO              Items:  %5.5d (max %5.5d)\r\n",
+		get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
+
+	printf_to_char(ch, "CON  : %2.2d (%2.2d)                              Weight: %5.5d (max %7.7d)\r\n",
+		get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON], ch->carry_weight, can_carry_w(ch));
+
+
+	printf_to_char(ch, "CHA  : %2.2d (%2.2d)     Wimpy: %-5d\n\r", 0, 0, ch->wimpy);
+
+	printf_to_char(ch, "PRACT: %3.3d         Health: %-5d of %5d                      AutoExit(%c)\r\n",
+		ch->practice, ch->hit, ch->max_hit,
+		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
+
+	printf_to_char(ch, "TRAIN: %3.3d         Mana: %-5d of %5d                      AutoAssist(%c)\r\n",
+		ch->train, ch->mana, ch->max_mana,
+		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
+
+	printf_to_char(ch, "GOLD:  %-11ld Movepoints: %-5d of %5d                      AutoLoot(%c)\r\n",
+		ch->gold, ch->move, ch->max_move,
+		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
+
+
+	send_to_char("STILL FINISHING THIS ;-)\N\R", ch);
+	// xp
+	// position, condition (hunger, thirst, drunk),
+	// immortal data, affect data
+//#define PLR_AUTOLOOT        (E)
+//#define PLR_AUTOSAC         (F)
+//#define PLR_AUTOGOLD        (G)
+//#define PLR_AUTOSPLIT       (H)
+
+}
+
+void do_oldscore (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     int i;

@@ -15,4 +15,5 @@ This is my to do list, mostly will be things big and small as I think about them
     the buffer the entire mud hangs until that person enters something.  This behavior isn't happening
     on Linux.
   - d->ANSI is getting blown away on copyover causing send_to_desc to not color code things properly.
-  
+  - Add Charisma stat (CHA)
+  - Fighting Style (Offensive/Normal/Defensive)
