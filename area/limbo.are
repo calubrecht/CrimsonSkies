@@ -1,7 +1,7 @@
 #AREADATA
 Name Limbo~
-Builders Diku~
-VNUMs 1 30
+Builders Diku Rhien~
+VNUMs 1 99
 Credits [ All ] Diku    Limbo~
 Security 9
 End
@@ -119,9 +119,9 @@ food 0 A
 BD BD 0 0 0
 0 20 0 D
 #20
-mushroom~
-a Magic Mushroom~
-A delicious magic mushroom is here.~
+waybread bread~
+a piece of waybread~
+A delicious piece of waybread is here~
 food~
 food 0 A
 D D 0 0 0
