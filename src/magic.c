@@ -1524,14 +1524,14 @@ void spell_control_weather (int sn, int level, CHAR_DATA * ch, void *vo,
 void spell_create_food (int sn, int level, CHAR_DATA * ch, void *vo,
                         int target)
 {
-    OBJ_DATA *mushroom;
+    OBJ_DATA *waybread;
 
-    mushroom = create_object (get_obj_index (OBJ_VNUM_MUSHROOM), 0);
-    mushroom->value[0] = level / 2;
-    mushroom->value[1] = level;
-    obj_to_room (mushroom, ch->in_room);
-    act ("$p suddenly appears.", ch, mushroom, NULL, TO_ROOM);
-    act ("$p suddenly appears.", ch, mushroom, NULL, TO_CHAR);
+	waybread = create_object(get_obj_index(OBJ_VNUM_WAYBREAD), 0);
+	waybread->value[0] = level / 2;
+	waybread->value[1] = level;
+	obj_to_room(waybread, ch->in_room);
+	act("$p suddenly appears.", ch, waybread, NULL, TO_ROOM);
+	act("$p suddenly appears.", ch, waybread, NULL, TO_CHAR);
     return;
 }
 
