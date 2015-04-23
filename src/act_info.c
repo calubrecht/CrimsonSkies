@@ -1592,6 +1592,7 @@ void do_worth (CHAR_DATA * ch, char *argument)
 
 void do_score(CHAR_DATA * ch, char *argument)
 {
+	char buf[MAX_STRING_LENGTH];
 
 	printf_to_char(ch, "\r\nScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
@@ -1633,13 +1634,14 @@ void do_score(CHAR_DATA * ch, char *argument)
 		ch->train, ch->mana, ch->max_mana,
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "GOLD:  %-11ld  Move: %-5d of %5d                        AutoLoot[%c]\r\n",
-		ch->gold, ch->move, ch->max_move,
+	printf_to_char(ch, "GOLD:  %-11s  Move: %-5d of %5d                        AutoLoot[%c]\r\n",
+		num_punct(ch->gold), ch->move, ch->max_move,
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
-        printf_to_char( ch, "XP   : %-9d  Nx Lvl: %-9d                              AutoSac[%c]\r\n",
-                    ch->exp,
-		    num_punct(IS_NPC (ch) ? 0 : (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp),
+	sprintf(buf, "%s", num_punct((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp));
+        printf_to_char( ch, "XP   : %-9s  Nx Lvl: %-9s                              AutoSac[%c]\r\n",
+                    num_punct(ch->exp),
+			 buf,
 		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
 	send_to_char("----------------------------------------------------------------------------\n\r", ch);
