@@ -1639,7 +1639,7 @@ void do_score(CHAR_DATA * ch, char *argument)
 
         printf_to_char( ch, "XP   : %-9d  Nx Lvl: %-9d                              AutoSac[%c]\r\n",
                     ch->exp,
-		    IS_NPC (ch) ? 0 : (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp,
+		    num_punct(IS_NPC (ch) ? 0 : (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp),
 		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
 	send_to_char("----------------------------------------------------------------------------\n\r", ch);
