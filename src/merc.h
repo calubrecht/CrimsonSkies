@@ -2285,6 +2285,7 @@ char *  format_string   args( ( char *oldstring /*, bool fSpace */ ) );
 char *  first_arg       args( ( char *argument, char *arg_first, bool fCase ) );
 char *  string_unpad    args( ( char * argument ) );
 char *  string_proper    args( ( char * argument ) );
+char *  num_punct(int foo);
 
 /* olc.c */
 bool    run_olc_editor    args( ( DESCRIPTOR_DATA *d ) );
