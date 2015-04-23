@@ -1638,7 +1638,13 @@ void do_score(CHAR_DATA * ch, char *argument)
 		num_punct(ch->gold), ch->move, ch->max_move,
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
-	sprintf(buf, "%s", num_punct((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp));
+	if (!IS_NPC(ch)) {
+		sprintf(buf, "%s", num_punct((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp));
+	}
+	else {
+		sprintf(buf, "0");
+	}
+
         printf_to_char( ch, "XP   : %-9s  Nx Lvl: %-9s                              AutoSac[%c]\r\n",
                     num_punct(ch->exp),
 			 buf,
