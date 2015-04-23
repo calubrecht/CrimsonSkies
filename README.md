@@ -1,7 +1,8 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6/QuickMUD.  All new changes will be documented in the change log. 
+Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug and ROT.  
+All new changes will be documented in the change log. 
 
 Currently Crimson Skies compiles and runs out of the box on:
 
@@ -28,9 +29,9 @@ making many area additions.  I will be removing legacy OS support and focus on t
   - To provide a ROM code base that includes creative additions that keep the same
     feel of what made ROM great.
   - To document the old functions with descriptions and hopefully well document new functions.
-   - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
-     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
-     pretty old and I'm not getting a new one for cost reasons).
+  - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
+    Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
+    pretty old and I'm not getting a new one for cost reasons).
   - To provide modern tools and hooks into ROM to allow it to integrate with services
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
@@ -50,10 +51,10 @@ making many area additions.  I will be removing legacy OS support and focus on t
     like voice recognition and joystick support (e.g. you would be able to use a standard game
     controller to move and map commands to the different buttons and they communicate via a head
     set).
-   - To provide a branch that is ROM stripped down to the socket server that can be repurposed for other things.
-   - To provide a base branch that has the areas and code stripped down to one area (and any code alterations to 
-     remove vnum usage that uses vnums in other areas, this will allow for people starting a mud from scractch 
-     building their own areas.)
+  - To provide a branch that is ROM stripped down to the socket server that can be repurposed for other things.
+  - To provide a base branch that has the areas and code stripped down to one area (and any code alterations to 
+    remove vnum usage that uses vnums in other areas, this will allow for people starting a mud from scractch 
+    building their own areas.)
 
 ## Resources
 
@@ -64,6 +65,11 @@ which were at:
 
   - http://www.the-infinite.org/lists/romlist
   - rom-request@rom.org
+
+Here are some related resources that are thanksfully still active.
+
+  - Gammon Forums (Smaug & ROM) - http://www.gammon.com.au/forum/
+  - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): http://www.andreasen.org/mud.shtml
 
 ## License 
 
