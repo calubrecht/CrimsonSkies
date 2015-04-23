@@ -17,3 +17,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - d->ANSI is getting blown away on copyover causing send_to_desc to not color code things properly.
   - Add Charisma stat (CHA)
   - Fighting Style (Offensive/Normal/Defensive)
+  - Add pray command that will allow a mortal to send a message for any immortals logged in to see.
+  - Better format sockets command.
