@@ -75,6 +75,7 @@
     <ClCompile Include="src\act_comm.c" />
     <ClCompile Include="src\act_enter.c" />
     <ClCompile Include="src\act_info.c" />
+    <ClCompile Include="src\act_mob.c" />
     <ClCompile Include="src\act_move.c" />
     <ClCompile Include="src\act_obj.c" />
     <ClCompile Include="src\act_wiz.c" />
@@ -90,7 +91,6 @@
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\flags.c" />
     <ClCompile Include="src\handler.c" />
-    <ClCompile Include="src\healer.c" />
     <ClCompile Include="src\hedit.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\lookup.c" />

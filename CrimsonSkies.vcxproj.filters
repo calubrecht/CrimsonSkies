@@ -69,9 +69,6 @@
     <ClCompile Include="src\handler.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\healer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\hedit.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -127,6 +124,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\update.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\act_mob.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
