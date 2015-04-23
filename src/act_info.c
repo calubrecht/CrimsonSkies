@@ -1625,17 +1625,22 @@ void do_score(CHAR_DATA * ch, char *argument)
 
 	printf_to_char(ch, "CHA  : %2.2d (%2.2d)     Wimpy: %-5d\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "PRACT: %3.3d         Health: %-5d of %5d                        AutoExit[%c]\r\n",
+	printf_to_char(ch, "PRACT: %3.3d        Health: %-5d of %5d                        AutoExit[%c]\r\n",
 		ch->practice, ch->hit, ch->max_hit,
 		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
 
-	printf_to_char(ch, "TRAIN: %3.3d           Mana: %-5d of %5d                      AutoAssist[%c]\r\n",
+	printf_to_char(ch, "TRAIN: %3.3d          Mana: %-5d of %5d                      AutoAssist[%c]\r\n",
 		ch->train, ch->mana, ch->max_mana,
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "GOLD:  %-11ld   Move: %-5d of %5d                        AutoLoot[%c]\r\n",
+	printf_to_char(ch, "GOLD:  %-11ld  Move: %-5d of %5d                        AutoLoot[%c]\r\n",
 		ch->gold, ch->move, ch->max_move,
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
+
+        printf_to_char( ch, "XP   : %-9d  Nx Lvl: %-9d                              AutoSac[%c]\r\n",
+                    ch->exp,
+		    IS_NPC (ch) ? 0 : (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp,
+		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
 	send_to_char("----------------------------------------------------------------------------\n\r", ch);
 	// xp
