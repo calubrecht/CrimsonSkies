@@ -681,50 +681,6 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
         ch->pcdata->learned[gsn_recall] = 50;
     }
 
-    /* fix levels */
-    if (found && ch->version < 3 && (ch->level > 35 || ch->trust > 35))
-    {
-        switch (ch->level)
-        {
-            case (40):
-                ch->level = 60;
-                break;            /* imp -> imp */
-            case (39):
-                ch->level = 58;
-                break;            /* god -> supreme */
-            case (38):
-                ch->level = 56;
-                break;            /* deity -> god */
-            case (37):
-                ch->level = 53;
-                break;            /* angel -> demigod */
-        }
-
-        switch (ch->trust)
-        {
-            case (40):
-                ch->trust = 60;
-                break;            /* imp -> imp */
-            case (39):
-                ch->trust = 58;
-                break;            /* god -> supreme */
-            case (38):
-                ch->trust = 56;
-                break;            /* deity -> god */
-            case (37):
-                ch->trust = 53;
-                break;            /* angel -> demigod */
-            case (36):
-                ch->trust = 51;
-                break;            /* hero -> hero */
-        }
-    }
-
-    /* ream gold */
-    if (found && ch->version < 4)
-    {
-        ch->gold /= 100;
-    }
     return found;
 }
 
