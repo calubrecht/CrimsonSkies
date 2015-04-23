@@ -1592,7 +1592,6 @@ void do_worth (CHAR_DATA * ch, char *argument)
 
 void do_score(CHAR_DATA * ch, char *argument)
 {
-	char buf[MAX_STRING_LENGTH];
 
 	printf_to_char(ch, "\r\nScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
@@ -1626,20 +1625,19 @@ void do_score(CHAR_DATA * ch, char *argument)
 
 	printf_to_char(ch, "CHA  : %2.2d (%2.2d)     Wimpy: %-5d\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "PRACT: %3.3d         Health: %-5d of %5d                      AutoExit(%c)\r\n",
+	printf_to_char(ch, "PRACT: %3.3d         Health: %-5d of %5d                        AutoExit[%c]\r\n",
 		ch->practice, ch->hit, ch->max_hit,
 		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
 
-	printf_to_char(ch, "TRAIN: %3.3d         Mana: %-5d of %5d                      AutoAssist(%c)\r\n",
+	printf_to_char(ch, "TRAIN: %3.3d           Mana: %-5d of %5d                      AutoAssist[%c]\r\n",
 		ch->train, ch->mana, ch->max_mana,
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "GOLD:  %-11ld Movepoints: %-5d of %5d                      AutoLoot(%c)\r\n",
+	printf_to_char(ch, "GOLD:  %-11ld   Move: %-5d of %5d                        AutoLoot[%c]\r\n",
 		ch->gold, ch->move, ch->max_move,
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
-
-	send_to_char("STILL FINISHING THIS ;-)\N\R", ch);
+	send_to_char("----------------------------------------------------------------------------\n\r", ch);
 	// xp
 	// position, condition (hunger, thirst, drunk),
 	// immortal data, affect data
