@@ -1929,6 +1929,9 @@ extern  bool				MOBtrigger;
 #endif
 
 #if defined(_WIN32)
+	#define vsnprintf _vsnprintf  /* NJG */
+	#define snprintf _snprintf /* NJG */
+
 	//char *    crypt        args((const char *key, const char *salt));
 	#define NOCRYPT
 	#if    defined(unix)
