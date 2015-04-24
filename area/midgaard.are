@@ -210,7 +210,7 @@ A feral cat is here.
 A scraggly feral cat is here looking to scavenge food.
 ~
 cat~
-AGHU Z 0 0
+AGHUW Z 0 0
 1 0 1d6+4 0d0+0 1d4+0 bite
 0 0 0 0
 FH 0 0 H
@@ -6086,6 +6086,7 @@ M 3000 spec_cast_mage
 M 3005 spec_thief
 M 3011 spec_executioner
 M 3012 spec_cast_adept
+M 3014 spec_cat
 M 3020 spec_cast_mage
 M 3021 spec_cast_cleric
 M 3024 spec_cast_mage
