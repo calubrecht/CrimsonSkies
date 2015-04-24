@@ -88,7 +88,7 @@ const struct spec_type spec_table[] = {
     {"spec_cast_undead", spec_cast_undead},
     {"spec_executioner", spec_executioner},
     {"spec_fido", spec_fido},
-	{"spec_cat",  spec_cat },
+    {"spec_cat",  spec_cat },
     {"spec_guard", spec_guard},
     {"spec_janitor", spec_janitor},
     {"spec_mayor", spec_mayor},
@@ -936,12 +936,49 @@ bool spec_fido (CHAR_DATA * ch)
     return FALSE;
 }
 
+// Rhien, 04/24/2015
 bool spec_cat(CHAR_DATA * ch)
 {
-	if (!IS_AWAKE(ch))
-		return FALSE;
+    if (!IS_AWAKE(ch))
+        return FALSE;
 
-	act("$n meows.", ch, NULL, NULL, TO_ROOM);
+    CHAR_DATA *vch;
+    CHAR_DATA *vch_next;
+
+    // 15% chance of the cat doing something.
+    switch (number_range (0, 20))
+    {
+        default:
+            break;
+        case 0:
+            act("$n meows.", ch, NULL, NULL, TO_ROOM);
+            return TRUE;
+            break;
+	case 1:
+            act("$n scratches behind its ear.", ch, NULL, NULL, TO_ROOM);
+            return TRUE;
+            break;
+        case 2:
+            // Get a random player in the room to rub up against
+            for (vch = ch->in_room->people; vch != NULL; vch = vch_next)
+            {
+               vch_next = vch->next_in_room;
+
+               // Victim isn't null, is a player, can be seen by the mob and an additional 50/50 shot.
+               if (vch != NULL && !IS_NPC(vch) && can_see (ch, vch) && number_bits(1) == 0)
+               {
+                   act ("$n rubs up against your leg.",
+                      ch, NULL, vch, TO_VICT);
+                   act ("$n rubs up against $N's leg.",
+                      ch, NULL, vch, TO_NOTVICT);
+                   return TRUE;
+                   break;
+               }
+            }
+ 
+    } // end switch
+
+	return FALSE;
 }
 
 bool spec_guard (CHAR_DATA * ch)
