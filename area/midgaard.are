@@ -202,6 +202,20 @@ ABQVa DFH 1000 0
 FHIK ABCD 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
+#3014
+feral cat~
+A feral cat~
+A feral cat is here.
+~
+A scraggly feral cat is here looking to scavenge food.
+~
+cat~
+AGHU Z 0 0
+1 0 1d6+4 0d0+0 1d4+0 bite
+0 0 0 0
+FH 0 0 H
+stand stand either 0
+AGV ACDEFHJKQUV small unknown
 #3020
 guildmaster master~
 the guildmaster~
@@ -3849,7 +3863,7 @@ adjust, you realize that there are mud puddles all around the room, and
 this is some weird version of windows.  In a flash of revelation, you
 realize that you've entered the Temple of Stupid.
 ~
-0 262152 0
+0 262156 0
 E
 puddle puddles~
 The puddles on the floor are filthy and exude a foul stench.
@@ -6349,6 +6363,7 @@ G 0 3004 0 A bottle of local specialty is given to the waiter
 E 0 3022 0 16 A long sword is loaded wielded of the waiter
 O 0 3200 0 3028 A large wooden table loaded to The Thieves Bar
 M 0 3022 1 3029 1 Load the guildmaster
+M 0 3014 1 3030 1 Load A feral cat
 M 0 3008 1 3031 1 Load the pet shop boy
 M 0 3090 1 3032 1 Load the kitten
 M 0 3091 1 3032 1 Load the puppy
