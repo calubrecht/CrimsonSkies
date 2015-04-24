@@ -939,7 +939,7 @@ bool spec_fido (CHAR_DATA * ch)
 // Rhien, 04/24/2015
 bool spec_cat(CHAR_DATA * ch)
 {
-    if (!IS_AWAKE(ch))
+    if (!IS_AWAKE(ch) || ch->position == POS_FIGHTING)
         return FALSE;
 
     CHAR_DATA *vch;
