@@ -1097,7 +1097,8 @@ void do_look (CHAR_DATA * ch, char *argument)
     {
         /* 'look' or 'look auto' */
         send_to_char ("{s", ch);
-        send_to_char (ch->in_room->name, ch);
+	sprintf(buf, "{c%s{x", ch->in_room->name);
+        send_to_char (buf, ch);
         send_to_char ("{x", ch);
 
         if ((IS_IMMORTAL (ch)
