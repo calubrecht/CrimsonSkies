@@ -713,7 +713,7 @@ VALUE asks the shop keeper how much he, she, or it will buy the item for.
 0 SACRIFICE~
 Syntax: sacrifice <object>
 
-SACRIFICE offers an object to Mota, who may reward you.
+SACRIFICE offers an object to the gods, who may reward you.
 The nature of the reward depends upon the type of object.
 ~
 
@@ -810,7 +810,7 @@ There is no RENT in this mud.  Just SAVE and QUIT whenever you want to leave.
 0 RECALL /~
 Syntax: RECALL
 
-RECALL prays to Mota for miraculous transportation from where you are
+RECALL prays to the gods for miraculous transportation from where you are
 back to the Temple of Midgaard.  '/' is a synonym for RECALL.
 
 If you RECALL during combat, you will lose experience (more than for fleeing),
@@ -1342,7 +1342,7 @@ more damage.
 Syntax: cast 'call lightning'
 
 This spell works only out of doors, and only when the weather is bad.
-It calls down lightning bolts from Mota.
+It calls down lightning bolts from the sky.
 ~
 
 0 'CAUSE LIGHT' 'CAUSE SERIOUS' 'CAUSE CRITICAL' HARM~
@@ -1441,7 +1441,7 @@ heal more damage.
 Syntax: cast 'curse' <character>
 
 This spell reduces the character's to-hit roll and save versus spells.
-It also renders the character unclean in the eyes of Mota and
+It also renders the character unclean in the eyes of the gods and
 unable to RECALL. Curse may be used to fill equipment with evil power,
 allowing (for example) weapons to do more damage to particularly holy
 opponents.
@@ -1481,7 +1481,7 @@ This spell detects the presence of poison in food or drink.
 0 'DISPEL EVIL'~
 Syntax: cast 'dispel evil' <victim>
 
-This spell invokes the wrath of Mota on an evil victim. It can be very
+This spell invokes the wrath of the gods on an evil victim. It can be very
 dangerous for casters who are not pure of heart.
 ~
 0 'DISPEL MAGIC' CANCELLATION~
