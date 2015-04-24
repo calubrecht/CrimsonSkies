@@ -62,6 +62,7 @@ DECLARE_SPEC_FUN (spec_cast_mage);
 DECLARE_SPEC_FUN (spec_cast_undead);
 DECLARE_SPEC_FUN (spec_executioner);
 DECLARE_SPEC_FUN (spec_fido);
+DECLARE_SPEC_FUN (spec_cat);
 DECLARE_SPEC_FUN (spec_guard);
 DECLARE_SPEC_FUN (spec_janitor);
 DECLARE_SPEC_FUN (spec_mayor);
@@ -87,6 +88,7 @@ const struct spec_type spec_table[] = {
     {"spec_cast_undead", spec_cast_undead},
     {"spec_executioner", spec_executioner},
     {"spec_fido", spec_fido},
+	{"spec_cat",  spec_cat },
     {"spec_guard", spec_guard},
     {"spec_janitor", spec_janitor},
     {"spec_mayor", spec_mayor},
@@ -934,7 +936,13 @@ bool spec_fido (CHAR_DATA * ch)
     return FALSE;
 }
 
+bool spec_cat(CHAR_DATA * ch)
+{
+	if (!IS_AWAKE(ch))
+		return FALSE;
 
+	act("$n meows.", ch, NULL, NULL, TO_ROOM);
+}
 
 bool spec_guard (CHAR_DATA * ch)
 {
