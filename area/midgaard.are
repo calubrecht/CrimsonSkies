@@ -3791,11 +3791,6 @@ You see Austral Square.
 ~
 ~
 0 -1 3103
-D4
-You see the far-off halls of Valhalla.
-~
-~
-0 -1 1219
 S
 #3160
 Melancholy's Maps~
@@ -3844,15 +3839,6 @@ chest~
 This chest is firmly locked, and the device by which it opens is beyond your
 reckoning.
 ~
-D2
-A small door to the south leads out into the map shop.
-~
-door~
-2 3161 3160
-D4
-~
-~
-0 -1 1219
 S
 #3170
 Temple Of Stupid~
@@ -3868,15 +3854,6 @@ E
 puddle puddles~
 The puddles on the floor are filthy and exude a foul stench.
 ~
-D0
-Poor Alley is to the north.
-~
-~
-0 -1 3044
-D4
-~
-~
-0 -1 1219
 S
 #3200
 Under the Bridge~
@@ -6051,11 +6028,6 @@ You see the southern end of the temple.
 ~
 ~
 0 -1 3001
-D4
-Bifrost, the Rainbow Bridge, hangs in the sky above you.
-~
-~
-0 -1 1215
 M 110 H 110
 S
 #3056
@@ -6122,7 +6094,6 @@ D 0 3142 1 2
 D 0 3142 2 2
 D 0 3143 0 2
 D 0 3160 0 2
-D 0 3161 2 2
 O 0 3134 0 3101 The bench loaded to Promenade
 O 0 3134 0 3102 The bench loaded to Promenade
 O 0 3134 0 3103 The bench loaded to Austral Square
