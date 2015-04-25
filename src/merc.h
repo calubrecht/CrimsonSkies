@@ -1585,22 +1585,22 @@ struct    reset_data
  */
 struct    area_data
 {
-    AREA_DATA *        next;
-    HELP_AREA *        helps;
+    AREA_DATA *   next;
+    HELP_AREA *   helps;
     char *        file_name;
     char *        name;
     char *        credits;
     sh_int        age;
     sh_int        nplayer;
-    sh_int        low_range;
-    sh_int        high_range;
-    sh_int         min_vnum;
+    sh_int        min_level;
+    sh_int        max_level;
+    sh_int        min_vnum;
     sh_int        max_vnum;
-    bool        empty;
+    bool          empty;
     char *        builders;    /* OLC */ /* Listing of */
-    int            vnum;        /* OLC */ /* Area vnum  */
-    int            area_flags;    /* OLC */
-    int            security;    /* OLC */ /* Value 1-9  */
+    int           vnum;        /* OLC */ /* Area vnum  */
+    int           area_flags;    /* OLC */
+    int           security;    /* OLC */ /* Value 1-9  */
 };
 
 /*

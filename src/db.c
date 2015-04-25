@@ -551,6 +551,14 @@ void new_load_area (FILE * fp)
 
         switch (UPPER (word[0]))
         {
+            case 'L':
+                if (!str_cmp (word, "VNUMs"))
+                {
+                    pArea->min_level = fread_number (fp);
+                    pArea->max_level = fread_number (fp);
+                }
+
+                break;
             case 'N':
                 SKEY ("Name", pArea->name);
                 break;
@@ -3251,50 +3259,28 @@ void free_string (char *pstr)
     return;
 }
 
-// Replace for stock do_areas, shows the areas to the requestor
-// The view is based on whether they are a mortal or immortal, immortals will see more data like VNUMs.
-// Rhien, 4/14/2015
+// Rhien, 4/25/2015
 void do_areas (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
+    char result[MAX_STRING_LENGTH * 2];    /* May need tweaking. */
     AREA_DATA *pArea;
-    int iArea;
 
-    if (argument[0] != '\0')
-    {
-        send_to_char ("No argument is used with this command.\n\r", ch);
+    if (IS_NPC (ch))
         return;
+
+    sprintf (result, "[%-5s] [%-27s] [%-20s]\n\r",
+             "Level", "Area Name", "Builders");
+
+    for (pArea = area_first; pArea; pArea = pArea->next)
+    {
+        sprintf (buf,
+                 "[%2d-%2d] %-29.29s [%-20.20s]\n\r",
+                 pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+        strcat (result, buf);
     }
 
-	if IS_IMMORTAL(ch) { 
-		// Immortal View
-        send_to_char("[Level] [Credit][Name                ] [VNUMs      ]\n\r", ch);
-        send_to_char("----------------------------------------------------\n\r", ch);
-
-        pArea = area_first;
-        for (iArea = 0; iArea < top_area; iArea++)
-        {
-            sprintf (buf, "%-39s%i-%i\n\r", pArea->credits, pArea->min_vnum, pArea->max_vnum );
-
-            send_to_char (buf, ch);
-            pArea = pArea->next;
-        } // end for
-
-    } else {
-		// Player/Mortal View
-        send_to_char("[Level] [Credit][Name                  ]\n\r", ch);
-        send_to_char("----------------------------------------\n\r", ch);
-
-        pArea = area_first;
-        for (iArea = 0; iArea < top_area; iArea++)
-        {
-            sprintf (buf, "%-39s\n\r", pArea->credits );
-
-            send_to_char (buf, ch);
-            pArea = pArea->next;
-        } // end for
-    } // end if
-
+    send_to_char (result, ch);
     return;
 }
 
