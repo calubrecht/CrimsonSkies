@@ -1,4 +1,4 @@
-# Makefile for Rom24. Works fine on my Debian system.
+# Makefile for Rom24 - may need to apt-get cshell to use.
 # You may need to use 'gmake' on BSD systems.
 
 CC = gcc
