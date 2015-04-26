@@ -27,7 +27,8 @@ making many area additions.  I will be removing legacy OS support and focus on t
 ## Project Goals:
 
   - To provide a ROM code base that includes creative additions that keep the same
-    feel of what made ROM great.
+    feel of what made ROM great (I will be changing and re-organizing things though) and will probably
+    remove or drastically change some areas that don't fit imo (like the smurf village).
   - To document the old functions with descriptions and hopefully well document new functions.
   - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
@@ -36,11 +37,9 @@ making many area additions.  I will be removing legacy OS support and focus on t
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
     a program that did this back in 2000 and I will start from that concept).
-  - I may use this as a base to port the code to a modern language like C# that will run on
-    both Linux (through Mono) and Windows and implement an easy to use modern database. 
   - I will be using both Nano on the Linux side and Visual Studio on the Windows side to
     program for this (you can use anything you want if you decide to edit).  Visual Studio 2013 
-    allows some pretty cool intellisense which makes coding in C in this project way friendly 
+    allows some pretty cool intellisense which makes coding in C in this project way friendlier
     than back in the day when I was using solely pico.  The solution will compile and is fully
     debugable with Visual Studio which means you can run it and when it crashes you'll be sitting
     on the line of code that caused it when everything or you can easily step into, over and out
@@ -50,7 +49,10 @@ making many area additions.  I will be removing legacy OS support and focus on t
     a mud client that functions like a traditional but also integrates additional input methods
     like voice recognition and joystick support (e.g. you would be able to use a standard game
     controller to move and map commands to the different buttons and they communicate via a head
-    set).
+    set).  Gammon forums has a Windows GUI program to create ROM and Smaug area files.  It is located at
+    http://www.gammon.com.au/downloads.htm.  When I re-write mine I will be including a drag and drop editor
+    to graphically create the room via a map (which will then make it easier to export map files in different
+    formats).
   - To provide a branch that is ROM stripped down to the socket server that can be repurposed for other things.
   - To provide a base branch that has the areas and code stripped down to one area (and any code alterations to 
     remove vnum usage that uses vnums in other areas, this will allow for people starting a mud from scractch 
@@ -73,8 +75,8 @@ Here are some related resources that are thanksfully still active.
 
 ## License 
 
-I have no specific license for my code at this time, but as this is a ROM deritivate it must 
-adhear to the licenses set before it (specifically the ROM, Merc and Diku licenses).  
+I have no specific license for my code at this time, but as this is a ROM/Merc/Diku deritivate it must 
+adhear to the licenses set before it from those code bases.  
 
 ## Contact Me
 
