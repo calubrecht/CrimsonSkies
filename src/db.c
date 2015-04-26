@@ -552,7 +552,7 @@ void new_load_area (FILE * fp)
         switch (UPPER (word[0]))
         {
             case 'L':
-                if (!str_cmp (word, "VNUMs"))
+                if (!str_cmp (word, "LevelRange"))
                 {
                     pArea->min_level = fread_number (fp);
                     pArea->max_level = fread_number (fp);
@@ -3275,7 +3275,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
     for (pArea = area_first; pArea; pArea = pArea->next)
     {
         sprintf (buf,
-                 "[%2d-%2d] %-29.29s [%-20.20s]\n\r",
+                 "[%2d %2d] %-29.29s [%-20.20s]\n\r",
                  pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
         strcat (result, buf);
     }
