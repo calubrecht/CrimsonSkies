@@ -19,3 +19,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fighting Style (Offensive/Normal/Defensive)
   - Add pray command that will allow a mortal to send a message for any immortals logged in to see.
   - Better format sockets command.
+  - autoexit by default
+  - change all doors to use MAX_DOOR instead of hard coded integer

@@ -47,18 +47,16 @@
 #include "interp.h"
 
 char *const dir_name[] = {
-    "north", "east", "south", "west", "up", "down"
+	"north", "east", "south", "west", "up", "down", "northeast", "northwest", "southeast", "southwest"
 };
 
 const sh_int rev_dir[] = {
-    2, 3, 0, 1, 5, 4
+    2, 3, 0, 1, 5, 4, 9, 8, 7, 6
 };
 
 const sh_int movement_loss[SECT_MAX] = {
     1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6
 };
-
-
 
 /*
  * Local functions.
@@ -76,7 +74,8 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
     ROOM_INDEX_DATA *to_room;
     EXIT_DATA *pexit;
 
-    if (door < 0 || door > 5)
+
+	if (door < 0 || door > 9)
     {
         bug ("Do_move: bad door %d.", door);
         return;
@@ -252,15 +251,11 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
     return;
 }
 
-
-
 void do_north (CHAR_DATA * ch, char *argument)
 {
     move_char (ch, DIR_NORTH, FALSE);
     return;
 }
-
-
 
 void do_east (CHAR_DATA * ch, char *argument)
 {
@@ -268,15 +263,11 @@ void do_east (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 void do_south (CHAR_DATA * ch, char *argument)
 {
     move_char (ch, DIR_SOUTH, FALSE);
     return;
 }
-
-
 
 void do_west (CHAR_DATA * ch, char *argument)
 {
@@ -284,15 +275,11 @@ void do_west (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 void do_up (CHAR_DATA * ch, char *argument)
 {
     move_char (ch, DIR_UP, FALSE);
     return;
 }
-
-
 
 void do_down (CHAR_DATA * ch, char *argument)
 {
@@ -300,7 +287,29 @@ void do_down (CHAR_DATA * ch, char *argument)
     return;
 }
 
+void do_northeast(CHAR_DATA * ch, char *argument)
+{
+	move_char(ch, DIR_NORTHEAST, FALSE);
+	return;
+}
 
+void do_northwest(CHAR_DATA * ch, char *argument)
+{
+	move_char(ch, DIR_NORTHWEST, FALSE);
+	return;
+}
+
+void do_southeast(CHAR_DATA * ch, char *argument)
+{
+	move_char(ch, DIR_SOUTHEAST, FALSE);
+	return;
+}
+
+void do_southwest(CHAR_DATA * ch, char *argument)
+{
+	move_char(ch, DIR_SOUTHWEST, FALSE);
+	return;
+}
 
 int find_door (CHAR_DATA * ch, char *arg)
 {
@@ -319,9 +328,17 @@ int find_door (CHAR_DATA * ch, char *arg)
         door = 4;
     else if (!str_cmp (arg, "d") || !str_cmp (arg, "down"))
         door = 5;
+	else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
+		door = 6;
+	else if (!str_cmp(arg, "nw") || !str_cmp(arg, "northwest"))
+		door = 7;
+	else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
+		door = 8;
+	else if (!str_cmp(arg, "sw") || !str_cmp(arg, "southwest"))
+		door = 9;
     else
     {
-        for (door = 0; door <= 5; door++)
+        for (door = 0; door <= 9; door++)
         {
             if ((pexit = ch->in_room->exit[door]) != NULL
                 && IS_SET (pexit->exit_info, EX_ISDOOR)
@@ -346,8 +363,6 @@ int find_door (CHAR_DATA * ch, char *arg)
 
     return door;
 }
-
-
 
 void do_open (CHAR_DATA * ch, char *argument)
 {
@@ -458,8 +473,6 @@ void do_open (CHAR_DATA * ch, char *argument)
 
     return;
 }
-
-
 
 void do_close (CHAR_DATA * ch, char *argument)
 {

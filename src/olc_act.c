@@ -1520,8 +1520,6 @@ bool change_exit (CHAR_DATA * ch, char *argument, int door)
     return FALSE;
 }
 
-
-
 REDIT (redit_north)
 {
     if (change_exit (ch, argument, DIR_NORTH))
@@ -1529,8 +1527,6 @@ REDIT (redit_north)
 
     return FALSE;
 }
-
-
 
 REDIT (redit_south)
 {
@@ -1540,8 +1536,6 @@ REDIT (redit_south)
     return FALSE;
 }
 
-
-
 REDIT (redit_east)
 {
     if (change_exit (ch, argument, DIR_EAST))
@@ -1549,8 +1543,6 @@ REDIT (redit_east)
 
     return FALSE;
 }
-
-
 
 REDIT (redit_west)
 {
@@ -1560,8 +1552,6 @@ REDIT (redit_west)
     return FALSE;
 }
 
-
-
 REDIT (redit_up)
 {
     if (change_exit (ch, argument, DIR_UP))
@@ -1569,8 +1559,6 @@ REDIT (redit_up)
 
     return FALSE;
 }
-
-
 
 REDIT (redit_down)
 {
@@ -1580,7 +1568,37 @@ REDIT (redit_down)
     return FALSE;
 }
 
+REDIT(redit_northeast)
+{
+	if (change_exit(ch, argument, DIR_NORTHEAST))
+		return TRUE;
 
+	return FALSE;
+}
+
+REDIT(redit_northwest)
+{
+	if (change_exit(ch, argument, DIR_NORTHWEST))
+		return TRUE;
+
+	return FALSE;
+}
+
+REDIT(redit_southeast)
+{
+	if (change_exit(ch, argument, DIR_SOUTHEAST))
+		return TRUE;
+
+	return FALSE;
+}
+
+REDIT(redit_southwest)
+{
+	if (change_exit(ch, argument, DIR_SOUTHWEST))
+		return TRUE;
+
+	return FALSE;
+}
 
 REDIT (redit_ed)
 {

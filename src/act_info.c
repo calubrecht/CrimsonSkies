@@ -1293,6 +1293,14 @@ void do_look (CHAR_DATA * ch, char *argument)
         door = 4;
     else if (!str_cmp (arg1, "d") || !str_cmp (arg1, "down"))
         door = 5;
+	else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
+		door = 6;
+	else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+		door = 7;
+	else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
+		door = 8;
+	else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "southwest"))
+		door = 9;
     else
     {
         send_to_char ("You do not see that here.\n\r", ch);
@@ -1355,7 +1363,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
 		send_to_char("Looking around you see:\n\r", ch);
 		scan_list(ch->in_room, ch, 0, -1);
 
-		for (door = 0; door < 6; door++)
+		for (door = 0; door < 9; door++)
 		{
 			if ((pExit = ch->in_room->exit[door]) != NULL)
 				scan_list(pExit->u1.to_room, ch, 1, door);
@@ -1374,6 +1382,14 @@ void do_scan(CHAR_DATA * ch, char *argument)
 		door = 4;
 	else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "down"))
 		door = 5;
+	else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
+		door = 6;
+	else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+		door = 7;
+	else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
+		door = 8;
+	else if (!str_cmp(arg1, "sw") || !str_cmp(arg1, "southwest"))
+		door = 9;
 	else
 	{
 		send_to_char("Which way do you want to scan?\n\r", ch);
@@ -1530,7 +1546,7 @@ void do_exits (CHAR_DATA * ch, char *argument)
         sprintf (buf, "Obvious exits:\n\r");
 
     found = FALSE;
-    for (door = 0; door <= 5; door++)
+    for (door = 0; door <= 9; door++)
     {
         if ((pexit = ch->in_room->exit[door]) != NULL
             && pexit->u1.to_room != NULL
@@ -1545,7 +1561,7 @@ void do_exits (CHAR_DATA * ch, char *argument)
             }
             else
             {
-                sprintf (buf + strlen (buf), "%-5s - %s",
+                sprintf (buf + strlen (buf), "%-9s - %s",
                          capitalize (dir_name[door]),
                          room_is_dark (pexit->u1.to_room)
                          ? "Too dark to tell" : pexit->u1.to_room->name);

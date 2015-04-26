@@ -1083,6 +1083,10 @@ struct    kill_data
 #define DIR_WEST   3
 #define DIR_UP     4
 #define DIR_DOWN   5
+#define DIR_NORTHEAST 6
+#define DIR_NORTHWEST 7 
+#define DIR_SOUTHEAST 8 
+#define DIR_SOUTHWEST 9
 
 /*
  * Exit flags.
@@ -1613,7 +1617,7 @@ struct    room_index_data
     OBJ_DATA *        contents;
     EXTRA_DESCR_DATA *    extra_descr;
     AREA_DATA *        area;
-    EXIT_DATA *        exit    [6];
+    EXIT_DATA *        exit    [10];
     RESET_DATA *    reset_first;    /* OLC */
     RESET_DATA *    reset_last;    /* OLC */
     char *        name;
@@ -2323,7 +2327,7 @@ int    liq_lookup    args( ( const char *name) );
 #define         AREA_ADDED      2    /* Area has been added to. */
 #define         AREA_LOADING    4    /* Used for counting in db.c */
 
-#define MAX_DIR    6
+#define MAX_DIR    10
 #define NO_FLAG  -99    /* Must not be used in flags or stats. */
 
 /*

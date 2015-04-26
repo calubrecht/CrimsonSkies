@@ -1201,7 +1201,7 @@ void bust_a_prompt (CHAR_DATA * ch)
     char doors[MAX_INPUT_LENGTH];
     EXIT_DATA *pexit;
     bool found;
-    const char *dir_name[] = { "N", "E", "S", "W", "U", "D" };
+    const char *dir_name[] = { "N", "E", "S", "W", "U", "D", "-NE", "-NW", "-SE", "-SW" };
     int door;
 
     point = buf;
@@ -1235,7 +1235,7 @@ void bust_a_prompt (CHAR_DATA * ch)
             case 'e':
                 found = FALSE;
                 doors[0] = '\0';
-                for (door = 0; door < 6; door++)
+                for (door = 0; door <= 9; door++)
                 {
                     if ((pexit = ch->in_room->exit[door]) != NULL
                         && pexit->u1.to_room != NULL

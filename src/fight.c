@@ -1682,7 +1682,7 @@ void death_cry (CHAR_DATA * ch)
         msg = "You hear someone's death cry.";
 
     was_in_room = ch->in_room;
-    for (door = 0; door <= 5; door++)
+    for (door = 0; door <= 9; door++)
     {
         EXIT_DATA *pexit;
 

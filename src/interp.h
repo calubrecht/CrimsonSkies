@@ -317,3 +317,7 @@ DECLARE_DO_FUN(do_rename);
 DECLARE_DO_FUN(do_vnumgap);
 DECLARE_DO_FUN(do_exlist);
 DECLARE_DO_FUN(do_broadcast);
+DECLARE_DO_FUN(do_northeast);
+DECLARE_DO_FUN(do_northwest);
+DECLARE_DO_FUN(do_southeast);
+DECLARE_DO_FUN(do_southwest);

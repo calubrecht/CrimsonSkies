@@ -170,31 +170,35 @@ DECLARE_OLC_FUN( aedit_credits		);
 /*
  * Room Editor Prototypes
  */
-DECLARE_OLC_FUN( redit_show		);
-DECLARE_OLC_FUN( redit_create		);
-DECLARE_OLC_FUN( redit_name		);
-DECLARE_OLC_FUN( redit_desc		);
-DECLARE_OLC_FUN( redit_ed		);
-DECLARE_OLC_FUN( redit_format		);
-DECLARE_OLC_FUN( redit_north		);
-DECLARE_OLC_FUN( redit_south		);
-DECLARE_OLC_FUN( redit_east		);
-DECLARE_OLC_FUN( redit_west		);
-DECLARE_OLC_FUN( redit_up		);
-DECLARE_OLC_FUN( redit_down		);
-DECLARE_OLC_FUN( redit_mreset		);
-DECLARE_OLC_FUN( redit_oreset		);
-DECLARE_OLC_FUN( redit_mlist		);
-DECLARE_OLC_FUN( redit_rlist		);
-DECLARE_OLC_FUN( redit_olist		);
-DECLARE_OLC_FUN( redit_mshow		);
-DECLARE_OLC_FUN( redit_oshow		);
-DECLARE_OLC_FUN( redit_heal		);
-DECLARE_OLC_FUN( redit_mana		);
-DECLARE_OLC_FUN( redit_clan		);
-DECLARE_OLC_FUN( redit_owner		);
-DECLARE_OLC_FUN( redit_room		);
-DECLARE_OLC_FUN( redit_sector		);
+DECLARE_OLC_FUN( redit_show	     );
+DECLARE_OLC_FUN( redit_create	 );
+DECLARE_OLC_FUN( redit_name		 );
+DECLARE_OLC_FUN( redit_desc		 );
+DECLARE_OLC_FUN( redit_ed		 );
+DECLARE_OLC_FUN( redit_format	 );
+DECLARE_OLC_FUN( redit_north	 );
+DECLARE_OLC_FUN( redit_south	 );
+DECLARE_OLC_FUN( redit_east		 );
+DECLARE_OLC_FUN( redit_west		 );
+DECLARE_OLC_FUN( redit_up		 );
+DECLARE_OLC_FUN( redit_down		 );
+DECLARE_OLC_FUN( redit_northeast );
+DECLARE_OLC_FUN( redit_northwest );
+DECLARE_OLC_FUN( redit_southeast );
+DECLARE_OLC_FUN( redit_southwest );
+DECLARE_OLC_FUN( redit_mreset    );
+DECLARE_OLC_FUN( redit_oreset    );
+DECLARE_OLC_FUN( redit_mlist     );
+DECLARE_OLC_FUN( redit_rlist     );
+DECLARE_OLC_FUN( redit_olist     );
+DECLARE_OLC_FUN( redit_mshow     );
+DECLARE_OLC_FUN( redit_oshow     );
+DECLARE_OLC_FUN( redit_heal     );
+DECLARE_OLC_FUN( redit_mana     );
+DECLARE_OLC_FUN( redit_clan     );
+DECLARE_OLC_FUN( redit_owner    );
+DECLARE_OLC_FUN( redit_room     );
+DECLARE_OLC_FUN( redit_sector   );
 
 
 /*

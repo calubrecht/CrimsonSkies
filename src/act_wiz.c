@@ -1201,7 +1201,7 @@ void do_rstat (CHAR_DATA * ch, char *argument)
     }
     send_to_char (".\n\r", ch);
 
-    for (door = 0; door <= 5; door++)
+    for (door = 0; door <= 9; door++)
     {
         EXIT_DATA *pexit;
 
@@ -4979,7 +4979,7 @@ void do_rename(CHAR_DATA* ch, char* argument)
 extern ROOM_INDEX_DATA * room_index_hash[MAX_KEY_HASH]; /* db.c */
 
 /* opposite directions */
-const sh_int opposite_dir[6] = { DIR_SOUTH, DIR_WEST, DIR_NORTH, DIR_EAST, DIR_DOWN, DIR_UP };
+const sh_int opposite_dir[10] = { DIR_SOUTH, DIR_WEST, DIR_NORTH, DIR_EAST, DIR_DOWN, DIR_UP, DIR_SOUTHWEST, DIR_SOUTHEAST, DIR_NORTHWEST, DIR_NORTHEAST };
 
 /* get the 'short' name of an area (e.g. MIDGAARD, MIRROR etc. */
 /* assumes that the filename saved in the AREA_DATA struct is something like midgaard.are */
@@ -5034,7 +5034,7 @@ void checkexits(ROOM_INDEX_DATA *room, AREA_DATA *pArea, char* buffer)
 	ROOM_INDEX_DATA *to_room;
 
 	strcpy(buffer, "");
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < 9; i++)
 	{
 		exit = room->exit[i];
 		if (!exit)
