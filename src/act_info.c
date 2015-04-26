@@ -108,7 +108,7 @@ char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
     if (IS_AFFECTED (ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT (obj, ITEM_MAGIC))
         strcat (buf, "({YMagical{x) ");
     if (IS_OBJ_STAT (obj, ITEM_GLOW))
-        strcat (buf, "({CGlowing{x) ");
+        strcat (buf, "({cGlowing{x) ");
     if (IS_OBJ_STAT (obj, ITEM_HUM))
         strcat (buf, "({YHumming{x) ");
 
