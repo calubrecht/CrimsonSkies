@@ -25,9 +25,10 @@ Syntax: color    Toggles color mode on/off
         {b{{b     blue           {w{{w     white
         {B{{B     bright blue    {W{{W     bright white
         {m{{m     magenta        {x{{x     clear (reset color)
-        {M{{M     bright magenta{x
+        {M{{M     bright magenta{x {{&{x     {&reverse text{x
         {{{{     {{ char         {{*     beep
-        {{/     newline
+        {{/     newline        {{_{x     {_underline{x
+
         When using color, it looks better if you finish the line
         with whatever color it would normally be in, such as a
         gossip, the color is magenta, so:
