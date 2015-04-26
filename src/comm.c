@@ -2280,6 +2280,9 @@ int color(char type, CHAR_DATA *ch, char *string)
 	case '_':
 		strcpy(code, "\x1B[0;4m");  // Underline
 		break;
+        case '&':
+                strcpy(code, "\x1B[0;7m");  // Reverse
+                break;
 	case '-':
 		strcpy(code, "~"); 
 		break;
