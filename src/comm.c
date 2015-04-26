@@ -1210,7 +1210,7 @@ void bust_a_prompt (CHAR_DATA * ch)
 	// Rhien, 04/10/2015 If the prompt is null, give them the default prompt
 	if (str == NULL || str[0] == '\0')
     {
-		ch->prompt = str_dup("<%hhp %mm %vmv {x({c%e{x) {g%r{c> ");
+		ch->prompt = str_dup("<%hhp %mm %vmv {g%r {x({c%e{x)>{x  ");
     }
 
     if (IS_SET (ch->comm, COMM_AFK))

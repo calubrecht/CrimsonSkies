@@ -567,7 +567,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->race = race_lookup ("human");
     ch->act = PLR_NOSUMMON;
     ch->comm = COMM_COMBINE | COMM_PROMPT;
-    ch->prompt = str_dup ("<%hhp %mm %vmv {x({c%e{x) {g%r{c> ");
+    ch->prompt = str_dup ("<%hhp %mm %vmv {g%r {x({c%e{x)>{x ");
     ch->pcdata->confirm_delete = FALSE;
 	ch->pcdata->board = &boards[DEFAULT_BOARD];
     ch->pcdata->pwd = str_dup ("");
