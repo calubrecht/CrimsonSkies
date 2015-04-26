@@ -142,7 +142,6 @@
     <None Include="area\galaxy.are" />
     <None Include="area\gnome.are" />
     <None Include="area\grave.are" />
-    <None Include="area\group.are" />
     <None Include="area\grove.are" />
     <None Include="area\haon.are" />
     <None Include="area\help.are" />
