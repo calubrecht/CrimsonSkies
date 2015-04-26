@@ -54,9 +54,6 @@
     <ClCompile Include="src\db.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\db2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\effects.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -208,7 +205,6 @@
     <None Include="area\pyramid.are" />
     <None Include="area\quifael.are" />
     <None Include="area\redferne.are" />
-    <None Include="area\rom.are" />
     <None Include="area\school.are" />
     <None Include="area\sewer.are" />
     <None Include="area\shire.are" />

@@ -86,7 +86,6 @@
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
-    <ClCompile Include="src\db2.c" />
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\flags.c" />
@@ -168,7 +167,6 @@
     <None Include="area\pyramid.are" />
     <None Include="area\quifael.are" />
     <None Include="area\redferne.are" />
-    <None Include="area\rom.are" />
     <None Include="area\school.are" />
     <None Include="area\sewer.are" />
     <None Include="area\shire.are" />
