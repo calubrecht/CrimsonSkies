@@ -3269,13 +3269,15 @@ void do_areas (CHAR_DATA * ch, char *argument)
     if (IS_NPC (ch))
         return;
 
-    sprintf (result, "[%-5s] [%-27s] [%-20s]\n\r",
+    sprintf (result, "[%-5s] [%-38s] [%-25s]\n\r",
              "Level", "Area Name", "Builders");
+
+    strcat (result, "----------------------------------------------------------------------------\n\r");
 
     for (pArea = area_first; pArea; pArea = pArea->next)
     {
         sprintf (buf,
-                 "[%2d %2d] %-29.29s [%-20.20s]\n\r",
+                 "[%2d %2d] %-40.40s [%-25.25s]\n\r",
                  pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
         strcat (result, buf);
     }
