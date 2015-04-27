@@ -80,7 +80,7 @@ AGHS DF 200 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
-stand stand male 1
+sleep sleep male 1
 AHMV ABCDEFGHIJK medium unknown
 #206
 oldstyle poetic bard~
@@ -115,10 +115,10 @@ AHMV ABCDEFGHIJK medium unknown
 #208
 oldstyle magician~
 A magician~
-A magician is here.
+A magician is here levitating off the ground.
 ~
-A magician is here practicing slight of hand tricks.  You can't tell quite tell if the
-magician knows real magic..
+A magician is here practicing slight of hand tricks.  It almost seems as if he's 
+levitating off of the ground..
 ~
 human~
 AGHS DF 200 0
@@ -210,9 +210,9 @@ clothing A AE
 0 0 0 0 0
 3 20 270 P
 A
-2 -1
-A
 4 1
+A
+2 -1
 #202
 cloth hat~
 a cloth hat~
@@ -279,6 +279,14 @@ oldstyle~
 key 0 A
 B 0 0 0 0
 0 20 0 P
+#210
+flimsy wand~
+a flimsy wand~
+A flimsy wand lays here with some unreadable etchings on it.~
+wood~
+staff 0 AO
+2 1 1 'fly' 0
+0 2 0 P
 #0
 
 
@@ -834,7 +842,7 @@ M 208 spec_thief
 M 209 spec_thief
 M 210 spec_cast_mage
 M 211 spec_cast_cleric
-M 212 spec_poison
+M 212 spec_cat
 S
 
 
@@ -857,8 +865,10 @@ M 0 202 3 216 1 Load a bard
 G 0 200 0 A bunch of glowing berries is given to a bard
 M 0 202 3 217 1 Load a bard
 G 0 200 0 A bunch of glowing berries is given to a bard
+O 0 200 0 217 A bunch of glowing berries loaded to Berry Patch
 M 0 202 3 218 1 Load a bard
 G 0 200 0 A bunch of glowing berries is given to a bard
+O 0 200 0 218 A bunch of glowing berries loaded to Berry Patch
 M 0 203 1 219 1 Load Willow the Bard
 E 0 201 0 6 A pair of glasses is loaded over the head of Willow the Bard
 M 0 204 1 220 1 Load A crafting bard
@@ -868,6 +878,7 @@ E 0 203 0 16 A small axe is loaded wielded of A poetic bard
 M 0 205 1 222 1 Load A sleeping bard
 M 0 207 1 223 1 Load A juggling bard
 M 0 208 1 224 1 Load A magician
+E 0 210 0 17 A flimsy wand is loaded held in the hands of A magician
 M 0 210 1 225 1 Load The bard leader
 G 0 205 0 A pink potion is given to The bard leader
 G 0 209 0 A small key is given to The bard leader
