@@ -165,7 +165,7 @@ DECLARE_OLC_FUN( aedit_vnum		);
 DECLARE_OLC_FUN( aedit_lvnum		);
 DECLARE_OLC_FUN( aedit_uvnum		);
 DECLARE_OLC_FUN( aedit_credits		);
-
+DECLARE_OLC_FUN( aedit_levelrange       );
 
 /*
  * Room Editor Prototypes

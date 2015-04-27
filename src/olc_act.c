@@ -616,38 +616,41 @@ AEDIT (aedit_show)
 
     EDIT_AREA (ch, pArea);
 
-    sprintf (buf, "Name:     [%5d] %s\n\r", pArea->vnum, pArea->name);
+    sprintf (buf, "Name:       [%5d] %s\n\r", pArea->vnum, pArea->name);
     send_to_char (buf, ch);
 
 #if 0                            /* ROM OLC */
-    sprintf (buf, "Recall:   [%5d] %s\n\r", pArea->recall,
+    sprintf (buf, "Recall:     [%5d] %s\n\r", pArea->recall,
              get_room_index (pArea->recall)
              ? get_room_index (pArea->recall)->name : "none");
     send_to_char (buf, ch);
 #endif /* ROM */
 
-    sprintf (buf, "File:     %s\n\r", pArea->file_name);
+    sprintf (buf, "File:       %s\n\r", pArea->file_name);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Vnums:    [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum);
+    sprintf (buf, "Vnums:      [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Age:      [%d]\n\r", pArea->age);
+    sprintf (buf, "LevelRange: [%d-%d]\n\r", pArea->min_level, pArea->max_level);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Players:  [%d]\n\r", pArea->nplayer);
+    sprintf (buf, "Age:        [%d]\n\r", pArea->age);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Security: [%d]\n\r", pArea->security);
+    sprintf (buf, "Players:    [%d]\n\r", pArea->nplayer);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Builders: [%s]\n\r", pArea->builders);
+    sprintf (buf, "Security:   [%d]\n\r", pArea->security);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Credits : [%s]\n\r", pArea->credits);
+    sprintf (buf, "Builders:   [%s]\n\r", pArea->builders);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Flags:    [%s]\n\r",
+    sprintf (buf, "Credits :   [%s]\n\r", pArea->credits);
+    send_to_char (buf, ch);
+
+    sprintf (buf, "Flags:      [%s]\n\r",
              flag_string (area_flags, pArea->area_flags));
     send_to_char (buf, ch);
 
@@ -980,8 +983,6 @@ AEDIT (aedit_vnum)
     return TRUE;
 }
 
-
-
 AEDIT (aedit_lvnum)
 {
     AREA_DATA *pArea;
@@ -1022,8 +1023,6 @@ AEDIT (aedit_lvnum)
     send_to_char ("Lower vnum set.\n\r", ch);
     return TRUE;
 }
-
-
 
 AEDIT (aedit_uvnum)
 {
@@ -1066,7 +1065,40 @@ AEDIT (aedit_uvnum)
     return TRUE;
 }
 
+// Rhien, 04/27/2015
+AEDIT (aedit_levelrange)
+{
+    AREA_DATA *pArea;
+    char lower[MAX_STRING_LENGTH];
+    char upper[MAX_STRING_LENGTH];
+    int ilower;
+    int iupper;
 
+    EDIT_AREA (ch, pArea);
+
+    argument = one_argument (argument, lower);
+    one_argument (argument, upper);
+
+    if (!is_number (lower) || lower[0] == '\0'
+        || !is_number (upper) || upper[0] == '\0')
+    {
+        send_to_char ("Syntax:  levelrange [#xlower] [#xupper]\n\r", ch);
+        return FALSE;
+    }
+
+    if ((ilower = atoi (lower)) > (iupper = atoi (upper)))
+    {
+        send_to_char ("AEdit:  Upper must be larger then lower.\n\r", ch);
+        return FALSE;
+    }
+
+    pArea->min_level = ilower;
+    pArea->max_level = iupper;
+    send_to_char ("Level range set.\n\r", ch);
+
+    return TRUE;
+
+} // end aedit_levelrange
 
 /*
  * Room Editor Functions.

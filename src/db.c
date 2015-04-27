@@ -539,6 +539,8 @@ void new_load_area (FILE * fp)
     pArea->security = 9;        /* 9 -- Hugin */
     pArea->min_vnum = 0;
     pArea->max_vnum = 0;
+    pArea->min_level = 0;
+    pArea->max_level = 0;
     pArea->area_flags = 0;
 /*  pArea->recall       = ROOM_VNUM_TEMPLE;        ROM OLC */
 

@@ -236,7 +236,7 @@ const struct olc_cmd_type aedit_table[] = {
     {"lvnum", aedit_lvnum},
     {"uvnum", aedit_uvnum},
     {"credits", aedit_credits},
-
+    {"levelrange", aedit_levelrange},
     {"?", show_help},
     {"version", show_version},
 

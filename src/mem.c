@@ -118,6 +118,8 @@ AREA_DATA *new_area (void)
     pArea->builders = str_dup ("None");
     pArea->min_vnum = 0;
     pArea->max_vnum = 0;
+    pArea->min_level = 0;
+    pArea->max_level = 0;
     pArea->age = 0;
     pArea->nplayer = 0;
     pArea->empty = TRUE;        /* ROM patch */
