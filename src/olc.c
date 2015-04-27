@@ -1389,6 +1389,11 @@ void do_resets (CHAR_DATA * ch, char *argument)
                     OBJ_INDEX_DATA *temp;
 
                     temp = get_obj_index (is_number (arg5) ? atoi (arg5) : 1);
+                    if (temp == NULL) {
+                        send_to_char("Object not found.\n\r", ch);
+                        return;
+                    }
+
                     if ((temp->item_type != ITEM_CONTAINER) &&
                         (temp->item_type != ITEM_CORPSE_NPC))
                     {
