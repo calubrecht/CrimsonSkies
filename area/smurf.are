@@ -1,22 +1,19 @@
 #AREADATA
-Name Smurfville~
-Builders Generic~
+Name Bard Camp~
+Builders Rhien Generic~
 VNUMs 200 299
 LevelRange 1 10
-Credits [ 1 10] Generic Smurf Village~
+Credits [ 1 10] Rhien Generic Bard Camp~
 Security 9
 End
 
-
-
 #MOBILES
 #201
-oldstyle smurf~
-a smurf~
-A smurf is singing and walking along.
+oldstyle bard~
+a bard~
+A bard is here is singing and walking along.
 ~
-A cute little blue smurf with a white hat and white boots.  You have a sudden
-urge to crush him.
+A bard is standing here wearing a leather tunic and singing a tune.  
 ~
 human~
 AGHS DF 200 0
@@ -26,11 +23,11 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #202
-oldstyle smurf~
-a smurf~
-A smurf is here, picking berries.
+oldstyle bard~
+a bard~
+A bard is here, whistling a merry tune.
 ~
-A small smurf is quietly picking berries.  He seems to hardly notice you.
+A bard is here whistling a merry tune.  He seems to hardly notice you.
 ~
 human~
 ABHS DF 200 0
@@ -40,12 +37,11 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #203
-oldstyle brainy smurf~
-Brainy Smurf~
-Brainy Smurf is here, mumbling something to himself.
+oldstyle willow bard~
+Willow the Bard~
+Willow the Bard is here in thoughtful contemplation.
 ~
-Brainy Smurf has on his usual glasses.  Brainy Smurf isn't liked much by the
-other smurfs.  They fear his knowledge.  Knowledge is power!
+Willow the Bard is here hardly paying attention to you while he's in thoughtful contemplation.  
 ~
 human~
 AGHS DF 200 0
@@ -55,12 +51,12 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #204
-oldstyle handy smurf~
-Handy Smurf~
-Handy Smurf is building something here.
+oldstyle crafting bard~
+A crafting bard~
+A crafting bard is building something here.
 ~
-Handy is always building something.  He never takes a break.  Why don't you
-give him a break, like all of his bones.
+A crafting bard is here widdling on a small piece of wood and humming a tune.  It looks
+like he might be making a flute.
 ~
 human~
 AGHS DF 120 0
@@ -70,12 +66,12 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #205
-oldstyle sleepy smurf~
-Sleepy Smurf~
-Sleepy Smurf is sleep walking here.
+oldstyle sleeping bard~
+A sleeping bard~
+A sleeping bard is sleep walking here.
 ~
-Sleepy never gets enough sleep.  You would think he goes to college.  I wonder
-if he has ever stayed up a whole night without sleeping.
+A bard wanders slowly back and forth, appearing to be sleep walking.  The bard has a slight
+smile on his face as if he's having a pleasant dream.
 ~
 human~
 AGHS DF 200 0
@@ -85,12 +81,13 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #206
-oldstyle hefty smurf~
-Hefty Smurf~
-Hefty Smurf is lifting weights here.
+oldstyle poetic bard~
+A poetic bard~
+A poetic bard is here jovially reciting poetry.
 ~
-Hefty is a total health nut.  He lifts weights, eats right, and exercises all
-the time.  Won't do him much good when he's DEAD.
+A poetic bard is here jovially reciting poetry.  He is plump with rosey cheeks that
+burn redder the longer he recites his rhymes.  He has a green hat on that slides
+down as he bobs his head up an down. 
 ~
 human~
 AGHS DF 200 0
@@ -100,11 +97,11 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #207
-oldstyle grumpy smurf~
-Grumpy Smurf~
-Grumpy Smurf is here, swearing.
+oldstyle juggling bard~
+A juggling bard~
+A bard is here juggling.
 ~
-Grumpy has never been happy in his whole life.  So why don't you just end it?
+A bard is here juggling multicolored balls with his eyes closed.
 ~
 human~
 AGHS DF 200 0
@@ -114,12 +111,12 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #208
-oldstyle jokey smurf~
-Jokey Smurf~
-Jokey Smurf is here, holding a present.
+oldstyle magician~
+A magician~
+A magician is here.
 ~
-Jokey loves to give people presents.  Too bad the present explodes when opened.
-Oh well, to each his own.
+A magician is here practicing slight of hand tricks.  You can't tell quite tell if the
+magician knows real magic..
 ~
 human~
 AGHS DF 200 0
@@ -129,12 +126,12 @@ BEFJNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #209
-oldstyle smurfette~
-Smurfette~
-Smurfette is here, looking beautiful.
+oldstyle woman~
+A buxom woman~
+A buxom woman is here, looking beautiful.
 ~
-Smurfette is the cutest little smurf you've ever seen.  If only she were your
-size.  I wonder how much she charges the other smurfs.
+A buxom woman is here, pacing back and forth and muttering to herself something about useless
+bards.
 ~
 human~
 AGHS DF 200 0
@@ -144,13 +141,13 @@ BEFJNU 0 0 0
 stand stand female 1
 AHMV ABCDEFGHIJK medium unknown
 #210
-oldstyle papa smurf~
-Papa Smurf~
-Papa Smurf is practicing magic here.
+oldstyle bard leader~
+The bard leader~
+The bard leader is here, sitting next to the camp fire by his quarters.
 ~
-Yep, its Papa Smurf all right.  Red hat and boots and the funny little white
-beard.  Papa Smurf treats his fellow smurfs with dignity and respect.  That
-is why Papa Smurf is so popular among the ladies.
+The bard leader is sitting here next to the camp fire looking over all of his flock.  His
+quarters which look to be an old run down home are behind him (he does appear to be squatting
+in the house).
 ~
 human~
 AGHR 0 200 0
@@ -160,12 +157,12 @@ FU 0 0 0
 stand stand male 2
 AHMV ABCDEFGHIJK medium unknown
 #211
-oldstyle gargamel~
-Gargamel~
-Gargamel is here, cursing out the smurfs.
+oldstyle old man~
+old man~
+An old man is here observing all of the hustle and bustle.
 ~
-Gargamel has never done anything right in his life.  He has caught smurfs
-before but always lets them escape.  He brings true meaning to the word moron.
+An old man is here, observing all of the hustle and bustly around camp.  He's face is worn
+and leathery and he has a long beard which extends down a foot.
 ~
 human~
 ABHQ 0 -100 0
@@ -175,12 +172,12 @@ EIKU 0 0 0
 stand stand male 2
 AHMV ABCDEFGHIJK medium unknown
 #212
-oldstyle azreal cat~
-Azreal~
-Azreal is here, licking himself.
+oldstyle stray cat~
+A stray cat~
+A stray cat is here.
 ~
-Gargamel's worthless cat.  He is just about as dumb as Gargamel.  He should
-just grab a smurf in his teeth and chew away.
+A stray cat is here who has taken up camp with the bards.  It seems to enjoy the companionship
+of the traveling company.
 ~
 human~
 ABH 0 -100 0
@@ -191,13 +188,11 @@ stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
 #0
 
-
-
 #OBJECTS
 #200
-bunch berries smurfberries~
-a bunch of smurfberries~
-A bunch of delicious looking smurfberries lie here.~
+bunch glowing berries~
+a bunch of glowing berries~
+A bunch of mysterious glowing berries lie here.~
 oldstyle~
 pill 0 A
 8 '' '' 'change sex' ''
@@ -215,9 +210,9 @@ A
 A
 2 -1
 #202
-smurf hat~
-a smurf hat~
-A smurf hat has been left here.~
+cloth hat~
+a cloth hat~
+A cloth hat has been left here.~
 oldstyle~
 armor 0 AE
 AB AB AB 0 0
@@ -266,8 +261,8 @@ B 0 0 0 0
 0 20 0 P
 #208
 well~
-a smurf well~
-A small smurfy well is here.~
+a stone well~
+A small stone well is here.~
 oldstyle~
 fountain 0 0
 50 50 'water' 0 0
@@ -275,20 +270,18 @@ fountain 0 0
 #209
 key~
 a small key~
-A key to Gargamel's door lies here.~
+A key to the old man's door lies here.~
 oldstyle~
 key 0 A
 B 0 0 0 0
 0 20 0 P
 #0
 
-
-
 #ROOMS
 #201
 Dimly Lit Path~
-This path is made of crushed granite with curious blue streaks in it.
-The path continues north to a village, or south to the eastern road.
+This path is made of crushed granite.
+The path continues north to a camp, or south to the eastern road.
 ~
 0 0 3
 D0
@@ -326,7 +319,7 @@ getting stronger to the north.  The path back to the road lies to the south.
 ~
 0 0 3
 D0
-The entrance to smurf village.
+The entrance to bard camp.
 ~
 ~
 0 -1 204
@@ -337,15 +330,14 @@ The dimly lit path.
 0 -1 202
 S
 #204
-Entrance to Smurf Village~
-You stand at the entrance to a tiny village.  You can see across the whole
-village easily.  Little blue creatures with white hats and boots and little 
-fluffy tails scamper about.  They sing continuously.  The singing is getting
-on your nerves and you have the urge to squash them.
+Entrance to the Bard Camp~
+You stand at the entrance to a tiny camp.  You can see across the whole
+village easily.  Many bards with colors clothing are scattered about.  
+You hear continous singing and laughter.
 ~
 0 0 2
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 205
@@ -356,109 +348,105 @@ Dimly Lit Path
 0 -1 203
 S
 #205
-Smurfy Road~
-You are way too big to be using this road.  But who cares.  Who's gonna stop
-you?  These little blue smurfs?  The singing is growing intense.  Your ears
-are starting to ring.  Smurfy Road continues to the north, west, and east.
-There is still time to turn back and go south.
+Dirt Road~
+You are standing on a make shift dirt road where all of the crash has been
+trampled away by the constant moving of feet over it.
 ~
 0 0 1
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 206
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 210
 D2
-Entrance to smurf village
+Entrance to the Bard Camp
 ~
 ~
 0 -1 204
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 211
 S
 #206
-Smurfy Road~
-You continue to travel down Smurfy Road.  Isn't it just smurfy?  Smurfy road
-continues its smurfy path to the smurfy north, smurfy west, and smurfy south.
-A smurfy home lies to the smurfy east.
+Dirt Road~
+You continue to travel down the make shirt dirt road.  It continues to the north, west, and south.
+A tent lays to the east along a small tree line.
 ~
 0 0 1
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 207
 D1
-Smurfy Home
+A small tent
 ~
 ~
 0 -1 220
 D2
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 205
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 212
 S
 #207
-Smurfy Road~
-Oh boy, another smurfy road!  Smurfy Road goes north and south here.  There
-is a smurfy, mushroom home to the west.  A beautiful smurfberry patch is to
-the east.
+Dirt Road~
+Oh boy, another trampled and muddy dirt road!  The road continues north and south here.  There
+is another tent to the west.  A beautiful patch is to the east that appears to be growing bushes
+and bushes of berries.
 ~
 0 0 1
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 208
 D1
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 216
 D2
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 206
 D3
-A Smurfy Home
+A small tent
 ~
 ~
 0 -1 229
 S
 #208
-Smurfy Road~
-Smurfy Road continues to smurf here.  It smurfs to the south and smurfs to
-an end to the north.  A smurfberry patch is to the east.  A stone path lies
-to the west.
+Dirt Road~
+A dirt road continues here.  It extends to the south and looks to end just to the
+north.  A berry patch is to the east.  A stone path lies to the west.
 ~
 0 0 1
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 209
 D1
-Smurfberry patch
+Berry patch
 ~
 ~
 0 -1 217
 D2
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 207
@@ -469,226 +457,220 @@ A stone path
 0 -1 213
 S
 #209
-Smurfy Road~
-A smurfy well lies here in the middle of Smurfy Road.  A fence separates
-the smurfs from harm to the north.  A berry patch is to the east.  Smurfy
-Road continues to to the south and west.
+Dirt Road~
+A stone well lies here in the middle of the dirt road somewhat obstructing the path.  A fence 
+separates the bards from harm to the north although it was here for ages longer than the bards camp
+has been.  A berry patch is to the east and the dirt road continues to the south and west.
 ~
 0 0 1
 E
-smurfy well~
-A small well is here.  Just the right size if you're a smurf.  But big
-enough for you to get some water from.  I'm sure the smurfs wont mind.
+stone well~
+A small stone well is here.  It is very deep and dark and smell damp as you peer down into it.
 ~
 D1
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 218
 D2
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 208
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 214
 S
 #210
-Smurfy Road~
-A corner of smurfy road is where you stand.  A smurfy fence blocks passage
-to the east or south.  A smurfy home is to the north.  Smurfy Road goes back
+Dirt Road~
+A corner of the dirt road is where you stand.  A large fence blocks passage
+to the east or south.  A small tent is to the north.  The dirt road goes back
 to the west.
 ~
 0 0 1
 D0
-Smurfy Home
+Small Tent
 ~
 ~
 0 -1 219
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 205
 S
 #211
-Smurfy Road~
-Western corner of Smurfy Road.  You can continue to smurf down the road
-to the east and north.  You can also smurf into a smurfy home to the south.
+Dirt Road~
+Western corner of the dirt road.  You can continue to walk down the road
+to the east and north.  You can also go into a small tent to the south.
 ~
 0 0 1
 D0
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 212
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 205
 D2
-Smurfy Home
+Dirt Home
 ~
 ~
 0 -1 221
 S
 #212
-Smurfy Road~
-There's no place like smurf.  There's no place like smurf.  Sorry wrong
-movie.  A smurfy home is to the west.  Papa Smurf's backyard is to the
-north but you can't go there.  Smurfy Road continues to the south and
-east.
+Dirt Road~
+A small tent is to the west.  The bard leaders quarters appear to be to the
+north but you can't go there.  A dirt road continues to the south and east.
 ~
 0 0 1
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 206
 D2
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 211
 D3
-Smurfy Home
+Dirt Home
 ~
 ~
 0 -1 222
 S
 #213
 Stone Path~
-You are walking along a cute little stone path.  To the south lies Papa
-Smurf's house.  A Smurfy house is to the west.  Smurfy road is to the east.
+You are walking along a cute little stone path.  To the south lies the bard
+leaders quarters.  A small tent is to the west.  A dirt road is to the east.
 Everything is so peaceful here.  You could stay forever.
 ~
 0 0 1
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 208
 D2
-Papa Smurf's House
+The bard leaders quarters
 ~
 door~
 0 207 225
 D3
-Smurfy House
+A small tent
 ~
 ~
 0 -1 223
 S
 #214
-Smurfy Road~
-Yet another part of Smurfy Road.  Hey if you go west its the last
-section of Smurfy Road.  You can go back to the smurfy well to the east.
+Dirt Road~
+Yet another part of the dirt road.  If you go west it appears to be the last section
+of the road.  You can go back to the stone well to the east.
 ~
 0 0 1
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 209
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 215
 S
 #215
-Smurfy Road~
-The last piece of Smurfy Road.  You can go back to Smurfy Road to the east.
-A nice, beautiful, smurfy, mushroom home is to the south.  In the distance to
-the north you can see Gargamel's Castle.
+Dirt Road~
+This appears to be the last seciton of the dirt road.  You can go back on the dirt road 
+to the east.  A large tent is to the south.  In the distance to the north you can see what 
+appears to be a run down house.
 ~
 0 0 1
 D0
-Path to Gargamel's Castle
+Stone Path
 ~
 ~
 0 -1 226
 D1
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 214
 D2
-Smurfy Home
+Dirt Home
 ~
 ~
 0 -1 224
 S
 #216
-Smurfberry Patch~
-Delicious smurfberries grow here.  You could probably eat a year's worth of
-smurfberries in one sitting.  Smurfy Road is back to the west.  Another
-smurfberry patch is to the north.
+Berry Patch~
+Berries grow here.  They almost seem like they're glowing and there is a interesting perfume like aroma
+in the area.  A dirt road is back to the west.  Another berry patch is to the north.
 ~
 0 0 1
 D0
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 217
 D3
-Smurfy Road
+Dirt Road
 ~
 ~
 0 -1 207
 S
 #217
-Smurfberry Patch~
-Another patch of smurfberries is growing here.  The smell is driving your
+Berry Patch~
+Another patch of berries is growing here.  The smell is driving your
 nostrils crazy.  It almost, ALMOST, makes you forget all the singing going
-on.  Smurfy Road is to the west, while smurfberry patches are to the north
+on.  A dirt road is to the west, while more berry patches are to the north
 and south.
 ~
 0 0 1
 D0
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 218
 D2
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 216
 D3
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 208
 S
 #218
-Smurfberry Patch~
-The northernmost of the smurfberry patches grows here.  It looks just
-as scrumptious as all the rest.  Just take a few; they'll never know.  Smurfy
-Road is to the west.  A smurfberry patch is to the south.
+Berry Patch~
+The northernmost of the berry patches grows here.  It looks just
+as scrumptious as all the rest.  Just take a few; they'll never know.  A dirt road 
+is to the west.  A berry patch is to the south.
 ~
 0 0 1
 D2
-Smurfberry Patch
+Berry Patch
 ~
 ~
 0 -1 217
 D3
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 209
 S
 #219
-Brainy Smurf's Home~
-You rip the roof of the home to get a good look inside.  You see
-many smurfy books.  The print is so small you couldn't even read it
-with a magnifying glass.  I wonder if Brainy Smurf minds if you
-destroy his home?  Smurfy Road is back to the south.
+Willow the Bard's Home~
+You are standing in Willow the Bard's home.  It is very quiet with a small fire glowing
+in the fireplace and many books laying strewn across the room.
 ~
 0 0 1
 D2
@@ -698,36 +680,34 @@ Smurfy Road
 0 -1 210
 S
 #220
-Handy Smurf's Home~
-This home was well built.  Of course, until you rip it apart you big meany
-you.  Tools are all over the place.  Too small for you to use.  Smurfy Road is
-back to the west.
+A small tent~
+This is a small tent.  It is empty inside except for some leaves that have blown in through
+the open front.  A dirt road is back to the west.
 ~
 0 0 1
 D3
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 206
 S
 #221
-Hefty Smurf's Home~
-Hefty is anything but wimpy.  So is his house.  It actually took you a 
-couple of minutes to destroy his house.  Better watch out -- he might be
-a little mad at you.  Smurfy Road is back to the north.
+A small tent~
+A small tent is here that is cluttered with trinkets and papers.  A dirt road is back to the 
+north.
 ~
 0 0 1
 D0
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 211
 S
 #222
-Sleepy Smurf's Home~
-Be vewy vewy quiet.  Sleepy Smurf is probably sleeping.  You see so many
-beds you can't even tell if he is here.  Maybe you should quietly go back to
-Smurfy Road to the east.
+A small tent~
+Be very quiet.  There is a very tired bard sleeping here.  You see so many
+blankets that it's hard to tell if he's even there.  Maybe you should quietly go 
+back to the dirt road to the east.
 ~
 0 0 1
 D1
@@ -737,37 +717,33 @@ Smurfy Road
 0 -1 212
 S
 #223
-Grumpy Smurf's Home~
-This is Grumpy Smurf's home.  He is pissed at you.  Of course, he is pissed
-at everyone.  So don't take it bad.  Maybe you'd better leave before he really
-gets mad.  Smurfy Road to the east is your only salvation.
+A small tent~
+This is yet another small tent, surrounded by a row of large green shrub like bushes that 
+offer it some protection from the wind.
 ~
 0 0 1
 D1
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 213
 S
 #224
-Jokey Smurf's Home~
-You pull the top of his house and it explodes in your face.  That Jokey
-Smurf, what a kidder.  You can hear his laughter as you wipe the ashes off
-your face.  You better get even.  Smurfy Road is to the north.
+A small tent~
+This tent smells horid... I would hate to meet the unsanitary person who frequents it.  The dirt 
+road is to the north.
 ~
 0 0 1
 D0
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 215
 S
 #225
-Papa Smurf's Home~
-It's the home of the leader of the smurfs.  Papa Smurf has a nicely decorated
-home.  He takes pride in his work.  You could get to know him or just squash
-him.  If Papa Smurf is not here he is probably at Smurfette's putting the
-moves on her.  A stone path lies to the north.
+Bard Leaders Quarters~
+You are standing in the bard leaders quarters.  There are many musical instruments laying around as well
+as papers and trinkets that other bards have made or he has collected.  A stone path lies to the north.
 ~
 0 0 1
 D0
@@ -777,68 +753,66 @@ door~
 0 207 213
 S
 #226
-Path to Gargamel's Castle~
-You are walking along a path to Gargamel's Castle to the North.
-Smurfy Road lies to the south.
+Path to a run down house~
+You are walking along a path to what appears to be a run down house to the North.
+The dirt road lies to the south.
 ~
 0 0 1
 D0
-Outside Gargamel's Castle
+Outside a run down house
 ~
 ~
 0 -1 227
 D2
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 215
 S
 #227
-Outside Gargamel's Castle~
-You are standing outside Gargamel's Castle.  You can hear him screaming at
-Azreal from inside.  You can also him cursing out those wretched smurfs.
-His Castle is to the north while Smurfy Road is to the south.
+Outside a rundown house~
+You are standing outside a run down house to the north.  The shutters are barely hanging into 
+the house, the roof appears to have holes in it the eastern wall is buldging out a bit.  The 
+dirt road is to the south.
 ~
 0 0 1
 D0
-Gargamel's Castle
+A rundown house
 ~
 door~
 0 209 228
 D2
-Path to Gargamel's Castle
+Path to a run down house
 ~
 ~
 0 -1 226
 S
 #228
-Gargamel's Castle~
-This is Gargamel's Castle.  His big black kettle is in the middle of the room.
-Where else would he put it?  The place has only one room.
+A rundown house~
+There is only one room in this house.  You can see the sky through the holes in the rough and 
+there is a musty scent from the mold that has strated to grow here.  Everything that was of 
+any value has long since been removed and no one seems to have frequented here in ages.
 ~
 0 0 1
 D2
-Outside Gargamel's Castle
+Outside a rundown house
 ~
 door~
 0 209 227
 S
 #229
-Smurfette's House~
-This house is conveniently next to Papa Smurfs.  Makes it easier for Papa
-Smurf to sneak over at night.  I hope he uses protection.  I would hate to
-have little smurfs running around.  The only exit is to the east.
+An overgrown garden~
+This appears to be an overgrown garden.  There are rotting wooden planting boxes strewn all around
+but all that seems to grow here now is a vast amount of weeds.  The only exit is to the east.
 ~
 0 0 1
 D1
-Smurfy Road
+A dirt road
 ~
 ~
 0 -1 207
 S
 #0
-
-
 
 #SPECIALS
 M 201 spec_thief
@@ -854,8 +828,6 @@ M 210 spec_cast_mage
 M 211 spec_cast_cleric
 M 212 spec_poison
 S
-
-
 
 #RESETS
 M 0 201 8 204 1 Load a smurf
@@ -877,8 +849,8 @@ M 0 202 3 217 1 Load a smurf
 G 0 200 0 A bunch of smurfberries is given to a smurf
 M 0 202 3 218 1 Load a smurf
 G 0 200 0 A bunch of smurfberries is given to a smurf
-M 0 203 1 219 1 Load Brainy Smurf
-E 0 201 0 6 A pair of glasses is loaded over the head of Brainy Smurf
+M 0 203 1 219 1 Load Willow the Bard
+E 0 201 0 6 A pair of glasses is loaded over the head of Willow the Bard
 M 0 204 1 220 1 Load Handy Smurf
 E 0 203 0 16 A small axe is loaded wielded of Handy Smurf
 M 0 206 1 221 1 Load Hefty Smurf
@@ -897,12 +869,8 @@ E 0 204 0 3 A small necklace is loaded around the neck (1) of Smurfette
 G 0 207 0 A tiny key is given to Smurfette
 S
 
-
-
 #SHOPS
 0
-
-
 
 #MOBPROGS
 #0
