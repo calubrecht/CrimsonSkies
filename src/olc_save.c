@@ -899,6 +899,7 @@ void save_area (AREA_DATA * pArea)
     fprintf (fp, "Name %s~\n", pArea->name);
     fprintf (fp, "Builders %s~\n", fix_string (pArea->builders));
     fprintf (fp, "VNUMs %d %d\n", pArea->min_vnum, pArea->max_vnum);
+    fprintf (fp, "LevelRange %d %d\n", pArea->min_level, pArea->max_vnum);
     fprintf (fp, "Credits %s~\n", pArea->credits);
     fprintf (fp, "Security %d\n", pArea->security);
     fprintf (fp, "End\n\n\n\n");
