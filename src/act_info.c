@@ -1631,8 +1631,9 @@ void do_score(CHAR_DATA * ch, char *argument)
 	printf_to_char(ch, "INT  : %2.2d (%2.2d)   DamRoll: %-4d              Time:   %s\r",
 		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch), ctime(&current_time));
 
-	printf_to_char(ch, "WIS  : %2.2d (%2.2d)\n\r",
-		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS]);
+	printf_to_char(ch, "WIS  : %2.2d (%2.2d)       Sex: %s\n\r",
+		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
+		ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
 
 	printf_to_char(ch, "DEX  : %2.2d (%2.2d)     Align: TODO              Items:  %5.5d (max %5.5d)\r\n",
 		get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
@@ -1643,28 +1644,32 @@ void do_score(CHAR_DATA * ch, char *argument)
 
 	printf_to_char(ch, "CHA  : %2.2d (%2.2d)     Wimpy: %-5d\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "PRACT: %3.3d        Health: %-5d of %5d                        AutoExit[%c]\r\n",
+	printf_to_char(ch, "PRACT: %3.3d        Health: %-5d of %5d    AutoSplit [%c]       AutoExit [%c]\r\n",
 		ch->practice, ch->hit, ch->max_hit,
+                IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
 
-	printf_to_char(ch, "TRAIN: %3.3d          Mana: %-5d of %5d                      AutoAssist[%c]\r\n",
+	printf_to_char(ch, "TRAIN: %3.3d          Mana: %-5d of %5d    NoSummon  [%c]     AutoAssist [%c]\r\n",
 		ch->train, ch->mana, ch->max_mana,
+                IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "GOLD:  %-11s  Move: %-5d of %5d                        AutoLoot[%c]\r\n",
+	printf_to_char(ch, "GOLD:  %-11s  Move: %-5d of %5d    NoFollow  [%c]       AutoLoot [%c]\r\n",
 		num_punct(ch->gold), ch->move, ch->max_move,
+                IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
 	if (!IS_NPC(ch)) {
-		sprintf(buf, "%s", num_punct((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp));
+		sprintf(buf, "%d", (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp);
 	}
 	else {
 		sprintf(buf, "0");
 	}
 
-        printf_to_char( ch, "XP   : %-9s  Nx Lvl: %-9s                              AutoSac[%c]\r\n",
-                    num_punct(ch->exp),
+        printf_to_char( ch, "XP   : %-9d  Nx Lvl: %-9s         AutoGold  [%c]        AutoSac [%c]\r\n",
+                    ch->exp,
 			 buf,
+                    IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
 		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
 	send_to_char("----------------------------------------------------------------------------\n\r", ch);
