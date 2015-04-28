@@ -1555,7 +1555,7 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
                 if (LastMob->pIndexData->pShop)
                 {                
 					/* Shop-keeper? */
-                    int olevel = 0, i, j;
+                    int olevel = 0;
                     pObj = create_object (pObjIndex, olevel);
                     SET_BIT (pObj->extra_flags, ITEM_INVENTORY);    /* ROM OLC */
                 }
