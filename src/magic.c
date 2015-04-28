@@ -3464,14 +3464,9 @@ void spell_identify (int sn, int level, CHAR_DATA * ch, void *vo, int target)
                     send_to_char ("unknown.\n\r", ch);
                     break;
             }
-            if (obj->pIndexData->new_format)
-                sprintf (buf, "Damage is %dd%d (average %d).\n\r",
-                         obj->value[1], obj->value[2],
-                         (1 + obj->value[2]) * obj->value[1] / 2);
-            else
-                sprintf (buf, "Damage is %d to %d (average %d).\n\r",
-                         obj->value[1], obj->value[2],
-                         (obj->value[1] + obj->value[2]) / 2);
+            sprintf (buf, "Damage is %dd%d (average %d).\n\r",
+                        obj->value[1], obj->value[2],
+                        (1 + obj->value[2]) * obj->value[1] / 2);
             send_to_char (buf, ch);
             if (obj->value[4])
             {                    /* weapon flags */

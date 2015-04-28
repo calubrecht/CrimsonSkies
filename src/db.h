@@ -41,10 +41,6 @@ extern AREA_DATA 	* area_first;
 /* from db2.c */
 extern int	social_count;
 
-/* conversion from db.h */
-void	convert_mob(MOB_INDEX_DATA *mob);
-void	convert_obj(OBJ_INDEX_DATA *obj);
-
 /* macro for flag swapping */
 #define GET_UNSET(flag1,flag2)	(~(flag1)&((flag1)|(flag2)))
 
@@ -53,9 +49,3 @@ void	convert_obj(OBJ_INDEX_DATA *obj);
 
 /* func from db.c */
 extern void assign_area_vnum( int vnum );                    /* OLC */
-
-/* from db2.c */
- 
-void convert_mobile( MOB_INDEX_DATA *pMobIndex );            /* OLC ROM */
-void convert_objects( void );                                /* OLC ROM */
-void convert_object( OBJ_INDEX_DATA *pObjIndex );            /* OLC ROM */

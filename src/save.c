@@ -441,8 +441,6 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 
     fprintf (fp, "#O\n");
     fprintf (fp, "Vnum %d\n", obj->pIndexData->vnum);
-    if (!obj->pIndexData->new_format)
-        fprintf (fp, "Oldstyle\n");
     if (obj->enchanted)
         fprintf (fp, "Enchanted\n");
     fprintf (fp, "Nest %d\n", iNest);
@@ -1374,13 +1372,11 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
     bool fVnum;
     bool first;
     bool new_format;            /* to prevent errors */
-    bool make_new;                /* update object */
 
     fVnum = FALSE;
     obj = NULL;
     first = TRUE;                /* used to counter fp offset */
     new_format = FALSE;
-    make_new = FALSE;
 
     word = feof (fp) ? "End" : fread_word (fp);
     if (!str_cmp (word, "Vnum"))
@@ -1538,23 +1534,6 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                             obj->pIndexData->count++;
                         }
 
-                        if (!obj->pIndexData->new_format
-                            && obj->item_type == ITEM_ARMOR
-                            && obj->value[1] == 0)
-                        {
-                            obj->value[1] = obj->value[0];
-                            obj->value[2] = obj->value[0];
-                        }
-                        if (make_new)
-                        {
-                            int wear;
-
-                            wear = obj->wear_loc;
-                            extract_obj (obj);
-
-                            obj = create_object (obj->pIndexData, 0);
-                            obj->wear_loc = wear;
-                        }
                         if (iNest == 0 || rgObjNest[iNest] == NULL)
                             obj_to_char (obj, ch);
                         else
@@ -1592,17 +1571,6 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                     fMatch = TRUE;
                 }
                 break;
-
-            case 'O':
-                if (!str_cmp (word, "Oldstyle"))
-                {
-                    if (obj->pIndexData != NULL
-                        && obj->pIndexData->new_format)
-                        make_new = TRUE;
-                    fMatch = TRUE;
-                }
-                break;
-
 
             case 'S':
                 KEY ("ShortDescr", obj->short_descr, fread_string (fp));

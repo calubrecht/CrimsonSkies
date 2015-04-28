@@ -1266,7 +1266,6 @@ struct    mob_index_data
     AREA_DATA *       area;        /* OLC */
     sh_int            vnum;
     sh_int            group;
-    bool              new_format;
     sh_int            count;
     sh_int            killed;
     char *            player_name;
@@ -1487,7 +1486,6 @@ struct    obj_index_data
     EXTRA_DESCR_DATA *  extra_descr;
     AFFECT_DATA *       affected;
     AREA_DATA *         area;        /* OLC */
-    bool                new_format;
     char *              name;
     char *              short_descr;
     char *              description;
@@ -2152,7 +2150,6 @@ long    wiznet_lookup    args( ( const char *name) );
 int    class_lookup    args( ( const char *name) );
 bool    is_clan        args( (CHAR_DATA *ch) );
 bool    is_same_clan    args( (CHAR_DATA *ch, CHAR_DATA *victim));
-bool    is_old_mob    args ( (CHAR_DATA *ch) );
 int    get_skill    args( ( CHAR_DATA *ch, int sn ) );
 int    get_weapon_sn    args( ( CHAR_DATA *ch ) );
 int    get_weapon_skill args(( CHAR_DATA *ch, int sn ) );
