@@ -1611,50 +1611,50 @@ void do_score(CHAR_DATA * ch, char *argument)
 {
 	char buf[MAX_STRING_LENGTH];
 
-	printf_to_char(ch, "\r\nScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+	printf_to_char(ch, "\r\n{GScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
 	if (get_trust(ch) != ch->level)
 		printf_to_char(ch, "You are trusted at level %d.\n\r", get_trust(ch));
 
 	send_to_char("----------------------------------------------------------------------------\n\r", ch);
 
-	printf_to_char(ch, "LEVEL: %-3d         Race : %-10.10s        Played: %ld hours\r\n",
+	printf_to_char(ch, "{GLEVEL: {w%-3d          {GRace: {w%-10.10s        {GPlayed: {w%ld hours{x\r\n",
 		ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
 
-	printf_to_char(ch, "YEARS: %-6d      Class: %-11.11s       Log In: %s\r",
+	printf_to_char(ch, "{GYEARS: {w%-6d      {GClass: {w%-11.11s       {GLog In: {w%s{x\r",
 		get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
 
 	// marker
-	printf_to_char(ch, "STR  : %2.2d (%2.2d)   HitRoll: %-4d              Saved:  N/A\n\r",
+	printf_to_char(ch, "{GSTR  : {w%2.2d{G({W%2.2d{G)    HitRoll: {w%-4d{x              {GSaved:  {wN/A{x\n\r",
 		get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch));
-	
-	printf_to_char(ch, "INT  : %2.2d (%2.2d)   DamRoll: %-4d              Time:   %s\r",
+
+	printf_to_char(ch, "{GINT  : {w%2.2d{G({W%2.2d{G)    DamRoll: {w%-4d              {GTime:   {w%s{x\r",
 		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch), ctime(&current_time));
 
-	printf_to_char(ch, "WIS  : %2.2d (%2.2d)       Sex: %s\n\r",
+	printf_to_char(ch, "{GWIS  : {w%2.2d{G({W%2.2d{G)        Sex: {w%s{x\n\r",
 		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
 		ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
 
-	printf_to_char(ch, "DEX  : %2.2d (%2.2d)     Align: TODO              Items:  %5.5d (max %5.5d)\r\n",
+	printf_to_char(ch, "{GDEX  : {w%2.2d{G({W%2.2d{G)      Align: {wTODO              {GItems:  {w%d of %d{x\r\n",
 		get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
 
-	printf_to_char(ch, "CON  : %2.2d (%2.2d)                              Weight: %5.5d (max %7.7d)\r\n",
+	printf_to_char(ch, "{GCON  : {w%2.2d{G({W%2.2d{G)                               {GWeight: {w%d of %d{x\r\n",
 		get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON], ch->carry_weight, can_carry_w(ch));
 
 
-	printf_to_char(ch, "CHA  : %2.2d (%2.2d)     Wimpy: %-5d\n\r", 0, 0, ch->wimpy);
+	printf_to_char(ch, "{GCHA  : {w%2.2d{G({W%2.2d{G)      {GWimpy: {w%-5d{x\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "PRACT: %3.3d        Health: %-5d of %5d    AutoSplit [%c]       AutoExit [%c]\r\n",
+	printf_to_char(ch, "{GPRACT: {w%3.3d        {GHealth: {w%-5d of %5d    {GAutoSplit [{R%c{G]       AutoExit [{R%c{x]\r\n",
 		ch->practice, ch->hit, ch->max_hit,
                 IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
 
-	printf_to_char(ch, "TRAIN: %3.3d          Mana: %-5d of %5d    NoSummon  [%c]     AutoAssist [%c]\r\n",
+	printf_to_char(ch, "{GTRAIN: {w%3.3d          {GMana: {w%-5d of %5d    {GNoSummon  [{R%c{G]     AutoAssist [{R%c{G]{x\r\n",
 		ch->train, ch->mana, ch->max_mana,
                 IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "GOLD:  %-11s  Move: %-5d of %5d    NoFollow  [%c]       AutoLoot [%c]\r\n",
+	printf_to_char(ch, "{GGOLD:  {w%-11s  {GMove: {w%-5d of %5d    {GNoFollow  [{R%c{G]       AutoLoot [{R%c{G]{x\r\n",
 		num_punct(ch->gold), ch->move, ch->max_move,
                 IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
@@ -1666,22 +1666,22 @@ void do_score(CHAR_DATA * ch, char *argument)
 		sprintf(buf, "0");
 	}
 
-        printf_to_char( ch, "XP   : %-9d  Nx Lvl: %-9s         AutoGold  [%c]        AutoSac [%c]\r\n",
+        printf_to_char( ch, "{GXP   : {w%-9d  {GNx Lvl: {w%-9s         {GAutoGold  [{R%c{G]        AutoSac [{R%c{G]{x\r\n",
                     ch->exp,
 			 buf,
                     IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
 		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
-	send_to_char("----------------------------------------------------------------------------\n\r", ch);
-	// xp
+        printf_to_char( ch, "                                            {GCanLoot   [{R%c{G]          {GColor [{R%c{G]{x\r\n",
+                    IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
+                    IS_SET( ch->act, PLR_COLOR ) ? 'X' : ' ' );
+
+
+	send_to_char("{G----------------------------------------------------------------------------{x\n\r", ch);
 	// position, condition (hunger, thirst, drunk),
 	// immortal data, affect data
-//#define PLR_AUTOLOOT        (E)
-//#define PLR_AUTOSAC         (F)
-//#define PLR_AUTOGOLD        (G)
-//#define PLR_AUTOSPLIT       (H)
 
-}
+} // end do_score
 
 void do_oldscore (CHAR_DATA * ch, char *argument)
 {
