@@ -257,12 +257,12 @@
     <Text Include="doc\port.txt" />
     <Text Include="doc\QuickMUD.txt" />
     <Text Include="doc\security.txt" />
-    <Text Include="doc\sites.txt" />
     <Text Include="doc\skill.txt" />
     <Text Include="doc\sky.txt" />
-    <Text Include="doc\trad.txt" />
-    <Text Include="doc\vnum.txt" />
     <Text Include="doc\WindowsSupport.txt" />
     <Text Include="area\config.txt" />
+    <Text Include="doc\historical\vnum.txt" />
+    <Text Include="doc\historical\trad.txt" />
+    <Text Include="doc\historical\sites.txt" />
   </ItemGroup>
 </Project>

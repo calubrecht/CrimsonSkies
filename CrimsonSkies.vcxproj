@@ -219,11 +219,11 @@
     <Text Include="doc\port.txt" />
     <Text Include="doc\QuickMUD.txt" />
     <Text Include="doc\security.txt" />
-    <Text Include="doc\sites.txt" />
+    <Text Include="doc\historical\sites.txt" />
     <Text Include="doc\skill.txt" />
     <Text Include="doc\sky.txt" />
-    <Text Include="doc\trad.txt" />
-    <Text Include="doc\vnum.txt" />
+    <Text Include="doc\historical\trad.txt" />
+    <Text Include="doc\historical\vnum.txt" />
     <Text Include="doc\WindowsSupport.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
