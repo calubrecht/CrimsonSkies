@@ -72,7 +72,6 @@ int getpid ();
 time_t time (time_t * tloc);
 #endif
 
-
 /* externals for counting purposes */
 extern OBJ_DATA *obj_free;
 extern CHAR_DATA *char_free;
@@ -85,7 +84,6 @@ extern AFFECT_DATA *affect_free;
  */
 HELP_DATA *help_first;
 HELP_DATA *help_last;
-
 HELP_AREA *had_list;
 
 SHOP_DATA *shop_first;
@@ -131,7 +129,6 @@ sh_int gsn_plague;
 sh_int gsn_sleep;
 sh_int gsn_sanctuary;
 sh_int gsn_fly;
-/* new gsns */
 
 sh_int gsn_axe;
 sh_int gsn_dagger;
@@ -158,8 +155,6 @@ sh_int gsn_scrolls;
 sh_int gsn_staves;
 sh_int gsn_wands;
 sh_int gsn_recall;
-
-
 
 /*
  * Locals.
@@ -195,7 +190,6 @@ int mobile_count = 0;
 int newmobs = 0;
 int newobjs = 0;
 
-
 /*
  * Memory management.
  * Increase MAX_STRING if you have too.
@@ -215,16 +209,12 @@ int sAllocString;
 int nAllocPerm;
 int sAllocPerm;
 
-
-
 /*
  * Semi-locals.
  */
 bool fBootDb;
 FILE *fpArea;
 char strArea[MAX_INPUT_LENGTH];
-
-
 
 /*
  * Local booting procedures.
@@ -421,8 +411,8 @@ void boot_db ()
         fix_mobprogs ();
         fBootDb = FALSE;
         area_update ();
-		load_boards();
-		save_notes();
+        load_boards();
+        save_notes();
         load_bans ();
     }
 
@@ -441,8 +431,7 @@ void load_area (FILE * fp)
     pArea = alloc_perm (sizeof (*pArea));
     pArea->file_name = fread_string (fp);
 
-	/* Pretty up the log a little */
-	log_f("Loading area %s", pArea->file_name);
+    log_f("Loading area %s", pArea->file_name);
 
     pArea->area_flags = AREA_LOADING;    /* OLC */
     pArea->security = 9;        /* OLC *//* 9 -- Hugin */
@@ -499,8 +488,6 @@ void load_area (FILE * fp)
                     break;                          \
                                 }
 
-
-
 /* OLC
  * Snarf an 'area' header line.   Check this format.  MUCH better.  Add fields
  * too.
@@ -532,7 +519,7 @@ void new_load_area (FILE * fp)
     pArea->area_flags = 0;
 /*  pArea->recall       = ROOM_VNUM_TEMPLE;        ROM OLC */
 
-	log_f("Loading area %s", pArea->file_name);
+    log_f("Loading area %s", pArea->file_name);
 
     for (;;)
     {
@@ -985,8 +972,6 @@ void load_rooms (FILE * fp)
     return;
 }
 
-
-
 /*
  * Snarf a shop section.
  */
@@ -1026,7 +1011,6 @@ void load_shops (FILE * fp)
     return;
 }
 
-
 /*
  * Snarf spec proc declarations.
  */
@@ -1063,7 +1047,6 @@ void load_specials (FILE * fp)
         fread_to_eol (fp);
     }
 }
-
 
 /*
  * Translate all room exits from virtual to real.
@@ -1178,7 +1161,7 @@ void fix_exits (void)
 	// It appears this is just reporting the exists that need to be fixed... some areas have
 	// exits that may not go back and forth (like hell).  Commeting this out for now, needless
 	// processing.  Uncomment it if you want to check for exits that don't go back and forth in
-	// the future.  Rhien 4/19/2015
+	// the future or put it into it's own OLC wiz command.  Rhien 4/19/2015
 	/*
     for (iHash = 0; iHash < MAX_KEY_HASH; iHash++)
     {
@@ -1213,7 +1196,7 @@ void fix_exits (void)
 void load_mobprogs (FILE * fp)
 {
     MPROG_CODE *pMprog;
-	
+
     if (area_last == NULL)
     {
         bug ("Load_mobprogs: no #AREA seen yet.", 0);
@@ -1291,7 +1274,6 @@ void fix_mobprogs (void)
         }
     }
 }
-
 
 /*
  * Repopulate areas periodically.
@@ -1553,7 +1535,7 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
                 }
 
                 if (LastMob->pIndexData->pShop)
-                {                
+                {
 					/* Shop-keeper? */
                     int olevel = 0;
                     pObj = create_object (pObjIndex, olevel);
@@ -1918,9 +1900,6 @@ void clone_mobile (CHAR_DATA * parent, CHAR_DATA * clone)
 
 }
 
-
-
-
 /*
  * Create an instance of an object.
  */
@@ -2056,8 +2035,6 @@ void clone_object (OBJ_DATA * parent, OBJ_DATA * clone)
 
 }
 
-
-
 /*
  * Clear a new character.
  */
@@ -2105,8 +2082,6 @@ char *get_extra_descr (const char *name, EXTRA_DESCR_DATA * ed)
     return NULL;
 }
 
-
-
 /*
  * Translates mob virtual number to its mob index struct.
  * Hash table lookup.
@@ -2131,8 +2106,6 @@ MOB_INDEX_DATA *get_mob_index (int vnum)
     return NULL;
 }
 
-
-
 /*
  * Translates mob virtual number to its obj index struct.
  * Hash table lookup.
@@ -2156,8 +2129,6 @@ OBJ_INDEX_DATA *get_obj_index (int vnum)
 
     return NULL;
 }
-
-
 
 /*
  * Translates mob virtual number to its room index struct.
@@ -2194,8 +2165,6 @@ MPROG_CODE *get_mprog_index (int vnum)
     return NULL;
 }
 
-
-
 /*
  * Read a letter from a file.
  */
@@ -2211,8 +2180,6 @@ char fread_letter (FILE * fp)
 
     return c;
 }
-
-
 
 /*
  * Read a number from a file.
@@ -2332,9 +2299,6 @@ long flag_convert (char letter)
 
     return bitsum;
 }
-
-
-
 
 /*
  * Read and allocate space for a string from a file.
@@ -2546,8 +2510,6 @@ char *fread_string_eol (FILE * fp)
     }
 }
 
-
-
 /*
  * Read to end of line (for comments).
  */
@@ -2570,8 +2532,6 @@ void fread_to_eol (FILE * fp)
     ungetc (c, fp);
     return;
 }
-
-
 
 /*
  * Read one word (into static buffer).
@@ -2659,8 +2619,6 @@ void *alloc_mem (int sMem)
     return pMem;
 }
 
-
-
 /*
  * Free some memory.
  * Recycle it back onto the free list for blocks of that size.
@@ -2704,7 +2662,6 @@ void free_mem (void *pMem, int sMem)
     return;
 }
 
-
 /*
  * Allocate some permanent memory.
  * Permanent memory is never freed,
@@ -2741,8 +2698,6 @@ void *alloc_perm (int sMem)
     return pMem;
 }
 
-
-
 /*
  * Duplicate a string into dynamic memory.
  * Fread_strings are read-only and shared.
@@ -2761,8 +2716,6 @@ char *str_dup (const char *str)
     strcpy (str_new, str);
     return str_new;
 }
-
-
 
 /*
  * Free a string.
@@ -2996,8 +2949,6 @@ void do_dump (CHAR_DATA * ch, char *argument)
     fpReserve = fopen (NULL_FILE, "r");
 }
 
-
-
 /*
  * Stick a little fuzz on a number.
  */
@@ -3015,8 +2966,6 @@ int number_fuzzy (int number)
 
     return UMAX (1, number);
 }
-
-
 
 /*
  * Generate a random number.
@@ -3039,8 +2988,6 @@ int number_range (int from, int to)
     return from + number;
 }
 
-
-
 /*
  * Generate a percentile roll.
  */
@@ -3052,8 +2999,6 @@ int number_percent (void)
 
     return 1 + percent;
 }
-
-
 
 /*
  * Generate a random door.
@@ -3071,8 +3016,6 @@ int number_bits (int width)
 {
     return number_mm () & ((1 << width) - 1);
 }
-
-
 
 
 /*
@@ -3114,8 +3057,6 @@ void init_mm ()
     return;
 }
 
-
-
 long number_mm (void)
 {
 #if defined (OLD_RAND)
@@ -3141,7 +3082,6 @@ long number_mm (void)
 #endif
 }
 
-
 /*
  * Roll some dice.
  */
@@ -3164,8 +3104,6 @@ int dice (int number, int size)
     return sum;
 }
 
-
-
 /*
  * Simple linear interpolation.
  */
@@ -3173,8 +3111,6 @@ int interpolate (int level, int value_00, int value_32)
 {
     return value_00 + level * (value_32 - value_00) / 32;
 }
-
-
 
 /*
  * Removes the tildes from a string.
@@ -3190,6 +3126,7 @@ void smash_tilde (char *str)
 
     return;
 }
+
 /*
  * Removes dollar signs to keep snerts from crashing us.
  * Posted to ROM list by Kyndig. JR -- 10/15/00
@@ -3203,9 +3140,6 @@ void smash_dollar( char *str )
     }
     return;
 }
-
-
-
 
 /*
  * Compare strings, case insensitive.
@@ -3235,8 +3169,6 @@ bool str_cmp (const char *astr, const char *bstr)
     return FALSE;
 }
 
-
-
 /*
  * Compare strings, case insensitive, for prefix matching.
  * Return TRUE if astr not a prefix of bstr
@@ -3265,8 +3197,6 @@ bool str_prefix (const char *astr, const char *bstr)
     return FALSE;
 }
 
-
-
 /*
  * Compare strings, case insensitive, for match anywhere.
  * Returns TRUE is astr not part of bstr.
@@ -3294,8 +3224,6 @@ bool str_infix (const char *astr, const char *bstr)
     return TRUE;
 }
 
-
-
 /*
  * Compare strings, case insensitive, for suffix matching.
  * Return TRUE if astr not a suffix of bstr
@@ -3314,8 +3242,6 @@ bool str_suffix (const char *astr, const char *bstr)
         return TRUE;
 }
 
-
-
 /*
  * Returns an initial-capped string.
  */
@@ -3330,7 +3256,6 @@ char *capitalize (const char *str)
     strcap[0] = UPPER (strcap[0]);
     return strcap;
 }
-
 
 /*
  * Append a string to a file.
@@ -3358,8 +3283,6 @@ void append_file (CHAR_DATA * ch, char *file, char *str)
     fpReserve = fopen (NULL_FILE, "r");
     return;
 }
-
-
 
 /*
  * Reports a bug.
@@ -3415,8 +3338,6 @@ void bug (const char *str, int param)
     return;
 }
 
-
-
 /*
  * Writes a string to the log.
  */
@@ -3429,8 +3350,6 @@ void log_string (const char *str)
     fprintf (stderr, "%s :: %s\n", strtime, str);
     return;
 }
-
-
 
 /*
  * This function is here to aid in debugging.
@@ -3606,11 +3525,6 @@ void load_socials(FILE * fp)
 	}
 	return;
 }
-
-
-
-
-
 
 /*
 * Snarf a mob section.  new style
@@ -4023,4 +3937,3 @@ void load_objects(FILE * fp)
 
 	return;
 }
-
