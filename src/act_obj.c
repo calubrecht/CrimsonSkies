@@ -1784,10 +1784,10 @@ void do_sacrifice (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0' || !str_cmp (arg, ch->name))
     {
-        act ("$n offers $mself to Mota, who graciously declines.",
+        act ("$n offers $mself to the gods, who graciously declines.",
              ch, NULL, NULL, TO_ROOM);
         send_to_char
-            ("Mota appreciates your offer and may accept it later.\n\r", ch);
+            ("The gods appreciate your offer and may accept it later.\n\r", ch);
         return;
     }
 
@@ -1802,7 +1802,7 @@ void do_sacrifice (CHAR_DATA * ch, char *argument)
     {
         if (obj->contains)
         {
-            send_to_char ("Mota wouldn't like that.\n\r", ch);
+            send_to_char ("The gods wouldn't like that.\n\r", ch);
             return;
         }
     }
@@ -1831,11 +1831,11 @@ void do_sacrifice (CHAR_DATA * ch, char *argument)
 
     if (silver == 1)
         send_to_char
-            ("Mota gives you one silver coin for your sacrifice.\n\r", ch);
+            ("The gods give you one silver coin for your sacrifice.\n\r", ch);
     else
     {
         sprintf (buf,
-                 "Mota gives you %d silver coins for your sacrifice.\n\r",
+                 "The gods give you %d silver coins for your sacrifice.\n\r",
                  silver);
         send_to_char (buf, ch);
     }
@@ -1858,7 +1858,7 @@ void do_sacrifice (CHAR_DATA * ch, char *argument)
         }
     }
 
-    act ("$n sacrifices $p to Mota.", ch, obj, NULL, TO_ROOM);
+    act ("$n sacrifices $p to the gods.", ch, obj, NULL, TO_ROOM);
     wiznet ("$N sends up $p as a burnt offering.",
             ch, obj, WIZ_SACCING, 0, 0);
     extract_obj (obj);

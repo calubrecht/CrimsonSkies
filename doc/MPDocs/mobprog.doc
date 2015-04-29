@@ -1195,7 +1195,7 @@ In #MOBPROGS
 
 #1002
 if isevil $n
-   say You infidel! Go away or face the wrath of mighty Mota!
+   say You infidel! Go away or face the wrath of the might gods!
    mob remember $n
    mob delay 10
    break

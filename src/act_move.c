@@ -1606,7 +1606,7 @@ void do_recall (CHAR_DATA * ch, char *argument)
     if (IS_SET (ch->in_room->room_flags, ROOM_NO_RECALL)
         || IS_AFFECTED (ch, AFF_CURSE))
     {
-        send_to_char ("Mota has forsaken you.\n\r", ch);
+        send_to_char ("The gods have forsaken you.\n\r", ch);
         return;
     }
 

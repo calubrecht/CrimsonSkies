@@ -1272,8 +1272,8 @@ const struct pose_table_type pose_table[] = {
      {
       "The world shimmers in time with your whistling.",
       "The world shimmers in time with $n's whistling.",
-      "The great god Mota gives you a staff.",
-      "The great god Mota gives $n a staff.",
+      "The great gods give you a staff.",
+      "The great gods give $n a staff.",
       "Click.",
       "Click.",
       "Atlas asks you to relieve him.",

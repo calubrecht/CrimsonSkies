@@ -945,8 +945,8 @@ void spell_call_lightning (int sn, int level, CHAR_DATA * ch, void *vo,
 
     dam = dice (level / 2, 8);
 
-    send_to_char ("Mota's lightning strikes your foes!\n\r", ch);
-    act ("$n calls Mota's lightning to strike $s foes!",
+    send_to_char ("Lightning strikes your foes!\n\r", ch);
+    act ("$n calls lightning to strike $s foes!",
          ch, NULL, NULL, TO_ROOM);
 
     for (vch = char_list; vch != NULL; vch = vch_next)
@@ -2025,7 +2025,7 @@ void spell_dispel_evil (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (IS_GOOD (victim))
     {
-        act ("Mota protects $N.", ch, NULL, victim, TO_ROOM);
+        act ("The gods protect $N.", ch, NULL, victim, TO_ROOM);
         return;
     }
 

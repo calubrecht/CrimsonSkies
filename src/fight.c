@@ -1047,7 +1047,7 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
             || IS_SET (victim->act, ACT_IS_HEALER)
             || IS_SET (victim->act, ACT_IS_CHANGER))
         {
-            send_to_char ("I don't think Mota would approve.\n\r", ch);
+            send_to_char ("I don't think the gods would approve.\n\r", ch);
             return TRUE;
         }
 
