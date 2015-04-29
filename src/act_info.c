@@ -1624,18 +1624,17 @@ void do_score(CHAR_DATA * ch, char *argument)
 	printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
 		get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
 
-	// marker
-	printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gSaved:  {wN/A{x\n\r",
-		get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch));
+	printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
+		get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch), ctime(&current_time));
 
-	printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d              {gTime:   {w%s{x\r",
-		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch), ctime(&current_time));
+	printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d\n\r",
+		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch));
 
 	printf_to_char(ch, "{gWIS  : {w%2.2d{g({W%2.2d{g)        Sex: {w%s{x\n\r",
 		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
 		ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
 
-	printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {wTODO              {gItems:  {w%d of %d{x\r\n",
+	printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {wN/A               {gItems:  {w%d of %d{x\r\n",
 		get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
 
 	printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)                               {gWeight: {w%d of %d{x\r\n",
@@ -1644,7 +1643,7 @@ void do_score(CHAR_DATA * ch, char *argument)
 
 	printf_to_char(ch, "{gCHA  : {w%2.2d{g({W%2.2d{g)      {gWimpy: {w%-5d{x\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{x]\r\n",
+	printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
 		ch->practice, ch->hit, ch->max_hit,
                 IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
@@ -1654,7 +1653,7 @@ void do_score(CHAR_DATA * ch, char *argument)
                 IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "{gGOLD:  {w%-11s  {gMove: {w%-5d of %5d    {gNoFollow  [{R%c{g]       AutoLoot [{R%c{g]{x\r\n",
+	printf_to_char(ch, "{gGOLD : {w%-11s  {gMove: {w%-5d of %5d    {gNoFollow  [{R%c{g]       AutoLoot [{R%c{g]{x\r\n",
 		num_punct(ch->gold), ch->move, ch->max_move,
                 IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' ',
 		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
