@@ -21,3 +21,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Better format sockets command.
   - autoexit by default
   - change all doors to use MAX_DOOR instead of hard coded integer
+  - Remove the new notes/boards and revert to the old school note system.  Like it much better.
