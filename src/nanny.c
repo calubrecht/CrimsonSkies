@@ -108,7 +108,6 @@ bool check_playing args ((DESCRIPTOR_DATA * d, char *name));
 extern DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 extern DESCRIPTOR_DATA *d_next;        /* Next descriptor in loop  */
 extern FILE *fpReserve;                /* Reserved file handle     */
-extern bool god;                        /* All new chars are gods!  */
 extern bool merc_down;                    /* Shutdown         */
 extern bool wizlock;                    /* Game is wizlocked        */
 extern bool newlock;                    /* Game is newlocked        */
