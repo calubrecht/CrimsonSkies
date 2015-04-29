@@ -54,7 +54,6 @@ extern int _filbuf args ((FILE *));
 
 
 /* int rename(const char *oldfname, const char *newfname); viene en stdio.h */
-
 char *print_flags (int flag)
 {
     int count, pos = 0;
@@ -92,7 +91,6 @@ char *print_flags (int flag)
 static OBJ_DATA *rgObjNest[MAX_NEST];
 
 
-
 /*
  * Local functions.
  */
@@ -102,7 +100,6 @@ void fwrite_pet args ((CHAR_DATA * pet, FILE * fp));
 void fread_char args ((CHAR_DATA * ch, FILE * fp));
 void fread_pet args ((CHAR_DATA * ch, FILE * fp));
 void fread_obj args ((CHAR_DATA * ch, FILE * fp));
-
 
 
 /*
@@ -174,7 +171,6 @@ void save_char_obj (CHAR_DATA * ch)
     fpReserve = fopen (NULL_FILE, "r");
     return;
 }
-
 
 
 /*
@@ -541,8 +537,6 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
     return;
 }
 
-
-
 /*
  * Load a char and inventory into a new ch structure.
  */
@@ -681,8 +675,6 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
 
     return found;
 }
-
-
 
 /*
  * Read in a char.

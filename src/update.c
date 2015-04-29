@@ -57,10 +57,7 @@ void obj_update args ((void));
 void aggr_update args ((void));
 
 /* used for saving */
-
 int save_number = 0;
-
-
 
 /*
  * Advancement stuff.
@@ -122,8 +119,6 @@ void advance_level (CHAR_DATA * ch, bool hide)
     return;
 }
 
-
-
 void gain_exp (CHAR_DATA * ch, int gain)
 {
     char buf[MAX_STRING_LENGTH];
@@ -147,8 +142,6 @@ void gain_exp (CHAR_DATA * ch, int gain)
 
     return;
 }
-
-
 
 /*
  * Regeneration stuff.
@@ -236,8 +229,6 @@ int hit_gain (CHAR_DATA * ch)
     return UMIN (gain, ch->max_hit - ch->hit);
 }
 
-
-
 int mana_gain (CHAR_DATA * ch)
 {
     int gain;
@@ -318,8 +309,6 @@ int mana_gain (CHAR_DATA * ch)
     return UMIN (gain, ch->max_mana - ch->mana);
 }
 
-
-
 int move_gain (CHAR_DATA * ch)
 {
     int gain;
@@ -369,8 +358,6 @@ int move_gain (CHAR_DATA * ch)
     return UMIN (gain, ch->max_move - ch->move);
 }
 
-
-
 void gain_condition (CHAR_DATA * ch, int iCond, int value)
 {
     int condition;
@@ -404,7 +391,6 @@ void gain_condition (CHAR_DATA * ch, int iCond, int value)
 
     return;
 }
-
 
 
 /*
@@ -520,8 +506,6 @@ void mobile_update (void)
 
     return;
 }
-
-
 
 /*
  * Update the weather.
@@ -659,8 +643,6 @@ void weather_update (void)
 
     return;
 }
-
-
 
 /*
  * Update all chars, including mobs.
@@ -910,9 +892,6 @@ void char_update (void)
     return;
 }
 
-
-
-
 /*
  * Update all objs.
  * This function is performance sensitive.
@@ -1065,8 +1044,6 @@ void obj_update (void)
     return;
 }
 
-
-
 /*
  * Aggress.
  *
@@ -1147,14 +1124,11 @@ void aggr_update (void)
     return;
 }
 
-
-
 /*
  * Handle all kinds of updates.
  * Called once per pulse from game loop.
  * Random times to defeat tick-timing clients and players.
  */
-
 void update_handler (bool forced)
 {
     static int pulse_area;
