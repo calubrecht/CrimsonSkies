@@ -799,7 +799,7 @@ void init_descriptor (int control)
 			send_to_desc(help_greeting, dnew);
 	}
 	else
-		write_to_descriptor(desc, "Do you want color? (Y/N) -> ", 0);
+		write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0);
 
     return;
 }
