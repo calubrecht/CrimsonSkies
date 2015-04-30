@@ -180,6 +180,7 @@
     <None Include="area\wyvern.are" />
     <None Include="doc\CHANGELOG.quickmud" />
     <None Include="doc\changes.olc" />
+    <None Include="doc\historical\telnet.html" />
     <None Include="doc\license.doc" />
     <None Include="doc\MPDocs\examples.doc" />
     <None Include="doc\MPDocs\hacker.doc" />

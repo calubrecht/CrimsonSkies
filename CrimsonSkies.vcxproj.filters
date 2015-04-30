@@ -239,6 +239,7 @@
     <None Include="doc\QuickMUD Fixes" />
     <None Include="TODO.md" />
     <None Include="area\help.are" />
+    <None Include="doc\historical\telnet.html" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
