@@ -793,13 +793,13 @@ void init_descriptor (int control)
 	if (!mud_ansiprompt)
 	{
 		extern char * help_greeting;
-		if ( help_greeting[0] == '.' )
-			send_to_desc ( help_greeting+1, dnew );
+		if (help_greeting[0] == '.')
+			send_to_desc(help_greeting + 1, dnew);
 		else
-			send_to_desc ( help_greeting  , dnew );
+			send_to_desc(help_greeting, dnew);
 	}
 	else
-	    	send_to_desc ("Do you want color? (Y/N) -> ", dnew);
+		write_to_descriptor(desc, "Do you want color? (Y/N) -> ", 0);
 
     return;
 }

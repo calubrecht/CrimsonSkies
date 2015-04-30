@@ -147,7 +147,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             return;
 
         case CON_ANSI:
-            if (argument[0] == '\0' || UPPER (argument[0]) == 'Y')
+			// TODO - fix the \' issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
+			// defaults them to an answer of "Y"
+            if (argument[0] == '\0' || UPPER (argument[0]) == 'Y' || argument[0] == '\'')
             {
                 d->ansi = TRUE;
                 d->connected = CON_GET_NAME;
