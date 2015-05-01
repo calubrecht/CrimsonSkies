@@ -210,9 +210,9 @@ clothing A AE
 0 0 0 0 0
 3 20 270 P
 A
-4 1
-A
 2 -1
+A
+4 1
 #202
 cloth hat~
 a cloth hat~
@@ -806,6 +806,7 @@ A rundown house~
 There is only one room in this house.  You can see the sky through the holes in the rough and 
 there is a musty scent from the mold that has strated to grow here.  Everything that was of 
 any value has long since been removed and no one seems to have frequented here in ages.
+There appears to be what looks like a door to a cellar built into the floor.
 ~
 0 0 1
 D2
@@ -813,6 +814,10 @@ Outside a rundown house
 ~
 door~
 0 209 227
+D5
+~
+~
+1 0 230
 S
 #229
 An overgrown garden~
@@ -825,6 +830,18 @@ A dirt road
 ~
 ~
 0 -1 207
+S
+#230
+A dark cellar~
+You are standing in a dark cellar.  There are old rotted wooden beams attempting
+to hold back the earth that has started to creep seep through them.
+The air is moist but everything around is quiet and insulated by earth.
+~
+0 1 0
+D4
+~
+~
+1 0 228
 S
 #0
 
@@ -848,6 +865,8 @@ S
 
 
 #RESETS
+D 0 228 5 1
+D 0 230 4 1
 M 0 201 8 204 1 Load a bard
 G 0 202 0 A cloth hat is given to a bard
 M 0 201 8 205 1 Load a bard
