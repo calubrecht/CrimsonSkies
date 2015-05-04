@@ -246,8 +246,8 @@ Zipping from place to place at the speed of light is tough work.
 ~
 human~
 AG 0 0 0
-4 0 2d7+46 2d9+100 1d5+1 none
-6 6 6 9
+5 0 2d7+46 2d9+100 1d6+1 none
+5 5 5 9
 EFNU 0 0 0
 stand stand none 7
 AHMV ABCDEFGHIJK medium unknown
@@ -344,8 +344,8 @@ The magical eddie current is a manifestation of an air elemental.
 ~
 human~
 AGS DF 0 0
-2 0 2d6+10 1d9+100 1d4+0 none
-9 9 9 10
+5 0 2d6+10 1d9+100 1d6+1 none
+8 8 8 9
 BEFJNU 0 0 0
 stand stand none 1
 AHMV ABCDEFGHIJK medium unknown
@@ -550,9 +550,9 @@ furniture I AB
 0 0 0 0 0
 7 50 1140 P
 A
-4 1
-A
 3 1
+A
+4 1
 #9202
 breastplate stoney breast plate~
 a stoney breastplate~
@@ -562,9 +562,9 @@ armor 0 AD
 BD BD BD B 0
 31 700 5500 P
 A
-5 1
-A
 2 -2
+A
+5 1
 #9203
 dagger fiery~
 a fiery dagger~
@@ -614,9 +614,9 @@ weapon AB AN
 sword 5 4 slash H
 25 100 2200 P
 A
-19 2
-A
 18 -1
+A
+19 2
 #9208
 shield electric~
 an electric shield~
@@ -626,9 +626,9 @@ armor B AJ
 AD AD AD C 0
 28 80 4500 P
 A
-5 1
-A
 1 -1
+A
+5 1
 #9209
 girth icy~
 an icy girth~
@@ -648,9 +648,9 @@ armor 0 AK
 AD AD AD B 0
 30 60 3000 P
 A
-18 -2
-A
 12 25
+A
+18 -2
 #9211
 amulet elemental~
 an elemental amulet~
@@ -680,9 +680,9 @@ armor 0 AM
 AD AD AD B 0
 26 40 1700 P
 A
-4 -2
-A
 1 1
+A
+4 -2
 #9214
 legbands platinum bands~
 some platinum leg bands~
@@ -692,17 +692,17 @@ armor 0 AF
 AD AD AD B 0
 26 40 1700 P
 A
-3 -2
-A
 2 1
+A
+3 -2
 #9215
 wand~
 elemental wand of fire~
 A fire wand lies forgotten on the ground.~
 oldstyle~
 wand A AO
-15 3 3 'fireball' 0
-16 70 3900 P
+3 2 2 'fireball' 0
+7 70 3900 P
 #9216
 staff ice~
 an ice staff~
@@ -725,8 +725,8 @@ elemental wand of wind and air~
 An air wand lies forgotten on the ground.~
 oldstyle~
 wand A AO
-9 1 1 'gas breath' 0
-16 70 11200 P
+5 1 1 'gas breath' 0
+7 70 11200 P
 #9219
 wand~
 elemental wand of lightning~
@@ -744,9 +744,9 @@ weapon 0 AN
 mace 2 8 pound F
 13 160 730 P
 A
-19 1
-A
 18 -2
+A
+19 1
 #9221
 lode load lodestone loadstone stone~
 a lodestone~
@@ -798,9 +798,9 @@ weapon A AN
 staff 2 15 thrust A
 29 140 220 P
 A
-18 2
-A
 13 -20
+A
+18 2
 #9227
 icicle dagger ice~
 an icicle~
@@ -810,9 +810,9 @@ weapon A AN
 dagger 7 3 pierce B
 27 10 1630 P
 A
-1 -1
-A
 19 2
+A
+1 -1
 #9228
 avalanche~
 the avalanche~
@@ -832,9 +832,9 @@ weapon A AN
 flail 6 3 crush 0
 23 110 3300 P
 A
-17 -3
-A
 20 -2
+A
+17 -3
 #9230
 shock whip~
 the Shock Whip~
@@ -844,9 +844,9 @@ weapon B AN
 whip 4 5 stab 0
 20 100 64 P
 A
-1 -2
-A
 19 3
+A
+1 -2
 #9231
 elixir anti~
 anti-cyclops elixir~
@@ -1620,14 +1620,14 @@ east around the mountain.
 ~
 0 0 5
 E
-bodies body dead~
-They look as if their necks have been broken and their flesh, chewed.
-~
-E
 heaps stones tombs~
 You are sure glad that YOU aren't under one of those piles!
 Many of the tombstones have the same name on them, 'Raff'.  He must come
 here a lot.
+~
+E
+bodies body dead~
+They look as if their necks have been broken and their flesh, chewed.
 ~
 D4
 ~
