@@ -222,7 +222,6 @@
     <None Include="doc\MPDocs\mobprog.doc" />
     <None Include="doc\MPDocs\readme" />
     <None Include="doc\MPDocs\surrender.hlp" />
-    <None Include="doc\CHANGELOG.quickmud" />
     <None Include="doc\changes.olc" />
     <None Include="doc\license.doc" />
     <None Include="doc\README.merc" />
@@ -236,7 +235,6 @@
     <None Include="src\Makefile.linux" />
     <None Include="src\Makefile.normal" />
     <None Include="src\Makefile.solaris" />
-    <None Include="doc\QuickMUD Fixes" />
     <None Include="TODO.md" />
     <None Include="area\help.are" />
     <None Include="doc\historical\telnet.html" />
@@ -256,7 +254,6 @@
     <Text Include="doc\new.txt" />
     <Text Include="doc\pfile.txt" />
     <Text Include="doc\port.txt" />
-    <Text Include="doc\QuickMUD.txt" />
     <Text Include="doc\security.txt" />
     <Text Include="doc\skill.txt" />
     <Text Include="doc\sky.txt" />
