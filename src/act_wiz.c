@@ -4615,7 +4615,7 @@ void copyover_recover ()
         d->next = descriptor_list;
         descriptor_list = d;
         d->connected = CON_COPYOVER_RECOVER;    /* -15, so close_socket frees the char */
-
+		d->ansi = TRUE;
 
         /* Now, find the pfile */
 

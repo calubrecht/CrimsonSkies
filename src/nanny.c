@@ -147,7 +147,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             return;
 
         case CON_ANSI:
-			// TODO - fix the \' issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
+			// TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
 			// defaults them to an answer of "Y"
             if (argument[0] == '\0' || UPPER (argument[0]) == 'Y' || argument[0] == '\'')
             {
