@@ -32,6 +32,7 @@
 #include "merc.h"
 #include "tables.h"
 #include "olc.h"
+#include "recycle.h"
 
 /*
 * Local functions.
@@ -1490,32 +1491,44 @@ void do_resets(CHAR_DATA * ch, char *argument)
 
 
 /*****************************************************************************
-Name:        do_alist
-Purpose:    Normal command to list areas and display area information.
+Name:         do_alist
+Purpose:      Normal command to list areas and display area information.
 Called by:    interpreter(interp.c)
+Origianl by:  Ivan
+Modified by:  Tchaerlach, Rhien
+Notes:        Due to the large number of areas some muds have on their
+              builder ports, the normal OLC alist command has a tendency to
+              crash at around 114 areas give or take a couple either way.
 ****************************************************************************/
-void do_alist(CHAR_DATA * ch, char *argument)
+void do_alist( CHAR_DATA *ch, char *argument )
 {
-	char buf[MAX_STRING_LENGTH];
-	char result[MAX_STRING_LENGTH * 2];    /* May need tweaking. */
-	AREA_DATA *pArea;
+    if (IS_NPC(ch))
+        return;
 
-	if (IS_NPC(ch))
-		return;
+    BUFFER *output;
+    char buf[MAX_STRING_LENGTH];
+    char result [ MAX_STRING_LENGTH];
+    AREA_DATA *pArea;
 
-	sprintf(result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
-		"Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec",
-		"Builders");
+    output = new_buf();
 
-	for (pArea = area_first; pArea; pArea = pArea->next)
-	{
-		sprintf(buf,
-			"[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
-			pArea->vnum, pArea->name, pArea->min_vnum, pArea->max_vnum,
-			pArea->file_name, pArea->security, pArea->builders);
-		strcat(result, buf);
-	}
+    sprintf( result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
+       "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders" );
+	send_to_char( result, ch );
 
-	send_to_char(result, ch);
-	return;
+    for ( pArea = area_first; pArea; pArea = pArea->next )
+    {
+	sprintf( buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
+	     pArea->vnum,
+	     pArea->name,
+	     pArea->min_vnum,
+	     pArea->max_vnum,
+	     pArea->file_name,
+	     pArea->security,
+	     pArea->builders );
+	     add_buf(output,buf);
+    }
+
+    page_to_char(buf_string(output),ch);
+    free_buf(output);
 }
