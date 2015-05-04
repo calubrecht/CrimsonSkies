@@ -188,6 +188,21 @@ ABH 0 -100 0
 EFNU 0 0 0
 stand stand male 1
 AHMV ABCDEFGHIJK medium unknown
+#213
+snake~
+the snake~
+A small brown snake sits and watches you.
+~
+A small brown snake sits here and watches you, you get the feeling it thinks you might be food.
+ 
+~
+snake~
+ABFU 0 -600 0
+9 1 4d10+100 1d1+99 2d6+1 bite
+0 2 2 5
+FGNR 0 EL I
+stand stand either 0
+AGXYc ADEFKLQVX small unknown
 #0
 
 
@@ -860,6 +875,7 @@ M 209 spec_thief
 M 210 spec_cast_mage
 M 211 spec_cast_cleric
 M 212 spec_cat
+M 213 spec_poison
 S
 
 
@@ -907,6 +923,7 @@ M 0 212 1 228 1 Load A stray cat
 M 0 209 1 229 1 Load A buxom woman
 E 0 204 0 3 A small necklace is loaded around the neck (1) of A buxom woman
 G 0 207 0 A tiny key is given to A buxom woman
+M 0 213 1 230 1 Load the snake
 S
 
 
