@@ -18,9 +18,6 @@
     <ClCompile Include="src\act_comm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\act_enter.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\act_info.c">
       <Filter>Source Files</Filter>
     </ClCompile>
