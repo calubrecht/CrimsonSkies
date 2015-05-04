@@ -24,4 +24,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Remove the title table, let all players set their own title and only set the initial one for them.
   - Command to list all rooms/vnums, objects/vnums and/or mobs/vnums in an area to assist in OLC.
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
-  - Rename init_mm to init_random to be more descriptive on what it's doing.  

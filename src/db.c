@@ -219,7 +219,7 @@ char strArea[MAX_INPUT_LENGTH];
 /*
  * Local booting procedures.
 */
-void init_mm args ((void));
+void init_random args ((void));
 void new_load_area args ((FILE * fp));    /* OLC */
 void load_helps args ((FILE * fp, char *fname));
 void load_mobiles args ((FILE * fp));
@@ -260,7 +260,7 @@ void boot_db ()
      * Init random number generator.
      */
     {
-        init_mm ();
+        init_random ();
     }
 
     /*
@@ -3033,7 +3033,7 @@ int number_bits (int width)
 static int rgiState[2 + 55];
 #endif
 
-void init_mm ()
+void init_random ()
 {
 #if defined (OLD_RAND)
     int *piState;

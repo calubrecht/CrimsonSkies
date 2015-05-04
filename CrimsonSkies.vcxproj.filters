@@ -251,7 +251,6 @@
     <Text Include="doc\hacker.txt" />
     <Text Include="doc\license.txt" />
     <Text Include="doc\memory.txt" />
-    <Text Include="doc\new.txt" />
     <Text Include="doc\pfile.txt" />
     <Text Include="doc\port.txt" />
     <Text Include="doc\security.txt" />
