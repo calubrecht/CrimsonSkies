@@ -15,7 +15,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fighting Style (Offensive/Normal/Defensive)
   - Add pray command that will allow a mortal to send a message for any immortals logged in to see.
   - Better format sockets command.
-  - change all doors to use MAX_DOOR instead of hard coded integer
   - Remove the new notes/boards and revert to the old school note system.  Like it much better.
   - Remove the title table, let all players set their own title and only set the initial one for them.
   - Command to list all rooms/vnums, objects/vnums and/or mobs/vnums in an area to assist in OLC.
