@@ -52,7 +52,7 @@ ROOM_INDEX_DATA *get_random_room (CHAR_DATA * ch)
 
     for (;;)
     {
-        room = get_room_index (number_range (0, 65535));
+        room = get_room_index (number_range (0, 32768));
         if (room != NULL)
             if (can_see_room (ch, room)
                 && !room_is_private (room)
