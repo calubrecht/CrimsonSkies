@@ -278,10 +278,12 @@ static void show_note_to_char (CHAR_DATA *ch, NOTE_DATA *note, int num)
 {
 	/* Ugly colors ? */	
 	printf_to_char (ch,
-			 "[{W%4d{x] {Y%s{x: {g%s{x\n\r"
-	         "{YDate{x:  %s\n\r"
-			 "{YTo{x:    %s\n\r"
-	         "{g==========================================================================={x\n\r"
+                         "{g==========================================================================={x\n\r"
+                         "{YID{x:    [{W%4d{x]\n\r"
+			 "{Y%s{x: {g%s{x\n\r"
+                         "{YDate{x:  %s\n\r"
+                         "{YTo{x:    %s\n\r"
+                         "{g==========================================================================={x\n\r"
 	         "%s\n\r",
 	         num, note->sender, note->subject,
 	         note->date,
