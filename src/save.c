@@ -26,7 +26,7 @@
  ***************************************************************************/
 
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 	#include <time.h>
 #elif defined(_WIN32)
@@ -48,7 +48,7 @@
 #include "tables.h"
 #include "lookup.h"
 
-#if !defined(__apple__)
+#if !defined(__APPLE__)
 extern int _filbuf args ((FILE *));
 #endif
 

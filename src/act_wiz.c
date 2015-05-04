@@ -26,7 +26,7 @@
  **************************************************************************/
 
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 	#include <time.h>
 	#include <unistd.h>                /* For execl in copyover() */

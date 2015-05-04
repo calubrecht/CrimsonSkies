@@ -1,5 +1,5 @@
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 	#include <time.h>
 #elif defined(_WIN32)

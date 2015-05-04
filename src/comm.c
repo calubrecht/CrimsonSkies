@@ -44,7 +44,7 @@
  */
 
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 	#include <time.h>
 	#include <unistd.h>                /* OLC -- for close read write etc */
@@ -92,7 +92,7 @@
 /*
  * Socket and TCP/IP stuff.
  */
-#if    defined(__apple__) 
+#if    defined(__APPLE__) 
 	const char echo_off_str[] = { '\0' };
 	const char echo_on_str[] = { '\0' };
 	const char go_ahead_str[] = { '\0' };
@@ -148,7 +148,7 @@
 	/* int    write        args( ( int fd, char *buf, int nbyte ) ); *//* read,write in unistd.h */
 #endif
 
-#if    defined(__apple__)
+#if    defined(__APPLE__)
 	#include <console.h>
 	#include <fcntl.h>
 	#include <unix.h>
@@ -185,7 +185,7 @@ bool MOBtrigger = TRUE;            /* act() switch                 */
 /*
  * OS-dependent local functions.
  */
-#if defined(unix) || defined(_WIN32) || defined (__apple__)
+#if defined(unix) || defined(_WIN32) || defined (__APPLE__)
 	void game_loop args ((int control));
 	int init_socket args ((int port));
 	void init_descriptor args ((int control));
@@ -241,7 +241,7 @@ int main (int argc, char **argv)
     /*
      * Macintosh console initialization.
      */
-#if defined(__apple__)
+#if defined(__APPLE__)
     console_options.nrows = 31;
     cshow (stdout);
     csetmode (C_RAW, stdin);
@@ -288,7 +288,7 @@ int main (int argc, char **argv)
     /*
      * Run the game.
      */
-#if defined(unix) || defined(_WIN32) || defined(__apple__)
+#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
 
     qmconfig_read(); /* Here so we can set the IP adress. -- JR 05/06/01 */
     if (!fCopyOver)
@@ -321,7 +321,7 @@ int main (int argc, char **argv)
 
 
 
-#if defined(unix) || defined(_WIN32) || defined(__apple__)
+#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
 int init_socket (int port)
 {
     static struct sockaddr_in sa_zero;
@@ -433,7 +433,7 @@ int init_socket (int port)
 #endif
 
 
-#if defined(unix) || defined(_WIN32) || defined(__apple__)
+#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
 void game_loop (int control)
 {
     static struct timeval null_time;
@@ -669,7 +669,7 @@ void game_loop (int control)
 
 
 
-#if defined(unix) || defined(_WIN32) || defined(__apple__)
+#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
 
 void init_descriptor (int control)
 {
@@ -876,7 +876,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 #endif
 
 	free_descriptor (dclose);
-#if defined(__apple__)
+#if defined(__APPLE__)
     exit (1);
 #endif
     return;
@@ -904,7 +904,7 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     }
 
     /* Snarf input. */
-#if defined(__apple__)
+#if defined(__APPLE__)
     for (;;)
     {
         int c;
@@ -1476,7 +1476,7 @@ bool write_to_descriptor (int desc, char *txt, int length)
     int nWrite;
     int nBlock;
 
-#if defined(__apple__) 
+#if defined(__APPLE__) 
     if (desc == 0)
         desc = 1;
 #endif
@@ -1551,7 +1551,7 @@ bool check_parse_name (char *name)
     if (strlen (name) < 2)
         return FALSE;
 
-#if defined(__apple__) || defined(unix) || defined(_WIN32)
+#if defined(__APPLE__) || defined(unix) || defined(_WIN32)
     if (strlen (name) > 12)
         return FALSE;
 #endif
@@ -1766,7 +1766,7 @@ void page_to_char_bw (const char *txt, CHAR_DATA * ch)
         return;
     }
 
-#if defined(__apple__)
+#if defined(__APPLE__)
     send_to_char_bw (txt, ch);
 #else
     ch->desc->showstr_head = alloc_mem (strlen (txt) + 1);
@@ -1885,7 +1885,7 @@ void page_to_char (const char *txt, CHAR_DATA * ch)
     char buf[MAX_STRING_LENGTH * 4];
     int skip = 0;
 
-#if defined(__apple__)
+#if defined(__APPLE__)
     send_to_char (txt, ch);
 #else
     buf[0] = '\0';
@@ -2348,7 +2348,7 @@ void colorconv (char *buffer, const char *txt, CHAR_DATA * ch)
 /*
  * Macintosh support functions.
  */
-#if defined(__apple__)
+#if defined(__APPLE__)
 int gettimeofday (struct timeval *tp, void *tzp)
 {
     tp->tv_sec = time (NULL);
@@ -2407,7 +2407,7 @@ void gettimeofday(struct timeval *tp, void *tzp)
 /*
 * Macintosh support functions.
 */
-#if defined(__apple__)
+#if defined(__APPLE__)
 int gettimeofday(struct timeval *tp, void *tzp)
 {
 	tp->tv_sec = time(NULL);

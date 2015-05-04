@@ -28,7 +28,7 @@
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_move.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
 
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 	#include <time.h>
 #elif defined(_WIN32)

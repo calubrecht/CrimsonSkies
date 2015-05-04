@@ -26,7 +26,7 @@
  **************************************************************************/
 
 // System Specific Includes
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#include <types.h>
 #elif defined(_WIN32)
 	#include <sys/types.h>

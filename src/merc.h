@@ -1942,7 +1942,7 @@ extern  bool				MOBtrigger;
 	#endif
 #endif
 
-#if    defined(__apple__)
+#if    defined(__APPLE__)
 	#define NOCRYPT
 	#if    defined(unix)
 		#undef    unix
@@ -1970,7 +1970,7 @@ extern  bool				MOBtrigger;
  *   so players can go ahead and telnet to all the other descriptors.
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
-#if defined(__apple__)
+#if defined(__APPLE__)
 	#define PLAYER_DIR      ""                  /* Player files            */
 	#define TEMP_FILE       "romtmp"
 	#define NULL_FILE       "proto.are"         /* To reserve one stream   */
