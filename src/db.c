@@ -853,7 +853,7 @@ void load_rooms (FILE * fp)
             SET_BIT (pRoomIndex->room_flags, ROOM_LAW);
         pRoomIndex->sector_type = fread_number (fp);
         pRoomIndex->light = 0;
-        for (door = 0; door <= 9; door++)
+        for (door = 0; door < MAX_DIR; door++)
             pRoomIndex->exit[door] = NULL;
 
         /* defaults */
@@ -1139,7 +1139,7 @@ void fix_exits (void)
             }                    /* for */
 
             fexit = FALSE;
-            for (door = 0; door <= 9; door++)
+            for (door = 0; door < MAX_DIR; door++)
             {
                 if ((pexit = pRoomIndex->exit[door]) != NULL)
                 {
@@ -1168,7 +1168,7 @@ void fix_exits (void)
         for (pRoomIndex = room_index_hash[iHash];
              pRoomIndex != NULL; pRoomIndex = pRoomIndex->next)
         {
-            for (door = 0; door <= 5; door++)
+            for (door = 0; door < MAX_DIR; door++)
             {
                 if ((pexit = pRoomIndex->exit[door]) != NULL
                     && (to_room = pexit->u1.to_room) != NULL
@@ -3005,11 +3005,7 @@ int number_percent (void)
  */
 int number_door (void)
 {
-    int door;
-
-    while ((door = number_mm () & (8 - 1)) > 5);
-
-    return door;
+	return number_range(0, MAX_DIR - 1);
 }
 
 int number_bits (int width)

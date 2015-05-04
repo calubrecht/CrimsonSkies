@@ -338,7 +338,7 @@ int find_door (CHAR_DATA * ch, char *arg)
 		door = 9;
     else
     {
-        for (door = 0; door <= 9; door++)
+        for (door = 0; door < MAX_DIR; door++)
         {
             if ((pexit = ch->in_room->exit[door]) != NULL
                 && IS_SET (pexit->exit_info, EX_ISDOOR)

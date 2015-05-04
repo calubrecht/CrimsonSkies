@@ -1201,7 +1201,7 @@ void do_rstat (CHAR_DATA * ch, char *argument)
     }
     send_to_char (".\n\r", ch);
 
-    for (door = 0; door <= 9; door++)
+    for (door = 0; door < MAX_DIR; door++)
     {
         EXIT_DATA *pexit;
 
@@ -5026,7 +5026,7 @@ void checkexits(ROOM_INDEX_DATA *room, AREA_DATA *pArea, char* buffer)
 	ROOM_INDEX_DATA *to_room;
 
 	strcpy(buffer, "");
-	for (i = 0; i < 9; i++)
+	for (i = 0; i < MAX_DIR; i++)
 	{
 		exit = room->exit[i];
 		if (!exit)

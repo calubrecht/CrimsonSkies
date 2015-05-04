@@ -1075,7 +1075,7 @@ struct    kill_data
 
 /*
  * Directions.
- * Used in #ROOMS.
+ * Used in #ROOMS.  (if direction is added update MAX_DIR with 1 plus the max number below)
  */
 #define DIR_NORTH  0
 #define DIR_EAST   1
@@ -2324,8 +2324,8 @@ int    liq_lookup    args( ( const char *name) );
 #define         AREA_ADDED      2    /* Area has been added to. */
 #define         AREA_LOADING    4    /* Used for counting in db.c */
 
-#define MAX_DIR    10
-#define NO_FLAG  -99    /* Must not be used in flags or stats. */
+#define MAX_DIR     10    /* Maximum direction (0-9 are used making 10) */
+#define NO_FLAG    -99    /* Must not be used in flags or stats. */
 
 /*
  * Global Constants

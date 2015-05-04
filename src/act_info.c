@@ -1402,7 +1402,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
 
 	scan_room = ch->in_room;
 
-	for (depth = 1; depth < 4; depth++)
+	for (depth = 1; depth < MAX_DIR; depth++)
 	{
 		if ((pExit = scan_room->exit[door]) != NULL)
 		{
@@ -1546,7 +1546,7 @@ void do_exits (CHAR_DATA * ch, char *argument)
         sprintf (buf, "Obvious exits:\n\r");
 
     found = FALSE;
-    for (door = 0; door <= 9; door++)
+    for (door = 0; door < MAX_DIR; door++)
     {
         if ((pexit = ch->in_room->exit[door]) != NULL
             && pexit->u1.to_room != NULL

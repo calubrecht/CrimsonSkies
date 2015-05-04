@@ -1234,7 +1234,7 @@ void bust_a_prompt (CHAR_DATA * ch)
             case 'e':
                 found = FALSE;
                 doors[0] = '\0';
-                for (door = 0; door <= 9; door++)
+                for (door = 0; door < MAX_DIR; door++)
                 {
                     if ((pexit = ch->in_room->exit[door]) != NULL
                         && pexit->u1.to_room != NULL
