@@ -267,12 +267,14 @@ void do_outfit (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	// Too many items (TODO, needs weight check also)
-	if (ch->carry_number + 3 > can_carry_n(ch))
-	{
-		send_to_char("You are carrying too many items to be outfitted.\n\r", ch);
-		return;
-	}
+    // Too many items (TODO, needs weight check also)
+    if (ch->carry_number + 3 > can_carry_n(ch))
+    {
+        send_to_char("You are carrying too many items to be outfitted.\n\r", ch);
+        // A little lag in case someone is trying to abuse this.
+	WAIT_STATE(ch, PULSE_PER_SECOND * 2);
+        return;
+    }
 
     if ((obj = get_eq_char (ch, WEAR_LIGHT)) == NULL)
     {
@@ -323,8 +325,8 @@ void do_outfit (CHAR_DATA * ch, char *argument)
 
     send_to_char ("You have been equipped by the gods.\n\r", ch);
 	
-	// A little lag in case someone is trying to abuse this.
-	WAIT_STATE(ch, PULSE_PER_SECOND);
+    // A little lag in case someone is trying to abuse this.
+    WAIT_STATE(ch, PULSE_PER_SECOND);
 
 }
 
