@@ -1884,8 +1884,8 @@ You see the EXIT.
 S
 #3747
 A Cage~
-You are standing in a dank, humid cage with stone walls and a putrid smell coming
-from it.
+You are standing in a dank, humid cage with stone walls and a putrid
+smell coming from it.  
 ~
 0 131080 0
 D1
@@ -2170,7 +2170,7 @@ A Safe Room~
 You are in a safe room, away from all the mean rabbits and snails of the Arena.
 You can rest here, and go up to go back to the Temple of Midgaard.
 ~
-0 12 0
+0 1036 0
 D4
 You see the Temple of Midgaard.
 ~
@@ -2179,8 +2179,8 @@ You see the Temple of Midgaard.
 S
 #3761
 A Cage~
-You are standing in a dank, humid cage with stone walls and a putrid smell coming
-from it.
+You are standing in a dank, humid cage with stone walls and a putrid
+smell coming from it.  
 ~
 0 131080 0
 D3
@@ -2190,8 +2190,8 @@ D3
 S
 #3762
 A Cage~
-You are standing in a dank, humid cage with stone walls and a putrid smell coming
-from it.
+You are standing in a dank, humid cage with stone walls and a putrid
+smell coming from it.  
 ~
 0 131080 0
 D2
