@@ -761,10 +761,11 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             if (ch->level == 0)
             {
-		if(mud_ansicolor)
-                	SET_BIT (ch->act, PLR_COLOR);
-		if(mud_telnetga)
-			SET_BIT (ch->comm, COMM_TELNET_GA);
+				// First time character bits
+		        if(mud_ansicolor)
+                    SET_BIT (ch->act, PLR_COLOR);
+		        if(mud_telnetga)
+			        SET_BIT (ch->comm, COMM_TELNET_GA);
 
                 ch->perm_stat[class_table[ch->class].attr_prime] += 3;
 
@@ -778,6 +779,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 sprintf (buf, "the %s", title_table[ch->class][ch->level]
                          [ch->sex == SEX_FEMALE ? 1 : 0]);
                 set_title (ch, buf);
+
+				// Auto exit for first time players
+				SET_BIT(ch->act, PLR_AUTOEXIT);
 
                 do_function (ch, &do_outfit, "");
                 obj_to_char (create_object (get_obj_index (OBJ_VNUM_MAP), 0),
