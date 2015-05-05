@@ -55,7 +55,7 @@ const sh_int rev_dir[] = {
 };
 
 const sh_int movement_loss[SECT_MAX] = {
-    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6
+    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 20
 };
 
 /*
@@ -147,7 +147,8 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
         }
 
         if ((in_room->sector_type == SECT_WATER_NOSWIM
-             || to_room->sector_type == SECT_WATER_NOSWIM)
+             || to_room->sector_type == SECT_WATER_NOSWIM
+             || to_room->sector_type == SECT_OCEAN)
             && !IS_AFFECTED (ch, AFF_FLYING))
         {
             OBJ_DATA *obj;

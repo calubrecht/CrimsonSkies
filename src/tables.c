@@ -401,6 +401,7 @@ const struct flag_type sector_flags[] = {
     {"unused", SECT_UNUSED, TRUE},
     {"air", SECT_AIR, TRUE},
     {"desert", SECT_DESERT, TRUE},
+    {"ocean", SECT_OCEAN, TRUE},
     {NULL, 0, 0}
 };
 

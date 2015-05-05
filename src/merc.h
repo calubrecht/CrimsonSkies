@@ -1118,7 +1118,8 @@ struct    kill_data
 #define SECT_UNUSED         8
 #define SECT_AIR            9
 #define SECT_DESERT        10
-#define SECT_MAX           11
+#define SECT_OCEAN         11
+#define SECT_MAX           12
 
 /*
  * Equpiment wear locations.
