@@ -312,6 +312,21 @@ ABU J 0 0
 EFN AB 0 C
 stand stand none 30
 AMV ABCDEFHJKQU medium unknown
+#3721
+monster~
+the monster~
+There is a monster leashed here.
+~
+He looks mean, but you feel comfortable that you can kill him, especially since
+he is leashed up, and you are not.
+~
+school monster~
+ABU 0 0 0
+1 0 1d1+7 1d1+99 1d3+0 claw
+10 10 10 10
+0 AB 0 C
+stand stand none 10
+AMV ABCDEFHJKQU medium unknown
 #0
 
 
@@ -820,6 +835,29 @@ You see the central room.
 ~
 0 0 3702
 S
+#3706
+Another cage room~
+You are in another cage room.  There are rooms to the east and west.  Light fluoresces
+off the ceiling in soft white tones.
+~
+0 131080 0
+D0
+~
+~
+0 0 3762
+D1
+~
+~
+0 0 3761
+D2
+~
+~
+0 0 3717
+D3
+~
+~
+0 0 3747
+S
 #3707
 A Room in Mud School~
 You are in a square white room.  The walls are all blank, with no windows.
@@ -1070,6 +1108,10 @@ After buying some food and drink, you can 'EAT' and 'DRINK' it.
 
 After that, find the next exit yourself.
 ~
+D0
+~
+~
+0 0 3706
 D1
 You see the next station of Mud School.
 ~
@@ -1840,6 +1882,17 @@ You see the EXIT.
 ~
 0 0 3760
 S
+#3747
+A Cage~
+You are standing in a dank, humid cage with stone walls and a putrid smell coming
+from it.
+~
+0 131080 0
+D1
+~
+~
+0 0 3706
+S
 #3748
 The Center of the Dungeon~
 You are in the center of a large room.  A faint light from above shows that
@@ -2124,6 +2177,28 @@ You see the Temple of Midgaard.
 ~
 0 0 3001
 S
+#3761
+A Cage~
+You are standing in a dank, humid cage with stone walls and a putrid smell coming
+from it.
+~
+0 131080 0
+D3
+~
+~
+0 0 3706
+S
+#3762
+A Cage~
+You are standing in a dank, humid cage with stone walls and a putrid smell coming
+from it.
+~
+0 131080 0
+D2
+~
+~
+0 0 3706
+S
 #0
 
 
@@ -2175,11 +2250,15 @@ M 0 3712 3 3726 3 Load the fox
 M 0 3709 4 3734 4 Load the rabbit
 M 0 3710 3 3742 3 Load the lizard
 M 0 3711 3 3746 3 Load the boar
+M 0 3721 3 3747 1 Load the monster
 M 0 3714 1 3749 1 Load the beast
 M 0 3715 2 3751 2 Load the bear
 M 0 3716 2 3754 2 Load the wolf
 M 0 3718 1 3758 1 Load the adept of Furey
 M 0 3719 1 3759 1 Load the priest of Circe
+M 0 3721 3 3761 1 Load the monster
+M 0 3721 2 3761 1 Load the monster
+M 0 3721 3 3762 1 Load the monster
 S
 
 
