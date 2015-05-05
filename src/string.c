@@ -217,7 +217,7 @@ void string_add (CHAR_DATA * ch, char *argument)
             send_to_char ("                   (requires '', \"\") \n\r", ch);
             send_to_char (".h               - get help (this info)\n\r", ch);
             send_to_char (".s               - show string so far  \n\r", ch);
-            send_to_char (".f               - (word wrap) string  \n\r", ch);
+            send_to_char (".f               - word wrap (format string)\n\r", ch);
             send_to_char (".c               - clear string so far \n\r", ch);
             send_to_char (".ld <num>        - delete line number <num>\n\r",
                           ch);
