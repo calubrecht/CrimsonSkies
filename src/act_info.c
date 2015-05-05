@@ -1003,8 +1003,8 @@ void do_noloot (CHAR_DATA * ch, char *argument)
 
 void do_nofollow (CHAR_DATA * ch, char *argument)
 {
-    if (IS_NPC (ch))
-        return;
+	if (IS_NPC(ch) || IS_AFFECTED(ch, AFF_CHARM))
+		return;
 
     if (IS_SET (ch->act, PLR_NOFOLLOW))
     {
