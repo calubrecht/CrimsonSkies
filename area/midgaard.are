@@ -2049,9 +2049,7 @@ map midgaard~
 .
                         * * * MIDGAARD * * *
                          = = ========== = =
- 
-                                     Rainbow Bridge (Asgard and Valhalla)
-                                    /
+                                      
           North            Temple Altar   Mud School <--- ** NEWBIES **
             |   /Up        (Healer, Pit)      |           ** GO HERE **
             | /                  |       /Entrance to
@@ -2089,31 +2087,31 @@ Haon-Dor   |     Guild           |                 Guild     Wall Road
         Midgaard              Midgaard                       Midgaard
 ~
 #3163
-map thera~
-a map of Thera~
+map arcadis~
+a map of Arcadis~
 A rolled up map is here.~
 paper~
 map 0 A
 A 0 0 0 0
 0 10 1500 P
 E
-map thera~
+map arcadis~
 .
-                         * * * Northern Thera  * * *
-                          = = ================== = =
- 
-                                                   Moria
+                               ===================
+                                     Arcadis
+                               ===================
+                                                 Moria
                              Olympus          New    |    Dwarven--Mines
-Mage            Elven Valley    |     Ofcol--Ofcol   +----Kingdom
+Mage            Elven Valley    |     Ofcol--Ofcol   +----Kingdom  Dwarven
 Tower                       \   |       |            |       |    \Catacombs
   |    Dragon Tower          Plains-----+            |   Day-Care
   |   /                         |       |            |             Void---Old
 Shadow                      Northern  Stones of      |   Nirvana\    |   Thalos
 Grove---Galaxy              Midgaard   G'harne       |            \Holy
-  |                             |                    |     Smurf   Grove
-   \  Arachnos    Shire  Asgard | In the Air         |    Village    |
-     \   |          |         \ | /                  |       |       |    Check
-      Forest Of-----+-------Midgaard---------------Cross---Eastern Road---Point
+  |                             |                    |     Bard    Grove
+   \  Arachnos    Shire  Asgard | In the Air         |     Camp      |
+     \   |          |         \ | /                  |       |       |  Check New
+      Forest Of-----+-------Midgaard---------------Cross---Eastern Road-Point-Thalos
       Haon Dor              / | | | \              Roads             |
      /     |     Mob Factory  | | |  Machine            \        Gnome Village
   Old    Troll               /  | |  Dreams               \
@@ -2122,15 +2120,17 @@ Grove---Galaxy              Midgaard   G'harne       |            \Holy
        Redferne's---Chain---Southern    River                |  \      Keep of
        Residence            Midgaard         \       Wyvern--+  Drow   Mahn-tor
            |                  / | \          Sands of Tower  |  City
-         Clouds      Gang Land  | Graveyard  Sorrow          |
-        (Harpies)               |      \           \       Elemental
-                            Miden'nir   Church   Mega-City  Canyon
-                            (Goblins)  Catacombs    One
+         Clouds      Gang Land  | Graveyard  Sorrow \         \
+        (Harpies)               |     \            \ Pyramid  Elemental
+                            Miden'nir  Chapel    Mega-City     Canyon
+                            (Goblins) Catacombs     One
+                                         \
+                                         Hell
  
-This map shows just about all the major areas on ROM.  This map is NOT drawn
-to scale, some of the directions were changed to make everything fit.  This
-map shows the GENERAL location of an area with respect to the other areas.
-Type "areas" for a complete list with suggested levels and the authors.
+This map shows just about all the major areas in Crimson Skies.  This map is 
+NOT drawn to scale.  This map shows the GENERAL location of an area with respect 
+to the other areas.  Type "areas" for a complete list with suggested levels and 
+the authors.
 ~
 #3164
 map southern midgaard~
