@@ -275,6 +275,12 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (strcmp (crypt (argument, ch->pcdata->pwd), ch->pcdata->pwd))
             {
                 send_to_desc ("Wrong password.\n\r", d);
+
+                // Log the failed login attempt using WIZ_SITES
+                sprintf (log_buf, "%s@%s entered an incorrect password.", ch->name, d->host);
+                log_string (log_buf);
+                wiznet (log_buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
+
                 close_socket (d);
                 return;
             }
