@@ -30,3 +30,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Wear flags
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
+  - Cleanup display of wiznet on/off options
