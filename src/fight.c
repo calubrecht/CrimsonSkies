@@ -2587,6 +2587,9 @@ void do_dirt (CHAR_DATA * ch, char *argument)
         case (SECT_WATER_NOSWIM):
             chance = 0;
             break;
+        case (SECT_OCEAN):
+            chance = 0;
+            break;
         case (SECT_AIR):
             chance = 0;
             break;
