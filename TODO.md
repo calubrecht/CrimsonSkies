@@ -22,3 +22,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - do_reset and aedit_reset collision
   - Statistics.
   - Remove all actual tabs and convert them to spaces. 
+  - Add underwater room_flag, water breathing spell, damage for underwater w/o
+  - Add bank, determine monetary type to bank (consider getting rid of silver)
+  - Add throwing
+  - Add ranged spells (fireball)
+  - Dual wield
+  - Wear flags
