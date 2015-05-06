@@ -14,31 +14,31 @@
                         /* It should be readable by everyone!           */
                         
 #define MAX_LINE_LENGTH 80 /* enforce a max length of 80 on text lines, reject longer lines */
-						   /* This only applies in the Body of the note */                        
-						   
+                           /* This only applies in the Body of the note */                        
+                           
 #define MAX_NOTE_TEXT (4*MAX_STRING_LENGTH - 1000)
-						
+                        
 #define BOARD_NOTFOUND -1 /* Error code from board_lookup() and board_number */
 
 /* Data about a board */
 struct board_data
 {
-	char *short_name; /* Max 8 chars */
-	char *long_name;  /* Explanatory text, should be no more than 40 ? chars */
-	
-	int read_level; /* minimum level to see board */
-	int write_level;/* minimum level to post notes */
+    char *short_name; /* Max 8 chars */
+    char *long_name;  /* Explanatory text, should be no more than 40 ? chars */
+    
+    int read_level; /* minimum level to see board */
+    int write_level;/* minimum level to post notes */
 
-	char *names;       /* Default recipient */
-	int force_type; /* Default action (DEF_XXX) */
-	
-	int purge_days; /* Default expiration */
+    char *names;       /* Default recipient */
+    int force_type; /* Default action (DEF_XXX) */
+    
+    int purge_days; /* Default expiration */
 
-	/* Non-constant data */
-		
-	NOTE_DATA *note_first; /* pointer to board's first note */
-	bool changed; /* currently unused */
-		
+    /* Non-constant data */
+        
+    NOTE_DATA *note_first; /* pointer to board's first note */
+    bool changed; /* currently unused */
+        
 };
 
 typedef struct board_data BOARD_DATA;

@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -263,10 +263,10 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
         strcat(buf, "({WWizi{x) ");
     if (IS_AFFECTED(victim, AFF_HIDE))
         strcat(buf, "({wHide{x) ");
-	if (IS_AFFECTED(victim, AFF_SNEAK))
-		strcat(buf, "({wSneak{x) ");
-	if (victim->desc == NULL && !IS_NPC(victim))
-		strcat(buf, "({^{YLink Dead{x) ");
+    if (IS_AFFECTED(victim, AFF_SNEAK))
+        strcat(buf, "({wSneak{x) ");
+    if (victim->desc == NULL && !IS_NPC(victim))
+        strcat(buf, "({^{YLink Dead{x) ");
     if (IS_AFFECTED(victim, AFF_CHARM))
         strcat(buf, "({YCharmed{x) ");
     if (IS_AFFECTED(victim, AFF_PASS_DOOR))
@@ -712,9 +712,9 @@ void do_autolist (CHAR_DATA * ch, char *argument)
 
     send_to_char ("telnetga       ", ch);
     if (IS_SET (ch->comm, COMM_TELNET_GA))
-	    send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-	    send_to_char ("{ROFF{x\n\r",ch);
+        send_to_char ("{ROFF{x\n\r",ch);
 
     send_to_char ("compact mode   ", ch);
     if (IS_SET (ch->comm, COMM_COMPACT))
@@ -944,15 +944,15 @@ void do_prompt (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	// Rhien, 04/10/2015, added advanced prompt as the start prompt, can default
-	// back to the basic one if desired.
-	if (!strcmp(argument, "all") || !strcmp(argument, "reset")) {
-		strcpy(buf, "<%hhp %mm %vmv {g%r {x({c%e{x)>{x ");
-	}
-	else if (!strcmp(argument, "basic")) {
-		strcpy(buf, "<%hhp %mm %vmv> ");
-	}
-	else
+    // Rhien, 04/10/2015, added advanced prompt as the start prompt, can default
+    // back to the basic one if desired.
+    if (!strcmp(argument, "all") || !strcmp(argument, "reset")) {
+        strcpy(buf, "<%hhp %mm %vmv {g%r {x({c%e{x)>{x ");
+    }
+    else if (!strcmp(argument, "basic")) {
+        strcpy(buf, "<%hhp %mm %vmv> ");
+    }
+    else
     {
         if (strlen (argument) > 50)
             argument[50] = '\0';
@@ -1003,8 +1003,8 @@ void do_noloot (CHAR_DATA * ch, char *argument)
 
 void do_nofollow (CHAR_DATA * ch, char *argument)
 {
-	if (IS_NPC(ch) || IS_AFFECTED(ch, AFF_CHARM))
-		return;
+    if (IS_NPC(ch) || IS_AFFECTED(ch, AFF_CHARM))
+        return;
 
     if (IS_SET (ch->act, PLR_NOFOLLOW))
     {
@@ -1097,7 +1097,7 @@ void do_look (CHAR_DATA * ch, char *argument)
     {
         /* 'look' or 'look auto' */
         send_to_char ("{s", ch);
-	sprintf(buf, "{c%s{x", ch->in_room->name);
+    sprintf(buf, "{c%s{x", ch->in_room->name);
         send_to_char (buf, ch);
         send_to_char ("{x", ch);
 
@@ -1105,7 +1105,7 @@ void do_look (CHAR_DATA * ch, char *argument)
              && (IS_NPC (ch) || IS_SET (ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER (ch, ch->in_room->area))
         {			
-			sprintf(buf, "{r [{RRoom %d{r] {r[{R%s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
+            sprintf(buf, "{r [{RRoom %d{r] {r[{R%s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
             send_to_char (buf, ch);
         }
 
@@ -1293,14 +1293,14 @@ void do_look (CHAR_DATA * ch, char *argument)
         door = 4;
     else if (!str_cmp (arg1, "d") || !str_cmp (arg1, "down"))
         door = 5;
-	else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
-		door = 6;
-	else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
-		door = 7;
-	else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
-		door = 8;
-	else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "southwest"))
-		door = 9;
+    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
+        door = 6;
+    else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+        door = 7;
+    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
+        door = 8;
+    else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "southwest"))
+        door = 9;
     else
     {
         send_to_char ("You do not see that here.\n\r", ch);
@@ -1337,116 +1337,116 @@ void do_look (CHAR_DATA * ch, char *argument)
 
 // do_scan setup
 char *const distance[4] = {
-	"right here.", "nearby to the %s.", "not far %s.",
-	"off in the distance %s."
+    "right here.", "nearby to the %s.", "not far %s.",
+    "off in the distance %s."
 };
 
 void scan_list args((ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch,
-	sh_int depth, sh_int door));
+    sh_int depth, sh_int door));
 
 void scan_char args((CHAR_DATA * victim, CHAR_DATA * ch,
-	sh_int depth, sh_int door));
+    sh_int depth, sh_int door));
 
 void do_scan(CHAR_DATA * ch, char *argument)
 {
-	extern char *const dir_name[];
-	char arg1[MAX_INPUT_LENGTH], buf[MAX_INPUT_LENGTH];
-	ROOM_INDEX_DATA *scan_room;
-	EXIT_DATA *pExit;
-	sh_int door, depth;
+    extern char *const dir_name[];
+    char arg1[MAX_INPUT_LENGTH], buf[MAX_INPUT_LENGTH];
+    ROOM_INDEX_DATA *scan_room;
+    EXIT_DATA *pExit;
+    sh_int door, depth;
 
-	argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg1);
 
-	if (arg1[0] == '\0')
-	{
-		act("$n looks all around.", ch, NULL, NULL, TO_ROOM);
-		send_to_char("Looking around you see:\n\r", ch);
-		scan_list(ch->in_room, ch, 0, -1);
+    if (arg1[0] == '\0')
+    {
+        act("$n looks all around.", ch, NULL, NULL, TO_ROOM);
+        send_to_char("Looking around you see:\n\r", ch);
+        scan_list(ch->in_room, ch, 0, -1);
 
-		for (door = 0; door < 9; door++)
-		{
-			if ((pExit = ch->in_room->exit[door]) != NULL)
-				scan_list(pExit->u1.to_room, ch, 1, door);
-		}
-		return;
-	}
-	else if (!str_cmp(arg1, "n") || !str_cmp(arg1, "north"))
-		door = 0;
-	else if (!str_cmp(arg1, "e") || !str_cmp(arg1, "east"))
-		door = 1;
-	else if (!str_cmp(arg1, "s") || !str_cmp(arg1, "south"))
-		door = 2;
-	else if (!str_cmp(arg1, "w") || !str_cmp(arg1, "west"))
-		door = 3;
-	else if (!str_cmp(arg1, "u") || !str_cmp(arg1, "up"))
-		door = 4;
-	else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "down"))
-		door = 5;
-	else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
-		door = 6;
-	else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
-		door = 7;
-	else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
-		door = 8;
-	else if (!str_cmp(arg1, "sw") || !str_cmp(arg1, "southwest"))
-		door = 9;
-	else
-	{
-		send_to_char("Which way do you want to scan?\n\r", ch);
-		return;
-	}
+        for (door = 0; door < 9; door++)
+        {
+            if ((pExit = ch->in_room->exit[door]) != NULL)
+                scan_list(pExit->u1.to_room, ch, 1, door);
+        }
+        return;
+    }
+    else if (!str_cmp(arg1, "n") || !str_cmp(arg1, "north"))
+        door = 0;
+    else if (!str_cmp(arg1, "e") || !str_cmp(arg1, "east"))
+        door = 1;
+    else if (!str_cmp(arg1, "s") || !str_cmp(arg1, "south"))
+        door = 2;
+    else if (!str_cmp(arg1, "w") || !str_cmp(arg1, "west"))
+        door = 3;
+    else if (!str_cmp(arg1, "u") || !str_cmp(arg1, "up"))
+        door = 4;
+    else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "down"))
+        door = 5;
+    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
+        door = 6;
+    else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+        door = 7;
+    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
+        door = 8;
+    else if (!str_cmp(arg1, "sw") || !str_cmp(arg1, "southwest"))
+        door = 9;
+    else
+    {
+        send_to_char("Which way do you want to scan?\n\r", ch);
+        return;
+    }
 
-	act("You peer intently $T.", ch, NULL, dir_name[door], TO_CHAR);
-	act("$n peers intently $T.", ch, NULL, dir_name[door], TO_ROOM);
-	sprintf(buf, "Looking %s you see:\n\r", dir_name[door]);
+    act("You peer intently $T.", ch, NULL, dir_name[door], TO_CHAR);
+    act("$n peers intently $T.", ch, NULL, dir_name[door], TO_ROOM);
+    sprintf(buf, "Looking %s you see:\n\r", dir_name[door]);
 
-	scan_room = ch->in_room;
+    scan_room = ch->in_room;
 
-	for (depth = 1; depth < MAX_DIR; depth++)
-	{
-		if ((pExit = scan_room->exit[door]) != NULL)
-		{
-			scan_room = pExit->u1.to_room;
-			scan_list(pExit->u1.to_room, ch, depth, door);
-		}
-	}
-	return;
+    for (depth = 1; depth < MAX_DIR; depth++)
+    {
+        if ((pExit = scan_room->exit[door]) != NULL)
+        {
+            scan_room = pExit->u1.to_room;
+            scan_list(pExit->u1.to_room, ch, depth, door);
+        }
+    }
+    return;
 }
 
 void scan_list(ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch, sh_int depth, sh_int door)
 {
-	CHAR_DATA *rch;
+    CHAR_DATA *rch;
 
-	if (scan_room == NULL)
-		return;
-	for (rch = scan_room->people; rch != NULL; rch = rch->next_in_room)
-	{
-		if (rch == ch)
-			continue;
-		if (!IS_NPC(rch) && rch->invis_level > get_trust(ch))
-			continue;
-		if (can_see(ch, rch))
-			scan_char(rch, ch, depth, door);
-	}
-	return;
+    if (scan_room == NULL)
+        return;
+    for (rch = scan_room->people; rch != NULL; rch = rch->next_in_room)
+    {
+        if (rch == ch)
+            continue;
+        if (!IS_NPC(rch) && rch->invis_level > get_trust(ch))
+            continue;
+        if (can_see(ch, rch))
+            scan_char(rch, ch, depth, door);
+    }
+    return;
 }
 
 void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, sh_int depth, sh_int door)
 {
-	extern char *const dir_name[];
-	extern char *const distance[];
-	char buf[MAX_INPUT_LENGTH], buf2[MAX_INPUT_LENGTH];
+    extern char *const dir_name[];
+    extern char *const distance[];
+    char buf[MAX_INPUT_LENGTH], buf2[MAX_INPUT_LENGTH];
 
-	buf[0] = '\0';
+    buf[0] = '\0';
 
-	strcat(buf, PERS(victim, ch));
-	strcat(buf, ", ");
-	sprintf(buf2, distance[depth], dir_name[door]);
-	strcat(buf, buf2);
-	strcat(buf, "\n\r");
+    strcat(buf, PERS(victim, ch));
+    strcat(buf, ", ");
+    sprintf(buf2, distance[depth], dir_name[door]);
+    strcat(buf, buf2);
+    strcat(buf, "\n\r");
 
-	send_to_char(buf, ch);
-	return;
+    send_to_char(buf, ch);
+    return;
 }
 
 /* RT added back for the hell of it */
@@ -1609,76 +1609,76 @@ void do_worth (CHAR_DATA * ch, char *argument)
 
 void do_score(CHAR_DATA * ch, char *argument)
 {
-	char buf[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
 
-	printf_to_char(ch, "\r\n{gScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+    printf_to_char(ch, "\r\n{gScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
-	if (get_trust(ch) != ch->level)
-		printf_to_char(ch, "You are trusted at level %d.\n\r", get_trust(ch));
+    if (get_trust(ch) != ch->level)
+        printf_to_char(ch, "You are trusted at level %d.\n\r", get_trust(ch));
 
-	send_to_char("----------------------------------------------------------------------------\n\r", ch);
+    send_to_char("----------------------------------------------------------------------------\n\r", ch);
 
-	printf_to_char(ch, "{gLEVEL: {w%-3d          {gRace: {w%-10.10s        {gPlayed: {w%ld hours{x\r\n",
-		ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
+    printf_to_char(ch, "{gLEVEL: {w%-3d          {gRace: {w%-10.10s        {gPlayed: {w%ld hours{x\r\n",
+        ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
 
-	printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
-		get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
+    printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
+        get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
 
-	printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
-		get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch), ctime(&current_time));
+    printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
+        get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch), ctime(&current_time));
 
-	printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d\n\r",
-		get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch));
+    printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d\n\r",
+        get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch));
 
-	printf_to_char(ch, "{gWIS  : {w%2.2d{g({W%2.2d{g)        Sex: {w%s{x\n\r",
-		get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
-		ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
+    printf_to_char(ch, "{gWIS  : {w%2.2d{g({W%2.2d{g)        Sex: {w%s{x\n\r",
+        get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
+        ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
 
-	printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {wN/A               {gItems:  {w%d of %d{x\r\n",
-		get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
+    printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {wN/A               {gItems:  {w%d of %d{x\r\n",
+        get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
 
-	printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)                               {gWeight: {w%d of %d{x\r\n",
-		get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON], ch->carry_weight, can_carry_w(ch));
+    printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)                               {gWeight: {w%d of %d{x\r\n",
+        get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON], ch->carry_weight, can_carry_w(ch));
 
 
-	printf_to_char(ch, "{gCHA  : {w%2.2d{g({W%2.2d{g)      {gWimpy: {w%-5d{x\n\r", 0, 0, ch->wimpy);
+    printf_to_char(ch, "{gCHA  : {w%2.2d{g({W%2.2d{g)      {gWimpy: {w%-5d{x\n\r", 0, 0, ch->wimpy);
 
-	printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
-		ch->practice, ch->hit, ch->max_hit,
+    printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
+        ch->practice, ch->hit, ch->max_hit,
                 IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' ',
-		IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
+        IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
 
-	printf_to_char(ch, "{gTRAIN: {w%3.3d          {gMana: {w%-5d of %5d    {gNoSummon  [{R%c{g]     AutoAssist [{R%c{g]{x\r\n",
-		ch->train, ch->mana, ch->max_mana,
+    printf_to_char(ch, "{gTRAIN: {w%3.3d          {gMana: {w%-5d of %5d    {gNoSummon  [{R%c{g]     AutoAssist [{R%c{g]{x\r\n",
+        ch->train, ch->mana, ch->max_mana,
                 IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' ',
-		IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
+        IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
 
-	printf_to_char(ch, "{gGOLD : {w%-11s  {gMove: {w%-5d of %5d    {gNoFollow  [{R%c{g]       AutoLoot [{R%c{g]{x\r\n",
-		num_punct(ch->gold), ch->move, ch->max_move,
+    printf_to_char(ch, "{gGOLD : {w%-11s  {gMove: {w%-5d of %5d    {gNoFollow  [{R%c{g]       AutoLoot [{R%c{g]{x\r\n",
+        num_punct(ch->gold), ch->move, ch->max_move,
                 IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' ',
-		IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
+        IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
 
-	if (!IS_NPC(ch)) {
-		sprintf(buf, "%d", (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp);
-	}
-	else {
-		sprintf(buf, "0");
-	}
+    if (!IS_NPC(ch)) {
+        sprintf(buf, "%d", (ch->level + 1) * exp_per_level (ch, ch->pcdata->points) - ch->exp);
+    }
+    else {
+        sprintf(buf, "0");
+    }
 
         printf_to_char( ch, "{gXP   : {w%-9d  {gNx Lvl: {w%-9s         {gAutoGold  [{R%c{g]        AutoSac [{R%c{g]{x\r\n",
                     ch->exp,
-			 buf,
+             buf,
                     IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
-		    IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
+            IS_SET( ch->act, PLR_AUTOSAC ) ? 'X' : ' ' );
 
         printf_to_char( ch, "                                            {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
                     IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
                     IS_SET( ch->act, PLR_COLOR ) ? 'X' : ' ' );
 
 
-	send_to_char("{g----------------------------------------------------------------------------{x\n\r", ch);
-	// position, condition (hunger, thirst, drunk),
-	// immortal data, affect data
+    send_to_char("{g----------------------------------------------------------------------------{x\n\r", ch);
+    // position, condition (hunger, thirst, drunk),
+    // immortal data, affect data
 
 } // end do_score
 
@@ -2095,25 +2095,25 @@ void do_help (CHAR_DATA * ch, char *argument)
     }
 
     if (!found)
-	{
+    {
         send_to_char ("No help on that word.\n\r", ch);
-		/*
-		 * Let's log unmet help requests so studious IMP's can improve their help files ;-)
-		 * But to avoid idiots, we will check the length of the help request, and trim to
-		 * a reasonable length (set it by redefining MAX_CMD_LEN in merc.h).  -- JR
-		 */
-		if (strlen(argall) > MAX_CMD_LEN)
-		{
-			argall[MAX_CMD_LEN - 1] = '\0';
-			log_f ("Excessive command length: %s requested %s.", ch, argall);
-			send_to_char ("That was rude!\n\r", ch);
-		}
-		/* OHELPS_FILE is the "orphaned helps" files. Defined in merc.h -- JR */
-		else
-		{
-			append_file (ch, OHELPS_FILE, argall);
-		}
-	}
+        /*
+         * Let's log unmet help requests so studious IMP's can improve their help files ;-)
+         * But to avoid idiots, we will check the length of the help request, and trim to
+         * a reasonable length (set it by redefining MAX_CMD_LEN in merc.h).  -- JR
+         */
+        if (strlen(argall) > MAX_CMD_LEN)
+        {
+            argall[MAX_CMD_LEN - 1] = '\0';
+            log_f ("Excessive command length: %s requested %s.", ch, argall);
+            send_to_char ("That was rude!\n\r", ch);
+        }
+        /* OHELPS_FILE is the "orphaned helps" files. Defined in merc.h -- JR */
+        else
+        {
+            append_file (ch, OHELPS_FILE, argall);
+        }
+    }
     else
         page_to_char (buf_string (output), ch);
     free_buf (output);
@@ -2752,17 +2752,17 @@ void do_title (CHAR_DATA * ch, char *argument)
     if (IS_NPC (ch))
         return;
 
-	/* Changed this around a bit to do some sanitization first   *
-	 * before checking length of the title. Need to come up with *
-	 * a centralized user input sanitization scheme. FIXME!      *
-	 * JR -- 10/15/00                                            */
+    /* Changed this around a bit to do some sanitization first   *
+     * before checking length of the title. Need to come up with *
+     * a centralized user input sanitization scheme. FIXME!      *
+     * JR -- 10/15/00                                            */
 
     if (strlen (argument) > 45)
         argument[45] = '\0';
 
-	i = strlen(argument);
+    i = strlen(argument);
     if (argument[i-1] == '{' && argument[i-2] != '{')
-		argument[i-1] = '\0';
+        argument[i-1] = '\0';
 
     if (argument[0] == '\0')
     {
@@ -3090,7 +3090,7 @@ void do_password (CHAR_DATA * ch, char *argument)
         send_to_char ("Syntax: password <old> <new>.\n\r", ch);
         return;
     }
-	
+    
     if (strcmp (crypt (arg1, ch->pcdata->pwd), ch->pcdata->pwd))
     {
         WAIT_STATE (ch, 40);
@@ -3127,19 +3127,19 @@ void do_password (CHAR_DATA * ch, char *argument)
 
 void do_telnetga (CHAR_DATA * ch, char *argument)
 {
-	if (IS_NPC (ch))
-		return;
+    if (IS_NPC (ch))
+        return;
 
-	if (IS_SET (ch->comm, COMM_TELNET_GA))
-	{
-		send_to_char ("Telnet GA removed.\n\r", ch);
-		REMOVE_BIT (ch->comm, COMM_TELNET_GA);
-	}
-	else
-	{
-		send_to_char ("Telnet GA enabled.\n\r", ch);
-		SET_BIT (ch->comm, COMM_TELNET_GA);
-	}
+    if (IS_SET (ch->comm, COMM_TELNET_GA))
+    {
+        send_to_char ("Telnet GA removed.\n\r", ch);
+        REMOVE_BIT (ch->comm, COMM_TELNET_GA);
+    }
+    else
+    {
+        send_to_char ("Telnet GA enabled.\n\r", ch);
+        SET_BIT (ch->comm, COMM_TELNET_GA);
+    }
 }
 
 

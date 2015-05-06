@@ -27,18 +27,18 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
-	#include <unistd.h>                /* For execl in copyover() */
+    #include <types.h>
+    #include <time.h>
+    #include <unistd.h>                /* For execl in copyover() */
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
-	#include <io.h>
+    #include <sys/types.h>
+    #include <time.h>
+    #include <io.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <unistd.h>                /* For execl in copyover() */
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <unistd.h>                /* For execl in copyover() */
+    #include <time.h>
 #endif
 
 // General Includes
@@ -61,11 +61,11 @@
 
 #define KEY( literal, field, value )			\
                 if ( !str_cmp( word, literal ) )	\
-		{					\
-			field  = value;			\
-			fMatch = TRUE;			\
-			break;				\
-		}
+        {					\
+            field  = value;			\
+            fMatch = TRUE;			\
+            break;				\
+        }
 
 /*
  * Local functions.
@@ -272,7 +272,7 @@ void do_outfit (CHAR_DATA * ch, char *argument)
     {
         send_to_char("You are carrying too many items to be outfitted.\n\r", ch);
         // A little lag in case someone is trying to abuse this.
-	WAIT_STATE(ch, PULSE_PER_SECOND * 2);
+    WAIT_STATE(ch, PULSE_PER_SECOND * 2);
         return;
     }
 
@@ -324,7 +324,7 @@ void do_outfit (CHAR_DATA * ch, char *argument)
     }
 
     send_to_char ("You have been equipped by the gods.\n\r", ch);
-	
+    
     // A little lag in case someone is trying to abuse this.
     WAIT_STATE(ch, PULSE_PER_SECOND);
 
@@ -3768,33 +3768,33 @@ void do_mset (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	if (!str_prefix (arg2, "hours"))
-	{
-		if (IS_NPC (victim))
-		{
-			send_to_char ("Not on NPC's.\n\r", ch);
-			return;
-		}
+    if (!str_prefix (arg2, "hours"))
+    {
+        if (IS_NPC (victim))
+        {
+            send_to_char ("Not on NPC's.\n\r", ch);
+            return;
+        }
 
-		if (!is_number (arg3))
-		{
-			send_to_char ("Value must be numeric.\n\r", ch);
-			return;
-		}
+        if (!is_number (arg3))
+        {
+            send_to_char ("Value must be numeric.\n\r", ch);
+            return;
+        }
 
-		value = atoi (arg3);
+        value = atoi (arg3);
 
-		if (value < 0 || value > 999)
-		{
-			send_to_char ("Value must be between 0 and 999.\n\r", ch);
-			return;
-		}
+        if (value < 0 || value > 999)
+        {
+            send_to_char ("Value must be between 0 and 999.\n\r", ch);
+            return;
+        }
 
-		victim->played = ( value * 3600 );
-		printf_to_char(ch, "%s's hours set to %d.", victim->name, value);
+        victim->played = ( value * 3600 );
+        printf_to_char(ch, "%s's hours set to %d.", victim->name, value);
 
-		return;
-	}
+        return;
+    }
 
     /*
      * Generate usage message.
@@ -4217,32 +4217,32 @@ void do_force (CHAR_DATA * ch, char *argument)
 
     sprintf (buf, "$n forces you to '%s'.", argument);
 
-	/* Replaced original block with code by Edwin to keep from
-	 * corrupting pfiles in certain pet-infested situations.
-	 * JR -- 10/15/00
-	 */
-	if ( !str_cmp( arg, "all" ) )
-	{
-    	DESCRIPTOR_DATA *desc,*desc_next;
+    /* Replaced original block with code by Edwin to keep from
+     * corrupting pfiles in certain pet-infested situations.
+     * JR -- 10/15/00
+     */
+    if ( !str_cmp( arg, "all" ) )
+    {
+        DESCRIPTOR_DATA *desc,*desc_next;
 
-    	if (get_trust(ch) < MAX_LEVEL - 3)
-    	{
-			send_to_char("Not at your level!\n\r",ch);
-			return;
-    	}
+        if (get_trust(ch) < MAX_LEVEL - 3)
+        {
+            send_to_char("Not at your level!\n\r",ch);
+            return;
+        }
 
-    	for ( desc = descriptor_list; desc != NULL; desc = desc_next )
-    	{
-			desc_next = desc->next;
+        for ( desc = descriptor_list; desc != NULL; desc = desc_next )
+        {
+            desc_next = desc->next;
 
-			if (desc->connected==CON_PLAYING &&
-	    		get_trust( desc->character ) < get_trust( ch ) )
-	    	{
-	    		act( buf, ch, NULL, desc->character, TO_VICT );
-	    		interpret( desc->character, argument );
-			}
-    	}
-	}
+            if (desc->connected==CON_PLAYING &&
+                get_trust( desc->character ) < get_trust( ch ) )
+            {
+                act( buf, ch, NULL, desc->character, TO_VICT );
+                interpret( desc->character, argument );
+            }
+        }
+    }
     else if (!str_cmp (arg, "players"))
     {
         CHAR_DATA *vch;
@@ -4595,9 +4595,9 @@ void copyover_recover ()
     }
 
 #if defined(_WIN32)
-	_unlink(COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
+    _unlink(COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
 #else
-	unlink (COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
+    unlink (COPYOVER_FILE);        /* In case something crashes - doesn't prevent reading  */
 #endif
 
     for (;;)
@@ -4613,12 +4613,12 @@ void copyover_recover ()
             (desc, "\n\rRestoring from copyover...\n\r", 0))
         {
 #if defined(_WIN32)
-			_close(desc);        /* nope */
+            _close(desc);        /* nope */
 #else
-			close (desc);        /* nope */
+            close (desc);        /* nope */
 #endif
 
-			continue;
+            continue;
         }
 
         d = new_descriptor ();
@@ -4628,7 +4628,7 @@ void copyover_recover ()
         d->next = descriptor_list;
         descriptor_list = d;
         d->connected = CON_COPYOVER_RECOVER;    /* -15, so close_socket frees the char */
-		d->ansi = TRUE;
+        d->ansi = TRUE;
 
         /* Now, find the pfile */
 
@@ -4679,157 +4679,157 @@ void copyover_recover ()
 
 void do_qmconfig (CHAR_DATA * ch, char * argument)
 {
-	extern int mud_ansiprompt;
-	extern int mud_ansicolor;
-	extern int mud_telnetga;
-	extern char *mud_ipaddress;
-	char arg1[MSL];
-	char arg2[MSL];
+    extern int mud_ansiprompt;
+    extern int mud_ansicolor;
+    extern int mud_telnetga;
+    extern char *mud_ipaddress;
+    char arg1[MSL];
+    char arg2[MSL];
 
-	if (IS_NPC(ch))
-		return;
+    if (IS_NPC(ch))
+        return;
 
-	if (argument[0] == '\0')
-	{
-		printf_to_char(ch, "Valid qmconfig options are:\n\r");
-		printf_to_char(ch, "    show       (shows current status of toggles)\n\r");
-		printf_to_char(ch, "    ansiprompt [on|off]\n\r");
-		printf_to_char(ch, "    ansicolor  [on|off]\n\r");
-		printf_to_char(ch, "    telnetga   [on|off]\n\r");
-		printf_to_char(ch, "    read\n\r");
-		return;
-	}
+    if (argument[0] == '\0')
+    {
+        printf_to_char(ch, "Valid qmconfig options are:\n\r");
+        printf_to_char(ch, "    show       (shows current status of toggles)\n\r");
+        printf_to_char(ch, "    ansiprompt [on|off]\n\r");
+        printf_to_char(ch, "    ansicolor  [on|off]\n\r");
+        printf_to_char(ch, "    telnetga   [on|off]\n\r");
+        printf_to_char(ch, "    read\n\r");
+        return;
+    }
 
-	argument = one_argument( argument, arg1 );
-	argument = one_argument( argument, arg2 );
+    argument = one_argument( argument, arg1 );
+    argument = one_argument( argument, arg2 );
 
-	if (!str_prefix(arg1, "read")) {
-		qmconfig_read();
-		return;
-	}
+    if (!str_prefix(arg1, "read")) {
+        qmconfig_read();
+        return;
+    }
 
-	if (!str_prefix(arg1, "show"))
-	{
-		printf_to_char(ch, "ANSI prompt: %s", mud_ansiprompt ? "{GON{x\n\r" : "{ROFF{x\n\r");
-		printf_to_char(ch, "ANSI color : %s", mud_ansicolor ? "{GON{x\n\r" : "{ROFF{x\n\r");
-		printf_to_char(ch, "IP Address : %s\n\r", mud_ipaddress);
-		printf_to_char(ch, "Telnet GA  : %s", mud_telnetga ? "{GON{x\n\r" : "{ROFF{x\n\r");
-		return;
-	}
+    if (!str_prefix(arg1, "show"))
+    {
+        printf_to_char(ch, "ANSI prompt: %s", mud_ansiprompt ? "{GON{x\n\r" : "{ROFF{x\n\r");
+        printf_to_char(ch, "ANSI color : %s", mud_ansicolor ? "{GON{x\n\r" : "{ROFF{x\n\r");
+        printf_to_char(ch, "IP Address : %s\n\r", mud_ipaddress);
+        printf_to_char(ch, "Telnet GA  : %s", mud_telnetga ? "{GON{x\n\r" : "{ROFF{x\n\r");
+        return;
+    }
 
-	if (!str_prefix(arg1, "ansiprompt"))
-	{
-		if (!str_prefix(arg2, "on"))
-		{
-			mud_ansiprompt=TRUE;
-			printf_to_char(ch, "New logins will now get an ANSI color prompt.\n\r");
-			return;
-		}
+    if (!str_prefix(arg1, "ansiprompt"))
+    {
+        if (!str_prefix(arg2, "on"))
+        {
+            mud_ansiprompt=TRUE;
+            printf_to_char(ch, "New logins will now get an ANSI color prompt.\n\r");
+            return;
+        }
 
-		else if(!str_prefix(arg2, "off"))
-		{
-			mud_ansiprompt=FALSE;
-			printf_to_char(ch, "New logins will not get an ANSI color prompt.\n\r");
-			return;
-		}
+        else if(!str_prefix(arg2, "off"))
+        {
+            mud_ansiprompt=FALSE;
+            printf_to_char(ch, "New logins will not get an ANSI color prompt.\n\r");
+            return;
+        }
 
-		printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
-		return;
-	}
+        printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
+        return;
+    }
 
-	if (!str_prefix(arg1, "ansicolor"))
-	{
-		if (!str_prefix(arg2, "on"))
-		{
-			mud_ansicolor=TRUE;
-			printf_to_char(ch, "New players will have color enabled.\n\r");
-			return;
-		}
+    if (!str_prefix(arg1, "ansicolor"))
+    {
+        if (!str_prefix(arg2, "on"))
+        {
+            mud_ansicolor=TRUE;
+            printf_to_char(ch, "New players will have color enabled.\n\r");
+            return;
+        }
 
-		else if (!str_prefix(arg2, "off"))
-		{
-			mud_ansicolor=FALSE;
-			printf_to_char(ch, "New players will not have color enabled.\n\r");
-			return;
-		}
+        else if (!str_prefix(arg2, "off"))
+        {
+            mud_ansicolor=FALSE;
+            printf_to_char(ch, "New players will not have color enabled.\n\r");
+            return;
+        }
 
-		printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
-		return;
-	}
+        printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
+        return;
+    }
 
-	if (!str_prefix(arg1, "telnetga"))
-	{
-		if (!str_prefix(arg2, "on"))
-		{
-			mud_telnetga=TRUE;
-			printf_to_char(ch, "Telnet GA will be enabled for new players.\n\r");
-			return;
-		}
+    if (!str_prefix(arg1, "telnetga"))
+    {
+        if (!str_prefix(arg2, "on"))
+        {
+            mud_telnetga=TRUE;
+            printf_to_char(ch, "Telnet GA will be enabled for new players.\n\r");
+            return;
+        }
 
-		else if (!str_prefix(arg2, "off"))
-		{
-			mud_telnetga=FALSE;
-			printf_to_char(ch, "Telnet GA will be disabled for new players.\n\r");
-			return;
-		}
+        else if (!str_prefix(arg2, "off"))
+        {
+            mud_telnetga=FALSE;
+            printf_to_char(ch, "Telnet GA will be disabled for new players.\n\r");
+            return;
+        }
 
-		printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
-		return;
-	}
+        printf_to_char(ch, "Valid arguments are \"on\" and \"off\".\n\r");
+        return;
+    }
 
-	printf_to_char(ch, "I have no clue what you are trying to do...\n\r");
-	return;
+    printf_to_char(ch, "I have no clue what you are trying to do...\n\r");
+    return;
 }
 
 void qmconfig_read (void) {
-	FILE *fp;
-	bool fMatch;
-	char *word;
-	extern int mud_ansiprompt, mud_ansicolor, mud_telnetga;
+    FILE *fp;
+    bool fMatch;
+    char *word;
+    extern int mud_ansiprompt, mud_ansicolor, mud_telnetga;
 
-	log_f("Loading configuration from ../area/config.txt.");
+    log_f("Loading configuration from ../area/config.txt.");
 
-	fp = fopen("../area/config.txt","r");
-	if (!fp) {
-		log_f("config.txt not found. Using compiled-in defaults.");
-		return;
-	}
+    fp = fopen("../area/config.txt","r");
+    if (!fp) {
+        log_f("config.txt not found. Using compiled-in defaults.");
+        return;
+    }
 
-	for(;;) {
-		word = feof (fp) ? "END" : fread_word(fp);
+    for(;;) {
+        word = feof (fp) ? "END" : fread_word(fp);
 
-		fMatch = FALSE;
+        fMatch = FALSE;
 
-		switch (UPPER(word[0])) {
-			case '#':
-				/* This is a comment line! */
-				fMatch = TRUE;
-				fread_to_eol (fp);
-				break;
-			case '*':
-				fMatch = TRUE;
-				fread_to_eol (fp);
-				break;
+        switch (UPPER(word[0])) {
+            case '#':
+                /* This is a comment line! */
+                fMatch = TRUE;
+                fread_to_eol (fp);
+                break;
+            case '*':
+                fMatch = TRUE;
+                fread_to_eol (fp);
+                break;
 
-			case 'A':
-				KEY ("Ansicolor", mud_ansicolor, fread_number(fp));
-				KEY ("Ansiprompt", mud_ansiprompt, fread_number(fp));
-				break;
-			case 'E':
-				if (!str_cmp(word, "END"))
-					return;
-				break;
-			case 'T':
-				KEY ("Telnetga", mud_telnetga, fread_number(fp));
-				break;
-		}
-		if (!fMatch) {
-			log_f("qmconfig_read: no match for %s!", word);
-			fread_to_eol(fp);
-		}
-	}
-	log_f("Settings have been read from ../area/config.txt");
-	exit(0);
+            case 'A':
+                KEY ("Ansicolor", mud_ansicolor, fread_number(fp));
+                KEY ("Ansiprompt", mud_ansiprompt, fread_number(fp));
+                break;
+            case 'E':
+                if (!str_cmp(word, "END"))
+                    return;
+                break;
+            case 'T':
+                KEY ("Telnetga", mud_telnetga, fread_number(fp));
+                break;
+        }
+        if (!fMatch) {
+            log_f("qmconfig_read: no match for %s!", word);
+            fread_to_eol(fp);
+        }
+    }
+    log_f("Settings have been read from ../area/config.txt");
+    exit(0);
 
 }
 
@@ -4839,15 +4839,15 @@ void qmconfig_read (void) {
 // an IMM to manipulate tick timing for whatever purpose they need it for.s
 void do_forcetick(CHAR_DATA * ch, char *argument)
 {
-	// We're going to show a WIZNET message for this
-	char buf[100];
-	strcpy(buf, "$N forces a TICK ");
+    // We're going to show a WIZNET message for this
+    char buf[100];
+    strcpy(buf, "$N forces a TICK ");
 
-	update_handler(TRUE);
+    update_handler(TRUE);
 
-	send_to_char("You have forced a tick.\n\r", ch);
-	wiznet(buf, ch, NULL, WIZ_TICKS, 0, 0);
-	return;
+    send_to_char("You have forced a tick.\n\r", ch);
+    wiznet(buf, ch, NULL, WIZ_TICKS, 0, 0);
+    return;
 }
 
 /*
@@ -4863,117 +4863,117 @@ bool check_parse_name(char* name);  /* comm.c */
 
 void do_rename(CHAR_DATA* ch, char* argument)
 {
-	char old_name[MAX_INPUT_LENGTH],
-		new_name[MAX_INPUT_LENGTH],
-		strsave[MAX_INPUT_LENGTH];
+    char old_name[MAX_INPUT_LENGTH],
+        new_name[MAX_INPUT_LENGTH],
+        strsave[MAX_INPUT_LENGTH];
 
-	CHAR_DATA* victim;
-	FILE* file;
+    CHAR_DATA* victim;
+    FILE* file;
 
-	argument = one_argument(argument, old_name); /* find new/old name */
-	one_argument(argument, new_name);
+    argument = one_argument(argument, old_name); /* find new/old name */
+    one_argument(argument, new_name);
 
-	/* Trivial checks */
-	if (!old_name[0])
-	{
-		send_to_char("Rename who?\n\r", ch);
-		return;
-	}
+    /* Trivial checks */
+    if (!old_name[0])
+    {
+        send_to_char("Rename who?\n\r", ch);
+        return;
+    }
 
-	victim = get_char_world(ch, old_name);
+    victim = get_char_world(ch, old_name);
 
-	if (!victim)
-	{
-		send_to_char("There is no such a person online.\n\r", ch);
-		return;
-	}
+    if (!victim)
+    {
+        send_to_char("There is no such a person online.\n\r", ch);
+        return;
+    }
 
-	if (IS_NPC(victim))
-	{
-		send_to_char("You cannot use Rename on NPCs.\n\r", ch);
-		return;
-	}
+    if (IS_NPC(victim))
+    {
+        send_to_char("You cannot use Rename on NPCs.\n\r", ch);
+        return;
+    }
 
-	/* allow rename self new_name,but otherwise only lower level */
-	if ((victim != ch) && (get_trust(victim) >= get_trust(ch)))
-	{
-		send_to_char("You failed.\n\r", ch);
-		return;
-	}
+    /* allow rename self new_name,but otherwise only lower level */
+    if ((victim != ch) && (get_trust(victim) >= get_trust(ch)))
+    {
+        send_to_char("You failed.\n\r", ch);
+        return;
+    }
 
-	if (!victim->desc || (victim->desc->connected != CON_PLAYING))
-	{
-		send_to_char("This player has lost his link or is inside a pager or the like.\n\r", ch);
-		return;
-	}
+    if (!victim->desc || (victim->desc->connected != CON_PLAYING))
+    {
+        send_to_char("This player has lost his link or is inside a pager or the like.\n\r", ch);
+        return;
+    }
 
-	if (!new_name[0])
-	{
-		send_to_char("Rename to what new name?\n\r", ch);
-		return;
-	}
+    if (!new_name[0])
+    {
+        send_to_char("Rename to what new name?\n\r", ch);
+        return;
+    }
 
-	if (!check_parse_name(new_name))
-	{
-		send_to_char("The new name is illegal.\n\r", ch);
-		return;
-	}
+    if (!check_parse_name(new_name))
+    {
+        send_to_char("The new name is illegal.\n\r", ch);
+        return;
+    }
 
-	/* First, check if there is a player named that off-line */
-	sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(new_name));
+    /* First, check if there is a player named that off-line */
+    sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(new_name));
 
-	fclose(fpReserve); /* close the reserve file */
-	file = fopen(strsave, "r"); /* attempt to to open pfile */
-	if (file)
-	{
-		send_to_char("A player with that name already exists!\n\r", ch);
-		fclose(file);
-		fpReserve = fopen(NULL_FILE, "r"); /* is this really necessary these days? */
-		return;
-	}
-	fpReserve = fopen(NULL_FILE, "r");  /* reopen the extra file */
+    fclose(fpReserve); /* close the reserve file */
+    file = fopen(strsave, "r"); /* attempt to to open pfile */
+    if (file)
+    {
+        send_to_char("A player with that name already exists!\n\r", ch);
+        fclose(file);
+        fpReserve = fopen(NULL_FILE, "r"); /* is this really necessary these days? */
+        return;
+    }
+    fpReserve = fopen(NULL_FILE, "r");  /* reopen the extra file */
 
-	sprintf(strsave, "%s%s.gz", PLAYER_DIR, capitalize(new_name));
+    sprintf(strsave, "%s%s.gz", PLAYER_DIR, capitalize(new_name));
 
-	fclose(fpReserve); /* close the reserve file */
-	file = fopen(strsave, "r"); /* attempt to to open pfile */
-	if (file)
-	{
-		send_to_char("A player with that name already exists in a compressed file!\n\r", ch);
-		fclose(file);
-		fpReserve = fopen(NULL_FILE, "r");
-		return;
-	}
-	fpReserve = fopen(NULL_FILE, "r");  /* reopen the extra file */
+    fclose(fpReserve); /* close the reserve file */
+    file = fopen(strsave, "r"); /* attempt to to open pfile */
+    if (file)
+    {
+        send_to_char("A player with that name already exists in a compressed file!\n\r", ch);
+        fclose(file);
+        fpReserve = fopen(NULL_FILE, "r");
+        return;
+    }
+    fpReserve = fopen(NULL_FILE, "r");  /* reopen the extra file */
 
-	if (get_char_world(ch, new_name)) /* check for playing level-1 non-saved */
-	{
-		send_to_char("A player with the name you specified already exists!\n\r", ch);
-		return;
-	}
+    if (get_char_world(ch, new_name)) /* check for playing level-1 non-saved */
+    {
+        send_to_char("A player with the name you specified already exists!\n\r", ch);
+        return;
+    }
 
-	/* Save the filename of the old name */
-	sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(victim->name));
+    /* Save the filename of the old name */
+    sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(victim->name));
 
-	/* Rename the character and save him to a new file */
-	/* NOTE: Players who are level 1 do NOT get saved under a new name */
-	free_string(victim->name);
-	victim->name = str_dup(capitalize(new_name));
+    /* Rename the character and save him to a new file */
+    /* NOTE: Players who are level 1 do NOT get saved under a new name */
+    free_string(victim->name);
+    victim->name = str_dup(capitalize(new_name));
 
-	save_char_obj(victim);
+    save_char_obj(victim);
 
-	/* unlink the old file */
+    /* unlink the old file */
 #if !defined(_WIN32)
-	unlink(strsave); /* unlink does return a value.. but we do not care */
+    unlink(strsave); /* unlink does return a value.. but we do not care */
 #else
-	_unlink(strsave);
+    _unlink(strsave);
 #endif
 
-	/* That's it! */
-	send_to_char("Character renamed.\n\r", ch);
+    /* That's it! */
+    send_to_char("Character renamed.\n\r", ch);
 
-	victim->position = POS_STANDING; /* I am laaazy */
-	act("$n has renamed you to $N!", ch, NULL, victim, TO_VICT);
+    victim->position = POS_STANDING; /* I am laaazy */
+    act("$n has renamed you to $N!", ch, NULL, victim, TO_VICT);
 
 } /* do_rename */
 
@@ -4990,17 +4990,17 @@ const sh_int opposite_dir[10] = { DIR_SOUTH, DIR_WEST, DIR_NORTH, DIR_EAST, DIR_
 /* assumes that the filename saved in the AREA_DATA struct is something like midgaard.are */
 char * area_name(AREA_DATA *pArea)
 {
-	static char buffer[64]; /* short filename */
-	char  *period;
+    static char buffer[64]; /* short filename */
+    char  *period;
 
-	assert(pArea != NULL);
+    assert(pArea != NULL);
 
-	strncpy(buffer, pArea->file_name, 64); /* copy the filename */
-	period = strchr(buffer, '.'); /* find the period (midgaard.are) */
-	if (period) /* if there was one */
-		*period = '\0'; /* terminate the string there (midgaard) */
+    strncpy(buffer, pArea->file_name, 64); /* copy the filename */
+    period = strchr(buffer, '.'); /* find the period (midgaard.are) */
+    if (period) /* if there was one */
+        *period = '\0'; /* terminate the string there (midgaard) */
 
-	return buffer;
+    return buffer;
 }
 
 typedef enum { exit_from, exit_to, exit_both } exit_status;
@@ -5008,98 +5008,98 @@ typedef enum { exit_from, exit_to, exit_both } exit_status;
 /* depending on status print > or < or <> between the 2 rooms */
 void room_pair(ROOM_INDEX_DATA* left, ROOM_INDEX_DATA* right, exit_status ex, char *buffer)
 {
-	char *sExit;
+    char *sExit;
 
-	switch (ex)
-	{
-	default:
-		sExit = "??"; break; /* invalid usage */
-	case exit_from:
-		sExit = "< "; break;
-	case exit_to:
-		sExit = " >"; break;
-	case exit_both:
-		sExit = "<>"; break;
-	}
+    switch (ex)
+    {
+    default:
+        sExit = "??"; break; /* invalid usage */
+    case exit_from:
+        sExit = "< "; break;
+    case exit_to:
+        sExit = " >"; break;
+    case exit_both:
+        sExit = "<>"; break;
+    }
 
-	sprintf(buffer, "%5d %-26.26s %s%5d %-26.26s(%-8.8s)\n\r",
-		left->vnum, left->name,
-		sExit,
-		right->vnum, right->name,
-		area_name(right->area)
-		);
+    sprintf(buffer, "%5d %-26.26s %s%5d %-26.26s(%-8.8s)\n\r",
+        left->vnum, left->name,
+        sExit,
+        right->vnum, right->name,
+        area_name(right->area)
+        );
 }
 
 /* for every exit in 'room' which leads to or from pArea but NOT both, print it */
 void checkexits(ROOM_INDEX_DATA *room, AREA_DATA *pArea, char* buffer)
 {
-	char buf[MAX_STRING_LENGTH];
-	int i;
-	EXIT_DATA *exit;
-	ROOM_INDEX_DATA *to_room;
+    char buf[MAX_STRING_LENGTH];
+    int i;
+    EXIT_DATA *exit;
+    ROOM_INDEX_DATA *to_room;
 
-	strcpy(buffer, "");
-	for (i = 0; i < MAX_DIR; i++)
-	{
-		exit = room->exit[i];
-		if (!exit)
-			continue;
-		else
-			to_room = exit->u1.to_room;
+    strcpy(buffer, "");
+    for (i = 0; i < MAX_DIR; i++)
+    {
+        exit = room->exit[i];
+        if (!exit)
+            continue;
+        else
+            to_room = exit->u1.to_room;
 
-		if (to_room)  /* there is something on the other side */
-		{ 
-			if ((room->area == pArea) && (to_room->area != pArea))
-			{ /* an exit from our area to another area */
-				/* check first if it is a two-way exit */
+        if (to_room)  /* there is something on the other side */
+        { 
+            if ((room->area == pArea) && (to_room->area != pArea))
+            { /* an exit from our area to another area */
+                /* check first if it is a two-way exit */
 
-				if (to_room->exit[opposite_dir[i]] &&
-					to_room->exit[opposite_dir[i]]->u1.to_room == room)
-					room_pair(room, to_room, exit_both, buf); /* <> */
-				else
-					room_pair(room, to_room, exit_to, buf); /* > */
+                if (to_room->exit[opposite_dir[i]] &&
+                    to_room->exit[opposite_dir[i]]->u1.to_room == room)
+                    room_pair(room, to_room, exit_both, buf); /* <> */
+                else
+                    room_pair(room, to_room, exit_to, buf); /* > */
 
-				strcat(buffer, buf);
-			}
-			else
-			{
-				if ((room->area != pArea) && (exit->u1.to_room->area == pArea))
-				{ /* an exit from another area to our area */
+                strcat(buffer, buf);
+            }
+            else
+            {
+                if ((room->area != pArea) && (exit->u1.to_room->area == pArea))
+                { /* an exit from another area to our area */
 
-					if (!
-						(to_room->exit[opposite_dir[i]] &&
-						to_room->exit[opposite_dir[i]]->u1.to_room == room)
-						)
-						/* two-way exits are handled in the other if */
-					{
-						room_pair(to_room, room, exit_from, buf);
-						strcat(buffer, buf);
-					}
+                    if (!
+                        (to_room->exit[opposite_dir[i]] &&
+                        to_room->exit[opposite_dir[i]]->u1.to_room == room)
+                        )
+                        /* two-way exits are handled in the other if */
+                    {
+                        room_pair(to_room, room, exit_from, buf);
+                        strcat(buffer, buf);
+                    }
 
-				} /* if room->area */
-			}
-		}
-	} /* for */
+                } /* if room->area */
+            }
+        }
+    } /* for */
 
 }
 
 /* for now, no arguments, just list the current area */
 void do_exlist(CHAR_DATA *ch, char * argument)
 {
-	AREA_DATA* pArea;
-	ROOM_INDEX_DATA* room;
-	int i;
-	char buffer[MAX_STRING_LENGTH];
+    AREA_DATA* pArea;
+    ROOM_INDEX_DATA* room;
+    int i;
+    char buffer[MAX_STRING_LENGTH];
 
-	pArea = ch->in_room->area; /* this is the area we want info on */
-	for (i = 0; i < MAX_KEY_HASH; i++) /* room index hash table */
-		for (room = room_index_hash[i]; room != NULL; room = room->next)
-			/* run through all the rooms on the MUD */
+    pArea = ch->in_room->area; /* this is the area we want info on */
+    for (i = 0; i < MAX_KEY_HASH; i++) /* room index hash table */
+        for (room = room_index_hash[i]; room != NULL; room = room->next)
+            /* run through all the rooms on the MUD */
 
-		{
-			checkexits(room, pArea, buffer);
-			send_to_char(buffer, ch);
-		}
+        {
+            checkexits(room, pArea, buffer);
+            send_to_char(buffer, ch);
+        }
 }
 
 // Rhien, 4/21/2015
@@ -5107,21 +5107,21 @@ void do_exlist(CHAR_DATA *ch, char * argument)
 // the login screen.
 void do_broadcast(CHAR_DATA * ch, char *argument)
 {
-	if (argument[0] == '\0')
-	{
-		send_to_char("You must enter a broadcast message.\n\r", ch);
-		return;
-	}
+    if (argument[0] == '\0')
+    {
+        send_to_char("You must enter a broadcast message.\n\r", ch);
+        return;
+    }
 
-	DESCRIPTOR_DATA *d;
-	char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d;
+    char buf[MAX_STRING_LENGTH];
 
-	sprintf(buf, "\n\r{C[{WBroadcast by %s{C] {W%s{x\n\r", ch->name, argument);
+    sprintf(buf, "\n\r{C[{WBroadcast by %s{C] {W%s{x\n\r", ch->name, argument);
 
-	for (d = descriptor_list; d != NULL; d = d->next)
-	{
-		send_to_desc(buf, d);
-	}
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        send_to_desc(buf, d);
+    }
 
 }
 
@@ -5130,176 +5130,176 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 // we will loop over all possible vnums from 0 to that value and print out the ranges of empty.
 void do_vnumgap(CHAR_DATA * ch, char *argument)
 {
-	char arg[MAX_INPUT_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
 
-	one_argument(argument, arg);
-	
-	if (arg[0] == '\0')
-	{
-		send_to_char("Syntax:\n\r", ch);
-		send_to_char("  vnumgap room\n\r", ch);
-		send_to_char("  vnumgap obj\n\r", ch);
-		send_to_char("  vnumgap mob\n\r", ch);
-		return;
-	}
+    one_argument(argument, arg);
+    
+    if (arg[0] == '\0')
+    {
+        send_to_char("Syntax:\n\r", ch);
+        send_to_char("  vnumgap room\n\r", ch);
+        send_to_char("  vnumgap obj\n\r", ch);
+        send_to_char("  vnumgap mob\n\r", ch);
+        return;
+    }
 
-	// Find the max vnum that could be in any area.  The ceiling will be the same for mobs, rooms and objects.
-	AREA_DATA *pArea;
-	int vnumCeiling;
-	vnumCeiling = 0;
+    // Find the max vnum that could be in any area.  The ceiling will be the same for mobs, rooms and objects.
+    AREA_DATA *pArea;
+    int vnumCeiling;
+    vnumCeiling = 0;
 
-	for (pArea = area_first; pArea; pArea = pArea->next)
-	{
-		if (pArea->max_vnum > vnumCeiling) {
-			vnumCeiling = pArea->max_vnum;
-		}
-	}
+    for (pArea = area_first; pArea; pArea = pArea->next)
+    {
+        if (pArea->max_vnum > vnumCeiling) {
+            vnumCeiling = pArea->max_vnum;
+        }
+    }
 
-	char buf[MAX_STRING_LENGTH];
-	int startVnum, endVnum, lastFoundVnum;
+    char buf[MAX_STRING_LENGTH];
+    int startVnum, endVnum, lastFoundVnum;
 
-	startVnum = 0;
-	endVnum = 0;
-	lastFoundVnum = 0;
+    startVnum = 0;
+    endVnum = 0;
+    lastFoundVnum = 0;
 
-	if (!str_cmp(arg, "room"))
-	{
-		ROOM_INDEX_DATA *room;
+    if (!str_cmp(arg, "room"))
+    {
+        ROOM_INDEX_DATA *room;
 
-		// All VNUMs possible
-		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
-		{
-			room = get_room_index(startVnum);
+        // All VNUMs possible
+        for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
+        {
+            room = get_room_index(startVnum);
 
-			if (room == NULL) {
-				int x;
+            if (room == NULL) {
+                int x;
 
-				// find out where the end of this range is, then advance to that position
-				for (x = startVnum; x < 32767; x++)
-				{
-					room = get_room_index(x);
+                // find out where the end of this range is, then advance to that position
+                for (x = startVnum; x < 32767; x++)
+                {
+                    room = get_room_index(x);
 
-					if (room != NULL) {
-						endVnum = x - 1; // The last vnum that was used.
-						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-						write_to_descriptor(ch->desc->descriptor, buf, 0);
+                    if (room != NULL) {
+                        endVnum = x - 1; // The last vnum that was used.
+                        sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0);
 
-						// Advance the position
-						startVnum = endVnum;
-						break;
-					}
+                        // Advance the position
+                        startVnum = endVnum;
+                        break;
+                    }
 
-				}
+                }
 
-			}
-			else
-			{
-				lastFoundVnum = startVnum;
-			}
+            }
+            else
+            {
+                lastFoundVnum = startVnum;
+            }
 
-		}
+        }
 
-		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-		write_to_descriptor(ch->desc->descriptor, buf, 0);
+        // And the last one...
+        sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
+        write_to_descriptor(ch->desc->descriptor, buf, 0);
 
-		return;
-	}
-	else if (!str_cmp(arg, "obj")) 
-	{
-		OBJ_INDEX_DATA *obj;
+        return;
+    }
+    else if (!str_cmp(arg, "obj")) 
+    {
+        OBJ_INDEX_DATA *obj;
 
-		// All VNUMs possible
-		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
-		{
-			obj = get_obj_index(startVnum);
+        // All VNUMs possible
+        for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
+        {
+            obj = get_obj_index(startVnum);
 
-			if (obj == NULL) {
-				int x;
+            if (obj == NULL) {
+                int x;
 
-				// find out where the end of this range is, then advance to that position
-				for (x = startVnum; x < vnumCeiling; x++)
-				{
-					obj = get_obj_index(x);
+                // find out where the end of this range is, then advance to that position
+                for (x = startVnum; x < vnumCeiling; x++)
+                {
+                    obj = get_obj_index(x);
 
-					if (obj != NULL) {
-						endVnum = x - 1; // The last vnum that was used.
-						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-						write_to_descriptor(ch->desc->descriptor, buf, 0);
+                    if (obj != NULL) {
+                        endVnum = x - 1; // The last vnum that was used.
+                        sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0);
 
-						// Advance the position
-						startVnum = endVnum;
-						break;
-					}
+                        // Advance the position
+                        startVnum = endVnum;
+                        break;
+                    }
 
-				}
+                }
 
-			}
-			else
-			{
-				lastFoundVnum = startVnum;
-			}
+            }
+            else
+            {
+                lastFoundVnum = startVnum;
+            }
 
-		}
+        }
 
-		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-		write_to_descriptor(ch->desc->descriptor, buf, 0);
-	}
-	else if (!str_cmp(arg, "mob"))
-	{
-		MOB_INDEX_DATA *mob;
+        // And the last one...
+        sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
+        write_to_descriptor(ch->desc->descriptor, buf, 0);
+    }
+    else if (!str_cmp(arg, "mob"))
+    {
+        MOB_INDEX_DATA *mob;
 
-		// All VNUMs possible
-		for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
-		{
-			mob = get_mob_index(startVnum);
+        // All VNUMs possible
+        for (startVnum = 0; startVnum < vnumCeiling; startVnum++)
+        {
+            mob = get_mob_index(startVnum);
 
-			if (mob == NULL) {
-				int x;
+            if (mob == NULL) {
+                int x;
 
-				// find out where the end of this range is, then advance to that position
-				for (x = startVnum; x < vnumCeiling; x++)
-				{
-					mob = get_mob_index(x);
+                // find out where the end of this range is, then advance to that position
+                for (x = startVnum; x < vnumCeiling; x++)
+                {
+                    mob = get_mob_index(x);
 
-					if (mob != NULL) {
-						endVnum = x - 1; // The last vnum that was used.
-						sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-						write_to_descriptor(ch->desc->descriptor, buf, 0);
+                    if (mob != NULL) {
+                        endVnum = x - 1; // The last vnum that was used.
+                        sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0);
 
-						// Advance the position
-						startVnum = endVnum;
-						break;
-					}
+                        // Advance the position
+                        startVnum = endVnum;
+                        break;
+                    }
 
-				}
+                }
 
-			}
-			else
-			{
-				lastFoundVnum = startVnum;
-			}
+            }
+            else
+            {
+                lastFoundVnum = startVnum;
+            }
 
-		}
+        }
 
-		// And the last one...
-		sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-		write_to_descriptor(ch->desc->descriptor, buf, 0);
-	}
-	else
-	{
-		send_to_char("Syntax:\n\r", ch);
-		send_to_char("  vnumgap room\n\r", ch);
-		send_to_char("  vnumgap obj\n\r", ch);
-		send_to_char("  vnumgap mob\n\r", ch);
-		return;
-	}
+        // And the last one...
+        sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
+        write_to_descriptor(ch->desc->descriptor, buf, 0);
+    }
+    else
+    {
+        send_to_char("Syntax:\n\r", ch);
+        send_to_char("  vnumgap room\n\r", ch);
+        send_to_char("  vnumgap obj\n\r", ch);
+        send_to_char("  vnumgap mob\n\r", ch);
+        return;
+    }
 
 } // end do_vnumgap
 
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-	send_to_char("Nothing here currently, move along.\r\n", ch);
-	return;
+    send_to_char("Nothing here currently, move along.\r\n", ch);
+    return;
 }

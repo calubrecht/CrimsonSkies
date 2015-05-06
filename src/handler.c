@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 #include <ctype.h>
@@ -3320,15 +3320,15 @@ char *off_bit_name (int off_flags)
  */
 bool is_full_name( const char *str, char *namelist )
 {
-	char name[MIL];
+    char name[MIL];
 
-	for ( ; ; )
-	{
-		namelist = one_argument( namelist, name );
-		if ( name[0] == '\0' )
-			return FALSE;
-		if ( !str_cmp( str, name ) )
-			return TRUE;
-	}
+    for ( ; ; )
+    {
+        namelist = one_argument( namelist, name );
+        if ( name[0] == '\0' )
+            return FALSE;
+        if ( !str_cmp( str, name ) )
+            return TRUE;
+    }
 }
 

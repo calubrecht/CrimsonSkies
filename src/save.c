@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -115,17 +115,17 @@ void save_char_obj (CHAR_DATA * ch)
     if (IS_NPC (ch))
         return;
 
-	/*
-	 * Fix by Edwin. JR -- 10/15/00
-	 *
-	 * Don't save if the character is invalidated.
-	 * This might happen during the auto-logoff of players.
-	 * (or other places not yet found out)
-	 */
-	if ( !IS_VALID(ch)) {
-    	bug("save_char_obj: Trying to save an invalidated character.\n",0);
-    	return;
-	}
+    /*
+     * Fix by Edwin. JR -- 10/15/00
+     *
+     * Don't save if the character is invalidated.
+     * This might happen during the auto-logoff of players.
+     * (or other places not yet found out)
+     */
+    if ( !IS_VALID(ch)) {
+        bug("save_char_obj: Trying to save an invalidated character.\n",0);
+        return;
+    }
 
     if (ch->desc != NULL && ch->desc->original != NULL)
         ch = ch->desc->original;
@@ -297,12 +297,12 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                      ch->pcdata->alias_sub[pos]);
         }
 
-		/* Save note board status */
-		/* Save number of boards in case that number changes */
-		fprintf (fp, "Boards       %d ", MAX_BOARD);
-		for (i = 0; i < MAX_BOARD; i++)
-			fprintf (fp, "%s %ld ", boards[i].short_name, ch->pcdata->last_note[i]);
-		fprintf (fp, "\n");
+        /* Save note board status */
+        /* Save number of boards in case that number changes */
+        fprintf (fp, "Boards       %d ", MAX_BOARD);
+        for (i = 0; i < MAX_BOARD; i++)
+            fprintf (fp, "%s %ld ", boards[i].short_name, ch->pcdata->last_note[i]);
+        fprintf (fp, "\n");
 
         for (sn = 0; sn < MAX_SKILL; sn++)
         {
@@ -561,7 +561,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->comm = COMM_COMBINE | COMM_PROMPT;
     ch->prompt = str_dup ("<%hhp %mm %vmv {g%r {x({c%e{x)>{x ");
     ch->pcdata->confirm_delete = FALSE;
-	ch->pcdata->board = &boards[DEFAULT_BOARD];
+    ch->pcdata->board = &boards[DEFAULT_BOARD];
     ch->pcdata->pwd = str_dup ("");
     ch->pcdata->bamfin = str_dup ("");
     ch->pcdata->bamfout = str_dup ("");
@@ -861,30 +861,30 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("Bin", ch->pcdata->bamfin, fread_string (fp));
                 KEY ("Bout", ch->pcdata->bamfout, fread_string (fp));
 
-				/* Read in board status */
-				if (!str_cmp(word, "Boards" ))
-				{
-					int i,num = fread_number (fp); /* number of boards saved */
-					char *boardname;
+                /* Read in board status */
+                if (!str_cmp(word, "Boards" ))
+                {
+                    int i,num = fread_number (fp); /* number of boards saved */
+                    char *boardname;
 
-					for (; num ; num-- ) /* for each of the board saved */
-					{
-						boardname = fread_word (fp);
-						i = board_lookup (boardname); /* find board number */
+                    for (; num ; num-- ) /* for each of the board saved */
+                    {
+                        boardname = fread_word (fp);
+                        i = board_lookup (boardname); /* find board number */
 
-						if (i == BOARD_NOTFOUND) /* Does board still exist ? */
-						{
-							sprintf (buf, "fread_char: %s had unknown board name: %s. Skipped.",
-							ch->name, boardname);
-							log_string (buf);
-							fread_number (fp); /* read last_note and skip info */
-						}
-						else /* Save it */
-							ch->pcdata->last_note[i] = fread_number (fp);
-					} /* for */
+                        if (i == BOARD_NOTFOUND) /* Does board still exist ? */
+                        {
+                            sprintf (buf, "fread_char: %s had unknown board name: %s. Skipped.",
+                            ch->name, boardname);
+                            log_string (buf);
+                            fread_number (fp); /* read last_note and skip info */
+                        }
+                        else /* Save it */
+                            ch->pcdata->last_note[i] = fread_number (fp);
+                    } /* for */
 
-					fMatch = TRUE;
-				} /* Boards */
+                    fMatch = TRUE;
+                } /* Boards */
                 break;
 
             case 'C':
@@ -1226,17 +1226,17 @@ void fread_pet (CHAR_DATA * ch, FILE * fp)
                     paf->modifier = fread_number (fp);
                     paf->location = fread_number (fp);
                     paf->bitvector = fread_number (fp);
-					/* Added here after Chris Litchfield (The Mage's Lair)
-					 * pointed out a bug with duplicating affects in saved
-					 * pets. -- JR 2002/01/31
-					 */
-					if (!check_pet_affected(vnum,paf))
-					{
-						paf->next       = pet->affected;
-						pet->affected   = paf;
-					} else{
-						free_affect(paf);
-					}
+                    /* Added here after Chris Litchfield (The Mage's Lair)
+                     * pointed out a bug with duplicating affects in saved
+                     * pets. -- JR 2002/01/31
+                     */
+                    if (!check_pet_affected(vnum,paf))
+                    {
+                        paf->next       = pet->affected;
+                        pet->affected   = paf;
+                    } else{
+                        free_affect(paf);
+                    }
                     fMatch = TRUE;
                     break;
                 }

@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -459,33 +459,33 @@ void interpret (CHAR_DATA * ch, char *argument)
     if (cmd_table[cmd].log == LOG_NEVER)
         strcpy (logline, "");
 
-	/* Replaced original block of code with fix from Edwin
-	 * to prevent crashes due to dollar signs in logstrings.
-	 * I threw in the above call to smash_dollar() just for
-	 * the sake of overkill :) JR -- 10/15/00
-	 */
+    /* Replaced original block of code with fix from Edwin
+     * to prevent crashes due to dollar signs in logstrings.
+     * I threw in the above call to smash_dollar() just for
+     * the sake of overkill :) JR -- 10/15/00
+     */
     if ( ( !IS_NPC(ch) && IS_SET(ch->act, PLR_LOG) )
-		||   fLogAll
-		||   cmd_table[cmd].log == LOG_ALWAYS )
-	{
-    	char    s[2*MAX_INPUT_LENGTH],*ps;
-    	int     i;
+        ||   fLogAll
+        ||   cmd_table[cmd].log == LOG_ALWAYS )
+    {
+        char    s[2*MAX_INPUT_LENGTH],*ps;
+        int     i;
 
-    	ps=s;
-    	sprintf( log_buf, "Log %s: %s", ch->name, logline );
-    	/* Make sure that was is displayed is what is typed */
-    	for (i=0;log_buf[i];i++)
-    	{
-			*ps++=log_buf[i];
-			if (log_buf[i]=='$')
-	    		*ps++='$';
-			if (log_buf[i]=='{')
-	    		*ps++='{';
-    	}
-    	*ps=0;
-    	wiznet(s,ch,NULL,WIZ_SECURE,0,get_trust(ch));
-    	log_string( log_buf );
-	}
+        ps=s;
+        sprintf( log_buf, "Log %s: %s", ch->name, logline );
+        /* Make sure that was is displayed is what is typed */
+        for (i=0;log_buf[i];i++)
+        {
+            *ps++=log_buf[i];
+            if (log_buf[i]=='$')
+                *ps++='$';
+            if (log_buf[i]=='{')
+                *ps++='{';
+        }
+        *ps=0;
+        wiznet(s,ch,NULL,WIZ_SECURE,0,get_trust(ch));
+        log_string( log_buf );
+    }
 
     if (ch->desc != NULL && ch->desc->snoop_by != NULL)
     {

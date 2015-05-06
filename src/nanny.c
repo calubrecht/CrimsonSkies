@@ -30,18 +30,18 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <unistd.h>                /* OLC -- for close read write etc */
-	#include <time.h>
+    #include <types.h>
+    #include <unistd.h>                /* OLC -- for close read write etc */
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
-	#include <io.h>
+    #include <sys/types.h>
+    #include <time.h>
+    #include <io.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
-	#include <unistd.h>                /* OLC -- for close read write etc */
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
+    #include <unistd.h>                /* OLC -- for close read write etc */
 #endif
 
 #include <ctype.h>
@@ -56,43 +56,43 @@
 #include "tables.h"
 
 #if defined(_WIN32)
-	extern const char echo_off_str[];
-	extern const char echo_on_str[];
-	extern const char go_ahead_str[];
+    extern const char echo_off_str[];
+    extern const char echo_on_str[];
+    extern const char go_ahead_str[];
 #endif
 
 #if    defined(__APPLE__) 
-	extern const char echo_off_str[];
-	extern const char echo_on_str[];
-	extern const char go_ahead_str[];
+    extern const char echo_off_str[];
+    extern const char echo_on_str[];
+    extern const char go_ahead_str[];
 #endif
 
 #if    defined(unix)
-	#include <fcntl.h>
-	#include <netdb.h>
-	#include <netinet/in.h>
-	#include <sys/socket.h>
-	#include "telnet.h"
-	extern const char echo_off_str[];
-	extern const char echo_on_str[];
-	extern const char go_ahead_str[];
+    #include <fcntl.h>
+    #include <netdb.h>
+    #include <netinet/in.h>
+    #include <sys/socket.h>
+    #include "telnet.h"
+    extern const char echo_off_str[];
+    extern const char echo_on_str[];
+    extern const char go_ahead_str[];
 #endif
 
 /*
  * OS-dependent local functions.
  */
 #if defined(__APPLE__) 
-	void game_loop args ((int control));
-	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-	bool write_to_descriptor args ((int desc, char *txt, int length));
+    void game_loop args ((int control));
+    bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+    bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
 #if defined(unix) 
-	void game_loop args ((int control));
-	int init_socket args ((int port));
-	void init_descriptor args ((int control));
-	bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-	bool write_to_descriptor args ((int desc, char *txt, int length));
+    void game_loop args ((int control));
+    int init_socket args ((int port));
+    void init_descriptor args ((int control));
+    bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
+    bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
 /*
@@ -131,11 +131,11 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
     extern int mud_telnetga, mud_ansicolor;
 
     /* Delete leading spaces UNLESS character is writing a note */
-	if (d->connected != CON_NOTE_TEXT)
-	{
-		while ( isspace(*argument) )
-			argument++;
-	}
+    if (d->connected != CON_NOTE_TEXT)
+    {
+        while ( isspace(*argument) )
+            argument++;
+    }
     ch = d->character;
 
     switch (d->connected)
@@ -147,8 +147,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             return;
 
         case CON_ANSI:
-			// TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
-			// defaults them to an answer of "Y"
+            // TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
+            // defaults them to an answer of "Y"
             if (argument[0] == '\0' || UPPER (argument[0]) == 'Y' || argument[0] == '\'')
             {
                 d->ansi = TRUE;
@@ -722,38 +722,38 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             d->connected = CON_READ_MOTD;
             break;
 
-		/* states for new note system, (c)1995-96 erwin@pip.dknet.dk */
-		/* ch MUST be PC here; have nwrite check for PC status! */
+        /* states for new note system, (c)1995-96 erwin@pip.dknet.dk */
+        /* ch MUST be PC here; have nwrite check for PC status! */
 
-		case CON_NOTE_TO:
-			handle_con_note_to (d, argument);
-			break;
+        case CON_NOTE_TO:
+            handle_con_note_to (d, argument);
+            break;
 
-		case CON_NOTE_SUBJECT:
-			handle_con_note_subject (d, argument);
-			break;
+        case CON_NOTE_SUBJECT:
+            handle_con_note_subject (d, argument);
+            break;
 
-		case CON_NOTE_EXPIRE:
-			handle_con_note_expire (d, argument);
-			break;
+        case CON_NOTE_EXPIRE:
+            handle_con_note_expire (d, argument);
+            break;
 
-		case CON_NOTE_TEXT:
-			handle_con_note_text (d, argument);
-			break;
+        case CON_NOTE_TEXT:
+            handle_con_note_text (d, argument);
+            break;
 
-		case CON_NOTE_FINISH:
-			handle_con_note_finish (d, argument);
-			break;
+        case CON_NOTE_FINISH:
+            handle_con_note_finish (d, argument);
+            break;
 
         case CON_READ_MOTD:
             if (ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
             {
                 write_to_buffer (d, "Warning! Null password!\n\r", 0);
-				write_to_buffer (d, "Please report old password with bug.\n\r", 0);
-				write_to_buffer(d, "Type 'password null <new password>' to fix.\n\r", 0);
+                write_to_buffer (d, "Please report old password with bug.\n\r", 0);
+                write_to_buffer(d, "Type 'password null <new password>' to fix.\n\r", 0);
             }
 
-			send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
+            send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
             ch->next = char_list;
             char_list = ch;
             d->connected = CON_PLAYING;
@@ -761,11 +761,11 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             if (ch->level == 0)
             {
-				// First time character bits
-		        if(mud_ansicolor)
+                // First time character bits
+                if(mud_ansicolor)
                     SET_BIT (ch->act, PLR_COLOR);
-		        if(mud_telnetga)
-			        SET_BIT (ch->comm, COMM_TELNET_GA);
+                if(mud_telnetga)
+                    SET_BIT (ch->comm, COMM_TELNET_GA);
 
                 ch->perm_stat[class_table[ch->class].attr_prime] += 3;
 
@@ -780,8 +780,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                          [ch->sex == SEX_FEMALE ? 1 : 0]);
                 set_title (ch, buf);
 
-				// Auto exit for first time players
-				SET_BIT(ch->act, PLR_AUTOEXIT);
+                // Auto exit for first time players
+                SET_BIT(ch->act, PLR_AUTOEXIT);
 
                 do_function (ch, &do_outfit, "");
                 obj_to_char (create_object (get_obj_index (OBJ_VNUM_MAP), 0),
@@ -818,7 +818,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                      TO_ROOM);
             }
 
-			send_to_char("\n", ch);
+            send_to_char("\n", ch);
             do_function (ch, &do_board, "");
             break;
     }

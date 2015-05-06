@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -954,7 +954,7 @@ bool spec_cat(CHAR_DATA * ch)
             act("$n meows.", ch, NULL, NULL, TO_ROOM);
             return TRUE;
             break;
-	case 1:
+    case 1:
             act("$n scratches behind its ear.", ch, NULL, NULL, TO_ROOM);
             return TRUE;
             break;
@@ -978,7 +978,7 @@ bool spec_cat(CHAR_DATA * ch)
  
     } // end switch
 
-	return FALSE;
+    return FALSE;
 }
 
 bool spec_guard (CHAR_DATA * ch)

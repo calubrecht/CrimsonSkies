@@ -27,14 +27,14 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
+    #include <types.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -78,12 +78,12 @@ void do_delete (CHAR_DATA * ch, char *argument)
             do_function (ch, &do_quit, "");
 
 #if defined(_WIN32)
-			_unlink(strsave);
+            _unlink(strsave);
 #else
-			unlink (strsave);
+            unlink (strsave);
 #endif
 
-			return;
+            return;
         }
     }
 
@@ -807,15 +807,15 @@ void do_tell (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	if (victim->desc->connected >= CON_NOTE_TO && victim->desc->connected <= CON_NOTE_FINISH)
-	{
-		act ("$E is writing a note, but your tell will go through when $E returns.",
-				ch, NULL, victim, TO_CHAR);
-		sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim), argument);
-		buf[0] = UPPER (buf[0]);
-		add_buf (victim->pcdata->buffer, buf);
-		return;
-	}
+    if (victim->desc->connected >= CON_NOTE_TO && victim->desc->connected <= CON_NOTE_FINISH)
+    {
+        act ("$E is writing a note, but your tell will go through when $E returns.",
+                ch, NULL, victim, TO_CHAR);
+        sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim), argument);
+        buf[0] = UPPER (buf[0]);
+        add_buf (victim->pcdata->buffer, buf);
+        return;
+    }
 
     act ("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR);
     act_new ("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
@@ -958,8 +958,8 @@ void do_emote (CHAR_DATA * ch, char *argument)
      */
     if (!(isalpha(argument[0])) || (isspace(argument[0])))
     {
-	send_to_char ("Moron!\n\r", ch);
-	return;
+    send_to_char ("Moron!\n\r", ch);
+    return;
     }
 
     MOBtrigger = FALSE;
@@ -994,8 +994,8 @@ void do_pmote (CHAR_DATA * ch, char *argument)
      */
     if (!(isalpha(argument[0])) || (isspace(argument[0])))
     {
-	send_to_char ("Moron!\n\r", ch);
-	return;
+    send_to_char ("Moron!\n\r", ch);
+    return;
     }
 
     act ("{x$n $t", ch, argument, NULL, TO_CHAR);
@@ -1365,9 +1365,9 @@ void do_quit (CHAR_DATA * ch, char *argument)
      */
     save_char_obj (ch);
 
-	/* Free note that might be there somehow */
-	if (ch->pcdata->in_progress)
-		free_note (ch->pcdata->in_progress);
+    /* Free note that might be there somehow */
+    if (ch->pcdata->in_progress)
+        free_note (ch->pcdata->in_progress);
 
     id = ch->id;
     d = ch->desc;
@@ -1870,7 +1870,7 @@ void do_gtell (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	act("{xYou tell the group '{C$T{x'", ch, NULL, argument, TO_CHAR);
+    act("{xYou tell the group '{C$T{x'", ch, NULL, argument, TO_CHAR);
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
         if (is_same_group (gch, ch))
@@ -1932,5 +1932,5 @@ void do_color (CHAR_DATA * ch, char *argument)
 // Clears the screen using VT100 escape code (if the client supports it)
 void do_clear(CHAR_DATA * ch, char *argument)
 {
-	send_to_char("\033[2J", ch);
+    send_to_char("\033[2J", ch);
 }

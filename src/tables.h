@@ -58,8 +58,8 @@ struct size_type
 
 struct	bit_type
 {
-	const	struct	flag_type *	table;
-	char *				help;
+    const	struct	flag_type *	table;
+    char *				help;
 };
 
 /* game tables */

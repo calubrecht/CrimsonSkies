@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -528,9 +528,9 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
      * Calc damage.
      */
     if (IS_NPC (ch) && wield == NULL)
-	{ 
+    { 
         dam = dice (ch->damage[DICE_NUMBER], ch->damage[DICE_TYPE]);
-	}
+    }
     else
     {
         if (sn != -1)
@@ -1766,17 +1766,17 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
         if (!is_same_group (gch, ch) || IS_NPC (gch))
             continue;
 
-		if ( gch->level - lch->level >= 8 )
-		{
-			send_to_char( "You are too high for this group.\n\r", gch );
-			continue;
-		}
+        if ( gch->level - lch->level >= 8 )
+        {
+            send_to_char( "You are too high for this group.\n\r", gch );
+            continue;
+        }
 
-		if ( gch->level - lch->level <= -8 )
-		{
-			send_to_char( "You are too low for this group.\n\r", gch );
-			continue;
-		}
+        if ( gch->level - lch->level <= -8 )
+        {
+            send_to_char( "You are too low for this group.\n\r", gch );
+            continue;
+        }
 
         xp = xp_compute (gch, victim, group_levels);
         sprintf (buf, "You receive %d experience points.\n\r", xp);

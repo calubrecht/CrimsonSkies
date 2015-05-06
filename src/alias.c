@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -86,14 +86,14 @@ void substitute_alias (DESCRIPTOR_DATA * d, char *argument)
             point = one_argument (argument, name);
             if (!strcmp (ch->pcdata->alias[alias], name))
             {
-            	/* More Edwin inspired fixes. JR -- 10/15/00 */
-				buf[0] = '\0';
-				strcat(buf,ch->pcdata->alias_sub[alias]);
-				if (point[0])
-				{
-					strcat(buf," ");
-					strcat(buf,point);
-				}
+                /* More Edwin inspired fixes. JR -- 10/15/00 */
+                buf[0] = '\0';
+                strcat(buf,ch->pcdata->alias_sub[alias]);
+                if (point[0])
+                {
+                    strcat(buf," ");
+                    strcat(buf,point);
+                }
 
                 if (strlen (buf) > MAX_INPUT_LENGTH - 1)
                 {
@@ -162,13 +162,13 @@ void do_alias (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	/* More Edwin-inspired fixes. JR -- 10/15/00 */
-	if (strchr(arg,' ')||strchr(arg,'"')||strchr(arg,'\''))
-	{
-		send_to_char("The word to be aliased should not contain a space, "
-			"a tick or a double-quote.\n\r",ch);
-		return;
-	}
+    /* More Edwin-inspired fixes. JR -- 10/15/00 */
+    if (strchr(arg,' ')||strchr(arg,'"')||strchr(arg,'\''))
+    {
+        send_to_char("The word to be aliased should not contain a space, "
+            "a tick or a double-quote.\n\r",ch);
+        return;
+    }
 
     if (argument[0] == '\0')
     {

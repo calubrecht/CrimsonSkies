@@ -35,11 +35,11 @@ int unlink();
 int system();
 
 #if    !defined(FALSE)
-	#define FALSE     0
+    #define FALSE     0
 #endif
 
 #if    !defined(TRUE)
-	#define TRUE     1
+    #define TRUE     1
 #endif
 
 typedef short   int            sh_int;
@@ -252,7 +252,7 @@ struct    descriptor_data
     CHAR_DATA *        character;
     CHAR_DATA *        original;
     bool        valid;
-	bool        ansi;
+    bool        ansi;
     char *      host;
     sh_int      descriptor;
     sh_int      connected;
@@ -453,7 +453,7 @@ struct    note_data
     char *       subject;
     char *       text;
     time_t       date_stamp;
-	time_t		 expire;
+    time_t		 expire;
 };
 
 /*
@@ -1439,9 +1439,9 @@ struct    pc_data
     bool			confirm_delete;
     char *			alias[MAX_ALIAS];
     char *			alias_sub[MAX_ALIAS];
-	BOARD_DATA *	board;                  /* The current board        */
-	time_t			last_note[MAX_BOARD];   /* last note for the boards */
-	NOTE_DATA *		in_progress;
+    BOARD_DATA *	board;                  /* The current board        */
+    time_t			last_note[MAX_BOARD];   /* last note for the boards */
+    NOTE_DATA *		in_progress;
     int				security;               /* OLC */ /* Builder security */        
 };
 
@@ -1928,26 +1928,26 @@ extern  bool				MOBtrigger;
  *   but some systems have incomplete or non-ansi header files.
  */
 #if    defined(linux)
-	char *    crypt        args( ( const char *key, const char *salt ) );
+    char *    crypt        args( ( const char *key, const char *salt ) );
 #endif
 
 #if defined(_WIN32)
-	// Support for snprintf and vsnprintf in WIN32
-	#define vsnprintf _vsnprintf  
-	#define snprintf _snprintf
+    // Support for snprintf and vsnprintf in WIN32
+    #define vsnprintf _vsnprintf  
+    #define snprintf _snprintf
 
-	//char *    crypt        args((const char *key, const char *salt));
-	#define NOCRYPT
-	#if    defined(unix)
-		#undef    unix
-	#endif
+    //char *    crypt        args((const char *key, const char *salt));
+    #define NOCRYPT
+    #if    defined(unix)
+        #undef    unix
+    #endif
 #endif
 
 #if    defined(__APPLE__)
-	#define NOCRYPT
-	#if    defined(unix)
-		#undef    unix
-	#endif
+    #define NOCRYPT
+    #if    defined(unix)
+        #undef    unix
+    #endif
 #endif
 
 /*
@@ -1957,7 +1957,7 @@ extern  bool				MOBtrigger;
  * Turn on NOCRYPT to keep passwords in plain text.
  */
 #if    defined(NOCRYPT)
-	#define crypt(s1, s2)    (s1)
+    #define crypt(s1, s2)    (s1)
 #endif
 
 /*
@@ -1972,22 +1972,22 @@ extern  bool				MOBtrigger;
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
 #if defined(__APPLE__)
-	#define PLAYER_DIR      ""                  /* Player files            */
-	#define TEMP_FILE       "romtmp"
-	#define NULL_FILE       "proto.are"         /* To reserve one stream   */
+    #define PLAYER_DIR      ""                  /* Player files            */
+    #define TEMP_FILE       "romtmp"
+    #define NULL_FILE       "proto.are"         /* To reserve one stream   */
 #endif
 
 #if defined(_WIN32)
-	#define PLAYER_DIR      ""                   /* Player files           */
-	#define TEMP_FILE       "romtmp"
-	#define NULL_FILE       "nul"                /* To reserve one stream  */
+    #define PLAYER_DIR      ""                   /* Player files           */
+    #define TEMP_FILE       "romtmp"
+    #define NULL_FILE       "nul"                /* To reserve one stream  */
 #endif
 
 #if defined(unix)
-	#define PLAYER_DIR      "../player/"         /* Player files           */
-	#define GOD_DIR         "../gods/"           /* list of gods           */
-	#define TEMP_FILE       "../player/romtmp"
-	#define NULL_FILE       "/dev/null"          /* To reserve one stream  */
+    #define PLAYER_DIR      "../player/"         /* Player files           */
+    #define GOD_DIR         "../gods/"           /* list of gods           */
+    #define TEMP_FILE       "../player/romtmp"
+    #define NULL_FILE       "/dev/null"          /* To reserve one stream  */
 #endif
 
 #define AREA_LIST       "area.lst"            /* List of areas         */

@@ -27,15 +27,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -866,15 +866,15 @@ void char_update (void)
      */
     for (ch = char_list; ch != NULL; ch = ch_next)
     {
-    	/*
-    	 * Edwin's fix for possible pet-induced problem
-    	 * JR -- 10/15/00
-    	 */
-    	if (!IS_VALID(ch))
-    	{
-        	bug("update_char: Trying to work with an invalidated character.\n",0); 
-        	break;
-     	}
+        /*
+         * Edwin's fix for possible pet-induced problem
+         * JR -- 10/15/00
+         */
+        if (!IS_VALID(ch))
+        {
+            bug("update_char: Trying to work with an invalidated character.\n",0); 
+            break;
+        }
 
         ch_next = ch->next;
 
@@ -1155,10 +1155,10 @@ void update_handler (bool forced)
         violence_update ();
     }
 
-	// Just firing the tick, not messing with violence, mobiles or areas.
-	if (forced) {
-		pulse_point = 0;
-	}
+    // Just firing the tick, not messing with violence, mobiles or areas.
+    if (forced) {
+        pulse_point = 0;
+    }
 
     if (--pulse_point <= 0)
     {

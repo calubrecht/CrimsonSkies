@@ -27,16 +27,16 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <sys/resource.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <sys/resource.h>
+    #include <time.h>
 #endif
 
 #include <stdio.h>
@@ -502,7 +502,7 @@ void new_load_area (FILE * fp)
 {
     AREA_DATA *pArea;
     char *word;
-	bool fMatch;
+    bool fMatch;
 
     pArea = alloc_perm (sizeof (*pArea));
     pArea->age = 15;
@@ -524,7 +524,7 @@ void new_load_area (FILE * fp)
     for (;;)
     {
         word = feof (fp) ? "End" : fread_word (fp);
-		fMatch = FALSE;
+        fMatch = FALSE;
 
         switch (UPPER (word[0]))
         {
@@ -552,7 +552,7 @@ void new_load_area (FILE * fp)
             case 'E':
                 if (!str_cmp (word, "End"))
                 {
-					fMatch = TRUE;
+                    fMatch = TRUE;
                     if (area_first == NULL)
                         area_first = pArea;
                     if (area_last != NULL)
@@ -1155,11 +1155,11 @@ void fix_exits (void)
         }
     }
 
-	// It appears this is just reporting the exists that need to be fixed... some areas have
-	// exits that may not go back and forth (like hell).  Commeting this out for now, needless
-	// processing.  Uncomment it if you want to check for exits that don't go back and forth in
-	// the future or put it into it's own OLC wiz command.  Rhien 4/19/2015
-	/*
+    // It appears this is just reporting the exists that need to be fixed... some areas have
+    // exits that may not go back and forth (like hell).  Commeting this out for now, needless
+    // processing.  Uncomment it if you want to check for exits that don't go back and forth in
+    // the future or put it into it's own OLC wiz command.  Rhien 4/19/2015
+    /*
     for (iHash = 0; iHash < MAX_KEY_HASH; iHash++)
     {
         for (pRoomIndex = room_index_hash[iHash];
@@ -1236,10 +1236,10 @@ void load_mobprogs (FILE * fp)
         }
         top_mprog_index++;
     }
-	// marker (consider advanced logging config feature, commented out for
+    // marker (consider advanced logging config feature, commented out for
     // now as there aren't any mobprogs yet in the stock areas and it spams the
-	// startup logs
-	//log_f("Loaded %d mobprogs.", top_mprog_index);
+    // startup logs
+    //log_f("Loaded %d mobprogs.", top_mprog_index);
     return;
 }
 
@@ -1533,7 +1533,7 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
 
                 if (LastMob->pIndexData->pShop)
                 {
-					/* Shop-keeper? */
+                    /* Shop-keeper? */
                     int olevel = 0;
                     pObj = create_object (pObjIndex, olevel);
                     SET_BIT (pObj->extra_flags, ITEM_INVENTORY);    /* ROM OLC */
@@ -1561,15 +1561,15 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
                                 && pObj->level < LastMob->level - 7
                                 && pObj->level < 45)) {
                             log_f ("Check Levels:");
-							log_f ("  Object: (VNUM %5d)(Level %2d) %s",
+                            log_f ("  Object: (VNUM %5d)(Level %2d) %s",
                                      pObj->pIndexData->vnum,
-									 pObj->level,
+                                     pObj->level,
                                      pObj->short_descr);
-							log_f ("     Mob: (VNUM %5d)(Level %2d) %s",
+                            log_f ("     Mob: (VNUM %5d)(Level %2d) %s",
                                      LastMob->pIndexData->vnum,
                                      LastMob->level,
                                      LastMob->short_descr);
-						}
+                        }
                     }
                     else
                         break;
@@ -1973,7 +1973,7 @@ OBJ_DATA *create_object (OBJ_INDEX_DATA * pObjIndex, int level)
         case ITEM_POTION:
         case ITEM_PILL:
         case ITEM_MONEY:
-			break;
+            break;
     }
 
     for (paf = pObjIndex->affected; paf != NULL; paf = paf->next)
@@ -2608,9 +2608,9 @@ void *alloc_mem (int sMem)
     }
 
 #if !defined(_WIN32)
-	magic = (int *) pMem;
-	*magic = MAGIC_NUM;
-	pMem += sizeof(*magic);
+    magic = (int *) pMem;
+    *magic = MAGIC_NUM;
+    pMem += sizeof(*magic);
 #endif
 
     return pMem;
@@ -3002,7 +3002,7 @@ int number_percent (void)
  */
 int number_door (void)
 {
-	return number_range(0, MAX_DIR - 1);
+    return number_range(0, MAX_DIR - 1);
 }
 
 int number_bits (int width)
@@ -3369,17 +3369,17 @@ void tail_chain (void)
  */
 bool check_pet_affected(int vnum, AFFECT_DATA *paf)
 {
-		  MOB_INDEX_DATA *petIndex;
+          MOB_INDEX_DATA *petIndex;
 
-		    petIndex = get_mob_index(vnum);
-			  if (petIndex == NULL)
-					      return FALSE;
+            petIndex = get_mob_index(vnum);
+              if (petIndex == NULL)
+                          return FALSE;
 
-			    if (paf->where == TO_AFFECTS)
-						    if (IS_AFFECTED(petIndex, paf->bitvector))
-									      return TRUE;
+                if (paf->where == TO_AFFECTS)
+                            if (IS_AFFECTED(petIndex, paf->bitvector))
+                                          return TRUE;
 
-				  return FALSE;
+                  return FALSE;
 }
 
 extern int flag_lookup
@@ -3392,131 +3392,131 @@ int social_count;
 /* snarf a socials file */
 void load_socials(FILE * fp)
 {
-	for (;;)
-	{
-		struct social_type social;
-		char *temp;
-		/* clear social */
-		social.char_no_arg = NULL;
-		social.others_no_arg = NULL;
-		social.char_found = NULL;
-		social.others_found = NULL;
-		social.vict_found = NULL;
-		social.char_not_found = NULL;
-		social.char_auto = NULL;
-		social.others_auto = NULL;
+    for (;;)
+    {
+        struct social_type social;
+        char *temp;
+        /* clear social */
+        social.char_no_arg = NULL;
+        social.others_no_arg = NULL;
+        social.char_found = NULL;
+        social.others_found = NULL;
+        social.vict_found = NULL;
+        social.char_not_found = NULL;
+        social.char_auto = NULL;
+        social.others_auto = NULL;
 
-		temp = fread_word(fp);
-		if (!strcmp(temp, "#0"))
-			return;                /* done */
+        temp = fread_word(fp);
+        if (!strcmp(temp, "#0"))
+            return;                /* done */
 #if defined(social_debug)
-		else
-			fprintf(stderr, "%s\n\r", temp);
+        else
+            fprintf(stderr, "%s\n\r", temp);
 #endif
 
-		strcpy(social.name, temp);
-		fread_to_eol(fp);
+        strcpy(social.name, temp);
+        fread_to_eol(fp);
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.char_no_arg = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.char_no_arg = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.char_no_arg = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.char_no_arg = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.others_no_arg = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.others_no_arg = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.others_no_arg = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.others_no_arg = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.char_found = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.char_found = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.char_found = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.char_found = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.others_found = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.others_found = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.others_found = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.others_found = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.vict_found = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.vict_found = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.vict_found = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.vict_found = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.char_not_found = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.char_not_found = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.char_not_found = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.char_not_found = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.char_auto = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.char_auto = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.char_auto = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.char_auto = temp;
 
-		temp = fread_string_eol(fp);
-		if (!strcmp(temp, "$"))
-			social.others_auto = NULL;
-		else if (!strcmp(temp, "#"))
-		{
-			social_table[social_count] = social;
-			social_count++;
-			continue;
-		}
-		else
-			social.others_auto = temp;
+        temp = fread_string_eol(fp);
+        if (!strcmp(temp, "$"))
+            social.others_auto = NULL;
+        else if (!strcmp(temp, "#"))
+        {
+            social_table[social_count] = social;
+            social_count++;
+            continue;
+        }
+        else
+            social.others_auto = temp;
 
-		social_table[social_count] = social;
-		social_count++;
-	}
-	return;
+        social_table[social_count] = social;
+        social_count++;
+    }
+    return;
 }
 
 /*
@@ -3524,187 +3524,187 @@ void load_socials(FILE * fp)
 */
 void load_mobiles(FILE * fp)
 {
-	MOB_INDEX_DATA *pMobIndex;
+    MOB_INDEX_DATA *pMobIndex;
 
-	if (!area_last)
-	{                            /* OLC */
-		bug("Load_mobiles: no #AREA seen yet.", 0);
-		exit(1);
-	}
+    if (!area_last)
+    {                            /* OLC */
+        bug("Load_mobiles: no #AREA seen yet.", 0);
+        exit(1);
+    }
 
-	for (;;)
-	{
-		sh_int vnum;
-		char letter;
-		int iHash;
+    for (;;)
+    {
+        sh_int vnum;
+        char letter;
+        int iHash;
 
-		letter = fread_letter(fp);
-		if (letter != '#')
-		{
-			bug("Load_mobiles: # not found.", 0);
-			exit(1);
-		}
+        letter = fread_letter(fp);
+        if (letter != '#')
+        {
+            bug("Load_mobiles: # not found.", 0);
+            exit(1);
+        }
 
-		vnum = fread_number(fp);
-		if (vnum == 0)
-			break;
+        vnum = fread_number(fp);
+        if (vnum == 0)
+            break;
 
-		fBootDb = FALSE;
-		if (get_mob_index(vnum) != NULL)
-		{
-			bug("Load_mobiles: vnum %d duplicated.", vnum);
-			exit(1);
-		}
-		fBootDb = TRUE;
+        fBootDb = FALSE;
+        if (get_mob_index(vnum) != NULL)
+        {
+            bug("Load_mobiles: vnum %d duplicated.", vnum);
+            exit(1);
+        }
+        fBootDb = TRUE;
 
-		pMobIndex = alloc_perm(sizeof(*pMobIndex));
-		pMobIndex->vnum = vnum;
-		pMobIndex->area = area_last;    /* OLC */
-		newmobs++;
-		pMobIndex->player_name = fread_string(fp);
-		pMobIndex->short_descr = fread_string(fp);
-		pMobIndex->long_descr = fread_string(fp);
-		pMobIndex->description = fread_string(fp);
-		pMobIndex->race = race_lookup(fread_string(fp));
+        pMobIndex = alloc_perm(sizeof(*pMobIndex));
+        pMobIndex->vnum = vnum;
+        pMobIndex->area = area_last;    /* OLC */
+        newmobs++;
+        pMobIndex->player_name = fread_string(fp);
+        pMobIndex->short_descr = fread_string(fp);
+        pMobIndex->long_descr = fread_string(fp);
+        pMobIndex->description = fread_string(fp);
+        pMobIndex->race = race_lookup(fread_string(fp));
 
-		pMobIndex->long_descr[0] = UPPER(pMobIndex->long_descr[0]);
-		pMobIndex->description[0] = UPPER(pMobIndex->description[0]);
+        pMobIndex->long_descr[0] = UPPER(pMobIndex->long_descr[0]);
+        pMobIndex->description[0] = UPPER(pMobIndex->description[0]);
 
-		pMobIndex->act = fread_flag(fp) | ACT_IS_NPC
-			| race_table[pMobIndex->race].act;
-		pMobIndex->affected_by = fread_flag(fp)
-			| race_table[pMobIndex->race].aff;
-		pMobIndex->pShop = NULL;
-		pMobIndex->alignment = fread_number(fp);
-		pMobIndex->group = fread_number(fp);
+        pMobIndex->act = fread_flag(fp) | ACT_IS_NPC
+            | race_table[pMobIndex->race].act;
+        pMobIndex->affected_by = fread_flag(fp)
+            | race_table[pMobIndex->race].aff;
+        pMobIndex->pShop = NULL;
+        pMobIndex->alignment = fread_number(fp);
+        pMobIndex->group = fread_number(fp);
 
-		pMobIndex->level = fread_number(fp);
-		pMobIndex->hitroll = fread_number(fp);
+        pMobIndex->level = fread_number(fp);
+        pMobIndex->hitroll = fread_number(fp);
 
-		/* read hit dice */
-		pMobIndex->hit[DICE_NUMBER] = fread_number(fp);
-		/* 'd'          */ fread_letter(fp);
-		pMobIndex->hit[DICE_TYPE] = fread_number(fp);
-		/* '+'          */ fread_letter(fp);
-		pMobIndex->hit[DICE_BONUS] = fread_number(fp);
+        /* read hit dice */
+        pMobIndex->hit[DICE_NUMBER] = fread_number(fp);
+        /* 'd'          */ fread_letter(fp);
+        pMobIndex->hit[DICE_TYPE] = fread_number(fp);
+        /* '+'          */ fread_letter(fp);
+        pMobIndex->hit[DICE_BONUS] = fread_number(fp);
 
-		/* read mana dice */
-		pMobIndex->mana[DICE_NUMBER] = fread_number(fp);
-		fread_letter(fp);
-		pMobIndex->mana[DICE_TYPE] = fread_number(fp);
-		fread_letter(fp);
-		pMobIndex->mana[DICE_BONUS] = fread_number(fp);
+        /* read mana dice */
+        pMobIndex->mana[DICE_NUMBER] = fread_number(fp);
+        fread_letter(fp);
+        pMobIndex->mana[DICE_TYPE] = fread_number(fp);
+        fread_letter(fp);
+        pMobIndex->mana[DICE_BONUS] = fread_number(fp);
 
-		/* read damage dice */
-		pMobIndex->damage[DICE_NUMBER] = fread_number(fp);
-		fread_letter(fp);
-		pMobIndex->damage[DICE_TYPE] = fread_number(fp);
-		fread_letter(fp);
-		pMobIndex->damage[DICE_BONUS] = fread_number(fp);
-		pMobIndex->dam_type = attack_lookup(fread_word(fp));
+        /* read damage dice */
+        pMobIndex->damage[DICE_NUMBER] = fread_number(fp);
+        fread_letter(fp);
+        pMobIndex->damage[DICE_TYPE] = fread_number(fp);
+        fread_letter(fp);
+        pMobIndex->damage[DICE_BONUS] = fread_number(fp);
+        pMobIndex->dam_type = attack_lookup(fread_word(fp));
 
-		/* read armor class */
-		pMobIndex->ac[AC_PIERCE] = fread_number(fp) * 10;
-		pMobIndex->ac[AC_BASH] = fread_number(fp) * 10;
-		pMobIndex->ac[AC_SLASH] = fread_number(fp) * 10;
-		pMobIndex->ac[AC_EXOTIC] = fread_number(fp) * 10;
+        /* read armor class */
+        pMobIndex->ac[AC_PIERCE] = fread_number(fp) * 10;
+        pMobIndex->ac[AC_BASH] = fread_number(fp) * 10;
+        pMobIndex->ac[AC_SLASH] = fread_number(fp) * 10;
+        pMobIndex->ac[AC_EXOTIC] = fread_number(fp) * 10;
 
-		/* read flags and add in data from the race table */
-		pMobIndex->off_flags = fread_flag(fp)
-			| race_table[pMobIndex->race].off;
-		pMobIndex->imm_flags = fread_flag(fp)
-			| race_table[pMobIndex->race].imm;
-		pMobIndex->res_flags = fread_flag(fp)
-			| race_table[pMobIndex->race].res;
-		pMobIndex->vuln_flags = fread_flag(fp)
-			| race_table[pMobIndex->race].vuln;
+        /* read flags and add in data from the race table */
+        pMobIndex->off_flags = fread_flag(fp)
+            | race_table[pMobIndex->race].off;
+        pMobIndex->imm_flags = fread_flag(fp)
+            | race_table[pMobIndex->race].imm;
+        pMobIndex->res_flags = fread_flag(fp)
+            | race_table[pMobIndex->race].res;
+        pMobIndex->vuln_flags = fread_flag(fp)
+            | race_table[pMobIndex->race].vuln;
 
-		/* vital statistics */
-		pMobIndex->start_pos = position_lookup(fread_word(fp));
-		pMobIndex->default_pos = position_lookup(fread_word(fp));
-		pMobIndex->sex = sex_lookup(fread_word(fp));
+        /* vital statistics */
+        pMobIndex->start_pos = position_lookup(fread_word(fp));
+        pMobIndex->default_pos = position_lookup(fread_word(fp));
+        pMobIndex->sex = sex_lookup(fread_word(fp));
 
-		pMobIndex->wealth = fread_number(fp);
+        pMobIndex->wealth = fread_number(fp);
 
-		pMobIndex->form = fread_flag(fp) | race_table[pMobIndex->race].form;
-		pMobIndex->parts = fread_flag(fp)
-			| race_table[pMobIndex->race].parts;
-		/* size */
-		CHECK_POS(pMobIndex->size, size_lookup(fread_word(fp)), "size");
-		/*    pMobIndex->size            = size_lookup(fread_word(fp)); */
-		pMobIndex->material = str_dup(fread_word(fp));
+        pMobIndex->form = fread_flag(fp) | race_table[pMobIndex->race].form;
+        pMobIndex->parts = fread_flag(fp)
+            | race_table[pMobIndex->race].parts;
+        /* size */
+        CHECK_POS(pMobIndex->size, size_lookup(fread_word(fp)), "size");
+        /*    pMobIndex->size            = size_lookup(fread_word(fp)); */
+        pMobIndex->material = str_dup(fread_word(fp));
 
-		for (;;)
-		{
-			letter = fread_letter(fp);
+        for (;;)
+        {
+            letter = fread_letter(fp);
 
-			if (letter == 'F')
-			{
-				char *word;
-				long vector;
+            if (letter == 'F')
+            {
+                char *word;
+                long vector;
 
-				word = fread_word(fp);
-				vector = fread_flag(fp);
+                word = fread_word(fp);
+                vector = fread_flag(fp);
 
-				if (!str_prefix(word, "act"))
-					REMOVE_BIT(pMobIndex->act, vector);
-				else if (!str_prefix(word, "aff"))
-					REMOVE_BIT(pMobIndex->affected_by, vector);
-				else if (!str_prefix(word, "off"))
-					REMOVE_BIT(pMobIndex->off_flags, vector);
-				else if (!str_prefix(word, "imm"))
-					REMOVE_BIT(pMobIndex->imm_flags, vector);
-				else if (!str_prefix(word, "res"))
-					REMOVE_BIT(pMobIndex->res_flags, vector);
-				else if (!str_prefix(word, "vul"))
-					REMOVE_BIT(pMobIndex->vuln_flags, vector);
-				else if (!str_prefix(word, "for"))
-					REMOVE_BIT(pMobIndex->form, vector);
-				else if (!str_prefix(word, "par"))
-					REMOVE_BIT(pMobIndex->parts, vector);
-				else
-				{
-					bug("Flag remove: flag not found.", 0);
-					exit(1);
-				}
-			}
-			else if (letter == 'M')
-			{
-				MPROG_LIST *pMprog;
-				char *word;
-				int trigger = 0;
+                if (!str_prefix(word, "act"))
+                    REMOVE_BIT(pMobIndex->act, vector);
+                else if (!str_prefix(word, "aff"))
+                    REMOVE_BIT(pMobIndex->affected_by, vector);
+                else if (!str_prefix(word, "off"))
+                    REMOVE_BIT(pMobIndex->off_flags, vector);
+                else if (!str_prefix(word, "imm"))
+                    REMOVE_BIT(pMobIndex->imm_flags, vector);
+                else if (!str_prefix(word, "res"))
+                    REMOVE_BIT(pMobIndex->res_flags, vector);
+                else if (!str_prefix(word, "vul"))
+                    REMOVE_BIT(pMobIndex->vuln_flags, vector);
+                else if (!str_prefix(word, "for"))
+                    REMOVE_BIT(pMobIndex->form, vector);
+                else if (!str_prefix(word, "par"))
+                    REMOVE_BIT(pMobIndex->parts, vector);
+                else
+                {
+                    bug("Flag remove: flag not found.", 0);
+                    exit(1);
+                }
+            }
+            else if (letter == 'M')
+            {
+                MPROG_LIST *pMprog;
+                char *word;
+                int trigger = 0;
 
-				pMprog = alloc_perm(sizeof(*pMprog));
-				word = fread_word(fp);
-				if ((trigger = flag_lookup(word, mprog_flags)) == NO_FLAG)
-				{
-					bug("MOBprogs: invalid trigger.", 0);
-					exit(1);
-				}
-				SET_BIT(pMobIndex->mprog_flags, trigger);
-				pMprog->trig_type = trigger;
-				pMprog->vnum = fread_number(fp);
-				pMprog->trig_phrase = fread_string(fp);
-				pMprog->next = pMobIndex->mprogs;
-				pMobIndex->mprogs = pMprog;
-			}
-			else
-			{
-				ungetc(letter, fp);
-				break;
-			}
-		}
+                pMprog = alloc_perm(sizeof(*pMprog));
+                word = fread_word(fp);
+                if ((trigger = flag_lookup(word, mprog_flags)) == NO_FLAG)
+                {
+                    bug("MOBprogs: invalid trigger.", 0);
+                    exit(1);
+                }
+                SET_BIT(pMobIndex->mprog_flags, trigger);
+                pMprog->trig_type = trigger;
+                pMprog->vnum = fread_number(fp);
+                pMprog->trig_phrase = fread_string(fp);
+                pMprog->next = pMobIndex->mprogs;
+                pMobIndex->mprogs = pMprog;
+            }
+            else
+            {
+                ungetc(letter, fp);
+                break;
+            }
+        }
 
-		iHash = vnum % MAX_KEY_HASH;
-		pMobIndex->next = mob_index_hash[iHash];
-		mob_index_hash[iHash] = pMobIndex;
-		top_mob_index++;
-		top_vnum_mob = top_vnum_mob < vnum ? vnum : top_vnum_mob;    /* OLC */
-		assign_area_vnum(vnum);    /* OLC */
-		kill_table[URANGE(0, pMobIndex->level, MAX_LEVEL - 1)].number++;
-	}
+        iHash = vnum % MAX_KEY_HASH;
+        pMobIndex->next = mob_index_hash[iHash];
+        mob_index_hash[iHash] = pMobIndex;
+        top_mob_index++;
+        top_vnum_mob = top_vnum_mob < vnum ? vnum : top_vnum_mob;    /* OLC */
+        assign_area_vnum(vnum);    /* OLC */
+        kill_table[URANGE(0, pMobIndex->level, MAX_LEVEL - 1)].number++;
+    }
 
-	return;
+    return;
 }
 
 /*
@@ -3712,221 +3712,221 @@ void load_mobiles(FILE * fp)
 */
 void load_objects(FILE * fp)
 {
-	OBJ_INDEX_DATA *pObjIndex;
+    OBJ_INDEX_DATA *pObjIndex;
 
-	if (!area_last)
-	{                            /* OLC */
-		bug("Load_objects: no #AREA seen yet.", 0);
-		exit(1);
-	}
+    if (!area_last)
+    {                            /* OLC */
+        bug("Load_objects: no #AREA seen yet.", 0);
+        exit(1);
+    }
 
-	for (;;)
-	{
-		sh_int vnum;
-		char letter;
-		int iHash;
+    for (;;)
+    {
+        sh_int vnum;
+        char letter;
+        int iHash;
 
-		letter = fread_letter(fp);
-		if (letter != '#')
-		{
-			bug("Load_objects: # not found.", 0);
-			exit(1);
-		}
+        letter = fread_letter(fp);
+        if (letter != '#')
+        {
+            bug("Load_objects: # not found.", 0);
+            exit(1);
+        }
 
-		vnum = fread_number(fp);
-		if (vnum == 0)
-			break;
+        vnum = fread_number(fp);
+        if (vnum == 0)
+            break;
 
-		fBootDb = FALSE;
-		if (get_obj_index(vnum) != NULL)
-		{
-			bug("Load_objects: vnum %d duplicated.", vnum);
-			exit(1);
-		}
-		fBootDb = TRUE;
+        fBootDb = FALSE;
+        if (get_obj_index(vnum) != NULL)
+        {
+            bug("Load_objects: vnum %d duplicated.", vnum);
+            exit(1);
+        }
+        fBootDb = TRUE;
 
-		pObjIndex = alloc_perm(sizeof(*pObjIndex));
-		pObjIndex->vnum = vnum;
-		pObjIndex->area = area_last;    /* OLC */
-		pObjIndex->reset_num = 0;
-		newobjs++;
-		pObjIndex->name = fread_string(fp);
-		pObjIndex->short_descr = fread_string(fp);
-		pObjIndex->description = fread_string(fp);
-		pObjIndex->material = fread_string(fp);
+        pObjIndex = alloc_perm(sizeof(*pObjIndex));
+        pObjIndex->vnum = vnum;
+        pObjIndex->area = area_last;    /* OLC */
+        pObjIndex->reset_num = 0;
+        newobjs++;
+        pObjIndex->name = fread_string(fp);
+        pObjIndex->short_descr = fread_string(fp);
+        pObjIndex->description = fread_string(fp);
+        pObjIndex->material = fread_string(fp);
 
-		CHECK_POS(pObjIndex->item_type, item_lookup(fread_word(fp)),
-			"item_type");
-		pObjIndex->extra_flags = fread_flag(fp);
-		pObjIndex->wear_flags = fread_flag(fp);
-		switch (pObjIndex->item_type)
-		{
-		case ITEM_WEAPON:
-			pObjIndex->value[0] = weapon_type(fread_word(fp));
-			pObjIndex->value[1] = fread_number(fp);
-			pObjIndex->value[2] = fread_number(fp);
-			pObjIndex->value[3] = attack_lookup(fread_word(fp));
-			pObjIndex->value[4] = fread_flag(fp);
-			break;
-		case ITEM_CONTAINER:
-			pObjIndex->value[0] = fread_number(fp);
-			pObjIndex->value[1] = fread_flag(fp);
-			pObjIndex->value[2] = fread_number(fp);
-			pObjIndex->value[3] = fread_number(fp);
-			pObjIndex->value[4] = fread_number(fp);
-			break;
-		case ITEM_DRINK_CON:
-		case ITEM_FOUNTAIN:
-			pObjIndex->value[0] = fread_number(fp);
-			pObjIndex->value[1] = fread_number(fp);
-			CHECK_POS(pObjIndex->value[2], liq_lookup(fread_word(fp)),
-				"liq_lookup");
-			pObjIndex->value[3] = fread_number(fp);
-			pObjIndex->value[4] = fread_number(fp);
-			break;
-		case ITEM_WAND:
-		case ITEM_STAFF:
-			pObjIndex->value[0] = fread_number(fp);
-			pObjIndex->value[1] = fread_number(fp);
-			pObjIndex->value[2] = fread_number(fp);
-			pObjIndex->value[3] = skill_lookup(fread_word(fp));
-			pObjIndex->value[4] = fread_number(fp);
-			break;
-		case ITEM_POTION:
-		case ITEM_PILL:
-		case ITEM_SCROLL:
-			pObjIndex->value[0] = fread_number(fp);
-			pObjIndex->value[1] = skill_lookup(fread_word(fp));
-			pObjIndex->value[2] = skill_lookup(fread_word(fp));
-			pObjIndex->value[3] = skill_lookup(fread_word(fp));
-			pObjIndex->value[4] = skill_lookup(fread_word(fp));
-			break;
-		default:
-			pObjIndex->value[0] = fread_flag(fp);
-			pObjIndex->value[1] = fread_flag(fp);
-			pObjIndex->value[2] = fread_flag(fp);
-			pObjIndex->value[3] = fread_flag(fp);
-			pObjIndex->value[4] = fread_flag(fp);
-			break;
-		}
-		pObjIndex->level = fread_number(fp);
-		pObjIndex->weight = fread_number(fp);
-		pObjIndex->cost = fread_number(fp);
+        CHECK_POS(pObjIndex->item_type, item_lookup(fread_word(fp)),
+            "item_type");
+        pObjIndex->extra_flags = fread_flag(fp);
+        pObjIndex->wear_flags = fread_flag(fp);
+        switch (pObjIndex->item_type)
+        {
+        case ITEM_WEAPON:
+            pObjIndex->value[0] = weapon_type(fread_word(fp));
+            pObjIndex->value[1] = fread_number(fp);
+            pObjIndex->value[2] = fread_number(fp);
+            pObjIndex->value[3] = attack_lookup(fread_word(fp));
+            pObjIndex->value[4] = fread_flag(fp);
+            break;
+        case ITEM_CONTAINER:
+            pObjIndex->value[0] = fread_number(fp);
+            pObjIndex->value[1] = fread_flag(fp);
+            pObjIndex->value[2] = fread_number(fp);
+            pObjIndex->value[3] = fread_number(fp);
+            pObjIndex->value[4] = fread_number(fp);
+            break;
+        case ITEM_DRINK_CON:
+        case ITEM_FOUNTAIN:
+            pObjIndex->value[0] = fread_number(fp);
+            pObjIndex->value[1] = fread_number(fp);
+            CHECK_POS(pObjIndex->value[2], liq_lookup(fread_word(fp)),
+                "liq_lookup");
+            pObjIndex->value[3] = fread_number(fp);
+            pObjIndex->value[4] = fread_number(fp);
+            break;
+        case ITEM_WAND:
+        case ITEM_STAFF:
+            pObjIndex->value[0] = fread_number(fp);
+            pObjIndex->value[1] = fread_number(fp);
+            pObjIndex->value[2] = fread_number(fp);
+            pObjIndex->value[3] = skill_lookup(fread_word(fp));
+            pObjIndex->value[4] = fread_number(fp);
+            break;
+        case ITEM_POTION:
+        case ITEM_PILL:
+        case ITEM_SCROLL:
+            pObjIndex->value[0] = fread_number(fp);
+            pObjIndex->value[1] = skill_lookup(fread_word(fp));
+            pObjIndex->value[2] = skill_lookup(fread_word(fp));
+            pObjIndex->value[3] = skill_lookup(fread_word(fp));
+            pObjIndex->value[4] = skill_lookup(fread_word(fp));
+            break;
+        default:
+            pObjIndex->value[0] = fread_flag(fp);
+            pObjIndex->value[1] = fread_flag(fp);
+            pObjIndex->value[2] = fread_flag(fp);
+            pObjIndex->value[3] = fread_flag(fp);
+            pObjIndex->value[4] = fread_flag(fp);
+            break;
+        }
+        pObjIndex->level = fread_number(fp);
+        pObjIndex->weight = fread_number(fp);
+        pObjIndex->cost = fread_number(fp);
 
-		/* condition */
-		letter = fread_letter(fp);
-		switch (letter)
-		{
-		case ('P') :
-			pObjIndex->condition = 100;
-			break;
-		case ('G') :
-			pObjIndex->condition = 90;
-			break;
-		case ('A') :
-			pObjIndex->condition = 75;
-			break;
-		case ('W') :
-			pObjIndex->condition = 50;
-			break;
-		case ('D') :
-			pObjIndex->condition = 25;
-			break;
-		case ('B') :
-			pObjIndex->condition = 10;
-			break;
-		case ('R') :
-			pObjIndex->condition = 0;
-			break;
-		default:
-			pObjIndex->condition = 100;
-			break;
-		}
+        /* condition */
+        letter = fread_letter(fp);
+        switch (letter)
+        {
+        case ('P') :
+            pObjIndex->condition = 100;
+            break;
+        case ('G') :
+            pObjIndex->condition = 90;
+            break;
+        case ('A') :
+            pObjIndex->condition = 75;
+            break;
+        case ('W') :
+            pObjIndex->condition = 50;
+            break;
+        case ('D') :
+            pObjIndex->condition = 25;
+            break;
+        case ('B') :
+            pObjIndex->condition = 10;
+            break;
+        case ('R') :
+            pObjIndex->condition = 0;
+            break;
+        default:
+            pObjIndex->condition = 100;
+            break;
+        }
 
-		for (;;)
-		{
-			char letter;
+        for (;;)
+        {
+            char letter;
 
-			letter = fread_letter(fp);
+            letter = fread_letter(fp);
 
-			if (letter == 'A')
-			{
-				AFFECT_DATA *paf;
+            if (letter == 'A')
+            {
+                AFFECT_DATA *paf;
 
-				paf = alloc_perm(sizeof(*paf));
-				paf->where = TO_OBJECT;
-				paf->type = -1;
-				paf->level = pObjIndex->level;
-				paf->duration = -1;
-				paf->location = fread_number(fp);
-				paf->modifier = fread_number(fp);
-				paf->bitvector = 0;
-				paf->next = pObjIndex->affected;
-				pObjIndex->affected = paf;
-				top_affect++;
-			}
+                paf = alloc_perm(sizeof(*paf));
+                paf->where = TO_OBJECT;
+                paf->type = -1;
+                paf->level = pObjIndex->level;
+                paf->duration = -1;
+                paf->location = fread_number(fp);
+                paf->modifier = fread_number(fp);
+                paf->bitvector = 0;
+                paf->next = pObjIndex->affected;
+                pObjIndex->affected = paf;
+                top_affect++;
+            }
 
-			else if (letter == 'F')
-			{
-				AFFECT_DATA *paf;
+            else if (letter == 'F')
+            {
+                AFFECT_DATA *paf;
 
-				paf = alloc_perm(sizeof(*paf));
-				letter = fread_letter(fp);
-				switch (letter)
-				{
-				case 'A':
-					paf->where = TO_AFFECTS;
-					break;
-				case 'I':
-					paf->where = TO_IMMUNE;
-					break;
-				case 'R':
-					paf->where = TO_RESIST;
-					break;
-				case 'V':
-					paf->where = TO_VULN;
-					break;
-				default:
-					bug("Load_objects: Bad where on flag set.", 0);
-					exit(1);
-				}
-				paf->type = -1;
-				paf->level = pObjIndex->level;
-				paf->duration = -1;
-				paf->location = fread_number(fp);
-				paf->modifier = fread_number(fp);
-				paf->bitvector = fread_flag(fp);
-				paf->next = pObjIndex->affected;
-				pObjIndex->affected = paf;
-				top_affect++;
-			}
+                paf = alloc_perm(sizeof(*paf));
+                letter = fread_letter(fp);
+                switch (letter)
+                {
+                case 'A':
+                    paf->where = TO_AFFECTS;
+                    break;
+                case 'I':
+                    paf->where = TO_IMMUNE;
+                    break;
+                case 'R':
+                    paf->where = TO_RESIST;
+                    break;
+                case 'V':
+                    paf->where = TO_VULN;
+                    break;
+                default:
+                    bug("Load_objects: Bad where on flag set.", 0);
+                    exit(1);
+                }
+                paf->type = -1;
+                paf->level = pObjIndex->level;
+                paf->duration = -1;
+                paf->location = fread_number(fp);
+                paf->modifier = fread_number(fp);
+                paf->bitvector = fread_flag(fp);
+                paf->next = pObjIndex->affected;
+                pObjIndex->affected = paf;
+                top_affect++;
+            }
 
-			else if (letter == 'E')
-			{
-				EXTRA_DESCR_DATA *ed;
+            else if (letter == 'E')
+            {
+                EXTRA_DESCR_DATA *ed;
 
-				ed = alloc_perm(sizeof(*ed));
-				ed->keyword = fread_string(fp);
-				ed->description = fread_string(fp);
-				ed->next = pObjIndex->extra_descr;
-				pObjIndex->extra_descr = ed;
-				top_ed++;
-			}
+                ed = alloc_perm(sizeof(*ed));
+                ed->keyword = fread_string(fp);
+                ed->description = fread_string(fp);
+                ed->next = pObjIndex->extra_descr;
+                pObjIndex->extra_descr = ed;
+                top_ed++;
+            }
 
-			else
-			{
-				ungetc(letter, fp);
-				break;
-			}
-		}
+            else
+            {
+                ungetc(letter, fp);
+                break;
+            }
+        }
 
-		iHash = vnum % MAX_KEY_HASH;
-		pObjIndex->next = obj_index_hash[iHash];
-		obj_index_hash[iHash] = pObjIndex;
-		top_obj_index++;
-		top_vnum_obj = top_vnum_obj < vnum ? vnum : top_vnum_obj;    /* OLC */
-		assign_area_vnum(vnum);    /* OLC */
-	}
+        iHash = vnum % MAX_KEY_HASH;
+        pObjIndex->next = obj_index_hash[iHash];
+        obj_index_hash[iHash] = pObjIndex;
+        top_obj_index++;
+        top_vnum_obj = top_vnum_obj < vnum ? vnum : top_vnum_obj;    /* OLC */
+        assign_area_vnum(vnum);    /* OLC */
+    }
 
-	return;
+    return;
 }

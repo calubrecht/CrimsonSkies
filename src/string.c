@@ -13,15 +13,15 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -707,26 +707,26 @@ char *numlines (char *string)
 */
 char *num_punct(int foo)
 {
-	int index_new, rest, x;
-	unsigned int nindex;
-	char buf[16];
-	static char buf_new[16];
+    int index_new, rest, x;
+    unsigned int nindex;
+    char buf[16];
+    static char buf_new[16];
 
-	snprintf(buf, 16, "%d", foo);
-	rest = strlen(buf) % 3;
+    snprintf(buf, 16, "%d", foo);
+    rest = strlen(buf) % 3;
 
-	for (nindex = index_new = 0; nindex < strlen(buf); nindex++, index_new++)
-	{
-		x = nindex - rest;
-		if (nindex != 0 && (x % 3) == 0)
-		{
-			buf_new[index_new] = ',';
-			index_new++;
-			buf_new[index_new] = buf[nindex];
-		}
-		else
-			buf_new[index_new] = buf[nindex];
-	}
-	buf_new[index_new] = '\0';
-	return buf_new;
+    for (nindex = index_new = 0; nindex < strlen(buf); nindex++, index_new++)
+    {
+        x = nindex - rest;
+        if (nindex != 0 && (x % 3) == 0)
+        {
+            buf_new[index_new] = ',';
+            index_new++;
+            buf_new[index_new] = buf[nindex];
+        }
+        else
+            buf_new[index_new] = buf[nindex];
+    }
+    buf_new[index_new] = '\0';
+    return buf_new;
 }

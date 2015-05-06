@@ -23,15 +23,15 @@
 * Do not remove these from the code - by request of Jason Dinkel
 */
 #define VERSION	"ILAB Online Creation [Beta 1.0, ROM 2.3 modified]\n\r" \
-		"     Port a ROM 2.4 v1.8\n\r"
+        "     Port a ROM 2.4 v1.8\n\r"
 #define AUTHOR	"     By Jason(jdinkel@mines.colorado.edu)\n\r" \
                 "     Modified for use with ROM 2.3\n\r"        \
                 "     By Hans Birkeland (hansbi@ifi.uio.no)\n\r" \
                 "     Modificado para uso en ROM 2.4b6\n\r"	\
                 "     Por Ivan Toledo (itoledo@ctcreuna.cl)\n\r"
 #define DATE	"     (Apr. 7, 1995 - ROM mod, Apr 16, 1995)\n\r" \
-		"     (Port a ROM 2.4 - Nov 2, 1996)\n\r" \
-		"     Version actual : 1.8 - Sep 8, 1998\n\r"
+        "     (Port a ROM 2.4 - Nov 2, 1996)\n\r" \
+        "     Version actual : 1.8 - Sep 8, 1998\n\r"
 #define CREDITS "     Original by Surreality(cxw197@psu.edu) and Locke(locke@lm.com)"
 
 
@@ -87,8 +87,8 @@ void	hedit		    args((CHAR_DATA *, char *));
 */
 struct olc_cmd_type
 {
-	char * const	name;
-	OLC_FUN *		olc_fun;
+    char * const	name;
+    OLC_FUN *		olc_fun;
 };
 
 
@@ -98,8 +98,8 @@ struct olc_cmd_type
 */
 struct	editor_cmd_type
 {
-	char * const	name;
-	DO_FUN *		do_fun;
+    char * const	name;
+    DO_FUN *		do_fun;
 };
 
 
@@ -110,11 +110,11 @@ struct	editor_cmd_type
 AREA_DATA *get_vnum_area	args((int vnum));
 AREA_DATA *get_area_data	args((int vnum));
 int flag_value			args((const struct flag_type *flag_table,
-	char *argument));
+    char *argument));
 char *flag_string		args((const struct flag_type *flag_table,
-	int bits));
+    int bits));
 void add_reset			args((ROOM_INDEX_DATA *room,
-	RESET_DATA *pReset, int index));
+    RESET_DATA *pReset, int index));
 
 
 

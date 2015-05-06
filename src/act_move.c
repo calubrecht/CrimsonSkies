@@ -25,19 +25,17 @@
  *   ROM license, in the file Rom24/doc/rom.license                        *
  **************************************************************************/
 
-/*   QuickMUD - The Lazy Man's ROM - $Id: act_move.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
-
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -46,14 +44,18 @@
 #include "merc.h"
 #include "interp.h"
 
+// The supported directions, there are corresponding DIR_* constants that are in merc.h that are in the 
+// same order as this.
 char *const dir_name[] = {
-	"north", "east", "south", "west", "up", "down", "northeast", "northwest", "southeast", "southwest"
+    "north", "east", "south", "west", "up", "down", "northeast", "northwest", "southeast", "southwest"
 };
 
+// This is the reverse direction to the above list (south is reverse to north, up to down, etc.)
 const sh_int rev_dir[] = {
     2, 3, 0, 1, 5, 4, 9, 8, 7, 6
 };
 
+// The movement lose per sector.  The position corresponds with the value of the SECT_* and the sector_flags table.
 const sh_int movement_loss[SECT_MAX] = {
     1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 20
 };
@@ -64,8 +66,6 @@ const sh_int movement_loss[SECT_MAX] = {
 int find_door args ((CHAR_DATA * ch, char *arg));
 bool has_key args ((CHAR_DATA * ch, int key));
 
-
-
 void move_char (CHAR_DATA * ch, int door, bool follow)
 {
     CHAR_DATA *fch;
@@ -75,7 +75,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
     EXIT_DATA *pexit;
 
 
-	if (door < 0 || door > 9)
+    if (door < 0 || door > MAX_DIR - 1)
     {
         bug ("Do_move: bad door %d.", door);
         return;
@@ -290,26 +290,26 @@ void do_down (CHAR_DATA * ch, char *argument)
 
 void do_northeast(CHAR_DATA * ch, char *argument)
 {
-	move_char(ch, DIR_NORTHEAST, FALSE);
-	return;
+    move_char(ch, DIR_NORTHEAST, FALSE);
+    return;
 }
 
 void do_northwest(CHAR_DATA * ch, char *argument)
 {
-	move_char(ch, DIR_NORTHWEST, FALSE);
-	return;
+    move_char(ch, DIR_NORTHWEST, FALSE);
+    return;
 }
 
 void do_southeast(CHAR_DATA * ch, char *argument)
 {
-	move_char(ch, DIR_SOUTHEAST, FALSE);
-	return;
+    move_char(ch, DIR_SOUTHEAST, FALSE);
+    return;
 }
 
 void do_southwest(CHAR_DATA * ch, char *argument)
 {
-	move_char(ch, DIR_SOUTHWEST, FALSE);
-	return;
+    move_char(ch, DIR_SOUTHWEST, FALSE);
+    return;
 }
 
 int find_door (CHAR_DATA * ch, char *arg)
@@ -329,14 +329,14 @@ int find_door (CHAR_DATA * ch, char *arg)
         door = 4;
     else if (!str_cmp (arg, "d") || !str_cmp (arg, "down"))
         door = 5;
-	else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
-		door = 6;
-	else if (!str_cmp(arg, "nw") || !str_cmp(arg, "northwest"))
-		door = 7;
-	else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
-		door = 8;
-	else if (!str_cmp(arg, "sw") || !str_cmp(arg, "southwest"))
-		door = 9;
+    else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
+        door = 6;
+    else if (!str_cmp(arg, "nw") || !str_cmp(arg, "northwest"))
+        door = 7;
+    else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
+        door = 8;
+    else if (!str_cmp(arg, "sw") || !str_cmp(arg, "southwest"))
+        door = 9;
     else
     {
         for (door = 0; door < MAX_DIR; door++)
@@ -1822,188 +1822,188 @@ void do_train (CHAR_DATA * ch, char *argument)
 /* random room generation procedure */
 ROOM_INDEX_DATA *get_random_room(CHAR_DATA * ch)
 {
-	// TODO - Update to get the real max VNUM in use
-	ROOM_INDEX_DATA *room;
+    // TODO - Update to get the real max VNUM in use
+    ROOM_INDEX_DATA *room;
 
-	for (;;)
-	{
-		room = get_room_index(number_range(0, 32768));
-		if (room != NULL)
-			if (can_see_room(ch, room)
-				&& !room_is_private(room)
-				&& !IS_SET(room->room_flags, ROOM_PRIVATE)
-				&& !IS_SET(room->room_flags, ROOM_SOLITARY)
-				&& !IS_SET(room->room_flags, ROOM_SAFE)
-				&& (IS_NPC(ch) || IS_SET(ch->act, ACT_AGGRESSIVE)
-				|| !IS_SET(room->room_flags, ROOM_LAW)))
-				break;
-	}
+    for (;;)
+    {
+        room = get_room_index(number_range(0, 32768));
+        if (room != NULL)
+            if (can_see_room(ch, room)
+                && !room_is_private(room)
+                && !IS_SET(room->room_flags, ROOM_PRIVATE)
+                && !IS_SET(room->room_flags, ROOM_SOLITARY)
+                && !IS_SET(room->room_flags, ROOM_SAFE)
+                && (IS_NPC(ch) || IS_SET(ch->act, ACT_AGGRESSIVE)
+                || !IS_SET(room->room_flags, ROOM_LAW)))
+                break;
+    }
 
-	return room;
+    return room;
 }
 
 /* RT Enter portals */
 void do_enter(CHAR_DATA * ch, char *argument)
 {
-	ROOM_INDEX_DATA *location;
+    ROOM_INDEX_DATA *location;
 
-	if (ch->fighting != NULL)
-		return;
+    if (ch->fighting != NULL)
+        return;
 
-	/* nifty portal stuff */
-	if (argument[0] != '\0')
-	{
-		ROOM_INDEX_DATA *old_room;
-		OBJ_DATA *portal;
-		CHAR_DATA *fch, *fch_next;
+    /* nifty portal stuff */
+    if (argument[0] != '\0')
+    {
+        ROOM_INDEX_DATA *old_room;
+        OBJ_DATA *portal;
+        CHAR_DATA *fch, *fch_next;
 
-		old_room = ch->in_room;
+        old_room = ch->in_room;
 
-		portal = get_obj_list(ch, argument, ch->in_room->contents);
+        portal = get_obj_list(ch, argument, ch->in_room->contents);
 
-		if (portal == NULL)
-		{
-			send_to_char("You don't see that here.\n\r", ch);
-			return;
-		}
+        if (portal == NULL)
+        {
+            send_to_char("You don't see that here.\n\r", ch);
+            return;
+        }
 
-		if (portal->item_type != ITEM_PORTAL
-			|| (IS_SET(portal->value[1], EX_CLOSED)
-			&& !IS_TRUSTED(ch, ANGEL)))
-		{
-			send_to_char("You can't seem to find a way in.\n\r", ch);
-			return;
-		}
+        if (portal->item_type != ITEM_PORTAL
+            || (IS_SET(portal->value[1], EX_CLOSED)
+            && !IS_TRUSTED(ch, ANGEL)))
+        {
+            send_to_char("You can't seem to find a way in.\n\r", ch);
+            return;
+        }
 
-		if (!IS_TRUSTED(ch, ANGEL)
-			&& !IS_SET(portal->value[2], GATE_NOCURSE)
-			&& (IS_AFFECTED(ch, AFF_CURSE)
-			|| IS_SET(old_room->room_flags, ROOM_NO_RECALL)))
-		{
-			send_to_char("Something prevents you from leaving...\n\r", ch);
-			return;
-		}
+        if (!IS_TRUSTED(ch, ANGEL)
+            && !IS_SET(portal->value[2], GATE_NOCURSE)
+            && (IS_AFFECTED(ch, AFF_CURSE)
+            || IS_SET(old_room->room_flags, ROOM_NO_RECALL)))
+        {
+            send_to_char("Something prevents you from leaving...\n\r", ch);
+            return;
+        }
 
-		if (IS_SET(portal->value[2], GATE_RANDOM) || portal->value[3] == -1)
-		{
-			location = get_random_room(ch);
-			portal->value[3] = location->vnum;    /* for record keeping :) */
-		}
-		else if (IS_SET(portal->value[2], GATE_BUGGY)
-			&& (number_percent() < 5)) location = get_random_room(ch);
-		else
-			location = get_room_index(portal->value[3]);
+        if (IS_SET(portal->value[2], GATE_RANDOM) || portal->value[3] == -1)
+        {
+            location = get_random_room(ch);
+            portal->value[3] = location->vnum;    /* for record keeping :) */
+        }
+        else if (IS_SET(portal->value[2], GATE_BUGGY)
+            && (number_percent() < 5)) location = get_random_room(ch);
+        else
+            location = get_room_index(portal->value[3]);
 
-		if (location == NULL
-			|| location == old_room
-			|| !can_see_room(ch, location)
-			|| (room_is_private(location) && !IS_TRUSTED(ch, IMPLEMENTOR)))
-		{
-			act("$p doesn't seem to go anywhere.", ch, portal, NULL,
-				TO_CHAR);
-			return;
-		}
+        if (location == NULL
+            || location == old_room
+            || !can_see_room(ch, location)
+            || (room_is_private(location) && !IS_TRUSTED(ch, IMPLEMENTOR)))
+        {
+            act("$p doesn't seem to go anywhere.", ch, portal, NULL,
+                TO_CHAR);
+            return;
+        }
 
-		if (IS_NPC(ch) && IS_SET(ch->act, ACT_AGGRESSIVE)
-			&& IS_SET(location->room_flags, ROOM_LAW))
-		{
-			send_to_char("Something prevents you from leaving...\n\r", ch);
-			return;
-		}
+        if (IS_NPC(ch) && IS_SET(ch->act, ACT_AGGRESSIVE)
+            && IS_SET(location->room_flags, ROOM_LAW))
+        {
+            send_to_char("Something prevents you from leaving...\n\r", ch);
+            return;
+        }
 
-		act("$n steps into $p.", ch, portal, NULL, TO_ROOM);
+        act("$n steps into $p.", ch, portal, NULL, TO_ROOM);
 
-		if (IS_SET(portal->value[2], GATE_NORMAL_EXIT))
-			act("You enter $p.", ch, portal, NULL, TO_CHAR);
-		else
-			act("You walk through $p and find yourself somewhere else...",
-			ch, portal, NULL, TO_CHAR);
+        if (IS_SET(portal->value[2], GATE_NORMAL_EXIT))
+            act("You enter $p.", ch, portal, NULL, TO_CHAR);
+        else
+            act("You walk through $p and find yourself somewhere else...",
+            ch, portal, NULL, TO_CHAR);
 
-		char_from_room(ch);
-		char_to_room(ch, location);
+        char_from_room(ch);
+        char_to_room(ch, location);
 
-		if (IS_SET(portal->value[2], GATE_GOWITH))
-		{                        /* take the gate along */
-			obj_from_room(portal);
-			obj_to_room(portal, location);
-		}
+        if (IS_SET(portal->value[2], GATE_GOWITH))
+        {                        /* take the gate along */
+            obj_from_room(portal);
+            obj_to_room(portal, location);
+        }
 
-		if (IS_SET(portal->value[2], GATE_NORMAL_EXIT))
-			act("$n has arrived.", ch, portal, NULL, TO_ROOM);
-		else
-			act("$n has arrived through $p.", ch, portal, NULL, TO_ROOM);
+        if (IS_SET(portal->value[2], GATE_NORMAL_EXIT))
+            act("$n has arrived.", ch, portal, NULL, TO_ROOM);
+        else
+            act("$n has arrived through $p.", ch, portal, NULL, TO_ROOM);
 
-		do_function(ch, &do_look, "auto");
+        do_function(ch, &do_look, "auto");
 
-		/* charges */
-		if (portal->value[0] > 0)
-		{
-			portal->value[0]--;
-			if (portal->value[0] == 0)
-				portal->value[0] = -1;
-		}
+        /* charges */
+        if (portal->value[0] > 0)
+        {
+            portal->value[0]--;
+            if (portal->value[0] == 0)
+                portal->value[0] = -1;
+        }
 
-		/* protect against circular follows */
-		if (old_room == location)
-			return;
+        /* protect against circular follows */
+        if (old_room == location)
+            return;
 
-		for (fch = old_room->people; fch != NULL; fch = fch_next)
-		{
-			fch_next = fch->next_in_room;
+        for (fch = old_room->people; fch != NULL; fch = fch_next)
+        {
+            fch_next = fch->next_in_room;
 
-			if (portal == NULL || portal->value[0] == -1)
-				/* no following through dead portals */
-				continue;
+            if (portal == NULL || portal->value[0] == -1)
+                /* no following through dead portals */
+                continue;
 
-			if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM)
-				&& fch->position < POS_STANDING)
-				do_function(fch, &do_stand, "");
+            if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM)
+                && fch->position < POS_STANDING)
+                do_function(fch, &do_stand, "");
 
-			if (fch->master == ch && fch->position == POS_STANDING)
-			{
+            if (fch->master == ch && fch->position == POS_STANDING)
+            {
 
-				if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
-					&& (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
-				{
-					act("You can't bring $N into the city.",
-						ch, NULL, fch, TO_CHAR);
-					act("You aren't allowed in the city.",
-						fch, NULL, NULL, TO_CHAR);
-					continue;
-				}
+                if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
+                    && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
+                {
+                    act("You can't bring $N into the city.",
+                        ch, NULL, fch, TO_CHAR);
+                    act("You aren't allowed in the city.",
+                        fch, NULL, NULL, TO_CHAR);
+                    continue;
+                }
 
-				act("You follow $N.", fch, NULL, ch, TO_CHAR);
-				do_function(fch, &do_enter, argument);
-			}
-		}
+                act("You follow $N.", fch, NULL, ch, TO_CHAR);
+                do_function(fch, &do_enter, argument);
+            }
+        }
 
-		if (portal != NULL && portal->value[0] == -1)
-		{
-			act("$p fades out of existence.", ch, portal, NULL, TO_CHAR);
-			if (ch->in_room == old_room)
-				act("$p fades out of existence.", ch, portal, NULL, TO_ROOM);
-			else if (old_room->people != NULL)
-			{
-				act("$p fades out of existence.",
-					old_room->people, portal, NULL, TO_CHAR);
-				act("$p fades out of existence.",
-					old_room->people, portal, NULL, TO_ROOM);
-			}
-			extract_obj(portal);
-		}
+        if (portal != NULL && portal->value[0] == -1)
+        {
+            act("$p fades out of existence.", ch, portal, NULL, TO_CHAR);
+            if (ch->in_room == old_room)
+                act("$p fades out of existence.", ch, portal, NULL, TO_ROOM);
+            else if (old_room->people != NULL)
+            {
+                act("$p fades out of existence.",
+                    old_room->people, portal, NULL, TO_CHAR);
+                act("$p fades out of existence.",
+                    old_room->people, portal, NULL, TO_ROOM);
+            }
+            extract_obj(portal);
+        }
 
-		/*
-		* If someone is following the char, these triggers get activated
-		* for the followers before the char, but it's safer this way...
-		*/
-		if (IS_NPC(ch) && HAS_TRIGGER(ch, TRIG_ENTRY))
-			mp_percent_trigger(ch, NULL, NULL, NULL, TRIG_ENTRY);
-		if (!IS_NPC(ch))
-			mp_greet_trigger(ch);
+        /*
+        * If someone is following the char, these triggers get activated
+        * for the followers before the char, but it's safer this way...
+        */
+        if (IS_NPC(ch) && HAS_TRIGGER(ch, TRIG_ENTRY))
+            mp_percent_trigger(ch, NULL, NULL, NULL, TRIG_ENTRY);
+        if (!IS_NPC(ch))
+            mp_greet_trigger(ch);
 
-		return;
-	}
+        return;
+    }
 
-	send_to_char("Nope, can't do it.\n\r", ch);
-	return;
+    send_to_char("Nope, can't do it.\n\r", ch);
+    return;
 }

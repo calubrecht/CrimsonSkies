@@ -1,14 +1,14 @@
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
-	#include <time.h>
+    #include <types.h>
+    #include <time.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <time.h>
 #else
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -273,7 +273,7 @@ void do_hedit (CHAR_DATA * ch, char *argument)
     if (IS_NPC (ch))
         return;
 
-	
+    
     if ((pHelp = help_lookup (argument)) == NULL)
     {
         send_to_char ("HEdit : Help doesn't exist.\n\r", ch);
@@ -289,53 +289,53 @@ void do_hedit (CHAR_DATA * ch, char *argument)
 
 void do_hedit( CHAR_DATA *ch, char *argument )
 {
-	HELP_DATA *pHelp;
-	char arg1[MIL];
-	char argall[MAX_INPUT_LENGTH],argone[MAX_INPUT_LENGTH];
-	bool found = FALSE;
+    HELP_DATA *pHelp;
+    char arg1[MIL];
+    char argall[MAX_INPUT_LENGTH],argone[MAX_INPUT_LENGTH];
+    bool found = FALSE;
 
-	strcpy(arg1,argument);
-						    
-	if(argument[0] != '\0')
-	{
-		/* Taken from do_help */
-		argall[0] = '\0';
-		while (argument[0] != '\0' )
-		{
-			argument = one_argument(argument,argone);
-			if (argall[0] != '\0')
-				strcat(argall," ");
-			strcat(argall,argone);
-		}
-		for ( pHelp = help_first; pHelp != NULL; pHelp = pHelp->next )
-		{
-			if ( is_name( argall, pHelp->keyword ) )
-			{
-				ch->desc->pEdit=(void *)pHelp;
-				ch->desc->editor= ED_HELP;
-				found = TRUE;
-				return;
-			}
-		}
-	}
-	if(!found)
-	{
-		argument = one_argument(arg1, arg1);
+    strcpy(arg1,argument);
+                            
+    if(argument[0] != '\0')
+    {
+        /* Taken from do_help */
+        argall[0] = '\0';
+        while (argument[0] != '\0' )
+        {
+            argument = one_argument(argument,argone);
+            if (argall[0] != '\0')
+                strcat(argall," ");
+            strcat(argall,argone);
+        }
+        for ( pHelp = help_first; pHelp != NULL; pHelp = pHelp->next )
+        {
+            if ( is_name( argall, pHelp->keyword ) )
+            {
+                ch->desc->pEdit=(void *)pHelp;
+                ch->desc->editor= ED_HELP;
+                found = TRUE;
+                return;
+            }
+        }
+    }
+    if(!found)
+    {
+        argument = one_argument(arg1, arg1);
 
-		if(!str_cmp(arg1,"new"))
-		{
-			if (argument[0] == '\0')
-			{
-				send_to_char("Syntax: edit help new [topic]\n\r",ch);
-				return;
-			}
-			if (hedit_new(ch, argument) )
-				ch->desc->editor = ED_HELP;
-			return;
-		}
-	}
-	send_to_char( "HEdit:  There is no default help to edit.\n\r", ch );
-	return;
+        if(!str_cmp(arg1,"new"))
+        {
+            if (argument[0] == '\0')
+            {
+                send_to_char("Syntax: edit help new [topic]\n\r",ch);
+                return;
+            }
+            if (hedit_new(ch, argument) )
+                ch->desc->editor = ED_HELP;
+            return;
+        }
+    }
+    send_to_char( "HEdit:  There is no default help to edit.\n\r", ch );
+    return;
 }
 
 

@@ -35,11 +35,11 @@
 
 // System Specific Includes
 #if defined(__APPLE__)
-	#include <types.h>
+    #include <types.h>
 #elif defined(_WIN32)
-	#include <sys/types.h>
+    #include <sys/types.h>
 #else
-	#include <sys/types.h>
+    #include <sys/types.h>
 #endif
 
 // General Includes
