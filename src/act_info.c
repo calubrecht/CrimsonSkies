@@ -2479,7 +2479,11 @@ void do_equipment (CHAR_DATA * ch, char *argument)
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
     {
         if ((obj = get_eq_char (ch, iWear)) == NULL)
+        {
+            send_to_char (where_name[iWear], ch);
+            send_to_char ("(Nothing)\n\r", ch);
             continue;
+        }
 
         send_to_char (where_name[iWear], ch);
         if (can_see_obj (ch, obj))
