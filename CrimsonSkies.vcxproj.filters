@@ -172,7 +172,6 @@
     <None Include="area\dream.are" />
     <None Include="area\drow.are" />
     <None Include="area\dwarven.are" />
-    <None Include="area\dylan.are" />
     <None Include="area\eastern.are" />
     <None Include="area\galaxy.are" />
     <None Include="area\gnome.are" />
@@ -200,7 +199,6 @@
     <None Include="area\plains.are" />
     <None Include="area\proto.are" />
     <None Include="area\pyramid.are" />
-    <None Include="area\quifael.are" />
     <None Include="area\redferne.are" />
     <None Include="area\school.are" />
     <None Include="area\sewer.are" />
@@ -235,6 +233,8 @@
     <None Include="TODO.md" />
     <None Include="area\help.are" />
     <None Include="doc\historical\telnet.html" />
+    <None Include="area\clouds.are" />
+    <None Include="area\bardcamp.are" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />

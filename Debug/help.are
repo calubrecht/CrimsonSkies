@@ -2860,7 +2860,7 @@ By what name do you wish to be known? ~
 -1 MOTD~ 
 * You are responsible for knowing the rules (type 'rules').  Ignorance of 
   the rules is no excuse.
-* Important commands: help, commands, news, notes
+* Important commands: help, commands, notes, score, look, who
 * Use the delete command to erase unwanted characters
   
 [Hit Return to continue]
@@ -2873,9 +2873,7 @@ You are responsible for following the laws of immortal behavior. These can
 be found by typing 'help laws' or 'help commandments'.
 
 * Excessive loading is not allowed, and is grounds for deletion.
-
 * Asking for promotion is grounds for instant deletion.
-
 * Type 'help jobs' to get some idea of what you should be doing.
 
  [Hit Return to continue]
@@ -2964,15 +2962,10 @@ from the city guard.
 -1 RULES~
 These are the rules of ROM.  For other matters, use common sense.
 
-* Limited player stealing or player killing.
-
 * Your presence here is a privilege not a right. Obey any orders from gods, and
   you will be fine.  Deletion does not require a reason, appeals are to be sent
   to the implementors.
  
-* Sitting around idle with a client is hazardous to your health. If we catch
-  you doing it, you will lose half your playing time.
-
 * No multiple logins, multiple playing, or helping your own characters with 
   other characters you own -- by any arrangment.
  
