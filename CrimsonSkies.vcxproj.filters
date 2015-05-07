@@ -180,7 +180,6 @@
     <None Include="area\haon.are" />
     <None Include="area\hitower.are" />
     <None Include="area\hood.are" />
-    <None Include="area\immort.are" />
     <None Include="area\limbo.are" />
     <None Include="area\mahntor.are" />
     <None Include="area\marsh.are" />
@@ -235,6 +234,7 @@
     <None Include="doc\historical\telnet.html" />
     <None Include="area\clouds.are" />
     <None Include="area\bardcamp.are" />
+    <None Include="area\immortal.are" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />

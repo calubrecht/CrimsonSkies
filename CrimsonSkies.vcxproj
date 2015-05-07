@@ -146,7 +146,7 @@
     <None Include="area\help.are" />
     <None Include="area\hitower.are" />
     <None Include="area\hood.are" />
-    <None Include="area\immort.are" />
+    <None Include="area\immortal.are" />
     <None Include="area\limbo.are" />
     <None Include="area\mahntor.are" />
     <None Include="area\marsh.are" />
