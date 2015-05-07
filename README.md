@@ -10,19 +10,17 @@ Currently Crimson Skies compiles and runs out of the box on:
   - Rasbian for use with the RaspberryPi
   - Windows 7, Windows 8 & Windows 8.1 (compiles with Visual Studio 2013)
 
-Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian) and will 
-likely also be compilable on Windows 7 & 8/8.1 in the future.  My goal is to let the programmer (e.g. you) have the mud be 
-debuggable through Visual Studio which is now free to use for anyone.  
+Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
-I am developing and testing on both of the above servers OS's.  The current development server which is playable and 
-will reflect the latest commits here is at (it will start eloving from stock ROM'ish while I work through initial changes):
+The current development server which is playable and will reflect the latest commits here is at (it will start 
+eloving from stock ROM'ish while I work through initial changes):
 
   - 66.244.102.112 port 4000
 
 This isn't advertised with Mud Connector or anywhere else, just here for anyone interested while I work on it.  The first things 
 I will be working on is cleaning up formatting, removing some small stuff I didn't think fit an RP mud (like the Jukebox) and 
 then I'll focus on new classes, reclasses, reclass reclasses, spells and skills.  I will be altering the underpinnings before 
-making many area additions.  I will be removing legacy OS support and focus on the above.
+making many area additions.  
 
 ## Project Goals:
 
@@ -70,6 +68,7 @@ which were at:
 
 Here are some related resources that are thanksfully still active.
 
+  - Mud Bytes - http://www.mudbytes.net/
   - Gammon Forums (Smaug & ROM) - http://www.gammon.com.au/forum/
   - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): http://www.andreasen.org/mud.shtml
 
