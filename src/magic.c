@@ -1492,6 +1492,10 @@ void spell_continual_light (int sn, int level, CHAR_DATA * ch, void *vo,
         }
 
         SET_BIT (light->extra_flags, ITEM_GLOW);
+
+        // Remove the invisible flag if continual light is cast on the item.
+        REMOVE_BIT(light->extra_flags, ITEM_INVIS);
+
         act ("$p glows with a white light.", ch, light, NULL, TO_ALL);
         return;
     }
