@@ -1097,15 +1097,15 @@ void do_look (CHAR_DATA * ch, char *argument)
     {
         /* 'look' or 'look auto' */
         send_to_char ("{s", ch);
-    sprintf(buf, "{c%s{x", ch->in_room->name);
+        sprintf(buf, "{c%s [%s]{x", ch->in_room->name, ch->in_room->area->name);
         send_to_char (buf, ch);
         send_to_char ("{x", ch);
 
         if ((IS_IMMORTAL (ch)
              && (IS_NPC (ch) || IS_SET (ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER (ch, ch->in_room->area))
-        {			
-            sprintf(buf, "{r [{RRoom %d{r] {r[{R%s{r]{x", ch->in_room->vnum, ch->in_room->area->name);
+        {
+            sprintf(buf, "{r [{RRoom %d{r]{x", ch->in_room->vnum);
             send_to_char (buf, ch);
         }
 
