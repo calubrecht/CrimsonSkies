@@ -782,8 +782,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 ch->move = ch->max_move;
                 ch->train = 3;
                 ch->practice = 5;
-                sprintf (buf, "the %s", title_table[ch->class][ch->level]
-                         [ch->sex == SEX_FEMALE ? 1 : 0]);
+
+                sprintf (buf, "%s", "the Neophyte");
                 set_title (ch, buf);
 
                 // Auto exit for first time players
