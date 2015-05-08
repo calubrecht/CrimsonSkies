@@ -203,6 +203,20 @@ ABFU 0 -600 0
 FGNR 0 EL I
 stand stand either 0
 AGXYc ADEFKLQVX small unknown
+#214
+bard~
+a bard~
+A bard is sitting here watching the campfire.
+~
+A bard is sitting here watching the campfire contently.
+~
+human~
+AGHS DF 200 0
+3 0 2d4+2 0d9+100 1d4+0 none
+10 10 10 10
+BEFJNU 0 0 0
+rest rest male 100
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -225,9 +239,9 @@ clothing A AE
 0 0 0 0 0
 3 20 270 P
 A
-2 -1
-A
 4 1
+A
+2 -1
 #202
 cloth hat~
 a cloth hat~
@@ -307,10 +321,22 @@ staff 0 AO
 
 
 #ROOMS
+#200
+Around the camp fire~
+You are in a clearing where a roaring camp fire is burning.  There are
+musical instruments laying around and many people sitting and watching the
+fire and galavating about.  
+~
+0 0 2
+D2
+~
+~
+0 0 214
+S
 #201
 Dimly Lit Path~
-This path is made of crushed granite.
-The path continues north to a camp, or south to the eastern road.
+This path is made of crushed granite.  The path continues north to a
+camp, or south to the eastern road.  
 ~
 0 0 3
 D0
@@ -599,10 +625,15 @@ A small tent
 S
 #214
 Dirt Road~
-Yet another part of the dirt road.  If you go west it appears to be the last section
-of the road.  You can go back to the stone well to the east.
+Yet another part of the dirt road.  If you go west it appears to be the
+last section of the road.  You can go back to the stone well to the east. 
+To appears to be a light coming from the north.  
 ~
 0 0 1
+D0
+~
+~
+0 0 200
 D1
 Dirt Road
 ~
@@ -800,9 +831,10 @@ A dirt road
 S
 #227
 Outside a rundown house~
-You are standing outside a run down house to the north.  The shutters are barely hanging into 
-the house, the roof appears to have holes in it the eastern wall is buldging out a bit.  The 
-dirt road is to the south.
+You are standing outside a run down house to the north.  The shutters are
+barely hanging onto the house, the roof appears to have holes in it, the
+eastern wall is buldging out a bit and there is no front door.  The dirt
+road is to the south.  
 ~
 0 0 1
 D0
@@ -819,7 +851,7 @@ S
 #228
 A rundown house~
 There is only one room in this house.  You can see the sky through the holes in the rough and 
-there is a musty scent from the mold that has strated to grow here.  Everything that was of 
+there is a musty scent from the mold that has started to grow here.  Everything that was of 
 any value has long since been removed and no one seems to have frequented here in ages.
 There appears to be what looks like a door to a cellar built into the floor.
 ~
@@ -876,6 +908,7 @@ M 210 spec_cast_mage
 M 211 spec_cast_cleric
 M 212 spec_cat
 M 213 spec_poison
+M 214 spec_thief
 S
 
 
@@ -883,6 +916,8 @@ S
 #RESETS
 D 0 228 5 1
 D 0 230 4 1
+M 0 214 3 200 3 Load a bard
+M 0 214 3 200 3 Load a bard
 M 0 201 8 204 1 Load a bard
 G 0 202 0 A cloth hat is given to a bard
 M 0 201 8 205 1 Load a bard
