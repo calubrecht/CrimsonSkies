@@ -2200,8 +2200,8 @@ void do_whois (CHAR_DATA * ch, char *argument)
                      clan_table[wch->clan].who_name, IS_SET (wch->comm,
                                                              COMM_AFK) ?
                      "[AFK] " : "", IS_SET (wch->act,
-                                            PLR_KILLER) ? "(KILLER) " : "",
-                     IS_SET (wch->act, PLR_THIEF) ? "(THIEF) " : "",
+                                            PLR_KILLER) ? "({RKILLER{x) " : "",
+                     IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
                      wch->name, IS_NPC (wch) ? "" : wch->pcdata->title);
             add_buf (output, buf);
         }
@@ -2420,8 +2420,8 @@ void do_who (CHAR_DATA * ch, char *argument)
                  wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
                  clan_table[wch->clan].who_name,
                  IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "",
-                 IS_SET (wch->act, PLR_KILLER) ? "(KILLER) " : "",
-                 IS_SET (wch->act, PLR_THIEF) ? "(THIEF) " : "",
+                 IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
+                 IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
                  wch->name, IS_NPC (wch) ? "" : wch->pcdata->title);
         add_buf (output, buf);
     }
