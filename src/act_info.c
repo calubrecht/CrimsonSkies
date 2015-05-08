@@ -2124,8 +2124,9 @@ void do_help (CHAR_DATA * ch, char *argument)
 void do_whois (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
-    BUFFER *output;
     char buf[MAX_STRING_LENGTH];
+    BUFFER *output;
+    char immbuf[15];
     DESCRIPTOR_DATA *d;
     bool found = FALSE;
 
@@ -2161,47 +2162,63 @@ void do_whois (CHAR_DATA * ch, char *argument)
             switch (wch->level)
             {
                 case MAX_LEVEL - 0:
-                    class = "IMP";
+                    sprintf(immbuf, "%s", " IMPLEMENTOR ");
                     break;
                 case MAX_LEVEL - 1:
-                    class = "CRE";
+                    sprintf(immbuf, "%s", "    ADMIN    ");
                     break;
                 case MAX_LEVEL - 2:
-                    class = "SUP";
+                    sprintf(immbuf, "%s", "    CODER    ");
                     break;
                 case MAX_LEVEL - 3:
-                    class = "DEI";
+                    sprintf(immbuf, "%s", "   BUILDER   ");
                     break;
                 case MAX_LEVEL - 4:
-                    class = "GOD";
+                    sprintf(immbuf, "%s", "    QUEST    ");
                     break;
                 case MAX_LEVEL - 5:
-                    class = "IMM";
+                    sprintf(immbuf, "%s", "  ROLE-PLAY  ");
                     break;
                 case MAX_LEVEL - 6:
-                    class = "DEM";
+                    sprintf(immbuf, "%s", "    STORY    ");
                     break;
                 case MAX_LEVEL - 7:
-                    class = "ANG";
+                    sprintf(immbuf, "%s", "   RETIRED   ");
                     break;
                 case MAX_LEVEL - 8:
-                    class = "AVA";
+                    sprintf(immbuf, "%s", "  TRIAL IMM  ");
                     break;
             }
 
             /* a little formatting */
-            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
-                     wch->level,
-                     wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                     class, 
-                     wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
-                     wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
-                     clan_table[wch->clan].who_name, 
-                     IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "", 
-                     IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
-                     IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
-                     wch->name, 
-                     IS_NPC (wch) ? "" : wch->pcdata->title);
+            if (!IS_IMMORTAL(wch))
+            {
+                sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
+                         wch->level,
+                         wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                         class, 
+                         wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
+                         wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
+                         clan_table[wch->clan].who_name, 
+                         IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "", 
+                         IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
+                         IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                         wch->name, 
+                         IS_NPC (wch) ? "" : wch->pcdata->title);
+            }
+            else
+            {
+                sprintf (buf, "[%s] %s%s%s%s%s%s%s%s\n\r",
+                         immbuf,
+                         wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
+                         wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
+                         clan_table[wch->clan].who_name,
+                         IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "",
+                         IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
+                         IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                         wch->name,
+                         IS_NPC (wch) ? "" : wch->pcdata->title);
+            }
             add_buf (output, buf);
         }
     }
@@ -2224,6 +2241,7 @@ void do_who (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
+    char immbuf[15];
     BUFFER *output;
     DESCRIPTOR_DATA *d;
     int iClass;
@@ -2374,43 +2392,41 @@ void do_who (CHAR_DATA * ch, char *argument)
         class = class_table[wch->class].who_name;
         switch (wch->level)
         {
-            default:
-                break;
-                {
             case MAX_LEVEL - 0:
-                    class = "IMP";
-                    break;
+                sprintf(immbuf, "%s", " IMPLEMENTOR ");
+                break;
             case MAX_LEVEL - 1:
-                    class = "CRE";
-                    break;
+                sprintf(immbuf, "%s", "    ADMIN    ");
+                break;
             case MAX_LEVEL - 2:
-                    class = "SUP";
-                    break;
+                sprintf(immbuf, "%s", "    CODER    ");
+                break;
             case MAX_LEVEL - 3:
-                    class = "DEI";
-                    break;
+                sprintf(immbuf, "%s", "   BUILDER   ");
+                break;
             case MAX_LEVEL - 4:
-                    class = "GOD";
-                    break;
+                sprintf(immbuf, "%s", "    QUEST    ");
+                break;
             case MAX_LEVEL - 5:
-                    class = "IMM";
-                    break;
+                sprintf(immbuf, "%s", "  ROLE-PLAY  ");
+                break;
             case MAX_LEVEL - 6:
-                    class = "DEM";
-                    break;
+                sprintf(immbuf, "%s", "    STORY    ");
+                break;
             case MAX_LEVEL - 7:
-                    class = "ANG";
-                    break;
+                sprintf(immbuf, "%s", "   RETIRED   ");
+                break;
             case MAX_LEVEL - 8:
-                    class = "AVA";
-                    break;
-                }
-        }
+                sprintf(immbuf, "%s", "  TRIAL IMM  ");
+                break;
+            }
 
         /*
          * Format it up.
          */
-        sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
+        if (!IS_IMMORTAL(wch))
+        {
+            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
                  wch->level,
                  wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                  class,
@@ -2422,6 +2438,20 @@ void do_who (CHAR_DATA * ch, char *argument)
                  IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
                  wch->name, 
                  IS_NPC (wch) ? "" : wch->pcdata->title);
+        }
+        else
+        {
+            sprintf (buf, "[%s] %s%s%s%s%s%s%s%s\n\r",
+                 immbuf,
+                 wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
+                 wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
+                 clan_table[wch->clan].who_name,
+                 IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "",
+                 IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
+                 IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                 wch->name,
+                 IS_NPC (wch) ? "" : wch->pcdata->title);
+        }
         add_buf (output, buf);
     }
 
