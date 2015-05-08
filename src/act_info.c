@@ -2192,17 +2192,16 @@ void do_whois (CHAR_DATA * ch, char *argument)
             /* a little formatting */
             sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
                      wch->level,
-                     wch->race <
-                     MAX_PC_RACE ? pc_race_table[wch->
-                                                 race].who_name : "     ",
-                     class, wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
+                     wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                     class, 
+                     wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
                      wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
-                     clan_table[wch->clan].who_name, IS_SET (wch->comm,
-                                                             COMM_AFK) ?
-                     "[AFK] " : "", IS_SET (wch->act,
-                                            PLR_KILLER) ? "({RKILLER{x) " : "",
+                     clan_table[wch->clan].who_name, 
+                     IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "", 
+                     IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
                      IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
-                     wch->name, IS_NPC (wch) ? "" : wch->pcdata->title);
+                     wch->name, 
+                     IS_NPC (wch) ? "" : wch->pcdata->title);
             add_buf (output, buf);
         }
     }
@@ -2413,8 +2412,7 @@ void do_who (CHAR_DATA * ch, char *argument)
          */
         sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
                  wch->level,
-                 wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name
-                 : "     ",
+                 wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                  class,
                  wch->incog_level >= LEVEL_HERO ? "(Incog) " : "",
                  wch->invis_level >= LEVEL_HERO ? "(Wizi) " : "",
@@ -2422,7 +2420,8 @@ void do_who (CHAR_DATA * ch, char *argument)
                  IS_SET (wch->comm, COMM_AFK) ? "[AFK] " : "",
                  IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
                  IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
-                 wch->name, IS_NPC (wch) ? "" : wch->pcdata->title);
+                 wch->name, 
+                 IS_NPC (wch) ? "" : wch->pcdata->title);
         add_buf (output, buf);
     }
 
