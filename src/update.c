@@ -69,6 +69,7 @@ void advance_level (CHAR_DATA * ch, bool hide)
     int add_mana;
     int add_move;
     int add_prac;
+    int add_train;
 
     ch->pcdata->last_level =
         (ch->played + (int) (current_time - ch->logon)) / 3600;
@@ -93,11 +94,13 @@ void advance_level (CHAR_DATA * ch, bool hide)
     add_mana = UMAX (2, add_mana);
     add_move = UMAX (6, add_move);
 
+    add_train = 1;
+
     ch->max_hit += add_hp;
     ch->max_mana += add_mana;
     ch->max_move += add_move;
     ch->practice += add_prac;
-    ch->train += 1;
+    ch->train += add_train;
 
     ch->pcdata->perm_hit += add_hp;
     ch->pcdata->perm_mana += add_mana;
@@ -106,9 +109,10 @@ void advance_level (CHAR_DATA * ch, bool hide)
     if (!hide)
     {
         sprintf (buf,
-                 "You gain %d hit point%s, %d mana, %d move, and %d practice%s.\n\r",
+                 "You gain %d hit point%s, %d mana, %d move, %d practice%s and %d train%s.\n\r",
                  add_hp, add_hp == 1 ? "" : "s", add_mana, add_move,
-                 add_prac, add_prac == 1 ? "" : "s");
+                 add_prac, add_prac == 1 ? "" : "s",
+		 add_train, add_train == 1 ? "" : "s");
         send_to_char (buf, ch);
     }
     return;
