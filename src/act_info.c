@@ -2119,6 +2119,12 @@ void do_help (CHAR_DATA * ch, char *argument)
     free_buf (output);
 }
 
+void do_whoami (CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    sprintf(buf, "You are logged on as %s\n\r", ch->name);
+    send_to_char(buf, ch);
+}
 
 /* whois command */
 void do_whois (CHAR_DATA * ch, char *argument)
