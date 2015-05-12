@@ -87,9 +87,6 @@
     <ClCompile Include="src\olc_act.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\olc_mpcode.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\olc_save.c">
       <Filter>Source Files</Filter>
     </ClCompile>
