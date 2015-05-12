@@ -57,13 +57,7 @@
     <ClCompile Include="src\fight.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\flags.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\handler.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\hedit.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\interp.c">

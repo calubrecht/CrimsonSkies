@@ -88,7 +88,6 @@
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
-    <ClCompile Include="src\hedit.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
