@@ -192,9 +192,9 @@
     <None Include="doc\Rom2.4.doc" />
     <None Include="README.md" />
     <None Include="src\Makefile" />
-    <None Include="src\Makefile.linux" />
-    <None Include="src\Makefile.normal" />
-    <None Include="src\Makefile.solaris" />
+    <None Include="doc\Makefile.linux" />
+    <None Include="doc\Makefile.normal" />
+    <None Include="doc\Makefile.solaris" />
     <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>
