@@ -87,7 +87,6 @@
     <ClCompile Include="src\db.c" />
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\fight.c" />
-    <ClCompile Include="src\flags.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\hedit.c" />
     <ClCompile Include="src\interp.c" />
