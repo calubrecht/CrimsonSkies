@@ -1120,6 +1120,12 @@ god level.
 
 Implementors can use the violate command to get into private rooms.
 ~
+52 EXLIST~
+Syntax: exlist
+
+Provides a list of all exits in a current area that link to other areas
+and whether they are one way or two way exits.
+~
 
 52 HOLYLIGHT INVIS WIZINVIS~
 Syntax: holylight
