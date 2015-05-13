@@ -4387,6 +4387,14 @@ void do_sockets (CHAR_DATA * ch, char *argument)
                      d->original ? d->original->name :
                      d->character ? d->character->name : "(none)", d->host);
         }
+        else if (d->character == NULL)
+        {
+            sprintf (buf + strlen (buf), "[%3d %2d] nobody@%s\n\r",
+                     d->descriptor,
+                     d->connected,
+                     d->host);
+            count++;
+        }
     }
     if (count == 0)
     {
