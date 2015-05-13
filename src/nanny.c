@@ -445,7 +445,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             break;
         case CON_GET_EMAIL:
-	    if (argument[0] != '\0')
+            if (argument[0] != '\0')
             {
                // Implement some basic error checking.
                if (strlen(argument) > 50)
