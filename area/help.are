@@ -2761,7 +2761,12 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 
 By what name do you wish to be known? ~
  
--1 MOTD~ 
+-1 MOTD~
+* {RCrimson {rSkies{x is open source.  Every line of code here can currently 
+  be seen and a project overview reviewed at:
+  
+  - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
+
 * You are responsible for knowing the rules (type 'rules').  Ignorance of 
   the rules is no excuse.
 * Important commands: help, commands, notes, score, look, who
