@@ -4732,7 +4732,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 {
     FILE *fp;
     DESCRIPTOR_DATA *d, *d_next;
-    char buf[MSL], buf2[100], buf3[100];
+    char buf[500], buf2[100], buf3[100];
     extern int port, control;    /* db.c */
 
     fp = fopen (COPYOVER_FILE, "w");
@@ -4748,6 +4748,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     /* Consider changing all saved areas here, if you use OLC */
     /* do_asave (NULL, ""); - autosave changed areas */
 
+    // Ability to specify reason to show players
     if (argument[0] == '\0')
     {
         sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
@@ -4755,8 +4756,18 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     }
     else
     {
-        sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\rReason: %s\n\r",
-             ch->name, argument);
+        // If it's less than 200 characters, show it, otherwise show default, we don't want to
+        // buffer override the buf.
+        if (strlen(argument) < 200)
+        { 
+            sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\rReason: %s\n\r",
+                 ch->name, argument);
+        }
+        else
+        {
+            sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
+                 ch->name);
+        }
     }
 
     /* For each playing descriptor, save its state */
