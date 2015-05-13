@@ -217,6 +217,7 @@ struct    weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_GET_EMAIL                   -15
 #define CON_GET_NAME			-14
 #define CON_GET_OLD_PASSWORD		-13
 #define CON_CONFIRM_NEW_NAME		-12
@@ -1427,6 +1428,7 @@ struct    pc_data
     char *			bamfin;
     char *			bamfout;
     char *			title;
+    char *                      email;
     sh_int			perm_hit;
     sh_int			perm_mana;
     sh_int			perm_move;

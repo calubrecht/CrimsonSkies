@@ -435,7 +435,35 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
 
+            // Turn echo'ing back on for asking for the email.
             write_to_buffer (d, echo_on_str, 0);
+            d->connected = CON_GET_EMAIL;
+            send_to_desc ("\n\rWe ask for an optional email address in case the game admin\n\r", d);
+            send_to_desc ("need to verify your identity to reset your password.  If you do\n\r", d);
+            send_to_desc ("not want to enter an email simply press enter for a blank address.\n\r\n\r", d);
+            send_to_desc ("Please enter your email address (optional):", d);
+
+            break;
+        case CON_GET_EMAIL:
+	    if (argument[0] != '\0')
+            {
+               // Implement some basic error checking.
+               if (strlen(argument) > 50)
+               {
+                   send_to_desc("Email address must be under 50 characters:", d);
+                   return;
+               }
+
+               if (strstr(argument, "@") == NULL || strstr(argument, ".") == NULL)
+               {
+                   send_to_desc("Invalid email address.\n\r", d);
+                   send_to_desc("Please re-enter your email address (optional):", d);
+                   return;
+               }
+
+               ch->pcdata->email = str_dup (argument);
+            }
+
             send_to_desc ("The following races are available:\n\r  ", d);
             for (race = 1; race_table[race].name != NULL; race++)
             {
@@ -448,8 +476,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             send_to_desc ("What is your race (help for more information)? ",
                           d);
             d->connected = CON_GET_NEW_RACE;
-            break;
 
+            break;
         case CON_GET_NEW_RACE:
             one_argument (argument, arg);
 

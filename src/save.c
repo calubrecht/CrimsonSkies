@@ -272,8 +272,13 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
         fprintf (fp, "Pass %s~\n", ch->pcdata->pwd);
         if (ch->pcdata->bamfin[0] != '\0')
             fprintf (fp, "Bin  %s~\n", ch->pcdata->bamfin);
+
         if (ch->pcdata->bamfout[0] != '\0')
             fprintf (fp, "Bout %s~\n", ch->pcdata->bamfout);
+
+        if (ch->pcdata->email[0] != '\0')
+            fprintf (fp, "Email %s~\n", ch->pcdata->email);
+
         fprintf (fp, "Titl %s~\n", ch->pcdata->title);
         fprintf (fp, "Pnts %d\n", ch->pcdata->points);
         fprintf (fp, "TSex %d\n", ch->pcdata->true_sex);
@@ -565,6 +570,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->pwd = str_dup ("");
     ch->pcdata->bamfin = str_dup ("");
     ch->pcdata->bamfout = str_dup ("");
+    ch->pcdata->email = str_dup ("");
     ch->pcdata->title = str_dup ("");
     for (stat = 0; stat < MAX_STATS; stat++)
         ch->perm_stat[stat] = 13;
@@ -939,6 +945,7 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                     return;
                 }
                 KEY ("Exp", ch->exp, fread_number (fp));
+                KEY ("Email", ch->pcdata->email, fread_string (fp));
                 break;
 
             case 'G':

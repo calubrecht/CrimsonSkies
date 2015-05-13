@@ -403,6 +403,7 @@ void free_pcdata (PC_DATA * pcdata)
     free_string (pcdata->bamfin);
     free_string (pcdata->bamfout);
     free_string (pcdata->title);
+    free_string (pcdata->email);
     free_buf (pcdata->buffer);
 
     for (alias = 0; alias < MAX_ALIAS; alias++)
