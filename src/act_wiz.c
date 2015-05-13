@@ -4732,7 +4732,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 {
     FILE *fp;
     DESCRIPTOR_DATA *d, *d_next;
-    char buf[100], buf2[100], buf3[100];
+    char buf[MSL], buf2[100], buf3[100];
     extern int port, control;    /* db.c */
 
     fp = fopen (COPYOVER_FILE, "w");
@@ -4748,8 +4748,16 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     /* Consider changing all saved areas here, if you use OLC */
     /* do_asave (NULL, ""); - autosave changed areas */
 
-    sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
+    if (argument[0] == '\0')
+    {
+        sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
              ch->name);
+    }
+    else
+    {
+        sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\rReason: %s\n\r",
+             ch->name, argument);
+    }
 
     /* For each playing descriptor, save its state */
     for (d = descriptor_list; d; d = d_next)
