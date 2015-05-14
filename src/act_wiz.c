@@ -4710,13 +4710,6 @@ void do_prefix (CHAR_DATA * ch, char *argument)
     ch->prefix = str_dup (argument);
 }
 
-/* commenting in order to fix gcc errors on fedora core 2
- * 9/21/04
-
-#define CH(descriptor)  ((descriptor)->original ? \
-(descriptor)->original : (descriptor)->character)
-*/
-
 /* This file holds the copyover data */
 #define COPYOVER_FILE "copyover.data"
 
@@ -4724,8 +4717,8 @@ void do_prefix (CHAR_DATA * ch, char *argument)
 #define EXE_FILE      "../area/rom"
 
 /*  Copyover - Original idea: Fusion of MUD++
- *  Adapted to Diku by Erwin S. Andreasen, <erwin@pip.dknet.dk>
- *  http://pip.dknet.dk/~pip1773
+ *  Adapted to Diku by Erwin S. Andreasen, <erwin@andreasen.org>
+ *  http://www.andreasen.org
  *  Changed into a ROM patch after seeing the 100th request for it :)
  */
 void do_copyover (CHAR_DATA * ch, char *argument)
