@@ -71,6 +71,7 @@
  * Local functions.
  */
 ROOM_INDEX_DATA *find_location args ((CHAR_DATA * ch, char *arg));
+CHAR_DATA       *copyover_ch;
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -4716,94 +4717,181 @@ void do_prefix (CHAR_DATA * ch, char *argument)
 /* This is the executable file */
 #define EXE_FILE      "../area/rom"
 
+bool is_copyover = FALSE;
+int copyover_timer = 0;
+
 /*  Copyover - Original idea: Fusion of MUD++
- *  Adapted to Diku by Erwin S. Andreasen, <erwin@andreasen.org>
- *  http://www.andreasen.org
- *  Changed into a ROM patch after seeing the 100th request for it :)
+ *  Adapted to Diku by Erwin S. Andreasen, <erwin@andreasen.org> (http://www.andreasen.org)
+ *  Modifications made by Rhien.
  */
 void do_copyover (CHAR_DATA * ch, char *argument)
 {
     FILE *fp;
     DESCRIPTOR_DATA *d, *d_next;
     char buf[500], buf2[100], buf3[100];
+    char arg1[MSL], arg2[MSL];
     extern int port, control;    /* db.c */
 
-    fp = fopen (COPYOVER_FILE, "w");
-
-    if (!fp)
+    if (ch == NULL)
     {
-        send_to_char ("Copyover file not writeable, aborted.\n\r", ch);
-        log_f ("Could not write to copyover file: %s", COPYOVER_FILE);
-        perror ("do_copyover:fopen");
+        write_to_all_desc("*** COPYOVER *** cancelled.");
         return;
     }
 
-    /* Consider changing all saved areas here, if you use OLC */
-    /* do_asave (NULL, ""); - autosave changed areas */
-
-    // Ability to specify reason to show players
+    // Check for the required argument
     if (argument[0] == '\0')
     {
-        sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
-             ch->name);
+        send_to_char("\n\rSyntax:  copyover [now|delay <ticks>|cancel|<reason>]\n\r\n\r", ch);
+        send_to_char("Sample Usage:  copyover now\n\r", ch);
+        send_to_char("               copyover now <reason>\n\r", ch);
+        send_to_char("               copyover delay 3\n\r", ch);
+        send_to_char("               copyover delay 3 <reason>\n\r", ch);
+        send_to_char("               copyover cancel\n\r", ch);
+        return;
     }
-    else
+
+    argument = one_argument( argument, arg1 );
+
+    // Verify the first argument is valid
+    if (str_cmp( arg1, "now") && str_cmp(arg1, "delay") && str_cmp(arg1, "cancel"))
     {
-        // If it's less than 200 characters, show it, otherwise show default, we don't want to
-        // buffer override the buf.
-        if (strlen(argument) < 200)
-        { 
-            sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\rReason: %s\n\r",
-                 ch->name, argument);
+        send_to_char("\n\rSyntax:  copyover [now|delay <ticks>|cancel|<reason>]\n\r\n\r", ch);
+        send_to_char("Sample Usage:  copyover now\n\r", ch);
+        send_to_char("               copyover delay 3\n\r", ch);
+        send_to_char("               copyover delay 3 Implement new code\n\r", ch);
+        send_to_char("               copyover cancel\n\r", ch);
+       return;
+    }
+
+    if (!str_cmp( arg1, "delay"))
+    {
+        argument = one_argument( argument, arg2);
+
+        if (is_number(arg2))
+        {
+            // Set how many ticks the copyover should occur in and send a message to all
+            // connected sockets.
+            copyover_timer = atoi(arg2);
+            is_copyover = TRUE;
+
+            // With or without a reason
+            if (argument[0] == '\0')
+            {
+                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s will occur in %d ticks.\n\r",
+                     C_B_RED, CLEAR, ch->name, copyover_timer);
+            }
+            else
+            {
+                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s will occur in %d ticks.\n\rReason: %s\n\r",
+                     C_B_RED, CLEAR, ch->name, copyover_timer, argument);
+            }
+
+            // Set the pointer back to the person calling it so we can reference them
+            // in the timer call back that's in update.c
+            copyover_ch = ch;
+
+            write_to_all_desc(buf);
         }
         else
         {
-            sprintf (buf, "\n\r*** \x1B[0;31mCOPYOVER\x1B[0m *** by %s - please remain seated!\n\r",
-                 ch->name);
+            send_to_char("\n\rSyntax:  copyover delay <ticks>\n\r", ch);
+            return;
         }
+
     }
-
-    /* For each playing descriptor, save its state */
-    for (d = descriptor_list; d; d = d_next)
+    else if (!str_cmp( arg1, "cancel"))
     {
-        CHAR_DATA *och = CH (d);
-        d_next = d->next;        /* We delete from the list , so need to save this */
+        is_copyover = FALSE;
+        copyover_timer = 0;
 
-        if (!d->character || d->connected < CON_PLAYING)
-        {                        /* drop those logging on */
-            write_to_descriptor (d->descriptor,
-                                 "\n\rSorry, we are rebooting. Come back in a few minutes.\n\r",
-                                 0);
-            close_socket (d);    /* throw'em out */
+        sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by cancelled by %s.\n\r",
+            C_B_RED, CLEAR, ch->name);
+
+        copyover_ch = NULL;
+
+        write_to_all_desc(buf);
+    }
+    else if (!str_cmp( arg1, "now" ))
+    {
+        // This is where the actual copyover is initiated and where the timer should
+        // call when it's up
+        fp = fopen (COPYOVER_FILE, "w");
+
+        if (!fp)
+        {
+            send_to_char ("Copyover file not writeable, aborted.\n\r", ch);
+            log_f ("Could not write to copyover file: %s", COPYOVER_FILE);
+            perror ("do_copyover:fopen");
+            return;
+        }
+
+        /* Consider changing all saved areas here, if you use OLC */
+        /* do_asave (NULL, ""); - autosave changed areas */
+
+        // Ability to specify reason to show players
+        if (argument[0] == '\0')
+        {
+            sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
+                 C_B_RED, CLEAR, ch->name);
         }
         else
         {
-            fprintf (fp, "%d %s %s\n", d->descriptor, och->name, d->host);
-            save_char_obj (och);
-            write_to_descriptor (d->descriptor, buf, 0);
+            // If it's less than 200 characters, show it, otherwise show default, we don't want to
+            // buffer override the buf.
+            if (strlen(argument) < 200)
+            { 
+                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\rReason: %s\n\r",
+                     C_B_RED, CLEAR, ch->name, argument);
+            }
+            else
+            {
+                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
+                     C_B_RED, CLEAR, ch->name);
+            }
         }
-    }
 
-    fprintf (fp, "-1\n");
-    fclose (fp);
+        /* For each playing descriptor, save its state */
+        for (d = descriptor_list; d; d = d_next)
+        {
+            CHAR_DATA *och = CH (d);
+            d_next = d->next;        /* We delete from the list , so need to save this */
 
-    /* Close reserve and other always-open files and release other resources */
-    fclose (fpReserve);
+            if (!d->character || d->connected < CON_PLAYING)
+           {                        /* drop those logging on */
+               write_to_descriptor (d->descriptor,
+                                     "\n\rSorry, we are rebooting. Come back in a few minutes.\n\r",
+                                     0);
+                close_socket (d);    /* throw'em out */
+            }
+            else
+            {
+                fprintf (fp, "%d %s %s\n", d->descriptor, och->name, d->host);
+                save_char_obj (och);
+                write_to_descriptor (d->descriptor, buf, 0);
+            }
+        }
 
-    /* exec - descriptors are inherited */
+        fprintf (fp, "-1\n");
+        fclose (fp);
 
-    sprintf (buf, "%d", port);
-    sprintf (buf2, "%d", control);
-    strncpy( buf3, "-1", 100 );
-    execl (EXE_FILE, "rom", buf, "copyover", buf2, buf3, (char *) NULL);
+        /* Close reserve and other always-open files and release other resources */
+        fclose (fpReserve);
 
-    /* Failed - sucessful exec will not return */
-    perror ("do_copyover: execl");
-    send_to_char ("Copyover FAILED!\n\r", ch);
+        /* exec - descriptors are inherited */
+        sprintf (buf, "%d", port);
+        sprintf (buf2, "%d", control);
+        strncpy( buf3, "-1", 100 );
+        execl (EXE_FILE, "rom", buf, "copyover", buf2, buf3, (char *) NULL);
 
-    /* Here you might want to reopen fpReserve */
-    fpReserve = fopen (NULL_FILE, "r");
-}
+        /* Failed - sucessful exec will not return */
+        perror ("do_copyover: execl");
+        send_to_char ("Copyover FAILED!\n\r", ch);
+
+        /* Here you might want to reopen fpReserve */
+        fpReserve = fopen (NULL_FILE, "r");
+    } // end if "now"
+
+} // end do_copyover
 
 /* Recover from a copyover - load players */
 void copyover_recover ()

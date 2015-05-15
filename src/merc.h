@@ -543,11 +543,11 @@ struct    kill_data
 #define Z     33554432
 #define aa    67108864  /* doubled due to conflicts */
 #define bb   134217728
-#define cc   268435456    
+#define cc   268435456
 #define dd   536870912
 #define ee  1073741824
 #define ff  2147483648
-#define gg	4294967296
+#define gg  4294967296
 
 /*
  * ACT bits for mobs.
@@ -562,7 +562,7 @@ struct    kill_data
 #define ACT_PET            (I)   /* Auto set for pets  */
 #define ACT_TRAIN          (J)   /* Can train PC's     */
 #define ACT_PRACTICE       (K)   /* Can practice PC's  */
-#define ACT_UNDEAD         (O)    
+#define ACT_UNDEAD         (O)
 #define ACT_CLERIC         (Q)
 #define ACT_MAGE           (R)
 #define ACT_THIEF          (S)
@@ -1902,26 +1902,26 @@ extern             struct    social_type     social_table   [MAX_SOCIALS];
 /*
  * Global variables.
  */
-extern  HELP_DATA		*	help_first;
-extern  SHOP_DATA		*	shop_first;
-
-extern  CHAR_DATA		*	char_list;
-extern  DESCRIPTOR_DATA	*	descriptor_list;
-extern  OBJ_DATA		*	object_list;
-
-extern  MPROG_CODE		*	mprog_list;
-
-extern  char				bug_buf[];
-extern  time_t				current_time;
-extern  bool				fLogAll;
-extern  FILE			*	fpReserve;
-extern  KILL_DATA			kill_table[];
-extern  char				log_buf[];
-extern  TIME_INFO_DATA		time_info;
-extern  WEATHER_DATA		weather_info;
-extern	NOTE_DATA		*	note_free;
-extern	OBJ_DATA		*	obj_free;
-extern  bool				MOBtrigger;
+extern  HELP_DATA               * help_first;
+extern  SHOP_DATA               * shop_first;
+extern  CHAR_DATA               * char_list;
+extern  DESCRIPTOR_DATA         * descriptor_list;
+extern  OBJ_DATA                * object_list;
+extern  MPROG_CODE              * mprog_list;
+extern  char                    bug_buf[];
+extern  time_t                  current_time;
+extern  bool                    fLogAll;
+extern  FILE                    * fpReserve;
+extern  KILL_DATA               kill_table[];
+extern  char                    log_buf[];
+extern  TIME_INFO_DATA          time_info;
+extern  WEATHER_DATA            weather_info;
+extern  NOTE_DATA               * note_free;
+extern  OBJ_DATA                * obj_free;
+extern  bool                    MOBtrigger;
+extern  bool                    is_copyover;     // Whether a copyover is running or not
+extern  CHAR_DATA               *copyover_ch;    // Link back to the person who executed the copyover
+extern  int                     copyover_timer;  // How many ticks are left until the copyover executes
 
 /*
  * OS-dependent declarations.
@@ -2058,6 +2058,8 @@ void     printf_to_char      args( ( CHAR_DATA *, char *, ... ) );
 void     printf_to_desc      args( ( DESCRIPTOR_DATA *, char *, ... ) );
 void     bugf                args( ( char *, ... ) );
 bool     write_to_descriptor args( ( int desc, char *txt, int length ) );
+void     write_to_all_desc   args( ( char *txt) );
+void     send_to_all_char    args( ( char *txt) );
 
 /* db.c */
 void     reset_area          args( ( AREA_DATA * pArea ) );        /* OLC */

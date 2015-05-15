@@ -55,9 +55,13 @@ void weather_update args ((void));
 void char_update args ((void));
 void obj_update args ((void));
 void aggr_update args ((void));
+void tick_update args ((void));
 
 /* used for saving */
 int save_number = 0;
+
+/* Used for timed copyover's, a reference to the initial calling person */
+extern CHAR_DATA *copyover_ch;
 
 /*
  * Advancement stuff.
@@ -1163,13 +1167,58 @@ void update_handler (bool forced)
     {
         wiznet ("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
         pulse_point = PULSE_TICK;
-/* number_range( PULSE_TICK / 2, 3 * PULSE_TICK / 2 ); */
         weather_update ();
         char_update ();
         obj_update ();
+        tick_update ();
     }
 
     aggr_update ();
     tail_chain ();
     return;
+}
+
+/*
+ *  Arbitrary code that needs to execute on every tick.  Will occur at the end of processing
+ *  of each tick (e.g. weather, char and obj, etc. updates will come first).
+ */
+void tick_update()
+{
+    char buf[MSL];
+
+    // If a copyover is happening make the countdown and execute it when it hits 0.
+    if (is_copyover == TRUE)
+    {
+        copyover_timer = copyover_timer - 1;
+
+        if (copyover_timer <= 0)
+        {
+            is_copyover = FALSE;
+
+            // If the copyover person is still active and not null execute the copyover,
+            // otherwise cancel it.
+            if (copyover_ch != NULL)
+            {
+                do_function (copyover_ch, &do_copyover, "now");
+            }
+            else
+            {
+                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** cancelled.\n\r",
+                     C_B_RED, CLEAR);
+                //write_to_all_desc(buf);
+                send_to_all_char(buf);
+            }
+
+        }
+        else
+        {
+            // Show the current countdown to the game.
+            sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** will occur in %d tick(s).\n\r",
+                 C_B_RED, CLEAR, copyover_timer);
+            //write_to_all_desc(buf);
+            send_to_all_char(buf);
+        }
+
+    } // end copyover
+
 }

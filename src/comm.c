@@ -1462,7 +1462,39 @@ void write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
     return;
 }
 
+/*
+ * Rhien 5/15/2015
+ * Writes a message to all descriptors using write_to_descriptor which is
+ * low level with no color.  This can be used to send a message to every
+ * connected socket.  This is useful where no other logic in the loop is 
+ * needed.
+ */
+void write_to_all_desc(char *txt)
+{
+    DESCRIPTOR_DATA *d;
 
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        write_to_descriptor(d->descriptor, txt, 0);
+    }
+}
+
+/*
+ * Rhien 5/15/2015
+ * Writes a message to all characters through the send_to_char mechansim.
+ */
+void send_to_all_char(char *txt)
+{
+    CHAR_DATA *ch;
+
+    for (ch = char_list; ch != NULL; ch = ch->next)
+    {
+        if (!IS_NPC (ch))
+        {
+            send_to_char(txt, ch);
+        }
+    }
+}
 
 /*
  * Lowest level output function.
@@ -1766,14 +1798,10 @@ void page_to_char_bw (const char *txt, CHAR_DATA * ch)
         return;
     }
 
-#if defined(__APPLE__)
-    send_to_char_bw (txt, ch);
-#else
     ch->desc->showstr_head = alloc_mem (strlen (txt) + 1);
     strcpy (ch->desc->showstr_head, txt);
     ch->desc->showstr_point = ch->desc->showstr_head;
     show_string (ch->desc, "");
-#endif
 }
 
 /*
