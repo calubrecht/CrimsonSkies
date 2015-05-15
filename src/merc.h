@@ -2071,7 +2071,6 @@ CD *     create_mobile       args( ( MOB_INDEX_DATA *pMobIndex ) );
 void     clone_mobile        args( ( CHAR_DATA *parent, CHAR_DATA *clone) );
 OD *     create_object       args( ( OBJ_INDEX_DATA *pObjIndex, int level ) );
 void     clone_object        args( ( OBJ_DATA *parent, OBJ_DATA *clone ) );
-void     clear_char          args( ( CHAR_DATA *ch ) );
 char *   get_extra_descr     args( ( const char *name, EXTRA_DESCR_DATA *ed ) );
 MID *    get_mob_index       args( ( int vnum ) );
 OID *    get_obj_index       args( ( int vnum ) );

@@ -2033,40 +2033,6 @@ void clone_object (OBJ_DATA * parent, OBJ_DATA * clone)
 }
 
 /*
- * Clear a new character.
- */
-void clear_char (CHAR_DATA * ch)
-{
-    static CHAR_DATA ch_zero;
-    int i;
-
-    *ch = ch_zero;
-    ch->name = &str_empty[0];
-    ch->short_descr = &str_empty[0];
-    ch->long_descr = &str_empty[0];
-    ch->description = &str_empty[0];
-    ch->prompt = &str_empty[0];
-    ch->logon = current_time;
-    ch->lines = PAGELEN;
-    for (i = 0; i < 4; i++)
-        ch->armor[i] = 100;
-    ch->position = POS_STANDING;
-    ch->hit = 20;
-    ch->max_hit = 20;
-    ch->mana = 100;
-    ch->max_mana = 100;
-    ch->move = 100;
-    ch->max_move = 100;
-    ch->on = NULL;
-    for (i = 0; i < MAX_STATS; i++)
-    {
-        ch->perm_stat[i] = 13;
-        ch->mod_stat[i] = 0;
-    }
-    return;
-}
-
-/*
  * Get an extra description from a list.
  */
 char *get_extra_descr (const char *name, EXTRA_DESCR_DATA * ed)
