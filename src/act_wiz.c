@@ -4734,7 +4734,8 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 
     if (ch == NULL)
     {
-        send_to_all_char("*** COPYOVER *** cancelled.");
+        sprintf(buf, "*** %sCOPYOVER%s *** cancelled.", C_B_RED, CLEAR);
+        send_to_all_char(buf);
         return;
     }
 
