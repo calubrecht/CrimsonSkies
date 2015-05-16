@@ -879,10 +879,14 @@ void spell_blindness (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
-    if (IS_AFFECTED (victim, AFF_BLIND)
-        || saves_spell (level, victim, DAM_OTHER))
+    if (IS_AFFECTED(victim, AFF_BLIND))
+    {
+        send_to_char("They are already blinded.\n\r", ch);
         return;
+    }
 
+    if (saves_spell (level, victim, DAM_OTHER))
+        return;
 
     af.where = TO_AFFECTS;
     af.type = sn;
@@ -1791,9 +1795,15 @@ void spell_curse (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     /* character curses */
     victim = (CHAR_DATA *) vo;
 
-    if (IS_AFFECTED (victim, AFF_CURSE)
-        || saves_spell (level, victim, DAM_NEGATIVE))
+    if (IS_AFFECTED(victim, AFF_CURSE))
+    {
+        send_to_char("They have already been cursed.", ch);
         return;
+    }
+
+    if (saves_spell (level, victim, DAM_NEGATIVE))
+        return;
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -3902,6 +3912,12 @@ void spell_plague (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
+    if (is_affected(victim, sn))
+    {
+        send_to_char("They have already been plagued.\n\r", ch);
+        return;
+    }
+
     if (saves_spell (level, victim, DAM_DISEASE) ||
         (IS_NPC (victim) && IS_SET (victim->act, ACT_UNDEAD)))
     {
@@ -3994,6 +4010,12 @@ void spell_poison (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     victim = (CHAR_DATA *) vo;
 
+    if (is_affected(victim, sn))
+    {
+        send_to_char("They are already poisoned.\n\r", ch);
+        return;
+    }
+
     if (saves_spell (level, victim, DAM_POISON))
     {
         act ("$n turns slightly green, but it passes.", victim, NULL, NULL,
@@ -4014,8 +4036,6 @@ void spell_poison (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     act ("$n looks very ill.", victim, NULL, NULL, TO_ROOM);
     return;
 }
-
-
 
 void spell_protection_evil (int sn, int level, CHAR_DATA * ch, void *vo,
                             int target)
@@ -4366,8 +4386,13 @@ void spell_sleep (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
-    if (IS_AFFECTED (victim, AFF_SLEEP)
-        || (IS_NPC (victim) && IS_SET (victim->act, ACT_UNDEAD))
+    if (IS_AFFECTED(victim, AFF_SLEEP))
+    {
+        send_to_char("They are already affected by a sleep spell.\n\r", ch);
+        return;
+    }
+
+    if ((IS_NPC (victim) && IS_SET (victim->act, ACT_UNDEAD))
         || (level + 2) < victim->level
         || saves_spell (level - 4, victim, DAM_CHARM)) return;
 
@@ -4572,7 +4597,13 @@ void spell_weaken (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
-    if (is_affected (victim, sn) || saves_spell (level, victim, DAM_OTHER))
+    if (is_affected(victim, sn))
+    {
+        send_to_char("They are already very weak.\n\r", ch);
+        return;
+    }
+
+    if (saves_spell (level, victim, DAM_OTHER))
         return;
 
     af.where = TO_AFFECTS;
