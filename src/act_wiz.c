@@ -4734,7 +4734,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 
     if (ch == NULL)
     {
-        write_to_all_desc("*** COPYOVER *** cancelled.");
+        send_to_all_char("*** COPYOVER *** cancelled.");
         return;
     }
 
@@ -4777,12 +4777,12 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // With or without a reason
             if (argument[0] == '\0')
             {
-                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s will occur in %d ticks.\n\r",
+                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s will occur in %d tick(s).\n\r",
                      C_B_RED, CLEAR, ch->name, copyover_timer);
             }
             else
             {
-                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s will occur in %d ticks.\n\rReason: %s\n\r",
+                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s will occur in %d tick(s).\n\rReason: %s\n\r",
                      C_B_RED, CLEAR, ch->name, copyover_timer, argument);
             }
 
@@ -4790,7 +4790,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // in the timer call back that's in update.c
             copyover_ch = ch;
 
-            write_to_all_desc(buf);
+            send_to_all_char(buf);
         }
         else
         {
@@ -4804,12 +4804,12 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         is_copyover = FALSE;
         copyover_timer = 0;
 
-        sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by cancelled by %s.\n\r",
+        sprintf (buf, "\n\r*** %sCOPYOVER%s *** by cancelled by %s.\n\r",
             C_B_RED, CLEAR, ch->name);
 
         copyover_ch = NULL;
 
-        write_to_all_desc(buf);
+        send_to_all_char(buf);
     }
     else if (!str_cmp( arg1, "now" ))
     {
@@ -4831,7 +4831,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         // Ability to specify reason to show players
         if (argument[0] == '\0')
         {
-            sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
+            sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
                  C_B_RED, CLEAR, ch->name);
         }
         else
@@ -4840,12 +4840,12 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // buffer override the buf.
             if (strlen(argument) < 200)
             { 
-                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\rReason: %s\n\r",
+                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\rReason: %s\n\r",
                      C_B_RED, CLEAR, ch->name, argument);
             }
             else
             {
-                sprintf (buf, "\n\r\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
+                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
                      C_B_RED, CLEAR, ch->name);
             }
         }
