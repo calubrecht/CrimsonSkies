@@ -886,7 +886,10 @@ void spell_blindness (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (saves_spell (level, victim, DAM_OTHER))
+    {
+        send_to_char("You failed.\n\r", ch);
         return;
+    }
 
     af.where = TO_AFFECTS;
     af.type = sn;
@@ -1802,7 +1805,10 @@ void spell_curse (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (saves_spell (level, victim, DAM_NEGATIVE))
+    {
+        send_to_char("You failed.\n\r", ch);
         return;
+    }
 
     af.where = TO_AFFECTS;
     af.type = sn;
@@ -4452,7 +4458,6 @@ void spell_slow (int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -4465,9 +4470,6 @@ void spell_slow (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     act ("$n starts to move in slow motion.", victim, NULL, NULL, TO_ROOM);
     return;
 }
-
-
-
 
 void spell_stone_skin (int sn, int level, CHAR_DATA * ch, void *vo,
                        int target)
@@ -4604,7 +4606,10 @@ void spell_weaken (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (saves_spell (level, victim, DAM_OTHER))
+    {
+        send_to_char("You failed.\n\r", ch);
         return;
+    }
 
     af.where = TO_AFFECTS;
     af.type = sn;
