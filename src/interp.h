@@ -321,3 +321,4 @@ DECLARE_DO_FUN(do_northeast);
 DECLARE_DO_FUN(do_northwest);
 DECLARE_DO_FUN(do_southeast);
 DECLARE_DO_FUN(do_southwest);
+DECLARE_DO_FUN(do_pray);

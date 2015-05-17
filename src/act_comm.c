@@ -645,6 +645,41 @@ void do_immtalk (CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Rhien, 5/16/2015
+ * Prayer channel, a direct line from a mortal to the immortals online.
+ */
+void do_pray(CHAR_DATA * ch, char *argument)
+{
+	char buf[MAX_STRING_LENGTH];
+	DESCRIPTOR_DATA *d;
+
+	if (argument[0] == '\0')
+	{
+        send_to_char("What do you wish to pray?\n\r", ch);
+		return;
+	}
+	else
+	{                            
+		sprintf(buf, "{xYou pray '{G%s{x'\n\r", argument);
+		send_to_char(buf, ch);
+		for (d = descriptor_list; d != NULL; d = d->next)
+		{
+			CHAR_DATA *victim;
+
+			victim = d->original ? d->original : d->character;
+
+			if (d->connected == CON_PLAYING &&
+				d->character != ch &&
+				IS_IMMORTAL(d->character) &&
+				!IS_SET(victim->comm, COMM_QUIET))
+			{
+				act_new("{x$n prays '{G$t{x'",
+					ch, argument, d->character, TO_VICT, POS_SLEEPING);
+			}
+		}
+	}
+} // end do_pray
 
 void do_say (CHAR_DATA * ch, char *argument)
 {

@@ -203,6 +203,7 @@ const struct cmd_type cmd_table[] = {
     {"say",             do_say,         POS_RESTING,  0, LOG_NORMAL, 1},
     {"shout",           do_shout,       POS_RESTING,  3, LOG_NORMAL, 1},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, 1},
+	{"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, 1},
 
     /*
      * Object manipulation commands.

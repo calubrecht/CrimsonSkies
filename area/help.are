@@ -443,8 +443,7 @@ Syntax: yell    <message>
 SHOUT sends a message to all awake players in the world.  To curb excessive
 shouting, SHOUT imposes a three-second delay on the shouter.
 
-GOSSIP and CGOSSIP are variants of SHOUT (without the delay).  '.' is a 
-synonym for GOSSIP.
+GOSSIP and CGOSSIP are variants of SHOUT (without the delay).
 
 YELL sends a message to all awake players within your area.
 
@@ -1661,6 +1660,14 @@ your message.
 Syntax: cast weaken <victim>
 
 This spell reduces the strength of the victim by two points.
+~
+
+0 PRAY~
+Syntax: pray <message>
+
+Sends a prayer message to the immortals who might be online.  This is a way for mortals
+to contact the immortals online for assistance, questions, etc.  This command is logged
+so immortals can view it later if none are online.
 ~
 
 0 'WORD OF RECALL'~
