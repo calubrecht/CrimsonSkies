@@ -1006,12 +1006,8 @@ void load_specials (FILE * fp)
  */
 void fix_exits (void)
 {
-    //extern const sh_int rev_dir[];
-    //char buf[MAX_STRING_LENGTH];
     ROOM_INDEX_DATA *pRoomIndex;
-    //ROOM_INDEX_DATA *to_room;
     EXIT_DATA *pexit;
-    //EXIT_DATA *pexit_rev;
     RESET_DATA *pReset;
     ROOM_INDEX_DATA *iLastRoom, *iLastObj;
     int iHash;
