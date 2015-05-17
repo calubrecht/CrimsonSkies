@@ -1319,20 +1319,11 @@ void do_typo (CHAR_DATA * ch, char *argument)
     return;
 }
 
-void do_rent (CHAR_DATA * ch, char *argument)
-{
-    send_to_char ("There is no rent here.  Just save and quit.\n\r", ch);
-    return;
-}
-
-
 void do_qui (CHAR_DATA * ch, char *argument)
 {
     send_to_char ("If you want to QUIT, you have to spell it out.\n\r", ch);
     return;
 }
-
-
 
 void do_quit (CHAR_DATA * ch, char *argument)
 {

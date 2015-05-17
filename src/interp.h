@@ -221,7 +221,6 @@ DECLARE_DO_FUN(do_recall);
 DECLARE_DO_FUN(do_recho);
 DECLARE_DO_FUN(do_recite);
 DECLARE_DO_FUN(do_remove);
-DECLARE_DO_FUN(do_rent);
 DECLARE_DO_FUN(do_replay);
 DECLARE_DO_FUN(do_reply);
 DECLARE_DO_FUN(do_report);
