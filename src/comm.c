@@ -92,13 +92,7 @@
 /*
  * Socket and TCP/IP stuff.
  */
-#if    defined(__APPLE__) 
-    const char echo_off_str[] = { '\0' };
-    const char echo_on_str[] = { '\0' };
-    const char go_ahead_str[] = { '\0' };
-#endif
-
-#if defined(_WIN32)
+#if defined(_WIN32) || defined (__APPLE__)
     const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
     const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
     const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
@@ -1263,7 +1257,7 @@ void bust_a_prompt (CHAR_DATA * ch)
         // in here.
         int percent;
         percent = ch->hit * 100 / ch->max_hit;
-                
+
             if (percent > 70) {
                     sprintf(buf2, "{W%d{x", ch->hit);
             }
@@ -1282,7 +1276,7 @@ void bust_a_prompt (CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'm':
-        {
+            {
                 // Rhien,  4/10/2015, color indicators for vitals
                 int percent;
                 percent = ch->mana * 100 / ch->max_mana;
@@ -1299,13 +1293,13 @@ void bust_a_prompt (CHAR_DATA * ch)
 
                 i = buf2;
                 break;
-        }
+            }
             case 'M':
                 sprintf (buf2, "%d", ch->max_mana);
                 i = buf2;
                 break;
             case 'v':
-        {
+            {
                 // Rhien,  4/10/2015, color indicators for vitals
                 int percent;
                 percent = ch->move * 100 / ch->max_move;
@@ -2018,14 +2012,6 @@ void show_string (struct descriptor_data *d, char *input)
     return;
 }
 
-
-/* quick sex fixer */
-void fix_sex (CHAR_DATA * ch)
-{
-    if (ch->sex < 0 || ch->sex > 2)
-        ch->sex = IS_NPC (ch) ? 0 : ch->pcdata->true_sex;
-}
-
 void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
               const void *arg2, int type, int min_pos)
 {
@@ -2326,7 +2312,6 @@ int color(char type, CHAR_DATA *ch, char *string)
     return(strlen(code));
 }
 
-
 void colorconv (char *buffer, const char *txt, CHAR_DATA * ch)
 {
     const char *point;
@@ -2371,8 +2356,6 @@ void colorconv (char *buffer, const char *txt, CHAR_DATA * ch)
     return;
 }
 
-
-
 /*
  * Macintosh support functions.
  */
@@ -2385,7 +2368,6 @@ int gettimeofday (struct timeval *tp, void *tzp)
 #endif
 
 /* source: EOD, by John Booth <???> */
-
 void printf_to_desc (DESCRIPTOR_DATA * d, char *fmt, ...)
 {
     char buf[MSL];
@@ -2420,9 +2402,9 @@ void bugf (char *fmt, ...)
 }
 
 /*
-* Windows support functions
-* (copied from Envy)
-*/
+ * Windows support functions
+ * (copied from Envy)
+ */
 #if defined( _WIN32 )
 void gettimeofday(struct timeval *tp, void *tzp)
 {
@@ -2431,10 +2413,9 @@ void gettimeofday(struct timeval *tp, void *tzp)
 }
 #endif
 
-
 /*
-* Macintosh support functions.
-*/
+ * Macintosh support functions.
+ */
 #if defined(__APPLE__)
 int gettimeofday(struct timeval *tp, void *tzp)
 {
