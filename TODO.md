@@ -16,7 +16,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add pray command that will allow a mortal to send a message for any immortals logged in to see.
   - Better format sockets command.
   - Remove the new notes/boards and revert to the old school note system.  Like it much better.
-  - Command to list all rooms/vnums, objects/vnums and/or mobs/vnums in an area to assist in OLC.
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
   - Statistics.
@@ -29,6 +28,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Cleanup display of wiznet on/off options
-  - Move flag.c into act_wiz.c  
   - Add profile command and/or way for user to store some OOC data like email.
-  - BUG - If a user is in creation on copyover they come out level 0, if they kill a mob the game crashes.
+  
