@@ -29,4 +29,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Number of connections per boot saved on count as well as most online ever.
   - Cleanup display of wiznet on/off options
   - Add profile command and/or way for user to store some OOC data like email.
-  
+  - have do_dump put files in the log directory.
