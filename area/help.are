@@ -1,6 +1,6 @@
 #HELPS
 
-0 QMCONFIG~
+52 QMCONFIG~
 Syntax: qmconfig [show|ansiprompt|ansicolor|telnetga] [on|off]
 
         This command is used to set options developed in the
