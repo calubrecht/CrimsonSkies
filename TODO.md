@@ -30,3 +30,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Cleanup display of wiznet on/off options
   - Add profile command and/or way for user to store some OOC data like email.
   - have do_dump put files in the log directory.
+  - Use Alander's random number generator which is the system, remove Furey's code but stash it somewhere for posterity.
