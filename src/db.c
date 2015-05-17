@@ -415,48 +415,6 @@ void boot_db ()
     return;
 }
 
-
-
-/*
- * Snarf an 'area' header line.
- */
-void load_area (FILE * fp)
-{
-    AREA_DATA *pArea;
-
-    pArea = alloc_perm (sizeof (*pArea));
-    pArea->file_name = fread_string (fp);
-
-    log_f("Loading area %s", pArea->file_name);
-
-    pArea->area_flags = AREA_LOADING;    /* OLC */
-    pArea->security = 9;        /* OLC *//* 9 -- Hugin */
-    pArea->builders = str_dup ("None");    /* OLC */
-    pArea->vnum = top_area;        /* OLC */
-
-    pArea->name = fread_string (fp);
-    pArea->credits = fread_string (fp);
-    pArea->min_vnum = fread_number (fp);
-    pArea->max_vnum = fread_number (fp);
-    pArea->age = 15;
-    pArea->nplayer = 0;
-    pArea->empty = FALSE;
-
-    if (!area_first)
-        area_first = pArea;
-    if (area_last)
-    {
-        area_last->next = pArea;
-        REMOVE_BIT (area_last->area_flags, AREA_LOADING);    /* OLC */
-    }
-    area_last = pArea;
-    pArea->next = NULL;
-    current_area = pArea;
-
-    top_area++;
-    return;
-}
-
 /*
  * OLC
  * Use these macros to load any new area formats that you choose to
