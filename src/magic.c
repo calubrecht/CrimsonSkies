@@ -4400,7 +4400,11 @@ void spell_sleep (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if ((IS_NPC (victim) && IS_SET (victim->act, ACT_UNDEAD))
         || (level + 2) < victim->level
-        || saves_spell (level - 4, victim, DAM_CHARM)) return;
+        || saves_spell (level - 4, victim, DAM_CHARM)) 
+    {
+        send_to_char("The spell failed.\n\r", ch);
+        return;
+    }
 
     af.where = TO_AFFECTS;
     af.type = sn;
@@ -4607,7 +4611,7 @@ void spell_weaken (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (saves_spell (level, victim, DAM_OTHER))
     {
-        send_to_char("You failed.\n\r", ch);
+        send_to_char("The spell failed.\n\r", ch);
         return;
     }
 
