@@ -50,10 +50,6 @@
 #include "lookup.h"
 #include "olc.h"
 
-#if !defined(__APPLE__)
-extern int _filbuf args ((FILE *));
-#endif
-
 #if defined (_WIN32)
 #define random() rand()
 #define srandom( x ) srand( x )

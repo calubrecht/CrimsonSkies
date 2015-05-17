@@ -48,11 +48,6 @@
 #include "tables.h"
 #include "lookup.h"
 
-#if !defined(__APPLE__)
-extern int _filbuf args ((FILE *));
-#endif
-
-
 /* int rename(const char *oldfname, const char *newfname); viene en stdio.h */
 char *print_flags (int flag)
 {
