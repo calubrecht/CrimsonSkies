@@ -96,12 +96,13 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  * Increase the max'es if you add more of something.
  * Adjust the pulse numbers to suit yourself.
  */
+// reclass
 #define MAX_SOCIALS        256
 #define MAX_SKILL          150
-#define MAX_GROUP          30
+#define MAX_GROUP          32 // reclass
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5
-#define MAX_CLASS          4
+#define MAX_CLASS          5 // reclass
 #define MAX_PC_RACE        5
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
@@ -363,6 +364,7 @@ struct    shop_data
 #define STAT_DEX   3
 #define STAT_CON   4
 
+// reclass
 struct    class_type
 {
     char *  name;              /* the full name of the class  */
@@ -378,6 +380,7 @@ struct    class_type
     bool    fMana;             /* Class gains mana on level   */
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
+	bool    is_reclass;        /* Whether the class is a reclass (or a base class) */
 };
 
 struct item_type

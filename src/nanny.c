@@ -558,6 +558,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
+			// reclass
             strcpy (buf, "Select a class [");
             for (iClass = 0; iClass < MAX_CLASS; iClass++)
             {
@@ -571,6 +572,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_GET_NEW_CLASS:
+			//reclass
             iClass = class_lookup (argument);
 
             if (iClass == -1)

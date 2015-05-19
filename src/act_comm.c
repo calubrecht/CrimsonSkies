@@ -1960,3 +1960,18 @@ void do_clear(CHAR_DATA * ch, char *argument)
 {
     send_to_char("\033[2J", ch);
 }
+
+void do_reclass(CHAR_DATA * ch, char *argument)
+{
+
+	if (ch->level < 10) {
+		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
+		return;
+	}
+
+	if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
+		send_to_char("You cannot reclass.\n\r", ch);
+		return;
+	}
+
+} // end do_reclass
