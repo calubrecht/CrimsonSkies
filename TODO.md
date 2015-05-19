@@ -33,3 +33,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Use Alander's random number generator which is the system, remove Furey's code but stash it somewhere for posterity.
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
+  - WIN32 doesn't save after the first level for some reason, find, fix.
