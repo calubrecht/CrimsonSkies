@@ -1982,8 +1982,8 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 #endif
 
 #if defined(_WIN32)
-    #define PLAYER_DIR      ""                   /* Player files           */
-    #define TEMP_FILE       "romtmp"
+    #define PLAYER_DIR	"../player/"			/* Player files */
+    #define TEMP_FILE	"../player/romtmp"
     #define NULL_FILE       "nul"                /* To reserve one stream  */
 #endif
 
