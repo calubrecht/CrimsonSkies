@@ -564,7 +564,13 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             {
                 if (iClass > 0)
                     strcat (buf, " ");
-                strcat (buf, class_table[iClass].name);
+
+                // Show only base classes, not reclasses.
+                if (class_table[iClass].is_reclass == FALSE)
+                {
+                    strcat (buf, class_table[iClass].name);
+                }
+
             }
             strcat (buf, "]: ");
             write_to_buffer (d, buf, 0);
@@ -577,8 +583,12 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             if (iClass == -1)
             {
-                send_to_desc ("That's not a class.\n\rWhat IS your class? ",
-                              d);
+                send_to_desc("That's not a class.\n\rWhat IS your class? ", d);
+                return;
+            }
+            else if (class_table[iClass].is_reclass == TRUE)
+            {
+                send_to_desc("You must choose a base class.\n\rWhat IS your class? ", d);
                 return;
             }
 
@@ -622,9 +632,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             group_add (ch, class_table[ch->class].base_group, FALSE);
             ch->pcdata->learned[gsn_recall] = 50;
             send_to_desc ("Do you wish to customize this character?\n\r", d);
-            send_to_desc
-                ("Customization takes time, but allows a wider range of skills and abilities.\n\r",
-                 d);
+            send_to_desc ("Customization takes time, but allows a wider range of skills and abilities.\n\r", d);
             send_to_desc ("Customize (Y/N)? ", d);
             d->connected = CON_DEFAULT_CHOICE;
             break;
@@ -790,6 +798,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
 
             send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
+
+            // reclass (the user may already be in the char list), perhaps a function to see if the
+            // user is in the char list and then skip this part.
             ch->next = char_list;
             char_list = ch;
             d->connected = CON_PLAYING;

@@ -1257,6 +1257,7 @@ struct    kill_data
 #define WIZ_NEWBIE              (R)
 #define WIZ_PREFIX              (S)
 #define WIZ_SPAM                (T)
+#define WIZ_GENERAL             (U)
 
 /*
  * Prototype for a mob.

@@ -146,6 +146,7 @@ void save_char_obj (CHAR_DATA * ch)
 
     fclose (fpReserve);
     sprintf (strsave, "%s%s", PLAYER_DIR, capitalize (ch->name));
+
     if ((fp = fopen (TEMP_FILE, "w")) == NULL)
     {
         bug ("Save_char_obj: fopen", 0);
@@ -162,7 +163,7 @@ void save_char_obj (CHAR_DATA * ch)
         fprintf (fp, "#END\n");
     }
     fclose (fp);
-    rename (TEMP_FILE, strsave);
+    rename (TEMP_FILE, strsave);  // marker - This is failing in WIN32 when the pfile already exists
     fpReserve = fopen (NULL_FILE, "r");
     return;
 }

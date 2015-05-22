@@ -5621,6 +5621,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Nothing here currently, move along.\r\n", ch);
+    send_to_all_char("{W[Broadcast]{x {RThis is a test{x\n\r");
+    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 }

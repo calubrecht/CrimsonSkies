@@ -33,7 +33,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Use Alander's random number generator which is the system, remove Furey's code but stash it somewhere for posterity.
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
-  - WIN32 doesn't save after the first session for some reason, find, fix (this for sure happens
-    on Windows 7, also test on Windows 8).
+  - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
   - Add tester flag to set a mortal as a tester.
   - Have tester and immortals have no lag on using the save command.
+  - Add reclass command and then create first reclass (enchantor).
+  - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.

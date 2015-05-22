@@ -1967,7 +1967,6 @@ void do_clear(CHAR_DATA * ch, char *argument)
 
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
-
 	if (ch->level < 10) {
 		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
 		return;
@@ -1977,5 +1976,45 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 		send_to_char("You cannot reclass.\n\r", ch);
 		return;
 	}
+
+    int iClass = 0;
+    iClass = class_lookup(argument);
+
+    if (iClass == -1)
+    {
+        send_to_char("That's not a valid class.\n\r", ch);
+        return;
+    }
+    else if (class_table[iClass].is_reclass == FALSE)
+    {
+        send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
+        return;
+    }
+
+    char buf[MSL];
+
+    sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
+    wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
+
+    // Set the new class which is a reclass
+    ch->class = iClass;
+    
+    // Half level, half hit, mana, move
+    ch->level = ch->level / 2;
+    ch->max_hit = ch->max_hit / 2;
+    ch->max_mana = ch->max_mana / 2;
+    ch->max_move = ch->max_move / 2;
+
+    // Reset hit, mana and move to the max levels.
+    ch->hit = ch->max_hit;
+    ch->mana = ch->max_mana;
+    ch->move = ch->max_move;
+
+    // TODO - Reset skills that are no longer for this class.
+
+    send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
+    send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);
+    send_to_char("Customize (Y/N)? ", ch);
+    ch->desc->connected = CON_DEFAULT_CHOICE;
 
 } // end do_reclass

@@ -422,9 +422,9 @@ const struct class_type class_table[MAX_CLASS] = {
      "warrior basics", "warrior default", FALSE},	 
 
      {
-         "enchantor", "Enc", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
+     "enchantor", "Enc", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
          { 3018, 9618 }, 75, 20, 6, 6, 8, TRUE,
-         "enchantor basics", "enchantor default", TRUE},
+     "enchantor basics", "enchantor default", TRUE},
 
 };
 
