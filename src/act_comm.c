@@ -1977,6 +1977,8 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 		return;
 	}
 
+    // Declare the things we need now that we're for sure reclassing.
+    AFFECT_DATA *af, *af_next;
     int iClass = 0;
     iClass = class_lookup(argument);
 
@@ -2001,20 +2003,54 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     
     // Half level, half hit, mana, move
     ch->level = ch->level / 2;
-    ch->max_hit = ch->max_hit / 2;
-    ch->max_mana = ch->max_mana / 2;
-    ch->max_move = ch->max_move / 2;
+    ch->max_hit /= 2;
+    ch->max_mana /= 2;
+    ch->max_move /= 2;
+    ch->hit /= 2;
+    ch->mana /= 2;
+    ch->move /= 2;
+    ch->pcdata->perm_hit /= 2;
+    ch->pcdata->perm_mana /= 2;
+    ch->pcdata->perm_move /= 2;
 
-    // Reset hit, mana and move to the max levels.
-    ch->hit = ch->max_hit;
-    ch->mana = ch->max_mana;
-    ch->move = ch->max_move;
+    // todo - decide on these layer, probably want to halve and then give a slight bonus
+    //ch->train += 5;
+    //ch->practice += 5;
+
+    // Get rid of any pets in case they have a high level one that we don't them to have when their level
+    // is halved.
+    if (ch->pet != NULL)
+    {
+        nuke_pets(ch);
+        ch->pet = NULL;
+    }
+
+    // Remove any spells or affects so the player can't come out spelled up with
+    // much higher levels spells.
+    for (af = ch->affected; af != NULL; af = af_next)
+    {
+        af_next = af->next;
+        affect_remove(ch, af);
+    }
+
+    // Call here for safety, this is also called on login.
+    reset_char(ch);
 
     // TODO - Reset skills that are no longer for this class.
+
+    // We're going to leave all learned skills where they are, why should any hard
+    // work up'ing skills percent be lost?
 
     send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
     send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);
     send_to_char("Customize (Y/N)? ", ch);
+
+    // Move character to LIMBO so they can't be attacked or messed with while this 
+    // process is happening.
+    char_from_room(ch);
+    char_to_room(ch, get_room_index(ROOM_VNUM_LIMBO));
+
+    // Put them back in creation
     ch->desc->connected = CON_DEFAULT_CHOICE;
 
 } // end do_reclass

@@ -86,8 +86,7 @@ void show_char_to_char_0 args ((CHAR_DATA * victim, CHAR_DATA * ch));
 void show_char_to_char_1 args ((CHAR_DATA * victim, CHAR_DATA * ch));
 void show_char_to_char args ((CHAR_DATA * list, CHAR_DATA * ch));
 bool check_blind args ((CHAR_DATA * ch));
-
-
+bool char_in_list args((CHAR_DATA * ch));
 
 char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
 {
@@ -546,7 +545,26 @@ void show_char_to_char (CHAR_DATA * list, CHAR_DATA * ch)
     return;
 }
 
+/*
+ * Whether or not a character is in the list already.  This was originally added when
+ * reclasses so we don't slot a player in the list who is already in the list.
+ * Rhien, 5/22/2015
+ */
+bool char_in_list(CHAR_DATA *ch)
+{
+    CHAR_DATA *vch;
+    bool found = FALSE;
 
+    for (vch = char_list; vch != NULL; vch = vch->next)
+    {
+        if (vch == ch) 
+        {
+            found = TRUE;
+            break;
+        }
+    }
+    return found;
+}
 
 bool check_blind (CHAR_DATA * ch)
 {

@@ -2029,6 +2029,7 @@ RID      *get_random_room    args( ( CHAR_DATA *ch ) );
 
 /* act_info.c */
 void     set_title           args( ( CHAR_DATA *ch, char *title ) );
+bool     char_in_list        args( ( CHAR_DATA *ch));
 
 /* act_move.c */
 void     move_char           args( ( CHAR_DATA *ch, int door, bool follow ) );

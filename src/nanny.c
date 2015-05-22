@@ -801,8 +801,13 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             // reclass (the user may already be in the char list), perhaps a function to see if the
             // user is in the char list and then skip this part.
-            ch->next = char_list;
-            char_list = ch;
+
+            if (char_in_list(ch) == FALSE)
+            {
+                ch->next = char_list;
+                char_list = ch;
+            }
+
             d->connected = CON_PLAYING;
             reset_char (ch);
 
@@ -852,6 +857,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 char_to_room (ch, get_room_index (ROOM_VNUM_TEMPLE));
             }
 
+            int debugme = 0;
             act ("$n has entered the game.", ch, NULL, NULL, TO_ROOM);
             do_function (ch, &do_look, "auto");
 

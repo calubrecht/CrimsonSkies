@@ -38,3 +38,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Have tester and immortals have no lag on using the save command.
   - Add reclass command and then create first reclass (enchantor).
   - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.
+  - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.

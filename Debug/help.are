@@ -1,6 +1,6 @@
 #HELPS
 
-0 QMCONFIG~
+52 QMCONFIG~
 Syntax: qmconfig [show|ansiprompt|ansicolor|telnetga] [on|off]
 
         This command is used to set options developed in the
@@ -443,8 +443,7 @@ Syntax: yell    <message>
 SHOUT sends a message to all awake players in the world.  To curb excessive
 shouting, SHOUT imposes a three-second delay on the shouter.
 
-GOSSIP and CGOSSIP are variants of SHOUT (without the delay).  '.' is a 
-synonym for GOSSIP.
+GOSSIP and CGOSSIP are variants of SHOUT (without the delay).
 
 YELL sends a message to all awake players within your area.
 
@@ -1120,6 +1119,12 @@ god level.
 
 Implementors can use the violate command to get into private rooms.
 ~
+52 EXLIST~
+Syntax: exlist
+
+Provides a list of all exits in a current area that link to other areas
+and whether they are one way or two way exits.
+~
 
 52 HOLYLIGHT INVIS WIZINVIS~
 Syntax: holylight
@@ -1655,6 +1660,14 @@ your message.
 Syntax: cast weaken <victim>
 
 This spell reduces the strength of the victim by two points.
+~
+
+0 PRAY~
+Syntax: pray <message>
+
+Sends a prayer message to the immortals who might be online.  This is a way 
+for mortals to contact the immortals online for assistance, questions, etc.  
+This command is logged so immortals can view it later if none are online.
 ~
 
 0 'WORD OF RECALL'~
@@ -2755,7 +2768,12 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 
 By what name do you wish to be known? ~
  
--1 MOTD~ 
+-1 MOTD~
+* {RCrimson {rSkies{x is open source.  Every line of code here can currently 
+  be seen and a project overview reviewed at:
+  
+  - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
+
 * You are responsible for knowing the rules (type 'rules').  Ignorance of 
   the rules is no excuse.
 * Important commands: help, commands, notes, score, look, who
