@@ -39,3 +39,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add reclass command and then create first reclass (enchantor).
   - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.
   - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.
+  - bool char_in_room to determine if a character is already in a room.
