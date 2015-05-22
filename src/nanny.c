@@ -800,8 +800,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
 
             // reclass (the user may already be in the char list), perhaps a function to see if the
-            // user is in the char list and then skip this part.
-
+            // user is in the char list and then skip this part, also, they maybe already in the room
+            // which will cause an endless loop on act or any roo, looping stuff.
             if (char_in_list(ch) == FALSE)
             {
                 ch->next = char_list;
