@@ -1423,16 +1423,16 @@ struct    char_data
 /*
  * Data which only PC's have.
  */
-struct    pc_data
+struct pc_data
 {
-    PC_DATA *	   next;
-    BUFFER *	   buffer;
-    bool		   valid;
+    PC_DATA *       next;
+    BUFFER *        buffer;
+    bool            valid;
     char *			pwd;
     char *			bamfin;
     char *			bamfout;
     char *			title;
-    char *                      email;
+    char *          email;
     sh_int			perm_hit;
     sh_int			perm_mana;
     sh_int			perm_move;
@@ -1448,7 +1448,8 @@ struct    pc_data
     BOARD_DATA *	board;                  /* The current board        */
     time_t			last_note[MAX_BOARD];   /* last note for the boards */
     NOTE_DATA *		in_progress;
-    int				security;               /* OLC */ /* Builder security */        
+    int				security;               /* OLC */ /* Builder security */   
+	bool            is_reclassing;          /* Whether or not the user is currently reclassing */
 };
 
 /* Data for generating characters -- only used during generation */

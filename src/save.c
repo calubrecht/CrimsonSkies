@@ -574,6 +574,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->condition[COND_FULL] = 48;
     ch->pcdata->condition[COND_HUNGER] = 48;
     ch->pcdata->security = 0;    /* OLC */
+	ch->pcdata->is_reclassing = FALSE;
 
     found = FALSE;
     fclose (fpReserve);
@@ -668,7 +669,8 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     /* RT initialize skills */
 
     if (found && ch->version < 2)
-    {                            /* need to add the new skills */
+    {   
+		/* need to add the new skills */
         group_add (ch, "rom basics", FALSE);
         group_add (ch, class_table[ch->class].base_group, FALSE);
         group_add (ch, class_table[ch->class].default_group, TRUE);

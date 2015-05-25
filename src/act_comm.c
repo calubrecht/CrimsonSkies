@@ -1998,6 +1998,8 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
     wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
 
+	ch->pcdata->is_reclassing = TRUE;
+
     // Set the new class which is a reclass
     ch->class = iClass;
     
