@@ -1977,6 +1977,18 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 		return;
 	}
 
+    if (ch->position == POS_FIGHTING)
+    {
+        send_to_char("No way! You are fighting.\n\r", ch);
+        return;
+    }
+
+    if (ch->position < POS_STUNNED)
+    {
+        send_to_char("You're not DEAD yet.\n\r", ch);
+        return;
+    }
+
     // Declare the things we need now that we're for sure reclassing.
     AFFECT_DATA *af, *af_next;
     int iClass = 0;
@@ -2048,7 +2060,8 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     send_to_char("Customize (Y/N)? ", ch);
 
     // Move character to LIMBO so they can't be attacked or messed with while this 
-    // process is happening.
+    // process is happening.  If they disconnect from reclass they will end up at
+    // their last save point.  Reclassing players don't save.
     char_from_room(ch);
     char_to_room(ch, get_room_index(ROOM_VNUM_LIMBO));
 

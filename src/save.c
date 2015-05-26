@@ -99,8 +99,6 @@ void fread_obj args ((CHAR_DATA * ch, FILE * fp));
 
 /*
  * Save a character and inventory.
- * Would be cool to save NPC's too for quest purposes,
- *   some of the infrastructure is provided.
  */
 void save_char_obj (CHAR_DATA * ch)
 {
@@ -108,6 +106,10 @@ void save_char_obj (CHAR_DATA * ch)
     FILE *fp;
 
     if (IS_NPC (ch))
+        return;
+
+    // Do not save a character while they are reclassing.
+    if (ch->pcdata->is_reclassing == TRUE)
         return;
 
     /*

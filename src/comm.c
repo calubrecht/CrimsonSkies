@@ -800,18 +800,22 @@ void init_descriptor (int control)
 #endif
 
 
-
+/*
+ * Closes the socket and handles notifying wiznet and free'ing info or extracting the char
+ * under some circumstances like reclass.
+ */
 void close_socket (DESCRIPTOR_DATA * dclose)
 {
     CHAR_DATA *ch;
 
     if (dclose->outtop > 0)
+    { 
         process_output (dclose, FALSE);
+    }
 
     if (dclose->snoop_by != NULL)
     {
-        write_to_buffer (dclose->snoop_by,
-                         "Your victim has left the game.\n\r", 0);
+        write_to_buffer (dclose->snoop_by, "Your victim has left the game.\n\r", 0);
     }
 
     {
@@ -824,14 +828,13 @@ void close_socket (DESCRIPTOR_DATA * dclose)
         }
     }
 
-    // reclass - TODO - need to not free the char if it's a reclass
     if ((ch = dclose->character) != NULL)
     {
         sprintf (log_buf, "Closing link to %s.", ch->name);
         log_string (log_buf);
         /* cut down on wiznet spam when rebooting */
         /* If ch is writing note or playing, just lose link otherwise clear char */
-        if ((dclose->connected == CON_PLAYING && !merc_down)
+        if ((dclose->connected == CON_PLAYING && !merc_down) 
                 || ((dclose->connected >= CON_NOTE_TO)
                         && (dclose->connected <= CON_NOTE_FINISH)))
         {
@@ -839,15 +842,23 @@ void close_socket (DESCRIPTOR_DATA * dclose)
             wiznet ("Net death has claimed $N.", ch, NULL, WIZ_LINKS, 0, 0);
             ch->desc = NULL;
         }
+        else if (ch->pcdata->is_reclassing == TRUE)
+        {
+            // They are reclassing, disconnect them, extract them, don't save them.  Since we re-use the creation connection
+            // state we must check the is_reclassing boolean which never gets saved to the pfile.
+            wiznet("Net death has claimed $N while reclassing.  They have been extracted from the world and not saved.", ch, NULL, WIZ_LINKS, 0, 0);
+            extract_char(ch, TRUE);
+        }
         else
         {
-            free_char (dclose->original ? dclose->original :
-                       dclose->character);
+            free_char (dclose->original ? dclose->original : dclose->character);
         }
     }
 
     if (d_next == dclose)
+    { 
         d_next = d_next->next;
+    }
 
     if (dclose == descriptor_list)
     {
@@ -876,8 +887,6 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 #endif
     return;
 }
-
-
 
 bool read_from_descriptor (DESCRIPTOR_DATA * d)
 {
