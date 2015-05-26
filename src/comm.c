@@ -824,6 +824,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
         }
     }
 
+    // reclass - TODO - need to not free the char if it's a reclass
     if ((ch = dclose->character) != NULL)
     {
         sprintf (log_buf, "Closing link to %s.", ch->name);
