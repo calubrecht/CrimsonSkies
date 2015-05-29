@@ -109,7 +109,6 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define MAX_LEVEL          60
 #define LEVEL_HERO         (MAX_LEVEL - 9)
 #define LEVEL_IMMORTAL     (MAX_LEVEL - 8)
-#define L_IMM LEVEL_IMMORTAL
 
 /* Added this for "orphaned help" code. Check do_help() -- JR */
 #define MAX_CMD_LEN			50
