@@ -1967,7 +1967,8 @@ void do_clear(CHAR_DATA * ch, char *argument)
 
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
-	if (ch->level < 10) {
+
+    if (ch->level < 10) {
 		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
 		return;
 	}
@@ -2006,6 +2007,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     }
 
     char buf[MSL];
+    int oldLevel = 0;
 
     sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
     wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
@@ -2015,21 +2017,32 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Set the new class which is a reclass
     ch->class = iClass;
     
-    // Half level, half hit, mana, move
-    ch->level = ch->level / 2;
-    ch->max_hit /= 2;
-    ch->max_mana /= 2;
-    ch->max_move /= 2;
-    ch->hit /= 2;
-    ch->mana /= 2;
-    ch->move /= 2;
-    ch->pcdata->perm_hit /= 2;
-    ch->pcdata->perm_mana /= 2;
-    ch->pcdata->perm_move /= 2;
+    // Level resets to 1, hit, mana and move also reset
+    oldLevel = ch->level;
+    ch->level = 1;
 
-    // todo - decide on these layer, probably want to halve and then give a slight bonus
-    //ch->train += 5;
-    //ch->practice += 5;
+    ch->pcdata->perm_hit = 20;
+    ch->max_hit = 20;
+    ch->hit = 20;
+
+    ch->pcdata->perm_mana = 100;
+    ch->max_mana = 100;
+    ch->mana = 100;
+
+    ch->pcdata->perm_move = 100;
+    ch->max_move = 100;
+    ch->move = 100;
+
+    // Reclassing will give a bonus so that the higher the level you were before you reclassed the more
+    // initial trains/practices you get to start with.  This should encourage players to level up their
+    // initial class.
+    ch->train += 5;
+    ch->train += oldLevel / 10;
+
+    ch->practice += 5;
+    ch->practice += oldLevel / 5;
+
+    // TODO reset stats
 
     // Get rid of any pets in case they have a high level one that we don't them to have when their level
     // is halved.
@@ -2050,21 +2063,31 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Call here for safety, this is also called on login.
     reset_char(ch);
 
-	// We're going to leave all learned skills where they are, why should any hard
-	// work up'ing skills percent be lost?  Anything the class doesn't have is lost.
+	// Clear all previously known skills
 	for (int sn = 0; sn < MAX_SKILL; sn++)
 	{
-		// If the new class doesn't have the skill/spell, axe it, otherwise, keep it.
-		if (skill_table[sn].skill_level[ch->class] > LEVEL_HERO || skill_table[sn].skill_level[ch->class] < 0)
-		{
-			sprintf(buf, "Clearing %s\n\r", skill_table[sn].name);
-			send_to_char(buf, ch);
-			ch->pcdata->learned[sn] = 0;
-			
-		}
+		ch->pcdata->learned[sn] = NULL;
 	}
 
-	// reset and recalculate points when done
+    // Clear all previously known groups
+    for (int gn = 0; gn < MAX_GROUP; gn++)
+    {
+        if (group_table[gn].name == NULL)
+            break;
+
+        ch->pcdata->group_known[gn] = NULL;
+    }
+
+    // Reset points
+    ch->pcdata->points = pc_race_table[ch->race].points;
+
+    // Add back in the base groups
+    group_add(ch, "rom basics", FALSE);
+    group_add(ch, class_table[ch->class].base_group, FALSE);
+    ch->pcdata->learned[gsn_recall] = 50;
+
+    sprintf(buf, "\n\r{YCongratulations{x, you are preparing to reclass as a %s.\n\r", class_table[ch->class].name);
+    send_to_char(buf, ch);
 
     send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
     send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);

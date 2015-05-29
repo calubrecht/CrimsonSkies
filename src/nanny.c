@@ -727,9 +727,11 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 sprintf (buf, "Creation points: %d\n\r", ch->pcdata->points);
                 send_to_char (buf, ch);
                 
-				sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->gen_data->points_chosen));
-				send_to_char(buf, ch);
+				//sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->gen_data->points_chosen));
+                sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->pcdata->points));
+                send_to_char(buf, ch);
 
+                // Does this check ever fire?
 				if (ch->pcdata->points < 40)
                     ch->train = (40 - ch->pcdata->points + 1) / 2;
                 
@@ -855,7 +857,10 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
 			else if (ch->pcdata->is_reclassing == TRUE)
 			{
-				// Reclass
+				// Reclass, we need to reset their exp now that they've reclassed so they don't end up
+                // with double the exp needed for the first level.
+                ch->exp = exp_per_level(ch, ch->pcdata->points);
+
 				char_from_room(ch);
 				char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
 			}

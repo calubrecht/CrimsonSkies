@@ -1053,7 +1053,7 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "", "!Locate Object!", ""},
 
     {
-     "magic missile", {1, 53, 2, 2, 5}, {1, 1, 2, 2, 1},
+     "magic missile", {1, 53, 2, 2, 1}, {1, 1, 2, 2, 1},
      spell_magic_missile, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
      NULL, SLOT (32), 15, 12,
      "magic missile", "!Magic Missile!", ""},
