@@ -2602,9 +2602,12 @@ Only the first word on the line will be subsituted at this time.
 Ah! Another mortal, seeking adventure.  You should go through mudschool first,
 to gain experience to face the trials outside.  Be sure to practice a weapon
 in the guild room, or your stay with us shall be very short indeed.  Type
-'equipment' to see what your are wielding, 'spells' to see your spells,
-'skills' to see your skills, and 'commands' for a list of commands. Help is
+'{gequipment{x' to see what your are wielding, '{gspells{x' to see your spells,
+'{gskills{x' to see your skills, and 'commands' for a list of commands. Help is
 available on most commands and abilities.
+
+Once you reach a minimum of level 10 you will have the ability to reclass
+into a more specialized class.  Type '{ghelp reclass{x' to read more about that.
 
 Please type 'help rules' to see the game rules.
 ~
