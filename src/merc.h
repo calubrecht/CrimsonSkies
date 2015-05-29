@@ -1665,21 +1665,21 @@ struct    room_index_data
 /*
  * Skills include spells as a particular case.
  */
-struct    skill_type
+struct skill_type
 {
-    char *    name;            /* Name of skill        */
-    sh_int    skill_level[MAX_CLASS];    /* Level needed by class    */
-    sh_int    rating[MAX_CLASS];    /* How hard it is to learn    */    
-    SPELL_FUN *    spell_fun;        /* Spell pointer (for spells)    */
-    sh_int    target;            /* Legal targets        */
-    sh_int    minimum_position;    /* Position for caster / user    */
-    sh_int *    pgsn;            /* Pointer to associated gsn    */
-    sh_int    slot;            /* Slot for #OBJECT loading    */
-    sh_int    min_mana;        /* Minimum mana used        */
-    sh_int    beats;            /* Waiting time after use    */
-    char *    noun_damage;        /* Damage message        */
-    char *    msg_off;        /* Wear off message        */
-    char *    msg_obj;        /* Wear off message for obects    */
+    char *      name;                      /* Name of skill                */
+    sh_int      skill_level[MAX_CLASS];    /* Level needed by class        */
+    sh_int      rating[MAX_CLASS];         /* How hard it is to learn      */    
+    SPELL_FUN * spell_fun;                 /* Spell pointer (for spells)   */
+    sh_int      target;                    /* Legal targets                */
+    sh_int      minimum_position;          /* Position for caster / user   */
+    sh_int *    pgsn;                      /* Pointer to associated gsn    */
+    sh_int      slot;                      /* Slot for #OBJECT loading     */
+    sh_int      min_mana;                  /* Minimum mana used            */
+    sh_int      beats;                     /* Waiting time after use       */
+    char *      noun_damage;               /* Damage message               */
+    char *      msg_off;                   /* Wear off message             */
+    char *      msg_obj;                   /* Wear off message for obects  */
 };
 
 struct  group_type

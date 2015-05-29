@@ -1300,7 +1300,7 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "", "!Spear!", ""},
 
     {
-     "sword", {1, 1, 1, 1, 1}, {5, 6, 3, 2, 5},
+     "sword", {1, 1, 1, 1, 53}, {5, 6, 3, 2, 0},
      spell_null, TAR_IGNORE, POS_FIGHTING,
      &gsn_sword, SLOT (0), 0, 0,
      "", "!sword!", ""},
@@ -1410,7 +1410,7 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "", "!Fast Healing!", ""},
 
     {
-     "haggle", {7, 18, 1, 14, 7}, {5, 8, 3, 6, 5},
+     "haggle", {7, 18, 1, 14, 53}, {5, 8, 3, 6, 0},
      spell_null, TAR_IGNORE, POS_RESTING,
      &gsn_haggle, SLOT (0), 0, 0,
      "", "!Haggle!", ""},
