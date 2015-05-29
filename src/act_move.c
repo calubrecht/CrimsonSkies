@@ -1518,11 +1518,13 @@ void do_sneak (CHAR_DATA * ch, char *argument)
 {
     AFFECT_DATA af;
 
-    send_to_char ("You attempt to move silently.\n\r", ch);
     affect_strip (ch, gsn_sneak);
 
     if (IS_AFFECTED (ch, AFF_SNEAK))
+    {
+        send_to_char("You are already sneaking.\n\r", ch);
         return;
+    }
 
     if (number_percent () < get_skill (ch, gsn_sneak))
     {
@@ -1535,9 +1537,13 @@ void do_sneak (CHAR_DATA * ch, char *argument)
         af.modifier = 0;
         af.bitvector = AFF_SNEAK;
         affect_to_char (ch, &af);
+        send_to_char("You attempt to move silently.\n\r", ch);
     }
     else
+    {
+        send_to_char("You fail to move silently.\n\r", ch);
         check_improve (ch, gsn_sneak, FALSE, 3);
+    }
 
     return;
 }
@@ -1575,10 +1581,9 @@ void do_visible (CHAR_DATA * ch, char *argument)
     REMOVE_BIT (ch->affected_by, AFF_HIDE);
     REMOVE_BIT (ch->affected_by, AFF_INVISIBLE);
     REMOVE_BIT (ch->affected_by, AFF_SNEAK);
-    send_to_char ("Ok.\n\r", ch);
+    send_to_char ("You are now visible.\n\r", ch);
     return;
 }
-
 
 
 void do_recall (CHAR_DATA * ch, char *argument)

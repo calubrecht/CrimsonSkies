@@ -1967,17 +1967,19 @@ void do_clear(CHAR_DATA * ch, char *argument)
 
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
-
+    // Players must be at least level 10 to reclass.
     if (ch->level < 10) {
 		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
 		return;
 	}
 
+    // Immortals can't reclass.. they must set.
 	if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
 		send_to_char("You cannot reclass.\n\r", ch);
 		return;
 	}
 
+    // Do not allow someone who is fighting or stunned to reclass.
     if (ch->position == POS_FIGHTING)
     {
         send_to_char("No way! You are fighting.\n\r", ch);
@@ -1995,6 +1997,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     int iClass = 0;
     iClass = class_lookup(argument);
 
+    // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
     {
         send_to_char("That's not a valid class.\n\r", ch);
@@ -2012,6 +2015,8 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
     wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
 
+    // This is a temporary flag to identify the player as reclassing, do NOT save this
+    // flag, we want it to reset when they leave
 	ch->pcdata->is_reclassing = TRUE;
 
     // Set the new class which is a reclass
@@ -2042,7 +2047,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     ch->practice += 5;
     ch->practice += oldLevel / 5;
 
-    // TODO reset stats
+    // Reset the users stats back to default (they will have more trains now to up them quicker).
+    for (int i = 0; i < MAX_STATS; i++)
+    {
+        ch->perm_stat[i] = pc_race_table[ch->race].stats[i];
+    }
 
     // Get rid of any pets in case they have a high level one that we don't them to have when their level
     // is halved.
@@ -2076,6 +2085,14 @@ void do_reclass(CHAR_DATA * ch, char *argument)
             break;
 
         ch->pcdata->group_known[gn] = NULL;
+    }
+
+    // Add back Race skills
+    for (int i = 0; i < 5; i++)
+    {
+        if (pc_race_table[ch->race].skills[i] == NULL)
+            break;
+        group_add(ch, pc_race_table[ch->race].skills[i], FALSE);
     }
 
     // Reset points

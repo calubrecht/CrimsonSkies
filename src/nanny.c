@@ -861,6 +861,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 // with double the exp needed for the first level.
                 ch->exp = exp_per_level(ch, ch->pcdata->points);
 
+                // The user is no longer reclassing, set the flag as false so they will save properly.
+                ch->pcdata->is_reclassing = FALSE;
+
 				char_from_room(ch);
 				char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
 			}
