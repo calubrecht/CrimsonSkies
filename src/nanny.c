@@ -558,12 +558,19 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
+			// reclass
             strcpy (buf, "Select a class [");
             for (iClass = 0; iClass < MAX_CLASS; iClass++)
             {
                 if (iClass > 0)
                     strcat (buf, " ");
-                strcat (buf, class_table[iClass].name);
+
+                // Show only base classes, not reclasses.
+                if (class_table[iClass].is_reclass == FALSE)
+                {
+                    strcat (buf, class_table[iClass].name);
+                }
+
             }
             strcat (buf, "]: ");
             write_to_buffer (d, buf, 0);
@@ -571,12 +578,17 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_GET_NEW_CLASS:
+			//reclass
             iClass = class_lookup (argument);
 
             if (iClass == -1)
             {
-                send_to_desc ("That's not a class.\n\rWhat IS your class? ",
-                              d);
+                send_to_desc("That's not a class.\n\rWhat IS your class? ", d);
+                return;
+            }
+            else if (class_table[iClass].is_reclass == TRUE)
+            {
+                send_to_desc("You must choose a base class.\n\rWhat IS your class? ", d);
                 return;
             }
 
@@ -620,9 +632,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             group_add (ch, class_table[ch->class].base_group, FALSE);
             ch->pcdata->learned[gsn_recall] = 50;
             send_to_desc ("Do you wish to customize this character?\n\r", d);
-            send_to_desc
-                ("Customization takes time, but allows a wider range of skills and abilities.\n\r",
-                 d);
+            send_to_desc ("Customization takes time, but allows a wider range of skills and abilities.\n\r", d);
             send_to_desc ("Customize (Y/N)? ", d);
             d->connected = CON_DEFAULT_CHOICE;
             break;
@@ -709,33 +719,38 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
                 if (ch->pcdata->points < 40 + pc_race_table[ch->race].points)
                 {
-                    sprintf (buf,
-                             "You must take at least %d points of skills and groups",
-                             40 + pc_race_table[ch->race].points);
+                    sprintf (buf, "You must take at least %d points of skills and groups", 40 + pc_race_table[ch->race].points);
                     send_to_char (buf, ch);
                     break;
                 }
 
                 sprintf (buf, "Creation points: %d\n\r", ch->pcdata->points);
                 send_to_char (buf, ch);
-                sprintf (buf, "Experience per level: %d\n\r",
-                         exp_per_level (ch, ch->gen_data->points_chosen));
-                if (ch->pcdata->points < 40)
+                
+				//sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->gen_data->points_chosen));
+                sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->pcdata->points));
+                send_to_char(buf, ch);
+
+                // Does this check ever fire?
+				if (ch->pcdata->points < 40)
                     ch->train = (40 - ch->pcdata->points + 1) / 2;
-                free_gen_data (ch->gen_data);
+                
+				free_gen_data (ch->gen_data);
                 ch->gen_data = NULL;
-                send_to_char (buf, ch);
                 write_to_buffer (d, "\n\r", 2);
                 write_to_buffer (d,
                                  "Please pick a weapon from the following choices:\n\r",
                                  0);
                 buf[0] = '\0';
                 for (i = 0; weapon_table[i].name != NULL; i++)
+				{
                     if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
                     {
                         strcat (buf, weapon_table[i].name);
                         strcat (buf, " ");
                     }
+				}
+
                 strcat (buf, "\n\rYour choice? ");
                 write_to_buffer (d, buf, 0);
                 d->connected = CON_PICK_WEAPON;
@@ -788,8 +803,22 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
 
             send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
-            ch->next = char_list;
-            char_list = ch;
+
+			// If the user is reclassing they will already be in the list, if not, add them.
+			if (ch->pcdata->is_reclassing == FALSE)
+			{
+				ch->next = char_list;
+				char_list = ch;
+			}
+			// reclass (the user may already be in the char list), perhaps a function to see if the
+			// user is in the char list and then skip this part, also, they maybe already in the room
+			// which will cause an endless loop on act or any roo, looping stuff.
+			//if (char_in_list(ch) == FALSE)
+            //{
+            //    ch->next = char_list;
+            //    char_list = ch;
+            //}
+
             d->connected = CON_PLAYING;
             reset_char (ch);
 
@@ -826,6 +855,18 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 do_function (ch, &do_help, "newbie info");
                 send_to_char ("\n\r", ch);
             }
+			else if (ch->pcdata->is_reclassing == TRUE)
+			{
+				// Reclass, we need to reset their exp now that they've reclassed so they don't end up
+                // with double the exp needed for the first level.
+                ch->exp = exp_per_level(ch, ch->pcdata->points);
+
+                // The user is no longer reclassing, set the flag as false so they will save properly.
+                ch->pcdata->is_reclassing = FALSE;
+
+				char_from_room(ch);
+				char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+			}
             else if (ch->in_room != NULL)
             {
                 char_to_room (ch, ch->in_room);

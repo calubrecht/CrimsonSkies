@@ -255,11 +255,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
     act ("$N tells you 'I do not understand...'", ch, NULL, trainer, TO_CHAR);
 }
 
-
-
-
 /* RT spells and skills show the players spells (or skills) */
-
 void do_spells (CHAR_DATA * ch, char *argument)
 {
     BUFFER *buffer;
@@ -576,7 +572,6 @@ void list_group_costs (CHAR_DATA * ch)
     return;
 }
 
-
 void list_group_chosen (CHAR_DATA * ch)
 {
     char buf[100];
@@ -848,11 +843,6 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
     return FALSE;
 }
 
-
-
-
-
-
 /* shows all groups, or the sub-members of a group */
 void do_groups (CHAR_DATA * ch, char *argument)
 {
@@ -1062,8 +1052,7 @@ void group_add (CHAR_DATA * ch, const char *name, bool deduct)
     }
 }
 
-/* used for processing a skill or group for deletion -- no points back! */
-
+/* Used for processing a skill or group for deletion -- no points back! */
 void group_remove (CHAR_DATA * ch, const char *name)
 {
     int sn, gn;

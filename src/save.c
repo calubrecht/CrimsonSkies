@@ -99,8 +99,6 @@ void fread_obj args ((CHAR_DATA * ch, FILE * fp));
 
 /*
  * Save a character and inventory.
- * Would be cool to save NPC's too for quest purposes,
- *   some of the infrastructure is provided.
  */
 void save_char_obj (CHAR_DATA * ch)
 {
@@ -108,6 +106,10 @@ void save_char_obj (CHAR_DATA * ch)
     FILE *fp;
 
     if (IS_NPC (ch))
+        return;
+
+    // Do not save a character while they are reclassing.
+    if (ch->pcdata->is_reclassing == TRUE)
         return;
 
     /*
@@ -146,6 +148,7 @@ void save_char_obj (CHAR_DATA * ch)
 
     fclose (fpReserve);
     sprintf (strsave, "%s%s", PLAYER_DIR, capitalize (ch->name));
+
     if ((fp = fopen (TEMP_FILE, "w")) == NULL)
     {
         bug ("Save_char_obj: fopen", 0);
@@ -162,7 +165,7 @@ void save_char_obj (CHAR_DATA * ch)
         fprintf (fp, "#END\n");
     }
     fclose (fp);
-    rename (TEMP_FILE, strsave);
+    rename (TEMP_FILE, strsave);  // marker - This is failing in WIN32 when the pfile already exists
     fpReserve = fopen (NULL_FILE, "r");
     return;
 }
@@ -573,6 +576,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->condition[COND_FULL] = 48;
     ch->pcdata->condition[COND_HUNGER] = 48;
     ch->pcdata->security = 0;    /* OLC */
+	ch->pcdata->is_reclassing = FALSE;
 
     found = FALSE;
     fclose (fpReserve);
@@ -667,7 +671,8 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     /* RT initialize skills */
 
     if (found && ch->version < 2)
-    {                            /* need to add the new skills */
+    {   
+		/* need to add the new skills */
         group_add (ch, "rom basics", FALSE);
         group_add (ch, class_table[ch->class].base_group, FALSE);
         group_add (ch, class_table[ch->class].default_group, TRUE);

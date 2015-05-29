@@ -3020,6 +3020,26 @@ effects and duration of the spell will also be shown.  Spell effects
 are no longer shown on score (this can be changed by using 'show' command).
 ~
 
+0 RECLASS~
+
+Syntax: reclass <reclass name>
+
+The reclass command will allow you to train as a specialized class.  Each
+base class will have certain classes which it can reclass into (for
+instance, a mage can reclass into an enchantor but a warrior cannot).
+
+You must be at least level 10 to reclass.  The higher the level you are
+the more trains and practices you will start off with when you 
+reclass (e.g. a level 51 character will have more initial trains and
+practices than a level 10 character after the reclass).
+
+After reclass you will be level 1 again as the reclass.
+
+Current classes available for reclass:
+
+   * Enchantor (Mage)
+~
+
 0 $~
 
 

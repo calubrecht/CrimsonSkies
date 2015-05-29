@@ -5621,6 +5621,11 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Nothing here currently, move along.\r\n", ch);
+    if (char_in_list(ch) == TRUE)
+    {
+        send_to_char("You are in the list, phew\n\r", ch);
+        return;
+    }
+    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 }

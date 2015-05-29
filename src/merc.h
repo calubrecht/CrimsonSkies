@@ -96,19 +96,19 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  * Increase the max'es if you add more of something.
  * Adjust the pulse numbers to suit yourself.
  */
+// reclass
 #define MAX_SOCIALS        256
 #define MAX_SKILL          150
-#define MAX_GROUP          30
+#define MAX_GROUP          32 // reclass
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5
-#define MAX_CLASS          4
+#define MAX_CLASS          5 // reclass
 #define MAX_PC_RACE        5
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
 #define MAX_LEVEL          60
 #define LEVEL_HERO         (MAX_LEVEL - 9)
 #define LEVEL_IMMORTAL     (MAX_LEVEL - 8)
-#define L_IMM LEVEL_IMMORTAL
 
 /* Added this for "orphaned help" code. Check do_help() -- JR */
 #define MAX_CMD_LEN			50
@@ -363,6 +363,7 @@ struct    shop_data
 #define STAT_DEX   3
 #define STAT_CON   4
 
+// reclass
 struct    class_type
 {
     char *  name;              /* the full name of the class  */
@@ -378,6 +379,7 @@ struct    class_type
     bool    fMana;             /* Class gains mana on level   */
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
+	bool    is_reclass;        /* Whether the class is a reclass (or a base class) */
 };
 
 struct item_type
@@ -1254,6 +1256,7 @@ struct    kill_data
 #define WIZ_NEWBIE              (R)
 #define WIZ_PREFIX              (S)
 #define WIZ_SPAM                (T)
+#define WIZ_GENERAL             (U)
 
 /*
  * Prototype for a mob.
@@ -1419,16 +1422,16 @@ struct    char_data
 /*
  * Data which only PC's have.
  */
-struct    pc_data
+struct pc_data
 {
-    PC_DATA *	   next;
-    BUFFER *	   buffer;
-    bool		   valid;
+    PC_DATA *       next;
+    BUFFER *        buffer;
+    bool            valid;
     char *			pwd;
     char *			bamfin;
     char *			bamfout;
     char *			title;
-    char *                      email;
+    char *          email;
     sh_int			perm_hit;
     sh_int			perm_mana;
     sh_int			perm_move;
@@ -1444,7 +1447,8 @@ struct    pc_data
     BOARD_DATA *	board;                  /* The current board        */
     time_t			last_note[MAX_BOARD];   /* last note for the boards */
     NOTE_DATA *		in_progress;
-    int				security;               /* OLC */ /* Builder security */        
+    int				security;               /* OLC */ /* Builder security */   
+	bool            is_reclassing;          /* Whether or not the user is currently reclassing */
 };
 
 /* Data for generating characters -- only used during generation */
@@ -1660,21 +1664,21 @@ struct    room_index_data
 /*
  * Skills include spells as a particular case.
  */
-struct    skill_type
+struct skill_type
 {
-    char *    name;            /* Name of skill        */
-    sh_int    skill_level[MAX_CLASS];    /* Level needed by class    */
-    sh_int    rating[MAX_CLASS];    /* How hard it is to learn    */    
-    SPELL_FUN *    spell_fun;        /* Spell pointer (for spells)    */
-    sh_int    target;            /* Legal targets        */
-    sh_int    minimum_position;    /* Position for caster / user    */
-    sh_int *    pgsn;            /* Pointer to associated gsn    */
-    sh_int    slot;            /* Slot for #OBJECT loading    */
-    sh_int    min_mana;        /* Minimum mana used        */
-    sh_int    beats;            /* Waiting time after use    */
-    char *    noun_damage;        /* Damage message        */
-    char *    msg_off;        /* Wear off message        */
-    char *    msg_obj;        /* Wear off message for obects    */
+    char *      name;                      /* Name of skill                */
+    sh_int      skill_level[MAX_CLASS];    /* Level needed by class        */
+    sh_int      rating[MAX_CLASS];         /* How hard it is to learn      */    
+    SPELL_FUN * spell_fun;                 /* Spell pointer (for spells)   */
+    sh_int      target;                    /* Legal targets                */
+    sh_int      minimum_position;          /* Position for caster / user   */
+    sh_int *    pgsn;                      /* Pointer to associated gsn    */
+    sh_int      slot;                      /* Slot for #OBJECT loading     */
+    sh_int      min_mana;                  /* Minimum mana used            */
+    sh_int      beats;                     /* Waiting time after use       */
+    char *      noun_damage;               /* Damage message               */
+    char *      msg_off;                   /* Wear off message             */
+    char *      msg_obj;                   /* Wear off message for obects  */
 };
 
 struct  group_type
@@ -1979,8 +1983,8 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 #endif
 
 #if defined(_WIN32)
-    #define PLAYER_DIR      ""                   /* Player files           */
-    #define TEMP_FILE       "romtmp"
+    #define PLAYER_DIR	"../player/"			/* Player files */
+    #define TEMP_FILE	"../player/romtmp"
     #define NULL_FILE       "nul"                /* To reserve one stream  */
 #endif
 
@@ -2025,6 +2029,7 @@ RID      *get_random_room    args( ( CHAR_DATA *ch ) );
 
 /* act_info.c */
 void     set_title           args( ( CHAR_DATA *ch, char *title ) );
+bool     char_in_list        args( ( CHAR_DATA *ch));
 
 /* act_move.c */
 void     move_char           args( ( CHAR_DATA *ch, int door, bool follow ) );

@@ -1426,9 +1426,13 @@ void do_save (CHAR_DATA * ch, char *argument)
         return;
 
     save_char_obj (ch);
-    send_to_char ("Saving. Remember that Crimson Skies has automatic saving now.\n\r",
-                  ch);
-    WAIT_STATE (ch, 4 * PULSE_VIOLENCE);
+    send_to_char("Saving. Remember that Crimson Skies has automatic saving now.\n\r", ch);
+
+    // Add lag on save, but on if it's not an immortal
+    if (!IS_IMMORTAL(ch)) {
+        WAIT_STATE(ch, 4 * PULSE_VIOLENCE);
+    }
+
     return;
 }
 
@@ -1960,3 +1964,159 @@ void do_clear(CHAR_DATA * ch, char *argument)
 {
     send_to_char("\033[2J", ch);
 }
+
+void do_reclass(CHAR_DATA * ch, char *argument)
+{
+    // Players must be at least level 10 to reclass.
+    if (ch->level < 10) {
+		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
+		return;
+	}
+
+    // Immortals can't reclass.. they must set.
+	if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
+		send_to_char("You cannot reclass.\n\r", ch);
+		return;
+	}
+
+    // Do not allow someone who is fighting or stunned to reclass.
+    if (ch->position == POS_FIGHTING)
+    {
+        send_to_char("No way! You are fighting.\n\r", ch);
+        return;
+    }
+
+    if (ch->position < POS_STUNNED)
+    {
+        send_to_char("You're not DEAD yet.\n\r", ch);
+        return;
+    }
+
+    // Declare the things we need now that we're for sure reclassing.
+    AFFECT_DATA *af, *af_next;
+    int iClass = 0;
+    iClass = class_lookup(argument);
+
+    // Check that it's a valid class and that the player can be that class
+    if (iClass == -1)
+    {
+        send_to_char("That's not a valid class.\n\r", ch);
+        return;
+    }
+    else if (class_table[iClass].is_reclass == FALSE)
+    {
+        send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
+        return;
+    }
+
+    char buf[MSL];
+    int oldLevel = 0;
+
+    sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
+    wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
+
+    // This is a temporary flag to identify the player as reclassing, do NOT save this
+    // flag, we want it to reset when they leave
+	ch->pcdata->is_reclassing = TRUE;
+
+    // Set the new class which is a reclass
+    ch->class = iClass;
+    
+    // Level resets to 1, hit, mana and move also reset
+    oldLevel = ch->level;
+    ch->level = 1;
+
+    ch->pcdata->perm_hit = 20;
+    ch->max_hit = 20;
+    ch->hit = 20;
+
+    ch->pcdata->perm_mana = 100;
+    ch->max_mana = 100;
+    ch->mana = 100;
+
+    ch->pcdata->perm_move = 100;
+    ch->max_move = 100;
+    ch->move = 100;
+
+    // Reclassing will give a bonus so that the higher the level you were before you reclassed the more
+    // initial trains/practices you get to start with.  This should encourage players to level up their
+    // initial class.
+    ch->train += 5;
+    ch->train += oldLevel / 10;
+
+    ch->practice += 5;
+    ch->practice += oldLevel / 5;
+
+    // Reset the users stats back to default (they will have more trains now to up them quicker).
+    for (int i = 0; i < MAX_STATS; i++)
+    {
+        ch->perm_stat[i] = pc_race_table[ch->race].stats[i];
+    }
+
+    // Get rid of any pets in case they have a high level one that we don't them to have when their level
+    // is halved.
+    if (ch->pet != NULL)
+    {
+        nuke_pets(ch);
+        ch->pet = NULL;
+    }
+
+    // Remove any spells or affects so the player can't come out spelled up with
+    // much higher levels spells.
+    for (af = ch->affected; af != NULL; af = af_next)
+    {
+        af_next = af->next;
+        affect_remove(ch, af);
+    }
+
+    // Call here for safety, this is also called on login.
+    reset_char(ch);
+
+	// Clear all previously known skills
+	for (int sn = 0; sn < MAX_SKILL; sn++)
+	{
+		ch->pcdata->learned[sn] = NULL;
+	}
+
+    // Clear all previously known groups
+    for (int gn = 0; gn < MAX_GROUP; gn++)
+    {
+        if (group_table[gn].name == NULL)
+            break;
+
+        ch->pcdata->group_known[gn] = NULL;
+    }
+
+    // Add back Race skills
+    for (int i = 0; i < 5; i++)
+    {
+        if (pc_race_table[ch->race].skills[i] == NULL)
+            break;
+        group_add(ch, pc_race_table[ch->race].skills[i], FALSE);
+    }
+
+    // Reset points
+    ch->pcdata->points = pc_race_table[ch->race].points;
+
+    // Add back in the base groups
+    group_add(ch, "rom basics", FALSE);
+    group_add(ch, class_table[ch->class].base_group, FALSE);
+    ch->pcdata->learned[gsn_recall] = 50;
+
+    sprintf(buf, "\n\r{YCongratulations{x, you are preparing to reclass as a %s.\n\r", class_table[ch->class].name);
+    send_to_char(buf, ch);
+
+    send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
+    send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);
+    send_to_char("Customize (Y/N)? ", ch);
+
+    // Move character to LIMBO so they can't be attacked or messed with while this 
+    // process is happening.  If they disconnect from reclass they will end up at
+    // their last save point.  Reclassing players don't save.
+    char_from_room(ch);
+    char_to_room(ch, get_room_index(ROOM_VNUM_LIMBO));
+
+    // Put them back in creation
+    ch->desc->connected = CON_DEFAULT_CHOICE;
+
+} // end do_reclass
