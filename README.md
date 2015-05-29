@@ -1,9 +1,10 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug and ROT.  
+Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug.  
 
-All new changes will be documented in the change log (The last few weeks of changes have been in the reclass branch where the reclass system and the first reclass enchantors are being coded). 
+All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
+official go to version 1.0 (which will probably be one I have at one reclass for every base class coded). 
 
 Currently Crimson Skies compiles and runs out of the box on:
 
