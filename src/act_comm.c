@@ -1996,6 +1996,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     AFFECT_DATA *af, *af_next;
     int iClass = 0;
     iClass = class_lookup(argument);
+    int i = 0;
 
     // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
@@ -2017,11 +2018,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     // This is a temporary flag to identify the player as reclassing, do NOT save this
     // flag, we want it to reset when they leave
-	ch->pcdata->is_reclassing = TRUE;
+    ch->pcdata->is_reclassing = TRUE;
 
     // Set the new class which is a reclass
     ch->class = iClass;
-    
+
     // Level resets to 1, hit, mana and move also reset
     oldLevel = ch->level;
     ch->level = 1;
@@ -2048,7 +2049,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     ch->practice += oldLevel / 5;
 
     // Reset the users stats back to default (they will have more trains now to up them quicker).
-    for (int i = 0; i < MAX_STATS; i++)
+    for (i = 0; i < MAX_STATS; i++)
     {
         ch->perm_stat[i] = pc_race_table[ch->race].stats[i];
     }
@@ -2072,26 +2073,27 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Call here for safety, this is also called on login.
     reset_char(ch);
 
-	// Clear all previously known skills
-	for (int sn = 0; sn < MAX_SKILL; sn++)
-	{
-		ch->pcdata->learned[sn] = NULL;
-	}
+    // Clear all previously known skills
+    for (i = 0; i < MAX_SKILL; i++)
+    {
+        ch->pcdata->learned[i] = 0;
+    }
 
     // Clear all previously known groups
-    for (int gn = 0; gn < MAX_GROUP; gn++)
+    for (i = 0; i < MAX_GROUP; i++)
     {
-        if (group_table[gn].name == NULL)
+        if (group_table[i].name == NULL)
             break;
 
-        ch->pcdata->group_known[gn] = NULL;
+        ch->pcdata->group_known[i] = 0;
     }
 
     // Add back Race skills
-    for (int i = 0; i < 5; i++)
+    for (i = 0; i < 5; i++)
     {
         if (pc_race_table[ch->race].skills[i] == NULL)
             break;
+
         group_add(ch, pc_race_table[ch->race].skills[i], FALSE);
     }
 
