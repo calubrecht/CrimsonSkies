@@ -559,15 +559,15 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
 
 			// reclass
-            strcpy (buf, "Select a class [");
+            strcpy (buf, "Select an initial class [");
             for (iClass = 0; iClass < MAX_CLASS; iClass++)
             {
-                if (iClass > 0)
-                    strcat (buf, " ");
-
                 // Show only base classes, not reclasses.
                 if (class_table[iClass].is_reclass == FALSE)
                 {
+                    if (iClass > 0)
+                        strcat (buf, " ");
+
                     strcat (buf, class_table[iClass].name);
                 }
 
