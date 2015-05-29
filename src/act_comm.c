@@ -2050,10 +2050,21 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Call here for safety, this is also called on login.
     reset_char(ch);
 
-    // TODO - Reset skills that are no longer for this class.
+	// We're going to leave all learned skills where they are, why should any hard
+	// work up'ing skills percent be lost?  Anything the class doesn't have is lost.
+	for (int sn = 0; sn < MAX_SKILL; sn++)
+	{
+		// If the new class doesn't have the skill/spell, axe it, otherwise, keep it.
+		if (skill_table[sn].skill_level[ch->class] > LEVEL_HERO || skill_table[sn].skill_level[ch->class] < 0)
+		{
+			sprintf(buf, "Clearing %s\n\r", skill_table[sn].name);
+			send_to_char(buf, ch);
+			ch->pcdata->learned[sn] = 0;
+			
+		}
+	}
 
-    // We're going to leave all learned skills where they are, why should any hard
-    // work up'ing skills percent be lost?
+	// reset and recalculate points when done
 
     send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
     send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);
