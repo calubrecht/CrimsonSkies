@@ -25,8 +25,15 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
 
-    SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-    act ("$p glows with a dark aura.", ch, obj, NULL, TO_CHAR);
-    act ("$p glows with a dark aura.", ch, obj, NULL, TO_ROOM);
+    if (!IS_SET (obj->extra_flags, ITEM_ROT_DEATH))
+    {
+        SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+        act ("$p glows with a withered aura.", ch, obj, NULL, TO_CHAR);
+        act ("$p glows with a withered aura.", ch, obj, NULL, TO_ROOM);
+    }
+    else
+    {
+        act ("$p already has a withered aura about it.", ch, obj, NULL, TO_CHAR);
+    }
 
 } // end withering_enchant
