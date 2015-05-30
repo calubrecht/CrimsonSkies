@@ -558,7 +558,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
-			// reclass
+            // reclass
             strcpy (buf, "Select an initial class [");
             for (iClass = 0; iClass < MAX_CLASS; iClass++)
             {
@@ -591,6 +591,10 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 send_to_desc("You must choose a base class.\n\rWhat IS your class? ", d);
                 return;
             }
+
+            send_to_desc("\n\rYou will be able to choose a specialized class later if\n\r", d);
+            send_to_desc("you so choose (you can enter 'help reclass' once you're\n\r", d);
+            send_to_desc("completed the creation process for more information.\n\r", d);
 
             ch->class = iClass;
 
