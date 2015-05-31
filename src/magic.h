@@ -129,3 +129,4 @@ DECLARE_SPELL_FUN(	spell_lightning_breath	);
 DECLARE_SPELL_FUN(	spell_general_purpose	);
 DECLARE_SPELL_FUN(	spell_high_explosive	);
 DECLARE_SPELL_FUN(      spell_withering_enchant );
+DECLARE_SPELL_FUN(      spell_enchant_person    );

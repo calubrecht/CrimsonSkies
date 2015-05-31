@@ -914,6 +914,12 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "", "!Enchant Weapon!", ""},
 
     {
+     "enchant person", {53, 53, 53, 53, 11}, {4, 4, 4, 4, 1},
+     spell_enchant_person, TAR_CHAR_DEFENSIVE, POS_STANDING,
+     NULL, SLOT (512), 25, 24,
+     "enchant person", "The translucent blue aura around your body fades.", ""},
+
+    {
      "withering enchant", {53, 53, 53, 53, 1}, {4, 4, 4, 4, 1},
      spell_withering_enchant, TAR_OBJ_INV, POS_STANDING,
      NULL, SLOT (511), 25, 24,
@@ -1545,9 +1551,9 @@ const struct group_type group_table[MAX_GROUP] = {
       "parry", "rescue", "third attack"}
      },
      {
-         "enchantor default", { -1, -1, -1, -1, 40 },
-         { "lore", "beguiling", "combat", "detection", "enhancement", "illusion",
-         "maladictions", "protective", "transportation", "weather", "enchantment" }
+     "enchantor default", { -1, -1, -1, -1, 40 },
+      { "lore", "beguiling", "combat", "detection", "enhancement", "illusion",
+        "maladictions", "protective", "transportation", "weather", "enchantment" }
      },
     {
      "weaponsmaster", {40, 40, 40, 20, 40},
@@ -1604,7 +1610,7 @@ const struct group_type group_table[MAX_GROUP] = {
     {
      "enchantment", {6, -1, -1, -1, 2},
      {"enchant armor", "enchant weapon", "fireproof", "recharge",
-      "withering enhant"}
+      "withering enhant", "enchant person"}
      },
 
     {
