@@ -1,7 +1,8 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug.  
+Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug 
+along with what will become a lot of custom code.  
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
 official go to version 1.0 (which will probably be one I have at one reclass for every base class coded). 
@@ -85,11 +86,3 @@ If you wish to contact me you can contact me through my web-site and it will rou
 my current preferred email:
 
  - http://www.blakepell.com/Contact.aspx
-
-## Thank you
-
-I want to send a special thank you to Tony Allen who runs Dark and Shattered Lands (DSL) at
-http://www.dsl-mud.org .  I coded (as Rhien) on his mud from 1999-2003 and it was there
-that I really learned C and to this day I credit it with helping me along in the programming
-profession.  I highly suggest checking out his MUD if you have time.  This mud code base contains no code
-that was written for DSL.
