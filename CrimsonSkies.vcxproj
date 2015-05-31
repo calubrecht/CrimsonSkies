@@ -86,6 +86,7 @@
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
     <ClCompile Include="src\effects.c" />
+    <ClCompile Include="src\enchantor.c" />
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\interp.c" />
