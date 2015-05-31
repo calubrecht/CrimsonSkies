@@ -721,7 +721,7 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
     int lastlogoff = current_time;
     int percent;
 
-    sprintf (buf, "Loading %s.", ch->name);
+    sprintf (buf, "Loading player %s.", ch->name);
     log_string (buf);
 
     for (;;)
