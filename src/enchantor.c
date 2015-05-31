@@ -37,3 +37,45 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
 } // end withering_enchant
+
+/*
+ * Spell that enchants a person, it adds hitroll and damroll to the person
+ * based off of the users casting level.
+ */
+void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo,
+                              int target)
+{
+    /* character target */
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected (victim, sn))
+    {
+        if (victim == ch)
+            send_to_char ("You have already been enchanted.\n\r", ch);
+        else
+            act ("$N has already been enchanted.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    int value = UMAX(1, ch->level / 10);
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.location = APPLY_HITROLL;
+    af.modifier = value;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_DAMROLL;
+    af.modifier = value;
+
+    affect_to_char (victim, &af);
+    send_to_char ("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
+    if (ch != victim)
+        act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim,
+             TO_CHAR);
+    return;
+} // end spell_enchant_person
