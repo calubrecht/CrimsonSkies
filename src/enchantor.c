@@ -25,6 +25,12 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
 
+    if (obj->wear_loc != 1)
+    {
+        send_to_char("You cannot wither an item that you cannot carry.\n\r", ch);
+        return;
+    }
+
     if (!IS_SET (obj->extra_flags, ITEM_ROT_DEATH))
     {
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
@@ -40,7 +46,8 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
 
 /*
  * Spell that enchants a person, it adds hitroll and damroll to the person
- * based off of the users casting level.
+ * based off of the users casting level.  The target will also gain a small
+ * mana boost if the victim is not the caster.
  */
 void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo,
                               int target)
@@ -74,8 +81,18 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo,
 
     affect_to_char (victim, &af);
     send_to_char ("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
+
     if (ch != victim)
-        act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim,
-             TO_CHAR);
-    return;
+    {
+        act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim, TO_CHAR);
+
+        // Small mana transfer from the caster to the target, but no more than their max mana.
+        victim->mana += number_range(10, 20);
+
+        if (victim->mana > victim->max_mana)
+        {
+            victim->mana = victim->max_mana;
+        }
+    }
+
 } // end spell_enchant_person
