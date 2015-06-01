@@ -134,6 +134,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  * Color stuff by Lope.
  */
 #define CLEAR       "\x1B[0m"        /* Resets Color    */
+#define C_BLACK		"[30m"
 #define C_RED       "\x1B[0;31m"    /* Normal Colors    */
 #define C_GREEN     "\x1B[0;32m"
 #define C_YELLOW    "\x1B[0;33m"
@@ -149,6 +150,11 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define C_B_MAGENTA "\x1B[1;35m"
 #define C_B_CYAN    "\x1B[1;36m"
 #define C_B_WHITE   "\x1B[1;37m"
+#define BLINK       "\x1B[5m"
+#define BACK2       "\x1B[1D"
+#define BACK        "\x01B[1D"
+#define UNDERLINE	"\x1B[4m"     
+#define REVERSE		"\x1B[7m"		
 
 
 /*
