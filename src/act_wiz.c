@@ -5423,9 +5423,11 @@ void do_exlist(CHAR_DATA *ch, char * argument)
         }
 }
 
-// Rhien, 4/21/2015
-// Broadcasts a message to all connected descriptors regardless of game state and including
-// the login screen.
+/*
+ * Rhien, 4/21/2015
+ * Broadcasts a message to all connected descriptors regardless of game state and including
+ * the login screen.
+ */
 void do_broadcast(CHAR_DATA * ch, char *argument)
 {
     if (argument[0] == '\0')
@@ -5446,9 +5448,11 @@ void do_broadcast(CHAR_DATA * ch, char *argument)
 
 }
 
-// Rhien, 04/21/2015
-// This will determine the max vnum by looping through the areas (which will get us roughly within 100) and then
-// we will loop over all possible vnums from 0 to that value and print out the ranges of empty.
+/*
+ * Rhien, 04/21/2015
+ * This will determine the max vnum by looping through the areas (which will get us roughly within 100) and then
+ * we will loop over all possible vnums from 0 to that value and print out the ranges of empty.
+ */
 void do_vnumgap(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
