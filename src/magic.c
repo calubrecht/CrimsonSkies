@@ -1211,6 +1211,12 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel (level, victim, skill_lookup ("enchant person")))
+    {
+        act("$n no longer looks as if $e is enchanted.",victim,NULL,NULL,TO_ROOM);
+	found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -2270,6 +2276,12 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel (level, victim, skill_lookup ("weaken")))
     {
         act ("$n looks stronger.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel (level, victim, skill_lookup ("enchant person")))
+    {
+        act("$n no longer looks as if $e is enchanted.",victim,NULL,NULL,TO_ROOM);
         found = TRUE;
     }
 
