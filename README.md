@@ -1,8 +1,11 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6 with some features included from other Diku family muds such as Smaug 
-along with what will become a lot of custom code.  
+Crimson Skies is an open source MUD based on ROM 2.4b6.  Creative and innovative features from other open source code
+bases (Smaug, Shadow, Wurm)  will be included as well as what will be a lot of custom code.  The initial steps will
+be getting a lot of the underpinnings in place correctly in order to make quicker updates later (like abstracting the
+class system, anyone who has added a new class to stock ROM will quickly get tired up updating the class_type table, 
+this is something that can be fixed fairly simply).  
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
 official go to version 1.0 (which will probably be one I have at one reclass for every base class coded). 
@@ -20,16 +23,13 @@ eloving from stock ROM'ish while I work through initial changes):
 
   - 66.244.102.112 port 4000
 
-This isn't advertised with Mud Connector or anywhere else, just here for anyone interested while I work on it.  The first things 
-I will be working on is cleaning up formatting, removing some small stuff I didn't think fit an RP mud (like the Jukebox) and 
-then I'll focus on new classes, reclasses, reclass reclasses, spells and skills.  I will be altering the underpinnings before 
-making many area additions.  
-
 ## Project Goals:
 
   - To provide a ROM code base that includes creative additions that keep the same
     feel of what made ROM great (I will be changing and re-organizing things though) and will probably
-    remove or drastically change some areas that don't fit imo (like the smurf village).
+    remove or drastically change some areas that don't fit imo (like the smurf village).  I will
+    build off of ROM/Diku which means I'll be leaving areas like Midgaard and New Thalos which I find
+    to be iconic (or at least nostalgic).
   - To document the old functions with descriptions and hopefully well document new functions.
   - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
@@ -44,7 +44,7 @@ making many area additions.
     than back in the day when I was using solely pico.  The solution will compile and is fully
     debugable with Visual Studio which means you can run it and when it crashes you'll be sitting
     on the line of code that caused it when everything or you can easily step into, over and out
-    of code.  
+    of code (without having to use something like gdb).  
   - I will likely be working on alternate tools for building areas via a GUI where you can
     drag and drop rooms to draw maps quickly and then fill in the text info.  I may work on
     a mud client that functions like a traditional but also integrates additional input methods
