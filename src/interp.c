@@ -312,7 +312,6 @@ const struct cmd_type cmd_table[] = {
     {"pecho",           do_pecho,       POS_DEAD, L4, LOG_ALWAYS, 1},
     {"pardon",          do_pardon,      POS_DEAD, L3, LOG_ALWAYS, 1},
     {"purge",           do_purge,       POS_DEAD, L4, LOG_ALWAYS, 1},
-    {"qmconfig",        do_qmconfig,    POS_DEAD, ML, LOG_ALWAYS, 1},
     {"restore",         do_restore,     POS_DEAD, L4, LOG_ALWAYS, 1},
     {"sla",             do_sla,         POS_DEAD, L3, LOG_NORMAL, 0},
     {"slay",            do_slay,        POS_DEAD, L3, LOG_ALWAYS, 1},

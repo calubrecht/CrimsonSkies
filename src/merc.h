@@ -2049,8 +2049,7 @@ void     get_obj             args( ( CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *con
 /* act_wiz.c */
 void     wiznet              args( ( char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level ) );
 void     copyover_recover    args( ( void ) );
-void 	 qmconfig_read		args( ( void ) );
-                   
+
 /* alias.c */
 void     substitute_alias    args( ( DESCRIPTOR_DATA *d, char *input ) );
 

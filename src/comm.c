@@ -203,12 +203,6 @@ void bust_a_prompt args ((CHAR_DATA * ch));
 /* Needs to be global because of do_copyover */
 int port, control;
 
-/* Put global mud config values here. Look at qmconfig command for clues.     */
-/*   -- JR 09/23/2000                                                         */
-/* Set values for all but IP address in ../area/config.txt file.             */
-/*   -- JR 05/10/2001                                                         */
-int mud_ansiprompt, mud_ansicolor, mud_telnetga;
-
 /* Set this to the IP address you want to listen on (127.0.0.1 is good for    */
 /* paranoid types who don't want the 'net at large peeking at their MUD)      */
 char *mud_ipaddress = "0.0.0.0";
@@ -284,7 +278,6 @@ int main (int argc, char **argv)
      */
 #if defined(unix) || defined(_WIN32) || defined(__APPLE__)
 
-    qmconfig_read(); /* Here so we can set the IP adress. -- JR 05/06/01 */
     if (!fCopyOver)
         control = init_socket (port);
 
@@ -706,11 +699,8 @@ void init_descriptor (int control)
     dnew = new_descriptor ();
 
     dnew->descriptor = desc;
-    if (!mud_ansiprompt)
-        dnew->connected = CON_GET_NAME;
-    else
-        dnew->connected = CON_ANSI;
-    dnew->ansi = mud_ansicolor;
+    dnew->connected = CON_ANSI;
+    dnew->ansi = TRUE;
     dnew->showstr_head = NULL;
     dnew->showstr_point = NULL;
     dnew->outsize = 2000;
@@ -784,16 +774,7 @@ void init_descriptor (int control)
     /*
      * First Contact!
      */
-    if (!mud_ansiprompt)
-    {
-        extern char * help_greeting;
-        if (help_greeting[0] == '.')
-            send_to_desc(help_greeting + 1, dnew);
-        else
-            send_to_desc(help_greeting, dnew);
-    }
-    else
-        write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0);
+    write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0);
 
     return;
 }

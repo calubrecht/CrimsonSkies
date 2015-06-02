@@ -128,7 +128,6 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
     char *p;
     int iClass, race, i, weapon;
     bool fOld;
-    extern int mud_telnetga, mud_ansicolor;
 
     /* Delete leading spaces UNLESS character is writing a note */
     if (d->connected != CON_NOTE_TEXT)
@@ -829,10 +828,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (ch->level == 0)
             {
                 // First time character bits
-                if(mud_ansicolor)
-                    SET_BIT (ch->act, PLR_COLOR);
-                if(mud_telnetga)
-                    SET_BIT (ch->comm, COMM_TELNET_GA);
+                SET_BIT (ch->act, PLR_COLOR);
+                SET_BIT (ch->comm, COMM_TELNET_GA);
 
                 ch->perm_stat[class_table[ch->class].attr_prime] += 3;
 
