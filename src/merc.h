@@ -146,7 +146,6 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define UNDERLINE   "\x1B[4m"
 #define REVERSE     "\x1B[7m"
 
-
 /*
  * Thanks Dingo for making life a bit easier ;)
  */

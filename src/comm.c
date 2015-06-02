@@ -2268,26 +2268,20 @@ int color(char type, CHAR_DATA *ch, char *string)
         sprintf(code, C_D_GREY);
         break;
     case '*':
-        sprintf(code, "%c", 007);
+        sprintf(code, BLINK);
         break;
     case '/':
         strcpy(code, "\n\r");
         break;
-    case '^':
-        strcpy(code, "\x1B[0;5m"); // Blink
-        break;
     case '_':
-        strcpy(code, "\x1B[0;4m");  // Underline
+        strcpy(code, UNDERLINE);  // Underline
         break;
-        case '&':
-                strcpy(code, "\x1B[0;7m");  // Reverse
-                break;
+    case '&':
+        strcpy(code, REVERSE);  // Reverse
+        break;
     case '-':
         strcpy(code, "~"); 
         break;
-    //case '/':
-    //	sprintf(code, "%c", 012);
-    //	break;
     case '{':
         sprintf(code, "%c", '{');
         break;
