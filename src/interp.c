@@ -203,7 +203,7 @@ const struct cmd_type cmd_table[] = {
     {"say",             do_say,         POS_RESTING,  0, LOG_NORMAL, 1},
     {"shout",           do_shout,       POS_RESTING,  3, LOG_NORMAL, 1},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, 1},
-	{"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, 1},
+    {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, 1},
 
     /*
      * Object manipulation commands.
@@ -357,16 +357,16 @@ const struct cmd_type cmd_table[] = {
     /*
      * OLC
      */
-    {"edit",            do_olc,         POS_DEAD,  0, LOG_NORMAL, 1},
-    {"asave",           do_asave,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"alist",           do_alist,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"resets",          do_resets,      POS_DEAD,  0, LOG_NORMAL, 1},
-    {"redit",           do_redit,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"medit",           do_medit,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"aedit",           do_aedit,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"oedit",           do_oedit,       POS_DEAD,  0, LOG_NORMAL, 1},
-    {"mpedit",          do_mpedit,      POS_DEAD,  0, LOG_NORMAL, 1},
-    {"hedit",           do_hedit,       POS_DEAD,  0, LOG_NORMAL, 1},
+    {"edit",            do_olc,         POS_DEAD, IM, LOG_NORMAL, 1},
+    {"asave",           do_asave,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"alist",           do_alist,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"resets",          do_resets,      POS_DEAD, IM, LOG_NORMAL, 1},
+    {"redit",           do_redit,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"medit",           do_medit,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"aedit",           do_aedit,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"oedit",           do_oedit,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"mpedit",          do_mpedit,      POS_DEAD, IM, LOG_NORMAL, 1},
+    {"hedit",           do_hedit,       POS_DEAD, IM, LOG_NORMAL, 1},
 
     /*
      * End of list.
@@ -727,7 +727,7 @@ int number_argument (char *argument, char *arg)
 
 /*
  * Given a string like 14*foo, return 14 and 'foo'
-*/
+ */
 int mult_argument (char *argument, char *arg)
 {
     char *pdot;
@@ -748,8 +748,6 @@ int mult_argument (char *argument, char *arg)
     strcpy (arg, argument);
     return 1;
 }
-
-
 
 /*
  * Pick off one argument from a string and return the rest.
@@ -797,7 +795,7 @@ void do_commands (CHAR_DATA * ch, char *argument)
     col = 0;
     for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
     {
-        if (cmd_table[cmd].level < LEVEL_HERO
+        if (cmd_table[cmd].level <= LEVEL_HERO
             && cmd_table[cmd].level <= get_trust (ch) && cmd_table[cmd].show)
         {
             sprintf (buf, "%-12s", cmd_table[cmd].name);
@@ -812,6 +810,9 @@ void do_commands (CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Shows all immortal commands available
+ */
 void do_wizhelp (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -821,7 +822,7 @@ void do_wizhelp (CHAR_DATA * ch, char *argument)
     col = 0;
     for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
     {
-        if (cmd_table[cmd].level >= LEVEL_HERO
+        if (cmd_table[cmd].level > LEVEL_HERO
             && cmd_table[cmd].level <= get_trust (ch) && cmd_table[cmd].show)
         {
             sprintf (buf, "%-12s", cmd_table[cmd].name);

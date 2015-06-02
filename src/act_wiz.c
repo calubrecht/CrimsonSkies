@@ -2316,18 +2316,20 @@ void do_return (CHAR_DATA * ch, char *argument)
     return;
 }
 
-/* trust levels for load and clone */
+/*
+ * Trust levels for load and clone.  I've set this to immortal, clone and
+ * load should probably be logged anyway.
+ */
 bool obj_check (CHAR_DATA * ch, OBJ_DATA * obj)
 {
-    if (IS_TRUSTED (ch, GOD)
-        || (IS_TRUSTED (ch, IMMORTAL) && obj->level <= 20
-            && obj->cost <= 1000) || (IS_TRUSTED (ch, DEMI)
-                                      && obj->level <= 10 && obj->cost <= 500)
-        || (IS_TRUSTED (ch, ANGEL) && obj->level <= 5 && obj->cost <= 250)
-        || (IS_TRUSTED (ch, AVATAR) && obj->level == 0 && obj->cost <= 100))
+    if (IS_IMMORTAL(ch))
+    {
         return TRUE;
+    }
     else
+    {
         return FALSE;
+    }
 }
 
 /* for clone, to insure that cloning goes many levels deep */
@@ -2431,17 +2433,6 @@ void do_clone (CHAR_DATA * ch, char *argument)
         if (!IS_NPC (mob))
         {
             send_to_char ("You can only clone mobiles.\n\r", ch);
-            return;
-        }
-
-        if ((mob->level > 20 && !IS_TRUSTED (ch, GOD))
-            || (mob->level > 10 && !IS_TRUSTED (ch, IMMORTAL))
-            || (mob->level > 5 && !IS_TRUSTED (ch, DEMI))
-            || (mob->level > 0 && !IS_TRUSTED (ch, ANGEL))
-            || !IS_TRUSTED (ch, AVATAR))
-        {
-            send_to_char
-                ("Your powers are not great enough for such a task.\n\r", ch);
             return;
         }
 

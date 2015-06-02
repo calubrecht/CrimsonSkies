@@ -465,13 +465,12 @@ void new_load_area (FILE * fp)
     pArea->vnum = top_area;
     pArea->name = str_dup ("New Area");
     pArea->builders = str_dup ("");
-    pArea->security = 9;        /* 9 -- Hugin */
+    pArea->security = 9;
     pArea->min_vnum = 0;
     pArea->max_vnum = 0;
     pArea->min_level = 0;
     pArea->max_level = 0;
     pArea->area_flags = 0;
-/*  pArea->recall       = ROOM_VNUM_TEMPLE;        ROM OLC */
 
     log_f("Loading area %s", pArea->file_name);
 
@@ -487,6 +486,8 @@ void new_load_area (FILE * fp)
                 {
                     pArea->min_level = fread_number (fp);
                     pArea->max_level = fread_number (fp);
+                    fMatch = TRUE;
+                    break;
                 }
 
                 break;
@@ -501,6 +502,8 @@ void new_load_area (FILE * fp)
                 {
                     pArea->min_vnum = fread_number (fp);
                     pArea->max_vnum = fread_number (fp);
+                    fMatch = TRUE;
+                    break;
                 }
                 break;
             case 'E':

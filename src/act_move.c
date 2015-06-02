@@ -98,8 +98,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
 
     if (IS_SET (pexit->exit_info, EX_CLOSED)
         && (!IS_AFFECTED (ch, AFF_PASS_DOOR)
-            || IS_SET (pexit->exit_info, EX_NOPASS))
-        && !IS_TRUSTED (ch, ANGEL))
+            || IS_SET (pexit->exit_info, EX_NOPASS)))
     {
         act ("The $d is closed.", ch, NULL, pexit->keyword, TO_CHAR);
         return;
@@ -1873,15 +1872,13 @@ void do_enter(CHAR_DATA * ch, char *argument)
         }
 
         if (portal->item_type != ITEM_PORTAL
-            || (IS_SET(portal->value[1], EX_CLOSED)
-            && !IS_TRUSTED(ch, ANGEL)))
+            || (IS_SET(portal->value[1], EX_CLOSED)))
         {
             send_to_char("You can't seem to find a way in.\n\r", ch);
             return;
         }
 
-        if (!IS_TRUSTED(ch, ANGEL)
-            && !IS_SET(portal->value[2], GATE_NOCURSE)
+        if (!IS_SET(portal->value[2], GATE_NOCURSE)
             && (IS_AFFECTED(ch, AFF_CURSE)
             || IS_SET(old_room->room_flags, ROOM_NO_RECALL)))
         {
