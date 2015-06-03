@@ -97,7 +97,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  * Adjust the pulse numbers to suit yourself.
  */
 #define MAX_SOCIALS        256
-#define MAX_SKILL          152
+#define MAX_SKILL          153
 #define MAX_GROUP          32 // reclass
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5

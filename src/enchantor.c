@@ -20,8 +20,7 @@
  * Spell that sets a rot-death flag on an item so it crumbles when the
  * player dies.
  */
-void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
-                              int target)
+void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
 
@@ -49,10 +48,8 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo,
  * based off of the users casting level.  The target will also gain a small
  * mana boost if the victim is not the caster.
  */
-void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo,
-                              int target)
+void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    /* character target */
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
@@ -96,3 +93,25 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
 } // end spell_enchant_person
+
+/*
+ * Enchantor spell that toggles whether an object is no locate or not.
+ */
+void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+
+    if (IS_OBJ_STAT(obj,ITEM_NOLOCATE))
+    {
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+        REMOVE_BIT(obj->extra_flags,ITEM_NOLOCATE);
+    }
+    else
+    {
+       SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
+       act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
+       act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+    }
+
+} // end spell_sequestor
