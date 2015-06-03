@@ -41,3 +41,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - bool char_in_room to determine if a character is already in a room.
   - Add enchantor spells, test reclassing better.
   - separate_obj from smaug.
+  - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
+    spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
+    just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
+    if looted can't be used by others if they so choose).
