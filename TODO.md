@@ -25,6 +25,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add ranged spells (fireball)
   - Dual wield
   - Wear flags
+  - Pit saving
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Cleanup display of wiznet on/off options
@@ -45,3 +46,6 @@ This is my to do list, mostly will be things big and small as I think about them
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
     if looted can't be used by others if they so choose).
+  - Add enchanted by field that stores the enchantor's name when an enchantment is made on the object.
+  - Add wizard mark spell which allows the enchantor to wizard mark any item with their sign, this will allow
+    the locate object spell to locate items they've wizard marked if they exist in the world.
