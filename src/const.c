@@ -931,6 +931,13 @@ const struct skill_type skill_table[MAX_SKILL] = {
      NULL, SLOT (514), 50, 24,
      "", "!Sequestor!", ""},
 
+
+    {
+     "interlace spirit", {53, 53, 53, 53, 46}, {2, 2, 4, 4, 1},
+     spell_interlace_spirit, TAR_OBJ_INV, POS_STANDING,
+     NULL, SLOT (515), 25, 24,
+     "", "!Interlace Spirit!", ""},
+
     {
      "energy drain", {19, 22, 26, 23, 19}, {1, 1, 2, 2, 1},
      spell_energy_drain, TAR_CHAR_OFFENSIVE, POS_FIGHTING,

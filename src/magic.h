@@ -131,3 +131,4 @@ DECLARE_SPELL_FUN(	spell_high_explosive	);
 DECLARE_SPELL_FUN(      spell_withering_enchant );
 DECLARE_SPELL_FUN(      spell_enchant_person    );
 DECLARE_SPELL_FUN(      spell_sequestor         );
+DECLARE_SPELL_FUN(      spell_interlace_spirit  );

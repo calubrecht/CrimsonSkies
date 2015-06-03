@@ -115,3 +115,56 @@ void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     }
 
 } // end spell_sequestor
+
+/*
+ * Spell that makes it so the weapon or armor is only usable by people of the same alignment.
+ * This could potentially make an object unusable if it's already set as ANTI something.
+ */
+void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    char buf[MAX_STRING_LENGTH];
+
+    if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
+    {
+	send_to_char("You can only interlace your spirit into weapons or armor.\n\r",ch);
+	return;
+    }
+
+    if (obj->wear_loc != -1)
+    {
+	send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r",ch);
+	return;
+    }
+
+    if (IS_GOOD(ch))
+    {
+        SET_BIT(obj->extra_flags,ITEM_ANTI_EVIL);
+        SET_BIT(obj->extra_flags,ITEM_ANTI_NEUTRAL);
+    }
+    else if (IS_NEUTRAL(ch))
+    {
+        SET_BIT(obj->extra_flags,ITEM_ANTI_GOOD);
+        SET_BIT(obj->extra_flags,ITEM_ANTI_EVIL);
+    }
+    else
+    {
+        SET_BIT(obj->extra_flags,ITEM_ANTI_GOOD);
+        SET_BIT(obj->extra_flags,ITEM_ANTI_NEUTRAL);
+    }
+
+    sprintf(buf, "%s has had %s's spirit interlaced into it.", obj->short_descr, ch->name);
+    act(buf, ch, NULL, NULL, TO_ROOM);
+    act(buf, ch, NULL, NULL, TO_CHAR);
+
+    // If it's not unwieldable by all alignments send an additional message.
+    if (IS_OBJ_STAT(obj,ITEM_ANTI_GOOD) &&
+        IS_OBJ_STAT(obj,ITEM_ANTI_NEUTRAL) &&
+        IS_OBJ_STAT(obj,ITEM_ANTI_EVIL))
+    {
+        sprintf(buf, "%s is surrounded by a dull gray aura that quickly dissipates.", obj->short_descr);
+        act(buf, ch, NULL, NULL, TO_ROOM);
+        act(buf, ch, NULL, NULL, TO_CHAR);
+    }
+
+} // end interlace_spirit
