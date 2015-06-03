@@ -46,7 +46,7 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo, int t
 /*
  * Spell that enchants a person, it adds hitroll and damroll to the person
  * based off of the users casting level.  The target will also gain a small
- * mana boost if the victim is not the caster.
+ * mana boost if the victim is not the caster as well as a small AC boost.
  */
 void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
@@ -75,8 +75,12 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int targ
 
     af.location = APPLY_DAMROLL;
     af.modifier = value;
-
     affect_to_char (victim, &af);
+
+    af.modifier = -5;
+    af.location = APPLY_AC;
+    affect_to_char (victim, &af);
+
     send_to_char ("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
 
     if (ch != victim)
