@@ -147,6 +147,15 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define REVERSE     "\x1B[7m"
 
 /*
+ * Class lookup values that correspond to the class table.
+ */
+#define MAGE_CLASS_LOOKUP                       0
+#define CLERIC_CLASS_LOOKUP                     1
+#define THIEF_CLASS_LOOKUP                      2
+#define WARRIOR_CLASS_LOOKUP                    3
+#define ENCHANTOR_CLASS_LOOKUP                  4
+
+/*
  * Thanks Dingo for making life a bit easier ;)
  */
 #define CH(d)((d)->original ? (d)->original : (d)->character)
