@@ -1567,8 +1567,6 @@ void do_hide (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /*
  * Contributed by Alander.
  */
@@ -1651,8 +1649,6 @@ void do_recall (CHAR_DATA * ch, char *argument)
 
     return;
 }
-
-
 
 void do_train (CHAR_DATA * ch, char *argument)
 {

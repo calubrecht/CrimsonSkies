@@ -1284,8 +1284,6 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
     return;
 }
 
-
-
 /*
  * Check for parry.
  */
@@ -1328,9 +1326,7 @@ bool check_shield_block (CHAR_DATA * ch, CHAR_DATA * victim)
     if (!IS_AWAKE (victim))
         return FALSE;
 
-
     chance = get_skill (victim, gsn_shield_block) / 5 + 3;
-
 
     if (get_eq_char (victim, WEAR_SHIELD) == NULL)
         return FALSE;
@@ -1344,7 +1340,6 @@ bool check_shield_block (CHAR_DATA * ch, CHAR_DATA * victim)
     check_improve (victim, gsn_shield_block, TRUE, 6);
     return TRUE;
 }
-
 
 /*
  * Check for dodge.
@@ -1369,8 +1364,6 @@ bool check_dodge (CHAR_DATA * ch, CHAR_DATA * victim)
     check_improve (victim, gsn_dodge, TRUE, 6);
     return TRUE;
 }
-
-
 
 /*
  * Set position of a victim.
@@ -1406,8 +1399,6 @@ void update_pos (CHAR_DATA * victim)
     return;
 }
 
-
-
 /*
  * Start fights.
  */
@@ -1428,8 +1419,6 @@ void set_fighting (CHAR_DATA * ch, CHAR_DATA * victim)
     return;
 }
 
-
-
 /*
  * Stop fights.
  */
@@ -1449,8 +1438,6 @@ void stop_fighting (CHAR_DATA * ch, bool fBoth)
 
     return;
 }
-
-
 
 /*
  * Make a corpse out of a character.
@@ -1564,8 +1551,6 @@ void make_corpse (CHAR_DATA * ch)
     obj_to_room (corpse, ch->in_room);
     return;
 }
-
-
 
 /*
  * Improved Death_cry contributed by Diavolo.
@@ -1688,8 +1673,6 @@ void death_cry (CHAR_DATA * ch)
     return;
 }
 
-
-
 void raw_kill (CHAR_DATA * victim)
 {
     int i;
@@ -1719,7 +1702,6 @@ void raw_kill (CHAR_DATA * victim)
 /*  save_char_obj( victim ); we're stable enough to not need this :) */
     return;
 }
-
 
 void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 {
@@ -1803,7 +1785,6 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 
     return;
 }
-
 
 /*
  * Compute xp for a kill.
@@ -2025,7 +2006,6 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     return xp;
 }
 
-
 void dam_message (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
                   bool immune)
 {
@@ -2219,8 +2199,6 @@ void dam_message (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
     }
     return;
 }
-
-
 
 /*
  * Disarm a creature.
