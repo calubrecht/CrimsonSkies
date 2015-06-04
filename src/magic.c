@@ -2327,7 +2327,8 @@ void spell_earthquake (int sn, int level, CHAR_DATA * ch, void *vo,
 
 /*
  *  Spell that enchants a piece of armor.  Mages and certain mage classes will be able
- *  to enchant but enchantors are far more skilled at it.
+ *  to enchant but enchantors are far more skilled at it. This spell is the merc/rom
+ *  version slightly modified for enchantor bonuses.
  */
 void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
@@ -2552,10 +2553,10 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
 /*
  * Spell that enchants a weapon increasing it's hit and dam roll.  Some classes like
- * mages can enchant.  Enchantors specialize in this and get bonuses.
+ * mages can enchant but  Enchantors specialize in this and get bonuses.  This spell
+ * is the merc/rom version slightly modified for enchantor bonuses.
  */
-void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
-                           int target)
+void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
     AFFECT_DATA *paf;
@@ -2576,14 +2577,21 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    /* this means they have no bonus */
+    // this means they have no bonus
     hit_bonus = 0;
     dam_bonus = 0;
-    fail = 25;                    /* base 25% chance of failure */
+    // base 25% chance of failure
+    fail = 25;
 
-    /* find the bonuses */
+    // Enchantors have a lower base chance of failure
+    if ( ch->class == ENCHANTOR_CLASS_LOOKUP ) 
+    {
+        fail = 5;
+    }
 
+    // find the bonuses
     if (!obj->enchanted)
+    {
         for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
         {
             if (paf->location == APPLY_HITROLL)
@@ -2599,10 +2607,13 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
                 dam_found = TRUE;
                 fail += 2 * (dam_bonus * dam_bonus);
             }
-
-            else                /* things get a little harder */
+            else
+            {
+                // things get a little harder
                 fail += 25;
+            }
         }
+    }
 
     for (paf = obj->affected; paf != NULL; paf = paf->next)
     {
@@ -2612,19 +2623,20 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
             hit_found = TRUE;
             fail += 2 * (hit_bonus * hit_bonus);
         }
-
         else if (paf->location == APPLY_DAMROLL)
         {
             dam_bonus = paf->modifier;
             dam_found = TRUE;
             fail += 2 * (dam_bonus * dam_bonus);
         }
-
-        else                    /* things get a little harder */
+        else
+        {
+            // things get a little harder
             fail += 25;
+        }
     }
 
-    /* apply other modifiers */
+    // apply other modifiers
     fail -= 3 * level / 2;
 
     if (IS_OBJ_STAT (obj, ITEM_BLESS))
@@ -2633,12 +2645,27 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         fail -= 5;
 
     fail = URANGE (5, fail, 95);
-
     result = number_percent ();
 
-    /* the moment of truth */
+    // Enchanting cap at 14 hit or 14 damage (which should be impossibly rare)
+    for ( paf = obj->affected; paf != NULL; paf = paf->next )
+    {
+        if ( paf->location == APPLY_HITROLL )
+        {
+            hit_bonus = paf->modifier;
+            if (hit_bonus >= 14) {result=0;}
+        }
+        else if (paf->location == APPLY_DAMROLL )
+        {
+            dam_bonus = paf->modifier;
+           if (dam_bonus >= 14) {result=0;}
+        }
+    }
+
+    // the moment of truth
     if (result < (fail / 5))
-    {                            /* item destroyed */
+    {
+        // item destroyed
         act ("$p shivers violently and explodes!", ch, obj, NULL, TO_CHAR);
         act ("$p shivers violently and explodeds!", ch, obj, NULL, TO_ROOM);
         extract_obj (obj);
@@ -2646,14 +2673,15 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
     if (result < (fail / 2))
-    {                            /* item disenchanted */
+    {
+        // item disenchant
         AFFECT_DATA *paf_next;
 
         act ("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
         act ("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
         obj->enchanted = TRUE;
 
-        /* remove all affects */
+        // remove all affects
         for (paf = obj->affected; paf != NULL; paf = paf_next)
         {
             paf_next = paf->next;
@@ -2661,18 +2689,19 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         }
         obj->affected = NULL;
 
-        /* clear all flags */
+        // clear all flags
         obj->extra_flags = 0;
         return;
     }
 
     if (result <= fail)
-    {                            /* failed, no bad result */
+    {
+        // failed, no bad result
         send_to_char ("Nothing seemed to happen.\n\r", ch);
         return;
     }
 
-    /* okay, move all the old flags into new vectors if we have to */
+    // move all the old flags into new vectors if we have to 
     if (!obj->enchanted)
     {
         AFFECT_DATA *af_new;
@@ -2700,17 +2729,26 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
     free_string(obj->enchanted_by);
     obj->enchanted_by = str_dup(buf);
 
-    if (result <= (100 - level / 5))
-    {                            /* success! */
+    if ( ch->class == ENCHANTOR_CLASS_LOOKUP && result >= (110 - level / 5))
+    {
+        // exceptional enchant for an enchantor
+        act("$p glows a brilliant {Wwhite{x!",ch,obj,NULL,TO_CHAR);
+        act("$p glows a brilliant {Wwhite{x!",ch,obj,NULL,TO_ROOM);
+        SET_BIT(obj->extra_flags,ITEM_MAGIC);
+        SET_BIT(obj->extra_flags,ITEM_GLOW);
+        added = 3; 
+    }
+    else if (result <= (100 - level / 5))
+    {
+        // success
         act ("$p glows blue.", ch, obj, NULL, TO_CHAR);
         act ("$p glows blue.", ch, obj, NULL, TO_ROOM);
         SET_BIT (obj->extra_flags, ITEM_MAGIC);
         added = 1;
     }
-
     else
-    {                            /* exceptional enchant */
-
+    {
+        // exceptional enchant
         act ("$p glows a brillant blue!", ch, obj, NULL, TO_CHAR);
         act ("$p glows a brillant blue!", ch, obj, NULL, TO_ROOM);
         SET_BIT (obj->extra_flags, ITEM_MAGIC);
@@ -2718,8 +2756,7 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         added = 2;
     }
 
-    /* now add the enchantments */
-
+    // add the enchantments
     if (obj->level < LEVEL_HERO - 1)
         obj->level = UMIN (LEVEL_HERO - 1, obj->level + 1);
 
@@ -2738,10 +2775,9 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         }
     }
     else
-    {                            /* add a new affect */
-
+    {
+        // add a new affect
         paf = new_affect ();
-
         paf->where = TO_OBJECT;
         paf->type = sn;
         paf->level = level;
@@ -2768,10 +2804,9 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         }
     }
     else
-    {                            /* add a new affect */
-
+    {
+        // add a new affect
         paf = new_affect ();
-
         paf->type = sn;
         paf->level = level;
         paf->duration = -1;
@@ -2782,7 +2817,7 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
         obj->affected = paf;
     }
 
-}
+} // end spell_enchant_weapon
 
 
 
@@ -3594,15 +3629,15 @@ void spell_identify (int sn, int level, CHAR_DATA * ch, void *vo, int target)
                     switch (paf->where)
                     {
                         case TO_AFFECTS:
-                            sprintf (buf, "Adds %s affect.\n",
+                            sprintf (buf, "Adds %s affect.\n\r",
                                      affect_bit_name (paf->bitvector));
                             break;
                         case TO_OBJECT:
-                            sprintf (buf, "Adds %s object flag.\n",
+                            sprintf (buf, "Adds %s object flag.\n\r",
                                      extra_bit_name (paf->bitvector));
                             break;
                         case TO_IMMUNE:
-                            sprintf (buf, "Adds immunity to %s.\n",
+                            sprintf (buf, "Adds immunity to %s.\n\r",
                                      imm_bit_name (paf->bitvector));
                             break;
                         case TO_RESIST:
