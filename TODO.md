@@ -40,12 +40,10 @@ This is my to do list, mostly will be things big and small as I think about them
   - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.
   - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
-  - Add enchantor spells, test reclassing better.
+  - Test reclassing
   - separate_obj from smaug.
   - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
-    if looted can't be used by others if they so choose).
-  - Add enchanted by field that stores the enchantor's name when an enchantment is made on the object.
-  - Add wizard mark spell which allows the enchantor to wizard mark any item with their sign, this will allow
-    the locate object spell to locate items they've wizard marked if they exist in the world.
+    if looted can't be used by others if they so choose).  (maybe overpowered)
+  - Update locate for wizard mark
