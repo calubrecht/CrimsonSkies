@@ -41,7 +41,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
   - Test reclassing
-  - separate_obj from smaug.
+  - group obj/separate_obj from smaug for more efficient object storing.
   - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
