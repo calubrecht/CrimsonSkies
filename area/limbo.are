@@ -151,6 +151,19 @@ energy~
 container GMPUYZ AQ
 0 E 0 0 0
 0 0 0 P
+#24
+glittering white stone~
+a glittering {Wwhite{x stone~
+A glittering {Wwhite{x stone lays here.~
+pearl~
+warp_stone T AO
+0 0 0 0 0
+0 10 0 P
+E
+pearl~
+It's a nicely-formed pearl, should be worth a fair amount at the jewellers.
+You look around to see if there are any others nearby.
+~
 #25
 gate portal~
 a shimmering gate~
