@@ -2043,7 +2043,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // initial trains/practices you get to start with.  This should encourage players to level up their
     // initial class.
     ch->train += 5;
-    ch->train += oldLevel / 10;
+    ch->train += oldLevel / 5;
 
     ch->practice += 5;
     ch->practice += oldLevel / 5;

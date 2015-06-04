@@ -204,3 +204,38 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     act("You mark $p with your name.",ch,obj,NULL,TO_CHAR);
 
 } // spell_wizard_mark
+
+/*
+ * Spell that allows an enchantor to enchant any type of gem and turn it into
+ * a warpstone.
+ */
+void spell_enchant_gem(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj_warpstone;
+    char buf[MAX_STRING_LENGTH];
+
+    if (obj->item_type != ITEM_GEM)
+    {
+        send_to_char("That item is not a gem.\n\r",ch);
+        return;
+    }
+
+    if (obj->wear_loc != -1)
+    {
+        send_to_char("The gem must be carried to be enchanted.\n\r",ch);
+        return;
+    }
+
+    // Create the warpstone, create the message while both objects exist, then take the gem and give the
+    // warpstone to the player
+    obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE), 0);
+    sprintf(buf, "%s glows a bright {Mmagenta{x and changes into %s.", obj->short_descr, obj_warpstone->short_descr);
+    obj_from_char( obj );
+    obj_to_char( obj_warpstone, ch );
+
+    // Show the caster and the room what has happened
+    act(buf, ch, NULL, NULL, TO_ROOM);
+    act(buf, ch, NULL, NULL, TO_CHAR);
+
+} // end spell_enchant_gem

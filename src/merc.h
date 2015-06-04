@@ -97,7 +97,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  * Adjust the pulse numbers to suit yourself.
  */
 #define MAX_SOCIALS        256
-#define MAX_SKILL          154
+#define MAX_SKILL          155
 #define MAX_GROUP          32 // reclass
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5
@@ -838,6 +838,7 @@ struct    kill_data
 #define OBJ_VNUM_LIGHT_BALL        21
 #define OBJ_VNUM_SPRING            22
 #define OBJ_VNUM_DISC              23
+#define OBJ_VNUM_WARPSTONE         24
 #define OBJ_VNUM_PORTAL            25
 
 #define OBJ_VNUM_ROSE              1001

@@ -133,3 +133,4 @@ DECLARE_SPELL_FUN(      spell_enchant_person    );
 DECLARE_SPELL_FUN(      spell_sequestor         );
 DECLARE_SPELL_FUN(      spell_interlace_spirit  );
 DECLARE_SPELL_FUN(      spell_wizard_mark       );
+DECLARE_SPELL_FUN(      spell_enchant_gem       );
