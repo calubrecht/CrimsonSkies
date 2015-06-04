@@ -172,3 +172,35 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
 
 } // end interlace_spirit
+
+/*
+ * Spell that allows an enchantor to wizard mark an item.  A wizard marked item can always
+ * be located in the world with locate if it exists, the enchantor can also see (for a lot of mana)
+ * at the location of the object if it's not a private place or clan hall, etc.
+ */
+void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    char buf[MAX_INPUT_LENGTH];
+
+    if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
+    {
+        send_to_char("You can only wizard mark weapons or armor.\n\r", ch);
+        return;
+    }
+
+    if (obj->wizard_mark != NULL)
+    {
+        if (strstr(obj->wizard_mark, ch->name) != NULL)
+        {
+            send_to_char ("This item already carries your wizard mark.\n\r", ch);
+            return;
+        }
+    }
+
+    sprintf(buf,"%s", ch->name);
+    free_string(obj->wizard_mark);
+    obj->wizard_mark = str_dup(buf);
+    act("You mark $p with your name.",ch,obj,NULL,TO_CHAR);
+
+} // spell_wizard_mark

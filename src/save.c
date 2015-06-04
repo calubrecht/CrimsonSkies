@@ -442,6 +442,7 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
     fprintf (fp, "Vnum %d\n", obj->pIndexData->vnum);
     if (obj->enchanted)
         fprintf (fp, "Enchanted\n");
+
     fprintf (fp, "Nest %d\n", iNest);
 
     /* these data are only used if they do not match the defaults */
@@ -462,6 +463,10 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
         fprintf (fp, "Wt   %d\n", obj->weight);
     if (obj->condition != obj->pIndexData->condition)
         fprintf (fp, "Cond %d\n", obj->condition);
+    if (obj->enchanted_by != NULL)
+        fprintf (fp, "EnchantedBy %s~\n", obj->enchanted_by);
+    if (obj->wizard_mark != NULL)
+        fprintf (fp, "WizardMark %s~\n", obj->wizard_mark);
 
     /* variable data */
 
@@ -1402,6 +1407,8 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
         obj->name = str_dup ("");
         obj->short_descr = str_dup ("");
         obj->description = str_dup ("");
+        obj->wizard_mark = str_dup ("");
+        obj->enchanted_by = str_dup ("");
     }
 
     fNest = FALSE;
@@ -1494,6 +1501,7 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
 
                 KEY ("ExtraFlags", obj->extra_flags, fread_number (fp));
                 KEY ("ExtF", obj->extra_flags, fread_number (fp));
+                KEY ("EnchantedBy", obj->enchanted_by, fread_string (fp));
 
                 if (!str_cmp (word, "ExtraDescr") || !str_cmp (word, "ExDe"))
                 {
@@ -1650,6 +1658,7 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                 KEY ("Wear", obj->wear_loc, fread_number (fp));
                 KEY ("Weight", obj->weight, fread_number (fp));
                 KEY ("Wt", obj->weight, fread_number (fp));
+                KEY ("WizardMark", obj->wizard_mark, fread_string (fp));
                 break;
 
         }

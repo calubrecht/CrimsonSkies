@@ -1276,6 +1276,18 @@ void do_ostat (CHAR_DATA * ch, char *argument)
              extra_bit_name (obj->extra_flags));
     send_to_char (buf, ch);
 
+    if (obj->enchanted_by != NULL)
+    {
+        sprintf(buf, "Enchanted by: %s\n\r", obj->enchanted_by);
+        send_to_char(buf, ch);
+    }
+
+    if (obj->wizard_mark != NULL)
+    {
+        sprintf(buf, "Wizard mark: %s\n\r", obj->wizard_mark);
+        send_to_char(buf, ch);
+    }
+
     sprintf (buf, "Number: %d/%d  Weight: %d/%d/%d (10th pounds)\n\r",
              1, get_obj_number (obj),
              obj->weight, get_obj_weight (obj), get_true_weight (obj));

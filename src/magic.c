@@ -2333,6 +2333,7 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
     int result, fail;
     int ac_bonus, added;
     bool ac_found = FALSE;
+    char buf[MAX_STRING_LENGTH];
 
     if (obj->item_type != ITEM_ARMOR)
     {
@@ -2452,6 +2453,11 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
         }
     }
 
+    // They have a success at this point, go ahead and set the enchanted_by
+    sprintf(buf, "%s", ch->name);
+    free_string(obj->enchanted_by);
+    obj->enchanted_by = str_dup(buf);
+
     if (result <= (90 - level / 5))
     {                            /* success! */
         act ("$p shimmers with a gold aura.", ch, obj, NULL, TO_CHAR);
@@ -2505,9 +2511,10 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
 
 }
 
-
-
-
+/*
+ * Spell that enchants a weapon increasing it's hit and dam roll.  Some classes like
+ * mages can enchant.  Enchantors specialize in this and get bonuses.
+ */
 void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
                            int target)
 {
@@ -2516,6 +2523,7 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
     int result, fail;
     int hit_bonus, dam_bonus, added;
     bool hit_found = FALSE, dam_found = FALSE;
+    char buf[MAX_STRING_LENGTH];
 
     if (obj->item_type != ITEM_WEAPON)
     {
@@ -2647,6 +2655,11 @@ void spell_enchant_weapon (int sn, int level, CHAR_DATA * ch, void *vo,
             af_new->bitvector = paf->bitvector;
         }
     }
+
+    // They have a success at this point, go ahead and set the enchanted_by
+    sprintf(buf, "%s", ch->name);
+    free_string(obj->enchanted_by);
+    obj->enchanted_by = str_dup(buf);
 
     if (result <= (100 - level / 5))
     {                            /* success! */
@@ -3515,6 +3528,18 @@ void spell_identify (int sn, int level, CHAR_DATA * ch, void *vo, int target)
                      obj->value[3]);
             send_to_char (buf, ch);
             break;
+    }
+
+    if (obj->enchanted_by != NULL)
+    {
+        sprintf(buf, "Enchanted by: %s\n\r", obj->enchanted_by);
+        send_to_char(buf, ch);
+    }
+
+    if (obj->wizard_mark != NULL)
+    {
+        sprintf(buf, "Wizard mark: %s\n\r", obj->wizard_mark);
+        send_to_char(buf, ch);
     }
 
     if (!obj->enchanted)

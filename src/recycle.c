@@ -266,6 +266,8 @@ void free_obj (OBJ_DATA * obj)
     free_string (obj->description);
     free_string (obj->short_descr);
     free_string (obj->owner);
+    free_string (obj->wizard_mark);
+    free_string (obj->enchanted_by);
     INVALIDATE (obj);
 
     obj->next = obj_free;

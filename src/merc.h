@@ -1521,6 +1521,8 @@ struct    obj_data
     char *              name;
     char *              short_descr;
     char *              description;
+    char *              enchanted_by; /* The last enchantor that enchanted the item */
+    char *              wizard_mark;  /* In case the item is wizard marked, it can always be located by the enchantor */
     sh_int              item_type;
     int                 extra_flags;
     int                 wear_flags;
