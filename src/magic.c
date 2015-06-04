@@ -2325,8 +2325,11 @@ void spell_earthquake (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
-                          int target)
+/*
+ *  Spell that enchants a piece of armor.  Mages and certain mage classes will be able
+ *  to enchant but enchantors are far more skilled at it.
+ */
+void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
     AFFECT_DATA *paf;
@@ -2347,13 +2350,20 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    /* this means they have no bonus */
+    // this means they have no bonus
     ac_bonus = 0;
-    fail = 25;                    /* base 25% chance of failure */
+    // base 25% chance of failure
+    fail = 25;
 
-    /* find the bonuses */
+    // Enchantors have a lower base chance of failure
+    if ( ch->class == ENCHANTOR_CLASS_LOOKUP )
+    {
+        fail = 5;
+    }
 
+    // find the bonuses
     if (!obj->enchanted)
+    {
         for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
         {
             if (paf->location == APPLY_AC)
@@ -2362,10 +2372,13 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
                 ac_found = TRUE;
                 fail += 5 * (ac_bonus * ac_bonus);
             }
-
-            else                /* things get a little harder */
+            else
+            {
+                // things get a little harder
                 fail += 20;
+            }
         }
+    }
 
     for (paf = obj->affected; paf != NULL; paf = paf->next)
     {
@@ -2375,9 +2388,11 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
             ac_found = TRUE;
             fail += 5 * (ac_bonus * ac_bonus);
         }
-
-        else                    /* things get a little harder */
+        else
+        {
+            // things get a little harder
             fail += 20;
+        }
     }
 
     /* apply other modifiers */
@@ -2392,26 +2407,39 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
 
     result = number_percent ();
 
-    /* the moment of truth */
+    // Cap in case they get over -14AC
+    for ( paf = obj->affected; paf != NULL; paf = paf->next )
+    {
+        if ( paf->location == APPLY_AC )
+        {
+            ac_bonus = paf->modifier;
+            if (ac_bonus <= -14)
+            {
+                result=0;
+            }
+        }
+    }
+
+    // the moment of truth
     if (result < (fail / 5))
-    {                            /* item destroyed */
-        act ("$p flares blindingly... and evaporates!", ch, obj, NULL,
-             TO_CHAR);
-        act ("$p flares blindingly... and evaporates!", ch, obj, NULL,
-             TO_ROOM);
+    {
+        // item destroyed
+        act ("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_CHAR);
+        act ("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_ROOM);
         extract_obj (obj);
         return;
     }
 
     if (result < (fail / 3))
-    {                            /* item disenchanted */
+    {
+        // item disenchanted
         AFFECT_DATA *paf_next;
 
         act ("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
         act ("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
         obj->enchanted = TRUE;
 
-        /* remove all affects */
+        // remove all affects
         for (paf = obj->affected; paf != NULL; paf = paf_next)
         {
             paf_next = paf->next;
@@ -2419,18 +2447,19 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
         }
         obj->affected = NULL;
 
-        /* clear all flags */
+        // clear all flags
         obj->extra_flags = 0;
         return;
     }
 
     if (result <= fail)
-    {                            /* failed, no bad result */
+    {
+        // failed, no bad result
         send_to_char ("Nothing seemed to happen.\n\r", ch);
         return;
     }
 
-    /* okay, move all the old flags into new vectors if we have to */
+    // move all the old flags into new vectors if we have to
     if (!obj->enchanted)
     {
         AFFECT_DATA *af_new;
@@ -2458,8 +2487,18 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
     free_string(obj->enchanted_by);
     obj->enchanted_by = str_dup(buf);
 
-    if (result <= (90 - level / 5))
-    {                            /* success! */
+    if ( ch->class == ENCHANTOR_CLASS_LOOKUP && result <= (90 - level))
+    {
+        // Enchantors only have a chance for the highest enchant.
+        act("$p glows a brilliant {Wwhite{x!",ch,obj,NULL,TO_CHAR);
+        act("$p glows a brilliant {Wwhite{x!",ch,obj,NULL,TO_ROOM);
+        SET_BIT(obj->extra_flags,ITEM_MAGIC);
+        SET_BIT(obj->extra_flags,ITEM_GLOW);
+        added = -3; 
+    }
+    else if (result <= (90 - level / 5))
+    {
+        // success!
         act ("$p shimmers with a gold aura.", ch, obj, NULL, TO_CHAR);
         act ("$p shimmers with a gold aura.", ch, obj, NULL, TO_ROOM);
         SET_BIT (obj->extra_flags, ITEM_MAGIC);
@@ -2467,17 +2506,17 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
     else
-    {                            /* exceptional enchant */
-
-        act ("$p glows a brillant gold!", ch, obj, NULL, TO_CHAR);
-        act ("$p glows a brillant gold!", ch, obj, NULL, TO_ROOM);
+    {
+        // exceptional enchant, highest a non enchantor can go.
+        act ("$p glows a brilliant gold!", ch, obj, NULL, TO_CHAR);
+        act ("$p glows a brilliant gold!", ch, obj, NULL, TO_ROOM);
         SET_BIT (obj->extra_flags, ITEM_MAGIC);
         SET_BIT (obj->extra_flags, ITEM_GLOW);
         added = -2;
     }
 
-    /* now add the enchantments */
-
+    // now, add the enchantments
+    // level of the object will increase by one
     if (obj->level < LEVEL_HERO)
         obj->level = UMIN (LEVEL_HERO - 1, obj->level + 1);
 
@@ -2509,7 +2548,7 @@ void spell_enchant_armor (int sn, int level, CHAR_DATA * ch, void *vo,
         obj->affected = paf;
     }
 
-}
+} // end spell_enchant_armor
 
 /*
  * Spell that enchants a weapon increasing it's hit and dam roll.  Some classes like
