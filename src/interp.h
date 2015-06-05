@@ -43,28 +43,24 @@ void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, char *argument));
 #define IM	LEVEL_IMMORTAL 	/* avatar */
 #define HE	LEVEL_HERO	/* hero */
 
-#define COM_INGORE	1
-
-
 /*
  * Structure for a command in the command lookup table.
  */
 struct	cmd_type
 {
-	char * const	name;
-	DO_FUN *		do_fun;
-	sh_int		position;
-	sh_int		level;
-	sh_int		log;
-	sh_int              show;
+    char * const    name;
+    DO_FUN *        do_fun;
+    sh_int          position;
+    sh_int          level;
+    sh_int          log;
+    sh_int          show;
 };
 
 /* the command table itself */
-extern	const	struct	cmd_type	cmd_table[];
+extern const struct   cmd_type   cmd_table[];
 
 /*
  * Command functions.
- * Defined in act_*.c (mostly).
  */
 DECLARE_DO_FUN(do_advance);
 DECLARE_DO_FUN(do_affects);
