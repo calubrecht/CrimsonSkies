@@ -41,7 +41,6 @@ void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, char *argument));
 #define L7	MAX_LEVEL - 7	/* angel */
 #define L8	MAX_LEVEL - 8	/* avatar */
 #define IM	LEVEL_IMMORTAL 	/* avatar */
-#define HE	LEVEL_HERO	/* hero */
 
 /*
  * Structure for a command in the command lookup table.
