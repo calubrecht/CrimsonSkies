@@ -21,11 +21,11 @@ End
 
 #ROOMS
 #1200
-The Chat Room~
-You are lounging in a quiet cosy parlour, warmed by a gentle magical fire
-which twinkles happily in a warm fireplace.  This is one of the many rooms
-where the heroes and gods come to socialize.  It is by far one of the most
-comfortable! 
+The Immortals Hall~
+You are standing in a giant hall with massive royal looking tapestries
+hanging from the walls and many couches and chairs sitting around the room. 
+There is a fire roaring in the fireplace on the west wall and many windows
+that look out over the land of Arcanis.  
 ~
 0 65548 0
 S
@@ -37,14 +37,14 @@ tear savagely at your fragile body.
 ~
 0 9224 0
 E
+sky wind winds~
+Cold winds plunge ceaselessly at you from the dark, cloudless sky.
+~
+E
 floor~
 The stone floor is the same shade of grey as the sky and is completely plain
 and unscratched.  It is probably too hard for anything to leave as much as a
 scratch on it.
-~
-E
-sky wind winds~
-Cold winds plunge ceaselessly at you from the dark, cloudless sky.
 ~
 D0
 The hard floor seems to go on forever.
