@@ -1,7 +1,7 @@
 Crimson Skies
 =============
 
-Crimson Skies is an open source MUD based on ROM 2.4b6.  Creative and innovative features from other open source code
+Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
 bases (Smaug, Shadow, Wurm)  will be included as well as what will be a lot of custom code.  The initial steps will
 be getting a lot of the underpinnings in place correctly in order to make quicker updates later (like abstracting the
 class system, anyone who has added a new class to stock ROM will quickly get tired up updating the class_type table, 
@@ -23,6 +23,10 @@ eloving from stock ROM'ish while I work through initial changes):
 
   - 66.244.102.112 port 4000
 
+If there are any coders and/or builders (esp builders) who are interested in contributing to an open source mud feel
+free to send me a message and get on board.  I am standing up a building port for this reason.  Great muds are a 
+combination of the code and the content.  You can't have just one or the other.
+
 ## Project Goals:
 
   - To provide a ROM code base that includes creative additions that keep the same
@@ -30,6 +34,7 @@ eloving from stock ROM'ish while I work through initial changes):
     remove or drastically change some areas that don't fit imo (like the smurf village).  I will
     build off of ROM/Diku which means I'll be leaving areas like Midgaard and New Thalos which I find
     to be iconic (or at least nostalgic).
+  - Server side LUA to suppliment and/or replace standard mob progs.
   - To document the old functions with descriptions and hopefully well document new functions.
   - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
     Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
