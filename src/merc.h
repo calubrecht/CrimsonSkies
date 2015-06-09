@@ -232,8 +232,8 @@ struct    weather_data
 #define CON_GET_NEW_SEX			-6
 #define CON_GET_NEW_CLASS		-5
 #define CON_GET_ALIGNMENT		-4
-#define CON_DEFAULT_CHOICE		-3 
-#define CON_GEN_GROUPS			-2 
+#define CON_DEFAULT_CHOICE		-3
+#define CON_GEN_GROUPS			-2
 #define CON_PICK_WEAPON			-1
 #define CON_PLAYING			0
 #define CON_READ_IMOTD			1
@@ -652,7 +652,7 @@ struct    kill_data
 #define IMM_WOOD           (X)
 #define IMM_SILVER         (Y)
 #define IMM_IRON           (Z)
- 
+
 /* RES bits for mobs */
 #define RES_SUMMON         (A)
 #define RES_CHARM          (B)
@@ -677,125 +677,123 @@ struct    kill_data
 #define RES_WOOD           (X)
 #define RES_SILVER         (Y)
 #define RES_IRON           (Z)
- 
-/* VULN bits for mobs */
-#define VULN_SUMMON             (A)
-#define VULN_CHARM              (B)
-#define VULN_MAGIC              (C)
-#define VULN_WEAPON             (D)
-#define VULN_BASH               (E)
-#define VULN_PIERCE             (F)
-#define VULN_SLASH              (G)
-#define VULN_FIRE               (H)
-#define VULN_COLD               (I)
-#define VULN_LIGHTNING          (J)
-#define VULN_ACID               (K)
-#define VULN_POISON             (L)
-#define VULN_NEGATIVE           (M)
-#define VULN_HOLY               (N)
-#define VULN_ENERGY             (O)
-#define VULN_MENTAL             (P)
-#define VULN_DISEASE            (Q)
-#define VULN_DROWNING           (R)
-#define VULN_LIGHT              (S)
-#define VULN_SOUND              (T)
-#define VULN_WOOD               (X)
-#define VULN_SILVER             (Y)
-#define VULN_IRON               (Z)
- 
-/* body form */
-#define FORM_EDIBLE             (A)
-#define FORM_POISON             (B)
-#define FORM_MAGICAL            (C)
-#define FORM_INSTANT_DECAY      (D)
-#define FORM_OTHER              (E)  /* defined by material bit */
- 
-/* actual form */
-#define FORM_ANIMAL             (G)
-#define FORM_SENTIENT           (H)
-#define FORM_UNDEAD             (I)
-#define FORM_CONSTRUCT          (J)
-#define FORM_MIST               (K)
-#define FORM_INTANGIBLE         (L)
- 
-#define FORM_BIPED              (M)
-#define FORM_CENTAUR            (N)
-#define FORM_INSECT             (O)
-#define FORM_SPIDER             (P)
-#define FORM_CRUSTACEAN         (Q)
-#define FORM_WORM               (R)
-#define FORM_BLOB               (S)
- 
-#define FORM_MAMMAL             (V)
-#define FORM_BIRD               (W)
-#define FORM_REPTILE            (X)
-#define FORM_SNAKE              (Y)
-#define FORM_DRAGON             (Z)
-#define FORM_AMPHIBIAN          (aa)
-#define FORM_FISH               (bb)
-#define FORM_COLD_BLOOD         (cc)    
- 
-/* body parts */
-#define PART_HEAD               (A)
-#define PART_ARMS               (B)
-#define PART_LEGS               (C)
-#define PART_HEART              (D)
-#define PART_BRAINS             (E)
-#define PART_GUTS               (F)
-#define PART_HANDS              (G)
-#define PART_FEET               (H)
-#define PART_FINGERS            (I)
-#define PART_EAR                (J)
-#define PART_EYE                (K)
-#define PART_LONG_TONGUE        (L)
-#define PART_EYESTALKS          (M)
-#define PART_TENTACLES          (N)
-#define PART_FINS               (O)
-#define PART_WINGS              (P)
-#define PART_TAIL               (Q)
-/* for combat */
-#define PART_CLAWS              (U)
-#define PART_FANGS              (V)
-#define PART_HORNS              (W)
-#define PART_SCALES             (X)
-#define PART_TUSKS              (Y)
 
+/* VULN bits for mobs */
+#define VULN_SUMMON        (A)
+#define VULN_CHARM         (B)
+#define VULN_MAGIC         (C)
+#define VULN_WEAPON        (D)
+#define VULN_BASH          (E)
+#define VULN_PIERCE        (F)
+#define VULN_SLASH         (G)
+#define VULN_FIRE          (H)
+#define VULN_COLD          (I)
+#define VULN_LIGHTNING     (J)
+#define VULN_ACID          (K)
+#define VULN_POISON        (L)
+#define VULN_NEGATIVE      (M)
+#define VULN_HOLY          (N)
+#define VULN_ENERGY        (O)
+#define VULN_MENTAL        (P)
+#define VULN_DISEASE       (Q)
+#define VULN_DROWNING      (R)
+#define VULN_LIGHT         (S)
+#define VULN_SOUND         (T)
+#define VULN_WOOD          (X)
+#define VULN_SILVER        (Y)
+#define VULN_IRON          (Z)
+
+/* body form */
+#define FORM_EDIBLE        (A)
+#define FORM_POISON        (B)
+#define FORM_MAGICAL       (C)
+#define FORM_INSTANT_DECAY (D)
+#define FORM_OTHER         (E)  /* defined by material bit */
+
+/* actual form */
+#define FORM_ANIMAL        (G)
+#define FORM_SENTIENT      (H)
+#define FORM_UNDEAD        (I)
+#define FORM_CONSTRUCT     (J)
+#define FORM_MIST          (K)
+#define FORM_INTANGIBLE    (L)
+
+#define FORM_BIPED         (M)
+#define FORM_CENTAUR       (N)
+#define FORM_INSECT        (O)
+#define FORM_SPIDER        (P)
+#define FORM_CRUSTACEAN    (Q)
+#define FORM_WORM          (R)
+#define FORM_BLOB          (S)
+
+#define FORM_MAMMAL        (V)
+#define FORM_BIRD          (W)
+#define FORM_REPTILE       (X)
+#define FORM_SNAKE         (Y)
+#define FORM_DRAGON        (Z)
+#define FORM_AMPHIBIAN     (aa)
+#define FORM_FISH          (bb)
+#define FORM_COLD_BLOOD    (cc)
+
+/* body parts */
+#define PART_HEAD          (A)
+#define PART_ARMS          (B)
+#define PART_LEGS          (C)
+#define PART_HEART         (D)
+#define PART_BRAINS        (E)
+#define PART_GUTS          (F)
+#define PART_HANDS         (G)
+#define PART_FEET          (H)
+#define PART_FINGERS       (I)
+#define PART_EAR           (J)
+#define PART_EYE           (K)
+#define PART_LONG_TONGUE   (L)
+#define PART_EYESTALKS     (M)
+#define PART_TENTACLES     (N)
+#define PART_FINS          (O)
+#define PART_WINGS         (P)
+#define PART_TAIL          (Q)
+/* for combat */
+#define PART_CLAWS         (U)
+#define PART_FANGS         (V)
+#define PART_HORNS         (W)
+#define PART_SCALES        (X)
+#define PART_TUSKS         (Y)
 
 /*
  * Bits for 'affected_by'.
  * Used in #MOBILES.
  */
-#define AFF_BLIND            (A)
-#define AFF_INVISIBLE        (B)
-#define AFF_DETECT_EVIL      (C)
-#define AFF_DETECT_INVIS     (D)
-#define AFF_DETECT_MAGIC     (E)
-#define AFF_DETECT_HIDDEN    (F)
-#define AFF_DETECT_GOOD      (G)
-#define AFF_SANCTUARY        (H)
-#define AFF_FAERIE_FIRE      (I)
-#define AFF_INFRARED         (J)
-#define AFF_CURSE            (K)
-#define AFF_UNUSED_FLAG      (L)    /* unused */
-#define AFF_POISON           (M)
-#define AFF_PROTECT_EVIL     (N)
-#define AFF_PROTECT_GOOD     (O)
-#define AFF_SNEAK            (P)
-#define AFF_HIDE             (Q)
-#define AFF_SLEEP            (R)
-#define AFF_CHARM            (S)
-#define AFF_FLYING           (T)
-#define AFF_PASS_DOOR        (U)
-#define AFF_HASTE            (V)
-#define AFF_CALM             (W)
-#define AFF_PLAGUE           (X)
-#define AFF_WEAKEN           (Y)
-#define AFF_DARK_VISION      (Z)
-#define AFF_BERSERK          (aa)
-#define AFF_SWIM             (bb)
-#define AFF_REGENERATION     (cc)
-#define AFF_SLOW             (dd)
-
+#define AFF_BLIND          (A)
+#define AFF_INVISIBLE      (B)
+#define AFF_DETECT_EVIL    (C)
+#define AFF_DETECT_INVIS   (D)
+#define AFF_DETECT_MAGIC   (E)
+#define AFF_DETECT_HIDDEN  (F)
+#define AFF_DETECT_GOOD    (G)
+#define AFF_SANCTUARY      (H)
+#define AFF_FAERIE_FIRE    (I)
+#define AFF_INFRARED       (J)
+#define AFF_CURSE          (K)
+#define AFF_UNUSED_FLAG    (L)    /* unused */
+#define AFF_POISON         (M)
+#define AFF_PROTECT_EVIL   (N)
+#define AFF_PROTECT_GOOD   (O)
+#define AFF_SNEAK          (P)
+#define AFF_HIDE           (Q)
+#define AFF_SLEEP          (R)
+#define AFF_CHARM          (S)
+#define AFF_FLYING         (T)
+#define AFF_PASS_DOOR      (U)
+#define AFF_HASTE          (V)
+#define AFF_CALM           (W)
+#define AFF_PLAGUE         (X)
+#define AFF_WEAKEN         (Y)
+#define AFF_DARK_VISION    (Z)
+#define AFF_BERSERK        (aa)
+#define AFF_SWIM           (bb)
+#define AFF_REGENERATION   (cc)
+#define AFF_SLOW           (dd)
 
 /*
  * Sex.
@@ -984,22 +982,22 @@ struct    kill_data
 #define GATE_RANDOM       (E)
 
 /* furniture flags */
-#define STAND_AT    (A)
-#define STAND_ON    (B)
-#define STAND_IN    (C)
-#define SIT_AT      (D)
-#define SIT_ON      (E)
-#define SIT_IN      (F)
-#define REST_AT     (G)
-#define REST_ON     (H)
-#define REST_IN     (I)
-#define SLEEP_AT    (J)
-#define SLEEP_ON    (K)
-#define SLEEP_IN    (L)
-#define PUT_AT      (M)
-#define PUT_ON      (N)
-#define PUT_IN      (O)
-#define PUT_INSIDE  (P)
+#define STAND_AT          (A)
+#define STAND_ON          (B)
+#define STAND_IN          (C)
+#define SIT_AT            (D)
+#define SIT_ON            (E)
+#define SIT_IN            (F)
+#define REST_AT           (G)
+#define REST_ON           (H)
+#define REST_IN           (I)
+#define SLEEP_AT          (J)
+#define SLEEP_ON          (K)
+#define SLEEP_IN          (L)
+#define PUT_AT            (M)
+#define PUT_ON            (N)
+#define PUT_IN            (O)
+#define PUT_INSIDE        (P)
 
 /*
  * Apply types (for affects).
@@ -1095,16 +1093,16 @@ struct    kill_data
  * Exit flags.
  * Used in #ROOMS.
  */
-#define EX_ISDOOR       (A)
-#define EX_CLOSED       (B)
-#define EX_LOCKED       (C)
-#define EX_PICKPROOF    (F)
-#define EX_NOPASS       (G)
-#define EX_EASY         (H)
-#define EX_HARD         (I)
-#define EX_INFURIATING  (J)
-#define EX_NOCLOSE      (K)
-#define EX_NOLOCK       (L)
+#define EX_ISDOOR         (A)
+#define EX_CLOSED         (B)
+#define EX_LOCKED         (C)
+#define EX_PICKPROOF      (F)
+#define EX_NOPASS         (G)
+#define EX_EASY           (H)
+#define EX_HARD           (I)
+#define EX_INFURIATING    (J)
+#define EX_NOCLOSE        (K)
+#define EX_NOLOCK         (L)
 
 /*
  * Sector types.
@@ -1128,27 +1126,27 @@ struct    kill_data
  * Equpiment wear locations.
  * Used in #RESETS.
  */
-#define WEAR_NONE     -1
-#define WEAR_LIGHT     0
-#define WEAR_FINGER_L  1
-#define WEAR_FINGER_R  2
-#define WEAR_NECK_1    3
-#define WEAR_NECK_2    4
-#define WEAR_BODY      5
-#define WEAR_HEAD      6
-#define WEAR_LEGS      7
-#define WEAR_FEET      8
-#define WEAR_HANDS     9
-#define WEAR_ARMS     10
-#define WEAR_SHIELD   11
-#define WEAR_ABOUT    12
-#define WEAR_WAIST    13
-#define WEAR_WRIST_L  14
-#define WEAR_WRIST_R  15
-#define WEAR_WIELD    16
-#define WEAR_HOLD     17
-#define WEAR_FLOAT    18
-#define MAX_WEAR      19
+#define WEAR_NONE          -1
+#define WEAR_LIGHT          0
+#define WEAR_FINGER_L       1
+#define WEAR_FINGER_R       2
+#define WEAR_NECK_1         3
+#define WEAR_NECK_2         4
+#define WEAR_BODY           5
+#define WEAR_HEAD           6
+#define WEAR_LEGS           7
+#define WEAR_FEET           8
+#define WEAR_HANDS          9
+#define WEAR_ARMS          10
+#define WEAR_SHIELD        11
+#define WEAR_ABOUT         12
+#define WEAR_WAIST         13
+#define WEAR_WRIST_L       14
+#define WEAR_WRIST_R       15
+#define WEAR_WIELD         16
+#define WEAR_HOLD          17
+#define WEAR_FLOAT         18
+#define MAX_WEAR           19
 
 /***************************************************************************
  *                                                                         *
@@ -1208,55 +1206,55 @@ struct    kill_data
 #define PLR_KILLER          (aa)
 
 /* RT comm flags -- may be used on both mobs and chars */
-#define COMM_QUIET              (A)
-#define COMM_DEAF               (B)
-#define COMM_NOWIZ              (C)
-#define COMM_NOAUCTION          (D)
-#define COMM_NOGOSSIP           (E)
-#define COMM_NOQUESTION         (F)
-#define COMM_NOCLAN             (H)
-//#define EMPTY                 (I)
-#define COMM_SHOUTSOFF          (J)
+#define COMM_QUIET          (A)
+#define COMM_DEAF           (B)
+#define COMM_NOWIZ          (C)
+#define COMM_NOAUCTION      (D)
+#define COMM_NOGOSSIP       (E)
+#define COMM_NOQUESTION     (F)
+#define COMM_NOCLAN         (H)
+//#define EMPTY             (I)
+#define COMM_SHOUTSOFF      (J)
 
 /* display flags */
-#define COMM_COMPACT            (L)
-#define COMM_BRIEF              (M)
-#define COMM_PROMPT             (N)
-#define COMM_COMBINE            (O)
-#define COMM_TELNET_GA          (P)
-#define COMM_SHOW_AFFECTS       (Q)
-#define COMM_NOGRATS            (R)
+#define COMM_COMPACT        (L)
+#define COMM_BRIEF          (M)
+#define COMM_PROMPT         (N)
+#define COMM_COMBINE        (O)
+#define COMM_TELNET_GA      (P)
+#define COMM_SHOW_AFFECTS   (Q)
+#define COMM_NOGRATS        (R)
 
 /* penalties */
-#define COMM_NOEMOTE            (T)
-#define COMM_NOSHOUT            (U)
-#define COMM_NOTELL             (V)
-#define COMM_NOCHANNELS         (W) 
-#define COMM_SNOOP_PROOF        (Y)
-#define COMM_AFK                (Z)
+#define COMM_NOEMOTE        (T)
+#define COMM_NOSHOUT        (U)
+#define COMM_NOTELL         (V)
+#define COMM_NOCHANNELS     (W)
+#define COMM_SNOOP_PROOF    (Y)
+#define COMM_AFK            (Z)
 
 /* WIZnet flags */
-#define WIZ_ON                  (A)
-#define WIZ_TICKS               (B)
-#define WIZ_LOGINS              (C)
-#define WIZ_SITES               (D)
-#define WIZ_LINKS               (E)
-#define WIZ_DEATHS              (F)
-#define WIZ_RESETS              (G)
-#define WIZ_MOBDEATHS           (H)
-#define WIZ_FLAGS               (I)
-#define WIZ_PENALTIES           (J)
-#define WIZ_SACCING             (K)
-#define WIZ_LEVELS              (L)
-#define WIZ_SECURE              (M)
-#define WIZ_SWITCHES            (N)
-#define WIZ_SNOOPS              (O)
-#define WIZ_RESTORE             (P)
-#define WIZ_LOAD                (Q)
-#define WIZ_NEWBIE              (R)
-#define WIZ_PREFIX              (S)
-#define WIZ_SPAM                (T)
-#define WIZ_GENERAL             (U)
+#define WIZ_ON              (A)
+#define WIZ_TICKS           (B)
+#define WIZ_LOGINS          (C)
+#define WIZ_SITES           (D)
+#define WIZ_LINKS           (E)
+#define WIZ_DEATHS          (F)
+#define WIZ_RESETS          (G)
+#define WIZ_MOBDEATHS       (H)
+#define WIZ_FLAGS           (I)
+#define WIZ_PENALTIES       (J)
+#define WIZ_SACCING         (K)
+#define WIZ_LEVELS          (L)
+#define WIZ_SECURE          (M)
+#define WIZ_SWITCHES        (N)
+#define WIZ_SNOOPS          (O)
+#define WIZ_RESTORE         (P)
+#define WIZ_LOAD            (Q)
+#define WIZ_NEWBIE          (R)
+#define WIZ_PREFIX          (S)
+#define WIZ_SPAM            (T)
+#define WIZ_GENERAL         (U)
 
 /*
  * Prototype for a mob.
@@ -1670,7 +1668,7 @@ struct skill_type
 {
     char *      name;                      /* Name of skill                */
     sh_int      skill_level[MAX_CLASS];    /* Level needed by class        */
-    sh_int      rating[MAX_CLASS];         /* How hard it is to learn      */    
+    sh_int      rating[MAX_CLASS];         /* How hard it is to learn      */
     SPELL_FUN * spell_fun;                 /* Spell pointer (for spells)   */
     sh_int      target;                    /* Legal targets                */
     sh_int      minimum_position;          /* Position for caster / user   */
@@ -1933,7 +1931,7 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 
 #if defined(_WIN32)
     // Support for snprintf and vsnprintf in WIN32
-    #define vsnprintf _vsnprintf  
+    #define vsnprintf _vsnprintf
     #define snprintf _snprintf
 
     //char *    crypt        args((const char *key, const char *salt));
@@ -1978,9 +1976,9 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 #endif
 
 #if defined(_WIN32)
-    #define PLAYER_DIR	"../player/"			/* Player files */
-    #define TEMP_FILE	"../player/romtmp"
-    #define NULL_FILE       "nul"                /* To reserve one stream  */
+    #define PLAYER_DIR	    "../player/"        /* Player files */
+    #define TEMP_FILE	    "../player/romtmp"
+    #define NULL_FILE       "nul"               /* To reserve one stream  */
 #endif
 
 #if defined(unix)
@@ -1990,12 +1988,12 @@ extern  int                     copyover_timer;  // How many ticks are left unti
     #define NULL_FILE       "/dev/null"          /* To reserve one stream  */
 #endif
 
-#define AREA_LIST       "area.lst"            /* List of areas         */
-#define BUG_FILE        "../log/bugs.txt"            /* For 'bug' and bug()   */
-#define TYPO_FILE       "../log/typos.txt"           /* For 'typo'            */
-#define SHUTDOWN_FILE   "shutdown.txt"        /* For 'shutdown'        */
-#define BAN_FILE        "ban.txt"
-#define OHELPS_FILE	"../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+#define AREA_LIST           "area.lst"           /* List of areas         */
+#define BUG_FILE            "../log/bugs.txt"    /* For 'bug' and bug()   */
+#define TYPO_FILE           "../log/typos.txt"   /* For 'typo'            */
+#define SHUTDOWN_FILE       "shutdown.txt"       /* For 'shutdown'        */
+#define BAN_FILE            "ban.txt"
+#define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
 
 /*
  * Our function prototypes.
@@ -2109,13 +2107,11 @@ void     log_string          args( ( const char *str ) );
 void     tail_chain          args( ( void ) );
 bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
 
- /*
-  * Color stuff by Lope
-  */
- int   color           args( ( char type, CHAR_DATA *ch, char *string ) );
- void  colorconv       args( ( char *buffer, const char *txt, CHAR_DATA*ch)); 
- void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
- void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );    
+/*  Color stuff by Lope */
+int   color           args( ( char type, CHAR_DATA *ch, char *string ) );
+void  colorconv       args( ( char *buffer, const char *txt, CHAR_DATA*ch));
+void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
+void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
 
 /* effect.c */
 void    acid_effect    args( (void *vo, int level, int dam, int target) );
@@ -2313,7 +2309,7 @@ int    liq_lookup     args( ( const char *name) );
  * Object defined in limbo.are
  * Used in save.c to load objects that don't exist.
  */
-#define OBJ_VNUM_DUMMY    30
+#define         OBJ_VNUM_DUMMY 30
 
 /*
  * Area flags.
@@ -2336,25 +2332,25 @@ extern    const    struct    spec_type  spec_table    [];
 /*
  * Global variables
  */
-extern        AREA_DATA *  area_first;
-extern        AREA_DATA *  area_last;
-extern        SHOP_DATA *  shop_last;
+extern    AREA_DATA *  area_first;
+extern    AREA_DATA *  area_last;
+extern    SHOP_DATA *  shop_last;
 
-extern        int   top_affect;
-extern        int   top_area;
-extern        int   top_ed;
-extern        int   top_exit;
-extern        int   top_help;
-extern        int   top_mob_index;
-extern        int   top_obj_index;
-extern        int   top_reset;
-extern        int   top_room;
-extern        int   top_shop;
-extern        int   top_vnum_mob;
-extern        int   top_vnum_obj;
-extern        int   top_vnum_room;
-extern        char  str_empty [1];
+extern    int   top_affect;
+extern    int   top_area;
+extern    int   top_ed;
+extern    int   top_exit;
+extern    int   top_help;
+extern    int   top_mob_index;
+extern    int   top_obj_index;
+extern    int   top_reset;
+extern    int   top_room;
+extern    int   top_shop;
+extern    int   top_vnum_mob;
+extern    int   top_vnum_obj;
+extern    int   top_vnum_room;
+extern    char  str_empty [1];
 
-extern        MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];
-extern        OBJ_INDEX_DATA  *    obj_index_hash  [MAX_KEY_HASH];
-extern        ROOM_INDEX_DATA *    room_index_hash [MAX_KEY_HASH];
+extern    MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];
+extern    OBJ_INDEX_DATA  *    obj_index_hash  [MAX_KEY_HASH];
+extern    ROOM_INDEX_DATA *    room_index_hash [MAX_KEY_HASH];
