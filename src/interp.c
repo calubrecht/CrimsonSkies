@@ -353,6 +353,7 @@ const struct cmd_type cmd_table[] = {
     {"rename",          do_rename,      POS_DEAD, L6, LOG_ALWAYS, 1},
     {"vnumgap",         do_vnumgap,     POS_DEAD, L1, LOG_NEVER,  1},
     {"exlist",          do_exlist,      POS_DEAD, IM, LOG_NEVER,  1},
+    {"pathfind",        do_pathfind,    POS_DEAD, IM, LOG_ALWAYS, 1},
 
     /*
      * OLC

@@ -317,3 +317,4 @@ DECLARE_DO_FUN(do_southeast);
 DECLARE_DO_FUN(do_southwest);
 DECLARE_DO_FUN(do_pray);
 DECLARE_DO_FUN(do_reclass);
+DECLARE_DO_FUN(do_pathfind);

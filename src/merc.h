@@ -1561,6 +1561,7 @@ struct    exit_data
     EXIT_DATA *  next;        /* OLC */
     int          rs_flags;    /* OLC */
     int          orig_door;   /* OLC */
+    bool         color;       /* Path Find */
 };
 
 /*
@@ -1635,6 +1636,10 @@ struct    room_index_data
     sh_int               heal_rate;
     sh_int               mana_rate;
     sh_int               clan;
+    sh_int               heap_index;     /* Path Find */
+    sh_int               steps;          /* Path Find */
+    bool                 visited;        /* Path Find */
+
 };
 
 /*
@@ -2354,3 +2359,14 @@ extern    char  str_empty [1];
 extern    MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];
 extern    OBJ_INDEX_DATA  *    obj_index_hash  [MAX_KEY_HASH];
 extern    ROOM_INDEX_DATA *    room_index_hash [MAX_KEY_HASH];
+
+/* Path Find - This structure is used for the pathfinding algorithm. */
+typedef struct heap_data
+{
+  sh_int             iVertice;
+  ROOM_INDEX_DATA ** knude;
+  int                size;
+} HEAP;
+
+/*  Path Find - Add the prototype for the pathfinding function. */
+char *pathfind  args (( ROOM_INDEX_DATA *from, ROOM_INDEX_DATA *to ));
