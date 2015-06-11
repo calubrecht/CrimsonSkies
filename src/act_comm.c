@@ -1958,26 +1958,32 @@ void do_color (CHAR_DATA * ch, char *argument)
 
 }
 
-// Rhien - 04/11/2015
-// Clears the screen using VT100 escape code (if the client supports it)
+/*
+ * Rhien - 04/11/2015
+ * Clears the screen using the VT100 escape code (if the client supports it)
+ */
 void do_clear(CHAR_DATA * ch, char *argument)
 {
     send_to_char("\033[2J", ch);
 }
 
+/*
+ * Rhien - 05/21/2015
+ * Reclasses the player into a new specialized class.
+ */
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
     // Players must be at least level 10 to reclass.
     if (ch->level < 10) {
-		send_to_char("You must be at least level 10 to reclass.\n\r", ch);
-		return;
-	}
+        send_to_char("You must be at least level 10 to reclass.\n\r", ch);
+        return;
+    }
 
     // Immortals can't reclass.. they must set.
-	if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
-		send_to_char("You cannot reclass.\n\r", ch);
-		return;
-	}
+    if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
+        send_to_char("You cannot reclass.\n\r", ch);
+        return;
+    }
 
     // Do not allow someone who is fighting or stunned to reclass.
     if (ch->position == POS_FIGHTING)
@@ -2007,6 +2013,12 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     else if (class_table[iClass].is_reclass == FALSE)
     {
         send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
+        return;
+    }
+
+    if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
+    {
+        send_to_char("Only mages can reclass into enchantors.\n\r", ch);
         return;
     }
 
