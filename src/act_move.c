@@ -1639,7 +1639,9 @@ void do_recall (CHAR_DATA * ch, char *argument)
 
     }
 
-    ch->move /= 2;
+    if (!IS_IMMORTAL(ch))
+        ch->move /= 2;
+
     act ("$n disappears.", ch, NULL, NULL, TO_ROOM);
     char_from_room (ch);
     char_to_room (ch, location);
