@@ -33,6 +33,7 @@
     #include <sys/types.h>
     #include <time.h>
 #else
+    #include <unistd.h>
     #include <sys/types.h>
     #include <sys/time.h>
     #include <time.h>
@@ -42,7 +43,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include "merc.h"
 #include "interp.h"
 
