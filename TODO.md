@@ -48,3 +48,4 @@ This is my to do list, mostly will be things big and small as I think about them
     if looted can't be used by others if they so choose).  (maybe overpowered)
   - Update locate for wizard mark
   - enhanced recall skill, open to all classes that only makes it 25% of movement.
+  - Make area command page
