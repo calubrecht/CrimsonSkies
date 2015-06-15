@@ -51,7 +51,7 @@ const struct clan_type clan_table[MAX_CLAN] = {
     { "loner", "[ {WLoner{x ] ", ROOM_VNUM_ALTAR, TRUE },
     { "renegade", "[ {WRenegade{x ] ", ROOM_VNUM_ALTAR, TRUE },
     { "midgaard", "[ {BMidgaard{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos", "[ {rNew Thalos{x ] ", ROOM_VNUM_ALTAR, FALSE },
+    { "newthalos", "[ {cNew Thalos{x ] ", ROOM_VNUM_ALTAR, FALSE },
     { "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
     { "alhildr", "[ {gAlhildr{x ] ", ROOM_VNUM_ALTAR, FALSE }
 };
