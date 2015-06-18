@@ -2015,12 +2015,12 @@ void do_time (CHAR_DATA * ch, char *argument)
         suf = "th";
 
     sprintf (buf,
-             "It is %d o'clock %s, Day of %s, %d%s the Month of %s.\n\r",
+             "It is %d o'clock %s, Day of %s, %d%s the Month of %s.\r\n",
              (time_info.hour % 12 == 0) ? 12 : time_info.hour % 12,
              time_info.hour >= 12 ? "pm" : "am",
              day_name[day % 7], day, suf, month_name[time_info.month]);
     send_to_char (buf, ch);
-    sprintf (buf, "Crimson Skies started up at %s\n\rThe system time is %s.\n\r",
+    sprintf (buf, "Crimson Skies started up at %s\n\rThe system time is %s",
              str_boot_time, (char *) ctime (&current_time));
 
     send_to_char (buf, ch);
