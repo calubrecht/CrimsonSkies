@@ -257,7 +257,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     if (IS_SET (victim->comm, COMM_AFK))
         strcat(buf, "[AFK] ");
     if (IS_AFFECTED (victim, AFF_INVISIBLE))
-        strcat(buf, "({WInvis{x) ");
+        strcat(buf, "({wInvis{x) ");
     if (victim->invis_level >= LEVEL_HERO)
         strcat(buf, "({WWizi{x) ");
     if (IS_AFFECTED(victim, AFF_HIDE))
