@@ -2059,7 +2059,7 @@ char *pathfind(RID *from, RID *to)
         if ((pRoom = get_room_index(vnum)))
         {
             pRoom->visited = FALSE;
-            for (door = 0; door < 6; door++)
+            for (door = 0; door < MAX_DIR; door++)
             {
                 if (pRoom->exit[door] == NULL) continue;
                 pRoom->exit[door]->color = FALSE;
@@ -2085,7 +2085,7 @@ char *pathfind(RID *from, RID *to)
     while (pRoom != to)
     {
         found = FALSE;
-        for (door = 0; door < 6 && !found; door++)
+        for (door = 0; door < MAX_DIR && !found; door++)
         {
             if (pRoom->exit[door] == NULL) continue;
             if (pRoom->exit[door]->u1.to_room == NULL) continue;
@@ -2136,7 +2136,7 @@ void dijkstra(RID *chRoom, RID *victRoom)
           gFound = TRUE;
 
         /* update all exits */
-        for (door = 0; door < 6; door++)
+        for (door = 0; door < MAX_DIR; door++)
         {
             if (pRoom->exit[door] == NULL) continue;
             if (pRoom->exit[door]->u1.to_room == NULL) continue;
@@ -2190,7 +2190,7 @@ bool examine_room(RID *pRoom, RID *tRoom, AREA_DATA *pArea, int steps)
   pRoom->visited = TRUE;
 
   /* Depth first traversel of all exits */
-  for (door = 0; door < 6; door++)
+  for (door = 0; door < MAX_DIR; door++)
   {
     if (pRoom->exit[door] == NULL) continue;
     if (pRoom->exit[door]->u1.to_room == NULL) continue;
