@@ -1511,12 +1511,15 @@ void make_corpse (CHAR_DATA * ch)
         if (IS_SET (obj->extra_flags, ITEM_ROT_DEATH) && !floating)
         {
             obj->timer = number_range (5, 10);
-            REMOVE_BIT (obj->extra_flags, ITEM_ROT_DEATH);
+            // Rhien, commented this out, not sure why it needs to be removed if it's going to *poof* anyway.
+            //REMOVE_BIT (obj->extra_flags, ITEM_ROT_DEATH);
         }
         REMOVE_BIT (obj->extra_flags, ITEM_VIS_DEATH);
 
         if (IS_SET (obj->extra_flags, ITEM_INVENTORY))
+        {
             extract_obj (obj);
+        }
         else if (floating)
         {
             if (IS_OBJ_STAT (obj, ITEM_ROT_DEATH))
@@ -1545,7 +1548,9 @@ void make_corpse (CHAR_DATA * ch)
             }
         }
         else
+        {
             obj_to_obj (obj, corpse);
+        }
     }
 
     obj_to_room (corpse, ch->in_room);
