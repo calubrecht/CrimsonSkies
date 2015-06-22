@@ -64,8 +64,7 @@ void mob_hit args ((CHAR_DATA * ch, CHAR_DATA * victim, int dt));
 void raw_kill args ((CHAR_DATA * victim));
 void set_fighting args ((CHAR_DATA * ch, CHAR_DATA * victim));
 void disarm args ((CHAR_DATA * ch, CHAR_DATA * victim));
-
-
+void toast args (( CHAR_DATA *ch, CHAR_DATA *victim));
 
 /*
  * Control the fights going on.
@@ -909,6 +908,10 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
             wiznet (log_buf, NULL, NULL, WIZ_MOBDEATHS, 0, 0);
         else
             wiznet (log_buf, NULL, NULL, WIZ_DEATHS, 0, 0);
+
+        // Send a toast message to the players.
+        if (!IS_NPC(ch) && !IS_NPC(victim))
+            toast(ch, victim);
 
         /*
          * Death trigger
@@ -3143,13 +3146,61 @@ void do_surrender (CHAR_DATA * ch, char *argument)
     }
 }
 
+/*
+ * Displays a toast message to the mud whenever a pkill occurs.
+ */
+void toast( CHAR_DATA *ch, CHAR_DATA *victim )
+{
+    char buf[MAX_STRING_LENGTH];
+    char verb[25];
+
+    // Both have to be players
+    if (IS_NPC(victim) || IS_NPC(ch))
+        return;
+
+    // You can't toast yourself
+    if( ch == victim )
+        return;
+
+    // How bad where they beaten?
+    if( ch->hit < ch->max_hit / 5 ) {
+        sprintf(verb,"{yoffed{x");
+    }
+    else if (ch->hit < ch->max_hit / 4 ) {
+        sprintf(verb,"{gkilled{x");
+    }
+    else if (ch->hit < ch->max_hit / 3 ) {
+	sprintf(verb,"{gtoasted{x");
+    }
+    else if (ch->hit < ch->max_hit / 2 ) {
+        sprintf(verb,"{YROCKED{x");
+    }
+    else if (ch->hit <  (ch->max_hit * 2 / 3 ) ) {
+        sprintf(verb,"{YRAMPAGED{x");
+    }
+    else {
+        sprintf(verb,"***{RDESTROYED{x***");
+    }
+
+    // The final message
+    sprintf(buf, "%s%s got %s by %s.\n\r", (victim->desc == NULL ) ? "({YLinkdead{x) " : "",
+        victim->name, verb, ch->name);
+
+    // Log it
+    log_string(buf);
+
+    // Send it to all the players
+    send_to_all_char(buf);
+
+    return;
+
+}  // end void toast
+
 void do_sla (CHAR_DATA * ch, char *argument)
 {
     send_to_char ("If you want to SLAY, spell it out.\n\r", ch);
     return;
 }
-
-
 
 void do_slay (CHAR_DATA * ch, char *argument)
 {
