@@ -420,7 +420,7 @@ const struct class_type class_table[MAX_CLASS] = {
     {
      "warrior", "War", STAT_STR, OBJ_VNUM_SCHOOL_SWORD,
      {3022, 9633}, 75, 20, -10, 11, 15, FALSE,
-     "warrior basics", "warrior default", FALSE},	 
+     "warrior basics", "warrior default", FALSE},
 
      {
      "enchantor", "Enc", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
@@ -949,6 +949,18 @@ const struct skill_type skill_table[MAX_SKILL] = {
      spell_enchant_gem, TAR_OBJ_INV, POS_STANDING,
      NULL, SLOT (517), 25, 24,
      "", "!Enchant Gem!", ""},
+
+    {
+     "restore weapon", {53, 53, 53, 53, 28}, {2, 2, 4, 4, 1},
+     spell_restore_weapon, TAR_OBJ_INV, POS_STANDING,
+     NULL, SLOT (518), 25, 24,
+     "", "!Restore Weapon!", ""},
+
+    {
+     "restore armor", {53, 53, 53, 53, 29}, {2, 2, 4, 4, 1},
+     spell_restore_armor, TAR_OBJ_INV, POS_STANDING,
+     NULL, SLOT (518), 25, 24,
+     "", "!Restore Armor!", ""},
 
     {
      "energy drain", {19, 22, 26, 23, 19}, {1, 1, 2, 2, 1},
@@ -1636,7 +1648,7 @@ const struct group_type group_table[MAX_GROUP] = {
      "enchantment", {6, -1, -1, -1, 2},
      {"enchant armor", "enchant weapon", "fireproof", "recharge",
       "withering enhant", "enchant person", "sequestor", "wizard mark",
-      "continual light", "enchant gem"}
+      "continual light", "enchant gem", "restore armor", "restore weapon"}
      },
 
     {

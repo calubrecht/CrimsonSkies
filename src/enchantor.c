@@ -734,3 +734,131 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 	}
 
 } // end spell_enchant_weapon
+
+/*
+ * Spell that restores a faded, altered or enchanted weapon to it's original state.  This
+ * will basically return it to it's stock value.
+ */
+void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj2;
+    char buf[MAX_STRING_LENGTH];
+    int chance;
+
+    if (obj->item_type != ITEM_WEAPON)
+    {
+        send_to_char("That isn't a weapon.\n\r",ch);
+        return;
+    }
+
+    if (obj->wear_loc != -1)
+    {
+	send_to_char("The weapon must be carried to be restored.\n\r",ch);
+	return;
+    }
+
+    // Default, 40% won't work (20% nothing happens, 20% crumble)
+    chance = number_range(1, 10);
+
+    // bless increase chances and lowers crumbling chance
+    if (IS_OBJ_STAT(obj, ITEM_BLESS))
+        chance += 1;
+
+    // Contiual light increases chance and lowers crumbling chance
+    if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        chance += 1;
+
+    if (chance >= 1 && chance <= 2)
+    {
+        sprintf(buf, "%s crumbles into dust...", obj->short_descr);
+        extract_obj(obj);
+        act(buf, ch, NULL, NULL, TO_ROOM);
+        act(buf, ch, NULL, NULL, TO_CHAR);
+        return;
+    }
+    else if (chance >= 3 && chance <= 4)
+    {
+        send_to_char("Nothing happened.\n\r", ch);
+        return;
+    }
+    else
+    {
+        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
+        obj_to_char( obj2, ch );
+        extract_obj(obj);
+        sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
+
+        if(IS_OBJ_STAT(obj2,ITEM_VIS_DEATH))
+            REMOVE_BIT(obj2->extra_flags, ITEM_VIS_DEATH);
+
+        act(buf, ch, NULL, NULL, TO_ROOM);
+        act(buf, ch, NULL, NULL, TO_CHAR);
+        return;
+    }
+
+} // end spell_restore_weapon
+
+/*
+ * Spell that restores a faded, altered or enchanted piece or armor  to it's original state.
+ * This will basically return it to it's stock value.
+ */
+void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+{
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj2;
+    char buf[MAX_STRING_LENGTH];
+    int chance;
+
+    if (obj->item_type != ITEM_ARMOR)
+    {
+	send_to_char("That isn't armor.\n\r",ch);
+	return;
+    }
+
+    if (obj->wear_loc != -1)
+    {
+	send_to_char("The armor must be carried to be restored.\n\r",ch);
+	return;
+    }
+
+    // Default, 40% won't work (20% nothing happens, 20% crumble)
+    chance = number_range(1, 10);
+
+    // bless increase chances and lowers crumbling chance
+    if (IS_OBJ_STAT(obj, ITEM_BLESS))
+        chance += 1;
+
+    // Contiual light increases chance and lowers crumbling chance
+    if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        chance += 1;
+
+    if (chance >= 1 && chance <= 2)
+    {
+        sprintf(buf, "%s crumbles into dust...", obj->short_descr);
+        extract_obj(obj);
+        act(buf, ch, NULL, NULL, TO_ROOM);
+        act(buf, ch, NULL, NULL, TO_CHAR);
+        return;
+    }
+    else if (chance >= 3 && chance <= 4)
+    {
+        send_to_char("Nothing happened.\n\r", ch);
+        return;
+    }
+    else
+    {
+        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
+        obj_to_char( obj2, ch );
+        extract_obj(obj);
+        sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
+
+        if(IS_OBJ_STAT(obj2,ITEM_VIS_DEATH))
+            REMOVE_BIT(obj2->extra_flags, ITEM_VIS_DEATH);
+
+        act(buf, ch, NULL, NULL, TO_ROOM);
+        act(buf, ch, NULL, NULL, TO_CHAR);
+        return;
+    }
+
+} // end spell_restore_armor
