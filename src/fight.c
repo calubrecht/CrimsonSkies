@@ -2006,197 +2006,119 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     return xp;
 }
 
-void dam_message (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
-                  bool immune)
+/*
+ * Displays a damage message based off of how much damage was done from the attacker
+ * to the victim.
+ */
+void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool immune )
 {
     char buf1[256], buf2[256], buf3[256];
     const char *vs;
     const char *vp;
     const char *attack;
     char punct;
-    int dam_percent = ((100 * dam) / victim->max_hit);
 
     if (ch == NULL || victim == NULL)
         return;
 
+    if ( dam <=   0 )      { vs = "{ymiss{x";                vp = "{ymisses{x";              }
+    else if ( dam <=   4 ) { vs = "{gscratch{x";             vp = "{gscratches{x";           }
+    else if ( dam <=   8 ) { vs = "{ggraze{x";               vp = "{ggrazes{x";              }
+    else if ( dam <=  12 ) { vs = "{ghit{x";                 vp = "{ghits{x";                }
+    else if ( dam <=  16 ) { vs = "{ginjure{x";              vp = "{ginjures{x";             }
+    else if ( dam <=  20 ) { vs = "{gwound{x";               vp = "{gwounds{x";              }
+    else if ( dam <=  24 ) { vs = "{gmaul{x";                vp = "{gmauls{x";               }
+    else if ( dam <=  28 ) { vs = "{gdecimate{x";            vp = "{gdecimates{x";           }
+    else if ( dam <=  32 ) { vs = "{gdevastate{x";           vp = "{gdevastates{x";          }
+    else if ( dam <=  36 ) { vs = "{gmaim{x";                vp = "{gmaims{x";               }
+    else if ( dam <=  40 ) { vs = "{YMUTILATE{x";            vp = "{YMUTILATES{X";           }
+    else if ( dam <=  44 ) { vs = "{YDISEMBOWEL{x";          vp = "{YDISEMBOWELS{X";         }
+    else if ( dam <=  48 ) { vs = "{YDISMEMBER{x";           vp = "{YDISMEMBERS{x";          }
+    else if ( dam <=  52 ) { vs = "{YMASSACRE{x";            vp ="{YMASSACRES{x";            }
+    else if ( dam <=  56 ) { vs = "{YMANGLE{x";              vp = "{YMANGLES{x";             }
+    else if ( dam <=  60 ) { vs = "*** {RDEMOLISH{x ***";    vp = "*** {RDEMOLISHES{X ***";  }
+    else if ( dam <=  75 ) { vs = "*** {RDEVASTATE{x ***";   vp = "*** {RDEVASTATES{X ***";  }
+    else if ( dam <= 100)  { vs = "=== {ROBLITERATE{x ===";  vp = "=== {ROBLITERATES{x ==="; }
+    else if ( dam <= 125)  { vs = ">>> {RANNIHILATE{x <<<";  vp = ">>> {RANNIHILATES{x <<<"; }
+    else if ( dam <= 150)  { vs = "<<< {RERADICATE{x >>>";   vp = "<<< {RERADICATES{x >>>";  }
+    else                   { vs = "do {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to";
+			     vp = "does {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to"; }
 
-    if (dam == 0)
-    {
-        vs = "miss";
-        vp = "misses";
-    }
-    else if (dam_percent <= 5)
-    {
-        vs = "{gscratch{x";
-        vp = "{gscratches{x";
-    }
-    else if (dam_percent <= 10)
-    {
-        vs = "{ggraze{x";
-        vp = "{ggrazes{x";
-    }
-    else if (dam_percent <= 15)
-    {
-        vs = "{ghit{x";
-        vp = "{ghits{x";
-    }
-    else if (dam_percent <= 20)
-    {
-        vs = "{ginjure{x";
-        vp = "{ginjures{x";
-    }
-    else if (dam_percent <= 25)
-    {
-        vs = "{Gwound{x";
-        vp = "{Gwounds{x";
-    }
-    else if (dam_percent <= 30)
-    {
-        vs = "{ymaul{x";
-        vp = "{ymauls{x";
-    }
-    else if (dam_percent <= 35)
-    {
-        vs = "{ydecimate{x";
-        vp = "{ydecimates{x";
-    }
-    else if (dam_percent <= 40)
-    {
-        vs = "{ydevastate{x";
-        vp = "{ydevastates{x";
-    }
-    else if (dam_percent <= 45)
-    {
-        vs = "{ymaim{x";
-        vp = "{ymaims{x";
-    }
-    else if (dam_percent <= 50)
-    {
-        vs = "{YMUTILATE{x";
-        vp = "{YMUTILATES{x";
-    }
-    else if (dam_percent <= 55)
-    {
-        vs = "{YDISEMBOWEL{x";
-        vp = "{YDISEMBOWELS{x";
-    }
-    else if (dam_percent <= 60)
-    {
-        vs = "{YDISMEMBER{x";
-        vp = "{YDISMEMBERS{x";
-    }
-    else if (dam_percent <= 65)
-    {
-        vs = "{YMASSACRE{x";
-        vp = "{YMASSACRES{x";
-    }
-    else if (dam_percent <= 70)
-    {
-        vs = "{YMANGLE{x";
-        vp = "{YMANGLES{x";
-    }
-    else if (dam_percent <= 75)
-    {
-        vs = "*** {RDEMOLISH{x ***";
-        vp = "*** {RDEMOLISHES{x ***";
-    }
-    else if (dam_percent <= 80)
-    {
-        vs = "*** {RDEVASTATE{x ***";
-        vp = "*** {RDEVASTATES{x ***";
-    }
-    else if (dam_percent <= 85)
-    {
-        vs = "=== {ROBLITERATE{x ===";
-        vp = "=== {ROBLITERATES{x ===";
-    }
-    else if (dam_percent <= 90)
-    {
-        vs = ">>> {RANNIHILATE{x <<<";
-        vp = ">>> {RANNIHILATES{x <<<";
-    }
-    else if (dam_percent <= 95)
-    {
-        vs = "<<< {RERADICATE{x >>>";
-        vp = "<<< {RERADICATES{x >>>";
-    }
-    else
-    {
-        vs = "do {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to";
-        vp = "does {RU{WN{RS{WP{RE{WA{RK{WA{RB{WL{RE{x things to";
-    }
+    punct   = (dam <= 24) ? '.' : '!';
 
-    punct = (dam_percent <= 45) ? '.' : '!';
-
-    if (dt == TYPE_HIT)
+    if ( dt == TYPE_HIT )
     {
-        if (ch == victim)
+        if (ch  == victim)
         {
-            sprintf (buf1, "{3$n %s $melf%c{x", vp, punct);
-            sprintf (buf2, "{2You %s yourself%c{x", vs, punct);
+            sprintf( buf1, "$N %s $Melf%c",vp,punct);
+            sprintf( buf2, "You %s yourself%c",vs,punct);
         }
         else
         {
-            sprintf (buf1, "{3$n %s $N%c{x", vp, punct);
-            sprintf (buf2, "{2You %s $N%c{x", vs, punct);
-            sprintf (buf3, "{4$n %s you%c{x", vp, punct);
-        }
+            sprintf( buf1, "$N %s $n%c",  vp, punct );
+            sprintf( buf2, "You %s $N%c", vs, punct );
+            sprintf( buf3, "$n %s you%c", vp, punct );
+	}
     }
     else
     {
-        if (dt >= 0 && dt < MAX_SKILL)
+        if ( dt >= 0 && dt < MAX_SKILL )
+        {
             attack = skill_table[dt].noun_damage;
-        else if (dt >= TYPE_HIT && dt < TYPE_HIT + MAX_DAMAGE_MESSAGE)
+        }
+	else if ( dt >= TYPE_HIT && dt < TYPE_HIT + MAX_DAMAGE_MESSAGE)
+        {
             attack = attack_table[dt - TYPE_HIT].noun;
-        else
-        {
-            bug ("Dam_message: bad dt %d.", dt);
-            dt = TYPE_HIT;
+        }
+	else
+	{
+            bug( "Dam_message: bad dt %d.", dt );
+            dt  = TYPE_HIT;
             attack = attack_table[0].name;
-        }
+	}
 
-        if (immune)
-        {
-            if (ch == victim)
-            {
-                sprintf (buf1, "{3$n is unaffected by $s own %s.{x", attack);
-                sprintf (buf2, "{2Luckily, you are immune to that.{x");
-            }
-            else
-            {
-                sprintf (buf1, "{3$N is unaffected by $n's %s!{x", attack);
-                sprintf (buf2, "{2$N is unaffected by your %s!{x", attack);
-                sprintf (buf3, "{4$n's %s is powerless against you.{x",
-                         attack);
-            }
-        }
-        else
-        {
-            if (ch == victim)
-            {
-                sprintf (buf1, "{3$n's %s %s $m%c{x", attack, vp, punct);
-                sprintf (buf2, "{2Your %s %s you%c{x", attack, vp, punct);
-            }
-            else
-            {
-                sprintf (buf1, "{3$n's %s %s $N%c{x", attack, vp, punct);
-                sprintf (buf2, "{2Your %s %s $N%c{x", attack, vp, punct);
-                sprintf (buf3, "{4$n's %s %s you%c{x", attack, vp, punct);
-            }
-        }
+	if (immune)
+	{
+	    if (ch == victim)
+	    {
+		sprintf(buf1,"$N is unaffected by $S own %s.",attack);
+		sprintf(buf2,"Luckily, you are immune to that.");
+	    }
+	    else
+	    {
+	    	sprintf(buf1,"$n is unaffected by $N's %s!",attack);
+	    	sprintf(buf2,"$N is unaffected by your %s!",attack);
+	    	sprintf(buf3,"$n's %s is powerless against you.",attack);
+	    }
+	}
+	else
+	{
+	    if (ch == victim)
+	    {
+ 		sprintf( buf1, "$N's %s %s $M%c",attack,vp,punct);
+                sprintf( buf2, "Your %s %s you%c",attack,vp,punct);
+	    }
+	    else
+	    {
+                sprintf( buf1, "$N's %s %s $n%c",  attack, vp, punct );
+                sprintf( buf3, "$n's %s %s you%c", attack, vp, punct );
+                sprintf( buf2, "Your %s %s $N%c",  attack, vp, punct );
+	    }
+	}
     }
 
     if (ch == victim)
     {
-        act (buf1, ch, NULL, NULL, TO_ROOM);
-        act (buf2, ch, NULL, NULL, TO_CHAR);
+	act(buf1,ch,NULL,ch,TO_ROOM);
+	act(buf2,ch,NULL,NULL,TO_CHAR);
     }
     else
     {
-        act (buf1, ch, NULL, victim, TO_NOTVICT);
-        act (buf2, ch, NULL, victim, TO_CHAR);
-        act (buf3, ch, NULL, victim, TO_VICT);
+    	act( buf1, victim, NULL, ch, TO_NOTVICT );
+    	act( buf2, ch, NULL, victim, TO_CHAR );
+    	act( buf3, ch, NULL, victim, TO_VICT );
     }
+
     return;
 }
 
