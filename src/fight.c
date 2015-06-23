@@ -56,7 +56,7 @@ void dam_message args ((CHAR_DATA * ch, CHAR_DATA * victim, int dam,
                         int dt, bool immune));
 void death_cry args ((CHAR_DATA * ch));
 void group_gain args ((CHAR_DATA * ch, CHAR_DATA * victim));
-int xp_compute args ((CHAR_DATA * gch, CHAR_DATA * victim, int total_levels));
+int  xp_compute args ((CHAR_DATA * gch, CHAR_DATA * victim, int total_levels));
 bool is_safe args ((CHAR_DATA * ch, CHAR_DATA * victim));
 void make_corpse args ((CHAR_DATA * ch));
 void one_hit args ((CHAR_DATA * ch, CHAR_DATA * victim, int dt));
@@ -91,9 +91,7 @@ void violence_update (void)
         if ((victim = ch->fighting) == NULL)
             continue;
 
-        /*
-         * Fun for the whole family!
-         */
+        // Fun for the whole family!
         check_assist (ch, victim);
 
         if (IS_NPC (ch))
@@ -106,9 +104,11 @@ void violence_update (void)
     }
 
     return;
-}
+} // end void violence_update
 
-/* for auto assisting */
+/*
+ * Auto assisting
+ */
 void check_assist (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     CHAR_DATA *rch, *rch_next;
@@ -185,8 +185,7 @@ void check_assist (CHAR_DATA * ch, CHAR_DATA * victim)
             }
         }
     }
-}
-
+} // end void check_assist
 
 /*
  * Do one group of attacks.
@@ -251,9 +250,11 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
 
     return;
-}
+} // end void multi_hit
 
-/* procedure for all mobile attacks */
+/*
+ * Procedure for all mobile attacks
+ */
 void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 {
     int chance, number;
@@ -308,7 +309,6 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
 
     /* oh boy!  Fun stuff! */
-
     if (ch->wait > 0)
         return;
 
@@ -325,7 +325,6 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
 
     /* now for the skills */
-
     number = number_range (0, 8);
 
     switch (number)
@@ -384,7 +383,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
                 do_function (ch, &do_backstab, "");
             }
     }
-}
+} // end void mob_hit
 
 
 /*
@@ -676,8 +675,7 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
     tail_chain ();
     return;
-}
-
+} // end void one_hit
 
 /*
  * Inflict damage from a hit.
@@ -709,15 +707,11 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
 
     }
 
-
     /* damage reduction */
     if (dam > 35)
         dam = (dam - 35) / 2 + 35;
     if (dam > 80)
         dam = (dam - 80) / 2 + 80;
-
-
-
 
     if (victim != ch)
     {
@@ -1014,8 +1008,11 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
 
     tail_chain ();
     return TRUE;
-}
+} // bool damage
 
+/*
+ * Whether one player can attack another.
+ */
 bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (victim->in_room == NULL || ch->in_room == NULL)
@@ -1122,8 +1119,11 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
         }
     }
     return FALSE;
-}
+} // end bool is_safe
 
+/*
+ * Whether a player is safe from a spell.
+ */
 bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
 {
     if (victim->in_room == NULL || ch->in_room == NULL)
@@ -1219,7 +1219,7 @@ bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
 
     }
     return FALSE;
-}
+} // end bool is_safe_spell
 
 /*
  * See if an attack justifies a KILLER flag.
@@ -1227,6 +1227,7 @@ bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
 void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     char buf[MAX_STRING_LENGTH];
+
     /*
      * Follow charm thread to responsible character.
      * Attacking someone's charmed char is hostile!
@@ -1259,10 +1260,6 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
             REMOVE_BIT (ch->affected_by, AFF_CHARM);
             return;
         }
-/*
-    send_to_char( "*** You are now a KILLER!! ***\n\r", ch->master );
-      SET_BIT(ch->master->act, PLR_KILLER);
-*/
 
         stop_follower (ch);
         return;
@@ -1285,7 +1282,7 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
     wiznet (buf, ch, NULL, WIZ_FLAGS, 0, 0);
     save_char_obj (ch);
     return;
-}
+} // end void check_killer
 
 /*
  * Check for parry.
@@ -1317,7 +1314,7 @@ bool check_parry (CHAR_DATA * ch, CHAR_DATA * victim)
     act ("$N parries your attack.", ch, NULL, victim, TO_CHAR);
     check_improve (victim, gsn_parry, TRUE, 6);
     return TRUE;
-}
+} // end bool check_parry
 
 /*
  * Check for shield block.
@@ -1337,12 +1334,11 @@ bool check_shield_block (CHAR_DATA * ch, CHAR_DATA * victim)
     if (number_percent () >= chance + victim->level - ch->level)
         return FALSE;
 
-    act ("You block $n's attack with your shield.", ch, NULL, victim,
-         TO_VICT);
+    act ("You block $n's attack with your shield.", ch, NULL, victim, TO_VICT);
     act ("$N blocks your attack with a shield.", ch, NULL, victim, TO_CHAR);
     check_improve (victim, gsn_shield_block, TRUE, 6);
     return TRUE;
-}
+} // end bool check_shield_block
 
 /*
  * Check for dodge.
@@ -1366,7 +1362,7 @@ bool check_dodge (CHAR_DATA * ch, CHAR_DATA * victim)
     act ("$N dodges your attack.", ch, NULL, victim, TO_CHAR);
     check_improve (victim, gsn_dodge, TRUE, 6);
     return TRUE;
-}
+} // end bool check_dodge
 
 /*
  * Set position of a victim.
@@ -1400,7 +1396,7 @@ void update_pos (CHAR_DATA * victim)
         victim->position = POS_STUNNED;
 
     return;
-}
+} // end void update_pos
 
 /*
  * Start fights.
@@ -1420,7 +1416,7 @@ void set_fighting (CHAR_DATA * ch, CHAR_DATA * victim)
     ch->position = POS_FIGHTING;
 
     return;
-}
+} // end set_fighting
 
 /*
  * Stop fights.
@@ -1440,7 +1436,7 @@ void stop_fighting (CHAR_DATA * ch, bool fBoth)
     }
 
     return;
-}
+} // end void stop_fighting
 
 /*
  * Make a corpse out of a character.
@@ -1558,7 +1554,7 @@ void make_corpse (CHAR_DATA * ch)
 
     obj_to_room (corpse, ch->in_room);
     return;
-}
+} // end void make_corpse
 
 /*
  * Improved Death_cry contributed by Diavolo.
@@ -1679,8 +1675,11 @@ void death_cry (CHAR_DATA * ch)
     ch->in_room = was_in_room;
 
     return;
-}
+} // end void death_cry
 
+/*
+ * Kills a player or NPC, makes a corpse, etc.
+ */
 void raw_kill (CHAR_DATA * victim)
 {
     int i;
@@ -1707,10 +1706,14 @@ void raw_kill (CHAR_DATA * victim)
     victim->hit = UMAX (1, victim->hit);
     victim->mana = UMAX (1, victim->mana);
     victim->move = UMAX (1, victim->move);
-/*  save_char_obj( victim ); we're stable enough to not need this :) */
-    return;
-}
 
+    return;
+
+} // void raw_kill
+
+/*
+ * Gain experience points in a group
+ */
 void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     char buf[MAX_STRING_LENGTH];
@@ -1792,7 +1795,7 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
     }
 
     return;
-}
+} // end group_gain
 
 /*
  * Compute xp for a kill.
@@ -2012,7 +2015,7 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     xp = xp * gch->level / (UMAX (1, total_levels - 1));
 
     return xp;
-}
+} // end int xp_compute
 
 /*
  * Displays a damage message based off of how much damage was done from the attacker
@@ -2128,7 +2131,7 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
     }
 
     return;
-}
+} // end void dam_message
 
 /*
  * Disarm a creature.
@@ -2144,19 +2147,17 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
     if (IS_OBJ_STAT (obj, ITEM_NOREMOVE))
     {
         act ("{5$S weapon won't budge!{x", ch, NULL, victim, TO_CHAR);
-        act ("{5$n tries to disarm you, but your weapon won't budge!{x",
-             ch, NULL, victim, TO_VICT);
-        act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim,
-             TO_NOTVICT);
+        act ("{5$n tries to disarm you, but your weapon won't budge!{x", ch, NULL, victim, TO_VICT);
+        act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim, TO_NOTVICT);
         return;
     }
 
-    act ("{5$n DISARMS you and sends your weapon flying!{x",
-         ch, NULL, victim, TO_VICT);
+    act ("{5$n DISARMS you and sends your weapon flying!{x", ch, NULL, victim, TO_VICT);
     act ("{5You disarm $N!{x", ch, NULL, victim, TO_CHAR);
     act ("{5$n disarms $N!{x", ch, NULL, victim, TO_NOTVICT);
 
     obj_from_char (obj);
+
     if (IS_OBJ_STAT (obj, ITEM_NODROP) || IS_OBJ_STAT (obj, ITEM_INVENTORY))
         obj_to_char (obj, victim);
     else
@@ -2167,8 +2168,11 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
     }
 
     return;
-}
+} // end void disarm
 
+/*
+ * Berserk skill, get mad, crush things harder. Rawr.
+ */
 void do_berserk (CHAR_DATA * ch, char *argument)
 {
     int chance, hp_percent;
@@ -2178,8 +2182,7 @@ void do_berserk (CHAR_DATA * ch, char *argument)
         || (!IS_NPC (ch)
             && ch->level < skill_table[gsn_berserk].skill_level[ch->class]))
     {
-        send_to_char ("You turn red in the face, but nothing happens.\n\r",
-                      ch);
+        send_to_char ("You turn red in the face, but nothing happens.\n\r", ch);
         return;
     }
 
@@ -2256,8 +2259,11 @@ void do_berserk (CHAR_DATA * ch, char *argument)
         send_to_char ("Your pulse speeds up, but nothing happens.\n\r", ch);
         check_improve (ch, gsn_berserk, FALSE, 2);
     }
-}
+} // end do_berserk
 
+/*
+ * Bash, one character slams into another and if succesful dazes them.
+ */
 void do_bash (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2293,8 +2299,7 @@ void do_bash (CHAR_DATA * ch, char *argument)
 
     if (victim->position < POS_FIGHTING)
     {
-        act ("You'll have to let $M get back up first.", ch, NULL, victim,
-             TO_CHAR);
+        act ("You'll have to let $M get back up first.", ch, NULL, victim, TO_CHAR);
         return;
     }
 
@@ -2336,6 +2341,7 @@ void do_bash (CHAR_DATA * ch, char *argument)
     chance += get_curr_stat (ch, STAT_STR);
     chance -= (get_curr_stat (victim, STAT_DEX) * 4) / 3;
     chance -= GET_AC (victim, AC_BASH) / 25;
+
     /* speed */
     if (IS_SET (ch->off_flags, OFF_FAST) || IS_AFFECTED (ch, AFF_HASTE))
         chance += 10;
@@ -2359,35 +2365,32 @@ void do_bash (CHAR_DATA * ch, char *argument)
     if (number_percent () < chance)
     {
 
-        act ("{5$n sends you sprawling with a powerful bash!{x",
-             ch, NULL, victim, TO_VICT);
-        act ("{5You slam into $N, and send $M flying!{x", ch, NULL, victim,
-             TO_CHAR);
-        act ("{5$n sends $N sprawling with a powerful bash.{x", ch, NULL,
-             victim, TO_NOTVICT);
+        act ("{5$n sends you sprawling with a powerful bash!{x", ch, NULL, victim, TO_VICT);
+        act ("{5You slam into $N, and send $M flying!{x", ch, NULL, victim, TO_CHAR);
+        act ("{5$n sends $N sprawling with a powerful bash.{x", ch, NULL, victim, TO_NOTVICT);
         check_improve (ch, gsn_bash, TRUE, 1);
 
         DAZE_STATE (victim, 3 * PULSE_VIOLENCE);
         WAIT_STATE (ch, skill_table[gsn_bash].beats);
         victim->position = POS_RESTING;
-        damage (ch, victim, number_range (2, 2 + 2 * ch->size + chance / 20),
-                gsn_bash, DAM_BASH, FALSE);
-
+        damage (ch, victim, number_range (2, 2 + 2 * ch->size + chance / 20), gsn_bash, DAM_BASH, FALSE);
     }
     else
     {
         damage (ch, victim, 0, gsn_bash, DAM_BASH, FALSE);
         act ("{5You fall flat on your face!{x", ch, NULL, victim, TO_CHAR);
         act ("{5$n falls flat on $s face.{x", ch, NULL, victim, TO_NOTVICT);
-        act ("{5You evade $n's bash, causing $m to fall flat on $s face.{x",
-             ch, NULL, victim, TO_VICT);
+        act ("{5You evade $n's bash, causing $m to fall flat on $s face.{x", ch, NULL, victim, TO_VICT);
         check_improve (ch, gsn_bash, FALSE, 1);
         ch->position = POS_RESTING;
         WAIT_STATE (ch, skill_table[gsn_bash].beats * 3 / 2);
     }
     check_killer (ch, victim);
-}
+} // end do_bash
 
+/*
+ * Dirt kicking skill to temporarly blind an opponent.
+ */
 void do_dirt (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2541,8 +2544,11 @@ void do_dirt (CHAR_DATA * ch, char *argument)
         WAIT_STATE (ch, skill_table[gsn_dirt].beats);
     }
     check_killer (ch, victim);
-}
+} // end do_dirt
 
+/*
+ * Trip skill, if successful will daze the victim and knock them down.
+ */
 void do_trip (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2633,7 +2639,6 @@ void do_trip (CHAR_DATA * ch, char *argument)
     /* level */
     chance += (ch->level - victim->level) * 2;
 
-
     /* now the attack */
     if (number_percent () < chance)
     {
@@ -2656,10 +2661,12 @@ void do_trip (CHAR_DATA * ch, char *argument)
         check_improve (ch, gsn_trip, FALSE, 1);
     }
     check_killer (ch, victim);
-}
+} // end do_trip
 
-
-
+/*
+ * Starts a fight with an NPC.  It will also initiate a pkill if the
+ * victim is wanted, if not, they must use do_murder to start the fight.
+ */
 void do_kill (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2678,7 +2685,8 @@ void do_kill (CHAR_DATA * ch, char *argument)
         send_to_char ("They aren't here.\n\r", ch);
         return;
     }
-/*  Allow player killing
+
+    /* Allow player killing */
     if ( !IS_NPC(victim) )
     {
         if ( !IS_SET(victim->act, PLR_KILLER)
@@ -2688,7 +2696,7 @@ void do_kill (CHAR_DATA * ch, char *argument)
             return;
         }
     }
-*/
+
     if (victim == ch)
     {
         send_to_char ("You hit yourself.  Ouch!\n\r", ch);
@@ -2721,18 +2729,20 @@ void do_kill (CHAR_DATA * ch, char *argument)
     check_killer (ch, victim);
     multi_hit (ch, victim, TYPE_UNDEFINED);
     return;
-}
+} // end do_kill
 
-
-
+/*
+ * Method to make them spell out murder.
+ */
 void do_murde (CHAR_DATA * ch, char *argument)
 {
     send_to_char ("If you want to MURDER, spell it out.\n\r", ch);
     return;
-}
+} // end do_murde
 
-
-
+/*
+ * Murder a character or NPC.
+ */
 void do_murder (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -2794,10 +2804,11 @@ void do_murder (CHAR_DATA * ch, char *argument)
     check_killer (ch, victim);
     multi_hit (ch, victim, TYPE_UNDEFINED);
     return;
-}
+} // end do_murder
 
-
-
+/*
+ * Backstab skill
+ */
 void do_backstab (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2848,8 +2859,7 @@ void do_backstab (CHAR_DATA * ch, char *argument)
 
     if (victim->hit < victim->max_hit / 3)
     {
-        act ("$N is hurt and suspicious ... you can't sneak up.",
-             ch, NULL, victim, TO_CHAR);
+        act ("$N is hurt and suspicious ... you can't sneak up.", ch, NULL, victim, TO_CHAR);
         return;
     }
 
@@ -2868,10 +2878,12 @@ void do_backstab (CHAR_DATA * ch, char *argument)
     }
 
     return;
-}
 
+} // end do_backstab
 
-
+/*
+ * Flee command to attempt to get yourself out of battle.
+ */
 void do_flee (CHAR_DATA * ch, char *argument)
 {
     ROOM_INDEX_DATA *was_in;
@@ -2930,10 +2942,13 @@ void do_flee (CHAR_DATA * ch, char *argument)
 
     send_to_char ("PANIC! You couldn't escape!\n\r", ch);
     return;
-}
+} // end do_flee
 
 
-
+/*
+ * Skill to put yourself in front of another player being attacked to make
+ * yourself the primary target.
+ */
 void do_rescue (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -3003,10 +3018,11 @@ void do_rescue (CHAR_DATA * ch, char *argument)
     set_fighting (ch, fch);
     set_fighting (fch, ch);
     return;
-}
+} // end do_rescue
 
-
-
+/*
+ * Kick, does a little extra damage.
+ */
 void do_kick (CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *victim;
@@ -3014,8 +3030,7 @@ void do_kick (CHAR_DATA * ch, char *argument)
     if (!IS_NPC (ch)
         && ch->level < skill_table[gsn_kick].skill_level[ch->class])
     {
-        send_to_char ("You better leave the martial arts to fighters.\n\r",
-                      ch);
+        send_to_char ("You better leave the martial arts to fighters.\n\r", ch);
         return;
     }
 
@@ -3031,8 +3046,7 @@ void do_kick (CHAR_DATA * ch, char *argument)
     WAIT_STATE (ch, skill_table[gsn_kick].beats);
     if (get_skill (ch, gsn_kick) > number_percent ())
     {
-        damage (ch, victim, number_range (1, ch->level), gsn_kick, DAM_BASH,
-                TRUE);
+        damage (ch, victim, number_range (1, ch->level), gsn_kick, DAM_BASH, TRUE);
         check_improve (ch, gsn_kick, TRUE, 1);
     }
     else
@@ -3042,11 +3056,11 @@ void do_kick (CHAR_DATA * ch, char *argument)
     }
     check_killer (ch, victim);
     return;
-}
+} // end do_kick
 
-
-
-
+/*
+ * Disarm - attempt to knock your opponents weapon out of their hands.
+ */
 void do_disarm (CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *victim;
@@ -3114,16 +3128,17 @@ void do_disarm (CHAR_DATA * ch, char *argument)
     {
         WAIT_STATE (ch, skill_table[gsn_disarm].beats);
         act ("{5You fail to disarm $N.{x", ch, NULL, victim, TO_CHAR);
-        act ("{5$n tries to disarm you, but fails.{x", ch, NULL, victim,
-             TO_VICT);
-        act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim,
-             TO_NOTVICT);
+        act ("{5$n tries to disarm you, but fails.{x", ch, NULL, victim, TO_VICT);
+        act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim, TO_NOTVICT);
         check_improve (ch, gsn_disarm, FALSE, 1);
     }
     check_killer (ch, victim);
     return;
-}
+} // end do_disarm
 
+/*
+ * Attempt to surrender to your opponent to stop a fight.
+ */
 void do_surrender (CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *mob;
@@ -3144,7 +3159,7 @@ void do_surrender (CHAR_DATA * ch, char *argument)
         act ("$N seems to ignore your cowardly act!", ch, NULL, mob, TO_CHAR);
         multi_hit (mob, ch, TYPE_UNDEFINED);
     }
-}
+} // end do_surrender
 
 /*
  * Displays a toast message to the mud whenever a pkill occurs.
