@@ -3870,6 +3870,14 @@ MEDIT(medit_align)
     if (argument[0] == '\0' || !is_number(argument))
     {
         send_to_char("Syntax:  alignment [number]\n\r", ch);
+        send_to_char("         Evil=1, Neutral=2, Good=3\n\r", ch);
+        return FALSE;
+    }
+
+    if (atoi(argument) < 1 || atoi(argument) > 3)
+    {
+        send_to_char("Syntax:  alignment [number]\n\r", ch);
+        send_to_char("         Evil=1, Neutral=2, Good=3\n\r", ch);
         return FALSE;
     }
 
