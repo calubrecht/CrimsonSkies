@@ -640,7 +640,6 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             act ("You feel $p drawing your life away.",
                  victim, wield, NULL, TO_CHAR);
             damage (ch, victim, dam, 0, DAM_NEGATIVE, FALSE);
-            ch->alignment = UMAX (-1000, ch->alignment - 1);
             ch->hit += dam / 2;
         }
 
@@ -1805,10 +1804,10 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
 int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
 {
     int xp, base_exp;
-    int align, level_range;
-    int change;
+    int level_range;
     int time_per_level;
 
+    xp = 0;
     level_range = victim->level - gch->level;
 
     /* compute the base exp */
@@ -1865,125 +1864,36 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         base_exp = 160 + 20 * (level_range - 4);
 
     /* do alignment computations */
-
-    align = victim->alignment - gch->alignment;
-
-    if (IS_SET (victim->act, ACT_NOALIGN))
+    switch(gch->alignment)
     {
-        /* no change */
-    }
-
-    else if (align > 500)
-    {                            /* monster is more good than slayer */
-        change = (align - 500) * base_exp / 500 * gch->level / total_levels;
-        change = UMAX (1, change);
-        gch->alignment = UMAX (-1000, gch->alignment - change);
-    }
-
-    else if (align < -500)
-    {                            /* monster is more evil than slayer */
-        change =
-            (-1 * align - 500) * base_exp / 500 * gch->level / total_levels;
-        change = UMAX (1, change);
-        gch->alignment = UMIN (1000, gch->alignment + change);
-    }
-
-    else
-    {                            /* improve this someday */
-
-        change = gch->alignment * base_exp / 500 * gch->level / total_levels;
-        gch->alignment -= change;
-    }
-
-    /* calculate exp multiplier */
-    if (IS_SET (victim->act, ACT_NOALIGN))
-        xp = base_exp;
-
-    else if (gch->alignment > 500)
-    {                            /* for goodie two shoes */
-        if (victim->alignment < -750)
-            xp = (base_exp * 4) / 3;
-
-        else if (victim->alignment < -500)
-            xp = (base_exp * 5) / 4;
-
-        else if (victim->alignment > 750)
-            xp = base_exp / 4;
-
-        else if (victim->alignment > 500)
-            xp = base_exp / 2;
-
-        else if (victim->alignment > 250)
-            xp = (base_exp * 3) / 4;
-
-        else
-            xp = base_exp;
-    }
-
-    else if (gch->alignment < -500)
-    {                            /* for baddies */
-        if (victim->alignment > 750)
-            xp = (base_exp * 5) / 4;
-
-        else if (victim->alignment > 500)
-            xp = (base_exp * 11) / 10;
-
-        else if (victim->alignment < -750)
-            xp = base_exp / 2;
-
-        else if (victim->alignment < -500)
-            xp = (base_exp * 3) / 4;
-
-        else if (victim->alignment < -250)
-            xp = (base_exp * 9) / 10;
-
-        else
-            xp = base_exp;
-    }
-
-    else if (gch->alignment > 200)
-    {                            /* a little good */
-
-        if (victim->alignment < -500)
-            xp = (base_exp * 6) / 5;
-
-        else if (victim->alignment > 750)
-            xp = base_exp / 2;
-
-        else if (victim->alignment > 0)
-            xp = (base_exp * 3) / 4;
-
-        else
-            xp = base_exp;
-    }
-
-    else if (gch->alignment < -200)
-    {                            /* a little bad */
-        if (victim->alignment > 500)
-            xp = (base_exp * 6) / 5;
-
-        else if (victim->alignment < -750)
-            xp = base_exp / 2;
-
-        else if (victim->alignment < 0)
-            xp = (base_exp * 3) / 4;
-
-        else
-            xp = base_exp;
-    }
-
-    else
-    {                            /* neutral */
-
-
-        if (victim->alignment > 500 || victim->alignment < -500)
-            xp = (base_exp * 4) / 3;
-
-        else if (victim->alignment < 200 && victim->alignment > -200)
-            xp = base_exp / 2;
-
-        else
-            xp = base_exp;
+        case ALIGN_GOOD:
+            switch(victim->alignment)
+            {
+                case ALIGN_GOOD: xp += base_exp * 2 / 3; break;
+                case ALIGN_NEUTRAL: break;
+                case ALIGN_EVIL: xp += base_exp * 3 / 2; break;
+                default: break;
+            }
+            break;
+        case ALIGN_NEUTRAL:
+            switch(victim->alignment)
+            {
+                case ALIGN_EVIL:
+                case ALIGN_GOOD: xp += base_exp * 5 / 4; break;
+                case ALIGN_NEUTRAL: xp += base_exp * 4 / 5; break;
+                default: break;
+            }
+            break;
+        case ALIGN_EVIL:
+            switch(victim->alignment)
+            {
+                case ALIGN_EVIL: xp += base_exp * 2 / 3; break;
+                case ALIGN_NEUTRAL: break;
+                case ALIGN_GOOD: xp += base_exp * 3 / 2; break;
+                default: break;
+            }
+            break;
+        default: break;
     }
 
     /* more exp at the low levels */

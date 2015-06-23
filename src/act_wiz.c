@@ -3872,9 +3872,9 @@ void do_mset (CHAR_DATA * ch, char *argument)
 
     if (!str_prefix (arg2, "align"))
     {
-        if (value < -1000 || value > 1000)
+        if (value < 1 || value > 3)
         {
-            send_to_char ("Alignment range is -1000 to 1000.\n\r", ch);
+            send_to_char ("Alignment range is 1 for evil, 2 for neutral, 3 for good.\n\r", ch);
             return;
         }
         victim->alignment = value;

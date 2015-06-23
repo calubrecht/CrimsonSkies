@@ -822,6 +822,11 @@ struct    kill_data
 #define SIZE_HUGE    4
 #define SIZE_GIANT   5
 
+/* alignments */
+#define ALIGN_EVIL              1
+#define ALIGN_NEUTRAL           2
+#define ALIGN_GOOD		3
+
 /*
  * Well known object virtual numbers.
  * Defined in #OBJECTS.
@@ -1815,8 +1820,8 @@ extern sh_int gsn_recall;
 #define GET_AGE(ch)        ((int) (17 + ((ch)->played \
                     + current_time - (ch)->logon )/72000))
 
-#define IS_GOOD(ch)        (ch->alignment >= 350)
-#define IS_EVIL(ch)        (ch->alignment <= -350)
+#define IS_GOOD(ch)        (ch->alignment == ALIGN_GOOD)
+#define IS_EVIL(ch)        (ch->alignment == ALIGN_EVIL)
 #define IS_NEUTRAL(ch)        (!IS_GOOD(ch) && !IS_EVIL(ch))
 
 #define IS_AWAKE(ch)        (ch->position > POS_SLEEPING)

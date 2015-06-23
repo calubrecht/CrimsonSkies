@@ -398,7 +398,7 @@ MOB_INDEX_DATA *new_mob_index (void)
     pMob->level = 0;
     pMob->act = ACT_IS_NPC;
     pMob->affected_by = 0;
-    pMob->alignment = 0;
+    pMob->alignment = 2;
     pMob->hitroll = 0;
     pMob->race = race_lookup ("human");    /* - Hugin */
     pMob->form = 0;                /* ROM patch -- Hugin */

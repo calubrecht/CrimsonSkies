@@ -1848,8 +1848,6 @@ void spell_demonfire (int sn, int level, CHAR_DATA * ch, void *vo, int target)
         send_to_char ("The demons turn upon you!\n\r", ch);
     }
 
-    ch->alignment = UMAX (-1000, ch->alignment - 50);
-
     if (victim != ch)
     {
         act ("$n calls forth the demons of Hell upon $N!",
@@ -2334,9 +2332,6 @@ void spell_energy_drain (int sn, int level, CHAR_DATA * ch, void *vo,
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     int dam;
-
-    if (victim != ch)
-        ch->alignment = UMAX (-1000, ch->alignment - 50);
 
     if (saves_spell (level, victim, DAM_NEGATIVE))
     {
@@ -3305,30 +3300,24 @@ void spell_know_alignment (int sn, int level, CHAR_DATA * ch, void *vo,
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     char *msg;
-    int ap;
 
-    ap = victim->alignment;
-
-    if (ap > 700)
-        msg = "$N has a pure and good aura.";
-    else if (ap > 350)
-        msg = "$N is of excellent moral character.";
-    else if (ap > 100)
-        msg = "$N is often kind and thoughtful.";
-    else if (ap > -100)
-        msg = "$N doesn't have a firm moral commitment.";
-    else if (ap > -350)
-        msg = "$N lies to $S friends.";
-    else if (ap > -700)
-        msg = "$N is a black-hearted murderer.";
-    else
-        msg = "$N is the embodiment of pure evil!.";
+    if (IS_GOOD(victim)) {
+        msg = "$N has a good aura.";
+    }
+    else if (IS_EVIL(victim)) {
+        msg = "$N has a evil aura.";
+    }
+    else if (IS_NEUTRAL(victim)) {
+        msg = "$N has a neutral aura.";
+    }
+    else {
+        msg = "$N's aura cannot be determined.";
+        bug("Invalid alignment, spell_know_alignment", 0);
+    }
 
     act (msg, ch, NULL, victim, TO_CHAR);
     return;
-}
-
-
+} // end void spell_know_alignment
 
 void spell_lightning_bolt (int sn, int level, CHAR_DATA * ch, void *vo,
                            int target)
@@ -3733,17 +3722,13 @@ void spell_ray_of_truth (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (victim != ch)
     {
-        act ("$n raises $s hand, and a blinding ray of light shoots forth!",
-             ch, NULL, NULL, TO_ROOM);
-        send_to_char
-            ("You raise your hand and a blinding ray of light shoots forth!\n\r",
-             ch);
+        act("$n raises $s hand, and a blinding ray of light shoots forth!", ch, NULL, NULL, TO_ROOM);
+        send_to_char("You raise your hand and a blinding ray of light shoots forth!\n\r", ch);
     }
 
-    if (IS_GOOD (victim))
+    if (IS_GOOD(victim))
     {
-        act ("$n seems unharmed by the light.", victim, NULL, victim,
-             TO_ROOM);
+        act ("$n seems unharmed by the light.", victim, NULL, victim, TO_ROOM);
         send_to_char ("The light seems powerless to affect you.\n\r", victim);
         return;
     }

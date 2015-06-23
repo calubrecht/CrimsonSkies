@@ -1652,8 +1652,19 @@ void do_score(CHAR_DATA * ch, char *argument)
         get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
         ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female");
 
-    printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {wN/A               {gItems:  {w%d of %d{x\r\n",
-        get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], ch->carry_number, can_carry_n(ch));
+    // Get alignment
+    if (IS_GOOD(ch)) {
+        sprintf (buf, "Good");
+    }
+    else if (IS_EVIL(ch)) {
+        sprintf (buf, "Evil");
+    }
+    else if (IS_NEUTRAL(ch)) {
+        sprintf (buf, "Neutral");
+    }
+
+    printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {w%-7.7s{x           {gItems:  {w%d of %d{x\r\n",
+        get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], buf, ch->carry_number, can_carry_n(ch));
 
     printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)                               {gWeight: {w%d of %d{x\r\n",
         get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON], ch->carry_weight, can_carry_w(ch));
@@ -1909,29 +1920,17 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
 
     if (ch->level >= 10)
     {
-        sprintf (buf, "Alignment: %d.  ", ch->alignment);
+        if (IS_GOOD(ch)) {
+            sprintf (buf, "Alignment: Good.  ");
+        }
+        else if (IS_EVIL(ch)) {
+            sprintf (buf, "Alignment: Evil.  ");
+        }
+        else if (IS_NEUTRAL(ch)) {
+            sprintf (buf, "Alignment: Neutral.  ");
+        }
         send_to_char (buf, ch);
     }
-
-    send_to_char ("You are ", ch);
-    if (ch->alignment > 900)
-        send_to_char ("angelic.\n\r", ch);
-    else if (ch->alignment > 700)
-        send_to_char ("saintly.\n\r", ch);
-    else if (ch->alignment > 350)
-        send_to_char ("good.\n\r", ch);
-    else if (ch->alignment > 100)
-        send_to_char ("kind.\n\r", ch);
-    else if (ch->alignment > -100)
-        send_to_char ("neutral.\n\r", ch);
-    else if (ch->alignment > -350)
-        send_to_char ("mean.\n\r", ch);
-    else if (ch->alignment > -700)
-        send_to_char ("evil.\n\r", ch);
-    else if (ch->alignment > -900)
-        send_to_char ("demonic.\n\r", ch);
-    else
-        send_to_char ("satanic.\n\r", ch);
 
     if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
         do_function (ch, &do_affects, "");

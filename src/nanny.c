@@ -613,15 +613,15 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'g':
                 case 'G':
-                    ch->alignment = 750;
+                    ch->alignment = ALIGN_GOOD;
                     break;
                 case 'n':
                 case 'N':
-                    ch->alignment = 0;
+                    ch->alignment = ALIGN_NEUTRAL;
                     break;
                 case 'e':
                 case 'E':
-                    ch->alignment = -750;
+                    ch->alignment = ALIGN_EVIL;
                     break;
                 default:
                     send_to_desc ("That's not a valid alignment.\n\r", d);
