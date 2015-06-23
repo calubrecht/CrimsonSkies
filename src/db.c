@@ -2648,32 +2648,37 @@ void free_string (char *pstr)
     return;
 }
 
-// Rhien, 4/25/2015
+/*
+ * List the areas in the game with the credits
+ */
 void do_areas (CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-    char result[MAX_STRING_LENGTH * 2];    /* May need tweaking. */
-    AREA_DATA *pArea;
-
     if (IS_NPC (ch))
         return;
 
-    sprintf (result, "[%-5s] [%-38s] [%-25s]\n\r",
-             "Level", "Area Name", "Builders");
+    BUFFER *output;
+    char buf[MAX_STRING_LENGTH];
+    AREA_DATA *pArea;
 
-    strcat (result, "----------------------------------------------------------------------------\n\r");
+    output = new_buf();
+
+    // Send the header
+    sprintf(buf, "[%-5s] [%-38s] [%-25s]\n\r", "Level", "Area Name", "Builders");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "----------------------------------------------------------------------------\n\r");
+    send_to_char(buf, ch);
 
     for (pArea = area_first; pArea; pArea = pArea->next)
     {
-        sprintf (buf,
-                 "[%2d %2d] %-40.40s [%-25.25s]\n\r",
-                 pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
-        strcat (result, buf);
+        sprintf (buf, "[%2d %2d] %-40.40s [%-25.25s]\n\r",
+            pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+        add_buf(output, buf);
     }
 
-    send_to_char (result, ch);
-    return;
-}
+    page_to_char(buf_string(output),ch);
+    free_buf(output);
+} // end void do_areas
 
 void do_memory (CHAR_DATA * ch, char *argument)
 {
