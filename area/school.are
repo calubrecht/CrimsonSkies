@@ -18,7 +18,7 @@ An acolyte of Zump welcomes you to mud school.
 He's big and bad.  Don't mess with him.
 ~
 human~
-ABGQTV CH 1000 0
+ABGQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -34,7 +34,7 @@ Perhaps now would be a good time to flee from him!!!  If you don't flee, you
 would really suffer the consequences.
 ~
 unique~
-ABG C 0 0
+ABG C 2 0
 5 -5 1d1+49 1d1+99 1d1+0 digestion
 -15 -15 -15 -15
 AN AB CD 0
@@ -49,7 +49,7 @@ He looks mean, but you feel comfortable that you can kill him, especially since
 he is leashed up, and you are not.
 ~
 school monster~
-ABU 0 0 0
+ABU 0 2 0
 1 0 1d1+7 1d1+99 1d3+0 claw
 10 10 10 10
 0 AB 0 C
@@ -64,7 +64,7 @@ He looks wimpy.  You feel comfortable that you can kill him, especially since
 he is leashed up, and you are not.
 ~
 school monster~
-ABHU 0 0 0
+ABHU 0 2 0
 1 0 1d1+7 1d1+99 1d2+0 claw
 10 10 10 10
 O AB 0 C
@@ -79,7 +79,7 @@ He looks mean, but you feel comfortable that you can kill him, especially since
 he is leashed up, and you are not.
 ~
 school monster~
-ABFU 0 0 0
+ABFU 0 2 0
 1 0 1d1+7 1d1+99 1d4+0 claw
 10 10 10 10
 EK AB 0 C
@@ -94,7 +94,7 @@ He looks mean, but you feel comfortable that you can kill him, especially since
 he is leashed up, and you are not.
 ~
 school monster~
-ABFHU 0 0 0
+ABFHU 0 2 0
 1 0 1d1+7 1d1+99 1d3+0 claw
 10 10 10 10
 J AB 0 C
@@ -109,7 +109,7 @@ He looks mean, and you just might have a small problem killing him, but he
 looks like a great prize!!!
 ~
 school monster~
-ABU JZ 0 0
+ABU JZ 2 0
 2 1 2d2+20 1d1+99 1d4+1 claw
 8 8 8 10
 FN AB 0 C
@@ -123,7 +123,7 @@ An adept of the mighty Rhien is here, contemplating your progress.
 He is big and bad.  Don't mess with him.
 ~
 human~
-ABGQTV CH 1000 0
+ABGQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -137,7 +137,7 @@ An adept of Alander is here, smiling at you.
 He is big and bad.  Don't mess with him.
 ~
 human~
-ABGQTV CH 1000 0
+ABGQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -151,7 +151,7 @@ A rabbit is bouncing around here.
 The rabbit smiles at you, completely harmless!
 ~
 rabbit~
-AGHU 0 100 0
+AGHU 0 2 0
 1 0 1d1+10 1d1+99 1d3+0 bite
 10 10 10 10
 FH 0 0 0
@@ -165,7 +165,7 @@ A lizard slithers up to you.
 It smiles at you, and tries to eat your leg.
 ~
 lizard~
-AGU 0 -100 0
+AGU 0 2 0
 2 0 2d2+20 1d1+99 1d4+1 bite
 8 8 8 10
 R 0 L I
@@ -179,7 +179,7 @@ A boar tries to run you over.
 It grunts at you.
 ~
 pig~
-AGU 0 0 0
+AGU 0 2 0
 3 1 3d3+30 1d1+99 1d6+1 charge
 7 7 7 9
 CDFR 0 0 0
@@ -193,7 +193,7 @@ A fox is here staring at you.
 It's fur might be worth money.
 ~
 fox~
-AGHU Z 100 0
+AGHU Z 2 0
 1 1 1d1+12 1d1+99 1d3+1 bite
 8 8 8 10
 FHNR 0 0 0
@@ -207,7 +207,7 @@ A snail is trying to get out of your way.
 You don't see much but slime about it.
 ~
 unique~
-AGU 0 0 0
+AGU 0 2 0
 0 0 1d1+0 1d1+99 1d1+0 digestion
 10 10 10 10
 0 0 0 0
@@ -221,7 +221,7 @@ A beast tries to feed off of you.
 It looks mean.  You'd better run.
 ~
 school monster~
-AFTU Z 0 0
+AFTU Z 2 0
 5 1 5d5+55 1d1+99 1d6+3 bite
 5 5 5 8
 EKM AB HI C
@@ -235,7 +235,7 @@ A bear is here growling at you.
 The bear must be bigger than you!  It wants to rip your head off.
 ~
 bear~
-AGU 0 0 0
+AGU 0 2 0
 4 1 4d4+44 1d1+99 1d6+2 claw
 6 5 6 7
 CDEOR 0 EI 0
@@ -249,7 +249,7 @@ A wolf is here snarling at you.
 The wolf doesn't want to be bothered.
 ~
 wolf~
-AGU Z 0 0
+AGU Z 2 0
 4 0 4d4+44 1d1+99 1d6+2 bite
 7 7 7 10
 FHNR 0 0 0
@@ -263,7 +263,7 @@ An adept of Selene is here, grinning and selling you things.
 He is big and bad.  Don't mess with him.
 ~
 human~
-ABCQTV CH 1000 0
+ABCQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -277,7 +277,7 @@ An adept of Furey is here, training young students.
 He is big and bad.  Don't mess with him.
 ~
 human~
-ABCJQTV CH 1000 0
+ABCJQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -291,7 +291,7 @@ The priest of Circe is ready to help you practice.
 He is big and bad.  Don't mess with him.
 ~
 human~
-ABCKQTV CH 1000 0
+ABCKQTV CH 3 0
 30 10 1d1+999 1d1+999 2d4+30 beating
 -15 -15 -15 -15
 ACEFHIKN ABCD 0 0
@@ -306,7 +306,7 @@ This horrible creature is your final test for mud school.  Kill him, and the
 diploma is yours.
 ~
 school monster~
-ABU J 0 0
+ABU J 2 0
 3 1 2d4+30 1d1+99 1d6+1 claw
 8 8 8 10
 EFN AB 0 C
@@ -321,7 +321,7 @@ He looks mean, but you feel comfortable that you can kill him, especially since
 he is leashed up, and you are not.
 ~
 school monster~
-ABU 0 0 0
+ABU 0 2 0
 1 0 1d1+7 1d1+99 1d3+0 claw
 10 10 10 10
 0 AB 0 C
@@ -537,9 +537,9 @@ treasure GU AO
 0 0 0 0 0
 0 10 1140 P
 A
-5 1
-A
 4 1
+A
+5 1
 E
 diploma~
 This document shows that you have graduated from Mud School.
@@ -556,9 +556,9 @@ light AG A
 0 0 DGH 0 0
 0 20 380 P
 A
-20 -1
-A
 17 -1
+A
+20 -1
 E
 banner~
 This is the official Merc war banner to see you through the darkest realm!
@@ -587,9 +587,9 @@ weapon U AN
 staff 1 5 pound F
 1 40 290 P
 A
-19 1
-A
 18 2
+A
+19 1
 E
 staff~
 You see a staff of great but cheap craftsmanship.  Imprinted on the side is:
@@ -694,11 +694,6 @@ wall.
 ~
 0 131084 0
 E
-plaque~
-This zone (Mud School) is created by Hatchet for any Merc Mud.
-Copyright 1992, 1993.
-~
-E
 sign~
 Equipment check time!  Type 'EQUIPMENT' to see your current equipment.  Right
 now, you have just a vest, a shield, and a weapon.  As you go through Mud
@@ -713,6 +708,11 @@ To stop using a piece of equipment, type 'REMOVE item'.
 Finally, to see the items in your inventory, type 'INVENTORY'.
 
 When you are ready to continue, go west.
+~
+E
+plaque~
+This zone (Mud School) is created by Hatchet for any Merc Mud.
+Copyright 1992, 1993.
 ~
 D2
 You see a path into another room.

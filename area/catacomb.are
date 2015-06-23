@@ -18,7 +18,7 @@ A bat flaps wildly at you!
 Your typical smelly, blind flying mammal.
 ~
 bat~
-ABF FTZ 0 0
+ABF FTZ 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFHNR 0 0 S
@@ -32,7 +32,7 @@ A templar page in training is here looking mildly confused.
 He has lost his family and everything of his former life.
 ~
 human~
-AH 0 200 0
+AH 0 3 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -49,7 +49,7 @@ essential exploration gear; if there IS anything down here, he
 probably won't last long.
 ~
 human~
-ACH F 100 0
+ACH F 2 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -64,7 +64,7 @@ Working for an evil necromancer isn't the greatest thing in the world.
 They seem like little more than zombie servants themselves.
 ~
 human~
-ACF 0 -500 0
+ACF 0 1 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -78,7 +78,7 @@ Some mist swirls about you here ... it seems ALIVE!
 In fact it IS alive in a magical sort of sense.
 ~
 human~
-A HPU 0 0
+A HPU 2 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -90,7 +90,7 @@ It~
 ~
 ~
 human~
-AF 0 0 0
+AF 0 2 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -105,7 +105,7 @@ Even though he has died in the physical sense of the word, the battle
 continues for him in his charmed state.
 ~
 human~
-ACF 0 -290 0
+ACF 0 1 0
 11 0 2d8+134 5d9+100 1d10+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -123,7 +123,7 @@ A templar tells you, "You are an evil force trying to spread your ways!".
 A templar tells you, "You must die for your sin!".
 ~
 human~
-ACF 0 600 0
+ACF 0 3 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -137,7 +137,7 @@ A mysterious ghostly wraith forms before your eyes.
 Hard to tell much about the mysterious form even upon further inspection.
 ~
 human~
-ACF FU 0 0
+ACF FU 2 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -151,7 +151,7 @@ A templar officer keeps an eye on things here.
 A templar officer tells you "Better move along evil one!"
 ~
 human~
-AF D 700 0
+AF D 3 0
 13 0 2d10+170 6d9+100 2d5+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -165,7 +165,7 @@ A blank-faced zombie mage joins the battle.
 He seems to lack real interest in what he is doing.
 ~
 human~
-ACFR 0 -100 0
+ACFR 0 2 0
 13 0 2d10+150 13d9+100 2d4+2 none
 0 0 0 5
 FU 0 0 0
@@ -179,7 +179,7 @@ Eerie shadows fill the room.
 Looks vaguely you-shaped.
 ~
 human~
-A FPU 0 0
+A FPU 2 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -193,7 +193,7 @@ A bat flaps wildly at you!
 A rather LARGE "bat" ...
 ~
 bat~
-ABF FTZ -100 0
+ABF FTZ 2 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFHNR 0 0 S
@@ -208,7 +208,7 @@ Though he seems absorbed in his work, you'd bet he'd take the time out
 to kill you to get a fresh corpse!
 ~
 human~
-ABF 0 -888 0
+ABF 0 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -223,7 +223,7 @@ A slight, tolerant smile comes briefly across his face.  In the blink
 of an eye he seems stern again.
 ~
 human~
-AB DFH 1000 0
+AB DFH 3 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -237,7 +237,7 @@ The light shines off a beautiful but dangerous dragon lurking here.
 The spray of colored light bouncing off his scales is almost blinding.
 ~
 human~
-ABF DF -303 0
+ABF DF 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -251,7 +251,7 @@ You hear and smell the presence of the darkenbeast.
 You see nothing more than the sense of darkness and evil.
 ~
 human~
-ABF 0 -1000 0
+ABF 0 1 0
 24 0 5d10+500 12d9+100 2d10+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -289,9 +289,9 @@ jewelry J AB
 0 0 0 0 0
 7 10 800 P
 A
-4 1
-A
 17 -1
+A
+4 1
 #2004
 neutralizer sword~
 the neutralizer~
@@ -301,9 +301,9 @@ weapon BJK AN
 sword 3 5 slash 0
 16 90 1280 P
 A
-19 1
-A
 18 1
+A
+19 1
 #2005
 sword excalibur~
 the sword Excalibur~
@@ -313,9 +313,9 @@ weapon AGKL AN
 sword 5 4 slash 0
 24 150 3400 P
 A
-1 1
-A
 18 3
+A
+1 1
 #2006
 crown~
 a kingly crown~
@@ -369,15 +369,15 @@ armor G AJ
 BC BC BC C 0
 13 150 1920 P
 A
-19 -1
-A
-18 -2
-A
-13 10
+17 -2
 A
 12 10
 A
-17 -2
+13 10
+A
+18 -2
+A
+19 -1
 #2012
 scale shield dragonscale~
 a dragonscale shield~

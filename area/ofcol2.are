@@ -21,7 +21,7 @@ you, this guard will only use his deadly skills for the good of the citizens of
 Ofcol.
 ~
 human~
-ACT N 1000 0
+ACT N 3 0
 19 0 3d9+333 9d9+100 2d7+5 none
 -4 -4 -4 7
 CDEIKLU 0 0 0
@@ -39,7 +39,7 @@ is the hardest metal she can find.  She is willing to defend Ofcol to her
 death.
 ~
 human~
-ABQ DHN 1000 0
+ABQ DHN 3 0
 33 0 10d10+1100 33d9+100 4d6+10 none
 -11 -11 -11 3
 EIKU 0 0 0
@@ -56,7 +56,7 @@ descendent of a surviving cityguard of old Thalos.  He believes that everything
 has to be hard won to be kept, and that laxity is for the weak.
 ~
 human~
-AGQ DHN 1000 0
+AGQ DHN 3 0
 27 0 5d10+650 27d9+100 2d10+7 none
 -8 -8 -8 4
 EIKU 0 0 0
@@ -74,7 +74,7 @@ or her magic, no one has ever found out.  She isn't very strong physically, but
 she need not be.
 ~
 human~
-ABR DN 1000 0
+ABR DN 3 0
 27 0 5d10+600 27d9+100 2d10+6 none
 -7 -7 -7 2
 FU 0 0 0
@@ -90,7 +90,7 @@ smiling a very big smile, as he looks at your coins.  You wonder if he likes
 the metals or the value of the coins.
 ~
 human~
-AB N 1000 0
+AB N 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -105,7 +105,7 @@ Sam is a middle-aged workman.  He looks tired, but never too tired to get that
 last sale from you.  He grins at you slightly.
 ~
 human~
-AB N 1000 0
+AB N 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -121,7 +121,7 @@ the hard ways of this world and is ready for it.  She spends her time at the
 shop, trading little things (for a wee bit of profit).
 ~
 human~
-AB N 1000 0
+AB N 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -137,7 +137,7 @@ son, Jim, raise and slaughter the animals for him.  Marty still knows how to
 kill, though.
 ~
 human~
-AB N 1000 0
+AB N 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -154,7 +154,7 @@ Farmer Elizabeth smiles at you nicely, but you bet she is doing that just to
 get a good price off of you!
 ~
 human~
-AB N 1000 0
+AB N 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -171,7 +171,7 @@ every time she tastes her whiskey, which is quite often!
 Granny Jenkins cackles again.
 ~
 human~
-AB N 500 0
+AB N 3 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -187,7 +187,7 @@ their shared affinity for slaughtering animals.)  Jack leers at you as you
 enter.  "Came by to watch, eh?", he asks.
 ~
 human~
-ABFH 0 200 0
+ABFH 0 3 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -203,7 +203,7 @@ that, she doesn't look that bad.  She smiles at you demurely, and goes back to
 her work.
 ~
 human~
-ABH 0 800 0
+ABH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -218,7 +218,7 @@ The hen has yellow feathers and small wings.  It looks like a chicken, if
 you've ever seen one.
 ~
 human~
-AHI 0 0 0
+AHI 0 2 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
@@ -232,7 +232,7 @@ A cow is here, munching on grass.
 The cow is here happily grazing.  It moos at you and goes back to grazing.
 ~
 human~
-AI 0 0 0
+AI 0 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -246,7 +246,7 @@ A cow is here, waiting to be milked.
 The cow is just standing here.  She moos at you and otherwise ignores you.
 ~
 human~
-ABI 0 0 0
+ABI 0 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -261,7 +261,7 @@ The horse whinnies at you, then runs around you a few times, then just goes
 back to grazing.
 ~
 human~
-AFHI 0 0 0
+AFHI 0 2 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -275,7 +275,7 @@ A pig is playing here, getting itself and you dirty.
 The pig looks dirty.  It snorts and sniffs at you, then goes back to its slop.
 ~
 pig~
-ABI 0 0 0
+ABI 0 2 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNR 0 0 0
@@ -291,7 +291,7 @@ for you.  He looks at you strangely, though, wondering why you are so armed and
 armored.
 ~
 human~
-AH 0 500 0
+AH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -307,7 +307,7 @@ for you.  She looks at you strangely, though, wondering why you are so armed
 and armored.
 ~
 human~
-AH 0 500 0
+AH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -322,7 +322,7 @@ The little boy looks up at you and says, 'Hi.  Can I have a piece of candy?'
 He then smiles and runs away, remembering his game.
 ~
 human~
-AH 0 500 0
+AH 0 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -337,7 +337,7 @@ The little girl looks up at you and says, 'Hi.  Can I have a pretty little
 coin?'  She then smiles and runs away, remembering her game.
 ~
 human~
-AH 0 500 0
+AH 0 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -353,7 +353,7 @@ Master and Mistress come back.  You will get me in trouble!  Shoo!', she says.
 She hits you with her broom.
 ~
 human~
-AH 0 500 0
+AH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -369,7 +369,7 @@ join in.  He keeps an eye on you and his glasses, making sure you don't steal
 any.
 ~
 human~
-AB 0 1000 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -386,7 +386,7 @@ you, this guard will only use his deadly skills for the good of the citizens of
 Ofcol.
 ~
 human~
-ABT N 1000 0
+ABT N 3 0
 19 0 3d9+333 9d9+100 2d7+5 none
 -4 -4 -4 7
 CDEIKLU 0 0 0
@@ -402,7 +402,7 @@ peaceful city of Ofcol, and to sing of its unmatched glories.  He smiles at
 you, hinting toward a tip from you in ever a subtle way.
 ~
 human~
-AB N 800 0
+AB N 3 0
 13 0 2d10+170 6d9+100 2d5+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -416,7 +416,7 @@ A servant is here, carrying the duties of the Keeper of the Golden Citadel.
 The servant smiles good-naturedly at you, then goes on his duties.
 ~
 human~
-AG N 1000 0
+AG N 3 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -430,7 +430,7 @@ A squire is here, scurrying from duty to duty.
 This young man smiles at you, but is too busy to chat.
 ~
 human~
-AG N 1000 0
+AG N 3 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -444,7 +444,7 @@ A page is here, sending a message to his knight.
 The page smiles for you, asking if he can do you a favor too.
 ~
 human~
-AG N 1000 0
+AG N 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -461,7 +461,7 @@ with the world.  She devotes all her time to help teach you the ways of her
 god, Bahamut.  The dragon symbol around her neck looks almost alive.
 ~
 human~
-AB BHN 1000 0
+AB BHN 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -478,7 +478,7 @@ STANDING here, young man?  Go help that other squire there!", he yells.  He
 turns to you and with a consipatory tone, whispers, "Kids!"
 ~
 human~
-AGT BHN 1000 0
+AGT BHN 3 0
 20 0 4d10+360 10d9+100 2d8+5 none
 -4 -4 -4 7
 CDEIKLU 0 0 0
@@ -494,7 +494,7 @@ power.  He smiles at you with a vicious grin.  You're happy that he doesn't
 look upset at your presence. 
 ~
 human~
-AB BHN 1000 0
+AB BHN 3 0
 29 0 6d12+778 14d9+100 2d12+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -511,7 +511,7 @@ realizing that you're no danger to him, he ignores you.  He waves to one of
 his attendants to escort you away.
 ~
 dragon~
-ABC BHJNT 1000 0
+ABC BHJNT 3 0
 42 0 25d10+2250 21d9+100 3d12+14 none
 -14 -14 -14 4
 EFNR 0 BEH FI
@@ -526,7 +526,7 @@ This elder servant to the Gold Dragon is very loyal to him, willing to risk
 his life for his liege.
 ~
 human~
-ABR BN 1000 0
+ABR BN 3 0
 21 0 3d9+333 21d9+100 2d7+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -542,7 +542,7 @@ This person looks like a dragon itself.  His golden scales gleam with power.
 He smiles at you, showing very sharp teeth.
 ~
 human~
-AG BN 1000 0
+AG BN 3 0
 21 0 4d10+360 10d9+100 4d4+5 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -559,7 +559,7 @@ you, this guard will only use his deadly skills for the good of the citizens of
 Ofcol.
 ~
 human~
-ABT N 1000 0
+ABT N 3 0
 19 0 3d9+333 9d9+100 2d7+5 none
 -4 -4 -4 7
 CDEIKLU 0 0 0
@@ -754,11 +754,11 @@ jewelry G AB
 0 0 0 0 0
 10 10 730 P
 A
-20 -1
+17 -2
 A
 13 5
 A
-17 -2
+20 -1
 #621
 plate brass~
 brass plate~
@@ -768,9 +768,9 @@ armor G AD
 BC AC BC A 0
 16 100 2400 P
 A
-20 -1
-A
 13 10
+A
+20 -1
 #622
 helm brass~
 a brass helm~
@@ -780,9 +780,9 @@ armor G AE
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #623
 leggings brass~
 brass leggings~
@@ -792,9 +792,9 @@ armor G AF
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #624
 boots brass~
 brass boots~
@@ -804,9 +804,9 @@ armor G AG
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #625
 gauntlets brass~
 brass gauntlets~
@@ -816,9 +816,9 @@ armor G AH
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #626
 sleeves brass~
 brass sleeves~
@@ -828,9 +828,9 @@ armor G AI
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #627
 shield brass~
 a brass shield~
@@ -840,9 +840,9 @@ armor G AJ
 BC AC BC B 0
 16 100 1850 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #628
 girth brass~
 a brass girth~
@@ -852,9 +852,9 @@ armor G AL
 BC AC BC A 0
 16 100 1280 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #629
 bracer brass~
 a brass bracer~
@@ -864,9 +864,9 @@ armor G AM
 C AC BC A 0
 12 100 1040 P
 A
-20 -1
-A
 13 5
+A
+20 -1
 #630
 claymore sword~
 a claymore~
@@ -876,9 +876,9 @@ weapon G AN
 sword 4 4 cleave F
 19 160 3100 P
 A
-18 -2
-A
 19 5
+A
+18 -2
 #631
 plate silver~
 silver plate~
@@ -888,9 +888,9 @@ armor GK AD
 D D D B 0
 25 200 5000 P
 A
-12 10
-A
 1 1
+A
+12 10
 #632
 helm silver~
 a silver helm~
@@ -900,9 +900,9 @@ armor GK AE
 D D D B 0
 25 200 2900 P
 A
-12 5
-A
 2 1
+A
+12 5
 #633
 leggings silver~
 silver leggings~
@@ -912,9 +912,9 @@ armor GK AF
 D D D B 0
 25 200 2900 P
 A
-12 5
-A
 3 1
+A
+12 5
 #634
 boots silver~
 silver boots~
@@ -924,9 +924,9 @@ armor GK AG
 D D D B 0
 25 200 2900 P
 A
-12 5
-A
 4 1
+A
+12 5
 #635
 gauntlets silver~
 silver gauntlets~
@@ -936,9 +936,9 @@ armor GK AH
 D D D B 0
 25 200 2900 P
 A
-12 5
-A
 5 1
+A
+12 5
 #636
 sleeves silver~
 silver sleeves~
@@ -948,9 +948,9 @@ armor GK AI
 D D D B 0
 25 200 2400 P
 A
-12 5
-A
 18 1
+A
+12 5
 #637
 shield silver~
 the silver shield~
@@ -960,9 +960,9 @@ armor GK AJ
 D D D AB 0
 25 200 4200 P
 A
-12 5
-A
 17 -3
+A
+12 5
 #638
 girth silver~
 the silver girth~
@@ -972,9 +972,9 @@ armor GK AL
 D D D B 0
 25 200 2400 P
 A
-12 5
-A
 19 1
+A
+12 5
 #639
 plate platinum~
 platinum plate~
@@ -984,9 +984,9 @@ armor GK AD
 AD AD AD AB 0
 30 500 9200 P
 A
-13 15
-A
 5 2
+A
+13 15
 #640
 helmet platinum~
 the platinum helmet~
@@ -996,9 +996,9 @@ armor GK AE
 AD AD AD AB 0
 30 300 6300 P
 A
-12 10
-A
 4 2
+A
+12 10
 #641
 leggings platinum~
 platinum leggings~
@@ -1008,9 +1008,9 @@ armor GK AF
 AD AD AD AB 0
 30 400 6300 P
 A
-13 10
-A
 2 2
+A
+13 10
 #642
 boots platinum~
 platinum boots~
@@ -1020,9 +1020,9 @@ armor GK AG
 AD AD AD AB 0
 32 400 4100 P
 A
-13 10
-A
 14 25
+A
+13 10
 #643
 gauntlets platinum~
 platinum gauntlets~
@@ -1032,9 +1032,9 @@ armor GK AH
 AD AD AD AB 0
 31 400 4300 P
 A
-13 10
-A
 18 2
+A
+13 10
 #644
 sleeves platinum~
 platinum sleeves~
@@ -1044,9 +1044,9 @@ armor GK AI
 AD AD AD AB 0
 30 400 6300 P
 A
-13 10
-A
 1 2
+A
+13 10
 #645
 shield spiked platinum~
 the platinum spiked shield~
@@ -1056,9 +1056,9 @@ armor GK AJ
 AD AD AD AC 0
 31 400 6000 P
 A
-13 10
-A
 19 2
+A
+13 10
 #646
 girth platinum~
 the platinum girth~
@@ -1068,9 +1068,9 @@ armor GK AL
 AD AD AD AB 0
 31 400 4000 P
 A
-13 10
-A
 20 -2
+A
+13 10
 #647
 avenger holy sword~
 holy Avenger~
@@ -1080,9 +1080,9 @@ weapon GK AN
 sword 4 6 slice 0
 32 250 5700 P
 A
-18 1
-A
 19 6
+A
+18 1
 #648
 whiskey shot~
 a shot of whiskey~
@@ -1124,11 +1124,11 @@ jewelry GIKL AC
 0 0 0 0 0
 17 50 3700 P
 A
-17 -3
+4 2
 A
 12 10
 A
-4 2
+17 -3
 #653
 ranseur polearm~
 a ranseur~
@@ -1138,9 +1138,9 @@ weapon GK AN
 polearm 4 6 thrust F
 24 200 1460 P
 A
-18 3
-A
 19 -1
+A
+18 3
 #654
 torso dragonscale golden~
 a golden dragonscale torso~
@@ -1150,9 +1150,9 @@ armor GK AD
 ABC ABC ABC AB 0
 24 250 6200 P
 A
-17 -5
-A
 18 2
+A
+17 -5
 #655
 dragonhelm golden~
 a golden dragonhelm~
@@ -1162,9 +1162,9 @@ armor GK AE
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #656
 leggings golden~
 golden dragonscale leggings~
@@ -1174,9 +1174,9 @@ armor GK AF
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #657
 boots golden~
 golden dragonscale boots~
@@ -1186,9 +1186,9 @@ armor GK AG
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #658
 gauntlets golden~
 golden dragonscale gauntlets~
@@ -1198,9 +1198,9 @@ armor GK AH
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #659
 sleeves golden~
 golden dragonscale sleeves~
@@ -1210,9 +1210,9 @@ armor GK AI
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #660
 shield golden~
 a golden dragonscale shield~
@@ -1222,9 +1222,9 @@ armor GK AJ
 ABC ABC ABC C 0
 21 100 3700 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #661
 girth golden~
 a golden dragonscale girth~
@@ -1234,9 +1234,9 @@ armor GK AL
 ABC ABC ABC AB 0
 21 100 2800 P
 A
-17 -3
-A
 18 1
+A
+17 -3
 #662
 claw golden~
 the golden claw~
@@ -1256,9 +1256,9 @@ staff GKL AO
 14 4 4 'heal' 0
 17 300 9000 P
 A
-3 1
-A
 4 2
+A
+3 1
 #664
 robe golden~
 a golden robe~
@@ -1286,9 +1286,9 @@ weapon 0 AN
 exotic 2 3 beating 0
 1 80 760 P
 A
-18 3
-A
 19 -3
+A
+18 3
 #667
 chest~
 a chest~

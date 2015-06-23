@@ -19,7 +19,7 @@ The little tyke looks so innocent playing with his boomerang that you
 just want to pick him up and hug him.
 ~
 human~
-ACE 0 600 0
+ACE 0 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -34,7 +34,7 @@ The woman is short and gnarled, but acts like a woman several times her beauty.
 She's starting to look pretty attractive to you ...
 ~
 human~
-ACE 0 600 0
+ACE 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -49,7 +49,7 @@ This is a prime example of a gnome.  He looks short and weak, but at the
 same time an intelligent creature who could outsmart you.
 ~
 human~
-AC 0 500 0
+AC 0 3 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -64,7 +64,7 @@ You see a gnome who is lost deep into some invention that he is about
 to make.  His hair is white, but he looks fairly strong.
 ~
 human~
-ABCR 0 500 0
+ABCR 0 3 0
 7 0 2d7+71 7d9+100 1d5+1 none
 4 4 4 7
 FU 0 0 0
@@ -79,7 +79,7 @@ This is a well trained gnome.  He might not have a lot of strength but
 he makes up for it with his weapons skill.
 ~
 human~
-AB 0 400 0
+AB 0 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -94,7 +94,7 @@ The Chief looks like he could whap you hard.  He looks not only powerful
 but wise and resourceful.  You better not mess with him.
 ~
 human~
-ABQ 0 550 0
+ABQ 0 3 0
 15 0 3d9+208 15d9+100 2d5+3 none
 -2 -2 -2 6
 EIKU 0 0 0
@@ -109,7 +109,7 @@ The small troll is a short and stocky beast with a human-like face
 but with the eyes and fangs of a wild beast.
 ~
 troll~
-ABCF FJc -900 0
+ABCF FJc 1 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 DEFNR 0 BE HK
@@ -123,7 +123,7 @@ A small mouse runs across your foot.
 The Mouse is a cute little creature.
 ~
 human~
-ABCI 0 100 0
+ABCI 0 2 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
@@ -137,7 +137,7 @@ A small rat shrieks and runs around.
 The rat is a little evil creature that deserves death.
 ~
 human~
-AC 0 -200 0
+AC 0 1 0
 2 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 EFNU 0 0 0
@@ -151,7 +151,7 @@ A large rat runs up to you and nibbles on your boots.
 You have the urge to kill this vile creature.
 ~
 human~
-AC 0 -200 0
+AC 0 1 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNU 0 0 0
@@ -165,7 +165,7 @@ A giant rat growls at you and prepares to attack.
 This rat has grown up to be the size of an average dog.
 ~
 human~
-AC 0 -200 0
+AC 0 1 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -180,7 +180,7 @@ You see before you a huge mass of living flesh.  You cringe in fear as
 he lifts his powerful arm to bludgeon you.
 ~
 troll~
-ABF FJc -800 0
+ABF FJc 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 DEFNR 0 BE HK
@@ -194,7 +194,7 @@ A black bat hangs from the ceiling.
 The bat is a grotesque little creature with large wings and fangs.
 ~
 bat~
-A TZ -500 0
+A TZ 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFHNR 0 0 S
@@ -209,7 +209,7 @@ This is a creature which has passed away long ago.  His body has been
 pulled out of its resting place by some evil force.
 ~
 human~
-A 0 -700 0
+A 0 1 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -224,7 +224,7 @@ You see a huge flame which resembles the shape of a bat.  The creature
 hangs from the ceiling and bites at you.
 ~
 bat~
-ABCF DTZ -900 0
+ABCF DTZ 1 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFHNR 0 0 S
@@ -239,7 +239,7 @@ This is an extra large, extra ugly goblin like creature.  He grins evilly
 as he attempts to brain you.
 ~
 human~
-ABF 0 -700 0
+ABF 0 1 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -254,7 +254,7 @@ This is just a low life hobgoblin, who couldn't make it to the ranks
 of the elite guards.  He looks pissed.
 ~
 human~
-ABF 0 -600 0
+ABF 0 1 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -269,7 +269,7 @@ This is one of the elite hobgoblin guards.  He stands tall for his short
 stature.  He grins a toothy grin as he prepares to attack.
 ~
 human~
-AB 0 -500 0
+AB 0 1 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -284,7 +284,7 @@ The king is a silly looking hobgoblin whose muscles bulge out of his robes,
 destroying the sophisticated effect he was trying to create.
 ~
 human~
-ABR 0 -500 0
+ABR 0 1 0
 12 0 2d8+134 12d9+100 1d8+2 none
 1 1 1 6
 FU 0 0 0
@@ -298,7 +298,7 @@ A hobgoblin miner stands here looking for gold.
 The miner is totally covered in dust.
 ~
 human~
-ABC 0 -400 0
+ABC 0 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -313,7 +313,7 @@ The hobgoblin treasurer is an old goblin with glasses.  It appears that he
 can only see a couple feet in front of him.
 ~
 human~
-ABC 0 -200 0
+ABC 0 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -327,7 +327,7 @@ A gnome prisoner is here resting in the straw.
 The prisoner is just barely alive.
 ~
 human~
-ABC 0 100 0
+ABC 0 2 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -341,7 +341,7 @@ A human prisoner is here resting in the straw.
 The prisoner is just barely alive.
 ~
 human~
-ABC 0 100 0
+ABC 0 2 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -356,7 +356,7 @@ The hermit crab is about 5 feet high and looks mad that you had the nerve
 to wake it up.
 ~
 human~
-ABCF 0 -10 0
+ABCF 0 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -371,7 +371,7 @@ The cook is a dirty and fat hobgoblin.  He burps as he stirs up something
 in a pot.
 ~
 human~
-ABC 0 -300 0
+ABC 0 1 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -912,12 +912,12 @@ and a small hut is to the west.
 ~
 0 0 2
 E
-hut~
-The hut looks well built, but it seems to have taken some damage.
-~
-E
 stream~
 The stream is pretty small, but it looks too cold to swim.
+~
+E
+hut~
+The hut looks well built, but it seems to have taken some damage.
 ~
 D1
 You see a small path.
@@ -1417,10 +1417,6 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D1
-~
-~
-0 -1 1549
 D3
 ~
 ~
@@ -1429,6 +1425,10 @@ D0
 ~
 ~
 0 -1 1547
+D1
+~
+~
+0 -1 1549
 S
 #1549
 A Damp Hallway~
@@ -1436,14 +1436,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D2
-~
-~
-0 -1 1550
 D3
 ~
 ~
 0 -1 1548
+D2
+~
+~
+0 -1 1550
 S
 #1550
 A Damp Hallway~
@@ -1511,10 +1511,6 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D1
-~
-~
-0 -1 1555
 D0
 ~
 ~
@@ -1523,6 +1519,10 @@ D3
 ~
 ~
 0 -1 1553
+D1
+~
+~
+0 -1 1555
 S
 #1555
 A Damp Hallway~
@@ -1530,14 +1530,14 @@ You are wandering in a dark, damp, twisting hallway.  The temperature
 seems to be greater here, as well as your fear.
 ~
 0 8201 2
-D0
-~
-~
-0 -1 1550
 D3
 ~
 ~
 0 -1 1554
+D0
+~
+~
+0 -1 1550
 S
 #1556
 The End of the Hallway~

@@ -18,7 +18,7 @@ A tridrone is here doing a menial task.
 You see what appears to be a 3 sided pyramid with spidery arms and legs.
 ~
 modron~
-ACG J 300 0
+ACG J 3 0
 8 0 3d20+80 1d1+99 2d5+3 pound
 4 3 4 5
 NQR BMNPQ HIK 0
@@ -32,7 +32,7 @@ A quadrone is here watching for trespassers.
 A cubic creature, with spiny arms and legs.
 ~
 modron~
-AFGT DJ 300 0
+AFGT DJ 3 0
 11 3 14d10+70 1d1+99 3d4+2 beating
 1 0 1 2
 CEKQR BMNPQ HIK 0
@@ -46,7 +46,7 @@ The pentadrone is here policing the area.
 A five-armed creature which resembles a starfish on thin stilt-like legs.
 ~
 modron~
-ABFGT DJ 300 0
+ABFGT DJ 3 0
 14 3 15d12+110 1d1+99 4d4+3 slap
 -2 -2 0 -1
 CEFLNQR BMNPQR HIK 0
@@ -60,7 +60,7 @@ A decaton is here overseeing the other modrons.
 The decaton is a large, ten-tentacled sphere on stumpy legs.
 ~
 modron~
-ABFGQT DJ 300 0
+ABFGQT DJ 3 0
 17 4 25d10+70 17d8+50 4d5+3 pound
 -4 -4 0 -2
 ACEKNQR BMNPQR HIK 0
@@ -74,7 +74,7 @@ A nonaton is here preserving law and order.
 A cylidrical modron with 9 tentacles and stubby legs.
 ~
 modron~
-ABFGQT DHJ 300 0
+ABFGQT DHJ 3 0
 20 5 11d8+250 20d8+75 4d6+4 pound
 -4 -4 -2 -3
 AEFNQR BMNPQR HIK G
@@ -89,7 +89,7 @@ The octon has a collar at shoulder level with 8 tentacled arms growing out of
 it.
 ~
 modron~
-ABFGQ DJ 300 0
+ABFGQ DJ 3 0
 22 5 25d10+300 18d10+75 4d6+5 crush
 -5 -5 -3 -4
 ACEHKQR BMNPQR HIK G
@@ -104,7 +104,7 @@ The septon appears as a human with a large bald head. It has a shoulder collar
 with 7 tentacles coming from it.
 ~
 modron~
-ABFGQR DJ 300 0
+ABFGQR DJ 3 0
 24 5 30d10+350 20d10+100 6d4+5 beating
 -6 -6 -6 -4
 AFKOQR BMNPQR HIK 0
@@ -119,7 +119,7 @@ A hexton appears as a humanoid with 6 arms: 2 large human arms with 6 fingers,
 and 4 tentacles below tipped with sharp claws.
 ~
 modron~
-ABFGQT DFHJ 300 0
+ABFGQT DFHJ 3 0
 26 7 35d20+300 20d10+75 4d8+6 slash
 -8 -8 -8 -4
 ACEFHIKLNQR ABMNPQR CHIK 0
@@ -135,7 +135,7 @@ shoulders.  A prehensile tail serves as the creature's 5th arm, and they have
 fan-like wings attached to their shoulders.
 ~
 modron~
-ABFGQ DJ 300 0
+ABFGQ DJ 3 0
 28 6 10d100+150 20d12+100 4d8+7 beating
 -7 -8 -6 -8
 AKMOQR ABMNPQR HIK 0
@@ -151,7 +151,7 @@ the sides of their bald heads, and the long prehensile tail ending in a mace-
 like ball.
 ~
 modron~
-ABFGQRT DJ 300 0
+ABFGQRT DJ 3 0
 33 12 1d1+999 20d20+50 8d6+12 pound
 -11 -13 -10 -9
 CEFQR ABMNPQR CHIK 0
@@ -166,7 +166,7 @@ The secundi is an incredibly thin, tall humanoids with long, narrow faces
 and deepset eyes. It radiates intense power.
 ~
 modron~
-ABFGQRT DFHJ 0 0
+ABFGQRT DFHJ 2 0
 36 15 1d1+1599 40d20+50 7d8+15 punch
 -11 -14 -11 -12
 EFHIKNQR ABHIKMNPQR CHIK 0
@@ -182,7 +182,7 @@ violet eyes. His right hand is wreathed in darkness, his left in light, and
 he looks very displeased to see you.
 ~
 modron~
-ABFGQRT DFHJ 0 0
+ABFGQRT DFHJ 2 0
 40 20 1d1+3999 1d1+3999 6d10+25 wrath
 -15 -15 -15 -15
 AHQR ABHIKMNPQRS CHIK 0
@@ -202,9 +202,9 @@ weapon AGJK AN
 sword 5 6 slash EF
 39 400 8800 P
 A
-19 5
-A
 18 5
+A
+19 5
 E
 sword long the~
 This is an extremely long and heavy sword, with many magical runes inscribed

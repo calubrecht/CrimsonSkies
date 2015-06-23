@@ -19,7 +19,7 @@ You see a slate grey vaguely humanoid shape, devoid of any true features.
 It stands before you with arms folded, seemingly uninterested in you.
 ~
 human~
-ABT DFHN 0 0
+ABT DFHN 2 0
 37 0 10d10+1500 18d9+100 3d10+12 none
 -12 -12 -12 5
 EFNU 0 0 0
@@ -35,7 +35,7 @@ planes to torment mortals.  It vaguely resembles a horse, with a hide blacker
 than the darkest night, and hooves that burn with unholy fires.
 ~
 human~
-AD DJT -950 0
+AD DJT 1 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -51,7 +51,7 @@ purpose is to hunt down and slay mortals in order to obtain souls for her foul
 master to torment.
 ~
 human~
-ADFR DJ -1000 0
+ADFR DJ 1 0
 24 0 5d10+450 24d9+100 4d4+5 none
 -6 -6 -6 2
 FU 0 0 0
@@ -66,7 +66,7 @@ You see only a wavy distortion in the air.  You reach out to touch it, and
 feel nothing, not even the slightest of motions.
 ~
 human~
-AD BT 200 0
+AD BT 3 0
 17 0 3d9+258 8d9+100 3d4+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -81,7 +81,7 @@ This unfortunate being has had its very soul torn from its body.  It now roams
 mindlessly, unaware of its surroundings.
 ~
 human~
-A 0 0 0
+A 0 2 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -97,7 +97,7 @@ normal man.  Like all githyanki, his teeth are fanged and his eyes hollow
 and sunken.
 ~
 human~
-ACS DFJP -500 0
+ACS DFJP 1 0
 11 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 7
 BEFJNU 0 0 0
@@ -114,7 +114,7 @@ He is clad in ornately designed splinted armor, and wields a sword that
 whistles through the air as it slices towards your neck.
 ~
 human~
-A J -500 0
+A J 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -131,7 +131,7 @@ He is clad in ornately designed splinted armor, and wields a sword that
 whistles through the air as it slices towards your neck.
 ~
 human~
-ABF J -500 0
+ABF J 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -148,7 +148,7 @@ splinted armor -- you only hear the hissing of his breath and the scraping
 of his sword against its scabbard as it is unsheathed.
 ~
 human~
-A J -500 0
+A J 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -165,7 +165,7 @@ splinted armor -- you only hear the hissing of his breath and the scraping
 of his sword against its scabbard as it is unsheathed.
 ~
 human~
-ABF J -500 0
+ABF J 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -182,7 +182,7 @@ sunken.  The gish are well-versed in the arcane arts, unlike the normal gith
 people.  You notice this from the blast of lightning headed towards you.
 ~
 human~
-AR J -500 0
+AR J 1 0
 11 0 2d7+121 11d9+100 1d7+2 none
 1 1 1 6
 FU 0 0 0
@@ -199,7 +199,7 @@ sunken.  The gish are well-versed in the arcane arts, unlike the normal gith
 people.  You notice this from the blast of lightning headed towards you.
 ~
 human~
-ACFR J -500 0
+ACFR J 1 0
 11 0 2d7+121 11d9+100 1d7+2 none
 1 1 1 6
 FU 0 0 0
@@ -216,7 +216,7 @@ and sunken.  As you turn to flee, you feel the impact of a fireball against
 your back.
 ~
 human~
-AFR DEJ -500 0
+AFR DEJ 1 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -233,7 +233,7 @@ unholy magic and the powers of this plane of existence.  The cold glare of her
 hollow eyes sends you into paroxysms of fright.
 ~
 human~
-ABF DEFHJ -750 0
+ABF DEFHJ 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -254,7 +254,7 @@ He gestures towards you.  You feel your heart tremble and your throat begin
 to tighten.  You are about to die.
 ~
 human~
-ABF BDFHJ -900 0
+ABF BDFHJ 1 0
 35 0 10d10+1300 17d9+100 4d7+11 none
 -11 -11 -11 5
 EFNU 0 0 0
@@ -271,7 +271,7 @@ and destroyed in this torment, and it now envys and intends to destroy all the
 true living beings it encounters, including you.
 ~
 human~
-A JTU -1000 0
+A JTU 1 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -287,7 +287,7 @@ by the mindflayers and related to the githyanki.  Unfortunately, the two races
 are bitter enemies, and this one happened to get caught.  He intends to escape.
 ~
 human~
-A J -250 0
+A J 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -303,7 +303,7 @@ middle of its head.  It is hunched over, bent and scarred from torture inflicted
 by the githyanki.  It cringes as you approach.
 ~
 human~
-ABR 0 0 0
+ABR 0 2 0
 8 0 2d6+85 8d9+100 1d6+1 none
 4 4 4 7
 FU 0 0 0
@@ -320,7 +320,7 @@ in length with an even more massive wingspan.  He watches you, smoke drifting
 from his open mouth.
 ~
 dragon~
-ABR DJT -400 0
+ABR DJT 1 0
 28 0 5d10+650 28d9+100 2d10+7 none
 -8 -8 -8 1
 FR 0 BEH FI
@@ -334,7 +334,7 @@ The fires of the furnace burn away at your skin!
 The fire feeds on your skin like a living being, licking out at your hair.
 ~
 human~
-ABDF J 0 0
+ABDF J 2 0
 13 0 2d10+170 6d9+100 2d5+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -354,11 +354,11 @@ weapon JK AN
 mace 4 8 crush 0
 38 550 5200 P
 A
-19 6
+2 -1
 A
 18 -2
 A
-2 -1
+19 6
 E
 hammer sledge grey~
 This massive hammer is incredibly hard, heavy, and utterly grey and featureless.
@@ -409,9 +409,9 @@ wand EH AO
 25 5 5 'energy drain' 0
 11 50 2600 P
 A
-4 -1
-A
 3 -1
+A
+4 -1
 E
 amulet demon~
 The amulet is a small circular object made from some bizarre metallic alloy.
@@ -448,9 +448,9 @@ weapon 0 AN
 dagger 2 4 stab 0
 6 30 480 P
 A
-19 1
-A
 18 1
+A
+19 1
 E
 knife silvery~
 The knife is forged from a strange silvery metal the likes of which you have
@@ -466,9 +466,9 @@ weapon 0 AN
 dagger 3 4 pierce 0
 13 30 980 P
 A
-19 1
-A
 18 2
+A
+19 1
 E
 dagger silvery~
 The dagger is forged from a strange silvery metal the likes of which you have
@@ -484,11 +484,11 @@ weapon 0 AN
 sword 4 3 slice 0
 16 30 2300 P
 A
-19 3
+2 1
 A
 18 1
 A
-2 1
+19 3
 E
 sword thin~
 The sword is forged from a strange silvery metal.  It barely measures an inch
@@ -504,9 +504,9 @@ weapon 0 AN
 sword 2 12 slash F
 24 160 2600 P
 A
-19 2
-A
 18 1
+A
+19 2
 E
 sword thin two two-handed~
 The sword is forged from a strange silvery metal.  It barely measures two inches
@@ -522,9 +522,9 @@ weapon A AN
 sword 4 4 slash F
 19 130 4600 P
 A
-19 2
-A
 2 2
+A
+19 2
 E
 sword silvery~
 The sword is forged from a strange silvery metal the likes of which you have
@@ -556,13 +556,13 @@ weapon EHM AN
 sword 9 3 slash F
 31 250 5100 P
 A
-18 4
-A
-4 -1
+1 1
 A
 3 -1
 A
-1 1
+4 -1
+A
+18 4
 E
 sword gith~
 The blade of this sword is a featureless gray.  As you touch it you feel an
@@ -579,9 +579,9 @@ light 0 AO
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 20 10 1440 P
 A
-20 -2
-A
 17 -2
+A
+20 -2
 E
 stone flame~
 This stone burns with an flame that emits great heat, yet it can be held with
@@ -647,11 +647,11 @@ armor 0 AH
 ABC ABC ABC 0 0
 20 50 2700 P
 A
-19 1
+1 1
 A
 18 1
 A
-1 1
+19 1
 E
 gauntlets ornate~
 These gauntlets have been expertly and ornately fashioned from the highest
@@ -666,9 +666,9 @@ armor 0 AD
 AD AD AD B 0
 31 50 8500 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 E
 vest cracked leather~
 The ancient vest is barely intact.  All of the leather has cracked and dried
@@ -853,9 +853,9 @@ starlike motes of dust.  Ahead of you is a bridge.
 ~
 0 0 5
 E
-bridge~
-The colors of the rainbow seem to converge into a glowing bridge that leads
-to a massive white gate.
+rainbow~
+The rainbow brilliantly glows with beams of blinding light, in colors that 
+sweep together and merge before your eyes.
 ~
 E
 motes star stars dust~
@@ -863,9 +863,9 @@ The star-like motes dance before your eyes.  They are incredibly beautiful yet
 intangible -- your hand passes right through them.
 ~
 E
-rainbow~
-The rainbow brilliantly glows with beams of blinding light, in colors that 
-sweep together and merge before your eyes.
+bridge~
+The colors of the rainbow seem to converge into a glowing bridge that leads
+to a massive white gate.
 ~
 D4
 The rainbow extends above you, merging into a brilliant glowing
@@ -888,13 +888,9 @@ glow interrupted only by the passing of starlike dust motes before your eyes.
 ~
 0 0 1
 E
-gate~
-The gate towers tens of feet above your heads.  Beyond it is a field of utter
-blackness, from which the motes of light seem to issue forth.
-~
-E
-bridge~
-The bridge glows with an unearthly light.
+rainbow~
+The rainbow seems to be forming directly from the light of the bridge.  It
+drops out of sight below you.
 ~
 E
 motes star stars dust~
@@ -902,9 +898,13 @@ The star-like motes dance before your eyes.  They are incredibly beautiful yet
 intangible -- your hand passes right through them.
 ~
 E
-rainbow~
-The rainbow seems to be forming directly from the light of the bridge.  It
-drops out of sight below you.
+bridge~
+The bridge glows with an unearthly light.
+~
+E
+gate~
+The gate towers tens of feet above your heads.  Beyond it is a field of utter
+blackness, from which the motes of light seem to issue forth.
 ~
 D0
 The bridge leads on to a massive white gate.  You see a large grey figure
@@ -927,6 +927,13 @@ stars, and occasional flashes of of light.
 ~
 0 0 1
 E
+gate~
+You see a huge, glowing gate wrought from an incredibly hard translucent 
+material.  Each of the intricately carved bars of this mighty gate are about 
+as thick as a man's wrist, rising from the floor to a height of forty feet.  
+A plaque is inset into the wall next to one side of the gate.
+~
+E
 plaque~
 The plaque reads: 
 
@@ -934,13 +941,6 @@ Let this gate stand to protect mortal man for all time against the perils of
 the outer planes of existence and the creatures fair and foul that dwell within.
 
 (The Astral Plane and Githyanki Keep were written by Andersen.) 
-~
-E
-gate~
-You see a huge, glowing gate wrought from an incredibly hard translucent 
-material.  Each of the intricately carved bars of this mighty gate are about 
-as thick as a man's wrist, rising from the floor to a height of forty feet.  
-A plaque is inset into the wall next to one side of the gate.
 ~
 D0
 Through the gate you see a massive field of blackness that extends as far
@@ -1010,31 +1010,31 @@ of this environment is very disorienting, and it is difficult to maintain your
 bearings and sense of direction.
 ~
 0 0 2
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7707
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7714
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7710
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7713
 D3
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7712
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7713
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7707
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7710
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7714
 S
 #7709
 Exploring the Astral Plane~
@@ -1049,11 +1049,6 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7714
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7707
 D5
 The astral field leads off into infinity.
 ~
@@ -1064,6 +1059,11 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7716
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7707
 D4
 The astral field leads off into infinity.
 ~
@@ -1078,31 +1078,31 @@ of this environment is very disorienting, and it is difficult to maintain your
 bearings and sense of direction.
 ~
 0 0 2
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7715
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7713
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7708
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7709
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7715
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7708
 D1
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7707
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7713
 S
 #7711
 Exploring the Astral Plane~
@@ -1117,16 +1117,16 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7709
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7707
 D3
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7717
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7707
 D0
 The astral field leads off into infinity.
 ~
@@ -1146,31 +1146,31 @@ of this environment is very disorienting, and it is difficult to maintain your
 bearings and sense of direction.
 ~
 0 0 2
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7711
 D0
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7717
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7707
 D1
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7708
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7711
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7715
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7707
 S
 #7713
 Roaming the Astral Plane~
@@ -1180,21 +1180,6 @@ of this environment is somewhat disorienting.
    All exits lead off into the astral field.
 ~
 0 0 2
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7710
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7715
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7718
 D3
 The astral field leads off into infinity.
 ~
@@ -1205,11 +1190,26 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7708
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7718
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7714
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7715
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7710
 S
 #7714
 Roaming the Astral Plane~
@@ -1219,21 +1219,6 @@ of this environment is somewhat disorienting.
    All exits lead off into the astral field.
 ~
 0 0 2
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7717
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7708
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7718
 D0
 The astral field leads off into infinity.
 ~
@@ -1249,6 +1234,21 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7713
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7718
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7717
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7708
 S
 #7715
 Roaming the Astral Plane~
@@ -1259,26 +1259,6 @@ close to home.
    All exits lead off into the astral field.
 ~
 0 0 2
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7713
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7710
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7712
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7722
 D0
 The astral field leads off into infinity.
 ~
@@ -1289,6 +1269,26 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7716
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7710
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7713
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7722
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7712
 S
 #7716
 Roaming the Astral Plane~
@@ -1299,31 +1299,31 @@ close to home.
    All exits lead off into the astral field.
 ~
 0 0 2
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7717
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7719
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7711
-D3
+D5
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7709
+0 -1 7717
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7715
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7709
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7719
 D0
 The astral field leads off into infinity.
 ~
@@ -1339,36 +1339,36 @@ close to home.
    All exits lead off into the astral field.
 ~
 0 0 2
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7722
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7721
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7714
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7712
-D4
+D0
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7716
+0 -1 7722
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7714
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7721
 D1
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7711
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7716
 S
 #7718
 Wandering the Astral Plane~
@@ -1379,26 +1379,21 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7714
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7709
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7713
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7733
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7713
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7709
 D5
 You see a tangible strand of silvery light.
 ~
@@ -1409,6 +1404,11 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7719
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7714
 S
 #7719
 Wandering the Astral Plane~
@@ -1419,36 +1419,36 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D5
-You see a tangible strand of silvery light.
-~
-~
-0 -1 7738
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7716
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7718
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7714
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7710
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7734
+D5
+You see a tangible strand of silvery light.
+~
+~
+0 -1 7738
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7718
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7716
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7710
 S
 #7720
 Wandering the Astral Plane~
@@ -1459,36 +1459,36 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D5
-You see a tangible strand of silvery light.
-~
-~
-0 -1 7740
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7711
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7721
 D1
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7713
-D2
+D0
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7715
+0 -1 7711
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7735
+D5
+You see a tangible strand of silvery light.
+~
+~
+0 -1 7740
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7715
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7721
 S
 #7721
 Wandering the Astral Plane~
@@ -1504,31 +1504,31 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7720
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7712
-D3
-You see a tangible strand of silvery light.
-~
-~
-0 -1 7742
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7733
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7716
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7712
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7717
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7733
+D3
+You see a tangible strand of silvery light.
+~
+~
+0 -1 7742
 S
 #7722
 Wandering the Astral Plane~
@@ -1539,31 +1539,31 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7734
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7717
 D0
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7712
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7715
 D4
 You see a tangible strand of silvery light.
 ~
 ~
 0 -1 7744
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7717
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7734
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7715
 S
 #7723
 Travelling the Astral Plane~
@@ -1574,11 +1574,11 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D1
+D3
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7728
+0 -1 7726
 D0
 The astral field leads off into infinity.
 ~
@@ -1589,21 +1589,21 @@ You see a tangible strand of silvery light.
 ~
 ~
 0 -1 7737
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7732
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7735
-D3
+D1
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7726
+0 -1 7728
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7732
 S
 #7724
 Travelling the Astral Plane~
@@ -1614,36 +1614,36 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7733
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7729
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7730
 D0
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7725
-D5
-You see a tangible strand of silvery light.
-~
-~
-0 -1 7739
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7723
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7733
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7730
+D5
+You see a tangible strand of silvery light.
+~
+~
+0 -1 7739
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7729
 S
 #7725
 Travelling the Astral Plane~
@@ -1654,21 +1654,16 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D4
+D1
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7728
+0 -1 7727
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7724
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7730
 D0
 You see a tangible strand of silvery light.
 ~
@@ -1679,11 +1674,16 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7734
-D1
+D4
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7727
+0 -1 7728
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7730
 S
 #7726
 Travelling the Astral Plane~
@@ -1694,36 +1694,36 @@ strand of light.
    Most exits lead off into the astral field.
 ~
 0 0 2
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7735
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7729
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7727
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7723
 D0
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7731
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7729
 D4
 You see a tangible strand of silvery light.
 ~
 ~
 0 -1 7743
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7735
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7723
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7727
 S
 #7727
 Travelling the Astral Plane~
@@ -1739,11 +1739,6 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7732
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7725
 D5
 You see a tangible strand of silvery light.
 ~
@@ -1764,6 +1759,11 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7733
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7725
 S
 #7728
 Traversing the Astral Plane~
@@ -1779,31 +1779,31 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7709
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7725
-D4
-The astral field leads off into the depths.
-~
-~
-0 -1 7745
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7734
 D1
 The astral field leads off into the depths.
 ~
 ~
 0 -1 7747
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7734
+D4
+The astral field leads off into the depths.
+~
+~
+0 -1 7745
 D3
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7723
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7725
 S
 #7729
 Traversing the Astral Plane~
@@ -1819,21 +1819,6 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7726
-D1
-The astral field leads off into the depths.
-~
-~
-0 -1 7749
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7724
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7730
 D5
 The astral field leads off into the depths.
 ~
@@ -1844,6 +1829,21 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7735
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7724
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7730
+D1
+The astral field leads off into the depths.
+~
+~
+0 -1 7749
 S
 #7730
 Traversing the Astral Plane~
@@ -1854,21 +1854,26 @@ keeping your sense of direction.
    All exits lead off into the astral field.
 ~
 0 0 2
-D2
-The astral field leads off into infinity.
-~
-~
-0 -1 7729
-D1
-The astral field leads off into infinity.
-~
-~
-0 -1 7733
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7724
+D0
+The astral field leads off into the depths.
+~
+~
+0 -1 7747
+D1
+The astral field leads off into infinity.
+~
+~
+0 -1 7733
+D2
+The astral field leads off into infinity.
+~
+~
+0 -1 7729
 D4
 The astral field leads off into infinity.
 ~
@@ -1879,11 +1884,6 @@ The astral field leads off into the depths.
 ~
 ~
 0 -1 7745
-D0
-The astral field leads off into the depths.
-~
-~
-0 -1 7747
 S
 #7731
 Traversing the Astral Plane~
@@ -1894,11 +1894,16 @@ keeping your sense of direction.
    All exits lead off into the astral field.
 ~
 0 0 2
-D1
+D0
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7734
+0 -1 7732
+D3
+The astral field leads off into the depths.
+~
+~
+0 -1 7748
 D4
 The astral field leads off into the depths.
 ~
@@ -1909,21 +1914,16 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7726
-D3
-The astral field leads off into the depths.
-~
-~
-0 -1 7748
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7727
-D0
+D1
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7732
+0 -1 7734
 S
 #7732
 Traversing the Astral Plane~
@@ -1939,31 +1939,31 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7735
-D3
-The astral field leads off into infinity.
-~
-~
-0 -1 7727
 D5
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7723
-D4
-The astral field leads off into the depths.
-~
-~
-0 -1 7748
-D0
-The astral field leads off into the depths.
-~
-~
-0 -1 7749
 D2
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7731
+D4
+The astral field leads off into the depths.
+~
+~
+0 -1 7748
+D3
+The astral field leads off into infinity.
+~
+~
+0 -1 7727
+D0
+The astral field leads off into the depths.
+~
+~
+0 -1 7749
 S
 #7733
 Lost in the Astral Plane~
@@ -1974,11 +1974,6 @@ keeping your senses straight.
    All exits lead off into the astral field.
 ~
 0 0 2
-D4
-The astral field leads off into infinity.
-~
-~
-0 -1 7721
 D1
 The astral field leads off into infinity.
 ~
@@ -1999,6 +1994,11 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7718
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7721
 S
 #7734
 Lost in the Astral Plane~
@@ -2009,16 +2009,21 @@ keeping your senses straight.
    All exits lead off into the astral field.
 ~
 0 0 2
-D0
-The astral field leads off into infinity.
-~
-~
-0 -1 7728
 D4
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7722
+D0
+The astral field leads off into infinity.
+~
+~
+0 -1 7728
+D5
+The astral field leads off into infinity.
+~
+~
+0 -1 7719
 D1
 The astral field leads off into infinity.
 ~
@@ -2029,11 +2034,6 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7731
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7719
 S
 #7735
 Lost in the Astral Plane~
@@ -2044,11 +2044,11 @@ keeping your senses straight.
    All exits lead off into the astral field.
 ~
 0 0 2
-D4
+D5
 The astral field leads off into infinity.
 ~
 ~
-0 -1 7723
+0 -1 7720
 D1
 The astral field leads off into infinity.
 ~
@@ -2059,16 +2059,16 @@ The astral field leads off into infinity.
 ~
 ~
 0 -1 7729
+D4
+The astral field leads off into infinity.
+~
+~
+0 -1 7723
 D3
 The astral field leads off into infinity.
 ~
 ~
 0 -1 7732
-D5
-The astral field leads off into infinity.
-~
-~
-0 -1 7720
 S
 #7736
 Walking the Silvery Strand~
@@ -2093,16 +2093,16 @@ You are standing atop a silvery strand of light that twists and turns
 through the astral field.
 ~
 0 0 2
-D2
-The strand of light twists and turns out of sight.
-~
-~
-0 -1 7736
 D0
 You see the infinite expanse of the astral field.
 ~
 ~
 0 -1 7723
+D2
+The strand of light twists and turns out of sight.
+~
+~
+0 -1 7736
 S
 #7738
 Walking the Silvery Strand~
@@ -2110,16 +2110,16 @@ You are standing atop a silvery strand of light that twists and turns
 through the astral field.
 ~
 0 0 2
-D4
-You see the infinite expanse of the astral field.
-~
-~
-0 -1 7719
 D1
 The strand of light twists and turns out of sight.
 ~
 ~
 0 -1 7739
+D4
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 7719
 S
 #7739
 Walking the Silvery Strand~
@@ -2161,16 +2161,16 @@ You are standing atop a silvery strand of light that twists and turns
 through the astral field.
 ~
 0 0 2
-D2
-You see the infinite expanse of the astral field.
-~
-~
-0 -1 7725
 D3
 The strand of light twists and turns out of sight.
 ~
 ~
 0 -1 7740
+D2
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 7725
 S
 #7742
 Walking the Silvery Strand~
@@ -2212,16 +2212,16 @@ You are standing atop a silvery strand of light that twists and turns
 through the astral field.
 ~
 0 0 2
-D5
-You see the infinite expanse of the astral field.
-~
-~
-0 -1 7722
 D4
 You see the endless expanse of the astral field.
 ~
 ~
 0 -1 7727
+D5
+You see the infinite expanse of the astral field.
+~
+~
+0 -1 7722
 S
 #7745
 Deep Within the Astral Plane~
@@ -2425,12 +2425,12 @@ of the keep.
 ~
 0 8 0
 E
-door iron~
-The door is made from a set of iron plates set deep into the stone.
-~
-E
 steel~
 The door is made from a set of rusting steel plates set deep into the stone.
+~
+E
+door iron~
+The door is made from a set of iron plates set deep into the stone.
 ~
 D1
 You see an iron door which leads out onto a grey stone road.
@@ -2482,12 +2482,12 @@ and west lead into stone buildings.
 ~
 0 0 1
 E
-door iron~
-The door is fashioned from many iron plates and set deep into the stone wall.
-~
-E
 door wooden~
 The door is thick, made from a knotted and twisted greyish wood.
+~
+E
+door iron~
+The door is fashioned from many iron plates and set deep into the stone wall.
 ~
 D0
 The grey cobblestones continue.
@@ -2705,12 +2705,12 @@ A door to the north leads into a small stone building.
 ~
 0 0 1
 E
-door iron~
-The door is made from a set of iron plates set deep into the stone.
-~
-E
 door wooden~
 The door is thick, made from a knotted and twisted greyish wood.
+~
+E
+door iron~
+The door is made from a set of iron plates set deep into the stone.
 ~
 D0
 You see a small stone building with a wooden door.
@@ -3000,18 +3000,18 @@ to the south.
 ~
 0 8 0
 E
-doors metal~
-The doors are formed from a silvery substance that feels very hard yet almost
-slippery to the touch.  They are covered in images in bas-relief, depicting
-scenes of combat between humans and strange tentacle-mouthed humanoids.
+armor suits~
+The suits of armor are very intricately and ornately fashioned splint mail.
 ~
 E
 weapons~
 Massive pole arms, spears, mighty swords, all kinds of death-dealing devices.
 ~
 E
-armor suits~
-The suits of armor are very intricately and ornately fashioned splint mail.
+doors metal~
+The doors are formed from a silvery substance that feels very hard yet almost
+slippery to the touch.  They are covered in images in bas-relief, depicting
+scenes of combat between humans and strange tentacle-mouthed humanoids.
 ~
 D0
 The great hall continues to the north.
@@ -3034,16 +3034,16 @@ room to the north.
 ~
 0 8 0
 E
-arch archway door~
-The archway is shrouded in a strange black mist that obscures your vision.
+armor suits~
+The suits of armor are very intricately and ornately fashioned splint mail.
 ~
 E
 weapons~
 Massive pole arms, spears, mighty swords, all kinds of death-dealing devices.
 ~
 E
-armor suits~
-The suits of armor are very intricately and ornately fashioned splint mail.
+arch archway door~
+The archway is shrouded in a strange black mist that obscures your vision.
 ~
 D0
 You think you can see some steps leading up to an altar...
@@ -3087,16 +3087,16 @@ by the horrible presence which stands before you.
 ~
 0 9 0
 E
-hole holes~
-The holes have passed countless amounts of blood down below the altar.
+altar~
+The altar is a huge sacrificial altar covered in bloodstains.
 ~
 E
 blood bloodstains stains~
 The stains of blood run down off the altar towards your feet, oozing quietly.
 ~
 E
-altar~
-The altar is a huge sacrificial altar covered in bloodstains.
+hole holes~
+The holes have passed countless amounts of blood down below the altar.
 ~
 D2
 The steps lie to the south, leading back down to the altar chamber floor.
@@ -3117,14 +3117,14 @@ and long-dead beings.
 ~
 0 9 1
 E
+blood~
+The blood drips from above your head and falls through the field...
+~
+E
 field gateway~
 The field pulses and feeds on the blood dripping from above.
 
 A tangible wave of hatred washes over you, striking fear into your very soul.
-~
-E
-blood~
-The blood drips from above your head and falls through the field...
 ~
 D4
 You see the altar chamber.

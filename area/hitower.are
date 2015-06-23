@@ -18,7 +18,7 @@ A shadow guardian screams a challenge and attacks.
 It seems to be made of nothing more than darkness ...
 ~
 human~
-ACFG BDJP -350 0
+ACFG BDJP 1 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -32,7 +32,7 @@ An emaciated adventurer is here looking lost and hopeless.
 He looks haggard and sickly; no doubt he's been lost here for quite some time.
 ~
 human~
-ABCHQ 0 400 0
+ABCHQ 0 3 0
 8 0 2d7+96 8d9+100 1d7+2 none
 3 3 3 8
 EIKU 0 0 0
@@ -49,7 +49,7 @@ You see before you, one of Midgaard's finest fighting elite, the mighty
 bunny slayer himself, Edgar the Horrible!
 ~
 human~
-ACEH 0 1000 0
+ACEH 0 3 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
@@ -63,7 +63,7 @@ A huge diamond golem is standing guard here.
 It looks quite strong.
 ~
 human~
-ABG D 500 0
+ABG D 3 0
 23 0 5d10+450 11d9+100 3d6+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -78,7 +78,7 @@ He seems to be contemplating life, love and the mysteries of the universe.
 Then again, he may just have a headache.
 ~
 human~
-AGHR D 450 0
+AGHR D 3 0
 10 0 2d6+110 10d9+100 1d8+1 none
 2 2 2 6
 FU 0 0 0
@@ -92,7 +92,7 @@ Strick is here levitating drinks to his customers.
 He looks rather harmless, but then again so does a sleeping dragon.
 ~
 human~
-ABG D 750 0
+ABG D 3 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -106,7 +106,7 @@ Tatorious the wizard is here counting his earnings.
 Tatorious winks at you mischievously.
 ~
 human~
-ABGR D 900 0
+ABGR D 3 0
 25 0 5d10+500 25d9+100 4d4+6 none
 -6 -6 -6 2
 FU 0 0 0
@@ -119,7 +119,7 @@ Ezmerelda the cook is here stirring a large pot of something.
 ~
 ~
 human~
-ABGR D -500 0
+ABGR D 1 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -132,7 +132,7 @@ The cook's assistant is here assisting the cook.
 ~
 ~
 human~
-ABGHR D -200 0
+ABGHR D 1 0
 11 0 2d7+121 11d9+100 1d7+2 none
 1 1 1 6
 FU 0 0 0
@@ -151,7 +151,7 @@ casting you cannot tell.
 He looks quite mad, no doubt he's been mistreated horribly.
 ~
 human~
-ABCFGHR 0 100 0
+ABCFGHR 0 2 0
 16 0 3d9+208 16d9+100 2d5+3 none
 -2 -2 -2 4
 FU 0 0 0
@@ -165,7 +165,7 @@ The Jailor is here enjoying a comfortable nap.
 He looks rather dirty.
 ~
 human~
-ABGR D 100 0
+ABGR D 2 0
 17 0 3d9+233 17d9+100 1d12+3 none
 -2 -2 -2 4
 FU 0 0 0
@@ -179,7 +179,7 @@ A straw broom is here leaning against the wall.
 The broom screams 'Take that you lout!'
 ~
 human~
-ABCFGS DF 50 0
+ABCFGS DF 2 0
 7 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 8
 BEFJNU 0 0 0
@@ -193,7 +193,7 @@ A pair of disembodied hands floats in the air here.
 The hands twitch with anticipation of strangling someone.
 ~
 human~
-AFG 0 -400 0
+AFG 0 1 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -207,7 +207,7 @@ A pair of disembodied eyes floats here glaring at you.
 The eyes smolder with hatred.
 ~
 human~
-AFG D -600 0
+AFG D 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -221,7 +221,7 @@ A visiting mage is here snoring away in peaceful slumber.
 He looks quite sleepy.
 ~
 human~
-ABCGHR D 250 0
+ABCGHR D 3 0
 12 0 2d8+134 12d9+100 1d8+2 none
 1 1 1 6
 FU 0 0 0
@@ -235,7 +235,7 @@ A young apprentice magic user is here doing magical studies.
 She looks quite intent on her studies.
 ~
 human~
-ABGHR 0 400 0
+ABGHR 0 3 0
 7 0 2d7+71 7d9+100 1d5+1 none
 4 4 4 7
 FU 0 0 0
@@ -249,7 +249,7 @@ A young apprentice is here mumbling words of magic to himself.
 He looks to be oblivious to all but the spell he is memorizing.
 ~
 human~
-ABGHR 0 380 0
+ABGHR 0 3 0
 7 0 2d7+71 7d9+100 1d5+1 none
 4 4 4 7
 FU 0 0 0
@@ -263,7 +263,7 @@ A young apprentice is sleeping here.
 He seems to be dreaming.
 ~
 human~
-ABGHR 0 350 0
+ABGHR 0 3 0
 7 0 2d7+71 7d9+100 1d5+1 none
 4 4 4 7
 FU 0 0 0
@@ -277,7 +277,7 @@ A young apprentice is here teasing a cornered kitten.
 He looks like a mischievous youth.
 ~
 human~
-ABGHR 0 -200 0
+ABGHR 0 1 0
 7 0 2d7+71 7d9+100 1d5+1 none
 4 4 4 7
 FU 0 0 0
@@ -292,7 +292,7 @@ The little ball of fur looks very unhappy.  Singed fur and a few minor burns
 mark its mottled coat.
 ~
 human~
-ABGH 0 500 0
+ABGH 0 3 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
@@ -306,7 +306,7 @@ A student of spells is here looking quite bored
 The student yawns.
 ~
 human~
-ABGHR 0 350 0
+ABGHR 0 3 0
 8 0 2d6+85 8d9+100 1d6+1 none
 4 4 4 7
 FU 0 0 0
@@ -320,7 +320,7 @@ The instructor screams at your interruption and attacks you.
 He looks quite angry at your interruption.
 ~
 human~
-ABFGR D 300 0
+ABFGR D 3 0
 14 0 2d10+170 14d9+100 1d10+2 none
 -1 -1 -1 5
 FU 0 0 0
@@ -334,7 +334,7 @@ A student of spells is here trying to master invisibility.
 He blinks in and out of existence, trying to master the spell.
 ~
 human~
-ABGHR BD 400 0
+ABGHR BD 3 0
 8 0 2d6+85 8d9+100 1d6+1 none
 4 4 4 7
 FU 0 0 0
@@ -347,7 +347,7 @@ A spell teacher screams at your interruption and attacks.
 ~
 ~
 human~
-ABFGR BD 300 0
+ABFGR BD 3 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FU 0 0 0
@@ -361,7 +361,7 @@ A student of spells has fallen asleep at her desk here.
 She looks to have collapsed from sheer boredom.
 ~
 human~
-ABGHR D 400 0
+ABGHR D 3 0
 9 0 2d7+96 9d9+100 1d7+1 none
 3 3 3 7
 FU 0 0 0
@@ -374,7 +374,7 @@ An old wizard is here making a speech
 ~
 ~
 human~
-ABGHR D 400 0
+ABGHR D 3 0
 18 0 3d9+258 18d9+100 2d6+3 none
 -3 -3 -3 4
 FU 0 0 0
@@ -387,7 +387,7 @@ A young mage is here learning hand to hand combat.
 ~
 ~
 human~
-ABGHR D 300 0
+ABGHR D 3 0
 9 0 2d7+96 9d9+100 1d7+1 none
 3 3 3 7
 FU 0 0 0
@@ -402,7 +402,7 @@ She looks quite rugged. In fact, she more resembles a warrior than a magic
 user.
 ~
 human~
-ABFGR D 200 0
+ABFGR D 3 0
 17 0 3d9+233 17d9+100 1d12+3 none
 -2 -2 -2 4
 FU 0 0 0
@@ -415,7 +415,7 @@ A spell teacher is here relaxing.
 ~
 ~
 human~
-ABGR D 200 0
+ABGR D 3 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FU 0 0 0
@@ -428,7 +428,7 @@ An aged wizard is sleeping here.
 ~
 ~
 human~
-ABFGHR D 350 0
+ABFGHR D 3 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -441,7 +441,7 @@ A scribe is here working on some manuscripts.
 ~
 ~
 human~
-ABCGHR D 400 0
+ABCGHR D 3 0
 14 0 2d10+170 14d9+100 1d10+2 none
 -1 -1 -1 5
 FU 0 0 0
@@ -456,7 +456,7 @@ She's quite cute.  Too bad her only interest seems to be the words of
 lore she is translating.
 ~
 human~
-ABGHR D 500 0
+ABGHR D 3 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FU 0 0 0
@@ -471,7 +471,7 @@ He seems to be so old, his skin has become nothing but a giant wrinkle.
 The master scribe screams 'How dare you interrupt my important work???'
 ~
 human~
-ABFGHR D 100 0
+ABFGHR D 2 0
 22 0 4d10+360 22d9+100 2d7+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -484,7 +484,7 @@ The scribe's assistant is here folding parchments.
 ~
 ~
 human~
-ABFGHR D 100 0
+ABFGHR D 2 0
 16 0 3d9+208 16d9+100 2d5+3 none
 -2 -2 -2 4
 FU 0 0 0
@@ -497,7 +497,7 @@ The Enchanter is here placing a dweomer upon well made sword.
 ~
 ~
 human~
-ABFGR D -200 0
+ABFGR D 1 0
 23 0 5d10+400 23d9+100 2d8+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -511,7 +511,7 @@ A well crafted sword lies on the work table here.
 It looks quite sharp.
 ~
 human~
-ABFG 0 -500 0
+ABFG 0 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -528,7 +528,7 @@ wildly, and he starts to drool.
 The Mad Alchemist throws back his head and cackles with insane glee!
 ~
 human~
-ABCFGHR D 150 0
+ABCFGHR D 3 0
 24 0 5d10+450 24d9+100 4d4+5 none
 -6 -6 -6 2
 FU 0 0 0
@@ -541,7 +541,7 @@ The master summoner is here holding gateways open to other planes.
 ~
 ~
 human~
-ABFGHR D -200 0
+ABFGHR D 1 0
 22 0 4d10+360 22d9+100 2d7+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -555,7 +555,7 @@ The master charmer utters the words, 'uuuzzldctz'.
 The master charmer sizes you up, always looking for a new pet.
 ~
 human~
-ABFR D -400 0
+ABFR D 1 0
 23 0 5d10+400 23d9+100 2d8+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -569,7 +569,7 @@ A wooden golem stands a silent vigil here, guarding the stairs.
 He looks flammable.
 ~
 human~
-ABFG D 100 0
+ABFG D 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -583,7 +583,7 @@ The master spell binder is here re-charging a blackened wand.
 The master spell binder snarls at you and attacks.
 ~
 human~
-ABCFGHR D -500 0
+ABCFGHR D 1 0
 23 0 5d10+400 23d9+100 2d8+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -596,7 +596,7 @@ The golem maker is here chiseling some stone.
 ~
 ~
 human~
-ABFGR D 300 0
+ABFGR D 3 0
 21 0 3d9+333 21d9+100 2d7+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -610,7 +610,7 @@ A granite golem stands here waiting to do its master's bidding.
 It looks like a statue, until you see it shamble towards you.
 ~
 human~
-ABFG 0 300 0
+ABFG 0 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -624,7 +624,7 @@ A bronze golem stands here shining in the light.
 He looks rather dim witted.
 ~
 human~
-ABG 0 350 0
+ABG 0 3 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -639,7 +639,7 @@ It looks to be made of a potpourri of different body parts; some don't even
 resemble anything human.
 ~
 human~
-ABFG 0 200 0
+ABFG 0 3 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -653,7 +653,7 @@ A cloth golem wanders around here.
 It looks like a bunch of old rags, quite surprising it can actually walk.
 ~
 human~
-ABCG 0 350 0
+ABCG 0 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -668,7 +668,7 @@ It seems to be forged of dark metal.  It looks strong and durable,
 but somewhat un-intelligent.
 ~
 human~
-ABCG 0 350 0
+ABCG 0 3 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -681,7 +681,7 @@ A clay golem stands guard here.
 ~
 ~
 human~
-ABCFG D 200 0
+ABCFG D 3 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -696,7 +696,7 @@ The image of an ugly dragon flickers slightly, and where the dragon was
 now stands a small harmless looking old man.
 ~
 human~
-ABCGHR D 150 0
+ABCGHR D 3 0
 21 0 3d9+333 21d9+100 2d7+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -713,7 +713,7 @@ embers which serve as eyes can be seen through the shadow.
 The Necromancer shrieks some obscenities and orders his minions to attack.
 ~
 human~
-ABCFGHR D -950 0
+ABCFGHR D 1 0
 25 0 5d10+500 25d9+100 4d4+6 none
 -6 -6 -6 2
 FU 0 0 0
@@ -727,7 +727,7 @@ An animated skeleton screams silently and attacks.
 It feels no pain, and hacks at you ruthlessly.
 ~
 human~
-ABFG D -500 0
+ABFG D 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -740,7 +740,7 @@ An undead giant lumbers towards you.
 ~
 ~
 human~
-ABCFG D -500 0
+ABCFG D 1 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -756,7 +756,7 @@ her mouth should be, comes a disgusting giggling sound that makes your skin
 crawl with revulsion.
 ~
 human~
-ABCFGR D -450 0
+ABCFGR D 1 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -770,7 +770,7 @@ The Librarian has fallen asleep at his desk here.
 He looks like a rather peaceful old man.
 ~
 human~
-ABFGHR D 450 0
+ABFGHR D 3 0
 23 0 5d10+400 23d9+100 2d8+5 none
 -5 -5 -5 3
 FU 0 0 0
@@ -787,7 +787,7 @@ great master in hopes of gleaning secrets one could never hope to uncover
 alone.
 ~
 human~
-ABCFGR D 0 0
+ABCFGR D 2 0
 24 0 5d10+450 24d9+100 4d4+5 none
 -6 -6 -6 2
 FU 0 0 0
@@ -802,7 +802,7 @@ The grey cat cocks an ear towards you, sensing your scrutiny, then purrs
 contentedly.  It looks rather harmless, until you notice its very large claws.
 ~
 cat~
-ABGR BPZ 0 0
+ABGR BPZ 2 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FHR 0 0 0
@@ -816,7 +816,7 @@ The master of Neutrality stands here contemplating the balance of the universe.
 He looks quite peaceful.
 ~
 human~
-ABGR DH 0 0
+ABGR DH 2 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
@@ -832,7 +832,7 @@ must have been beautiful, now the scar combined with what seems to be a
 permanent scowl make her looks quite fearsome.
 ~
 human~
-ABCFGR DP -750 0
+ABCFGR DP 1 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -847,7 +847,7 @@ It looks both mean and dangerous.  Petting seems to be completely out of
 the question.
 ~
 cat~
-ABGR DPZ -800 0
+ABGR DPZ 1 0
 16 0 3d9+208 16d9+100 2d5+3 none
 -2 -2 -2 4
 FHR 0 0 0
@@ -861,7 +861,7 @@ The master of the black robes is here plotting vile deeds.
 The master glares at you.
 ~
 human~
-ABCGR DH -1000 0
+ABCGR DH 1 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
@@ -876,7 +876,7 @@ He looks like a fanatic.
 The apprentice screams 'Thou art unworthy of this honor!'
 ~
 human~
-ABFGR D 750 0
+ABFGR D 3 0
 20 0 3d9+308 20d9+100 3d4+4 none
 -4 -4 -4 3
 FU 0 0 0
@@ -890,7 +890,7 @@ A white cat is here preening its fur.
 It seems to be nothing more than a large ball of fluff with claws.
 ~
 cat~
-ABGR DPZ 800 0
+ABGR DPZ 3 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FHR 0 0 0
@@ -904,7 +904,7 @@ The master of goodness is here frowning at your intrusion.
 He looks like a self-righteous bastard.
 ~
 human~
-ABGR DH 1000 0
+ABGR DH 3 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
@@ -919,7 +919,7 @@ It looks incredibly large for a cat, no doubt a giant of its species.
 A beautiful jewel encrusted collar about its neck is its only adornment.
 ~
 cat~
-ABGR DPZ 800 0
+ABGR DPZ 3 0
 25 0 5d10+500 25d9+100 4d4+6 none
 -6 -6 -6 2
 FHR 0 0 0
@@ -936,7 +936,7 @@ youthful appearance through the use of strong magics.
 The Grand Master pets her familiar and smiles at you in confidence.
 ~
 human~
-ABGR DH 0 0
+ABGR DH 2 0
 50 0 50d10+4000 50d9+100 6d6+17 none
 -19 -19 -19 -4
 FU 0 0 0
@@ -949,7 +949,7 @@ A wandering wizard is here mumbling to himself.
 ~
 ~
 human~
-ACGR DP 350 0
+ACGR DP 3 0
 17 0 3d9+233 17d9+100 1d12+3 none
 -2 -2 -2 4
 FU 0 0 0
@@ -1081,9 +1081,9 @@ weapon G AN
 mace 2 6 pound 0
 12 190 1410 P
 A
-1 1
-A
 18 2
+A
+1 1
 #1315
 chest~
 a chest~
@@ -1109,9 +1109,9 @@ weapon 0 AN
 sword 1 8 slash 0
 6 80 720 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1318
 dagger silver~
 a silver dagger~
@@ -1121,9 +1121,9 @@ weapon 0 AN
 dagger 3 3 pierce 0
 10 50 970 P
 A
-19 2
-A
 18 2
+A
+19 2
 #1319
 scimitar~
 a curved scimitar~
@@ -1263,9 +1263,9 @@ clothing G AE
 0 0 0 0 0
 7 40 1140 P
 A
-4 1
-A
 3 1
+A
+4 1
 #1336
 altar~
 a golden altar~
@@ -1283,9 +1283,9 @@ jewelry GI AC
 0 0 0 0 0
 13 30 2200 P
 A
-5 -1
-A
 4 2
+A
+5 -1
 #1338
 chest~
 a large chest~
@@ -1321,9 +1321,9 @@ clothing 0 AC
 0 0 0 0 0
 35 50 4300 P
 A
-20 -3
-A
 17 -5
+A
+20 -3
 #1342
 chameleon poncho~
 a chameleon poncho~
@@ -1333,9 +1333,9 @@ clothing G AK
 0 0 0 0 0
 17 40 3600 P
 A
-17 -3
-A
 2 2
+A
+17 -3
 #1343
 boots worn~
 a pair of old boots~
@@ -1395,9 +1395,9 @@ trash GH A
 0 0 0 0 0
 0 150 0 P
 A
-14 -82
-A
 12 -100
+A
+14 -82
 #1357
 dagger silvery~
 a silvery dagger~
@@ -1563,9 +1563,9 @@ weapon AG AN
 dagger 3 6 pierce 0
 20 60 2100 P
 A
-19 2
-A
 2 1
+A
+19 2
 #1377
 pouch belt beltpouch~
 a beltpouch~
@@ -1591,9 +1591,9 @@ clothing GJ AC
 0 0 0 0 0
 26 50 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1380
 wand ashen~
 an ashen wand~
@@ -1619,9 +1619,9 @@ container GJKY AK
 50 0 0 10 75
 26 80 2900 P
 A
-20 -2
-A
 17 -6
+A
+20 -2
 #1383
 cloak grey~
 a long grey cloak~
@@ -1631,9 +1631,9 @@ clothing GJK AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1384
 bracelet silver~
 a glinting silver bracelet~
@@ -1673,9 +1673,9 @@ container GJLY AK
 50 0 0 10 75
 22 80 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1388
 bracelet onyx~
 an onyx bracelet~
@@ -1695,9 +1695,9 @@ clothing GJL AC
 0 0 0 0 0
 29 80 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1390
 shard black obsidian~
 a sharp shard of obsidian~
@@ -1717,9 +1717,9 @@ container GKLY AK
 50 0 0 10 75
 22 70 2400 P
 A
-20 -2
-A
 17 -5
+A
+20 -2
 #1392
 bracelet white gold~
 a white gold bracelet~
@@ -1739,9 +1739,9 @@ clothing GIKL AC
 0 0 0 0 0
 29 70 3300 P
 A
-20 -2
-A
 17 -7
+A
+20 -2
 #1394
 ivory dagger~
 an ivory hilted dagger~
@@ -1751,9 +1751,9 @@ weapon GIK AN
 dagger 3 8 pierce 0
 27 10 2100 P
 A
-19 2
-A
 18 1
+A
+19 2
 #1395
 collar spiked~
 a spiked collar~
@@ -1763,9 +1763,9 @@ armor G AC
 B B B 0 0
 20 90 1970 P
 A
-19 2
-A
 17 -2
+A
+19 2
 #1396
 cloak shimmering~
 a shimmering cloak of many colors~
@@ -1775,9 +1775,9 @@ container AGY AC
 100 0 0 10 25
 50 80 10800 P
 A
-20 -4
-A
 17 -12
+A
+20 -4
 #1397
 emerald ring~
 a small emerald ring~
@@ -1797,9 +1797,9 @@ jewelry G AM
 0 0 0 0 0
 20 50 2200 P
 A
-3 1
-A
 17 -5
+A
+3 1
 #1399
 ward major clear crystal~
 a ward major~
@@ -1809,9 +1809,9 @@ gem AG AO
 0 0 0 0 0
 40 60 5100 P
 A
-20 -2
-A
 17 -10
+A
+20 -2
 #1400
 ebony kris~
 the ebony kris~
@@ -1821,9 +1821,9 @@ weapon G AN
 dagger 6 6 pierce 0
 46 30 10700 P
 A
-19 5
-A
 2 2
+A
+19 5
 #1401
 green scale shirt~
 a tight fitting green dragon scale shirt~
@@ -1833,9 +1833,9 @@ armor G AD
 BD BD BD AC 0
 37 90 17800 P
 A
-17 -5
-A
 2 3
+A
+17 -5
 E
 green scale shirt~
 Green dragon scale shirt was made from a poor unfortunate green dragon.
@@ -1896,26 +1896,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1302
 D3
 The shadows cloud your vision.
 ~
 ~
 0 -1 1303
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1307
 D2
 The shadows cloud your vision.
 ~
 ~
 0 -1 1304
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1302
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1307
 S
 #1302
 The Shadow Grove~
@@ -1925,26 +1925,26 @@ sounds moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1303
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1301
 D2
 The shadows cloud your vision.
 ~
 ~
 0 -1 1305
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1301
 D0
 You see a small clearing in the shadows.
 ~
 ~
 0 -1 1311
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1303
 S
 #1303
 The Shadow Grove~
@@ -1954,26 +1954,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1309
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1302
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1306
 D1
 The shadows cloud your vision.
 ~
 ~
 0 -1 1301
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1306
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1302
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1309
 S
 #1304
 The Shadow Grove~
@@ -1983,6 +1983,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1305
+D3
+Dark gates loom in the mist.
+~
+~
+0 -1 2201
 D0
 The shadows cloud your vision.
 ~
@@ -1993,16 +2003,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1307
-D3
-Dark gates loom in the mist.
-~
-~
-0 -1 2201
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1305
 S
 #1305
 The Shadow Grove~
@@ -2012,26 +2012,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1306
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1302
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1308
 D3
 The shadows cloud your vision.
 ~
 ~
 0 -1 1304
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1306
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1308
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1302
 S
 #1306
 The Shadow Grove~
@@ -2046,11 +2046,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1303
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1305
 D2
 The shadows cloud your vision.
 ~
@@ -2061,6 +2056,11 @@ You see a shadowy tavern.
 ~
 ~
 0 -1 9301
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1305
 S
 #1307
 The Shadow Grove~
@@ -2070,6 +2070,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1309
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1308
 D0
 The shadows cloud your vision.
 ~
@@ -2080,16 +2090,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1301
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1308
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1309
 S
 #1308
 The Shadow Grove~
@@ -2099,16 +2099,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1300
 D1
 The shadows cloud your vision.
 ~
 ~
 0 -1 1309
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1300
 D0
 The shadows cloud your vision.
 ~
@@ -2128,11 +2128,6 @@ sounds of moaning and growling come from all directions.
   All directions lead into shadows, you are very confused.
 ~
 0 8193 3
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1306
 D1
 The shadows cloud your vision.
 ~
@@ -2148,6 +2143,11 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1303
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1306
 S
 #1311
 A small clearing~
@@ -3537,22 +3537,22 @@ Nice going!  You might as well wait here until the wizard who built this
 trap comes back to imprison your soul as well as your body.
 ~
 0 8200 0
-D5
-~
-~
-0 0 3460
-D1
-~
-~
-0 0 5113
 D2
 ~
 ~
 0 0 9141
+D5
+~
+~
+0 0 3460
 D4
 ~
 ~
 0 0 938
+D1
+~
+~
+0 0 5113
 D3
 ~
 ~

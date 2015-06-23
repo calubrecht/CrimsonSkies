@@ -19,7 +19,7 @@ This huge behemoth towers to a height of 15 feet.  He sneers at you
 as he approaches and raises two black taloned claws to strike you.
 ~
 troll~
-ABCFG FJc -600 0
+ABCFG FJc 1 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 DEFNR 0 BE HK
@@ -35,7 +35,7 @@ which he seems to ply with utmost prowess.  He jabs his spear at you
 and cackles with glee.
 ~
 troll~
-ACFG FJc -400 0
+ACFG FJc 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 DEFNR 0 BE HK
@@ -49,7 +49,7 @@ An ogre stands here getting ready to beat in your face.
 This mean bastard looks like he could tear you limb from limb.
 ~
 human~
-ACFG 0 -500 0
+ACFG 0 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -63,7 +63,7 @@ The Swamp Thing shambles about here.  It seems hungry.
 The Swamp Thing has huge fists, which look like they could pound you flat.
 ~
 human~
-ACFG 0 -700 0
+ACFG 0 1 0
 24 0 5d10+500 12d9+100 2d10+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -77,7 +77,7 @@ There is a mean looking gnoll here.
 The Gnoll seems annoyed at your presence.
 ~
 human~
-ACG DF -1000 0
+ACG DF 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -92,7 +92,7 @@ This huge beast stands about 20 feet in height and has huge green clawed
 appendages. 
 ~
 human~
-ACFG DF -450 0
+ACFG DF 1 0
 21 0 4d10+360 10d9+100 4d4+5 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -107,7 +107,7 @@ This rather small beast looks like you could take it out with a single
 sword blow.
 ~
 human~
-ACGH P 0 0
+ACGH P 2 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -123,7 +123,7 @@ You stare as hard as you can at the glowing ball of floating light and
 are just able to notice a small pair of glowing eyes.
 ~
 human~
-ACGH P 0 0
+ACGH P 2 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -137,7 +137,7 @@ A monstrous snake slithers towards you, thinking 'breakfast'.
 This 10 meter anaconda looks rather hungry.
 ~
 snake~
-ACFGH PQ -100 0
+ACFGH PQ 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNR 0 L I
@@ -151,7 +151,7 @@ A rather large python rests in a coil here.
 It's the largest Amazon python you have ever seen.
 ~
 snake~
-ACFGH PQ -100 0
+ACFGH PQ 2 0
 11 0 2d8+134 5d9+100 1d10+2 none
 1 1 1 8
 EFNR 0 L I
@@ -166,7 +166,7 @@ Yech!  She manages to make even Smurfette look attractive.  That's ok,
 because she thinks you stink too, and she's about to do something about it.
 ~
 human~
-ACGS DF -200 0
+ACGS DF 1 0
 9 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 8
 BEFJNU 0 0 0
@@ -181,7 +181,7 @@ This dark apparition stands a meager 13 feet in height.  Even in the dim
 swamp light, the blade of his scythe gleams.
 ~
 human~
-ACG DF -200 0
+ACG DF 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -196,7 +196,7 @@ This wolf looks plump.  She probably ate a friend or two of yours who came
 into the marsh.
 ~
 wolf~
-ACFG Z -200 0
+ACFG Z 1 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFHNR 0 0 0
@@ -210,7 +210,7 @@ A heap of garbage shambles towards you.
 This grotesque pile of plant matter fills you with utmost horror.
 ~
 human~
-ACG Q -100 0
+ACG Q 2 0
 13 0 2d10+170 6d9+100 2d5+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -225,7 +225,7 @@ This old orc has an array of bones stuck in his hair and strange symbols
 painted on his face and hands.
 ~
 human~
-ABCDFGQ DF -100 0
+ABCDFGQ DF 2 0
 12 0 2d10+150 12d9+100 2d4+3 none
 0 0 0 7
 EIKU 0 0 0
@@ -239,7 +239,7 @@ A marsh giant stomps towards you.
 This huge monster of a man has green gnarly teeth and a BIG stick.
 ~
 giant~
-ABCDFG DF -100 0
+ABCDFG DF 2 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNR 0 HI JP
@@ -253,7 +253,7 @@ A large gargoyle lands next to you, baring his fangs at you.
 This creepy fellow looks like he could use you as a meal.
 ~
 human~
-ABCDFG DF -100 0
+ABCDFG DF 2 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -273,9 +273,9 @@ weapon J AN
 staff 1 12 stab F
 11 100 1330 P
 A
-2 1
-A
 19 3
+A
+2 1
 #8302
 horned helmet~
 a dark horned helmet~
@@ -285,9 +285,9 @@ armor J AE
 BC BC AC B 0
 10 50 0 P
 A
-3 -3
-A
 19 1
+A
+3 -3
 E
 horns horn~
 These horns appear to be made of adamantite.~
@@ -308,9 +308,9 @@ weapon HJ AN
 polearm 4 4 slice F
 19 160 1770 P
 A
-19 3
-A
 18 3
+A
+19 3
 #8307
 green potion~
 a murky green potion~
@@ -390,13 +390,13 @@ distance.  And feel fear creep into your heart.
 ~
 0 1 5
 E
-pieces~
-You see severed limbs and spongy intestines.
-~
-E
 humanoid corpse~
 He looks mangled and shredded.  You see one large gash mark that looks
 like it came from the claw of some huge beast.
+~
+E
+pieces~
+You see severed limbs and spongy intestines.
 ~
 D1
 Eastward is the thick bog of ooze...
@@ -497,12 +497,12 @@ be taunting you towards the pool.
 ~
 0 1 6
 E
-quicksand~
-It looks deadly to the foolish.
-~
-E
 lights ~
 From the stories you have heard, you recognize them as will-o-wisps.
+~
+E
+quicksand~
+It looks deadly to the foolish.
 ~
 D1
 The swamp thing's lair.
@@ -556,8 +556,12 @@ huge fortress, half buried in the marsh.
 ~
 0 1 6
 E
-vegetation~
-It looks sentient.
+clouds~
+The clouds look dark and foreboding.
+~
+E
+beast~
+It looks to be a demon of some foul breed.
 ~
 E
 fortress~
@@ -565,12 +569,8 @@ It is surrounded by walls nearly 20 meters high.  In a tall tower on the
 northeast side, a window glows blue with magical energy.
 ~
 E
-beast~
-It looks to be a demon of some foul breed.
-~
-E
-clouds~
-The clouds look dark and foreboding.
+vegetation~
+It looks sentient.
 ~
 D0
 To the north a hill protrudes from the marshes.

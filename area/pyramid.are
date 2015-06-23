@@ -19,7 +19,7 @@ The asp is a small, smooth-scaled snake the color of worn pottery.
 The poison bite of this snake has felled many a mighty pharoah.
 ~
 human~
-AFG 0 0 0
+AFG 0 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -34,7 +34,7 @@ The cobra snake waves back and forth before you, its hood displaying brilliant
 colors designed to serve notice to its prey that it is about to strike.
 ~
 human~
-AFG 0 0 0
+AFG 0 2 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -49,7 +49,7 @@ The mongoose is a wily rodent, a quick hunter of nasty poisonous snakes.
 She sniffs you and appears to be looking for food in your hand.
 ~
 human~
-AG J 10 0
+AG J 2 0
 11 0 2d8+134 5d9+100 1d10+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -65,7 +65,7 @@ the tombs of the pharoahs.  He is clad from head to foot in utilitarian
 sand-colored clothing.
 ~
 human~
-AB 0 250 0
+AB 0 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -79,7 +79,7 @@ A sneaky tomb thief moves about in search of treasure.
 The thief brushes against you briefly, then slinks back into the shadows.
 ~
 human~
-AGHS DFP -250 0
+AGHS DFP 1 0
 10 0 2d6+110 5d9+100 1d8+2 none
 2 2 2 8
 BEFJNU 0 0 0
@@ -96,7 +96,7 @@ recently from under the nose of the hapless guardians of this pyramid.  Someday
 he might get caught, but not today...
 ~
 human~
-ACGS DFP -300 0
+ACGS DFP 1 0
 18 0 3d9+258 9d9+100 3d4+4 none
 -3 -3 -3 6
 BEFJNU 0 0 0
@@ -112,7 +112,7 @@ It seems to rise up at the touch of your feet.  Wait, it is rising, a few feet
 above the ground!  In fact, it seems to be ALIVE!
 ~
 human~
-AB DJ 500 0
+AB DJ 3 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -127,7 +127,7 @@ You only see the disfigured, rotting features of decaying human flesh,
 animated by the distempered spirit of a long-deceased person.
 ~
 human~
-AG J -600 0
+AG J 1 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -143,7 +143,7 @@ of the desert floor.  It seems quite large and strong and at home in the heat
 and sandy winds.
 ~
 human~
-AG J 0 0
+AG J 2 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -158,7 +158,7 @@ The efreeti is a mighty being formed from living fire.  He gazes down at you
 with disdain and scorn, arms folded across his mighty chest.
 ~
 human~
-ABF DJ -600 0
+ABF DJ 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -174,7 +174,7 @@ outward into the room.  The sandstone of the caryatid is smooth with age,
 but you can still make out a deadly stone sword in the hands of each figure.
 ~
 human~
-AB J 0 0
+AB J 2 0
 24 0 5d10+500 12d9+100 2d10+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -191,7 +191,7 @@ He smiles down at you congenially, arms folded across his blue-tinged
 skin, and strokes his goatee.
 ~
 human~
-ABR J 600 0
+ABR J 3 0
 28 0 5d10+650 28d9+100 2d10+7 none
 -8 -8 -8 1
 FU 0 0 0
@@ -208,7 +208,7 @@ to pieces.  They tend to be quite jealous of the sharper wits of their older
 cousins.
 ~
 human~
-AFG J -200 0
+AFG J 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -225,7 +225,7 @@ and the hind legs of a mighty cat.  Right now she is confused, having
 just heard a puzzling riddle from a cousin criosphinx.
 ~
 human~
-ABQ D 100 0
+ABQ D 2 0
 19 0 3d9+308 19d9+100 3d4+5 none
 -4 -4 -4 6
 EIKU 0 0 0
@@ -241,7 +241,7 @@ the body of a well-furred feline with eagle-like wings.  He delights in riddles,
 and in poking occasional fun at his easily confused lesser cousins.
 ~
 human~
-ABQ D 300 0
+ABQ D 3 0
 23 0 5d10+450 23d9+100 4d4+6 none
 -6 -6 -6 5
 EIKU 0 0 0
@@ -258,7 +258,7 @@ wings.  Tales are told of pharoahs that were rendered permanently deaf by the
 mighty roar of this sphinx.
 ~
 human~
-ABQ D 400 0
+ABQ D 3 0
 27 0 5d10+650 27d9+100 2d10+7 none
 -8 -8 -8 4
 EIKU 0 0 0
@@ -276,7 +276,7 @@ it, although you can still make out the features of the handsome face that once
 advised many rulers.
 ~
 human~
-AB DEHN 500 0
+AB DEHN 3 0
 41 0 25d10+2000 20d9+100 4d8+14 none
 -14 -14 -14 4
 EFNU 0 0 0
@@ -294,7 +294,7 @@ a soft black, his skin a deep chocolate, and his tall frame is totally still,
 his chest not even moving to breathe.
 ~
 human~
-ABQ DEHJN 150 0
+ABQ DEHJN 3 0
 38 0 10d10+1600 38d9+100 3d10+12 none
 -13 -13 -13 3
 EIKU 0 0 0
@@ -354,9 +354,9 @@ armor G AE
 AC AC AC 0 0
 13 100 1470 P
 A
-13 5
-A
 2 1
+A
+13 5
 E
 cloth turban~
 The turban used to be white cloth, now it is covered with oil and dirt from
@@ -407,9 +407,9 @@ light AG AO
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 20 100 720 P
 A
-14 20
-A
 13 10
+A
+14 20
 E
 ball fire~
 The ball of fire is hot to the touch and very very bright.
@@ -423,9 +423,9 @@ weapon BG AN
 axe 3 6 slash 0
 20 180 1820 P
 A
-19 2
-A
 18 1
+A
+19 2
 E
 stone scimitar~
 The scimitar is formed from solid stone, chipped and carved to perfection,
@@ -496,9 +496,9 @@ staff ABGK AO
 25 5 5 'fly' 0
 20 100 4700 P
 A
-18 1
-A
 17 -5
+A
+18 1
 E
 lamp~
 The lamp is quite old and tarnished.  You rub at it to get some of the
@@ -513,11 +513,11 @@ jewelry IK AO
 0 0 0 0 0
 14 90 2100 P
 A
-4 1
+17 -3
 A
 3 1
 A
-17 -3
+4 1
 E
 ankh~
 The ankh is a small brass symbol of an ancient religion.
@@ -546,11 +546,11 @@ weapon G AN
 exotic 5 4 claw 0
 26 200 4400 P
 A
-19 2
+5 1
 A
 18 2
 A
-5 1
+19 2
 E
 lion paw~
 The massive paw has straps on it formed of bronze, so that it will
@@ -604,15 +604,15 @@ trash EGHM AO
 0 0 0 0 0
 0 10 0 P
 A
-14 -100
-A
-13 -50
-A
-5 -3
+1 -3
 A
 2 -3
 A
-1 -3
+5 -3
+A
+13 -50
+A
+14 -100
 E
 curse mummy~
 Rumor has it that whomever disturbs the grave of the mummy shall be 
@@ -642,13 +642,13 @@ armor G AE
 D D D AB 0
 33 100 5500 P
 A
-20 -1
-A
-14 30
+12 25
 A
 13 10
 A
-12 25
+14 30
+A
+20 -1
 E
 golden mask~
 This beautiful mask was shaped from solid gold and magically enchanted
@@ -696,9 +696,9 @@ jewelry BG AB
 0 0 0 0 0
 20 50 1300 P
 A
-12 20
-A
 3 1
+A
+12 20
 E
 sandy ring~
 The ring is small, smooth, sandy-colored and unremarkable, save that
@@ -729,9 +729,9 @@ armor GK AF
 AD AD AD B 0
 32 200 7800 P
 A
-14 30
-A
 1 2
+A
+14 30
 E
 sphinxian leggings~
 These magically fashioned leggings impart the strength and stamina
@@ -935,15 +935,15 @@ cardinal directions.
 ~
 0 0 10
 E
-plaque~
-The plaque reads:
-This area (Great Pyramid) written by Andersen.
-~
-E
 stones~
 As you look closer you can make out a crack in the center of the stones
 beneath your feet.  With some effort you might be able to lift that 
 section up and get inside!
+~
+E
+plaque~
+The plaque reads:
+This area (Great Pyramid) written by Andersen.
 ~
 D0
 The north side of the pyramid slopes down into the sands.
@@ -1021,16 +1021,16 @@ inscriptions.
 ~
 0 8 0
 E
+door stone~
+The stone door is covered in strange inscriptions and hieroglyphs that warn
+you not to proceed any further.
+~
+E
 sigils hieroglyphs inscriptions writing~
 You cannot understand the strange glyphs that cover the door, but most of
 them seem to depict scenes of fire and massive creatures of apparently
 tremendous strength.  You have a feeling that the glyphs are serving as a
 warning.
-~
-E
-door stone~
-The stone door is covered in strange inscriptions and hieroglyphs that warn
-you not to proceed any further.
 ~
 D0
 You see a tiny crawlway raised about three feet off the ground.
@@ -1201,13 +1201,13 @@ small rocky crevasse.
 ~
 0 13 0
 E
+u up~
+The hole looks far too slippery to climb back up.
+~
+E
 bones~
 The bones have whitened and cracked in the dry air, apparently the remains 
 of adventurers, thieves, and creatures that did not survive the fall.
-~
-E
-u up~
-The hole looks far too slippery to climb back up.
 ~
 D2
 You see a rocky crevasse that proceeds deep under the pyramid.
@@ -1223,13 +1223,13 @@ small rocky crevasse.
 ~
 0 9 0
 E
+u up~
+The hole looks far too slippery to climb back up.
+~
+E
 bones~
 The bones have whitened and cracked in the dry air, apparently the remains 
 of adventurers, thieves, and creatures that did not survive the fall.
-~
-E
-u up~
-The hole looks far too slippery to climb back up.
 ~
 D2
 You see a rocky crevasse that proceeds deep under the pyramid.
@@ -1314,6 +1314,12 @@ source is too dim to see exactly what it is.
 ~
 0 9 0
 E
+black shape~
+Wind howls about your ears like the roar of a tiger.  As your eyes
+adjust to the light the shape to the south almost seems to take the
+form of a massive animal head.
+~
+E
 tiger head animal sesame~
 You are now certain that the wind is the cold breath of some unearthly
 giant animal, whose voice rumbles lowly on the breeze, and whose
@@ -1323,12 +1329,6 @@ You move closer for a better look, when suddenly a pair of eyes flashes.
 A cold voice echoes: 'SEEK YE THE DIAMOND... IN THE ROUGH...'
 
 ... Then all is silent.
-~
-E
-black shape~
-Wind howls about your ears like the roar of a tiger.  As your eyes
-adjust to the light the shape to the south almost seems to take the
-form of a massive animal head.
 ~
 D2
 You see a strange-looking black shape.
@@ -1415,14 +1415,6 @@ except a large stone coffin that leans against the western wall.
 ~
 0 8 0
 E
-man garments pharoah~
-As you look closer at the figure sculpted into the stone coffin you notice a
-small marking carved into its chest.  It looks like a scarab or small beetle
-would fit into the small space, if properly sized.
-
-Hmm.
-~
-E
 coffin lid~
 The coffin is sculpted into the form of a man, standing several heads above
 you, and clad in the garments of pharoahs.  It has apparently been untouched
@@ -1430,6 +1422,14 @@ by the ravages of time and the activities of looters.  Several markings on the
 side indicate spots where unsuccessful attempts were made to open the coffin.
 
 You can't see any way to open it.
+~
+E
+man garments pharoah~
+As you look closer at the figure sculpted into the stone coffin you notice a
+small marking carved into its chest.  It looks like a scarab or small beetle
+would fit into the small space, if properly sized.
+
+Hmm.
 ~
 D1
 To the east is another tomb.
@@ -1450,13 +1450,13 @@ of dust.  Some inscriptions are carved into the wall here.
 ~
 0 9 0
 E
-coffin lid~
-On this side the coffin lid is smooth featureless stone.
-~
-E
 inscriptions~
 You blow dust away from the inscriptions to read:
 'Beware the curse of the mummy.'
+~
+E
+coffin lid~
+On this side the coffin lid is smooth featureless stone.
 ~
 D1
 You see the backside of the coffin lid, featureless stone.
@@ -1795,14 +1795,14 @@ final resting place of the mighty pharoahs of this land.
 ~
 0 13 0
 E
-hieroglyphics carvings~
-The markings indicate that this tomb is indeed the tomb of the greatest
-pharoahs of the ancient civilization that built this massive pyramid.
-~
-E
 tomb~
 The tomb looks like it has stood for many years, much like the pyramid
 which encloses it.  It is covered in small hieroglyphics.
+~
+E
+hieroglyphics carvings~
+The markings indicate that this tomb is indeed the tomb of the greatest
+pharoahs of the ancient civilization that built this massive pyramid.
 ~
 D0
 You see the tomb of the pharoahs.
@@ -1931,13 +1931,13 @@ they appear to have been used recently.
 ~
 0 8 0
 E
-bricks~
-The small golden bricks are very smooth and also quite soft.
-~
-E
 rug rugs tapestry tapestries~
 The rugs and tapestries are very fine and worn with age, their colors
 now faded.  They depict scenes of life in an ancient desert city.
+~
+E
+bricks~
+The small golden bricks are very smooth and also quite soft.
 ~
 D3
 You see an arched hall.
@@ -2018,26 +2018,26 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8753
-D2
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8755
 D3
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8754
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8753
 D1
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8754
+D2
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8755
 S
 #8755
 A Swirling Sandstorm~
@@ -2051,11 +2051,6 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D2
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8756
 D0
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2071,6 +2066,11 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8755
+D2
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8756
 S
 #8756
 A Swirling Sandstorm~
@@ -2084,6 +2084,11 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8755
 D1
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2099,11 +2104,6 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8757
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8755
 S
 #8757
 A Swirling Sandstorm~
@@ -2117,11 +2117,11 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D2
+D0
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
-0 -1 8758
+0 -1 8756
 D3
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2132,11 +2132,11 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8757
-D0
+D2
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
-0 -1 8756
+0 -1 8758
 S
 #8758
 A Massive Sand Dune~
@@ -2148,18 +2148,18 @@ every other direction.
 ~
 0 0 10
 E
-hieroglyphics symbols~
-Like most of the ancient hieroglyphics of this land, the symbols are
-totally incomprehensible to you.  Perhaps the Sphinx has the answer
-to this ancient riddle.
+sand dune~
+The sand is very white, and very sandy.  There sure is a lot of it.
 ~
 E
 riddle~
 A vision forms before your eyes, in glowing hieroglyphic symbols.
 ~
 E
-sand dune~
-The sand is very white, and very sandy.  There sure is a lot of it.
+hieroglyphics symbols~
+Like most of the ancient hieroglyphics of this land, the symbols are
+totally incomprehensible to you.  Perhaps the Sphinx has the answer
+to this ancient riddle.
 ~
 D0
 You see only a wall of whirling, blowing, dry sand.

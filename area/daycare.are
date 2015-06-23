@@ -18,7 +18,7 @@ A young dwarf plays with a toy axe.
 This is a young but not totally harmless creature.
 ~
 dwarf~
-ACGT J -5 0
+ACGT J 2 0
 3 0 1d4+30 1d1+99 1d4+2 beating
 7 6 7 10
 DJR 0 LQ R
@@ -32,7 +32,7 @@ A cute and fuzzy teddy bear stands here.
 This is a tiny little bear with a heart on his chest.
 ~
 doll~
-ACG 0 500 0
+ACG 0 3 0
 1 0 1d10+10 1d1+99 1d4+0 beating
 8 5 9 10
 NR ILMNPQR ES GHJKO
@@ -46,7 +46,7 @@ A raggedy anne doll is sitting here.
 You see a small little cute rag doll.
 ~
 doll~
-ACG 0 300 0
+ACG 0 3 0
 2 0 2d5+19 1d1+99 1d5+0 beating
 7 4 8 10
 FHR ILMNPQR ES GHJKO
@@ -60,7 +60,7 @@ A toy soldier is standing here.
 The toy is looking for target practice.
 ~
 doll~
-ACGT 0 -300 0
+ACGT 0 1 0
 3 1 3d5+36 1d1+99 1d4+3 punch
 6 7 6 9
 IR ILMNPQR EGS EGHJKO
@@ -75,7 +75,7 @@ This is obviously a reject from the factory.
 He snarls and growls at you.
 ~
 doll~
-ACF 0 -400 0
+ACF 0 1 0
 3 0 3d4+29 1d1+99 1d6+1 chomp
 6 3 7 10
 DJNR ILMNPQR ES GHJKO
@@ -89,7 +89,7 @@ An abused and old doll is here.
 This doll has been hugged and played with until there is almost nothing left.
 ~
 doll~
-ACG 0 -2 0
+ACG 0 2 0
 1 0 1d10+1 1d1+99 1d4+0 beating
 8 5 9 10
 R ILMNPQR ES GHJKO
@@ -104,7 +104,7 @@ You see an old dwarven lady who has been hunched over with age.  However, it
 appears that there is still some fight left in her.
 ~
 dwarf~
-AG J 10 0
+AG J 2 0
 5 1 4d4+50 5d4+100 1d6+1 slap
 5 5 5 10
 CDR 0 LQ R
@@ -119,7 +119,7 @@ This is a big mean bully who is tired of being lost in this maze.
 You suddenly think that you had better flee.
 ~
 dwarf~
-ABCT DJ -800 0
+ABCT DJ 1 0
 8 1 3d10+100 8d4+100 1d7+3 punch
 3 2 3 8
 CDJR 0 LQ R
@@ -134,7 +134,7 @@ You see a little tyke who has always gotten what he wanted.  You have the
 biggest urge to put him out of his misery.
 ~
 dwarf~
-ABC J -400 0
+ABC J 1 0
 1 0 2d4+15 1d1+199 2d2+1 beating
 8 8 8 10
 IJN 0 LQ R
@@ -166,9 +166,9 @@ treasure G AB
 0 0 0 0 0
 3 10 620 G
 A
-13 4
-A
 1 1
+A
+13 4
 E
 ring pink ice~
 How strange...it's made of ice, but it doesn't melt. It feels pleasantly 
@@ -183,9 +183,9 @@ armor G AK
 A B A A A
 7 50 780 G
 A
-12 5
-A
 4 1
+A
+12 5
 E
 robe linen~
 It radiates an aura of peace and wisdom.  The perfect garb for a teacher.
@@ -199,9 +199,9 @@ weapon 0 AN
 staff 2 3 pound F
 4 30 270 W
 A
-18 -1
-A
 17 -1
+A
+18 -1
 E
 broom~
 It's worn and tired, probably from swatting too many children.
@@ -487,46 +487,46 @@ Mini-Maze~
 You are in a small passage that looks just like every other one.
 ~
 0 9 2
-D2
-~
-~
-0 -1 6615
-D3
-~
-~
-0 -1 6612
 D1
 ~
 ~
 0 -1 6614
+D3
+~
+~
+0 -1 6612
+D2
+~
+~
+0 -1 6615
 S
 #6614
 Mini-Maze~
 You are in a small passage that looks just like every other one.
 ~
 0 9 2
-D3
-~
-~
-0 -1 6613
 D2
 ~
 ~
 0 -1 6616
+D3
+~
+~
+0 -1 6613
 S
 #6615
 Mini-Maze~
 You are in a small passage that looks just like every other one.
 ~
 0 9 2
-D0
-~
-~
-0 -1 6613
 D1
 ~
 ~
 0 -1 6616
+D0
+~
+~
+0 -1 6613
 S
 #6616
 Mini-Maze~

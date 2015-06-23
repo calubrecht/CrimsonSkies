@@ -18,7 +18,7 @@ A dwarven guard is here.
 The guard looks very tough and mean.
 ~
 dwarf~
-ABL DJ 500 0
+ABL DJ 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNR 0 LQ R
@@ -32,7 +32,7 @@ A dwarven mining worker is here.
 He is very dirty, and looks extremely over-worked.
 ~
 dwarf~
-AGL J 900 0
+AGL J 3 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNR 0 LQ R
@@ -46,7 +46,7 @@ A wraith is awaiting your first move here.
 A black, almost transparent wraith.
 ~
 human~
-AB DF -900 0
+AB DF 1 0
 29 0 6d12+778 14d9+100 2d12+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -60,7 +60,7 @@ There is the Hide & Tooth storekeeper standing here, waiting patiently.
 The storekeeper is very rotund, but looks like a sharp guy.
 ~
 human~
-ABL 0 900 0
+ABL 0 3 0
 35 0 10d10+1300 17d9+100 4d7+11 none
 -11 -11 -11 5
 EFNU 0 0 0
@@ -74,7 +74,7 @@ Granite Head, the baker, is waiting for a customer here.
 Granite Head is covered with flour and grains.
 ~
 human~
-ABL 0 900 0
+ABL 0 3 0
 35 0 10d10+1300 17d9+100 4d7+11 none
 -11 -11 -11 5
 EFNU 0 0 0
@@ -89,7 +89,7 @@ This scaly creature looks like it is well adapted to it's underground
 habitat.  He looks very powerful.
 ~
 lizard~
-AG D 100 0
+AG D 2 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
 EFNR 0 L I
@@ -103,7 +103,7 @@ A giant is here.
 The giant is about 8 feet tall, with arms of steel, and looks very strong.
 ~
 giant~
-AG 0 0 0
+AG 0 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNR 0 HI JP
@@ -117,7 +117,7 @@ A dwarven miner is here.
 The mineworker is very tired, and very dirty, and he has bulging muscles.
 ~
 dwarf~
-ABL J 0 0
+ABL J 2 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNR 0 LQ R
@@ -131,7 +131,7 @@ A dwarven mine leader is here.
 The mine leader is very big and very strong.
 ~
 dwarf~
-ABL J 0 0
+ABL J 2 0
 21 0 4d10+360 10d9+100 4d4+5 none
 -5 -5 -5 7
 EFNR 0 LQ R
@@ -145,7 +145,7 @@ The dwarven doctor is here.
 He is a very skilled surgeon, with hands of steel.
 ~
 dwarf~
-ABL DHJ 1000 0
+ABL DHJ 3 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNR 0 LQ R
@@ -158,7 +158,7 @@ A dwarven peon is awaiting help here.
 ~
 ~
 dwarf~
-ABL J 500 0
+ABL J 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNR 0 LQ R
@@ -171,7 +171,7 @@ A grinning dwarf is here.
 ~
 ~
 dwarf~
-ABL J 500 0
+ABL J 3 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNR 0 LQ R
@@ -184,7 +184,7 @@ An unwanted son is here.  You feel sorry for the guy.
 ~
 ~
 dwarf~
-AG J 250 0
+AG J 3 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNR 0 LQ R
@@ -197,7 +197,7 @@ An unwanted daughter is here.  You feel sorry for her.
 ~
 ~
 dwarf~
-AG J 250 0
+AG J 3 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNR 0 LQ R
@@ -210,7 +210,7 @@ A barrack guard is here.
 ~
 ~
 dwarf~
-ABL J 100 0
+ABL J 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNR 0 LQ R
@@ -223,7 +223,7 @@ A man in waiting is here.  He looks nervous and unsure of himself.
 ~
 ~
 human~
-ABL 0 300 0
+ABL 0 3 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -237,7 +237,7 @@ A mazekeeper is here.
 He looks VERY tough.
 ~
 human~
-ABFL H -1000 0
+ABFL H 1 0
 29 0 6d12+778 14d9+100 2d12+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -250,7 +250,7 @@ There is a giant snake here.
 ~
 ~
 snake~
-ABF 0 -1000 0
+ABF 0 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNR 0 L I
@@ -318,9 +318,9 @@ weapon 0 AN
 axe 2 7 cleave F
 17 50 4100 P
 A
-1 2
-A
 18 2
+A
+1 2
 #6510
 helmet~
 a dwarven helmet~
@@ -338,9 +338,9 @@ gem G AB
 0 0 0 0 0
 7 10 460 P
 A
-19 1
-A
 18 1
+A
+19 1
 #6512
 gloves~
 dwarven gloves~
@@ -350,9 +350,9 @@ armor 0 AH
 AC AC AC 0 0
 13 20 2000 P
 A
-2 1
-A
 1 1
+A
+2 1
 #6513
 note~
 a note~

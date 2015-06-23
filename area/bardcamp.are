@@ -18,7 +18,7 @@ A bard is here is singing and walking along.
 A bard is standing here wearing a leather tunic and singing a tune.  
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 1 0 2d4+2 0d9+100 1d2+0 none
 10 10 10 10
 BEFJNU 0 0 0
@@ -32,7 +32,7 @@ A bard is here, whistling a merry tune.
 A bard is here whistling a merry tune.  He seems to hardly notice you.
 ~
 human~
-ABHS DF 200 0
+ABHS DF 3 0
 1 0 2d4+2 0d9+100 1d2+0 none
 10 10 10 10
 BEFJNU 0 0 0
@@ -46,7 +46,7 @@ Willow the Bard is here in thoughtful contemplation.
 Willow the Bard is here hardly paying attention to you while he's in thoughtful contemplation.  
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -61,7 +61,7 @@ A crafting bard is here widdling on a small piece of wood and humming a tune.  I
 like he might be making a flute.
 ~
 human~
-AGHS DF 120 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -76,7 +76,7 @@ A bard wanders slowly back and forth, appearing to be sleep walking.  The bard h
 smile on his face as if he's having a pleasant dream.
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -92,7 +92,7 @@ burn redder the longer he recites his rhymes.  He has a green hat on that slides
 down as he bobs his head up an down. 
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -106,7 +106,7 @@ A bard is here juggling.
 A bard is here juggling multicolored balls with his eyes closed.
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -121,7 +121,7 @@ A magician is here practicing slight of hand tricks.  It almost seems as if he's
 levitating off of the ground..
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -136,7 +136,7 @@ A buxom woman is here, pacing back and forth and muttering to herself something 
 bards.
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 BEFJNU 0 0 0
@@ -152,7 +152,7 @@ quarters which look to be an old run down home are behind him (he does appear to
 in the house).
 ~
 human~
-AGHR 0 200 0
+AGHR 0 3 0
 10 0 2d6+110 10d9+100 1d8+1 none
 2 2 2 6
 FU 0 0 0
@@ -167,7 +167,7 @@ An old man is here, observing all of the hustle and bustly around camp.  He's fa
 and leathery and he has a long beard which extends down a foot.
 ~
 human~
-ABHQ 0 -100 0
+ABHQ 0 2 0
 10 0 2d7+120 10d9+100 1d7+2 none
 1 1 1 7
 EIKU 0 0 0
@@ -182,7 +182,7 @@ A stray cat is here who has taken up camp with the bards.  It seems to enjoy the
 of the traveling company.
 ~
 human~
-ABH 0 -100 0
+ABH 0 2 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -197,7 +197,7 @@ A small brown snake sits here and watches you, you get the feeling it thinks you
  
 ~
 snake~
-ABFU 0 -600 0
+ABFU 0 1 0
 9 1 4d10+100 1d1+99 2d6+1 bite
 0 2 2 5
 FGNR 0 EL I
@@ -211,7 +211,7 @@ A bard is sitting here watching the campfire.
 A bard is sitting here watching the campfire contently.
 ~
 human~
-AGHS DF 200 0
+AGHS DF 3 0
 3 0 2d4+2 0d9+100 1d4+0 none
 10 10 10 10
 BEFJNU 0 0 0
@@ -239,9 +239,9 @@ clothing A AE
 0 0 0 0 0
 3 20 270 P
 A
-4 1
-A
 2 -1
+A
+4 1
 #202
 cloth hat~
 a cloth hat~

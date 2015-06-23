@@ -17,7 +17,7 @@ A level 5 mob is here.
 ~
 ~
 human~
-AC 0 -400 0
+AC 0 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -30,7 +30,7 @@ A level 10 mob is here.
 ~
 ~
 human~
-ACG 0 -500 0
+ACG 0 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -43,7 +43,7 @@ A level 17 mob is here.
 ~
 ~
 human~
-ABF D 0 0
+ABF D 2 0
 17 0 3d9+258 8d9+100 3d4+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -56,7 +56,7 @@ A level 16 mob is here.
 ~
 ~
 human~
-ACG J 0 0
+ACG J 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -69,7 +69,7 @@ A level 10 mob is here.
 ~
 ~
 human~
-ACGHS DF -150 0
+ACGHS DF 1 0
 10 0 2d6+110 5d9+100 1d8+2 none
 2 2 2 8
 BEFJNU 0 0 0
@@ -82,7 +82,7 @@ A level 14 mob is here.
 ~
 ~
 human~
-ACG 0 -400 0
+ACG 0 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -95,7 +95,7 @@ A level 20 mob is here.
 ~
 ~
 human~
-AG DF 300 0
+AG DF 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -108,7 +108,7 @@ A level 22 mob is here.
 ~
 ~
 human~
-ABC DFJ -600 0
+ABC DFJ 1 0
 22 0 5d10+400 11d9+100 4d4+6 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -121,7 +121,7 @@ A level 25 mob is here.
 ~
 ~
 human~
-ABCF DF -900 0
+ABCF DF 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -134,7 +134,7 @@ A level 19 mob is here.
 ~
 ~
 human~
-ABC 0 -400 0
+ABC 0 1 0
 19 0 3d9+308 9d9+100 2d7+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -147,7 +147,7 @@ A level 30 mob is here.
 ~
 ~
 human~
-AG DFH 300 0
+AG DFH 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -160,7 +160,7 @@ A level 25 mob is here.
 ~
 ~
 human~
-AG DF 500 0
+AG DF 3 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -173,7 +173,7 @@ A level 20 mob is here.
 ~
 ~
 human~
-ABF 0 -400 0
+ABF 0 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -186,7 +186,7 @@ A level 6 mob is here.
 ~
 ~
 fido~
-AFGH D -700 0
+AFGH D 1 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNR 0 0 C
@@ -212,7 +212,7 @@ A level 9 mob is here.
 ~
 ~
 unique~
-AG T 0 0
+AG T 2 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -225,7 +225,7 @@ A level 2 mob is here.
 ~
 ~
 human~
-ACGH 0 1 0
+ACGH 0 2 0
 2 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 EFNU 0 0 0
@@ -238,7 +238,7 @@ A level 4 mob is here.
 ~
 ~
 human~
-ABC 0 0 0
+ABC 0 2 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNU 0 0 0
@@ -251,7 +251,7 @@ A level 3 mob is here.
 ~
 ~
 human~
-AGH 0 100 0
+AGH 0 2 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -264,7 +264,7 @@ A level 3 mob is here.
 ~
 ~
 human~
-ABH 0 150 0
+ABH 0 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0

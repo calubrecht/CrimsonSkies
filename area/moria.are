@@ -18,7 +18,7 @@ The huge python rears its head and hisses at you.
 It sways back and forth contemplating whether or not to eat you.
 ~
 snake~
-ABF D -200 0
+ABF D 1 0
 11 2 11d9+110 1d1+99 3d4+2 bite
 -1 0 3 6
 FHNOR 0 FL I
@@ -32,7 +32,7 @@ A small green garter snake slithers along the floor.
 It looks harmless enough.  Or is it?
 ~
 snake~
-ABU 0 -100 0
+ABU 0 2 0
 7 0 7d7+60 1d1+99 1d10+1 bite
 2 3 5 8
 FHR 0 EL I
@@ -46,7 +46,7 @@ A small centipede here is looking for vegetation.
 It looks completely harmless but who knows for sure?
 ~
 centipede~
-ABU Z 100 0
+ABU Z 2 0
 3 0 3d3+30 1d1+99 1d6+0 sting
 6 7 9 10
 FR 0 FI E
@@ -60,7 +60,7 @@ An ugly kobold mumbles something under its breath.
 It looks ugly enough to scare its own mother.
 ~
 kobold~
-ACGT J -100 0
+ACGT J 2 0
 4 0 4d4+40 1d1+99 1d4+1 claw
 7 7 7 10
 R 0 L C
@@ -74,7 +74,7 @@ This orc is frothing around the mouth.  Better stay away.
 You notice a slight tinge of madness in his eyes.
 ~
 orc~
-ACFGT J -400 0
+ACFGT J 1 0
 5 2 6d5+50 1d1+199 1d6+3 beating
 7 7 7 10
 CDNR 0 CQ S
@@ -88,7 +88,7 @@ This large orc is looking for someone small to pick on.
 The orc says, "Whatcha look'n at?"
 ~
 orc~
-ACGT J -500 0
+ACGT J 1 0
 7 1 6d7+70 1d1+99 1d8+2 punch
 4 5 5 8
 CJR 0 Q S
@@ -102,7 +102,7 @@ This tall warrior has more scars than even you!
 He's surely a strong, brainless fighter.  Like you.
 ~
 human~
-ABCFT 0 -300 0
+ABCFT 0 1 0
 12 3 10d12+120 1d1+149 1d8+4 punch
 1 -1 2 5
 CIQR 0 0 0
@@ -117,7 +117,7 @@ He seems to know his way with weapons.  And he wants
 to show you what he can do!
 ~
 human~
-ACFT 0 -400 0
+ACFT 0 1 0
 7 2 8d7+70 1d1+99 1d7+2 punch
 4 5 4 8
 CIQR 0 0 C
@@ -133,7 +133,7 @@ sad as you see the terror and fear in its eyes.  Why
 don't you put it out of its misery?
 ~
 hobgoblin~
-ACGHT J -300 0
+ACGHT J 1 0
 6 0 6d6+40 1d1+99 1d6+1 beating
 6 5 5 8
 N 0 LQ C
@@ -147,7 +147,7 @@ A sickly brown snake watches you with caution.
 A closer look reveals a hungry demeanor.  Don't get too close!
 ~
 snake~
-ABFU 0 -600 0
+ABFU 0 1 0
 10 1 4d10+100 1d1+99 2d6+1 bite
 0 2 2 5
 FGNR 0 EFL I
@@ -161,7 +161,7 @@ A white centipede crawls along the cave floors randomly.
 The centipede doesn't really seem to notice you.
 ~
 centipede~
-ABU Z -100 0
+ABU Z 2 0
 5 0 5d5+50 1d1+99 1d8+0 sting
 4 7 5 10
 FR 0 FI E
@@ -176,7 +176,7 @@ Red, bloodshot eyes and drool dripping from its mouth makes you
 wonder just how far away you should be.
 ~
 hobgoblin~
-ACGT J -500 0
+ACGT J 1 0
 10 2 2d10+120 1d1+149 2d4+3 punch
 2 2 1 5
 CDJR 0 CLQ 0
@@ -191,7 +191,7 @@ As you already know, orcs have quite a ravenous appetite.
 Care to be dinner?
 ~
 orc~
-ACFGT J -800 0
+ACFGT J 1 0
 8 1 3d10+90 1d1+99 1d8+2 beating
 3 3 2 5
 CNR 0 Q S
@@ -206,7 +206,7 @@ Huge claws and big teeth make quite a fearsome opponent for
 the weary.  Are you next?
 ~
 cat~
-AFG Z -100 0
+AFG Z 2 0
 9 2 4d10+100 1d1+99 2d6+1 claw
 0 0 0 4
 EFHR 0 E 0
@@ -222,7 +222,7 @@ come to the conclusion that he's not very intelligent.  A perfect
 playmate for you.
 ~
 giant~
-AGT 0 0 0
+AGT 0 2 0
 13 2 10d10+150 10d10+100 2d6+6 smash
 0 -2 0 4
 DOR 0 DHI JP
@@ -237,7 +237,7 @@ knows his way with magic.
 This guy can ace the SAT with his frontal lobe tied behind his back.
 ~
 human~
-ABCFR D -100 0
+ABCFR D 2 0
 13 1 7d5+130 13d10+100 1d6+2 punch
 -2 -2 -2 2
 FQ 0 C 0
@@ -252,7 +252,7 @@ Whilst you look at this troll, you realize he is trying to
 figure just how tender you are.
 ~
 troll~
-ABCFT FJc -800 0
+ABCFT FJc 1 0
 12 2 7d10+150 5d10+100 2d7+3 claw
 0 -3 2 6
 CDEOR 0 BE HK
@@ -267,7 +267,7 @@ You take a closer look at this large snake while it tries to
 bite your head off!
 ~
 snake~
-ABCF 0 -700 0
+ABCF 0 1 0
 10 2 4d10+100 1d1+99 2d6+1 bite
 0 0 2 6
 HMNOR 0 FL GI
@@ -281,7 +281,7 @@ A thief, all dressed in black.
 Well COUNT your money!
 ~
 human~
-ACHS PQ -100 0
+ACHS PQ 2 0
 8 1 6d8+80 1d1+99 1d5+1 punch
 2 4 3 7
 EFJN 0 0 0
@@ -295,7 +295,7 @@ An ugly orc is standing here waiting for someone to practice on.
 Yrkk..  He belches in your face!
 ~
 orc~
-ACFGHT J -200 0
+ACFGHT J 1 0
 7 1 7d7+70 1d1+99 1d8+3 punch
 4 5 5 8
 CJR 0 Q S
@@ -310,7 +310,7 @@ It doesn't seem to pay any attention towards you.  You are probably
 not important.
 ~
 centipede~
-ABU Z 300 0
+ABU Z 3 0
 6 1 8d5+50 1d1+99 2d4+1 sting
 3 6 4 10
 FR 0 FI E
@@ -324,7 +324,7 @@ A human warrior grins an evil grin in your face.
 He doesn't look friendly at all...  He is no Mr. Rogers!
 ~
 human~
-ACFGT 0 -300 0
+ACFGT 0 1 0
 9 2 4d10+130 1d1+99 1d8+3 punch
 3 2 4 6
 CJQU 0 0 0
@@ -338,7 +338,7 @@ A green kobold hobbles along the cave walls puking periodically.
 It looks a little sick.  Something he ate maybe?
 ~
 kobold~
-ACFGT J -100 0
+ACFGT J 2 0
 7 1 8d4+50 1d1+99 2d4+1 claw
 5 5 5 10
 NR 0 L C
@@ -352,7 +352,7 @@ A blue bat flies in circles while electrical charges arc here and there.
 Bzzzt.  Zap.  Crackle.  Speak about static electricity!
 ~
 bat~
-ABF TZ -100 0
+ABF TZ 2 0
 7 1 3d10+70 1d1+99 1d9+1 shbite
 4 4 4 6
 FHR J 0 RSYZ
@@ -366,7 +366,7 @@ A red bat hangs upside down from the ceiling, glowing.
 You can definitely feel some heat from this thing.  A fever perhaps?
 ~
 bat~
-ABF TZ -100 0
+ABF TZ 2 0
 7 1 3d10+70 1d1+99 1d9+1 flbite
 4 4 4 6
 FHR H 0 IRS
@@ -380,7 +380,7 @@ A green bat flies from wall to wall leaving an awful smell.
 Whew!  What a stinker!
 ~
 bat~
-ABF TZ -100 0
+ABF TZ 2 0
 7 1 3d10+70 1d1+99 1d9+1 bite
 4 4 4 6
 FHR L 0 S
@@ -394,7 +394,7 @@ A white bat rests on the ceiling.  You wonder where the cold is coming from.
 Brrr!  You almost can't distinguish this bat from an ice cube.
 ~
 bat~
-ABF TZ -100 0
+ABF TZ 2 0
 7 1 3d10+70 1d1+99 1d9+1 frbite
 4 4 4 6
 FHR I 0 HS
@@ -408,7 +408,7 @@ A black bat flies from wall to wall leaving something hissing behind.
 Amazing!  This bat is grooming itself with acid!
 ~
 bat~
-ABF TZ -100 0
+ABF TZ 2 0
 7 1 3d10+70 1d1+99 1d9+1 acbite
 4 4 4 6
 FHR K 0 S
@@ -422,7 +422,7 @@ A sneaky thief appears and disappears within the shadows.
 He definitely knows what he's doing.  Trust him.
 ~
 human~
-ACGS BQ 400 0
+ACGS BQ 3 0
 12 2 3d20+130 1d1+99 2d4+3 punch
 2 0 0 6
 BFJNQU 0 0 0
@@ -436,7 +436,7 @@ A large ugly troll is here mumbling something.
 He looks quite mean.  Don't mess with him.
 ~
 troll~
-ABCFT FJc -700 0
+ABCFT FJc 1 0
 14 3 8d20+140 14d4+100 3d4+5 claw
 -1 -3 -1 4
 CDEOR 0 BE CHK
@@ -451,7 +451,7 @@ His little head is buried into his magic books.  He'd be very
 angry should you bother his studies.
 ~
 human~
-ACFGR 0 -200 0
+ACFGR 0 1 0
 11 0 4d10+100 11d12+100 1d6+1 beating
 0 0 0 2
 QU 0 C 0
@@ -466,7 +466,7 @@ Sickly brown as it is, you know what it really wants is you
 for dinner.
 ~
 snake~
-ABFU 0 200 0
+ABFU 0 3 0
 9 1 2d10+100 1d1+99 1d12+1 bite
 1 3 3 6
 FGNR 0 EFL I
@@ -480,7 +480,7 @@ A 'small' troll is here happily dancing.  Trala-la-la.  La-la.
 He is so happy, you are disgusted.  Kill him now!
 ~
 troll~
-ACFGT FJc -300 0
+ACFGT FJc 1 0
 8 2 3d10+80 8d4+100 2d5+2 bite
 3 1 3 6
 DEJR 0 BE HK
@@ -494,7 +494,7 @@ A large orc growls in your face.
 He is just looking for a fight isn't he?
 ~
 orc~
-ACFGT J -200 0
+ACFGT J 1 0
 9 1 3d10+100 1d1+99 1d8+2 beating
 2 2 1 5
 CJNR 0 Q S
@@ -637,9 +637,9 @@ weapon G AN
 dagger 2 5 stab 0
 8 20 590 G
 A
-19 1
-A
 18 1
+A
+19 1
 E
 dirk~
 It's a medium sized, beautifully crafted dirk made from grey alloy.
@@ -681,9 +681,9 @@ weapon 0 AN
 flail 1 7 smash 0
 3 70 290 A
 A
-17 1
-A
 19 2
+A
+17 1
 E
 flail~
 It's a stout wooden rod with two spiked balls attached, each weighing over 2
@@ -752,9 +752,9 @@ armor G AH
 A AB AB A A
 7 10 730 G
 A
-19 1
-A
 18 1
+A
+19 1
 #4102
 scroll ysafg~
 a scroll which reads "ysafg"~
@@ -828,12 +828,12 @@ staff G AO
 A
 12 -20
 E
-runes~
-The runes says : Funthark.
-~
-E
 staff oak~
 You see it has some sort of runes on it.
+~
+E
+runes~
+The runes says : Funthark.
 ~
 #4152
 dagger light silver~
@@ -844,9 +844,9 @@ weapon 0 AN
 dagger 2 4 stab 0
 7 20 660 P
 A
-17 -1
-A
 18 1
+A
+17 -1
 E
 dagger light silver~
 It looks like an excellent weapon for thieves.
@@ -860,9 +860,9 @@ weapon 0 AN
 mace 2 6 smash 0
 9 120 270 G
 A
-2 -1
-A
 19 1
+A
+2 -1
 E
 star morning~
 It's a huge length of wood studded with iron spikes and bands. You wouldn't
@@ -1969,6 +1969,10 @@ the north marking the entrance to a cave (or a grave :-).
 ~
 0 4 4
 E
+bushes~
+Small crippled bushes desperately trying to grow south.
+~
+E
 sign~
 The sign says:
 
@@ -1985,10 +1989,6 @@ The sign says:
                  | |
                  | |
                  | |
-~
-E
-bushes~
-Small crippled bushes desperately trying to grow south.
 ~
 D0
 ~

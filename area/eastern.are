@@ -19,7 +19,7 @@ Dressed in loose fitting rags, this man looks like he could use
 some rest.
 ~
 human~
-ACGH P 900 0
+ACGH P 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -34,7 +34,7 @@ Dressed in loose fitting rags, this man looks like he could use
 LOTS of rest.
 ~
 human~
-AFG P 650 0
+AFG P 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -49,7 +49,7 @@ This relatively harmless snake has bright alternating bands of red, yellow
 and black.
 ~
 snake~
-AG 0 -10 0
+AG 0 2 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNR 0 L I
@@ -63,7 +63,7 @@ A small, red scorpion scuttles away at your approach.
 The little tail is mighty dangerous for such a small creature.
 ~
 human~
-AG 0 -50 0
+AG 0 2 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -77,7 +77,7 @@ A giant, purple sand worm thrusts up out of the sand and attacks!
 He's big, mean, and purple. Watch out!
 ~
 human~
-ABF 0 -100 0
+ABF 0 2 0
 18 0 3d9+283 9d9+100 2d7+4 none
 -3 -3 -3 7
 EFNU 0 0 0
@@ -91,7 +91,7 @@ Then adds to it, 'Prepare to die, have a nice day!'
 ~
 ~
 dragon~
-ABCF DHJT 450 0
+ABCF DHJT 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNR 0 BEH FI
@@ -107,7 +107,7 @@ is a large, engraved cutlass. He has an especially haughty air
 about him.
 ~
 human~
-AGHL 0 950 0
+AGHL 0 3 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -122,7 +122,7 @@ This is the nomad leader's second in command. His clothes are richly
 woven of silk and gold thread. A nasty cutlass hangs at his side.
 ~
 human~
-ABL 0 900 0
+ABL 0 3 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -135,7 +135,7 @@ A proud nomad warrior stands here.
 ~
 ~
 human~
-AB 0 700 0
+AB 0 3 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -148,7 +148,7 @@ A young slave sits here staring at you with pleading eyes.
 ~
 ~
 human~
-ABH 0 1000 0
+ABH 0 3 0
 3 0 2d6+35 1d9+100 1d6+0 none
 7 7 7 10
 EFNU 0 0 0
@@ -163,7 +163,7 @@ The dracolich is now only bone with pieces of flesh hanging from it.
 Obviously it no longer fears death.
 ~
 human~
-ABFL DH -1000 0
+ABFL DH 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -177,7 +177,7 @@ The drider looks at you viciously while it draws its sword.
 This half-spider, half-drow creature is a formidable opponent.
 ~
 human~
-AFG D -1000 0
+AFG D 1 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -191,7 +191,7 @@ A duergar is here mining precious stones with his pick.
 The duergar could crush your head as easily as it does those rocks.
 ~
 human~
-AFG D -850 0
+AFG D 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -206,7 +206,7 @@ The myconoid looks something like a giant mushroom (and probably
 has the same effect).
 ~
 human~
-AGH D 850 0
+AGH D 3 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -220,7 +220,7 @@ A rather large myconoid stands here chanting in a strange tongue.
 The shaman shoots spores into the air.
 ~
 human~
-ABHQ DH 850 0
+ABHQ DH 3 0
 8 0 2d7+96 8d9+100 1d7+2 none
 3 3 3 8
 EIKU 0 0 0
@@ -233,7 +233,7 @@ A small oasis invites you to dive in.
 ~
 ~
 human~
-ABCF 0 -200 0
+ABCF 0 1 0
 7 0 2d6+85 3d9+100 1d8+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -247,7 +247,7 @@ A very dangerous rabid camel snorts at you.
 Don't mess with this animal.
 ~
 human~
-ABF 0 -351 0
+ABF 0 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -275,9 +275,9 @@ armor AG AD
 ABC ABC ABC 0 0
 23 0 7300 P
 A
-2 2
-A
 17 -4
+A
+2 2
 #5002
 halberd~
 the halberd~
@@ -287,9 +287,9 @@ weapon GI AN
 polearm 2 14 cleave F
 29 160 1620 P
 A
-18 2
-A
 19 2
+A
+18 2
 #5003
 amulet~
 the amulet~
@@ -475,9 +475,9 @@ jewelry GH AM
 0 0 0 0 0
 20 100 1300 P
 A
-13 10
-A
 19 2
+A
+13 10
 #5026
 gem ruby~
 a large ruby~

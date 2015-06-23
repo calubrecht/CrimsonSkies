@@ -20,7 +20,7 @@ round body which can charm you with its cuteness.  Baby beholders are known for
 their playful personality.  Hmmm....  It looks like the baby is teething!
 ~
 human~
-ABCHR D 500 0
+ABCHR D 3 0
 5 0 2d7+46 5d9+100 1d5+0 none
 6 6 6 8
 FU 0 0 0
@@ -35,7 +35,7 @@ This is a creature with the upper torso of a beautiful woman, but the lower
 body of a four-legged beast.
 ~
 human~
-ACH 0 500 0
+ACH 0 3 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNU 0 0 0
@@ -50,7 +50,7 @@ He smiles at you, almost as if he knows you.  He is so friendly, you have no
 choice but to reciprocate.
 ~
 human~
-AGH 0 500 0
+AGH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -65,7 +65,7 @@ He is dressed in plate, and he looks quite formidable.  At the moment, though,
 he is just giggling with a kid running about.
 ~
 human~
-ACGT H 1000 0
+ACGT H 3 0
 17 0 3d9+283 8d9+100 3d4+4 none
 -3 -3 -3 7
 CDEIKLU 0 0 0
@@ -81,7 +81,7 @@ smiles at you, and your heart flutters at the thought that you have her
 attention, if only for a moment.
 ~
 human~
-AGH 0 500 0
+AGH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -98,7 +98,7 @@ you suspiciously not only because you are a stranger, but because you are an
 ARMED stranger.  Better not do any funny stuff in his presence.
 ~
 human~
-AT H 1000 0
+AT H 3 0
 35 0 10d10+1400 17d9+100 4d7+11 none
 -11 -11 -11 5
 CDEIKLU 0 0 0
@@ -115,7 +115,7 @@ listens to this fool.  The priest's right fist is covered in golden silk,
 and he clenches it at you.  Other than that, he is dressed all in black.
 ~
 human~
-ABHQ 0 -500 0
+ABHQ 0 1 0
 10 0 2d7+121 10d9+100 1d7+2 none
 1 1 1 7
 EIKU 0 0 0
@@ -130,7 +130,7 @@ He stands here gloriously telling of Thalos's history, how it is now referred by
 the world as 'The City of Peace'.  He is very happy to be the high priest here.
 ~
 human~
-ABQ H 1000 0
+ABQ H 3 0
 20 0 3d9+333 20d9+100 2d7+5 none
 -4 -4 -4 6
 EIKU 0 0 0
@@ -145,7 +145,7 @@ It is a big chunk of rock that has been magically formed into a giant
 stone creature.  It stands here guarding the city.
 ~
 human~
-AB N 1000 0
+AB N 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -160,7 +160,7 @@ He looks very busy, but he takes the time to say, 'Hi!  Welcome to Thalos!'
 He looks very proud of his work.
 ~
 human~
-AB 0 800 0
+AB 0 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -174,7 +174,7 @@ Dan the Barkeep stands by the counter wiping a glass.
 He looks at you, and says, 'What's your poison, stranger?'
 ~
 human~
-AB 0 600 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -189,7 +189,7 @@ Looking down at you with blood splattered all over his face and apron,
 he asks, 'How much you want?'
 ~
 human~
-AB 0 600 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -203,7 +203,7 @@ Farmer Betty looks at you sweetly offering you some apples.
 She smiles at you meekly.
 ~
 human~
-AB 0 650 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -218,7 +218,7 @@ Thaellor sweats rivers and complains about the heat as he pounds the
 metal into items of defense and destruction.
 ~
 human~
-AB 0 550 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -232,7 +232,7 @@ Ben the Smith sells metal odds and ends to anyone interested.
 Ben tries to pawn his various wares to you.
 ~
 human~
-AB 0 600 0
+AB 0 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -246,7 +246,7 @@ The librarian is here shelving books away neatly.
 The librarian looks busy and whispers, 'Shhh!'
 ~
 human~
-ABH 0 500 0
+ABH 0 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -260,7 +260,7 @@ A young scholar studies quietly in the corner.
 This young scholar is studying to be a priest.
 ~
 human~
-ABH 0 500 0
+ABH 0 3 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -274,7 +274,7 @@ An old wizard sits quietly at the counter waiting for a sale.
 This old wizard almost looks like he is about to fall over and sleep.
 ~
 human~
-ABR D 550 0
+ABR D 3 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
@@ -290,7 +290,7 @@ smiles at you, and your heart flutters at the thought that you have her
 attention, and you jump to her offer for a massage.
 ~
 human~
-ABH 0 700 0
+ABH 0 3 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNU 0 0 0
@@ -305,7 +305,7 @@ He smiles at you, almost as if he knows you.  He is so friendly, you have no
 choice but to reciprocate and join him and the others in the soothing pool.
 ~
 human~
-ABH 0 650 0
+ABH 0 3 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -321,7 +321,7 @@ he is looking at a map of Thalos aside his fellow co-workers keeping
 track of each city patrol.
 ~
 human~
-ABCGT H 1000 0
+ABCGT H 3 0
 17 0 3d9+283 8d9+100 3d4+4 none
 -3 -3 -3 7
 CDEIKLU 0 0 0
@@ -336,7 +336,7 @@ He is dressed in plate, and he looks quite formidable.  At the moment,
 he is watching the children play with amusement.
 ~
 human~
-ABCGT H 1000 0
+ABCGT H 3 0
 17 0 3d9+283 8d9+100 3d4+4 none
 -3 -3 -3 7
 CDEIKLU 0 0 0
@@ -351,7 +351,7 @@ This peaceful creature looks at you with big dark eyes.  Her nose twitches as
 she sniffs at you, but she goes back to chewing some grass.
 ~
 human~
-AGH 0 0 0
+AGH 0 2 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0
@@ -366,7 +366,7 @@ The deer looks angered at your intrusion.  He butts his head against you,
 albeit ineffectively.
 ~
 human~
-AGH 0 0 0
+AGH 0 2 0
 6 0 2d7+71 3d9+100 1d7+1 none
 4 4 4 9
 EFNU 0 0 0
@@ -380,7 +380,7 @@ A large deer stag protects his territory.
 He eyes you with contained anger.  You'd better leave him alone!
 ~
 human~
-AFGH 0 0 0
+AFGH 0 2 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -394,7 +394,7 @@ A small bunny pokes from bush to bush.
 This bunny looks so adorable, you wished you had one just like this!
 ~
 human~
-AGH 0 0 0
+AGH 0 2 0
 2 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 EFNU 0 0 0
@@ -408,7 +408,7 @@ A small snake slithers between the grass.
 Upon careful inspection, you are sure it is NOT a cobra!
 ~
 snake~
-AFGH P 0 0
+AFGH P 2 0
 4 0 2d7+46 2d9+100 1d5+1 none
 6 6 6 9
 EFNR 0 L I
@@ -422,7 +422,7 @@ A druid is here in meditation.
 He doesn't like you bothering him, but is too polite to ask you to leave.
 ~
 human~
-AGHQ DN 1000 0
+AGHQ DN 3 0
 10 0 2d7+121 10d9+100 1d7+2 none
 1 1 1 7
 EIKU 0 0 0
@@ -436,7 +436,7 @@ A druidess peers at you.
 She wonders why you are staring at her, and how you got in here.
 ~
 human~
-AGHQ DN 1000 0
+AGHQ DN 3 0
 10 0 2d7+121 10d9+100 1d7+2 none
 1 1 1 7
 EIKU 0 0 0
@@ -450,7 +450,7 @@ A bard sings of the glory of Thalos.
 This musical fellow plays a happy song with his fellow comrades.
 ~
 human~
-ABC 0 450 0
+ABC 0 3 0
 8 0 2d7+96 4d9+100 1d7+2 none
 3 3 3 9
 EFNU 0 0 0
@@ -464,7 +464,7 @@ This bard merrily skips along singing of the glory of Thalos.
 This musical fellow wanders the world singing of the glory of Thalos.
 ~
 human~
-AC 0 550 0
+AC 0 3 0
 9 0 2d6+110 4d9+100 1d8+2 none
 2 2 2 8
 EFNU 0 0 0
@@ -478,7 +478,7 @@ A cityguard stands here.
 A big, strong, helpful, trustworthy guard.
 ~
 human~
-ACGT 0 1000 0
+ACGT 0 3 0
 15 0 3d9+233 7d9+100 2d6+3 none
 -2 -2 -2 7
 CDEIKLU 0 0 0
@@ -491,7 +491,7 @@ A janitor is walking around, cleaning up.
 ~
 ~
 human~
-A 0 900 0
+A 0 3 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNU 0 0 0
@@ -506,7 +506,7 @@ Fido is a small dog that has a foul smell and pieces of rotted meat hanging
 around his teeth.
 ~
 fido~
-AFH 0 -200 0
+AFH 0 1 0
 0 0 2d4+2 0d1+99 1d2+0 none
 10 10 10 10
 EFNR 0 0 C
@@ -520,7 +520,7 @@ A cityguard is here, guarding the gate.
 A big, strong, helpful, trustworthy guard.
 ~
 human~
-ABGT 0 1000 0
+ABGT 0 3 0
 15 0 3d9+233 7d9+100 2d6+3 none
 -2 -2 -2 7
 CDEIKLU 0 0 0
@@ -691,9 +691,9 @@ weapon G AN
 sword 3 4 slash 0
 14 50 1420 P
 A
-19 2
-A
 18 2
+A
+19 2
 E
 sword~
 You see a sword of great craftsmanship.  Imprinted on the side is:
@@ -708,9 +708,9 @@ weapon G AN
 mace 2 7 pound 0
 15 50 1180 P
 A
-19 2
-A
 18 2
+A
+19 2
 E
 mace~
 You see a mace of great craftsmanship.  Imprinted on the side is:
@@ -868,9 +868,9 @@ jewelry G AB
 0 0 0 0 0
 16 10 1280 P
 A
-20 -1
-A
 17 -4
+A
+20 -1
 #5331
 imperial banner~
 an imperial war banner~
@@ -880,9 +880,9 @@ light AG A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 20 10 1440 P
 A
-17 -2
-A
 20 -2
+A
+17 -2
 E
 banner~
 This is the official Merc war banner to see you through the darkest realm!
@@ -896,9 +896,9 @@ weapon GK AN
 sword 4 7 cleave DF
 34 240 4400 P
 A
-19 3
-A
 18 2
+A
+19 3
 #0
 
 
@@ -2416,11 +2416,6 @@ You see stars.
 ~
 ~
 0 0 5376
-D2
-You see a fuzzy portal of some sort and a little green.
-~
-~
-0 0 5368
 D3
 You see stars.
 ~
@@ -2431,6 +2426,11 @@ You see stars.
 ~
 ~
 0 0 5378
+D2
+You see a fuzzy portal of some sort and a little green.
+~
+~
+0 0 5368
 D5
 You see stars.
 ~
@@ -2446,26 +2446,16 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D2
-You see stars.
-~
-~
-0 0 5377
 D0
 You see stars.
 ~
 ~
 0 0 5377
-D5
+D2
 You see stars.
 ~
 ~
-0 0 5375
-D1
-You see stars.
-~
-~
-0 0 5376
+0 0 5377
 D4
 You see stars.
 ~
@@ -2476,6 +2466,16 @@ You see stars.
 ~
 ~
 0 0 5376
+D1
+You see stars.
+~
+~
+0 0 5376
+D5
+You see stars.
+~
+~
+0 0 5375
 S
 #5377
 The Void~
@@ -2486,16 +2486,6 @@ either.  Occasionally, the starry 'sky' fades into a fuzzy, yet bright,
 rainbow then back to its normal state.
 ~
 0 0 3
-D3
-You see stars.
-~
-~
-0 0 5377
-D5
-You see stars.
-~
-~
-0 0 5378
 D4
 You see stars.
 ~
@@ -2506,6 +2496,11 @@ You see stars.
 ~
 ~
 0 0 5376
+D3
+You see stars.
+~
+~
+0 0 5377
 D1
 You see stars.
 ~
@@ -2516,6 +2511,11 @@ You see stars.
 ~
 ~
 0 0 5376
+D5
+You see stars.
+~
+~
+0 0 5378
 S
 #5378
 The Void~
@@ -2527,6 +2527,11 @@ rainbow then back to its normal state.  In the middle of this room is
 a ladder standing vertical.
 ~
 0 0 3
+D4
+You see stars.
+~
+~
+0 0 5377
 D3
 You see stars.
 ~
@@ -2542,11 +2547,6 @@ You see a fuzzy portal of some sort and a little green.
 ~
 ~
 0 0 8903
-D4
-You see stars.
-~
-~
-0 0 5377
 D5
 You see stars.
 ~
@@ -2666,14 +2666,9 @@ Main Street leads west from here.
 ~
 0 0 1
 E
-wall~
-It is built from large grey rocks that have been fastened to each other with
-some kind of mortar.  It is far too high to climb.
-~
-E
-tower towers~
-Both of the towers are built from large grey rocks that have been fastened to
-each other with some kind of mortar, just like the city wall.
+bridge footbridge~
+It is too high up to reach but it looks as if one easily could walk across it
+from one tower to the other.
 ~
 E
 gate~
@@ -2682,9 +2677,14 @@ reinforced with large iron bands to make them even more sturdy.  One of the
 doors is equipped with a very big lock.
 ~
 E
-bridge footbridge~
-It is too high up to reach but it looks as if one easily could walk across it
-from one tower to the other.
+tower towers~
+Both of the towers are built from large grey rocks that have been fastened to
+each other with some kind of mortar, just like the city wall.
+~
+E
+wall~
+It is built from large grey rocks that have been fastened to each other with
+some kind of mortar.  It is far too high to climb.
 ~
 D1
 You see the city gate.
@@ -2704,14 +2704,9 @@ plains stretch out in the distance.
 ~
 0 0 1
 E
-wall~
-It is built from large grey rocks that have been fastened to each other with
-some kind of mortar.  It is far too high to climb.
-~
-E
-tower towers~
-Both of the towers are built from large grey rocks that have been fastened to
-each other with some kind of mortar, just like the city wall.
+bridge footbridge~
+It is too high up to reach but it looks as if one easily could walk across it
+from one tower to the other.
 ~
 E
 gate~
@@ -2720,9 +2715,14 @@ reinforced with large iron bands to make them even more sturdy.  One of the
 doors is equipped with a very big lock.
 ~
 E
-bridge footbridge~
-It is too high up to reach but it looks as if one easily could walk across it
-from one tower to the other.
+tower towers~
+Both of the towers are built from large grey rocks that have been fastened to
+each other with some kind of mortar, just like the city wall.
+~
+E
+wall~
+It is built from large grey rocks that have been fastened to each other with
+some kind of mortar.  It is far too high to climb.
 ~
 D1
 You see the plains.~
@@ -2742,16 +2742,16 @@ behind it is a ten foot tall sitting statue of Odin, the King of the Gods.
 ~
 0 1032 0
 E
+altar~
+Even though the altar is more than ten feet long it appears to be made from a
+single block of white virgin marble.
+~
+E
 statue odin king god~
 The statue represents the one-eyed Odin sitting on a his throne.  He has
 long, grey hair and beard and a strict look on his face.  On top of the
 throne, just above his shoulders, his two ravens Hugin and Munin are sitting
 and at his feet are his wolves Gere and Freke.
-~
-E
-altar~
-Even though the altar is more than ten feet long it appears to be made from a
-single block of white virgin marble.
 ~
 D2
 You see the southern end of the temple.

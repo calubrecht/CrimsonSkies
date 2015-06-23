@@ -20,7 +20,7 @@ was involved in the carnage that occurred here. His soul is trapped here, as
 he waits for release.
 ~
 human~
-AB DH -1000 0
+AB DH 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -36,7 +36,7 @@ Very few leaves remain. Its limbs are crooked and gnarled. It moans as the
 wind pushes it back and forth.
 ~
 human~
-AB 0 250 0
+AB 0 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -52,7 +52,7 @@ a bird's beak, huge white eyes, a furry body, and long clawed hands and feet.
 It sees you and snarls.
 ~
 human~
-ABF CEP 0 0
+ABF CEP 2 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -66,7 +66,7 @@ A rather large rock toad sits here, croaking loudly.
 A grey toad. Its about the size of a cow. Small horns grow all over its body.
 ~
 human~
-AB 0 -250 0
+AB 0 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -81,7 +81,7 @@ The weeping willow has long thins branches. These branches seem to droop in
 anguish and dismay. You hear a faint sound of crying.
 ~
 human~
-AB DH 1000 0
+AB DH 3 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -95,7 +95,7 @@ A mistling emerges from the mist surrounding you.
 It looks like a thin wisp of mist that has gained substance and size.
 ~
 human~
-ABF Q 0 0
+ABF Q 2 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -111,7 +111,7 @@ appears to emerge from the mist. You feel the cold radiating from his form as
 he nears you.
 ~
 human~
-ABCF 0 -1000 0
+ABCF 0 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -126,7 +126,7 @@ You see a pitifully overworked ogre. It is dressed in rags and shuffles along
 with its head hung low. It sees you and cringes in mortal terror.
 ~
 human~
-AGH 0 -200 0
+AGH 0 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -141,7 +141,7 @@ The ogre warrior is dressed in thick fur armor. He looks quite large and
 formidable.
 ~
 human~
-ACFGH 0 -350 0
+ACFGH 0 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -156,7 +156,7 @@ The ogre guard stands here manning his post. It appears as though he would
 fight to the death before abandoning his post.
 ~
 human~
-ABCFG 0 -500 0
+ABCFG 0 1 0
 19 0 3d9+308 9d9+100 2d7+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -171,7 +171,7 @@ The ogre shaman is draped in thick fur cloaks and pelts. He has all types of
 charms and holy symbols draped about him. He looks at you and snarls.
 ~
 human~
-ABCFGHQ DH -750 0
+ABCFGHQ DH 1 0
 20 0 3d9+333 20d9+100 2d7+5 none
 -4 -4 -4 6
 EIKU 0 0 0
@@ -186,7 +186,7 @@ This is the biggest ogre you have ever seen. He is heavily equipped and looks
 quite formidable. He towers high above you and growls menacingly.
 ~
 human~
-ABCFGH DH -1000 0
+ABCFGH DH 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -201,7 +201,7 @@ The plains barbarian is clad in heavy furs. He seems used to the chilling cold
 and icy wastes.
 ~
 human~
-ABCFGH 0 0 0
+ABCFGH 0 2 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -216,7 +216,7 @@ The white yeti looks like a huge white snow ape. Its long arms end in long
 curved talons and its mouth is full of sharp teeth.
 ~
 human~
-ABCFGH 0 -350 0
+ABCFGH 0 1 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -232,7 +232,7 @@ The huge worm is almost 50 feet long. Its huge gaping mouth spews ice and snow
 as it charges directly at you.
 ~
 human~
-ABCFG 0 0 0
+ABCFG 0 2 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -247,7 +247,7 @@ You see a rather ragged and cold minotaur. It appears to be looking for a warm
 place to seek refuge from the cold.
 ~
 human~
-ABCGH 0 100 0
+ABCGH 0 2 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
 EFNU 0 0 0
@@ -262,7 +262,7 @@ The minotaur is clad in heavy furs. Beneath these furs, you see the gleam of
 his armor.
 ~
 human~
-ABCFG 0 -330 0
+ABCFG 0 1 0
 22 0 5d10+400 11d9+100 4d4+6 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -277,7 +277,7 @@ You see a huge minotaur that is dressed in thick furs and armor. He has black
 fur and red eyes. He looks quite capable of protecting the city.
 ~
 human~
-ACFG 0 -330 0
+ACFG 0 1 0
 21 0 4d10+360 10d9+100 4d4+5 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -292,7 +292,7 @@ The minotaur stands rigidly before the gates of the keep. It looks quite
 miserable standing in the driven snow and ice.
 ~
 human~
-ABCG D -330 0
+ABCG D 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -307,7 +307,7 @@ The high guard is dressed in blue plate armour. He looks quite dangerous and
 skilled.
 ~
 human~
-ABCFG D -330 0
+ABCFG D 1 0
 25 0 5d10+550 12d9+100 2d10+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -322,7 +322,7 @@ The royal guard is quite huge. He is dressed in heavy red armor and wields a
 huge glaive. He looks quite capable of protecting the keep.
 ~
 human~
-ABCFG D -330 0
+ABCFG D 1 0
 26 0 5d10+600 13d9+100 3d7+7 none
 -7 -7 -7 6
 EFNU 0 0 0
@@ -337,7 +337,7 @@ This minotaur wields a huge morningstar and is clad in heavy crimson plate and
 furs.
 ~
 human~
-ABCFG D -250 0
+ABCFG D 1 0
 28 0 6d12+703 14d9+100 5d4+8 none
 -8 -8 -8 6
 EFNU 0 0 0
@@ -352,7 +352,7 @@ She looks quite attractive. Her low cut gown reveals why she was chosen to be
 in the harem.
 ~
 human~
-ABCGH 0 1000 0
+ABCGH 0 3 0
 2 0 2d7+21 1d9+100 1d5+0 none
 8 8 8 10
 EFNU 0 0 0
@@ -366,7 +366,7 @@ A minotaur butler stands here rigidly, awaiting orders.
 He looks quite regal and refined to be a minotaur.
 ~
 human~
-ABCGH 0 250 0
+ABCGH 0 3 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -381,7 +381,7 @@ The ring-keeper is a huge minotaur. You notice a huge ring of multicolored
 keys hanging from his belt. He wears huge, spiked brass knuckles.
 ~
 human~
-ABCGR DH -300 0
+ABCGR DH 1 0
 29 0 6d12+703 29d9+100 3d7+7 none
 -8 -8 -8 1
 FU 0 0 0
@@ -396,7 +396,7 @@ Gorak is HUGE. His bulging muscles are confined beneath heavy armor. He is the
 master of the warrior guild of Mahn-Tor.
 ~
 human~
-ABF DH -300 0
+ABF DH 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -411,7 +411,7 @@ Darkoth is a living incarnation of evil. He radiates a dark aura, and a cold
 chill runs down your spine. He is the master of the Mahn-Tor anti-paladins.
 ~
 human~
-ABF DH -1000 0
+ABF DH 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -426,7 +426,7 @@ Tyrgoth is the minotaur incarnation of good. You feel safe and at ease in his
 presence. He is the leader of the Mahn-Tor paladins.
 ~
 human~
-AB DH 1000 0
+AB DH 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -442,7 +442,7 @@ power. He appears quite dangerous, despite his size. He is the leader of the
 mages of Mahn-Tor.
 ~
 human~
-ABFR DH 300 0
+ABFR DH 3 0
 30 0 6d12+778 30d9+100 5d4+7 none
 -9 -9 -9 1
 FU 0 0 0
@@ -457,7 +457,7 @@ Sumaron is clad in white glowing robes. He is goodness incarnate. He is the
 master of all the clerics of Mahn-Tor.
 ~
 human~
-ABFQ DH 1000 0
+ABFQ DH 3 0
 30 0 6d12+853 30d9+100 5d4+8 none
 -9 -9 -9 4
 EIKU 0 0 0
@@ -472,7 +472,7 @@ Nasturn is quite a natural looking minotaur. He is dressed in leather and
 wears no metal of any type. He looks at you and smiles.
 ~
 human~
-ABQ DH 500 0
+ABQ DH 3 0
 30 0 6d12+853 30d9+100 5d4+8 none
 -9 -9 -9 4
 EIKU 0 0 0
@@ -487,7 +487,7 @@ Belrak is clad in green and brown leather. He looks quite agile and thin, when
 compared to the normal minotaur. He looks at you with a slight smirk.
 ~
 human~
-ABF DH 500 0
+ABF DH 3 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -502,7 +502,7 @@ Dorgar is clad all in black. He is tall and slender, unlike most minotaurs. He
 appears to be quite a skilled thief.
 ~
 human~
-ABCF Q -500 0
+ABCF Q 1 0
 30 0 6d12+853 15d9+100 4d6+8 none
 -9 -9 -9 6
 EFNU 0 0 0
@@ -518,7 +518,7 @@ armor and robes. He wields the largest axe you have ever seen. You can see why
 Mahn-Tor is the leader of the minotaurs. He is awe-inspiring.
 ~
 human~
-ABCR BDHTU -500 0
+ABCR BDHTU 1 0
 33 0 10d10+1000 33d9+100 4d6+8 none
 -10 -10 -10 0
 FU 0 0 0
@@ -538,9 +538,9 @@ armor 0 AH
 D D D 0 0
 25 60 2600 P
 A
-19 1
-A
 18 1
+A
+19 1
 E
 gloves combat~
 These gloves are plated with metal plates that provide strength and 
@@ -581,9 +581,9 @@ weapon AGI AN
 exotic 2 12 blast 0
 28 240 4700 P
 A
-19 3
-A
 18 3
+A
+19 3
 #2305
 cloak pitch black~
 a pitch black cloak~
@@ -631,9 +631,9 @@ armor AGJL AJ
 D D D AB 0
 27 150 4900 P
 A
-20 -2
-A
 17 -2
+A
+20 -2
 E
 shield shadow~
 You look into the depths of the shield and shiver at the evil it contains.
@@ -647,9 +647,9 @@ weapon CGJL AN
 sword 5 4 pierce 0
 27 90 3500 P
 A
-19 3
-A
 18 3
+A
+19 3
 E
 nightbringer short sword shortsword~
 The runes "NiGHtBrINgeR" are scrawled along the blade.
@@ -663,9 +663,9 @@ armor AGKL AE
 ABC ABC ABC B 0
 20 150 3000 P
 A
-3 1
-A
 4 1
+A
+3 1
 #2311
 breast plate gilded gold~
 a gilded gold breast plate~
@@ -705,9 +705,9 @@ weapon AGKL AN
 mace 4 6 blast F
 28 240 3200 P
 A
-19 3
-A
 18 3
+A
+19 3
 E
 dawnbringer mace huge~
 The runes "DAwNbRIngER" are scrawled along the handle.
@@ -763,11 +763,11 @@ weapon G AN
 staff 5 4 pound F
 27 100 2900 P
 A
-20 -2
+18 3
 A
 19 3
 A
-18 3
+20 -2
 E
 staff gnarled magius~
 It appears to be simply a gnarled old limb. It feels powerful though.
@@ -823,9 +823,9 @@ weapon AG AN
 mace 5 4 crush 0
 26 130 1960 P
 A
-19 2
-A
 18 2
+A
+19 2
 #2324
 symbol holy golden~
 a golden holy symbol~
@@ -891,9 +891,9 @@ weapon G AN
 staff 7 3 pound BF
 28 130 1470 P
 A
-12 20
-A
 18 2
+A
+12 20
 E
 staff ice~
 The runes "FrIgID" are inscribed in the icy staff.
@@ -907,9 +907,9 @@ jewelry G AB
 0 0 0 0 0
 7 30 460 P
 A
-19 1
-A
 18 1
+A
+19 1
 #2331
 horn life~
 the horn of life~
@@ -955,9 +955,9 @@ weapon G AN
 exotic 3 9 pierce F
 27 150 4300 P
 A
-19 1
-A
 18 1
+A
+19 1
 #2335
 pack leather small~
 a small leather pack~
@@ -1007,9 +1007,9 @@ weapon G AN
 sword 3 8 pierce 0
 26 110 2300 P
 A
-19 1
-A
 18 1
+A
+19 1
 E
 sword wicked short shortsword~
 It looks just perfect for backstabbing.
@@ -1037,9 +1037,9 @@ armor G AD
 AD AD AD B 0
 30 120 7000 P
 A
-5 1
-A
 1 1
+A
+5 1
 #2342
 buckler spiked~
 a spiked buckler~
@@ -1059,9 +1059,9 @@ jewelry G AB
 0 0 0 0 0
 13 10 1020 P
 A
-17 -3
-A
 19 1
+A
+17 -3
 #2344
 helm horned~
 a horned minotaur helm~
@@ -1079,9 +1079,9 @@ weapon BG AN
 axe 5 5 slash 0
 31 260 3400 P
 A
-19 2
-A
 18 2
+A
+19 2
 E
 axe great~
 The runes "DeAtH" are scrawled along the blade.
@@ -1121,9 +1121,9 @@ weapon AJ AN
 exotic 2 12 slash 0
 25 30 3200 P
 A
-19 1
-A
 18 1
+A
+19 1
 E
 blade ethereal~
 You can almost see through it.
@@ -1300,9 +1300,9 @@ weapon G AN
 polearm 2 10 cleave F
 18 180 690 P
 A
-19 1
-A
 18 1
+A
+19 1
 #2369
 visor blue steel helm~
 a blue steel helm and visor~
@@ -1336,9 +1336,9 @@ weapon G AN
 sword 6 3 slash F
 22 180 2500 P
 A
-19 2
-A
 18 2
+A
+19 2
 #2373
 visor helm steel red~
 a red steel helm and visor~
@@ -1372,9 +1372,9 @@ weapon G AN
 polearm 5 4 slash F
 22 190 830 P
 A
-19 1
-A
 18 1
+A
+19 1
 #2377
 visor helm crimson steel~
 a crimson steel helm and visor~
@@ -1408,9 +1408,9 @@ weapon G AN
 mace 7 3 pound 0
 29 200 2300 P
 A
-19 2
-A
 18 2
+A
+19 2
 E
 star morning morningstar~
 It looks damaging.
@@ -1504,9 +1504,9 @@ armor BG AH
 ABC ABC ABC 0 0
 23 130 5800 P
 A
-19 2
-A
 1 2
+A
+19 2
 E
 gauntlets ogre power~
 They look very "handy".
@@ -2057,13 +2057,13 @@ There are small inscriptions on the rock at the base of the portal.
 ~
 0 0 2
 E
+small inscriptions inscription~
+"Enter all ye who wish to join the Brotherhood!"
+~
+E
 portal blue~
 You see a swirling blue portal of light. You think you can see glimpses of
 something moving on the "other side".
-~
-E
-small inscriptions inscription~
-"Enter all ye who wish to join the Brotherhood!"
 ~
 D0
 ~
@@ -3292,12 +3292,12 @@ door is to the west. To the east, you see a heavy stone door.
 ~
 0 8 0
 E
-huge stone~
-A very formidable looking door.
-~
-E
 gold~
 Looks like the back of a secret door of sorts.
+~
+E
+huge stone~
+A very formidable looking door.
 ~
 D1
 ~
@@ -3359,12 +3359,12 @@ itself leads south and north.
 ~
 0 8 0
 E
-yellow~
-You see a yellow door. It has the name "Sumaron" written on it.
-~
-E
 red~
 You see a red door. It has the name "Gorak" written on it.
+~
+E
+yellow~
+You see a yellow door. It has the name "Sumaron" written on it.
 ~
 D0
 ~
@@ -3391,12 +3391,12 @@ black door. The hall itself leads north and south.
 ~
 0 8 0
 E
-maroon~
-You see a maroon door here. It has the name "Amyrok" written on it.
-~
-E
 black~
 You see a black door. It has the name "Darkoth" inscribed on it.
+~
+E
+maroon~
+You see a maroon door here. It has the name "Amyrok" written on it.
 ~
 D0
 ~
@@ -3457,12 +3457,12 @@ south.
 ~
 0 8 0
 E
-green~
-You see a green door here. It has the name "Nasturn" written on it.
-~
-E
 white~
 You see a white door here. It has the name "Tyrgoth" inscribed on it.
+~
+E
+green~
+You see a green door here. It has the name "Nasturn" written on it.
 ~
 D0
 ~
@@ -3554,12 +3554,12 @@ itself leads north back along the rows of doors.
 ~
 0 8 0
 E
-grey~
-You see a grey door here. It has the name "Dorgar" written on it.
-~
-E
 brown~
 You see a brown door here. It has the name "Belrak" written on it.
+~
+E
+grey~
+You see a grey door here. It has the name "Dorgar" written on it.
 ~
 D0
 ~

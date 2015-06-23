@@ -18,7 +18,7 @@ A goblin slave lies here asleep.
 The defenseless goblin begs for mercy.
 ~
 goblin~
-ABH J -450 0
+ABH J 1 0
 1 0 2d6+10 0d9+100 1d4+0 none
 9 9 9 10
 EFNR 0 Q C
@@ -32,7 +32,7 @@ A drow commoner walks on guard duty.
 I doubt he is the type to give directions.
 ~
 human~
-ADFG D -1000 0
+ADFG D 1 0
 10 0 2d7+121 5d9+100 2d4+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -46,7 +46,7 @@ The drow warrior noble stands here guarding his home.
 He looks pissed off!
 ~
 human~
-ABF D -1000 0
+ABF D 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
 EFNU 0 0 0
@@ -60,7 +60,7 @@ The drow mage noble is here protecting his home.
 The mage prepares to cast a spell ... at you!!
 ~
 human~
-ABFR D -1000 0
+ABFR D 1 0
 15 0 2d10+190 15d9+100 1d10+3 none
 -1 -1 -1 5
 FU 0 0 0
@@ -74,7 +74,7 @@ The drow priestess is here shouting orders.
 I wouldn't want go get on her bad side!
 ~
 human~
-ABFQ D -1000 0
+ABFQ D 1 0
 17 0 3d9+258 17d9+100 2d6+4 none
 -3 -3 -3 6
 EIKU 0 0 0
@@ -88,7 +88,7 @@ The drow master stares at you angrily.
 The drow master is ALWAYS ready for a fight.
 ~
 human~
-ABF D -1000 0
+ABF D 1 0
 21 0 4d10+360 10d9+100 4d4+5 none
 -5 -5 -5 7
 EFNU 0 0 0
@@ -102,7 +102,7 @@ The drow weapons master is here shadow boxing.
 He definitely knows his way around in combat.
 ~
 human~
-ABF D -1000 0
+ABF D 1 0
 23 0 5d10+450 11d9+100 3d6+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -116,7 +116,7 @@ The matron mother of the house is standing here.
 She looks really pissed off!
 ~
 human~
-ABF D -1000 0
+ABF D 1 0
 24 0 5d10+500 12d9+100 2d10+6 none
 -6 -6 -6 6
 EFNU 0 0 0
@@ -130,7 +130,7 @@ The matron mother of the 1st house is waiting for you.
 She looks like she is about to rip your head off and eat it.
 ~
 human~
-ABFQ DH -1000 0
+ABFQ DH 1 0
 26 0 5d10+600 26d9+100 2d10+7 none
 -7 -7 -7 5
 EIKU 0 0 0
@@ -144,7 +144,7 @@ A yochlol forms out of a swirling mist.
 The yochlol is not in a good mood.
 ~
 human~
-ABF DH -1000 0
+ABF DH 1 0
 35 0 10d10+1300 17d9+100 4d7+11 none
 -11 -11 -11 5
 EFNU 0 0 0
@@ -158,7 +158,7 @@ The drow guard is here staring at you ominously.
 The drow guard blends so well with his environment, you barely see his form.
 ~
 human~
-ABF JQ -1000 0
+ABF JQ 1 0
 12 0 2d10+150 6d9+100 1d10+3 none
 0 0 0 8
 EFNU 0 0 0
@@ -172,7 +172,7 @@ The drow scout is here sneaking among the shadows.
 The drow scout blends so well with her environment, you barely see her form.
 ~
 human~
-AFH PQ -1000 0
+AFH PQ 1 0
 11 0 2d8+134 5d9+100 1d10+2 none
 1 1 1 8
 EFNU 0 0 0
@@ -192,9 +192,9 @@ weapon 0 AN
 sword 2 6 slash 0
 11 20 910 P
 A
-19 1
-A
 18 1
+A
+19 1
 #5101
 longsword noble~
 a noble's longsword~
@@ -204,9 +204,9 @@ weapon 0 AN
 sword 2 7 slash 0
 15 10 1510 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5102
 whip snake two-headed~
 a snake headed whip~
@@ -216,9 +216,9 @@ weapon AG AN
 whip 2 6 whip F
 11 10 920 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5103
 whip snake three-headed~
 a snake headed whip~
@@ -228,9 +228,9 @@ weapon AG AN
 whip 2 7 whip 0
 15 10 1020 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5104
 whip snake four-headed~
 a snake headed whip~
@@ -240,9 +240,9 @@ weapon AG AN
 whip 4 5 whip 0
 24 10 1530 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5105
 longsword black~
 a black longsword~
@@ -252,9 +252,9 @@ weapon AG AN
 sword 3 6 slash 0
 21 0 2100 P
 A
-19 2
-A
 18 2
+A
+19 2
 #5106
 whip snake five-headed~
 a snake headed whip~
@@ -264,9 +264,9 @@ weapon AGJ AN
 whip 3 6 whip 0
 14 0 10 P
 A
-3 -1
-A
 1 -1
+A
+3 -1
 #5107
 whip snake six-headed~
 a snake headed whip~
@@ -276,9 +276,9 @@ weapon AGJ AN
 whip 4 5 whip 0
 13 0 0 P
 A
-3 -2
-A
 1 -2
+A
+3 -2
 #5108
 bracer iron~
 an iron bracer~
@@ -334,9 +334,9 @@ weapon GJ AN
 dagger 4 6 stab 0
 30 20 3300 P
 A
-19 3
-A
 18 3
+A
+19 3
 #5114
 hat green~
 a small bright green hat~
@@ -859,12 +859,12 @@ gate lies open to the west allowing entrance into the city.
 ~
 0 9 0
 E
-hole~
-A small hole that looks to have been sealed at one time.
-~
-E
 gate~
 A large adamantite gate with giant spider shaped emblems stands here.
+~
+E
+hole~
+A small hole that looks to have been sealed at one time.
 ~
 D3
 A huge gate opens to the west allowing entrance into the city.~
