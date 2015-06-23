@@ -2112,8 +2112,8 @@ Grove---Galaxy              Midgaard   G'harne       |            \Holy
    \  Arachnos    Shire  Asgard | In the Air         |     Camp      |
      \   |          |         \ | /                  |       |       |  Check New
       Forest Of-----+-------Midgaard---------------Cross---Eastern Road-Point-Thalos
-      Haon Dor              / | | | \              Roads             |
-     /     |     Mob Factory  | | |  Machine            \        Gnome Village
+      Haon Dor                | | | \              Roads             |
+     /     |                  | | |  Machine            \        Gnome Village
   Old    Troll               /  | |  Dreams               \
  Marsh    Den           Sewer   |  \            Ruins of---Dwarf---Frigid Waste
                                 |    \Midgaard   Thalos    Forest         |
@@ -2121,9 +2121,9 @@ Grove---Galaxy              Midgaard   G'harne       |            \Holy
        Residence            Midgaard         \       Wyvern--+  Drow   Mahn-tor
            |                  / | \          Sands of Tower  |  City
          Clouds      Gang Land  | Graveyard  Sorrow \         \
-        (Harpies)               |     \            \ Pyramid  Elemental
-                            Miden'nir  Chapel    Mega-City     Canyon
-                            (Goblins) Catacombs     One
+        (Harpies)               |     \              Pyramid  Elemental
+                            Miden'nir  Chapel                  Canyon
+                            (Goblins) Catacombs     
                                          \
                                          Hell
  
