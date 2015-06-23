@@ -197,6 +197,7 @@ void save_mobile (FILE * fp, MOB_INDEX_DATA * pMobIndex)
     fprintf (fp, "%s ", fwrite_flag (pMobIndex->act, buf));
     fprintf (fp, "%s ", fwrite_flag (pMobIndex->affected_by, buf));
     fprintf (fp, "%d %d\n", pMobIndex->alignment, pMobIndex->group);
+
     fprintf (fp, "%d ", pMobIndex->level);
     fprintf (fp, "%d ", pMobIndex->hitroll);
     fprintf (fp, "%dd%d+%d ", pMobIndex->hit[DICE_NUMBER],
