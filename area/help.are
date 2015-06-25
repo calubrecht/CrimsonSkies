@@ -1,16 +1,5 @@
 #HELPS
 
-52 QMCONFIG~
-Syntax: qmconfig [show|ansiprompt|ansicolor|telnetga] [on|off]
-
-        This command is used to set options developed in the
-        QuickMUD source. They include:
-
-        ansicolor  - do new logins have color on by default?
-        ansiprompt - do new logins see a "color?" prompt?
-        show       - show current settings of qmconfig variables
-        telnetga   - do new logins have telnetga enabled?
-~
 0 COLOR COLOUR ANSI~
 Syntax: color 
 
@@ -126,6 +115,8 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
 	%c :  Display a carriage return (useful for multi-line prompts)
         %R :  Display the vnum you are in (IMMORTAL ONLY)
         %z :  Display the area name you are in (IMMORTAL ONLY)
+        %i :  Displays the level your incognito at (IMMORTAL ONLY)
+        %w :  Displays the level your wizi (hidden) at (IMMORTAL ONLY)
  
 Example:  PROMPT <%hhp %mm %vmv>
         Will set your prompt to "<10hp 100m 100mv>"
