@@ -1365,6 +1365,27 @@ void bust_a_prompt (CHAR_DATA * ch)
                     sprintf (buf2, " ");
                 i = buf2;
                 break;
+            case 'w':
+                // The level an immortal is wizi (hidden) at
+                if( IS_IMMORTAL( ch ) && ch->invis_level > 0) {
+                    sprintf(buf2,"(Wizi@%d)", ch->invis_level);
+                }
+                else {
+                    buf2[0] = '\0';
+                }
+
+                i = buf2;
+                break;
+            case 'i' :
+                // The level an immortal is incog (hidden except to in room) at
+                if( IS_IMMORTAL( ch ) && ch->incog_level > 0) {
+                    sprintf(buf2,"(Incog@%d)", ch->incog_level);
+                }
+                else {
+                    buf2[0] = '\0';
+                }
+                i = buf2;
+                break;
             case 'z':
                 if (IS_IMMORTAL (ch) && ch->in_room != NULL)
                     sprintf (buf2, "%s", ch->in_room->area->name);
