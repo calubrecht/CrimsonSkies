@@ -50,3 +50,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - enhanced recall skill, open to all classes that only makes it 25% of movement.
   - Enchantor spell to disenchant an item.
   - Update score with telnetga,compact mode, prompt, combine items, brief
+  - Code to search through items in bag or pit.
