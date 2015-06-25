@@ -1199,8 +1199,13 @@ void bust_a_prompt (CHAR_DATA * ch)
 
     if (IS_SET (ch->comm, COMM_AFK))
     {
-        send_to_char ("{c<AFK>{x ", ch);
+        send_to_char ("<{cAFK{x> ", ch);
         return;
+    }
+
+    if (IS_SET (ch->comm, COMM_QUIET))
+    {
+        send_to_char ("[{cQuiet{x] ", ch);
     }
 
     while (*str != '\0')
