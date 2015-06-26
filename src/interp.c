@@ -120,8 +120,6 @@ const struct cmd_type cmd_table[] = {
     {"affects",   do_affects,   POS_DEAD,     0, LOG_NORMAL, 1},
     {"areas",     do_areas,     POS_DEAD,     0, LOG_NORMAL, 1},
 /*  {"bug",       do_bug,       POS_DEAD,     0, LOG_NORMAL, 1}, */
-    {"board",     do_board,     POS_SLEEPING, 0, LOG_NORMAL, 1},
-    {"unread",    do_board,     POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"commands",  do_commands,  POS_DEAD,     0, LOG_NORMAL, 1},
     {"compare",   do_compare,   POS_RESTING,  0, LOG_NORMAL, 1},
     {"consider",  do_consider,  POS_RESTING,  0, LOG_NORMAL, 1},
@@ -194,7 +192,6 @@ const struct cmd_type cmd_table[] = {
     {"gossip",          do_gossip,      POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"grats",           do_grats,       POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"gtell",           do_gtell,       POS_DEAD,     0, LOG_NORMAL, 1},
-    {"note",            do_note,        POS_DEAD,     0, LOG_NORMAL, 1},
     {"pose",            do_pose,        POS_RESTING,  0, LOG_NORMAL, 1},
     {"question",        do_question,    POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"quiet",           do_quiet,       POS_SLEEPING, 0, LOG_NORMAL, 1},

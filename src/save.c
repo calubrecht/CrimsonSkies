@@ -177,7 +177,7 @@ void save_char_obj (CHAR_DATA * ch)
 void fwrite_char (CHAR_DATA * ch, FILE * fp)
 {
     AFFECT_DATA *paf;
-    int sn, gn, pos, i;
+    int sn, gn, pos;
 
     fprintf (fp, "#%s\n", IS_NPC (ch) ? "MOB" : "PLAYER");
 
@@ -299,13 +299,6 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
             fprintf (fp, "Alias %s %s~\n", ch->pcdata->alias[pos],
                      ch->pcdata->alias_sub[pos]);
         }
-
-        /* Save note board status */
-        /* Save number of boards in case that number changes */
-        fprintf (fp, "Boards       %d ", MAX_BOARD);
-        for (i = 0; i < MAX_BOARD; i++)
-            fprintf (fp, "%s %ld ", boards[i].short_name, ch->pcdata->last_note[i]);
-        fprintf (fp, "\n");
 
         for (sn = 0; sn < MAX_SKILL; sn++)
         {
@@ -569,7 +562,6 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->comm = COMM_COMBINE | COMM_PROMPT;
     ch->prompt = str_dup ("<%hhp %mm %vmv {g%r {x({c%e{x)>{x ");
     ch->pcdata->confirm_delete = FALSE;
-    ch->pcdata->board = &boards[DEFAULT_BOARD];
     ch->pcdata->pwd = str_dup ("");
     ch->pcdata->bamfin = str_dup ("");
     ch->pcdata->bamfout = str_dup ("");
@@ -871,31 +863,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("Bamfout", ch->pcdata->bamfout, fread_string (fp));
                 KEY ("Bin", ch->pcdata->bamfin, fread_string (fp));
                 KEY ("Bout", ch->pcdata->bamfout, fread_string (fp));
-
-                /* Read in board status */
-                if (!str_cmp(word, "Boards" ))
-                {
-                    int i,num = fread_number (fp); /* number of boards saved */
-                    char *boardname;
-
-                    for (; num ; num-- ) /* for each of the board saved */
-                    {
-                        boardname = fread_word (fp);
-                        i = board_lookup (boardname); /* find board number */
-
-                        if (i == BOARD_NOTFOUND) /* Does board still exist ? */
-                        {
-                            sprintf (buf, "fread_char: %s had unknown board name: %s. Skipped.",
-                            ch->name, boardname);
-                            log_string (buf);
-                            fread_number (fp); /* read last_note and skip info */
-                        }
-                        else /* Save it */
-                            ch->pcdata->last_note[i] = fread_number (fp);
-                    } /* for */
-
-                    fMatch = TRUE;
-                } /* Boards */
                 break;
 
             case 'C':

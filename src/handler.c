@@ -3314,9 +3314,8 @@ char *off_bit_name (int off_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
-
 /*
- * See if a string is one of the names of an object.
+ * See if a string is one of the names of an object (from Erwin's Boards)
  */
 bool is_full_name( const char *str, char *namelist )
 {
@@ -3330,5 +3329,4 @@ bool is_full_name( const char *str, char *namelist )
         if ( !str_cmp( str, name ) )
             return TRUE;
     }
-}
-
+} // end bool_is_full_name

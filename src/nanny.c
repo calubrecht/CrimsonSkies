@@ -129,12 +129,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
     int iClass, race, i, weapon;
     bool fOld;
 
-    /* Delete leading spaces UNLESS character is writing a note */
-    if (d->connected != CON_NOTE_TEXT)
-    {
-        while ( isspace(*argument) )
-            argument++;
-    }
+    while ( isspace(*argument) )
+        argument++;
+
     ch = d->character;
 
     switch (d->connected)
@@ -774,29 +771,6 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             d->connected = CON_READ_MOTD;
             break;
 
-        /* states for new note system, (c)1995-96 erwin@pip.dknet.dk */
-        /* ch MUST be PC here; have nwrite check for PC status! */
-
-        case CON_NOTE_TO:
-            handle_con_note_to (d, argument);
-            break;
-
-        case CON_NOTE_SUBJECT:
-            handle_con_note_subject (d, argument);
-            break;
-
-        case CON_NOTE_EXPIRE:
-            handle_con_note_expire (d, argument);
-            break;
-
-        case CON_NOTE_TEXT:
-            handle_con_note_text (d, argument);
-            break;
-
-        case CON_NOTE_FINISH:
-            handle_con_note_finish (d, argument);
-            break;
-
         case CON_READ_MOTD:
             if (ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
             {
@@ -894,8 +868,6 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                      TO_ROOM);
             }
 
-            send_to_char("\n", ch);
-            do_function (ch, &do_board, "");
             break;
     }
 

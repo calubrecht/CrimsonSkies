@@ -814,10 +814,9 @@ void close_socket (DESCRIPTOR_DATA * dclose)
         sprintf (log_buf, "Closing link to %s.", ch->name);
         log_string (log_buf);
         /* cut down on wiznet spam when rebooting */
+
         /* If ch is writing note or playing, just lose link otherwise clear char */
-        if ((dclose->connected == CON_PLAYING && !merc_down) 
-                || ((dclose->connected >= CON_NOTE_TO)
-                        && (dclose->connected <= CON_NOTE_FINISH)))
+        if ((dclose->connected == CON_PLAYING && !merc_down))
         {
             act ("$n has lost $s link.", ch, NULL, NULL, TO_ROOM);
             wiznet ("Net death has claimed $N.", ch, NULL, WIZ_LINKS, 0, 0);
@@ -1694,11 +1693,6 @@ bool check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
                 wiznet ("$N groks the fullness of $S link.",
                         ch, NULL, WIZ_LINKS, 0, 0);
                 d->connected = CON_PLAYING;
-                /* Inform the character of a note in progress and the possbility
-                 * of continuation!
-                 */
-                if (ch->pcdata->in_progress)
-                    send_to_char ("You have a note in progress. Type NWRITE to continue it.\n\r", ch);
             }
             return TRUE;
         }

@@ -85,7 +85,6 @@ DECLARE_DO_FUN(do_bamfout);
 DECLARE_DO_FUN(do_ban);
 DECLARE_DO_FUN(do_bash);
 DECLARE_DO_FUN(do_berserk);
-DECLARE_DO_FUN(do_board);
 DECLARE_DO_FUN(do_brandish);
 DECLARE_DO_FUN(do_brief);
 DECLARE_DO_FUN(do_bug);

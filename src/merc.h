@@ -240,11 +240,6 @@ struct    weather_data
 #define CON_READ_MOTD			2
 #define CON_BREAK_CONNECT		3
 #define CON_COPYOVER_RECOVER		4
-#define CON_NOTE_TO			5
-#define CON_NOTE_SUBJECT		6
-#define CON_NOTE_EXPIRE			7
-#define CON_NOTE_TEXT			8
-#define CON_NOTE_FINISH			9
 
 /*
  * Descriptor (channel) structure.
@@ -459,7 +454,6 @@ struct    note_data
     char *       subject;
     char *       text;
     time_t       date_stamp;
-    time_t       expire;
 };
 
 /*
@@ -1322,12 +1316,6 @@ struct mem_data
     time_t        when;
 };
 
-/* For Erwin's Noteboard
- * -- JR 09/25/00
- */
-
-#include "board.h"
-
 /*
  * One character (PC or NPC).
  */
@@ -1447,9 +1435,6 @@ struct pc_data
     bool            confirm_delete;
     char *          alias[MAX_ALIAS];
     char *          alias_sub[MAX_ALIAS];
-    BOARD_DATA *    board;                  /* The current board        */
-    time_t          last_note[MAX_BOARD];   /* last note for the boards */
-    NOTE_DATA *     in_progress;
     int	            security;               /* OLC */ /* Builder security */   
     bool            is_reclassing;          /* Whether or not the user is currently reclassing */
 };
@@ -1923,7 +1908,6 @@ extern  KILL_DATA               kill_table[];
 extern  char                    log_buf[];
 extern  TIME_INFO_DATA          time_info;
 extern  WEATHER_DATA            weather_info;
-extern  NOTE_DATA               * note_free;
 extern  OBJ_DATA                * obj_free;
 extern  bool                    MOBtrigger;
 extern  bool                    is_copyover;     // Whether a copyover is running or not

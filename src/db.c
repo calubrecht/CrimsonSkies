@@ -85,8 +85,6 @@ HELP_AREA *had_list;
 SHOP_DATA *shop_first;
 SHOP_DATA *shop_last;
 
-NOTE_DATA *note_free;
-
 MPROG_CODE *mprog_list;
 
 char bug_buf[2 * MAX_INPUT_LENGTH];
@@ -407,8 +405,6 @@ void boot_db ()
         fix_mobprogs ();
         fBootDb = FALSE;
         area_update ();
-        load_boards();
-        save_notes();
         load_bans ();
     }
 

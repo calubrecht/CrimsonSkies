@@ -842,16 +842,6 @@ void do_tell (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (victim->desc->connected >= CON_NOTE_TO && victim->desc->connected <= CON_NOTE_FINISH)
-    {
-        act ("$E is writing a note, but your tell will go through when $E returns.",
-                ch, NULL, victim, TO_CHAR);
-        sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim), argument);
-        buf[0] = UPPER (buf[0]);
-        add_buf (victim->pcdata->buffer, buf);
-        return;
-    }
-
     act ("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR);
     act_new ("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
              POS_DEAD);
@@ -1390,10 +1380,6 @@ void do_quit (CHAR_DATA * ch, char *argument)
      * After extract_char the ch is no longer valid!
      */
     save_char_obj (ch);
-
-    /* Free note that might be there somehow */
-    if (ch->pcdata->in_progress)
-        free_note (ch->pcdata->in_progress);
 
     id = ch->id;
     d = ch->desc;
