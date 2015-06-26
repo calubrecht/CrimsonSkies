@@ -1247,22 +1247,11 @@ void bust_a_prompt (CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'h':
-        {
-        // Rhien,  4/10/2015, color indicators for vitals, 
-        // statement needs wrapped in braces to declare variables
-        // in here.
-        int percent;
-        percent = ch->hit * 100 / ch->max_hit;
-
-            if (percent > 70) {
-                    sprintf(buf2, "{W%d{x", ch->hit);
-            }
-            else if (percent >= 30 && percent <= 70) {
-                    sprintf(buf2, "{Y%d{x", ch->hit);
-            }
-            else {
-                    sprintf(buf2, "{R%d{x", ch->hit);
-            }
+            {
+                // Rhien,  4/10/2015, color indicators for vitals (Changes at 75%, 33%)
+                sprintf( buf2, "{%s%d{x",
+                    ch->hit < ch->max_hit / 3 ? "R" :
+                    ch->hit < ch->max_hit * 3 / 4 ? "Y" : "W", ch->hit );
 
                 i = buf2;
                 break;
@@ -1273,19 +1262,10 @@ void bust_a_prompt (CHAR_DATA * ch)
                 break;
             case 'm':
             {
-                // Rhien,  4/10/2015, color indicators for vitals
-                int percent;
-                percent = ch->mana * 100 / ch->max_mana;
-
-                if (percent > 70) {
-                        sprintf(buf2, "{W%d{x", ch->mana);
-                }
-                else if (percent >= 30 && percent <= 70) {
-                        sprintf(buf2, "{Y%d{x", ch->mana);
-                }
-                else {
-                        sprintf(buf2, "{R%d{x", ch->mana);
-                }
+                // Rhien,  4/10/2015, color indicators for vitals (Changes at 75%, 33%)
+                sprintf( buf2, "{%s%d{x",
+                    ch->mana < ch->max_mana / 3 ? "R" :
+                    ch->mana < ch->max_mana * 3 / 4 ? "Y" : "W", ch->mana );
 
                 i = buf2;
                 break;
@@ -1296,20 +1276,10 @@ void bust_a_prompt (CHAR_DATA * ch)
                 break;
             case 'v':
             {
-                // Rhien,  4/10/2015, color indicators for vitals
-                int percent;
-                percent = ch->move * 100 / ch->max_move;
-
-                if (percent > 70) {
-                        sprintf(buf2, "{W%d{x", ch->move);
-                }
-                else if (percent > 30 && percent < 70) {
-                        sprintf(buf2, "{Y%d{x", ch->move);
-                }
-                else {
-                        sprintf(buf2, "{R%d{x", ch->move);
-                }
-
+                // Rhien,  4/10/2015, color indicators for vitals (Changes at 75%, 33%)
+                sprintf( buf2, "{%s%d{x",
+                    ch->move < ch->max_move / 3 ? "R" :
+                    ch->move < ch->max_move * 3 / 4 ? "Y" : "W", ch->move );
                 i = buf2;
                 break;
         }
