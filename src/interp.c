@@ -139,7 +139,6 @@ const struct cmd_type cmd_table[] = {
     {"socials",   do_socials,   POS_DEAD,     0, LOG_NORMAL, 1},
     {"show",      do_show,      POS_DEAD,     0, LOG_NORMAL, 1},
     {"spells",    do_spells,    POS_DEAD,     0, LOG_NORMAL, 1},
-    {"story",     do_story,     POS_DEAD,     0, LOG_NORMAL, 1},
     {"time",      do_time,      POS_DEAD,     0, LOG_NORMAL, 1},
     {"typo",      do_typo,      POS_DEAD,     0, LOG_NORMAL, 1},
     {"weather",   do_weather,   POS_RESTING,  0, LOG_NORMAL, 1},
@@ -192,7 +191,6 @@ const struct cmd_type cmd_table[] = {
     {"gossip",          do_gossip,      POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"grats",           do_grats,       POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"gtell",           do_gtell,       POS_DEAD,     0, LOG_NORMAL, 1},
-    {"pose",            do_pose,        POS_RESTING,  0, LOG_NORMAL, 1},
     {"question",        do_question,    POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"quiet",           do_quiet,       POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"reply",           do_reply,       POS_SLEEPING, 0, LOG_NORMAL, 1},
@@ -201,6 +199,21 @@ const struct cmd_type cmd_table[] = {
     {"shout",           do_shout,       POS_RESTING,  3, LOG_NORMAL, 1},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, 1},
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, 1},
+    {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, 1},
+
+    /*
+     * Note commands.
+     */
+    {"oocn",            do_ooc_spool,    POS_DEAD,     0, LOG_NORMAL, 1},
+    {"note",            do_note,         POS_DEAD,     0, LOG_NORMAL, 1},
+    {"news",            do_news,         POS_DEAD,     0, LOG_NORMAL, 1},
+    {"changes",         do_changes,      POS_DEAD,     0, LOG_NORMAL, 1},
+    {"storynote",       do_story_spool,  POS_DEAD,     0, LOG_NORMAL, 1},
+    {"history",         do_history_spool,POS_DEAD,     0, LOG_NORMAL, 1},
+    {"penalty",         do_penalty,      POS_DEAD,    IM, LOG_NORMAL, 1},
+    {"immnote",         do_imm_spool,    POS_DEAD,    IM, LOG_NORMAL, 1},
+    {"catchup",         do_catchup,      POS_DEAD,     0, LOG_NORMAL, 1},
+    {"unread",          do_unread,       POS_DEAD,     0, LOG_NORMAL, 1},
 
     /*
      * Object manipulation commands.
@@ -338,7 +351,6 @@ const struct cmd_type cmd_table[] = {
     {"zecho",           do_zecho,       POS_DEAD, L4, LOG_ALWAYS, 1},
     {"clone",           do_clone,       POS_DEAD, L5, LOG_ALWAYS, 1},
     {"wiznet",          do_wiznet,      POS_DEAD, IM, LOG_NORMAL, 1},
-    {"immtalk",         do_immtalk,     POS_DEAD, IM, LOG_NORMAL, 1},
     {"imotd",           do_imotd,       POS_DEAD, IM, LOG_NORMAL, 1},
     {"smote",           do_smote,       POS_DEAD, IM, LOG_NORMAL, 1},
     {"prefi",           do_prefi,       POS_DEAD, IM, LOG_NORMAL, 0},

@@ -300,6 +300,7 @@ CHAR_DATA *new_char (void)
     ch->description = &str_empty[0];
     ch->prompt = &str_empty[0];
     ch->prefix = &str_empty[0];
+    ch->material = &str_empty[0];
     ch->logon = current_time;
     ch->lines = PAGELEN;
     for (i = 0; i < 4; i++)
@@ -352,6 +353,8 @@ void free_char (CHAR_DATA * ch)
     free_string (ch->description);
     free_string (ch->prompt);
     free_string (ch->prefix);
+    free_string (ch->material);
+    free_note (ch->pnote);
     free_pcdata (ch->pcdata);
 
     ch->next = char_free;
@@ -478,16 +481,14 @@ void free_mem_data (MEM_DATA * memory)
     INVALIDATE (memory);
 }
 
-
-
 /* buffer sizes */
-const int buf_size[MAX_BUF_LIST] = {
-    16, 32, 64, 128, 256, 1024, 2048, 4096, 8192, 16384
+const long buf_size[MAX_BUF_LIST] = {
+    8, 16, 32, 64, 128, 256, 1024, 2048, 4096, 8192, 16384, 32768, 65536-128
 };
 
 /* local procedure for finding the next acceptable size */
 /* -1 indicates out-of-boundary error */
-int get_size (int val)
+int get_size (long val)
 {
     int i;
 
@@ -697,4 +698,38 @@ void free_help (HELP_DATA * help)
     free_string (help->text);
     help->next = help_free;
     help_free = help;
+}
+
+/* stuff for recyling notes */
+NOTE_DATA *note_free;
+
+NOTE_DATA *new_note()
+{
+    NOTE_DATA *note;
+
+    if (note_free == NULL)
+	note = alloc_perm(sizeof(*note));
+    else
+    {
+	note = note_free;
+	note_free = note_free->next;
+    }
+    VALIDATE(note);
+    return note;
+}
+
+void free_note(NOTE_DATA *note)
+{
+    if (!IS_VALID(note))
+	return;
+
+    free_string( note->text    );
+    free_string( note->subject );
+    free_string( note->to_list );
+    free_string( note->date    );
+    free_string( note->sender  );
+    INVALIDATE(note);
+
+    note->next = note_free;
+    note_free   = note;
 }

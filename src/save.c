@@ -288,6 +288,15 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                  ch->pcdata->condition[1],
                  ch->pcdata->condition[2], ch->pcdata->condition[3]);
 
+        // Notes
+        fprintf (fp, "LastNote %ld\n", ch->pcdata->last_note);
+        fprintf (fp, "LastPenalty %ld\n", ch->pcdata->last_penalty);
+        fprintf (fp, "LastNews %ld\n", ch->pcdata->last_news);
+        fprintf (fp, "LastChange %ld\n", ch->pcdata->last_change);
+        fprintf (fp, "LastOoc %ld\n", ch->pcdata->last_ooc);
+        fprintf (fp, "LastStoryNote %ld\n", ch->pcdata->last_story);
+        fprintf (fp, "LastHistory %ld\n", ch->pcdata->last_history);
+        fprintf (fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
 
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
@@ -985,6 +994,15 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("LogO", lastlogoff, fread_number (fp));
                 KEY ("LongDescr", ch->long_descr, fread_string (fp));
                 KEY ("LnD", ch->long_descr, fread_string (fp));
+                KEY ("LastNote", ch->pcdata->last_note, fread_number(fp));
+                KEY ("LastPenalty", ch->pcdata->last_penalty, fread_number(fp));
+                KEY ("LastNews", ch->pcdata->last_news, fread_number(fp));
+                KEY ("LastChange", ch->pcdata->last_change, fread_number(fp));
+                KEY ("LastOoc", ch->pcdata->last_ooc, fread_number(fp));
+                KEY ("LastStoryNote", ch->pcdata->last_story, fread_number(fp));
+                KEY ("LastHistory", ch->pcdata->last_history, fread_number(fp));
+                KEY ("LastImmNote", ch->pcdata->last_immnote, fread_number(fp));
+
                 break;
 
             case 'N':

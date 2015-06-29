@@ -32,7 +32,7 @@ extern int mobile_count;
 /* stuff for providing a crash-proof buffer */
 
 #define MAX_BUF		16384
-#define MAX_BUF_LIST 	10
+#define MAX_BUF_LIST 	13
 #define BASE_BUF 	1024
 
 /* valid states */
@@ -45,6 +45,12 @@ extern int mobile_count;
 BD	*new_ban args( (void) );
 void	free_ban args( (BAN_DATA *ban) );
 #undef BD
+
+/* note recycling */
+#define ND NOTE_DATA
+ND	*new_note args( (void) );
+void	free_note args( (NOTE_DATA *note) );
+#undef ND
 
 /* descriptor recycling */
 #define DD DESCRIPTOR_DATA

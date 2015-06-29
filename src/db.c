@@ -191,17 +191,18 @@ int newobjs = 0;
  */
 #define            MAX_STRING    1413120
 #define            MAX_PERM_BLOCK    131072
-#define            MAX_MEM_LIST    11
+#define            MAX_MEM_LIST    13
 
-void *rgFreeList[MAX_MEM_LIST];
-const int rgSizeList[MAX_MEM_LIST] = {
-    16, 32, 64, 128, 256, 1024, 2048, 4096, 8192, 16384, 32768 - 64
+void * rgFreeList [MAX_MEM_LIST];
+const size_t rgSizeList [MAX_MEM_LIST]  =
+{
+    8, 16, 32, 64, 128, 256, 1024, 2048, 4096, 8192, 16384, 32768,  65536-64
 };
 
-int nAllocString;
-int sAllocString;
-int nAllocPerm;
-int sAllocPerm;
+int    nAllocString;
+size_t sAllocString;
+int    nAllocPerm;
+size_t sAllocPerm;
 
 /*
  * Semi-locals.
@@ -225,10 +226,9 @@ void load_socials args ((FILE * fp));
 void load_specials args ((FILE * fp));
 void load_bans args ((void));
 void load_mobprogs args ((FILE * fp));
-
+void load_notes args( ( void ) );
 void fix_exits args ((void));
 void fix_mobprogs args ((void));
-
 void reset_area args ((AREA_DATA * pArea));
 
 /*
@@ -304,6 +304,8 @@ void boot_db ()
      * Assign gsn's for skills which have them.
      */
     {
+        log_string("STATUS: Loading Skills");
+
         int sn;
 
         for (sn = 0; sn < MAX_SKILL; sn++)
@@ -317,6 +319,8 @@ void boot_db ()
      * Read in all the area files.
      */
     {
+        log_string("STATUS: Loading Areas");
+
         FILE *fpList;
 
         if ((fpList = fopen (AREA_LIST, "r")) == NULL)
@@ -401,11 +405,17 @@ void boot_db ()
      * Load up notes and ban files.
      */
     {
-        fix_exits ();
-        fix_mobprogs ();
+        log_string("STATUS: Fixing Exits");
+        fix_exits();
+        log_string("STATUS: Fixing MobProgs");
+        fix_mobprogs();
         fBootDb = FALSE;
-        area_update ();
-        load_bans ();
+        log_string("STATUS: Resetting Areas");
+        area_update();
+        log_string("STATUS: Loading Bans");
+        load_bans();
+        log_string("STATUS: Loading Notes");
+        load_notes();
     }
 
     return;
@@ -468,7 +478,7 @@ void new_load_area (FILE * fp)
     pArea->max_level = 0;
     pArea->area_flags = 0;
 
-    log_f("Loading area %s", pArea->file_name);
+    log_f("STATUS: Loading Area %s", pArea->file_name);
 
     for (;;)
     {
@@ -2492,10 +2502,10 @@ char *fread_word (FILE * fp)
  * Allocate some ordinary memory,
  *   with the expectation of freeing it someday.
  */
-void *alloc_mem (int sMem)
+void *alloc_mem (size_t sMem)
 {
     void *pMem;
-    int *magic;
+    size_t *magic;
     int iList;
 
     sMem += sizeof (*magic);
@@ -2523,9 +2533,9 @@ void *alloc_mem (int sMem)
     }
 
 #if !defined(_WIN32)
-    magic = (int *) pMem;
+    magic = ( size_t * ) pMem;
     *magic = MAGIC_NUM;
-    pMem += sizeof(*magic);
+    pMem = ( void * ) ( ( size_t ) pMem + ( size_t ) ( sizeof( *magic ) ) );
 #endif
 
     return pMem;
@@ -2535,15 +2545,15 @@ void *alloc_mem (int sMem)
  * Free some memory.
  * Recycle it back onto the free list for blocks of that size.
  */
-void free_mem (void *pMem, int sMem)
+void free_mem (void *pMem, size_t sMem)
 {
     int iList;
 
 #if !defined(_WIN32)
-    int *magic;
+    size_t *magic;
 
-    pMem -= sizeof (*magic);
-    magic = (int *) pMem;
+    pMem = ( void * ) ( ( size_t ) pMem - ( size_t ) sizeof( *magic ) );
+    magic = ( size_t * ) pMem;
 
     if (*magic != MAGIC_NUM)
     {
@@ -2579,10 +2589,10 @@ void free_mem (void *pMem, int sMem)
  * Permanent memory is never freed,
  *   pointers into it may be copied safely.
  */
-void *alloc_perm (int sMem)
+void *alloc_perm (size_t sMem)
 {
     static char *pMemPerm;
-    static int iMemPerm;
+    static size_t iMemPerm;
     void *pMem;
 
     while (sMem % sizeof (long) != 0)
@@ -2596,7 +2606,7 @@ void *alloc_perm (int sMem)
     if (pMemPerm == NULL || iMemPerm + sMem > MAX_PERM_BLOCK)
     {
         iMemPerm = 0;
-        if ((pMemPerm = calloc (1, MAX_PERM_BLOCK)) == NULL)
+        if (( pMemPerm = ( char * ) calloc(1, MAX_PERM_BLOCK )) == NULL)
         {
             perror ("Alloc_perm");
             exit (1);
@@ -2705,11 +2715,11 @@ void do_memory (CHAR_DATA * ch, char *argument)
     sprintf (buf, "Shops   %5d\n\r", top_shop);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Strings %5d strings of %7d bytes (max %d).\n\r",
+    sprintf (buf, "Strings %5d strings of %7zd bytes (max %d).\n\r",
              nAllocString, sAllocString, MAX_STRING);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Perms   %5d blocks  of %7d bytes.\n\r",
+    sprintf (buf, "Perms   %5d blocks  of %7zd bytes.\n\r",
              nAllocPerm, sAllocPerm);
     send_to_char (buf, ch);
 

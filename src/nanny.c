@@ -81,13 +81,13 @@
 /*
  * OS-dependent local functions.
  */
-#if defined(__APPLE__) 
+#if defined(__APPLE__)
     void game_loop args ((int control));
     bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
     bool write_to_descriptor args ((int desc, char *txt, int length));
 #endif
 
-#if defined(unix) 
+#if defined(unix)
     void game_loop args ((int control));
     int init_socket args ((int port));
     void init_descriptor args ((int control));
@@ -574,7 +574,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_GET_NEW_CLASS:
-			//reclass
+            //reclass
             iClass = class_lookup (argument);
 
             if (iClass == -1)
@@ -726,7 +726,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
                 sprintf (buf, "Creation points: %d\n\r", ch->pcdata->points);
                 send_to_char (buf, ch);
-                
+
 				//sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->gen_data->points_chosen));
                 sprintf (buf, "Experience per level: %d\n\r", exp_per_level (ch, ch->pcdata->points));
                 send_to_char(buf, ch);
@@ -734,7 +734,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 // Does this check ever fire?
 				if (ch->pcdata->points < 40)
                     ch->train = (40 - ch->pcdata->points + 1) / 2;
-                
+
 				free_gen_data (ch->gen_data);
                 ch->gen_data = NULL;
                 write_to_buffer (d, "\n\r", 2);
@@ -781,20 +781,12 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             send_to_desc("\n\rWelcome to {RCrimson {rSkies{x.\n\r\n\r", d);
 
-			// If the user is reclassing they will already be in the list, if not, add them.
-			if (ch->pcdata->is_reclassing == FALSE)
-			{
-				ch->next = char_list;
-				char_list = ch;
-			}
-			// reclass (the user may already be in the char list), perhaps a function to see if the
-			// user is in the char list and then skip this part, also, they maybe already in the room
-			// which will cause an endless loop on act or any roo, looping stuff.
-			//if (char_in_list(ch) == FALSE)
-            //{
-            //    ch->next = char_list;
-            //    char_list = ch;
-            //}
+            // If the user is reclassing they will already be in the list, if not, add them.
+            if (ch->pcdata->is_reclassing == FALSE)
+            {
+                ch->next = char_list;
+                char_list = ch;
+            }
 
             d->connected = CON_PLAYING;
             reset_char (ch);
@@ -830,18 +822,18 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 do_function (ch, &do_help, "newbie info");
                 send_to_char ("\n\r", ch);
             }
-			else if (ch->pcdata->is_reclassing == TRUE)
-			{
-				// Reclass, we need to reset their exp now that they've reclassed so they don't end up
+            else if (ch->pcdata->is_reclassing == TRUE)
+            {
+                // Reclass, we need to reset their exp now that they've reclassed so they don't end up
                 // with double the exp needed for the first level.
                 ch->exp = exp_per_level(ch, ch->pcdata->points);
 
                 // The user is no longer reclassing, set the flag as false so they will save properly.
                 ch->pcdata->is_reclassing = FALSE;
 
-				char_from_room(ch);
-				char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
-			}
+		char_from_room(ch);
+		char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+            }
             else if (ch->in_room != NULL)
             {
                 char_to_room (ch, ch->in_room);
@@ -857,6 +849,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             act ("$n has entered the game.", ch, NULL, NULL, TO_ROOM);
             do_function (ch, &do_look, "auto");
+
+            do_unread(ch,"");
 
             wiznet ("$N has left real life behind.", ch, NULL,
                     WIZ_LOGINS, WIZ_SITES, get_trust (ch));

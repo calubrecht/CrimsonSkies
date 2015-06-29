@@ -1288,9 +1288,6 @@ const struct skill_type skill_table[MAX_SKILL] = {
      NULL, SLOT (204), 150, 24,
      "blast of lightning", "!Lightning Breath!", ""},
 
-/*
- * Spells for mega1.are from Glop/Erkenbrand.
- */
     {
      "general purpose", {53, 53, 53, 53, 53}, {0, 0, 0, 0, 0},
      spell_general_purpose, TAR_CHAR_OFFENSIVE, POS_FIGHTING,

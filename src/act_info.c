@@ -670,11 +670,6 @@ void do_rules (CHAR_DATA * ch, char *argument)
     do_function (ch, &do_help, "rules");
 }
 
-void do_story (CHAR_DATA * ch, char *argument)
-{
-    do_function (ch, &do_help, "story");
-}
-
 void do_wizlist (CHAR_DATA * ch, char *argument)
 {
     do_function (ch, &do_help, "wizlist");

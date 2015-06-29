@@ -108,6 +108,8 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define MAX_LEVEL          60
 #define LEVEL_HERO         51
 #define LEVEL_IMMORTAL     52
+#define CODER              MAX_LEVEL - 2
+#define ADMIN              MAX_LEVEL - 1
 #define IMPLEMENTOR        MAX_LEVEL
 
 /* Added this for "orphaned help" code. Check do_help() -- JR */
@@ -184,7 +186,7 @@ struct buf_type
     BUFFER *    next;
     bool        valid;
     sh_int      state;  /* error state of the buffer */
-    sh_int      size;   /* size in k */
+    long        size;   /* size in k */
     char *      string; /* buffer's string */
 };
 
@@ -439,6 +441,18 @@ struct spec_type
     char *      name;      /* special function name */
     SPEC_FUN *  function;  /* the function          */
 };
+
+/*
+ * Data structure for notes.
+ */
+#define NOTE_NOTE       0
+#define NOTE_NEWS       1
+#define NOTE_CHANGES    2
+#define NOTE_PENALTY    3
+#define NOTE_OOC        4
+#define NOTE_STORY      5
+#define NOTE_HISTORY    6
+#define NOTE_IMM	7
 
 /*
  * Data structure for notes.
@@ -1341,6 +1355,7 @@ struct    char_data
     AREA_DATA *        zone;
     PC_DATA *          pcdata;
     GEN_DATA *         gen_data;
+    NOTE_DATA *        pnote;
     bool               valid;
     char *             name;
     long               id;
@@ -1406,7 +1421,6 @@ struct    char_data
     sh_int             dam_type;
     sh_int             start_pos;
     sh_int             default_pos;
-
     sh_int             mprog_delay;
 };
 
@@ -1437,6 +1451,14 @@ struct pc_data
     char *          alias_sub[MAX_ALIAS];
     int	            security;               /* OLC */ /* Builder security */   
     bool            is_reclassing;          /* Whether or not the user is currently reclassing */
+    time_t          last_note;
+    time_t          last_penalty;
+    time_t          last_news;
+    time_t          last_change;
+    time_t          last_ooc;
+    time_t          last_story;
+    time_t          last_history;
+    time_t          last_immnote;
 };
 
 /* Data for generating characters -- only used during generation */
@@ -1908,6 +1930,7 @@ extern  KILL_DATA               kill_table[];
 extern  char                    log_buf[];
 extern  TIME_INFO_DATA          time_info;
 extern  WEATHER_DATA            weather_info;
+extern  NOTE_DATA               * note_free;
 extern  OBJ_DATA                * obj_free;
 extern  bool                    MOBtrigger;
 extern  bool                    is_copyover;     // Whether a copyover is running or not
@@ -1988,6 +2011,15 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 #define SHUTDOWN_FILE       "shutdown.txt"       /* For 'shutdown'        */
 #define BAN_FILE            "ban.txt"
 #define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+
+#define NOTE_FILE           "../notes/note.note"
+#define PENALTY_FILE        "../notes/penalty.note"
+#define NEWS_FILE           "../notes/news.note"
+#define CHANGES_FILE        "../notes/change.note"
+#define OOC_FILE            "../notes/ooc.note"
+#define STORY_FILE          "../notes/story.note"
+#define HISTORY_FILE        "../notes/history.note"
+#define IMMNOTE_FILE	    "../notes/imm.note"
 
 /*
  * Our function prototypes.
@@ -2075,9 +2107,9 @@ char *   fread_string_eol    args( ( FILE *fp ) );
 void     fread_to_eol        args( ( FILE *fp ) );
 char *   fread_word          args( ( FILE *fp ) );
 long     flag_convert        args( ( char letter) );
-void *   alloc_mem           args( ( int sMem ) );
-void *   alloc_perm          args( ( int sMem ) );
-void     free_mem            args( ( void *pMem, int sMem ) );
+void *   alloc_mem           args( ( size_t sMem ) );
+void *   alloc_perm          args( ( size_t sMem ) );
+void     free_mem            args( ( void *pMem, size_t sMem ) );
 char *   str_dup             args( ( const char *str ) );
 void     free_string         args( ( char *pstr ) );
 int      number_fuzzy        args( ( int number ) );
