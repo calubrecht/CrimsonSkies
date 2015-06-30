@@ -32,14 +32,14 @@ void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, char *argument));
 
 /* for command types */
 #define ML 	MAX_LEVEL	/* implementor */
-#define L1	MAX_LEVEL - 1  	/* creator */
-#define L2	MAX_LEVEL - 2	/* supreme being */
-#define L3	MAX_LEVEL - 3	/* deity */
-#define L4 	MAX_LEVEL - 4	/* god */
-#define L5	MAX_LEVEL - 5	/* immortal */
-#define L6	MAX_LEVEL - 6	/* demigod */
-#define L7	MAX_LEVEL - 7	/* angel */
-#define L8	MAX_LEVEL - 8	/* avatar */
+#define L1	MAX_LEVEL - 1  	/* admin */
+#define L2	MAX_LEVEL - 2	/* coder */
+#define L3	MAX_LEVEL - 3	/* builder */
+#define L4 	MAX_LEVEL - 4	/* quest */
+#define L5	MAX_LEVEL - 5	/* role-play */
+#define L6	MAX_LEVEL - 6	/* story */
+#define L7	MAX_LEVEL - 7	/* retired */
+#define L8	MAX_LEVEL - 8	/* trial imm */
 #define IM	LEVEL_IMMORTAL 	/* avatar */
 
 /*
