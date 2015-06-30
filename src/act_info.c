@@ -1415,7 +1415,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
 
     scan_room = ch->in_room;
 
-    for (depth = 1; depth < MAX_DIR; depth++)
+    for (depth = 1; depth < 4; depth++)
     {
         if ((pExit = scan_room->exit[door]) != NULL)
         {
