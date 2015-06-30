@@ -4866,14 +4866,14 @@ void do_copyover (CHAR_DATA * ch, char *argument)
            {                        /* drop those logging on */
                write_to_descriptor (d->descriptor,
                                      "\n\rSorry, we are rebooting. Come back in a few minutes.\n\r",
-                                     0);
+                                     0, d);
                 close_socket (d);    /* throw'em out */
             }
             else
             {
                 fprintf (fp, "%d %s %s\n", d->descriptor, och->name, d->host);
                 save_char_obj (och);
-                write_to_descriptor (d->descriptor, buf, 0);
+                write_to_descriptor (d->descriptor, buf, 0, d);
             }
         }
 
@@ -4936,7 +4936,7 @@ void copyover_recover ()
 
         /* Write something, and check if it goes error-free */
         if (!write_to_descriptor
-            (desc, "\n\rRestoring from copyover...\n\r", 0))
+            (desc, "\n\rRestoring from copyover...\n\r", 0, NULL))
         {
 #if defined(_WIN32)
             _close(desc);        /* nope */
@@ -4964,14 +4964,14 @@ void copyover_recover ()
         {                        /* Player file not found?! */
             write_to_descriptor (desc,
                                  "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r",
-                                 0);
+                                 0, d);
             close_socket (d);
         }
         else
         {                        /* ok! */
 
             write_to_descriptor (desc, "\n\rCopyover recovery complete.\n\r",
-                                 0);
+                                 0, d);
 
             /* Just In Case */
             if (!d->character->in_room)
@@ -5353,7 +5353,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (room != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5372,7 +5372,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0);
+        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
 
         return;
     }
@@ -5396,7 +5396,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (obj != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5415,7 +5415,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0);
+        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
     }
     else if (!str_cmp(arg, "mob"))
     {
@@ -5437,7 +5437,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (mob != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\n\r", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0);
+                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5456,7 +5456,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\n\r", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0);
+        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
     }
     else
     {

@@ -1512,7 +1512,7 @@ void do_alist( CHAR_DATA *ch, char *argument )
 
     output = new_buf();
 
-    sprintf( result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
+    sprintf( result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]",
        "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders" );
     send_to_char( result, ch );
 

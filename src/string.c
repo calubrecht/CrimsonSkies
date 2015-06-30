@@ -730,3 +730,20 @@ char *num_punct(int foo)
     buf_new[index_new] = '\0';
     return buf_new;
 }
+
+/*
+ * Counts the number of lines in a string as defined by \r
+ */
+int line_count(char *orig)
+{
+    char   *rdesc;
+    int     current_line = 1;
+
+    for (rdesc = orig; *rdesc; rdesc++)
+    {
+       if (*rdesc == '\r')
+         current_line++;
+    }
+
+    return current_line;
+}

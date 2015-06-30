@@ -85,6 +85,8 @@
     extern int malloc_verify args ((void));
 #endif
 
+int line_count	args( (char *orig) );
+
 #if defined(unix) || defined(_WIN32)
     #include <signal.h>
 #endif
@@ -184,7 +186,7 @@ bool MOBtrigger = TRUE;            /* act() switch                 */
     int init_socket args ((int port));
     void init_descriptor args ((int control));
     bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args ((int desc, char *txt, int length));
+    bool write_to_descriptor args ((int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 #endif
 
 /*
@@ -753,7 +755,7 @@ void init_descriptor (int control)
     {
         write_to_descriptor (desc,
                              "Your site has been banned from this mud.\n\r",
-                             0);
+                             0, dnew);
 
 #if defined(_WIN32)
         closesocket(desc);
@@ -774,7 +776,7 @@ void init_descriptor (int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0);
+    write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0, dnew);
 
     return;
 }
@@ -883,7 +885,7 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
         sprintf (log_buf, "%s input overflow!", d->host);
         log_string (log_buf);
         write_to_descriptor (d->descriptor,
-                             "\n\r*** PUT A LID ON IT!!! ***\n\r", 0);
+                             "\n\r*** PUT A LID ON IT!!! ***\n\r", 0, d);
         return FALSE;
     }
 
@@ -975,7 +977,7 @@ void read_from_buffer (DESCRIPTOR_DATA * d)
     {
         if (k >= MAX_INPUT_LENGTH - 2)
         {
-            write_to_descriptor (d->descriptor, "Line too long.\n\r", 0);
+            write_to_descriptor (d->descriptor, "Line too long.\n\r", 0, d);
 
             /* skip the rest of the line */
             for (; d->inbuf[i] != '\0'; i++)
@@ -1156,7 +1158,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
     /*
      * OS-dependent output.
      */
-    if (!write_to_descriptor (d->descriptor, d->outbuf, d->outtop))
+    if (!write_to_descriptor (d->descriptor, d->outbuf, d->outtop, d))
     {
         d->outtop = 0;
         return FALSE;
@@ -1391,62 +1393,78 @@ void bust_a_prompt (CHAR_DATA * ch)
     return;
 }
 
-
-
 /*
  * Append onto an output buffer.
  */
-void write_to_buffer (DESCRIPTOR_DATA * d, const char *txt, int length)
+void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 {
     /*
      * Find length in case caller didn't.
      */
-    if (length <= 0)
-        length = strlen (txt);
+    if ( length <= 0 )
+	length = strlen(txt);
+
+    // can't update null descriptor
+    if (d == NULL)
+	return;
 
     /*
      * Initial \n\r if needed.
      */
-    if (d->outtop == 0 && !d->fcommand)
+    if ( d->outtop == 0 && !d->fcommand )
     {
-        d->outbuf[0] = '\n';
-        d->outbuf[1] = '\r';
-        d->outtop = 2;
+	d->outbuf[0]	= '\n';
+	d->outbuf[1]	= '\r';
+	d->outtop	= 2;
     }
 
     /*
      * Expand the buffer as needed.
      */
-    while (d->outtop + length >= d->outsize)
+    while ( d->outtop + length >= d->outsize )
     {
-        char *outbuf;
+	char *outbuf;
 
         if (d->outsize >= 32000)
-        {
-            bug ("Buffer overflow. Closing.\n\r", 0);
-            close_socket (d);
-            return;
-        }
-        outbuf = alloc_mem (2 * d->outsize);
-        strncpy (outbuf, d->outbuf, d->outtop);
-        free_mem (d->outbuf, d->outsize);
-        d->outbuf = outbuf;
-        d->outsize *= 2;
+	{
+            char abuf[ MAX_STRING_LENGTH ];
+            char* pOverflowMsg = "There is too much for you to take in. Your senses shut down.\n\r";
+
+            if ( d->character != NULL )
+            {
+                sprintf( abuf, "Write to buffer - Buffer overflow from %s. Check what this char is doing.\n\r",
+                         d->character->name );
+                bug( abuf, 0 );
+            }
+
+            free_mem( d->outbuf, d->outsize );
+            outbuf = alloc_mem( 2048 );
+            strncpy( outbuf, pOverflowMsg, strlen( pOverflowMsg ) );
+            d->outbuf = outbuf;
+            d->outsize = 2048;
+            d->outtop = strlen( pOverflowMsg );
+	    return;
+ 	}
+	outbuf      = alloc_mem( 2 * d->outsize );
+	strncpy( outbuf, d->outbuf, d->outtop );
+	free_mem( d->outbuf, d->outsize );
+	d->outbuf   = outbuf;
+	d->outsize *= 2;
     }
 
     /*
      * Copy.
      */
-    strncpy (d->outbuf + d->outtop, txt, length);
+    strcpy( d->outbuf + d->outtop, txt );
     d->outtop += length;
     return;
-}
+} // end void write_to_buffer
 
 /*
  * Rhien 5/15/2015
  * Writes a message to all descriptors using write_to_descriptor which is
  * low level with no color.  This can be used to send a message to every
- * connected socket.  This is useful where no other logic in the loop is 
+ * connected socket.  This is useful where no other logic in the loop is
  * needed.
  */
 void write_to_all_desc(char *txt)
@@ -1455,7 +1473,7 @@ void write_to_all_desc(char *txt)
 
     for (d = descriptor_list; d != NULL; d = d->next)
     {
-        write_to_descriptor(d->descriptor, txt, 0);
+        write_to_descriptor(d->descriptor, txt, 0, d);
     }
 }
 
@@ -1477,50 +1495,142 @@ void send_to_all_char(char *txt)
 }
 
 /*
- * Lowest level output function.
- * Write a block of text to the file descriptor.
- * If this gives errors on very long blocks (like 'ofind all'),
+ * - Lowest level output function.
+ * - Write a block of text to the file descriptor.
+ * - If this gives errors on very long blocks (like 'ofind all') then
  *   try lowering the max block size.
+ * - Lope's color code moved into here so color can be used from the lowest level
  */
-bool write_to_descriptor (int desc, char *txt, int length)
+bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
 {
-    int iStart;
-    int nWrite;
+    register int iStart;
+    register int nWrite;
     int nBlock;
+    BUFFER *txt;
+    char *point;
+    char buf[2];
+    char buf2[MAX_STRING_LENGTH];
 
-#if defined(__APPLE__) 
-    if (desc == 0)
-        desc = 1;
-#endif
-
-    if (length <= 0)
-        length = strlen (txt);
-
-    for (iStart = 0; iStart < length; iStart += nWrite)
+    txt = new_buf();
+    buf[1] = '\0';
+    for(point = str; *point; point++)
     {
-        nBlock = UMIN (length - iStart, 4096);
-
-#if defined(_WIN32)
-    if ( ( nWrite = send( desc, txt + iStart, nBlock , 0) ) < 0 )
+        if( *point == '{' && (point+1 != NULL) )
         {
-            perror ("Write_to_descriptor");
-            return FALSE;
+            ++point;
+            if ( d->ansi & 1 || *point == '!' || *point == '-' )
+            {
+                switch( *point )
+                {
+                    case 'x':
+                        sprintf( buf2, CLEAR );
+                        break;
+                    case 'b':
+                        sprintf( buf2, C_BLUE );
+                        break;
+                    case 'c':
+                        sprintf( buf2, C_CYAN );
+                        break;
+                    case 'g':
+                        sprintf( buf2, C_GREEN );
+                        break;
+                    case 'm':
+                        sprintf( buf2, C_MAGENTA );
+                        break;
+                    case 'r':
+                        sprintf( buf2, C_RED );
+                        break;
+                    case 'w':
+                        sprintf( buf2, C_WHITE );
+                        break;
+                    case 'y':
+                        sprintf( buf2, C_YELLOW );
+                        break;
+                    case 'B':
+                        sprintf( buf2, C_B_BLUE );
+                        break;
+                    case 'C':
+                        sprintf( buf2, C_B_CYAN );
+                        break;
+                    case 'G':
+                        sprintf( buf2, C_B_GREEN );
+                        break;
+                    case 'M':
+                        sprintf( buf2, C_B_MAGENTA );
+                        break;
+                    case 'R':
+                        sprintf( buf2, C_B_RED );
+                        break;
+                    case 'W':
+                        sprintf( buf2, C_B_WHITE );
+                        break;
+                    case 'Y':
+                        sprintf( buf2, C_B_YELLOW );
+                        break;
+		     //case 'Z':
+		     //  sprintf( buf2, BLACK );
+		     //  break;
+                    case 'D':
+                        sprintf( buf2, C_D_GREY );
+                        break;
+                    case '!':
+                        sprintf(buf2, "%c", '\a');
+                        break;
+                    case '{':
+                        sprintf( buf2, "%c", '{' );
+                        break;
+                    case '*':
+                        sprintf(buf2, BLINK);
+                        break;
+                    case '_':
+                        sprintf(buf2, UNDERLINE);
+                        break;
+                    case '&':
+                        sprintf(buf2, REVERSE);
+                        break;
+                    case '-':
+                        sprintf(buf2, "%c",'~');
+                        break;
+                    default:
+                        sprintf( buf2, CLEAR );
+                        break;
+		    }
+                    add_buf(txt, buf2);
+                    continue;
+            }
+            continue;
         }
-#else
-        if ((nWrite = write (desc, txt + iStart, nBlock)) < 0)
+        else if( *point == '!' )
         {
-            perror("Write_to_descriptor");
-            return FALSE;
+              ++point;
+              --point;
+              sprintf (buf2,"!");
+              add_buf(txt, buf2);
+              continue;
         }
-#endif
 
+	buf[0] = *point;
+	add_buf(txt,buf);
     }
 
+    length = strlen(buf_string(txt));
+
+    for ( iStart = 0; iStart < length; iStart += nWrite )
+    {
+        nBlock = UMIN( length - iStart, 4096 );
+        if ( ( nWrite = write( desc, buf_string(txt) + iStart, nBlock ) ) < 0 )
+        {
+            return FALSE;
+        }
+    }
+
+    free_buf(txt);
     return TRUE;
-}
+} // end bool write_to_descriptor
 
-
-
+/*
+ * Writes a formattec entry to the log table.
+ */
 void log_f (char *fmt, ...)
 {
     char buf[2 * MSL];
@@ -1530,7 +1640,7 @@ void log_f (char *fmt, ...)
     va_end (args);
 
     log_string (buf);
-}
+} // end void log_f
 
 /*
  * Parse a name for acceptability.
@@ -1626,7 +1736,7 @@ bool check_parse_name (char *name)
 
     /*
      * Edwin's been here too. JR -- 10/15/00
-     * 
+     *
      * Check names of people playing. Yes, this is necessary for multiple
      * newbies with the same name (thanks Saro)
      */
@@ -1729,8 +1839,6 @@ bool check_playing (DESCRIPTOR_DATA * d, char *name)
     return FALSE;
 }
 
-
-
 void stop_idling (CHAR_DATA * ch)
 {
     if (ch == NULL
@@ -1747,88 +1855,21 @@ void stop_idling (CHAR_DATA * ch)
     return;
 }
 
-
-
 /*
  * Write to one char.
  */
-void send_to_char_bw (const char *txt, CHAR_DATA * ch)
+void send_to_char( const char *txt, CHAR_DATA *ch )
 {
-    if (txt != NULL && ch->desc != NULL)
-        write_to_buffer (ch->desc, txt, strlen (txt));
-    return;
-}
-
-/*
- * Send a page to one char.
- */
-void page_to_char_bw (const char *txt, CHAR_DATA * ch)
-{
-    if (txt == NULL || ch->desc == NULL)
-        return;
-
-    if (ch->lines == 0)
+    if ( txt != NULL )
     {
-        send_to_char_bw (txt, ch);
-        return;
-    }
-
-    ch->desc->showstr_head = alloc_mem (strlen (txt) + 1);
-    strcpy (ch->desc->showstr_head, txt);
-    ch->desc->showstr_point = ch->desc->showstr_head;
-    show_string (ch->desc, "");
-}
-
-/*
- * Page to one char, new color version, by Lope.
- */
-void send_to_char (const char *txt, CHAR_DATA * ch)
-{
-    const char *point;
-    char *point2;
-    char buf[MAX_STRING_LENGTH * 4];
-    int skip = 0;
-
-    buf[0] = '\0';
-    point2 = buf;
-    if (txt && ch->desc)
-    {
-        if (IS_SET (ch->act, PLR_COLOR))
+        if ( ch->desc != NULL )
         {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    skip = color (*point, ch, point2);
-                    while (skip-- > 0)
-                        ++point2;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer (ch->desc, buf, point2 - buf);
-        }
-        else
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer (ch->desc, buf, point2 - buf);
+            write_to_buffer( ch->desc, txt, strlen(txt) );
         }
     }
+
     return;
-}
+} // end send_to_char
 
 /*
  * Page to one descriptor using Lope's color.
@@ -1881,117 +1922,288 @@ void send_to_desc (const char *txt, DESCRIPTOR_DATA * d)
     return;
 }
 
-void page_to_char (const char *txt, CHAR_DATA * ch)
+/*
+ * Send a page to one char.
+ */
+void page_to_char( const char *txt, CHAR_DATA *ch )
 {
-    const char *point;
-    char *point2;
-    char buf[MAX_STRING_LENGTH * 4];
-    int skip = 0;
-
-#if defined(__APPLE__)
-    send_to_char (txt, ch);
-#else
-    buf[0] = '\0';
-    point2 = buf;
-    if (txt && ch->desc)
+    if ( txt == NULL || ch->desc == NULL)
     {
-        if (IS_SET (ch->act, PLR_COLOR))
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    skip = color (*point, ch, point2);
-                    while (skip-- > 0)
-                        ++point2;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            ch->desc->showstr_head = alloc_mem (strlen (buf) + 1);
-            strcpy (ch->desc->showstr_head, buf);
-            ch->desc->showstr_point = ch->desc->showstr_head;
-            show_string (ch->desc, "");
-        }
-        else
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            ch->desc->showstr_head = alloc_mem (strlen (buf) + 1);
-            strcpy (ch->desc->showstr_head, buf);
-            ch->desc->showstr_point = ch->desc->showstr_head;
-            show_string (ch->desc, "");
-        }
+        return;
     }
-#endif
-    return;
-}
 
-/* string pager */
-void show_string (struct descriptor_data *d, char *input)
+    if (ch->lines == 0 && strlen(txt) <= 16384 )
+    {
+        send_to_char(txt,ch);
+        return;
+    }
+
+    if (ch->desc->showstr_head &&
+        (strlen(txt)+strlen(ch->desc->showstr_head)+1) < 32000)
+    {
+        char *temp=alloc_mem(strlen(txt) + strlen(ch->desc->showstr_head) + 1);
+        strcpy(temp, ch->desc->showstr_head);
+        strcat(temp, txt);
+        ch->desc->showstr_point = temp +
+        (ch->desc->showstr_point - ch->desc->showstr_head);
+        free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head) + 1);
+        ch->desc->showstr_head=temp;
+    }
+    else
+    {
+        if (ch->desc->showstr_head)
+        free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head)+1);
+        ch->desc->showstr_head = alloc_mem(strlen(txt) + 1);
+        strcpy(ch->desc->showstr_head,txt);
+        ch->desc->showstr_point = ch->desc->showstr_head;
+        show_string(ch->desc,"");
+    }
+
+} // end void page_to_char
+
+/*
+ * Old String Pager
+ */
+void show_string_old(struct descriptor_data *d, char *input)
 {
-    char buffer[4 * MAX_STRING_LENGTH];
+    char buffer[4*MAX_STRING_LENGTH];
     char buf[MAX_INPUT_LENGTH];
     register char *scan, *chk;
     int lines = 0, toggle = 1;
     int show_lines;
 
-    one_argument (input, buf);
+    one_argument(input,buf);
     if (buf[0] != '\0')
     {
         if (d->showstr_head)
         {
-            free_mem (d->showstr_head, strlen (d->showstr_head));
+            free_mem(d->showstr_head,strlen(d->showstr_head));
             d->showstr_head = 0;
         }
-        d->showstr_point = 0;
+        d->showstr_point  = 0;
         return;
     }
 
     if (d->character)
-        show_lines = d->character->lines;
-    else
-        show_lines = 0;
-
-    for (scan = buffer;; scan++, d->showstr_point++)
     {
-        if (((*scan = *d->showstr_point) == '\n' || *scan == '\r')
-            && (toggle = -toggle) < 0)
-            lines++;
+        show_lines = d->character->lines;
+    }
+    else
+    {
+        show_lines = 0;
+    }
 
+    if (strlen(d->showstr_point) >= 16384)
+    {
+        show_lines = PAGELEN;
+    }
+
+    for (scan = buffer; ; scan++, d->showstr_point++)
+    {
+        if (((*scan = *d->showstr_point) == '\n' || *scan == '\r') && (toggle = -toggle) < 0)
+        {
+            lines++;
+        }
         else if (!*scan || (show_lines > 0 && lines >= show_lines))
         {
             *scan = '\0';
-            write_to_buffer (d, buffer, strlen (buffer));
-            for (chk = d->showstr_point; isspace (*chk); chk++);
+            write_to_buffer(d,buffer,strlen(buffer));
+            for (chk = d->showstr_point; isspace(*chk); chk++);
             {
                 if (!*chk)
                 {
                     if (d->showstr_head)
                     {
-                        free_mem (d->showstr_head, strlen (d->showstr_head));
+                        free_mem(d->showstr_head,strlen(d->showstr_head));
                         d->showstr_head = 0;
                     }
-                    d->showstr_point = 0;
+                    d->showstr_point  = 0;
                 }
             }
             return;
         }
     }
     return;
-}
+} // end old_show_string
+
+/*
+ * New String Pager
+ */
+void show_string(struct descriptor_data *d, char *input)
+{
+    char buffer[ MAX_STRING_LENGTH*4 ];
+    char buf[ MAX_INPUT_LENGTH ];
+    register char *scan, *chk;
+    int lines = 0, toggle=1;
+    int space;
+    int show_lines;
+    int max_linecount;
+
+    if (d->character)
+    {
+        show_lines = d->character->lines;
+    }
+    else
+    {
+        show_lines = 0;
+    }
+
+    if (strlen(d->showstr_point) >= 16384)
+    {
+        show_lines = PAGELEN;
+    }
+
+    if (show_lines == 0) 
+    {
+        show_string_old(d,input);
+        return;
+    }
+
+    one_argument(input, buf);
+
+    if(strlen(buf) > 2)
+    {
+        if ( d->showstr_head )
+        {
+          free_mem( d->showstr_head, strlen(d->showstr_head)+1);
+          d->showstr_head  = 0;
+        }
+
+        d->showstr_point = 0;
+
+        if ( d->connected == CON_PLAYING )
+        {
+            substitute_alias( d, d->incomm );
+        }
+
+       return;
+    }
+
+    max_linecount = line_count(d->showstr_head);
+
+    switch( UPPER( buf[0] ) )
+    {
+        case '\0':
+        case 'C': /* show next page of text */
+            lines = 0;
+            break;
+        case 'R': /* refresh current page of text */
+            lines = - (d->character->lines);
+            if (( max_linecount - line_count(d->showstr_point)) <= d->character->lines )
+            {
+                lines--;
+            }
+            break;
+        case 'B': /* scroll back a page of text */
+            lines = -(2*d->character->lines);
+            break;
+        case 'E': /* Go to the end of the buffer - page */
+            lines = max_linecount - (d->character->lines) - (d->character->lines) / 2;
+            break;
+        case 'T': /* Go to the top of the buffer - page */
+            lines = 0;
+            d->showstr_point = d->showstr_head;
+            break;
+        case 'H': /* Show some help */
+            write_to_buffer( d, "\n\rC, or Return = continue, R = redraw this page, B = back one page\n\r", 0 );
+            write_to_buffer( d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\n\r",0 );
+            return;
+            break;
+        case 'Q': /*otherwise, stop the text viewing */
+            if ( d->showstr_head )
+            {
+                free_mem( d->showstr_head, strlen(d->showstr_head)+1);
+                d->showstr_head  = 0;
+            }
+
+            d->showstr_point = 0;
+           return;
+        default:
+            if ( d->showstr_head )
+            {
+                free_mem( d->showstr_head, strlen(d->showstr_head)+1);
+                d->showstr_head  = 0;
+            }
+            d->showstr_point = 0;
+
+            if ( d->connected == CON_PLAYING )
+            {
+                substitute_alias( d, d->incomm );
+            }
+            return;
+    }
+
+    if (max_linecount > d->character->lines)
+        write_to_buffer( d, "\n\r",0);
+
+    /* do any backing up necessary */
+    if (lines < 0)
+    {
+        for ( scan = d->showstr_point; scan > d->showstr_head; scan-- )
+        {
+	    if ( ( *scan == '\n' ) || ( *scan == '\r' ) )
+            {
+                toggle = -toggle;
+                if ( toggle < 0 )
+                {
+		    if ( !( ++lines ) )
+		         break;
+                }
+            }
+        }
+        d->showstr_point = scan;
+    }
+    else if (lines > 0)
+    {
+        for ( scan = d->showstr_head; *scan; scan++ )
+        {
+            if ( ( *scan == '\n' ) || ( *scan == '\r' ) )
+            {
+                toggle = -toggle;
+                if ( toggle < 0 )
+                {
+                    if ( !( --lines ) )
+		        break;
+                }
+	    }
+        }
+        d->showstr_point = scan;
+    }
+
+    /* show a chunk */
+    lines  = 0;
+    toggle = 1;
+
+    space= MAX_STRING_LENGTH*2 - 100;
+    for ( scan = buffer; ; scan++, d->showstr_point++ )
+    {
+        space--;
+        if ( ( ( *scan = *d->showstr_point ) == '\n' || *scan == '\r' ) && ( toggle = -toggle ) < 0 && space>0 )
+	   lines++;
+        else if ( !*scan || ( d->character && !IS_NPC( d->character ) && lines >= d->character->lines) || space <= 0)
+	{
+            *scan = '\0';
+            write_to_buffer( d, buffer, strlen( buffer ) );
+
+           /* See if this is the end (or near the end) of the string */
+           for ( chk = d->showstr_point; isspace( *chk ); chk++ );
+           {
+               if ( !*chk )
+               {
+                   if ( d->showstr_head )
+                   {
+                      free_mem( d->showstr_head, strlen(d->showstr_head)+1);
+                      d->showstr_head  = 0;
+                   }
+                   d->showstr_point = 0;
+               }
+            }
+            return;
+        }
+    }
+
+    return;
+} // end void show_string
 
 void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
               const void *arg2, int type, int min_pos)

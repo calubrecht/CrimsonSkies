@@ -84,7 +84,7 @@
 #if defined(__APPLE__)
     void game_loop args ((int control));
     bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args ((int desc, char *txt, int length));
+    bool write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 #endif
 
 #if defined(unix)
@@ -92,7 +92,7 @@
     int init_socket args ((int port));
     void init_descriptor args ((int control));
     bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args ((int desc, char *txt, int length));
+    bool write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 #endif
 
 /*

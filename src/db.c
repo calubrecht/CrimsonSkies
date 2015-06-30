@@ -2672,7 +2672,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
     sprintf(buf, "[%-5s] [%-38s] [%-25s]\n\r", "Level", "Area Name", "Builders");
     send_to_char(buf, ch);
 
-    sprintf(buf, "----------------------------------------------------------------------------\n\r");
+    sprintf(buf, "----------------------------------------------------------------------------");
     send_to_char(buf, ch);
 
     for (pArea = area_first; pArea; pArea = pArea->next)

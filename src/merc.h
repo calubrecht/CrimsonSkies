@@ -2080,7 +2080,7 @@ void     act_new             args( ( const char *format, CHAR_DATA *ch, const vo
 void     printf_to_char      args( ( CHAR_DATA *, char *, ... ) );
 void     printf_to_desc      args( ( DESCRIPTOR_DATA *, char *, ... ) );
 void     bugf                args( ( char *, ... ) );
-bool     write_to_descriptor args( ( int desc, char *txt, int length ) );
+bool     write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 void     write_to_all_desc   args( ( char *txt) );
 void     send_to_all_char    args( ( char *txt) );
 
