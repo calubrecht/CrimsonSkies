@@ -850,6 +850,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             act ("$n has entered the game.", ch, NULL, NULL, TO_ROOM);
             do_function (ch, &do_look, "auto");
 
+            // Line break in between the look and the unread for formatting
+            send_to_char("\n\r", ch);
+
             do_unread(ch,"");
 
             wiznet ("$N has left real life behind.", ch, NULL,
