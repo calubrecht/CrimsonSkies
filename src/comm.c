@@ -1073,7 +1073,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
     if (!merc_down)
     {
         if (d->showstr_point)
-            write_to_buffer (d, "[Hit Return to continue]\n\r", 0);
+            write_to_buffer( d, "\n\r{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
             write_to_buffer (d, "> ", 2);
         else if (fPrompt && d->connected == CON_PLAYING)
