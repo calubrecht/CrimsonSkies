@@ -2669,15 +2669,15 @@ void do_areas (CHAR_DATA * ch, char *argument)
     output = new_buf();
 
     // Send the header
-    sprintf(buf, "[%-5s] [%-38s] [%-25s]\n\r", "Level", "Area Name", "Builders");
+    sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-23s{x]\n\r", "Level", "Area Name", "Builders");
     send_to_char(buf, ch);
 
-    sprintf(buf, "----------------------------------------------------------------------------");
+    sprintf(buf, "---------------------------------------------------------------------------");
     send_to_char(buf, ch);
 
     for (pArea = area_first; pArea; pArea = pArea->next)
     {
-        sprintf (buf, "[%2d %2d] %-40.40s [%-25.25s]\n\r",
+        sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
             pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
         add_buf(output, buf);
     }
