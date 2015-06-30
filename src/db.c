@@ -2669,7 +2669,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
     output = new_buf();
 
     // Send the header
-    sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-23s{x]\n\r", "Level", "Area Name", "Builders");
+    sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-25s{x]\n\r", "Level", "Area Name", "Builders");
     send_to_char(buf, ch);
 
     sprintf(buf, "---------------------------------------------------------------------------");
