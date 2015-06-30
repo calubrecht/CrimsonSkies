@@ -49,12 +49,17 @@
 
 /* RT code to delete yourself */
 
+/*
+ * Void to force player to fully type out delete if they want to delete.
+ */
 void do_delet (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("You must type the full command to delete yourself.\n\r",
-                  ch);
-}
+    send_to_char ("You must type the full command to delete yourself.\n\r", ch);
+} // end void do_delet
 
+/*
+ * Delete command that will allow a player to delete their pfile.
+ */
 void do_delete (CHAR_DATA * ch, char *argument)
 {
     char strsave[MAX_INPUT_LENGTH];
@@ -95,15 +100,14 @@ void do_delete (CHAR_DATA * ch, char *argument)
 
     send_to_char ("Type delete again to confirm this command.\n\r", ch);
     send_to_char ("WARNING: this command is irreversible.\n\r", ch);
-    send_to_char
-        ("Typing delete with an argument will undo delete status.\n\r", ch);
+    send_to_char ("Typing delete with an argument will undo delete status.\n\r", ch);
     ch->pcdata->confirm_delete = TRUE;
     wiznet ("$N is contemplating deletion.", ch, NULL, 0, 0, get_trust (ch));
-}
+} // end void do_delete
 
-
-/* RT code to display channel status */
-
+/*
+ * RT code to display channel status
+ */
 void do_channels (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -114,54 +118,54 @@ void do_channels (CHAR_DATA * ch, char *argument)
 
     send_to_char ("{dgossip{x         ", ch);
     if (!IS_SET (ch->comm, COMM_NOGOSSIP))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     send_to_char ("{aauction{x        ", ch);
     if (!IS_SET (ch->comm, COMM_NOAUCTION))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     send_to_char ("{qQ{x/{fA{x            ", ch);
     if (!IS_SET (ch->comm, COMM_NOQUESTION))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     send_to_char ("{tgrats{x          ", ch);
     if (!IS_SET (ch->comm, COMM_NOGRATS))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     if (IS_IMMORTAL (ch))
     {
         send_to_char ("{igod channel{x    ", ch);
         if (!IS_SET (ch->comm, COMM_NOWIZ))
-            send_to_char ("ON\n\r", ch);
+            send_to_char ("{GON{x\n\r", ch);
         else
-            send_to_char ("OFF\n\r", ch);
+            send_to_char ("{ROFF{x\n\r", ch);
     }
 
     send_to_char ("{tshouts{x         ", ch);
     if (!IS_SET (ch->comm, COMM_SHOUTSOFF))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     send_to_char ("{ktells{x          ", ch);
     if (!IS_SET (ch->comm, COMM_DEAF))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     send_to_char ("{tquiet mode{x     ", ch);
     if (IS_SET (ch->comm, COMM_QUIET))
-        send_to_char ("ON\n\r", ch);
+        send_to_char ("{GON{x\n\r", ch);
     else
-        send_to_char ("OFF\n\r", ch);
+        send_to_char ("{ROFF{x\n\r", ch);
 
     if (IS_SET (ch->comm, COMM_AFK))
         send_to_char ("You are AFK.\n\r", ch);
@@ -199,13 +203,13 @@ void do_channels (CHAR_DATA * ch, char *argument)
     if (IS_SET (ch->comm, COMM_NOEMOTE))
         send_to_char ("You cannot show emotions.\n\r", ch);
 
-}
+} // end void do_channels
 
-/* RT deaf blocks out all shouts */
-
+/*
+ * RT deaf blocks out all shouts and a few other forms of communication.
+ */
 void do_deaf (CHAR_DATA * ch, char *argument)
 {
-
     if (IS_SET (ch->comm, COMM_DEAF))
     {
         send_to_char ("You can now hear tells again.\n\r", ch);
@@ -216,10 +220,11 @@ void do_deaf (CHAR_DATA * ch, char *argument)
         send_to_char ("From now on, you won't hear tells.\n\r", ch);
         SET_BIT (ch->comm, COMM_DEAF);
     }
-}
+} // end do_deaf
 
-/* RT quiet blocks out all communication */
-
+/*
+ * RT quiet blocks out all communication
+ */
 void do_quiet (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_QUIET))
@@ -233,10 +238,11 @@ void do_quiet (CHAR_DATA * ch, char *argument)
                       ch);
         SET_BIT (ch->comm, COMM_QUIET);
     }
-}
+} // end do_quiet
 
-/* afk command */
-
+/*
+ * AFK (away from keyboard) command
+ */
 void do_afk (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_AFK))
@@ -250,8 +256,12 @@ void do_afk (CHAR_DATA * ch, char *argument)
         send_to_char ("You are now in AFK mode.\n\r", ch);
         SET_BIT (ch->comm, COMM_AFK);
     }
-}
+} // end do_afk
 
+/*
+ * Replay command, attempts to show the users tells that they missed while they
+ * were AFK or in a mode where they could not see them.
+ */
 void do_replay (CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC (ch))
@@ -268,9 +278,11 @@ void do_replay (CHAR_DATA * ch, char *argument)
 
     page_to_char (buf_string (ch->pcdata->buffer), ch);
     clear_buf (ch->pcdata->buffer);
-}
+} // end do_replay
 
-/* RT auction rewritten in ROM style */
+/*
+ * RT auction channel rewritten in ROM style
+ */
 void do_auction (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -308,7 +320,7 @@ void do_auction (CHAR_DATA * ch, char *argument)
         REMOVE_BIT (ch->comm, COMM_NOAUCTION);
     }
 
-    sprintf (buf, "{aYou auction '{A%s{a'{x\n\r", argument);
+    sprintf (buf, "{xYou auction '{m%s{x'\n\r", argument);
     send_to_char (buf, ch);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
@@ -321,11 +333,11 @@ void do_auction (CHAR_DATA * ch, char *argument)
             !IS_SET (victim->comm, COMM_NOAUCTION) &&
             !IS_SET (victim->comm, COMM_QUIET))
         {
-            act_new ("{a$n auctions '{A$t{a'{x",
+            act_new ("{x$n auctions '{m$t{x'",
                      ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
-}
+} // end do_auction
 
 /* RT chat replaced with ROM gossip */
 void do_gossip (CHAR_DATA * ch, char *argument)
