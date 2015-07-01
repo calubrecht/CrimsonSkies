@@ -1667,7 +1667,7 @@ void do_score(CHAR_DATA * ch, char *argument)
         ch->carry_weight, can_carry_w(ch));
 
 
-    printf_to_char(ch, "                                 {gWimpy: {w%-5d{x\n\r", ch->wimpy);
+    printf_to_char(ch, "                   {gWimpy: {w%-5d{x\n\r", ch->wimpy);
 
     printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
         ch->practice, ch->hit, ch->max_hit,
