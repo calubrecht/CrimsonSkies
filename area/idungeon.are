@@ -270,6 +270,22 @@ ABH 0 3 0
 EFNU 0 0 0
 sleep sit female 3
 AHMV ABCDEFGHIJK medium unknown
+#270
+oldstyle dragon pet~
+the pet dragon~
+Ravan's pet dragon is bouncing around here flapping her cute wings.
+~
+Ravan's pet dragon is about 3 ft. tall with small pointy teeth.
+The small wings are eagerly trying to lift her from the ground,
+but so far they haven't succeeded.
+~
+dragon~
+ABHR DHJT 3 0
+10 0 2d6+110 10d9+100 1d8+1 none
+2 2 2 6
+FR 0 BEH FI
+stand stand female 0
+AHZ ACDEFGHIJKPQUVX medium unknown
 #0
 
 
@@ -298,6 +314,7 @@ M 254 spec_thief
 M 256 spec_cast_judge
 M 260 spec_cast_judge
 M 261 spec_cast_judge
+M 270 spec_cast_mage
 S
 
 

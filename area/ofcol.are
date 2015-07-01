@@ -148,32 +148,6 @@ The village square is as usual not overcrowded.
 ~
 0 -1 5552
 S
-#5577
-Ravan's hideout~
-This place is a small, cosy place where no one disturbs you all
-the time. The room has little decoration except for some pictures
-on the wall.
-You notice that there are no exits from this room.
-~
-0 4 0
-E
-pictures picture decoration~
-These pictures show the friend's and foe's of Ravan.
-They are easy to separate, as most of the foe's have the letters
-R.I.P. inscripted underneath them.
-~
-E
-foe foes enemies~
-There is only one picture yet... Dim.
-It pictures him hanging from a gallow, north of the town.
-It has the letters R.I.P. inscripted underneath.
-~
-E
-friend friends~
-The list include such prominent names as : God, Lottie, Kurgan,
-Ezzard, Mike, Sprocket and Stormbringer.
-~
-S
 #0
 
 
@@ -195,7 +169,6 @@ M 0 303 5 5556 3 Load the citizen
 M 0 308 1 5556 1 Load the Innkeeper
 G 0 3000 0 A barrel of beer is given to the Innkeeper
 G 0 3001 0 A bottle of beer is given to the Innkeeper
-M 0 350 1 5577 1 Load the pet dragon
 S
 
 
