@@ -1073,6 +1073,7 @@ struct    kill_data
  * Used in #ROOMS.
  */
 #define ROOM_DARK         (A)
+#define ROOM_ARENA        (B) /* Arena where player can die and not lose items */
 #define ROOM_NO_MOB       (C)
 #define ROOM_INDOORS      (D)
 #define ROOM_PRIVATE      (J)

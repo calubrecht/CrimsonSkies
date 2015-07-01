@@ -43,6 +43,7 @@
 #include <string.h>
 #include "merc.h"
 #include "interp.h"
+#include "tables.h"
 
 /*
  * Local functions.
@@ -1092,6 +1093,12 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
         /* player doing the killing */
         else
         {
+            // All bets are off in the arena, let the best player win.
+            if (IS_SET(ch->in_room->room_flags, ROOM_ARENA))
+            {
+                return FALSE;
+            }
+
             if (!is_clan (ch))
             {
                 send_to_char ("Join a clan if you want to kill players.\n\r",
@@ -1685,7 +1692,19 @@ void raw_kill (CHAR_DATA * victim)
 
     stop_fighting (victim, TRUE);
     death_cry (victim);
-    make_corpse (victim);
+
+    // If the victim is not an NPC and they were in an arena room, transfer them to their
+    // death repop spot with all of their gear.  There wil be no corpse and the victim
+    // won't be extracted which is where the gear bombing happens.
+    if (!IS_NPC(victim) && victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
+    {
+        char_from_room (victim);
+        char_to_room (victim, get_room_index (clan_table[victim->clan].hall));
+    }
+    else
+    {
+        make_corpse(victim);
+    }
 
     if (IS_NPC (victim))
     {
@@ -1695,7 +1714,12 @@ void raw_kill (CHAR_DATA * victim)
         return;
     }
 
-    extract_char (victim, FALSE);
+    // Extract the char (nuking their objects) if it's not an arena kill.
+    if (!IS_NPC(victim) && victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
+    {
+        extract_char (victim, FALSE);
+    }
+
     while (victim->affected)
         affect_remove (victim, victim->affected);
     victim->affected_by = race_table[victim->race].aff;
@@ -3108,8 +3132,10 @@ void toast( CHAR_DATA *ch, CHAR_DATA *victim )
     }
 
     // The final message
-    sprintf(buf, "%s%s got %s by %s.\n\r", (victim->desc == NULL ) ? "({YLinkdead{x) " : "",
-        victim->name, verb, ch->name);
+    sprintf(buf, "%s%s got %s by %s.%s\n\r",
+        (victim->desc == NULL ) ? "({YLink Dead{x) " : "",
+         victim->name, verb, ch->name,
+        (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? " {W({cArena{W){x": "");
 
     // Log it
     log_string(buf);

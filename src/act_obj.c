@@ -2203,6 +2203,12 @@ void do_steal (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
+    {
+        send_to_char("You cannot steal in an arena.\n\r", ch);
+        return;
+    }
+
     WAIT_STATE (ch, skill_table[gsn_steal].beats);
     percent = number_percent ();
 
