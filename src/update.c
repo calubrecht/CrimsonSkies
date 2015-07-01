@@ -147,7 +147,7 @@ void gain_exp (CHAR_DATA * ch, int gain)
 }
 
 /*
- * Regeneration stuff.
+ * Health Regeneration stuff.
  */
 int hit_gain (CHAR_DATA * ch)
 {
@@ -213,6 +213,10 @@ int hit_gain (CHAR_DATA * ch)
         if (ch->pcdata->condition[COND_THIRST] == 0)
             gain /= 2;
 
+        // No HP regen for players in the ocean
+        if (ch->in_room->sector_type == SECT_OCEAN )
+            gain = 0;
+
     }
 
     gain = gain * ch->in_room->heal_rate / 100;
@@ -230,8 +234,11 @@ int hit_gain (CHAR_DATA * ch)
         gain /= 2;
 
     return UMIN (gain, ch->max_hit - ch->hit);
-}
+} // end int hit_gain
 
+/*
+ * Mana Regenration
+ */
 int mana_gain (CHAR_DATA * ch)
 {
     int gain;
@@ -293,6 +300,10 @@ int mana_gain (CHAR_DATA * ch)
         if (ch->pcdata->condition[COND_THIRST] == 0)
             gain /= 2;
 
+        // No mana gain for players in the ocean
+        if (ch->in_room->sector_type == SECT_OCEAN )
+            gain = 0;
+
     }
 
     gain = gain * ch->in_room->mana_rate / 100;
@@ -310,8 +321,11 @@ int mana_gain (CHAR_DATA * ch)
         gain /= 2;
 
     return UMIN (gain, ch->max_mana - ch->mana);
-}
+} // end int mana_gain
 
+/*
+ * Move regeneration
+ */
 int move_gain (CHAR_DATA * ch)
 {
     int gain;
@@ -342,6 +356,10 @@ int move_gain (CHAR_DATA * ch)
 
         if (ch->pcdata->condition[COND_THIRST] == 0)
             gain /= 2;
+
+        // No gain for players in the ocean
+        if (ch->in_room->sector_type == SECT_OCEAN )
+            gain = 0;
     }
 
     gain = gain * ch->in_room->heal_rate / 100;
@@ -359,8 +377,11 @@ int move_gain (CHAR_DATA * ch)
         gain /= 2;
 
     return UMIN (gain, ch->max_move - ch->move);
-}
+} // end int move_gain
 
+/*
+ * Adjusts the various conditions (hunger, thirst, drunkeness
+ */
 void gain_condition (CHAR_DATA * ch, int iCond, int value)
 {
     int condition;
@@ -393,8 +414,7 @@ void gain_condition (CHAR_DATA * ch, int iCond, int value)
     }
 
     return;
-}
-
+} // end void gain_condition
 
 /*
  * Mob autonomous action.
