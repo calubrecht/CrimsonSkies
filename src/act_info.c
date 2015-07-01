@@ -1532,8 +1532,6 @@ void do_examine (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /*
  * Thanks to Zrin for auto-exit part.
  */
@@ -1569,8 +1567,21 @@ void do_exits (CHAR_DATA * ch, char *argument)
             found = TRUE;
             if (fAuto)
             {
-                strcat (buf, " ");
-                strcat (buf, dir_name[door]);
+                // Show the ocean exits as a light cyan
+                if (pexit->u1.to_room->sector_type == SECT_OCEAN)
+                {
+		    strcat( buf,"{c");
+                    strcat (buf, " ");
+                    strcat (buf, dir_name[door]);
+                    strcat (buf,"{x");
+                }
+                else
+                {
+                    // Default coloring, normal exit
+                    strcat (buf, " ");
+                    strcat (buf, dir_name[door]);
+                }
+
             }
             else
             {
