@@ -1791,6 +1791,12 @@ void do_sacrifice (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (ch->in_room != NULL && IS_SET(ch->in_room->room_flags, ROOM_ARENA))
+    {
+        send_to_char("You cannot sacrifice items in the arena.\n\r", ch);
+        return;
+    }
+
     obj = get_obj_list (ch, arg, ch->in_room->contents);
     if (obj == NULL)
     {
