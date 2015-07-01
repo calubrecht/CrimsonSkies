@@ -1,7 +1,7 @@
 #AREADATA
 Name Holy Grove~
 Builders Alfa~
-VNUMs 8900 8999
+VNUMs 8900 8974
 LevelRange 5 20
 Credits [ 5 20] Alfa    Holy Grove~
 Security 9
@@ -878,16 +878,6 @@ A faint trail heads towards the eastern road.
 ~
 ~
 0 -1 8950
-S
-#8999
-The fog~
-You are in a grey fog, falling, screaming in pain as you realize
-that you are being torn to nothing, atom by atom, falling and falling 
-and falling ...
-...
-.
-~
-0 4 0
 S
 #0
 

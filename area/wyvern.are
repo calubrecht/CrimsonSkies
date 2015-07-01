@@ -1,7 +1,7 @@
 #AREADATA
 Name Wyvern's Tower~
 Builders Tyrst~
-VNUMs 1600 1799
+VNUMs 1600 1749
 LevelRange 5 30
 Credits [ 5 30] Tyrst   Wyvern's Tower~
 Security 9
@@ -444,9 +444,9 @@ weapon AG AN
 sword 2 6 slash 0
 11 120 910 P
 A
-18 1
-A
 19 1
+A
+18 1
 #1605
 steel broad sword~
 a steel broad sword~
@@ -456,9 +456,9 @@ weapon AG AN
 sword 2 7 slash 0
 15 120 1510 P
 A
-18 2
-A
 19 2
+A
+18 2
 #1606
 rod might~
 the rod of might~
@@ -468,9 +468,9 @@ weapon BG AN
 mace 2 7 blast 0
 14 130 1550 P
 A
-18 2
-A
 1 1
+A
+18 2
 #1612
 black kite shield~
 a black kite shield~
@@ -590,9 +590,9 @@ weapon BG AN
 sword 2 8 slash 0
 19 100 2500 P
 A
-18 3
-A
 19 3
+A
+18 3
 #1711
 fur cap~
 a fur cap~
