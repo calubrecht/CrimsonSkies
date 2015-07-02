@@ -2962,10 +2962,8 @@ char *act_bit_name (int act_flags)
             strcat (buf, " no_follow");
         if (act_flags & PLR_FREEZE)
             strcat (buf, " frozen");
-        if (act_flags & PLR_THIEF)
-            strcat (buf, " thief");
-        if (act_flags & PLR_KILLER)
-            strcat (buf, " killer");
+        if (act_flags & PLR_WANTED)
+            strcat (buf, " wanted");
     }
     return (buf[0] != '\0') ? buf + 1 : "none";
 }

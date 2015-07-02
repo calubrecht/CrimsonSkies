@@ -920,10 +920,8 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
         /* dump the flags */
         if (ch != victim && !IS_NPC (ch) && !is_same_clan (ch, victim))
         {
-            if (IS_SET (victim->act, PLR_KILLER))
-                REMOVE_BIT (victim->act, PLR_KILLER);
-            else
-                REMOVE_BIT (victim->act, PLR_THIEF);
+            if (IS_SET (victim->act, PLR_WANTED))
+                REMOVE_BIT (victim->act, PLR_WANTED);
         }
 
         /* RT new auto commands */
@@ -1106,8 +1104,7 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
                 return TRUE;
             }
 
-            if (IS_SET (victim->act, PLR_KILLER)
-                || IS_SET (victim->act, PLR_THIEF))
+            if (IS_SET (victim->act, PLR_WANTED))
                 return FALSE;
 
             if (!is_clan (victim))
@@ -1212,8 +1209,7 @@ bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
             if (!is_clan (ch))
                 return TRUE;
 
-            if (IS_SET (victim->act, PLR_KILLER)
-                || IS_SET (victim->act, PLR_THIEF))
+            if (IS_SET (victim->act, PLR_WANTED))
                 return FALSE;
 
             if (!is_clan (victim))
@@ -1246,8 +1242,7 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
      * So are killers and thieves.
      */
     if (IS_NPC (victim)
-        || IS_SET (victim->act, PLR_KILLER)
-        || IS_SET (victim->act, PLR_THIEF))
+        || IS_SET (victim->act, PLR_WANTED))
         return;
 
     /*
@@ -1279,11 +1274,11 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
      */
     if (IS_NPC (ch)
         || ch == victim || ch->level >= LEVEL_IMMORTAL || !is_clan (ch)
-        || IS_SET (ch->act, PLR_KILLER) || ch->fighting == victim)
+        || IS_SET (ch->act, PLR_WANTED) || ch->fighting == victim)
         return;
 
-    send_to_char ("*** You are now a KILLER!! ***\n\r", ch);
-    SET_BIT (ch->act, PLR_KILLER);
+    send_to_char ("*** You are now ({RWANTED{x)!! ***\n\r", ch);
+    SET_BIT (ch->act, PLR_WANTED);
     sprintf (buf, "$N is attempting to murder %s", victim->name);
     wiznet (buf, ch, NULL, WIZ_FLAGS, 0, 0);
     save_char_obj (ch);
@@ -2623,8 +2618,7 @@ void do_kill (CHAR_DATA * ch, char *argument)
     /* Allow player killing */
     if ( !IS_NPC(victim) )
     {
-        if ( !IS_SET(victim->act, PLR_KILLER)
-        &&   !IS_SET(victim->act, PLR_THIEF) )
+        if (!IS_SET(victim->act, PLR_WANTED))
         {
             send_to_char( "You must MURDER a player.\n\r", ch );
             return;

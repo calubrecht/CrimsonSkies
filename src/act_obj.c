@@ -2270,10 +2270,10 @@ void do_steal (CHAR_DATA * ch, char *argument)
             {
                 sprintf (buf, "$N tried to steal from %s.", victim->name);
                 wiznet (buf, ch, NULL, WIZ_FLAGS, 0, 0);
-                if (!IS_SET (ch->act, PLR_THIEF))
+                if (!IS_SET (ch->act, PLR_WANTED))
                 {
-                    SET_BIT (ch->act, PLR_THIEF);
-                    send_to_char ("*** You are now a THIEF!! ***\n\r", ch);
+                    SET_BIT (ch->act, PLR_WANTED);
+                    send_to_char ("*** You are now ({RWANTED{x)!! ***\n\r", ch);
                     save_char_obj (ch);
                 }
             }

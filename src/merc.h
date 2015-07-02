@@ -1195,6 +1195,9 @@ struct    kill_data
  */
 #define PLR_IS_NPC          (A)        /* Don't EVER set.    */
 
+/* WANTED combines and replaces KILLER and THIEF */
+#define PLR_WANTED          (B)
+
 /* RT auto flags */
 #define PLR_AUTOASSIST      (C)
 #define PLR_AUTOEXIT        (D)
@@ -1216,8 +1219,6 @@ struct    kill_data
 #define PLR_LOG             (W)
 #define PLR_DENY            (X)
 #define PLR_FREEZE          (Y)
-#define PLR_THIEF           (Z)
-#define PLR_KILLER          (aa)
 
 /* RT comm flags -- may be used on both mobs and chars */
 #define COMM_QUIET          (A)

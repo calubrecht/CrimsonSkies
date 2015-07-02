@@ -278,10 +278,8 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
         strcat(buf, "({YGolden Aura{x) ");
     if (IS_AFFECTED(victim, AFF_SANCTUARY))
         strcat(buf, "({WWhite Aura{x) ");
-    if (!IS_NPC(victim) && IS_SET (victim->act, PLR_KILLER))
-        strcat(buf, "({RKILLER{x) ");
-    if (!IS_NPC(victim) && IS_SET (victim->act, PLR_THIEF))
-        strcat(buf, "({RTHIEF{x) ");
+    if (!IS_NPC(victim) && IS_SET (victim->act, PLR_WANTED))
+        strcat(buf, "({RWANTED{x) ");
     if (victim->position == victim->start_pos
         && victim->long_descr[0] != '\0')
     {
@@ -2224,7 +2222,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
             /* a little formatting */
             if (!IS_IMMORTAL(wch))
             {
-                sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\n\r",
+                sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
                          wch->level,
                          wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                          class,
@@ -2233,22 +2231,20 @@ void do_whois (CHAR_DATA * ch, char *argument)
                          clan_table[wch->clan].who_name,
                          IS_SET (wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
                          IS_SET (wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                         IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
-                         IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                         IS_SET (wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
                          wch->name,
                          IS_NPC (wch) ? "" : wch->pcdata->title);
             }
             else
             {
-                sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\n\r",
+                sprintf (buf, "[%s] %s%s%s%s%s%s%s%s\n\r",
                          immbuf,
                          wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
                          wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
                          clan_table[wch->clan].who_name,
                          IS_SET (wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
                          IS_SET (wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                         IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
-                         IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                         IS_SET (wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
                          wch->name,
                          IS_NPC (wch) ? "" : wch->pcdata->title);
             }
@@ -2459,7 +2455,7 @@ void do_who (CHAR_DATA * ch, char *argument)
          */
         if (!IS_IMMORTAL(wch))
         {
-            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\n\r",
+            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
                  wch->level,
                  wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                  class,
@@ -2468,22 +2464,20 @@ void do_who (CHAR_DATA * ch, char *argument)
                  clan_table[wch->clan].who_name,
                  IS_SET (wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
                  IS_SET (wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                 IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
-                 IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
-                 wch->name, 
+                 IS_SET (wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+                 wch->name,
                  IS_NPC (wch) ? "" : wch->pcdata->title);
         }
         else
         {
-            sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\n\r",
+            sprintf (buf, "[%s] %s%s%s%s%s%s%s%s\n\r",
                  immbuf,
                  wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
                  wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
                  clan_table[wch->clan].who_name,
                  IS_SET (wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
                  IS_SET (wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                 IS_SET (wch->act, PLR_KILLER) ? "({RKILLER{x) " : "",
-                 IS_SET (wch->act, PLR_THIEF) ? "({RTHIEF{x) " : "",
+                 IS_SET (wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
                  wch->name,
                  IS_NPC (wch) ? "" : wch->pcdata->title);
         }

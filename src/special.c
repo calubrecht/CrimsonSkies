@@ -878,17 +878,10 @@ bool spec_executioner (CHAR_DATA * ch)
     {
         v_next = victim->next_in_room;
 
-        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_KILLER)
+        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_WANTED)
             && can_see (ch, victim))
         {
-            crime = "KILLER";
-            break;
-        }
-
-        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_THIEF)
-            && can_see (ch, victim))
-        {
-            crime = "THIEF";
+            crime = "WANTED";
             break;
         }
     }
@@ -1001,17 +994,10 @@ bool spec_guard (CHAR_DATA * ch)
     {
         v_next = victim->next_in_room;
 
-        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_KILLER)
+        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_WANTED)
             && can_see (ch, victim))
         {
-            crime = "KILLER";
-            break;
-        }
-
-        if (!IS_NPC (victim) && IS_SET (victim->act, PLR_THIEF)
-            && can_see (ch, victim))
-        {
-            crime = "THIEF";
+            crime = "WANTED";
             break;
         }
 
@@ -1025,7 +1011,7 @@ bool spec_guard (CHAR_DATA * ch)
 
     if (victim != NULL)
     {
-        sprintf (buf, "%s is a %s!  PROTECT THE INNOCENT!!  BANZAI!!",
+        sprintf (buf, "%s is a %s!  PROTECT THE INNOCENT!!",
                  victim->name, crime);
         REMOVE_BIT (ch->comm, COMM_NOSHOUT);
         do_function (ch, &do_yell, buf);
@@ -1035,7 +1021,7 @@ bool spec_guard (CHAR_DATA * ch)
 
     if (ech != NULL)
     {
-        act ("$n screams 'PROTECT THE INNOCENT!!  BANZAI!!",
+        act ("$n screams 'PROTECT THE INNOCENT!!",
              ch, NULL, NULL, TO_ROOM);
         multi_hit (ch, ech, TYPE_UNDEFINED);
         return TRUE;

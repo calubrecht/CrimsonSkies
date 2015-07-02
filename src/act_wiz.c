@@ -651,7 +651,7 @@ void do_pardon (CHAR_DATA * ch, char *argument)
 
     if (arg1[0] == '\0' || arg2[0] == '\0')
     {
-        send_to_char ("Syntax: pardon <character> <killer|thief>.\n\r", ch);
+        send_to_char ("Syntax: pardon <character>\n\r", ch);
         return;
     }
 
@@ -667,33 +667,12 @@ void do_pardon (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!str_cmp (arg2, "killer"))
-    {
-        if (IS_SET (victim->act, PLR_KILLER))
-        {
-            REMOVE_BIT (victim->act, PLR_KILLER);
-            send_to_char ("Killer flag removed.\n\r", ch);
-            send_to_char ("You are no longer a KILLER.\n\r", victim);
-        }
-        return;
-    }
+    REMOVE_BIT (victim->act, PLR_WANTED);
+    send_to_char ("Wanted flag removed.\n\r", ch);
+    send_to_char ("You are no longer ({RWANTED{x).\n\r", victim);
 
-    if (!str_cmp (arg2, "thief"))
-    {
-        if (IS_SET (victim->act, PLR_THIEF))
-        {
-            REMOVE_BIT (victim->act, PLR_THIEF);
-            send_to_char ("Thief flag removed.\n\r", ch);
-            send_to_char ("You are no longer a THIEF.\n\r", victim);
-        }
-        return;
-    }
-
-    send_to_char ("Syntax: pardon <character> <killer|thief>.\n\r", ch);
     return;
-}
-
-
+} // end do_pardon
 
 void do_echo (CHAR_DATA * ch, char *argument)
 {
@@ -3605,7 +3584,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
         send_to_char ("    str int wis dex con sex class level\n\r", ch);
         send_to_char ("    race group gold silver hp mana move prac\n\r", ch);
         send_to_char ("    align train thirst hunger drunk full\n\r", ch);
-        send_to_char ("    security hours\n\r", ch);
+        send_to_char ("    security hours wanted[on|off]\n\r", ch);
         return;
     }
 
@@ -3983,6 +3962,29 @@ void do_mset (CHAR_DATA * ch, char *argument)
             return;
         }
         victim->group = value;
+        return;
+    }
+
+    // Toggle wanted
+    if (!str_prefix(arg2, "wanted"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPC's\n\r", ch);
+            return;
+        }
+
+        if (!str_prefix(arg3, "on"))
+        {
+            SET_BIT (victim->act, PLR_WANTED);
+            send_to_char ("({RWANTED{x) flag added.\n\r", ch);
+        }
+        else if (!str_prefix(arg3, "off"))
+        {
+            REMOVE_BIT (victim->act, PLR_WANTED);
+            send_to_char ("({RWANTED{x) flag removed.\n\r", ch);
+        }
+
         return;
     }
 
