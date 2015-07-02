@@ -1306,13 +1306,13 @@ void do_look (CHAR_DATA * ch, char *argument)
         door = 4;
     else if (!str_cmp (arg1, "d") || !str_cmp (arg1, "down"))
         door = 5;
-    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
-        door = 6;
     else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+        door = 6;
+    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
         door = 7;
-    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
+    else if (!str_cmp(arg1, "sw") || !str_cmp(arg1, "southwest"))
         door = 8;
-    else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "southwest"))
+    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
         door = 9;
     else
     {
@@ -1395,13 +1395,13 @@ void do_scan(CHAR_DATA * ch, char *argument)
         door = 4;
     else if (!str_cmp(arg1, "d") || !str_cmp(arg1, "down"))
         door = 5;
-    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
-        door = 6;
     else if (!str_cmp(arg1, "nw") || !str_cmp(arg1, "northwest"))
+        door = 6;
+    else if (!str_cmp(arg1, "ne") || !str_cmp(arg1, "northeast"))
         door = 7;
-    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
-        door = 8;
     else if (!str_cmp(arg1, "sw") || !str_cmp(arg1, "southwest"))
+        door = 8;
+    else if (!str_cmp(arg1, "se") || !str_cmp(arg1, "southeast"))
         door = 9;
     else
     {

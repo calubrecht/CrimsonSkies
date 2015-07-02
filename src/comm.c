@@ -1186,7 +1186,7 @@ void bust_a_prompt (CHAR_DATA * ch)
     char doors[MAX_INPUT_LENGTH];
     EXIT_DATA *pexit;
     bool found;
-    const char *dir_name[] = { "N", "E", "S", "W", "U", "D", "-NE", "-NW", "-SE", "-SW" };
+    const char *dir_name[] = {"N", "E", "S", "W", "U", "D", "-NW", "-NE", "-SW", "-SE"};
     int door;
 
     point = buf;

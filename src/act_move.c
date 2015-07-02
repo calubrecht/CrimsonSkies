@@ -330,13 +330,13 @@ int find_door (CHAR_DATA * ch, char *arg)
         door = 4;
     else if (!str_cmp (arg, "d") || !str_cmp (arg, "down"))
         door = 5;
-    else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
-        door = 6;
     else if (!str_cmp(arg, "nw") || !str_cmp(arg, "northwest"))
+        door = 6;
+    else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
         door = 7;
-    else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
-        door = 8;
     else if (!str_cmp(arg, "sw") || !str_cmp(arg, "southwest"))
+        door = 8;
+    else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
         door = 9;
     else
     {
