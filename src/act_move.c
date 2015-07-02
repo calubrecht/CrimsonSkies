@@ -49,7 +49,7 @@
 // The supported directions, there are corresponding DIR_* constants that are in merc.h that are in the 
 // same order as this.
 char *const dir_name[] = {
-    "north", "east", "south", "west", "up", "down", "northeast", "northwest", "southeast", "southwest"
+    "north", "east", "south", "west", "up", "down", "northwest", "northeast", "southwest", "southeast"
 };
 
 // This is the reverse direction to the above list (south is reverse to north, up to down, etc.)

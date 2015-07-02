@@ -1098,10 +1098,10 @@ struct    kill_data
 #define DIR_WEST      3
 #define DIR_UP        4
 #define DIR_DOWN      5
-#define DIR_NORTHEAST 6
-#define DIR_NORTHWEST 7
-#define DIR_SOUTHEAST 8
-#define DIR_SOUTHWEST 9
+#define DIR_NORTHWEST 6
+#define DIR_NORTHEAST 7
+#define DIR_SOUTHWEST 8
+#define DIR_SOUTHEAST 9
 
 /*
  * Exit flags.
