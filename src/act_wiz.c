@@ -5452,6 +5452,14 @@ void do_slay (CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+
+    if (IS_WANTED(ch))
+        send_to_char("You are wanted.", ch);
+
+    if (!IS_WANTED(ch))
+        send_to_char("You are not wanted.", ch);
+
+
     send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug

@@ -113,7 +113,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define IMPLEMENTOR        MAX_LEVEL
 
 /* Added this for "orphaned help" code. Check do_help() -- JR */
-#define MAX_CMD_LEN        50
+#define MAX_CMD_LEN         50
 
 #define PULSE_PER_SECOND    4
 #define PULSE_VIOLENCE      ( 3 * PULSE_PER_SECOND)
@@ -1860,6 +1860,7 @@ extern sh_int gsn_recall;
                 ( ch->pcdata->security >= Area->security  \
                 || strstr( Area->builders, ch->name )      \
                 || strstr( Area->builders, "All" ) ) )
+#define IS_WANTED(ch) (IS_SET (ch->act, PLR_WANTED))
 
 /*
  * Object macros.
