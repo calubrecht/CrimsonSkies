@@ -3033,3 +3033,81 @@ void do_value (CHAR_DATA * ch, char *argument)
 
     return;
 }
+
+/*
+ * Equips a low level character with some sub issue gear.
+ */
+void do_outfit (CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+    int i, sn, vnum;
+
+    if (ch->level > 5 || IS_NPC (ch))
+    {
+        send_to_char ("Find it yourself!\n\r", ch);
+        return;
+    }
+
+    // Too many items (TODO, needs weight check also)
+    if (ch->carry_number + 3 > can_carry_n(ch))
+    {
+        send_to_char("You are carrying too many items to be outfitted.\n\r", ch);
+        // A little lag in case someone is trying to abuse this.
+        WAIT_STATE(ch, PULSE_PER_SECOND * 2);
+        return;
+    }
+
+    if ((obj = get_eq_char (ch, WEAR_LIGHT)) == NULL)
+    {
+        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_BANNER), 0);
+        obj->cost = 0;
+        obj_to_char (obj, ch);
+        equip_char (ch, obj, WEAR_LIGHT);
+    }
+
+    if ((obj = get_eq_char (ch, WEAR_BODY)) == NULL)
+    {
+        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_VEST), 0);
+        obj->cost = 0;
+        obj_to_char (obj, ch);
+        equip_char (ch, obj, WEAR_BODY);
+    }
+
+    /* do the weapon thing */
+    if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL)
+    {
+        sn = 0;
+        vnum = OBJ_VNUM_SCHOOL_SWORD;    /* just in case! */
+
+        for (i = 0; weapon_table[i].name != NULL; i++)
+        {
+            if (ch->pcdata->learned[sn] <
+                ch->pcdata->learned[*weapon_table[i].gsn])
+            {
+                sn = *weapon_table[i].gsn;
+                vnum = weapon_table[i].vnum;
+            }
+        }
+
+        obj = create_object (get_obj_index (vnum), 0);
+        obj_to_char (obj, ch);
+        equip_char (ch, obj, WEAR_WIELD);
+    }
+
+    if (((obj = get_eq_char (ch, WEAR_WIELD)) == NULL
+         || !IS_WEAPON_STAT (obj, WEAPON_TWO_HANDS))
+        && (obj = get_eq_char (ch, WEAR_SHIELD)) == NULL)
+    {
+        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_SHIELD), 0);
+        obj->cost = 0;
+        obj_to_char (obj, ch);
+        equip_char (ch, obj, WEAR_SHIELD);
+    }
+
+    send_to_char ("You have been equipped by the gods.\n\r", ch);
+
+    // A little lag in case someone is trying to abuse this.
+    WAIT_STATE(ch, PULSE_PER_SECOND);
+
+} // end do_output
+
