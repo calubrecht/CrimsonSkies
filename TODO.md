@@ -9,13 +9,10 @@ This is my to do list, mostly will be things big and small as I think about them
     start with a working code base that literally has to be built from the ground up with the 
     exception of the plumping for socket server, pfile handling, area loading, that are necessary
     for it to run)
-  - Make blink in comm.c immortal only.
   - OLC chopped off characters in name in area name after asave area.
   - Add Charisma stat (CHA)
   - Fighting Style (Offensive/Normal/Defensive)
-  - Add pray command that will allow a mortal to send a message for any immortals logged in to see.
   - Better format sockets command.
-  - Remove the new notes/boards and revert to the old school note system.  Like it much better.
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
   - Statistics.
@@ -24,7 +21,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add throwing
   - Add ranged spells (fireball)
   - Dual wield
-  - Wear flags
   - Pit saving
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
@@ -35,7 +31,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
   - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
-  - Add tester flag to set a mortal as a tester.
+  - Add tester flag to set a mortal as a tester. (have show damage and save throws in battle, etc).
   - Have tester and immortals have no lag on using the save command.
   - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.
   - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.
