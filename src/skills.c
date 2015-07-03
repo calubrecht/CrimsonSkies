@@ -342,14 +342,14 @@ void do_spells (CHAR_DATA * ch, char *argument)
         {
             found = TRUE;
             level = skill_table[sn].skill_level[ch->class];
+
             if (ch->level < level)
-                sprintf (buf, "%-18s n/a      ", skill_table[sn].name);
+                sprintf(buf,"%-18.18s n/a            ", skill_table[sn].name);
             else
             {
-                mana = UMAX (skill_table[sn].min_mana,
-                             100 / (2 + ch->level - level));
-                sprintf (buf, "%-18s  %3d mana  ", skill_table[sn].name,
-                         mana);
+                mana = UMAX(skill_table[sn].min_mana, 100/(2 + ch->level - level));
+                sprintf(buf,"%-18.18s %3d mana, %3d%% ",skill_table[sn].name,mana,
+                    ch->pcdata->learned[sn]);
             }
 
             if (spell_list[level][0] == '\0')
