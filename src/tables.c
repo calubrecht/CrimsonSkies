@@ -45,28 +45,28 @@
 
 /* for clans */
 const struct clan_type clan_table[MAX_CLAN] = {
-    /*  name,       who entry,  death-transfer room,    independent */
+    /*  name, who entry, death-transfer room, independent */
     /* independent should be FALSE if is a real clan */
-    { "", "", ROOM_VNUM_ALTAR, TRUE },
-    { "loner", "[ {WLoner{x ] ", ROOM_VNUM_ALTAR, TRUE },
-    { "renegade", "[ {WRenegade{x ] ", ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard", "[ {BMidgaard{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos", "[ {cNew Thalos{x ] ", ROOM_VNUM_ALTAR, FALSE },
+    { "",           "",                      ROOM_VNUM_ALTAR, TRUE },
+    { "loner",      "[ {WLoner{x ] ",        ROOM_VNUM_ALTAR, TRUE },
+    { "renegade",   "[ {WRenegade{x ] ",     ROOM_VNUM_ALTAR, TRUE },
+    { "midgaard",   "[ {BMidgaard{x ] ",     ROOM_VNUM_ALTAR, FALSE },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   ROOM_VNUM_ALTAR, FALSE },
     { "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "alhildr", "[ {gAlhildr{x ] ", ROOM_VNUM_ALTAR, FALSE }
+    { "alhildr",    "[ {gAlhildr{x ] ",      ROOM_VNUM_ALTAR, FALSE }
 };
 
 /* for position */
 const struct position_type position_table[] = {
-    {"dead", "dead"},
+    {"dead",             "dead"},
     {"mortally wounded", "mort"},
-    {"incapacitated", "incap"},
-    {"stunned", "stun"},
-    {"sleeping", "sleep"},
-    {"resting", "rest"},
-    {"sitting", "sit"},
-    {"fighting", "fight"},
-    {"standing", "stand"},
+    {"incapacitated",    "incap"},
+    {"stunned",          "stun"},
+    {"sleeping",         "sleep"},
+    {"resting",          "rest"},
+    {"sitting",          "sit"},
+    {"fighting",         "fight"},
+    {"standing",         "stand"},
     {NULL, NULL}
 };
 
@@ -92,51 +92,51 @@ const struct size_type size_table[] = {
 
 /* various flag tables */
 const struct flag_type act_flags[] = {
-    {"npc", A, FALSE},
-    {"sentinel", B, TRUE},
-    {"scavenger", C, TRUE},
-    {"aggressive", F, TRUE},
-    {"stay_area", G, TRUE},
-    {"wimpy", H, TRUE},
-    {"pet", I, TRUE},
-    {"train", J, TRUE},
-    {"practice", K, TRUE},
-    {"undead", O, TRUE},
-    {"cleric", Q, TRUE},
-    {"mage", R, TRUE},
-    {"thief", S, TRUE},
-    {"warrior", T, TRUE},
-    {"noalign", U, TRUE},
-    {"nopurge", V, TRUE},
-    {"outdoors", W, TRUE},
-    {"indoors", Y, TRUE},
-    {"healer", aa, TRUE},
-    {"gain", bb, TRUE},
+    {"npc",            A, FALSE},
+    {"sentinel",       B, TRUE},
+    {"scavenger",      C, TRUE},
+    {"aggressive",     F, TRUE},
+    {"stay_area",      G, TRUE},
+    {"wimpy",          H, TRUE},
+    {"pet",            I, TRUE},
+    {"train",          J, TRUE},
+    {"practice",       K, TRUE},
+    {"undead",         O, TRUE},
+    {"cleric",         Q, TRUE},
+    {"mage",           R, TRUE},
+    {"thief",          S, TRUE},
+    {"warrior",        T, TRUE},
+    {"noalign",        U, TRUE},
+    {"nopurge",        V, TRUE},
+    {"outdoors",       W, TRUE},
+    {"indoors",        Y, TRUE},
+    {"healer",        aa, TRUE},
+    {"gain",          bb, TRUE},
     {"update_always", cc, TRUE},
-    {"changer", dd, TRUE},
-    {NULL, 0, FALSE}
+    {"changer",       dd, TRUE},
+    {NULL,             0, FALSE}
 };
 
 const struct flag_type plr_flags[] = {
-    {"npc", A, FALSE},
-    {"autoassist", C, FALSE},
-    {"autoexit", D, FALSE},
-    {"autoloot", E, FALSE},
-    {"autosac", F, FALSE},
-    {"autogold", G, FALSE},
-    {"autosplit", H, FALSE},
-    {"holylight", N, FALSE},
-    {"can_loot", P, FALSE},
-    {"nosummon", Q, FALSE},
-    {"nofollow", R, FALSE},
-    {"color", T, FALSE},
-    {"permit", U, TRUE},
-    {"log", W, FALSE},
-    {"deny", X, FALSE},
-    {"freeze", Y, FALSE},
-    {"thief", Z, FALSE},
-    {"killer", aa, FALSE},
-    {NULL, 0, 0}
+    {"npc",         A, FALSE},
+    {"autoassist",  C, FALSE},
+    {"autoexit",    D, FALSE},
+    {"autoloot",    E, FALSE},
+    {"autosac",     F, FALSE},
+    {"autogold",    G, FALSE},
+    {"autosplit",   H, FALSE},
+    {"holylight",   N, FALSE},
+    {"can_loot",    P, FALSE},
+    {"nosummon",    Q, FALSE},
+    {"nofollow",    R, FALSE},
+    {"color",       T, FALSE},
+    {"permit",      U, TRUE},
+    {"log",         W, FALSE},
+    {"deny",        X, FALSE},
+    {"freeze",      Y, FALSE},
+    {"thief",       Z, FALSE},
+    {"killer",     aa, FALSE},
+    {NULL,          0, 0}
 };
 
 const struct flag_type affect_flags[] = {
