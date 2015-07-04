@@ -1647,13 +1647,13 @@ void do_score(CHAR_DATA * ch, char *argument)
         get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
 
     printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
-        get_curr_stat(ch, STAT_STR), ch->perm_stat[STAT_STR], GET_HITROLL(ch), ctime(&current_time));
+        ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR), GET_HITROLL(ch), ctime(&current_time));
 
     printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d\n\r",
-        get_curr_stat(ch, STAT_INT), ch->perm_stat[STAT_INT], GET_DAMROLL(ch));
+        ch->perm_stat[STAT_INT], get_curr_stat(ch, STAT_INT), GET_DAMROLL(ch));
 
     printf_to_char(ch, "{gWIS  : {w%2.2d{g({W%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\n\r",
-        get_curr_stat(ch, STAT_WIS), ch->perm_stat[STAT_WIS],
+        ch->perm_stat[STAT_WIS], get_curr_stat(ch, STAT_WIS),
         GET_AC (ch, AC_PIERCE), GET_AC (ch, AC_BASH), GET_AC (ch, AC_SLASH), GET_AC (ch, AC_EXOTIC));
 
     // Get alignment
@@ -1668,10 +1668,10 @@ void do_score(CHAR_DATA * ch, char *argument)
     }
 
     printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {w%-7.7s{x           {gItems:  {w%d of %d{x\r\n",
-        get_curr_stat(ch, STAT_DEX), ch->perm_stat[STAT_DEX], buf, ch->carry_number, can_carry_n(ch));
+        ch->perm_stat[STAT_DEX], get_curr_stat(ch, STAT_DEX), buf, ch->carry_number, can_carry_n(ch));
 
     printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)        Sex: {w%-10.10s{x        {gWeight: {w%d of %d{x\r\n",
-        get_curr_stat(ch, STAT_CON), ch->perm_stat[STAT_CON],
+        ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON),
         ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female",
         ch->carry_weight, can_carry_w(ch));
 
