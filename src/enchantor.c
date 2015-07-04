@@ -862,3 +862,55 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
 
 } // end spell_restore_armor
+
+/*
+ * Spell to disenchant a weapon or piece of armor.
+ */
+void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    AFFECT_DATA *paf;
+    AFFECT_DATA *paf_next;
+
+
+    if (obj->item_type != ITEM_WEAPON && obj->item_type != ITEM_ARMOR)
+    {
+	send_to_char("That item is neither weapon or armor.\n\r",ch);
+	return;
+    }
+
+    if (obj->wear_loc != -1)
+    {
+	send_to_char("The item must be carried to be disenchanted.\n\r",ch);
+	return;
+    }
+
+    act("$p glows brightly, then fades to a dull color",ch,obj,NULL,TO_CHAR);
+    act("$p glows brightly, then fades to a dull color.",ch,obj,NULL,TO_ROOM);
+    obj->enchanted = TRUE;
+
+    /* remove all affects */
+    for (paf = obj->affected; paf != NULL; paf = paf_next)
+    {
+        paf_next = paf->next;
+        free_affect(paf);
+    }
+
+    obj->affected = NULL;
+
+    /* clear all flags */
+    obj->extra_flags = 0;
+    if (IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC))
+        REMOVE_BIT(obj->value[4],WEAPON_VAMPIRIC);
+
+    if (IS_WEAPON_STAT(obj,WEAPON_FLAMING))
+        REMOVE_BIT(obj->value[4],WEAPON_FLAMING);
+
+    if (IS_WEAPON_STAT(obj,WEAPON_FROST))
+        REMOVE_BIT(obj->value[4],WEAPON_FROST);
+
+    if (IS_WEAPON_STAT(obj,WEAPON_SHOCKING))
+        REMOVE_BIT(obj->value[4],WEAPON_SHOCKING);
+
+    return;
+
+} // end spell_disenchant

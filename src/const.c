@@ -963,6 +963,12 @@ const struct skill_type skill_table[MAX_SKILL] = {
      "", "!Restore Armor!", ""},
 
     {
+     "disenchant", {53, 53, 53, 53, 38}, {2, 2, 4, 4, 1},
+     spell_disenchant, TAR_OBJ_INV, POS_STANDING,
+     NULL, SLOT (518), 10, 24,
+     "", "!Disenchant!", ""},
+
+    {
      "energy drain", {19, 22, 26, 23, 19}, {1, 1, 2, 2, 1},
      spell_energy_drain, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
      NULL, SLOT (25), 35, 12,
@@ -1642,10 +1648,11 @@ const struct group_type group_table[MAX_GROUP] = {
      },
 
     {
-     "enchantment", {6, -1, -1, -1, 2},
+     "enchantment", {6, -1, -1, -1, 6},
      {"enchant armor", "enchant weapon", "fireproof", "recharge",
       "withering enhant", "enchant person", "sequestor", "wizard mark",
-      "continual light", "enchant gem", "restore armor", "restore weapon"}
+      "continual light", "enchant gem", "restore armor", "restore weapon",
+      "disenchant"}
      },
 
     {
