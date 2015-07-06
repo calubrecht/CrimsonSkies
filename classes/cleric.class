@@ -1,0 +1,179 @@
+Name        cleric~
+Class       1
+WhoName     Cle~
+Attrprime   2
+Weapon      3700
+Guild       3003
+Guild       9619
+Skilladept  75
+Thac0_00    20
+Thac0_32    2
+Hpmin       7
+Hpmax       10
+Mana        1
+BaseGroup   'cleric basics'
+DefGroup    'cleric default'
+Sk 'cause light' 1 1
+Sk 'cure light' 1 1
+Sk 'axe' 1 6
+Sk 'dagger' 1 3
+Sk 'flail' 1 3
+Sk 'mace' 1 2
+Sk 'polearm' 1 6
+Sk 'shield block' 1 4
+Sk 'spear' 1 4
+Sk 'sword' 1 6
+Sk 'whip' 1 5
+Sk 'scrolls' 1 3
+Sk 'staves' 1 3
+Sk 'wands' 1 3
+Sk 'recall' 1 2
+Sk 'armor' 2 1
+Sk 'create water' 3 1
+Sk 'faerie fire' 3 1
+Sk 'continual light' 4 1
+Sk 'detect evil' 4 1
+Sk 'detect good' 4 1
+Sk 'create food' 5 1
+Sk 'refresh' 5 1
+Sk 'cure blindness' 6 1
+Sk 'detect magic' 6 1
+Sk 'meditation' 6 5
+Sk 'bless' 7 1
+Sk 'cause serious' 7 1
+Sk 'cure serious' 7 1
+Sk 'detect poison' 7 1
+Sk 'blindness' 8 1
+Sk 'detect invis' 8 1
+Sk 'know alignment' 9 1
+Sk 'protection evil' 9 1
+Sk 'protection good' 9 1
+Sk 'fast healing' 9 5
+Sk 'earthquake' 10 1
+Sk 'floating disc' 10 1
+Sk 'hand to hand' 10 5
+Sk 'lore' 10 6
+Sk 'create rose' 11 1
+Sk 'detect hidden' 11 1
+Sk 'fireproof' 12 1
+Sk 'poison' 12 1
+Sk 'summon' 12 1
+Sk 'kick' 12 4
+Sk 'cause critical' 13 1
+Sk 'cure critical' 13 1
+Sk 'cure disease' 13 1
+Sk 'infravision' 13 1
+Sk 'cure poison' 14 1
+Sk 'weaken' 14 1
+Sk 'dispel evil' 15 1
+Sk 'dispel good' 15 1
+Sk 'locate object' 15 1
+Sk 'calm' 16 1
+Sk 'farsight' 16 1
+Sk 'heat metal' 16 1
+Sk 'identify' 16 1
+Sk 'create spring' 17 1
+Sk 'gate' 17 1
+Sk 'plague' 17 1
+Sk 'call lightning' 18 1
+Sk 'curse' 18 1
+Sk 'fly' 18 1
+Sk 'remove curse' 18 1
+Sk 'haggle' 18 8
+Sk 'control weather' 19 1
+Sk 'flamestrike' 20 1
+Sk 'sanctuary' 20 1
+Sk 'parry' 20 8
+Sk 'faerie fog' 21 1
+Sk 'heal' 21 1
+Sk 'peek' 21 7
+Sk 'energy drain' 22 1
+Sk 'teleport' 22 1
+Sk 'dodge' 22 8
+Sk 'harm' 23 1
+Sk 'lightning bolt' 23 1
+Sk 'dispel magic' 24 1
+Sk 'frenzy' 24 1
+Sk 'second attack' 24 8
+Sk 'mass invis' 25 1
+Sk 'pick lock' 25 8
+Sk 'cancellation' 26 1
+Sk 'word of recall' 28 1
+Sk 'portal' 30 2
+Sk 'slow' 30 1
+Sk 'enhanced damage' 30 9
+Sk 'pass door' 32 1
+Sk 'acid breath' 32 1
+Sk 'demonfire' 34 1
+Sk 'nexus' 35 2
+Sk 'ray of truth' 35 1
+Sk 'shield' 35 1
+Sk 'holy word' 36 2
+Sk 'frost breath' 36 1
+Sk 'mass healing' 38 2
+Sk 'stone skin' 40 1
+Sk 'lightning breath' 40 1
+Sk 'gas breath' 43 1
+Sk 'fire breath' 45 1
+Sk 'acid blast' 53 1
+Sk 'burning hands' 53 1
+Sk 'chain lightning' 53 1
+Sk 'change sex' 53 1
+Sk 'charm person' 53 1
+Sk 'chill touch' 53 1
+Sk 'color spray' 53 1
+Sk 'enchant armor' 53 2
+Sk 'enchant weapon' 53 2
+Sk 'enchant person' 53 4
+Sk 'withering enchant' 53 4
+Sk 'sequestor' 53 2
+Sk 'interlace spirit' 53 2
+Sk 'wizard mark' 53 2
+Sk 'enchant gem' 53 2
+Sk 'restore weapon' 53 2
+Sk 'restore armor' 53 2
+Sk 'disenchant' 53 2
+Sk 'fireball' 53 1
+Sk 'giant strength' 53 1
+Sk 'haste' 53 1
+Sk 'invisibility' 53 1
+Sk 'magic missile' 53 1
+Sk 'recharge' 53 1
+Sk 'shocking grasp' 53 1
+Sk 'sleep' 53 1
+Sk 'ventriloquate' 53 1
+Sk 'general purpose' 53 0
+Sk 'high explosive' 53 0
+Sk 'backstab' 53 0
+Sk 'bash' 53 0
+Sk 'berserk' 53 0
+Sk 'dirt kicking' 53 0
+Sk 'disarm' 53 0
+Sk 'envenom' 53 0
+Sk 'rescue' 53 0
+Sk 'trip' 53 0
+Sk 'third attack' 53 0
+Sk 'hide' 53 0
+Sk 'sneak' 53 0
+Sk 'steal' 53 0
+Gr 'rom basics' 0
+Gr 'cleric basics' 0
+Gr 'cleric default' 40
+Gr 'weaponsmaster' 40
+Gr 'attack' 5
+Gr 'benedictions' 4
+Gr 'creation' 4
+Gr 'curative' 4
+Gr 'detection' 3
+Gr 'harmful' 3
+Gr 'healing' 3
+Gr 'maladictions' 5
+Gr 'protective' 4
+Gr 'transportation' 4
+Gr 'weather' 4
+Mult 0 100
+Mult 1 100
+Mult 2 125
+Mult 3 100
+Mult 4 150
+End

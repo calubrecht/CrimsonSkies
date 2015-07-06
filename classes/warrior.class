@@ -1,0 +1,180 @@
+Name        warrior~
+Class       3
+WhoName     War~
+Attrprime   0
+Weapon      3702
+Guild       3022
+Guild       9633
+Skilladept  75
+Thac0_00    20
+Thac0_32    -10
+Hpmin       11
+Hpmax       15
+Mana        0
+BaseGroup   'warrior basics'
+DefGroup    'warrior default'
+Sk 'axe' 1 4
+Sk 'dagger' 1 2
+Sk 'flail' 1 4
+Sk 'mace' 1 3
+Sk 'polearm' 1 4
+Sk 'shield block' 1 2
+Sk 'spear' 1 3
+Sk 'sword' 1 2
+Sk 'whip' 1 4
+Sk 'bash' 1 4
+Sk 'enhanced damage' 1 3
+Sk 'parry' 1 4
+Sk 'rescue' 1 4
+Sk 'scrolls' 1 8
+Sk 'staves' 1 8
+Sk 'wands' 1 8
+Sk 'recall' 1 2
+Sk 'magic missile' 2 2
+Sk 'cause light' 3 2
+Sk 'cure light' 3 2
+Sk 'dirt kicking' 3 4
+Sk 'armor' 5 2
+Sk 'second attack' 5 3
+Sk 'chill touch' 6 2
+Sk 'hand to hand' 6 4
+Sk 'fast healing' 6 4
+Sk 'bless' 8 2
+Sk 'cure blindness' 8 2
+Sk 'faerie fire' 8 2
+Sk 'kick' 8 3
+Sk 'burning hands' 9 2
+Sk 'continual light' 9 2
+Sk 'refresh' 9 2
+Sk 'cause serious' 10 2
+Sk 'cure serious' 10 2
+Sk 'sneak' 10 6
+Sk 'create water' 11 2
+Sk 'protection evil' 11 2
+Sk 'protection good' 11 2
+Sk 'disarm' 11 4
+Sk 'create food' 12 2
+Sk 'third attack' 12 4
+Sk 'hide' 12 6
+Sk 'shocking grasp' 13 2
+Sk 'dodge' 13 6
+Sk 'cure disease' 14 2
+Sk 'earthquake' 14 2
+Sk 'haggle' 14 6
+Sk 'peek' 14 6
+Sk 'blindness' 15 2
+Sk 'trip' 15 8
+Sk 'meditation' 15 8
+Sk 'cure poison' 16 2
+Sk 'floating disc' 16 2
+Sk 'infravision' 16 2
+Sk 'lightning bolt' 16 2
+Sk 'weaken' 17 2
+Sk 'fireproof' 18 2
+Sk 'berserk' 18 5
+Sk 'cause critical' 19 2
+Sk 'cure critical' 19 2
+Sk 'calm' 20 2
+Sk 'color spray' 20 2
+Sk 'create spring' 20 2
+Sk 'giant strength' 20 2
+Sk 'lore' 20 8
+Sk 'dispel evil' 21 2
+Sk 'dispel good' 21 2
+Sk 'poison' 21 2
+Sk 'call lightning' 22 2
+Sk 'control weather' 22 2
+Sk 'curse' 22 2
+Sk 'fly' 22 2
+Sk 'remove curse' 22 2
+Sk 'summon' 22 2
+Sk 'energy drain' 23 2
+Sk 'heat metal' 23 2
+Sk 'create rose' 24 2
+Sk 'faerie fog' 24 2
+Sk 'pick lock' 25 8
+Sk 'fireball' 26 2
+Sk 'frenzy' 26 2
+Sk 'plague' 26 2
+Sk 'flamestrike' 27 2
+Sk 'gate' 28 2
+Sk 'harm' 28 2
+Sk 'haste' 29 2
+Sk 'dispel magic' 30 2
+Sk 'heal' 30 2
+Sk 'sanctuary' 30 2
+Sk 'word of recall' 30 2
+Sk 'acid blast' 32 2
+Sk 'slow' 32 2
+Sk 'cancellation' 34 2
+Sk 'acid breath' 34 2
+Sk 'chain lightning' 36 2
+Sk 'teleport' 36 2
+Sk 'pass door' 37 2
+Sk 'portal' 40 4
+Sk 'shield' 40 2
+Sk 'frost breath' 40 2
+Sk 'holy word' 42 4
+Sk 'demonfire' 45 2
+Sk 'nexus' 45 4
+Sk 'stone skin' 45 2
+Sk 'mass healing' 46 4
+Sk 'lightning breath' 46 2
+Sk 'ray of truth' 47 2
+Sk 'gas breath' 50 2
+Sk 'fire breath' 51 2
+Sk 'change sex' 53 2
+Sk 'charm person' 53 2
+Sk 'detect evil' 53 2
+Sk 'detect good' 53 2
+Sk 'detect hidden' 53 2
+Sk 'detect invis' 53 2
+Sk 'detect magic' 53 2
+Sk 'detect poison' 53 2
+Sk 'enchant armor' 53 4
+Sk 'enchant weapon' 53 4
+Sk 'enchant person' 53 4
+Sk 'withering enchant' 53 4
+Sk 'sequestor' 53 4
+Sk 'interlace spirit' 53 4
+Sk 'wizard mark' 53 4
+Sk 'enchant gem' 53 4
+Sk 'restore weapon' 53 4
+Sk 'restore armor' 53 4
+Sk 'disenchant' 53 4
+Sk 'farsight' 53 2
+Sk 'identify' 53 2
+Sk 'invisibility' 53 2
+Sk 'know alignment' 53 2
+Sk 'locate object' 53 2
+Sk 'mass invis' 53 2
+Sk 'recharge' 53 2
+Sk 'sleep' 53 2
+Sk 'ventriloquate' 53 2
+Sk 'general purpose' 53 0
+Sk 'high explosive' 53 0
+Sk 'backstab' 53 0
+Sk 'envenom' 53 0
+Sk 'steal' 53 0
+Gr 'rom basics' 0
+Gr 'warrior basics' 0
+Gr 'warrior default' 40
+Gr 'weaponsmaster' 20
+Gr 'attack' 8
+Gr 'benedictions' 8
+Gr 'combat' 9
+Gr 'creation' 8
+Gr 'curative' 8
+Gr 'enhancement' 9
+Gr 'harmful' 6
+Gr 'healing' 6
+Gr 'maladictions' 9
+Gr 'protective' 8
+Gr 'transportation' 9
+Gr 'weather' 8
+Mult 0 100
+Mult 1 100
+Mult 2 120
+Mult 3 100
+Mult 4 105
+End

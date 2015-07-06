@@ -1,0 +1,296 @@
+#GROUP
+Name 'rom basics'
+Sk 'scrolls'
+Sk 'staves'
+Sk 'wands'
+Sk 'recall'
+End
+
+#GROUP
+Name 'mage basics'
+Sk 'dagger'
+End
+
+#GROUP
+Name 'cleric basics'
+Sk 'mace'
+End
+
+#GROUP
+Name 'thief basics'
+Sk 'dagger'
+Sk 'steal'
+End
+
+#GROUP
+Name 'warrior basics'
+Sk 'sword'
+Sk 'second attack'
+End
+
+#GROUP
+Name 'enchantor basics'
+Sk 'dagger'
+End
+
+#GROUP
+Name 'mage default'
+Sk 'lore'
+Sk 'beguiling'
+Sk 'combat'
+Sk 'detection'
+Sk 'enhancement'
+Sk 'illusion'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'transportation'
+Sk 'weather'
+End
+
+#GROUP
+Name 'cleric default'
+Sk 'flail'
+Sk 'attack'
+Sk 'creation'
+Sk 'curative'
+Sk 'benedictions'
+Sk 'detection'
+Sk 'healing'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'shield block'
+Sk 'transportation'
+Sk 'weather'
+End
+
+#GROUP
+Name 'thief default'
+Sk 'mace'
+Sk 'sword'
+Sk 'backstab'
+Sk 'disarm'
+Sk 'dodge'
+Sk 'second attack'
+Sk 'trip'
+Sk 'hide'
+Sk 'peek'
+Sk 'pick lock'
+Sk 'sneak'
+End
+
+#GROUP
+Name 'warrior default'
+Sk 'weaponsmaster'
+Sk 'shield block'
+Sk 'bash'
+Sk 'disarm'
+Sk 'enhanced damage'
+Sk 'parry'
+Sk 'rescue'
+Sk 'third attack'
+End
+
+#GROUP
+Name 'enchantor default'
+Sk 'lore'
+Sk 'beguiling'
+Sk 'combat'
+Sk 'detection'
+Sk 'enhancement'
+Sk 'illusion'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'transportation'
+Sk 'weather'
+Sk 'enchantment'
+End
+
+#GROUP
+Name 'weaponsmaster'
+Sk 'axe'
+Sk 'dagger'
+Sk 'flail'
+Sk 'mace'
+Sk 'polearm'
+Sk 'spear'
+Sk 'sword'
+Sk 'whip'
+End
+
+#GROUP
+Name 'attack'
+Sk 'demonfire'
+Sk 'dispel evil'
+Sk 'dispel good'
+Sk 'earthquake'
+Sk 'flamestrike'
+Sk 'heat metal'
+Sk 'ray of truth'
+End
+
+#GROUP
+Name 'beguiling'
+Sk 'calm'
+Sk 'charm person'
+Sk 'sleep'
+End
+
+#GROUP
+Name 'benedictions'
+Sk 'bless'
+Sk 'calm'
+Sk 'frenzy'
+Sk 'holy word'
+Sk 'remove curse'
+End
+
+#GROUP
+Name 'combat'
+Sk 'acid blast'
+Sk 'burning hands'
+Sk 'chain lightning'
+Sk 'chill touch'
+Sk 'color spray'
+Sk 'fireball'
+Sk 'lightning bolt'
+Sk 'magic missile'
+Sk 'shocking grasp'
+End
+
+#GROUP
+Name 'creation'
+Sk 'continual light'
+Sk 'create food'
+Sk 'create spring'
+Sk 'create water'
+Sk 'create rose'
+Sk 'floating disc'
+End
+
+#GROUP
+Name 'curative'
+Sk 'cure blindness'
+Sk 'cure disease'
+Sk 'cure poison'
+End
+
+#GROUP
+Name 'detection'
+Sk 'detect evil'
+Sk 'detect good'
+Sk 'detect hidden'
+Sk 'detect invis'
+Sk 'detect magic'
+Sk 'detect poison'
+Sk 'farsight'
+Sk 'identify'
+Sk 'know alignment'
+Sk 'locate object'
+End
+
+#GROUP
+Name 'draconian'
+Sk 'acid breath'
+Sk 'fire breath'
+Sk 'frost breath'
+Sk 'gas breath'
+Sk 'lightning breath'
+End
+
+#GROUP
+Name 'enchantment'
+Sk 'enchant armor'
+Sk 'enchant weapon'
+Sk 'fireproof'
+Sk 'recharge'
+Sk 'withering enhant'
+Sk 'enchant person'
+Sk 'sequestor'
+Sk 'wizard mark'
+Sk 'continual light'
+Sk 'enchant gem'
+Sk 'restore armor'
+Sk 'restore weapon'
+Sk 'disenchant'
+End
+
+#GROUP
+Name 'enhancement'
+Sk 'giant strength'
+Sk 'haste'
+Sk 'infravision'
+Sk 'refresh'
+End
+
+#GROUP
+Name 'harmful'
+Sk 'cause critical'
+Sk 'cause light'
+Sk 'cause serious'
+Sk 'harm'
+End
+
+#GROUP
+Name 'healing'
+Sk 'cure critical'
+Sk 'cure light'
+Sk 'cure serious'
+Sk 'heal'
+Sk 'mass healing'
+Sk 'refresh'
+End
+
+#GROUP
+Name 'illusion'
+Sk 'invis'
+Sk 'mass invis'
+Sk 'ventriloquate'
+End
+
+#GROUP
+Name 'maladictions'
+Sk 'blindness'
+Sk 'change sex'
+Sk 'curse'
+Sk 'energy drain'
+Sk 'plague'
+Sk 'poison'
+Sk 'slow'
+Sk 'weaken'
+End
+
+#GROUP
+Name 'protective'
+Sk 'armor'
+Sk 'cancellation'
+Sk 'dispel magic'
+Sk 'fireproof'
+Sk 'protection evil'
+Sk 'protection good'
+Sk 'sanctuary'
+Sk 'shield'
+Sk 'stone skin'
+End
+
+#GROUP
+Name 'transportation'
+Sk 'fly'
+Sk 'gate'
+Sk 'nexus'
+Sk 'pass door'
+Sk 'portal'
+Sk 'summon'
+Sk 'teleport'
+Sk 'word of recall'
+End
+
+#GROUP
+Name 'weather'
+Sk 'call lightning'
+Sk 'control weather'
+Sk 'faerie fire'
+Sk 'faerie fog'
+Sk 'lightning bolt'
+End
+
+#END

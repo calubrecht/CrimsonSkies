@@ -1,0 +1,180 @@
+Name        enchantor~
+Class       4
+WhoName     Enc~
+Attrprime   1
+Weapon      3701
+Guild       3018
+Guild       9618
+Skilladept  75
+Thac0_00    20
+Thac0_32    6
+Hpmin       6
+Hpmax       8
+Mana        1
+BaseGroup   'enchantor basics'
+DefGroup    'enchantor default'
+Sk 'withering enchant' 1 1
+Sk 'magic missile' 1 1
+Sk 'axe' 1 6
+Sk 'dagger' 1 2
+Sk 'flail' 1 6
+Sk 'mace' 1 5
+Sk 'polearm' 1 6
+Sk 'shield block' 1 6
+Sk 'spear' 1 4
+Sk 'whip' 1 6
+Sk 'scrolls' 1 2
+Sk 'staves' 1 2
+Sk 'wands' 1 2
+Sk 'recall' 1 2
+Sk 'chill touch' 5 1
+Sk 'create water' 5 1
+Sk 'detect invis' 5 1
+Sk 'detect magic' 5 1
+Sk 'floating disc' 5 1
+Sk 'invisibility' 5 1
+Sk 'ventriloquate' 5 1
+Sk 'continual light' 6 1
+Sk 'faerie fire' 6 1
+Sk 'meditation' 6 5
+Sk 'armor' 7 1
+Sk 'burning hands' 7 1
+Sk 'refresh' 8 1
+Sk 'peek' 8 5
+Sk 'infravision' 9 1
+Sk 'locate object' 9 1
+Sk 'recharge' 9 1
+Sk 'create food' 10 1
+Sk 'enchant armor' 10 1
+Sk 'fly' 10 1
+Sk 'shocking grasp' 10 1
+Sk 'sleep' 10 1
+Sk 'lore' 10 6
+Sk 'detect evil' 11 1
+Sk 'detect good' 11 1
+Sk 'enchant weapon' 11 1
+Sk 'enchant person' 11 1
+Sk 'giant strength' 11 1
+Sk 'weaken' 11 1
+Sk 'blindness' 12 1
+Sk 'create spring' 12 1
+Sk 'protection evil' 12 1
+Sk 'protection good' 12 1
+Sk 'fireproof' 13 1
+Sk 'identify' 13 1
+Sk 'lightning bolt' 13 1
+Sk 'faerie fog' 14 1
+Sk 'farsight' 14 1
+Sk 'teleport' 14 1
+Sk 'control weather' 15 1
+Sk 'detect hidden' 15 1
+Sk 'detect poison' 15 1
+Sk 'fast healing' 15 8
+Sk 'color spray' 16 1
+Sk 'create rose' 16 1
+Sk 'dispel magic' 16 1
+Sk 'gate' 17 1
+Sk 'poison' 17 1
+Sk 'cancellation' 18 1
+Sk 'curse' 18 1
+Sk 'energy drain' 19 1
+Sk 'know alignment' 19 1
+Sk 'dodge' 20 8
+Sk 'haste' 21 1
+Sk 'fireball' 22 1
+Sk 'mass invis' 22 1
+Sk 'parry' 22 8
+Sk 'plague' 23 1
+Sk 'slow' 23 1
+Sk 'pass door' 24 1
+Sk 'summon' 24 1
+Sk 'shield' 25 1
+Sk 'stone skin' 25 1
+Sk 'hand to hand' 25 8
+Sk 'pick lock' 25 8
+Sk 'call lightning' 26 1
+Sk 'acid blast' 28 1
+Sk 'restore weapon' 28 1
+Sk 'restore armor' 29 1
+Sk 'portal' 30 2
+Sk 'second attack' 30 10
+Sk 'acid breath' 31 1
+Sk 'charm person' 32 1
+Sk 'word of recall' 32 1
+Sk 'enchant gem' 34 1
+Sk 'frost breath' 34 1
+Sk 'nexus' 35 2
+Sk 'sanctuary' 36 1
+Sk 'lightning breath' 37 1
+Sk 'chain lightning' 38 1
+Sk 'disenchant' 38 1
+Sk 'gas breath' 39 1
+Sk 'fire breath' 40 1
+Sk 'sequestor' 41 1
+Sk 'enhanced damage' 45 10
+Sk 'interlace spirit' 46 1
+Sk 'calm' 48 1
+Sk 'wizard mark' 51 1
+Sk 'bless' 53 1
+Sk 'cause critical' 53 1
+Sk 'cause light' 53 1
+Sk 'cause serious' 53 1
+Sk 'change sex' 53 1
+Sk 'cure blindness' 53 1
+Sk 'cure critical' 53 1
+Sk 'cure disease' 53 1
+Sk 'cure light' 53 1
+Sk 'cure poison' 53 1
+Sk 'cure serious' 53 1
+Sk 'demonfire' 53 1
+Sk 'dispel evil' 53 1
+Sk 'dispel good' 53 1
+Sk 'earthquake' 53 1
+Sk 'flamestrike' 53 1
+Sk 'frenzy' 53 1
+Sk 'harm' 53 1
+Sk 'heal' 53 1
+Sk 'heat metal' 53 1
+Sk 'holy word' 53 1
+Sk 'mass healing' 53 2
+Sk 'ray of truth' 53 1
+Sk 'remove curse' 53 1
+Sk 'general purpose' 53 0
+Sk 'high explosive' 53 0
+Sk 'sword' 53 0
+Sk 'backstab' 53 0
+Sk 'bash' 53 0
+Sk 'berserk' 53 0
+Sk 'dirt kicking' 53 0
+Sk 'disarm' 53 0
+Sk 'envenom' 53 0
+Sk 'kick' 53 0
+Sk 'rescue' 53 0
+Sk 'trip' 53 0
+Sk 'third attack' 53 0
+Sk 'haggle' 53 0
+Sk 'hide' 53 0
+Sk 'sneak' 53 0
+Sk 'steal' 53 0
+Gr 'rom basics' 0
+Gr 'enchantor basics' 0
+Gr 'enchantor default' 40
+Gr 'weaponsmaster' 40
+Gr 'beguiling' 4
+Gr 'combat' 6
+Gr 'creation' 4
+Gr 'detection' 4
+Gr 'draconian' 8
+Gr 'enchantment' 6
+Gr 'enhancement' 5
+Gr 'illusion' 4
+Gr 'maladictions' 5
+Gr 'protective' 4
+Gr 'transportation' 4
+Gr 'weather' 4
+Mult 0 100
+Mult 1 100
+Mult 2 100
+Mult 3 150
+Mult 4 200
+End
