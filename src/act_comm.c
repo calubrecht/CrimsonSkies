@@ -113,7 +113,7 @@ void do_channels (CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
 
     /* lists all channels and their status */
-    send_to_char ("   channel     status\n\r", ch);
+    send_to_char ("Channel        Status\n\r", ch);
     send_to_char ("---------------------\n\r", ch);
 
     send_to_char ("{dgossip{x         ", ch);
