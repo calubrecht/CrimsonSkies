@@ -239,7 +239,7 @@ bool saves_spell (int level, CHAR_DATA * victim, int dam_type)
             break;
     }
 
-    if (!IS_NPC (victim) && class_table[victim->class].fMana)
+    if (!IS_NPC (victim) && class_table[victim->class]->fMana)
         save = 9 * save / 10;
     save = URANGE (5, save, 95);
     return number_percent () < save;
@@ -562,7 +562,7 @@ void do_cast (CHAR_DATA * ch, char *argument)
     else
     {
         ch->mana -= mana;
-        if (IS_NPC (ch) || class_table[ch->class].fMana)
+        if (IS_NPC (ch) || class_table[ch->class]->fMana)
             /* class has spells */
             (*skill_table[sn].spell_fun) (sn, ch->level, ch, vo, target);
         else

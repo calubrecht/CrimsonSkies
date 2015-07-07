@@ -80,11 +80,11 @@ void advance_level (CHAR_DATA * ch, bool hide)
 
     add_hp =
         con_app[get_curr_stat (ch, STAT_CON)].hitp +
-        number_range (class_table[ch->class].hp_min,
-                      class_table[ch->class].hp_max);
+        number_range (class_table[ch->class]->hp_min,
+                      class_table[ch->class]->hp_max);
     add_mana = number_range (2, (2 * get_curr_stat (ch, STAT_INT)
                                  + get_curr_stat (ch, STAT_WIS)) / 5);
-    if (!class_table[ch->class].fMana)
+    if (!class_table[ch->class]->fMana)
         add_mana /= 2;
     add_move = number_range (1, (get_curr_stat (ch, STAT_CON)
                                  + get_curr_stat (ch, STAT_DEX)) / 6);
@@ -183,7 +183,7 @@ int hit_gain (CHAR_DATA * ch)
     else
     {
         gain = UMAX (3, get_curr_stat (ch, STAT_CON) - 3 + ch->level / 2);
-        gain += class_table[ch->class].hp_max - 10;
+        gain += class_table[ch->class]->hp_max - 10;
         number = number_percent ();
         if (number < get_skill (ch, gsn_fast_healing))
         {
@@ -276,7 +276,7 @@ int mana_gain (CHAR_DATA * ch)
             if (ch->mana < ch->max_mana)
                 check_improve (ch, gsn_meditation, TRUE, 8);
         }
-        if (!class_table[ch->class].fMana)
+        if (!class_table[ch->class]->fMana)
             gain /= 2;
 
         switch (ch->position)

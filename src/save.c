@@ -320,9 +320,9 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
 
         for (gn = 0; gn < MAX_GROUP; gn++)
         {
-            if (group_table[gn].name != NULL && ch->pcdata->group_known[gn])
+            if (group_table[gn]->name != NULL && ch->pcdata->group_known[gn])
             {
-                fprintf (fp, "Gr '%s'\n", group_table[gn].name);
+                fprintf (fp, "Gr '%s'\n", group_table[gn]->name);
             }
         }
     }
@@ -680,8 +680,8 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     {   
 		/* need to add the new skills */
         group_add (ch, "rom basics", FALSE);
-        group_add (ch, class_table[ch->class].base_group, FALSE);
-        group_add (ch, class_table[ch->class].default_group, TRUE);
+        group_add (ch, class_table[ch->class]->base_group, FALSE);
+        group_add (ch, class_table[ch->class]->default_group, TRUE);
         ch->pcdata->learned[gsn_recall] = 50;
     }
 
@@ -1121,6 +1121,10 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
             fread_to_eol (fp);
         }
     }
+
+    sprintf (buf, "Player %s Loaded.", ch->name);
+    log_string (buf);
+
 }
 
 /* load a pet from the forgotten reaches */

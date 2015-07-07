@@ -43,6 +43,9 @@
 #include "merc.h"
 #include "tables.h"
 
+GROUPTYPE *             group_table     [MAX_GROUP];
+CLASSTYPE *             class_table     [MAX_CLASS];
+
 /* for clans */
 const struct clan_type clan_table[MAX_CLAN] = {
     /*  name, who entry, death-transfer room, independent */

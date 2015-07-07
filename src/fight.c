@@ -464,8 +464,8 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
     else
     {
-        thac0_00 = class_table[ch->class].thac0_00;
-        thac0_32 = class_table[ch->class].thac0_32;
+        thac0_00 = class_table[ch->class]->thac0_00;
+        thac0_32 = class_table[ch->class]->thac0_32;
     }
     thac0 = interpolate (ch->level, thac0_00, thac0_32);
 
@@ -1883,13 +1883,15 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         base_exp = 160 + 20 * (level_range - 4);
 
     /* do alignment computations */
+    // XP was getting wiped out for certain setups here, put cases in for
+    // everything.  - Rhien
     switch(gch->alignment)
     {
         case ALIGN_GOOD:
             switch(victim->alignment)
             {
                 case ALIGN_GOOD: xp += base_exp * 2 / 3; break;
-                case ALIGN_NEUTRAL: break;
+                case ALIGN_NEUTRAL: xp = base_exp; break;
                 case ALIGN_EVIL: xp += base_exp * 3 / 2; break;
                 default: break;
             }
@@ -1897,7 +1899,7 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         case ALIGN_NEUTRAL:
             switch(victim->alignment)
             {
-                case ALIGN_EVIL:
+                case ALIGN_EVIL: xp = base_exp; break;
                 case ALIGN_GOOD: xp += base_exp * 5 / 4; break;
                 case ALIGN_NEUTRAL: xp += base_exp * 4 / 5; break;
                 default: break;
@@ -1907,7 +1909,7 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
             switch(victim->alignment)
             {
                 case ALIGN_EVIL: xp += base_exp * 2 / 3; break;
-                case ALIGN_NEUTRAL: break;
+                case ALIGN_NEUTRAL: xp = base_exp; break;
                 case ALIGN_GOOD: xp += base_exp * 3 / 2; break;
                 default: break;
             }
@@ -1924,7 +1926,6 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         xp = 15 * xp / (gch->level - 25);
 
     /* reduce for playing time */
-
     {
         /* compute quarter-hours per level */
         time_per_level = 4 *

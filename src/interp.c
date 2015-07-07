@@ -289,7 +289,6 @@ const struct cmd_type cmd_table[] = {
     {"wake",            do_wake,        POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"where",           do_where,       POS_RESTING,  0, LOG_NORMAL, 1},
     {"reclass",         do_reclass,     POS_SLEEPING, 0, LOG_ALWAYS, 1},
-    {"stats",           do_stats,       POS_DEAD,     0, LOG_NORMAL, 1},
 
     /*
      * Immortal commands.
@@ -345,6 +344,7 @@ const struct cmd_type cmd_table[] = {
     {"return",          do_return,      POS_DEAD, L6, LOG_NORMAL, 1},
     {"snoop",           do_snoop,       POS_DEAD, L5, LOG_ALWAYS, 1},
     {"stat",            do_stat,        POS_DEAD, IM, LOG_NORMAL, 1},
+    {"stats",           do_stats,       POS_DEAD,  0, LOG_NORMAL, 1},
     {"string",          do_string,      POS_DEAD, L5, LOG_ALWAYS, 1},
     {"switch",          do_switch,      POS_DEAD, L6, LOG_ALWAYS, 1},
     {"wizinvis",        do_invis,       POS_DEAD, IM, LOG_NORMAL, 1},

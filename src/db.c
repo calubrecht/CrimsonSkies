@@ -180,6 +180,9 @@ int top_vnum_room;                /* OLC */
 int top_vnum_mob;                /* OLC */
 int top_vnum_obj;                /* OLC */
 int top_mprog_index;            /* OLC */
+int top_sn;
+int top_group;
+int top_class;
 int mobile_count = 0;
 int newmobs = 0;
 int newobjs = 0;
@@ -230,6 +233,9 @@ void load_notes args( ( void ) );
 void fix_exits args ((void));
 void fix_mobprogs args ((void));
 void reset_area args ((AREA_DATA * pArea));
+void load_classes args((void));
+void load_groups args((void));
+void save_class args((int num));
 
 /*
  * Big mama top level function.
@@ -299,6 +305,12 @@ void boot_db ()
             weather_info.sky = SKY_CLOUDLESS;
 
     }
+
+    log_string("STATUS: Loading Groups");
+    load_groups();
+
+    log_string("STATUS: Loading Classes");
+    load_classes();
 
     /*
      * Assign gsn's for skills which have them.
@@ -3860,3 +3872,409 @@ void load_objects(FILE * fp)
 
     return;
 }
+
+/*
+ * Saves all of the classes in memory into the class.lst file and then into each individual
+ * class file.
+ */
+void save_classes()
+{
+    FILE *lst;
+    int i;
+
+    fclose( fpReserve );
+    lst = fopen ("../classes/class.lst", "w");
+
+    if (!lst)
+    {
+	bug ("Could not open class.lst for writing",0);
+        return;
+    }
+
+    for (i = 0; i < top_class; i++)
+    {
+	fprintf(lst,"%s.class\n",class_table[i]->name);
+	save_class (i);
+    }
+
+    fprintf(lst,"$\n");
+    fclose(lst);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end void save_classes
+
+/*
+ * Saves an individual class to it's class file (e.g. Mage.class)
+ */
+void save_class (int num)
+{
+    FILE *fp;
+    char buf[MAX_STRING_LENGTH];
+    int lev, i, x, race;
+
+    sprintf (buf, "%s%s.class", "../classes/", class_table[num]->name);
+
+    if (!(fp = fopen (buf, "w")))
+    {
+        bug ("Could not open file in order to save class %d.", num);
+        return;
+    }
+
+    fprintf( fp, "Name        %s~\n",        class_table[num]->name            );
+    fprintf( fp, "Class       %d\n",         num                      );
+    fprintf( fp, "WhoName     %s~\n",        class_table[num]->who_name         );
+    fprintf( fp, "Attrprime   %d\n",         class_table[num]->attr_prime       );
+    //fprintf( fp, "Attrsecond  %d\n",         class_table[num]->attr_second      );
+    fprintf( fp, "Weapon      %d\n",         class_table[num]->weapon           );
+
+    for (x = 0; x < MAX_GUILD;x++)
+    {
+        fprintf( fp, "Guild       %d\n",       class_table[num]->guild[x]       );
+    }
+
+    fprintf( fp, "Skilladept  %d\n",         class_table[num]->skill_adept      );
+    fprintf( fp, "Thac0_00    %d\n",         class_table[num]->thac0_00         );
+    fprintf( fp, "Thac0_32    %d\n",         class_table[num]->thac0_32         );
+    fprintf( fp, "Hpmin       %d\n",         class_table[num]->hp_min           );
+    fprintf( fp, "Hpmax       %d\n",         class_table[num]->hp_max           );
+    fprintf( fp, "Mana        %d\n",         class_table[num]->fMana            );
+    //fprintf( fp, "Expbase     %d\n",       class_table[num]->exp_base         );
+    fprintf( fp, "BaseGroup   '%s'\n",       class_table[num]->base_group       );
+    fprintf( fp, "DefGroup    '%s'\n",       class_table[num]->default_group   );
+
+
+    for (lev = 0; lev < MAX_LEVEL; lev++)
+    {
+        for (i = 0; i < top_sn; i++)
+        {
+            if (skill_table[i].name == NULL || skill_table[i].name[0] == '\0')
+                continue;
+
+             if (skill_table[i].skill_level[num] == lev)
+             {
+                 fprintf (fp, "Sk '%s' %d %d\n", skill_table[i].name, lev, skill_table[i].rating[num]);
+             }
+        }
+    }
+
+    for (i = 0; i < top_group && group_table[i]->name[0] != '\0' ; i++)
+    {
+        if(group_table[i]->rating[num] != -1)
+        {
+            fprintf(fp, "Gr '%s' %d\n", group_table[i]->name, group_table[i]->rating[num]);
+        }
+    }
+
+    for ( race = 0;race < MAX_PC_RACE;race++)
+    {
+        if (pc_race_table[race].name == NULL || pc_race_table[race].name[0] == '\0')
+            break;
+
+	fprintf( fp, "Mult %d %d\n", race,pc_race_table[race].class_mult[num]);
+    }
+
+    fprintf (fp, "End\n");
+    fclose (fp);
+
+} // end void save_class
+
+// marker
+/*
+ * Load's a class into the class type.
+ */
+bool load_class (char *fname)
+{
+    char buf[MAX_STRING_LENGTH];
+    int rating,guild=0;
+    CLASSTYPE *class;
+    FILE *fp;
+    char *word;
+    bool fMatch;
+    int cl = -1;
+
+    sprintf (buf, "%s%s", CLASS_DIR, fname);
+
+    if (!(fp = fopen (buf, "r")))
+    {
+        sprintf(buf, "Could not open file in order to load class %s%s.", CLASS_DIR, fname);
+        log_string(buf);
+        return FALSE;
+    }
+
+    class = alloc_perm(sizeof(*class));
+
+    for ( ; ; )
+    {
+        word = feof( fp ) ? "End" : fread_word( fp );
+        fMatch = FALSE;
+
+        switch ( UPPER(word[0]) )
+        {
+            case '*':
+                fMatch = TRUE;
+                fread_to_eol( fp );
+                break;
+            case 'A':
+                KEY("Attrprime",      	class->attr_prime, 	fread_number(fp) );
+                //KEY("Attrsecond",      	class->attr_second, 	fread_number(fp) );
+                break;
+            case 'B':
+                KEY("BaseGroup",      	class->base_group, 	str_dup(fread_word(fp)));
+                break;
+            case 'C':
+                if (!str_cmp( word, "Class"))
+                {
+                    cl = fread_number(fp);
+                    fMatch = TRUE;
+                    break;
+                }
+                break;
+	    case 'D':
+                KEY("DefGroup",      	class->default_group, 	str_dup(fread_word(fp)));
+                break;
+            case 'G':
+                if (!str_cmp( word, "Gr") || !str_cmp( word, "Group" ) )
+                {
+                    int group;
+
+                    word = fread_word( fp );
+                    rating = fread_number( fp );
+                    group = group_lookup( word );
+                    if (group == -1 )
+                    {
+                    	sprintf( buf, "load_class_file: Group %s unknown", word );
+                    	bug( buf, 0 );
+                    }
+                    else
+                    {
+                        group_table[group]->rating[cl] = rating;
+                    }
+                    fMatch = TRUE;
+                    break;
+                }
+                if (!str_cmp( word, "Guild"))
+                {
+                    class->guild[guild++] =  fread_number(fp);
+                    fMatch = TRUE;
+                    break;
+                }
+            case 'E':
+                if ( !str_cmp( word, "End" ) )
+                {
+                    fclose( fp );
+                    if ( cl < 0 || cl >= MAX_CLASS )
+                    {
+                        sprintf( buf, "Load_class_file: Class (%s) bad/not found (%d)",
+                            class->who_name ? class->who_name : "name not found", cl );
+                     	bug( buf, 0 );
+                    	if ( class->name )
+                            free_string( class->who_name );
+                        return FALSE;
+                     }
+                     class_table[cl] = class;
+                     top_class++;
+                     return TRUE;
+                }
+            case 'H':
+                KEY("Hpmin",      	class->hp_min, 		fread_number(fp) );
+                KEY("Hpmax",      	class->hp_max, 		fread_number(fp) );
+                break;
+            case 'I':
+                KEY("IsReclass",        class->is_reclass,      fread_number(fp) );
+            case 'M':
+                if (!str_cmp( word, "Mult"))
+                {
+		    //int race;
+		    //race = fread_number(fp);
+                    // marker todo, file-size this one, save the table out to disk
+                    // to create the pc_race_table files from the hard coded tables
+		    //pc_race_table[race].class_mult[cl] = fread_number(fp);
+		    //pc_race_table[race].can_take[cl] = fread_number(fp);
+                    fMatch = TRUE;
+                    break;
+                }
+                KEY("Mana",      	class->fMana, 		fread_number(fp) );
+                break;
+            case 'N':
+                KEY("Name",      	class->name, 		fread_string(fp) );
+                break;
+            case 'S':
+                if (!str_cmp( word, "Sk") || !str_cmp( word, "Skill" ) )
+                {
+                    int sn, lev;
+
+                    word = fread_word( fp );
+                    lev = fread_number( fp );
+                    rating = fread_number( fp );
+                    sn = skill_lookup( word );
+                    if (sn == -1 )
+                    {
+                        sprintf( buf, "load_class_file: Skill %s unknown", word );
+                        bug( buf, 0 );
+                    }
+                    else
+                    {
+                        skill_table[sn].skill_level[cl] = lev;
+                        skill_table[sn].rating[cl] = rating;
+                    }
+                    fMatch = TRUE;
+                    break;
+                }
+                KEY("Skilladept",      	class->skill_adept, 	fread_number(fp) );
+                break;
+            case 'T':
+                KEY("Thac0_00",      	class->thac0_00, 	fread_number(fp) );
+                KEY("Thac0_32",      	class->thac0_32, 	fread_number(fp) );
+                break;
+            case 'W':
+                if (!str_cmp( word, "WhoName"))
+                {
+                    strcpy(class->who_name,fread_string(fp));
+                    fMatch = TRUE;
+                    break;
+                }
+                KEY("Weapon",      	class->weapon, 		fread_number(fp) );
+                break;
+        }
+    }
+} // end bool load_class
+
+/*
+ *  Loads each class listed in the CLASS_FILE
+ */
+void load_classes()
+{
+    FILE *fpList;
+    char *filename;
+    char classlist[256];
+    char buf[MAX_STRING_LENGTH];
+
+    sprintf( classlist, "%s%s", CLASS_DIR, CLASS_FILE );
+    if ( ( fpList = fopen( classlist, "r" ) ) == NULL )
+    {
+        log_string( classlist );
+        exit(1);
+    }
+
+    for ( ; ; )
+    {
+        filename = feof( fpList ) ? "$" : fread_word( fpList );
+        if ( filename[0] == '$' )
+          break;
+
+        if ( !load_class( filename ) )
+        {
+            sprintf( buf, "Cannot load class file: %s", filename );
+            bug(buf,0);
+        }
+    }
+    fclose( fpList );
+    return;
+
+} // end void load_classes
+
+/*
+ * Loads all of the skills and spells into the groups they belong to.
+ */
+void load_groups()
+{
+    FILE *fp;
+    if ( ( fp = fopen( GROUP_FILE, "r" ) ) != NULL )
+    {
+        top_group = 0;
+        for ( ;; )
+        {
+            char letter;
+            char *word;
+
+            letter = fread_letter( fp );
+            if ( letter == '*' )
+            {
+                fread_to_eol( fp );
+                continue;
+            }
+
+            if ( letter != '#' )
+            {
+                bug( "Load_group_table: # not found.", 0 );
+                break;
+            }
+
+            word = fread_word( fp );
+            if (!str_cmp(word, "GROUP"))
+            {
+                if ( top_group >= MAX_GROUP )
+                {
+                    bug( "load_group_table: more skills than top_group %d", top_group );
+                    fclose(fp);
+                    return;
+                }
+                group_table[top_group++] = fread_group( fp );
+                continue;
+            }
+            else
+            if ( !str_cmp( word, "END"  ) )
+                break;
+            else
+            {
+                bug( "Load_group_table: bad section.", 0 );
+                continue;
+            }
+        }
+        fclose( fp );
+    }
+    else
+    {
+        bug( "Cannot open groups.dat", 0 );
+        exit(0);
+    }
+} // end void load_groups
+
+/*
+ * Reads a group in from the file and returns a GROUPTYPE.
+ */
+GROUPTYPE *fread_group(FILE *fp)
+{
+    char *word;
+    bool fMatch;
+    GROUPTYPE *gr;
+    int x,i;
+    i=0;
+
+    gr = alloc_perm(sizeof(*gr));
+    for ( x = 0; x < MAX_CLASS; x++ )
+    {
+        gr->rating[x] = -1;
+    }
+
+    for ( ; ; )
+    {
+        word   = feof( fp ) ? "End" : fread_word( fp );
+        fMatch = FALSE;
+
+        switch ( UPPER(word[0]))
+        {
+            case '*':
+                fMatch = TRUE;
+                fread_to_eol( fp );
+                break;
+            case 'S':
+	        KEY( "Sk", gr->spells[i++], str_dup(fread_word(fp)) );
+                break;
+            case 'E':
+                if ( !str_cmp( word, "End" ) )
+                    return gr;
+                break;
+            case 'N':
+	        KEY( "Name", gr->name, str_dup(fread_word(fp)));
+                break;
+        }
+
+        if (!fMatch)
+        {
+            bug( "Fread_obj: no match.", 0 );
+            fread_to_eol( fp );
+        }
+    }
+    return gr;
+} // end GROUPTYPE *fread_group

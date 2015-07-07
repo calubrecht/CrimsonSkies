@@ -1644,7 +1644,7 @@ void do_score(CHAR_DATA * ch, char *argument)
         ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
 
     printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
-        get_age(ch), capitalize(class_table[ch->class].name), ctime(&(ch->logon)));
+        get_age(ch), capitalize(class_table[ch->class]->name), ctime(&(ch->logon)));
 
     printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
         ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR), GET_HITROLL(ch), ctime(&current_time));
@@ -1739,7 +1739,7 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
     sprintf (buf, "Race: %s  Sex: %s  Class: %s\n\r",
              race_table[ch->race].name,
              ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
-             IS_NPC (ch) ? "mobile" : class_table[ch->class].name);
+             IS_NPC (ch) ? "mobile" : class_table[ch->class]->name);
     send_to_char (buf, ch);
 
 
@@ -2187,7 +2187,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
             found = TRUE;
 
             /* work out the printing */
-            class = class_table[wch->class].who_name;
+            class = class_table[wch->class]->who_name;
             switch (wch->level)
             {
                 case MAX_LEVEL - 0:
@@ -2418,7 +2418,7 @@ void do_who (CHAR_DATA * ch, char *argument)
         /*
          * Figure out what to print for class.
          */
-        class = class_table[wch->class].who_name;
+        class = class_table[wch->class]->who_name;
         switch (wch->level)
         {
             case MAX_LEVEL - 0:
@@ -3021,7 +3021,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
             return;
         }
 
-        adept = IS_NPC (ch) ? 100 : class_table[ch->class].skill_adept;
+        adept = IS_NPC (ch) ? 100 : class_table[ch->class]->skill_adept;
 
         if (ch->pcdata->learned[sn] >= adept)
         {

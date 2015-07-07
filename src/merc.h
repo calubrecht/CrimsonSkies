@@ -73,6 +73,8 @@ typedef struct    time_info_data   TIME_INFO_DATA;
 typedef struct    weather_data     WEATHER_DATA;
 typedef struct    mprog_list       MPROG_LIST;
 typedef struct    mprog_code       MPROG_CODE;
+typedef struct    group_type       GROUPTYPE;
+typedef struct    class_type       CLASSTYPE;
 
 /*
  * Function types.
@@ -98,7 +100,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
  */
 #define MAX_SOCIALS        256
 #define MAX_SKILL          155
-#define MAX_GROUP          32 // reclass
+#define MAX_GROUP          29 // reclass
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5
 #define MAX_CLASS          5 // reclass
@@ -1903,7 +1905,6 @@ extern    const    struct    wis_app_type    wis_app        [26];
 extern    const    struct    dex_app_type    dex_app        [26];
 extern    const    struct    con_app_type    con_app        [26];
 
-extern    const    struct    class_type      class_table    [MAX_CLASS];
 extern    const    struct    weapon_type     weapon_table   [];
 extern    const    struct    item_type       item_table     [];
 extern    const    struct    wiznet_type     wiznet_table   [];
@@ -1912,9 +1913,10 @@ extern    const    struct    race_type       race_table     [];
 extern    const    struct    pc_race_type    pc_race_table  [];
 extern    const    struct    spec_type       spec_table     [];
 extern    const    struct    liq_type        liq_table      [];
-extern    const    struct    skill_type      skill_table    [MAX_SKILL];
-extern    const    struct    group_type      group_table    [MAX_GROUP];
+extern             struct    skill_type      skill_table    [MAX_SKILL];
 extern             struct    social_type     social_table   [MAX_SOCIALS];
+//extern    const    struct    class_type      class_table    [MAX_CLASS];
+//extern    const    struct    group_type      group_table    [MAX_GROUP];
 
 /*
  * Global variables.
@@ -1939,6 +1941,8 @@ extern  bool                    MOBtrigger;
 extern  bool                    is_copyover;     // Whether a copyover is running or not
 extern  CHAR_DATA               *copyover_ch;    // Link back to the person who executed the copyover
 extern  int                     copyover_timer;  // How many ticks are left until the copyover executes
+extern  GROUPTYPE               * group_table[MAX_GROUP];
+extern  CLASSTYPE               * class_table[MAX_CLASS];
 
 /*
  * OS-dependent declarations.
@@ -2014,6 +2018,10 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 #define SHUTDOWN_FILE       "shutdown.txt"       /* For 'shutdown'        */
 #define BAN_FILE            "ban.txt"
 #define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+
+#define GROUP_FILE          "../classes/groups.dat"   /* groups file */
+#define CLASS_DIR           "../classes/"             /* classes directory */
+#define CLASS_FILE          "class.lst"               /* classes file */
 
 #define NOTE_FILE           "../notes/note.note"
 #define PENALTY_FILE        "../notes/penalty.note"
@@ -2104,6 +2112,7 @@ RID *    get_room_index      args( ( int vnum ) );
 MPC *    get_mprog_index     args( ( int vnum ) );
 char     fread_letter        args( ( FILE *fp ) );
 int      fread_number        args( ( FILE *fp ) );
+GROUPTYPE * fread_group      args( ( FILE *fp ) );
 long     fread_flag          args( ( FILE *fp ) );
 char *   fread_string        args( ( FILE *fp ) );
 char *   fread_string_eol    args( ( FILE *fp ) );
@@ -2378,6 +2387,9 @@ extern    int   top_shop;
 extern    int   top_vnum_mob;
 extern    int   top_vnum_obj;
 extern    int   top_vnum_room;
+extern    int   top_group;
+extern    int   top_class;
+extern    int   top_sn;
 extern    char  str_empty [1];
 
 extern    MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];

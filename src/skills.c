@@ -90,15 +90,15 @@ void do_gain (CHAR_DATA * ch, char *argument)
 
         for (gn = 0; gn < MAX_GROUP; gn++)
         {
-            if (group_table[gn].name == NULL)
+            if (group_table[gn]->name == NULL)
                 break;
 
             if (!ch->pcdata->group_known[gn]
-                && group_table[gn].rating[ch->class] > 0)
+                && group_table[gn]->rating[ch->class] > 0)
             {
                 sprintf (buf, "%-18s %-5d ",
-                         group_table[gn].name,
-                         group_table[gn].rating[ch->class]);
+                         group_table[gn]->name,
+                         group_table[gn]->rating[ch->class]);
                 send_to_char (buf, ch);
                 if (++col % 3 == 0)
                     send_to_char ("\n\r", ch);
@@ -190,14 +190,14 @@ void do_gain (CHAR_DATA * ch, char *argument)
             return;
         }
 
-        if (group_table[gn].rating[ch->class] <= 0)
+        if (group_table[gn]->rating[ch->class] <= 0)
         {
             act ("$N tells you 'That group is beyond your powers.'",
                  ch, NULL, trainer, TO_CHAR);
             return;
         }
 
-        if (ch->train < group_table[gn].rating[ch->class])
+        if (ch->train < group_table[gn]->rating[ch->class])
         {
             act ("$N tells you 'You are not yet ready for that group.'",
                  ch, NULL, trainer, TO_CHAR);
@@ -207,8 +207,8 @@ void do_gain (CHAR_DATA * ch, char *argument)
         /* add the group */
         gn_add (ch, gn);
         act ("$N trains you in the art of $t",
-             ch, group_table[gn].name, trainer, TO_CHAR);
-        ch->train -= group_table[gn].rating[ch->class];
+             ch, group_table[gn]->name, trainer, TO_CHAR);
+        ch->train -= group_table[gn]->rating[ch->class];
         return;
     }
 
@@ -519,15 +519,15 @@ void list_group_costs (CHAR_DATA * ch)
 
     for (gn = 0; gn < MAX_GROUP; gn++)
     {
-        if (group_table[gn].name == NULL)
+        if (group_table[gn]->name == NULL)
             break;
 
         if (!ch->gen_data->group_chosen[gn]
             && !ch->pcdata->group_known[gn]
-            && group_table[gn].rating[ch->class] > 0)
+            && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf (buf, "%-18s %-5d ", group_table[gn].name,
-                     group_table[gn].rating[ch->class]);
+            sprintf (buf, "%-18s %-5d ", group_table[gn]->name,
+                     group_table[gn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
                 send_to_char ("\n\r", ch);
@@ -588,14 +588,14 @@ void list_group_chosen (CHAR_DATA * ch)
 
     for (gn = 0; gn < MAX_GROUP; gn++)
     {
-        if (group_table[gn].name == NULL)
+        if (group_table[gn]->name == NULL)
             break;
 
         if (ch->gen_data->group_chosen[gn]
-            && group_table[gn].rating[ch->class] > 0)
+            && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf (buf, "%-18s %-5d ", group_table[gn].name,
-                     group_table[gn].rating[ch->class]);
+            sprintf (buf, "%-18s %-5d ", group_table[gn]->name,
+                     group_table[gn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
                 send_to_char ("\n\r", ch);
@@ -714,7 +714,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
                 return TRUE;
             }
 
-            if (group_table[gn].rating[ch->class] < 1)
+            if (group_table[gn]->rating[ch->class] < 1)
             {
                 send_to_char ("That group is not available.\n\r", ch);
                 return TRUE;
@@ -722,7 +722,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
 
             /* Close security hole */
             if (ch->gen_data->points_chosen +
-                group_table[gn].rating[ch->class] > 300)
+                group_table[gn]->rating[ch->class] > 300)
             {
                 send_to_char
                     ("You cannot take more than 300 creation points.\n\r",
@@ -730,12 +730,12 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
                 return TRUE;
             }
 
-            sprintf (buf, "%s group added\n\r", group_table[gn].name);
+            sprintf (buf, "%s group added\n\r", group_table[gn]->name);
             send_to_char (buf, ch);
             ch->gen_data->group_chosen[gn] = TRUE;
-            ch->gen_data->points_chosen += group_table[gn].rating[ch->class];
+            ch->gen_data->points_chosen += group_table[gn]->rating[ch->class];
             gn_add (ch, gn);
-            ch->pcdata->points += group_table[gn].rating[ch->class];
+            ch->pcdata->points += group_table[gn]->rating[ch->class];
             return TRUE;
         }
 
@@ -790,14 +790,14 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
         {
             send_to_char ("Group dropped.\n\r", ch);
             ch->gen_data->group_chosen[gn] = FALSE;
-            ch->gen_data->points_chosen -= group_table[gn].rating[ch->class];
+            ch->gen_data->points_chosen -= group_table[gn]->rating[ch->class];
             gn_remove (ch, gn);
             for (i = 0; i < MAX_GROUP; i++)
             {
                 if (ch->gen_data->group_chosen[gn])
                     gn_add (ch, gn);
             }
-            ch->pcdata->points -= group_table[gn].rating[ch->class];
+            ch->pcdata->points -= group_table[gn]->rating[ch->class];
             return TRUE;
         }
 
@@ -859,11 +859,11 @@ void do_groups (CHAR_DATA * ch, char *argument)
 
         for (gn = 0; gn < MAX_GROUP; gn++)
         {
-            if (group_table[gn].name == NULL)
+            if (group_table[gn]->name == NULL)
                 break;
             if (ch->pcdata->group_known[gn])
             {
-                sprintf (buf, "%-20s ", group_table[gn].name);
+                sprintf (buf, "%-20s ", group_table[gn]->name);
                 send_to_char (buf, ch);
                 if (++col % 3 == 0)
                     send_to_char ("\n\r", ch);
@@ -880,9 +880,9 @@ void do_groups (CHAR_DATA * ch, char *argument)
     {                            /* show all groups */
         for (gn = 0; gn < MAX_GROUP; gn++)
         {
-            if (group_table[gn].name == NULL)
+            if (group_table[gn]->name == NULL)
                 break;
-            sprintf (buf, "%-20s ", group_table[gn].name);
+            sprintf (buf, "%-20s ", group_table[gn]->name);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
                 send_to_char ("\n\r", ch);
@@ -905,9 +905,9 @@ void do_groups (CHAR_DATA * ch, char *argument)
 
     for (sn = 0; sn < MAX_IN_GROUP; sn++)
     {
-        if (group_table[gn].spells[sn] == NULL)
+        if (group_table[gn]->spells[sn] == NULL)
             break;
-        sprintf (buf, "%-20s ", group_table[gn].spells[sn]);
+        sprintf (buf, "%-20s ", group_table[gn]->spells[sn]);
         send_to_char (buf, ch);
         if (++col % 3 == 0)
             send_to_char ("\n\r", ch);
@@ -976,10 +976,10 @@ int group_lookup (const char *name)
 
     for (gn = 0; gn < MAX_GROUP; gn++)
     {
-        if (group_table[gn].name == NULL)
+        if (group_table[gn]->name == NULL)
             break;
-        if (LOWER (name[0]) == LOWER (group_table[gn].name[0])
-            && !str_prefix (name, group_table[gn].name))
+        if (LOWER (name[0]) == LOWER (group_table[gn]->name[0])
+            && !str_prefix (name, group_table[gn]->name))
             return gn;
     }
 
@@ -994,9 +994,9 @@ void gn_add (CHAR_DATA * ch, int gn)
     ch->pcdata->group_known[gn] = TRUE;
     for (i = 0; i < MAX_IN_GROUP; i++)
     {
-        if (group_table[gn].spells[i] == NULL)
+        if (group_table[gn]->spells[i] == NULL)
             break;
-        group_add (ch, group_table[gn].spells[i], FALSE);
+        group_add (ch, group_table[gn]->spells[i], FALSE);
     }
 }
 
@@ -1009,9 +1009,9 @@ void gn_remove (CHAR_DATA * ch, int gn)
 
     for (i = 0; i < MAX_IN_GROUP; i++)
     {
-        if (group_table[gn].spells[i] == NULL)
+        if (group_table[gn]->spells[i] == NULL)
             break;
-        group_remove (ch, group_table[gn].spells[i]);
+        group_remove (ch, group_table[gn]->spells[i]);
     }
 }
 
@@ -1046,7 +1046,7 @@ void group_add (CHAR_DATA * ch, const char *name, bool deduct)
         {
             ch->pcdata->group_known[gn] = TRUE;
             if (deduct)
-                ch->pcdata->points += group_table[gn].rating[ch->class];
+                ch->pcdata->points += group_table[gn]->rating[ch->class];
         }
         gn_add (ch, gn);        /* make sure all skills in the group are known */
     }

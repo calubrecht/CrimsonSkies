@@ -399,9 +399,9 @@ const struct pc_race_type pc_race_table[] = {
 /*
  * Class table.
  * who_name, attr_prime, weapon, vnum of guild rooms, thac0_00
- * thac0_32, hp_min, hp_max, fMana, base_group, default_group
+ * thac0_32, hp_min, hp_max, fMana, base_group, default_group, is_reclass
  */
-const struct class_type class_table[MAX_CLASS] = {
+/*const struct class_type class_table[MAX_CLASS] = {
     {
      "mage", "Mag", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
      {3018, 9618}, 75, 20, 6, 6, 8, TRUE,
@@ -427,7 +427,7 @@ const struct class_type class_table[MAX_CLASS] = {
          { 3018, 9618 }, 75, 20, 6, 6, 8, TRUE,
      "enchantor basics", "enchantor default", TRUE},
 
-};
+}; */
 
 /*
  * Attribute bonus tables.
@@ -646,7 +646,7 @@ const struct liq_type liq_table[] = {
  */
 #define SLOT(n)    n
 
-const struct skill_type skill_table[MAX_SKILL] = {
+struct skill_type skill_table[MAX_SKILL] = {
 
 /*
  * Magic spells.
@@ -1536,6 +1536,7 @@ const struct skill_type skill_table[MAX_SKILL] = {
 };
 
 // reclass
+/*
 const struct group_type group_table[MAX_GROUP] = {
 
     {
@@ -1701,4 +1702,4 @@ const struct group_type group_table[MAX_GROUP] = {
       "lightning bolt"}
      }
 
-};
+}; */

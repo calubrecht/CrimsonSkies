@@ -1536,7 +1536,7 @@ void do_mstat (CHAR_DATA * ch, char *argument)
     sprintf (buf,
              "Lv: %d  Class: %s  Align: %d  Gold: %ld  Silver: %ld  Exp: %d\n\r",
              victim->level,
-             IS_NPC (victim) ? "mobile" : class_table[victim->class].name,
+             IS_NPC (victim) ? "mobile" : class_table[victim->class]->name,
              victim->alignment, victim->gold, victim->silver, victim->exp);
     send_to_char (buf, ch);
 
@@ -3670,7 +3670,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
             {
                 if (class > 0)
                     strcat (buf, " ");
-                strcat (buf, class_table[class].name);
+                strcat (buf, class_table[class]->name);
             }
             strcat (buf, ".\n\r");
 

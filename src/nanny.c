@@ -558,13 +558,18 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             strcpy (buf, "Select an initial class [");
             for (iClass = 0; iClass < MAX_CLASS; iClass++)
             {
+                if (class_table[iClass]->name == NULL)
+                {
+                    log_string("BUG: null class");
+                    continue;
+                }
                 // Show only base classes, not reclasses.
-                if (class_table[iClass].is_reclass == FALSE)
+                if (class_table[iClass]->is_reclass == FALSE)
                 {
                     if (iClass > 0)
                         strcat (buf, " ");
 
-                    strcat (buf, class_table[iClass].name);
+                    strcat (buf, class_table[iClass]->name);
                 }
 
             }
@@ -582,7 +587,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 send_to_desc("That's not a class.\n\rWhat IS your class? ", d);
                 return;
             }
-            else if (class_table[iClass].is_reclass == TRUE)
+            else if (class_table[iClass]->is_reclass == TRUE)
             {
                 send_to_desc("You must choose a base class.\n\rWhat IS your class? ", d);
                 return;
@@ -629,7 +634,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             write_to_buffer (d, "\n\r", 0);
 
             group_add (ch, "rom basics", FALSE);
-            group_add (ch, class_table[ch->class].base_group, FALSE);
+            group_add (ch, class_table[ch->class]->base_group, FALSE);
             ch->pcdata->learned[gsn_recall] = 50;
             send_to_desc ("Do you wish to customize this character?\n\r", d);
             send_to_desc ("Customization takes time, but allows a wider range of skills and abilities.\n\r", d);
@@ -656,7 +661,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                     break;
                 case 'n':
                 case 'N':
-                    group_add (ch, class_table[ch->class].default_group,
+                    group_add (ch, class_table[ch->class]->default_group,
                                TRUE);
                     write_to_buffer (d, "\n\r", 2);
                     write_to_buffer (d,
@@ -797,7 +802,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 SET_BIT (ch->act, PLR_COLOR);
                 SET_BIT (ch->comm, COMM_TELNET_GA);
 
-                ch->perm_stat[class_table[ch->class].attr_prime] += 3;
+                ch->perm_stat[class_table[ch->class]->attr_prime] += 3;
 
                 ch->level = 1;
                 ch->exp = exp_per_level (ch, ch->pcdata->points);

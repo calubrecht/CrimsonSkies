@@ -1457,7 +1457,7 @@ void do_group (CHAR_DATA * ch, char *argument)
                          "[%2d %s] %-16s %4d/%4d hp %4d/%4d mana %4d/%4d mv %5d xp\n\r",
                          gch->level,
                          IS_NPC (gch) ? "Mob" : class_table[gch->
-                                                            class].who_name,
+                                                            class]->who_name,
                          capitalize (PERS (gch, ch)), gch->hit, gch->max_hit,
                          gch->mana, gch->max_mana, gch->move, gch->max_move,
                          gch->exp);
@@ -1772,7 +1772,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("That's not a valid class.\n\r", ch);
         return;
     }
-    else if (class_table[iClass].is_reclass == FALSE)
+    else if (class_table[iClass]->is_reclass == FALSE)
     {
         send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
         return;
@@ -1787,7 +1787,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     char buf[MSL];
     int oldLevel = 0;
 
-    sprintf(buf, "$N is reclassing to %s", class_table[iClass].name);
+    sprintf(buf, "$N is reclassing to %s", class_table[iClass]->name);
     wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
 
     // This is a temporary flag to identify the player as reclassing, do NOT save this
@@ -1856,7 +1856,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Clear all previously known groups
     for (i = 0; i < MAX_GROUP; i++)
     {
-        if (group_table[i].name == NULL)
+        if (group_table[i]->name == NULL)
             break;
 
         ch->pcdata->group_known[i] = 0;
@@ -1876,10 +1876,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     // Add back in the base groups
     group_add(ch, "rom basics", FALSE);
-    group_add(ch, class_table[ch->class].base_group, FALSE);
+    group_add(ch, class_table[ch->class]->base_group, FALSE);
     ch->pcdata->learned[gsn_recall] = 50;
 
-    sprintf(buf, "\n\r{YCongratulations{x, you are preparing to reclass as a %s.\n\r", class_table[ch->class].name);
+    sprintf(buf, "\n\r{YCongratulations{x, you are preparing to reclass as a %s.\n\r", class_table[ch->class]->name);
     send_to_char(buf, ch);
 
     send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
