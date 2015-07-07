@@ -44,6 +44,7 @@ Sk 'refresh' 8 1
 Sk 'peek' 8 5
 Sk 'infravision' 9 1
 Sk 'locate object' 9 1
+Sk 'locate wizard mark' 51 1
 Sk 'recharge' 9 1
 Sk 'create food' 10 1
 Sk 'enchant armor' 10 1
