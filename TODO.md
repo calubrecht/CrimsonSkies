@@ -42,7 +42,6 @@ This is my to do list, mostly will be things big and small as I think about them
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
     if looted can't be used by others if they so choose).  (maybe overpowered)
-  - Update locate for wizard mark
   - enhanced recall skill, open to all classes that only makes recall 25% of movement.
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
