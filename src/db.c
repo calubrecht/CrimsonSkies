@@ -316,8 +316,6 @@ void boot_db ()
      * Assign gsn's for skills which have them.
      */
     {
-        log_string("STATUS: Loading Skills");
-
         int sn;
 
         for (sn = 0; sn < MAX_SKILL; sn++)
