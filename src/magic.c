@@ -3407,7 +3407,69 @@ void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo, int targe
     return;
 } // end spell_locate_object
 
+/*
+ * This spell is a offshoot of locate object that just searches for Wizard Marks.  It
+ * gives more detail about the objects found and has a significantly higher chance of
+ * locating the objects.
+ */
+void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    char buf[MAX_INPUT_LENGTH];
+    BUFFER *buffer;
+    OBJ_DATA *obj;
+    OBJ_DATA *in_obj;
+    bool found;
+    int number = 0, max_found;
 
+    found = FALSE;
+    number = 0;
+    max_found = IS_IMMORTAL (ch) ? 200 : 2 * level;
+
+    buffer = new_buf ();
+
+    for (obj = object_list; obj != NULL; obj = obj->next)
+    {
+        // The enchantor's name
+        if (!is_name (ch->name, obj->wizard_mark))
+            continue;
+
+        found = TRUE;
+        number++;
+
+        for (in_obj = obj; in_obj->in_obj != NULL; in_obj = in_obj->in_obj);
+        {
+            if (in_obj->carried_by != NULL)
+            {
+                sprintf (buf, "%s is carried by %s\n\r", in_obj->short_descr, PERS (in_obj->carried_by, ch));
+            }
+            else
+            {
+                if (IS_IMMORTAL (ch) && in_obj->in_room != NULL)
+                    sprintf (buf, "%s is in %s [Room %d]\n\r",
+                         in_obj->short_descr, in_obj->in_room->name, in_obj->in_room->vnum);
+                else
+                    sprintf (buf, "%s is in %s\n\r", in_obj->short_descr,
+                         in_obj->in_room == NULL
+                         ? "somewhere" : in_obj->in_room->name);
+            }
+        }
+        buf[0] = UPPER (buf[0]);
+        add_buf (buffer, buf);
+
+        if (number >= max_found)
+            break;
+    }
+
+    if (!found)
+        send_to_char ("You found no wizard markings of your own in heaven or earth.\n\r", ch);
+    else
+        page_to_char (buf_string (buffer), ch);
+
+    free_buf (buffer);
+
+    return;
+
+} // end spell_locate_wizard_mark
 
 void spell_magic_missile (int sn, int level, CHAR_DATA * ch, void *vo,
                           int target)

@@ -965,7 +965,7 @@ struct skill_type skill_table[MAX_SKILL] = {
     {
      "disenchant", {53, 53, 53, 53, 38}, {2, 2, 4, 4, 1},
      spell_disenchant, TAR_OBJ_INV, POS_STANDING,
-     NULL, SLOT (518), 10, 24,
+     NULL, SLOT (519), 10, 24,
      "", "!Disenchant!", ""},
 
     {
@@ -1306,6 +1306,11 @@ struct skill_type skill_table[MAX_SKILL] = {
      NULL, SLOT (402), 0, 12,
      "high explosive ammo", "!High Explosive Ammo!", ""},
 
+    {
+     "locate wizard mark", {53, 53, 53, 53, 51}, {2, 2, 2, 2, 1},
+     spell_locate_wizard_mark, TAR_IGNORE, POS_STANDING,
+     NULL, SLOT (519), 20, 18,
+     "", "!Locate Wizard Mark!", ""},
 
 /* combat and weapons skills */
 
