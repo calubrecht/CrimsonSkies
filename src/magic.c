@@ -3342,10 +3342,11 @@ void spell_lightning_bolt (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
-void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo,
-                          int target)
+/*
+ * Spell that locates an item in the world by keyword.  It will also search for
+ * wizard marks of a wizard's name.
+ */
+void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     char buf[MAX_INPUT_LENGTH];
     BUFFER *buffer;
@@ -3362,7 +3363,8 @@ void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo,
 
     for (obj = object_list; obj != NULL; obj = obj->next)
     {
-        if (!can_see_obj (ch, obj) || !is_name (target_name, obj->name)
+        if (!can_see_obj (ch, obj)
+            || (!is_name (target_name, obj->name) && !is_name (target_name, obj->wizard_mark))
             || IS_OBJ_STAT (obj, ITEM_NOLOCATE)
             || number_percent () > 2 * level || ch->level < obj->level)
             continue;
@@ -3403,7 +3405,7 @@ void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo,
     free_buf (buffer);
 
     return;
-}
+} // end spell_locate_object
 
 
 
