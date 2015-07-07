@@ -5,25 +5,20 @@
  *  Merc Diku Mud improvments copyright (C) 1992, 1993 by Michael          *
  *  Chastain, Michael Quan, and Mitchell Tse.                              *
  *                                                                         *
+ *  ROM 2.4 improvements copyright (C) 1993-1998 Russ Taylor, Gabrielle    *
+ *  Taylor and Brian Moore                                                 *
+ *                                                                         *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2015 by Blake Pell           *
+ *                                                                         *
  *  In order to use any part of this Merc Diku Mud, you must comply with   *
  *  both the original Diku license in 'license.doc' as well the Merc       *
- *  license in 'license.txt'.  In particular, you may not remove either of *
- *  these copyright notices.                                               *
+ *  license in 'license.txt' as well as the ROM license.  In particular,   *
+ *  you may not remove these copyright notices.                            *
  *                                                                         *
  *  Much time and thought has gone into this software and you are          *
  *  benefitting.  We hope that you share your changes too.  What goes      *
  *  around, comes around.                                                  *
- ***************************************************************************/
-
-/***************************************************************************
- *  ROM 2.4 is copyright 1993-1998 Russ Taylor                             *
- *  ROM has been brought to you by the ROM consortium                      *
- *      Russ Taylor (rtaylor@hypercube.org)                                *
- *      Gabrielle Taylor (gtaylor@hypercube.org)                           *
- *      Brian Moore (zump@rom.org)                                         *
- *  By using this code, you have agreed to follow the terms of the         *
- *  ROM license, in the file Rom24/doc/rom.license                         *
- ***************************************************************************/
+ **************************************************************************/
 
 /* externs */
 extern char str_empty[1];
