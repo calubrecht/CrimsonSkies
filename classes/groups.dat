@@ -186,6 +186,7 @@ Sk 'farsight'
 Sk 'identify'
 Sk 'know alignment'
 Sk 'locate object'
+Sk 'locate wizard mark'
 End
 
 #GROUP
