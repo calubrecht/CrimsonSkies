@@ -11,6 +11,7 @@ Thac0_32    6
 Hpmin       6
 Hpmax       8
 Mana        1
+IsReclass   0
 BaseGroup   'mage basics'
 DefGroup    'mage default'
 Sk 'magic missile' 1 1

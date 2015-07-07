@@ -13,7 +13,8 @@ Hpmax       8
 Mana        1
 BaseGroup   'enchantor basics'
 DefGroup    'enchantor default'
-Sk 'withering enchant' 1 1
+IsReclass   1
+Sk 'withering enchant' 4 1
 Sk 'magic missile' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 2

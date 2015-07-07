@@ -11,6 +11,7 @@ Thac0_32    -4
 Hpmin       8
 Hpmax       13
 Mana        0
+IsReclass   0
 BaseGroup   'thief basics'
 DefGroup    'thief default'
 Sk 'axe' 1 5

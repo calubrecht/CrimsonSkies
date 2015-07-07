@@ -13,6 +13,7 @@ Hpmax       10
 Mana        1
 BaseGroup   'cleric basics'
 DefGroup    'cleric default'
+IsReclass   0
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
 Sk 'axe' 1 6
