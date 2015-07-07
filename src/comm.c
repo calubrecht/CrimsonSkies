@@ -2473,16 +2473,16 @@ int color(char type, CHAR_DATA *ch, char *string)
         sprintf(code, BLINK);
         break;
     case '/':
-        strcpy(code, "\n\r");
+        sprintf(code, "\n\r");
         break;
     case '_':
-        strcpy(code, UNDERLINE);  // Underline
+        sprintf(code, UNDERLINE);  // Underline
         break;
     case '&':
-        strcpy(code, REVERSE);  // Reverse
+        sprintf(code, REVERSE);  // Reverse
         break;
     case '-':
-        strcpy(code, "~"); 
+        sprintf(code, "~");
         break;
     case '{':
         sprintf(code, "%c", '{');
