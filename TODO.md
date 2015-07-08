@@ -56,3 +56,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - continents and oceans.
   - Add red oak village at the base of the mountains for the dwarves.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
+  - Healer class
