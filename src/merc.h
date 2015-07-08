@@ -2184,7 +2184,7 @@ int    class_lookup       args( ( const char *name) );
 bool   is_clan            args( (CHAR_DATA *ch) );
 bool   is_same_clan       args( (CHAR_DATA *ch, CHAR_DATA *victim));
 int    get_skill          args( ( CHAR_DATA *ch, int sn ) );
-int    get_weapon_sn      args( ( CHAR_DATA *ch ) );
+int    get_weapon_sn      args( ( CHAR_DATA *ch, bool dual ) );
 int    get_weapon_skill   args( ( CHAR_DATA *ch, int sn ) );
 int    get_age            args( ( CHAR_DATA *ch ) );
 void   reset_char         args( ( CHAR_DATA *ch )  );

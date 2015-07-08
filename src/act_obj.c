@@ -1660,7 +1660,7 @@ void wear_obj (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
         act ("You wield $p.", ch, obj, NULL, TO_CHAR);
         equip_char (ch, obj, WEAR_WIELD);
 
-        sn = get_weapon_sn (ch);
+        sn = get_weapon_sn (ch, FALSE);
 
         if (sn == gsn_hand_to_hand)
             return;

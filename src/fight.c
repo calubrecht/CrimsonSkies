@@ -55,7 +55,7 @@ void group_gain args ((CHAR_DATA * ch, CHAR_DATA * victim));
 int  xp_compute args ((CHAR_DATA * gch, CHAR_DATA * victim, int total_levels));
 bool is_safe args ((CHAR_DATA * ch, CHAR_DATA * victim));
 void make_corpse args ((CHAR_DATA * ch));
-void one_hit args ((CHAR_DATA * ch, CHAR_DATA * victim, int dt));
+void one_hit args ((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
 void mob_hit args ((CHAR_DATA * ch, CHAR_DATA * victim, int dt));
 void raw_kill args ((CHAR_DATA * victim));
 void set_fighting args ((CHAR_DATA * ch, CHAR_DATA * victim));
@@ -209,7 +209,7 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     }
 
     // Attack 1 (Everyone gets this)
-    one_hit (ch, victim, dt);
+    one_hit (ch, victim, dt, FALSE);
 
     // Death check to see if fighting is over
     if (ch->fighting != victim)
@@ -217,7 +217,7 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     // Attack 2 (Haste)
     if (IS_AFFECTED (ch, AFF_HASTE))
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
 
     // Death check
     if (ch->fighting != victim || dt == gsn_backstab)
@@ -231,7 +231,7 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     if (number_percent () < chance)
     {
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
         check_improve (ch, gsn_second_attack, TRUE, 5);
         if (ch->fighting != victim)
             return;
@@ -245,11 +245,30 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     if (number_percent () < chance)
     {
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
         check_improve (ch, gsn_third_attack, TRUE, 6);
         if (ch->fighting != victim)
             return;
     }
+
+    // Attack 5 (Dual Wield #1)
+    if (number_percent() < get_skill(ch,gsn_dual_wield) )
+    {
+        one_hit( ch, victim, dt, TRUE );
+    }
+
+    if (ch->fighting != victim || dt == gsn_backstab)
+        return;
+
+    // Attack 6 (Dual Wield #2  + Haste)
+    if (IS_AFFECTED (ch, AFF_HASTE) &&
+         number_percent() < get_skill(ch,gsn_dual_wield))
+    {
+        one_hit( ch, victim, dt, TRUE );
+    }
+
+    if (ch->fighting != victim || dt == gsn_backstab)
+        return;
 
     return;
 } // end void multi_hit
@@ -262,7 +281,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     int chance, number;
     CHAR_DATA *vch, *vch_next;
 
-    one_hit (ch, victim, dt);
+    one_hit (ch, victim, dt, FALSE);
 
     if (ch->fighting != victim)
         return;
@@ -275,13 +294,13 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
         {
             vch_next = vch->next;
             if ((vch != victim && vch->fighting == ch))
-                one_hit (ch, vch, dt);
+                one_hit (ch, vch, dt, FALSE);
         }
     }
 
     if (IS_AFFECTED (ch, AFF_HASTE)
         || (IS_SET (ch->off_flags, OFF_FAST) && !IS_AFFECTED (ch, AFF_SLOW)))
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
 
     if (ch->fighting != victim || dt == gsn_backstab)
         return;
@@ -293,7 +312,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     if (number_percent () < chance)
     {
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
         if (ch->fighting != victim)
             return;
     }
@@ -305,7 +324,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     if (number_percent () < chance)
     {
-        one_hit (ch, victim, dt);
+        one_hit (ch, victim, dt, FALSE);
         if (ch->fighting != victim)
             return;
     }
@@ -345,7 +364,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
         case (2):
             if (IS_SET (ch->off_flags, OFF_DISARM)
-                || (get_weapon_sn (ch) != gsn_hand_to_hand
+                || (get_weapon_sn (ch, FALSE) != gsn_hand_to_hand
                     && (IS_SET (ch->act, ACT_WARRIOR)
                         || IS_SET (ch->act, ACT_THIEF))))
                 do_function (ch, &do_disarm, "");
@@ -391,7 +410,7 @@ void mob_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 /*
  * Hit one guy once.
  */
-void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
+void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
 {
     OBJ_DATA *wield;
     int victim_ac;
@@ -406,7 +425,6 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     sn = -1;
 
-
     /* just in case */
     if (victim == ch || ch == NULL || victim == NULL)
         return;
@@ -418,10 +436,21 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     if (victim->position == POS_DEAD || ch->in_room != victim->in_room)
         return;
 
+    // Grab the weapon for this hit
+    if (!dual)
+    {
+        wield = get_eq_char( ch, WEAR_WIELD );
+    }
+    else
+    {
+        // If it's dual wield, check to see if the player gets better at it
+        check_improve(ch, gsn_dual_wield, TRUE, 30);
+        wield = get_eq_char( ch, WEAR_SECONDARY_WIELD );
+    }
+
     /*
      * Figure out the type of damage message.
      */
-    wield = get_eq_char (ch, WEAR_WIELD);
 
     if (dt == TYPE_UNDEFINED)
     {
@@ -444,7 +473,7 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
         dam_type = DAM_BASH;
 
     /* get the weapon skill */
-    sn = get_weapon_sn (ch);
+    sn = get_weapon_sn (ch, dual);
     skill = 20 + get_weapon_skill (ch, sn);
 
     /*
@@ -3036,9 +3065,9 @@ void do_disarm (CHAR_DATA * ch, char *argument)
     }
 
     /* find weapon skills */
-    ch_weapon = get_weapon_skill (ch, get_weapon_sn (ch));
-    vict_weapon = get_weapon_skill (victim, get_weapon_sn (victim));
-    ch_vict_weapon = get_weapon_skill (ch, get_weapon_sn (victim));
+    ch_weapon = get_weapon_skill (ch, get_weapon_sn (ch, FALSE));
+    vict_weapon = get_weapon_skill (victim, get_weapon_sn (victim, FALSE));
+    ch_vict_weapon = get_weapon_skill (ch, get_weapon_sn (victim, FALSE));
 
     /* modifiers */
 

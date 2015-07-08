@@ -439,12 +439,20 @@ int get_skill (CHAR_DATA * ch, int sn)
 }
 
 /* for returning weapon information */
-int get_weapon_sn (CHAR_DATA * ch)
+int get_weapon_sn (CHAR_DATA * ch, bool dual)
 {
     OBJ_DATA *wield;
     int sn;
 
-    wield = get_eq_char (ch, WEAR_WIELD);
+    if(!dual)
+    {
+        wield = get_eq_char( ch, WEAR_WIELD );
+    }
+    else
+    {
+        wield = get_eq_char( ch, WEAR_SECONDARY_WIELD);
+    }
+
     if (wield == NULL || wield->item_type != ITEM_WEAPON)
         sn = gsn_hand_to_hand;
     else
