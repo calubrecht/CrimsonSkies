@@ -157,7 +157,7 @@ Sk 'high explosive' 53 0
 Sk 'backstab' 53 0
 Sk 'envenom' 53 0
 Sk 'steal' 53 0
-Sk 'dual wield' 25 0
+Sk 'dual wield' 25 4
 Gr 'rom basics' 0
 Gr 'warrior basics' 0
 Gr 'warrior default' 40
