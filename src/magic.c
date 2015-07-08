@@ -2840,6 +2840,17 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                 obj_from_char (obj_lose);
                                 obj_to_room (obj_lose, victim->in_room);
                                 fail = FALSE;
+
+                                // Can't dual with without a primary, consider changing this to moving the
+                                // dual wielded weapon to the primary arm.
+                                OBJ_DATA *vobj;
+                                if ((vobj = get_eq_char(victim,WEAR_SECONDARY_WIELD)) != NULL)
+                                {
+                                    act ("$n stops using $p.", victim, vobj, NULL, TO_ROOM);
+                                    act ("You stop using $p.", victim, vobj, NULL, TO_CHAR);
+                                    unequip_char(victim,vobj);
+                                }
+
                             }
                             else
                             {    /* YOWCH! */

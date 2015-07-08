@@ -1136,27 +1136,28 @@ struct    kill_data
  * Equpiment wear locations.
  * Used in #RESETS.
  */
-#define WEAR_NONE          -1
-#define WEAR_LIGHT          0
-#define WEAR_FINGER_L       1
-#define WEAR_FINGER_R       2
-#define WEAR_NECK_1         3
-#define WEAR_NECK_2         4
-#define WEAR_BODY           5
-#define WEAR_HEAD           6
-#define WEAR_LEGS           7
-#define WEAR_FEET           8
-#define WEAR_HANDS          9
-#define WEAR_ARMS          10
-#define WEAR_SHIELD        11
-#define WEAR_ABOUT         12
-#define WEAR_WAIST         13
-#define WEAR_WRIST_L       14
-#define WEAR_WRIST_R       15
-#define WEAR_WIELD         16
-#define WEAR_HOLD          17
-#define WEAR_FLOAT         18
-#define MAX_WEAR           19
+#define WEAR_NONE            -1
+#define WEAR_LIGHT            0
+#define WEAR_FINGER_L         1
+#define WEAR_FINGER_R         2
+#define WEAR_NECK_1           3
+#define WEAR_NECK_2           4
+#define WEAR_BODY             5
+#define WEAR_HEAD             6
+#define WEAR_LEGS             7
+#define WEAR_FEET             8
+#define WEAR_HANDS            9
+#define WEAR_ARMS            10
+#define WEAR_SHIELD          11
+#define WEAR_ABOUT           12
+#define WEAR_WAIST           13
+#define WEAR_WRIST_L         14
+#define WEAR_WRIST_R         15
+#define WEAR_WIELD           16
+#define WEAR_HOLD            17
+#define WEAR_FLOAT           18
+#define WEAR_SECONDARY_WIELD 19
+#define MAX_WEAR             20
 
 /***************************************************************************
  *                                                                         *
@@ -1790,6 +1791,7 @@ extern sh_int gsn_scrolls;
 extern sh_int gsn_staves;
 extern sh_int gsn_wands;
 extern sh_int gsn_recall;
+extern sh_int gsn_dual_wield;
 
 /*
  * Utility macros.

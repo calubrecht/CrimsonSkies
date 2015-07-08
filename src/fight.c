@@ -208,17 +208,22 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
         return;
     }
 
+    // Attack 1 (Everyone gets this)
     one_hit (ch, victim, dt);
 
+    // Death check to see if fighting is over
     if (ch->fighting != victim)
         return;
 
+    // Attack 2 (Haste)
     if (IS_AFFECTED (ch, AFF_HASTE))
         one_hit (ch, victim, dt);
 
+    // Death check
     if (ch->fighting != victim || dt == gsn_backstab)
         return;
 
+    // Attack 3 (2nd attack skill)
     chance = get_skill (ch, gsn_second_attack) / 2;
 
     if (IS_AFFECTED (ch, AFF_SLOW))
@@ -232,6 +237,7 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
+    // Attack 4 (3rd attack skill)
     chance = get_skill (ch, gsn_third_attack) / 4;
 
     if (IS_AFFECTED (ch, AFF_SLOW))
@@ -2065,6 +2071,7 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
 void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     OBJ_DATA *obj;
+    OBJ_DATA *vobj;
 
     if ((obj = get_eq_char (victim, WEAR_WIELD)) == NULL)
         return;
@@ -2090,6 +2097,15 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
         obj_to_room (obj, victim->in_room);
         if (IS_NPC (victim) && victim->wait == 0 && can_see_obj (victim, obj))
             get_obj (victim, obj, NULL);
+    }
+
+    // Can't dual with without a primary, consider changing this to moving the
+    // dual wielded weapon to the primary arm.
+    if ((vobj = get_eq_char(victim,WEAR_SECONDARY_WIELD)) != NULL)
+    {
+        act ("$n stops using $p.", victim, vobj, NULL, TO_ROOM);
+        act ("You stop using $p.", victim, vobj, NULL, TO_CHAR);
+        unequip_char(victim,vobj);
     }
 
     return;

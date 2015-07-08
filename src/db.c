@@ -144,6 +144,7 @@ sh_int gsn_scrolls;
 sh_int gsn_staves;
 sh_int gsn_wands;
 sh_int gsn_recall;
+sh_int gsn_dual_wield;
 
 /*
  * Locals.

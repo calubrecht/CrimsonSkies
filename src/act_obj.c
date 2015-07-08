@@ -1372,6 +1372,7 @@ void do_eat (CHAR_DATA * ch, char *argument)
 bool remove_obj (CHAR_DATA * ch, int iWear, bool fReplace)
 {
     OBJ_DATA *obj;
+    OBJ_DATA *vobj;
 
     if ((obj = get_eq_char (ch, iWear)) == NULL)
         return TRUE;
@@ -1383,6 +1384,19 @@ bool remove_obj (CHAR_DATA * ch, int iWear, bool fReplace)
     {
         act ("You can't remove $p.", ch, obj, NULL, TO_CHAR);
         return FALSE;
+    }
+
+    // If it's the primary weapon, also remove the secondary weapon if the
+    // player is wearing one.
+    if (obj->wear_loc == WEAR_WIELD)
+    {
+        if ((vobj = get_eq_char(ch,WEAR_SECONDARY_WIELD)) != NULL)
+        {
+            act ("$n stops using $p.", ch, vobj, NULL, TO_ROOM);
+            act ("You stop using $p.", ch, vobj, NULL, TO_CHAR);
+            unequip_char(ch,vobj);
+        }
+
     }
 
     unequip_char (ch, obj);
@@ -1604,6 +1618,12 @@ void wear_obj (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
             && IS_WEAPON_STAT (weapon, WEAPON_TWO_HANDS))
         {
             send_to_char ("Your hands are tied up with your weapon!\n\r", ch);
+            return;
+        }
+
+        if (get_eq_char(ch,WEAR_SECONDARY_WIELD) != NULL)
+        {
+            send_to_char("Your hands are both full.\n\r",ch);
             return;
         }
 
@@ -3106,3 +3126,84 @@ void do_outfit (CHAR_DATA * ch, char *argument)
 
 } // end do_output
 
+/*
+ * Dual wield - This snippit is a modified version of Erwin Andreasen's dual wield
+ * code.
+ */
+void do_second( CHAR_DATA *ch, char *argument )
+{
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA *obj;
+    OBJ_DATA *vobj;
+    OBJ_DATA *pWeapon;
+
+    one_argument( argument, arg );
+
+    if ( arg[0] == '\0' )
+    {
+	send_to_char("Wear which weapon in your off-hand?\n\r",ch);
+	return;
+    }
+
+    if ( ch->level < skill_table[gsn_dual_wield].skill_level[ch->class] ||
+	 get_skill(ch,gsn_dual_wield) == 0 )
+    {
+	send_to_char("You are not capable of dual wielding weapons.\n\r",ch);
+	return;
+    }
+
+    obj = get_obj_carry (ch, argument, ch); /* find the obj withing ch's inventory */
+
+    if (obj == NULL)
+    {
+        send_to_char ("You are not carrying that.\n\r",ch);
+        return;
+    }
+
+    if ( obj->item_type != ITEM_WEAPON )
+    {
+	send_to_char("That is not a weapon.\n\r",ch);
+	return;
+    }
+
+    /* check if the char is using a shield or a held weapon */
+    if (get_eq_char (ch,WEAR_SHIELD) != NULL)
+    {
+        send_to_char ("You cannot use a secondary weapon while using a shield.\n\r",ch);
+        return;
+    }
+
+    if ( ch->level < obj->level )
+    {
+        sprintf( buf, "You must be level %d to use this object.\n\r", obj->level );
+        send_to_char( buf, ch );
+        act( "$n tries to use $p, but is too inexperienced.", ch, obj, NULL, TO_ROOM );
+        return;
+    }
+
+    if ((pWeapon = get_eq_char(ch,WEAR_WIELD) ) == NULL )
+    {
+        send_to_char("You're not using a primary weapon.\n\r",ch);
+        return;
+    }
+
+    if (IS_WEAPON_STAT(pWeapon,WEAPON_TWO_HANDS) || IS_WEAPON_STAT(obj,WEAPON_TWO_HANDS))
+    {
+	send_to_char("You cannot dual wield with two handed weapons.\n\r",ch);
+	return;
+    }
+
+    // Remove the current dual wielded weapon, then equip the new one
+    if ((vobj = get_eq_char(ch,WEAR_SECONDARY_WIELD)) != NULL)
+    {
+        unequip_char(ch,vobj);
+    }
+
+    equip_char(ch,obj,WEAR_SECONDARY_WIELD);
+    act("You wield $p as a secondary weapon.",ch,obj ,NULL,TO_CHAR);
+    act("$n wields $p as a secondary weapon.",ch,obj ,NULL,TO_ROOM);
+
+    return;
+
+} // end do_second

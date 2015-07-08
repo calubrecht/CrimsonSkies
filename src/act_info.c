@@ -65,6 +65,7 @@ char *const where_name[] = {
     "<wielded>           ",
     "<held>              ",
     "<floating nearby>   ",
+    "<secondary weapon>  ",
 };
 
 

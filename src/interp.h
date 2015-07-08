@@ -321,3 +321,4 @@ DECLARE_DO_FUN(do_imm_spool);
 DECLARE_DO_FUN(do_catchup);
 DECLARE_DO_FUN(do_unread);
 DECLARE_DO_FUN(do_stats);
+DECLARE_DO_FUN(do_second);
