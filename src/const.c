@@ -1535,7 +1535,7 @@ struct skill_type skill_table[MAX_SKILL] = {
      "", "!Recall!", ""},
 
     {
-     "dual wield", {53, 53, 53, 25, 53}, {8, 8, 8, 4, 8},
+     "dual wield", {53,53,53,53,53}, {0,0,0,0,0},
      spell_null, TAR_IGNORE, POS_STANDING,
      &gsn_dual_wield, SLOT (0), 0, 12,
      "", "!Dual Wield!", ""}

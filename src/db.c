@@ -3988,6 +3988,8 @@ bool load_class (char *fname)
 
     sprintf (buf, "%s%s", CLASS_DIR, fname);
 
+    log_f("STATUS: Loading Class %s", fname);
+
     if (!(fp = fopen (buf, "r")))
     {
         sprintf(buf, "Could not open file in order to load class %s%s.", CLASS_DIR, fname);
