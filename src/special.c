@@ -924,7 +924,9 @@ bool spec_fido (CHAR_DATA * ch)
     return FALSE;
 }
 
-// Rhien, 04/24/2015
+/*
+ * Meow.  - Rhien, 4/24/2015 (did this for some practice)
+ */
 bool spec_cat(CHAR_DATA * ch)
 {
     if (!IS_AWAKE(ch) || ch->position == POS_FIGHTING)
@@ -942,7 +944,7 @@ bool spec_cat(CHAR_DATA * ch)
             act("$n meows.", ch, NULL, NULL, TO_ROOM);
             return TRUE;
             break;
-    case 1:
+        case 1:
             act("$n scratches behind its ear.", ch, NULL, NULL, TO_ROOM);
             return TRUE;
             break;
@@ -955,19 +957,17 @@ bool spec_cat(CHAR_DATA * ch)
                // Victim isn't null, is a player, can be seen by the mob and an additional 50/50 shot.
                if (vch != NULL && !IS_NPC(vch) && can_see (ch, vch) && number_bits(1) == 0)
                {
-                   act ("$n rubs up against your leg.",
-                      ch, NULL, vch, TO_VICT);
-                   act ("$n rubs up against $N's leg.",
-                      ch, NULL, vch, TO_NOTVICT);
+                   act ("$n rubs up against your leg.", ch, NULL, vch, TO_VICT);
+                   act ("$n rubs up against $N's leg.", ch, NULL, vch, TO_NOTVICT);
                    return TRUE;
                    break;
                }
             }
- 
+
     } // end switch
 
     return FALSE;
-}
+} // end spec_cat
 
 bool spec_guard (CHAR_DATA * ch)
 {
