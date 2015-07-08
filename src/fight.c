@@ -443,9 +443,14 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
     }
     else
     {
+        wield = get_eq_char( ch, WEAR_SECONDARY_WIELD );
+
+        // If it's dual wield and they're not wearing a second weapon get out.
+        if (!wield)
+            return;
+
         // If it's dual wield, check to see if the player gets better at it
         check_improve(ch, gsn_dual_wield, TRUE, 30);
-        wield = get_eq_char( ch, WEAR_SECONDARY_WIELD );
     }
 
     /*
