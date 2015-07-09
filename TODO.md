@@ -20,7 +20,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add ranged spells (fireball)
-  - Dual wield (Erwin's snippit)
   - Pit saving
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
@@ -47,7 +46,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug, note mem leak testing
   - OLC for adding groups and/or classes
-  - one_hit updates (after dual wield)
   - gain_exp tweaks
   - main menu
   - double exp mode
@@ -57,3 +55,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add red oak village at the base of the mountains for the dwarves.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Healer class
+  - Erwin's setskill command to go with the dynamic class loading
