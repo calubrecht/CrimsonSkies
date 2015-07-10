@@ -290,6 +290,8 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
     if ( ( fp = fopen( name, "r" ) ) == NULL )
         return;
 
+    log_f("STATUS: Loading Note Spool %s", name);
+
     pnotelast = NULL;
     for ( ; ; )
     {
