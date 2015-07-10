@@ -109,6 +109,7 @@ const struct cmd_type cmd_table[] = {
     {"wizhelp",   do_wizhelp,   POS_DEAD,     IM, LOG_NORMAL, 1},
     {"clear",     do_clear,     POS_DEAD,     0,  LOG_NORMAL, 1},
     {"second",    do_second,    POS_RESTING,  0,  LOG_NORMAL, 1},
+    {"dual",      do_second,    POS_RESTING,  0,  LOG_NORMAL, 1},
 
     /*
      * Informational commands.
