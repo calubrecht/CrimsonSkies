@@ -29,6 +29,42 @@ Syntax: color
 
         Color is written by Lope (ant@solace.mh.se)
 ~
+-1 NOTES CHANGES NEWS OOCNOTES STORYNOTES UNREAD CATCHUP~
+
+Crimson Skies has various note spools that you can post to, each with
+a specified purpose (notes, changes, news, ooc notes, story notes).
+
+Syntax (replace 'note' below with the specified spool you want to 
+read):
+
+note reading:
+
+note list       : show all notes (unread notes are marked with an N)
+note ulist      : shows all notes unread to you
+note read       : either by number, or read next to read unread notes
+note remove     : removes a note that you wrote or are the target of
+note catchup    : markes all notes as read
+note search all from <player name> : shows notes from a specific player
+
+writing new notes:
+note to         : who to send the note to (all, immortal, <player name>)
+note subject    : sets the subject for a new note
+note +          : adds a line to a new note (i.e. note + Greetings!)
+note ++         : enters multi-line editor (.h for help in the editor) . 
+note -          : remove a line from a note in progress
+note clear      : erase a note in progress
+note show       : shows the note you are working on
+note format     : formats the note
+note post       : posts a new note. This MUST be done to post a note.
+
+other note related commands:
+
+catchup         : updates all note spools be all flagged as already read.
+unread          : shows you how many unread notes you have and from what spools
+                  they reside in.
+
+When you log in, you will be informed if there are unread notes waiting. 
+~
 
 -1 DIKU~
 .                    Original game idea, concept, and design:
