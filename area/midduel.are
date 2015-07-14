@@ -450,6 +450,7 @@ S
 
 #RESETS
 M 0 6575 1 6575 1 Load A guard
+O 0 6575 0 6576 A portal to the dueling grounds floor. loaded to Inside the Dueling Grounds
 S
 
 
