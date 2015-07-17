@@ -140,6 +140,7 @@ AREA_DATA *new_area (void)
     pArea->max_level = 0;
     pArea->age = 0;
     pArea->nplayer = 0;
+    pArea->continent = 0;
     pArea->empty = TRUE;        /* ROM patch */
     sprintf (buf, "area%d.are", pArea->vnum);
     pArea->file_name = str_dup (buf);
