@@ -116,6 +116,7 @@ const struct olc_help_type help_table[] = {
     { "wear-loc", wear_loc_flags, "Where mobile wears object." },
     { "spells", skill_table, "Names of current spells." },
     { "container", container_flags, "Container status." },
+    { "continent", continent_flags, "Continent names." },
 
     /* ROM specific bits: */
 
@@ -668,14 +669,14 @@ AEDIT(aedit_show)
     sprintf(buf, "Credits :   [%s]\n\r", pArea->credits);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Flags:      [%s]\n\r",
-        flag_string(area_flags, pArea->area_flags));
+    sprintf(buf, "Flags:      [%s]\n\r", flag_string(area_flags, pArea->area_flags));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Continent:  [%s]\n\r", continent_table[pArea->continent].name);
     send_to_char(buf, ch);
 
     return FALSE;
 }
-
-
 
 AEDIT(aedit_reset)
 {
@@ -5972,3 +5973,21 @@ MPEDIT(mpedit_list)
 
     return FALSE;
 }
+
+REDIT(aedit_continent) {
+    AREA_DATA *pArea;
+    char buf[MAX_INPUT_LENGTH];
+
+    EDIT_AREA(ch, pArea);
+
+    if(argument[0] == '\0')
+    {
+        send_to_char("Syntax: continent [name]",ch);
+        return FALSE;
+    }
+
+    pArea->continent = continent_lookup(argument);
+    sprintf(buf, "Continent set to %s.\n\r", continent_table[pArea->continent].name);
+    send_to_char(buf,ch);
+    return TRUE;
+} // end REDIT(aedit_continent)

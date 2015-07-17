@@ -753,3 +753,10 @@ const struct bit_type bitvector_type[] = {
     {vuln_flags, "vuln"},
     {weapon_type2, "weapon"}
 };
+
+const struct continent_type continent_table[] = {
+    { CONTINENT_LIMBO,   "limbo" },
+    { CONTINENT_OCEANS,  "oceans" },
+    { CONTINENT_ARCANIS, "arcanis" },
+    { 0, NULL }
+};

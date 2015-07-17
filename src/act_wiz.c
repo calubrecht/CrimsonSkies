@@ -5446,10 +5446,9 @@ void do_slay (CHAR_DATA * ch, char *argument)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    if (CHANCE(90))
-        send_to_char("true", ch);
-    else
-        send_to_char("false", ch);
+    char buf[MAX_STRING_LENGTH];
+    sprintf(buf, "You are in continent %d.\n\r", ch->in_room->area->continent);
+    send_to_char(buf, ch);
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;

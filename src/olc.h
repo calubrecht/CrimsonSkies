@@ -150,6 +150,7 @@ extern const struct olc_cmd_type	hedit_table[];
 /*
 * Editor Commands.
 */
+int continent_lookup (const char *name);
 DECLARE_DO_FUN(do_aedit);
 DECLARE_DO_FUN(do_redit);
 DECLARE_DO_FUN(do_oedit);
@@ -184,6 +185,7 @@ DECLARE_OLC_FUN(aedit_lvnum);
 DECLARE_OLC_FUN(aedit_uvnum);
 DECLARE_OLC_FUN(aedit_credits);
 DECLARE_OLC_FUN(aedit_levelrange);
+DECLARE_OLC_FUN(aedit_continent);
 
 /*
 * Room Editor Prototypes

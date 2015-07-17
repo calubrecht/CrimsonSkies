@@ -185,3 +185,20 @@ HELP_AREA *had_lookup (char *arg)
 
     return NULL;
 }
+
+/*
+ * Looks up the key for the continent.
+ */
+int continent_lookup (const char *name)
+{
+    register int continent;
+
+    for ( continent = 0; continent_table[continent].name != NULL; continent++)
+    {
+        if (LOWER(name[0]) == LOWER(continent_table[continent].name[0])
+            && !str_prefix( name,continent_table[continent].name))
+            return continent;
+    }
+
+    return 0;
+} // end int continent_lookup

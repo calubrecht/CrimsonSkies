@@ -85,6 +85,7 @@ const struct flag_stat_type flag_stat_table[] = {
     {wear_loc_flags, TRUE},
     {wear_loc_strings, TRUE},
     {container_flags, FALSE},
+    {continent_flags, TRUE},
 
 /* ROM specific flags: */
 
@@ -196,3 +197,10 @@ char *flag_string (const struct flag_type *flag_table, int bits)
     }
     return (buf[cnt][0] != '\0') ? buf[cnt] + 1 : "none";
 }
+
+const struct flag_type continent_flags[]= {
+    { "limbo",   CONTINENT_LIMBO,   TRUE },
+    { "oceans",  CONTINENT_OCEANS,  TRUE },
+    { "arcanis", CONTINENT_ARCANIS, TRUE },
+    { NULL, 0, 0 }
+};

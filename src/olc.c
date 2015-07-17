@@ -57,6 +57,7 @@
 */
 AREA_DATA *get_area_data args((int vnum));
 
+extern const struct continent_type continent_table[];
 
 /* Executed from comm.c.  Minimizes compiling when changes are made. */
 bool run_olc_editor(DESCRIPTOR_DATA * d)
@@ -258,7 +259,7 @@ const struct olc_cmd_type aedit_table[] = {
     { "levelrange", aedit_levelrange },
     { "?", show_help },
     { "version", show_version },
-
+    { "continent", aedit_continent },
     { NULL, 0, }
 };
 

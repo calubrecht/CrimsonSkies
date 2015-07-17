@@ -90,6 +90,7 @@ KILL_DATA kill_table[MAX_LEVEL];
 OBJ_DATA *object_list;
 TIME_INFO_DATA time_info;
 WEATHER_DATA weather_info;
+extern const struct continent_type continent_table[];
 
 sh_int gsn_backstab;
 sh_int gsn_dodge;
@@ -483,6 +484,7 @@ void new_load_area (FILE * fp)
     pArea->min_level = 0;
     pArea->max_level = 0;
     pArea->area_flags = 0;
+    pArea->continent = 0;
 
     log_f("STATUS: Loading Area %s", pArea->file_name);
 
@@ -539,6 +541,12 @@ void new_load_area (FILE * fp)
                 break;
             case 'C':
                 SKEY ("Credits", pArea->credits);
+
+                if (!str_cmp(word, "Continent"))
+                {
+                    pArea->continent = fread_number(fp);
+                }
+
                 break;
         }
     }

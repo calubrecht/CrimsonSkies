@@ -921,6 +921,7 @@ void save_area (AREA_DATA * pArea)
     fprintf (fp, "LevelRange %d %d\n", pArea->min_level, pArea->max_level);
     fprintf (fp, "Credits %s~\n", pArea->credits);
     fprintf (fp, "Security %d\n", pArea->security);
+    fprintf (fp, "Continent %d\n", pArea->continent);
     fprintf (fp, "End\n\n\n\n");
 
     save_mobiles (fp, pArea);

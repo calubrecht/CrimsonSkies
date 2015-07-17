@@ -384,6 +384,12 @@ struct item_type
     char *    name;
 };
 
+struct continent_type
+{
+    int       type;
+    char *    name;
+};
+
 struct weapon_type
 {
     char *    name;
@@ -1159,6 +1165,10 @@ struct    kill_data
 #define WEAR_SECONDARY_WIELD 19
 #define MAX_WEAR             20
 
+#define CONTINENT_LIMBO       0
+#define CONTINENT_OCEANS      1
+#define CONTINENT_ARCANIS     2
+
 /***************************************************************************
  *                                                                         *
  *                   VALUES OF INTEREST TO AREA BUILDERS                   *
@@ -1620,8 +1630,9 @@ struct    area_data
     bool          empty;
     char *        builders;    /* OLC */ /* Listing of */
     int           vnum;        /* OLC */ /* Area vnum  */
-    int           area_flags;    /* OLC */
+    int           area_flags;  /* OLC */
     int           security;    /* OLC */ /* Value 1-9  */
+    int           continent;
 };
 
 /*
