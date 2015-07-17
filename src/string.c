@@ -57,8 +57,8 @@ char *numlines (char *);
 
 /*****************************************************************************
  Name:        string_edit
- Purpose:    Clears string and puts player into editing mode.
- Called by:    none
+ Purpose:     Clears string and puts player into editing mode.
+ Called by:   none
  ****************************************************************************/
 void string_edit (CHAR_DATA * ch, char **pString)
 {
@@ -84,9 +84,9 @@ void string_edit (CHAR_DATA * ch, char **pString)
 
 
 /*****************************************************************************
- Name:        string_append
+ Name:       string_append
  Purpose:    Puts player into append mode for given string.
- Called by:    (many)olc_act.c
+ Called by:  (many)olc_act.c
  ****************************************************************************/
 void string_append (CHAR_DATA * ch, char **pString)
 {
@@ -113,9 +113,9 @@ void string_append (CHAR_DATA * ch, char **pString)
 
 
 /*****************************************************************************
- Name:        string_replace
+ Name:       string_replace
  Purpose:    Substitutes one string for another.
- Called by:    string_add(string.c) (aedit_builder)olc_act.c.
+ Called by:  string_add(string.c) (aedit_builder)olc_act.c.
  ****************************************************************************/
 char *string_replace (char *orig, char *old, char *new)
 {
@@ -139,9 +139,9 @@ char *string_replace (char *orig, char *old, char *new)
 
 
 /*****************************************************************************
- Name:        string_add
+ Name:       string_add
  Purpose:    Interpreter for string editing.
- Called by:    game_loop_xxxx(comm.c).
+ Called by:  game_loop_xxxx(comm.c).
  ****************************************************************************/
 void string_add (CHAR_DATA * ch, char *argument)
 {
@@ -317,9 +317,9 @@ void string_add (CHAR_DATA * ch, char *argument)
  * Original wordwrap() written by Surreality.
  */
 /*****************************************************************************
- Name:        format_string
+ Name:       format_string
  Purpose:    Special string formating and word-wrapping.
- Called by:    string_add(string.c) (many)olc_act.c
+ Called by:  string_add(string.c) (many)olc_act.c
  ****************************************************************************/
 char *format_string (char *oldstring /*, bool fSpace */ )
 {
@@ -484,11 +484,11 @@ char *format_string (char *oldstring /*, bool fSpace */ )
  * for one_argument.
  */
 /*****************************************************************************
- Name:        first_arg
- Purpose:    Pick off one argument from a string and return the rest.
-         Understands quates, parenthesis (barring ) ('s) and
-         percentages.
- Called by:    string_add(string.c)
+ Name:      first_arg
+ Purpose:   Pick off one argument from a string and return the rest.
+            Understands quates, parenthesis (barring ) ('s) and
+            percentages.
+ Called by: string_add(string.c)
  ****************************************************************************/
 char *first_arg (char *argument, char *arg_first, bool fCase)
 {
@@ -716,7 +716,7 @@ char *numlines (char *string)
     return buf;
 }
 
-/* 
+/*
    This is the punct snippet from Desden el Chaman Tibetano - Nov 1998
    Email: jlalbatros@mx2.redestb.es
 
