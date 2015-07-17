@@ -51,8 +51,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - double exp mode
   - double gold mode
   - questing
-  - continents and oceans.
+  - Oceans.
   - Add red oak village at the base of the mountains for the dwarves.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Healer class
   - Erwin's setskill command to go with the dynamic class loading
+  - Update do_area and alist to show continent, update all area files with their new continent.
