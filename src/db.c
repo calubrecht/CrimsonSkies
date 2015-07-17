@@ -2678,21 +2678,41 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
     BUFFER *output;
     char buf[MAX_STRING_LENGTH];
+    char border[MAX_STRING_LENGTH];
     AREA_DATA *pArea;
+    int continent;
 
     output = new_buf();
 
-    // Send the header
-    sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-25s{x]\n\r", "Level", "Area Name", "Builders");
-    send_to_char(buf, ch);
+    sprintf(border, "---------------------------------------------------------------------------\n\r");
 
-    sprintf(buf, "---------------------------------------------------------------------------");
-    send_to_char(buf, ch);
-
-    for (pArea = area_first; pArea; pArea = pArea->next)
+    for (continent = 0; continent_table[continent].name != NULL; continent++)
     {
-        sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
-            pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+        // Send the continent
+        sprintf(buf, "{CContinent: %-62s{x\n\r", capitalize(continent_table[continent].name));
+        add_buf(output, buf);
+
+        add_buf(output, border);
+
+        // Send the header
+        sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-25s{x]\n\r", "Level", "Area Name", "Builders");
+        add_buf(output, buf);
+        add_buf(output, border);
+
+        // Show the areas for the current continent, skip the rest, we'll hit them on a later iteration.
+        for (pArea = area_first; pArea; pArea = pArea->next)
+        {
+            if (pArea->continent != continent)
+                continue;
+
+            sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
+                pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+            add_buf(output, buf);
+        }
+
+        // Bottom Border
+        add_buf(output, border);
+        sprintf(buf, "\n\r");
         add_buf(output, buf);
     }
 
