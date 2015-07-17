@@ -384,6 +384,9 @@ struct item_type
     char *    name;
 };
 
+/*
+ * This will hold the continent int lookup value and name.
+ */
 struct continent_type
 {
     int       type;
