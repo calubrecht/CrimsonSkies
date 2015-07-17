@@ -594,6 +594,9 @@ void do_pardon (CHAR_DATA * ch, char *argument)
     return;
 } // end do_pardon
 
+/*
+ * gecho command to send a global echo to all connected players.
+ */
 void do_echo (CHAR_DATA * ch, char *argument)
 {
     DESCRIPTOR_DATA *d;
@@ -616,9 +619,38 @@ void do_echo (CHAR_DATA * ch, char *argument)
     }
 
     return;
-}
+} // end do_echo
 
+/*
+ * Continent echo - sends an echo to all players on the current continent.
+ */
+void do_cecho (CHAR_DATA * ch, char *argument)
+{
+    DESCRIPTOR_DATA *d;
 
+    if (argument[0] == '\0')
+    {
+        send_to_char ("Continent echo what?\n\r", ch);
+        return;
+    }
+
+    for (d = descriptor_list; d; d = d->next)
+    {
+        if (d == NULL)
+            continue;
+
+        // Send to just playing characters on the same continent.
+        if (d->connected == CON_PLAYING && d->character->in_room->area->continent == ch->in_room->area->continent)
+        {
+            if (get_trust (d->character) >= get_trust (ch))
+                send_to_char ("continent> ", d->character);
+            send_to_char (argument, d->character);
+            send_to_char ("\n\r", d->character);
+        }
+    }
+
+    return;
+} // end do_cecho
 
 void do_recho (CHAR_DATA * ch, char *argument)
 {

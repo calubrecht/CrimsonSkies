@@ -327,6 +327,7 @@ const struct cmd_type cmd_table[] = {
     {"poofin",          do_bamfin,      POS_DEAD, L8, LOG_NORMAL, 1},
     {"poofout",         do_bamfout,     POS_DEAD, L8, LOG_NORMAL, 1},
     {"gecho",           do_echo,        POS_DEAD, L4, LOG_ALWAYS, 1},
+    {"cecho",           do_cecho,       POS_DEAD, L4, LOG_ALWAYS, 1},
     {"broadcast",       do_broadcast,   POS_DEAD, L4, LOG_ALWAYS, 1},
     {"holylight",       do_holylight,   POS_DEAD, IM, LOG_NORMAL, 1},
     {"incognito",       do_incognito,   POS_DEAD, IM, LOG_NORMAL, 1},
