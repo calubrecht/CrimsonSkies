@@ -1,0 +1,4245 @@
+#AREADATA
+Name Great Northeast Ocean (Northeast Ocean)~
+Builders Rhien~
+VNUMs 11500 11599
+LevelRange 1 51
+Credits (null)~
+Security 1
+Continent 1
+End
+
+#MOBILES
+#0
+
+#OBJECTS
+#0
+
+#ROOMS
+#11500
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11510
+D1
+~
+~
+0 0 11501
+D9
+~
+~
+0 0 11511
+S
+#11501
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11511
+D3
+~
+~
+0 0 11500
+D8
+~
+~
+0 0 11510
+D1
+~
+~
+0 0 11502
+D9
+~
+~
+0 0 11512
+S
+#11502
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11512
+D3
+~
+~
+0 0 11501
+D8
+~
+~
+0 0 11511
+D1
+~
+~
+0 0 11503
+D9
+~
+~
+0 0 11513
+S
+#11503
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11513
+D3
+~
+~
+0 0 11502
+D8
+~
+~
+0 0 11512
+D1
+~
+~
+0 0 11504
+D9
+~
+~
+0 0 11514
+S
+#11504
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11514
+D3
+~
+~
+0 0 11503
+D8
+~
+~
+0 0 11513
+D1
+~
+~
+0 0 11505
+D9
+~
+~
+0 0 11515
+S
+#11505
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11515
+D3
+~
+~
+0 0 11504
+D8
+~
+~
+0 0 11514
+D1
+~
+~
+0 0 11506
+D9
+~
+~
+0 0 11516
+S
+#11506
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11516
+D3
+~
+~
+0 0 11505
+D8
+~
+~
+0 0 11515
+D1
+~
+~
+0 0 11507
+D9
+~
+~
+0 0 11517
+S
+#11507
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11517
+D3
+~
+~
+0 0 11506
+D8
+~
+~
+0 0 11516
+D1
+~
+~
+0 0 11508
+D9
+~
+~
+0 0 11518
+S
+#11508
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11518
+D3
+~
+~
+0 0 11507
+D8
+~
+~
+0 0 11517
+D1
+~
+~
+0 0 11509
+D9
+~
+~
+0 0 11519
+S
+#11509
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D2
+~
+~
+0 0 11519
+D3
+~
+~
+0 0 11508
+D8
+~
+~
+0 0 11518
+S
+#11510
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11500
+D2
+~
+~
+0 0 11520
+D1
+~
+~
+0 0 11511
+D7
+~
+~
+0 0 11501
+D1
+~
+~
+0 0 11511
+D9
+~
+~
+0 0 11521
+S
+#11511
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11501
+D2
+~
+~
+0 0 11521
+D3
+~
+~
+0 0 11510
+D6
+~
+~
+0 0 11500
+D1
+~
+~
+0 0 11512
+D7
+~
+~
+0 0 11502
+D3
+~
+~
+0 0 11510
+D8
+~
+~
+0 0 11520
+D1
+~
+~
+0 0 11512
+D9
+~
+~
+0 0 11522
+S
+#11512
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11502
+D2
+~
+~
+0 0 11522
+D3
+~
+~
+0 0 11511
+D6
+~
+~
+0 0 11501
+D1
+~
+~
+0 0 11513
+D7
+~
+~
+0 0 11503
+D3
+~
+~
+0 0 11511
+D8
+~
+~
+0 0 11521
+D1
+~
+~
+0 0 11513
+D9
+~
+~
+0 0 11523
+S
+#11513
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11503
+D2
+~
+~
+0 0 11523
+D3
+~
+~
+0 0 11512
+D6
+~
+~
+0 0 11502
+D1
+~
+~
+0 0 11514
+D7
+~
+~
+0 0 11504
+D3
+~
+~
+0 0 11512
+D8
+~
+~
+0 0 11522
+D1
+~
+~
+0 0 11514
+D9
+~
+~
+0 0 11524
+S
+#11514
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11504
+D2
+~
+~
+0 0 11524
+D3
+~
+~
+0 0 11513
+D6
+~
+~
+0 0 11503
+D1
+~
+~
+0 0 11515
+D7
+~
+~
+0 0 11505
+D3
+~
+~
+0 0 11513
+D8
+~
+~
+0 0 11523
+D1
+~
+~
+0 0 11515
+D9
+~
+~
+0 0 11525
+S
+#11515
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11505
+D2
+~
+~
+0 0 11525
+D3
+~
+~
+0 0 11514
+D6
+~
+~
+0 0 11504
+D1
+~
+~
+0 0 11516
+D7
+~
+~
+0 0 11506
+D3
+~
+~
+0 0 11514
+D8
+~
+~
+0 0 11524
+D1
+~
+~
+0 0 11516
+D9
+~
+~
+0 0 11526
+S
+#11516
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11506
+D2
+~
+~
+0 0 11526
+D3
+~
+~
+0 0 11515
+D6
+~
+~
+0 0 11505
+D1
+~
+~
+0 0 11517
+D7
+~
+~
+0 0 11507
+D3
+~
+~
+0 0 11515
+D8
+~
+~
+0 0 11525
+D1
+~
+~
+0 0 11517
+D9
+~
+~
+0 0 11527
+S
+#11517
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11507
+D2
+~
+~
+0 0 11527
+D3
+~
+~
+0 0 11516
+D6
+~
+~
+0 0 11506
+D1
+~
+~
+0 0 11518
+D7
+~
+~
+0 0 11508
+D3
+~
+~
+0 0 11516
+D8
+~
+~
+0 0 11526
+D1
+~
+~
+0 0 11518
+D9
+~
+~
+0 0 11528
+S
+#11518
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11508
+D2
+~
+~
+0 0 11528
+D3
+~
+~
+0 0 11517
+D6
+~
+~
+0 0 11507
+D1
+~
+~
+0 0 11519
+D7
+~
+~
+0 0 11509
+D3
+~
+~
+0 0 11517
+D8
+~
+~
+0 0 11527
+D1
+~
+~
+0 0 11519
+D9
+~
+~
+0 0 11529
+S
+#11519
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11509
+D2
+~
+~
+0 0 11529
+D3
+~
+~
+0 0 11518
+D6
+~
+~
+0 0 11508
+D3
+~
+~
+0 0 11518
+D8
+~
+~
+0 0 11528
+S
+#11520
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11510
+D2
+~
+~
+0 0 11530
+D1
+~
+~
+0 0 11521
+D7
+~
+~
+0 0 11511
+D1
+~
+~
+0 0 11521
+D9
+~
+~
+0 0 11531
+S
+#11521
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11511
+D2
+~
+~
+0 0 11531
+D3
+~
+~
+0 0 11520
+D6
+~
+~
+0 0 11510
+D1
+~
+~
+0 0 11522
+D7
+~
+~
+0 0 11512
+D3
+~
+~
+0 0 11520
+D8
+~
+~
+0 0 11530
+D1
+~
+~
+0 0 11522
+D9
+~
+~
+0 0 11532
+S
+#11522
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11512
+D2
+~
+~
+0 0 11532
+D3
+~
+~
+0 0 11521
+D6
+~
+~
+0 0 11511
+D1
+~
+~
+0 0 11523
+D7
+~
+~
+0 0 11513
+D3
+~
+~
+0 0 11521
+D8
+~
+~
+0 0 11531
+D1
+~
+~
+0 0 11523
+D9
+~
+~
+0 0 11533
+S
+#11523
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11513
+D2
+~
+~
+0 0 11533
+D3
+~
+~
+0 0 11522
+D6
+~
+~
+0 0 11512
+D1
+~
+~
+0 0 11524
+D7
+~
+~
+0 0 11514
+D3
+~
+~
+0 0 11522
+D8
+~
+~
+0 0 11532
+D1
+~
+~
+0 0 11524
+D9
+~
+~
+0 0 11534
+S
+#11524
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11514
+D2
+~
+~
+0 0 11534
+D3
+~
+~
+0 0 11523
+D6
+~
+~
+0 0 11513
+D1
+~
+~
+0 0 11525
+D7
+~
+~
+0 0 11515
+D3
+~
+~
+0 0 11523
+D8
+~
+~
+0 0 11533
+D1
+~
+~
+0 0 11525
+D9
+~
+~
+0 0 11535
+S
+#11525
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11515
+D2
+~
+~
+0 0 11535
+D3
+~
+~
+0 0 11524
+D6
+~
+~
+0 0 11514
+D1
+~
+~
+0 0 11526
+D7
+~
+~
+0 0 11516
+D3
+~
+~
+0 0 11524
+D8
+~
+~
+0 0 11534
+D1
+~
+~
+0 0 11526
+D9
+~
+~
+0 0 11536
+S
+#11526
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11516
+D2
+~
+~
+0 0 11536
+D3
+~
+~
+0 0 11525
+D6
+~
+~
+0 0 11515
+D1
+~
+~
+0 0 11527
+D7
+~
+~
+0 0 11517
+D3
+~
+~
+0 0 11525
+D8
+~
+~
+0 0 11535
+D1
+~
+~
+0 0 11527
+D9
+~
+~
+0 0 11537
+S
+#11527
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11517
+D2
+~
+~
+0 0 11537
+D3
+~
+~
+0 0 11526
+D6
+~
+~
+0 0 11516
+D1
+~
+~
+0 0 11528
+D7
+~
+~
+0 0 11518
+D3
+~
+~
+0 0 11526
+D8
+~
+~
+0 0 11536
+D1
+~
+~
+0 0 11528
+D9
+~
+~
+0 0 11538
+S
+#11528
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11518
+D2
+~
+~
+0 0 11538
+D3
+~
+~
+0 0 11527
+D6
+~
+~
+0 0 11517
+D1
+~
+~
+0 0 11529
+D7
+~
+~
+0 0 11519
+D3
+~
+~
+0 0 11527
+D8
+~
+~
+0 0 11537
+D1
+~
+~
+0 0 11529
+D9
+~
+~
+0 0 11539
+S
+#11529
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11519
+D2
+~
+~
+0 0 11539
+D3
+~
+~
+0 0 11528
+D6
+~
+~
+0 0 11518
+D3
+~
+~
+0 0 11528
+D8
+~
+~
+0 0 11538
+S
+#11530
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11520
+D2
+~
+~
+0 0 11540
+D1
+~
+~
+0 0 11531
+D7
+~
+~
+0 0 11521
+D1
+~
+~
+0 0 11531
+D9
+~
+~
+0 0 11541
+S
+#11531
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11521
+D2
+~
+~
+0 0 11541
+D3
+~
+~
+0 0 11530
+D6
+~
+~
+0 0 11520
+D1
+~
+~
+0 0 11532
+D7
+~
+~
+0 0 11522
+D3
+~
+~
+0 0 11530
+D8
+~
+~
+0 0 11540
+D1
+~
+~
+0 0 11532
+D9
+~
+~
+0 0 11542
+S
+#11532
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11522
+D2
+~
+~
+0 0 11542
+D3
+~
+~
+0 0 11531
+D6
+~
+~
+0 0 11521
+D1
+~
+~
+0 0 11533
+D7
+~
+~
+0 0 11523
+D3
+~
+~
+0 0 11531
+D8
+~
+~
+0 0 11541
+D1
+~
+~
+0 0 11533
+D9
+~
+~
+0 0 11543
+S
+#11533
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11523
+D2
+~
+~
+0 0 11543
+D3
+~
+~
+0 0 11532
+D6
+~
+~
+0 0 11522
+D1
+~
+~
+0 0 11534
+D7
+~
+~
+0 0 11524
+D3
+~
+~
+0 0 11532
+D8
+~
+~
+0 0 11542
+D1
+~
+~
+0 0 11534
+D9
+~
+~
+0 0 11544
+S
+#11534
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11524
+D2
+~
+~
+0 0 11544
+D3
+~
+~
+0 0 11533
+D6
+~
+~
+0 0 11523
+D1
+~
+~
+0 0 11535
+D7
+~
+~
+0 0 11525
+D3
+~
+~
+0 0 11533
+D8
+~
+~
+0 0 11543
+D1
+~
+~
+0 0 11535
+D9
+~
+~
+0 0 11545
+S
+#11535
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11525
+D2
+~
+~
+0 0 11545
+D3
+~
+~
+0 0 11534
+D6
+~
+~
+0 0 11524
+D1
+~
+~
+0 0 11536
+D7
+~
+~
+0 0 11526
+D3
+~
+~
+0 0 11534
+D8
+~
+~
+0 0 11544
+D1
+~
+~
+0 0 11536
+D9
+~
+~
+0 0 11546
+S
+#11536
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11526
+D2
+~
+~
+0 0 11546
+D3
+~
+~
+0 0 11535
+D6
+~
+~
+0 0 11525
+D1
+~
+~
+0 0 11537
+D7
+~
+~
+0 0 11527
+D3
+~
+~
+0 0 11535
+D8
+~
+~
+0 0 11545
+D1
+~
+~
+0 0 11537
+D9
+~
+~
+0 0 11547
+S
+#11537
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11527
+D2
+~
+~
+0 0 11547
+D3
+~
+~
+0 0 11536
+D6
+~
+~
+0 0 11526
+D1
+~
+~
+0 0 11538
+D7
+~
+~
+0 0 11528
+D3
+~
+~
+0 0 11536
+D8
+~
+~
+0 0 11546
+D1
+~
+~
+0 0 11538
+D9
+~
+~
+0 0 11548
+S
+#11538
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11528
+D2
+~
+~
+0 0 11548
+D3
+~
+~
+0 0 11537
+D6
+~
+~
+0 0 11527
+D1
+~
+~
+0 0 11539
+D7
+~
+~
+0 0 11529
+D3
+~
+~
+0 0 11537
+D8
+~
+~
+0 0 11547
+D1
+~
+~
+0 0 11539
+D9
+~
+~
+0 0 11549
+S
+#11539
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11529
+D2
+~
+~
+0 0 11549
+D3
+~
+~
+0 0 11538
+D6
+~
+~
+0 0 11528
+D3
+~
+~
+0 0 11538
+D8
+~
+~
+0 0 11548
+S
+#11540
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11530
+D2
+~
+~
+0 0 11550
+D1
+~
+~
+0 0 11541
+D7
+~
+~
+0 0 11531
+D1
+~
+~
+0 0 11541
+D9
+~
+~
+0 0 11551
+S
+#11541
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11531
+D2
+~
+~
+0 0 11551
+D3
+~
+~
+0 0 11540
+D6
+~
+~
+0 0 11530
+D1
+~
+~
+0 0 11542
+D7
+~
+~
+0 0 11532
+D3
+~
+~
+0 0 11540
+D8
+~
+~
+0 0 11550
+D1
+~
+~
+0 0 11542
+D9
+~
+~
+0 0 11552
+S
+#11542
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11532
+D2
+~
+~
+0 0 11552
+D3
+~
+~
+0 0 11541
+D6
+~
+~
+0 0 11531
+D1
+~
+~
+0 0 11543
+D7
+~
+~
+0 0 11533
+D3
+~
+~
+0 0 11541
+D8
+~
+~
+0 0 11551
+D1
+~
+~
+0 0 11543
+D9
+~
+~
+0 0 11553
+S
+#11543
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11533
+D2
+~
+~
+0 0 11553
+D3
+~
+~
+0 0 11542
+D6
+~
+~
+0 0 11532
+D1
+~
+~
+0 0 11544
+D7
+~
+~
+0 0 11534
+D3
+~
+~
+0 0 11542
+D8
+~
+~
+0 0 11552
+D1
+~
+~
+0 0 11544
+D9
+~
+~
+0 0 11554
+S
+#11544
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11534
+D2
+~
+~
+0 0 11554
+D3
+~
+~
+0 0 11543
+D6
+~
+~
+0 0 11533
+D1
+~
+~
+0 0 11545
+D7
+~
+~
+0 0 11535
+D3
+~
+~
+0 0 11543
+D8
+~
+~
+0 0 11553
+D1
+~
+~
+0 0 11545
+D9
+~
+~
+0 0 11555
+S
+#11545
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11535
+D2
+~
+~
+0 0 11555
+D3
+~
+~
+0 0 11544
+D6
+~
+~
+0 0 11534
+D1
+~
+~
+0 0 11546
+D7
+~
+~
+0 0 11536
+D3
+~
+~
+0 0 11544
+D8
+~
+~
+0 0 11554
+D1
+~
+~
+0 0 11546
+D9
+~
+~
+0 0 11556
+S
+#11546
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11536
+D2
+~
+~
+0 0 11556
+D3
+~
+~
+0 0 11545
+D6
+~
+~
+0 0 11535
+D1
+~
+~
+0 0 11547
+D7
+~
+~
+0 0 11537
+D3
+~
+~
+0 0 11545
+D8
+~
+~
+0 0 11555
+D1
+~
+~
+0 0 11547
+D9
+~
+~
+0 0 11557
+S
+#11547
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11537
+D2
+~
+~
+0 0 11557
+D3
+~
+~
+0 0 11546
+D6
+~
+~
+0 0 11536
+D1
+~
+~
+0 0 11548
+D7
+~
+~
+0 0 11538
+D3
+~
+~
+0 0 11546
+D8
+~
+~
+0 0 11556
+D1
+~
+~
+0 0 11548
+D9
+~
+~
+0 0 11558
+S
+#11548
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11538
+D2
+~
+~
+0 0 11558
+D3
+~
+~
+0 0 11547
+D6
+~
+~
+0 0 11537
+D1
+~
+~
+0 0 11549
+D7
+~
+~
+0 0 11539
+D3
+~
+~
+0 0 11547
+D8
+~
+~
+0 0 11557
+D1
+~
+~
+0 0 11549
+D9
+~
+~
+0 0 11559
+S
+#11549
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11539
+D2
+~
+~
+0 0 11559
+D3
+~
+~
+0 0 11548
+D6
+~
+~
+0 0 11538
+D3
+~
+~
+0 0 11548
+D8
+~
+~
+0 0 11558
+S
+#11550
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11540
+D2
+~
+~
+0 0 11560
+D1
+~
+~
+0 0 11551
+D7
+~
+~
+0 0 11541
+D1
+~
+~
+0 0 11551
+D9
+~
+~
+0 0 11561
+S
+#11551
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11541
+D2
+~
+~
+0 0 11561
+D3
+~
+~
+0 0 11550
+D6
+~
+~
+0 0 11540
+D1
+~
+~
+0 0 11552
+D7
+~
+~
+0 0 11542
+D3
+~
+~
+0 0 11550
+D8
+~
+~
+0 0 11560
+D1
+~
+~
+0 0 11552
+D9
+~
+~
+0 0 11562
+S
+#11552
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11542
+D2
+~
+~
+0 0 11562
+D3
+~
+~
+0 0 11551
+D6
+~
+~
+0 0 11541
+D1
+~
+~
+0 0 11553
+D7
+~
+~
+0 0 11543
+D3
+~
+~
+0 0 11551
+D8
+~
+~
+0 0 11561
+D1
+~
+~
+0 0 11553
+D9
+~
+~
+0 0 11563
+S
+#11553
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11543
+D2
+~
+~
+0 0 11563
+D3
+~
+~
+0 0 11552
+D6
+~
+~
+0 0 11542
+D1
+~
+~
+0 0 11554
+D7
+~
+~
+0 0 11544
+D3
+~
+~
+0 0 11552
+D8
+~
+~
+0 0 11562
+D1
+~
+~
+0 0 11554
+D9
+~
+~
+0 0 11564
+S
+#11554
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11544
+D2
+~
+~
+0 0 11564
+D3
+~
+~
+0 0 11553
+D6
+~
+~
+0 0 11543
+D1
+~
+~
+0 0 11555
+D7
+~
+~
+0 0 11545
+D3
+~
+~
+0 0 11553
+D8
+~
+~
+0 0 11563
+D1
+~
+~
+0 0 11555
+D9
+~
+~
+0 0 11565
+S
+#11555
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11545
+D2
+~
+~
+0 0 11565
+D3
+~
+~
+0 0 11554
+D6
+~
+~
+0 0 11544
+D1
+~
+~
+0 0 11556
+D7
+~
+~
+0 0 11546
+D3
+~
+~
+0 0 11554
+D8
+~
+~
+0 0 11564
+D1
+~
+~
+0 0 11556
+D9
+~
+~
+0 0 11566
+S
+#11556
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11546
+D2
+~
+~
+0 0 11566
+D3
+~
+~
+0 0 11555
+D6
+~
+~
+0 0 11545
+D1
+~
+~
+0 0 11557
+D7
+~
+~
+0 0 11547
+D3
+~
+~
+0 0 11555
+D8
+~
+~
+0 0 11565
+D1
+~
+~
+0 0 11557
+D9
+~
+~
+0 0 11567
+S
+#11557
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11547
+D2
+~
+~
+0 0 11567
+D3
+~
+~
+0 0 11556
+D6
+~
+~
+0 0 11546
+D1
+~
+~
+0 0 11558
+D7
+~
+~
+0 0 11548
+D3
+~
+~
+0 0 11556
+D8
+~
+~
+0 0 11566
+D1
+~
+~
+0 0 11558
+D9
+~
+~
+0 0 11568
+S
+#11558
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11548
+D2
+~
+~
+0 0 11568
+D3
+~
+~
+0 0 11557
+D6
+~
+~
+0 0 11547
+D1
+~
+~
+0 0 11559
+D7
+~
+~
+0 0 11549
+D3
+~
+~
+0 0 11557
+D8
+~
+~
+0 0 11567
+D1
+~
+~
+0 0 11559
+D9
+~
+~
+0 0 11569
+S
+#11559
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11549
+D2
+~
+~
+0 0 11569
+D3
+~
+~
+0 0 11558
+D6
+~
+~
+0 0 11548
+D3
+~
+~
+0 0 11558
+D8
+~
+~
+0 0 11568
+S
+#11560
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11550
+D2
+~
+~
+0 0 11570
+D1
+~
+~
+0 0 11561
+D7
+~
+~
+0 0 11551
+D1
+~
+~
+0 0 11561
+D9
+~
+~
+0 0 11571
+S
+#11561
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11551
+D2
+~
+~
+0 0 11571
+D3
+~
+~
+0 0 11560
+D6
+~
+~
+0 0 11550
+D1
+~
+~
+0 0 11562
+D7
+~
+~
+0 0 11552
+D3
+~
+~
+0 0 11560
+D8
+~
+~
+0 0 11570
+D1
+~
+~
+0 0 11562
+D9
+~
+~
+0 0 11572
+S
+#11562
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11552
+D2
+~
+~
+0 0 11572
+D3
+~
+~
+0 0 11561
+D6
+~
+~
+0 0 11551
+D1
+~
+~
+0 0 11563
+D7
+~
+~
+0 0 11553
+D3
+~
+~
+0 0 11561
+D8
+~
+~
+0 0 11571
+D1
+~
+~
+0 0 11563
+D9
+~
+~
+0 0 11573
+S
+#11563
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11553
+D2
+~
+~
+0 0 11573
+D3
+~
+~
+0 0 11562
+D6
+~
+~
+0 0 11552
+D1
+~
+~
+0 0 11564
+D7
+~
+~
+0 0 11554
+D3
+~
+~
+0 0 11562
+D8
+~
+~
+0 0 11572
+D1
+~
+~
+0 0 11564
+D9
+~
+~
+0 0 11574
+S
+#11564
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11554
+D2
+~
+~
+0 0 11574
+D3
+~
+~
+0 0 11563
+D6
+~
+~
+0 0 11553
+D1
+~
+~
+0 0 11565
+D7
+~
+~
+0 0 11555
+D3
+~
+~
+0 0 11563
+D8
+~
+~
+0 0 11573
+D1
+~
+~
+0 0 11565
+D9
+~
+~
+0 0 11575
+S
+#11565
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11555
+D2
+~
+~
+0 0 11575
+D3
+~
+~
+0 0 11564
+D6
+~
+~
+0 0 11554
+D1
+~
+~
+0 0 11566
+D7
+~
+~
+0 0 11556
+D3
+~
+~
+0 0 11564
+D8
+~
+~
+0 0 11574
+D1
+~
+~
+0 0 11566
+D9
+~
+~
+0 0 11576
+S
+#11566
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11556
+D2
+~
+~
+0 0 11576
+D3
+~
+~
+0 0 11565
+D6
+~
+~
+0 0 11555
+D1
+~
+~
+0 0 11567
+D7
+~
+~
+0 0 11557
+D3
+~
+~
+0 0 11565
+D8
+~
+~
+0 0 11575
+D1
+~
+~
+0 0 11567
+D9
+~
+~
+0 0 11577
+S
+#11567
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11557
+D2
+~
+~
+0 0 11577
+D3
+~
+~
+0 0 11566
+D6
+~
+~
+0 0 11556
+D1
+~
+~
+0 0 11568
+D7
+~
+~
+0 0 11558
+D3
+~
+~
+0 0 11566
+D8
+~
+~
+0 0 11576
+D1
+~
+~
+0 0 11568
+D9
+~
+~
+0 0 11578
+S
+#11568
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11558
+D2
+~
+~
+0 0 11578
+D3
+~
+~
+0 0 11567
+D6
+~
+~
+0 0 11557
+D1
+~
+~
+0 0 11569
+D7
+~
+~
+0 0 11559
+D3
+~
+~
+0 0 11567
+D8
+~
+~
+0 0 11577
+D1
+~
+~
+0 0 11569
+D9
+~
+~
+0 0 11579
+S
+#11569
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11559
+D2
+~
+~
+0 0 11579
+D3
+~
+~
+0 0 11568
+D6
+~
+~
+0 0 11558
+D3
+~
+~
+0 0 11568
+D8
+~
+~
+0 0 11578
+S
+#11570
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11560
+D2
+~
+~
+0 0 11580
+D1
+~
+~
+0 0 11571
+D7
+~
+~
+0 0 11561
+D1
+~
+~
+0 0 11571
+D9
+~
+~
+0 0 11581
+S
+#11571
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11561
+D2
+~
+~
+0 0 11581
+D3
+~
+~
+0 0 11570
+D6
+~
+~
+0 0 11560
+D1
+~
+~
+0 0 11572
+D7
+~
+~
+0 0 11562
+D3
+~
+~
+0 0 11570
+D8
+~
+~
+0 0 11580
+D1
+~
+~
+0 0 11572
+D9
+~
+~
+0 0 11582
+S
+#11572
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11562
+D2
+~
+~
+0 0 11582
+D3
+~
+~
+0 0 11571
+D6
+~
+~
+0 0 11561
+D1
+~
+~
+0 0 11573
+D7
+~
+~
+0 0 11563
+D3
+~
+~
+0 0 11571
+D8
+~
+~
+0 0 11581
+D1
+~
+~
+0 0 11573
+D9
+~
+~
+0 0 11583
+S
+#11573
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11563
+D2
+~
+~
+0 0 11583
+D3
+~
+~
+0 0 11572
+D6
+~
+~
+0 0 11562
+D1
+~
+~
+0 0 11574
+D7
+~
+~
+0 0 11564
+D3
+~
+~
+0 0 11572
+D8
+~
+~
+0 0 11582
+D1
+~
+~
+0 0 11574
+D9
+~
+~
+0 0 11584
+S
+#11574
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11564
+D2
+~
+~
+0 0 11584
+D3
+~
+~
+0 0 11573
+D6
+~
+~
+0 0 11563
+D1
+~
+~
+0 0 11575
+D7
+~
+~
+0 0 11565
+D3
+~
+~
+0 0 11573
+D8
+~
+~
+0 0 11583
+D1
+~
+~
+0 0 11575
+D9
+~
+~
+0 0 11585
+S
+#11575
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11565
+D2
+~
+~
+0 0 11585
+D3
+~
+~
+0 0 11574
+D6
+~
+~
+0 0 11564
+D1
+~
+~
+0 0 11576
+D7
+~
+~
+0 0 11566
+D3
+~
+~
+0 0 11574
+D8
+~
+~
+0 0 11584
+D1
+~
+~
+0 0 11576
+D9
+~
+~
+0 0 11586
+S
+#11576
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11566
+D2
+~
+~
+0 0 11586
+D3
+~
+~
+0 0 11575
+D6
+~
+~
+0 0 11565
+D1
+~
+~
+0 0 11577
+D7
+~
+~
+0 0 11567
+D3
+~
+~
+0 0 11575
+D8
+~
+~
+0 0 11585
+D1
+~
+~
+0 0 11577
+D9
+~
+~
+0 0 11587
+S
+#11577
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11567
+D2
+~
+~
+0 0 11587
+D3
+~
+~
+0 0 11576
+D6
+~
+~
+0 0 11566
+D1
+~
+~
+0 0 11578
+D7
+~
+~
+0 0 11568
+D3
+~
+~
+0 0 11576
+D8
+~
+~
+0 0 11586
+D1
+~
+~
+0 0 11578
+D9
+~
+~
+0 0 11588
+S
+#11578
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11568
+D2
+~
+~
+0 0 11588
+D3
+~
+~
+0 0 11577
+D6
+~
+~
+0 0 11567
+D1
+~
+~
+0 0 11579
+D7
+~
+~
+0 0 11569
+D3
+~
+~
+0 0 11577
+D8
+~
+~
+0 0 11587
+D1
+~
+~
+0 0 11579
+D9
+~
+~
+0 0 11589
+S
+#11579
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11569
+D2
+~
+~
+0 0 11589
+D3
+~
+~
+0 0 11578
+D6
+~
+~
+0 0 11568
+D3
+~
+~
+0 0 11578
+D8
+~
+~
+0 0 11588
+S
+#11580
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11570
+D2
+~
+~
+0 0 11590
+D1
+~
+~
+0 0 11581
+D7
+~
+~
+0 0 11571
+D1
+~
+~
+0 0 11581
+D9
+~
+~
+0 0 11591
+S
+#11581
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11571
+D2
+~
+~
+0 0 11591
+D3
+~
+~
+0 0 11580
+D6
+~
+~
+0 0 11570
+D1
+~
+~
+0 0 11582
+D7
+~
+~
+0 0 11572
+D3
+~
+~
+0 0 11580
+D8
+~
+~
+0 0 11590
+D1
+~
+~
+0 0 11582
+D9
+~
+~
+0 0 11592
+S
+#11582
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11572
+D2
+~
+~
+0 0 11592
+D3
+~
+~
+0 0 11581
+D6
+~
+~
+0 0 11571
+D1
+~
+~
+0 0 11583
+D7
+~
+~
+0 0 11573
+D3
+~
+~
+0 0 11581
+D8
+~
+~
+0 0 11591
+D1
+~
+~
+0 0 11583
+D9
+~
+~
+0 0 11593
+S
+#11583
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11573
+D2
+~
+~
+0 0 11593
+D3
+~
+~
+0 0 11582
+D6
+~
+~
+0 0 11572
+D1
+~
+~
+0 0 11584
+D7
+~
+~
+0 0 11574
+D3
+~
+~
+0 0 11582
+D8
+~
+~
+0 0 11592
+D1
+~
+~
+0 0 11584
+D9
+~
+~
+0 0 11594
+S
+#11584
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11574
+D2
+~
+~
+0 0 11594
+D3
+~
+~
+0 0 11583
+D6
+~
+~
+0 0 11573
+D1
+~
+~
+0 0 11585
+D7
+~
+~
+0 0 11575
+D3
+~
+~
+0 0 11583
+D8
+~
+~
+0 0 11593
+D1
+~
+~
+0 0 11585
+D9
+~
+~
+0 0 11595
+S
+#11585
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11575
+D2
+~
+~
+0 0 11595
+D3
+~
+~
+0 0 11584
+D6
+~
+~
+0 0 11574
+D1
+~
+~
+0 0 11586
+D7
+~
+~
+0 0 11576
+D3
+~
+~
+0 0 11584
+D8
+~
+~
+0 0 11594
+D1
+~
+~
+0 0 11586
+D9
+~
+~
+0 0 11596
+S
+#11586
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11576
+D2
+~
+~
+0 0 11596
+D3
+~
+~
+0 0 11585
+D6
+~
+~
+0 0 11575
+D1
+~
+~
+0 0 11587
+D7
+~
+~
+0 0 11577
+D3
+~
+~
+0 0 11585
+D8
+~
+~
+0 0 11595
+D1
+~
+~
+0 0 11587
+D9
+~
+~
+0 0 11597
+S
+#11587
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11577
+D2
+~
+~
+0 0 11597
+D3
+~
+~
+0 0 11586
+D6
+~
+~
+0 0 11576
+D1
+~
+~
+0 0 11588
+D7
+~
+~
+0 0 11578
+D3
+~
+~
+0 0 11586
+D8
+~
+~
+0 0 11596
+D1
+~
+~
+0 0 11588
+D9
+~
+~
+0 0 11598
+S
+#11588
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11578
+D2
+~
+~
+0 0 11598
+D3
+~
+~
+0 0 11587
+D6
+~
+~
+0 0 11577
+D1
+~
+~
+0 0 11589
+D7
+~
+~
+0 0 11579
+D3
+~
+~
+0 0 11587
+D8
+~
+~
+0 0 11597
+D1
+~
+~
+0 0 11589
+D9
+~
+~
+0 0 11599
+S
+#11589
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11579
+D2
+~
+~
+0 0 11599
+D3
+~
+~
+0 0 11588
+D6
+~
+~
+0 0 11578
+D3
+~
+~
+0 0 11588
+D8
+~
+~
+0 0 11598
+S
+#11590
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11580
+D1
+~
+~
+0 0 11591
+D7
+~
+~
+0 0 11581
+S
+#11591
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11581
+D3
+~
+~
+0 0 11590
+D6
+~
+~
+0 0 11580
+D1
+~
+~
+0 0 11592
+D7
+~
+~
+0 0 11582
+S
+#11592
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11582
+D3
+~
+~
+0 0 11591
+D6
+~
+~
+0 0 11581
+D1
+~
+~
+0 0 11593
+D7
+~
+~
+0 0 11583
+S
+#11593
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11583
+D3
+~
+~
+0 0 11592
+D6
+~
+~
+0 0 11582
+D1
+~
+~
+0 0 11594
+D7
+~
+~
+0 0 11584
+S
+#11594
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11584
+D3
+~
+~
+0 0 11593
+D6
+~
+~
+0 0 11583
+D1
+~
+~
+0 0 11595
+D7
+~
+~
+0 0 11585
+S
+#11595
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11585
+D3
+~
+~
+0 0 11594
+D6
+~
+~
+0 0 11584
+D1
+~
+~
+0 0 11596
+D7
+~
+~
+0 0 11586
+S
+#11596
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11586
+D3
+~
+~
+0 0 11595
+D6
+~
+~
+0 0 11585
+D1
+~
+~
+0 0 11597
+D7
+~
+~
+0 0 11587
+S
+#11597
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11587
+D3
+~
+~
+0 0 11596
+D6
+~
+~
+0 0 11586
+D1
+~
+~
+0 0 11598
+D7
+~
+~
+0 0 11588
+S
+#11598
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11588
+D3
+~
+~
+0 0 11597
+D6
+~
+~
+0 0 11587
+D1
+~
+~
+0 0 11599
+D7
+~
+~
+0 0 11589
+S
+#11599
+The Great Northeast Ocean~
+You are surrounded by the limitless waters of the great northeast ocean.  These
+waters have long been trecked from the Ereland continent to the icy tundra's of
+off of the Frozen Sea.  The sea life is plentiful here and the air is has a cold
+salty feel.
+~
+0 0 11
+D0
+~
+~
+0 0 11589
+D3
+~
+~
+0 0 11598
+D6
+~
+~
+0 0 11588
+S
+#0
+
+#SPECIALS
+S
+
+#RESETS
+S
+
+#SHOPS
+0
+
+#MOBPROGS
+#0
+
+#$
+
