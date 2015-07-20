@@ -32,7 +32,8 @@ Syntax: color
 -1 NOTES CHANGES NEWS OOCNOTES STORYNOTES UNREAD CATCHUP~
 
 Crimson Skies has various note spools that you can post to, each with
-a specified purpose (notes, changes, news, ooc notes, story notes).
+a specified purpose (notes, changes, news, ooc notes, story notes, e.g.
+used with the commands note, change, news, oocn, storyn, history).
 
 Syntax (replace 'note' below with the specified spool you want to 
 read):
