@@ -181,8 +181,6 @@ int top_sn;
 int top_group;
 int top_class;
 int mobile_count = 0;
-int newmobs = 0;
-int newobjs = 0;
 
 /*
  * Memory management.
@@ -2736,11 +2734,9 @@ void do_memory (CHAR_DATA * ch, char *argument)
     send_to_char (buf, ch);
     sprintf (buf, "Socials %5d\n\r", social_count);
     send_to_char (buf, ch);
-    sprintf (buf, "Mobs    %5d(%d new format)\n\r", top_mob_index, newmobs);
+    sprintf (buf, "Mobs    %5d (%d in use)\n\r", top_mob_index, mobile_count);
     send_to_char (buf, ch);
-    sprintf (buf, "(in use)%5d\n\r", mobile_count);
-    send_to_char (buf, ch);
-    sprintf (buf, "Objs    %5d(%d new format)\n\r", top_obj_index, newobjs);
+    sprintf (buf, "Objs    %5d\n\r", top_obj_index);
     send_to_char (buf, ch);
     sprintf (buf, "Resets  %5d\n\r", top_reset);
     send_to_char (buf, ch);
@@ -3524,7 +3520,6 @@ void load_mobiles(FILE * fp)
         pMobIndex = alloc_perm(sizeof(*pMobIndex));
         pMobIndex->vnum = vnum;
         pMobIndex->area = area_last;    /* OLC */
-        newmobs++;
         pMobIndex->player_name = fread_string(fp);
         pMobIndex->short_descr = fread_string(fp);
         pMobIndex->long_descr = fread_string(fp);
@@ -3713,7 +3708,6 @@ void load_objects(FILE * fp)
         pObjIndex->vnum = vnum;
         pObjIndex->area = area_last;    /* OLC */
         pObjIndex->reset_num = 0;
-        newobjs++;
         pObjIndex->name = fread_string(fp);
         pObjIndex->short_descr = fread_string(fp);
         pObjIndex->description = fread_string(fp);
