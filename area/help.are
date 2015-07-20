@@ -493,9 +493,47 @@ to the mud implementors.
 ~
 
 0 CREDITS~
-Syntax: credits
+.         Diku Family Tree for Crimson Skies:
 
-This command shows the list of the original Diku Mud implementors.
+          --------------------------------------
+          - [DikuMUD] (1990-1991)---------------
+          Katja Nyboe               [Superwoman] 
+          Tom Madsen              [Stormbringer] 
+          Hans Henrik Staerfeldt           [God] 
+          Michael Seifert                 [Papi]
+          Sebastian Hammer               [Quinn]
+          - [Merc DikuMUD] (1991-1993-----------
+          Michael Chastain               [Furey]
+          Michael Quan                    [Kahn]
+          Mitchel Tse                  [Hatchet]
+          - [ROM 2.4] (1993-1998)---------------
+          Russ Tyalor                  [Alander]
+          Gabrielle Taylor          [Antoinette]
+          Brian Moore                     [Zump]
+          - [Crimson Skies 1.0] (1998-2015)-----
+          Blake Pell                     [Rhien]
+          --------------------------------------
+
+          Code snippits or area additions have also been
+          including from these sources:
+
+          --------------------------------------
+          - [Smaug/SmaugFuss] (1994-1998) ------
+          Derek Snider                  [Thoric]
+                                        [Altrag]
+                                       [Blodkai]
+                                          [Narn]
+                                         [Scryn]
+                                       [Rennard]
+                                   [Swordbearer]
+                                         [Gorog]
+                                     [Grishnakh]
+                                         [Nivek]
+                                       [Tricops]
+                                     [Fireblade]
+          - [Rom NT Port] ----------------------
+          Michael K. Weise              [Vallyn]
+
 ~
 
 0 AREAS COMMANDS REPORT SCORE TIME~
