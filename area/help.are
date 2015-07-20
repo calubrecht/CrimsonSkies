@@ -497,20 +497,27 @@ to the mud implementors.
 
           --------------------------------------
           - [DikuMUD] (1990-1991)---------------
+          --------------------------------------
           Katja Nyboe               [Superwoman] 
           Tom Madsen              [Stormbringer] 
           Hans Henrik Staerfeldt           [God] 
           Michael Seifert                 [Papi]
           Sebastian Hammer               [Quinn]
+          --------------------------------------
           - [Merc DikuMUD] (1991-1993-----------
+          --------------------------------------
           Michael Chastain               [Furey]
           Michael Quan                    [Kahn]
           Mitchel Tse                  [Hatchet]
+          --------------------------------------
           - [ROM 2.4] (1993-1998)---------------
+          --------------------------------------
           Russ Tyalor                  [Alander]
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
-          - [Crimson Skies 1.0] (1998-2015)-----
+          --------------------------------------
+          - [Crimson Skies 0.5] (1998-2015)-----
+          --------------------------------------
           Blake Pell                     [Rhien]
           --------------------------------------
 
@@ -519,6 +526,7 @@ to the mud implementors.
 
           --------------------------------------
           - [Smaug/SmaugFuss] (1994-1998) ------
+          --------------------------------------
           Derek Snider                  [Thoric]
                                         [Altrag]
                                        [Blodkai]
@@ -531,7 +539,9 @@ to the mud implementors.
                                          [Nivek]
                                        [Tricops]
                                      [Fireblade]
+          --------------------------------------
           - [Rom NT Port] ----------------------
+          --------------------------------------
           Michael K. Weise              [Vallyn]
 
 ~
