@@ -2657,7 +2657,7 @@ void do_compare (CHAR_DATA * ch, char *argument)
 
 void do_credits (CHAR_DATA * ch, char *argument)
 {
-    do_function (ch, &do_help, "diku");
+    do_function (ch, &do_help, "credits");
     return;
 }
 
