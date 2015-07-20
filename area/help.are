@@ -66,22 +66,6 @@ unread          : shows you how many unread notes you have and from what spools
 When you log in, you will be informed if there are unread notes waiting. 
 ~
 
--1 DIKU~
-.                    Original game idea, concept, and design:
-
-          Katja Nyboe               [Superwoman] (katz@freja.diku.dk)
-          Tom Madsen              [Stormbringer] (noop@freja.diku.dk)
-          Hans Henrik Staerfeldt           [God] (bombman@freja.diku.dk)
-          Michael Seifert                 [Papi] (seifert@freja.diku.dk)
-          Sebastian Hammer               [Quinn] (quinn@freja.diku.dk)
-
-
-Developed at: DIKU -- The Department of Computer Science
-                      at the University of Copenhagen.
-
-
-~
-
 -1 GOLD SILVER MONEY~
 Midgaard's economy is based on gold and silver coinage (and the lowly copper,
 which you as an adventurer are far too proud to carry).  Gold coins are worth
@@ -492,8 +476,10 @@ These commands will take your message and record it into a file as feedback
 to the mud implementors.
 ~
 
-0 CREDITS~
-.         Diku Family Tree for Crimson Skies:
+0 CREDITS DIKU MERC ROM CRIMSON SMAUG~
+          
+
+.          Diku Family Tree for Crimson Skies:
 
           --------------------------------------
           - [DikuMUD] (1990-1991)---------------
