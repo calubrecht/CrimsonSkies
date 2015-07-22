@@ -1873,16 +1873,6 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1303
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1304
 D1
 The shadows cloud your vision.
 ~
@@ -1893,6 +1883,16 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1307
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1304
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1303
 S
 #1302
 The Shadow Grove~
@@ -1902,26 +1902,26 @@ sounds moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1305
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1301
-D0
-You see a small clearing in the shadows.
-~
-~
-0 -1 1311
 D1
 The shadows cloud your vision.
 ~
 ~
 0 -1 1303
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1305
+D0
+You see a small clearing in the shadows.
+~
+~
+0 -1 1311
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1301
 S
 #1303
 The Shadow Grove~
@@ -1936,21 +1936,21 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1301
-D2
-The shadows cloud your vision.
-~
-~
-0 -1 1306
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1302
 D0
 The shadows cloud your vision.
 ~
 ~
 0 -1 1309
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1302
+D2
+The shadows cloud your vision.
+~
+~
+0 -1 1306
 S
 #1304
 The Shadow Grove~
@@ -1960,26 +1960,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1305
 D3
 Dark gates loom in the mist.
 ~
 ~
 0 -1 2201
-D0
+D1
 The shadows cloud your vision.
 ~
 ~
-0 -1 1301
+0 -1 1305
 D2
 The shadows cloud your vision.
 ~
 ~
 0 -1 1307
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1301
 S
 #1305
 The Shadow Grove~
@@ -1989,26 +1989,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1304
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1306
 D2
 The shadows cloud your vision.
 ~
 ~
 0 -1 1308
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1306
 D0
 The shadows cloud your vision.
 ~
 ~
 0 -1 1302
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1304
 S
 #1306
 The Shadow Grove~
@@ -2018,6 +2018,16 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1305
+D1
+You see a shadowy tavern.
+~
+~
+0 -1 9301
 D0
 The shadows cloud your vision.
 ~
@@ -2028,16 +2038,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1309
-D1
-You see a shadowy tavern.
-~
-~
-0 -1 9301
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1305
 S
 #1307
 The Shadow Grove~
@@ -2047,26 +2047,26 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
-D3
-The shadows cloud your vision.
-~
-~
-0 -1 1309
-D1
-The shadows cloud your vision.
-~
-~
-0 -1 1308
 D0
 The shadows cloud your vision.
 ~
 ~
 0 -1 1304
+D3
+The shadows cloud your vision.
+~
+~
+0 -1 1309
 D2
 The shadows cloud your vision.
 ~
 ~
 0 -1 1301
+D1
+The shadows cloud your vision.
+~
+~
+0 -1 1308
 S
 #1308
 The Shadow Grove~
@@ -2076,6 +2076,11 @@ sounds of moaning and growling come from all directions.
   All exits lead into shadows, you are very confused.
 ~
 0 8193 3
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1305
 D1
 The shadows cloud your vision.
 ~
@@ -2086,11 +2091,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1300
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1305
 D3
 The shadows cloud your vision.
 ~
@@ -2110,6 +2110,11 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1307
+D0
+The shadows cloud your vision.
+~
+~
+0 -1 1306
 D3
 The shadows cloud your vision.
 ~
@@ -2120,11 +2125,6 @@ The shadows cloud your vision.
 ~
 ~
 0 -1 1303
-D0
-The shadows cloud your vision.
-~
-~
-0 -1 1306
 S
 #1311
 A small clearing~
@@ -3518,14 +3518,14 @@ D2
 ~
 ~
 0 0 9141
-D5
-~
-~
-0 0 3460
 D4
 ~
 ~
 0 0 938
+D5
+~
+~
+0 0 3460
 D1
 ~
 ~

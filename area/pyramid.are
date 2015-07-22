@@ -2019,26 +2019,26 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D1
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8754
 D2
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8755
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8753
 D3
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8754
+D1
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8754
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8753
 S
 #8755
 A Swirling Sandstorm~
@@ -2052,21 +2052,21 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D2
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8756
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8754
 D3
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8755
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8754
+D2
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8756
 D1
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2085,11 +2085,6 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D0
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8755
 D3
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2100,6 +2095,11 @@ You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8757
+D0
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8755
 D1
 You see only a wall of whirling, blowing, dry sand.
 ~
@@ -2118,26 +2118,26 @@ sand~
 Sand is about all you CAN see right now.  Unfortunately, it isn't very
 interesting sand, only white, dry, and blowing all over the place.
 ~
-D1
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8757
-D3
-You see only a wall of whirling, blowing, dry sand.
-~
-~
-0 -1 8757
 D0
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8756
+D3
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8757
 D2
 You see only a wall of whirling, blowing, dry sand.
 ~
 ~
 0 -1 8758
+D1
+You see only a wall of whirling, blowing, dry sand.
+~
+~
+0 -1 8757
 S
 #8758
 A Massive Sand Dune~
