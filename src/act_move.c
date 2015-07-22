@@ -178,6 +178,10 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
 
         move /= 2;                /* i.e. the average */
 
+        // Immortals don't lose movement
+        if (IS_IMMORTAL(ch))
+            move = 0;
+
 
         /* conditional effects */
         if (IS_AFFECTED (ch, AFF_FLYING) || IS_AFFECTED (ch, AFF_HASTE))
