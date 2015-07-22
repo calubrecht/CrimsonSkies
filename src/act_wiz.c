@@ -2460,9 +2460,9 @@ void do_mload (CHAR_DATA * ch, char *argument)
     victim = create_mobile (pMobIndex);
     char_to_room (victim, ch->in_room);
     act ("$n has created $N!", ch, NULL, victim, TO_ROOM);
+    act ("You have created $N.", ch, NULL, victim, TO_CHAR);
     sprintf (buf, "$N loads %s.", victim->short_descr);
     wiznet (buf, ch, NULL, WIZ_LOAD, WIZ_SECURE, get_trust (ch));
-    send_to_char ("Ok.\n\r", ch);
     return;
 }
 
@@ -2514,8 +2514,8 @@ void do_oload (CHAR_DATA * ch, char *argument)
     else
         obj_to_room (obj, ch->in_room);
     act ("$n has created $p!", ch, obj, NULL, TO_ROOM);
+    act ("You have created $p.", ch, obj, NULL, TO_CHAR);
     wiznet ("$N loads $p.", ch, obj, WIZ_LOAD, WIZ_SECURE, get_trust (ch));
-    send_to_char ("Ok.\n\r", ch);
     return;
 }
 
