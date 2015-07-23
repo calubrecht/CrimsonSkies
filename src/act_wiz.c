@@ -5258,7 +5258,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
 
     one_argument(argument, arg);
-    
+
     if (arg[0] == '\0')
     {
         send_to_char("Syntax:\n\r", ch);
@@ -5478,10 +5478,6 @@ void do_slay (CHAR_DATA * ch, char *argument)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    char buf[MAX_STRING_LENGTH];
-    sprintf(buf, "You are in continent %d.\n\r", ch->in_room->area->continent);
-    send_to_char(buf, ch);
-
-    //send_to_char("Nothing here currently, move along.\r\n", ch);
+    send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug
