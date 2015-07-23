@@ -16,6 +16,8 @@ tuna fish~
 a tuna fish~
 A tuna fish is swimming here.
 ~
+An active and agile predator, the tuna has a sleek, streamlined body, and
+is among the fastest-swimming pelagic fish.  
 ~
 fish~
 AG b 1 0
@@ -25,6 +27,22 @@ AG b 1 0
 stand stand either 0
 AGHMVb ADEFKO small unknown
 F for W
+#11001
+octopus~
+a octopus~
+An octopus with long and moving tentacles is here.
+~
+An octopus is here with its eight tentacles moving to and fro in the
+water.  It's long tentacles have many very visible suction cups.  
+~
+fish~
+AG b 3 0
+30 0 6d12+853 15d9+100 4d6+8 suction
+-9 -9 -9 6
+EFU 0 R 0
+stand stand either 0
+AGHMVW ABCDEFJKN medium unknown
+F par O
 #0
 
 
