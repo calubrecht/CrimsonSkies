@@ -346,6 +346,12 @@ const struct race_type race_table[] = {
      A | B | G | Z, A | C | D | E | F | H | J | K | Q | V | X},
 
     {
+     "fish", FALSE,
+     0, AFF_SWIM, 0,
+     0, RES_DROWNING, 0,
+     A | G | H | M | V | W, A | D | E | F | K | O},
+
+    {
      "unique", FALSE,
      0, 0, 0,
      0, 0, 0,
