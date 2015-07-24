@@ -45,8 +45,8 @@ AGHMVW ABCDEFJKN medium unknown
 F par O
 #11002
 man o'war jellyfish~
-a man o'war is here~
-A man o'war is here with it's jelly fish body and long tentacles dangling about.
+a man o'war~
+A man o'war jellyfish is here.
 ~
 The man o'war has a white clear jelly like composition with long dangling
 tentacles flopping about.  It is aggresive in these parts and appears to be
@@ -60,6 +60,23 @@ EFU 0 R 0
 stand stand either 0
 AGHMVb ABCDEFHJKNO small unknown
 F for W
+#11003
+sea dragon~
+a {Csea{x dragon~
+A {Csea{x dragon is here.
+~
+A giant sea dragon is flying here.  It's multicolored scales are
+glistening in the sunlight as it's wings create giant ripples in the sea
+water.  
+~
+dragon~
+A DFJTV 1 0
+52 0 50d10+5500 26d9+100 6d7+20 none
+-22 -22 -22 2
+FNU 0 BEH F
+stand stand none 5000
+AHMVZ ABCDEFGHIJKPQUVX giant unknown
+F vul I
 #0
 
 
