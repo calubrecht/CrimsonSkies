@@ -43,6 +43,23 @@ EFU 0 R 0
 stand stand either 0
 AGHMVW ABCDEFJKN medium unknown
 F par O
+#11002
+man o'war jellyfish~
+a man o'war is here~
+A man o'war is here with it's jelly fish body and long tentacles dangling about.
+~
+The man o'war has a white clear jelly like composition with long dangling
+tentacles flopping about.  It is aggresive in these parts and appears to be
+moving towards you.  
+~
+fish~
+AFG b 2 0
+25 0 5d10+550 12d9+100 2d10+7 none
+-7 -7 -7 6
+EFU 0 R 0
+stand stand either 0
+AGHMVb ABCDEFHJKNO small unknown
+F for W
 #0
 
 
@@ -4058,6 +4075,7 @@ S
 
 
 #SPECIALS
+M 11002 spec_cast_judge
 S
 
 
