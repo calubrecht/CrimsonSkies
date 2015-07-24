@@ -611,7 +611,6 @@ const struct liq_type liq_table[] = {
     {"blood", "red", {0, 2, -1, 2, 6}},
     {"salt water", "clear", {0, 1, -2, 0, 1}},
 
-    {"coke", "brown", {0, 2, 9, 2, 12}},
     {"root beer", "brown", {0, 2, 9, 2, 12}},
     {"elvish wine", "green", {35, 2, 8, 1, 5}},
     {"white wine", "golden", {28, 1, 8, 1, 5}},
