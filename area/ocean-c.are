@@ -77,6 +77,21 @@ FNU 0 BEH F
 stand stand none 5000
 AHMVZ ABCDEFGHIJKPQUVX giant unknown
 F vul I
+#11004
+seagull gull~
+a seagull~
+A seagull is flying overhead.
+~
+A long gray seagull is flaying overhead and floating along with the wind
+coming of the ocean.  
+~
+water fowl~
+AG Tb 2 0
+9 0 2d6+110 4d9+100 1d8+2 peck
+2 2 2 8
+F 0 R 0
+stand stand either 0
+AGHVW ACDEFHJKP small unknown
 #0
 
 
