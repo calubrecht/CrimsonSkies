@@ -107,6 +107,36 @@ AFG JVb 1 0
 EFU 0 R 0
 stand stand either 0
 AGHMVW ABCDEFGHJKO huge unknown
+#11006
+dolphin~
+a dolphin~
+A dolphin is here.
+~
+The dolphin before you is long, gray and smooth.  It bobs quickly in and
+out of the water without a care in the world.  
+~
+fish~
+ABF b 3 0
+20 0 3d9+333 10d9+100 2d8+5 peck
+-4 -4 -4 7
+EFM 0 R 0
+stand stand either 0
+AGHMVW ADEFHJKO medium unknown
+#11007
+sea hag~
+a sea hag~
+A sea hag is here searching for her next victim.
+~
+The sea hag floating here letting out soul splitting howls and searching
+for her next pray.  
+~
+human~
+AFR JTV 1 0
+44 0 25d10+2500 44d9+100 4d8+14 none
+-15 -15 -15 -2
+FU R 0 J
+stand stand none 5000
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -4123,6 +4153,7 @@ S
 
 #SPECIALS
 M 11002 spec_cast_judge
+M 11007 spec_cast_mage
 S
 
 
