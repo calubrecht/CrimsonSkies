@@ -1429,7 +1429,7 @@ D1
 D2
 ~
 ~
-0 0 11158
+0 0 9789
 D6
 ~
 ~
@@ -1561,7 +1561,7 @@ that sit at the center of the world.
 D0
 ~
 ~
-0 0 11148
+0 0 9789
 D1
 ~
 ~
@@ -1585,9 +1585,10 @@ D9
 S
 #11159
 Arcanis Ocean~
-You are surrounded by the dark waters of the Arcanis ocean which surrounds
-the ancient Arcanis continent.  The sea water is foaming as it crashes to
-and fro and the waves are high a restless.
+You are surrounded by the dark waters of the Arcanis ocean which
+surrounds the ancient Arcanis continent.  The sea water is foaming as it
+crashes to and fro and the waves are high a restless.  The current has
+dragged you slightly to the south of the New Thalos port.  
 ~
 0 0 11
 D0
@@ -1710,6 +1711,10 @@ D2
 ~
 ~
 0 0 11177
+D3
+~
+~
+0 0 9785
 D7
 ~
 ~
@@ -1940,6 +1945,10 @@ To the north are the lands that New Thalos reigns over and to the southeast
 the Arcanis Ocean extends into the warm waters of the Crystal Sea.  
 ~
 0 0 12
+D0
+~
+~
+0 0 9785
 D1
 ~
 ~

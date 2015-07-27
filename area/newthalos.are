@@ -1,6 +1,6 @@
 #AREADATA
 Name New Thalos~
-Builders Conner~
+Builders Conner Rhien~
 VNUMs 9500 9799
 LevelRange 10 35
 Credits [10 35] Conner  New Thalos~
@@ -6663,78 +6663,41 @@ the west back towards New Thalos.
 D1
 ~
 ~
-0 -1 9786
+0 0 11167
+D2
+~
+~
+0 0 11176
 D3
 ~
 ~
 0 -1 9784
-S
-#9786
-The Dragon Sea~
-You are on the clear blue seas of the Dragon Sea.
- Water extends in all directions as far as the eye
- can see. Off in the distance you think you might
- see a small dock to the north.
-~
-0 0 7
-D0
+D9
 ~
 ~
-0 -1 9787
-D3
-~
-~
-0 -1 9785
-S
-#9787
-The Dragon Sea~
-The Dragon Sea comes up along the shore here, the deep blue waters
-rolling in and crashing against the beach. To the north you see a
-small dock jutting out into the surf.
-~
-0 0 7
-D0
-~
-~
-0 -1 9795
-D1
-~
-~
-0 -1 9796
-D2
-~
-~
-0 -1 9786
-S
-#9788
-The Dragon Sea~
-You are on the clear blue seas of the Dragon Sea.
- Water extends in all directions as far as the eye
- can see. Off in the distance you think you might
- see a small dock to the south.
-~
-0 0 7
-D1
-~
-~
-0 -1 9797
-D2
-~
-~
-0 -1 9795
+0 0 11177
 S
 #9789
-The Dragon Sea~
-You are on the clear blue seas of the Dragon Sea.
- Water extends in all directions as far as the eye
- can see. Off in the distance you think you might
- see a small dock to the west.
+On the pier~
+You are stnading on a long wooden pier that extends out from the port of
+New Thalos.  The pier looks out into the waters of the Arcanis Ocean and not
+far beyond are the waters of the Dragon Sea which engulf the center of the
+world and are home to many a sea creature.  To the north and south are the
+beaches on the Arcanis Ocean.  
 ~
-0 0 7
+0 0 0
+D0
+~
+~
+0 0 11148
+D1
+~
+~
+0 0 11159
 D2
 ~
 ~
-0 -1 9796
+0 0 11158
 D3
 ~
 ~
@@ -6743,6 +6706,14 @@ D5
 ~
 ~
 0 -1 9798
+D7
+~
+~
+0 0 11149
+D9
+~
+~
+0 0 11169
 S
 #9790
 On a road~
@@ -6838,54 +6809,14 @@ but is still sturdy. A small ladder has been built on the eastern end
 to allow easy access to and from ships.
 ~
 0 0 0
-D0
-~
-~
-0 -1 9788
 D1
 ~
 ~
 0 -1 9789
-D2
-~
-~
-0 -1 9787
 D3
 ~
 ~
 0 -1 9794
-S
-#9796
-The Dragon Sea~
-You are on the clear blue seas of the Dragon Sea.
- Water extends in all directions as far as the eye
- can see. Off in the distance you think you might
- see a small dock to the west.
-~
-0 0 7
-D0
-~
-~
-0 -1 9789
-D3
-~
-~
-0 -1 9787
-S
-#9797
-The Dragon Sea~
-The ocean spreads out in all directions rolling gently. In the distance
-you can see an island on the horizon. To the west you see the mainland.
-~
-0 0 7
-D2
-~
-~
-0 -1 9789
-D3
-~
-~
-0 -1 9788
 S
 #9798
 Under the dock~
