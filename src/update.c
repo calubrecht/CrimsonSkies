@@ -42,15 +42,16 @@
 /*
  * Local functions.
  */
-int hit_gain args ((CHAR_DATA * ch));
-int mana_gain args ((CHAR_DATA * ch));
-int move_gain args ((CHAR_DATA * ch));
-void mobile_update args ((void));
-void weather_update args ((void));
-void char_update args ((void));
-void obj_update args ((void));
-void aggr_update args ((void));
-void tick_update args ((void));
+int  hit_gain       args((CHAR_DATA * ch));
+int  mana_gain      args((CHAR_DATA * ch));
+int  move_gain      args((CHAR_DATA * ch));
+void mobile_update  args((void));
+void weather_update args((void));
+void char_update    args((void));
+void obj_update     args((void));
+void aggr_update    args((void));
+void tick_update    args((void));
+void shore_update   args((void));
 
 /* used for saving */
 int save_number = 0;
@@ -1153,6 +1154,7 @@ void update_handler (bool forced)
     static int pulse_mobile;
     static int pulse_violence;
     static int pulse_point;
+    static int pulse_half_tick;
 
     if (--pulse_area <= 0)
     {
@@ -1171,6 +1173,12 @@ void update_handler (bool forced)
     {
         pulse_violence = PULSE_VIOLENCE;
         violence_update ();
+    }
+
+    if (--pulse_half_tick <= 0)
+    {
+        pulse_half_tick = PULSE_HALF_TICK;
+        shore_update();
     }
 
     // Just firing the tick, not messing with violence, mobiles or areas.
@@ -1236,3 +1244,74 @@ void tick_update()
     } // end copyover
 
 }
+
+/*
+ * Whether or not a character is standing on the shore as defined by having an adjacent
+ * room being flagged as being of type SECT_OCEAN.
+ */
+bool on_shore(CHAR_DATA *ch)
+{
+    ROOM_INDEX_DATA *scan_room;
+    EXIT_DATA *pExit;
+    int door;
+
+    if (!ch || !ch->in_room)
+        return FALSE;
+
+    if (ch->in_room->sector_type == SECT_OCEAN)
+        return FALSE;
+
+    for (door = 0; door < MAX_DIR; door++)
+    {
+        scan_room = ch->in_room;
+
+        if ((pExit = scan_room->exit[door]) != NULL)
+        {
+            scan_room = pExit->u1.to_room;
+        }
+
+        if (scan_room->sector_type == SECT_OCEAN)
+            return TRUE;
+    }
+    return FALSE;
+} // end on_shore
+
+/*
+ * Updates for characters on the shore which are players that are next to an ocean room.
+ */
+void shore_update()
+{
+    DESCRIPTOR_DATA *d;
+    char buf[MAX_STRING_LENGTH];
+
+    // This really should come from some kind of weather system we should implement.  It's random for now which
+    // I don't love, but at least they can hear the ocean waves when they're on the shore.
+    switch (number_range(0, 2))
+    {
+        case 0:
+             sprintf(buf,"{cThe waves from the ocean gently roll onto the shore that  surrounds you.{x\n\r");
+             break;
+        case 1:
+             sprintf(buf,"{cWaves gently break as they reach the shore and a light breeze from the{x\n\r{cocean flows in.{x\n\r");
+             break;
+        case 2:
+             sprintf(buf,"{cWaves crash against the shore as a moderate breeze blows in.{x\n\r");
+             break;
+    }
+
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if ( d->connected == CON_PLAYING
+        &&   d->character
+        &&   IS_OUTSIDE(d->character)
+        &&   IS_AWAKE(d->character)
+        &&   d->character->in_room
+        &&   on_shore(d->character))
+        {
+            send_to_char(buf, d->character );
+        }
+    }
+
+} // end short_update()
+
+

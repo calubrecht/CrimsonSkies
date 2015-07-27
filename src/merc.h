@@ -113,11 +113,12 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define MAX_CMD_LEN         50
 
 #define PULSE_PER_SECOND    4
-#define PULSE_VIOLENCE      ( 3 * PULSE_PER_SECOND)
-#define PULSE_MOBILE        ( 4 * PULSE_PER_SECOND)
-#define PULSE_TICK          (40 * PULSE_PER_SECOND)
-#define PULSE_MINUTE        (60 * PULSE_PER_SECOND)
+#define PULSE_VIOLENCE      (  3 * PULSE_PER_SECOND)
+#define PULSE_MOBILE        (  4 * PULSE_PER_SECOND)
+#define PULSE_TICK          ( 40 * PULSE_PER_SECOND)
+#define PULSE_MINUTE        ( 60 * PULSE_PER_SECOND)
 #define PULSE_AREA          (120 * PULSE_PER_SECOND)
+#define PULSE_HALF_TICK     (PULSE_TICK / 2)
 
 /*
  * Color stuff by Lope.
