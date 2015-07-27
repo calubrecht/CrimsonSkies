@@ -2480,7 +2480,10 @@ void do_dirt (CHAR_DATA * ch, char *argument)
             chance = 0;
             break;
         case (SECT_DESERT):
-            chance += 10;
+            chance += 15;
+            break;
+        case (SECT_BEACH):
+            chance += 15;
             break;
     }
 

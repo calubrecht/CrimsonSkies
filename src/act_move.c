@@ -54,7 +54,7 @@ const sh_int rev_dir[] = {
 
 // The movement lose per sector.  The position corresponds with the value of the SECT_* and the sector_flags table.
 const sh_int movement_loss[SECT_MAX] = {
-    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 20
+    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 20, 5
 };
 
 /*
