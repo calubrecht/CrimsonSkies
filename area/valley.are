@@ -1932,8 +1932,9 @@ door~
 S
 #7871
 The Small Valley~
-You are in the small valley.  Strangely, tall trees grow here, almost as if some
-magic was used to help them grow.  To the south-west is a small shack.
+You are in the small valley.  Strangely, tall trees grow here, almost as
+if some magic was used to help them grow.  To the south-west is a small
+shack.  To the northwest a trail leads down into the Arcanis coastline.  
 ~
 0 0 2
 D2
@@ -1946,6 +1947,10 @@ The valley continues to the west.
 ~
 ~
 0 0 7873
+D6
+~
+~
+0 0 11122
 S
 #7872
 The Small Valley~
