@@ -92,6 +92,21 @@ AG Tb 2 0
 F 0 R 0
 stand stand either 0
 AGHVW ACDEFHJKP small unknown
+#11005
+aboleths~
+an aboleth~
+An aboleth is here.
+~
+The aboleth resembles a bizarre eel, with long a tubular bodies that has
+a tail at one end and two fins near the head and another along the back.  
+~
+fish~
+AFG JVb 1 0
+42 0 25d10+2250 21d9+100 3d12+14 none
+-14 -14 -14 4
+EFU 0 R 0
+stand stand either 0
+AGHMVW ABCDEFGHJKO huge unknown
 #0
 
 
