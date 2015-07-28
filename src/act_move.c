@@ -168,7 +168,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
             }
             if (!found)
             {
-                send_to_char ("You need a boat to go there.\n\r", ch);
+                send_to_char ("You need a boat or to be flying to go there.\n\r", ch);
                 return;
             }
         }
