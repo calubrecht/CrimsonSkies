@@ -137,6 +137,22 @@ AFR JTV 1 0
 FU R 0 J
 stand stand none 5000
 AHMV ABCDEFGHIJK medium unknown
+#11008
+jellyfish~
+a jellyfish~
+A jellyfish is here.
+~
+A jellyfish is here floating in the water with it's tentacles swaying to
+and fro.  You wouldn't want to step on it..  
+~
+fish~
+ABG b 2 0
+9 0 2d6+110 4d9+100 1d8+2 none
+2 2 2 8
+0 0 R 0
+stand stand none 0
+AGHMV ADEFJKNO medium unknown
+F for W
 #0
 
 
