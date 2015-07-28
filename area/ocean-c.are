@@ -1,7 +1,7 @@
 #AREADATA
 Name Dragon Sea~
 Builders Rhien~
-VNUMs 11000 11399
+VNUMs 11000 11099
 LevelRange 1 51
 Credits (null)~
 Security 1
@@ -4175,6 +4175,34 @@ S
 
 
 #RESETS
+M 0 11000 6 11000 1 Load a tuna fish
+M 0 11000 6 11011 1 Load a tuna fish
+M 0 11000 6 11022 1 Load a tuna fish
+M 0 11000 6 11030 1 Load a tuna fish
+M 0 11000 6 11032 1 Load a tuna fish
+M 0 11000 6 11075 1 Load a tuna fish
+M 0 11003 6 11010 1 Load a {Csea{x dragon
+M 0 11003 6 11019 1 Load a {Csea{x dragon
+M 0 11003 6 11088 1 Load a {Csea{x dragon
+M 0 11003 6 11050 1 Load a {Csea{x dragon
+M 0 11003 6 11081 1 Load a {Csea{x dragon
+M 0 11003 6 11095 1 Load a {Csea{x dragon
+M 0 11006 6 11042 1 Load a dolphin
+M 0 11006 6 11049 1 Load a dolphin
+M 0 11006 6 11027 1 Load a dolphin
+M 0 11006 6 11097 1 Load a dolphin
+M 0 11006 6 11066 1 Load a dolphin
+M 0 11001 6 11020 1 Load a octopus
+M 0 11001 6 11028 1 Load a octopus
+M 0 11001 6 11069 1 Load a octopus
+M 0 11001 6 11090 1 Load a octopus
+M 0 11002 6 11021 1 Load a man o'war
+M 0 11002 6 11028 1 Load a man o'war
+M 0 11002 6 11035 1 Load a man o'war
+M 0 11002 6 11057 1 Load a man o'war
+M 0 11002 6 11082 1 Load a man o'war
+M 0 11005 6 11034 1 Load an aboleth
+M 0 11005 6 11064 1 Load an aboleth
 S
 
 
