@@ -2138,14 +2138,20 @@ void do_help (CHAR_DATA * ch, char *argument)
     free_buf (output);
 }
 
+/*
+ * Shows the player who they're logged in as, ya know, in case they forgot.
+ */
 void do_whoami (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     sprintf(buf, "You are logged on as %s.\n\r", ch->name);
     send_to_char(buf, ch);
-}
+} // end do_whoami
 
-/* whois command */
+/*
+ * whois command allows a player to specifically look to see if another player
+ * is logged in (if they can see them that is).
+ */
 void do_whois (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2256,8 +2262,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
 
     page_to_char (buf_string (output), ch);
     free_buf (output);
-}
-
+} // end do_whois
 
 /*
  * New 'who' command originally by Alander of Rivers of Mud.
@@ -2485,7 +2490,7 @@ void do_who (CHAR_DATA * ch, char *argument)
     page_to_char (buf_string (output), ch);
     free_buf (output);
     return;
-}
+} // end do_who
 
 void do_count (CHAR_DATA * ch, char *argument)
 {
