@@ -503,7 +503,7 @@ to the mud implementors.
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
           --------------------------------------
-          - [Crimson Skies 0.5] (1998-2015)-----
+          - [Crimson Skies 0.9] (1998-2015)-----
           --------------------------------------
           Blake Pell                     [Rhien]
           --------------------------------------
@@ -536,7 +536,7 @@ to the mud implementors.
           Erwin S. Andreasen
           Jason Dinkel
           Lope
-          Jim Robinson
+          Jim Robinson (QuickMud)
           --------------------------------------
 ~
 
@@ -2790,7 +2790,7 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 /\____) ||  /  \ \___) (___| (____/\/\____) |                  
 \_______)|_/    \/\_______/(_______/\_______)                  
 {x                                                      
-      {WCrimson Skies Version 0.5 - Blake Pell (c) 1998-2015
+      {WCrimson Skies Version 0.9 - Blake Pell (c) 1998-2015
 
       Original DikuMUD by Hans Staerfeldt, Katja Nyboe,
       Tom Madsen, Michael Seifert, and Sebastian Hammer
