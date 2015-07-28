@@ -1996,6 +1996,9 @@ void do_reboot (CHAR_DATA * ch, char *argument)
         do_function (ch, &do_echo, buf);
     }
 
+    // Let's restore the world as part of the reboot as a thank you to the players.
+    do_restore(ch, "all");
+
     merc_down = TRUE;
     for (d = descriptor_list; d != NULL; d = d_next)
     {
@@ -2030,6 +2033,10 @@ void do_shutdown (CHAR_DATA * ch, char *argument)
     {
         do_function (ch, &do_echo, buf);
     }
+
+    // Let's restore the world as part of the shutdown as a thank you to the players.
+    do_restore(ch, "all");
+
     merc_down = TRUE;
     for (d = descriptor_list; d != NULL; d = d_next)
     {
@@ -4773,6 +4780,9 @@ void do_copyover (CHAR_DATA * ch, char *argument)
     }
     else if (!str_cmp( arg1, "now" ))
     {
+        // Let's restore the world as part of the copyover as a thank you to the players.
+        do_restore(ch, "all");
+
         // This is where the actual copyover is initiated and where the timer should
         // call when it's up
         fp = fopen (COPYOVER_FILE, "w");
@@ -4854,7 +4864,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 } // end do_copyover
 
 /* Recover from a copyover - load players */
-void copyover_recover ()
+void copyover_recover()
 {
     DESCRIPTOR_DATA *d;
     FILE *fp;
@@ -4951,8 +4961,7 @@ void copyover_recover ()
     }
     fclose (fp);
 
-
-}
+} // end void copyover_recover
 
 // Rhien - 04/13/2015
 // This will force a tick to happen which will be an immortal only command on the
