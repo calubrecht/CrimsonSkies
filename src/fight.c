@@ -1733,7 +1733,10 @@ void raw_kill (CHAR_DATA * victim)
     }
     else
     {
+        // Otherwise, make corpse, then send them to the repop room.
         make_corpse(victim);
+        char_from_room (victim);
+        char_to_room (victim, get_room_index (clan_table[victim->clan].hall));
     }
 
     if (IS_NPC (victim))
