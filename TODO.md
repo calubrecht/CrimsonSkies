@@ -55,5 +55,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Healer class
   - Erwin's setskill command to go with the dynamic class loading
-  - Ocean, lose more movement
   - Ocean, thread them together, create coastlines for intial continents.
+  - Lose movement on pulse, reconsider flying over ocean (and/or add swim skill)
+  - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
+  
