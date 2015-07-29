@@ -2805,20 +2805,18 @@ By what name do you wish to be known? ~
   
   - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
 
-* I am currently re-working the plumbing. New note spools will be in soon
-  which will be an enhanced version of ROM's.  Saves and casting logic
-  will be changed and armor class is going to play much more of a factor.
 * Reclass system is in, there is only one reclass currently which is
   enchantors for mages.  After I implement a smaug style class system
   reclasses will come at a much faster pace.
-* You are responsible for knowing the rules (type 'rules').  Ignorance of 
-  the rules is no excuse.
-* Important commands: help, commands, notes, score, look, who
+* Any 'rules' are on hold until the game is out of it's beta testing
+  phase.  Feel free to do what you please, just respect others.
+* Important commands: help, commands, notes, score, look, who, scan
   
 [Hit Return to continue]
 ~ 
  
 52 IMOTD~
+
 Welcome Immortal!
 
 1.) Do not link to or reset mobs or objects in other areas.  When it's time to
