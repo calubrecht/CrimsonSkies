@@ -651,11 +651,13 @@ void do_socials (CHAR_DATA * ch, char *argument)
 
 void do_motd (CHAR_DATA * ch, char *argument)
 {
+    send_to_char("\n\r", ch);
     do_function (ch, &do_help, "motd");
 }
 
 void do_imotd (CHAR_DATA * ch, char *argument)
 {
+    send_to_char("\n\r", ch);
     do_function (ch, &do_help, "imotd");
 }
 
