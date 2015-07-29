@@ -156,6 +156,7 @@ F for W
 #0
 
 
+
 #OBJECTS
 #0
 
@@ -3023,6 +3024,29 @@ S
 
 
 #RESETS
+M 0 11108 6 11100 1 Load a jellyfish
+M 0 11101 6 11105 1 Load a octopus
+M 0 11101 6 11112 1 Load a octopus
+M 0 11108 6 11112 1 Load a jellyfish
+M 0 11101 6 11116 1 Load a octopus
+M 0 11108 6 11117 1 Load a jellyfish
+M 0 11102 6 11119 1 Load a man o'war
+M 0 11102 6 11129 1 Load a man o'war
+M 0 11106 6 11131 1 Load a dolphin
+M 0 11101 6 11131 1 Load a octopus
+M 0 11102 6 11139 1 Load a man o'war
+M 0 11106 6 11150 1 Load a dolphin
+M 0 11104 6 11159 1 Load a seagull
+M 0 11104 6 11178 1 Load a seagull
+M 0 11106 6 11180 1 Load a dolphin
+M 0 11104 6 11182 1 Load a seagull
+M 0 11104 6 11183 1 Load a seagull
+M 0 11108 6 11186 1 Load a jellyfish
+M 0 11104 6 11187 1 Load a seagull
+M 0 11106 6 11193 1 Load a dolphin
+M 0 11106 6 11194 1 Load a dolphin
+M 0 11108 6 11194 1 Load a jellyfish
+M 0 11108 6 11198 1 Load a jellyfish
 S
 
 
