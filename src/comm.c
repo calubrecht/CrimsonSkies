@@ -220,7 +220,9 @@ int main (int argc, char **argv)
     current_time = (time_t) now_time.tv_sec;
     strcpy (str_boot_time, ctime (&current_time));
 
+    log_string("------------------------------------");
     log_string("STATUS: Initializing Game");
+    log_string("------------------------------------");
 
     /*
      * Macintosh console initialization.
