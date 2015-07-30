@@ -220,6 +220,8 @@ int main (int argc, char **argv)
     current_time = (time_t) now_time.tv_sec;
     strcpy (str_boot_time, ctime (&current_time));
 
+    log_string("STATUS: Initializing Game");
+
     /*
      * Macintosh console initialization.
      */
@@ -263,7 +265,9 @@ int main (int argc, char **argv)
             control = atoi (argv[3]);
         }
         else
+        {
             fCopyOver = FALSE;
+        }
 
     }
 
