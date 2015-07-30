@@ -2093,14 +2093,44 @@ lightning breath summons the electrical fury of a blue dragon
 -1 ENCHANTMENT~
 The enchantment spell group is used to imbue items with magical properties.
 Currently, this spell group consists of enchant weapon and enchant armor, 
-although more will be added in the future.  Only mages may enchant.
+although more will be added in the future.  Mages and some mage reclasses
+can enchant armor and weapons.  Enchantors (a mage relcass) are experts
+at enchantment wield a far greater arsenal of enchantment spells.
 
-enchant weapon	increases the hit and damage bonuses of a weapon
-enchant armor	increases the protective value of armor
-fireproof       shields items from the harmful effects of fire and acid
-recharge	restores power to a depleted wand or staff
+enchant weapon	    increases the hit and damage bonuses of a weapon
+enchant armor	    increases the protective value of armor
+fireproof           shields items from the harmful effects of fire and acid
+recharge	    restores power to a depleted wand or staff
+continual light     creates a ball of light that can be held or can be
+                    used to make any item glow.
+withering enchant*  makes an item rot-death
+enchant person*     increases the hit and damage bonuses of a person
+sequestor*          makes an item unlocatable
+wizard mark*        etches the enchantors aura into an item so it will
+                    ever after bear their name.  Enchantors can also
+                    easily find items they've wizard marked if they have
+                    locate to cast locate wizard mark
+enchant gem*        enchants any gem and morphs it into a warp stone
+restore weapon*     returns a weapon to it's original form
+restore armor*      returns a piece of armor to it's original form.
+disenchant*         fades a weapon or piece of armor
+interlace spirit*   makes an item only usable by people of the same
+                    aligntment as the enchantor
+
+* Indicates Enchantor only spell.
 ~
+-1 ENCHANTOR~
+Enchantors are masters of imbueing weapons and armor with magical
+enchancements.  They also have been rumored to be able to enchant
+people's souls.
 
+Who can be an enchantor?
+
+CLASS:      Mages only
+RACE:       All
+ALIGNMENT:  Any
+CLAN:       Any
+~
 -1 ENHANCEMENT~
 The enhancement spells improve upon the body's pontential, allowing feats of
 superhuman strength and speed.  However, these spells may often have harmful
@@ -3050,6 +3080,95 @@ This command is used to show all the spells affecting your character. At
 low levels, only the spell name will be displayed, at higher levels the
 effects and duration of the spell will also be shown.  Spell effects
 are no longer shown on score (this can be changed by using 'show' command).
+~
+
+0 WITHERING ENCHANT~
+WITHERING ENCHANT
+
+Syntax: cast 'withering enchant' <object>
+
+This spell allows an enchantor to magically wither an item so that it will
+disintegrate when its bearer perishes
+~
+
+0 ENCHANT GEM~
+ENCHANT GEM
+
+Syntax: cast 'enchant gem' <object>
+
+Enchant gem allows the enchantor to magically enhance an ordinary jewel so
+that it has the properties of a warp stone. 
+~
+
+0 INTERLACE SPIRIT~
+INTERLACE SPIRIT
+
+Syntax: cast 'interlace spirit' <object>
+
+Interlace spirit allows an enchantor to interlace his/her own spirit into
+the given weapon or piece of armor.  Interlace spirit does not remove
+anything from the current object, but _does_ interlace your own spirit with
+any other aura it already has.  
+~
+
+0 ENCHANT PERSON~
+ENCHANT PERSON
+Syntax: cast 'enchant person' <victim>
+
+Enchant person allows the enchantor to enchant a person's soul and imbue
+their combat abilities.  Its strength can vary depending on the enchantor.
+~ 
+
+0 RESTORE WEAPON~
+RESTORE WEAPON
+
+Syntax: cast 'restore weapon' <object>
+
+The restore weapon spell allows the enchantor to return a weapon to its
+orginal state.  The only requirement to restore an item is that its current
+state has had an enchantment placed on it.  It has been rumoured that
+attempting to restore a weapon does not always work out as expected, so at
+times, enchantors may wish to be wary.  
+~
+
+0 RESTORE ARMOR~
+RESTORE ARMOR
+
+Syntax: cast 'restore armor' <object>
+
+The restore armor spell allows the enchantor to return a piece of armor to
+its orginal state.  The only requirement to restore an item is that its
+current state has had an enchantment placed on it.  It has been rumoured
+that attempts to restore a piece of armor may not have the desired effects,
+so enchantors may wish to be wary.  
+~
+
+0 DISENCHANT~
+DISENCHANT
+
+Syntax: cast 'disenchant' <item>
+
+A disenchantment allows the enchantor to fade any magical effects that have
+been placed on the weapon or armor.  It has been rumoured that this effect
+is similiar to the effects of enchantment fading.  
+~
+
+0 WIZARD MARK~
+WIZARD MARK
+
+Syntax: cast 'wizard mark' <object>
+
+This spell scribes the mark of the caster into the targeted object.  To
+determine whether some object in you inventory has been marked, one must
+cast the spell of identification upon the object.  
+~
+
+0 SEQUESTOR~
+SEQUESTOR
+
+Syntax:  cast 'sequestor' <object>
+
+This spell allows an enchantor to make an item unable to be locatedelp s.
 ~
 
 0 RECLASS~
