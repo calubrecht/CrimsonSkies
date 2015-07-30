@@ -4214,7 +4214,7 @@ void load_groups()
 
             if ( letter != '#' )
             {
-                bug( "Load_group_table: # not found.", 0 );
+                bug( "load_groups: # not found.", 0 );
                 break;
             }
 
@@ -4223,7 +4223,7 @@ void load_groups()
             {
                 if ( top_group >= MAX_GROUP )
                 {
-                    bug( "load_group_table: more skills than top_group %d", top_group );
+                    bug( "load_groups: more skills than top_group %d", top_group );
                     fclose(fp);
                     return;
                 }
@@ -4235,7 +4235,7 @@ void load_groups()
                 break;
             else
             {
-                bug( "Load_group_table: bad section.", 0 );
+                bug( "load_groups: bad section.", 0 );
                 continue;
             }
         }
@@ -4243,9 +4243,12 @@ void load_groups()
     }
     else
     {
-        bug( "Cannot open groups.dat", 0 );
+        bug( "load_groups: Cannot open groups.dat", 0 );
         exit(0);
     }
+
+    log_f("STATUS: %d Groups Loaded", top_group);
+
 } // end void load_groups
 
 /*
@@ -4290,7 +4293,7 @@ GROUPTYPE *fread_group(FILE *fp)
 
         if (!fMatch)
         {
-            bug( "Fread_obj: no match.", 0 );
+            bug( "fread_group: no match.", 0 );
             fread_to_eol( fp );
         }
     }
