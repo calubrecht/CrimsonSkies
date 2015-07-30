@@ -49,6 +49,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *trainer;
     int gn = 0, sn = 0;
+    extern int top_group;
 
     if (IS_NPC (ch))
         return;
@@ -83,7 +84,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
                  "group", "cost", "group", "cost", "group", "cost");
         send_to_char (buf, ch);
 
-        for (gn = 0; gn < MAX_GROUP; gn++)
+        for (gn = 0; gn < top_group; gn++)
         {
             if (group_table[gn]->name == NULL)
                 break;
@@ -502,6 +503,7 @@ void list_group_costs (CHAR_DATA * ch)
 {
     char buf[100];
     int gn, sn, col;
+    extern int top_group;
 
     if (IS_NPC (ch))
         return;
@@ -512,7 +514,7 @@ void list_group_costs (CHAR_DATA * ch)
              "group", "cp", "group", "cp");
     send_to_char (buf, ch);
 
-    for (gn = 0; gn < MAX_GROUP; gn++)
+    for (gn = 0; gn < top_group; gn++)
     {
         if (group_table[gn]->name == NULL)
             break;
@@ -571,6 +573,7 @@ void list_group_chosen (CHAR_DATA * ch)
 {
     char buf[100];
     int gn, sn, col;
+    extern int top_group;
 
     if (IS_NPC (ch))
         return;
@@ -581,7 +584,7 @@ void list_group_chosen (CHAR_DATA * ch)
              "cp", "group", "cp\n\r");
     send_to_char (buf, ch);
 
-    for (gn = 0; gn < MAX_GROUP; gn++)
+    for (gn = 0; gn < top_group; gn++)
     {
         if (group_table[gn]->name == NULL)
             break;
@@ -674,6 +677,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
     char buf[100];
     int gn, sn, i;
+    extern int top_group;
 
     if (argument[0] == '\0')
         return FALSE;
@@ -787,7 +791,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
             ch->gen_data->group_chosen[gn] = FALSE;
             ch->gen_data->points_chosen -= group_table[gn]->rating[ch->class];
             gn_remove (ch, gn);
-            for (i = 0; i < MAX_GROUP; i++)
+            for (i = 0; i < top_group; i++)
             {
                 if (ch->gen_data->group_chosen[gn])
                     gn_add (ch, gn);
@@ -843,6 +847,7 @@ void do_groups (CHAR_DATA * ch, char *argument)
 {
     char buf[100];
     int gn, sn, col;
+    extern int top_group;
 
     if (IS_NPC (ch))
         return;
@@ -852,7 +857,7 @@ void do_groups (CHAR_DATA * ch, char *argument)
     if (argument[0] == '\0')
     {                            /* show all groups */
 
-        for (gn = 0; gn < MAX_GROUP; gn++)
+        for (gn = 0; gn < top_group; gn++)
         {
             if (group_table[gn]->name == NULL)
                 break;
@@ -873,7 +878,7 @@ void do_groups (CHAR_DATA * ch, char *argument)
 
     if (!str_cmp (argument, "all"))
     {                            /* show all groups */
-        for (gn = 0; gn < MAX_GROUP; gn++)
+        for (gn = 0; gn < top_group; gn++)
         {
             if (group_table[gn]->name == NULL)
                 break;
@@ -968,8 +973,9 @@ void check_improve (CHAR_DATA * ch, int sn, bool success, int multiplier)
 int group_lookup (const char *name)
 {
     int gn;
+    extern int top_group;
 
-    for (gn = 0; gn < MAX_GROUP; gn++)
+    for (gn = 0; gn < top_group; gn++)
     {
         if (group_table[gn]->name == NULL)
             break;

@@ -4247,7 +4247,7 @@ void load_groups()
         exit(0);
     }
 
-    log_f("STATUS: %d Groups Loaded", top_group);
+    log_f("STATUS: %d of a maximum %d Groups Loaded", top_group, MAX_GROUP);
 
 } // end void load_groups
 

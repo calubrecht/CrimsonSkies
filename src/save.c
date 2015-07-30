@@ -173,6 +173,7 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
 {
     AFFECT_DATA *paf;
     int sn, gn, pos;
+    extern int top_group;
 
     fprintf (fp, "#%s\n", IS_NPC (ch) ? "MOB" : "PLAYER");
 
@@ -313,7 +314,7 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
             }
         }
 
-        for (gn = 0; gn < MAX_GROUP; gn++)
+        for (gn = 0; gn < top_group; gn++)
         {
             if (group_table[gn]->name != NULL && ch->pcdata->group_known[gn])
             {
@@ -936,8 +937,8 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                     /* gn    = group_lookup( fread_word( fp ) ); */
                     if (gn < 0)
                     {
-                        fprintf (stderr, "%s", temp);
                         bug ("Fread_char: unknown group. ", 0);
+                        fprintf (stderr, "%s", temp);
                     }
                     else
                         gn_add (ch, gn);
@@ -1056,8 +1057,8 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                     /* sn    = skill_lookup( fread_word( fp ) ); */
                     if (sn < 0)
                     {
-                        fprintf (stderr, "%s", temp);
                         bug ("Fread_char: unknown skill. ", 0);
+                        fprintf (stderr, "%s", temp);
                     }
                     else
                         ch->pcdata->learned[sn] = value;

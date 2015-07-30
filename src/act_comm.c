@@ -1730,6 +1730,8 @@ void do_clear(CHAR_DATA * ch, char *argument)
  */
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
+    extern int top_group;
+
     // Players must be at least level 10 to reclass.
     if (ch->level < 10) {
         send_to_char("You must be at least level 10 to reclass.\n\r", ch);
@@ -1849,7 +1851,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     }
 
     // Clear all previously known groups
-    for (i = 0; i < MAX_GROUP; i++)
+    for (i = 0; i < top_group; i++)
     {
         if (group_table[i]->name == NULL)
             break;
