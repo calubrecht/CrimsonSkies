@@ -91,14 +91,18 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 /*
  * Game parameters.
  * Increase the max'es if you add more of something.
- * Adjust the pulse numbers to suit yourself.
+ * Group and Class maxes have been changed to initialize the table at a larger
+ * value and then a top_ variable should be used in loops that indicate when the
+ * loop ends, this will allow us to add groups and classes without having to up
+ * this max everytime.  The top value is set to the exact amount on boot when the
+ * items are loaded.  - Rhien
  */
 #define MAX_SOCIALS        256
 #define MAX_SKILL          155
-#define MAX_GROUP          29 // reclass
+#define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       15
 #define MAX_ALIAS          5
-#define MAX_CLASS          5 // reclass
+#define MAX_CLASS          10   // top_class
 #define MAX_PC_RACE        5
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
@@ -112,6 +116,10 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 /* Added this for "orphaned help" code. Check do_help() -- JR */
 #define MAX_CMD_LEN         50
 
+/*
+ * Timing pulses.  These are how long certain game events take, events
+ * are typically fired off for each type.
+ */
 #define PULSE_PER_SECOND    4
 #define PULSE_VIOLENCE      (  3 * PULSE_PER_SECOND)
 #define PULSE_MOBILE        (  4 * PULSE_PER_SECOND)

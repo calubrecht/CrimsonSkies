@@ -197,8 +197,9 @@ long wiznet_lookup (const char *name)
 int class_lookup (const char *name)
 {
     int class;
+    extern int top_class;
 
-    for (class = 0; class < MAX_CLASS; class++)
+    for (class = 0; class < top_class; class++)
     {
         if (LOWER (name[0]) == LOWER (class_table[class]->name[0])
             && !str_prefix (name, class_table[class]->name))

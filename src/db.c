@@ -4265,9 +4265,10 @@ GROUPTYPE *fread_group(FILE *fp)
     GROUPTYPE *gr;
     int x,i;
     i=0;
+    extern int top_class;
 
     gr = alloc_perm(sizeof(*gr));
-    for ( x = 0; x < MAX_CLASS; x++ )
+    for ( x = 0; x < top_class; x++ )
     {
         gr->rating[x] = -1;
     }

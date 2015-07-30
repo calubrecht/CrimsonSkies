@@ -120,6 +120,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
     char *p;
     int iClass, race, i, weapon;
     bool fOld;
+    extern int top_class;
 
     while ( isspace(*argument) )
         argument++;
@@ -548,7 +549,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             // reclass
             strcpy (buf, "Select an initial class [");
-            for (iClass = 0; iClass < MAX_CLASS; iClass++)
+            for (iClass = 0; iClass < top_class; iClass++)
             {
                 if (class_table[iClass]->name == NULL)
                 {

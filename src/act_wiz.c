@@ -3529,6 +3529,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
     char buf[100];
     CHAR_DATA *victim;
     int value;
+    extern int top_class;
 
     smash_tilde (argument);
     argument = one_argument (argument, arg1);
@@ -3700,7 +3701,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
             char buf[MAX_STRING_LENGTH];
 
             strcpy (buf, "Possible classes are: ");
-            for (class = 0; class < MAX_CLASS; class++)
+            for (class = 0; class < top_class; class++)
             {
                 if (class > 0)
                     strcat (buf, " ");

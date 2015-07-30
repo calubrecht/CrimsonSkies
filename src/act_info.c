@@ -2276,6 +2276,7 @@ void do_who (CHAR_DATA * ch, char *argument)
     char immbuf[15];
     BUFFER *output;
     DESCRIPTOR_DATA *d;
+    extern int top_class;
     int iClass;
     int iRace;
     int iClan;
@@ -2283,7 +2284,7 @@ void do_who (CHAR_DATA * ch, char *argument)
     int iLevelUpper;
     int nNumber;
     int nMatch;
-    bool rgfClass[MAX_CLASS];
+    bool rgfClass[top_class];
     bool rgfRace[MAX_PC_RACE];
     bool rgfClan[MAX_CLAN];
     bool fClassRestrict = FALSE;
@@ -2297,7 +2298,7 @@ void do_who (CHAR_DATA * ch, char *argument)
      */
     iLevelLower = 0;
     iLevelUpper = MAX_LEVEL;
-    for (iClass = 0; iClass < MAX_CLASS; iClass++)
+    for (iClass = 0; iClass < top_class; iClass++)
         rgfClass[iClass] = FALSE;
     for (iRace = 0; iRace < MAX_PC_RACE; iRace++)
         rgfRace[iRace] = FALSE;
