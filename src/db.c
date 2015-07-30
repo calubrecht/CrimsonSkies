@@ -4166,6 +4166,7 @@ void load_classes()
     char *filename;
     char classlist[256];
     char buf[MAX_STRING_LENGTH];
+    extern int top_class;
 
     sprintf( classlist, "%s%s", CLASS_DIR, CLASS_FILE );
     if ( ( fpList = fopen( classlist, "r" ) ) == NULL )
@@ -4187,6 +4188,9 @@ void load_classes()
         }
     }
     fclose( fpList );
+
+    log_f("STATUS: %d of a maximum %d Classes Loaded", top_class, MAX_CLASS);
+
     return;
 
 } // end void load_classes
