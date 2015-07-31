@@ -1741,7 +1741,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     // Immortals can't reclass.. they must set.
     if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
-        send_to_char("You cannot reclass.\n\r", ch);
+        send_to_char("Immortals cannot reclass, use set to change your class instead.\n\r", ch);
         return;
     }
 
