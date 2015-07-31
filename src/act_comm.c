@@ -1731,6 +1731,7 @@ void do_clear(CHAR_DATA * ch, char *argument)
 void do_reclass(CHAR_DATA * ch, char *argument)
 {
     extern int top_group;
+    char reclass_list[MAX_STRING_LENGTH];
 
     // Players must be at least level 10 to reclass.
     if (ch->level < 10) {
@@ -1763,15 +1764,40 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     iClass = class_lookup(argument);
     int i = 0;
 
+    // Get the list of valid reclasses so we can show them if we need to.
+    // The reclasses start at position 4, that's not changing so we'll
+    // start the loop there.
+    sprintf (reclass_list, "Valid reclasses are [");
+    for (i = 4; i < top_class; i++)
+    {
+        if (class_table[i]->name == NULL)
+        {
+            log_string("BUG: null class");
+            continue;
+        }
+
+        // Show only base classes, not reclasses.
+        if (class_table[i]->is_reclass == TRUE)
+        {
+            if (i > 4)
+                strcat (reclass_list, " ");
+
+            strcat (reclass_list, class_table[i]->name);
+        }
+    }
+    strcat (reclass_list, "]\n\r");
+
     // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
     {
         send_to_char("That's not a valid class.\n\r", ch);
+        send_to_char(reclass_list, ch);
         return;
     }
     else if (class_table[iClass]->is_reclass == FALSE)
     {
         send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
+        send_to_char(reclass_list, ch);
         return;
     }
 
