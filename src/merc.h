@@ -100,7 +100,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define MAX_SOCIALS        256
 #define MAX_SKILL          155
 #define MAX_GROUP          100  // top_group
-#define MAX_IN_GROUP       15
+#define MAX_IN_GROUP       20
 #define MAX_ALIAS          5
 #define MAX_CLASS          10   // top_class
 #define MAX_PC_RACE        5
