@@ -173,10 +173,10 @@ int top_obj_index;
 int top_reset;
 int top_room;
 int top_shop;
-int top_vnum_room;                /* OLC */
-int top_vnum_mob;                /* OLC */
-int top_vnum_obj;                /* OLC */
-int top_mprog_index;            /* OLC */
+int top_vnum_room;         /* OLC */
+int top_vnum_mob;          /* OLC */
+int top_vnum_obj;          /* OLC */
+int top_mprog_index;       /* OLC */
 int top_sn;
 int top_group;
 int top_class;

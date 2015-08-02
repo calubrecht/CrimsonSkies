@@ -402,6 +402,7 @@ const struct flag_type sector_flags[] = {
     {"desert", SECT_DESERT, TRUE},
     {"ocean", SECT_OCEAN, TRUE},
     {"beach", SECT_BEACH, TRUE},
+    {"underwater", SECT_UNDERWATER, TRUE},
     {NULL, 0, 0}
 };
 
