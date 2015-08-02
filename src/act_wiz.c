@@ -48,21 +48,6 @@
 #include <assert.h>  // For assert in area_name
 
 /*
- * Stolen from save.c for reading in QuickMUD config stuff
- */
-#if defined(KEY)
-#undef KEY
-#endif
-
-#define KEY( literal, field, value )			\
-                if ( !str_cmp( word, literal ) )	\
-        {					\
-            field  = value;			\
-            fMatch = TRUE;			\
-            break;				\
-        }
-
-/*
  * Local functions.
  */
 ROOM_INDEX_DATA *find_location args ((CHAR_DATA * ch, char *arg));
