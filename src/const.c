@@ -684,6 +684,12 @@ struct skill_type skill_table[MAX_SKILL] = {
      "", "You can see again.", ""},
 
     {
+     "water breathing", {20, 20, 20, 20, 20}, {1, 1, 2, 2, 1},
+     spell_water_breathing, TAR_CHAR_DEFENSIVE, POS_STANDING,
+     &gsn_water_breathing, SLOT (515), 5, 12,
+     "", "You begin to breath normally again.", ""},
+
+    {
      "burning hands", {7, 53, 10, 9, 7}, {1, 1, 2, 2, 1},
      spell_burning_hands, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
      NULL, SLOT (5), 15, 12,

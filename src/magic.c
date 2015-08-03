@@ -1212,6 +1212,12 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
 	found = TRUE;
     }
 
+    if (check_dispel (level, victim, skill_lookup ("water breathing")))
+    {
+        act("$n's breathing returns to normal.",victim,NULL,NULL,TO_ROOM);
+        found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -2275,6 +2281,12 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel (level, victim, skill_lookup ("enchant person")))
     {
         act("$n no longer looks as if $e is enchanted.",victim,NULL,NULL,TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel (level, victim, skill_lookup ("water breathing")))
+    {
+        act("$n begins to breath normally.",victim,NULL,NULL,TO_ROOM);
         found = TRUE;
     }
 
@@ -4657,3 +4669,29 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 			TO_CHAR);
 	}
 }
+
+void spell_water_breathing(int sn,int level,CHAR_DATA *ch,void *vo,int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if( is_affected(victim,sn) )
+    {
+        act("$E can already breath water!",ch,NULL,victim,TO_CHAR);
+        return;
+    }
+
+    af.where        = TO_AFFECTS;
+    af.type         = gsn_water_breathing;
+    af.level        = level;
+    af.location     = 0;
+    af.modifier     = 0;
+    af.duration     = level;
+    af.bitvector    = 0;
+    affect_to_char(victim,&af);
+
+    send_to_char("Your lungs surge with a strange sensation.\n\r", victim);
+    act("$n's lungs surge as $e appears to be breathing differently.",victim,NULL,NULL,TO_ROOM);
+    return;
+} // end spell_water_breathing
+

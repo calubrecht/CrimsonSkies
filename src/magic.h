@@ -132,3 +132,4 @@ DECLARE_SPELL_FUN(      spell_restore_weapon    );
 DECLARE_SPELL_FUN(      spell_restore_armor     );
 DECLARE_SPELL_FUN(      spell_disenchant        );
 DECLARE_SPELL_FUN(      spell_locate_wizard_mark);
+DECLARE_SPELL_FUN(      spell_water_breathing   );
