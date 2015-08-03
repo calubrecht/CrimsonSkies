@@ -61,6 +61,8 @@
 
 #define DIF(a,b) (~((~a)|(b)))
 
+void save_groups args((void));
+
 /*
  *  Verbose writes reset data in plain english into the comments
  *  section of the resets.  It makes areas considerably larger but
@@ -942,6 +944,46 @@ void save_area (AREA_DATA * pArea)
     return;
 }
 
+/*****************************************************************************
+ Name:       save_groups()
+ Purpose:    Entry point for saving the groups.dat file that has what skills
+             and spells go into what group.
+ Called by:  do_asave
+        By:  Rhien
+ ****************************************************************************/
+void save_groups()
+{
+    FILE *fp;
+    int num,i;
+
+    fclose( fpReserve );
+    fp = fopen (GROUP_FILE, "w");
+
+    if (!fp)
+    {
+        bug ("Could not open GROUP_FILE for writing",0);
+        return;
+    }
+
+    for ( num = 0; num < top_group; num++ )
+    {
+        if ( !group_table[num])
+           break;
+        fprintf( fp, "#GROUP\n" );
+        fprintf( fp, "Name '%s'\n",group_table[num]->name );
+        for (i=0; i < MAX_IN_GROUP; i++)
+        {
+            if (!group_table[num]->spells[i] || group_table[num]->spells[i][0] == '\0')
+                continue;
+            fprintf(fp, "Sk '%s'\n", group_table[num]->spells[i]);
+        }
+        fprintf( fp, "End\n\n" );
+    }
+    fprintf( fp, "#END\n" );
+    fclose (fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end save_groups
 
 /*****************************************************************************
  Name:        do_asave
@@ -983,16 +1025,12 @@ void do_asave (CHAR_DATA * ch, char *argument)
         if (ch)
         {
             send_to_char ("Syntax:\n\r", ch);
-            send_to_char ("  asave <vnum>   - saves a particular area\n\r",
-                          ch);
-            send_to_char ("  asave list     - saves the area.lst file\n\r",
-                          ch);
-            send_to_char
-                ("  asave area     - saves the area being edited\n\r", ch);
-            send_to_char ("  asave changed  - saves all changed zones\n\r",
-                          ch);
-            send_to_char ("  asave world    - saves the world! (db dump)\n\r",
-                          ch);
+            send_to_char ("  asave <vnum>   - saves a particular area\n\r", ch);
+            send_to_char ("  asave list     - saves the area.lst file\n\r", ch);
+            send_to_char ("  asave area     - saves the area being edited\n\r", ch);
+            send_to_char ("  asave changed  - saves all changed zones\n\r", ch);
+            send_to_char ("  asave world    - saves the world! (db dump)\n\r", ch);
+            send_to_char( "  asave groups   - saves the group files\n\r",  ch );
             send_to_char ("\n\r", ch);
         }
 
@@ -1102,6 +1140,14 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!str_cmp (arg1, "list"))
     {
         save_area_list ();
+        return;
+    }
+
+    /* groups.dat file that has the skills and spells that go into groups */
+    if (!str_cmp (arg1, "groups"))
+    {
+        save_groups();
+        send_to_char("Groups have been saved.\n\r", ch);
         return;
     }
 
