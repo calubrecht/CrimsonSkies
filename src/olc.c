@@ -1588,7 +1588,7 @@ void do_gedit( CHAR_DATA *ch, char *argument )
     sn = group_lookup(arg1);
     if (sn == -1 && str_cmp(arg1,"create" ))
     {
-	send_to_char( "GEdit:  That skill does not exist.\n\r", ch );
+	send_to_char( "GEdit:  That group does not exist.\n\r", ch );
 	return;
     }
 
@@ -1614,7 +1614,7 @@ void do_gedit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    send_to_char( "GEdit:  There is no default skill to edit.\n\r", ch );
+    send_to_char( "GEdit:  There is no default group to edit.\n\r", ch );
     return;
 }
 
