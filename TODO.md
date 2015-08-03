@@ -45,7 +45,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug, note mem leak testing
-  - OLC for adding groups and/or classes
+  - OLC for adding classes
+  - OLC for adding skills
   - gain_exp tweaks
   - main menu
   - double exp mode
