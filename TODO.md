@@ -9,7 +9,6 @@ This is my to do list, mostly will be things big and small as I think about them
     start with a working code base that literally has to be built from the ground up with the 
     exception of the plumping for socket server, pfile handling, area loading, that are necessary
     for it to run)
-  - OLC chopped off characters in name in area name after asave area.
   - Add Charisma stat (CHA)
   - Fighting Style (Offensive/Normal/Defensive)
   - Better format sockets command.
