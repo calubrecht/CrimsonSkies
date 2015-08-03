@@ -119,7 +119,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
         int iClass, iGuild;
         int move;
 
-        for (iClass = 0; iClass < MAX_CLASS; iClass++)
+        for (iClass = 0; iClass < top_class; iClass++)
         {
             for (iGuild = 0; iGuild < MAX_GUILD; iGuild++)
             {
