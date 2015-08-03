@@ -1252,7 +1252,7 @@ struct skill_type skill_table[MAX_SKILL] = {
     {
      "weaken", {11, 14, 16, 17, 11}, {1, 1, 2, 2, 1},
      spell_weaken, TAR_CHAR_OFFENSIVE, POS_FIGHTING,
-     NULL, SLOT (68), 20, 12,
+     &gsn_weaken, SLOT (68), 20, 12,
      "spell", "You feel stronger.", ""},
 
     {

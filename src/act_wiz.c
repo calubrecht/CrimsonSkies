@@ -5472,7 +5472,10 @@ void do_slay (CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    char buf[MAX_STRING_LENGTH];
+    sprintf(buf, "gsn_blindness %d, dual wield %d, weaken %d\n\r", gsn_blindness, gsn_dual_wield, gsn_weaken);
+    send_to_char(buf, ch);
 
-    send_to_char("Nothing here currently, move along.\r\n", ch);
+    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug
