@@ -51,6 +51,7 @@
 #include "tables.h"
 #include "olc.h"
 #include "recycle.h"
+#include "interp.h"
 
 /*
 * Local functions.
@@ -81,6 +82,9 @@ bool run_olc_editor(DESCRIPTOR_DATA * d)
         break;
     case ED_HELP:
         hedit(d->character, d->incomm);
+        break;
+    case ED_GROUP:
+        gedit(d->character, d->incomm);
         break;
     default:
         return FALSE;
@@ -114,6 +118,9 @@ char *olc_ed_name(CHAR_DATA * ch)
         break;
     case ED_HELP:
         sprintf(buf, "HEdit");
+        break;
+    case ED_GROUP:
+        sprintf(buf, "GEdit");
         break;
     default:
         sprintf(buf, " ");
@@ -189,11 +196,11 @@ void show_olc_cmds(CHAR_DATA * ch, const struct olc_cmd_type *olc_table)
     {
         sprintf(buf, "%-15.15s", olc_table[cmd].name);
         strcat(buf1, buf);
-        if (++col % 5 == 0)
+        if (++col % 4 == 0)
             strcat(buf1, "\n\r");
     }
 
-    if (col % 5 != 0)
+    if (col % 4 != 0)
         strcat(buf1, "\n\r");
 
     send_to_char(buf1, ch);
@@ -228,6 +235,9 @@ bool show_commands(CHAR_DATA * ch, char *argument)
         break;
     case ED_HELP:
         show_olc_cmds(ch, hedit_table);
+        break;
+    case ED_GROUP:
+        show_olc_cmds(ch, gedit_table);
         break;
     }
 
@@ -310,7 +320,19 @@ const struct olc_cmd_type redit_table[] = {
     { NULL, 0, }
 };
 
+const struct olc_cmd_type gedit_table[] =
+{
+/*  {   command         function        }, */
 
+    {   "commands",     show_commands   },
+    {   "name",         gedit_name      },
+    {   "add",          gedit_add       },
+    {   "del",          gedit_del       },
+    {   "rating",       gedit_rating    },
+    {   "show",         gedit_show      },
+    {   "list",         gedit_list      },
+    {   "",             0,              }
+};
 
 const struct olc_cmd_type oedit_table[] = {
     /*  {   command        function    }, */
@@ -680,14 +702,14 @@ void medit(CHAR_DATA * ch, char *argument)
 const struct editor_cmd_type editor_table[] = {
     /*  {   command        function    }, */
 
-    { "area", do_aedit },
-    { "room", do_redit },
-    { "object", do_oedit },
-    { "mobile", do_medit },
-    { "mpcode", do_mpedit },
-    { "hedit", do_hedit },
-
-    { NULL, 0, }
+    { "area",     do_aedit  },
+    { "room",     do_redit  },
+    { "object",   do_oedit  },
+    { "mobile",   do_medit  },
+    { "mpcode",   do_mpedit },
+    { "hedit",    do_hedit  },
+    { "group",    do_gedit  },
+    { NULL,       0,        }
 };
 
 
@@ -1550,4 +1572,104 @@ void do_alist( CHAR_DATA *ch, char *argument )
 
     page_to_char(buf_string(output),ch);
     free_buf(output);
+}
+
+void do_gedit( CHAR_DATA *ch, char *argument )
+{
+    GROUPTYPE *group;
+    char arg1[MAX_STRING_LENGTH];
+    int sn;
+
+    if ( IS_NPC(ch) )
+	return;
+
+    argument = one_argument( argument, arg1 );
+
+    sn = group_lookup(arg1);
+    if (sn == -1 && str_cmp(arg1,"create" ))
+    {
+	send_to_char( "GEdit:  That skill does not exist.\n\r", ch );
+	return;
+    }
+
+    if ( !str_cmp( arg1, "create" )  )
+    {
+        if ( argument[0] == '\0')
+        {
+            send_to_char( "Syntax:  edit group create group_name\n\r", ch );
+            return;
+	}
+
+        if ( gedit_create( ch, argument ) )
+        {
+            ch->desc->editor = ED_GROUP;
+        }
+	return;
+    }
+    else
+    {
+        group = group_table[sn];
+	ch->desc->pEdit = (void *)group;
+	ch->desc->editor = ED_GROUP;
+	return;
+    }
+
+    send_to_char( "GEdit:  There is no default skill to edit.\n\r", ch );
+    return;
+}
+
+void gedit( CHAR_DATA *ch, char *argument )
+{
+    char arg[MAX_STRING_LENGTH];
+    char command[MAX_INPUT_LENGTH];
+    int  cmd;
+
+    smash_tilde( argument );
+    strcpy( arg, argument );
+    argument = one_argument( argument, command );
+
+    if (IS_SWITCHED(ch) )
+    {
+        send_to_char("You cannot use OLC functions while switched!\n\r",ch);
+        edit_done(ch);
+        return;
+    }
+
+    if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
+    {
+        send_to_char( "GEdit:  Insufficient security to modify groups.\n\r", ch );
+        edit_done( ch );
+        interpret( ch, arg );
+        return;
+    }
+
+    if ( command[0] == '\0' )
+    {
+        gedit_show( ch, argument );
+        return;
+    }
+
+    if ( !str_cmp(command, "done") )
+    {
+        edit_done( ch );
+        return;
+    }
+
+    /* Search Table and Dispatch Command. */
+    for ( cmd = 0; gedit_table[cmd].name[0] != '\0'; cmd++ )
+    {
+        if ( !str_prefix( command, gedit_table[cmd].name ) )
+        {
+            if ( (*gedit_table[cmd].olc_fun) ( ch, argument ) )
+            {
+                return;
+            }
+            else
+                return;
+        }
+    }
+
+    /* Default to Standard Interpreter. */
+    interpret( ch, arg );
+    return;
 }

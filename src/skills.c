@@ -889,6 +889,10 @@ void do_groups (CHAR_DATA * ch, char *argument)
         }
         if (col % 3 != 0)
             send_to_char ("\n\r", ch);
+
+        sprintf(buf, "\n\r%d groups listed.\n\r", top_group);
+        send_to_char(buf, ch);
+
         return;
     }
 

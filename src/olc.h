@@ -79,7 +79,7 @@ DECLARE_SPELL_FUN(spell_null);
 #define ED_MOBILE	4
 #define ED_MPCODE	5
 #define ED_HELP		6
-
+#define ED_GROUP        7
 
 
 /*
@@ -89,9 +89,9 @@ void    aedit           args((CHAR_DATA *ch, char *argument));
 void    redit           args((CHAR_DATA *ch, char *argument));
 void    medit           args((CHAR_DATA *ch, char *argument));
 void    oedit           args((CHAR_DATA *ch, char *argument));
-void	mpedit		    args((CHAR_DATA *ch, char *argument));
-void	hedit		    args((CHAR_DATA *, char *));
-
+void	mpedit          args((CHAR_DATA *ch, char *argument));
+void	hedit           args((CHAR_DATA *, char *));
+void    gedit           args((CHAR_DATA *ch, char *argument));
 
 /*
 * OLC Constants
@@ -145,7 +145,7 @@ extern const struct olc_cmd_type	oedit_table[];
 extern const struct olc_cmd_type	medit_table[];
 extern const struct olc_cmd_type	mpedit_table[];
 extern const struct olc_cmd_type	hedit_table[];
-
+extern const struct olc_cmd_type        gedit_table[];
 
 /*
 * Editor Commands.
@@ -157,6 +157,7 @@ DECLARE_DO_FUN(do_oedit);
 DECLARE_DO_FUN(do_medit);
 DECLARE_DO_FUN(do_mpedit);
 DECLARE_DO_FUN(do_hedit);
+DECLARE_DO_FUN(do_gedit);
 
 /*
 * General Functions
@@ -303,6 +304,15 @@ DECLARE_OLC_FUN(hedit_delete);
 DECLARE_OLC_FUN(hedit_show);
 DECLARE_OLC_FUN(hedit_list);
 
+/* Group Editor */
+DECLARE_OLC_FUN(gedit_name);
+DECLARE_OLC_FUN(gedit_add);
+DECLARE_OLC_FUN(gedit_del);
+DECLARE_OLC_FUN(gedit_rating);
+DECLARE_OLC_FUN(gedit_show);
+DECLARE_OLC_FUN(gedit_create);
+DECLARE_OLC_FUN(gedit_list);
+
 /*
 * Macros
 */
@@ -314,7 +324,7 @@ DECLARE_OLC_FUN(hedit_list);
 #define EDIT_ROOM(Ch, Room)	( Room = Ch->in_room )
 #define EDIT_AREA(Ch, Area)	( Area = (AREA_DATA *)Ch->desc->pEdit )
 #define EDIT_MPCODE(Ch, Code)   ( Code = (MPROG_CODE*)Ch->desc->pEdit )
-
+#define EDIT_GROUP(Ch, Group)   ( Group = (GROUPTYPE *)Ch->desc->pEdit )
 
 /*
 * Prototypes

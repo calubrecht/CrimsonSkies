@@ -52,6 +52,7 @@
 #include "olc.h"
 #include "recycle.h"
 #include "lookup.h"
+#include "interp.h"
 
 char *mprog_type_to_name(int type);
 
@@ -74,7 +75,7 @@ char *mprog_type_to_name(int type);
 #define AEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define HEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define MPEDIT( fun )       bool fun( CHAR_DATA *ch, char *argument )
-
+#define GEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define EDIT_HELP(ch, help) ( help = (HELP_DATA *) ch->desc->pEdit )
 
 struct olc_help_type {
@@ -5991,3 +5992,256 @@ REDIT(aedit_continent) {
     send_to_char(buf,ch);
     return TRUE;
 } // end REDIT(aedit_continent)
+
+bool gedit_show( CHAR_DATA *ch, char *argument )
+{
+    GROUPTYPE *group;
+    char buf[MAX_STRING_LENGTH];
+    int class,x,fact;
+    fact = (MAX_IN_GROUP / 3);
+
+    EDIT_GROUP(ch, group);
+
+    sprintf( buf, "\n\rName:         [%s]\n\r\n\r",group->name);
+    send_to_char(buf, ch);
+
+    for(x =0; x <= fact; x++)
+    {
+	sprintf(buf,"%2d) [%-15.15s] ",x,group->spells[x] ? group->spells[x] : "None" );
+	send_to_char(buf,ch);
+	sprintf(buf,"%2d) [%-15.15s] ",x+fact+1,group->spells[x+fact+1] ? group->spells[x+fact+1] : "None" );
+	send_to_char(buf,ch);
+	if (x+((fact+1)*2) < MAX_IN_GROUP)
+	{
+	    sprintf(buf,"%2d) [%-15.15s]\n\r",x+((fact+1)*2),group->spells[x+((fact+1)*2)] ? group->spells[x+((fact+1)*2)] : "None" );
+	    send_to_char(buf,ch); 
+	}
+	else
+	{
+	    send_to_char("\n\r",ch);
+	}
+    }
+
+
+    sprintf( buf,"\n\rClass         Rating  Class         Rating\n\r");
+    send_to_char(buf, ch);
+
+    sprintf( buf, "--------------------------------------------------------\n\r");
+    send_to_char(buf, ch);
+
+    for(class =0; class < top_class; class++)
+    {
+	sprintf(buf,"%-13s [%2d]",class_table[class]->name, group->rating[class]);
+	if ((class % 2) == 0)
+	{
+	     strcat(buf,"    ");
+	}
+	else
+	{
+	     strcat(buf,"\n\r");
+	}
+	send_to_char(buf,ch);
+    }
+    send_to_char("\n\r",ch);
+
+    return TRUE;
+}
+
+GEDIT( gedit_create)
+{
+    GROUPTYPE *group;
+    int gn,i;
+
+    gn = group_lookup(argument);
+
+    if ( argument[0] == '\0' )
+    {
+	send_to_char( "Syntax:  edit group create group_name\n\r", ch );
+	return FALSE;
+    }
+
+    if (gn != -1)
+    {
+	send_to_char( "GEdit:  group already exists.\n\r", ch );
+	return FALSE;
+    }
+
+    if (top_group + 1 >= MAX_GROUP)
+    {
+	send_to_char("MAX_GROUP Exceeded, please increae the MAX_GROUP in merc.h\n\r",ch);
+	return FALSE;
+    }
+
+    group = alloc_perm(sizeof(*group));
+    group->name = str_dup(argument);
+    for (i = 0; i < top_class; i++)
+    {
+       group->rating[i] = -1;
+    }
+    group_table[top_group] = group;
+    ch->desc->pEdit = (void *)group;
+    top_group++;
+    send_to_char( "Group Created.\n\r", ch );
+    return TRUE;
+}
+
+GEDIT( gedit_list )
+{
+    do_function (ch, &do_groups, "all");
+    return TRUE;
+}
+
+GEDIT( gedit_add)
+{
+    GROUPTYPE *group;
+    char arg1[MAX_STRING_LENGTH];
+    int num,sn;
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_GROUP(ch, group);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  add [#] group/skill\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, arg1);
+    num = atoi (arg1);
+
+    if (!is_number(arg1) || !argument || argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  add [#] group/skill\n\r", ch );
+        return FALSE;
+    }
+
+    if ((sn = group_lookup(argument)) != -1 )
+    {
+        free_string(group->spells[num]);
+        group->spells[num] = str_dup(group_table[sn]->name);
+    }
+    else if ((sn = skill_lookup(argument)) != -1)
+    {
+        free_string(group->spells[num]);
+        group->spells[num] = str_dup(skill_table[sn].name);
+    }
+    else
+    {
+        sprintf(buf,"%s doesn't exist.\n\r",argument);
+        send_to_char(buf, ch);
+        return FALSE;
+    }
+    send_to_char("Ok.\n\r",ch);
+    return TRUE;
+}
+
+GEDIT( gedit_del)
+{
+    GROUPTYPE *group;
+    char arg1[MAX_STRING_LENGTH];
+    int num;
+
+    EDIT_GROUP(ch, group);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  del [#]\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, arg1);
+    num = atoi (arg1);
+
+    if (!is_number(arg1))
+    {
+        send_to_char( "Syntax:  del [#]\n\r", ch );
+     	return FALSE;
+    }
+
+    free_string(group->spells[num]);
+    group->spells[num] = '\0';
+    send_to_char("Ok.\n\r",ch);
+
+    return TRUE;
+}
+
+GEDIT( gedit_name)
+{
+    GROUPTYPE *group;
+
+    EDIT_GROUP(ch, group);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  name [string]\n\r", ch );
+        return FALSE;
+    }
+
+    free_string( group->name );
+    group->name = str_dup( argument );
+    group->name[0] = LOWER(group->name[0]);
+
+    send_to_char( "Name set.\n\r", ch);
+    return TRUE;
+}
+
+GEDIT( gedit_rating)
+{
+    GROUPTYPE *group;
+    int class_no,rating;
+    char class_name[MAX_INPUT_LENGTH];
+    char arg1[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_GROUP(ch, group);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, class_name);
+    argument = one_argument (argument, arg1);
+    rating = atoi (arg1);
+
+    if (!is_number(arg1))
+    {
+        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+     	return FALSE;
+    }
+
+   for (class_no = 0; class_no < top_class; class_no++)
+       if (!str_cmp(class_name, class_table[class_no]->name))
+            break;
+
+   if (!str_cmp(class_name, "all"))
+   {
+     for (class_no = 0; class_no < top_class; class_no++)
+     {
+       group->rating[class_no] = rating;
+     }
+
+       sprintf (buf, "OK, Cost set at %d for all classes.\n\r", rating);
+       send_to_char(buf, ch);
+   }
+   else
+   {
+
+     for (class_no = 0; class_no < top_class; class_no++)
+       if (!str_prefix(class_name, class_table[class_no]->name))
+            break;
+
+    if (class_no >= top_class)
+    {
+   	sprintf (buf, "No class named '%s' exists.\n\r", class_name);
+        send_to_char(buf, ch);
+      	return FALSE;
+    }
+       group->rating[class_no] = rating;
+       sprintf (buf, "OK, %s will now cost %d for %s.\n\r", group->name, rating,class_table[class_no]->name);
+       send_to_char(buf, ch);
+   }
+
+   return TRUE;
+}
