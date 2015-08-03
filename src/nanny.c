@@ -548,6 +548,10 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
 
             // reclass
+            send_to_char("\n\rCrimson Skies has many specialized reclasses although each character\n\r", ch);
+            send_to_char("must start off as one of four base classes (you can reclass as early\n\r", ch);
+            send_to_char("level 10.  You will now select your initial base class.\n\r\n\r", ch);
+
             strcpy (buf, "Select an initial class [");
             for (iClass = 0; iClass < top_class; iClass++)
             {
