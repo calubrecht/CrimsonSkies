@@ -59,3 +59,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Lose movement on pulse, reconsider flying over ocean (and/or add swim skill)
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
   - Make underwater suck down movement and HP unless underwater breathing spell (add this) is in affects.
+  - Remove SLOT (lookup_slot, the field and from the const entries)
