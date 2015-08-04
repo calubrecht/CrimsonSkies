@@ -1146,7 +1146,6 @@ void aggr_update (void)
 /*
  * Handle all kinds of updates.
  * Called once per pulse from game loop.
- * Random times to defeat tick-timing clients and players.
  */
 void update_handler (bool forced)
 {
@@ -1159,7 +1158,6 @@ void update_handler (bool forced)
     if (--pulse_area <= 0)
     {
         pulse_area = PULSE_AREA;
-        /* number_range( PULSE_AREA / 2, 3 * PULSE_AREA / 2 ); */
         area_update ();
     }
 
