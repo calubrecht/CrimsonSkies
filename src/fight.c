@@ -3192,3 +3192,75 @@ void toast( CHAR_DATA *ch, CHAR_DATA *victim )
     return;
 
 }  // end void toast
+
+/*
+ * This method can be used to check the death status of a character who has had damage inflicted
+ * on them by something other than a fight (like, drowning in the ocean, dying from a spell or
+ * disease, etc).  The damage type must be passed in and can be used to display custom messages
+ * about the death.  The case messages for the updated positions have been borrowed from fight.c.
+ * This will only currently work on players, not NPC's.
+ */
+void check_death(CHAR_DATA *victim, int dt)
+{
+    // If IS_NPC then get out.
+    if (IS_NPC(victim))
+        return;
+
+    // Immortals will be immune from dying in this manner, if they go below 0 then set
+    // them to 1 hp.
+    if ( victim->level >= LEVEL_IMMORTAL && victim->hit < 1)
+    {
+        victim->hit = 1;
+    }
+
+    update_pos(victim);
+
+    switch(victim->position)
+    {
+        case POS_MORTAL:
+            act( "$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM );
+            send_to_char("You are mortally wounded, and will die soon, if not aided.\n\r", victim );
+            break;
+        case POS_INCAP:
+            act( "$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM );
+            send_to_char("You are incapacitated and will slowly die, if not aided.\n\r", victim );
+            break;
+        case POS_STUNNED:
+            act( "$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM );
+            send_to_char("You are stunned, but will probably recover.\n\r", victim );
+            break;
+        case POS_DEAD:
+            act( "{R$n is DEAD!!{x", victim, 0, 0, TO_ROOM );
+            send_to_char( "{RYou have been KILLED!!\n\r\n\r{x", victim );
+            break;
+        default:
+            break;
+    }
+
+    // The character is dead, commence with officially killing them off
+    if ( victim->position == POS_DEAD )
+    {
+        // EXP penalty for dying
+        if ( victim->exp > exp_per_level(victim,victim->pcdata->points) * victim->level )
+        {
+            gain_exp( victim, (2 * (exp_per_level(victim,victim->pcdata->points)
+                                 * victim->level - victim->exp)/3) + 50 );
+        }
+
+	if (dt == DAM_DROWNING)
+	{
+            sprintf(log_buf, "%s drowns at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
+	}
+	else
+	{
+            sprintf( log_buf, "%s was killed at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
+	}
+
+       // Report the death and finish the process
+       wiznet(log_buf,NULL,NULL,WIZ_DEATHS,0,0);
+       log_string (log_buf);
+       raw_kill( victim );
+       return;
+
+    }
+} // end check_death

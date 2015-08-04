@@ -42,16 +42,18 @@
 /*
  * Local functions.
  */
-int  hit_gain       args((CHAR_DATA * ch));
-int  mana_gain      args((CHAR_DATA * ch));
-int  move_gain      args((CHAR_DATA * ch));
-void mobile_update  args((void));
-void weather_update args((void));
-void char_update    args((void));
-void obj_update     args((void));
-void aggr_update    args((void));
-void tick_update    args((void));
-void shore_update   args((void));
+int  hit_gain           args((CHAR_DATA * ch));
+int  mana_gain          args((CHAR_DATA * ch));
+int  move_gain          args((CHAR_DATA * ch));
+void check_death        args((CHAR_DATA *victim, int dt));
+void mobile_update      args((void));
+void weather_update     args((void));
+void char_update        args((void));
+void obj_update         args((void));
+void aggr_update        args((void));
+void tick_update        args((void));
+void shore_update       args((void));
+void environment_update args((void));
 
 /* used for saving */
 int save_number = 0;
@@ -1167,12 +1169,25 @@ void update_handler (bool forced)
         mobile_update();
     }
 
+    /*
+     * We're going to put the environment after the violence update to seperate them but
+     * they will run on the same schedule for now (which is about every 3 seconds).  The
+     * environment update will be used for light-weight but quick happening checks like
+     * losing movement while treading water in the ocean.  The violence_update handles the
+     * rounds of battle.
+     */
     if (--pulse_violence <= 0)
     {
         pulse_violence = PULSE_VIOLENCE;
         violence_update();
+        environment_update();
     }
 
+    /*
+     * This happens every half tick which is currently about 20 seconds.  The shore update
+     * to show the waves hitting the beaches for characters next to the ocean are all that's
+     * currently happening here.
+     */
     if (--pulse_half_tick <= 0)
     {
         pulse_half_tick = PULSE_HALF_TICK;
@@ -1184,6 +1199,11 @@ void update_handler (bool forced)
         pulse_tick = 0;
     }
 
+    /*
+     * The tick update is the big event where lots of updates occur.  ROM traditionally runs
+     * ticks at random times around a minute, we're going to do one ever 40 seconds (as defined
+     * in merc.h).
+     */
     if (--pulse_tick <= 0)
     {
         wiznet ("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
@@ -1312,4 +1332,77 @@ void shore_update()
 
 } // end short_update()
 
+/*
+ * Environment update will fire on the same timing as violence update which is about every
+ * three seconds.  We'll handle light weight fast moving actions here, like losing movement
+ * from treading water for quick but short affect updates from spells.
+ */
+void environment_update()
+{
+    CHAR_DATA *ch;
+    CHAR_DATA *ch_next;
 
+    for (ch = char_list; ch != NULL; ch = ch_next)
+    {
+        ch_next = ch->next;
+
+        // Ocean - Immortals are immune to drowning and losing movement in the ocean.
+        if ( !IS_NPC(ch) &&
+             ch->in_room != NULL  &&
+             ch->in_room->sector_type == SECT_OCEAN &&
+             ch->desc != NULL &&
+             !IS_IMMORTAL(ch))
+        {
+
+            // Water breathing won't help their movement loss but it will keep them from
+            // drowning.
+            if ( ch->move <= 0  &&
+                !is_affected(ch,gsn_water_breathing) )
+            {
+                send_to_char("You gasp desperately for air as water fills your lungs!\n\r",ch);
+                ch->hit -= (UMAX(1,(ch->hit/6)));
+                check_death(ch, DAM_DROWNING);
+            }
+            else
+            {
+                // Everyone loses movement treading water in the ocean.  Consider adding
+                // swim skill to lessen this, also maybe make stronger people lose less.
+                send_to_char("You struggle to tread water in the ocean.\n\r",ch);
+                ch->move -= 10;
+
+                // Don't allow movement to go below 0
+                if (ch->move < 0)
+                {
+                    ch->move = 0;
+                }
+            }
+        } // end ocean logic
+
+        // Underwater - Slightly different logic than the ocean, here they must have water
+        // breathing or they will start sucking in water.
+        if ( !IS_NPC(ch) &&
+             ch->in_room != NULL  &&
+             ch->in_room->sector_type == SECT_UNDERWATER &&
+             ch->desc != NULL &&
+             !IS_IMMORTAL(ch))
+        {
+            if (!is_affected(ch,gsn_water_breathing) )
+            {
+                ch->move -= 10;
+
+                // Don't allow movement to go below 0
+                if (ch->move < 0)
+                {
+                    ch->move = 0;
+                }
+
+                send_to_char("You gasp desperately for air as water fills your lungs!\n\r",ch);
+                ch->hit -= (UMAX(1,(ch->hit/6)));
+                check_death(ch, DAM_DROWNING);
+            }
+
+        } // end underwater logic 
+
+    } // end for
+
+} // end environment_update
