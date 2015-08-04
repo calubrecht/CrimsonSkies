@@ -404,7 +404,7 @@ void do_cast (CHAR_DATA * ch, char *argument)
                     send_to_char ("Not on that target.\n\r", ch);
                     return;
                 }
-                check_killer (ch, victim);
+                check_wanted(ch, victim);
             }
 
             if (IS_AFFECTED (ch, AFF_CHARM) && ch->master == victim)
@@ -497,7 +497,7 @@ void do_cast (CHAR_DATA * ch, char *argument)
                 }
 
                 if (!IS_NPC (ch))
-                    check_killer (ch, victim);
+                    check_wanted(ch, victim);
 
                 vo = (void *) victim;
             }
@@ -578,7 +578,7 @@ void do_cast (CHAR_DATA * ch, char *argument)
             vch_next = vch->next_in_room;
             if (victim == vch && victim->fighting == NULL)
             {
-                check_killer (victim, ch);
+                check_wanted(victim, ch);
                 multi_hit (victim, ch, TYPE_UNDEFINED);
                 break;
             }
@@ -722,7 +722,7 @@ void obj_cast_spell (int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim,
             vch_next = vch->next_in_room;
             if (victim == vch && victim->fighting == NULL)
             {
-                check_killer (victim, ch);
+                check_wanted(victim, ch);
                 multi_hit (victim, ch, TYPE_UNDEFINED);
                 break;
             }

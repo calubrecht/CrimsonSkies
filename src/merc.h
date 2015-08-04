@@ -2140,7 +2140,7 @@ bool    damage          args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int d
 bool    damage_old      args( ( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int class, bool show ) );
 void    update_pos      args( ( CHAR_DATA *victim ) );
 void    stop_fighting   args( ( CHAR_DATA *ch, bool fBoth ) );
-void    check_killer    args( ( CHAR_DATA *ch, CHAR_DATA *victim) );
+void    check_wanted    args( ( CHAR_DATA *ch, CHAR_DATA *victim) );
 
 /* handler.c */
 AD    *affect_find        args( (AFFECT_DATA *paf, int sn));

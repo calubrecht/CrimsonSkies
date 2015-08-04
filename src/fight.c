@@ -45,7 +45,7 @@
  */
 void check_assist args ((CHAR_DATA * ch, CHAR_DATA * victim));
 bool check_dodge args ((CHAR_DATA * ch, CHAR_DATA * victim));
-void check_killer args ((CHAR_DATA * ch, CHAR_DATA * victim));
+void check_wanted args ((CHAR_DATA * ch, CHAR_DATA * victim));
 bool check_parry args ((CHAR_DATA * ch, CHAR_DATA * victim));
 bool check_shield_block args ((CHAR_DATA * ch, CHAR_DATA * victim));
 void dam_message args ((CHAR_DATA * ch, CHAR_DATA * victim, int dam,
@@ -756,7 +756,7 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
          */
         if (is_safe (ch, victim))
             return FALSE;
-        check_killer (ch, victim);
+        check_wanted (ch, victim);
 
         if (victim->position > POS_STUNNED)
         {
@@ -1259,9 +1259,9 @@ bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
 } // end bool is_safe_spell
 
 /*
- * See if an attack justifies a KILLER flag.
+ * See if an attack justifies a (WANTED) flag.
  */
-void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
+void check_wanted (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     char buf[MAX_STRING_LENGTH];
 
@@ -1289,7 +1289,7 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
         {
             char buf[MAX_STRING_LENGTH];
 
-            sprintf (buf, "Check_killer: %s bad AFF_CHARM",
+            sprintf (buf, "check_wanted: %s bad AFF_CHARM",
                      IS_NPC (ch) ? ch->short_descr : ch->name);
             bug (buf, 0);
             affect_strip (ch, gsn_charm_person);
@@ -1318,7 +1318,7 @@ void check_killer (CHAR_DATA * ch, CHAR_DATA * victim)
     wiznet (buf, ch, NULL, WIZ_FLAGS, 0, 0);
     save_char_obj (ch);
     return;
-} // end void check_killer
+} // end void check_wanted
 
 /*
  * Check for parry.
@@ -2363,7 +2363,7 @@ void do_bash (CHAR_DATA * ch, char *argument)
         ch->position = POS_RESTING;
         WAIT_STATE (ch, skill_table[gsn_bash].beats * 3 / 2);
     }
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
 } // end do_bash
 
 /*
@@ -2524,7 +2524,7 @@ void do_dirt (CHAR_DATA * ch, char *argument)
         check_improve (ch, gsn_dirt, FALSE, 2);
         WAIT_STATE (ch, skill_table[gsn_dirt].beats);
     }
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
 } // end do_dirt
 
 /*
@@ -2641,7 +2641,7 @@ void do_trip (CHAR_DATA * ch, char *argument)
         WAIT_STATE (ch, skill_table[gsn_trip].beats * 2 / 3);
         check_improve (ch, gsn_trip, FALSE, 1);
     }
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
 } // end do_trip
 
 /*
@@ -2706,7 +2706,7 @@ void do_kill (CHAR_DATA * ch, char *argument)
     }
 
     WAIT_STATE (ch, 1 * PULSE_VIOLENCE);
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
     multi_hit (ch, victim, TYPE_UNDEFINED);
     return;
 } // end do_kill
@@ -2781,7 +2781,7 @@ void do_murder (CHAR_DATA * ch, char *argument)
     else
         sprintf (buf, "Help!  I am being attacked by %s!", ch->name);
     do_function (victim, &do_yell, buf);
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
     multi_hit (ch, victim, TYPE_UNDEFINED);
     return;
 } // end do_murder
@@ -2843,7 +2843,7 @@ void do_backstab (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
     WAIT_STATE (ch, skill_table[gsn_backstab].beats);
     if (number_percent () < get_skill (ch, gsn_backstab)
         || (get_skill (ch, gsn_backstab) >= 2 && !IS_AWAKE (victim)))
@@ -2994,7 +2994,7 @@ void do_rescue (CHAR_DATA * ch, char *argument)
     stop_fighting (fch, FALSE);
     stop_fighting (victim, FALSE);
 
-    check_killer (ch, fch);
+    check_wanted(ch, fch);
     set_fighting (ch, fch);
     set_fighting (fch, ch);
     return;
@@ -3034,7 +3034,7 @@ void do_kick (CHAR_DATA * ch, char *argument)
         damage (ch, victim, 0, gsn_kick, DAM_BASH, TRUE);
         check_improve (ch, gsn_kick, FALSE, 1);
     }
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
     return;
 } // end do_kick
 
@@ -3112,7 +3112,7 @@ void do_disarm (CHAR_DATA * ch, char *argument)
         act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim, TO_NOTVICT);
         check_improve (ch, gsn_disarm, FALSE, 1);
     }
-    check_killer (ch, victim);
+    check_wanted(ch, victim);
     return;
 } // end do_disarm
 
