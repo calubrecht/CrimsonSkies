@@ -2,7 +2,7 @@ Crimson Skies
 =============
 
 Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
-bases (Smaug, Shadow, Wurm)  will be included as well as what will be a lot of custom code.  The initial steps will
+bases (Smaug, Shadow, Wurm) will be included as well as what will be a lot of custom code.  The initial steps will
 be getting a lot of the underpinnings in place correctly in order to make quicker updates later (like abstracting the
 class system, anyone who has added a new class to stock ROM will quickly get tired up updating the class_type table, 
 this is something that can be fixed fairly simply).  
@@ -14,13 +14,12 @@ Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
-  - Windows 7, Windows 8 & Windows 8.1 (compiles with Visual Studio 2013, for your initial compile/run in Visual Studio 
+  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial compile/run in Visual Studio 
 you may need to follow the instructions in this blog post, they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
 Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
-The current development server which is playable and will reflect the latest commits here is at (it will start 
-eloving from stock ROM'ish while I work through initial changes):
+The current development server which is playable and will reflect the latest commits here is at:
 
   - 66.244.102.112 port 4000
 
@@ -37,9 +36,6 @@ combination of the code and the content.  You can't have just one or the other.
     to be iconic (or at least nostalgic).
   - Server side LUA to suppliment and/or replace standard mob progs.
   - To document the old functions with descriptions and hopefully well document new functions.
-  - Remove legacy OS support and support the major OS's of today (Linux via Ubuntu/Raspbian/Debian, 
-    Windows via Windows 7/8/8.1 and likely 2008R2 Server+ and possibly OSX though my OSX test laptop is
-    pretty old and I'm not getting a new one for cost reasons).
   - To provide modern tools and hooks into ROM to allow it to integrate with services
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
@@ -60,10 +56,6 @@ combination of the code and the content.  You can't have just one or the other.
     http://www.gammon.com.au/downloads.htm.  When I re-write mine I will be including a drag and drop editor
     to graphically create the room via a map (which will then make it easier to export map files in different
     formats).
-  - To provide a branch that is ROM stripped down to the socket server that can be repurposed for other things.
-  - To provide a base branch that has the areas and code stripped down to one area (and any code alterations to 
-    remove vnum usage that uses vnums in other areas, this will allow for people starting a mud from scractch 
-    building their own areas.)
 
 ## Resources
 
