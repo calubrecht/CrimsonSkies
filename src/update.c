@@ -1359,7 +1359,7 @@ void environment_update()
             if ( ch->move <= 0  &&
                 !is_affected(ch,gsn_water_breathing) )
             {
-                send_to_char("You gasp desperately for air as water fills your lungs!\n\r",ch);
+                send_to_char("You gasp for air as water fills your lungs!\n\r",ch);
                 ch->hit -= (UMAX(1,(ch->hit/6)));
                 check_death(ch, DAM_DROWNING);
             }
@@ -1396,7 +1396,7 @@ void environment_update()
                     ch->move = 0;
                 }
 
-                send_to_char("You gasp desperately for air as water fills your lungs!\n\r",ch);
+                send_to_char("You gasp for air as water fills your lungs!\n\r",ch);
                 ch->hit -= (UMAX(1,(ch->hit/6)));
                 check_death(ch, DAM_DROWNING);
             }
