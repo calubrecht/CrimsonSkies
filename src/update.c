@@ -1152,25 +1152,25 @@ void update_handler (bool forced)
     static int pulse_area;
     static int pulse_mobile;
     static int pulse_violence;
-    static int pulse_point;
+    static int pulse_tick;
     static int pulse_half_tick;
 
     if (--pulse_area <= 0)
     {
         pulse_area = PULSE_AREA;
-        area_update ();
+        area_update();
     }
 
     if (--pulse_mobile <= 0)
     {
         pulse_mobile = PULSE_MOBILE;
-        mobile_update ();
+        mobile_update();
     }
 
     if (--pulse_violence <= 0)
     {
         pulse_violence = PULSE_VIOLENCE;
-        violence_update ();
+        violence_update();
     }
 
     if (--pulse_half_tick <= 0)
@@ -1181,21 +1181,21 @@ void update_handler (bool forced)
 
     // Just firing the tick, not messing with violence, mobiles or areas.
     if (forced) {
-        pulse_point = 0;
+        pulse_tick = 0;
     }
 
-    if (--pulse_point <= 0)
+    if (--pulse_tick <= 0)
     {
         wiznet ("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
-        pulse_point = PULSE_TICK;
-        weather_update ();
-        char_update ();
-        obj_update ();
-        tick_update ();
+        pulse_tick = PULSE_TICK;
+        weather_update();
+        char_update();
+        obj_update();
+        tick_update();
     }
 
-    aggr_update ();
-    tail_chain ();
+    aggr_update();
+    tail_chain();
     return;
 }
 
