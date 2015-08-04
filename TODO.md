@@ -58,3 +58,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Lose movement on pulse, reconsider flying over ocean (and/or add swim skill)
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
   - Remove SLOT (lookup_slot, the field and from the const entries)
+  - Update GSN.h to have the gsn included in the declaration. This will alleviate us from assinging them on load and also will allow
+    us to have GSN's that aren't in the skills table because not every affect should be from a skill/spell (like ghost).
+  - Ability to catch a cold if in the cold weather/tundra.
+  - Ability to be affected random affects, having more energy, feeling weak, etc.
