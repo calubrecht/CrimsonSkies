@@ -15,7 +15,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
   - Statistics.
-  - Add underwater room_flag, water breathing spell, damage for underwater w/o
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add ranged spells (fireball)
@@ -58,5 +57,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Ocean, thread them together, create coastlines for intial continents.
   - Lose movement on pulse, reconsider flying over ocean (and/or add swim skill)
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
-  - Make underwater suck down movement and HP unless underwater breathing spell (add this) is in affects.
   - Remove SLOT (lookup_slot, the field and from the const entries)
