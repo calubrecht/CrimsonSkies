@@ -3887,7 +3887,8 @@ void save_class (int num)
     fprintf( fp, "Name        %s~\n",        class_table[num]->name            );
     fprintf( fp, "Class       %d\n",         num                      );
     fprintf( fp, "WhoName     %s~\n",        class_table[num]->who_name         );
-    fprintf( fp, "Attrprime   %d\n",         class_table[num]->attr_prime       );
+    fprintf( fp, "Attrprime   %s\n",         stat_table[class_table[num]->attr_prime].name);
+    //fprintf( fp, "Attrprime   %d\n",         class_table[num]->attr_prime       );
     //fprintf( fp, "Attrsecond  %d\n",         class_table[num]->attr_second      );
     fprintf( fp, "Weapon      %d\n",         class_table[num]->weapon           );
 
@@ -3981,7 +3982,10 @@ bool load_class (char *fname)
                 fread_to_eol( fp );
                 break;
             case 'A':
-                KEY("Attrprime",      	class->attr_prime, 	fread_number(fp) );
+                // Stat lookup will lookup the stat based on the word value to make the file easier
+                // to read.
+                KEY("Attrprime",        class->attr_prime,      stat_lookup(fread_word(fp)));
+                //KEY("Attrprime",      	class->attr_prime, 	fread_number(fp) );
                 //KEY("Attrsecond",      	class->attr_second, 	fread_number(fp) );
                 break;
             case 'B':

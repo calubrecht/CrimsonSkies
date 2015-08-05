@@ -57,10 +57,17 @@ struct	bit_type
     char *				help;
 };
 
+struct stat_type
+{
+    int stat;
+    char *name;
+};
+
 /* game tables */
 extern	const	struct	clan_type	clan_table[MAX_CLAN];
 extern	const	struct	position_type	position_table[];
 extern	const	struct	sex_type	sex_table[];
+extern  const   struct  stat_type       stat_table[];
 extern	const	struct	size_type	size_table[];
 extern  const   struct  continent_type  continent_table[];
 

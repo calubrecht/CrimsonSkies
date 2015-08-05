@@ -5528,8 +5528,21 @@ void do_test(CHAR_DATA * ch, char *argument)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
-    sprintf(buf, "gsn_blindness %d, dual wield %d, weaken %d\n\r", gsn_blindness, gsn_dual_wield, gsn_weaken);
-    send_to_char(buf, ch);
+    int iClass;
+
+    for (iClass = 0; iClass < top_class; iClass++)
+    {
+        if (class_table[iClass]->name == NULL)
+        {
+            log_string("BUG: null class");
+            continue;
+        }
+
+        sprintf(buf, "%s - %d\n\r", class_table[iClass]->name, class_table[iClass]->attr_prime);
+        send_to_char(buf, ch);
+
+    }
+
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;

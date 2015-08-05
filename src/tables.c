@@ -68,6 +68,19 @@ const struct position_type position_table[] = {
     {NULL, NULL}
 };
 
+/*
+ * For dynamic loading of stats on classes, the STAT_ value should line
+ * up with it's position so we can reference it by position.
+ */
+const struct stat_type stat_table[] = {
+    { STAT_STR, "str" },
+    { STAT_INT, "int" },
+    { STAT_WIS, "wis" },
+    { STAT_DEX, "dex" },
+    { STAT_CON, "con" },
+    { -1, NULL }
+};
+
 /* for sex */
 const struct sex_type sex_table[] = {
     {"none"},

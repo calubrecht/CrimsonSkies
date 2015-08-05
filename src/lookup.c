@@ -67,6 +67,31 @@ int clan_lookup (const char *name)
     return 0;
 }
 
+/*
+ * This will return the stat constant for the specified name (str, int, wis, dex, con).  This is
+ * not currently in a table so we'll just use a case statement.  This will be called from the code
+ * that dynamically loads the classes from the files so we can use Str, Int, Wis, Dex and Con instead
+ * of the value which is impossible to remember.
+ */
+int stat_lookup (const char *name)
+{
+    int stat;
+
+    for (stat = 0; stat < MAX_STATS; stat++)
+    {
+        if (stat_table[stat].name == NULL)
+            break;
+
+        if (LOWER (name[0]) == LOWER (stat_table[stat].name[0])
+            && !str_prefix (name, stat_table[stat].name))
+            return stat;
+    }
+
+    log_f("Invalid stat_lookup - %s", name);
+    return -1;
+
+} // end stat_lookup
+
 int position_lookup (const char *name)
 {
     int pos;
