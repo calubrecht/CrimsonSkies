@@ -57,6 +57,10 @@ struct	bit_type
     char *				help;
 };
 
+/*
+ * This is used for lookups on stat types to allow "wis", "str", etc. to be stored
+ * instead of the int value (basically for readability).
+ */
 struct stat_type
 {
     int stat;
