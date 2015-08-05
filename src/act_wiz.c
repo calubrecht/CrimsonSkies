@@ -3529,7 +3529,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
         send_to_char ("    str int wis dex con sex class level\n\r", ch);
         send_to_char ("    race group gold silver hp mana move prac\n\r", ch);
         send_to_char ("    align train thirst hunger drunk full\n\r", ch);
-        send_to_char ("    security hours wanted[on|off]\n\r", ch);
+        send_to_char ("    security hours wanted[on|off] tester[on|off]\n\r", ch);
         return;
     }
 
@@ -3928,6 +3928,28 @@ void do_mset (CHAR_DATA * ch, char *argument)
         {
             REMOVE_BIT (victim->act, PLR_WANTED);
             send_to_char ("({RWANTED{x) flag removed.\n\r", ch);
+        }
+
+        return;
+    }
+
+    if (!str_prefix(arg2, "tester"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPC's\n\r", ch);
+            return;
+        }
+
+        if (!str_prefix(arg3, "on"))
+        {
+            SET_BIT (victim->act, PLR_TESTER);
+            send_to_char ("({WTester{x) flag added.\n\r", ch);
+        }
+        else if (!str_prefix(arg3, "off"))
+        {
+            REMOVE_BIT (victim->act, PLR_TESTER);
+            send_to_char ("({WTester{x) flag removed.\n\r", ch);
         }
 
         return;

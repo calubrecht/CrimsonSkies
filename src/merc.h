@@ -1230,6 +1230,9 @@ struct    kill_data
 #define PLR_AUTOGOLD        (G)
 #define PLR_AUTOSPLIT       (H)
 
+/* Special Flags */
+#define PLR_TESTER          (M)
+
 /* RT personal flags */
 #define PLR_HOLYLIGHT       (N)
 #define PLR_CANLOOT         (P)
@@ -1836,6 +1839,7 @@ struct mprog_code
                 || strstr( Area->builders, ch->name )      \
                 || strstr( Area->builders, "All" ) ) )
 #define IS_WANTED(ch) (IS_SET (ch->act, PLR_WANTED))
+#define IS_TESTER(ch) (IS_SET (ch->act, PLR_TESTER))
 
 /*
  * Object macros.
