@@ -55,7 +55,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Healer class
   - Erwin's setskill command to go with the dynamic class loading
   - Ocean, thread them together, create coastlines for intial continents.
-  - Lose movement on pulse, reconsider flying over ocean (and/or add swim skill)
+  - Add swim skill, lose less movement in ocean/underwater
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
   - Remove SLOT (lookup_slot, the field and from the const entries)
   - Ability to catch a cold if in the cold weather/tundra.
