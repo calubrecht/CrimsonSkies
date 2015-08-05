@@ -68,10 +68,12 @@ int clan_lookup (const char *name)
 }
 
 /*
- * This will return the stat constant for the specified name (str, int, wis, dex, con).  This is
- * not currently in a table so we'll just use a case statement.  This will be called from the code
- * that dynamically loads the classes from the files so we can use Str, Int, Wis, Dex and Con instead
- * of the value which is impossible to remember.
+ * This will return the stat constant for the specified name (str, int, wis, dex, con).  The
+ * _STAT consts are defined in merc.h but this table will map those to their friendly name for
+ * use with file loading.  The position in the table should map to the STAT_ value.  Since stat
+ * looks are done from internal logic only (not user based like clan_lookup might be) we are
+ * going to log invalid requests because this indicates that stuff isn't loading correctly with
+ * the classes.  - Rhien
  */
 int stat_lookup (const char *name)
 {
