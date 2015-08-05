@@ -3511,7 +3511,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
     char arg1[MIL];
     char arg2[MIL];
     char arg3[MIL];
-    char buf[100];
+    char buf[MAX_STRING_LENGTH];
     CHAR_DATA *victim;
     int value;
     extern int top_class;
@@ -3945,11 +3945,24 @@ void do_mset (CHAR_DATA * ch, char *argument)
         {
             SET_BIT (victim->act, PLR_TESTER);
             send_to_char ("({WTester{x) flag added.\n\r", ch);
+
+            if (ch != victim)
+            {
+                sprintf(buf, "%s has set you as a ({WTester{x).\n\r", ch->name);
+                send_to_char (buf, victim);
+            }
+
         }
         else if (!str_prefix(arg3, "off"))
         {
             REMOVE_BIT (victim->act, PLR_TESTER);
             send_to_char ("({WTester{x) flag removed.\n\r", ch);
+
+            if (ch != victim)
+            {
+                sprintf(buf, "%s has removed your ({WTester{x) flag.\n\r", ch->name);
+                send_to_char (buf, victim);
+            }
         }
 
         return;
@@ -5488,6 +5501,26 @@ void do_slay (CHAR_DATA * ch, char *argument)
     raw_kill (victim);
     return;
 }
+
+/*
+ * This is an immortal command will toggle whether the current
+ * user is a tester.  If an immortal needs to set someone as a tester
+ * they can use the set command to do that.
+ */
+void do_test(CHAR_DATA * ch, char *argument)
+{
+    if (IS_SET(ch->act, PLR_TESTER))
+    {
+        REMOVE_BIT (ch->act, PLR_TESTER);
+        send_to_char ("({WTester{x) flag removed.\n\r", ch);
+    }
+    else
+    {
+        SET_BIT (ch->act, PLR_TESTER);
+        send_to_char ("({WTester{x) flag added.\n\r", ch);
+    }
+
+} // end do_test
 
 /*
  * Debug function to quickly test code without having to wire something up.
