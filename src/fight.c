@@ -1987,7 +1987,7 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
 
 /*
  * Displays a damage message based off of how much damage was done from the attacker
- * to the victim.
+ * to the victim.  Testers will see the actual damage inflicted or received.
  */
 void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool immune )
 {
