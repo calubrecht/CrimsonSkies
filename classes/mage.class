@@ -1,7 +1,7 @@
 Name        mage~
 Class       0
 WhoName     Mag~
-Attrprime   1
+Attrprime   int
 Weapon      3701
 Guild       3018
 Guild       9618

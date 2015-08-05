@@ -1,7 +1,7 @@
 Name        enchantor~
 Class       4
 WhoName     Enc~
-Attrprime   1
+Attrprime   int
 Weapon      3701
 Guild       3018
 Guild       9618
