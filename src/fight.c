@@ -2098,6 +2098,19 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
     	act( buf3, ch, NULL, victim, TO_VICT );
     }
 
+    // Testers can see the damage being done and received.
+    if (IS_TESTER(ch))
+    {
+        sprintf(buf1, "[Damage Inflicted {W%d{x]\n\r", dam);
+        send_to_char(buf1, ch);
+    }
+
+    if (IS_TESTER(victim))
+    {
+        sprintf(buf1, "[Damage Received {W%d{x]\n\r", dam);
+        send_to_char(buf1, victim);
+    }
+
     return;
 } // end void dam_message
 
