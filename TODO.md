@@ -62,3 +62,5 @@ This is my to do list, mostly will be things big and small as I think about them
     us to have GSN's that aren't in the skills table because not every affect should be from a skill/spell (like ghost).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
+  - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
+  - Save pc_race_table out to disk and load it in, add OLC for it.
