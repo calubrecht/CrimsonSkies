@@ -3992,6 +3992,8 @@ bool load_class (char *fname)
                 KEY("BaseGroup",      	class->base_group, 	str_dup(fread_word(fp)));
                 break;
             case 'C':
+                // For note, this needs to be up at the top of the class file since we're reading
+                // in the cl variable which is used in other keys.
                 if (!str_cmp( word, "Class"))
                 {
                     cl = fread_number(fp);
@@ -4054,11 +4056,11 @@ bool load_class (char *fname)
             case 'M':
                 if (!str_cmp( word, "Mult"))
                 {
-		    //int race;
-		    //race = fread_number(fp);
+		    int race;
+		    race = fread_number(fp);
                     // marker todo, file-size this one, save the table out to disk
                     // to create the pc_race_table files from the hard coded tables
-		    //pc_race_table[race].class_mult[cl] = fread_number(fp);
+		    pc_race_table[race].class_mult[cl] = fread_number(fp);
 		    //pc_race_table[race].can_take[cl] = fread_number(fp);
                     fMatch = TRUE;
                     break;

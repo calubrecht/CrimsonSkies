@@ -362,7 +362,7 @@ const struct race_type race_table[] = {
      NULL, 0, 0, 0, 0, 0, 0}
 };
 
-const struct pc_race_type pc_race_table[] = {
+struct pc_race_type pc_race_table[] = {
     {"null race", "", 0, {100, 100, 100, 100, 100},
      {""}, {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, 0},
 
