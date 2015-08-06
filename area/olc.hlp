@@ -6,9 +6,10 @@ Syntax: EDIT OBJ   [create] <vnum>           - Object Creation and Editing.
 Syntax: EDIT MOB   [create] <vnum>           - Mobile Creation and Editing.
 Syntax: EDIT MP    [create] <vnum>           - MobProg Creation/Editing.
 Syntax: EDIT GROUP [create] <name>           - Creates a group
+Syntax: EDIT CLASS [create] <name>           - Creates a class.
 
 Syntax: ASAVE  <world/area/changed/list      - Save Editing to Disk.
-                group>
+                groups/classes>
 Syntax: ALIST                                - Listing of Areas.
 Syntax: RESET  See Help Resets.              - Set Game Resets.
 
@@ -22,7 +23,7 @@ It was then converted to work with Envy by Jason Dinkel, and ported to ROM
      Inside an editor, typing COMMANDS lists working commands and ? gives
 help. AEDIT and REDIT default to the current area or room. EDIT ROOM RESET
 resets the current room.  Most commands with no arguments display syntax.
-See also help: AEDIT REDIT MEDIT OEDIT
+See also help: AEDIT REDIT MEDIT OEDIT GEDIT CEDIT
 ~
 
 0 ALIST~
@@ -74,6 +75,44 @@ mlist               - lists mobiles in this area.
 room <flags>        - room attributes, type ? ROOM for a list
 sector <type>       - terrain of room, type ? SECTOR for a list
 <direction>         - see help EXIT, or type <dir> ?
+~
+
+52 GEDIT groups~
+Syntax: edit group [create] <group name>  - Enters the group editor.
+
+add <skill/spell position number> <skill or spell name>
+del <skill/spell position number>
+rating <class name> <rating number>
+
+You can currently create a group to house skills and spells and set the ratings
+for the group for each class.  Groups currently can only be deleted by someone
+with access to the groups.dat file and shoudl be done with caution.
+~
+
+52 CEDIT CLASS CLASSES~
+Syntax: edit class [create] <class name>  - Enters the class editor.
+
+add <class>
+name         - Changes the class name
+whoname      - Changes the three letter whoname
+weapon       - Changes the vnum of the default weapon for a level 1 character
+skill        - Changes the % a character can practice a skill to with practices.
+Thac0_00     - Changes the Thac0_00
+Thac0_32     - Changes the Thac0_32
+HPmin        - Changes the minimum HP a character receives on level
+HPMax        - Changes the maximum HP a character receives on level
+Mana         - Whether or not the character is a caster, they will receive higher
+               mana and cast at level.
+basegroup    - The base group that a level 1 player receives for free.
+defgroup     - The recommended default group that has the core skills that will
+               make this character useful.  The default group also allows
+               players to inherit new skills that might make it into the group.
+skills       - Shows all skills for the class
+spells       - Shows all spells for the class
+
+You can currently create a group to house skills and spells and set the ratings
+for the group for each class.  Classes currently can only be deleted by someone
+with access to the groups.dat file and should be done with caution.
 ~
 
 0 EXIT~
