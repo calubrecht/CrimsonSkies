@@ -62,3 +62,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Ability to be affected random affects, having more energy, feeling weak, etc.
   - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
   - Save pc_race_table out to disk and load it in, add OLC for it.
+  - gedit - delete a group (test what happens when a player logs in with said group then).
+  - Make the game not crash if a player with an invalid class logs in.
+  - Retrain command to restart as a base class
