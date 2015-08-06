@@ -86,13 +86,14 @@ bool run_olc_editor(DESCRIPTOR_DATA * d)
     case ED_GROUP:
         gedit(d->character, d->incomm);
         break;
+    case ED_CLASS:
+        cedit( d->character, d->incomm );
+        break;
     default:
         return FALSE;
     }
     return TRUE;
 }
-
-
 
 char *olc_ed_name(CHAR_DATA * ch)
 {
@@ -122,14 +123,15 @@ char *olc_ed_name(CHAR_DATA * ch)
     case ED_GROUP:
         sprintf(buf, "GEdit");
         break;
+    case ED_CLASS:
+        sprintf( buf, "CEdit" );
+        break;
     default:
         sprintf(buf, " ");
         break;
     }
     return buf;
 }
-
-
 
 char *olc_ed_vnum(CHAR_DATA * ch)
 {
@@ -176,12 +178,10 @@ char *olc_ed_vnum(CHAR_DATA * ch)
     return buf;
 }
 
-
-
 /*****************************************************************************
-Name:        show_olc_cmds
+Name:       show_olc_cmds
 Purpose:    Format up the commands from given table.
-Called by:    show_commands(olc_act.c).
+Called by:  show_commands(olc_act.c).
 ****************************************************************************/
 void show_olc_cmds(CHAR_DATA * ch, const struct olc_cmd_type *olc_table)
 {
@@ -207,44 +207,43 @@ void show_olc_cmds(CHAR_DATA * ch, const struct olc_cmd_type *olc_table)
     return;
 }
 
-
-
 /*****************************************************************************
-Name:        show_commands
+Name:       show_commands
 Purpose:    Display all olc commands.
-Called by:    olc interpreters.
+Called by:  olc interpreters.
 ****************************************************************************/
 bool show_commands(CHAR_DATA * ch, char *argument)
 {
     switch (ch->desc->editor)
     {
-    case ED_AREA:
-        show_olc_cmds(ch, aedit_table);
-        break;
-    case ED_ROOM:
-        show_olc_cmds(ch, redit_table);
-        break;
-    case ED_OBJECT:
-        show_olc_cmds(ch, oedit_table);
-        break;
-    case ED_MOBILE:
-        show_olc_cmds(ch, medit_table);
-        break;
-    case ED_MPCODE:
-        show_olc_cmds(ch, mpedit_table);
-        break;
-    case ED_HELP:
-        show_olc_cmds(ch, hedit_table);
-        break;
-    case ED_GROUP:
-        show_olc_cmds(ch, gedit_table);
-        break;
+        case ED_AREA:
+            show_olc_cmds(ch, aedit_table);
+            break;
+        case ED_ROOM:
+            show_olc_cmds(ch, redit_table);
+            break;
+        case ED_OBJECT:
+            show_olc_cmds(ch, oedit_table);
+            break;
+        case ED_MOBILE:
+            show_olc_cmds(ch, medit_table);
+            break;
+        case ED_MPCODE:
+            show_olc_cmds(ch, mpedit_table);
+            break;
+        case ED_HELP:
+            show_olc_cmds(ch, hedit_table);
+            break;
+        case ED_GROUP:
+            show_olc_cmds(ch, gedit_table);
+            break;
+        case ED_CLASS:
+            show_olc_cmds( ch, cedit_table );
+            break;
     }
 
     return FALSE;
 }
-
-
 
 /*****************************************************************************
 *                           Interpreter Tables.                             *
@@ -273,8 +272,6 @@ const struct olc_cmd_type aedit_table[] = {
     { NULL, 0, }
 };
 
-
-
 const struct olc_cmd_type redit_table[] = {
     /*  {   command        function    }, */
 
@@ -300,7 +297,6 @@ const struct olc_cmd_type redit_table[] = {
     { "northwest", redit_northwest },
     { "southeast", redit_southeast },
     { "southwest", redit_southwest },
-
 
     /* New reset commands. */
     { "mreset", redit_mreset },
@@ -331,6 +327,32 @@ const struct olc_cmd_type gedit_table[] =
     {   "rating",       gedit_rating    },
     {   "show",         gedit_show      },
     {   "list",         gedit_list      },
+    {   "",             0,              }
+};
+
+const struct olc_cmd_type cedit_table[] =
+{
+/*  {   command         function        }, */
+
+    {   "commands",     show_commands   },
+    {   "name",    	cedit_name	},
+    {   "whoname",      cedit_whoname   },
+    {   "attrprime",    cedit_attrprime },
+    //{   "attrsecond",   cedit_attrsecond},
+    {   "weapon",       cedit_weapon    },
+    {   "skilladept",   cedit_skilladept},
+    {   "thac0_00",     cedit_thac0    	},
+    {   "thac0_32",     cedit_thac32    },
+    {   "hpmin",        cedit_hpmin    	},
+    {   "hpmax",        cedit_hpmax    	},
+    {   "mana",       	cedit_mana    	},
+    //{   "moon",       	cedit_moon    	},
+    {   "basegroup",    cedit_basegroup },
+    {   "defgroup",     cedit_defgroup  },
+    {   "isreclass",    cedit_isreclass },
+    {   "skills",       cedit_skills  	},
+    {   "spells",       cedit_spells  	},
+    {   "groups",       cedit_groups  	},
     {   "",             0,              }
 };
 
@@ -368,8 +390,6 @@ const struct olc_cmd_type oedit_table[] = {
 
     { NULL, 0, }
 };
-
-
 
 const struct olc_cmd_type medit_table[] = {
     /*  {   command        function    }, */
@@ -421,12 +441,10 @@ const struct olc_cmd_type medit_table[] = {
 *                          End Interpreter Tables.                          *
 *****************************************************************************/
 
-
-
 /*****************************************************************************
-Name:        get_area_data
+Name:       get_area_data
 Purpose:    Returns pointer to area with given vnum.
-Called by:    do_aedit(olc.c).
+Called by:  do_aedit(olc.c).
 ****************************************************************************/
 AREA_DATA *get_area_data(int vnum)
 {
@@ -441,12 +459,10 @@ AREA_DATA *get_area_data(int vnum)
     return 0;
 }
 
-
-
 /*****************************************************************************
-Name:        edit_done
+Name:       edit_done
 Purpose:    Resets builder information on completion.
-Called by:    aedit, redit, oedit, medit(olc.c)
+Called by:  aedit, redit, oedit, medit(olc.c)
 ****************************************************************************/
 bool edit_done(CHAR_DATA * ch)
 {
@@ -455,12 +471,9 @@ bool edit_done(CHAR_DATA * ch)
     return FALSE;
 }
 
-
-
 /*****************************************************************************
 *                              Interpreters.                                *
 *****************************************************************************/
-
 
 /* Area Interpreter, called by do_aedit. */
 void aedit(CHAR_DATA * ch, char *argument)
@@ -524,8 +537,6 @@ void aedit(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /* Room Interpreter, called by do_redit. */
 void redit(CHAR_DATA * ch, char *argument)
 {
@@ -582,8 +593,6 @@ void redit(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /* Object Interpreter, called by do_oedit. */
 void oedit(CHAR_DATA * ch, char *argument)
 {
@@ -638,8 +647,6 @@ void oedit(CHAR_DATA * ch, char *argument)
     interpret(ch, arg);
     return;
 }
-
-
 
 /* Mobile Interpreter, called by do_medit. */
 void medit(CHAR_DATA * ch, char *argument)
@@ -696,9 +703,6 @@ void medit(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
-
 const struct editor_cmd_type editor_table[] = {
     /*  {   command        function    }, */
 
@@ -709,9 +713,9 @@ const struct editor_cmd_type editor_table[] = {
     { "mpcode",   do_mpedit },
     { "hedit",    do_hedit  },
     { "group",    do_gedit  },
+    { "class",    do_cedit  },
     { NULL,       0,        }
 };
-
 
 /* Entry point for all editors. */
 void do_olc(CHAR_DATA * ch, char *argument)
@@ -744,8 +748,6 @@ void do_olc(CHAR_DATA * ch, char *argument)
     do_help(ch, "olc");
     return;
 }
-
-
 
 /* Entry point for editing area_data. */
 void do_aedit(CHAR_DATA * ch, char *argument)
@@ -794,8 +796,6 @@ void do_aedit(CHAR_DATA * ch, char *argument)
     ch->desc->editor = ED_AREA;
     return;
 }
-
-
 
 /* Entry point for editing room_index_data. */
 void do_redit(CHAR_DATA * ch, char *argument)
@@ -876,8 +876,6 @@ void do_redit(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /* Entry point for editing obj_index_data. */
 void do_oedit(CHAR_DATA * ch, char *argument)
 {
@@ -950,8 +948,6 @@ void do_oedit(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /* Entry point for editing mob_index_data. */
 void do_medit(CHAR_DATA * ch, char *argument)
 {
@@ -1023,8 +1019,6 @@ void do_medit(CHAR_DATA * ch, char *argument)
     send_to_char("MEdit:  There is no default mobile to edit.\n\r", ch);
     return;
 }
-
-
 
 void display_resets(CHAR_DATA * ch)
 {
@@ -1238,8 +1232,6 @@ void display_resets(CHAR_DATA * ch)
     return;
 }
 
-
-
 /*****************************************************************************
 Name:        add_reset
 Purpose:    Inserts a new reset in the given index slot.
@@ -1282,8 +1274,6 @@ void add_reset(ROOM_INDEX_DATA * room, RESET_DATA * pReset, int index)
         room->reset_last = pReset;
     return;
 }
-
-
 
 void do_resets(CHAR_DATA * ch, char *argument)
 {
@@ -1529,8 +1519,6 @@ void do_resets(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 /*****************************************************************************
 Name:         do_alist
 Purpose:      Normal command to list areas and display area information.
@@ -1668,6 +1656,111 @@ void gedit( CHAR_DATA *ch, char *argument )
             else
                 return;
         }
+    }
+
+    /* Default to Standard Interpreter. */
+    interpret( ch, arg );
+    return;
+}
+
+void do_cedit( CHAR_DATA *ch, char *argument )
+{
+    CLASSTYPE *class;
+    char arg1[MAX_STRING_LENGTH];
+    int sn;
+
+    if ( IS_NPC(ch) )
+	return;
+
+    argument = one_argument( argument, arg1 );
+
+    sn = class_lookup(arg1);
+    if (sn == -1 && str_cmp(arg1,"create" ))
+    {
+	send_to_char( "CEdit:  That class does not exist.\n\r", ch );
+	return;
+    }
+
+	if ( !str_cmp( arg1, "create" )  )
+	{
+	    if ( argument[0] == '\0')
+	    {
+		send_to_char( "Syntax:  edit class create group_name\n\r", ch );
+		return;
+	    }
+
+	    if ( cedit_create( ch, argument ) )
+	    {
+		ch->desc->editor = ED_CLASS;
+	    }
+	    return;
+	}
+	else
+	{
+            class = class_table[sn];
+	    ch->desc->pEdit = (void *)class;
+	    ch->desc->editor = ED_CLASS;
+	    return;
+	}
+
+    send_to_char( "CEdit:  There is no default skill to edit.\n\r", ch );
+    return;
+}
+
+void cedit( CHAR_DATA *ch, char *argument )
+{
+    //CLASSTYPE *class;
+    char arg[MAX_STRING_LENGTH];
+    char command[MAX_INPUT_LENGTH];
+    int  cmd;
+
+    smash_tilde( argument );
+    strcpy( arg, argument );
+    argument = one_argument( argument, command );
+
+    //EDIT_CLASS(ch, class);
+
+    if ( IS_SWITCHED(ch) )
+     {
+	send_to_char("You cannot use OLC functions while switched!!!\n\r",ch);
+	edit_done(ch);
+	return;
+     }
+
+    if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
+    {
+	send_to_char( "CEdit:  Insufficient security to modify classes.\n\r", ch );
+	edit_done( ch );
+	interpret( ch, arg );
+	return;
+    }
+
+    if ( command[0] == '\0' )
+    {
+	cedit_show( ch, argument );
+	return;
+    }
+
+    if ( !str_cmp(command, "done") )
+    {
+	edit_done( ch );
+	return;
+    }
+
+    /* Search Table and Dispatch Command. */
+    for ( cmd = 0; cedit_table[cmd].name[0] != '\0'; cmd++ )
+    {
+	if ( !str_prefix( command, cedit_table[cmd].name ) )
+	{
+	    if ( (*cedit_table[cmd].olc_fun) ( ch, argument ) )
+	    {
+		return;
+	    }
+	    else
+            {
+		return;
+            }
+	}
     }
 
     /* Default to Standard Interpreter. */

@@ -67,33 +67,6 @@ int clan_lookup (const char *name)
     return 0;
 }
 
-/*
- * This will return the stat constant for the specified name (str, int, wis, dex, con).  The
- * _STAT consts are defined in merc.h but this table will map those to their friendly name for
- * use with file loading.  The position in the table should map to the STAT_ value.  Since stat
- * looks are done from internal logic only (not user based like clan_lookup might be) we are
- * going to log invalid requests because this indicates that stuff isn't loading correctly with
- * the classes.  - Rhien
- */
-int stat_lookup (const char *name)
-{
-    int stat;
-
-    for (stat = 0; stat < MAX_STATS; stat++)
-    {
-        if (stat_table[stat].name == NULL)
-            break;
-
-        if (LOWER (name[0]) == LOWER (stat_table[stat].name[0])
-            && !str_prefix (name, stat_table[stat].name))
-            return stat;
-    }
-
-    log_f("Invalid stat_lookup - %s", name);
-    return -1;
-
-} // end stat_lookup
-
 int position_lookup (const char *name)
 {
     int pos;

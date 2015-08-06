@@ -62,6 +62,8 @@
 #define DIF(a,b) (~((~a)|(b)))
 
 void save_groups args((void));
+void save_class  args((int num));
+void save_classes args((void));
 
 /*
  *  Verbose writes reset data in plain english into the comments
@@ -949,7 +951,6 @@ void save_area (AREA_DATA * pArea)
  Purpose:    Entry point for saving the groups.dat file that has what skills
              and spells go into what group.
  Called by:  do_asave
-        By:  Rhien
  ****************************************************************************/
 void save_groups()
 {
@@ -986,6 +987,116 @@ void save_groups()
 } // end save_groups
 
 /*****************************************************************************
+ Name:       save_classes()
+ Purpose:    Saves all of the classes in memory into the class.lst file and
+             then each individual class file.
+ Called by:  do_asave
+ ****************************************************************************/
+void save_classes()
+{
+    FILE *lst;
+    int i;
+
+    fclose( fpReserve );
+    lst = fopen ("../classes/class.lst", "w");
+
+    if (!lst)
+    {
+        bug ("Could not open class.lst for writing",0);
+        return;
+    }
+
+    for (i = 0; i < top_class; i++)
+    {
+        fprintf(lst,"%s.class\n",class_table[i]->name);
+        save_class (i);
+    }
+
+    fprintf(lst,"$\n");
+    fclose(lst);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end void save_classes
+
+/*****************************************************************************
+ Name:       save_class()
+ Purpose:    Saves an individual class to it's file (e.g. Mage.class)
+ Called by:  do_asave
+ ****************************************************************************/
+void save_class (int num)
+{
+    FILE *fp;
+    char buf[MAX_STRING_LENGTH];
+    int lev, i, x, race;
+
+    sprintf (buf, "%s%s.class", "../classes/", class_table[num]->name);
+
+    if (!(fp = fopen (buf, "w")))
+    {
+        bug ("Could not open file in order to save class %d.", num);
+        return;
+    }
+
+    fprintf( fp, "Name        %s~\n",        class_table[num]->name            );
+    fprintf( fp, "Class       %d\n",         num                      );
+    fprintf( fp, "WhoName     %s~\n",        class_table[num]->who_name         );
+    fprintf( fp, "Attrprime   %s\n",         flag_string( stat_flags, class_table[num]->attr_prime));
+    //fprintf( fp, "Attrprime   %d\n",         class_table[num]->attr_prime       );
+    //fprintf( fp, "Attrsecond  %d\n",         class_table[num]->attr_second      );
+    fprintf( fp, "Weapon      %d\n",         class_table[num]->weapon           );
+
+    for (x = 0; x < MAX_GUILD;x++)
+    {
+        fprintf( fp, "Guild       %d\n",       class_table[num]->guild[x]       );
+    }
+
+    fprintf( fp, "Skilladept  %d\n",         class_table[num]->skill_adept      );
+    fprintf( fp, "Thac0_00    %d\n",         class_table[num]->thac0_00         );
+    fprintf( fp, "Thac0_32    %d\n",         class_table[num]->thac0_32         );
+    fprintf( fp, "Hpmin       %d\n",         class_table[num]->hp_min           );
+    fprintf( fp, "Hpmax       %d\n",         class_table[num]->hp_max           );
+    fprintf( fp, "Mana        %d\n",         class_table[num]->fMana            );
+    //fprintf( fp, "Expbase     %d\n",       class_table[num]->exp_base         );
+    fprintf( fp, "BaseGroup   '%s'\n",       class_table[num]->base_group       );
+    fprintf( fp, "DefGroup    '%s'\n",       class_table[num]->default_group   );
+    fprintf( fp, "IsReclass   %d\n",         class_table[num]->is_reclass      );
+
+    for (lev = 0; lev < MAX_LEVEL; lev++)
+    {
+        for (i = 0; i < MAX_SKILL; i++)
+        {
+            if (skill_table[i].name == NULL || skill_table[i].name[0] == '\0')
+                continue;
+
+             if (skill_table[i].skill_level[num] == lev)
+             {
+                 fprintf (fp, "Sk '%s' %d %d\n", skill_table[i].name, lev, skill_table[i].rating[num]);
+             }
+        }
+    }
+
+    for (i = 0; i < top_group && group_table[i]->name[0] != '\0' ; i++)
+    {
+        if(group_table[i]->rating[num] != -1)
+        {
+            fprintf(fp, "Gr '%s' %d\n", group_table[i]->name, group_table[i]->rating[num]);
+        }
+    }
+
+    for ( race = 0;race < MAX_PC_RACE;race++)
+    {
+        if (pc_race_table[race].name == NULL || pc_race_table[race].name[0] == '\0')
+            break;
+
+        fprintf( fp, "Mult %d %d\n", race,pc_race_table[race].class_mult[num]);
+    }
+
+    fprintf (fp, "End\n");
+    fclose (fp);
+
+} // end void save_class
+
+/*****************************************************************************
  Name:        do_asave
  Purpose:    Entry point for saving area data.
  Called by:    interpreter(interp.c)
@@ -994,28 +1105,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
 {
     char arg1[MAX_INPUT_LENGTH];
     AREA_DATA *pArea;
-    //FILE *fp;
     int value;
-
-    //int sec;
-    // marker - remove if not needed
-    //fp = NULL;
-    //if (!ch)                    /* Do an autosave */
-    //    sec = 9;
-    //else if (!IS_NPC (ch))
-    //    sec = ch->pcdata->security;
-    //else
-    //    sec = 0;
-
-/*    {
-    save_area_list();
-    for( pArea = area_first; pArea; pArea = pArea->next )
-    {
-        save_area( pArea );
-        REMOVE_BIT( pArea->area_flags, AREA_CHANGED );
-    }
-    return;
-    } */
 
     smash_tilde (argument);
     strcpy (arg1, argument);
@@ -1024,14 +1114,15 @@ void do_asave (CHAR_DATA * ch, char *argument)
     {
         if (ch)
         {
-            send_to_char ("Syntax:\n\r", ch);
-            send_to_char ("  asave <vnum>   - saves a particular area\n\r", ch);
-            send_to_char ("  asave list     - saves the area.lst file\n\r", ch);
-            send_to_char ("  asave area     - saves the area being edited\n\r", ch);
-            send_to_char ("  asave changed  - saves all changed zones\n\r", ch);
-            send_to_char ("  asave world    - saves the world! (db dump)\n\r", ch);
-            send_to_char( "  asave groups   - saves the group files\n\r",  ch );
-            send_to_char ("\n\r", ch);
+            send_to_char("Syntax:\n\r", ch);
+            send_to_char("  asave <vnum>   - saves a particular area\n\r", ch);
+            send_to_char("  asave list     - saves the area.lst file\n\r", ch);
+            send_to_char("  asave area     - saves the area being edited\n\r", ch);
+            send_to_char("  asave changed  - saves all changed zones\n\r", ch);
+            send_to_char("  asave world    - saves the world! (db dump)\n\r", ch);
+            send_to_char("  asave groups   - saves the group files\n\r",  ch );
+            send_to_char("  asave classes  - saves the class files\n\r", ch);
+            send_to_char("\n\r", ch);
         }
 
         return;
@@ -1148,6 +1239,13 @@ void do_asave (CHAR_DATA * ch, char *argument)
     {
         save_groups();
         send_to_char("Groups have been saved.\n\r", ch);
+        return;
+    }
+
+    if (!str_cmp (arg1, "classes"))
+    {
+        save_classes();
+        send_to_char("Classes have been saved.\n\r", ch);
         return;
     }
 

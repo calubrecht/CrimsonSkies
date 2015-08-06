@@ -71,7 +71,6 @@ struct stat_type
 extern	const	struct	clan_type	clan_table[MAX_CLAN];
 extern	const	struct	position_type	position_table[];
 extern	const	struct	sex_type	sex_table[];
-extern  const   struct  stat_type       stat_table[];
 extern	const	struct	size_type	size_table[];
 extern  const   struct  continent_type  continent_table[];
 
@@ -113,4 +112,4 @@ extern	const	struct	flag_type	position_flags[];
 extern	const	struct	flag_type	ac_type[];
 extern	const	struct	bit_type	bitvector_type[];
 extern  const   struct  flag_type       continent_flags[];
-
+extern  const   struct  flag_type       stat_flags[];

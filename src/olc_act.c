@@ -76,6 +76,7 @@ char *mprog_type_to_name(int type);
 #define HEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define MPEDIT( fun )       bool fun( CHAR_DATA *ch, char *argument )
 #define GEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
+#define CEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define EDIT_HELP(ch, help) ( help = (HELP_DATA *) ch->desc->pEdit )
 
 struct olc_help_type {
@@ -99,9 +100,9 @@ bool show_version(CHAR_DATA * ch, char *argument)
 }
 
 /*
-* This table contains help commands and a brief description of each.
-* ------------------------------------------------------------------
-*/
+ * This table contains help commands and a brief description of each.
+ * ------------------------------------------------------------------
+ */
 const struct olc_help_type help_table[] = {
     { "area", area_flags, "Area attributes." },
     { "room", room_flags, "Room attributes." },
@@ -145,9 +146,9 @@ const struct olc_help_type help_table[] = {
 
 
 /*****************************************************************************
-Name:        show_flag_cmds
+Name:       show_flag_cmds
 Purpose:    Displays settable flags and stats.
-Called by:    show_help(olc_act.c).
+Called by:  show_help(olc_act.c).
 ****************************************************************************/
 void show_flag_cmds(CHAR_DATA * ch, const struct flag_type *flag_table)
 {
@@ -178,13 +179,13 @@ void show_flag_cmds(CHAR_DATA * ch, const struct flag_type *flag_table)
 
 
 /*****************************************************************************
-Name:        show_skill_cmds
+Name:       show_skill_cmds
 Purpose:    Displays all skill functions.
-Does remove those damn immortal commands from the list.
-Could be improved by:
-(1) Adding a check for a particular class.
-(2) Adding a check for a level range.
-Called by:    show_help(olc_act.c).
+            Does remove those damn immortal commands from the list.
+            Could be improved by:
+            (1) Adding a check for a particular class.
+            (2) Adding a check for a level range.
+Called by:  show_help(olc_act.c).
 ****************************************************************************/
 void show_skill_cmds(CHAR_DATA * ch, int tar)
 {
@@ -223,9 +224,9 @@ void show_skill_cmds(CHAR_DATA * ch, int tar)
 
 
 /*****************************************************************************
-Name:        show_spec_cmds
+Name:       show_spec_cmds
 Purpose:    Displays settable special functions.
-Called by:    show_help(olc_act.c).
+Called by:  show_help(olc_act.c).
 ****************************************************************************/
 void show_spec_cmds(CHAR_DATA * ch)
 {
@@ -255,9 +256,9 @@ void show_spec_cmds(CHAR_DATA * ch)
 
 
 /*****************************************************************************
-Name:        show_help
+Name:       show_help
 Purpose:    Displays help for many tables used in OLC.
-Called by:    olc interpreters.
+Called by:  olc interpreters.
 ****************************************************************************/
 bool show_help(CHAR_DATA * ch, char *argument)
 {
@@ -452,8 +453,6 @@ REDIT(redit_mlist)
     return FALSE;
 }
 
-
-
 REDIT(redit_olist)
 {
     OBJ_INDEX_DATA *pObjIndex;
@@ -510,8 +509,6 @@ REDIT(redit_olist)
     return FALSE;
 }
 
-
-
 REDIT(redit_mshow)
 {
     MOB_INDEX_DATA *pMob;
@@ -545,8 +542,6 @@ REDIT(redit_mshow)
     ch->desc->pEdit = (void *)ch->in_room;
     return FALSE;
 }
-
-
 
 REDIT(redit_oshow)
 {
@@ -582,12 +577,10 @@ REDIT(redit_oshow)
     return FALSE;
 }
 
-
-
 /*****************************************************************************
-Name:        check_range( lower vnum, upper vnum )
+Name:       check_range( lower vnum, upper vnum )
 Purpose:    Ensures the range spans only one area.
-Called by:    aedit_vnum(olc_act.c).
+Called by:  aedit_vnum(olc_act.c).
 ****************************************************************************/
 bool check_range(int lower, int upper)
 {
@@ -609,8 +602,6 @@ bool check_range(int lower, int upper)
     return TRUE;
 }
 
-
-
 AREA_DATA *get_vnum_area(int vnum)
 {
     AREA_DATA *pArea;
@@ -624,11 +615,9 @@ AREA_DATA *get_vnum_area(int vnum)
     return 0;
 }
 
-
-
 /*
-* Area Editor Functions.
-*/
+ * Area Editor Functions.
+ */
 AEDIT(aedit_show)
 {
     AREA_DATA *pArea;
@@ -691,8 +680,6 @@ AEDIT(aedit_reset)
     return FALSE;
 }
 
-
-
 AEDIT(aedit_create)
 {
     AREA_DATA *pArea;
@@ -706,8 +693,6 @@ AEDIT(aedit_create)
     send_to_char("Area Created.\n\r", ch);
     return FALSE;
 }
-
-
 
 AEDIT(aedit_name)
 {
@@ -746,7 +731,6 @@ AEDIT(aedit_credits)
     send_to_char("Credits set.\n\r", ch);
     return TRUE;
 }
-
 
 AEDIT(aedit_file)
 {
@@ -789,8 +773,6 @@ AEDIT(aedit_file)
     return TRUE;
 }
 
-
-
 AEDIT(aedit_age)
 {
     AREA_DATA *pArea;
@@ -811,7 +793,6 @@ AEDIT(aedit_age)
     send_to_char("Age set.\n\r", ch);
     return TRUE;
 }
-
 
 #if 0                            /* ROM OLC */
 AEDIT(aedit_recall)
@@ -844,7 +825,6 @@ AEDIT(aedit_recall)
     return TRUE;
 }
 #endif /* ROM OLC */
-
 
 AEDIT(aedit_security)
 {
@@ -882,8 +862,6 @@ AEDIT(aedit_security)
     send_to_char("Security set.\n\r", ch);
     return TRUE;
 }
-
-
 
 AEDIT(aedit_builder)
 {
@@ -942,8 +920,6 @@ AEDIT(aedit_builder)
 
     return FALSE;
 }
-
-
 
 AEDIT(aedit_vnum)
 {
@@ -1116,8 +1092,8 @@ AEDIT(aedit_levelrange)
 } // end aedit_levelrange
 
 /*
-* Room Editor Functions.
-*/
+ * Room Editor Functions.
+ */
 REDIT(redit_show)
 {
     ROOM_INDEX_DATA *pRoom;
@@ -1287,9 +1263,6 @@ REDIT(redit_show)
     send_to_char(buf1, ch);
     return FALSE;
 }
-
-
-
 
 /* Local function. */
 bool change_exit(CHAR_DATA * ch, char *argument, int door)
@@ -1782,8 +1755,6 @@ REDIT(redit_ed)
     return FALSE;
 }
 
-
-
 REDIT(redit_create)
 {
     AREA_DATA *pArea;
@@ -1836,8 +1807,6 @@ REDIT(redit_create)
     return TRUE;
 }
 
-
-
 REDIT(redit_name)
 {
     ROOM_INDEX_DATA *pRoom;
@@ -1856,8 +1825,6 @@ REDIT(redit_name)
     send_to_char("Name set.\n\r", ch);
     return TRUE;
 }
-
-
 
 REDIT(redit_desc)
 {
@@ -1933,8 +1900,6 @@ REDIT(redit_format)
     return TRUE;
 }
 
-
-
 REDIT(redit_mreset)
 {
     ROOM_INDEX_DATA *pRoom;
@@ -1970,8 +1935,8 @@ REDIT(redit_mreset)
     }
 
     /*
-    * Create the mobile reset.
-    */
+     * Create the mobile reset.
+     */
     pReset = new_reset_data();
     pReset->command = 'M';
     pReset->arg1 = pMobIndex->vnum;
@@ -1981,8 +1946,8 @@ REDIT(redit_mreset)
     add_reset(pRoom, pReset, 0 /* Last slot */);
 
     /*
-    * Create the mobile.
-    */
+     * Create the mobile.
+     */
     newmob = create_mobile(pMobIndex);
     char_to_room(newmob, pRoom);
 
@@ -1995,14 +1960,10 @@ REDIT(redit_mreset)
     return TRUE;
 }
 
-
-
 struct wear_type {
     int wear_loc;
     int wear_bit;
 };
-
-
 
 const struct wear_type wear_table[] = {
     { WEAR_NONE, ITEM_TAKE },
@@ -2027,13 +1988,11 @@ const struct wear_type wear_table[] = {
     { NO_FLAG, NO_FLAG }
 };
 
-
-
 /*****************************************************************************
-Name:        wear_loc
+Name:       wear_loc
 Purpose:    Returns the location of the bit that matches the count.
-1 = first match, 2 = second match etc.
-Called by:    oedit_reset(olc_act.c).
+            1 = first match, 2 = second match etc.
+Called by:  oedit_reset(olc_act.c).
 ****************************************************************************/
 int wear_loc(int bits, int count)
 {
@@ -2048,12 +2007,10 @@ int wear_loc(int bits, int count)
     return NO_FLAG;
 }
 
-
-
 /*****************************************************************************
-Name:        wear_bit
+Name:       wear_bit
 Purpose:    Converts a wear_loc into a bit.
-Called by:    redit_oreset(olc_act.c).
+Called by:  redit_oreset(olc_act.c).
 ****************************************************************************/
 int wear_bit(int loc)
 {
@@ -2067,8 +2024,6 @@ int wear_bit(int loc)
 
     return 0;
 }
-
-
 
 REDIT(redit_oreset)
 {
@@ -2273,11 +2228,9 @@ REDIT(redit_oreset)
     return TRUE;
 }
 
-
-
 /*
-* Object Editor Functions.
-*/
+ * Object Editor Functions.
+ */
 void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 {
     char buf[MAX_STRING_LENGTH];
@@ -2446,8 +2399,6 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     return;
 }
-
-
 
 bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
     char *argument)
@@ -2799,8 +2750,6 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
     return TRUE;
 }
 
-
-
 OEDIT(oedit_show)
 {
     OBJ_INDEX_DATA *pObj;
@@ -2882,10 +2831,9 @@ OEDIT(oedit_show)
     return FALSE;
 }
 
-
 /*
-* Need to issue warning if flag isn't valid. -- does so now -- Hugin.
-*/
+ * Need to issue warning if flag isn't valid. -- does so now -- Hugin.
+ */
 OEDIT(oedit_addaffect)
 {
     int value;
@@ -6239,4 +6187,802 @@ GEDIT( gedit_rating)
    }
 
    return TRUE;
+}
+
+CEDIT( cedit_name )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  name [string]\n\r", ch );
+        return FALSE;
+    }
+
+    free_string( class->name );
+    class->name = str_dup(argument);
+    class->name[0] = LOWER(class->name[0]);
+
+    send_to_char( "Name set.\n\r", ch);
+    return TRUE;
+}
+
+CEDIT( cedit_whoname )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  whoname [string]\n\r", ch );
+        return FALSE;
+    }
+
+    if (strlen(argument) > 4)
+    {
+	send_to_char( "Who name must be 3 characters or less.\n\r",ch);
+	return FALSE;
+    }
+
+    class->who_name[0] = '\0';
+    strcpy(class->who_name,argument);
+
+    send_to_char( "Name set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_attrprime )
+{
+    CLASSTYPE *class;
+    int value;
+
+    if ( argument[0] != '\0' )
+    {
+    	EDIT_CLASS(ch, class);
+
+        if ( ( value = flag_value( stat_flags, argument ) ) != NO_FLAG )
+        {
+            class->attr_prime = value;
+
+            send_to_char( "Prime Attribute set.\n\r", ch);
+            return TRUE;
+        }
+    }
+
+    send_to_char( "Syntax:  attrprime [attr]\n\r", ch);
+    return FALSE;
+}
+
+
+CEDIT( cedit_weapon )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  weapon [vnum]\n\r", ch );
+	return FALSE;
+    }
+
+    class->weapon = atoi( argument );
+
+    send_to_char( "Weapon vnum set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_skilladept )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  skilladept [number]\n\r", ch );
+	return FALSE;
+    }
+
+    class->skill_adept = atoi( argument );
+
+    send_to_char( "Skill Adept set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_thac0 )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  thac0 [number]\n\r", ch );
+	return FALSE;
+    }
+
+    class->thac0_00 = atoi( argument );
+
+    send_to_char( "Thac0 set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_thac32 )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  thac32 [number]\n\r", ch );
+	return FALSE;
+    }
+
+    class->thac0_32 = atoi( argument );
+
+    send_to_char( "Thac32 set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_hpmin )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  hpmin [number]\n\r", ch );
+	return FALSE;
+    }
+
+    class->hp_min = atoi( argument );
+
+    send_to_char( "HP Min set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_hpmax )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+	send_to_char( "Syntax:  hpmax [number]\n\r", ch );
+	return FALSE;
+    }
+
+    class->hp_max = atoi( argument );
+
+    send_to_char( "HP Max set.\n\r", ch);
+    return TRUE;
+}
+
+
+CEDIT( cedit_mana )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+	class->fMana = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+	class->fMana = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    send_to_char( "Mana set.\n\r", ch);
+    return TRUE;
+}
+
+CEDIT( cedit_isreclass )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+        class->is_reclass = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+        class->is_reclass = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    send_to_char( "Reclass flag set.\n\r", ch);
+    return TRUE;
+
+}
+
+// We don't support moons yet but we will and it will look like this, just
+// like the mana flag
+/*CEDIT( cedit_moon )
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+	class->fMoon = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+	class->fMoon = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  moon [TRUE/FALSE]\n\r", ch );
+        return FALSE;
+    }
+
+    send_to_char( "Moon set.\n\r", ch);
+    return TRUE;
+}*/
+
+
+CEDIT( cedit_basegroup )
+{
+    CLASSTYPE *class;
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  basegroup group\n\r", ch );
+        return FALSE;
+    }
+
+    if ( group_lookup(argument) == -1 )
+    {
+	sprintf(buf, "%s doesn't exist.\n\r", argument);
+        send_to_char(buf, ch);
+	return FALSE;
+    }
+
+    free_string(class->base_group);
+    class->base_group = str_dup(argument);
+
+    return TRUE;
+}
+
+
+CEDIT( cedit_defgroup )
+{
+    CLASSTYPE *class;
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  defaultgroup group\n\r", ch );
+        return FALSE;
+    }
+
+    if (group_lookup(argument) == -1 )
+    {
+	sprintf(buf, "%s doesn't exist.\n\r", argument);
+        send_to_char(buf, ch);
+	return FALSE;
+    }
+
+    free_string(class->default_group);
+    class->default_group = str_dup(argument);
+
+    return TRUE;
+}
+
+
+CEDIT( cedit_create )
+{
+    CLASSTYPE *class;
+    int cl,x;
+
+    cl = class_lookup(argument);
+
+    if ( argument[0] == '\0' )
+    {
+	send_to_char( "Syntax:  edit class create group_name\n\r", ch );
+	return FALSE;
+    }
+
+    if (cl != -1)
+    {
+	send_to_char( "CEdit:  group already exists.\n\r", ch );
+	return FALSE;
+    }
+
+    if (top_class+1 >= MAX_CLASS)
+    {
+	send_to_char("MAX_CLASS Exceeded, please increae the MAX_CLASS in merc.h\n\r",ch);
+	return FALSE;
+    }
+
+    class = alloc_perm(sizeof(*class));
+    class->name = str_dup(argument);
+    class_table[top_class] = class;
+    ch->desc->pEdit             = (void *)class;
+    for (x=0; x < MAX_SKILL; x++)
+    {
+        if (!skill_table[x].name)
+            break;
+
+	skill_table[x].skill_level[top_class] = LEVEL_IMMORTAL;
+	skill_table[x].rating[top_class] = -1;
+    }
+
+    for (x=0; x < top_group; x++)
+    {
+ 	if(!group_table[x]) break;
+	group_table[x]->rating[top_class] = -1;
+    }
+
+    for (x=0; x < MAX_PC_RACE; x++)
+    {
+        if (pc_race_table[x].name == NULL || pc_race_table[x].name[0] == '\0')
+            break;
+
+	pc_race_table[x].class_mult[top_class] = 100;
+    }
+    top_class++;
+    send_to_char( "Class Created.\n\r", ch );
+    return TRUE;
+}
+
+
+CEDIT( cedit_show )
+{
+    char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+    CLASSTYPE *class;
+    int x;
+
+    EDIT_CLASS(ch, class);
+
+    sprintf(buf, "\n\rName:          [%s]\n\r", class->name);
+    send_to_char(buf, ch);
+    sprintf(buf, "WhoName:       [%s]\n\r", class->who_name);
+    send_to_char(buf, ch);
+    sprintf(buf2, "Attr Prime:    [%s]\n\r", flag_string( stat_flags, class->attr_prime));
+    send_to_char(buf2, ch);
+    //sprintf(buf, "Attr Second:   [%s]\n\r", flag_string( stat_flags, class->attr_second));
+    //send_to_char(buf, ch);
+    sprintf(buf, "Weapon Vnum:   [%d]\n\r", class->weapon);
+    send_to_char(buf, ch);
+    sprintf(buf, "Skill Adept:   [%d]\n\r", class->skill_adept);
+    send_to_char(buf, ch);
+    sprintf(buf, "Thac0_00:      [%d]\n\r", class->thac0_00);
+    send_to_char(buf, ch);
+    sprintf(buf, "Thac0_32:      [%d]\n\r", class->thac0_32);
+    send_to_char(buf, ch);
+    sprintf(buf, "HP Min:        [%d]\n\r", class->hp_min);
+    send_to_char(buf, ch);
+    sprintf(buf, "HP Max:        [%d]\n\r", class->hp_max);
+    send_to_char(buf, ch);
+    sprintf(buf, "Mana:          [%s]\n\r", class->fMana ? "True" : "False");
+    send_to_char(buf, ch);
+    //sprintf(buf, "Moon:          [%s]\n\r",class->fMoon ? "True" : "False");
+    sprintf(buf, "Is Reclass:    [%s]\n\r", class->is_reclass ? "True" : "False");
+    send_to_char(buf, ch);
+    sprintf(buf, "Base Group:    [%s]\n\r", class->base_group);
+    send_to_char(buf, ch);
+    sprintf(buf, "Default Group: [%s]\n\r", class->default_group);
+    send_to_char(buf, ch);
+
+    for (x=0;x< MAX_GUILD;x++)
+    {
+    	sprintf(buf, "%d) Guild:      [%d]\n\r", x, class->guild[x]);
+        send_to_char(buf, ch);
+    }
+
+    sprintf(buf, "\n\rUse 'skills' and 'spells' to view spells for the %s class.\n\r",  class->name);
+    send_to_char(buf, ch);
+
+    return FALSE;
+}
+
+// This is a Smaug thing, we're leaving it out for now
+/*CEDIT( cedit_attrsecond )
+{
+    CLASSTYPE *class;
+    int value;
+
+    if ( argument[0] != '\0' )
+    {
+    	EDIT_CLASS(ch, class);
+
+        if ( ( value = flag_value( stat_flags, argument ) ) != NO_FLAG )
+        {
+            class->attr_second = value;
+
+            send_to_char( "Second Attribute set.\n\r", ch);
+            return TRUE;
+        }
+    }
+
+    send_to_char( "Syntax:  attrsecond [attr]\n\r", ch);
+    return FALSE;
+}*/
+
+CEDIT(cedit_guild)
+{
+    CLASSTYPE *class;
+    char arg1[MAX_STRING_LENGTH];
+    char arg2[MAX_STRING_LENGTH];
+    int num,vnum;
+
+    EDIT_CLASS(ch, class);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  guild [#] Room_Vnum\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+    num = atoi (arg1);
+    vnum = atoi (arg1);
+
+    if (!is_number(arg1) || !is_number(arg2) == '\0' )
+    {
+        send_to_char( "Syntax:  guild [#] Room_Vnum\n\r", ch );
+     	return FALSE;
+    }
+
+    if (num > MAX_GUILD)
+    {
+	send_to_char("MAX_GUILD exceded, please increase MAX_GUILD in merc.h\n\r",ch);
+	return FALSE;
+    }
+
+    class->guild[num] = vnum;
+
+    return TRUE;
+}
+
+CEDIT( cedit_skills)
+{
+    BUFFER *buffer;
+    char arg[MAX_INPUT_LENGTH];
+    char skill_list[LEVEL_HERO + 1][MAX_STRING_LENGTH];
+    char skill_columns[LEVEL_HERO + 1];
+    int sn, level, min_lev = 1, max_lev = LEVEL_HERO, class_no;
+    //bool fAll = FALSE;
+    bool found = FALSE;
+    char buf[MAX_STRING_LENGTH];
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    class_no = class_lookup(class->name);
+
+    if (argument[0] != '\0')
+    {
+        //fAll = TRUE;
+
+        if (str_prefix(argument,"all"))
+        {
+            argument = one_argument(argument,arg);
+            if (!is_number(arg))
+            {
+                send_to_char("Arguments must be numerical or all.\n\r",ch);
+                return FALSE;
+            }
+            max_lev = atoi(arg);
+
+            if (max_lev < 1 || max_lev > LEVEL_HERO)
+            {
+                sprintf(buf,"Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                send_to_char(buf,ch);
+                return FALSE;
+            }
+
+            if (argument[0] != '\0')
+            {
+                argument = one_argument(argument,arg);
+                if (!is_number(arg))
+                {
+                    send_to_char("Arguments must be numerical or all.\n\r",ch);
+                    return FALSE;
+                }
+                min_lev = max_lev;
+                max_lev = atoi(arg);
+
+                if (max_lev < 1 || max_lev > LEVEL_HERO)
+                {
+                    sprintf(buf,
+                        "Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                    send_to_char(buf,ch);
+                    return FALSE;
+                }
+
+                if (min_lev > max_lev)
+                {
+                    send_to_char("That would be silly.\n\r",ch);
+                    return FALSE;
+                }
+            }
+        }
+    }
+
+    /* initialize data */
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
+        skill_columns[level] = 0;
+        skill_list[level][0] = '\0';
+    }
+ 
+    for (sn = 0; sn < MAX_SKILL; sn++)
+    {
+        if (skill_table[sn].name == NULL )
+            break;
+
+        if ((level = skill_table[sn].skill_level[class_no]) < LEVEL_HERO + 1
+        &&  level >= min_lev && level <= max_lev
+	&&  skill_table[sn].spell_fun == spell_null)
+        {
+            found = TRUE;
+            level = skill_table[sn].skill_level[class_no];
+                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn].name,skill_table[sn].rating[class_no]);
+
+            if (skill_list[level][0] == '\0')
+                sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
+            else /* append */
+            {
+                if ( ++skill_columns[level] % 2 == 0)
+                    strcat(skill_list[level],"\n\r          ");
+                strcat(skill_list[level],buf);
+            }
+        }
+    }
+
+    /* return results */
+
+    if (!found)
+    {
+        send_to_char("No skills found.\n\r",ch);
+        return FALSE;
+    }
+
+    buffer = new_buf();
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+        if (skill_list[level][0] != '\0')
+            add_buf(buffer,skill_list[level]);
+    add_buf(buffer,"\n\r");
+    page_to_char(buf_string(buffer),ch);
+    free_buf(buffer);
+    return FALSE;
+}
+
+CEDIT( cedit_spells)
+{
+    BUFFER *buffer;
+    char arg[MAX_INPUT_LENGTH];
+    char skill_list[LEVEL_HERO + 1][MAX_STRING_LENGTH];
+    char skill_columns[LEVEL_HERO + 1];
+    int sn, level, min_lev = 1, max_lev = LEVEL_HERO, class_no;
+    //bool fAll = FALSE, 
+    bool found = FALSE;
+    char buf[MAX_STRING_LENGTH];
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    class_no = class_lookup(class->name);
+
+    if (argument[0] != '\0')
+    {
+        //fAll = TRUE;
+
+        if (str_prefix(argument,"all"))
+        {
+            argument = one_argument(argument,arg);
+            if (!is_number(arg))
+            {
+                send_to_char("Arguments must be numerical or all.\n\r",ch);
+                return FALSE;
+            }
+            max_lev = atoi(arg);
+
+            if (max_lev < 1 || max_lev > LEVEL_HERO)
+            {
+                sprintf(buf,"Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                send_to_char(buf,ch);
+                return FALSE;
+            }
+
+            if (argument[0] != '\0')
+            {
+                argument = one_argument(argument,arg);
+                if (!is_number(arg))
+                {
+                    send_to_char("Arguments must be numerical or all.\n\r",ch);
+                    return FALSE;
+                }
+                min_lev = max_lev;
+                max_lev = atoi(arg);
+
+                if (max_lev < 1 || max_lev > LEVEL_HERO)
+                {
+                    sprintf(buf,
+                        "Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                    send_to_char(buf,ch);
+                    return FALSE;
+                }
+
+                if (min_lev > max_lev)
+                {
+                    send_to_char("That would be silly.\n\r",ch);
+                    return FALSE;
+                }
+            }
+        }
+    }
+
+
+    /* initialize data */
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
+        skill_columns[level] = 0;
+        skill_list[level][0] = '\0';
+    }
+
+    for (sn = 0; sn < MAX_SKILL; sn++)
+    {
+        if (skill_table[sn].name == NULL )
+            break;
+
+        if ((level = skill_table[sn].skill_level[class_no]) < LEVEL_HERO + 1
+        &&  level >= min_lev && level <= max_lev
+	&&  skill_table[sn].spell_fun != spell_null)
+        {
+            found = TRUE;
+            level = skill_table[sn].skill_level[class_no];
+                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn].name,skill_table[sn].rating[class_no]);
+
+            if (skill_list[level][0] == '\0')
+                sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
+            else /* append */
+            {
+                if ( ++skill_columns[level] % 2 == 0)
+                    strcat(skill_list[level],"\n\r          ");
+                strcat(skill_list[level],buf);
+            }
+        }
+    }
+
+    /* return results */
+
+    if (!found)
+    {
+        send_to_char("No skills found.\n\r",ch);
+        return FALSE;
+    }
+
+    buffer = new_buf();
+    for (level = 0; level < LEVEL_HERO + 1; level++)
+        if (skill_list[level][0] != '\0')
+            add_buf(buffer,skill_list[level]);
+    add_buf(buffer,"\n\r");
+    page_to_char(buf_string(buffer),ch);
+    free_buf(buffer);
+    return FALSE;
+}
+
+/* shows all groups, or the sub-members of a group */
+CEDIT( cedit_groups)
+{
+    CLASSTYPE *class;
+    char buf[100];
+    int gn,sn,col,class_no;
+
+    EDIT_CLASS(ch, class);
+
+    class_no = class_lookup(class->name);
+
+    col = 0;
+
+    if (argument[0] == '\0')
+    {   /* show all groups */
+
+	for (gn = 0; gn < top_group; gn++)
+        {
+	    if (group_table[gn]->name == NULL)
+		break;
+
+	    if (group_table[gn]->rating[class_no] >= 0)
+	    {
+		sprintf(buf,"%-20s ",group_table[gn]->name);
+		send_to_char(buf,ch);
+		if (++col % 3 == 0)
+		    send_to_char("\n\r",ch);
+	    }
+        }
+        if ( col % 3 != 0 )
+            send_to_char( "\n\r", ch );
+	return TRUE;
+     }
+
+     /* show the sub-members of a group */
+     gn = group_lookup(argument);
+
+     if (gn == -1)
+     {
+	send_to_char("No group of that name exist.\n\r",ch);
+	send_to_char("Type 'groups all' or 'info all' for a full listing.\n\r",ch);
+	return FALSE;
+     }
+
+     if (group_table[gn]->rating[class_no] < 0) gn = -1;
+     {
+         send_to_char("That roup doesn't exist for this class.\n\r", ch);
+         return FALSE;
+     }
+
+     for (sn = 0; sn < MAX_IN_GROUP; sn++)
+     {
+	int x;
+	if (group_table[gn]->spells[sn] == NULL)
+	    break;
+        x = skill_lookup(group_table[gn]->spells[sn]);
+
+	if (skill_table[x].skill_level[class_no] > LEVEL_HERO ||
+	skill_table[x].rating[class_no] < 0) continue;
+
+	sprintf(buf,"%-20s ",group_table[gn]->spells[sn]);
+	send_to_char(buf,ch);
+	if (++col % 3 == 0)
+	    send_to_char("\n\r",ch);
+     }
+    if ( col % 3 != 0 )
+        send_to_char( "\n\r", ch );
+    return TRUE;
 }

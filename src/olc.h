@@ -52,26 +52,19 @@
         "     Version actual : 1.8 - Sep 8, 1998\n\r"
 #define CREDITS "     Original by Surreality(cxw197@psu.edu) and Locke(locke@lm.com)"
 
-
-
 /*
-* New typedefs.
-*/
+ * New typedefs.
+ */
 typedef	bool OLC_FUN		args((CHAR_DATA *ch, char *argument));
 #define DECLARE_OLC_FUN( fun )	OLC_FUN    fun
-
 
 /* Command procedures needed ROM OLC */
 DECLARE_DO_FUN(do_help);
 DECLARE_SPELL_FUN(spell_null);
 
-
-
-
-
 /*
-* Connected states for editor.
-*/
+ * Connected states for editor.
+ */
 #define ED_NONE		0
 #define ED_AREA		1
 #define ED_ROOM		2
@@ -80,11 +73,11 @@ DECLARE_SPELL_FUN(spell_null);
 #define ED_MPCODE	5
 #define ED_HELP		6
 #define ED_GROUP        7
-
+#define ED_CLASS        8
 
 /*
-* Interpreter Prototypes
-*/
+ * Interpreter Prototypes
+ */
 void    aedit           args((CHAR_DATA *ch, char *argument));
 void    redit           args((CHAR_DATA *ch, char *argument));
 void    medit           args((CHAR_DATA *ch, char *argument));
@@ -92,39 +85,34 @@ void    oedit           args((CHAR_DATA *ch, char *argument));
 void	mpedit          args((CHAR_DATA *ch, char *argument));
 void	hedit           args((CHAR_DATA *, char *));
 void    gedit           args((CHAR_DATA *ch, char *argument));
+void    cedit           args((CHAR_DATA *ch, char *argument));
 
 /*
-* OLC Constants
-*/
+ * OLC Constants
+ */
 #define MAX_MOB	1		/* Default maximum number for resetting mobs */
 
-
-
 /*
-* Structure for an OLC editor command.
-*/
+ * Structure for an OLC editor command.
+ */
 struct olc_cmd_type
 {
     char * const	name;
     OLC_FUN *		olc_fun;
 };
 
-
-
 /*
-* Structure for an OLC editor startup command.
-*/
+ * Structure for an OLC editor startup command.
+ */
 struct	editor_cmd_type
 {
     char * const	name;
     DO_FUN *		do_fun;
 };
 
-
-
 /*
-* Utils.
-*/
+ * Utils.
+ */
 AREA_DATA *get_vnum_area	args((int vnum));
 AREA_DATA *get_area_data	args((int vnum));
 int flag_value			args((const struct flag_type *flag_table,
@@ -133,12 +121,11 @@ char *flag_string		args((const struct flag_type *flag_table,
     int bits));
 void add_reset			args((ROOM_INDEX_DATA *room,
     RESET_DATA *pReset, int index));
-
-
+int flag_find                   args((const char *name, const struct flag_type *flag_table));
 
 /*
-* Interpreter Table Prototypes
-*/
+ * Interpreter Table Prototypes
+ */
 extern const struct olc_cmd_type	aedit_table[];
 extern const struct olc_cmd_type	redit_table[];
 extern const struct olc_cmd_type	oedit_table[];
@@ -146,11 +133,13 @@ extern const struct olc_cmd_type	medit_table[];
 extern const struct olc_cmd_type	mpedit_table[];
 extern const struct olc_cmd_type	hedit_table[];
 extern const struct olc_cmd_type        gedit_table[];
+extern const struct olc_cmd_type        cedit_table[];
 
 /*
-* Editor Commands.
-*/
+ * Editor Commands.
+ */
 int continent_lookup (const char *name);
+
 DECLARE_DO_FUN(do_aedit);
 DECLARE_DO_FUN(do_redit);
 DECLARE_DO_FUN(do_oedit);
@@ -158,6 +147,7 @@ DECLARE_DO_FUN(do_medit);
 DECLARE_DO_FUN(do_mpedit);
 DECLARE_DO_FUN(do_hedit);
 DECLARE_DO_FUN(do_gedit);
+DECLARE_DO_FUN(do_cedit);
 
 /*
 * General Functions
@@ -166,8 +156,6 @@ bool show_commands		args((CHAR_DATA *ch, char *argument));
 bool show_help			args((CHAR_DATA *ch, char *argument));
 bool edit_done			args((CHAR_DATA *ch));
 bool show_version		args((CHAR_DATA *ch, char *argument));
-
-
 
 /*
 * Area Editor Prototypes
@@ -313,6 +301,28 @@ DECLARE_OLC_FUN(gedit_show);
 DECLARE_OLC_FUN(gedit_create);
 DECLARE_OLC_FUN(gedit_list);
 
+/* Class Editor */
+DECLARE_OLC_FUN( cedit_name             );
+DECLARE_OLC_FUN( cedit_whoname          );
+DECLARE_OLC_FUN( cedit_attrprime        );
+//DECLARE_OLC_FUN( cedit_attrsecond       );
+DECLARE_OLC_FUN( cedit_weapon           );
+DECLARE_OLC_FUN( cedit_skilladept       );
+DECLARE_OLC_FUN( cedit_thac0            );
+DECLARE_OLC_FUN( cedit_thac32           );
+DECLARE_OLC_FUN( cedit_hpmin            );
+DECLARE_OLC_FUN( cedit_hpmax            );
+DECLARE_OLC_FUN( cedit_mana             );
+DECLARE_OLC_FUN( cedit_moon             );
+DECLARE_OLC_FUN( cedit_basegroup        );
+DECLARE_OLC_FUN( cedit_defgroup         );
+DECLARE_OLC_FUN( cedit_create           );
+DECLARE_OLC_FUN( cedit_show             );
+DECLARE_OLC_FUN( cedit_skills           );
+DECLARE_OLC_FUN( cedit_spells           );
+DECLARE_OLC_FUN( cedit_groups           );
+DECLARE_OLC_FUN( cedit_isreclass        );
+
 /*
 * Macros
 */
@@ -325,6 +335,7 @@ DECLARE_OLC_FUN(gedit_list);
 #define EDIT_AREA(Ch, Area)	( Area = (AREA_DATA *)Ch->desc->pEdit )
 #define EDIT_MPCODE(Ch, Code)   ( Code = (MPROG_CODE*)Ch->desc->pEdit )
 #define EDIT_GROUP(Ch, Group)   ( Group = (GROUPTYPE *)Ch->desc->pEdit )
+#define EDIT_CLASS(Ch, Class)   ( Class = (CLASSTYPE *)Ch->desc->pEdit )
 
 /*
 * Prototypes
