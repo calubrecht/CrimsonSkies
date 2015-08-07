@@ -699,7 +699,7 @@ void init_descriptor (int control)
     dnew = new_descriptor ();
 
     dnew->descriptor = desc;
-    dnew->connected = CON_ANSI;
+    dnew->connected = CON_COLOR;
     dnew->ansi = TRUE;
     dnew->showstr_head = NULL;
     dnew->showstr_point = NULL;

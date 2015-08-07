@@ -236,7 +236,7 @@ struct    weather_data
 #define CON_CONFIRM_NEW_NAME		-12
 #define CON_GET_NEW_PASSWORD		-11
 #define CON_CONFIRM_NEW_PASSWORD	-10
-#define CON_ANSI			-9
+#define CON_COLOR			-9
 #define CON_GET_TELNETGA		-8
 #define CON_GET_NEW_RACE		-7
 #define CON_GET_NEW_SEX			-6

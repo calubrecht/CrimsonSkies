@@ -135,7 +135,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             close_socket (d);
             return;
 
-        case CON_ANSI:
+        case CON_COLOR:
             // TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
             // defaults them to an answer of "Y"
             if (argument[0] == '\0' || UPPER (argument[0]) == 'Y' || argument[0] == '\'')
