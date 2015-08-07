@@ -65,3 +65,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
   - Retrain command to restart as a base class
+  - Creating casting level function and create casting level logic.
