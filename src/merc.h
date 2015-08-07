@@ -529,13 +529,11 @@ struct    kill_data
  ***************************************************************************/
 
 /*
- * Well known mob virtual numbers.
+ * Well known mob virtual numbers that are used somewhere in code (like
+ * in special.c or for loading).
  * Defined in #MOBILES.
  */
 #define MOB_VNUM_FIDO       3090
-#define MOB_VNUM_CITYGUARD  3060
-#define MOB_VNUM_VAMPIRE    3404
-
 #define MOB_VNUM_PATROLMAN  2106
 #define GROUP_VNUM_TROLLS   2100
 #define GROUP_VNUM_OGRES    2101
