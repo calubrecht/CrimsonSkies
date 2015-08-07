@@ -75,6 +75,7 @@ Sk 'fireproof' 18 2
 Sk 'berserk' 18 5
 Sk 'cause critical' 19 2
 Sk 'cure critical' 19 2
+Sk 'water breathing' 20 2
 Sk 'calm' 20 2
 Sk 'color spray' 20 2
 Sk 'create spring' 20 2
@@ -94,6 +95,7 @@ Sk 'heat metal' 23 2
 Sk 'create rose' 24 2
 Sk 'faerie fog' 24 2
 Sk 'pick lock' 25 8
+Sk 'dual wield' 25 6
 Sk 'fireball' 26 2
 Sk 'frenzy' 26 2
 Sk 'plague' 26 2
@@ -154,22 +156,35 @@ Sk 'sleep' 53 2
 Sk 'ventriloquate' 53 2
 Sk 'general purpose' 53 0
 Sk 'high explosive' 53 0
+Sk 'locate wizard mark' 53 2
 Sk 'backstab' 53 0
 Sk 'envenom' 53 0
 Sk 'steal' 53 0
-Sk 'dual wield' 25 6
 Gr 'rom basics' 0
+Gr 'mage basics' 0
+Gr 'cleric basics' 0
+Gr 'thief basics' 0
 Gr 'warrior basics' 0
+Gr 'enchantor basics' 0
+Gr 'mage default' 0
+Gr 'cleric default' 0
+Gr 'thief default' 0
 Gr 'warrior default' 40
+Gr 'enchantor default' 0
 Gr 'weaponsmaster' 20
 Gr 'attack' 8
+Gr 'beguiling' 0
 Gr 'benedictions' 8
 Gr 'combat' 9
 Gr 'creation' 8
 Gr 'curative' 8
+Gr 'detection' 0
+Gr 'draconian' 0
+Gr 'enchantment' 0
 Gr 'enhancement' 9
 Gr 'harmful' 6
 Gr 'healing' 6
+Gr 'illusion' 0
 Gr 'maladictions' 9
 Gr 'protective' 8
 Gr 'transportation' 9

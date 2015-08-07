@@ -82,6 +82,7 @@ Sk 'fly' 18 1
 Sk 'remove curse' 18 1
 Sk 'haggle' 18 8
 Sk 'control weather' 19 1
+Sk 'water breathing' 20 1
 Sk 'flamestrike' 20 1
 Sk 'sanctuary' 20 1
 Sk 'parry' 20 8
@@ -145,6 +146,7 @@ Sk 'sleep' 53 1
 Sk 'ventriloquate' 53 1
 Sk 'general purpose' 53 0
 Sk 'high explosive' 53 0
+Sk 'locate wizard mark' 53 2
 Sk 'backstab' 53 0
 Sk 'bash' 53 0
 Sk 'berserk' 53 0
@@ -159,16 +161,30 @@ Sk 'sneak' 53 0
 Sk 'steal' 53 0
 Sk 'dual wield' 53 0
 Gr 'rom basics' 0
+Gr 'mage basics' 0
 Gr 'cleric basics' 0
+Gr 'thief basics' 0
+Gr 'warrior basics' 0
+Gr 'enchantor basics' 0
+Gr 'mage default' 0
 Gr 'cleric default' 40
+Gr 'thief default' 0
+Gr 'warrior default' 0
+Gr 'enchantor default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
+Gr 'beguiling' 0
 Gr 'benedictions' 4
+Gr 'combat' 0
 Gr 'creation' 4
 Gr 'curative' 4
 Gr 'detection' 3
+Gr 'draconian' 0
+Gr 'enchantment' 0
+Gr 'enhancement' 0
 Gr 'harmful' 3
 Gr 'healing' 3
+Gr 'illusion' 0
 Gr 'maladictions' 5
 Gr 'protective' 4
 Gr 'transportation' 4

@@ -11,9 +11,9 @@ Thac0_32    6
 Hpmin       6
 Hpmax       8
 Mana        1
-IsReclass   0
 BaseGroup   'mage basics'
 DefGroup    'mage default'
+IsReclass   0
 Sk 'magic missile' 1 1
 Sk 'ventriloquate' 1 1
 Sk 'axe' 1 6
@@ -79,6 +79,7 @@ Sk 'poison' 17 1
 Sk 'cancellation' 18 1
 Sk 'curse' 18 1
 Sk 'energy drain' 19 1
+Sk 'water breathing' 20 1
 Sk 'charm person' 20 1
 Sk 'shield' 20 1
 Sk 'dodge' 20 8
@@ -144,6 +145,7 @@ Sk 'ray of truth' 53 1
 Sk 'remove curse' 53 1
 Sk 'general purpose' 53 0
 Sk 'high explosive' 53 0
+Sk 'locate wizard mark' 53 2
 Sk 'backstab' 53 0
 Sk 'bash' 53 0
 Sk 'berserk' 53 0
@@ -160,15 +162,28 @@ Sk 'steal' 53 0
 Sk 'dual wield' 53 0
 Gr 'rom basics' 0
 Gr 'mage basics' 0
+Gr 'cleric basics' 0
+Gr 'thief basics' 0
+Gr 'warrior basics' 0
+Gr 'enchantor basics' 0
 Gr 'mage default' 40
+Gr 'cleric default' 0
+Gr 'thief default' 0
+Gr 'warrior default' 0
+Gr 'enchantor default' 0
 Gr 'weaponsmaster' 40
+Gr 'attack' 0
 Gr 'beguiling' 4
+Gr 'benedictions' 0
 Gr 'combat' 6
 Gr 'creation' 4
+Gr 'curative' 0
 Gr 'detection' 4
 Gr 'draconian' 8
 Gr 'enchantment' 6
 Gr 'enhancement' 5
+Gr 'harmful' 0
+Gr 'healing' 0
 Gr 'illusion' 4
 Gr 'maladictions' 5
 Gr 'protective' 4

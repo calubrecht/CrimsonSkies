@@ -14,7 +14,6 @@ Mana        1
 BaseGroup   'enchantor basics'
 DefGroup    'enchantor default'
 IsReclass   1
-Sk 'withering enchant' 4 1
 Sk 'magic missile' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 2
@@ -28,6 +27,7 @@ Sk 'scrolls' 1 2
 Sk 'staves' 1 2
 Sk 'wands' 1 2
 Sk 'recall' 1 2
+Sk 'withering enchant' 4 1
 Sk 'chill touch' 5 1
 Sk 'create water' 5 1
 Sk 'detect invis' 5 1
@@ -44,7 +44,6 @@ Sk 'refresh' 8 1
 Sk 'peek' 8 5
 Sk 'infravision' 9 1
 Sk 'locate object' 9 1
-Sk 'locate wizard mark' 51 1
 Sk 'recharge' 9 1
 Sk 'create food' 10 1
 Sk 'enchant armor' 10 1
@@ -81,6 +80,7 @@ Sk 'cancellation' 18 1
 Sk 'curse' 18 1
 Sk 'energy drain' 19 1
 Sk 'know alignment' 19 1
+Sk 'water breathing' 20 1
 Sk 'dodge' 20 8
 Sk 'haste' 21 1
 Sk 'fireball' 22 1
@@ -117,6 +117,7 @@ Sk 'enhanced damage' 45 10
 Sk 'interlace spirit' 46 1
 Sk 'calm' 48 1
 Sk 'wizard mark' 50 1
+Sk 'locate wizard mark' 51 1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -158,17 +159,31 @@ Sk 'haggle' 53 0
 Sk 'hide' 53 0
 Sk 'sneak' 53 0
 Sk 'steal' 53 0
+Sk 'dual wield' 53 0
 Gr 'rom basics' 0
+Gr 'mage basics' 0
+Gr 'cleric basics' 0
+Gr 'thief basics' 0
+Gr 'warrior basics' 0
 Gr 'enchantor basics' 0
+Gr 'mage default' 0
+Gr 'cleric default' 0
+Gr 'thief default' 0
+Gr 'warrior default' 0
 Gr 'enchantor default' 40
 Gr 'weaponsmaster' 40
+Gr 'attack' 0
 Gr 'beguiling' 4
+Gr 'benedictions' 0
 Gr 'combat' 6
 Gr 'creation' 4
+Gr 'curative' 0
 Gr 'detection' 4
 Gr 'draconian' 8
 Gr 'enchantment' 6
 Gr 'enhancement' 5
+Gr 'harmful' 0
+Gr 'healing' 0
 Gr 'illusion' 4
 Gr 'maladictions' 5
 Gr 'protective' 4
