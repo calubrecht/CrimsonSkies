@@ -1,4 +1,4 @@
-To Do List
+wTo Do List
 ==========
 
 This is my to do list, mostly will be things big and small as I think about them.
@@ -67,3 +67,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Retrain command to restart as a base class
   - Creating casting level function and create casting level logic.
   - Set autogold by default on creation
+  - Make affects show the same for all levels.
+  - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
