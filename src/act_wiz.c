@@ -3989,7 +3989,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
         }
 
         victim->played = ( value * 3600 );
-        printf_to_char(ch, "%s's hours set to %d.", victim->name, value);
+        printf_to_char(ch, "%s's hours set to %d.\n\r", victim->name, value);
 
         return;
     }
