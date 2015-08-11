@@ -88,6 +88,7 @@ const struct flag_stat_type flag_stat_table[] = {
     {wear_loc_strings, TRUE},
     {container_flags, FALSE},
     {continent_flags, TRUE},
+    {target_flags, TRUE},
 
 /* ROM specific flags: */
 
@@ -233,9 +234,28 @@ int flag_find (const char *name, const struct flag_type *flag_table)
     return NO_FLAG;
 }
 
+/*
+ * This is the table to hold our friendly neighborhood continents.
+ */
 const struct flag_type continent_flags[]= {
     { "limbo",   CONTINENT_LIMBO,   TRUE },
     { "oceans",  CONTINENT_OCEANS,  TRUE },
     { "arcanis", CONTINENT_ARCANIS, TRUE },
     { NULL, 0, 0 }
+};
+
+/*
+ * Target flags for spells, this will allow us to save friendtly names in the
+ * skills.dat file and then look them up.
+ */
+const struct flag_type target_flags[]=
+{
+    {   "ignore",               TAR_IGNORE,             TRUE    },
+    {   "char_offensive",       TAR_CHAR_OFFENSIVE,     TRUE    },
+    {   "char_defensive",       TAR_CHAR_DEFENSIVE,     TRUE    },
+    {   "char_self",            TAR_CHAR_SELF,          TRUE    },
+    {   "obj_inventory",        TAR_OBJ_INV,            TRUE    },
+    {   "obj_char_defensive",   TAR_OBJ_CHAR_DEF,       TRUE    },
+    {   "obj_char_offensive",   TAR_OBJ_CHAR_OFF,       TRUE    },
+    {   NULL,                   0,                      FALSE   }
 };

@@ -113,3 +113,4 @@ extern	const	struct	flag_type	ac_type[];
 extern	const	struct	bit_type	bitvector_type[];
 extern  const   struct  flag_type       continent_flags[];
 extern  const   struct  flag_type       stat_flags[];
+extern  const   struct  flag_type       target_flags[];

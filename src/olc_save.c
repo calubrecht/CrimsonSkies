@@ -28,14 +28,6 @@
  *  all the previous coders who released their source code.                *
  *                                                                         *
  ***************************************************************************/
-/* OLC_SAVE.C
- * This takes care of saving all the .are information.
- * Notes:
- * -If a good syntax checker is used for setting vnum ranges of areas
- *  then it would become possible to just cycle through vnums instead
- *  of using the iHash stuff and checking that the room or reset or
- *  mob etc is part of that area.
- */
 
 // System Specific Includes
 #if defined(__APPLE__)
@@ -61,9 +53,11 @@
 
 #define DIF(a,b) (~((~a)|(b)))
 
-void save_groups args((void));
-void save_class  args((int num));
+void save_groups  args((void));
+void save_class   args((int num));
 void save_classes args((void));
+void save_skills  args((void));
+void fwrite_skill args((FILE *fp, int sn));
 
 /*
  *  Verbose writes reset data in plain english into the comments
@@ -1096,10 +1090,68 @@ void save_class (int num)
 
 } // end void save_class
 
+/*
+ * Saves all skills and spells out to the skills file.
+ */
+void save_skills( void )
+{
+    FILE *fp;
+    int sn;
+
+    fclose(fpReserve);
+    fp = fopen (SKILLS_FILE, "w");
+
+    if (!fp)
+    {
+        bug ("Could not open SKILLS_FILE for writing.",0);
+        return;
+    }
+
+    for (sn = 0; sn < MAX_SKILL; sn++)
+    {
+        if ( !skill_table[sn].name || skill_table[sn].name[0] == '\0' )
+           break;
+
+        fprintf( fp, "#SKILL\n" );
+        fwrite_skill( fp, sn );
+    }
+
+    fprintf( fp, "#END\n" );
+    fclose(fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end save_skills
+
+/*
+ * Writes one skill out to file.
+ */
+void fwrite_skill(FILE *fp, int sn)
+{
+    fprintf(fp,"Name        %s~\n", skill_table[sn].name);
+    //fprintf(fp,"SpellFun    %s~\n",spell_name(skill_table[sn].spell_fun));
+    fprintf(fp,"Target      %d\n",skill_table[sn].target);
+    fprintf(fp,"MinPos      %d\n",skill_table[sn].minimum_position);
+    fprintf(fp,"Slot        %d\n",skill_table[sn].slot);
+    fprintf(fp,"MinMana     %d\n",skill_table[sn].min_mana);
+    fprintf(fp,"Beats       %d\n",skill_table[sn].beats);
+
+    if ( skill_table[sn].noun_damage && skill_table[sn].noun_damage[0] != '\0' )
+        fprintf(fp,"Damage      %s~\n",skill_table[sn].noun_damage);
+
+    if ( skill_table[sn].msg_off && skill_table[sn].msg_off[0] != '\0' )
+        fprintf(fp,"MsgOff      %s~\n",skill_table[sn].msg_off);
+
+    if ( skill_table[sn].msg_obj && skill_table[sn].msg_obj[0] != '\0' )
+        fprintf(fp,"MsgObj      %s~\n",skill_table[sn].msg_obj);
+
+    fprintf( fp, "End\n\n" );
+
+} // end fwrite_skill
+
 /*****************************************************************************
- Name:        do_asave
+ Name:       do_asave
  Purpose:    Entry point for saving area data.
- Called by:    interpreter(interp.c)
+ Called by:  interpreter(interp.c)
  ****************************************************************************/
 void do_asave (CHAR_DATA * ch, char *argument)
 {
@@ -1122,6 +1174,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
             send_to_char("  asave world    - saves the world! (db dump)\n\r", ch);
             send_to_char("  asave groups   - saves the group files\n\r",  ch );
             send_to_char("  asave classes  - saves the class files\n\r", ch);
+            send_to_char("  asave skills   - saves the skills file\n\r", ch);
             send_to_char("\n\r", ch);
         }
 
@@ -1246,6 +1299,13 @@ void do_asave (CHAR_DATA * ch, char *argument)
     {
         save_classes();
         send_to_char("Classes have been saved.\n\r", ch);
+        return;
+    }
+
+    if (!str_cmp (arg1, "skills"))
+    {
+        save_skills();
+        send_to_char("Skills have been saved.\n\r", ch);
         return;
     }
 

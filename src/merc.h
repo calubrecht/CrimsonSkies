@@ -1997,6 +1997,7 @@ extern  CLASSTYPE               * class_table[MAX_CLASS];
 #define GROUP_FILE          "../classes/groups.dat"   /* groups file */
 #define CLASS_DIR           "../classes/"             /* classes directory */
 #define CLASS_FILE          "class.lst"               /* classes file */
+#define SKILLS_FILE         "../classes/skills.dat"   /* skills and spells file */
 
 #define NOTE_FILE           "../notes/note.note"
 #define PENALTY_FILE        "../notes/penalty.note"
