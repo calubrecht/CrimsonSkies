@@ -3982,9 +3982,9 @@ void do_mset (CHAR_DATA * ch, char *argument)
 
         value = atoi (arg3);
 
-        if (value < 0 || value > 999)
+        if (value < 0 || value > 99999)
         {
-            send_to_char ("Value must be between 0 and 999.\n\r", ch);
+            send_to_char ("Value must be between 0 and 99,999.\n\r", ch);
             return;
         }
 
