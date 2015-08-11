@@ -9,7 +9,7 @@ Syntax: EDIT GROUP [create] <name>           - Creates a group
 Syntax: EDIT CLASS [create] <name>           - Creates a class.
 
 Syntax: ASAVE  <world/area/changed/list      - Save Editing to Disk.
-                groups/classes>
+                groups/classes/skills>
 Syntax: ALIST                                - Listing of Areas.
 Syntax: RESET  See Help Resets.              - Set Game Resets.
 
