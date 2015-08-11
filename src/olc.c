@@ -1233,9 +1233,9 @@ void display_resets(CHAR_DATA * ch)
 }
 
 /*****************************************************************************
-Name:        add_reset
+Name:       add_reset
 Purpose:    Inserts a new reset in the given index slot.
-Called by:    do_resets(olc.c).
+Called by:  do_resets(olc.c).
 ****************************************************************************/
 void add_reset(ROOM_INDEX_DATA * room, RESET_DATA * pReset, int index)
 {

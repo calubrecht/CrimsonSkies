@@ -178,6 +178,7 @@ void fix_mobprogs args ((void));
 void reset_area args ((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
+void assign_gsn args((void));
 
 /*
  * Big mama top level function.
@@ -254,18 +255,8 @@ void boot_db ()
     log_string("STATUS: Loading Classes");
     load_classes();
 
-    /*
-     * Assign gsn's for skills which have them.
-     */
-    {
-        int sn;
-
-        for (sn = 0; sn < MAX_SKILL; sn++)
-        {
-            if (skill_table[sn].pgsn != NULL)
-                *skill_table[sn].pgsn = sn;
-        }
-    }
+    log_string("STATUS: Assigning GSNs (Global Skill Numbers)");
+    assign_gsn();
 
     /*
      * Read in all the area files.
@@ -4150,3 +4141,61 @@ GROUPTYPE *fread_group(FILE *fp)
     }
     return gr;
 } // end GROUPTYPE *fread_group
+
+/*
+ * Assign GSN's to the proper skill.
+ */
+void assign_gsn()
+{
+    ASSIGN_GSN(gsn_backstab, "backstab");
+    ASSIGN_GSN(gsn_dodge, "dodge");
+    ASSIGN_GSN(gsn_envenom, "envenom");
+    ASSIGN_GSN(gsn_hide, "hide");
+    ASSIGN_GSN(gsn_peek, "peek");
+    ASSIGN_GSN(gsn_pick_lock, "pick lock");
+    ASSIGN_GSN(gsn_sneak, "sneak");
+    ASSIGN_GSN(gsn_steal, "steal");
+    ASSIGN_GSN(gsn_disarm, "disarm");
+    ASSIGN_GSN(gsn_enhanced_damage, "enhanced damage");
+    ASSIGN_GSN(gsn_kick, "kick");
+    ASSIGN_GSN(gsn_parry, "parry");
+    ASSIGN_GSN(gsn_rescue, "rescue");
+    ASSIGN_GSN(gsn_second_attack, "second attack");
+    ASSIGN_GSN(gsn_third_attack, "third attack");
+    ASSIGN_GSN(gsn_blindness, "blindness");
+    ASSIGN_GSN(gsn_charm_person, "charm person");
+    ASSIGN_GSN(gsn_curse, "curse");
+    ASSIGN_GSN(gsn_invis, "invisibility");
+    ASSIGN_GSN(gsn_mass_invis, "mass invis");
+    ASSIGN_GSN(gsn_plague, "plague");
+    ASSIGN_GSN(gsn_poison, "poison");
+    ASSIGN_GSN(gsn_sleep, "sleep");
+    ASSIGN_GSN(gsn_fly, "fly");
+    ASSIGN_GSN(gsn_sanctuary, "sanctuary");
+    ASSIGN_GSN(gsn_axe, "axe");
+    ASSIGN_GSN(gsn_dagger, "dagger");
+    ASSIGN_GSN(gsn_flail, "flail");
+    ASSIGN_GSN(gsn_mace, "mace");
+    ASSIGN_GSN(gsn_polearm, "polearm");
+    ASSIGN_GSN(gsn_shield_block, "shield block");
+    ASSIGN_GSN(gsn_spear, "spear");
+    ASSIGN_GSN(gsn_sword, "sword");
+    ASSIGN_GSN(gsn_whip, "whip");
+    ASSIGN_GSN(gsn_bash, "bash");
+    ASSIGN_GSN(gsn_berserk, "berserk");
+    ASSIGN_GSN(gsn_dirt, "dirt");
+    ASSIGN_GSN(gsn_hand_to_hand, "hand to hand");
+    ASSIGN_GSN(gsn_trip, "trip");
+    ASSIGN_GSN(gsn_fast_healing, "fast healing");
+    ASSIGN_GSN(gsn_haggle, "haggle");
+    ASSIGN_GSN(gsn_lore, "lore");
+    ASSIGN_GSN(gsn_meditation, "meditation");
+    ASSIGN_GSN(gsn_scrolls, "scrolls");
+    ASSIGN_GSN(gsn_staves, "staves");
+    ASSIGN_GSN(gsn_wands, "wands");
+    ASSIGN_GSN(gsn_recall, "recall");
+    ASSIGN_GSN(gsn_dual_wield, "dual wield");
+    ASSIGN_GSN(gsn_weaken, "weaken");
+    ASSIGN_GSN(gsn_water_breathing, "water breathing");
+
+} // end assign_gsn

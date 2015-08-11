@@ -3351,7 +3351,7 @@ void do_slookup (CHAR_DATA * ch, char *argument)
     one_argument (argument, arg);
     if (arg[0] == '\0')
     {
-        send_to_char ("Lookup which skill or spell?\n\r", ch);
+        send_to_char ("Lookup which skill or spell?  Choose 'all' to list all skills/spells.\n\r", ch);
         return;
     }
 
@@ -3361,8 +3361,7 @@ void do_slookup (CHAR_DATA * ch, char *argument)
         {
             if (skill_table[sn].name == NULL)
                 break;
-            sprintf (buf, "Sn: %3d  Slot: %3d  Skill/spell: '%s'\n\r",
-                     sn, skill_table[sn].slot, skill_table[sn].name);
+            sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn].name);
             send_to_char (buf, ch);
         }
     }
@@ -3374,8 +3373,7 @@ void do_slookup (CHAR_DATA * ch, char *argument)
             return;
         }
 
-        sprintf (buf, "Sn: %3d  Slot: %3d  Skill/spell: '%s'\n\r",
-                 sn, skill_table[sn].slot, skill_table[sn].name);
+        sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn].name);
         send_to_char (buf, ch);
     }
 

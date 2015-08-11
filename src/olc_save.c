@@ -1131,7 +1131,6 @@ void fwrite_skill(FILE *fp, int sn)
     //fprintf(fp,"SpellFun    %s~\n",spell_name(skill_table[sn].spell_fun));
     fprintf(fp,"Target      %d\n",skill_table[sn].target);
     fprintf(fp,"MinPos      %d\n",skill_table[sn].minimum_position);
-    fprintf(fp,"Slot        %d\n",skill_table[sn].slot);
     fprintf(fp,"MinMana     %d\n",skill_table[sn].min_mana);
     fprintf(fp,"Beats       %d\n",skill_table[sn].beats);
 

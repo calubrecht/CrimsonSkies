@@ -1717,8 +1717,6 @@ struct skill_type
     SPELL_FUN * spell_fun;                 /* Spell pointer (for spells)   */
     sh_int      target;                    /* Legal targets                */
     sh_int      minimum_position;          /* Position for caster / user   */
-    sh_int *    pgsn;                      /* Pointer to associated gsn    */
-    sh_int      slot;                      /* Slot for #OBJECT loading     */
     sh_int      min_mana;                  /* Minimum mana used            */
     sh_int      beats;                     /* Waiting time after use       */
     char *      noun_damage;               /* Damage message               */
@@ -2240,7 +2238,6 @@ char * one_argument       args( ( char *argument, char *arg_first ) );
 int    find_spell     args( ( CHAR_DATA *ch, const char *name) );
 int    mana_cost            ( CHAR_DATA *ch, int min_mana, int level);
 int    skill_lookup   args( ( const char *name ) );
-int    slot_lookup    args( ( int slot ) );
 bool   saves_spell    args( ( int level, CHAR_DATA *victim, int dam_type ) );
 void   obj_cast_spell args( ( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj ) );
 

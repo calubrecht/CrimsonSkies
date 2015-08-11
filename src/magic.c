@@ -54,7 +54,7 @@ void wear_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
 
 
 /*
- * Lookup a skill by name.
+ * Lookup a skill number by name.
  */
 int skill_lookup (const char *name)
 {
@@ -96,37 +96,6 @@ int find_spell (CHAR_DATA * ch, const char *name)
     }
     return found;
 }
-
-
-
-/*
- * Lookup a skill by slot number.
- * Used for object loading.
- */
-int slot_lookup (int slot)
-{
-    extern bool fBootDb;
-    int sn;
-
-    if (slot <= 0)
-        return -1;
-
-    for (sn = 0; sn < MAX_SKILL; sn++)
-    {
-        if (slot == skill_table[sn].slot)
-            return sn;
-    }
-
-    if (fBootDb)
-    {
-        bug ("Slot_lookup: bad slot %d.", slot);
-        abort ();
-    }
-
-    return -1;
-}
-
-
 
 /*
  * Utter mystical words for an sn.
