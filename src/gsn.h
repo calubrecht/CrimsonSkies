@@ -21,72 +21,90 @@
  **************************************************************************/
 
 /***************************************************************************
- *  This code originated from a post made by Erwin Andreasen to the MERC/  *
- *  Envy mail list in January of 1998.  The original GSN's were defined in *
- *  db.c and merc.h.  This should simplify the process of adding new gsn   *
- *  entries.                                                               *
- *                                                                         *
- *  http://www.andreasen.org/letters/autogsn.txt                           *
- *  http://www.andreasen.org/letters/gsns.txt                              *
+ *  Portions of this code originated from a post made by Erwin Andreasen   *
+ *  to the MERC/Envy mail list in January of 1998.  Additional code for    *
+ *  assigning the GSN's originated from the Smaug code base and is needed  *
+ *  to for setting the pointers in the skill table to the gsn where        *
+ *  necessary.                                                             *
  *                                                                         *
  *  merc.h will have the global include for this file and then the IN_DB_C *
  *  flag will be set in db.c.  That should be all we need to set this up.  *
+ *                                                                         *
  *                                              - Rhien                    *
  **************************************************************************/
 
+/*
+ * Declare the GSN in every file (via this being included in merc.h).  The
+ * variable with be defined as an sh_int in db.c and an extern in every
+ * other file so they're accessible.
+ */
 #ifdef IN_DB_C
-    #define GSN(gsn) sh_int gsn;
+    #define DECLARE_GSN(gsn) sh_int gsn;
 #else
-    #define GSN(gsn) extern sh_int gsn;
+    #define DECLARE_GSN(gsn) extern sh_int gsn;
 #endif
 
-GSN(gsn_backstab)
-GSN(gsn_dodge)
-GSN(gsn_envenom)
-GSN(gsn_hide)
-GSN(gsn_peek)
-GSN(gsn_pick_lock)
-GSN(gsn_sneak)
-GSN(gsn_steal)
-GSN(gsn_disarm)
-GSN(gsn_enhanced_damage)
-GSN(gsn_kick)
-GSN(gsn_parry)
-GSN(gsn_rescue)
-GSN(gsn_second_attack)
-GSN(gsn_third_attack)
-GSN(gsn_blindness)
-GSN(gsn_charm_person)
-GSN(gsn_curse)
-GSN(gsn_invis)
-GSN(gsn_mass_invis)
-GSN(gsn_plague)
-GSN(gsn_poison)
-GSN(gsn_sleep)
-GSN(gsn_fly)
-GSN(gsn_sanctuary)
-GSN(gsn_axe)
-GSN(gsn_dagger)
-GSN(gsn_flail)
-GSN(gsn_mace)
-GSN(gsn_polearm)
-GSN(gsn_shield_block)
-GSN(gsn_spear)
-GSN(gsn_sword)
-GSN(gsn_whip)
-GSN(gsn_bash)
-GSN(gsn_berserk)
-GSN(gsn_dirt)
-GSN(gsn_hand_to_hand)
-GSN(gsn_trip)
-GSN(gsn_fast_healing)
-GSN(gsn_haggle)
-GSN(gsn_lore)
-GSN(gsn_meditation)
-GSN(gsn_scrolls)
-GSN(gsn_staves)
-GSN(gsn_wands)
-GSN(gsn_recall)
-GSN(gsn_dual_wield)
-GSN(gsn_weaken)
-GSN(gsn_water_breathing)
+/*
+ * Assign the GSN to the appropriate skill/spell.  Unfortunately this
+ * will need to be called from a C file (in our case, you will need
+ * to go update assign_gsn in db.c to map this gsn to the appripriate
+ * entry in the skill table.
+ */
+#define ASSIGN_GSN(gsn, skill)                                  \
+do                                                              \
+{                                                               \
+    if ( ((gsn) = skill_lookup((skill))) == -1 )                \
+        fprintf( stderr, "ASSIGN_GSN: Skill %s not found.\n",   \
+                (skill) );                                      \
+} while(0)
+
+DECLARE_GSN(gsn_backstab)
+DECLARE_GSN(gsn_dodge)
+DECLARE_GSN(gsn_envenom)
+DECLARE_GSN(gsn_hide)
+DECLARE_GSN(gsn_peek)
+DECLARE_GSN(gsn_pick_lock)
+DECLARE_GSN(gsn_sneak)
+DECLARE_GSN(gsn_steal)
+DECLARE_GSN(gsn_disarm)
+DECLARE_GSN(gsn_enhanced_damage)
+DECLARE_GSN(gsn_kick)
+DECLARE_GSN(gsn_parry)
+DECLARE_GSN(gsn_rescue)
+DECLARE_GSN(gsn_second_attack)
+DECLARE_GSN(gsn_third_attack)
+DECLARE_GSN(gsn_blindness)
+DECLARE_GSN(gsn_charm_person)
+DECLARE_GSN(gsn_curse)
+DECLARE_GSN(gsn_invis)
+DECLARE_GSN(gsn_mass_invis)
+DECLARE_GSN(gsn_plague)
+DECLARE_GSN(gsn_poison)
+DECLARE_GSN(gsn_sleep)
+DECLARE_GSN(gsn_fly)
+DECLARE_GSN(gsn_sanctuary)
+DECLARE_GSN(gsn_axe)
+DECLARE_GSN(gsn_dagger)
+DECLARE_GSN(gsn_flail)
+DECLARE_GSN(gsn_mace)
+DECLARE_GSN(gsn_polearm)
+DECLARE_GSN(gsn_shield_block)
+DECLARE_GSN(gsn_spear)
+DECLARE_GSN(gsn_sword)
+DECLARE_GSN(gsn_whip)
+DECLARE_GSN(gsn_bash)
+DECLARE_GSN(gsn_berserk)
+DECLARE_GSN(gsn_dirt)
+DECLARE_GSN(gsn_hand_to_hand)
+DECLARE_GSN(gsn_trip)
+DECLARE_GSN(gsn_fast_healing)
+DECLARE_GSN(gsn_haggle)
+DECLARE_GSN(gsn_lore)
+DECLARE_GSN(gsn_meditation)
+DECLARE_GSN(gsn_scrolls)
+DECLARE_GSN(gsn_staves)
+DECLARE_GSN(gsn_wands)
+DECLARE_GSN(gsn_recall)
+DECLARE_GSN(gsn_dual_wield)
+DECLARE_GSN(gsn_weaken)
+DECLARE_GSN(gsn_water_breathing)
