@@ -8,7 +8,7 @@
  *  ROM 2.4 improvements copyright (C) 1993-1998 Russ Taylor, Gabrielle    *
  *  Taylor and Brian Moore                                                 *
  *                                                                         *
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2015 by Blake Pell           *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2015 by Blake Pell (Rhien)   *
  *                                                                         *
  *  In order to use any part of this Merc Diku Mud, you must comply with   *
  *  both the original Diku license in 'license.doc' as well the Merc       *
