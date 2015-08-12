@@ -1940,6 +1940,11 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
         do_function (ch, &do_affects, "");
 }
 
+/*
+ * Shows the character any affects that they have on them.  This spell now shows
+ * the specific affect and duration to characters of all levels (it used to hide
+ * the specifics and durations to those under level 20.
+ */
 void do_affects (CHAR_DATA * ch, char *argument)
 {
     AFFECT_DATA *paf, *paf_last = NULL;
@@ -1951,37 +1956,43 @@ void do_affects (CHAR_DATA * ch, char *argument)
         for (paf = ch->affected; paf != NULL; paf = paf->next)
         {
             if (paf_last != NULL && paf->type == paf_last->type)
-                if (ch->level >= 20)
-                    sprintf (buf, "                      ");
-                else
-                    continue;
+            {
+                // This is part of a previous spell that has multiple affects
+                // so just push it over so it's clear that say bless lowers saves
+                // and adds hit.
+                sprintf (buf, "                      ");
+            }
             else
+            {
                 sprintf (buf, "Spell: %-15s", skill_table[paf->type]->name);
+            }
 
             send_to_char (buf, ch);
 
-            if (ch->level >= 20)
+            sprintf (buf, ": modifies %s by %d ", affect_loc_name (paf->location), paf->modifier);
+            send_to_char (buf, ch);
+
+            if (paf->duration == -1)
             {
-                sprintf (buf,
-                         ": modifies %s by %d ",
-                         affect_loc_name (paf->location), paf->modifier);
-                send_to_char (buf, ch);
-                if (paf->duration == -1)
-                    sprintf (buf, "permanently");
-                else
-                    sprintf (buf, "for %d hours", paf->duration);
-                send_to_char (buf, ch);
+                sprintf (buf, "permanently");
             }
+            else
+            {
+                sprintf (buf, "for %d hours", paf->duration);
+            }
+
+            send_to_char (buf, ch);
 
             send_to_char ("\n\r", ch);
             paf_last = paf;
         }
     }
     else
+    {
         send_to_char ("You are not affected by any spells.\n\r", ch);
-
+    }
     return;
-}
+} // end do_affects
 
 
 
