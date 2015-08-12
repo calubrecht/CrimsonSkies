@@ -151,7 +151,7 @@ SPELL_FUN *spell_function(char *name)
             if ( !str_cmp( name, "spell_infravision" )) return spell_infravision;
             break;
         case 'k':
-            if ( !str_cmp( name, "spell_know_aligntment" )) return spell_know_alignment;
+            if ( !str_cmp( name, "spell_know_alignment" )) return spell_know_alignment;
             break;
         case 'l':
             if ( !str_cmp( name, "spell_locate_object" )) return spell_locate_object;
