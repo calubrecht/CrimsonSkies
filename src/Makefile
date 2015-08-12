@@ -1,9 +1,9 @@
-# Makefile for Rom24 - may need to apt-get cshell to use.
+# Makefile for CS-Mud - may need to apt-get cshell to use.
 # You may need to use 'gmake' on BSD systems.
 
 CC = gcc
 RM = rm
-EXE = ../area/rom
+EXE = ../area/cs-mud
 PROF = -O -g3
 
 # Use -Wno-unused-but-set-variable to filter out those warnings where macro's might be using variables
@@ -22,7 +22,7 @@ OBJ_FILES := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 # Make the Object directory if it doesn't exist
 $(shell   mkdir -p $(OBJ_DIR))
 
-rom: $(OBJ_FILES)
+cs-mud: $(OBJ_FILES)
 	$(RM) -f $(EXE)
 	$(CC) -o $(EXE) $(OBJ_FILES) $(L_FLAGS)
 
