@@ -673,7 +673,12 @@ void do_cast (CHAR_DATA * ch, char *argument)
     if (str_cmp (skill_table[sn]->name, "ventriloquate"))
         say_spell (ch, sn);
 
-    WAIT_STATE (ch, skill_table[sn]->beats);
+    // How long does this spell take to complete?  The character will be lagged for
+    // a specified amoutn of beats.  Immortals are excempt from waiting.
+    if (!IS_IMMORTAL(ch))
+    {
+        WAIT_STATE (ch, skill_table[sn]->beats);
+    }
 
     if (number_percent () > get_skill (ch, sn))
     {
