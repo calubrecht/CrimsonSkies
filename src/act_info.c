@@ -267,7 +267,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     if (IS_AFFECTED(victim, AFF_PASS_DOOR))
         strcat(buf, "({CTranslucent{x) ");
     if (IS_AFFECTED(victim, AFF_FAERIE_FIRE))
-        strcat(buf, "({rPink Aura{x) ");
+        strcat(buf, "({RPink Aura{x) ");
     if (IS_EVIL(victim) && IS_AFFECTED (ch, AFF_DETECT_EVIL))
         strcat(buf, "({RRed Aura{x) ");
     if (IS_GOOD(victim) && IS_AFFECTED (ch, AFF_DETECT_GOOD))
