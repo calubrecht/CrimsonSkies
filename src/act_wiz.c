@@ -4700,7 +4700,7 @@ void do_prefix (CHAR_DATA * ch, char *argument)
 #define COPYOVER_FILE "copyover.data"
 
 /* This is the executable file */
-#define EXE_FILE      "../area/rom"
+#define EXE_FILE      "../area/cs-mud"
 
 bool is_copyover = FALSE;
 int copyover_timer = 0;
