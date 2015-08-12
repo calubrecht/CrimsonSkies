@@ -22,6 +22,12 @@
 
 /***************************************************************************
  *  Enchantors                                                             *
+ *                                                                         *
+ *  This class will be an expert at enchanting or altering items           *
+ *  as well as having the potential to also enchant other characters       *
+ *  abilities as well as receive bonuses on tradtional mage spells like    *
+ *  charm.  The enchantor is a mage who specializes in enhancing others    *
+ *  and objects.  -Rhien                                                   *
  ***************************************************************************/
 
 // General Includes
