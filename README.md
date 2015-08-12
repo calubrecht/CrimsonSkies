@@ -1,31 +1,37 @@
-Crimson Skies
-=============
+Crimson Skies Mud (cs-mud)
+==========================
 
 Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
-bases (Smaug, Shadow, Wurm) will be included as well as what will be a lot of custom code.  The initial steps will
+bases (like Smaug) will be included as well as what will be a lot of custom code.  The initial steps will
 be getting a lot of the underpinnings in place correctly in order to make quicker updates later (like abstracting the
 class system, anyone who has added a new class to stock ROM will quickly get tired up updating the class_type table, 
-this is something that can be fixed fairly simply).  
+this is something that can be fixed fairly simply).  This portion is almost done.  Classes, skills and groups are
+loading from files currently.  OLC (Online Creation) exists for classes and groups and the skills OLC is being built now.
+
+The current development server which is playable and will reflect the latest commits here is at (you can telnet or use
+a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
+
+  - 66.244.102.112 port 4000
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
-official go to version 1.0 (which will probably be one I have at one reclass for every base class coded). 
+official go to version 1.0 (version 1 will be official when I finish 3 more reclasses so each base class has a reclass
+and when I finish resets of ocean life in the oceans).  The next version on the roadmap will include 4 more reclasses 
+and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.
 
 Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
-  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial compile/run in Visual Studio 
-you may need to follow the instructions in this blog post, they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
+  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial 
+    compile/run in Visual Studio you may need to follow the instructions in this blog post, 
+    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
 Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
-The current development server which is playable and will reflect the latest commits here is at:
-
-  - 66.244.102.112 port 4000
-
 If there are any coders and/or builders (esp builders) who are interested in contributing to an open source mud feel
 free to send me a message and get on board.  I am standing up a building port for this reason.  Great muds are a 
-combination of the code and the content.  You can't have just one or the other.
+combination of the code and the content.  You can't have just one or the other.  Although CS-Mud is newish to
+open source/GitHub it has been under private development since 1998 (as my hobby).
 
 ## Project Goals:
 
@@ -36,6 +42,8 @@ combination of the code and the content.  You can't have just one or the other.
     to be iconic (or at least nostalgic).
   - Server side LUA to suppliment and/or replace standard mob progs.
   - To document the old functions with descriptions and hopefully well document new functions.
+  - Remove unused code (for instance, skill SLOTS and the pgsn pointer weren't being used so I
+    removed them while implementing OLC).
   - To provide modern tools and hooks into ROM to allow it to integrate with services
     not imagined in the early 90's.  One feature will be a client based area build that
     will allow for dragging and dropping over rooms on a map (I had originally completed
