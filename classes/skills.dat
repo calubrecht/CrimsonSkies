@@ -382,7 +382,7 @@ End
 
 #SKILL
 Name        detect poison~
-SpellFun    spell_poison~
+SpellFun    spell_detect_poison~
 Target      4
 MinPos      8
 MinMana     5
