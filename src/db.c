@@ -181,7 +181,7 @@ void load_groups args((void));
 void load_skills args((void));
 void assign_gsn args((void));
 
-SPELL_FUN  *spell_function args(( char *name ));
+SPELL_FUN  *spell_function_lookup args(( char *name ));
 
 /*
  * Big mama top level function.
@@ -4259,7 +4259,7 @@ SKILLTYPE *fread_skill( FILE *fp)
 	    KEY( "Name",     	skill->name,		fread_string(fp));
             break;
         case 'S':
-            KEY("SpellFun",	skill->spell_fun,	spell_function(fread_string(fp)));
+            KEY("SpellFun",	skill->spell_fun,	spell_function_lookup(fread_string(fp)));
             break;
         case 'T':
             KEY("Target",	skill->target,		fread_number(fp));
