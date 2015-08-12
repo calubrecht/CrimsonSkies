@@ -345,7 +345,7 @@ int get_skill (CHAR_DATA * ch, int sn)
         skill = ch->level * 5 / 2;
     }
 
-    else if (sn < -1 || sn > MAX_SKILL)
+    else if (sn < -1 || sn > top_sn)
     {
         bug ("Bad sn %d in get_skill.", sn);
         skill = 0;
@@ -353,7 +353,7 @@ int get_skill (CHAR_DATA * ch, int sn)
 
     else if (!IS_NPC (ch))
     {
-        if (ch->level < skill_table[sn].skill_level[ch->class])
+        if (ch->level < skill_table[sn]->skill_level[ch->class])
             skill = 0;
         else
             skill = ch->pcdata->learned[sn];
@@ -364,7 +364,7 @@ int get_skill (CHAR_DATA * ch, int sn)
 
 
 
-        if (skill_table[sn].spell_fun != spell_null)
+        if (skill_table[sn]->spell_fun != spell_null)
             skill = 40 + 2 * ch->level;
 
         else if (sn == gsn_sneak || sn == gsn_hide)
@@ -427,7 +427,7 @@ int get_skill (CHAR_DATA * ch, int sn)
 
     if (ch->daze > 0)
     {
-        if (skill_table[sn].spell_fun != spell_null)
+        if (skill_table[sn]->spell_fun != spell_null)
             skill /= 2;
         else
             skill = 2 * skill / 3;
@@ -1439,7 +1439,18 @@ void affect_strip (CHAR_DATA * ch, int sn)
     return;
 }
 
+/*
+ * Removes all affects from a character.
+ */
+void affect_strip_all(CHAR_DATA *ch)
+{
+    int sn;
 
+    for (sn = 0; sn < top_sn; sn++)
+    {
+        affect_strip(ch, sn);
+    }
+}
 
 /*
  * Return true if a char is affected by a spell.

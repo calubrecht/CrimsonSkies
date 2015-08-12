@@ -305,12 +305,12 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
                      ch->pcdata->alias_sub[pos]);
         }
 
-        for (sn = 0; sn < MAX_SKILL; sn++)
+        for (sn = 0; sn < top_sn; sn++)
         {
-            if (skill_table[sn].name != NULL && ch->pcdata->learned[sn] > 0)
+            if (skill_table[sn]->name != NULL && ch->pcdata->learned[sn] > 0)
             {
                 fprintf (fp, "Sk %d '%s'\n",
-                         ch->pcdata->learned[sn], skill_table[sn].name);
+                         ch->pcdata->learned[sn], skill_table[sn]->name);
             }
         }
 
@@ -325,11 +325,11 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
 
     for (paf = ch->affected; paf != NULL; paf = paf->next)
     {
-        if (paf->type < 0 || paf->type >= MAX_SKILL)
+        if (paf->type < 0 || paf->type >= top_sn)
             continue;
 
         fprintf (fp, "Affc '%s' %3d %3d %3d %3d %3d %10d\n",
-                 skill_table[paf->type].name,
+                 skill_table[paf->type]->name,
                  paf->where,
                  paf->level,
                  paf->duration, paf->modifier, paf->location, paf->bitvector);
@@ -400,11 +400,11 @@ void fwrite_pet (CHAR_DATA * pet, FILE * fp)
 
     for (paf = pet->affected; paf != NULL; paf = paf->next)
     {
-        if (paf->type < 0 || paf->type >= MAX_SKILL)
+        if (paf->type < 0 || paf->type >= top_sn)
             continue;
 
         fprintf (fp, "Affc '%s' %3d %3d %3d %3d %3d %10d\n",
-                 skill_table[paf->type].name,
+                 skill_table[paf->type]->name,
                  paf->where, paf->level, paf->duration, paf->modifier,
                  paf->location, paf->bitvector);
     }
@@ -491,19 +491,19 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
             if (obj->value[1] > 0)
             {
                 fprintf (fp, "Spell 1 '%s'\n",
-                         skill_table[obj->value[1]].name);
+                         skill_table[obj->value[1]]->name);
             }
 
             if (obj->value[2] > 0)
             {
                 fprintf (fp, "Spell 2 '%s'\n",
-                         skill_table[obj->value[2]].name);
+                         skill_table[obj->value[2]]->name);
             }
 
             if (obj->value[3] > 0)
             {
                 fprintf (fp, "Spell 3 '%s'\n",
-                         skill_table[obj->value[3]].name);
+                         skill_table[obj->value[3]]->name);
             }
 
             break;
@@ -513,7 +513,7 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
             if (obj->value[3] > 0)
             {
                 fprintf (fp, "Spell 3 '%s'\n",
-                         skill_table[obj->value[3]].name);
+                         skill_table[obj->value[3]]->name);
             }
 
             break;
@@ -521,10 +521,10 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 
     for (paf = obj->affected; paf != NULL; paf = paf->next)
     {
-        if (paf->type < 0 || paf->type >= MAX_SKILL)
+        if (paf->type < 0 || paf->type >= top_sn)
             continue;
         fprintf (fp, "Affc '%s' %3d %3d %3d %3d %3d %10d\n",
-                 skill_table[paf->type].name,
+                 skill_table[paf->type]->name,
                  paf->where,
                  paf->level,
                  paf->duration, paf->modifier, paf->location, paf->bitvector);

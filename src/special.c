@@ -433,7 +433,7 @@ bool dragon (CHAR_DATA * ch, char *spell_name)
 
     if ((sn = skill_lookup (spell_name)) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
     return TRUE;
 }
 
@@ -499,7 +499,7 @@ bool spec_breath_gas (CHAR_DATA * ch)
 
     if ((sn = skill_lookup ("gas breath")) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, NULL, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, NULL, TARGET_CHAR);
     return TRUE;
 }
 
@@ -664,7 +664,7 @@ bool spec_cast_cleric (CHAR_DATA * ch)
 
     if ((sn = skill_lookup (spell)) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
     return TRUE;
 }
 
@@ -691,7 +691,7 @@ bool spec_cast_judge (CHAR_DATA * ch)
     spell = "high explosive";
     if ((sn = skill_lookup (spell)) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
     return TRUE;
 }
 
@@ -773,7 +773,7 @@ bool spec_cast_mage (CHAR_DATA * ch)
 
     if ((sn = skill_lookup (spell)) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
     return TRUE;
 }
 
@@ -853,7 +853,7 @@ bool spec_cast_undead (CHAR_DATA * ch)
 
     if ((sn = skill_lookup (spell)) < 0)
         return FALSE;
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim, TARGET_CHAR);
     return TRUE;
 }
 

@@ -784,9 +784,9 @@ void char_update (void)
                 if (paf_next == NULL
                     || paf_next->type != paf->type || paf_next->duration > 0)
                 {
-                    if (paf->type > 0 && skill_table[paf->type].msg_off)
+                    if (paf->type > 0 && skill_table[paf->type]->msg_off)
                     {
-                        send_to_char (skill_table[paf->type].msg_off, ch);
+                        send_to_char (skill_table[paf->type]->msg_off, ch);
                         send_to_char ("\n\r", ch);
                     }
                 }
@@ -946,19 +946,19 @@ void obj_update (void)
                 if (paf_next == NULL
                     || paf_next->type != paf->type || paf_next->duration > 0)
                 {
-                    if (paf->type > 0 && skill_table[paf->type].msg_obj)
+                    if (paf->type > 0 && skill_table[paf->type]->msg_obj)
                     {
                         if (obj->carried_by != NULL)
                         {
                             rch = obj->carried_by;
-                            act (skill_table[paf->type].msg_obj,
+                            act (skill_table[paf->type]->msg_obj,
                                  rch, obj, NULL, TO_CHAR);
                         }
                         if (obj->in_room != NULL
                             && obj->in_room->people != NULL)
                         {
                             rch = obj->in_room->people;
-                            act (skill_table[paf->type].msg_obj,
+                            act (skill_table[paf->type]->msg_obj,
                                  rch, obj, NULL, TO_ALL);
                         }
                     }

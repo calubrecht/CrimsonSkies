@@ -1044,7 +1044,7 @@ void do_mpcast (CHAR_DATA * ch, char *argument)
     }
     vch = get_char_room (ch, target);
     obj = get_obj_here (ch, target);
-    switch (skill_table[sn].target)
+    switch (skill_table[sn]->target)
     {
         default:
             return;
@@ -1068,8 +1068,8 @@ void do_mpcast (CHAR_DATA * ch, char *argument)
                 return;
             victim = (void *) obj;
     }
-    (*skill_table[sn].spell_fun) (sn, ch->level, ch, victim,
-                                  skill_table[sn].target);
+    (*skill_table[sn]->spell_fun) (sn, ch->level, ch, victim,
+                                  skill_table[sn]->target);
     return;
 }
 

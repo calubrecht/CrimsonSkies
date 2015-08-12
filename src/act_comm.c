@@ -44,7 +44,6 @@
 
 char *reclass_list args(());
 
-
 /*
  * Void to force player to fully type out delete if they want to delete.
  */
@@ -1848,7 +1847,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     reset_char(ch);
 
     // Clear all previously known skills
-    for (i = 0; i < MAX_SKILL; i++)
+    for (i = 0; i < top_sn; i++)
     {
         ch->pcdata->learned[i] = 0;
     }

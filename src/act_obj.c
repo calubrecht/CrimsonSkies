@@ -45,6 +45,7 @@
  */
 #define CD CHAR_DATA
 #define OD OBJ_DATA
+
 bool remove_obj args ((CHAR_DATA * ch, int iWear, bool fReplace));
 void wear_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
 CD *find_keeper args ((CHAR_DATA * ch));
@@ -54,7 +55,7 @@ OD *get_obj_keeper
 args ((CHAR_DATA * ch, CHAR_DATA * keeper, char *argument));
 
 #undef OD
-#undef    CD
+#undef CD
 
 /* RT part of the corpse looting code */
 
@@ -891,14 +892,14 @@ void do_envenom (CHAR_DATA * ch, char *argument)
                 obj->value[3] = 1;
                 check_improve (ch, gsn_envenom, TRUE, 4);
             }
-            WAIT_STATE (ch, skill_table[gsn_envenom].beats);
+            WAIT_STATE (ch, skill_table[gsn_envenom]->beats);
             return;
         }
 
         act ("You fail to poison $p.", ch, obj, NULL, TO_CHAR);
         if (!obj->value[3])
             check_improve (ch, gsn_envenom, FALSE, 4);
-        WAIT_STATE (ch, skill_table[gsn_envenom].beats);
+        WAIT_STATE (ch, skill_table[gsn_envenom]->beats);
         return;
     }
 
@@ -946,14 +947,14 @@ void do_envenom (CHAR_DATA * ch, char *argument)
             act ("$n coats $p with deadly venom.", ch, obj, NULL, TO_ROOM);
             act ("You coat $p with venom.", ch, obj, NULL, TO_CHAR);
             check_improve (ch, gsn_envenom, TRUE, 3);
-            WAIT_STATE (ch, skill_table[gsn_envenom].beats);
+            WAIT_STATE (ch, skill_table[gsn_envenom]->beats);
             return;
         }
         else
         {
             act ("You fail to envenom $p.", ch, obj, NULL, TO_CHAR);
             check_improve (ch, gsn_envenom, FALSE, 3);
-            WAIT_STATE (ch, skill_table[gsn_envenom].beats);
+            WAIT_STATE (ch, skill_table[gsn_envenom]->beats);
             return;
         }
     }
@@ -2021,7 +2022,7 @@ void do_brandish (CHAR_DATA * ch, char *argument)
     }
 
     if ((sn = staff->value[3]) < 0
-        || sn >= MAX_SKILL || skill_table[sn].spell_fun == 0)
+        || sn >= top_sn || skill_table[sn]->spell_fun == 0)
     {
         bug ("Do_brandish: bad sn %d.", sn);
         return;
@@ -2046,7 +2047,7 @@ void do_brandish (CHAR_DATA * ch, char *argument)
             {
                 vch_next = vch->next_in_room;
 
-                switch (skill_table[sn].target)
+                switch (skill_table[sn]->target)
                 {
                     default:
                         bug ("Do_brandish: bad target for sn %d.", sn);
@@ -2230,7 +2231,7 @@ void do_steal (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    WAIT_STATE (ch, skill_table[gsn_steal].beats);
+    WAIT_STATE (ch, skill_table[gsn_steal]->beats);
     percent = number_percent ();
 
     if (!IS_AWAKE (victim))
@@ -3146,7 +3147,7 @@ void do_second( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    if ( ch->level < skill_table[gsn_dual_wield].skill_level[ch->class] ||
+    if ( ch->level < skill_table[gsn_dual_wield]->skill_level[ch->class] ||
 	 get_skill(ch,gsn_dual_wield) == 0 )
     {
 	send_to_char("You are not capable of dual wielding weapons.\n\r",ch);

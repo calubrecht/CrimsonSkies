@@ -51,7 +51,165 @@ void say_spell args ((CHAR_DATA * ch, int sn));
 bool remove_obj args ((CHAR_DATA * ch, int iWear, bool fReplace));
 void wear_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
 
-
+/*
+ * Returns the spell function for the specified name.  This will allow loading from
+ * a file (although this has to be updated which isn't ideal but is necessary).  By
+ * switching for the 7th character we can cut down the number of checks run.  All
+ * spells under this construct must start with "spell_".  We will move the most used
+ * spells in each case to the top.
+ */
+SPELL_FUN *spell_function(char *name)
+{
+    switch( name[6] )
+    {
+        case 'a':
+            if ( !str_cmp( name, "spell_armor" )) return spell_armor;
+            if ( !str_cmp( name, "spell_acid_blast" )) return spell_acid_blast;
+            if ( !str_cmp( name, "spell_acid_breath" )) return spell_acid_breath;
+            break;
+        case 'b':
+            if ( !str_cmp( name, "spell_bless" )) return spell_bless;
+            if ( !str_cmp( name, "spell_blindness" )) return spell_blindness;
+            if ( !str_cmp( name, "spell_burning_hands" )) return spell_burning_hands;
+        case 'c':
+            if ( !str_cmp( name, "spell_cancellation" )) return spell_cancellation;
+            if ( !str_cmp( name, "spell_curse" )) return spell_curse;
+            if ( !str_cmp( name, "spell_chain_lightning" )) return spell_chain_lightning;
+            if ( !str_cmp( name, "spell_create_food" )) return spell_create_food;
+            if ( !str_cmp( name, "spell_create_spring" )) return spell_create_spring;
+            if ( !str_cmp( name, "spell_cure_blindness" )) return spell_cure_blindness;
+            if ( !str_cmp( name, "spell_cure_critical" )) return spell_cure_critical;
+            if ( !str_cmp( name, "spell_cure_disease" )) return spell_cure_disease;
+            if ( !str_cmp( name, "spell_cure_poison" )) return spell_poison;
+            if ( !str_cmp( name, "spell_calm" )) return spell_calm;
+            if ( !str_cmp( name, "spell_cause_critical" )) return spell_cause_critical;
+            if ( !str_cmp( name, "spell_cause_light" )) return spell_cause_light;
+            if ( !str_cmp( name, "spell_cause_serious" )) return spell_cause_serious;
+            if ( !str_cmp( name, "spell_change_sex" )) return spell_change_sex;
+            if ( !str_cmp( name, "spell_charm_person" )) return spell_charm_person;
+            if ( !str_cmp( name, "spell_chill_touch" )) return spell_chill_touch;
+            if ( !str_cmp( name, "spell_color_spray" )) return spell_color_spray;
+            if ( !str_cmp( name, "spell_continual_light" )) return spell_continual_light;
+            if ( !str_cmp( name, "spell_control_weather" )) return spell_control_weather;
+            if ( !str_cmp( name, "spell_create_water" )) return spell_create_water;
+            if ( !str_cmp( name, "spell_cure_light" )) return spell_cure_light;
+            if ( !str_cmp( name, "spell_cure_serious" )) return spell_cure_serious;
+            if ( !str_cmp( name, "spell_call_lightning" )) return spell_call_lightning;
+            if ( !str_cmp( name, "spell_create_rose" )) return spell_create_rose;
+        case 'd':
+            if ( !str_cmp( name, "spell_detect_hidden" )) return spell_detect_hidden;
+            if ( !str_cmp( name, "spell_detect_invis" )) return spell_detect_invis;
+            if ( !str_cmp( name, "spell_dispel_magic" )) return spell_dispel_magic;
+            if ( !str_cmp( name, "spell_detect_evil" )) return spell_detect_evil;
+            if ( !str_cmp( name, "spell_detect_good" )) return spell_detect_good;
+            if ( !str_cmp( name, "spell_detect_magic" )) return spell_detect_magic;
+            if ( !str_cmp( name, "spell_detect_poison" )) return spell_detect_poison;
+            if ( !str_cmp( name, "spell_dispel_evil" )) return spell_dispel_evil;
+            if ( !str_cmp( name, "spell_dispel_good" )) return spell_dispel_good;
+            if ( !str_cmp( name, "spell_disenchant" )) return spell_disenchant;
+            if ( !str_cmp( name, "spell_demonfire" )) return spell_demonfire;
+            break;
+        case 'e':
+            if ( !str_cmp( name, "spell_earthquake" )) return spell_earthquake;
+            if ( !str_cmp( name, "spell_enchant_armor" )) return spell_enchant_armor;
+            if ( !str_cmp( name, "spell_enchant_weapon" )) return spell_enchant_weapon;
+            if ( !str_cmp( name, "spell_enchant_person" )) return spell_enchant_person;
+            if ( !str_cmp( name, "spell_enchant_gem" )) return spell_enchant_gem;
+            if ( !str_cmp( name, "spell_energy_drain" )) return spell_energy_drain;
+            break;
+        case 'f':
+            if ( !str_cmp( name, "spell_fly" )) return spell_fly;
+            if ( !str_cmp( name, "spell_frenzy" )) return spell_frenzy;
+            if ( !str_cmp( name, "spell_fireball" )) return spell_fireball;
+            if ( !str_cmp( name, "spell_faerie_fog" )) return spell_faerie_fog;
+            if ( !str_cmp( name, "spell_faerie_fire" )) return spell_faerie_fire;
+            if ( !str_cmp( name, "spell_farsight" )) return spell_farsight;
+            if ( !str_cmp( name, "spell_fireproof" )) return spell_fireproof;
+            if ( !str_cmp( name, "spell_flamestrike" )) return spell_flamestrike;
+            if ( !str_cmp( name, "spell_floating_disc" )) return spell_floating_disc;
+            if ( !str_cmp( name, "spell_fire_breath" )) return spell_fire_breath;
+            if ( !str_cmp( name, "spell_frost_breath" )) return spell_frost_breath;
+            break;
+        case 'g':
+            if ( !str_cmp( name, "spell_gate" )) return spell_gate;
+            if ( !str_cmp( name, "spell_giant_strength" )) return spell_giant_strength;
+            if ( !str_cmp( name, "spell_gas_breath" )) return spell_gas_breath;
+            if ( !str_cmp( name, "spell_general_purpose" )) return spell_general_purpose;
+            break;
+        case 'h':
+            if ( !str_cmp( name, "spell_haste" )) return spell_haste;
+            if ( !str_cmp( name, "spell_heal" )) return spell_heal;
+            if ( !str_cmp( name, "spell_heat_metal" )) return spell_heat_metal;
+            if ( !str_cmp( name, "spell_harm" )) return spell_harm;
+            if ( !str_cmp( name, "spell_holy_word" )) return spell_holy_word;
+            if ( !str_cmp( name, "spell_high_explosive" )) return spell_high_explosive;
+            break;
+        case 'i':
+            if ( !str_cmp( name, "spell_invis" )) return spell_invis;
+            if ( !str_cmp( name, "spell_identify" )) return spell_identify;
+            if ( !str_cmp( name, "spell_interlace_spirit" )) return spell_interlace_spirit;
+            if ( !str_cmp( name, "spell_infravision" )) return spell_infravision;
+            break;
+        case 'k':
+            if ( !str_cmp( name, "spell_know_aligntment" )) return spell_know_alignment;
+            break;
+        case 'l':
+            if ( !str_cmp( name, "spell_locate_object" )) return spell_locate_object;
+            if ( !str_cmp( name, "spell_lightning_bolt" )) return spell_lightning_bolt;
+            if ( !str_cmp( name, "spell_lightning_breath" )) return spell_lightning_breath;
+            if ( !str_cmp( name, "spell_locate_wizard_mark" )) return spell_locate_wizard_mark;
+            break;
+        case 'm':
+            if ( !str_cmp( name, "spell_magic_missile" )) return spell_magic_missile;
+            if ( !str_cmp( name, "spell_mass_healing" )) return spell_mass_healing;
+            if ( !str_cmp( name, "spell_mass_invis" )) return spell_mass_invis;
+            break;
+        case 'n':
+            if ( !str_cmp( name, "spell_null" )) return spell_null;
+            if ( !str_cmp( name, "spell_nexus" )) return spell_nexus;
+            break;
+        case 'p':
+            if ( !str_cmp( name, "spell_poison" )) return spell_poison;
+            if ( !str_cmp( name, "spell_pass_door" )) return spell_pass_door;
+            if ( !str_cmp( name, "spell_plague" )) return spell_plague;
+            if ( !str_cmp( name, "spell_portal" )) return spell_portal;
+            if ( !str_cmp( name, "spell_protection_evil" )) return spell_protection_evil;
+            if ( !str_cmp( name, "spell_protection_good" )) return spell_protection_good;
+            break;
+        case 'r':
+            if ( !str_cmp( name, "spell_refresh" )) return spell_refresh;
+            if ( !str_cmp( name, "spell_restore_weapon" )) return spell_restore_weapon;
+            if ( !str_cmp( name, "spell_restore_armor" )) return spell_restore_armor;
+            if ( !str_cmp( name, "spell_ray_of_truth" )) return spell_ray_of_truth;
+            if ( !str_cmp( name, "spell_recharge" )) return spell_recharge;
+            if ( !str_cmp( name, "spell_remove_curse" )) return spell_remove_curse;
+            break;
+        case 's':
+            if ( !str_cmp( name, "spell_sanctuary" )) return spell_sanctuary;
+            if ( !str_cmp( name, "spell_shield" )) return spell_shield;
+            if ( !str_cmp( name, "spell_stone_skin" )) return spell_stone_skin;
+            if ( !str_cmp( name, "spell_summon" )) return spell_summon;
+            if ( !str_cmp( name, "spell_sleep" )) return spell_sleep;
+            if ( !str_cmp( name, "spell_slow" )) return spell_slow;
+            if ( !str_cmp( name, "spell_shocking_grasp" )) return spell_shocking_grasp;
+            if ( !str_cmp( name, "spell_sequestor" )) return spell_sequestor;
+            break;
+        case 't':
+            if ( !str_cmp( name, "spell_teleport" )) return spell_teleport;
+            break;
+        case 'v':
+            if ( !str_cmp( name, "spell_ventriloquate" )) return spell_ventriloquate;
+            break;
+        case 'w':
+            if ( !str_cmp( name, "spell_word_of_recall" )) return spell_word_of_recall;
+            if ( !str_cmp( name, "spell_water_breathing" )) return spell_water_breathing;
+            if ( !str_cmp( name, "spell_weaken" )) return spell_weaken;
+            if ( !str_cmp( name, "spell_withering_enchant" )) return spell_withering_enchant;
+            if ( !str_cmp( name, "spell_wizard_mark" )) return spell_wizard_mark;
+            break;
+    }
+    return spell_null;
+}
 
 /*
  * Lookup a skill number by name.
@@ -60,12 +218,12 @@ int skill_lookup (const char *name)
 {
     int sn;
 
-    for (sn = 0; sn < MAX_SKILL; sn++)
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn].name == NULL)
+        if (skill_table[sn]->name == NULL)
             break;
-        if (LOWER (name[0]) == LOWER (skill_table[sn].name[0])
-            && !str_prefix (name, skill_table[sn].name))
+        if (LOWER (name[0]) == LOWER (skill_table[sn]->name[0])
+            && !str_prefix (name, skill_table[sn]->name))
             return sn;
     }
 
@@ -80,16 +238,16 @@ int find_spell (CHAR_DATA * ch, const char *name)
     if (IS_NPC (ch))
         return skill_lookup (name);
 
-    for (sn = 0; sn < MAX_SKILL; sn++)
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn].name == NULL)
+        if (skill_table[sn]->name == NULL)
             break;
-        if (LOWER (name[0]) == LOWER (skill_table[sn].name[0])
-            && !str_prefix (name, skill_table[sn].name))
+        if (LOWER (name[0]) == LOWER (skill_table[sn]->name[0])
+            && !str_prefix (name, skill_table[sn]->name))
         {
             if (found == -1)
                 found = sn;
-            if (ch->level >= skill_table[sn].skill_level[ch->class]
+            if (ch->level >= skill_table[sn]->skill_level[ch->class]
                 && ch->pcdata->learned[sn] > 0)
                 return sn;
         }
@@ -149,7 +307,7 @@ void say_spell (CHAR_DATA * ch, int sn)
     };
 
     buf[0] = '\0';
-    for (pName = skill_table[sn].name; *pName != '\0'; pName += length)
+    for (pName = skill_table[sn]->name; *pName != '\0'; pName += length)
     {
         for (iSyl = 0; (length = strlen (syl_table[iSyl].old)) != 0; iSyl++)
         {
@@ -165,7 +323,7 @@ void say_spell (CHAR_DATA * ch, int sn)
     }
 
     sprintf (buf2, "$n utters the words, '%s'.", buf);
-    sprintf (buf, "$n utters the words, '%s'.", skill_table[sn].name);
+    sprintf (buf, "$n utters the words, '%s'.", skill_table[sn]->name);
 
     for (rch = ch->in_room->people; rch; rch = rch->next_in_room)
     {
@@ -239,9 +397,9 @@ bool check_dispel (int dis_level, CHAR_DATA * victim, int sn)
                 if (!saves_dispel (dis_level, af->level, af->duration))
                 {
                     affect_strip (victim, sn);
-                    if (skill_table[sn].msg_off)
+                    if (skill_table[sn]->msg_off)
                     {
-                        send_to_char (skill_table[sn].msg_off, victim);
+                        send_to_char (skill_table[sn]->msg_off, victim);
                         send_to_char ("\n\r", victim);
                     }
                     return TRUE;
@@ -296,10 +454,10 @@ void do_cast (CHAR_DATA * ch, char *argument)
     }
 
     if ((sn = find_spell (ch, arg1)) < 1
-        || skill_table[sn].spell_fun == spell_null || (!IS_NPC (ch)
+        || skill_table[sn]->spell_fun == spell_null || (!IS_NPC (ch)
                                                        && (ch->level <
                                                            skill_table
-                                                           [sn].skill_level
+                                                           [sn]->skill_level
                                                            [ch->class]
                                                            || ch->
                                                            pcdata->learned[sn]
@@ -309,18 +467,18 @@ void do_cast (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (ch->position < skill_table[sn].minimum_position)
+    if (ch->position < skill_table[sn]->minimum_position)
     {
         send_to_char ("You can't concentrate enough.\n\r", ch);
         return;
     }
 
-    if (ch->level + 2 == skill_table[sn].skill_level[ch->class])
+    if (ch->level + 2 == skill_table[sn]->skill_level[ch->class])
         mana = 50;
     else
-        mana = UMAX (skill_table[sn].min_mana,
+        mana = UMAX (skill_table[sn]->min_mana,
                      100 / (2 + ch->level -
-                            skill_table[sn].skill_level[ch->class]));
+                            skill_table[sn]->skill_level[ch->class]));
 
     /*
      * Locate targets.
@@ -330,7 +488,7 @@ void do_cast (CHAR_DATA * ch, char *argument)
     vo = NULL;
     target = TARGET_NONE;
 
-    switch (skill_table[sn].target)
+    switch (skill_table[sn]->target)
     {
         default:
             bug ("Do_cast: bad target for sn %d.", sn);
@@ -512,10 +670,10 @@ void do_cast (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (str_cmp (skill_table[sn].name, "ventriloquate"))
+    if (str_cmp (skill_table[sn]->name, "ventriloquate"))
         say_spell (ch, sn);
 
-    WAIT_STATE (ch, skill_table[sn].beats);
+    WAIT_STATE (ch, skill_table[sn]->beats);
 
     if (number_percent () > get_skill (ch, sn))
     {
@@ -528,14 +686,14 @@ void do_cast (CHAR_DATA * ch, char *argument)
         ch->mana -= mana;
         if (IS_NPC (ch) || class_table[ch->class]->fMana)
             /* class has spells */
-            (*skill_table[sn].spell_fun) (sn, ch->level, ch, vo, target);
+            (*skill_table[sn]->spell_fun) (sn, ch->level, ch, vo, target);
         else
-            (*skill_table[sn].spell_fun) (sn, 3 * ch->level / 4, ch, vo, target);
+            (*skill_table[sn]->spell_fun) (sn, 3 * ch->level / 4, ch, vo, target);
         check_improve (ch, sn, TRUE, 1);
     }
 
-    if ((skill_table[sn].target == TAR_CHAR_OFFENSIVE
-         || (skill_table[sn].target == TAR_OBJ_CHAR_OFF
+    if ((skill_table[sn]->target == TAR_CHAR_OFFENSIVE
+         || (skill_table[sn]->target == TAR_OBJ_CHAR_OFF
              && target == TARGET_CHAR)) && victim != ch
         && victim->master != ch)
     {
@@ -571,13 +729,13 @@ void obj_cast_spell (int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim,
     if (sn <= 0)
         return;
 
-    if (sn >= MAX_SKILL || skill_table[sn].spell_fun == 0)
+    if (sn >= MAX_SKILL || skill_table[sn]->spell_fun == 0)
     {
         bug ("Obj_cast_spell: bad sn %d.", sn);
         return;
     }
 
-    switch (skill_table[sn].target)
+    switch (skill_table[sn]->target)
     {
         default:
             bug ("Obj_cast_spell: bad target for sn %d.", sn);
@@ -674,12 +832,12 @@ void obj_cast_spell (int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim,
     }
 
     target_name = "";
-    (*skill_table[sn].spell_fun) (sn, level, ch, vo, target);
+    (*skill_table[sn]->spell_fun) (sn, level, ch, vo, target);
 
 
 
-    if ((skill_table[sn].target == TAR_CHAR_OFFENSIVE
-         || (skill_table[sn].target == TAR_OBJ_CHAR_OFF
+    if ((skill_table[sn]->target == TAR_CHAR_OFFENSIVE
+         || (skill_table[sn]->target == TAR_OBJ_CHAR_OFF
              && target == TARGET_CHAR)) && victim != ch
         && victim->master != ch)
     {
@@ -2971,28 +3129,28 @@ void spell_identify (int sn, int level, CHAR_DATA * ch, void *vo, int target)
             if (obj->value[1] >= 0 && obj->value[1] < MAX_SKILL)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[1]].name, ch);
+                send_to_char (skill_table[obj->value[1]]->name, ch);
                 send_to_char ("'", ch);
             }
 
             if (obj->value[2] >= 0 && obj->value[2] < MAX_SKILL)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[2]].name, ch);
+                send_to_char (skill_table[obj->value[2]]->name, ch);
                 send_to_char ("'", ch);
             }
 
             if (obj->value[3] >= 0 && obj->value[3] < MAX_SKILL)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[3]].name, ch);
+                send_to_char (skill_table[obj->value[3]]->name, ch);
                 send_to_char ("'", ch);
             }
 
             if (obj->value[4] >= 0 && obj->value[4] < MAX_SKILL)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[4]].name, ch);
+                send_to_char (skill_table[obj->value[4]]->name, ch);
                 send_to_char ("'", ch);
             }
 
@@ -3008,7 +3166,7 @@ void spell_identify (int sn, int level, CHAR_DATA * ch, void *vo, int target)
             if (obj->value[3] >= 0 && obj->value[3] < MAX_SKILL)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[3]].name, ch);
+                send_to_char (skill_table[obj->value[3]]->name, ch);
                 send_to_char ("'", ch);
             }
 
@@ -4663,4 +4821,3 @@ void spell_water_breathing(int sn,int level,CHAR_DATA *ch,void *vo,int target)
     act("$n's lungs surge as $e appears to be breathing differently.",victim,NULL,NULL,TO_ROOM);
     return;
 } // end spell_water_breathing
-

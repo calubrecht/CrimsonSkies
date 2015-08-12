@@ -376,16 +376,16 @@ void save_object (FILE * fp, OBJ_INDEX_DATA * pObjIndex)
                      pObjIndex->value[0]
                      : 0,
                      pObjIndex->value[1] != -1 ?
-                     skill_table[pObjIndex->value[1]].name
+                     skill_table[pObjIndex->value[1]]->name
                      : "",
                      pObjIndex->value[2] != -1 ?
-                     skill_table[pObjIndex->value[2]].name
+                     skill_table[pObjIndex->value[2]]->name
                      : "",
                      pObjIndex->value[3] != -1 ?
-                     skill_table[pObjIndex->value[3]].name
+                     skill_table[pObjIndex->value[3]]->name
                      : "",
                      pObjIndex->value[4] != -1 ?
-                     skill_table[pObjIndex->value[4]].name : "");
+                     skill_table[pObjIndex->value[4]]->name : "");
             break;
 
         case ITEM_STAFF:
@@ -395,7 +395,7 @@ void save_object (FILE * fp, OBJ_INDEX_DATA * pObjIndex)
                      pObjIndex->value[1],
                      pObjIndex->value[2],
                      pObjIndex->value[3] != -1 ?
-                     skill_table[pObjIndex->value[3]].name :
+                     skill_table[pObjIndex->value[3]]->name :
                      "", pObjIndex->value[4]);
             break;
     }
@@ -1057,14 +1057,14 @@ void save_class (int num)
 
     for (lev = 0; lev < MAX_LEVEL; lev++)
     {
-        for (i = 0; i < MAX_SKILL; i++)
+        for (i = 0; i < top_sn; i++)
         {
-            if (skill_table[i].name == NULL || skill_table[i].name[0] == '\0')
+            if (skill_table[i]->name == NULL || skill_table[i]->name[0] == '\0')
                 continue;
 
-             if (skill_table[i].skill_level[num] == lev)
+             if (skill_table[i]->skill_level[num] == lev)
              {
-                 fprintf (fp, "Sk '%s' %d %d\n", skill_table[i].name, lev, skill_table[i].rating[num]);
+                 fprintf (fp, "Sk '%s' %d %d\n", skill_table[i]->name, lev, skill_table[i]->rating[num]);
              }
         }
     }
@@ -1107,9 +1107,9 @@ void save_skills( void )
         return;
     }
 
-    for (sn = 0; sn < MAX_SKILL; sn++)
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if ( !skill_table[sn].name || skill_table[sn].name[0] == '\0' )
+        if ( !skill_table[sn]->name || skill_table[sn]->name[0] == '\0' )
            break;
 
         fprintf( fp, "#SKILL\n" );
@@ -1127,21 +1127,21 @@ void save_skills( void )
  */
 void fwrite_skill(FILE *fp, int sn)
 {
-    fprintf(fp,"Name        %s~\n", skill_table[sn].name);
+    fprintf(fp,"Name        %s~\n", skill_table[sn]->name);
     //fprintf(fp,"SpellFun    %s~\n",spell_name(skill_table[sn].spell_fun));
-    fprintf(fp,"Target      %d\n",skill_table[sn].target);
-    fprintf(fp,"MinPos      %d\n",skill_table[sn].minimum_position);
-    fprintf(fp,"MinMana     %d\n",skill_table[sn].min_mana);
-    fprintf(fp,"Beats       %d\n",skill_table[sn].beats);
+    fprintf(fp,"Target      %d\n",skill_table[sn]->target);
+    fprintf(fp,"MinPos      %d\n",skill_table[sn]->minimum_position);
+    fprintf(fp,"MinMana     %d\n",skill_table[sn]->min_mana);
+    fprintf(fp,"Beats       %d\n",skill_table[sn]->beats);
 
-    if ( skill_table[sn].noun_damage && skill_table[sn].noun_damage[0] != '\0' )
-        fprintf(fp,"Damage      %s~\n",skill_table[sn].noun_damage);
+    if ( skill_table[sn]->noun_damage && skill_table[sn]->noun_damage[0] != '\0' )
+        fprintf(fp,"Damage      %s~\n",skill_table[sn]->noun_damage);
 
-    if ( skill_table[sn].msg_off && skill_table[sn].msg_off[0] != '\0' )
-        fprintf(fp,"MsgOff      %s~\n",skill_table[sn].msg_off);
+    if ( skill_table[sn]->msg_off && skill_table[sn]->msg_off[0] != '\0' )
+        fprintf(fp,"MsgOff      %s~\n",skill_table[sn]->msg_off);
 
-    if ( skill_table[sn].msg_obj && skill_table[sn].msg_obj[0] != '\0' )
-        fprintf(fp,"MsgObj      %s~\n",skill_table[sn].msg_obj);
+    if ( skill_table[sn]->msg_obj && skill_table[sn]->msg_obj[0] != '\0' )
+        fprintf(fp,"MsgObj      %s~\n",skill_table[sn]->msg_obj);
 
     fprintf( fp, "End\n\n" );
 

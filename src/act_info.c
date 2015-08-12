@@ -1956,7 +1956,7 @@ void do_affects (CHAR_DATA * ch, char *argument)
                 else
                     continue;
             else
-                sprintf (buf, "Spell: %-15s", skill_table[paf->type].name);
+                sprintf (buf, "Spell: %-15s", skill_table[paf->type]->name);
 
             send_to_char (buf, ch);
 
@@ -2961,16 +2961,16 @@ void do_practice (CHAR_DATA * ch, char *argument)
         int col;
 
         col = 0;
-        for (sn = 0; sn < MAX_SKILL; sn++)
+        for (sn = 0; sn < top_sn; sn++)
         {
-            if (skill_table[sn].name == NULL)
+            if (skill_table[sn]->name == NULL)
                 break;
-            if (ch->level < skill_table[sn].skill_level[ch->class]
+            if (ch->level < skill_table[sn]->skill_level[ch->class]
                 || ch->pcdata->learned[sn] < 1 /* skill is not known */ )
                 continue;
 
             sprintf (buf, "%-18s %3d%%  ",
-                     skill_table[sn].name, ch->pcdata->learned[sn]);
+                     skill_table[sn]->name, ch->pcdata->learned[sn]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
                 send_to_char ("\n\r", ch);
@@ -3015,13 +3015,13 @@ void do_practice (CHAR_DATA * ch, char *argument)
         if ((sn = find_spell (ch, argument)) < 0 || (!IS_NPC (ch)
                                                      && (ch->level <
                                                          skill_table
-                                                         [sn].skill_level
+                                                         [sn]->skill_level
                                                          [ch->class]
                                                          || ch->
                                                          pcdata->learned[sn] < 1    /* skill is not known */
                                                          ||
                                                          skill_table
-                                                         [sn].rating[ch->
+                                                         [sn]->rating[ch->
                                                                      class] ==
                                                          0)))
         {
@@ -3034,7 +3034,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
         if (ch->pcdata->learned[sn] >= adept)
         {
             sprintf (buf, "You are already learned at %s.\n\r",
-                     skill_table[sn].name);
+                     skill_table[sn]->name);
             send_to_char (buf, ch);
         }
         else
@@ -3042,21 +3042,21 @@ void do_practice (CHAR_DATA * ch, char *argument)
             ch->practice--;
             ch->pcdata->learned[sn] +=
                 int_app[get_curr_stat (ch, STAT_INT)].learn /
-                skill_table[sn].rating[ch->class];
+                skill_table[sn]->rating[ch->class];
             if (ch->pcdata->learned[sn] < adept)
             {
                 act ("You practice $T.",
-                     ch, NULL, skill_table[sn].name, TO_CHAR);
+                     ch, NULL, skill_table[sn]->name, TO_CHAR);
                 act ("$n practices $T.",
-                     ch, NULL, skill_table[sn].name, TO_ROOM);
+                     ch, NULL, skill_table[sn]->name, TO_ROOM);
             }
             else
             {
                 ch->pcdata->learned[sn] = adept;
                 act ("You are now learned at $T.",
-                     ch, NULL, skill_table[sn].name, TO_CHAR);
+                     ch, NULL, skill_table[sn]->name, TO_CHAR);
                 act ("$n is now learned at $T.",
-                     ch, NULL, skill_table[sn].name, TO_ROOM);
+                     ch, NULL, skill_table[sn]->name, TO_ROOM);
             }
         }
     }

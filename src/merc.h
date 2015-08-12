@@ -73,6 +73,7 @@ typedef struct    mprog_list       MPROG_LIST;
 typedef struct    mprog_code       MPROG_CODE;
 typedef struct    group_type       GROUPTYPE;
 typedef struct    class_type       CLASSTYPE;
+typedef struct    skill_type       SKILLTYPE;
 
 /*
  * Function types.
@@ -1886,7 +1887,7 @@ extern    const    struct    race_type       race_table     [];
 extern             struct    pc_race_type    pc_race_table  [];
 extern    const    struct    spec_type       spec_table     [];
 extern    const    struct    liq_type        liq_table      [];
-extern             struct    skill_type      skill_table    [MAX_SKILL];
+//extern             struct    skill_type      skill_table    [MAX_SKILL];
 extern             struct    social_type     social_table   [MAX_SOCIALS];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
 //extern    const    struct    group_type      group_table    [MAX_GROUP];
@@ -1916,6 +1917,7 @@ extern  CHAR_DATA               *copyover_ch;    // Link back to the person who 
 extern  int                     copyover_timer;  // How many ticks are left until the copyover executes
 extern  GROUPTYPE               * group_table[MAX_GROUP];
 extern  CLASSTYPE               * class_table[MAX_CLASS];
+extern  SKILLTYPE               * skill_table[MAX_SKILL];
 
 /*
  * OS-dependent declarations.
@@ -2087,6 +2089,7 @@ MPC *    get_mprog_index     args( ( int vnum ) );
 char     fread_letter        args( ( FILE *fp ) );
 int      fread_number        args( ( FILE *fp ) );
 GROUPTYPE * fread_group      args( ( FILE *fp ) );
+SKILLTYPE *fread_skill       args( ( FILE *fp ) );
 long     fread_flag          args( ( FILE *fp ) );
 char *   fread_string        args( ( FILE *fp ) );
 char *   fread_string_eol    args( ( FILE *fp ) );
@@ -2178,6 +2181,7 @@ void   affect_to_obj      args( ( OBJ_DATA *obj, AFFECT_DATA *paf ) );
 void   affect_remove      args( ( CHAR_DATA *ch, AFFECT_DATA *paf ) );
 void   affect_remove_obj  args( ( OBJ_DATA *obj, AFFECT_DATA *paf ) );
 void   affect_strip       args( ( CHAR_DATA *ch, int sn ) );
+void   affect_strip_all   args( ( CHAR_DATA *ch ) );
 bool   is_affected        args( ( CHAR_DATA *ch, int sn ) );
 void   affect_join        args( ( CHAR_DATA *ch, AFFECT_DATA *paf ) );
 void   char_from_room     args( ( CHAR_DATA *ch ) );

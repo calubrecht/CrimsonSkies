@@ -178,7 +178,10 @@ void fix_mobprogs args ((void));
 void reset_area args ((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
+void load_skills args((void));
 void assign_gsn args((void));
+
+SPELL_FUN  *spell_function args(( char *name ));
 
 /*
  * Big mama top level function.
@@ -248,6 +251,11 @@ void boot_db ()
             weather_info.sky = SKY_CLOUDLESS;
 
     }
+
+    log_string("STATUS: Loading Skills");
+    load_skills();
+
+    log_f("STATUS: %d Skills Loaded", top_sn);
 
     log_string("STATUS: Loading Groups");
     load_groups();
@@ -3969,8 +3977,8 @@ bool load_class (char *fname)
                     }
                     else
                     {
-                        skill_table[sn].skill_level[cl] = lev;
-                        skill_table[sn].rating[cl] = rating;
+                        skill_table[sn]->skill_level[cl] = lev;
+                        skill_table[sn]->rating[cl] = rating;
                     }
                     fMatch = TRUE;
                     break;
@@ -4141,6 +4149,132 @@ GROUPTYPE *fread_group(FILE *fp)
     }
     return gr;
 } // end GROUPTYPE *fread_group
+
+/*
+ * Loads the skills and spells in from the skills.dat file.
+ */
+void load_skills()
+{
+    FILE *fp;
+    if ( ( fp = fopen( SKILLS_FILE, "r" ) ) != NULL )
+    {
+        top_sn = 0;
+        for ( ;; )
+        {
+            char letter;
+            char *word;
+
+            letter = fread_letter( fp );
+            if ( letter == '*' )
+            {
+                fread_to_eol( fp );
+                continue;
+            }
+
+            if ( letter != '#' )
+            {
+                bug( "Load_skill_table: # not found.", 0 );
+                break;
+            }
+
+            word = fread_word( fp );
+            if ( !str_cmp( word, "SKILL" ) )
+            {
+                if ( top_sn >= MAX_SKILL )
+                {
+                    bug( "load_skill_table: more skills than top_sn %d.  Increase MAX_SKILL in merc.h.", top_sn );
+                    fclose( fp );
+                    return;
+                }
+                skill_table[top_sn++] = fread_skill( fp );
+                continue;
+            }
+            else
+            if ( !str_cmp( word, "END"  ) )
+                break;
+            else
+            {
+                bug( "Load_skill_table: bad section.", 0 );
+                continue;
+            }
+        }
+        fclose( fp );
+    }
+    else
+    {
+        bug( "Cannot open SKILLS_FILE", 0 );
+        exit(0);
+    }
+} // end load_skills
+
+/*
+ * Reads in one skill/spell entry.
+ */
+SKILLTYPE *fread_skill( FILE *fp)
+{
+    char *word;
+    bool fMatch;
+    SKILLTYPE *skill;
+    int x;
+
+    skill = alloc_perm(sizeof(*skill));
+    for ( x = 0; x < MAX_CLASS; x++ )
+    {
+        skill->skill_level[x] = LEVEL_IMMORTAL;
+        skill->rating[x] = -1;
+    }
+
+    for ( ; ; )
+    {
+        word   = feof( fp ) ? "End" : fread_word( fp );
+        fMatch = FALSE;
+
+        switch ( UPPER(word[0]) )
+        {
+        case '*':
+            fMatch = TRUE;
+            fread_to_eol( fp );
+            break;
+
+        case 'B':
+	    KEY( "Beats",	skill->beats, 		fread_number(fp) );
+            break;
+
+        case 'D':
+            KEY("Damage",       skill->noun_damage,     fread_string(fp));
+            break;
+
+        case 'E':
+            if ( !str_cmp( word, "End" ) )
+                return skill;
+            break;
+
+        case 'M':
+            KEY("MinMana",    	skill->min_mana,	fread_number(fp) );
+            KEY("MinPos",	skill->minimum_position,fread_number(fp) );
+            KEY("MsgObj",      	skill->msg_obj, 	fread_string(fp) );
+            KEY("MsgOff",      	skill->msg_off, 	fread_string(fp) );
+	    break;
+        case 'N':
+	    KEY( "Name",     	skill->name,		fread_string(fp));
+            break;
+        case 'S':
+            KEY("SpellFun",	skill->spell_fun,	spell_function(fread_string(fp)));
+            break;
+        case 'T':
+            KEY("Target",	skill->target,		fread_number(fp));
+	    break;
+	}
+
+        if ( !fMatch )
+        {
+            bug( "fread_skill: no match.", 0 );
+            log_f("KEY missing: %s", word);
+            fread_to_eol( fp );
+        }
+    }
+    return skill;
+}
 
 /*
  * Assign GSN's to the proper skill.

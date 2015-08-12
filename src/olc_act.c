@@ -196,18 +196,18 @@ void show_skill_cmds(CHAR_DATA * ch, int tar)
 
     buf1[0] = '\0';
     col = 0;
-    for (sn = 0; sn < MAX_SKILL; sn++)
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if (!skill_table[sn].name)
+        if (!skill_table[sn]->name)
             break;
 
-        if (!str_cmp(skill_table[sn].name, "reserved")
-            || skill_table[sn].spell_fun == spell_null)
+        if (!str_cmp(skill_table[sn]->name, "reserved")
+            || skill_table[sn]->spell_fun == spell_null)
             continue;
 
-        if (tar == -1 || skill_table[sn].target == tar)
+        if (tar == -1 || skill_table[sn]->target == tar)
         {
-            sprintf(buf, "%-19.18s", skill_table[sn].name);
+            sprintf(buf, "%-19.18s", skill_table[sn]->name);
             strcat(buf1, buf);
             if (++col % 4 == 0)
                 strcat(buf1, "\n\r");
@@ -2258,7 +2258,7 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             obj->value[0],
             obj->value[1],
             obj->value[2],
-            obj->value[3] != -1 ? skill_table[obj->value[3]].name
+            obj->value[3] != -1 ? skill_table[obj->value[3]]->name
             : "none");
         send_to_char(buf, ch);
         break;
@@ -2300,13 +2300,13 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             "[v3] Spell:  %s\n\r"
             "[v4] Spell:  %s\n\r",
             obj->value[0],
-            obj->value[1] != -1 ? skill_table[obj->value[1]].name
+            obj->value[1] != -1 ? skill_table[obj->value[1]]->name
             : "none",
-            obj->value[2] != -1 ? skill_table[obj->value[2]].name
+            obj->value[2] != -1 ? skill_table[obj->value[2]]->name
             : "none",
-            obj->value[3] != -1 ? skill_table[obj->value[3]].name
+            obj->value[3] != -1 ? skill_table[obj->value[3]]->name
             : "none",
-            obj->value[4] != -1 ? skill_table[obj->value[4]].name
+            obj->value[4] != -1 ? skill_table[obj->value[4]]->name
             : "none");
         send_to_char(buf, ch);
         break;
@@ -6066,7 +6066,7 @@ GEDIT( gedit_add)
     else if ((sn = skill_lookup(argument)) != -1)
     {
         free_string(group->spells[num]);
-        group->spells[num] = str_dup(skill_table[sn].name);
+        group->spells[num] = str_dup(skill_table[sn]->name);
     }
     else
     {
@@ -6549,13 +6549,13 @@ CEDIT( cedit_create )
     class->name = str_dup(argument);
     class_table[top_class] = class;
     ch->desc->pEdit             = (void *)class;
-    for (x=0; x < MAX_SKILL; x++)
+    for (x=0; x < top_sn; x++)
     {
-        if (!skill_table[x].name)
+        if (!skill_table[x]->name)
             break;
 
-	skill_table[x].skill_level[top_class] = LEVEL_IMMORTAL;
-	skill_table[x].rating[top_class] = -1;
+	skill_table[x]->skill_level[top_class] = LEVEL_IMMORTAL;
+	skill_table[x]->rating[top_class] = -1;
     }
 
     for (x=0; x < top_group; x++)
@@ -6759,19 +6759,19 @@ CEDIT( cedit_skills)
         skill_columns[level] = 0;
         skill_list[level][0] = '\0';
     }
- 
-    for (sn = 0; sn < MAX_SKILL; sn++)
+
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn].name == NULL )
+        if (skill_table[sn]->name == NULL )
             break;
 
-        if ((level = skill_table[sn].skill_level[class_no]) < LEVEL_HERO + 1
+        if ((level = skill_table[sn]->skill_level[class_no]) < LEVEL_HERO + 1
         &&  level >= min_lev && level <= max_lev
-	&&  skill_table[sn].spell_fun == spell_null)
+	&&  skill_table[sn]->spell_fun == spell_null)
         {
             found = TRUE;
-            level = skill_table[sn].skill_level[class_no];
-                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn].name,skill_table[sn].rating[class_no]);
+            level = skill_table[sn]->skill_level[class_no];
+                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
                 sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
@@ -6875,18 +6875,18 @@ CEDIT( cedit_spells)
         skill_list[level][0] = '\0';
     }
 
-    for (sn = 0; sn < MAX_SKILL; sn++)
+    for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn].name == NULL )
+        if (skill_table[sn]->name == NULL )
             break;
 
-        if ((level = skill_table[sn].skill_level[class_no]) < LEVEL_HERO + 1
+        if ((level = skill_table[sn]->skill_level[class_no]) < LEVEL_HERO + 1
         &&  level >= min_lev && level <= max_lev
-	&&  skill_table[sn].spell_fun != spell_null)
+	&&  skill_table[sn]->spell_fun != spell_null)
         {
             found = TRUE;
-            level = skill_table[sn].skill_level[class_no];
-                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn].name,skill_table[sn].rating[class_no]);
+            level = skill_table[sn]->skill_level[class_no];
+                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
                 sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
@@ -6974,8 +6974,8 @@ CEDIT( cedit_groups)
 	    break;
         x = skill_lookup(group_table[gn]->spells[sn]);
 
-	if (skill_table[x].skill_level[class_no] > LEVEL_HERO ||
-	skill_table[x].rating[class_no] < 0) continue;
+	if (skill_table[x]->skill_level[class_no] > LEVEL_HERO ||
+	skill_table[x]->rating[class_no] < 0) continue;
 
 	sprintf(buf,"%-20s ",group_table[gn]->spells[sn]);
 	send_to_char(buf,ch);

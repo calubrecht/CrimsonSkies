@@ -38,6 +38,7 @@
 #include "merc.h"
 #include "tables.h"
 
+SKILLTYPE *             skill_table     [MAX_SKILL];
 GROUPTYPE *             group_table     [MAX_GROUP];
 CLASSTYPE *             class_table     [MAX_CLASS];
 

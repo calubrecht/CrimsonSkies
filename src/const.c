@@ -638,11 +638,12 @@ const struct liq_type liq_table[] = {
     {NULL, NULL, {0, 0, 0, 0, 0}}
 };
 
-struct skill_type skill_table[MAX_SKILL] = {
+/*
+ * TODO - Remove this skill_table after things are stable with dynamic loading.
+ */
 
 /*
- * Magic spells.
- */
+struct skill_type skill_table[MAX_SKILL] = {
 
     {
      "reserved", {99, 99, 99, 99, 99}, {99, 99, 99, 99, 99},
@@ -1307,7 +1308,6 @@ struct skill_type skill_table[MAX_SKILL] = {
      20, 18,
      "", "!Locate Wizard Mark!", ""},
 
-    /* combat and weapons skills */
     {
      "axe", {1, 1, 1, 1, 1}, {6, 6, 5, 4, 6},
      spell_null, TAR_IGNORE, POS_FIGHTING,
@@ -1452,7 +1452,6 @@ struct skill_type skill_table[MAX_SKILL] = {
      0, 0,
      "", "!Third Attack!", ""},
 
-    /* non-combat skills */
     {
      "fast healing", {15, 9, 16, 6, 15}, {8, 5, 6, 4, 8},
      spell_null, TAR_IGNORE, POS_SLEEPING,
@@ -1538,3 +1537,4 @@ struct skill_type skill_table[MAX_SKILL] = {
      "", "!Dual Wield!", ""}
 
 };
+*/

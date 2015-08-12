@@ -1239,31 +1239,31 @@ void do_ostat (CHAR_DATA * ch, char *argument)
             sprintf (buf, "Level %d spells of:", obj->value[0]);
             send_to_char (buf, ch);
 
-            if (obj->value[1] >= 0 && obj->value[1] < MAX_SKILL)
+            if (obj->value[1] >= 0 && obj->value[1] < top_sn)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[1]].name, ch);
+                send_to_char (skill_table[obj->value[1]]->name, ch);
                 send_to_char ("'", ch);
             }
 
-            if (obj->value[2] >= 0 && obj->value[2] < MAX_SKILL)
+            if (obj->value[2] >= 0 && obj->value[2] < top_sn)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[2]].name, ch);
+                send_to_char (skill_table[obj->value[2]]->name, ch);
                 send_to_char ("'", ch);
             }
 
-            if (obj->value[3] >= 0 && obj->value[3] < MAX_SKILL)
+            if (obj->value[3] >= 0 && obj->value[3] < top_sn)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[3]].name, ch);
+                send_to_char (skill_table[obj->value[3]]->name, ch);
                 send_to_char ("'", ch);
             }
 
-            if (obj->value[4] >= 0 && obj->value[4] < MAX_SKILL)
+            if (obj->value[4] >= 0 && obj->value[4] < top_sn)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[4]].name, ch);
+                send_to_char (skill_table[obj->value[4]]->name, ch);
                 send_to_char ("'", ch);
             }
 
@@ -1276,10 +1276,10 @@ void do_ostat (CHAR_DATA * ch, char *argument)
                      obj->value[1], obj->value[2], obj->value[0]);
             send_to_char (buf, ch);
 
-            if (obj->value[3] >= 0 && obj->value[3] < MAX_SKILL)
+            if (obj->value[3] >= 0 && obj->value[3] < top_sn)
             {
                 send_to_char (" '", ch);
-                send_to_char (skill_table[obj->value[3]].name, ch);
+                send_to_char (skill_table[obj->value[3]]->name, ch);
                 send_to_char ("'", ch);
             }
 
@@ -1675,7 +1675,7 @@ void do_mstat (CHAR_DATA * ch, char *argument)
     {
         sprintf (buf,
                  "Spell: '%s' modifies %s by %d for %d hours with bits %s, level %d.\n\r",
-                 skill_table[(int) paf->type].name,
+                 skill_table[(int) paf->type]->name,
                  affect_loc_name (paf->location),
                  paf->modifier,
                  paf->duration, affect_bit_name (paf->bitvector), paf->level);
@@ -3357,11 +3357,11 @@ void do_slookup (CHAR_DATA * ch, char *argument)
 
     if (!str_cmp (arg, "all"))
     {
-        for (sn = 0; sn < MAX_SKILL; sn++)
+        for (sn = 0; sn < top_sn; sn++)
         {
-            if (skill_table[sn].name == NULL)
+            if (skill_table[sn]->name == NULL)
                 break;
-            sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn].name);
+            sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn]->name);
             send_to_char (buf, ch);
         }
     }
@@ -3373,7 +3373,7 @@ void do_slookup (CHAR_DATA * ch, char *argument)
             return;
         }
 
-        sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn].name);
+        sprintf (buf, "Sn: %3d  Skill/spell: '%s'\n\r", sn, skill_table[sn]->name);
         send_to_char (buf, ch);
     }
 
@@ -3489,9 +3489,9 @@ void do_sset (CHAR_DATA * ch, char *argument)
 
     if (fAll)
     {
-        for (sn = 0; sn < MAX_SKILL; sn++)
+        for (sn = 0; sn < top_sn; sn++)
         {
-            if (skill_table[sn].name != NULL)
+            if (skill_table[sn]->name != NULL)
                 victim->pcdata->learned[sn] = value;
         }
     }
@@ -5525,22 +5525,21 @@ void do_test(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-    int iClass;
+    CHAR_DATA *victim;
 
-    for (iClass = 0; iClass < top_class; iClass++)
+    if (argument[0] == '\0')
     {
-        if (class_table[iClass]->name == NULL)
-        {
-            log_string("BUG: null class");
-            continue;
-        }
-
-        sprintf(buf, "%s - %d\n\r", class_table[iClass]->name, class_table[iClass]->attr_prime);
-        send_to_char(buf, ch);
-
+        send_to_char ("Syntax: debug <character>\n\r", ch);
+        return;
     }
 
+    if ((victim = get_char_world (ch, argument)) == NULL)
+    {
+        send_to_char ("They aren't playing.\n\r", ch);
+        return;
+    }
+
+    affect_strip_all(victim);
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;

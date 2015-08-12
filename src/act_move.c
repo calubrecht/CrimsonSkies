@@ -874,7 +874,7 @@ void do_pick (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    WAIT_STATE (ch, skill_table[gsn_pick_lock].beats);
+    WAIT_STATE (ch, skill_table[gsn_pick_lock]->beats);
 
     /* look for guards */
     for (gch = ch->in_room->people; gch; gch = gch->next_in_room)
