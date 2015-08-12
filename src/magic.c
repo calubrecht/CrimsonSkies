@@ -4687,6 +4687,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_bless" )) return spell_bless;
             if ( !str_cmp( name, "spell_blindness" )) return spell_blindness;
             if ( !str_cmp( name, "spell_burning_hands" )) return spell_burning_hands;
+            break;
         case 'c':
             if ( !str_cmp( name, "spell_cancellation" )) return spell_cancellation;
             if ( !str_cmp( name, "spell_curse" )) return spell_curse;
@@ -4712,6 +4713,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_cure_serious" )) return spell_cure_serious;
             if ( !str_cmp( name, "spell_call_lightning" )) return spell_call_lightning;
             if ( !str_cmp( name, "spell_create_rose" )) return spell_create_rose;
+            break;
         case 'd':
             if ( !str_cmp( name, "spell_detect_hidden" )) return spell_detect_hidden;
             if ( !str_cmp( name, "spell_detect_invis" )) return spell_detect_invis;
@@ -4824,5 +4826,128 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_wizard_mark" )) return spell_wizard_mark;
             break;
     }
+
     return spell_null;
+
 } // end spell_function_lookup
+
+/*
+ * Returns the spell name for the given spell_ function.  This will be necessary to display
+ * the friendly name in OLC that will be mapped back to the spell function.  Ideally these
+ * functions wouldn't be necwssary
+ */
+char *spell_name_lookup( SPELL_FUN *spell )
+{
+    if (spell == spell_armor ) return "spell_armor";
+    if (spell == spell_acid_blast ) return "spell_acid_blast";
+    if (spell == spell_acid_breath ) return "spell_acid_breath";
+    if (spell == spell_bless ) return "spell_bless";
+    if (spell == spell_blindness ) return "spell_blindness";
+    if (spell == spell_burning_hands ) return "spell_burning_hands";
+    if (spell == spell_cancellation ) return "spell_cancellation";
+    if (spell == spell_curse ) return "spell_curse";
+    if (spell == spell_chain_lightning ) return "spell_chain_lightning";
+    if (spell == spell_create_food ) return "spell_create_food";
+    if (spell == spell_create_spring ) return "spell_create_spring";
+    if (spell == spell_cure_blindness ) return "spell_cure_blindness";
+    if (spell == spell_cure_critical ) return "spell_cure_critical";
+    if (spell == spell_cure_disease ) return "spell_cure_disease";
+    if (spell == spell_cure_poison ) return "spell_poison";
+    if (spell == spell_calm ) return "spell_calm";
+    if (spell == spell_cause_critical ) return "spell_cause_critical";
+    if (spell == spell_cause_light ) return "spell_cause_light";
+    if (spell == spell_cause_serious ) return "spell_cause_serious";
+    if (spell == spell_change_sex ) return "spell_change_sex";
+    if (spell == spell_charm_person ) return "spell_charm_person";
+    if (spell == spell_chill_touch ) return "spell_chill_touch";
+    if (spell == spell_color_spray ) return "spell_color_spray";
+    if (spell == spell_continual_light ) return "spell_continual_light";
+    if (spell == spell_control_weather ) return "spell_control_weather";
+    if (spell == spell_create_water ) return "spell_create_water";
+    if (spell == spell_cure_light ) return "spell_cure_light";
+    if (spell == spell_cure_serious ) return "spell_cure_serious";
+    if (spell == spell_call_lightning ) return "spell_call_lightning";
+    if (spell == spell_create_rose ) return "spell_create_rose";
+    if (spell == spell_detect_hidden ) return "spell_detect_hidden";
+    if (spell == spell_detect_invis ) return "spell_detect_invis";
+    if (spell == spell_dispel_magic ) return "spell_dispel_magic";
+    if (spell == spell_detect_evil ) return "spell_detect_evil";
+    if (spell == spell_detect_good ) return "spell_detect_good";
+    if (spell == spell_detect_magic ) return "spell_detect_magic";
+    if (spell == spell_detect_poison ) return "spell_detect_poison";
+    if (spell == spell_dispel_evil ) return "spell_dispel_evil";
+    if (spell == spell_dispel_good ) return "spell_dispel_good";
+    if (spell == spell_disenchant ) return "spell_disenchant";
+    if (spell == spell_demonfire ) return "spell_demonfire";
+    if (spell == spell_earthquake ) return "spell_earthquake";
+    if (spell == spell_enchant_armor ) return "spell_enchant_armor";
+    if (spell == spell_enchant_weapon ) return "spell_enchant_weapon";
+    if (spell == spell_enchant_person ) return "spell_enchant_person";
+    if (spell == spell_enchant_gem ) return "spell_enchant_gem";
+    if (spell == spell_energy_drain ) return "spell_energy_drain";
+    if (spell == spell_fly ) return "spell_fly";
+    if (spell == spell_frenzy ) return "spell_frenzy";
+    if (spell == spell_fireball ) return "spell_fireball";
+    if (spell == spell_faerie_fog ) return "spell_faerie_fog";
+    if (spell == spell_faerie_fire ) return "spell_faerie_fire";
+    if (spell == spell_farsight ) return "spell_farsight";
+    if (spell == spell_fireproof ) return "spell_fireproof";
+    if (spell == spell_flamestrike ) return "spell_flamestrike";
+    if (spell == spell_floating_disc ) return "spell_floating_disc";
+    if (spell == spell_fire_breath ) return "spell_fire_breath";
+    if (spell == spell_frost_breath ) return "spell_frost_breath";
+    if (spell == spell_gate ) return "spell_gate";
+    if (spell == spell_giant_strength ) return "spell_giant_strength";
+    if (spell == spell_gas_breath ) return "spell_gas_breath";
+    if (spell == spell_general_purpose ) return "spell_general_purpose";
+    if (spell == spell_haste ) return "spell_haste";
+    if (spell == spell_heal ) return "spell_heal";
+    if (spell == spell_heat_metal ) return "spell_heat_metal";
+    if (spell == spell_harm ) return "spell_harm";
+    if (spell == spell_holy_word ) return "spell_holy_word";
+    if (spell == spell_high_explosive ) return "spell_high_explosive";
+    if (spell == spell_invis ) return "spell_invis";
+    if (spell == spell_identify ) return "spell_identify";
+    if (spell == spell_interlace_spirit ) return "spell_interlace_spirit";
+    if (spell == spell_infravision ) return "spell_infravision";
+    if (spell == spell_know_alignment ) return "spell_know_alignment";
+    if (spell == spell_locate_object ) return "spell_locate_object";
+    if (spell == spell_lightning_bolt ) return "spell_lightning_bolt";
+    if (spell == spell_lightning_breath ) return "spell_lightning_breath";
+    if (spell == spell_locate_wizard_mark ) return "spell_locate_wizard_mark";
+    if (spell == spell_magic_missile ) return "spell_magic_missile";
+    if (spell == spell_mass_healing ) return "spell_mass_healing";
+    if (spell == spell_mass_invis ) return "spell_mass_invis";
+    if (spell == spell_null ) return "spell_null";
+    if (spell == spell_nexus ) return "spell_nexus";
+    if (spell == spell_poison ) return "spell_poison";
+    if (spell == spell_pass_door ) return "spell_pass_door";
+    if (spell == spell_plague ) return "spell_plague";
+    if (spell == spell_portal ) return "spell_portal";
+    if (spell == spell_protection_evil ) return "spell_protection_evil";
+    if (spell == spell_protection_good ) return "spell_protection_good";
+    if (spell == spell_refresh ) return "spell_refresh";
+    if (spell == spell_restore_weapon ) return "spell_restore_weapon";
+    if (spell == spell_restore_armor ) return "spell_restore_armor";
+    if (spell == spell_ray_of_truth ) return "spell_ray_of_truth";
+    if (spell == spell_recharge ) return "spell_recharge";
+    if (spell == spell_remove_curse ) return "spell_remove_curse";
+    if (spell == spell_sanctuary ) return "spell_sanctuary";
+    if (spell == spell_shield ) return "spell_shield";
+    if (spell == spell_stone_skin ) return "spell_stone_skin";
+    if (spell == spell_summon ) return "spell_summon";
+    if (spell == spell_sleep ) return "spell_sleep";
+    if (spell == spell_slow ) return "spell_slow";
+    if (spell == spell_shocking_grasp ) return "spell_shocking_grasp";
+    if (spell == spell_sequestor ) return "spell_sequestor";
+    if (spell == spell_teleport ) return "spell_teleport";
+    if (spell == spell_ventriloquate ) return "spell_ventriloquate";
+    if (spell == spell_word_of_recall ) return "spell_word_of_recall";
+    if (spell == spell_water_breathing ) return "spell_water_breathing";
+    if (spell == spell_weaken ) return "spell_weaken";
+    if (spell == spell_withering_enchant ) return "spell_withering_enchant";
+    if (spell == spell_wizard_mark ) return "spell_wizard_mark";
+
+    return "reserved";
+
+} // end spell_name_lookup
