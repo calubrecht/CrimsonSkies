@@ -69,3 +69,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Set autogold by default on creation
   - Make affects show the same for all levels.
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
+  - Allow any player to change their recall to any number of custom bind stones for recall.
