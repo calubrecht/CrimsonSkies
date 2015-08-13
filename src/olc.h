@@ -74,6 +74,7 @@ DECLARE_SPELL_FUN(spell_null);
 #define ED_HELP		6
 #define ED_GROUP        7
 #define ED_CLASS        8
+#define ED_SKILL        9
 
 /*
  * Interpreter Prototypes
@@ -86,6 +87,7 @@ void	mpedit          args((CHAR_DATA *ch, char *argument));
 void	hedit           args((CHAR_DATA *, char *));
 void    gedit           args((CHAR_DATA *ch, char *argument));
 void    cedit           args((CHAR_DATA *ch, char *argument));
+void    sedit           args(( CHAR_DATA *ch, char *argument));
 
 /*
  * OLC Constants
@@ -134,6 +136,7 @@ extern const struct olc_cmd_type	mpedit_table[];
 extern const struct olc_cmd_type	hedit_table[];
 extern const struct olc_cmd_type        gedit_table[];
 extern const struct olc_cmd_type        cedit_table[];
+extern const struct olc_cmd_type        sedit_table[];
 
 /*
  * Editor Commands.
@@ -148,6 +151,7 @@ DECLARE_DO_FUN(do_mpedit);
 DECLARE_DO_FUN(do_hedit);
 DECLARE_DO_FUN(do_gedit);
 DECLARE_DO_FUN(do_cedit);
+DECLARE_DO_FUN(do_sedit);
 
 /*
 * General Functions
@@ -301,6 +305,20 @@ DECLARE_OLC_FUN(gedit_show);
 DECLARE_OLC_FUN(gedit_create);
 DECLARE_OLC_FUN(gedit_list);
 
+/* Skill Editor */
+DECLARE_OLC_FUN( sedit_name             );
+DECLARE_OLC_FUN( sedit_spellfun         );
+DECLARE_OLC_FUN( sedit_target           );
+DECLARE_OLC_FUN( sedit_minpos           );
+DECLARE_OLC_FUN( sedit_minmana          );
+DECLARE_OLC_FUN( sedit_beats            );
+DECLARE_OLC_FUN( sedit_msgoff           );
+DECLARE_OLC_FUN( sedit_msgobj           );
+DECLARE_OLC_FUN( sedit_create           );
+DECLARE_OLC_FUN( sedit_show             );
+DECLARE_OLC_FUN( sedit_level            );
+DECLARE_OLC_FUN( sedit_rating           );
+
 /* Class Editor */
 DECLARE_OLC_FUN( cedit_name             );
 DECLARE_OLC_FUN( cedit_whoname          );
@@ -336,6 +354,7 @@ DECLARE_OLC_FUN( cedit_isreclass        );
 #define EDIT_MPCODE(Ch, Code)   ( Code = (MPROG_CODE*)Ch->desc->pEdit )
 #define EDIT_GROUP(Ch, Group)   ( Group = (GROUPTYPE *)Ch->desc->pEdit )
 #define EDIT_CLASS(Ch, Class)   ( Class = (CLASSTYPE *)Ch->desc->pEdit )
+#define EDIT_SKILL(Ch, Skill)   ( Skill = (SKILLTYPE *)Ch->desc->pEdit )
 
 /*
 * Prototypes

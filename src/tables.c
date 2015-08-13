@@ -704,7 +704,7 @@ const struct flag_type position_flags[] = {
     {"sleeping", POS_SLEEPING, TRUE},
     {"resting", POS_RESTING, TRUE},
     {"sitting", POS_SITTING, TRUE},
-    {"fighting", POS_FIGHTING, FALSE},
+    {"fighting", POS_FIGHTING, TRUE},
     {"standing", POS_STANDING, TRUE},
     {NULL, 0, 0}
 };

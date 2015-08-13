@@ -68,6 +68,9 @@ char *mprog_type_to_name(int type);
         _blargh ^= (blah == NO_FLAG) ? 0 : blah;    \
     }
 
+char      *spell_name_lookup     args(( SPELL_FUN *spell ));
+SPELL_FUN *spell_function_lookup args((char *name));
+
 /* Return TRUE if area changed, FALSE if not. */
 #define REDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define OEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
@@ -77,6 +80,7 @@ char *mprog_type_to_name(int type);
 #define MPEDIT( fun )       bool fun( CHAR_DATA *ch, char *argument )
 #define GEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define CEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
+#define SEDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )
 #define EDIT_HELP(ch, help) ( help = (HELP_DATA *) ch->desc->pEdit )
 
 struct olc_help_type {
@@ -119,6 +123,8 @@ const struct olc_help_type help_table[] = {
     { "spells", skill_table, "Names of current spells." },
     { "container", container_flags, "Container status." },
     { "continent", continent_flags, "Continent names." },
+    { "minpos", position_flags, "Position names." },
+    { "target", target_flags, "Target names" },
 
     /* ROM specific bits: */
 
@@ -6986,3 +6992,399 @@ CEDIT( cedit_groups)
         send_to_char( "\n\r", ch );
     return TRUE;
 }
+
+SEDIT( sedit_create )
+{
+    SKILLTYPE *skill;
+    int sn;
+
+    sn = skill_lookup(argument);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  edit skill create skill_name\n\r", ch );
+        return FALSE;
+    }
+
+    if (sn != -1)
+    {
+        send_to_char( "SEdit:  Skill already exists.\n\r", ch );
+        return FALSE;
+    }
+
+    if (top_sn+1 >= MAX_SKILL)
+    {
+        send_to_char("MAX_SKILL Exceeded, please increae the MAX_SKILL in merc.h\n\r",ch);
+        return FALSE;
+    }
+
+    skill = alloc_perm(sizeof(*skill));
+    skill->name = str_dup(argument);
+    skill->noun_damage = str_dup( "" );
+    skill->msg_off = str_dup( "" );
+    skill->msg_obj = str_dup( "" );
+    skill->spell_fun = spell_null;
+    skill_table[top_sn] = skill;
+    ch->desc->pEdit = (void *)skill;
+    top_sn++;
+    send_to_char( "Skill Created.\n\r", ch );
+    return TRUE;
+}
+
+SEDIT( sedit_show)
+{
+    SKILLTYPE *skill;
+    char buf[MAX_STRING_LENGTH];
+    int class;
+
+    EDIT_SKILL(ch, skill);
+
+    sprintf(buf, "\n\rName:         [%s]\n\r", skill->name);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "SpellFun:     [%s]\n\r", spell_name_lookup(skill->spell_fun));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Target:       [%s]\n\r", flag_string( target_flags, skill->target));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "MinPos:       [%s]\n\r", flag_string( position_flags, skill->minimum_position ));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "MinMana:      [%d]\n\r", skill->min_mana);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Beats:        [%d]\n\r", skill->beats);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Damage:       [%s]\n\r", skill->noun_damage);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "MsgOff:       [%s]\n\r", skill->msg_off);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "MsgObj:       [%s]\n\r", skill->msg_obj);
+    send_to_char(buf, ch);
+
+    send_to_char("Class         Level  Rating  Class         Level  Rating\n\r", ch);
+    send_to_char("--------------------------------------------------------\n\r", ch);
+
+    for(class = 0; class < top_class; class++)
+    {
+        sprintf(buf,"%-13s [%2d]   [%2d]",class_table[class]->name,skill->skill_level[class],skill->rating[class]);
+        if ((class % 2) == 0)
+        {
+             strcat(buf,"    ");
+        }
+        else
+        {
+             strcat(buf,"\n\r");
+        }
+        send_to_char(buf,ch);
+    }
+    send_to_char("\n\r",ch);
+
+    return TRUE;
+}
+
+SEDIT( sedit_name)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  name [string]\n\r", ch );
+        return FALSE;
+    }
+
+    free_string( skill->name );
+    skill->name = str_dup( argument );
+
+    send_to_char( "Name set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_damage)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  name [string]\n\r", ch );
+        return FALSE;
+    }
+
+    if (skill->noun_damage)
+    {
+        free_string( skill->noun_damage );
+        skill->noun_damage = '\0';
+    }
+    if ( str_cmp( argument, "clear" ) )
+        skill->noun_damage = str_dup( argument );
+
+    send_to_char( "Damage Noun set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_spellfun)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  spellfun [string]\n\r", ch );
+        return FALSE;
+    }
+
+    skill->spell_fun = spell_function_lookup(argument);
+
+    send_to_char( "Spell function set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_target)
+{
+    SKILLTYPE *skill;
+    int value;
+
+    if ( argument[0] != '\0' )
+    {
+        EDIT_SKILL(ch, skill);
+
+        if ( ( value = flag_value( target_flags, argument ) ) != NO_FLAG )
+        {
+            skill->target = value;
+
+            send_to_char( "Target set.\n\r", ch);
+            return TRUE;
+        }
+    }
+
+    send_to_char( "Syntax:  target [flag]\n\r", ch);
+    return FALSE;
+}
+
+SEDIT( sedit_minpos)
+{
+    SKILLTYPE *skill;
+    int value;
+
+    if ( argument[0] != '\0' )
+    {
+        EDIT_SKILL(ch, skill);
+
+        if ( ( value = flag_value( position_flags, argument ) ) != NO_FLAG )
+        {
+            skill->minimum_position = value;
+
+            send_to_char( "Minpos set.\n\r", ch);
+            return TRUE;
+        }
+    }
+
+    send_to_char( "Syntax:  minpos [flag]\n\r", ch);
+    return FALSE;
+}
+
+SEDIT( sedit_minmana)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+        send_to_char( "Syntax:  minmana [number]\n\r", ch );
+        return FALSE;
+    }
+
+    skill->min_mana = atoi( argument );
+
+    send_to_char( "Min Mana set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_beats)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' || !is_number( argument ) )
+    {
+        send_to_char( "Syntax:  beats [number]\n\r", ch );
+        return FALSE;
+    }
+
+    skill->beats = atoi( argument );
+
+    send_to_char( "Beats set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_msgoff)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  msgoff [string/clear]\n\r", ch );
+        return FALSE;
+    }
+
+    if (skill->msg_off)
+    {
+        free_string( skill->msg_off );
+        skill->msg_off = '\0';
+    }
+    if ( str_cmp( argument, "clear" ) )
+        skill->msg_off = str_dup( argument );
+
+    send_to_char( "Msgoff set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_msgobj)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  msgobj [string]\n\r", ch );
+        return FALSE;
+    }
+
+    if (skill->msg_obj)
+    {
+        skill->msg_obj = '\0';
+        free_string( skill->msg_obj );
+    }
+    if ( str_cmp( argument, "clear" ) )
+        skill->msg_obj = str_dup( argument );
+
+    send_to_char( "Msgobj set.\n\r", ch);
+    return TRUE;
+}
+
+SEDIT( sedit_level)
+{
+    SKILLTYPE *skill;
+    int class_no,level,rating;
+    char class_name[MAX_INPUT_LENGTH];
+    char arg1[MAX_STRING_LENGTH];
+    char arg2[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  level class [#]\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, class_name);
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+    level = atoi (arg1);
+    rating = atoi (arg2);
+
+    if (!is_number(arg1) || level < 0 || level > MAX_LEVEL)
+    {
+        sprintf(buf, "Level range is from 0 to %d.\n\r", MAX_LEVEL);
+        send_to_char(buf, ch);
+        return FALSE;
+    }
+
+   if (!str_cmp(class_name, "all"))
+   {
+     for (class_no = 0; class_no < top_class; class_no++)
+     {
+       skill->skill_level[class_no] = level;
+       skill->rating[class_no] = rating;
+     }
+
+       sprintf(buf, "OK, all classes will now gain %s at level %d.\n\r", skill->name, level);
+       send_to_char(buf, ch);
+   }
+   else
+   {
+
+     for (class_no = 0; class_no < top_class; class_no++)
+       if (!str_prefix(class_name, class_table[class_no]->name))
+            break;
+
+    if (!is_number(arg2))
+        rating = skill->rating[class_no];
+
+    if (class_no >= top_class)
+    {
+        sprintf(buf, "No class named '%s' exists.\n\r", class_name);
+        send_to_char(buf, ch);
+        return FALSE;
+    }
+
+       skill->skill_level[class_no] = level;
+       skill->rating[class_no] = rating;
+
+       sprintf(buf, "OK, %s will now gain %s at level %d.\n\r", class_table[class_no]->name, skill->name, level);
+       send_to_char(buf, ch);
+
+   }
+
+   return TRUE;
+}
+
+SEDIT( sedit_rating)
+{
+    SKILLTYPE *skill;
+    int class_no,rating;
+    char class_name[MAX_INPUT_LENGTH];
+    char arg1[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0' )
+    {
+        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        return FALSE;
+    }
+
+    argument = one_argument (argument, class_name);
+    argument = one_argument (argument, arg1);
+    rating = atoi (arg1);
+
+    if (!is_number(arg1))
+    {
+        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        return FALSE;
+    }
+
+   for (class_no = 0; class_no < top_class; class_no++)
+       if (!str_cmp(class_name, class_table[class_no]->name))
+            break;
+
+   if (class_no >= top_class)
+   {
+        sprintf(buf, "No class named '%s' exists.\n\r", class_name);
+        send_to_char(buf, ch);
+        return FALSE;
+   }
+
+   skill->rating[class_no] = rating;
+   sprintf (buf, "OK, %s will now cost %d for %s.\n\r", class_table[class_no]->name, rating, skill->name);
+   send_to_char(buf, ch);
+   return TRUE;
+}
+

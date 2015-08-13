@@ -89,6 +89,9 @@ bool run_olc_editor(DESCRIPTOR_DATA * d)
     case ED_CLASS:
         cedit( d->character, d->incomm );
         break;
+    case ED_SKILL:
+        sedit( d->character, d->incomm );
+        break;
     default:
         return FALSE;
     }
@@ -125,6 +128,9 @@ char *olc_ed_name(CHAR_DATA * ch)
         break;
     case ED_CLASS:
         sprintf( buf, "CEdit" );
+        break;
+    case ED_SKILL:
+        sprintf( buf, "SEdit" );
         break;
     default:
         sprintf(buf, " ");
@@ -240,6 +246,9 @@ bool show_commands(CHAR_DATA * ch, char *argument)
         case ED_CLASS:
             show_olc_cmds( ch, cedit_table );
             break;
+        case ED_SKILL:
+            show_olc_cmds( ch, sedit_table );
+            break;
     }
 
     return FALSE;
@@ -353,6 +362,26 @@ const struct olc_cmd_type cedit_table[] =
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},
+    {   "",             0,              }
+};
+
+const struct olc_cmd_type sedit_table[] =
+{
+/*  {   command         function        }, */
+
+    {   "commands",     show_commands   },
+    {   "name",         sedit_name      },
+    {   "spellfun",     sedit_spellfun  },
+    {   "target",       sedit_target    },
+    {   "minpos",       sedit_minpos    },
+    {   "minmana",      sedit_minmana   },
+    {   "beats",        sedit_beats     },
+    {   "msgoff",       sedit_msgoff    },
+    {   "msgobj",       sedit_msgobj    },
+    {   "level",        sedit_level     },
+    {   "rating",       sedit_rating    },
+    {   "show",         sedit_show      },
+    {   "?",            show_help       },
     {   "",             0,              }
 };
 
@@ -714,6 +743,7 @@ const struct editor_cmd_type editor_table[] = {
     { "hedit",    do_hedit  },
     { "group",    do_gedit  },
     { "class",    do_cedit  },
+    { "skill",    do_sedit  },
     { NULL,       0,        }
 };
 
@@ -1709,7 +1739,6 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 
 void cedit( CHAR_DATA *ch, char *argument )
 {
-    //CLASSTYPE *class;
     char arg[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
     int  cmd;
@@ -1767,3 +1796,109 @@ void cedit( CHAR_DATA *ch, char *argument )
     interpret( ch, arg );
     return;
 }
+
+void do_sedit( CHAR_DATA *ch, char *argument )
+{
+    SKILLTYPE *skill;
+    char arg1[MAX_STRING_LENGTH];
+    int sn;
+
+    if ( IS_NPC(ch) )
+        return;
+
+    argument = one_argument( argument, arg1 );
+
+    sn = skill_lookup(arg1);
+    if (sn == -1 && str_cmp( arg1, "create"))
+    {
+        send_to_char( "SEdit:  That skill does not exist.\n\r", ch );
+        return;
+    }
+
+        if ( !str_cmp( arg1, "create" ) )
+        {
+            if ( argument[0] == '\0')
+            {
+                send_to_char( "Syntax:  edit skill create skill_name\n\r", ch );
+                return;
+            }
+
+            if ( sedit_create( ch, argument ) )
+            {
+                ch->desc->editor = ED_SKILL;
+            }
+            return;
+        }
+        else
+        {
+            skill = skill_table[sn];
+            ch->desc->pEdit = (void *)skill;
+            ch->desc->editor = ED_SKILL;
+            return;
+        }
+
+    send_to_char( "SEdit:  There is no default skill to edit.\n\r", ch );
+    return;
+
+} // end do_sedit
+
+void sedit( CHAR_DATA *ch, char *argument )
+{
+    //SKILLTYPE *skill;
+    char arg[MAX_STRING_LENGTH];
+    char command[MAX_INPUT_LENGTH];
+    int  cmd;
+
+    smash_tilde( argument );
+    strcpy( arg, argument );
+    argument = one_argument( argument, command );
+
+    //EDIT_SKILL(ch, skill);
+
+    if ( IS_SWITCHED(ch) )
+     {
+        send_to_char("You cannot use OLC functions while switched!!!\n\r",ch);
+        edit_done(ch);
+        return;
+     }
+
+    if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
+    {
+        send_to_char( "SEdit:  Insufficient security to modify skills.\n\r", ch );
+        edit_done( ch );
+        interpret( ch, arg );
+        return;
+    }
+
+    if ( command[0] == '\0' )
+    {
+        sedit_show( ch, argument );
+        return;
+    }
+
+    if ( !str_cmp(command, "done") )
+    {
+        edit_done( ch );
+        return;
+    }
+
+    /* Search Table and Dispatch Command. */
+    for ( cmd = 0; sedit_table[cmd].name[0] != '\0'; cmd++ )
+    {
+        if ( !str_prefix( command, sedit_table[cmd].name ) )
+        {
+            if ( (*sedit_table[cmd].olc_fun) ( ch, argument ) )
+            {
+                return;
+            }
+            else
+                return;
+        }
+    }
+
+    /* Default to Standard Interpreter. */
+    interpret( ch, arg );
+    return;
+
+} // end void sedit
+

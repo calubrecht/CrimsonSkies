@@ -4870,7 +4870,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         sprintf (buf, "%d", port);
         sprintf (buf2, "%d", control);
         strncpy( buf3, "-1", 100 );
-        execl (EXE_FILE, "rom", buf, "copyover", buf2, buf3, (char *) NULL);
+        execl (EXE_FILE, "cs-mud", buf, "copyover", buf2, buf3, (char *) NULL);
 
         /* Failed - sucessful exec will not return */
         perror ("do_copyover: execl");
