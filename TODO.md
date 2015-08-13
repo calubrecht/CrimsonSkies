@@ -1,4 +1,4 @@
-wTo Do List
+To Do List
 ==========
 
 This is my to do list, mostly will be things big and small as I think about them.
@@ -43,8 +43,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug, note mem leak testing
-  - OLC for adding classes
-  - OLC for adding skills
   - gain_exp tweaks
   - main menu
   - double exp mode
@@ -53,6 +51,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add red oak village at the base of the mountains for the dwarves.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Healer class
+  - Assassin class
   - Erwin's setskill command to go with the dynamic class loading
   - Ocean, thread them together, create coastlines for intial continents.
   - Add swim skill, lose less movement in ocean/underwater
@@ -67,6 +66,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Retrain command to restart as a base class
   - Creating casting level function and create casting level logic.
   - Set autogold by default on creation
-  - Make affects show the same for all levels.
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
   - Allow any player to change their recall to any number of custom bind stones for recall.
