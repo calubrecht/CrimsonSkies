@@ -53,11 +53,12 @@
 
 #define DIF(a,b) (~((~a)|(b)))
 
-void save_groups  args((void));
-void save_class   args((int num));
-void save_classes args((void));
-void save_skills  args((void));
-void fwrite_skill args((FILE *fp, int sn));
+void save_groups            args((void));
+void save_class             args((int num));
+void save_classes           args((void));
+void save_skills            args((void));
+void fwrite_skill           args((FILE *fp, int sn));
+char *spell_name_lookup     args(( SPELL_FUN *spell ));
 
 /*
  *  Verbose writes reset data in plain english into the comments
@@ -1128,7 +1129,7 @@ void save_skills( void )
 void fwrite_skill(FILE *fp, int sn)
 {
     fprintf(fp,"Name        %s~\n", skill_table[sn]->name);
-    //fprintf(fp,"SpellFun    %s~\n",spell_name(skill_table[sn].spell_fun));
+    fprintf(fp,"SpellFun    %s~\n",spell_name_lookup(skill_table[sn]->spell_fun));
     fprintf(fp,"Target      %d\n",skill_table[sn]->target);
     fprintf(fp,"MinPos      %d\n",skill_table[sn]->minimum_position);
     fprintf(fp,"MinMana     %d\n",skill_table[sn]->min_mana);
