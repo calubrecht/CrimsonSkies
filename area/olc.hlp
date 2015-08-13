@@ -7,6 +7,7 @@ Syntax: EDIT MOB   [create] <vnum>           - Mobile Creation and Editing.
 Syntax: EDIT MP    [create] <vnum>           - MobProg Creation/Editing.
 Syntax: EDIT GROUP [create] <name>           - Creates a group
 Syntax: EDIT CLASS [create] <name>           - Creates a class.
+Syntax: EDIT SKILL [create] <name>           - Creates a skill.
 
 Syntax: ASAVE  <world/area/changed/list      - Save Editing to Disk.
                 groups/classes/skills>
@@ -114,6 +115,25 @@ You can currently create a group to house skills and spells and set the ratings
 for the group for each class.  Classes currently can only be deleted by someone
 with access to the groups.dat file and should be done with caution.
 ~
+52 SEDIT SKILL SKILLS~
+Syntax: edit skill [create] <skill name>  - Enters the skills editor.
+
+name         - Changes the skill name
+spellfun     - Changes the name to the C spell name function.
+target       - Changes the target to a person, an object, etc.
+minpos       - The minimum position required (fighting, standing, etc.)
+minmana      - The minimum mana if this is a spell.
+beats        - How many beats to wait after using the skill/spell
+damage       - The damage noun if one is required.
+msgoff       - The message when the spell wears off a person.
+msgobj       - The message when the spell wears off an object.
+level        - Sets the level for a class
+rating       - Sets the rating for a class
+
+Skills currently can only be deleted by someone with access to the 
+skills.dat file and should be done with caution.
+~
+
 
 0 EXIT~
 For exits, type the direction (north/s/e/w) followed by:
