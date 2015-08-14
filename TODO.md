@@ -52,11 +52,11 @@ This is my to do list, mostly will be things big and small as I think about them
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Healer class
   - Assassin class
+  - Ranger class
   - Erwin's setskill command to go with the dynamic class loading
   - Ocean, thread them together, create coastlines for intial continents.
   - Add swim skill, lose less movement in ocean/underwater
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
-  - Remove SLOT (lookup_slot, the field and from the const entries)
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
   - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
@@ -69,3 +69,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
   - Allow any player to change their recall to any number of custom bind stones for recall.
   - Add a well thought out crafting system, intertwine it with my nature code (that I need to dig up and add)
+  - Add settings, use OLC to set them.
+  - Add game stats that are persisted.  
+  - Load game stats, game data into SQLite database (may use C# or VB for this to make it quick)
+  - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
