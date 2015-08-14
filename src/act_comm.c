@@ -94,7 +94,7 @@ void do_delete (CHAR_DATA * ch, char *argument)
     }
 
     send_to_char ("Type delete again to confirm this command.\n\r", ch);
-    send_to_char ("WARNING: this command is irreversible.\n\r", ch);
+    send_to_char ("{RWARNING:{x this command is irreversible.\n\r", ch);
     send_to_char ("Typing delete with an argument will undo delete status.\n\r", ch);
     ch->pcdata->confirm_delete = TRUE;
     wiznet ("$N is contemplating deletion.", ch, NULL, 0, 0, get_trust (ch));
