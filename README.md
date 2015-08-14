@@ -16,7 +16,9 @@ a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
 official go to version 1.0 (version 1 will be official when I finish 3 more reclasses so each base class has a reclass
 and when I finish resets of ocean life in the oceans).  The next version on the roadmap will include 4 more reclasses 
-and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.
+and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.  You can check my TODO
+file for short and long term things I'm going to work on (and the list is way larger, I just haven't added it all, 
+coding on this is a labor of love, I'm glad to be back to it).
 
 Currently Crimson Skies compiles and runs out of the box on:
 
