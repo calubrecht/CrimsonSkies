@@ -1594,7 +1594,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 
         if ( ch->level <= 5 )
         {
-            send_to_char( "You cannot post public notes until you have trained further.\n\r", ch );
+            send_to_char( "You cannot post public notes until you are level 5.\n\r", ch );
             return;
         }
 
@@ -1702,7 +1702,7 @@ void forward_note(CHAR_DATA *ch,NOTE_DATA *spoolfrom, char *argument,char *list_
 
     if ( ch->level <= 5 )
     {
-	send_to_char( "You cannot forward notes until you have trained further.\n\r", ch );
+	send_to_char( "You cannot forward notes until you are level 5.\n\r", ch );
 	return;
     }
 
