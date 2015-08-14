@@ -68,3 +68,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Set autogold by default on creation
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
   - Allow any player to change their recall to any number of custom bind stones for recall.
+  - Add a well thought out crafting system, intertwine it with my nature code (that I need to dig up and add)
