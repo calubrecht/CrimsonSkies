@@ -1852,11 +1852,17 @@ void spell_detect_evil (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_DETECT_EVIL))
     {
         if (victim == ch)
-            send_to_char ("You can already sense evil.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N can already detect evil.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -1881,11 +1887,17 @@ void spell_detect_good (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_DETECT_GOOD))
     {
         if (victim == ch)
-            send_to_char ("You can already sense good.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N can already detect good.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -1911,12 +1923,17 @@ void spell_detect_hidden (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_DETECT_HIDDEN))
     {
         if (victim == ch)
-            send_to_char ("You are already as alert as you can be. \n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
-            act ("$N can already sense hidden lifeforms.", ch, NULL, victim,
-                 TO_CHAR);
-        return;
+        {
+            act ("$N can already sense hidden lifeforms.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -1942,11 +1959,15 @@ void spell_detect_invis (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_DETECT_INVIS))
     {
         if (victim == ch)
-            send_to_char ("You can already see invisible.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
-            act ("$N can already see invisible things.", ch, NULL, victim,
-                 TO_CHAR);
-        return;
+        {
+            act ("$N can already see invisible things.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -1974,10 +1995,15 @@ void spell_detect_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_DETECT_MAGIC))
     {
         if (victim == ch)
-            send_to_char ("You can already sense magical auras.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N can already detect magic.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
