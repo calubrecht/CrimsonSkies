@@ -816,10 +816,15 @@ void spell_bless (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (victim->position == POS_FIGHTING || is_affected (victim, sn))
     {
         if (victim == ch)
-            send_to_char ("You are already blessed.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N already has divine favor.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -2522,10 +2527,15 @@ void spell_frenzy (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (is_affected (victim, sn) || IS_AFFECTED (victim, AFF_BERSERK))
     {
         if (victim == ch)
-            send_to_char ("You are already in a frenzy.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N is already in a frenzy.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     if (is_affected (victim, skill_lookup ("calm")))
