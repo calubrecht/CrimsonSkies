@@ -2664,11 +2664,15 @@ void spell_giant_strength (int sn, int level, CHAR_DATA * ch, void *vo,
     if (is_affected (victim, sn))
     {
         if (victim == ch)
-            send_to_char ("You are already as strong as you can get!\n\r",
-                          ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N can't get any stronger.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -3249,12 +3253,17 @@ void spell_infravision (int sn, int level, CHAR_DATA * ch, void *vo,
     if (IS_AFFECTED (victim, AFF_INFRARED))
     {
         if (victim == ch)
-            send_to_char ("You can already see in the dark.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
-            act ("$N already has infravision.\n\r", ch, NULL, victim,
-                 TO_CHAR);
-        return;
+        {
+            act ("$N already has infravision.\n\r", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
+
     act ("$n's eyes glow red.\n\r", ch, NULL, NULL, TO_ROOM);
 
     af.where = TO_AFFECTS;
