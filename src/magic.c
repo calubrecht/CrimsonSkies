@@ -712,8 +712,12 @@ void spell_acid_blast (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
+/*
+ * Armor spell - increases a targets armor class.
+ *
+ * You can re-case this on yourself, but you can't recase it on others
+ * if they're already affected by it.
+ */
 void spell_armor (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -722,11 +726,19 @@ void spell_armor (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (is_affected (victim, sn))
     {
         if (victim == ch)
-            send_to_char ("You are already armored.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
             act ("$N is already armored.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -3627,6 +3639,11 @@ void spell_poison (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
+/*
+ * Protection evil - You can only have protection evil OR protection good on at one time.
+ *
+ * The caster can refresh the spell on their self but not on others.
+ */
 void spell_protection_evil (int sn, int level, CHAR_DATA * ch, void *vo,
                             int target)
 {
@@ -3637,10 +3654,15 @@ void spell_protection_evil (int sn, int level, CHAR_DATA * ch, void *vo,
         || IS_AFFECTED (victim, AFF_PROTECT_GOOD))
     {
         if (victim == ch)
-            send_to_char ("You are already protected.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N is already protected.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -3657,6 +3679,11 @@ void spell_protection_evil (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
+/*
+ * Protection good - You can only have protection evil OR protection good on at one time.
+ *
+ * The caster can refresh the spell on their self but not on others.
+ */
 void spell_protection_good (int sn, int level, CHAR_DATA * ch, void *vo,
                             int target)
 {
@@ -3667,10 +3694,14 @@ void spell_protection_good (int sn, int level, CHAR_DATA * ch, void *vo,
         || IS_AFFECTED (victim, AFF_PROTECT_EVIL))
     {
         if (victim == ch)
-            send_to_char ("You are already protected.\n\r", ch);
+        {
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N is already protected.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -3883,6 +3914,13 @@ void spell_remove_curse (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 }
 
+/*
+ * Santuary spell - This is a staple spell, it will greatly increase the damage done to you,
+ * without it in some form you can become toast quickly.
+ *
+ * You can refresh this spell on yourself but cannot on others to prevent someone of a lower
+ * casting level casting it on you.
+ */
 void spell_sanctuary (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -3891,10 +3929,15 @@ void spell_sanctuary (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (IS_AFFECTED (victim, AFF_SANCTUARY))
     {
         if (victim == ch)
-            send_to_char ("You are already in sanctuary.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N is already in sanctuary.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -3910,8 +3953,12 @@ void spell_sanctuary (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
-
-
+/*
+ * Shield spell - this spell will enhance your armor class.
+ *
+ * The caster can refresh this spell on themselves but cannot on others to avoid someone
+ * of a lower casting level casting on you.
+ */
 void spell_shield (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -3920,11 +3967,15 @@ void spell_shield (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (is_affected (victim, sn))
     {
         if (victim == ch)
-            send_to_char ("You are already shielded from harm.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
-            act ("$N is already protected by a shield.", ch, NULL, victim,
-                 TO_CHAR);
-        return;
+        {
+            act ("$N is already protected by a shield.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -4055,6 +4106,13 @@ void spell_slow (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
+/*
+ * Stone skin spell - enhances a characters armor class.
+ *
+ * The caster can refresh this spell on themselves but cannot refresh it on others
+ * to prevent someone of a lower casting level casting it on you if you're already
+ * protected by it.
+ */
 void spell_stone_skin (int sn, int level, CHAR_DATA * ch, void *vo,
                        int target)
 {
@@ -4064,11 +4122,15 @@ void spell_stone_skin (int sn, int level, CHAR_DATA * ch, void *vo,
     if (is_affected (ch, sn))
     {
         if (victim == ch)
-            send_to_char ("Your skin is already as hard as a rock.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
-            act ("$N is already as hard as can be.", ch, NULL, victim,
-                 TO_CHAR);
-        return;
+        {
+            act ("$N is already as hard as can be.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
@@ -4632,15 +4694,29 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 	}
 }
 
+/*
+ * Water breathing spell - This will allow a character to breath while underwater or in the
+ * ocean.  It will stop them from drowning and losing HP from sucking down water.
+ *
+ * This spell can be refreshed on yourself but cannot be refreshed on others.
+ */
 void spell_water_breathing(int sn,int level,CHAR_DATA *ch,void *vo,int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
 
-    if( is_affected(victim,sn) )
+    if (is_affected (victim, sn))
     {
-        act("$E can already breath water!",ch,NULL,victim,TO_CHAR);
-        return;
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
+        else
+        {
+            act("$E can already breath water!",ch,NULL,victim,TO_CHAR);
+            return;
+        }
     }
 
     af.where        = TO_AFFECTS;
