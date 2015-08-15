@@ -3314,7 +3314,20 @@ void spell_invis (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     victim = (CHAR_DATA *) vo;
 
     if (IS_AFFECTED (victim, AFF_INVISIBLE))
-        return;
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
+        else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
+            act ("$N is already invisible.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
 
     act ("$n fades out of existence.", victim, NULL, NULL, TO_ROOM);
 
@@ -3497,6 +3510,7 @@ void spell_mass_invis (int sn, int level, CHAR_DATA * ch, void *vo,
     {
         if (!is_same_group (gch, ch) || IS_AFFECTED (gch, AFF_INVISIBLE))
             continue;
+
         act ("$n slowly fades out of existence.", gch, NULL, NULL, TO_ROOM);
         send_to_char ("You slowly fade out of existence.\n\r", gch);
 
