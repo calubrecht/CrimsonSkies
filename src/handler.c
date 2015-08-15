@@ -1444,11 +1444,13 @@ void affect_strip (CHAR_DATA * ch, int sn)
  */
 void affect_strip_all(CHAR_DATA *ch)
 {
-    int sn;
+    AFFECT_DATA *paf;
+    AFFECT_DATA *paf_next;
 
-    for (sn = 0; sn < top_sn; sn++)
+    for (paf = ch->affected; paf != NULL; paf = paf_next)
     {
-        affect_strip(ch, sn);
+        paf_next = paf->next;
+        affect_remove (ch, paf);
     }
 }
 
