@@ -354,14 +354,6 @@ void do_cast (CHAR_DATA * ch, char *argument)
                     return;
                 }
             }
-/*
-        if ( ch == victim )
-        {
-            send_to_char( "You can't do that to yourself.\n\r", ch );
-            return;
-        }
-*/
-
 
             if (!IS_NPC (ch))
             {
@@ -559,8 +551,6 @@ void do_cast (CHAR_DATA * ch, char *argument)
 
     return;
 }
-
-
 
 /*
  * Cast spells at targets using a magical object.
