@@ -79,10 +79,15 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int targ
     if (is_affected (victim, sn))
     {
         if (victim == ch)
-            send_to_char ("You have already been enchanted.\n\r", ch);
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
         else
+        {
             act ("$N has already been enchanted.", ch, NULL, victim, TO_CHAR);
-        return;
+            return;
+        }
     }
 
     int value = UMAX(1, ch->level / 10);
