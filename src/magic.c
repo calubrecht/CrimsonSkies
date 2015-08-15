@@ -2437,8 +2437,9 @@ void spell_flamestrike (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
+/*
+ * Faerie fire spell - This will make the surround the user by a pink outline affecting their AC.
+ */
 void spell_faerie_fire (int sn, int level, CHAR_DATA * ch, void *vo,
                         int target)
 {
@@ -2446,7 +2447,11 @@ void spell_faerie_fire (int sn, int level, CHAR_DATA * ch, void *vo,
     AFFECT_DATA af;
 
     if (IS_AFFECTED (victim, AFF_FAERIE_FIRE))
+    {
+        act ("$N is already surrounded by a pink outline.", ch, NULL, victim, TO_CHAR);
         return;
+    }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
@@ -2458,14 +2463,18 @@ void spell_faerie_fire (int sn, int level, CHAR_DATA * ch, void *vo,
     send_to_char ("You are surrounded by a pink outline.\n\r", victim);
     act ("$n is surrounded by a pink outline.", victim, NULL, NULL, TO_ROOM);
     return;
-}
+} // end spell_faerie_fire
 
-
-
+/*
+ * Faerie fog is a spell that will seek to make visible people that are in the room and
+ * hiding.  There is also a chance that if successful that it will also cast a slightly
+ * weaker and shorter duration version of faerie fire on the victim.
+ */
 void spell_faerie_fog (int sn, int level, CHAR_DATA * ch, void *vo,
                        int target)
 {
     CHAR_DATA *ich;
+    AFFECT_DATA af;
 
     act ("$n conjures a cloud of purple smoke.", ch, NULL, NULL, TO_ROOM);
     send_to_char ("You conjure a cloud of purple smoke.\n\r", ch);
@@ -2486,10 +2495,27 @@ void spell_faerie_fog (int sn, int level, CHAR_DATA * ch, void *vo,
         REMOVE_BIT (ich->affected_by, AFF_SNEAK);
         act ("$n is revealed!", ich, NULL, NULL, TO_ROOM);
         send_to_char ("You are revealed!\n\r", ich);
+
+        // Added 50% chance of being surrounded by faerie fire, much shorter duration
+        // than the actual faerie fire spell however and weaker AC affect.
+        if (CHANCE(50) && !IS_AFFECTED (ich, AFF_FAERIE_FIRE))
+        {
+            af.where = TO_AFFECTS;
+            af.type = sn;
+            af.level = level;
+            af.duration = level / 15;
+            af.location = APPLY_AC;
+            af.modifier = level;
+            af.bitvector = AFF_FAERIE_FIRE;
+            affect_to_char (ich, &af);
+            send_to_char ("You are surrounded by a pink outline.\n\r", ich);
+            act ("$n is surrounded by a pink outline.", ich, NULL, NULL, TO_ROOM);
+        }
+
     }
 
     return;
-}
+} // end spell_faerie_fog
 
 void spell_floating_disc (int sn, int level, CHAR_DATA * ch, void *vo,
                           int target)
