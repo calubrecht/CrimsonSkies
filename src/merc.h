@@ -1092,6 +1092,7 @@ struct    kill_data
 #define ROOM_ARENA        (B) /* Arena where player can die and not lose items */
 #define ROOM_NO_MOB       (C)
 #define ROOM_INDOORS      (D)
+#define ROOM_NO_GATE      (E)
 #define ROOM_PRIVATE      (J)
 #define ROOM_SAFE         (K)
 #define ROOM_SOLITARY     (L)
