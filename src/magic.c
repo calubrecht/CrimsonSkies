@@ -520,14 +520,31 @@ void do_cast (CHAR_DATA * ch, char *argument)
     // a specified amoutn of beats.  Immortals are excempt from waiting.
     if (!IS_IMMORTAL(ch))
     {
-        WAIT_STATE (ch, skill_table[sn]->beats);
+        if (skill_table[sn]->beats > 24 && CHANCE_SKILL(ch, gsn_spellcraft))
+        {
+            // If the beats of the spell are real long but the user has spellcraft and
+            // it passes the check, cut the time in two.
+            WAIT_STATE (ch, skill_table[sn]->beats / 2);
+        }
+        else
+        {
+            // This is the normal casting case that most everyone will get to
+            WAIT_STATE (ch, skill_table[sn]->beats);
+        }
     }
 
     if (number_percent () > get_skill (ch, sn))
     {
         send_to_char ("You lost your concentration.\n\r", ch);
         check_improve (ch, sn, FALSE, 1);
-        ch->mana -= mana / 2;
+
+        // If they lose concentration, remove the cost / 2, but if the spellcraft
+        // check is successful then they don't lose mana.
+        if (!CHANCE_SKILL(ch, gsn_spellcraft))
+        {
+            ch->mana -= mana / 2;
+        }
+
     }
     else
     {
