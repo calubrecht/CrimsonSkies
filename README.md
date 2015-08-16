@@ -1,4 +1,4 @@
-Crimson Skies Mud (cs-mud)
+Crimson Skies Mud (CS-Mud)
 ==========================
 
 Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
