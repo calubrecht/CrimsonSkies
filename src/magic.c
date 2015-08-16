@@ -4855,7 +4855,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_cure_blindness" )) return spell_cure_blindness;
             if ( !str_cmp( name, "spell_cure_critical" )) return spell_cure_critical;
             if ( !str_cmp( name, "spell_cure_disease" )) return spell_cure_disease;
-            if ( !str_cmp( name, "spell_cure_poison" )) return spell_poison;
+            if ( !str_cmp( name, "spell_cure_poison" )) return spell_cure_poison;
             if ( !str_cmp( name, "spell_calm" )) return spell_calm;
             if ( !str_cmp( name, "spell_cause_critical" )) return spell_cause_critical;
             if ( !str_cmp( name, "spell_cause_light" )) return spell_cause_light;
@@ -5010,7 +5010,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_cure_blindness ) return "spell_cure_blindness";
     if (spell == spell_cure_critical ) return "spell_cure_critical";
     if (spell == spell_cure_disease ) return "spell_cure_disease";
-    if (spell == spell_cure_poison ) return "spell_poison";
+    if (spell == spell_cure_poison ) return "spell_cure_poison";
     if (spell == spell_calm ) return "spell_calm";
     if (spell == spell_cause_critical ) return "spell_cause_critical";
     if (spell == spell_cause_light ) return "spell_cause_light";
