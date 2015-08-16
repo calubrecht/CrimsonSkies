@@ -4331,5 +4331,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_dual_wield, "dual wield");
     ASSIGN_GSN(gsn_weaken, "weaken");
     ASSIGN_GSN(gsn_water_breathing, "water breathing");
+    ASSIGN_GSN(gsn_spellcraft, "spellcraft");
 
 } // end assign_gsn
