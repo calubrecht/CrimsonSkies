@@ -5525,21 +5525,10 @@ void do_test(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    CHAR_DATA *victim;
-
-    if (argument[0] == '\0')
-    {
-        send_to_char ("Syntax: debug <character>\n\r", ch);
-        return;
-    }
-
-    if ((victim = get_char_world (ch, argument)) == NULL)
-    {
-        send_to_char ("They aren't playing.\n\r", ch);
-        return;
-    }
-
-    affect_strip_all(victim);
+    if (CHANCE_SKILL(ch, gsn_spellcraft))
+        send_to_char("True\n\r", ch);
+    else
+        send_to_char("False\n\r", ch);
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;

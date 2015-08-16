@@ -1787,6 +1787,8 @@ struct mprog_code
 #define IS_NULLSTR(str)     ((str) == NULL || (str)[0] == '\0')
 #define ENTRE(min,num,max)  (((min) < (num)) && ((num) < (max)) )
 #define CHANCE(percent)     (number_range(1,100) < percent) // - Rhien, 7/7/2015
+#define CHANCE_SKILL(ch, sn)(number_percent() < get_skill(ch, sn)) // Rhien, 8/16/2015
+
 #define CHECK_POS(a, b, c)    {                            \
                     (a) = (b);                    \
                     if ( (a) < 0 )                    \
