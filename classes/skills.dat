@@ -289,7 +289,7 @@ End
 
 #SKILL
 Name        cure poison~
-SpellFun    spell_cure_poison~
+SpellFun    spell_poison~
 Target      2
 MinPos      8
 MinMana     5
@@ -1513,6 +1513,16 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Dual Wield!~
+End
+
+#SKILL
+Name        spellcraft~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       0
+MsgOff      !Spellcraft!~
 End
 
 #END

@@ -29,6 +29,7 @@ Sk 'scrolls' 1 2
 Sk 'staves' 1 2
 Sk 'wands' 1 2
 Sk 'recall' 1 2
+Sk 'spellcraft' 1 4
 Sk 'detect magic' 2 1
 Sk 'detect invis' 3 1
 Sk 'chill touch' 4 1
@@ -110,6 +111,7 @@ Sk 'nexus' 40 2
 Sk 'fire breath' 40 1
 Sk 'enhanced damage' 45 10
 Sk 'calm' 48 1
+Sk 'reserved' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1

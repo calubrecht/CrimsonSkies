@@ -126,6 +126,8 @@ Sk 'lightning breath' 46 2
 Sk 'ray of truth' 47 2
 Sk 'gas breath' 50 2
 Sk 'fire breath' 51 2
+Sk 'reserved' 52 -1
+Sk 'spellcraft' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2
