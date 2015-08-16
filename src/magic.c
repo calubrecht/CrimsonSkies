@@ -168,8 +168,19 @@ void say_spell (CHAR_DATA * ch, int sn)
     for (rch = ch->in_room->people; rch; rch = rch->next_in_room)
     {
         if (rch != ch)
-            act ((!IS_NPC (rch) && ch->class == rch->class) ? buf : buf2,
-                 ch, NULL, rch, TO_VICT);
+        {
+            if (CHANCE_SKILL(rch, gsn_spellcraft))
+            {
+                // Spellcraft allows the person to see what spell is being cast
+                act(buf, ch, NULL, rch, TO_VICT);
+            }
+            else
+            {
+                // If the player is the same class they can see what's being cast, otherwise it's the
+                // magicky looking form
+                act ((!IS_NPC (rch) && ch->class == rch->class) ? buf : buf2, ch, NULL, rch, TO_VICT);
+            }
+        }
     }
 
     return;
