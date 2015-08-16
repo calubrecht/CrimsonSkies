@@ -34,6 +34,9 @@
 extern FILE * fpArea;
 extern char strArea[MAX_INPUT_LENGTH];
 
+// Level to post a note
+#define NOTE_LEVEL 1
+
 #define HEADER "--------------------------------------------------------------------------------\n\r"
 
 /* local procedures */
@@ -1592,9 +1595,10 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             return;
         }
 
-        if ( ch->level <= 5 )
+        if ( ch->level < NOTE_LEVEL )
         {
-            send_to_char( "You cannot post public notes until you are level 5.\n\r", ch );
+            sprintf(buf, "You cannot post public notes until you are level %d.\n\r", NOTE_LEVEL);
+            send_to_char(buf, ch );
             return;
         }
 
@@ -1700,10 +1704,11 @@ void forward_note(CHAR_DATA *ch,NOTE_DATA *spoolfrom, char *argument,char *list_
         return;
     }
 
-    if ( ch->level <= 5 )
+    if ( ch->level < NOTE_LEVEL )
     {
-	send_to_char( "You cannot forward notes until you are level 5.\n\r", ch );
-	return;
+        sprintf(buf, "You cannot forward notes until you are level %d.\n\r", NOTE_LEVEL);
+        send_to_char(buf, ch );
+        return;
     }
 
     argument = one_argument( argument, arg );
