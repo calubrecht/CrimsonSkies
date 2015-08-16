@@ -289,7 +289,7 @@ End
 
 #SKILL
 Name        cure poison~
-SpellFun    spell_poison~
+SpellFun    spell_cure_poison~
 Target      2
 MinPos      8
 MinMana     5
