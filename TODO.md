@@ -68,8 +68,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Set autogold by default on creation
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
   - Allow any player to change their recall to any number of custom bind stones for recall.
-  - Add a well thought out crafting system, intertwine it with my nature code (that I need to dig up and add)
+  - Crafting system, intertwine it with my nature code (that I need to dig up and add)
   - Add settings, use OLC to set them.
   - Add game stats that are persisted.  
   - Load game stats, game data into SQLite database (may use C# or VB for this to make it quick)
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
+  - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement to move so a character can get to their corpse easier.
