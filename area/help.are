@@ -2835,6 +2835,9 @@ By what name do you wish to be known? ~
   
   - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
 
+* I will be attempting to implement object consolidation from the Smaug
+  code base, I may very make things unstable temporarly.  I have backed
+  up pfiles in case I temporarly corrupt them which will be highly possible.
 * Reclass system is in, there is only one reclass currently which is
   enchantors for mages.  3 more reclasses (one for each base class)
   and the oceans are all that stand between us and version 1.
