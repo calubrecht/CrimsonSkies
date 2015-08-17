@@ -298,6 +298,9 @@ int mana_gain (CHAR_DATA * ch)
         if (ch->pcdata->condition[COND_THIRST] == 0)
             gain /= 2;
 
+        if (CHANCE_SKILL(ch, gsn_spellcraft))
+            gain += number_range(5, 10);
+
         // No mana gain for players in the ocean
         if (ch->in_room->sector_type == SECT_OCEAN )
             gain = 0;

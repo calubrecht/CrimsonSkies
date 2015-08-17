@@ -536,7 +536,8 @@ void do_cast (CHAR_DATA * ch, char *argument)
     if (number_percent () > get_skill (ch, sn))
     {
         send_to_char ("You lost your concentration.\n\r", ch);
-        check_improve (ch, sn, FALSE, 1);
+        check_improve(ch, sn, FALSE, 1);
+        check_improve(ch, gsn_spellcraft, FALSE, 1);
 
         // If they lose concentration, remove the cost / 2, but if the spellcraft
         // check is successful then they don't lose mana.
@@ -550,11 +551,17 @@ void do_cast (CHAR_DATA * ch, char *argument)
     {
         ch->mana -= mana;
         if (IS_NPC (ch) || class_table[ch->class]->fMana)
-            /* class has spells */
+        {
+            // Class has spells
             (*skill_table[sn]->spell_fun) (sn, ch->level, ch, vo, target);
+        }
         else
+        {
             (*skill_table[sn]->spell_fun) (sn, 3 * ch->level / 4, ch, vo, target);
-        check_improve (ch, sn, TRUE, 1);
+        }
+
+        check_improve(ch, sn, TRUE, 1);
+        check_improve(ch, gsn_spellcraft, TRUE, 1);
     }
 
     if ((skill_table[sn]->target == TAR_CHAR_OFFENSIVE
