@@ -167,6 +167,14 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define ENCHANTOR_CLASS_LOOKUP                  4
 
 /*
+ * PC Race Lookup
+ */
+#define HUMAN_RACE_LOOKUP                       1
+#define ELF_RACE_LOOKUP                         2
+#define DWARF_RACE_LOOKUP                       3
+#define GIANT_RACE_LOOKUP                       4
+
+/*
  * Thanks Dingo for making life a bit easier ;)
  */
 #define CH(d)((d)->original ? (d)->original : (d)->character)
