@@ -282,7 +282,7 @@ int main (int argc, char **argv)
         control = init_socket (port);
 
     boot_db ();
-    log_f ("Crimson Skies is ready to rock on port %d (%s).", port, mud_ipaddress);
+    log_f ("Crimson Skies is ready to rock on port %d.", port);
 
     if (fCopyOver)
         copyover_recover ();
