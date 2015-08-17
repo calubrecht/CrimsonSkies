@@ -985,9 +985,12 @@ Syntax: sockets
 	sockets <name> 
 
 SOCKETS reports all of the visible users connected to the server, including 
-users in the process of logging in.  The two numbers inside brackets are the 
-channel number and the 'connected' state.  The 'connected' states are listed in 
-merc.h: 0 is CON_PLAYING; non-zero values are various states of logging in.
+users in the process of logging in.  The numbers inside the first bracket is
+the descriptor number.  The next field is the english representation of the
+connected state and correspond with a connection state in merc.h (e.g.
+CON_PLAYING = 0).  Finally you will see the characters name if applicable
+and IP address (someone at the color prompt for instance won't have a
+character name yet).
 
 The optional name argument shows the site of a player, or optional can be used
 to identify switched gods (i.e. socket orc shows the name of anyone switched
