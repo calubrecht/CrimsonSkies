@@ -979,7 +979,7 @@ Syntax: force all <command>
 
 FORCE forces one character to execute a command, except of course delete.
 
-Below level 57 (Deity) force can only be used on mobiles, and force all is
+Below level 57 force can only be used on mobiles, and force all is
 unavailable.  You also cannot 'force orc murder hugo', for example. 
 
 FORCE 'all' forces all player characters to execute a command.
@@ -3222,6 +3222,13 @@ that might raise it.
 
 The stats command will also show you the max stats your race/class
 combo can achieve.
+~
+0 WHOAMI~
+Syntax:  whoami
+
+"Who am I" will show you the name of the character you are
+currently logged in as.
+
 ~
 0 RECLASS~
 
