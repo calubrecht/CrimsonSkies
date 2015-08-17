@@ -3205,11 +3205,16 @@ well as (and most importantly) cast one level higher.
 ~
 
 0 LOCATE WIZARD MARK~
-LOCATE WIZARD MARK
 
 This spell is a specialized locate object spell.  It allows the 
 enchantor with high detail and a high success rate to locate items 
 that they have wizard marked by their hand.
+
+~
+
+0 CLEAR~
+
+The clear command will clear the screen on mud clients that support it.
 
 ~
 
