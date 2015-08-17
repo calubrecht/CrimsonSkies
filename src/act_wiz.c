@@ -4353,6 +4353,7 @@ void do_sockets (CHAR_DATA * ch, char *argument)
     char buf[2 * MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
+    char state[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
     int count;
 
@@ -4362,22 +4363,90 @@ void do_sockets (CHAR_DATA * ch, char *argument)
     one_argument (argument, arg);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
+         switch (d->connected)
+         {
+            default:
+                sprintf(state, "Unknown");
+                break;
+            case -15:
+                sprintf(state, "Get Email");
+                break;
+            case -14:
+                sprintf(state, "Get Name");
+                break;
+            case -13:
+                sprintf(state, "Get Old Password");
+                break;
+            case -12:
+                sprintf(state, "Confirm New Name");
+                break;
+            case -11:
+                sprintf(state, "Get New Password");
+                break;
+            case -10:
+                sprintf(state, "Confirm New Password");
+                break;
+            case -9:
+                sprintf(state, "Color Prompt");
+                break;
+            case -8:
+                sprintf(state, "TelnetGA Prompt");
+                break;
+            case -7:
+                sprintf(state, "Get Race");
+                break;
+            case -6:
+                sprintf(state, "Get Gender");
+                break;
+            case -5:
+                sprintf(state, "Get Class");
+                break;
+            case -4:
+                sprintf(state, "Get Name");
+                break;
+            case -3:
+                sprintf(state, "Default Choice");
+                break;
+            case -2:
+                sprintf(state, "Get Groups");
+                break;
+            case -1:
+                sprintf(state, "Get Weapon");
+                break;
+            case 0:
+                sprintf(state, "Playing");
+                break;
+            case 1:
+                sprintf(state, "Reading IMOTD");
+                break;
+            case 2:
+                sprintf(state, "Reading MOTD");
+                break;
+            case 3:
+                sprintf(state, "Reconnect Prompt");
+                break;
+            case 4:
+                sprintf(state, "Copyover Recovery");
+                break;
+        }
+
         if (d->character != NULL && can_see (ch, d->character)
             && (arg[0] == '\0' || is_name (arg, d->character->name)
                 || (d->original && is_name (arg, d->original->name))))
         {
             count++;
-            sprintf (buf + strlen (buf), "[%3d %2d] %s@%s\n\r",
+            sprintf (buf + strlen (buf), "{c[{W%3d{c][{W%-25s{c][{W%s@%s{c]{x\n\r",
                      d->descriptor,
-                     d->connected,
+                     state,
                      d->original ? d->original->name :
-                     d->character ? d->character->name : "(none)", d->host);
+                     d->character ? d->character->name : "(none)",
+                     d->host);
         }
         else if (d->character == NULL)
         {
-            sprintf (buf + strlen (buf), "[%3d %2d] nobody@%s\n\r",
+            sprintf (buf + strlen (buf), "{c[{W%3d{c][{W%-25s{c][{Wnobody@%s{c]{x\n\r",
                      d->descriptor,
-                     d->connected,
+                     state,
                      d->host);
             count++;
         }
@@ -4388,8 +4457,13 @@ void do_sockets (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    sprintf (buf2, "%d user%s\n\r", count, count == 1 ? "" : "s");
+    sprintf (buf2, "\n\r{c%d user%s{x\n\r", count, count == 1 ? "" : "s");
     strcat (buf, buf2);
+
+    send_to_char("{c--------------------------------------------------------------------------------{x\n\r", ch);
+    send_to_char("{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\n\r", ch);
+    send_to_char("{c--------------------------------------------------------------------------------{x\n\r", ch);
+
     page_to_char (buf, ch);
     return;
 }
