@@ -3168,7 +3168,22 @@ SEQUESTOR
 
 Syntax:  cast 'sequestor' <object>
 
-This spell allows an enchantor to make an item unable to be locatedelp s.
+This spell allows an enchantor to make an item unable to be located.
+~
+0 DUAL WIELD~
+DUAL WIELD
+
+Dual wield allows a fighter to wield two weapons at the same time
+giving them additional attacks per round.
+~
+
+0 SPELLCRAFT~
+SPELLCRAFT
+
+Spellcraft is a speciality skill available to mages and most mage
+reclasses.  It gives the caster the ability to know what spells others
+are casting.  It also allows the caster to regenerate more mana as
+well as (and most importantly) cast one level higher.
 ~
 
 0 RECLASS~
