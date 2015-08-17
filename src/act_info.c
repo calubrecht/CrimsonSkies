@@ -3234,7 +3234,19 @@ void do_stats( CHAR_DATA *ch, char *argument )
         ch->perm_stat[STAT_DEX], get_curr_stat(ch,STAT_DEX),
         ch->perm_stat[STAT_CON], get_curr_stat(ch,STAT_CON));
 
+    send_to_char("[Current Stats]\n\r", ch);
     send_to_char(buf, ch);
+
+    sprintf(buf, "Str: %d  Int: %d  Wis: %d  Dex: %d  Con: %d\n\r",
+        get_max_train(ch, STAT_STR),
+        get_max_train(ch, STAT_INT),
+        get_max_train(ch, STAT_WIS),
+        get_max_train(ch, STAT_DEX),
+        get_max_train(ch, STAT_CON));
+
+    send_to_char("\n\r[Max Stats for your Race/Class]\n\r", ch);
+    send_to_char(buf, ch);
+
     return;
 } // end do_stats
 
