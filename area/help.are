@@ -2065,16 +2065,19 @@ can be used to see hidden objects, give information about treasure, or even
 scry out the true nature of your foe.  All classes except warriors can use 
 detection spells.
 
-detect evil	reveals the aura of evil monsters
-detect good	similar to above, only for good monsters
-detect hidden	shows the whereabouts of hidden foes
-detect invis	allows the caster to see the unseeable
-detect magic	reveals magical auras to the caster
-detect poison	determines if food is safe to eat
-farsight	searches for living beings near the caster
-identify	gives information about the nature of an object
-know alignment	determines the moral character of a monster or person
-locate object	finds a specific item
+detect evil	   reveals the aura of evil monsters
+detect good	   similar to above, only for good monsters
+detect hidden	   shows the whereabouts of hidden foes
+detect invis	   allows the caster to see the unseeable
+detect magic	   reveals magical auras to the caster
+detect poison	   determines if food is safe to eat
+farsight	   searches for living beings near the caster
+identify	   gives information about the nature of an object
+know alignment	   determines the moral character of a monster or person
+locate object	   finds a specific item
+locate wizard mark locates items that have been wizard marked by an
+                   enchantor. This spell is only available to
+                   enchantors.
 ~
 
 -1 DRACONIAN~
@@ -3176,6 +3179,21 @@ DUAL WIELD
 Dual wield allows a fighter to wield two weapons at the same time
 giving them additional attacks per round.
 ~
+53 COPYOVER~
+
+Syntax: copyover [now|delay <ticks>|cancel<reason>
+
+Sample Usage: copyover now
+              copyover now <reason>
+              copyover delay 3
+              copyover delay 3 <reason>
+              copyover cancel
+
+The copyover is also called a hot reboot.  It allows a newly compiled
+version of the mud to be put into play while keeping all of the 
+players connected.
+
+~
 
 0 SPELLCRAFT~
 SPELLCRAFT
@@ -3184,6 +3202,15 @@ Spellcraft is a speciality skill available to mages and most mage
 reclasses.  It gives the caster the ability to know what spells others
 are casting.  It also allows the caster to regenerate more mana as
 well as (and most importantly) cast one level higher.
+~
+
+0 LOCATE WIZARD MARK~
+LOCATE WIZARD MARK
+
+This spell is a specialized locate object spell.  It allows the 
+enchantor with high detail and a high success rate to locate items 
+that they have wizard marked by their hand.
+
 ~
 
 0 RECLASS~
