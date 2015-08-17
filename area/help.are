@@ -93,10 +93,10 @@ useful for sending a quick "I'm being spammed so I went deaf" message to
 a person).
 ~
 
--1 AFK~
-Typing AFK puts your character in a tell-saving mode as follows: any tell
+-1 AFK REPLAY~
+Typing 'AFK' puts your character in a tell-saving mode as follows: any tell
 to you is stored in a special buffer, and can be seen later by typing
-recall.  This is useful when you need to leave the mud for 5 or 10 minutes,
+'replay'.  This is useful when you need to leave the mud for 5 or 10 minutes,
 but don't want to miss tells.  AFK shows up in your prompt until it is
 turned off.
 
@@ -190,8 +190,6 @@ from a player's corpse.
 
 ~
 
-
-
 0 EXPERIENCE LEVEL XP~
 Your character advances in power by gaining experience.  You need a set 
 amount of experience points for each level based on your creation points.
@@ -213,15 +211,12 @@ versus the monster's alignment; how many of this monster have been killed
 lately; and some random variation.
 ~
 
-
-
 0 PET PETS~
 You can buy pets in the pet shop.  You may own only one pet at a time, after 
 the old one dies you may purchase a replacement.
 
 New pets are planned for a shop in New Thalos.
 ~
-
 
 
 0 TICK~
@@ -237,7 +232,6 @@ Area resetting happens roughly every 3 minutes if no one is in the area; less
 often (15 minutes) if some one is.  Also note that objects lying on the ground
 will not be regenerated if anyone is in the area when it resets.
 ~
-
 
 
 0 !~
@@ -1338,7 +1332,7 @@ This spell renders the target character blind.
   'MAGIC MISSILE' 'SHOCKING GRASP'~
 Syntax: cast 'acid blast'     <victim>
 Syntax: cast 'burning hands'  <victim>
-Syntax: cast 'color spray'   <victim>
+Syntax: cast 'color spray'    <victim>
 Syntax: cast 'fireball'       <victim>
 Syntax: cast 'lightning bolt' <victim>
 Syntax: cast 'magic missile'  <victim>
@@ -1553,7 +1547,8 @@ level of the caster, the victim's armor class is increased by two points.
 Syntax: cast 'faerie fog'
 
 This spell reveals all manner of invisible, hidden, and sneaking creatures in
-the same room as you.
+the same room as you.  There is a chance of inflicting a faerie fire on victims
+that are revealed.
 ~
 
 0 FLAMESTRIKE~
@@ -1799,7 +1794,6 @@ The following skills and groups are available to your chacter:
 The following commands are available:
 list         display all groups and skills not yet bought
 learned      show all groups and skills bought 
-premise      brief explanation of creation points and skill groups
 add <name>   buy a skill or group
 drop <name>  discard a skill or group
 info <name>  list the skills or spells contained within a group
@@ -1810,7 +1804,7 @@ done	     exit the character generation process
 -1 'MENU CHOICE'~
 Choice (add,drop,list,help)?~
 
--1 'GROUPS' 'INFO' 'PREMISE'~
+-1 'GROUPS' 'INFO'~
 The skill system allows you to fully customize your new character, making
 him or her skilled in the skills you choose.  But beware, the skills you pick
 at character creation are the only skills you will ever learn.  Skills are 
@@ -2664,7 +2658,7 @@ Ah! Another mortal, seeking adventure.  You should go through mudschool first,
 to gain experience to face the trials outside.  Be sure to practice a weapon
 in the guild room, or your stay with us shall be very short indeed.  Type
 '{gequipment{x' to see what your are wielding, '{gspells{x' to see your spells,
-'{gskills{x' to see your skills, and 'commands' for a list of commands. Help is
+'{gskills{x' to see your skills, and '{gcommands{x' for a list of commands. Help is
 available on most commands and abilities.
 
 Once you reach a minimum of level 10 you will have the ability to reclass
@@ -2672,7 +2666,7 @@ into a more specialized class.  Type '{ghelp reclass{x' to read more about that.
 
 Please type 'help rules' to see the game rules.
 ~
--1 WIZLIST~
+-1 WIZLIST IMMORTALS~
 .
 Implementor (Level 60)
 ----------------------
@@ -2845,7 +2839,7 @@ By what name do you wish to be known? ~
   phase.  Feel free to do what you please, just respect others.
 * Important commands: help, commands, notes, score, look, who, scan
   
-[Hit Return to continue]
+{R[{WHit Return to continue{R]{x
 ~ 
  
 52 IMOTD~
@@ -2857,37 +2851,7 @@ link you area into the game I will handle it.
 create balanced content.
 3.) Have fun with this.  Like those before you, you are leaving a legacy.
 
- [Hit Return to continue]
-~
-
-52 JOBS~
-This is a partial list of what a god of any given level should be doing. It is
-not complete yet.
-
-Angels:(52-54)
-Angels and higher level gods may not assist mortals directly in any way.  
-An Angel's main job is to help with quests (via switch), or possibly run
-small quest of their own -- but the rewards should be minimal.
-
-Deities:(55-56)
-Deities have two main roles: reimbursement and quest running.  Be skeptical
-on reimburses, don't just hand out every piece of gear.  I suggest limiting
-reimbursements to 10 items at a time, and make sure that you do not load things
-at too high a level (new format items have hard-coded levels, so are not a
-problem).  vnum and stat are useful for this.  You can draft Angels to help you
-run a quest, and please note that quests should NOT have huge rewards -- the
-main point should be to have fun.  Deities have no business trying to enforce
-rules -- the most you should do to a player is a NOCHANNEL or similar light
-punishment.
-
-Gods:(57-59)
-Gods can run quests just like Deities, and it's nice to do reimbursements too.
-However, the main role of a God is keeping the peace.  Gods can enforce (but
-not create rules), using the various NOTELL-class commands, as well as deny,
-purge, freeze, and ban (but be careful with these commands!)  Gods are expected
-to help make the mud run more smoothly, power trips are strictly verbotten.
-
-Not fufilling the roles of your office can result in demotion or deletion.
+{R[{WHit Return to continue{R]{x
 ~
 
 -1 PKILL PKILLING PKILLER 'PLAYER KILLING' PSTEAL PSTEALING 'PLAYER STEALING'~
@@ -2900,9 +2864,9 @@ from the city guard.
 
 52 COMMANDMENTS LAWS 'GOD RULES' GODS~
 .
-                         **********************
-                         ** The Rules of ROM **
-                         **********************
+                     *************************
+                     ** The Rules of CS-Mud **
+                     *************************
  
 1)  Do not kill mortals, do not kill mortals, do not kill mortals.
     This includes transferring/summoning them to aggressive mobs.
@@ -2941,7 +2905,11 @@ from the city guard.
 ~
 
 -1 RULES~
-These are the rules of ROM.  For other matters, use common sense.
+These are the rules of CS-Mud.  For other matters, use common sense.
+
+* Below are the rules inherited from ROM.  These rules are suspended for the
+  time being as we are in heavy development without a lot of players.  The
+  only current rule respect others.
 
 * Your presence here is a privilege not a right. Obey any orders from gods, and
   you will be fine.  Deletion does not require a reason, appeals are to be sent
