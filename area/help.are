@@ -3211,13 +3211,18 @@ enchantor with high detail and a high success rate to locate items
 that they have wizard marked by their hand.
 
 ~
-
 0 CLEAR~
 
 The clear command will clear the screen on mud clients that support it.
-
 ~
+0 STATS~
+Shows your current stats (strength, intelligence, wisdom, dexterity
+and constitution) along with adjustments from spells and equipment
+that might raise it.
 
+The stats command will also show you the max stats your race/class
+combo can achieve.
+~
 0 RECLASS~
 
 Syntax: reclass <reclass name>
@@ -3239,7 +3244,5 @@ Current classes available for reclass:
 ~
 
 0 $~
-
-
 
 #$
