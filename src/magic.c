@@ -186,7 +186,46 @@ void say_spell (CHAR_DATA * ch, int sn)
     return;
 }
 
+/*
+ * Returns the casting level that the character casts at.
+ */
+int casting_level( CHAR_DATA *ch )
+{
+    int level;
 
+    level = ch->level;
+
+    // NPC's cast at level (if they even cast)
+    if (IS_NPC(ch))
+        return level;
+
+    // Non mana classes cast below level, a level 51 will cast around level 38/39.
+    if (!class_table[ch->class]->fMana)
+    {
+        level = 3 * level / 4;
+    }
+
+    // Giants lose a casting level
+    if (ch->race == GIANT_RACE_LOOKUP)
+    {
+        level -= 1;
+    }
+
+    // Elves gain a casting level
+    if (ch->race == ELF_RACE_LOOKUP)
+    {
+        level += 1;
+    }
+
+    // Spellcraft skill gains a bonus, making it a super useful skill.
+    if (CHANCE_SKILL(ch, gsn_spellcraft))
+    {
+        level += 1;
+    }
+
+    return level;
+
+} // end casting_level
 
 /*
  * Compute a saving throw.
@@ -549,16 +588,9 @@ void do_cast (CHAR_DATA * ch, char *argument)
     }
     else
     {
+        // Cast the spell
         ch->mana -= mana;
-        if (IS_NPC (ch) || class_table[ch->class]->fMana)
-        {
-            // Class has spells
-            (*skill_table[sn]->spell_fun) (sn, ch->level, ch, vo, target);
-        }
-        else
-        {
-            (*skill_table[sn]->spell_fun) (sn, 3 * ch->level / 4, ch, vo, target);
-        }
+        (*skill_table[sn]->spell_fun) (sn, casting_level(ch), ch, vo, target);
 
         check_improve(ch, sn, TRUE, 1);
         check_improve(ch, gsn_spellcraft, TRUE, 1);

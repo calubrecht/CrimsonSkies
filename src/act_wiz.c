@@ -5525,10 +5525,8 @@ void do_test(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    if (CHANCE_SKILL(ch, gsn_spellcraft))
-        send_to_char("True\n\r", ch);
-    else
-        send_to_char("False\n\r", ch);
+    if (ch->race == ELF_RACE_LOOKUP)
+        send_to_char("You are an elf.\n\r", ch);
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
