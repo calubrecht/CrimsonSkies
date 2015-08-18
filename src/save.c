@@ -420,6 +420,7 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 {
     EXTRA_DESCR_DATA *ed;
     AFFECT_DATA *paf;
+    int room_vnum = 0;
 
     /*
      * Slick recursion to write lists backwards,
@@ -431,10 +432,20 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
     /*
      * Castrate storage characters.
      */
-    if ((ch->level < obj->level - 2 && obj->item_type != ITEM_CONTAINER)
-        || obj->item_type == ITEM_KEY
-        || (obj->item_type == ITEM_MAP && !obj->value[0]))
-        return;
+    if (ch)
+    {
+        if ((ch->level < obj->level - 2 && obj->item_type != ITEM_CONTAINER)
+            || obj->item_type == ITEM_KEY
+            || (obj->item_type == ITEM_MAP && !obj->value[0]))
+            return;
+    }
+    else
+    {
+        if (obj->in_room != NULL)
+        {
+            room_vnum = obj->in_room->vnum;
+        }
+    }
 
     fprintf (fp, "#O\n");
     fprintf (fp, "Vnum %d\n", obj->pIndexData->vnum);
@@ -442,6 +453,11 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
         fprintf (fp, "Enchanted\n");
 
     fprintf (fp, "Nest %d\n", iNest);
+
+    if (!ch && room_vnum != 0)
+    {
+        fprintf( fp, "RoomVnum    %d\n", room_vnum);
+    }
 
     /* these data are only used if they do not match the defaults */
 
@@ -1360,7 +1376,8 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
     bool fNest;
     bool fVnum;
     bool first;
-    bool new_format;            /* to prevent errors */
+    bool new_format;      /* to prevent errors */
+    int room_vnum = 1;    /* For saved objects to reload in a room */
 
     fVnum = FALSE;
     obj = NULL;
@@ -1527,9 +1544,20 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                         }
 
                         if (iNest == 0 || rgObjNest[iNest] == NULL)
-                            obj_to_char (obj, ch);
+                        {
+                            if (ch)
+                            {
+                                obj_to_char (obj, ch);
+                            }
+                            else if (room_vnum != 1)
+                            {
+                                obj_to_room(obj, get_room_index(room_vnum));
+                            }
+                        }
                         else
+                        {
                             obj_to_obj (obj, rgObjNest[iNest - 1]);
+                        }
                         return;
                     }
                 }
@@ -1563,7 +1591,8 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                     fMatch = TRUE;
                 }
                 break;
-
+            case 'R':
+                KEY( "RoomVnum", room_vnum, fread_number(fp));
             case 'S':
                 KEY ("ShortDescr", obj->short_descr, fread_string (fp));
                 KEY ("ShD", obj->short_descr, fread_string (fp));

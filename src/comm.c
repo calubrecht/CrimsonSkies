@@ -160,15 +160,15 @@ int line_count	args( (char *orig) );
  * Global variables.
  */
 DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
-DESCRIPTOR_DATA *d_next;        /* Next descriptor in loop  */
-FILE *fpReserve;                /* Reserved file handle     */
-bool merc_down;                    /* Shutdown         */
-bool wizlock;                    /* Game is wizlocked        */
-bool newlock;                    /* Game is newlocked        */
+DESCRIPTOR_DATA *d_next;             /* Next descriptor in loop  */
+FILE *fpReserve;                     /* Reserved file handle     */
+bool merc_down;                      /* Shutdown         */
+bool wizlock;                        /* Game is wizlocked        */
+bool newlock;                        /* Game is newlocked        */
 char str_boot_time[MAX_INPUT_LENGTH];
-time_t current_time;            /* time of this pulse */
-bool MOBtrigger = TRUE;            /* act() switch                 */
-
+time_t current_time;                 /* time of this pulse */
+bool MOBtrigger = TRUE;              /* act() switch                 */
+bool game_loaded = FALSE;            /* Whether the game has finished loading, boot or copyover */
 
 /*
  * OS-dependent local functions.
@@ -286,6 +286,8 @@ int main (int argc, char **argv)
 
     if (fCopyOver)
         copyover_recover ();
+
+    game_loaded = TRUE;
 
     game_loop (control);
 

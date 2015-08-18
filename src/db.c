@@ -96,6 +96,13 @@ WEATHER_DATA weather_info;
 extern const struct continent_type continent_table[];
 
 /*
+ * Whether or not the game has finished loading.  This is set in comm.c after the boot db
+ * and after copyover recoverying if that happened.  It's the last thing done before the
+ * main game loop starts.
+ */
+extern bool game_loaded;
+
+/*
  * Locals.
  */
 MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
@@ -153,6 +160,9 @@ size_t sAllocPerm;
 /*
  * Semi-locals.
  */
+
+
+// Whether the game is in the boot module. It will be true in the beginning and false in the end.
 bool fBootDb;
 FILE *fpArea;
 char strArea[MAX_INPUT_LENGTH];
@@ -179,9 +189,15 @@ void reset_area args ((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
 void load_skills args((void));
+void load_game_objects args((void));
 void assign_gsn args((void));
 
+
 SPELL_FUN  *spell_function_lookup args(( char *name ));
+
+/* For saving of PC corpses and donation pits across copyover and reboots */
+void fwrite_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest));
+void fread_obj args ((CHAR_DATA * ch, FILE * fp));
 
 /*
  * Big mama top level function.
@@ -361,12 +377,17 @@ void boot_db ()
         log_string("STATUS: Fixing MobProgs");
         fix_mobprogs();
         fBootDb = FALSE;
+        // The loading of saved objects needs to happen before the
+        // resetting otherwise we'll have duplicate objects
+        log_string("STATUS: Loading Saved Game Objects (Pits/Corpses)");
+        load_game_objects();
         log_string("STATUS: Resetting Areas");
         area_update();
         log_string("STATUS: Loading Bans");
         load_bans();
         log_string("STATUS: Loading Notes");
         load_notes();
+
     }
 
     return;
@@ -3212,27 +3233,11 @@ void bug (const char *str, int param)
 
         sprintf (buf, "[*****] FILE: %s LINE: %d", strArea, iLine);
         log_string (buf);
-/* RT removed because we don't want bugs shutting the mud
-    if ( ( fp = fopen( "shutdown.txt", "a" ) ) != NULL )
-    {
-        fprintf( fp, "[*****] %s\n", buf );
-        fclose( fp );
-    }
-*/
     }
 
     strcpy (buf, "[*****] BUG: ");
     sprintf (buf + strlen (buf), str, param);
     log_string (buf);
-/* RT removed due to bug-file spamming
-    fclose( fpReserve );
-    if ( ( fp = fopen( BUG_FILE, "a" ) ) != NULL )
-    {
-    fprintf( fp, "%s\n", buf );
-    fclose( fp );
-    }
-    fpReserve = fopen( NULL_FILE, "r" );
-*/
 
     return;
 }
@@ -4275,6 +4280,123 @@ SKILLTYPE *fread_skill( FILE *fp)
     }
     return skill;
 }
+
+/*
+ * Saves certain items types that will persist across copyovers and
+ * reboots.  Player corpses and pits will be the initial items.  We
+ * may need to initiate pit or shelf purging or a maximum capacity if
+ * this gets over bloated.  These are in play objects put in pits or
+ * in PC corpses by players.  This is not OLC.
+ */
+void save_game_objects(void)
+{
+    FILE * fp;
+    OBJ_DATA * obj;
+    OBJ_DATA * obj_next;
+
+    // Exit this loop if the game hasn't loaded, we don't want to accidently
+    // save anything.
+    if (!game_loaded)
+        return;
+
+    fclose(fpReserve);
+
+    if ((fp = fopen( TEMP_FILE, "w" ) ) == NULL)
+    {
+        bug( "save_game_objects: fopen", 0);
+        perror( "failed open of TEMP_FILE in save_game_objects");
+    }
+    else
+    {
+        for (obj = object_list; obj != NULL; obj = obj_next)
+        {
+            obj_next = obj->next;
+
+            // We are going to write out player corpses and pits (e.g. containers that are
+            // no purge and that can't be worn
+            if ((obj->owner != NULL
+                 || obj->pIndexData->vnum == OBJ_VNUM_CORPSE_PC
+                 || (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE)))
+                 && obj->wear_loc == WEAR_NONE
+                 && obj->in_room != NULL)
+            {
+                fwrite_obj(NULL, obj, fp, 0);
+            }
+        }
+
+        fprintf(fp, "#END\n\n");
+
+        fflush(fp);
+        fclose(fp);
+    }
+
+    // Rename the temp file to the saved object file
+    rename(TEMP_FILE, SAVED_OBJECT_FILE);
+    fpReserve = fopen(NULL_FILE, "r");
+
+    //log_string("Game Object Saved");
+
+    return;
+
+} // end save_game_objects
+
+/*
+ * This will load player corpses and pits that have been saved so certain
+ * items can be persisted over time.
+ */
+void load_game_objects(void)
+{
+    FILE *fp;
+    fclose(fpReserve);
+
+    if ((fp = fopen(SAVED_OBJECT_FILE, "r")) == NULL)
+    {
+        bug("load_game_objects: fopen", 0);
+        perror("failed open of saved_objects.dat defined in SAVED_OBJECTS_FILE");
+    }
+    else
+    {
+        for ( ; ; )
+        {
+            char letter;
+            char *word;
+
+            letter = fread_letter(fp);
+
+            if (letter == '*')
+            {
+                fread_to_eol(fp);
+                continue;
+            }
+
+            if (letter != '#')
+            {
+                bug("Load_char_obj: # not found.", 0);
+                break;
+            }
+
+            word = fread_word(fp);
+
+            if (!str_cmp(word, "O"))
+            {
+                fread_obj( NULL, fp );
+            }
+            else if (!str_cmp(word, "END"))
+            {
+                break;
+            }
+            else
+            {
+                bug("Load_objects: bad section.", 0);
+                break;
+            }
+        }
+    }
+
+    fclose(fp);
+    fpReserve = fopen(NULL_FILE, "r");
+
+} // end load_game_objects
 
 /*
  * Assign GSN's to the proper skill.

@@ -2019,6 +2019,8 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 #define HISTORY_FILE        "../notes/history.note"
 #define IMMNOTE_FILE	    "../notes/imm.note"
 
+#define SAVED_OBJECT_FILE   "../gamedata/saved_objects.dat"
+
 /*
  * Our function prototypes.
  * One big lump ... this is every function in Merc.

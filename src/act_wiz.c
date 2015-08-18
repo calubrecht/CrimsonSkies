@@ -5594,13 +5594,15 @@ void do_test(CHAR_DATA * ch, char *argument)
 
 } // end do_test
 
+void save_game_objects args((void));
+
 /*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    if (ch->race == ELF_RACE_LOOKUP)
-        send_to_char("You are an elf.\n\r", ch);
+    save_game_objects();
+    send_to_char("Saved game objects.\n\r", ch);
 
     //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;

@@ -54,6 +54,7 @@ void aggr_update        args((void));
 void tick_update        args((void));
 void shore_update       args((void));
 void environment_update args((void));
+void save_game_objects  args((void));
 
 /* used for saving */
 int save_number = 0;
@@ -1154,11 +1155,12 @@ void aggr_update (void)
  */
 void update_handler (bool forced)
 {
-    static int pulse_area;
-    static int pulse_mobile;
-    static int pulse_violence;
-    static int pulse_tick;
-    static int pulse_half_tick;
+    static int pulse_area;      // 120 seconds
+    static int pulse_mobile;    //   4 seconds
+    static int pulse_violence;  //   3 seconds
+    static int pulse_tick;      //  40 seconds
+    static int pulse_half_tick; //  20 seconds
+    static int pulse_minute;    //  60 seconds
 
     if (--pulse_area <= 0)
     {
@@ -1197,8 +1199,21 @@ void update_handler (bool forced)
         shore_update();
     }
 
+    /*
+     * Every minute...
+     */
+    if (--pulse_minute <= 0)
+    {
+        pulse_minute = PULSE_MINUTE;
+
+        // Save pits and player corpses that might be laying around, consider saving
+        // player corposes very frequently but pits on a lesser schedule.
+        save_game_objects();
+    }
+
     // Just firing the tick, not messing with violence, mobiles or areas.
-    if (forced) {
+    if (forced)
+    {
         pulse_tick = 0;
     }
 
@@ -1258,7 +1273,6 @@ void tick_update()
             // Show the current countdown to the game.
             sprintf (buf, "\n\r*** %sCOPYOVER%s *** will occur in %d tick(s).\n\r",
                  C_B_RED, CLEAR, copyover_timer);
-            //write_to_all_desc(buf);
             send_to_all_char(buf);
         }
 
@@ -1404,7 +1418,7 @@ void environment_update()
                 check_death(ch, DAM_DROWNING);
             }
 
-        } // end underwater logic 
+        } // end underwater logic
 
     } // end for
 
