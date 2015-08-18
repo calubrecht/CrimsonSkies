@@ -4392,7 +4392,18 @@ void load_game_objects(void)
         }
     }
 
-    fclose(fp);
+    // If the file pointer existed, close it, otherwise log that the saved
+    // object file wasn't there (and the game will put a new one there so this
+    // should only happen once if it doesn't exist.
+    if (fp)
+    {
+        fclose(fp);
+    }
+    else
+    {
+        log_f("%s was not found", SAVED_OBJECT_FILE);
+    }
+
     fpReserve = fopen(NULL_FILE, "r");
 
 } // end load_game_objects

@@ -53,7 +53,8 @@
 ROOM_INDEX_DATA *find_location args ((CHAR_DATA * ch, char *arg));
 CHAR_DATA       *copyover_ch;
 
-void raw_kill args ((CHAR_DATA * victim)); // for do_slay
+void raw_kill          args((CHAR_DATA * victim)); // for do_slay
+void save_game_objects args((void));               // for do_copyover
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -1994,6 +1995,9 @@ void do_reboot (CHAR_DATA * ch, char *argument)
         close_socket (d);
     }
 
+    // Save special items like donation pits and corpses
+    save_game_objects();
+
     return;
 }
 
@@ -2031,6 +2035,10 @@ void do_shutdown (CHAR_DATA * ch, char *argument)
             save_char_obj (vch);
         close_socket (d);
     }
+
+    // Save special items like donation pits and corpses
+    save_game_objects();
+
     return;
 }
 
@@ -4902,7 +4910,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // If it's less than 200 characters, show it, otherwise show default, we don't want to
             // buffer override the buf.
             if (strlen(argument) < 200)
-            { 
+            {
                 sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\rReason: %s\n\r",
                      C_B_RED, CLEAR, ch->name, argument);
             }
@@ -4936,6 +4944,9 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 
         fprintf (fp, "-1\n");
         fclose (fp);
+
+        /* Save the special items like donation pits and player corpses */
+        save_game_objects();
 
         /* Close reserve and other always-open files and release other resources */
         fclose (fpReserve);
