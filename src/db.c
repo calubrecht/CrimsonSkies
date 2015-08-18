@@ -4293,6 +4293,7 @@ void save_game_objects(void)
     FILE * fp;
     OBJ_DATA * obj;
     OBJ_DATA * obj_next;
+    int objects_saved = 0;
 
     // Exit this loop if the game hasn't loaded, we don't want to accidently
     // save anything.
@@ -4321,6 +4322,7 @@ void save_game_objects(void)
                  && obj->in_room != NULL)
             {
                 fwrite_obj(NULL, obj, fp, 0);
+                objects_saved++;
             }
         }
 
@@ -4334,7 +4336,7 @@ void save_game_objects(void)
     rename(TEMP_FILE, SAVED_OBJECT_FILE);
     fpReserve = fopen(NULL_FILE, "r");
 
-    //log_string("Game Object Saved");
+    log_f("Game Objects Saved (Top Level): %d", objects_saved);
 
     return;
 
@@ -4351,8 +4353,7 @@ void load_game_objects(void)
 
     if ((fp = fopen(SAVED_OBJECT_FILE, "r")) == NULL)
     {
-        bug("load_game_objects: fopen", 0);
-        perror("failed open of saved_objects.dat defined in SAVED_OBJECTS_FILE");
+        bug("load_game_objects: fopen of SAVED_OBJECT_FILE", 0);
     }
     else
     {
