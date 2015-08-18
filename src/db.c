@@ -4336,8 +4336,6 @@ void save_game_objects(void)
     rename(TEMP_FILE, SAVED_OBJECT_FILE);
     fpReserve = fopen(NULL_FILE, "r");
 
-    log_f("Game Objects Saved (Top Level): %d", objects_saved);
-
     return;
 
 } // end save_game_objects
