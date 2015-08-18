@@ -430,7 +430,10 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
         fwrite_obj (ch, obj->next_content, fp, iNest);
 
     /*
-     * Castrate storage characters.
+     * Castrate storage characters.  This will skip writing objects that are more than
+     * two levels higher out to the pfile.  This means, the player can carry them for
+     * as long as they want but they won't be saved, when the logout and log back in the
+     * objects will go *poof*.
      */
     if (ch)
     {
@@ -449,18 +452,22 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 
     fprintf (fp, "#O\n");
     fprintf (fp, "Vnum %d\n", obj->pIndexData->vnum);
+
     if (obj->enchanted)
         fprintf (fp, "Enchanted\n");
 
     fprintf (fp, "Nest %d\n", iNest);
 
+    /*
+     * This won't be used when characters are loaded, rather it's for persisting special
+     * objects in rooms across reboots/copyovers (like donation pits and player corpses).
+     */
     if (!ch && room_vnum != 0)
     {
         fprintf( fp, "RoomVnum    %d\n", room_vnum);
     }
 
     /* these data are only used if they do not match the defaults */
-
     if (obj->name != obj->pIndexData->name)
         fprintf (fp, "Name %s~\n", obj->name);
     if (obj->short_descr != obj->pIndexData->short_descr)
