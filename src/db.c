@@ -4342,7 +4342,13 @@ void save_game_objects(void)
 
 /*
  * This will load player corpses and pits that have been saved so certain
- * items can be persisted over time.
+ * items can be persisted over time.  This has to run before the resets
+ * initially otherwise it will duplicate the pit (it saves the pit object as
+ * well as the items in it and loads them.  This also means that a shutdown
+ * is required to manually take items out of the pit (as they are saved on
+ * reboot/copyover/shutdown.  We will want to add an immortal command to purge
+ * the contents of a pit if needed so then they can be cleared and pruned if
+ * need in game.
  */
 void load_game_objects(void)
 {

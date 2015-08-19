@@ -5610,10 +5610,13 @@ void do_test(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+/*
     OBJ_DATA *obj;
     OBJ_DATA *obj_next;
     char buf[MSL];
+*/
 
+/*
     for (obj = object_list; obj != NULL; obj = obj_next)
     {
         obj_next = obj->next;
@@ -5647,7 +5650,8 @@ void do_debug(CHAR_DATA * ch, char *argument)
             send_to_char(buf, ch);
         }
     }
+*/
 
-    //send_to_char("Nothing here currently, move along.\r\n", ch);
+    send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug
