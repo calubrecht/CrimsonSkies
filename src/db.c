@@ -196,8 +196,9 @@ void assign_gsn args((void));
 SPELL_FUN  *spell_function_lookup args(( char *name ));
 
 /* For saving of PC corpses and donation pits across copyover and reboots */
-void fwrite_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest));
-void fread_obj args ((CHAR_DATA * ch, FILE * fp));
+void fwrite_obj args((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest));
+void fread_obj  args((CHAR_DATA * ch, FILE * fp));
+int  area_count args((int continent));
 
 /*
  * Big mama top level function.
@@ -2654,7 +2655,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
     for (continent = 0; continent_table[continent].name != NULL; continent++)
     {
         // Send the continent
-        sprintf(buf, "{CContinent: %-62s{x\n\r", capitalize(continent_table[continent].name));
+        sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent));
         add_buf(output, buf);
 
         add_buf(output, border);
@@ -2679,11 +2680,37 @@ void do_areas (CHAR_DATA * ch, char *argument)
         add_buf(output, border);
         sprintf(buf, "\n\r");
         add_buf(output, buf);
+
     }
+
+    sprintf(buf, "{CTotal Areas: %d{x\n\r", area_count(-1));
+    add_buf(output, buf);
 
     page_to_char(buf_string(output),ch);
     free_buf(output);
 } // end void do_areas
+
+/*
+ * Returns the number of areas on a specified continent.  If -1 is supplied for
+ * the continent number then all areas will be counted.
+ */
+int area_count(int continent)
+{
+    AREA_DATA *pArea;
+    int counter=0;
+
+    for (pArea = area_first; pArea; pArea = pArea->next)
+    {
+        if (pArea == NULL)
+            break;
+
+        if (pArea->continent == continent || continent == -1)
+            counter++;
+    }
+
+    return counter;
+
+} // end area_count
 
 void do_memory (CHAR_DATA * ch, char *argument)
 {
