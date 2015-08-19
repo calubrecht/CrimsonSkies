@@ -1978,7 +1978,7 @@ void do_reboot (CHAR_DATA * ch, char *argument)
 
     if (ch->invis_level < LEVEL_HERO)
     {
-        sprintf (buf, "Reboot by %s.", ch->name);
+        sprintf (buf, "{RReboot{x by %s.", ch->name);
         do_function (ch, &do_echo, buf);
     }
 
@@ -2015,7 +2015,7 @@ void do_shutdown (CHAR_DATA * ch, char *argument)
     CHAR_DATA *vch;
 
     if (ch->invis_level < LEVEL_HERO)
-        sprintf (buf, "Shutdown by %s.", ch->name);
+        sprintf (buf, "{RShutdown{x by %s.", ch->name);
     append_file (ch, SHUTDOWN_FILE, buf);
     strcat (buf, "\n\r");
     if (ch->invis_level < LEVEL_HERO)

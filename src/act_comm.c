@@ -637,7 +637,7 @@ void do_immtalk (CHAR_DATA * ch, char *argument)
 
     REMOVE_BIT (ch->comm, COMM_NOWIZ);
 
-    act_new ("{c[{Y$n{c]: {W$t{x", ch, argument, NULL, TO_CHAR, POS_DEAD);
+    act_new ("{W[{C$n{W]{x: {W$t{x", ch, argument, NULL, TO_CHAR, POS_DEAD);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING &&
