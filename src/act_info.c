@@ -3250,3 +3250,28 @@ void do_stats( CHAR_DATA *ch, char *argument )
     return;
 } // end do_stats
 
+/*
+ * Lists all of the clans in the game.  Consider making the guild command that allows for getting
+ * info as well as putting players in commands with both immortal and player based features so players
+ * can manage their own clans without immortals (will need leader and recruiter flags).
+ */
+void do_guildlist ( CHAR_DATA *ch, char *argument )
+{
+    // Rhien, 06/21/1999
+    int clan;
+    char buf[MAX_STRING_LENGTH];
+
+    send_to_char("Current Clans are:\n\r", ch);
+    send_to_char("------------------\n\r", ch);
+
+    for (clan = 0; clan < MAX_CLAN; clan++)
+    {
+        if (IS_NULLSTR(clan_table[clan].name))
+            continue;
+
+        //sprintf(buf,"%s.\n\r", capitalize(clan_table[clan].who_name));
+        sprintf(buf,"%s\n\r", clan_table[clan].who_name);
+        send_to_char(buf,ch);
+    }
+
+} // end guildlist

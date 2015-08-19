@@ -324,3 +324,4 @@ DECLARE_DO_FUN(do_stats);
 DECLARE_DO_FUN(do_second);
 DECLARE_DO_FUN(do_cecho);
 DECLARE_DO_FUN(do_test);
+DECLARE_DO_FUN(do_guildlist);
