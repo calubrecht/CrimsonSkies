@@ -24,9 +24,10 @@ Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
-  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial 
+  - ~~Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial 
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
-    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
+    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)~~
+  - Windows compilation is temporarly broken, I will fix it, I temporarly neglected it.
 
 Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
