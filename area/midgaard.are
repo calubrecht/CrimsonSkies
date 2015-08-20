@@ -2088,18 +2088,18 @@ Haon-Dor   |     Guild           |                 Guild     Wall Road
         Midgaard              Midgaard                       Midgaard
 ~
 #3163
-map arcadis~
-a map of Arcadis~
+map arcanis~
+a map of Arcanis~
 A rolled up map is here.~
 paper~
 map 0 A
 A 0 0 0 0
 0 10 1500 P
 E
-map arcadis~
+map arcanis~
 .
                                ===================
-                                     Arcadis
+                                     Arcamis
                                ===================
 
                          Ciquala's
@@ -2114,8 +2114,8 @@ Shadow                      Northern  Stones of      |   Nirvana\    |   Thalos
 Grove---Galaxy              Midgaard   G'harne       |            \Holy
   |                             |                    |     Bard    Grove
    \  Arachnos    Shire         | In the Air         |     Camp      |
-     \   |          |         \ | /                  |       |       |  Check New
-      Forest Of-----+-------Midgaard---------------Cross---Eastern Road-Point-Thalos
+     \   |          |         \ | /                  |       |       |  Check New     New Thalos
+      Forest Of-----+-------Midgaard---------------Cross---Eastern Road-Point-Thalos-----Port
       Haon Dor                | | | \              Roads             |
      /     |                  | | |  Machine            \        Gnome Village
   Old    Troll               /  | |  Dreams               \
@@ -2128,8 +2128,8 @@ Grove---Galaxy              Midgaard   G'harne       |            \Holy
         (Harpies)               |     \              Pyramid  Elemental
                             Miden'nir  Chapel                  Canyon
                             (Goblins) Catacombs     
-                                         \
-                                         Hell
+                                       /     \
+                                 Darkness    Hell
  
 This map shows just about all the major areas on the Arcadis continent.  This map is 
 NOT drawn to scale.  This map shows the GENERAL location of an area with respect 
