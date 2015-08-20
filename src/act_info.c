@@ -1546,7 +1546,7 @@ void do_exits (CHAR_DATA * ch, char *argument)
         return;
 
     if (fAuto)
-        sprintf (buf, "{o[Exits:");
+        sprintf (buf, "[Exits:");
     else if (IS_IMMORTAL (ch))
         sprintf (buf, "Obvious exits from room %d:\n\r", ch->in_room->vnum);
     else
@@ -1599,6 +1599,36 @@ void do_exits (CHAR_DATA * ch, char *argument)
 
     if (fAuto)
         strcat (buf, "]{x\n\r");
+
+    // If immortal Holy Light is set, show all the available exits
+    if (IS_SET (ch->act, PLR_HOLYLIGHT) && fAuto)
+    {
+        buf[0] = '\0';
+        strcat(buf, "[Exits:");
+
+        found = FALSE;
+        for (door = 0; door < MAX_DIR; door++)
+        {
+            if ((pexit = ch->in_room->exit[door]) != NULL && pexit->u1.to_room != NULL)
+            {
+                found = TRUE;
+                strcat (buf, " ");
+                strcat (buf, dir_name[door]);
+
+                if (IS_SET (pexit->exit_info, EX_CLOSED))
+                {
+                    strcat(buf, "(c)");
+                }
+            }
+        }
+
+        if (!found)
+        {
+            strcat (buf, fAuto ? " none" : "None.\n\r");
+        }
+
+        strcat (buf, "]\n\r");
+    }
 
     send_to_char (buf, ch);
     return;
