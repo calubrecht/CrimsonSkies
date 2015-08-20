@@ -158,18 +158,18 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 8193 10
-D1
-~
-~
-0 -1 1053
-D3
-~
-~
-0 -1 1055
 D2
 ~
 ~
 0 -1 1054
+D3
+~
+~
+0 -1 1055
+D1
+~
+~
+0 -1 1053
 D0
 ~
 ~
@@ -287,6 +287,10 @@ D5
 ~
 ~
 0 -1 1069
+D6
+~
+~
+0 0 1078
 S
 #1058
 Approaching the Darkness~
@@ -315,14 +319,14 @@ D0
 ~
 ~
 0 -1 1060
-D3
-~
-~
-0 -1 1063
 D1
 ~
 ~
 0 -1 1061
+D3
+~
+~
+0 -1 1063
 D2
 ~
 ~
@@ -339,22 +343,22 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D3
-~
-~
-0 -1 1067
-D0
-~
-~
-0 -1 1065
-D1
-~
-~
-0 -1 1066
 D2
 ~
 ~
 0 -1 1059
+D1
+~
+~
+0 -1 1066
+D0
+~
+~
+0 -1 1065
+D3
+~
+~
+0 -1 1067
 S
 #1061
 Void~
@@ -475,6 +479,10 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
+D0
+~
+~
+0 -1 1070
 D4
 ~
 ~
@@ -483,10 +491,6 @@ D2
 ~
 ~
 0 -1 1065
-D0
-~
-~
-0 -1 1070
 S
 #1070
 Void~
@@ -510,18 +514,18 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 0 0
-D3
-~
-~
-0 -1 1075
-D1
-~
-~
-0 -1 1073
 D0
 ~
 ~
 0 -1 1072
+D1
+~
+~
+0 -1 1073
+D3
+~
+~
+0 -1 1075
 D2
 ~
 ~
@@ -614,6 +618,22 @@ D5
 ~
 ~
 1 -1 1076
+S
+#1078
+On the verge of Darkness~
+You are standing on the verge of an abyss of darkness.  The land above
+almost seems as if it's pulling light into it.  There is no air movement and
+everything is still and silent...  
+~
+0 0 2
+D7
+~
+~
+0 0 3458
+D9
+~
+~
+0 0 1057
 S
 #0
 
