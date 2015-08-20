@@ -8,6 +8,8 @@ Security 9
 Continent 2
 End
 
+
+
 #MOBILES
 #1050
 frost giant~
@@ -66,7 +68,7 @@ not anyone's ally.
 ~
 giant~
 ABFG DFJN -450 0
-46 1 50d10+4500 1d1+114 5d8+19 pound
+48 1 50d10+4500 1d1+114 5d8+19 pound
 -21 -21 -21 12
 D I HI HJNP
 stand stand male 67
@@ -127,7 +129,7 @@ a big rock~
 A big rock is here.~
 stone~
 weapon 0 AN
-exotic 4 11 pound B
+exotic 4 10 pound B
 50 50 0 P
 A
 19 2
@@ -135,16 +137,16 @@ A
 18 4
 #1052
 black hole~
-a black hole~
-A black hole is here, distorting space and time.~
-air~
+a black cloak of dark energy~
+A long black cloak of dark energy is here, distorting the space around it.~
+energy~
 armor M AD
 BCD BCD BCD BD 0
 51 1 0 P
 A
 2 2
 A
-17 -10
+17 -4
 #0
 
 
@@ -156,22 +158,22 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 8193 10
-D2
-~
-~
-0 -1 1054
 D1
 ~
 ~
 0 -1 1053
-D0
-~
-~
-0 -1 1051
 D3
 ~
 ~
 0 -1 1055
+D2
+~
+~
+0 -1 1054
+D0
+~
+~
+0 -1 1051
 D4
 ~
 ~
@@ -309,14 +311,6 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1061
-D2
-~
-~
-0 -1 1062
 D0
 ~
 ~
@@ -325,6 +319,14 @@ D3
 ~
 ~
 0 -1 1063
+D1
+~
+~
+0 -1 1061
+D2
+~
+~
+0 -1 1062
 D5
 ~
 ~
@@ -337,22 +339,22 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1066
 D3
 ~
 ~
 0 -1 1067
-D2
-~
-~
-0 -1 1059
 D0
 ~
 ~
 0 -1 1065
+D1
+~
+~
+0 -1 1066
+D2
+~
+~
+0 -1 1059
 S
 #1061
 Void~
@@ -441,14 +443,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1060
 D2
 ~
 ~
 0 -1 1052
+D1
+~
+~
+0 -1 1060
 S
 #1068
 Void~
@@ -473,6 +475,10 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
+D4
+~
+~
+0 -1 1057
 D2
 ~
 ~
@@ -481,10 +487,6 @@ D0
 ~
 ~
 0 -1 1070
-D4
-~
-~
-0 -1 1057
 S
 #1070
 Void~
@@ -493,21 +495,29 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1058
 D2
 ~
 ~
 0 -1 1069
+D1
+~
+~
+0 -1 1058
 S
 #1071
 Darkness~
 Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
-0 8192 5
+0 0 0
+D3
+~
+~
+0 -1 1075
+D1
+~
+~
+0 -1 1073
 D0
 ~
 ~
@@ -516,18 +526,10 @@ D2
 ~
 ~
 0 -1 1074
-D1
-~
-~
-0 -1 1073
-D3
-~
-~
-0 -1 1075
 D4
 ~
 ~
-1 -1 1076
+0 -1 1076
 D5
 ~
 ~
@@ -540,11 +542,11 @@ You are standing in a cold region at the northern tip of Domina,
 and shiver in the cold.  A blizzard is raging, and snow is being
 blown miles in seconds.
 ~
-0 0 2
+0 4 2
 D2
 ~
 ~
-0 -1 1071
+0 0 1071
 S
 #1073
 East~
@@ -552,11 +554,11 @@ Your feet dip into the east river, off the eastern coast of Domina,
 and the warm water sifts up between your toes, comforting you and
 warming your body.
 ~
-0 0 6
+0 4 6
 D3
 ~
 ~
-0 -1 1071
+0 0 1071
 S
 #1074
 South~
@@ -565,11 +567,11 @@ there is no tomorrow.  Heat waves make you see mirages, but since
 you are still in a good state of mind there is no problem
 distinguishing between real and unreal, right?
 ~
-0 0 0
+0 4 0
 D0
 ~
 ~
-0 -1 1071
+0 0 1071
 S
 #1075
 West~
@@ -578,11 +580,11 @@ at the continent of Domina.  It is hard to see anything except
 vegetation, but it looks like you can see the city of
 Anon far to the east.
 ~
-0 512 5
+0 516 5
 D1
 ~
 ~
-0 -1 1071
+0 0 1071
 S
 #1076
 Tower~
@@ -626,29 +628,29 @@ S
 D 0 1076 4 1
 D 0 1076 5 2
 D 0 1077 5 1
-R 0 1050 4
-R 0 1059 5
-R 0 1060 5
-R 0 1061 5
-R 0 1062 5
-R 0 1063 5
-R 0 1064 5
-R 0 1065 5
-R 0 1066 5
-R 0 1067 5
-R 0 1068 5
-R 0 1069 5
-R 0 1070 5
-R 0 1071 4
-M 0 1050 1 1072 1
-E 0 1050 0 16
-M 0 1051 1 1073 1
-M 0 1052 1 1074 1
-M 0 1053 1 1075 1
-E 0 1051 0 16
-M 0 1054 2 1076 2
-M 0 1055 1 1077 1
-E 0 1052 0 16
+R 0 1050 4 Randomize Darkness
+R 0 1059 5 Randomize Void
+R 0 1060 5 Randomize Void
+R 0 1061 5 Randomize Void
+R 0 1062 5 Randomize Void
+R 0 1063 5 Randomize Void
+R 0 1064 5 Randomize Void
+R 0 1065 5 Randomize Void
+R 0 1066 5 Randomize Void
+R 0 1067 5 Randomize Void
+R 0 1068 5 Randomize Void
+R 0 1069 5 Randomize Void
+R 0 1070 5 Randomize Void
+R 0 1071 4 Randomize Darkness
+M 0 1050 1 1072 1 Load a frost giant
+E 0 1050 0 16 A club is loaded wielded of a frost giant
+M 0 1051 1 1073 1 Load a small squid
+M 0 1052 1 1074 1 Load a giant scorpian
+M 0 1053 1 1075 1 Load a stone giant
+E 0 1051 0 16 A big rock is loaded wielded of a stone giant
+M 0 1054 2 1076 2 Load the shadow
+M 0 1055 1 1077 1 Load the force
+E 0 1052 0 16 A black cloak of dark energy is loaded wielded of the force
 S
 
 
