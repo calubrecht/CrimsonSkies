@@ -768,22 +768,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("Alignment", ch->alignment, fread_number (fp));
                 KEY ("Alig", ch->alignment, fread_number (fp));
 
-                if (!str_cmp (word, "Alia"))
-                {
-                    if (count >= MAX_ALIAS)
-                    {
-                        fread_to_eol (fp);
-                        fMatch = TRUE;
-                        break;
-                    }
-
-                    ch->pcdata->alias[count] = str_dup (fread_word (fp));
-                    ch->pcdata->alias_sub[count] = str_dup (fread_word (fp));
-                    count++;
-                    fMatch = TRUE;
-                    break;
-                }
-
                 if (!str_cmp (word, "Alias"))
                 {
                     if (count >= MAX_ALIAS)
