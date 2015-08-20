@@ -2398,7 +2398,9 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
         break;
 
     case ITEM_MONEY:
-        sprintf(buf, "[v0] Gold:   [%d]\n\r", obj->value[0]);
+        sprintf(buf, "[v0] Silver: [%d]\n\r", obj->value[0]);
+        send_to_char(buf, ch);
+        sprintf(buf, "[v1] Gold    [%d]\n\r", obj->value[1]);
         send_to_char(buf, ch);
         break;
     }
@@ -2740,11 +2742,11 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_MONEY");
             return FALSE;
         case 0:
-            send_to_char("GOLD AMOUNT SET.\n\r\n\r", ch);
+            send_to_char("SILVER AMOUNT SET.\n\r\n\r", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("SILVER AMOUNT SET.\n\r\n\r", ch);
+            send_to_char("GOLD AMOUNT SET.\n\r\n\r", ch);
             pObj->value[1] = atoi(argument);
             break;
         }
