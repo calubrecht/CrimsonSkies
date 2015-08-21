@@ -740,7 +740,7 @@ const struct editor_cmd_type editor_table[] = {
     { "object",   do_oedit  },
     { "mobile",   do_medit  },
     { "mpcode",   do_mpedit },
-    { "hedit",    do_hedit  },
+    { "help" ,    do_hedit  },
     { "group",    do_gedit  },
     { "class",    do_cedit  },
     { "skill",    do_sedit  },
