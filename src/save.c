@@ -928,11 +928,25 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                     }
 
                     // Any sanity checks we need to provide here, we only have 3 alignments
-                    // currently, report it, then fix it with a hack.
+                    // currently, report it, then fix it with the old ROM logic.  This code
+                    // can be removed in the future. (TODO)
                     if (ch->alignment < 1 || ch->alignment > 3)
                     {
-                        bugf("%s has an alignment of %d", ch->name, ch->alignment);
-                        ch->alignment = 3;
+                        bugf("%s has an alignment of %d, fixing", ch->name, ch->alignment);
+
+
+                        if (ch->alignment < -350)
+                        {
+                            ch->alignment = ALIGN_EVIL;
+                        }
+                        else if (ch->alignment > 350)
+                        {
+                            ch->alignment = ALIGN_GOOD;
+                        }
+                        else
+                        {
+                            ch->alignment = ALIGN_NEUTRAL;
+                        }
                     }
 
                     sprintf (buf, "Player %s Loaded.", ch->name);
