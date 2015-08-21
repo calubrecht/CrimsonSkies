@@ -139,10 +139,11 @@ int mobile_count = 0;
 
 /*
  * Memory management.
- * Increase MAX_STRING if you have too.
+ * Increase MAX_STRING in case the mud reaches its limits, specifically when
+ * adding new areas.  Bumped from the stock value of 1413120 to 2000000.
  * Tune the others only if you understand what you're doing.
  */
-#define            MAX_STRING    1413120
+#define            MAX_STRING    2000000
 #define            MAX_PERM_BLOCK    131072
 #define            MAX_MEM_LIST    13
 
