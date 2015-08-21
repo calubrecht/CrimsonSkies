@@ -3274,8 +3274,7 @@ void do_stats( CHAR_DATA *ch, char *argument )
 
     send_to_char("[Current Stats]\n\r", ch);
     send_to_char(buf, ch);
-
-    sprintf(buf, "Str: %d  Int: %d  Wis: %d  Dex: %d  Con: %d\n\r",
+    sprintf(buf, "Str: %d      Int: %d      Wis: %d      Dex: %d      Con: %d\n\r",
         get_max_train(ch, STAT_STR),
         get_max_train(ch, STAT_INT),
         get_max_train(ch, STAT_WIS),
