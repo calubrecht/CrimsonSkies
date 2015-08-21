@@ -101,7 +101,7 @@ and can detect its location, but that does not help you much.
 ~
 human~
 ABFGQ 0 1 0
-60 0 0d0+0 0d0+0 0d0+0 pound
+60 0 50d10+4500 0d0+0 0d0+0 pound
 0 0 0 0
 ABDEFGH ABM CL HJNS
 stand stand none 0
@@ -120,9 +120,9 @@ weapon 0 AN
 mace 4 11 pound B
 50 23 0 P
 A
-18 4
-A
 19 2
+A
+18 4
 #1051
 big rock~
 a big rock~
@@ -132,9 +132,9 @@ weapon 0 AN
 exotic 4 10 pound B
 50 50 0 P
 A
-18 4
-A
 19 2
+A
+18 4
 #1052
 black hole~
 a black cloak of dark energy~
@@ -144,9 +144,9 @@ armor M AD
 BCD BCD BCD BD 0
 51 1 0 P
 A
-17 -4
-A
 2 2
+A
+17 -4
 #0
 
 
@@ -158,22 +158,22 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 8193 10
-D1
-~
-~
-0 -1 1053
 D2
 ~
 ~
 0 -1 1054
-D3
-~
-~
-0 -1 1055
 D0
 ~
 ~
 0 -1 1051
+D1
+~
+~
+0 -1 1053
+D3
+~
+~
+0 -1 1055
 D4
 ~
 ~
@@ -315,22 +315,22 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D0
-~
-~
-0 -1 1060
 D3
 ~
 ~
 0 -1 1063
-D1
-~
-~
-0 -1 1061
 D2
 ~
 ~
 0 -1 1062
+D1
+~
+~
+0 -1 1061
+D0
+~
+~
+0 -1 1060
 D5
 ~
 ~
@@ -343,22 +343,22 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1066
 D0
 ~
 ~
 0 -1 1065
-D3
-~
-~
-0 -1 1067
 D2
 ~
 ~
 0 -1 1059
+D1
+~
+~
+0 -1 1066
+D3
+~
+~
+0 -1 1067
 S
 #1061
 Void~
@@ -415,14 +415,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D0
-~
-~
-0 -1 1069
 D2
 ~
 ~
 0 -1 1060
+D0
+~
+~
+0 -1 1069
 D5
 ~
 ~
@@ -479,18 +479,18 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D0
-~
-~
-0 -1 1070
-D4
-~
-~
-0 -1 1057
 D2
 ~
 ~
 0 -1 1065
+D4
+~
+~
+0 -1 1057
+D0
+~
+~
+0 -1 1070
 S
 #1070
 Void~
@@ -499,14 +499,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D1
-~
-~
-0 -1 1058
 D2
 ~
 ~
 0 -1 1069
+D1
+~
+~
+0 -1 1058
 S
 #1071
 Darkness~
@@ -514,14 +514,6 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 0 0
-D1
-~
-~
-0 -1 1073
-D0
-~
-~
-0 -1 1072
 D2
 ~
 ~
@@ -530,6 +522,14 @@ D3
 ~
 ~
 0 -1 1075
+D0
+~
+~
+0 -1 1072
+D1
+~
+~
+0 -1 1073
 D4
 ~
 ~
