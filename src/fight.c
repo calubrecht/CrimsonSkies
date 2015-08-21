@@ -1982,6 +1982,9 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     /* adjust for grouping */
     xp = xp * gch->level / (UMAX (1, total_levels - 1));
 
+    /* bonus for intelligence */
+    xp = (xp * (100 + (get_curr_stat(gch, STAT_INT) * 4))) / 100;
+
     return xp;
 } // end int xp_compute
 
