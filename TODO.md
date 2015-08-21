@@ -77,4 +77,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make the guild command a one stop command for all guild actions (putting people in clans, listing
     clans, listing clan recruiters, etc.).
   - Add Temple of the White Lotus area from Strahd (white.are)
+  - Add and balance Valley of the Titans (titan.are)
   - IMPORTANT - Fix experience bug on high level chars 
