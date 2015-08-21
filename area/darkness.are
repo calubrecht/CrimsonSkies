@@ -542,7 +542,7 @@ M 1 H 1
 S
 #1072
 North~
-You are standing in a cold region at the northern tip of Domina,
+You are standing in a cold region at the northern tip of the world,
 and shiver in the cold.  A blizzard is raging, and snow is being
 blown miles in seconds.
 ~
@@ -554,7 +554,7 @@ D2
 S
 #1073
 East~
-Your feet dip into the east river, off the eastern coast of Domina,
+Your feet dip into the east river, off the eastern coast of Arcanisa,
 and the warm water sifts up between your toes, comforting you and
 warming your body.
 ~
@@ -580,9 +580,9 @@ S
 #1075
 West~
 You are standing on top of a high mountain, looking down
-at the continent of Domina.  It is hard to see anything except
+at the continent of Ereland.  It is hard to see anything except
 vegetation, but it looks like you can see the city of
-Anon far to the east.
+Red Oak far to the east.
 ~
 0 516 5
 D1
