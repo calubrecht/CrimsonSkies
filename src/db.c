@@ -3513,6 +3513,27 @@ void load_mobiles(FILE * fp)
             | race_table[pMobIndex->race].aff;
         pMobIndex->pShop = NULL;
         pMobIndex->alignment = fread_number(fp);
+
+        // Alignment sanity check and convert.  Since we deviated from ROM's alignments this check
+        // wil be necessary in the short term.
+        if (pMobIndex->alignment < 1 || pMobIndex->alignment > 3)
+        {
+            bugf("%s with alignment of %d - converting but will need to be fixed properly.", pMobIndex->player_name, pMobIndex->alignment);
+
+            if (pMobIndex->alignment < -350)
+            {
+                pMobIndex->alignment = ALIGN_EVIL;
+            }
+            else if (pMobIndex->alignment > 350)
+            {
+                pMobIndex->alignment = ALIGN_GOOD;
+            }
+            else
+            {
+                pMobIndex->alignment = ALIGN_NEUTRAL;
+            }
+        }
+
         pMobIndex->group = fread_number(fp);
 
         pMobIndex->level = fread_number(fp);
