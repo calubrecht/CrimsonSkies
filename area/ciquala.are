@@ -20,7 +20,7 @@ The Guardian lich looks like a decaying corpse, with small glowing points of
 light for eyes.
 ~
 human~
-ABCF BJQT -1000 0
+ABCF BJQT 1 0
 33 0 10d10+1100 329d1+1 6d4+10 slash
 -11 -11 -11 5
 BCDEH AB T K
@@ -36,7 +36,7 @@ of magic, and his rather nasty disposition.  He revels in creating loathesome,
 twisted, warped creatures to serve Ciquala.
 ~
 human~
-ABCFH DFJ -1000 4176
+ABCFH DFJ 1 4176
 22 0 5d10+400 219d1+1 4d4+6 beating
 -5 -5 -5 7
 BCDEH AB T K
@@ -52,7 +52,7 @@ covered with scales, and others with hair.  It's head has 1 large bulbous eye,
 much like that of an insect.  Long talons reach out for you to shred you alive.
 ~
 human~
-AFGH DFT -1000 0
+AFGH DFT 1 0
 40 0 15d10+1850 399d1+1 4d8+13 beating
 -13 -13 -13 4
 BCDEH AB T K
@@ -67,7 +67,7 @@ The creature would probably not hurt a fly.  Actually, it is unaware of its own
 existence.
 ~
 human~
-AB HNO -1000 0
+AB HNO 1 0
 35 0 10d10+1300 349d1+1 4d7+11 pierce
 -11 -11 -11 5
 HO BEJ PS K
@@ -82,7 +82,7 @@ As you examine this crate, a black tarlike substance seeps between the boards
 slowly eating the wood away.  It is a black pudding!
 ~
 human~
-ABF 0 -1000 0
+ABF 0 1 0
 37 0 10d10+1500 369d1+1 3d10+12 slash
 -12 -12 -12 5
 BEF ABI 0 K
@@ -97,7 +97,7 @@ This gigantic construct is made of a metallic substance that you do not
 recognize.  He stands about 8' tall, brushing the ceiling.
 ~
 human~
-AB H 0 0
+AB H 2 0
 50 0 50d10+4500 499d1+1 5d8+19 beating
 -20 -20 -20 3
 BEF ABI 0 K
@@ -112,7 +112,7 @@ This creature is a hovering dark shape.  It does not seem to have a body so
 to speak.  As it approaches you, a harsh chill makes you shiver.
 ~
 human~
-ABF BDT -1000 0
+ABF BDT 1 0
 45 0 25d10+3000 449d1+1 8d4+16 beating
 -15 -15 -15 4
 BEF ABI 0 K
@@ -127,7 +127,7 @@ that it isn't a ceiling, but a LURKER ABOVE!  You had better attack before
 it drops on you!
 ~
 human~
-ABFH 0 -1000 0
+ABFH 0 1 0
 27 0 5d10+650 269d1+1 5d4+7 pierce
 -8 -8 -8 6
 BCDEH AB T K
@@ -143,7 +143,7 @@ enough time at night to feed properly.  He is VERY happy that you walked in
 on him.
 ~
 human~
-ABF BDFH -1000 0
+ABF BDFH 1 0
 37 0 10d10+1500 369d1+1 3d10+12 none
 -12 -12 -12 5
 BEF AB 0 K
@@ -159,7 +159,7 @@ to a dull grey substance.  The automaton is very strong, and will be a fierce
 opponent.
 ~
 human~
-ABF NO -1000 0
+ABF NO 1 0
 30 0 6d12+853 299d1+1 4d6+8 beating
 -9 -9 -9 6
 BEF AB 0 K
@@ -175,7 +175,7 @@ to a dull grey substance.  The automaton is very strong, and will be a fierce
 opponent.
 ~
 human~
-AB NO -250 0
+AB NO 2 0
 33 0 10d10+1100 329d1+1 6d4+10 beating
 -11 -11 -11 5
 BEF AB 0 K
@@ -191,7 +191,7 @@ to a dull grey substance.  The automaton is very strong, and will be a fierce
 opponent.
 ~
 human~
-ABF NO 250 0
+ABF NO 2 0
 36 0 10d10+1400 359d1+1 3d10+11 beating
 -12 -12 -12 5
 BEF AB 0 K
@@ -207,7 +207,7 @@ to a dull grey substance.  The automaton is very strong, and will be a fierce
 opponent.
 ~
 human~
-ABF NO 1000 0
+ABF NO 3 0
 39 0 15d10+1700 389d1+1 5d6+13 beating
 -13 -13 -13 4
 BEF AB 0 K
@@ -221,7 +221,7 @@ A blackened creature stands here, ready to cause you excruciating pain.
 You'd better not look to close, he may charm you.
 ~
 human~
-ABF HJ -1000 0
+ABF HJ 1 0
 41 0 25d10+2000 409d1+1 4d8+14 pierce
 -14 -14 -14 4
 B AB 0 K
@@ -235,7 +235,7 @@ Ciquala's undead pet dragon is here, snacking on a fresh corpse.
 This skeletal dragon is an ancient red dragon preserved through arcane magic.
 ~
 dragon~
-ABF DFHJT -1000 0
+ABF DFHJT 1 0
 50 0 50d10+4500 499d1+1 5d8+19 beating
 -20 -20 -20 3
 B AB BEH FIK
@@ -251,7 +251,7 @@ Ciquala still looks majestic after all these thousands of years.  But you can
 see the menace in her eye as she looks at you, and prepares her first spell.
 ~
 human~
-ABF DFHJT -1000 0
+ABF DFHJT 1 0
 52 0 50d10+5500 519d1+1 6d7+20 pierce
 -22 -22 -22 2
 BCDEH AB T K
@@ -266,7 +266,7 @@ The Lich looks like a decaying corpse, with small glowing points of
 light for eyes.
 ~
 human~
-ABCF BD -1000 0
+ABCF BD 1 0
 37 0 10d10+1500 369d1+1 3d10+12 slash
 -12 -12 -12 5
 B AB 0 K
@@ -282,7 +282,7 @@ The vampire looks incredibly strong.  He is wearing musty clothes, and has
 large fangs that seem to grow longer as he looks back at you.
 ~
 human~
-ABCF BDT -1000 0
+ABCF BDT 1 0
 47 0 25d10+3500 469d1+1 6d6+17 slash
 -17 -17 -17 3
 B AB 0 K
@@ -298,7 +298,7 @@ of magic, and his rather nasty disposition.  She revels in creating loathesome,
 twisted, warped creatures to serve Ciquala.
 ~
 human~
-ABCFH DFJ -1000 13401
+ABCFH DFJ 1 13401
 22 0 5d10+400 219d1+1 4d4+6 beating
 -5 -5 -5 7
 BCDEH AB T K
@@ -318,13 +318,13 @@ weapon BCH AN
 sword 5 7 slice C
 51 80 12000 P
 A
-19 1
-A
-18 1
+5 2
 A
 1 2
 A
-5 2
+18 1
+A
+19 1
 #4176
 ciquala's robe~
 Ciquala's robe~
@@ -334,9 +334,9 @@ armor G AK
 BCD BCD BCD B 0
 51 50 29470 G
 A
-20 -3
-A
 2 2
+A
+20 -3
 #4177
 Ciquala's staff~
 ciquala's staff~
@@ -346,9 +346,9 @@ staff G AO
 10 5 10 'cure critical' 0
 45 20 12000 P
 A
-3 3
-A
 4 -1
+A
+3 3
 #4178
 crate~
 crate~
@@ -462,11 +462,11 @@ armor 0 AD
 CE CE CE AC 0
 33 1000 0 G
 A
-5 -5
+2 -1
 A
 1 -5
 A
-2 -1
+5 -5
 #4192
 torturer's whip~
 the torturer's whip~
@@ -622,21 +622,12 @@ sconces.  Each of these items in the room merits more investigation.
 ~
 0 8 0
 E
-runes~
-These runes are carved into the rock about the pool.  You think you
-recognize the rune of vision, and another that has something to do with
-projecting power at a distance.
-~
-E
-glyphs~
-The glyphs are drawn upon the stone with what appears to be blood.
-You do not recognize any of them, and it would probably be a good idea not to
-touch any of them.
-~
-E
-sconces~
-The sconces are black and shaped liked two hands, cradling the torches
-between their pointed nails.
+pool~
+As you lean forward and look in the pool, you see nothing but the dark
+murky water.  Gradually though, an image forms before you.  You recognize the
+person the image shows.  It is the Avatar!  Apparently this is a pool that
+Ciquala uses to scry upon her enemies. The image is so clear, you almost
+believe you could step into the pool, and appear in Lord British's castle.
 ~
 E
 torches~
@@ -646,12 +637,21 @@ flames are an icy blue, that makes you think twice about getting too close to
 them.
 ~
 E
-pool~
-As you lean forward and look in the pool, you see nothing but the dark
-murky water.  Gradually though, an image forms before you.  You recognize the
-person the image shows.  It is the Avatar!  Apparently this is a pool that
-Ciquala uses to scry upon her enemies. The image is so clear, you almost
-believe you could step into the pool, and appear in Lord British's castle.
+sconces~
+The sconces are black and shaped liked two hands, cradling the torches
+between their pointed nails.
+~
+E
+glyphs~
+The glyphs are drawn upon the stone with what appears to be blood.
+You do not recognize any of them, and it would probably be a good idea not to
+touch any of them.
+~
+E
+runes~
+These runes are carved into the rock about the pool.  You think you
+recognize the rune of vision, and another that has something to do with
+projecting power at a distance.
 ~
 D1
 ~

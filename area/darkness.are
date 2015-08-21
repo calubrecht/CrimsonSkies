@@ -21,7 +21,7 @@ what happens to him.  He is a fierce warrior, and unfortuneatly
 not anyone's ally.
 ~
 giant~
-ABFG DFJN -450 0
+ABFG DFJN 1 0
 53 1 50d10+4500 1d1+114 5d8+19 pound
 -21 -21 -21 12
 D I HI HJNP
@@ -35,7 +35,7 @@ A small squid hops out of the water at you.
 The squid squirts its black stuff and you cannot even see it.
 ~
 human~
-ABFG DFJN -120 0
+ABFG DFJN 2 0
 34 1 6d12+900 1d1+114 4d6+8 shock
 -9 -9 -9 0
 HJ 0 0 0
@@ -51,7 +51,7 @@ thing to get too close.  It has a hard shell that looks nearly
 impossible to crack into.
 ~
 human~
-ABFG DFJN -200 0
+ABFG DFJN 2 0
 46 6 50d10+7000 1d1+114 8d6+28 sting
 -19 -19 -19 -2
 HM 0 0 0
@@ -67,7 +67,7 @@ what happens to him.  He is a fierce warrior, and unfortuneatly
 not anyone's ally.
 ~
 giant~
-ABFG DFJN -450 0
+ABFG DFJN 1 0
 48 1 50d10+4500 1d1+114 5d8+19 pound
 -21 -21 -21 12
 D I HI HJNP
@@ -84,7 +84,7 @@ of creatures are notified to your existance, and in moments
 they will be upon you.
 ~
 human~
-ABFGR 0 -900 0
+ABFGR 0 1 0
 55 1 50d10+7100 1d1+114 10d4+23 drain
 -25 -25 -25 25
 0 ABC 0 0
@@ -100,7 +100,7 @@ in your body and hurts you deep within.  You feel its presence
 and can detect its location, but that does not help you much.
 ~
 human~
-ABFGQ 0 -1000 0
+ABFGQ 0 1 0
 60 0 0d0+0 0d0+0 0d0+0 pound
 0 0 0 0
 ABDEFGH ABM CL HJNS
@@ -120,9 +120,9 @@ weapon 0 AN
 mace 4 11 pound B
 50 23 0 P
 A
-19 2
-A
 18 4
+A
+19 2
 #1051
 big rock~
 a big rock~
@@ -132,9 +132,9 @@ weapon 0 AN
 exotic 4 10 pound B
 50 50 0 P
 A
-19 2
-A
 18 4
+A
+19 2
 #1052
 black hole~
 a black cloak of dark energy~
@@ -144,9 +144,9 @@ armor M AD
 BCD BCD BCD BD 0
 51 1 0 P
 A
-2 2
-A
 17 -4
+A
+2 2
 #0
 
 
@@ -158,6 +158,10 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 8193 10
+D1
+~
+~
+0 -1 1053
 D2
 ~
 ~
@@ -166,10 +170,6 @@ D3
 ~
 ~
 0 -1 1055
-D1
-~
-~
-0 -1 1053
 D0
 ~
 ~
@@ -319,14 +319,14 @@ D0
 ~
 ~
 0 -1 1060
-D1
-~
-~
-0 -1 1061
 D3
 ~
 ~
 0 -1 1063
+D1
+~
+~
+0 -1 1061
 D2
 ~
 ~
@@ -343,10 +343,6 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D2
-~
-~
-0 -1 1059
 D1
 ~
 ~
@@ -359,6 +355,10 @@ D3
 ~
 ~
 0 -1 1067
+D2
+~
+~
+0 -1 1059
 S
 #1061
 Void~
@@ -447,14 +447,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D2
-~
-~
-0 -1 1052
 D1
 ~
 ~
 0 -1 1060
+D2
+~
+~
+0 -1 1052
 S
 #1068
 Void~
@@ -463,14 +463,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D4
-~
-~
-0 -1 1065
 D0
 ~
 ~
 0 -1 1056
+D4
+~
+~
+0 -1 1065
 S
 #1069
 Void~
@@ -499,14 +499,14 @@ synesthesia invading your nerves and reshuffling your senses.  The sky is the
 same obsidian color as the ground and you can't find a horizon.
 ~
 0 8192 1
-D2
-~
-~
-0 -1 1069
 D1
 ~
 ~
 0 -1 1058
+D2
+~
+~
+0 -1 1069
 S
 #1071
 Darkness~
@@ -514,22 +514,22 @@ Your head swirls and you cannot breath.  The darkness is like a blanket
 over your body, and seems to try to prevent your movement.
 ~
 0 0 0
-D0
-~
-~
-0 -1 1072
 D1
 ~
 ~
 0 -1 1073
-D3
+D0
 ~
 ~
-0 -1 1075
+0 -1 1072
 D2
 ~
 ~
 0 -1 1074
+D3
+~
+~
+0 -1 1075
 D4
 ~
 ~
