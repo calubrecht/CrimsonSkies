@@ -5610,48 +5610,6 @@ void do_test(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-/*
-    OBJ_DATA *obj;
-    OBJ_DATA *obj_next;
-    char buf[MSL];
-*/
-
-/*
-    for (obj = object_list; obj != NULL; obj = obj_next)
-    {
-        obj_next = obj->next;
-
-        // We are going to write out player corpses and pits (e.g. containers that are
-        // no purge and that can't be worn
-        if ((obj->owner != NULL
-             || obj->pIndexData->vnum == OBJ_VNUM_CORPSE_PC
-             || (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE)))
-             && obj->wear_loc == WEAR_NONE
-             && obj->in_room != NULL)
-        {
-            // These are the objects slated for saving.
-            sprintf(buf, "%d - %s\n\r", obj->pIndexData->vnum, obj->name);
-            send_to_char(buf, ch);
-        }
-    }
-
-    send_to_char("-----------------------------------------------------------------\n\r", ch);
-
-    for (obj = object_list; obj != NULL; obj = obj_next)
-    {
-        obj_next = obj->next;
-
-        // We are going to write out player corpses and pits (e.g. containers that are
-        // no purge and that can't be worn
-        if (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE))
-        {
-            // These are the objects slated for saving.
-            sprintf(buf, "Pit %d - %s\n\r", obj->pIndexData->vnum, obj->name);
-            send_to_char(buf, ch);
-        }
-    }
-*/
-
     send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug
