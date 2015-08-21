@@ -926,6 +926,18 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                         ch->mana += (ch->max_mana - ch->mana) * percent / 100;
                         ch->move += (ch->max_move - ch->move) * percent / 100;
                     }
+
+                    // Any sanity checks we need to provide here, we only have 3 alignments
+                    // currently, report it, then fix it with a hack.
+                    if (ch->alignment < 1 || ch->alignment > 3)
+                    {
+                        bugf("%s has an alignment of %d", ch->name, ch->alignment);
+                        ch->alignment = 3;
+                    }
+
+                    sprintf (buf, "Player %s Loaded.", ch->name);
+                    log_string (buf);
+
                     return;
                 }
                 KEY ("Exp", ch->exp, fread_number (fp));
@@ -1124,9 +1136,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
             fread_to_eol (fp);
         }
     }
-
-    sprintf (buf, "Player %s Loaded.", ch->name);
-    log_string (buf);
 
 }
 
