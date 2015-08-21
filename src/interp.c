@@ -372,12 +372,12 @@ const struct cmd_type cmd_table[] = {
     {"asave",           do_asave,       POS_DEAD, IM, LOG_NORMAL, 1},
     {"alist",           do_alist,       POS_DEAD, IM, LOG_NORMAL, 1},
     {"resets",          do_resets,      POS_DEAD, IM, LOG_NORMAL, 1},
-    {"redit",           do_redit,       POS_DEAD, IM, LOG_NORMAL, 1},
-    {"medit",           do_medit,       POS_DEAD, IM, LOG_NORMAL, 1},
-    {"aedit",           do_aedit,       POS_DEAD, IM, LOG_NORMAL, 1},
-    {"oedit",           do_oedit,       POS_DEAD, IM, LOG_NORMAL, 1},
-    {"mpedit",          do_mpedit,      POS_DEAD, IM, LOG_NORMAL, 1},
-    {"hedit",           do_hedit,       POS_DEAD, IM, LOG_NORMAL, 1},
+    {"redit",           do_redit,       POS_DEAD, IM, LOG_NORMAL, 0},
+    {"medit",           do_medit,       POS_DEAD, IM, LOG_NORMAL, 0},
+    {"aedit",           do_aedit,       POS_DEAD, IM, LOG_NORMAL, 0},
+    {"oedit",           do_oedit,       POS_DEAD, IM, LOG_NORMAL, 0},
+    {"mpedit",          do_mpedit,      POS_DEAD, IM, LOG_NORMAL, 0},
+    {"hedit",           do_hedit,       POS_DEAD, IM, LOG_NORMAL, 0},
 
     /*
      * End of list.
