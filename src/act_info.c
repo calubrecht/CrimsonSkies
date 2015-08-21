@@ -2262,6 +2262,10 @@ void do_whois (CHAR_DATA * ch, char *argument)
                 case MAX_LEVEL - 8:
                     sprintf(immbuf, "%s", "  TRIAL IMM  ");
                     break;
+                default:
+                    sprintf(immbuf, "%2d %6s %s", wch->level,
+                        wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                        class);
             }
 
             /* a little formatting */
@@ -2495,6 +2499,10 @@ void do_who (CHAR_DATA * ch, char *argument)
             case MAX_LEVEL - 8:
                 sprintf(immbuf, "%s", "  TRIAL IMM  ");
                 break;
+            default:
+                sprintf(immbuf, "%2d %6s %s", wch->level,
+                    wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                    class);
             }
 
         /*
