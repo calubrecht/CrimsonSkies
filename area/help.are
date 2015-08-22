@@ -493,7 +493,7 @@ to the mud implementors.
           --------------------------------------
           - [ROM 2.4] (1993-1998)---------------
           --------------------------------------
-          Russ Tyalor                  [Alander]
+          Russ Taylor                  [Alander]
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
           --------------------------------------
@@ -502,8 +502,8 @@ to the mud implementors.
           Blake Pell                     [Rhien]
           --------------------------------------
 
-          Code snippits or area additions have also been
-          including from these sources:
+          Code snippits have also been included
+          from these sources:
 
           --------------------------------------
           - [Smaug/SmaugFuss] (1994-1998) ------
@@ -532,6 +532,14 @@ to the mud implementors.
           Lope
           Jim Robinson (QuickMud)
           --------------------------------------
+
+          --------------------------------------
+          - [Area Contributions]----------------
+          --------------------------------------
+          See the 'area' command where each area
+          credits the buildersv involved.
+          --------------------------------------
+
 ~
 
 0 AREAS COMMANDS REPORT SCORE TIME~
