@@ -1563,8 +1563,9 @@ void do_exits (CHAR_DATA * ch, char *argument)
             found = TRUE;
             if (fAuto)
             {
-                // Show the ocean exits as a light cyan
-                if (pexit->u1.to_room->sector_type == SECT_OCEAN)
+                // Show the ocean and underwater exits as a light cyan
+                if (pexit->u1.to_room->sector_type == SECT_OCEAN
+                    || pexit->u1.to_room->sector_type == SECT_UNDERWATER)
                 {
 		    strcat( buf,"{c");
                     strcat (buf, " ");
