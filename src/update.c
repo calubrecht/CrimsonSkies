@@ -1332,7 +1332,7 @@ void shore_update()
     switch (number_range(0, 2))
     {
         case 0:
-             sprintf(buf,"{cThe waves from the ocean gently roll onto the shore that  surrounds you.{x\n\r");
+             sprintf(buf,"{cThe waves from the ocean gently roll onto the shore that surrounds you.{x\n\r");
              break;
         case 1:
              sprintf(buf,"{cWaves gently break as they reach the shore and a light breeze from the{x\n\r{cocean flows in.{x\n\r");
