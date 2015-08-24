@@ -1173,7 +1173,7 @@ void do_rest (CHAR_DATA * ch, char *argument)
     // No resting in the ocean
     if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
     {
-        send_to_char("Better keep treading water instead instead of resting!\n\r", ch);
+        send_to_char("You better keep treading water instead instead of resting!\n\r", ch);
         return;
     }
 
@@ -1323,7 +1323,7 @@ void do_sit (CHAR_DATA * ch, char *argument)
     // No sitting in the ocean
     if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
     {
-        send_to_char("Better keep treading water instead instead of sitting!\n\r", ch);
+        send_to_char("You better keep treading water instead instead of sitting!\n\r", ch);
         return;
     }
 
@@ -1455,7 +1455,7 @@ void do_sleep (CHAR_DATA * ch, char *argument)
     // No sleeping in the ocean
     if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
     {
-        send_to_char("Better keep treading water instead of sleeping!\n\r", ch);
+        send_to_char("You better keep treading water instead of sleeping!\n\r", ch);
         return;
     }
 
