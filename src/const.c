@@ -375,12 +375,12 @@ struct pc_race_type pc_race_table[] = {
 */
     {
      "human", "Human", 0, {100, 100, 100, 100, 100},
-     {""},
+     {"swim"},
      {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, SIZE_MEDIUM},
 
     {
      "elf", " Elf ", 5, {100, 125, 100, 120, 100},
-     {"sneak", "hide"},
+     {"sneak", "hide", "swim"},
      {12, 14, 13, 15, 11}, {16, 20, 18, 21, 15}, SIZE_SMALL},
 
     {

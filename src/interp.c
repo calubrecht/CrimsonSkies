@@ -357,7 +357,7 @@ const struct cmd_type cmd_table[] = {
     {"prefix",          do_prefix,      POS_DEAD, IM, LOG_NORMAL, 1},
     {"mpdump",          do_mpdump,      POS_DEAD, IM, LOG_NEVER,  1},
     {"mpstat",          do_mpstat,      POS_DEAD, IM, LOG_NEVER,  1},
-    {"debug",           do_debug,       POS_DEAD, ML, LOG_NEVER,  0},
+    {"debug",           do_debug,       POS_DEAD, 1,  LOG_NEVER,  0},
     {"forcetick",       do_forcetick,   POS_DEAD, ML, LOG_ALWAYS, 1},
     {"rename",          do_rename,      POS_DEAD, L6, LOG_ALWAYS, 1},
     {"vnumgap",         do_vnumgap,     POS_DEAD, L1, LOG_NEVER,  1},

@@ -883,15 +883,15 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
             break;
 
         case POS_DEAD:
-            act ("{R$n is DEAD!!{x", victim, 0, 0, TO_ROOM);
-            send_to_char ("{RYou have been KILLED!!{x\n\r\n\r", victim);
+            act ("$n is {RDEAD{x!!", victim, 0, 0, TO_ROOM);
+            send_to_char ("You have been {RKILLED{x!!{x\n\r\n\r", victim);
             break;
 
         default:
             if (dam > victim->max_hit / 4)
-                send_to_char ("{RThat really did HURT!{x\n\r", victim);
+                send_to_char ("That really did {RHURT{x!{x\n\r", victim);
             if (victim->hit < victim->max_hit / 4)
-                send_to_char ("{RYou sure are BLEEDING!{x\n\r", victim);
+                send_to_char ("You sure are {RBLEEDING{x!{x\n\r", victim);
             break;
     }
 
@@ -3246,8 +3246,8 @@ void check_death(CHAR_DATA *victim, int dt)
             send_to_char("You are stunned, but will probably recover.\n\r", victim );
             break;
         case POS_DEAD:
-            act( "{R$n is DEAD!!{x", victim, 0, 0, TO_ROOM );
-            send_to_char( "{RYou have been KILLED!!\n\r\n\r{x", victim );
+            act( "$n is {RDEAD{x!!", victim, 0, 0, TO_ROOM );
+            send_to_char( "You have been {RKILLED{x!!\n\r\n\r", victim );
             break;
         default:
             break;

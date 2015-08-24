@@ -194,14 +194,22 @@ int hit_gain (CHAR_DATA * ch)
         switch (ch->position)
         {
             default:
+                // Awake and standing
                 gain /= 4;
                 break;
             case POS_SLEEPING:
+                // Maximum regen, sleeping
+                break;
+            case POS_SITTING:
+                // Sitting, better than standing, worse than resting.
+                gain /= 3;
                 break;
             case POS_RESTING:
+                // Better than standing and sitting, worse than sleeping
                 gain /= 2;
                 break;
             case POS_FIGHTING:
+                // Fighting, ack, less regen!
                 gain /= 6;
                 break;
         }
@@ -1370,6 +1378,14 @@ void environment_update()
              ch->desc != NULL &&
              !IS_IMMORTAL(ch))
         {
+
+            // They are under 0 HP and floating in the ocean, we will need to push them
+            // closer to death.
+            if (ch->hit < 0)
+            {
+                ch->hit -= 5;
+                check_death(ch, DAM_DROWNING);
+            }
 
             // Water breathing won't help their movement loss but it will keep them from
             // drowning.

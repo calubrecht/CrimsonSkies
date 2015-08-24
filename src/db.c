@@ -4519,5 +4519,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_weaken, "weaken");
     ASSIGN_GSN(gsn_water_breathing, "water breathing");
     ASSIGN_GSN(gsn_spellcraft, "spellcraft");
+    ASSIGN_GSN(gsn_swim, "swim");
 
 } // end assign_gsn

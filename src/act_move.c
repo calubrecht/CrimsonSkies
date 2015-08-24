@@ -54,7 +54,7 @@ const sh_int rev_dir[] = {
 
 // The movement lose per sector.  The position corresponds with the value of the SECT_* and the sector_flags table.
 const sh_int movement_loss[SECT_MAX] = {
-    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 20, 5
+    1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 30, 5, 10
 };
 
 /*
@@ -142,10 +142,12 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
             }
         }
 
+        // Water or ocean.. although we let people swim now with a skill, so
+        // the no swim only makes it a requirement that they have swim.
         if ((in_room->sector_type == SECT_WATER_NOSWIM
              || to_room->sector_type == SECT_WATER_NOSWIM
              || to_room->sector_type == SECT_OCEAN)
-            && !IS_AFFECTED (ch, AFF_FLYING))
+             && !IS_AFFECTED (ch, AFF_FLYING))
         {
             OBJ_DATA *obj;
             bool found;
@@ -158,17 +160,44 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
             if (IS_IMMORTAL (ch))
                 found = TRUE;
 
-            for (obj = ch->carrying; obj != NULL; obj = obj->next_content)
-            {
-                if (obj->item_type == ITEM_BOAT)
-                {
-                    found = TRUE;
-                    break;
-                }
-            }
+            // No need to loop through all the objects if it's already been found.
             if (!found)
             {
-                send_to_char ("You need a boat or to be flying to go there.\n\r", ch);
+                for (obj = ch->carrying; obj != NULL; obj = obj->next_content)
+                {
+                    if (obj->item_type == ITEM_BOAT)
+                    {
+                        found = TRUE;
+                        break;
+                    }
+                }
+            }
+
+            // Check swim skill, this should be the last one as we're going to deal
+            // some damage and return out at this point if none of the other cases
+            // are met.
+            if (!found)
+            {
+                if (CHANCE_SKILL(ch, gsn_swim))
+                {
+                    // Success, they can swim.
+                    found = TRUE;
+                }
+                else
+                {
+                    // Failure on swim, they can suck down some water.
+                    act("You are not able to swim and {Rchoke{x on a big gulp of {Cwater{x!",ch,NULL,NULL,TO_CHAR);
+                    act("$n is not able to swim and {Rchokes{x on a big gulp of {Cwater{x!",ch,NULL,NULL,TO_ROOM);
+                    ch->hit -= number_range(5, 10);
+                    check_death(ch, DAM_DROWNING);
+                    return;
+                }
+
+            }
+
+            if (!found)
+            {
+                send_to_char ("You need a boat, to be able to swim or to be flying to go there.\n\r", ch);
                 return;
             }
         }
@@ -1014,9 +1043,9 @@ void do_pick (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
-
+/*
+ * Puts a player into a standing position, ready to move or fight.
+ */
 void do_stand (CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj = NULL;
@@ -1124,10 +1153,13 @@ void do_stand (CHAR_DATA * ch, char *argument)
     }
 
     return;
-}
+} // end do_stand
 
-
-
+/*
+ * Puts a player into a resting position, either on the floor or on a
+ * piece of furniture.  Resting players will regen health at a higher
+ * rate than standing (but less than sleeping).
+ */
 void do_rest (CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj = NULL;
@@ -1135,6 +1167,13 @@ void do_rest (CHAR_DATA * ch, char *argument)
     if (ch->position == POS_FIGHTING)
     {
         send_to_char ("You are already fighting!\n\r", ch);
+        return;
+    }
+
+    // No resting in the ocean
+    if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
+    {
+        send_to_char("Better keep treading water instead instead of resting!\n\r", ch);
         return;
     }
 
@@ -1264,9 +1303,13 @@ void do_rest (CHAR_DATA * ch, char *argument)
 
 
     return;
-}
+} // end do_rest
 
-
+/*
+ * Puts a player into a sitting position, either on the floor or on a
+ * piece of furniture.  Sitting players will regen health at a higher
+ * rate than standing (but less than resting & sleeping).
+ */
 void do_sit (CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj = NULL;
@@ -1274,6 +1317,13 @@ void do_sit (CHAR_DATA * ch, char *argument)
     if (ch->position == POS_FIGHTING)
     {
         send_to_char ("Maybe you should finish this fight first?\n\r", ch);
+        return;
+    }
+
+    // No sitting in the ocean
+    if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
+    {
+        send_to_char("Better keep treading water instead instead of sitting!\n\r", ch);
         return;
     }
 
@@ -1390,12 +1440,24 @@ void do_sit (CHAR_DATA * ch, char *argument)
             break;
     }
     return;
-}
+} // end do_sit
 
-
+/*
+ * Puts a player into a sleeping position, either on the floor or on a
+ * piece of furniture.  Sleeping players will regen health at the best
+ * rate.  They will also not be aware of what's going on in the room
+ * around them.
+ */
 void do_sleep (CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj = NULL;
+
+    // No sleeping in the ocean
+    if (ch->in_room && ch->in_room->sector_type == SECT_OCEAN)
+    {
+        send_to_char("Better keep treading water instead of sleeping!\n\r", ch);
+        return;
+    }
 
     switch (ch->position)
     {
@@ -1467,10 +1529,12 @@ void do_sleep (CHAR_DATA * ch, char *argument)
     }
 
     return;
-}
+} // end do_sleep
 
-
-
+/*
+ * Wake will either cause the current player to wake up and stand (with no argument)
+ * or will attempt to wake up another player (e.g. wake Rhien).
+ */
 void do_wake (CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -1510,9 +1574,7 @@ void do_wake (CHAR_DATA * ch, char *argument)
     act_new ("$n wakes you.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
     do_function (ch, &do_stand, "");
     return;
-}
-
-
+} // end do_wake
 
 void do_sneak (CHAR_DATA * ch, char *argument)
 {
