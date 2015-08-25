@@ -1170,7 +1170,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
             send_to_char("  asave <vnum>   - saves a particular area\n\r", ch);
             send_to_char("  asave list     - saves the area.lst file\n\r", ch);
             send_to_char("  asave area     - saves the area being edited\n\r", ch);
-            send_to_char("  asave changed  - saves all changed zones\n\r", ch);
+            send_to_char("  asave changed  - saves all changed areas\n\r", ch);
             send_to_char("  asave world    - saves the world! (db dump)\n\r", ch);
             send_to_char("  asave groups   - saves the group files\n\r",  ch );
             send_to_char("  asave classes  - saves the class files\n\r", ch);
@@ -1295,6 +1295,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    /* The class files for classes and reclasses */
     if (!str_cmp (arg1, "classes"))
     {
         save_classes();
@@ -1302,10 +1303,21 @@ void do_asave (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    /* The skills files with all of the skills */
     if (!str_cmp (arg1, "skills"))
     {
         save_skills();
         send_to_char("Skills have been saved.\n\r", ch);
+        return;
+    }
+
+    /* saves all skills, groups and classes */
+    if (!str_cmp (arg1, "creation"))
+    {
+        save_skills();
+        save_groups();
+        save_classes();
+        send_to_char("Skills, groups and classes saved.\n\r", ch);
         return;
     }
 
