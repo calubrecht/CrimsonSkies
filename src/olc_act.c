@@ -1369,7 +1369,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         return TRUE;
     }
 
-    if (!str_cmp(command, "link"))
+    if (!str_cmp(command, "link") || !str_cmp(command, "twoway"))
     {
         EXIT_DATA *pExit;
         ROOM_INDEX_DATA *toRoom;
@@ -1434,7 +1434,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         return TRUE;
     }
 
-    if (!str_cmp(command, "room"))
+    if (!str_cmp(command, "room") || !str_cmp(command, "oneway"))
     {
         ROOM_INDEX_DATA *toRoom;
 
