@@ -2608,7 +2608,11 @@ void spell_floating_disc (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
+/*
+ * Spell that raises a character off of the ground and will also allow them to
+ * reach rooms that are in the air.  The land command will allow them to land
+ * without cancelling.
+ */
 void spell_fly (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -2634,7 +2638,7 @@ void spell_fly (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     send_to_char ("Your feet rise off the ground.\n\r", victim);
     act ("$n's feet rise off the ground.", victim, NULL, NULL, TO_ROOM);
     return;
-}
+} // end spell_fly
 
 /* RT clerical berserking spell */
 

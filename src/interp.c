@@ -287,6 +287,7 @@ const struct cmd_type cmd_table[] = {
     {"where",           do_where,       POS_RESTING,  0, LOG_NORMAL, 1},
     {"reclass",         do_reclass,     POS_SLEEPING, 0, LOG_ALWAYS, 1},
     {"guildlist",       do_guildlist,   POS_SLEEPING, 0, LOG_NORMAL, 1},
+    {"land",            do_land,        POS_STANDING, 0, LOG_NORMAL, 1},
 
     /*
      * Immortal commands.

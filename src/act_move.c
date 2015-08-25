@@ -1177,6 +1177,13 @@ void do_rest (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Cannot rest while flying.
+    if( IS_AFFECTED( ch, AFF_FLYING ) )
+    {
+      send_to_char( "You can not rest while flying, you must land first.\n\r", ch );
+      return;
+    }
+
     /* okay, now that we know we can rest, find an object to rest on */
     if (argument[0] != '\0')
     {
@@ -1457,6 +1464,13 @@ void do_sleep (CHAR_DATA * ch, char *argument)
     {
         send_to_char("You better keep treading water instead of sleeping!\n\r", ch);
         return;
+    }
+
+    // You cannot sleep while flying.
+    if( IS_AFFECTED( ch, AFF_FLYING ) )
+    {
+      send_to_char( "You can not sleep while flying, you must land first.\n\r", ch );
+      return;
     }
 
     switch (ch->position)
@@ -2069,7 +2083,28 @@ void do_enter(CHAR_DATA * ch, char *argument)
 
     send_to_char("Nope, can't do it.\n\r", ch);
     return;
-}
+} // end do_enter
+
+/*
+ * Land will allow a player to float to the ground removing any
+ * flying spells/bits they have on them.  This is useful so a
+ * player can land to rest/sleep without having to cancel all
+ * of their spells.
+ */
+void do_land(CHAR_DATA * ch, char *argument)
+{
+    if( IS_AFFECTED( ch, AFF_FLYING ) )
+    {
+        affect_strip(ch, gsn_fly);
+        act( "You float gently to the ground.", ch, NULL, NULL, TO_CHAR );
+        act( "$n floats gently to the ground.", ch, NULL, NULL, TO_ROOM );
+        ch->position = POS_STANDING;
+     }
+     else
+     {
+         send_to_char( "You aren't flying.\n\r", ch );
+     }
+} // end do_land
 
 /*****************************************************
  Path Find
