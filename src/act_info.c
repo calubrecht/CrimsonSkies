@@ -3262,20 +3262,36 @@ void do_telnetga (CHAR_DATA * ch, char *argument)
     }
 } // end do_telnetga
 
+/*
+ * Shows the player their current stats and the available max stats.  This function
+ * will color code the stat, white for at perm, green for above (via a spell or eqipment)
+ * and red if it's below (via a spell or equipment).
+ */
 void do_stats( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
 
-    sprintf(buf, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r",
-        ch->perm_stat[STAT_STR], get_curr_stat(ch,STAT_STR),
-        ch->perm_stat[STAT_INT], get_curr_stat(ch,STAT_INT),
-        ch->perm_stat[STAT_WIS], get_curr_stat(ch,STAT_WIS),
-        ch->perm_stat[STAT_DEX], get_curr_stat(ch,STAT_DEX),
-        ch->perm_stat[STAT_CON], get_curr_stat(ch,STAT_CON));
+    sprintf(buf, "Str: {W%d{x(%s%d{x)  Int: {W%d{x(%s%d{x)  Wis: {W%d{x(%s%d{x)  Dex: {W%d{x(%s%d{x)  Con: {W%d{x(%s%d{x)\n\r",
+        ch->perm_stat[STAT_STR],
+        get_curr_stat(ch,STAT_STR) < ch->perm_stat[STAT_STR] ? "{R" : get_curr_stat(ch,STAT_STR) > ch->perm_stat[STAT_STR] ? "{G" : "{W",
+        get_curr_stat(ch,STAT_STR),
+        ch->perm_stat[STAT_INT],
+        get_curr_stat(ch,STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch,STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
+        get_curr_stat(ch,STAT_INT),
+        ch->perm_stat[STAT_WIS],
+        get_curr_stat(ch,STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch,STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
+        get_curr_stat(ch,STAT_WIS),
+        ch->perm_stat[STAT_DEX],
+        get_curr_stat(ch,STAT_DEX) < ch->perm_stat[STAT_DEX] ? "{R" : get_curr_stat(ch,STAT_DEX) > ch->perm_stat[STAT_DEX] ? "{G" : "{W",
+        get_curr_stat(ch,STAT_DEX),
+        ch->perm_stat[STAT_CON],
+        get_curr_stat(ch,STAT_CON) < ch->perm_stat[STAT_CON] ? "{R" : get_curr_stat(ch,STAT_CON) > ch->perm_stat[STAT_CON] ? "{G" : "{W",
+        get_curr_stat(ch,STAT_CON));
 
     send_to_char("[Current Stats]\n\r", ch);
     send_to_char(buf, ch);
-    sprintf(buf, "Str: %d      Int: %d      Wis: %d      Dex: %d      Con: %d\n\r",
+
+    sprintf(buf, "Str: {W%d{x      Int: {W%d{x      Wis: {W%d{x      Dex: {W%d{x      Con: {W%d{x\n\r",
         get_max_train(ch, STAT_STR),
         get_max_train(ch, STAT_INT),
         get_max_train(ch, STAT_WIS),
