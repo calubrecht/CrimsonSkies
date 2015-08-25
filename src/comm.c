@@ -1567,9 +1567,10 @@ bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
                     case 'Y':
                         sprintf( buf2, C_B_YELLOW );
                         break;
-		     //case 'Z':
-		     //  sprintf( buf2, BLACK );
-		     //  break;
+		    case 'Z':
+                        // TODO, black doesn't seem to work
+		        sprintf( buf2, C_BLACK );
+		        break;
                     case 'D':
                         sprintf( buf2, C_D_GREY );
                         break;

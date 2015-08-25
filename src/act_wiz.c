@@ -174,11 +174,11 @@ void wiznet (char *string, CHAR_DATA * ch, OBJ_DATA * obj,
             && get_trust (d->character) >= min_level && d->character != ch)
         {
             if (IS_SET (d->character->wiznet, WIZ_PREFIX))
-                send_to_char ("{Z--> ", d->character);
-            else
-                send_to_char ("{Z", d->character);
+            {
+                send_to_char ("--> ", d->character);
+            }
+
             act_new (string, d->character, obj, ch, TO_CHAR, POS_DEAD);
-            send_to_char ("{x", d->character);
         }
     }
 
