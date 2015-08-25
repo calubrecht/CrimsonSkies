@@ -3271,35 +3271,47 @@ void do_stats( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
 
-    sprintf(buf, "Str: {W%d{x(%s%d{x)  Int: {W%d{x(%s%d{x)  Wis: {W%d{x(%s%d{x)  Dex: {W%d{x(%s%d{x)  Con: {W%d{x(%s%d{x)\n\r",
+    send_to_char("------------------------------------------------------\n\r", ch);
+    sprintf(buf, "Statistic       Permanent  Current  Max for Race/Class\n\r");
+    send_to_char(buf, ch);
+    send_to_char("------------------------------------------------------\n\r", ch);
+
+    sprintf(buf, "Strength        {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
         ch->perm_stat[STAT_STR],
         get_curr_stat(ch,STAT_STR) < ch->perm_stat[STAT_STR] ? "{R" : get_curr_stat(ch,STAT_STR) > ch->perm_stat[STAT_STR] ? "{G" : "{W",
         get_curr_stat(ch,STAT_STR),
+	get_max_train(ch, STAT_STR));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Intelligence    {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
         ch->perm_stat[STAT_INT],
         get_curr_stat(ch,STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch,STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
         get_curr_stat(ch,STAT_INT),
+        get_max_train(ch, STAT_INT));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Wisdom          {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
         ch->perm_stat[STAT_WIS],
         get_curr_stat(ch,STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch,STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
         get_curr_stat(ch,STAT_WIS),
+        get_max_train(ch, STAT_WIS));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Dexterity       {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
         ch->perm_stat[STAT_DEX],
         get_curr_stat(ch,STAT_DEX) < ch->perm_stat[STAT_DEX] ? "{R" : get_curr_stat(ch,STAT_DEX) > ch->perm_stat[STAT_DEX] ? "{G" : "{W",
         get_curr_stat(ch,STAT_DEX),
+        get_max_train(ch, STAT_DEX));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Constitution    {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
         ch->perm_stat[STAT_CON],
         get_curr_stat(ch,STAT_CON) < ch->perm_stat[STAT_CON] ? "{R" : get_curr_stat(ch,STAT_CON) > ch->perm_stat[STAT_CON] ? "{G" : "{W",
-        get_curr_stat(ch,STAT_CON));
-
-    send_to_char("[Current Stats]\n\r", ch);
-    send_to_char(buf, ch);
-
-    sprintf(buf, "Str: {W%d{x      Int: {W%d{x      Wis: {W%d{x      Dex: {W%d{x      Con: {W%d{x\n\r",
-        get_max_train(ch, STAT_STR),
-        get_max_train(ch, STAT_INT),
-        get_max_train(ch, STAT_WIS),
-        get_max_train(ch, STAT_DEX),
+        get_curr_stat(ch,STAT_CON),
         get_max_train(ch, STAT_CON));
-
-    send_to_char("\n\r[Max Stats for your Race/Class]\n\r", ch);
     send_to_char(buf, ch);
+
+    send_to_char("------------------------------------------------------\n\r", ch);
 
     return;
 } // end do_stats
