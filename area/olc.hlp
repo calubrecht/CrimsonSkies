@@ -10,7 +10,8 @@ Syntax: EDIT CLASS [create] <name>           - Creates a class.
 Syntax: EDIT SKILL [create] <name>           - Creates a skill.
 
 Syntax: ASAVE  <world/area/changed/list      - Save Editing to Disk.
-                groups/classes/skills>
+                groups/classes/skills
+                creation>
 Syntax: ALIST                                - Listing of Areas.
 Syntax: RESET  See Help Resets.              - Set Game Resets.
 
@@ -20,6 +21,8 @@ Definition: [optional]  <required>  (combined arguments)
 code is based on was written by Surreality and installed in The Isles by Locke.
 It was then converted to work with Envy by Jason Dinkel, and ported to ROM
 2.3 by Hans Birkeland (Hugin). Port to Rom 2.4 by Ivan Toledo (ver 1.7).
+Online editing of groups, classes and skills ported from SmaugFUSS by Blake 
+Pell (Rhien) of Crimson Skies (CSMud).
 
      Inside an editor, typing COMMANDS lists working commands and ? gives
 help. AEDIT and REDIT default to the current area or room. EDIT ROOM RESET
