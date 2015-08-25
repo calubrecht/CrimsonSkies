@@ -53,7 +53,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Healer class
   - Assassin class
   - Ranger class
-  - Erwin's setskill command to go with the dynamic class loading
+  - Surge spell for certain classes, allows them to cast at heightened
+    level for a much higher mana consumption.  
   - Ocean, thread them together, create coastlines for intial continents.
   - Add swim skill, lose less movement in ocean/underwater
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
