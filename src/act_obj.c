@@ -3000,6 +3000,7 @@ void do_value (CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *keeper;
+
     OBJ_DATA *obj;
     int cost;
 
@@ -3060,7 +3061,7 @@ void do_outfit (CHAR_DATA * ch, char *argument)
 
     if (ch->level > 5 || IS_NPC (ch))
     {
-        send_to_char ("Find it yourself!\n\r", ch);
+        send_to_char ("You have trained beyond the point where you can outfit.\n\r", ch);
         return;
     }
 
