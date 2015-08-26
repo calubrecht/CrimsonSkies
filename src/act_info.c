@@ -3267,7 +3267,7 @@ void do_telnetga (CHAR_DATA * ch, char *argument)
  * will color code the stat, white for at perm, green for above (via a spell or eqipment)
  * and red if it's below (via a spell or equipment).
  */
-void do_stats( CHAR_DATA *ch, char *argument )
+void do_stats(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
@@ -3335,7 +3335,6 @@ void do_guildlist ( CHAR_DATA *ch, char *argument )
         if (IS_NULLSTR(clan_table[clan].name))
             continue;
 
-        //sprintf(buf,"%s.\n\r", capitalize(clan_table[clan].who_name));
         sprintf(buf,"%s\n\r", clan_table[clan].who_name);
         send_to_char(buf,ch);
     }
