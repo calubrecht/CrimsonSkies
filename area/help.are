@@ -3206,6 +3206,17 @@ that might raise it.
 The stats command will also show you the max stats your race/class
 combo can achieve.
 ~
+0 SWIM~
+The ability to swim will allow the person to move about in water
+that previously required a boat.  Crimson Skies has both ocean
+and underwater areas and not knowing how to swim will quickly
+result in drowning.  
+
+Those who swim should take caution, if you run out of movement
+in the ocean you will start to lose health even if you are an
+excellent swimmer.  All players have the ability to swim by
+default.
+~
 0 WHOAMI~
 Syntax:  whoami
 
