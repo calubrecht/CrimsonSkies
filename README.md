@@ -2,11 +2,9 @@ Crimson Skies Mud (CS-Mud)
 ==========================
 
 Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
-bases (like Smaug) will be included as well as what will be a lot of custom code.  The initial steps will
-be getting a lot of the underpinnings in place correctly in order to make quicker updates later (like abstracting the
-class system, anyone who has added a new class to stock ROM will quickly get tired up updating the class_type table, 
-this is something that can be fixed fairly simply).  This portion is almost done.  Classes, skills and groups are
-loading from files currently.  OLC (Online Creation) exists for classes and groups and the skills OLC is being built now.
+bases (like Smaug) will be included as well as what will be a lot of custom code.  The first version release is nearing
+completion.  Classes, groups, skills and spells are loading from files and all have OLC built in so you can maintain
+all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).
 
 The current development server which is playable and will reflect the latest commits here is at (you can telnet or use
 a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
@@ -40,10 +38,12 @@ open source/GitHub it has been under private development since 1998 (as my hobby
 
   - To provide a ROM code base that includes creative additions that keep the same
     feel of what made ROM great (I will be changing and re-organizing things though) and will probably
-    remove or drastically change some areas that don't fit imo (like the smurf village).  I will
-    build off of ROM/Diku which means I'll be leaving areas like Midgaard and New Thalos which I find
-    to be iconic (or at least nostalgic).
-  - Server side LUA to suppliment and/or replace standard mob progs.
+    remove or drastically change some areas that don't fit imo (like the smurf village).  I would like
+    all of what I provide to not include smurfs.  I will be leaving villages like Midgaard and New 
+    Thalos which I find to be both iconic and nostalic.  Any old mudder can surely recall a battle
+    they had at the crossroads.
+  - Server side LUA to suppliment and/or replace standard mob progs (safe, feature rich and little
+    chance of memory leaks, yes, yes and yes).
   - To document the old functions with descriptions and hopefully well document new functions.
   - Remove unused code (for instance, skill SLOTS and the pgsn pointer weren't being used so I
     removed them while implementing OLC).
