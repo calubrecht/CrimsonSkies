@@ -555,8 +555,8 @@ bool is_note_to( CHAR_DATA *ch, NOTE_DATA *pnote )
  */
 bool notify( CHAR_DATA *ch, NOTE_DATA *pnote )
 {
-    // This note was sent to the sender
-    if ( !strcasecmp( ch->name, pnote->sender ) )
+    // This note was specifically to this person
+    if (is_exact_name(ch->name, pnote->to_list))
     {
         return TRUE;
     }
