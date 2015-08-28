@@ -1557,6 +1557,7 @@ void do_wake (CHAR_DATA * ch, char *argument)
     one_argument (argument, arg);
     if (arg[0] == '\0')
     {
+        send_to_char("?\n\r", ch);
         do_function (ch, &do_stand, "");
         return;
     }
@@ -1586,7 +1587,8 @@ void do_wake (CHAR_DATA * ch, char *argument)
     }
 
     act_new ("$n wakes you.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
-    do_function (ch, &do_stand, "");
+    do_function (victim, &do_stand, "");
+
     return;
 } // end do_wake
 
