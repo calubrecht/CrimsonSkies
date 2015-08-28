@@ -165,6 +165,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define THIEF_CLASS_LOOKUP                      2
 #define WARRIOR_CLASS_LOOKUP                    3
 #define ENCHANTOR_CLASS_LOOKUP                  4
+#define HEALER_CLASS_LOOKUP                     5
 
 /*
  * PC Race Lookup

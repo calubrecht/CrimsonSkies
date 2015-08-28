@@ -1782,6 +1782,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only mages can reclass into enchantors.\n\r", ch);
         return;
     }
+    else if (iClass == HEALER_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
+    {
+        send_to_char("Only clerics can reclass into healers.\n\r", ch);
+        return;
+    }
 
     char buf[MSL];
     int oldLevel = 0;
