@@ -1270,8 +1270,7 @@ void tick_update()
             }
             else
             {
-                sprintf (buf, "\n\r*** %sCOPYOVER%s *** cancelled.\n\r",
-                     C_B_RED, CLEAR);
+                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x cancelled.\n\r");
                 send_to_all_char(buf);
             }
 
@@ -1279,8 +1278,8 @@ void tick_update()
         else
         {
             // Show the current countdown to the game.
-            sprintf (buf, "\n\r*** %sCOPYOVER%s *** will occur in %d tick(s).\n\r",
-                 C_B_RED, CLEAR, copyover_timer);
+            sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick(s).\n\r",
+                 copyover_timer);
             send_to_all_char(buf);
         }
 

@@ -4801,8 +4801,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 
     if (ch == NULL)
     {
-        sprintf(buf, "*** %sCOPYOVER%s *** cancelled.", C_B_RED, CLEAR);
-        send_to_all_char(buf);
+        send_to_all_char("{RWARNING{x: auto-{R{*copyover{x cancelled.");
         return;
     }
 
@@ -4845,13 +4844,13 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // With or without a reason
             if (argument[0] == '\0')
             {
-                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s will occur in %d tick(s).\n\r",
-                     C_B_RED, CLEAR, ch->name, copyover_timer);
+                sprintf (buf, "\n\r{RWARNING: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\n\r",
+                     ch->name, copyover_timer);
             }
             else
             {
-                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s will occur in %d tick(s).\n\rReason: %s\n\r",
-                     C_B_RED, CLEAR, ch->name, copyover_timer, argument);
+                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\n\r{WReason{x: %s\n\r",
+                     ch->name, copyover_timer, argument);
             }
 
             // Set the pointer back to the person calling it so we can reference them
@@ -4872,8 +4871,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         is_copyover = FALSE;
         copyover_timer = 0;
 
-        sprintf (buf, "\n\r*** %sCOPYOVER%s *** by cancelled by %s.\n\r",
-            C_B_RED, CLEAR, ch->name);
+        sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x cancelled by {B%s{x.\n\r", ch->name);
 
         copyover_ch = NULL;
 
@@ -4902,8 +4900,8 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         // Ability to specify reason to show players
         if (argument[0] == '\0')
         {
-            sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
-                 C_B_RED, CLEAR, ch->name);
+            sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x by {B%s{x - please remain seated!\n\r",
+                 ch->name);
         }
         else
         {
@@ -4911,13 +4909,13 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // buffer override the buf.
             if (strlen(argument) < 200)
             {
-                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\rReason: %s\n\r",
-                     C_B_RED, CLEAR, ch->name, argument);
+                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x by {B%s{x - please remain seated!\n\r{WReason{x: %s\n\r",
+                     ch->name, argument);
             }
             else
             {
-                sprintf (buf, "\n\r*** %sCOPYOVER%s *** by %s - please remain seated!\n\r",
-                     C_B_RED, CLEAR, ch->name);
+                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x by {B%s{x - please remain seated!\n\r",
+                     ch->name);
             }
         }
 
