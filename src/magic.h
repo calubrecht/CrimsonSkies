@@ -133,3 +133,4 @@ DECLARE_SPELL_FUN(      spell_restore_armor     );
 DECLARE_SPELL_FUN(      spell_disenchant        );
 DECLARE_SPELL_FUN(      spell_locate_wizard_mark);
 DECLARE_SPELL_FUN(      spell_water_breathing   );
+DECLARE_SPELL_FUN(      spell_waves_of_weariness);

@@ -5053,6 +5053,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_weaken" )) return spell_weaken;
             if ( !str_cmp( name, "spell_withering_enchant" )) return spell_withering_enchant;
             if ( !str_cmp( name, "spell_wizard_mark" )) return spell_wizard_mark;
+            if ( !str_cmp( name, "spell_waves_of_weariness" )) return spell_waves_of_weariness;
             break;
     }
 
@@ -5176,6 +5177,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_weaken ) return "spell_weaken";
     if (spell == spell_withering_enchant ) return "spell_withering_enchant";
     if (spell == spell_wizard_mark ) return "spell_wizard_mark";
+    if (spell == spell_waves_of_weariness) return "spell_waves_of_weariness";
 
     return "reserved";
 

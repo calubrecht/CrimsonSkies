@@ -1525,4 +1525,23 @@ Beats       0
 MsgOff      !Spellcraft!~
 End
 
+#SKILL
+Name        swim~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+End
+
+#SKILL
+Name        waves of weariness~
+SpellFun    spell_waves_of_weariness~
+Target      1
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      You feel less weary.~
+End
+
 #END

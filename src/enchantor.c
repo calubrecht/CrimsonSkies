@@ -1008,3 +1008,56 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
 
 } // end spell_locate_wizard_mark
 
+/*
+ * Waves of weariness will allow the enchantor to charm the victim into removing their
+ * weapon (or weapons) before lulling them to sleep.
+ */
+void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    AFFECT_DATA af;
+    OBJ_DATA *wield;
+    OBJ_DATA *dualwield;
+    CHAR_DATA *victim;
+    victim = (CHAR_DATA *) vo;
+
+    // Make a saves check
+    if (saves_spell(level,victim, DAM_OTHER))
+    {
+        send_to_char("The waves of weariness enchantment failed.\n\r", ch);
+        return;
+    }
+
+    // Remove it, but send it to the inventory and not to the ground.
+    if ((wield = get_eq_char(victim, WEAR_WIELD)) != NULL)
+    {
+        act( "You remove $p.", victim, wield, NULL, TO_CHAR );
+        act( "$n removes $p.", victim, wield, NULL, TO_ROOM );
+        obj_from_char(wield);
+        obj_to_char(wield, victim);
+     }
+
+     // Remove the secondary weapon also
+     if ((dualwield = get_eq_char(victim, WEAR_SECONDARY_WIELD)) != NULL)
+     {
+         act("You remove $p.", victim, dualwield, NULL, TO_CHAR);
+         act("$n removes $p.", victim, dualwield, NULL, TO_ROOM);
+         obj_from_char(dualwield);
+         obj_to_char(dualwield, victim );
+     }
+
+     // Add the sleep affect with a random 1 or 2 tick duration
+     af.where     = TO_AFFECTS;
+     af.type      = sn;
+     af.level     = level;
+     af.duration  = number_range(1, 2);
+     af.location  = APPLY_NONE;
+     af.modifier  = 0;
+     af.bitvector = AFF_SLEEP;
+     affect_join( victim, &af );
+
+     // Zzzzzzzzz
+     send_to_char( "You feel weariness overtake your body...\n\r", victim );
+     act( "$n looks very weary and falls to the ground asleep.", victim, NULL, NULL, TO_ROOM );
+     victim->position = POS_SLEEPING;
+
+} // end spell_waves_of_weariness
