@@ -217,8 +217,16 @@ int casting_level( CHAR_DATA *ch )
         level += 1;
     }
 
-    // Spellcraft skill gains a bonus, making it a super useful skill.
+    // Spellcraft skill gains a bonus, making it a super useful skill
     if (CHANCE_SKILL(ch, gsn_spellcraft))
+    {
+        level += 1;
+    }
+
+    // Mage and mage reclassese get a bonus casting level, they are the
+    // masters of spells.
+    if (ch->class == MAGE_CLASS_LOOKUP ||
+        ch->class == ENCHANTOR_CLASS_LOOKUP)
     {
         level += 1;
     }
