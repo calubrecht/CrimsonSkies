@@ -34,6 +34,11 @@ Sk 'dagger'
 End
 
 #GROUP
+Name 'healer basics'
+Sk 'mace'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -102,6 +107,21 @@ Sk 'maladictions'
 Sk 'protective'
 Sk 'transportation'
 Sk 'enchantment'
+End
+
+#GROUP
+Name 'healer default'
+Sk 'flail'
+Sk 'creation'
+Sk 'curative'
+Sk 'benedictions'
+Sk 'detection'
+Sk 'healing'
+Sk 'protective'
+Sk 'shield block'
+Sk 'transportation'
+Sk 'advanced healing'
+Sk 'advanced curative'
 End
 
 #GROUP
@@ -242,6 +262,14 @@ Sk 'heal'
 Sk 'mass healing'
 Sk 'refresh'
 End
+
+#GROUP
+Name 'advanced healing'
+END
+
+#GROUP
+Name 'advanced curative'
+END
 
 #GROUP
 Name 'illusion'

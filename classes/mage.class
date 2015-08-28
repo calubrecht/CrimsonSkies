@@ -170,11 +170,13 @@ Gr 'cleric basics' 0
 Gr 'thief basics' 0
 Gr 'warrior basics' 0
 Gr 'enchantor basics' 0
+Gr 'healer basics' 0
 Gr 'mage default' 40
 Gr 'cleric default' 0
 Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
+Gr 'healer default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 4
@@ -188,6 +190,8 @@ Gr 'enchantment' 6
 Gr 'enhancement' 5
 Gr 'harmful' 0
 Gr 'healing' 0
+Gr 'advanced healing' 0
+Gr 'advanced curative' 0
 Gr 'illusion' 4
 Gr 'maladictions' 5
 Gr 'protective' 4

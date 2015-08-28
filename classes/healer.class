@@ -1,21 +1,22 @@
-Name        cleric~
-Class       1
-WhoName     Cle~
+Name        healer~
+Class       5
+WhoName     Hlr~
 Attrprime   wis
 Weapon      3700
 Guild       3003
 Guild       9619
-Skilladept  75
+Skilladept  85
 Thac0_00    20
 Thac0_32    2
 Hpmin       7
 Hpmax       10
 Mana        1
-BaseGroup   'cleric basics'
-DefGroup    'cleric default'
+BaseGroup   'healer basics'
+DefGroup    'healer default'
 IsReclass   0
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
+Sk 'refresh' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 3
 Sk 'flail' 1 3
@@ -37,13 +38,12 @@ Sk 'continual light' 4 1
 Sk 'detect evil' 4 1
 Sk 'detect good' 4 1
 Sk 'create food' 5 1
-Sk 'refresh' 5 1
+Sk 'cure serious' 5 1
 Sk 'cure blindness' 6 1
 Sk 'detect magic' 6 1
 Sk 'meditation' 6 5
 Sk 'bless' 7 1
 Sk 'cause serious' 7 1
-Sk 'cure serious' 7 1
 Sk 'detect poison' 7 1
 Sk 'blindness' 8 1
 Sk 'detect invis' 8 1
@@ -56,16 +56,16 @@ Sk 'floating disc' 10 1
 Sk 'hand to hand' 10 5
 Sk 'lore' 10 6
 Sk 'create rose' 11 1
+Sk 'cure critical' 11 1
+Sk 'cure disease' 11 1
 Sk 'detect hidden' 11 1
+Sk 'cure poison' 12 1
 Sk 'fireproof' 12 1
 Sk 'poison' 12 1
 Sk 'summon' 12 1
 Sk 'kick' 12 4
 Sk 'cause critical' 13 1
-Sk 'cure critical' 13 1
-Sk 'cure disease' 13 1
 Sk 'infravision' 13 1
-Sk 'cure poison' 14 1
 Sk 'weaken' 14 1
 Sk 'dispel evil' 15 1
 Sk 'dispel good' 15 1
@@ -76,6 +76,7 @@ Sk 'heat metal' 16 1
 Sk 'identify' 16 1
 Sk 'create spring' 17 1
 Sk 'gate' 17 1
+Sk 'heal' 17 1
 Sk 'plague' 17 1
 Sk 'call lightning' 18 1
 Sk 'curse' 18 1
@@ -88,7 +89,6 @@ Sk 'flamestrike' 20 1
 Sk 'sanctuary' 20 1
 Sk 'parry' 20 8
 Sk 'faerie fog' 21 1
-Sk 'heal' 21 1
 Sk 'peek' 21 7
 Sk 'energy drain' 22 1
 Sk 'teleport' 22 1
@@ -98,6 +98,7 @@ Sk 'lightning bolt' 23 1
 Sk 'dispel magic' 24 1
 Sk 'frenzy' 24 1
 Sk 'second attack' 24 8
+Sk 'mass healing' 25 2
 Sk 'mass invis' 25 1
 Sk 'pick lock' 25 8
 Sk 'cancellation' 26 1
@@ -113,7 +114,6 @@ Sk 'ray of truth' 35 1
 Sk 'shield' 35 1
 Sk 'holy word' 36 2
 Sk 'frost breath' 36 1
-Sk 'mass healing' 38 2
 Sk 'stone skin' 40 1
 Sk 'lightning breath' 40 1
 Sk 'gas breath' 43 1
@@ -190,8 +190,8 @@ Gr 'enchantment' 0
 Gr 'enhancement' 0
 Gr 'harmful' 3
 Gr 'healing' 3
-Gr 'advanced healing' 0
-Gr 'advanced curative' 0
+Gr 'advanced healing' 4
+Gr 'advanced curative' 4
 Gr 'illusion' 0
 Gr 'maladictions' 5
 Gr 'protective' 4
