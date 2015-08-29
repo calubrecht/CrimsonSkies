@@ -2389,6 +2389,12 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel (level, victim, skill_lookup("life boost")))
+    {
+        act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -5033,6 +5039,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_lightning_bolt" )) return spell_lightning_bolt;
             if ( !str_cmp( name, "spell_lightning_breath" )) return spell_lightning_breath;
             if ( !str_cmp( name, "spell_locate_wizard_mark" )) return spell_locate_wizard_mark;
+            if ( !str_cmp( name, "spell_life_boost" )) return spell_life_boost;
             break;
         case 'm':
             if ( !str_cmp( name, "spell_magic_missile" )) return spell_magic_missile;
@@ -5211,6 +5218,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_sacrificial_heal) return "spell_sacrificial_heal";
     if (spell == spell_mass_refresh) return "spell_mass_refresh";
     if (spell == spell_healing_presence) return "spell_healing_presence";
+    if (spell == spell_life_boost) return "spell_life_boost";
 
     return "reserved";
 

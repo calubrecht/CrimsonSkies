@@ -164,3 +164,53 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 
 } // end spell_delayed_heal
 
+/*
+ * Allows a healer to boost the life force of a recipient (e.g. increase their
+ * max health points for a level's worth of ticks).  The modifier (how much hp
+ * they receive) will be calculated by the healer's casting level.  This cannot
+ * be cast on NPC's as a way to make them stronger.
+ */
+void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    // Not on NPC's
+    if (IS_NPC(victim))
+    {
+        send_to_char("You failed.\n\r", ch);
+        return;
+    }
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
+        else
+        {
+            act("$N is already affected by the increased vitality.",ch,NULL,victim,TO_CHAR);
+            return;
+        }
+    }
+
+    af.where     = TO_AFFECTS;
+    af.type      = sn;
+    af.level     = level;
+    af.duration  = level;
+    af.modifier  = ch->level;
+    af.location  = APPLY_HIT;
+    af.bitvector = 0;
+    affect_to_char( victim, &af );
+
+    send_to_char( "You feel an increased vitality.\n\r", victim );
+
+    if ( ch != victim )
+    {
+        act("$N has been vitalized.",ch,NULL,victim,TO_CHAR);
+    }
+
+    return;
+}

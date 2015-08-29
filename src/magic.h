@@ -137,3 +137,4 @@ DECLARE_SPELL_FUN(spell_waves_of_weariness);
 DECLARE_SPELL_FUN(spell_sacrificial_heal);
 DECLARE_SPELL_FUN(spell_mass_refresh);
 DECLARE_SPELL_FUN(spell_healing_presence);
+DECLARE_SPELL_FUN(spell_life_boost);
