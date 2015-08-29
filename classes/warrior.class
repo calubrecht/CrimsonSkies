@@ -129,6 +129,7 @@ Sk 'gas breath' 50 2
 Sk 'fire breath' 51 2
 Sk 'reserved' 52 -1
 Sk 'spellcraft' 52 -1
+Sk 'healing presence' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2

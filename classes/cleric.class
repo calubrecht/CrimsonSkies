@@ -120,6 +120,7 @@ Sk 'gas breath' 43 1
 Sk 'fire breath' 45 1
 Sk 'reserved' 52 -1
 Sk 'spellcraft' 52 -1
+Sk 'healing presence' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1

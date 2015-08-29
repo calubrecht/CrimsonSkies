@@ -1562,4 +1562,14 @@ MinMana     15
 Beats       12
 End
 
+#SKILL
+Name        healing presence~
+SpellFun    spell_healing_presence~
+Target      2
+MinPos      8
+MinMana     25
+Beats       12
+MsgOff      You feel the vitalizing presence leave your body.~
+End
+
 #END
