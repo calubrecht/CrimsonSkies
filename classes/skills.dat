@@ -1544,4 +1544,13 @@ Beats       12
 MsgOff      You feel less weary.~
 End
 
+#SKILL
+Name        sacrificial heal~
+SpellFun    spell_sacrificial_heal~
+Target      2
+MinPos      8
+MinMana     250
+Beats       12
+End
+
 #END

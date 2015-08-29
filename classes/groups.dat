@@ -265,11 +265,12 @@ End
 
 #GROUP
 Name 'advanced healing'
-END
+Sk 'sacrificial heal'
+End
 
 #GROUP
 Name 'advanced curative'
-END
+End
 
 #GROUP
 Name 'illusion'
