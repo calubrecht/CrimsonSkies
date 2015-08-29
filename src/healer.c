@@ -217,3 +217,39 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 
     return;
 }
+
+/*
+ * A spell to help the healer resist some offensive magics against it.  Healer's don't
+ * have many offensive weapons and thus are vulnerable characters, this should help
+ * at least protect them a little more from spells.  This should be set to target
+ * char_self
+ */
+void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        affect_strip(victim, sn);
+    }
+
+    af.where     = TO_AFFECTS;
+    af.type      = sn;
+    af.level     = level;
+    af.duration  = level;
+    af.modifier  = (ch->level / 10) * -1;
+    af.location  = APPLY_SAVING_SPELL;
+    af.bitvector = 0;
+    affect_to_char( victim, &af );
+
+    send_to_char( "You feel an enhanced resistance to magic.\n\r", victim );
+
+    if ( ch != victim )
+    {
+        act("$N has an enhanced resistance to magic.",ch,NULL,victim,TO_CHAR);
+    }
+
+    return;
+
+} // end magic resistance
