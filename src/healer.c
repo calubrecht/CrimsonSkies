@@ -118,3 +118,47 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
 } // end spell_mass_refresh
+
+/*
+ * A healing spell that will return small bits of health over the period of a few ticks
+ * outside of the normal tick cycle.
+ */
+void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
+        else
+        {
+            act("$N is already affected by the healing presence.",ch,NULL,victim,TO_CHAR);
+            return;
+        }
+    }
+
+    af.where     = TO_AFFECTS;
+    af.type      = sn;
+    af.level     = level;
+    af.duration  = 5;
+    af.modifier  = 0;
+    af.location  = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char( victim, &af );
+
+    send_to_char( "You are vitalized with a healing presence.\n\r", victim );
+
+    if ( ch != victim )
+    {
+        act("$N is vitalized with a healing presence.",ch,NULL,victim,TO_CHAR);
+    }
+
+    return;
+
+} // end spell_delayed_heal
+

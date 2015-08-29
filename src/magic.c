@@ -1272,6 +1272,12 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel (level, victim, gsn_healing_presence))
+    {
+        act("The vitalizing presence leaves $n's body.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -2374,6 +2380,12 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel (level, victim, skill_lookup ("water breathing")))
     {
         act("$n begins to breath normally.",victim,NULL,NULL,TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel (level, victim, gsn_healing_presence))
+    {
+        act("The vitalizing presence leaves $n's body.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -5005,6 +5017,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_harm" )) return spell_harm;
             if ( !str_cmp( name, "spell_holy_word" )) return spell_holy_word;
             if ( !str_cmp( name, "spell_high_explosive" )) return spell_high_explosive;
+            if ( !str_cmp( name, "spell_healing_presence" )) return spell_healing_presence;
             break;
         case 'i':
             if ( !str_cmp( name, "spell_invis" )) return spell_invis;
@@ -5197,6 +5210,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_waves_of_weariness) return "spell_waves_of_weariness";
     if (spell == spell_sacrificial_heal) return "spell_sacrificial_heal";
     if (spell == spell_mass_refresh) return "spell_mass_refresh";
+    if (spell == spell_healing_presence) return "spell_healing_presence";
 
     return "reserved";
 

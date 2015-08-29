@@ -52,6 +52,7 @@ void char_update        args((void));
 void obj_update         args((void));
 void aggr_update        args((void));
 void tick_update        args((void));
+void half_tick_update   args((void));
 void shore_update       args((void));
 void environment_update args((void));
 void save_game_objects  args((void));
@@ -1204,6 +1205,7 @@ void update_handler (bool forced)
     if (--pulse_half_tick <= 0)
     {
         pulse_half_tick = PULSE_HALF_TICK;
+        half_tick_update();
         shore_update();
     }
 
@@ -1286,6 +1288,36 @@ void tick_update()
     } // end copyover
 
 }
+
+/*
+ * An update that occurs ever half tick (about 20 seconds).
+ */
+void half_tick_update()
+{
+    CHAR_DATA *ch;
+    CHAR_DATA *ch_next;
+
+    for (ch = char_list; ch != NULL; ch = ch_next)
+    {
+        ch_next = ch->next;
+
+        // Healing presence will heal the 10 hp every 20 seconds.  This is an actual
+        // heal (100hp) spread out over 5 full ticks.
+        if (is_affected (ch, gsn_healing_presence))
+        {
+            ch->hit = UMIN (ch->hit + 10, ch->max_hit);
+            update_pos(ch);
+
+            // Only show the healing message if they're actually healing
+            if (ch->hit < ch->max_hit)
+            {
+                send_to_char("You feel a healing presence throughout your body\n\r", ch);
+            }
+
+        }
+    }
+
+} // end half_tick_update
 
 /*
  * Whether or not a character is standing on the shore as defined by having an adjacent

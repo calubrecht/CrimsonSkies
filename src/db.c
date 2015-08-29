@@ -4520,5 +4520,5 @@ void assign_gsn()
     ASSIGN_GSN(gsn_water_breathing, "water breathing");
     ASSIGN_GSN(gsn_spellcraft, "spellcraft");
     ASSIGN_GSN(gsn_swim, "swim");
-
+    ASSIGN_GSN(gsn_healing_presence, "healing presence");
 } // end assign_gsn
