@@ -13,7 +13,7 @@ Hpmax       10
 Mana        1
 BaseGroup   'healer basics'
 DefGroup    'healer default'
-IsReclass   0
+IsReclass   1
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
 Sk 'refresh' 1 1
