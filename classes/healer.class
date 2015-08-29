@@ -39,6 +39,7 @@ Sk 'detect evil' 4 1
 Sk 'detect good' 4 1
 Sk 'create food' 5 1
 Sk 'cure serious' 5 1
+Sk 'life boost' 5 1
 Sk 'cure blindness' 6 1
 Sk 'detect magic' 6 1
 Sk 'meditation' 6 5

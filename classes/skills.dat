@@ -1572,4 +1572,14 @@ Beats       12
 MsgOff      You feel the vitalizing presence leave your body.~
 End
 
+#SKILL
+Name        life boost~
+SpellFun    spell_life_boost~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      You no longer feel as vitalized.~
+End
+
 #END
