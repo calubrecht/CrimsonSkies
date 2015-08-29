@@ -21,7 +21,7 @@
  **************************************************************************/
 
 /***************************************************************************
- *  Enchantors                                                             *
+ *  Enchantor class                                                        *
  *                                                                         *
  *  This class will be an expert at enchanting or altering items           *
  *  as well as having the potential to also enchant other characters       *

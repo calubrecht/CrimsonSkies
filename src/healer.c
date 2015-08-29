@@ -21,7 +21,8 @@
  **************************************************************************/
 
 /***************************************************************************
- *  Healers                                                                *
+ *  Healer Class (not to be confused with a healer mob who you can buy     *
+ *  healing spels from)                                                    *
  *                                                                         *
  *  Healers are masters of healing people's bodies as well as having       *
  *  curative expertise such as removing disease, poison, etc.  They are    *
