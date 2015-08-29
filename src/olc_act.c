@@ -6995,10 +6995,15 @@ CEDIT( cedit_groups)
     return TRUE;
 }
 
+/*
+ * Creates a new skill or spell.  Something with a skill number that can be learned
+ * and used by a player.
+ */
 SEDIT( sedit_create )
 {
     SKILLTYPE *skill;
     int sn;
+    int x;
 
     sn = skill_lookup(argument);
 
@@ -7026,7 +7031,18 @@ SEDIT( sedit_create )
     skill->msg_off = str_dup( "" );
     skill->msg_obj = str_dup( "" );
     skill->spell_fun = spell_null;
+
+    // Set the default level for all of the classes to the level of an immortal
+    // so we will only have to set the levels of those classes receiving the skill.
+    for ( x = 0; x < top_class; x++ )
+    {
+        skill->skill_level[x] = LEVEL_IMMORTAL;
+        skill->rating[x] = -1;
+    }
+
+    // Put the n ew skill in the table then incriment the top_sn
     skill_table[top_sn] = skill;
+
     ch->desc->pEdit = (void *)skill;
     top_sn++;
     send_to_char( "Skill Created.\n\r", ch );
