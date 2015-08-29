@@ -166,9 +166,9 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 
 /*
  * Allows a healer to boost the life force of a recipient (e.g. increase their
- * max health points for a level's worth of ticks).  The modifier (how much hp
- * they receive) will be calculated by the healer's casting level.  This cannot
- * be cast on NPC's as a way to make them stronger.
+ * max health points and movement for a level's worth of ticks).  The modifier
+ * (how much hp and move they receive) will be calculated by the healer's casting
+ * level.  This cannot be cast on NPC's as a way to make them stronger.
  */
 void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
@@ -204,6 +204,9 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
     af.location  = APPLY_HIT;
     af.bitvector = 0;
     affect_to_char( victim, &af );
+
+    af.location = APPLY_MOVE;
+    affect_to_char (victim, &af);
 
     send_to_char( "You feel an increased vitality.\n\r", victim );
 
