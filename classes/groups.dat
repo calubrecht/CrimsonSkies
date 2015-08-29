@@ -266,6 +266,7 @@ End
 #GROUP
 Name 'advanced healing'
 Sk 'sacrificial heal'
+Sk 'mass refresh'
 End
 
 #GROUP

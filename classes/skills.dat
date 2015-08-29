@@ -1553,4 +1553,13 @@ MinMana     250
 Beats       12
 End
 
+#SKILL
+Name        mass refresh~
+SpellFun    spell_mass_refresh~
+Target      2
+MinPos      8
+MinMana     15
+Beats       12
+End
+
 #END
