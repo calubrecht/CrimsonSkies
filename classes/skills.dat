@@ -1582,4 +1582,14 @@ Beats       12
 MsgOff      You no longer feel as vitalized.~
 End
 
+#SKILL
+Name        magic resistance~
+SpellFun    spell_magic_resistance~
+Target      3
+MinPos      8
+MinMana     25
+Beats       12
+MsgOff      You no longer have a resistance to magic.~
+End
+
 #END
