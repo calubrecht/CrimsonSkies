@@ -2847,8 +2847,8 @@ By what name do you wish to be known? ~
 * I will be attempting to implement object consolidation from the Smaug
   code base, I may very make things unstable temporarly.  I have backed
   up pfiles in case I temporarly corrupt them which will be highly possible.
-* Reclass system is in, there is only one reclass currently which is
-  enchantors for mages.  3 more reclasses (one for each base class)
+* Reclass system is in, there are two reclasses currently which are
+  enchantors for mages and healers for clerics.  2 more reclasses
   and the oceans are all that stand between us and version 1.
 * Any 'rules' are on hold until the game is out of it's beta testing
   phase.  Feel free to do what you please, just respect others.
@@ -3242,6 +3242,7 @@ After reclass you will be level 1 again as the reclass.
 Current classes available for reclass:
 
    * Enchantor (Mage)
+   * Healer (Cleric)
 ~
 
 0 $~
