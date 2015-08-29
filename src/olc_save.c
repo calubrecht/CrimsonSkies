@@ -1175,6 +1175,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
             send_to_char("  asave groups   - saves the group files\n\r",  ch );
             send_to_char("  asave classes  - saves the class files\n\r", ch);
             send_to_char("  asave skills   - saves the skills file\n\r", ch);
+            send_to_char("  asave creation - saves the skills, groups and classes\n\r", ch);
             send_to_char("\n\r", ch);
         }
 
