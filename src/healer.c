@@ -23,9 +23,11 @@
 /***************************************************************************
  *  Healers                                                                *
  *                                                                         *
- *  Healers are masters of healing people's bodies as well as curative     *
- *  such as removing disease, poison, etc.  They are more of a support     *
- *  class that are effective group individuals.  -Rhien                    *
+ *  Healers are masters of healing people's bodies as well as having       *
+ *  curative expertise such as removing disease, poison, etc.  They are    *
+ *  more of a support class that are effective group individuals.  In the  *
+ *  new pk system even support classes can benefit if the group they are   *
+ *  in does well.  -Rhien                                                  *
  ***************************************************************************/
 
 // General Includes
@@ -39,20 +41,38 @@
 
 /*
  * Will heal an individual to full health at great cost to the healer who will lose most of
- * their health, mana and movement.  In order to use this spell the healer must have most of
- * their health themselves.  This is the hail mary of heals.
+ * their health .  In order to use this spell the healer must have most of their health
+ * themselves.  This is the hail mary of heals.
  */
 void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     CHAR_DATA *victim;
     victim = (CHAR_DATA *) vo;
 
+    // Cannot cast the spell on themselves, credit their mana back.
     if (ch == victim)
     {
+        ch->mana += 250;
         send_to_char("You cannot cast this spell on yourself.\n\r", ch);
         return;
     }
 
-    send_to_char("stub.\n\r", ch);
+    // They can't use this if they're in in the yellow on damage, credit their mana
+    // back to them.  Consider getting the mana cost out of the table in case it changes
+    // down the line.
+    if (ch->hit < ch->max_hit * 3 / 4)
+    {
+        ch->mana += 250;
+        send_to_char("You are too weak currently to cast this spell\n\r", ch);
+        return;
+    }
+
+    // Set the target to full health, set the healer to near death.
+    victim->hit = victim->max_hit;
+    ch->hit = 100;
+
+    act ("$n raises $e hands to the sky and surrounds $N with a healing aura.", ch, NULL, victim, TO_NOTVICT);
+    act ("$n raises $e hands to the sky and surrounds you with a healing aura.", ch, NULL, victim, TO_VICT);
+    act ("You raise your hands to the sky and surround $N with a healing aura.", ch, NULL, victim, TO_CHAR);
 
 } // end spell_sacrificial_heal

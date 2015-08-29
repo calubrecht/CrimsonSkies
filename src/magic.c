@@ -1443,13 +1443,15 @@ void spell_charm_person (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (IS_SET (victim->in_room->room_flags, ROOM_LAW))
     {
-        send_to_char
-            ("The mayor does not allow charming in the city limits.\n\r", ch);
+        send_to_char("Charming is not allowed charming in the city limits.\n\r", ch);
         return;
     }
 
     if (victim->master)
+    {
         stop_follower (victim);
+    }
+
     add_follower (victim, ch);
     victim->leader = ch;
     af.where = TO_AFFECTS;
@@ -1460,9 +1462,14 @@ void spell_charm_person (int sn, int level, CHAR_DATA * ch, void *vo,
     af.modifier = 0;
     af.bitvector = AFF_CHARM;
     affect_to_char (victim, &af);
+
     act ("Isn't $n just so nice?", ch, NULL, victim, TO_VICT);
+
     if (ch != victim)
+    {
         act ("$N looks at you with adoring eyes.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
@@ -5048,6 +5055,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_slow" )) return spell_slow;
             if ( !str_cmp( name, "spell_shocking_grasp" )) return spell_shocking_grasp;
             if ( !str_cmp( name, "spell_sequestor" )) return spell_sequestor;
+            if ( !str_cmp( name, "spell_sacrificial_heal" )) return spell_sacrificial_heal;
             break;
         case 't':
             if ( !str_cmp( name, "spell_teleport" )) return spell_teleport;
@@ -5186,6 +5194,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_withering_enchant ) return "spell_withering_enchant";
     if (spell == spell_wizard_mark ) return "spell_wizard_mark";
     if (spell == spell_waves_of_weariness) return "spell_waves_of_weariness";
+    if (spell == spell_sacrificial_heal) return "spell_sacrificial_heal";
 
     return "reserved";
 

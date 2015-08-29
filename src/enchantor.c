@@ -28,7 +28,8 @@
  *  abilities as well as receive bonuses on tradtional mage spells like    *
  *  charm.  The enchantor is a mage who specializes in enhancing others    *
  *  and objects.  -Rhien                                                   *
- ***************************************************************************/
+ *                                                                         *
+ **************************************************************************/
 
 // General Includes
 #include <stdio.h>
