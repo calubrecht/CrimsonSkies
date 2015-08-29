@@ -77,14 +77,27 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
 
 } // end spell_sacrificial_heal
 
+/*
+ * Mass refresh will refresh every visible character in the room for only
+ * 3 more mana than a normal refresh.  It also has an additional 1 to 10
+ * movement random bonus on top of the normal refresh.
+ */
 void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
 {
     CHAR_DATA *gch;
+    char buf[MAX_STRING_LENGTH];
 
     for (gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room)
     {
-        gch->move = UMIN(gch->move + level, gch->max_move);
+        // If the character can't be seen they can't be refreshed, we don't
+        // want this used to sniff out hidden characters.
+        if (!can_see (ch, gch))
+        {
+            continue;
+        }
+
+        gch->move = UMIN(gch->move + level + number_range(1, 10), gch->max_move);
 
         if (gch->max_move == gch->move)
         {
@@ -94,8 +107,13 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
         {
             send_to_char("You feel less tired.\n\r", gch);
         }
-    }
 
-    send_to_char("Ok.\n\r", ch);
+        if (gch != ch)
+        {
+            sprintf(buf, "%s has been refreshed.\n\r", gch->name);
+            send_to_char(buf, ch);
+        }
+
+    }
 
 } // end spell_mass_refresh
