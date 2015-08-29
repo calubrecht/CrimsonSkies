@@ -5025,6 +5025,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_magic_missile" )) return spell_magic_missile;
             if ( !str_cmp( name, "spell_mass_healing" )) return spell_mass_healing;
             if ( !str_cmp( name, "spell_mass_invis" )) return spell_mass_invis;
+            if ( !str_cmp( name, "spell_mass_refresh")) return spell_mass_refresh;
             break;
         case 'n':
             if ( !str_cmp( name, "spell_null" )) return spell_null;
@@ -5195,6 +5196,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_wizard_mark ) return "spell_wizard_mark";
     if (spell == spell_waves_of_weariness) return "spell_waves_of_weariness";
     if (spell == spell_sacrificial_heal) return "spell_sacrificial_heal";
+    if (spell == spell_mass_refresh) return "spell_mass_refresh";
 
     return "reserved";
 

@@ -76,3 +76,26 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     act ("You raise your hands to the sky and surround $N with a healing aura.", ch, NULL, victim, TO_CHAR);
 
 } // end spell_sacrificial_heal
+
+void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
+                         int target)
+{
+    CHAR_DATA *gch;
+
+    for (gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room)
+    {
+        gch->move = UMIN(gch->move + level, gch->max_move);
+
+        if (gch->max_move == gch->move)
+        {
+            send_to_char("You feel fully refreshed!\n\r", gch);
+        }
+        else
+        {
+            send_to_char("You feel less tired.\n\r", gch);
+        }
+    }
+
+    send_to_char("Ok.\n\r", ch);
+
+} // end spell_mass_refresh

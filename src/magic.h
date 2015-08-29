@@ -135,3 +135,4 @@ DECLARE_SPELL_FUN(      spell_locate_wizard_mark);
 DECLARE_SPELL_FUN(      spell_water_breathing   );
 DECLARE_SPELL_FUN(      spell_waves_of_weariness);
 DECLARE_SPELL_FUN(      spell_sacrificial_heal  );
+DECLARE_SPELL_FUN(      spell_mass_refresh      );
