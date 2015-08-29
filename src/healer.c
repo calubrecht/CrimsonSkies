@@ -121,7 +121,9 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
 
 /*
  * A healing spell that will return small bits of health over the period of a few ticks
- * outside of the normal tick cycle.
+ * outside of the normal tick cycle.  This will cost half as much as a heal (because it
+ * can only be cast once and is spread out.  Players will get 10hp every half tick if
+ * they are below their max health.
  */
 void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
