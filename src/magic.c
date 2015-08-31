@@ -1578,6 +1578,7 @@ void spell_continual_light (int sn, int level, CHAR_DATA * ch, void *vo,
 
         if (IS_OBJ_STAT (light, ITEM_GLOW))
         {
+            REMOVE_BIT(light->extra_flags, ITEM_INVIS);
             act ("$p is already glowing.", ch, light, NULL, TO_CHAR);
             return;
         }
