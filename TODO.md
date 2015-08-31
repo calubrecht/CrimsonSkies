@@ -79,3 +79,4 @@ This is my to do list, mostly will be things big and small as I think about them
     clans, listing clan recruiters, etc.).
   - Healer spell, see affliction
   - Alchemist Class, mage and/or cleric reclass.
+  - Spell that allows a mage reclass to lower someone's casting level.
