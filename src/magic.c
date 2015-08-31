@@ -4975,6 +4975,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_cure_serious" )) return spell_cure_serious;
             if ( !str_cmp( name, "spell_call_lightning" )) return spell_call_lightning;
             if ( !str_cmp( name, "spell_create_rose" )) return spell_create_rose;
+            if ( !str_cmp( name, "spell_cure_weaken" )) return spell_cure_weaken;
             break;
         case 'd':
             if ( !str_cmp( name, "spell_detect_hidden" )) return spell_detect_hidden;
@@ -5223,6 +5224,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_life_boost) return "spell_life_boost";
     if (spell == spell_magic_resistance) return "spell_magic_resistance";
     if (spell == spell_mana_transfer) return "spell_mana_transfer";
+    if (spell == spell_cure_weaken) return "spell_cure_weaken";
 
     return "reserved";
 

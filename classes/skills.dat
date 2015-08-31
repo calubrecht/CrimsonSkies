@@ -1601,4 +1601,13 @@ MinMana     50
 Beats       12
 End
 
+#SKILL
+Name        cure weaken~
+SpellFun    spell_cure_weaken~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+End
+
 #END

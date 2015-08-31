@@ -2259,6 +2259,7 @@ int    mana_cost            ( CHAR_DATA *ch, int min_mana, int level);
 int    skill_lookup   args( ( const char *name ) );
 bool   saves_spell    args( ( int level, CHAR_DATA *victim, int dam_type ) );
 void   obj_cast_spell args( ( int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj ) );
+bool   check_dispel   args( ( int dis_level, CHAR_DATA * victim, int sn) );
 
 /* mob_prog.c */
 void    program_flow       args( ( sh_int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2 ) );

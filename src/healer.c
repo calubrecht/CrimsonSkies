@@ -294,3 +294,36 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
 
     return;
 } // end spell_mana_transfer
+
+/*
+ * Allows a healer to remove a weaken spell specifically.
+ */
+void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (!is_affected (victim, gsn_weaken))
+    {
+        if (victim == ch)
+        {
+            send_to_char ("You aren't afflicted by magical weakeness.\n\r", ch);
+        }
+        else
+        {
+            act ("$N doesn't appear to be afflicted by a magical weakness.", ch, NULL, victim, TO_CHAR);
+        }
+        return;
+    }
+
+    if (check_dispel (level, victim, gsn_weaken))
+    {
+        send_to_char ("Your no longer feel weak!\n\r", victim);
+        act ("$n is no longer weakened.", victim, NULL, NULL, TO_ROOM);
+    }
+    else
+    {
+        send_to_char ("Spell failed.\n\r", ch);
+    }
+
+} // end spell_cure_weaken
+
