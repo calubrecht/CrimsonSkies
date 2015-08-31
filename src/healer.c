@@ -276,7 +276,7 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
 
     victim->mana = UMIN (victim->mana + 50, victim->max_mana);
 
-    send_to_char ("A feel a surge of mana course through your body.\n\r", victim);
+    send_to_char ("You feel a surge of mana course through your body.\n\r", victim);
 
     // Show the caster it's done
     if (ch != victim)
