@@ -5604,6 +5604,55 @@ void do_test(CHAR_DATA * ch, char *argument)
 } // end do_test
 
 /*
+ * Immortal command to remove all affects from a character or NPC.
+ */
+void do_wizcancel(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+    char buf[MAX_STRING_LENGTH];
+
+    // This gets rid of a compiler warning about unitialized variables even
+    // the logic won't get past the else if statement without victim having
+    // something.
+    victim = NULL;
+
+    if (argument[0] == '\0')
+    {
+        victim = ch;
+    }
+    else if (!victim)
+    {
+        // If the victim is null that means they entered something.. try
+        // to find them.
+        if ((victim = get_char_world(ch, argument)) == NULL)
+        {
+            send_to_char ("They aren't here.\n\r", ch);
+            return;
+        }
+    }
+
+    // This will remove all affects from the victim
+    affect_strip_all(victim);
+
+    // Show the user what was done.
+    if (ch != victim)
+    {
+        sprintf(buf, "%s has removed all affects from you.\n\r", ch->name);
+        send_to_char(buf, victim);
+
+        sprintf(buf, "%s has had all of their affects removed.\n\r", victim->name);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        send_to_char("You have removed all affects from yourself.\n\r", ch);
+        return;
+    }
+
+    return;
+} // end do_wizcancel
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
@@ -5611,3 +5660,5 @@ void do_debug(CHAR_DATA * ch, char *argument)
     send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 } // end do_debug
+
+

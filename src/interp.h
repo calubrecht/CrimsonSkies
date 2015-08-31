@@ -326,3 +326,4 @@ DECLARE_DO_FUN(do_cecho);
 DECLARE_DO_FUN(do_test);
 DECLARE_DO_FUN(do_guildlist);
 DECLARE_DO_FUN(do_land);
+DECLARE_DO_FUN(do_wizcancel);
