@@ -274,6 +274,22 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
         strcat(buf, "({YGolden Aura{x) ");
     if (IS_AFFECTED(victim, AFF_SANCTUARY))
         strcat(buf, "({WWhite Aura{x) ");
+
+    // Healers sense affliction
+    if (is_affected(ch, gsn_sense_affliction))
+    {
+        if (is_affected(victim, gsn_blindness) ||
+            is_affected(victim, gsn_plague) ||
+            is_affected(victim, gsn_curse)||
+            is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_slow) ||
+            is_affected(victim, gsn_sleep) ||
+            is_affected(victim, gsn_weaken))
+        {
+            strcat(buf, "({RAfflicted{x) ");
+        }
+    }
+
     if (!IS_NPC(victim) && IS_SET (victim->act, PLR_WANTED))
         strcat(buf, "({RWANTED{x) ");
     if (victim->position == victim->start_pos

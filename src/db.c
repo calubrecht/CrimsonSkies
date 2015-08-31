@@ -4522,5 +4522,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_swim, "swim");
     ASSIGN_GSN(gsn_healing_presence, "healing presence");
     ASSIGN_GSN(gsn_sense_affliction, "sense affliction");
+    ASSIGN_GSN(gsn_slow, "slow");
 
 } // end assign_gsn
