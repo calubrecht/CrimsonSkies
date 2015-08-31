@@ -295,7 +295,7 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     {
         if (victim == ch)
         {
-            send_to_char ("You aren't afflicted by magical weakeness.\n\r", ch);
+            send_to_char ("You aren't afflicted by a magical weakeness.\n\r", ch);
         }
         else
         {
@@ -315,6 +315,39 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
 } // end spell_cure_weaken
+
+/*
+ * Spell to cure people affected by slow (haste does this also, but cleric and cleric
+ * reclasses don't get haste (usually).
+ */
+void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (!is_affected(victim, gsn_slow))
+    {
+        if (victim == ch)
+        {
+            send_to_char ("You aren't afflicted by slow.\n\r", ch);
+        }
+        else
+        {
+            act ("$N doesn't appear to be afflicted by slow.", ch, NULL, victim, TO_CHAR);
+        }
+        return;
+    }
+
+    if (check_dispel(level, victim, gsn_slow))
+    {
+        send_to_char("Your no longer feel like you're moving slowly!\n\r", victim);
+        act("$n is no longer moving slowly.", victim, NULL, NULL, TO_ROOM);
+    }
+    else
+    {
+        send_to_char("Spell failed.\n\r", ch);
+    }
+
+} // end spell_cure_slow
 
 /*
  * Restore mental presence will allow the caster to remove any stun affect on a

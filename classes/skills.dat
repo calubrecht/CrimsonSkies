@@ -1629,4 +1629,13 @@ Beats       12
 MsgOff      You can no longer sense those that are afflicted.~
 End
 
+#SKILL
+Name        cure slow~
+SpellFun    spell_cure_slow~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+End
+
 #END

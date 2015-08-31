@@ -4996,6 +4996,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_call_lightning" )) return spell_call_lightning;
             if ( !str_cmp( name, "spell_create_rose" )) return spell_create_rose;
             if ( !str_cmp( name, "spell_cure_weaken" )) return spell_cure_weaken;
+            if ( !str_cmp( name, "spell_cure_slow" )) return spell_cure_slow;
             break;
         case 'd':
             if ( !str_cmp( name, "spell_detect_hidden" )) return spell_detect_hidden;
@@ -5249,6 +5250,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_cure_weaken) return "spell_cure_weaken";
     if (spell == spell_restore_mental_presence) return "spell_restore_mental_presence";
     if (spell == spell_sense_affliction) return "spell_sense_affliction";
+    if (spell == spell_cure_slow) return "spell_cure_slow";
 
     return "reserved";
 
