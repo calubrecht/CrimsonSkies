@@ -1592,4 +1592,13 @@ Beats       12
 MsgOff      You no longer have a resistance to magic.~
 End
 
+#SKILL
+Name        mana transfer~
+SpellFun    spell_mana_transfer~
+Target      2
+MinPos      8
+MinMana     50
+Beats       12
+End
+
 #END
