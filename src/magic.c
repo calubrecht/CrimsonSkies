@@ -1737,21 +1737,25 @@ void spell_cure_disease (int sn, int level, CHAR_DATA * ch, void *vo,
     if (!is_affected (victim, gsn_plague))
     {
         if (victim == ch)
+        {
             send_to_char ("You aren't ill.\n\r", ch);
+        }
         else
-            act ("$N doesn't appear to be diseased.", ch, NULL, victim,
-                 TO_CHAR);
+        {
+            act ("$N doesn't appear to be diseased.", ch, NULL, victim, TO_CHAR);
+        }
         return;
     }
 
     if (check_dispel (level, victim, gsn_plague))
     {
-        send_to_char ("Your sores vanish.\n\r", victim);
-        act ("$n looks relieved as $s sores vanish.", victim, NULL, NULL,
-             TO_ROOM);
+        // The message to the player comes from the spell config in skills.dat
+        act ("$n looks relieved as $s sores vanish.", victim, NULL, NULL, TO_ROOM);
     }
     else
+    {
         send_to_char ("Spell failed.\n\r", ch);
+    }
 }
 
 
