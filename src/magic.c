@@ -5047,6 +5047,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_mass_invis" )) return spell_mass_invis;
             if ( !str_cmp( name, "spell_mass_refresh")) return spell_mass_refresh;
             if ( !str_cmp( name, "spell_magic_resistance")) return spell_magic_resistance;
+            if ( !str_cmp( name, "spell_mana_transfer")) return spell_mana_transfer;
             break;
         case 'n':
             if ( !str_cmp( name, "spell_null" )) return spell_null;
@@ -5221,6 +5222,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_healing_presence) return "spell_healing_presence";
     if (spell == spell_life_boost) return "spell_life_boost";
     if (spell == spell_magic_resistance) return "spell_magic_resistance";
+    if (spell == spell_mana_transfer) return "spell_mana_transfer";
 
     return "reserved";
 

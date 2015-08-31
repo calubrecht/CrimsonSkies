@@ -139,3 +139,4 @@ DECLARE_SPELL_FUN(spell_mass_refresh);
 DECLARE_SPELL_FUN(spell_healing_presence);
 DECLARE_SPELL_FUN(spell_life_boost);
 DECLARE_SPELL_FUN(spell_magic_resistance);
+DECLARE_SPELL_FUN(spell_mana_transfer);

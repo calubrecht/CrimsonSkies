@@ -253,3 +253,44 @@ void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     return;
 
 } // end magic resistance
+
+/*
+ * Mana transfer will allow the healer to transfer mana from themselves to a
+ * recipient.  We'll start at 50 for casting and do a 1 to 1 transfer for now.
+ */
+void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (IS_NPC(victim))
+    {
+        send_to_char("You cannot cast mana transfer on them.\n\r", ch);
+        return;
+    }
+
+    if (victim->mana == victim->max_mana)
+    {
+        send_to_char("Their mana is at full capacity.\n\r", ch);
+        return;
+    }
+
+    victim->mana = UMIN (victim->mana + 50, victim->max_mana);
+
+    send_to_char ("A feel a surge of mana course through your body.\n\r", victim);
+
+    // Show the caster it's done
+    if (ch != victim)
+    {
+        if (victim->mana == victim->max_mana)
+        {
+            // The caster is now at max with that cast, let the caster know.
+            send_to_char("Their mana is now at full capacity.\n\r", ch);
+        }
+        else
+        {
+            send_to_char ("Ok.\n\r", ch);
+        }
+    }
+
+    return;
+} // end spell_mana_transfer
