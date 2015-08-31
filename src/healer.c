@@ -153,12 +153,8 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
+    act("$N is vitalized with a healing presence.", victim, NULL, victim, TO_ROOM);
     send_to_char("You are vitalized with a healing presence.\n\r", victim);
-
-    if ( ch != victim )
-    {
-        act("$N is vitalized with a healing presence.", ch, NULL, victim, TO_CHAR);
-    }
 
     return;
 
@@ -208,12 +204,8 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
     af.location = APPLY_MOVE;
     affect_to_char (victim, &af);
 
+    act("$N has been vitalized.", victim, NULL, victim, TO_ROOM);
     send_to_char("You feel an increased vitality.\n\r", victim);
-
-    if ( ch != victim )
-    {
-        act("$N has been vitalized.", ch, NULL, victim, TO_CHAR);
-    }
 
     return;
 }
@@ -243,12 +235,9 @@ void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     af.bitvector = 0;
     affect_to_char( victim, &af );
 
-    send_to_char("You feel an enhanced resistance to magic.\n\r", victim);
 
-    if (ch != victim)
-    {
-        act("$N has an enhanced resistance to magic.",ch,NULL,victim,TO_CHAR);
-    }
+    act("$N has an enhanced resistance to magic.", victim, NULL, victim, TO_ROOM);
+    send_to_char("You feel an enhanced resistance to magic.\n\r", victim);
 
     return;
 
@@ -349,3 +338,42 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
     act ("$n's mental presence has been restored.", victim, NULL, NULL, TO_ROOM);
 
 } // end spell_restore_mental_presence
+
+/*
+ * Sense affliction will allow the healer to see an (Affliction) flag on a player when
+ * they do a 'look' in the room if a player is afflicted by something the healer can
+ * cure.  If the healer looks at the person specifically they will see everything they
+ * are afflicted with that they can cure specifically.  The healer can cast this on
+ * themselves but not others.
+ */
+void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        // Remove the affect so it can be re-added to yourself
+        affect_strip(victim, sn);
+    }
+
+    af.where     = TO_AFFECTS;
+    af.type      = sn;
+    af.level     = level;
+    af.duration  = ch->level + number_range(1, 5);
+    af.modifier  = 0;
+    af.location  = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your senses for those afflicted are heightened.\n\r", victim);
+
+    if ( ch != victim )
+    {
+        act("$N's senses for those afflicted are heightened.", victim, NULL, victim, TO_ROOM);
+    }
+
+    return;
+
+} // end spell_sense_affliction
+

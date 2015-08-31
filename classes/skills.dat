@@ -1619,4 +1619,14 @@ MinMana     10
 Beats       12
 End
 
+#SKILL
+Name        sense affliction~
+SpellFun    spell_sense_affliction~
+Target      3
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      You can no longer sense those that are afflicted.~
+End
+
 #END

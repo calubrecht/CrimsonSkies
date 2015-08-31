@@ -1278,6 +1278,16 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, skill_lookup("life boost")))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, skill_lookup("sense affliction")))
+    {
+        found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -2396,6 +2406,11 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel (level, victim, skill_lookup("life boost")))
     {
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel (level, victim, skill_lookup("sense affliction")))
+    {
         found = TRUE;
     }
 
@@ -5085,6 +5100,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_shocking_grasp" )) return spell_shocking_grasp;
             if ( !str_cmp( name, "spell_sequestor" )) return spell_sequestor;
             if ( !str_cmp( name, "spell_sacrificial_heal" )) return spell_sacrificial_heal;
+            if ( !str_cmp( name, "spell_sense_affliction" )) return spell_sense_affliction;
             break;
         case 't':
             if ( !str_cmp( name, "spell_teleport" )) return spell_teleport;
@@ -5231,6 +5247,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_mana_transfer) return "spell_mana_transfer";
     if (spell == spell_cure_weaken) return "spell_cure_weaken";
     if (spell == spell_restore_mental_presence) return "spell_restore_mental_presence";
+    if (spell == spell_sense_affliction) return "spell_sense_affliction";
 
     return "reserved";
 

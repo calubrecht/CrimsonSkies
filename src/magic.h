@@ -142,3 +142,4 @@ DECLARE_SPELL_FUN(spell_magic_resistance);
 DECLARE_SPELL_FUN(spell_mana_transfer);
 DECLARE_SPELL_FUN(spell_cure_weaken);
 DECLARE_SPELL_FUN(spell_restore_mental_presence);
+DECLARE_SPELL_FUN(spell_sense_affliction);

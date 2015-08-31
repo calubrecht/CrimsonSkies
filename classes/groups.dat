@@ -277,6 +277,7 @@ End
 Name 'advanced curative'
 Sk 'cure weaken'
 Sk 'restore mental presence'
+Sk 'sense affliction'
 End
 
 #GROUP
