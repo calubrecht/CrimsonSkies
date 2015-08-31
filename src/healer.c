@@ -378,7 +378,8 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
  * they do a 'look' in the room if a player is afflicted by something the healer can
  * cure.  If the healer looks at the person specifically they will see everything they
  * are afflicted with that they can cure specifically.  The healer can cast this on
- * themselves but not others.
+ * themselves but not others.  This has a long duration and is not dispelable.  I
+ * suppose this could also have just been a skill.
  */
 void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
@@ -394,7 +395,7 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     af.where     = TO_AFFECTS;
     af.type      = sn;
     af.level     = level;
-    af.duration  = ch->level + number_range(1, 5);
+    af.duration  = ch->level + (ch->level / 2);
     af.modifier  = 0;
     af.location  = APPLY_NONE;
     af.bitvector = 0;

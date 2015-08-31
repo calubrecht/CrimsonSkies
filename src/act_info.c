@@ -498,6 +498,22 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
     buf[0] = UPPER (buf[0]);
     send_to_char (buf, ch);
 
+    // marker - sense affliction
+    // Healers sense affliction
+    /*if (is_affected(ch, gsn_sense_affliction))
+    {
+        if (is_affected(victim, gsn_blindness) ||
+            is_affected(victim, gsn_plague) ||
+            is_affected(victim, gsn_curse)||
+            is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_slow) ||
+            is_affected(victim, gsn_sleep) ||
+            is_affected(victim, gsn_weaken))
+        {
+            strcat(buf, "({RAfflicted{x) ");
+        }
+    } */
+
     found = FALSE;
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
     {
