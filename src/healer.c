@@ -304,7 +304,8 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    if (check_dispel(level, victim, gsn_weaken))
+    // Healer's get a casting bonus when removing certain spells.
+    if (check_dispel(level + 3, victim, gsn_weaken))
     {
         send_to_char("Your no longer feel weak!\n\r", victim);
         act("$n is no longer weakened.", victim, NULL, NULL, TO_ROOM);
@@ -337,7 +338,7 @@ void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    if (check_dispel(level, victim, gsn_slow))
+    if (check_dispel(level + 3, victim, gsn_slow))
     {
         send_to_char("Your no longer feel like you're moving slowly!\n\r", victim);
         act("$n is no longer moving slowly.", victim, NULL, NULL, TO_ROOM);

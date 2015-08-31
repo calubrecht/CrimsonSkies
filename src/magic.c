@@ -1697,7 +1697,10 @@ void spell_create_water (int sn, int level, CHAR_DATA * ch, void *vo,
 }
 
 
-
+/*
+ * Cure blindess can individually remove a blindness on any player.  Healer's 
+ * get a casting bonus on this spell.
+ */
 void spell_cure_blindness (int sn, int level, CHAR_DATA * ch, void *vo,
                            int target)
 {
@@ -1713,14 +1716,23 @@ void spell_cure_blindness (int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
+    // Healer bonus
+    if (ch->class == HEALER_CLASS_LOOKUP)
+    {
+        level += 3;
+    }
+
     if (check_dispel (level, victim, gsn_blindness))
     {
         send_to_char ("Your vision returns!\n\r", victim);
         act ("$n is no longer blinded.", victim, NULL, NULL, TO_ROOM);
     }
     else
+    {
         send_to_char ("Spell failed.\n\r", ch);
-}
+    }
+
+} // end spell_cure_blindness
 
 
 
@@ -1739,7 +1751,10 @@ void spell_cure_critical (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-/* RT added to cure plague */
+/*
+ * Spell to allow cleric and reclasses to cure the plague.  Healer's will get
+ * a bonus on this spell.
+ */
 void spell_cure_disease (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
 {
@@ -1758,6 +1773,12 @@ void spell_cure_disease (int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
+    // Healer bonus
+    if (ch->class == HEALER_CLASS_LOOKUP)
+    {
+        level += 3;
+    }
+
     if (check_dispel (level, victim, gsn_plague))
     {
         // The message to the player comes from the spell config in skills.dat
@@ -1767,7 +1788,8 @@ void spell_cure_disease (int sn, int level, CHAR_DATA * ch, void *vo,
     {
         send_to_char ("Spell failed.\n\r", ch);
     }
-}
+
+} // end spell_cure_disease
 
 
 
@@ -1786,8 +1808,9 @@ void spell_cure_light (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
+/*
+ * Spell to cure poison.  Healers will get a bonus on this spell.
+ */
 void spell_cure_poison (int sn, int level, CHAR_DATA * ch, void *vo,
                         int target)
 {
@@ -1796,11 +1819,20 @@ void spell_cure_poison (int sn, int level, CHAR_DATA * ch, void *vo,
     if (!is_affected (victim, gsn_poison))
     {
         if (victim == ch)
+        {
             send_to_char ("You aren't poisoned.\n\r", ch);
+        }
         else
-            act ("$N doesn't appear to be poisoned.", ch, NULL, victim,
-                 TO_CHAR);
+        {
+            act ("$N doesn't appear to be poisoned.", ch, NULL, victim, TO_CHAR);
+        }
         return;
+    }
+
+    // Healer bonus
+    if (ch->class == HEALER_CLASS_LOOKUP)
+    {
+        level += 3;
     }
 
     if (check_dispel (level, victim, gsn_poison))
@@ -1809,8 +1841,11 @@ void spell_cure_poison (int sn, int level, CHAR_DATA * ch, void *vo,
         act ("$n looks much better.", victim, NULL, NULL, TO_ROOM);
     }
     else
+    {
         send_to_char ("Spell failed.\n\r", ch);
-}
+    }
+
+} // end spell_cure_poison
 
 void spell_cure_serious (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
