@@ -1181,7 +1181,7 @@ void do_save (CHAR_DATA * ch, char *argument)
         return;
 
     save_char_obj (ch);
-    send_to_char("Saving. Remember that Crimson Skies has automatic saving now.\n\r", ch);
+    send_to_char("Saving. Remember that {RCrimson {rSkies{x has automatic saving now.\n\r", ch);
 
     // Add lag on save, but on if it's not an immortal
     if (!IS_IMMORTAL(ch)) {
