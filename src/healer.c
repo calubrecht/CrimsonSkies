@@ -72,9 +72,9 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     victim->hit = victim->max_hit;
     ch->hit = 100;
 
-    act ("$n raises $e hands to the sky and surrounds $N with a healing aura.", ch, NULL, victim, TO_NOTVICT);
-    act ("$n raises $e hands to the sky and surrounds you with a healing aura.", ch, NULL, victim, TO_VICT);
-    act ("You raise your hands to the sky and surround $N with a healing aura.", ch, NULL, victim, TO_CHAR);
+    act("$n raises $e hands to the sky and surrounds $N with a healing aura.", ch, NULL, victim, TO_NOTVICT);
+    act("$n raises $e hands to the sky and surrounds you with a healing aura.", ch, NULL, victim, TO_VICT);
+    act("You raise your hands to the sky and surround $N with a healing aura.", ch, NULL, victim, TO_CHAR);
 
 } // end spell_sacrificial_heal
 
@@ -135,11 +135,11 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
         if (victim == ch)
         {
             // Remove the affect so it can be re-added to yourself
-            affect_strip (victim, sn);
+            affect_strip(victim, sn);
         }
         else
         {
-            act("$N is already affected by the healing presence.",ch,NULL,victim,TO_CHAR);
+            act("$N is already affected by the healing presence.", ch, NULL, victim, TO_CHAR);
             return;
         }
     }
@@ -151,13 +151,13 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     af.modifier  = 0;
     af.location  = APPLY_NONE;
     af.bitvector = 0;
-    affect_to_char( victim, &af );
+    affect_to_char(victim, &af);
 
-    send_to_char( "You are vitalized with a healing presence.\n\r", victim );
+    send_to_char("You are vitalized with a healing presence.\n\r", victim);
 
     if ( ch != victim )
     {
-        act("$N is vitalized with a healing presence.",ch,NULL,victim,TO_CHAR);
+        act("$N is vitalized with a healing presence.", ch, NULL, victim, TO_CHAR);
     }
 
     return;
@@ -187,11 +187,11 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
         if (victim == ch)
         {
             // Remove the affect so it can be re-added to yourself
-            affect_strip (victim, sn);
+            affect_strip(victim, sn);
         }
         else
         {
-            act("$N is already affected by the increased vitality.",ch,NULL,victim,TO_CHAR);
+            act("$N is already affected by the increased vitality.", ch, NULL, victim, TO_CHAR);
             return;
         }
     }
@@ -208,11 +208,11 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
     af.location = APPLY_MOVE;
     affect_to_char (victim, &af);
 
-    send_to_char( "You feel an increased vitality.\n\r", victim );
+    send_to_char("You feel an increased vitality.\n\r", victim);
 
     if ( ch != victim )
     {
-        act("$N has been vitalized.",ch,NULL,victim,TO_CHAR);
+        act("$N has been vitalized.", ch, NULL, victim, TO_CHAR);
     }
 
     return;
@@ -243,9 +243,9 @@ void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int tar
     af.bitvector = 0;
     affect_to_char( victim, &af );
 
-    send_to_char( "You feel an enhanced resistance to magic.\n\r", victim );
+    send_to_char("You feel an enhanced resistance to magic.\n\r", victim);
 
-    if ( ch != victim )
+    if (ch != victim)
     {
         act("$N has an enhanced resistance to magic.",ch,NULL,victim,TO_CHAR);
     }
@@ -302,7 +302,7 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
 
-    if (!is_affected (victim, gsn_weaken))
+    if (!is_affected(victim, gsn_weaken))
     {
         if (victim == ch)
         {
@@ -315,15 +315,37 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    if (check_dispel (level, victim, gsn_weaken))
+    if (check_dispel(level, victim, gsn_weaken))
     {
-        send_to_char ("Your no longer feel weak!\n\r", victim);
-        act ("$n is no longer weakened.", victim, NULL, NULL, TO_ROOM);
+        send_to_char("Your no longer feel weak!\n\r", victim);
+        act("$n is no longer weakened.", victim, NULL, NULL, TO_ROOM);
     }
     else
     {
-        send_to_char ("Spell failed.\n\r", ch);
+        send_to_char("Spell failed.\n\r", ch);
     }
 
 } // end spell_cure_weaken
 
+/*
+ * Restore mental presence will allow the caster to remove any stun affect on a
+ * character (from bash, etc.).  It will not be much use on themselves since they
+ * have to be ablet to cast it and stun may stop that.
+ */
+void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (IS_NPC(victim))
+    {
+        send_to_char("You cannot cast this spell on them.\n\r", ch);
+        return;
+    }
+
+    // This is all the code needed, it will remove the stun state from the player.
+    victim->daze = 0;
+
+    send_to_char("Your mental presence has been restored.\n\r", victim);
+    act ("$n's mental presence has been restored.", victim, NULL, NULL, TO_ROOM);
+
+} // end spell_restore_mental_presence

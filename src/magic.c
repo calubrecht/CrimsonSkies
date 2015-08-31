@@ -5073,6 +5073,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_ray_of_truth" )) return spell_ray_of_truth;
             if ( !str_cmp( name, "spell_recharge" )) return spell_recharge;
             if ( !str_cmp( name, "spell_remove_curse" )) return spell_remove_curse;
+            if ( !str_cmp( name, "spell_restore_mental_presence" )) return spell_restore_mental_presence;
             break;
         case 's':
             if ( !str_cmp( name, "spell_sanctuary" )) return spell_sanctuary;
@@ -5229,6 +5230,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_magic_resistance) return "spell_magic_resistance";
     if (spell == spell_mana_transfer) return "spell_mana_transfer";
     if (spell == spell_cure_weaken) return "spell_cure_weaken";
+    if (spell == spell_restore_mental_presence) return "spell_restore_mental_presence";
 
     return "reserved";
 
