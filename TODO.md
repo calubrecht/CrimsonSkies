@@ -11,14 +11,12 @@ This is my to do list, mostly will be things big and small as I think about them
     for it to run)
   - Add Charisma stat (CHA)
   - Fighting Style (Offensive/Normal/Defensive)
-  - Better format sockets command.
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
   - Statistics.
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add ranged spells (fireball)
-  - Pit saving
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Cleanup display of wiznet on/off options
@@ -28,10 +26,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
   - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
-  - Add tester flag to set a mortal as a tester. (have show damage and save throws in battle, etc).
-  - Have tester and immortals have no lag on using the save command.
-  - Implement dynamic classes that aren't hard coded in the tables with skills listed that they have.
-  - Helper methods to do common tasks, remove all items from a player, remove all affects from a player, remove all pets from a player, etc.
+  - Helper methods to do common tasks, remove all items from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
   - Test reclassing
   - group obj/separate_obj from smaug for more efficient object storing.
@@ -56,7 +51,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
   - Ocean, thread them together, create coastlines for intial continents.
-  - Add swim skill, lose less movement in ocean/underwater
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
@@ -65,7 +59,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
   - Retrain command to restart as a base class
-  - Creating casting level function and create casting level logic.
   - Set autogold by default on creation
   - Add spellcraft spell, will show players the spell being cast and also add a bonus casting level.
   - Allow any player to change their recall to any number of custom bind stones for recall.
@@ -74,9 +67,13 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add game stats that are persisted.  
   - Load game stats, game data into SQLite database (may use C# or VB for this to make it quick)
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
-  - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement to move so a character can get to their corpse easier.
+  - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement
+    to move so a character can get to their corpse easier.
   - Make the guild command a one stop command for all guild actions (putting people in clans, listing
     clans, listing clan recruiters, etc.).
   - Healer spell, see affliction
   - Alchemist Class, mage and/or cleric reclass.
   - Spell that allows a mage reclass to lower someone's casting level.
+  - Fix creation bug where a partial lookup can cause a group in another group not to be loaded 
+    depending on the order they're loaded in (consider making an exact match lookup and making 
+    users type in the whole skill/group they want in creation.
