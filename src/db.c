@@ -4520,7 +4520,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_water_breathing, "water breathing");
     ASSIGN_GSN(gsn_spellcraft, "spellcraft");
     ASSIGN_GSN(gsn_swim, "swim");
-    ASSIGN_GSN(gsn_healing_presence, "healing presence");
+    ASSIGN_GSN(gsn_vitalizing_presence, "vitalizing presence");
     ASSIGN_GSN(gsn_sense_affliction, "sense affliction");
     ASSIGN_GSN(gsn_slow, "slow");
 

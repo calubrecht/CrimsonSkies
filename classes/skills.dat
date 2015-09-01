@@ -1563,8 +1563,8 @@ Beats       12
 End
 
 #SKILL
-Name        healing presence~
-SpellFun    spell_healing_presence~
+Name        vitalizing presence~
+SpellFun    spell_vitalizing_presence~
 Target      2
 MinPos      8
 MinMana     25

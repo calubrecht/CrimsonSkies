@@ -1303,7 +1303,7 @@ void half_tick_update()
 
         // Healing presence will heal the 10 hp every 20 seconds.  This is an actual
         // heal (100hp) spread out over 5 full ticks.
-        if (is_affected (ch, gsn_healing_presence))
+        if (is_affected (ch, gsn_vitalizing_presence))
         {
             ch->hit = UMIN (ch->hit + 10, ch->max_hit);
             update_pos(ch);

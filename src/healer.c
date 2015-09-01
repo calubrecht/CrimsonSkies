@@ -125,7 +125,7 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
  * can only be cast once and is spread out.  Players will get 10hp every half tick if
  * they are below their max health.
  */
-void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
@@ -139,7 +139,7 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
         }
         else
         {
-            act("$N is already affected by the healing presence.", ch, NULL, victim, TO_CHAR);
+            act("$N is already affected by the vitalizing presence.", ch, NULL, victim, TO_CHAR);
             return;
         }
     }
@@ -158,7 +158,7 @@ void spell_healing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 
     return;
 
-} // end spell_delayed_heal
+} // end spell_vitalizing_presence
 
 /*
  * Allows a healer to boost the life force of a recipient (e.g. increase their
