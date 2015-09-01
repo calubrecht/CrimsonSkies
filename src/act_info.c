@@ -498,9 +498,8 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
     buf[0] = UPPER (buf[0]);
     send_to_char (buf, ch);
 
-    // marker - sense affliction
     // Healers sense affliction
-    /*if (is_affected(ch, gsn_sense_affliction))
+    if (is_affected(ch, gsn_sense_affliction))
     {
         if (is_affected(victim, gsn_blindness) ||
             is_affected(victim, gsn_plague) ||
@@ -510,9 +509,38 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_sleep) ||
             is_affected(victim, gsn_weaken))
         {
-            strcat(buf, "({RAfflicted{x) ");
+            // The victim will be affected by one of these so we know we can
+            // safely lop off the last two characters.
+            sprintf(buf, "\n\r%s appears to be afflicted by ", PERS(victim, ch));
+
+            if (is_affected(victim, gsn_blindness))
+                strcat(buf, "blindness, ");
+            if (is_affected(victim, gsn_plague))
+                strcat(buf, "plague, ");
+            if (is_affected(victim, gsn_curse))
+                strcat(buf, "curse, ");
+            if (is_affected(victim, gsn_poison))
+                strcat(buf, "poison, ");
+            if (is_affected(victim, gsn_slow))
+                strcat(buf, "slow, ");
+            if (is_affected(victim, gsn_sleep))
+                strcat(buf, "sleep, ");
+            if (is_affected(victim, gsn_weaken))
+                strcat(buf, "weaken, ");
+
+            // It should always be greater than 2 if it gets here, but I'm paranoid, if someone
+            // where to add a check in the first if but not add the strcat of the affliction it could
+            // access another memory location if the length was 0 - 2. :p
+            int len = strlen(buf);
+
+            if (len > 2)
+            {
+                buf[len - 2] = '\0';
+                send_to_char(buf, ch);
+                send_to_char("\n\r", ch);
+            }
         }
-    } */
+    }
 
     found = FALSE;
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
