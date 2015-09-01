@@ -77,3 +77,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fix creation bug where a partial lookup can cause a group in another group not to be loaded 
     depending on the order they're loaded in (consider making an exact match lookup and making 
     users type in the whole skill/group they want in creation.
+  - Don't show hunger and thirst messages while reclassing.
