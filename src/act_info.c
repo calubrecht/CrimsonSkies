@@ -531,7 +531,7 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
             // It should always be greater than 2 if it gets here, but I'm paranoid, if someone
             // where to add a check in the first if but not add the strcat of the affliction it could
             // access another memory location if the length was 0 - 2. :p
-            int len = strlen(buf);
+            size_t len = strlen(buf);
 
             if (len > 2)
             {
