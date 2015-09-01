@@ -1707,14 +1707,22 @@ void do_score(CHAR_DATA * ch, char *argument)
     printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
         get_age(ch), capitalize(class_table[ch->class]->name), ctime(&(ch->logon)));
 
-    printf_to_char(ch, "{gSTR  : {w%2.2d{g({W%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
-        ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR), GET_HITROLL(ch), ctime(&current_time));
+    printf_to_char(ch, "{gSTR  : {w%2.2d{g(%s%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
+        ch->perm_stat[STAT_STR],
+        get_curr_stat(ch,STAT_STR) < ch->perm_stat[STAT_STR] ? "{R" : get_curr_stat(ch,STAT_STR) > ch->perm_stat[STAT_STR] ? "{G" : "{W",
+        get_curr_stat(ch, STAT_STR),
+        GET_HITROLL(ch), ctime(&current_time));
 
-    printf_to_char(ch, "{gINT  : {w%2.2d{g({W%2.2d{g)    DamRoll: {w%-4d\n\r",
-        ch->perm_stat[STAT_INT], get_curr_stat(ch, STAT_INT), GET_DAMROLL(ch));
+    printf_to_char(ch, "{gINT  : {w%2.2d{g(%s%2.2d{g)    DamRoll: {w%-4d\n\r",
+        ch->perm_stat[STAT_INT],
+        get_curr_stat(ch,STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch,STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
+        get_curr_stat(ch, STAT_INT),
+        GET_DAMROLL(ch));
 
-    printf_to_char(ch, "{gWIS  : {w%2.2d{g({W%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\n\r",
-        ch->perm_stat[STAT_WIS], get_curr_stat(ch, STAT_WIS),
+    printf_to_char(ch, "{gWIS  : {w%2.2d{g(%s%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\n\r",
+        ch->perm_stat[STAT_WIS],
+        get_curr_stat(ch,STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch,STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
+        get_curr_stat(ch, STAT_WIS),
         GET_AC (ch, AC_PIERCE), GET_AC (ch, AC_BASH), GET_AC (ch, AC_SLASH), GET_AC (ch, AC_EXOTIC));
 
     // Get alignment
@@ -1728,13 +1736,20 @@ void do_score(CHAR_DATA * ch, char *argument)
         sprintf (buf, "Neutral");
     }
 
-    printf_to_char(ch, "{gDEX  : {w%2.2d{g({W%2.2d{g)      Align: {w%-7.7s{x           {gItems:  {w%d of %d{x\r\n",
-        ch->perm_stat[STAT_DEX], get_curr_stat(ch, STAT_DEX), buf, ch->carry_number, can_carry_n(ch));
+    printf_to_char(ch, "{gDEX  : {w%2.2d{g(%s%2.2d{g)      Align: {w%-7.7s{x           {gItems:  {w%d of %d{x\r\n",
+        ch->perm_stat[STAT_DEX],
+        get_curr_stat(ch,STAT_DEX) < ch->perm_stat[STAT_DEX] ? "{R" : get_curr_stat(ch,STAT_DEX) > ch->perm_stat[STAT_DEX] ? "{G" : "{W",
+        get_curr_stat(ch, STAT_DEX),
+        buf, ch->carry_number,
+        can_carry_n(ch));
 
-    printf_to_char(ch, "{gCON  : {w%2.2d{g({W%2.2d{g)        Sex: {w%-10.10s{x        {gWeight: {w%d of %d{x\r\n",
-        ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON),
+    printf_to_char(ch, "{gCON  : {w%2.2d{g(%s%2.2d{g)        Sex: {w%-10.10s{x        {gWeight: {w%d of %d{x\r\n",
+        ch->perm_stat[STAT_CON],
+        get_curr_stat(ch,STAT_CON) < ch->perm_stat[STAT_CON] ? "{R" : get_curr_stat(ch,STAT_CON) > ch->perm_stat[STAT_CON] ? "{G" : "{W",
+        get_curr_stat(ch, STAT_CON),
         ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female",
-        ch->carry_weight, can_carry_w(ch));
+        ch->carry_weight,
+        can_carry_w(ch));
 
 
     printf_to_char(ch, "                   {gWimpy: {w%-5d{x\n\r", ch->wimpy);
