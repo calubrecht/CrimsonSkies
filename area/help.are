@@ -2952,11 +2952,10 @@ return your character to 'safe' status if you change your mind after the
 first delete.
 ~
  
-0 HEALER~
-The healer decided to grab a quick buck, and now charges for his heals.  Some
-services are still free to players of level 10 or below, however.  To see
-a full listing of the healer's services, type 'heal' at his residence. To
-receive healing, bring plenty of money, and type 'heal <spell>'.
+0 TEMPLE HEALER~
+The healer at the temple will provide spells for a donation of gold.  To
+see a full listing of the healer's services type 'heal' in his presence.
+To receive healing, bring plenty of money and type 'heal <spell>'.
 ~ 
 
 
