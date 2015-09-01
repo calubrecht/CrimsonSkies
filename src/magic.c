@@ -4086,18 +4086,40 @@ void spell_recharge (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 }
 
+/*
+ * Refresh spells, replenishes movement.  Healer's get a 10 movemement bonus
+ * which was tacted onto the level since it's not used for anything else in this
+ * spell.
+ */
 void spell_refresh (int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    // Healer bonus
+    if (ch->class == HEALER_CLASS_LOOKUP)
+    {
+        level += 10;
+    }
+
     victim->move = UMIN (victim->move + level, victim->max_move);
+
     if (victim->max_move == victim->move)
+    {
         send_to_char ("You feel fully refreshed!\n\r", victim);
+    }
     else
+    {
         send_to_char ("You feel less tired.\n\r", victim);
+    }
+
     if (ch != victim)
+    {
         send_to_char ("Ok.\n\r", ch);
+    }
+
     return;
-}
+
+} // end spell_refresh
 
 void spell_remove_curse (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
