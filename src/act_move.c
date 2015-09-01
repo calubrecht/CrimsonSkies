@@ -1557,7 +1557,6 @@ void do_wake (CHAR_DATA * ch, char *argument)
     one_argument (argument, arg);
     if (arg[0] == '\0')
     {
-        send_to_char("?\n\r", ch);
         do_function (ch, &do_stand, "");
         return;
     }
