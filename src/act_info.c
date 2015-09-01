@@ -2038,11 +2038,11 @@ void do_affects (CHAR_DATA * ch, char *argument)
                 // This is part of a previous spell that has multiple affects
                 // so just push it over so it's clear that say bless lowers saves
                 // and adds hit.
-                sprintf (buf, "                      ");
+                sprintf (buf, "                           ");
             }
             else
             {
-                sprintf (buf, "Spell: %-15s", skill_table[paf->type]->name);
+                sprintf (buf, "Spell: %-20s", skill_table[paf->type]->name);
             }
 
             send_to_char (buf, ch);
