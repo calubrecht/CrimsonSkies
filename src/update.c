@@ -98,6 +98,16 @@ void advance_level (CHAR_DATA * ch, bool hide)
     add_mana = UMAX (2, add_mana);
     add_move = UMAX (6, add_move);
 
+    // Bonuses by class
+    switch (ch->class)
+    {
+        case HEALER_CLASS_LOOKUP:
+        case ENCHANTOR_CLASS_LOOKUP:
+            // These classes are heavy on the mana usage, they'll get a slight bonus per level.
+            add_mana += 2;
+            break;
+    }
+
     add_train = 1;
 
     ch->max_hit += add_hp;
