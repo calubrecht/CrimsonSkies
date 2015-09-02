@@ -54,8 +54,10 @@ ROOM_INDEX_DATA *find_location args ((CHAR_DATA * ch, char *arg));
 CHAR_DATA       *copyover_ch;
 
 void raw_kill          args((CHAR_DATA * victim)); // for do_slay
-void save_game_objects args((void));               // for do_copyover
+void save_game_objects args((void)); // for do_copyover
 void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
+void do_mload          args((CHAR_DATA *ch, char *argument, unsigned char number)); // for do_load
+void do_oload          args(( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)); // for do_load
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -2405,122 +2407,156 @@ void do_clone (CHAR_DATA * ch, char *argument)
     }
 }
 
-/* RT to replace the two load commands */
-
-void do_load (CHAR_DATA * ch, char *argument)
+/*
+ * Allows an immortal to load one or more objects or mobs.
+ */
+void do_load(CHAR_DATA *ch, char *argument )
 {
     char arg[MAX_INPUT_LENGTH];
-
-    argument = one_argument (argument, arg);
+    char arg2[MAX_INPUT_LENGTH];
+    unsigned char number;
+    argument = one_argument(argument,arg);
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Syntax:\n\r", ch);
-        send_to_char ("  load mob <vnum>\n\r", ch);
-        send_to_char ("  load obj <vnum> <level>\n\r", ch);
+        send_to_char("Syntax:\n\r",ch);
+        send_to_char("  load mob <vnum>\n\r",ch);
+        send_to_char("  load obj <vnum>\n\r",ch);
+        send_to_char("  load mob <quantity>*<vnum>\n\r", ch);
+        send_to_char("  load obj <quantity>*<vnum>\n\r", ch);
         return;
     }
 
-    if (!str_cmp (arg, "mob") || !str_cmp (arg, "char"))
+    number = mult_argument(argument, arg2);
+
+    if (number > 200)
     {
-        do_function (ch, &do_mload, argument);
+        send_to_char("That's a bit excessive isn't it?\n\r", ch);
         return;
     }
 
-    if (!str_cmp (arg, "obj"))
+    if (number < 1)
     {
-        do_function (ch, &do_oload, argument);
-        return;
+        number = 1;
     }
-    /* echo syntax */
-    do_function (ch, &do_load, "");
-}
+    if (!str_prefix(arg, "mob") || !str_cmp(arg, "char"))
+    {
+        do_mload(ch, arg2, number);
+    }
+    else if (!str_prefix(arg, "obj"))
+    {
+        do_oload(ch, arg2, number, TRUE);
+    }
+    else
+    {
+        /* echo syntax */
+        do_load(ch, "");
+    }
 
+} // end do_load
 
-void do_mload (CHAR_DATA * ch, char *argument)
+/*
+ * Loads a mob (mobile).  This is called from the do_load command.
+ */
+void do_mload(CHAR_DATA *ch, char *argument, unsigned char number)
 {
     char arg[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
     MOB_INDEX_DATA *pMobIndex;
     CHAR_DATA *victim;
-    char buf[MAX_STRING_LENGTH];
+    unsigned char n;
 
-    one_argument (argument, arg);
+    one_argument( argument, arg );
 
-    if (arg[0] == '\0' || !is_number (arg))
+    if ( arg[0] == '\0' || !is_number(arg) || number < 1)
     {
-        send_to_char ("Syntax: load mob <vnum>.\n\r", ch);
+        do_load(ch, "");
         return;
     }
 
-    if ((pMobIndex = get_mob_index (atoi (arg))) == NULL)
+    if ((pMobIndex = get_mob_index(atoi(arg))) == NULL)
     {
-        send_to_char ("No mob has that vnum.\n\r", ch);
+        send_to_char( "No mob has that vnum.\n\r", ch );
         return;
     }
 
-    victim = create_mobile (pMobIndex);
-    char_to_room (victim, ch->in_room);
-    act ("$n has created $N!", ch, NULL, victim, TO_ROOM);
-    act ("You have created $N.", ch, NULL, victim, TO_CHAR);
-    sprintf (buf, "$N loads %s.", victim->short_descr);
-    wiznet (buf, ch, NULL, WIZ_LOAD, WIZ_SECURE, get_trust (ch));
+    n = 0;
+
+    do
+    {
+        n++;
+        victim = create_mobile( pMobIndex );
+        char_to_room( victim, ch->in_room );
+    } while (n < number);
+
+    sprintf(buf, "$n has created [{R%d{x] $N!", number);
+    act(buf, ch, NULL, victim, TO_ROOM );
+    sprintf(buf, "$N loads [{R%d{x] %s.", number, victim->short_descr);
+    wiznet(buf, ch, NULL, WIZ_LOAD, WIZ_SECURE, get_trust(ch));
+    sprintf(buf, "You load [{R%d{x] $N.", number);
+    act(buf, ch, NULL, victim, TO_CHAR);
     return;
-}
 
+} // end do_mload
 
-
-void do_oload (CHAR_DATA * ch, char *argument)
+/*
+ * Loads an object.  This is called by the do_load command.
+ */
+void do_oload( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)
 {
-    char arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
+    char arg1[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
     OBJ_INDEX_DATA *pObjIndex;
     OBJ_DATA *obj;
-    int level;
+    unsigned char n;
 
-    argument = one_argument (argument, arg1);
-    one_argument (argument, arg2);
+    argument = one_argument( argument, arg1 );
 
-    if (arg1[0] == '\0' || !is_number (arg1))
+    if (arg1[0] == '\0' || number < 1 || !is_number(arg1))
     {
-        send_to_char ("Syntax: load obj <vnum> <level>.\n\r", ch);
+        do_load(ch, "");
         return;
     }
 
-    level = get_trust (ch);        /* default */
-
-    if (arg2[0] != '\0')
-    {                            /* load with a level */
-        if (!is_number (arg2))
-        {
-            send_to_char ("Syntax: oload <vnum> <level>.\n\r", ch);
-            return;
-        }
-        level = atoi (arg2);
-        if (level < 0 || level > get_trust (ch))
-        {
-            send_to_char ("Level must be be between 0 and your level.\n\r",
-                          ch);
-            return;
-        }
-    }
-
-    if ((pObjIndex = get_obj_index (atoi (arg1))) == NULL)
+    if ((pObjIndex = get_obj_index(atoi(arg1))) == NULL)
     {
-        send_to_char ("No object has that vnum.\n\r", ch);
+        if (fLog)
+        {
+            send_to_char( "No object has that vnum.\n\r", ch );
+        }
+
         return;
     }
 
-    obj = create_object (pObjIndex, level);
-    if (CAN_WEAR (obj, ITEM_TAKE))
-        obj_to_char (obj, ch);
-    else
-        obj_to_room (obj, ch->in_room);
-    act ("$n has created $p!", ch, obj, NULL, TO_ROOM);
-    act ("You have created $p.", ch, obj, NULL, TO_CHAR);
-    wiznet ("$N loads $p.", ch, obj, WIZ_LOAD, WIZ_SECURE, get_trust (ch));
-    return;
-}
+    n = 0;
 
+    do
+    {
+        n++;
+        obj = create_object(pObjIndex, 0);
 
+        if (CAN_WEAR(obj, ITEM_TAKE))
+        {
+            obj_to_char( obj, ch );
+        }
+        else
+        {
+            obj_to_room(obj, ch->in_room);
+        }
+    } while (n < number);
+
+    if(fLog)
+    {
+        sprintf(buf, "$n has created [{R%d{x] $p!", number);
+        act( buf, ch, obj, NULL, TO_ROOM );
+        sprintf(buf, "$N loads [{R%d{x] $p.", number);
+        wiznet(buf,ch,obj,WIZ_LOAD,WIZ_SECURE,get_trust(ch));
+        sprintf(buf, "You load [{R%d{x] $p.", number);
+        act(buf, ch, obj, NULL, TO_CHAR);
+    }
+
+   return;
+} // end do_oload
 
 void do_purge (CHAR_DATA * ch, char *argument)
 {
