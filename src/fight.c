@@ -827,6 +827,16 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
 
     }
 
+    // Lightning/shockers cause lots of damage in the water
+    // or under water.
+    if( dam_type == DAM_LIGHTNING &&
+        victim->in_room != NULL &&
+        (victim->in_room->sector_type == SECT_UNDERWATER ||
+         victim->in_room->sector_type == SECT_OCEAN))
+    {
+        dam *= 2;
+    }
+
     switch (check_immune (victim, dam_type))
     {
         case (IS_IMMUNE):
