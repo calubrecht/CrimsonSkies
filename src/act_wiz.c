@@ -56,8 +56,8 @@ CHAR_DATA       *copyover_ch;
 void raw_kill          args((CHAR_DATA * victim)); // for do_slay
 void save_game_objects args((void)); // for do_copyover
 void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
-void do_mload          args((CHAR_DATA *ch, char *argument, unsigned char number)); // for do_load
-void do_oload          args(( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)); // for do_load
+void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
+void do_oload          args(( CHAR_DATA *ch, char *argument, int number)); // for do_load
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -2410,11 +2410,11 @@ void do_clone (CHAR_DATA * ch, char *argument)
 /*
  * Allows an immortal to load one or more objects or mobs.
  */
-void do_load(CHAR_DATA *ch, char *argument )
+void do_load(CHAR_DATA *ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
-    unsigned char number;
+    int number = 0;
     argument = one_argument(argument,arg);
 
     if (arg[0] == '\0')
@@ -2423,7 +2423,8 @@ void do_load(CHAR_DATA *ch, char *argument )
         send_to_char("  load mob <vnum>\n\r",ch);
         send_to_char("  load obj <vnum>\n\r",ch);
         send_to_char("  load mob <quantity>*<vnum>\n\r", ch);
-        send_to_char("  load obj <quantity>*<vnum>\n\r", ch);
+        send_to_char("  load obj <quantity>*<vnum>\n\r\n\r", ch);
+        send_to_char("  * Max quantity allowed is 200 at a time.\n\r", ch);
         return;
     }
 
@@ -2445,11 +2446,11 @@ void do_load(CHAR_DATA *ch, char *argument )
     }
     else if (!str_prefix(arg, "obj"))
     {
-        do_oload(ch, arg2, number, TRUE);
+        do_oload(ch, arg2, number);
     }
     else
     {
-        /* echo syntax */
+        // echo syntax
         do_load(ch, "");
     }
 
@@ -2458,13 +2459,13 @@ void do_load(CHAR_DATA *ch, char *argument )
 /*
  * Loads a mob (mobile).  This is called from the do_load command.
  */
-void do_mload(CHAR_DATA *ch, char *argument, unsigned char number)
+void do_mload(CHAR_DATA *ch, char *argument, int number)
 {
     char arg[MAX_INPUT_LENGTH];
     char buf[MAX_STRING_LENGTH];
     MOB_INDEX_DATA *pMobIndex;
     CHAR_DATA *victim;
-    unsigned char n;
+    int n = 0;
 
     one_argument( argument, arg );
 
@@ -2502,13 +2503,13 @@ void do_mload(CHAR_DATA *ch, char *argument, unsigned char number)
 /*
  * Loads an object.  This is called by the do_load command.
  */
-void do_oload( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)
+void do_oload( CHAR_DATA *ch, char *argument, int number)
 {
     char arg1[MAX_INPUT_LENGTH];
     char buf[MAX_STRING_LENGTH];
     OBJ_INDEX_DATA *pObjIndex;
     OBJ_DATA *obj;
-    unsigned char n;
+    int n = 0;
 
     argument = one_argument( argument, arg1 );
 
@@ -2520,11 +2521,7 @@ void do_oload( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)
 
     if ((pObjIndex = get_obj_index(atoi(arg1))) == NULL)
     {
-        if (fLog)
-        {
-            send_to_char( "No object has that vnum.\n\r", ch );
-        }
-
+        send_to_char( "No object has that vnum.\n\r", ch );
         return;
     }
 
@@ -2545,15 +2542,12 @@ void do_oload( CHAR_DATA *ch, char *argument, unsigned char number, bool fLog)
         }
     } while (n < number);
 
-    if(fLog)
-    {
-        sprintf(buf, "$n has created [{R%d{x] $p!", number);
-        act( buf, ch, obj, NULL, TO_ROOM );
-        sprintf(buf, "$N loads [{R%d{x] $p.", number);
-        wiznet(buf,ch,obj,WIZ_LOAD,WIZ_SECURE,get_trust(ch));
-        sprintf(buf, "You load [{R%d{x] $p.", number);
-        act(buf, ch, obj, NULL, TO_CHAR);
-    }
+    sprintf(buf, "$n has created [{R%d{x] $p!", number);
+    act( buf, ch, obj, NULL, TO_ROOM );
+    sprintf(buf, "$N loads [{R%d{x] $p.", number);
+    wiznet(buf,ch,obj,WIZ_LOAD,WIZ_SECURE,get_trust(ch));
+    sprintf(buf, "You load [{R%d{x] $p.", number);
+    act(buf, ch, obj, NULL, TO_CHAR);
 
    return;
 } // end do_oload
