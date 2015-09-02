@@ -3251,6 +3251,83 @@ Current classes available for reclass:
    * Healer (Cleric)
 ~
 
+0 WAVES OF WEARINESS~
+A spell where enchantors charm an individual to sleep causing them
+to release any weapons they maybe wearing.
+~
+0 HEALER~
+
+Healers are masters of healing ailments, health and other aspects
+of individuals.  Many of their spells and skills focus on supporting
+other individuals.
+
+Who can be a healer?
+
+CLASS:      Clerics only
+RACE:       All
+ALIGNMENT:  Any
+CLAN:       Any
+~
+
+0 SACRIFICIAL HEAL~
+Sacrificial heal allows the healer to fully heal an individual although
+at great cost to their own health.
+~
+
+0 MASS REFRESH~
+Refreshes the movement of all individuals in the room unless they are
+hidden.
+~
+
+
+
+0 VITALIZING PRESENCE~
+A healing spell that will heal small bits of health to the affected
+over an extended period of time.
+~
+
+0 LIFE BOOST~
+A healing spell that allows a healer to increase the health (HP) of
+an individual for a period of time.
+~
+
+
+
+0 MAGIC RESISTANCE~
+Magic resistance allows a healer to boost an individuals resistance
+to offensive magic spells.
+~
+
+
+0 MANA TRANSFER~
+Mana transfer is a spell that allows healers to transfer some of
+their magically energy to another individual.  It can considered
+the mana equivalent of a heal.
+~
+
+0 CURE WEAKEN~
+The cure weaken spell will allow a healer to cure a weaken spell
+with great precision.
+~
+
+0 CURE SLOW~
+The cure weaken spell will allow a healer to cure a weaken spell
+with great precision.
+~
+
+0 RESTORE MENTAL PRESENCE~
+The restore mental presence spell will allow a healer to remove
+any stun affect they have on themselves.
+~
+
+0 SENSE AFFLICTION~
+The sense affliction spell will allow healers to see any
+individuals in a room that are affected by a spell that
+they can heal.  If the healer examines the individual they
+will specifically see what is afflicting the person.
+~
+
 0 $~
 
 #$
+
