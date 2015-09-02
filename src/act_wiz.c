@@ -55,6 +55,7 @@ CHAR_DATA       *copyover_ch;
 
 void raw_kill          args((CHAR_DATA * victim)); // for do_slay
 void save_game_objects args((void));               // for do_copyover
+void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -5654,7 +5655,9 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
 
 /*
  * An immortal command (initial as an implementor command) that will grant an
- * immortal blessing onto a player (or all players).  This will
+ * immortal blessing onto a player (or all players).  This should be used as
+ * a thank you to active players.  It's not necessarily over powered although
+ * it's doing a lot.  It also cannot be cancelled or dispelled.
  */
 void do_wizbless(CHAR_DATA * ch, char *argument)
 {
@@ -5662,7 +5665,22 @@ void do_wizbless(CHAR_DATA * ch, char *argument)
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Syntax: wizbless <character>\n\r", ch);
+        send_to_char ("Syntax: wizbless <character|all>\n\r", ch);
+        return;
+    }
+
+    if (!str_cmp (argument, "all"))
+    {
+        for (victim = char_list; victim != NULL; victim = victim->next)
+        {
+            if (!IS_NPC(victim))
+            {
+                wizbless(victim);
+                act("$n has granted you an immortal blessing.", ch, NULL, victim, TO_VICT);
+            }
+        }
+
+        send_to_char("All players have been granted an immortal blessing.\n\r", ch);
         return;
     }
 
@@ -5678,6 +5696,18 @@ void do_wizbless(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    wizbless(victim);
+    send_to_char("They have been granted an immortal blessing.\n\r", ch);
+    act("$n has granted you an immortal blessing.", ch, NULL, victim, TO_VICT);
+
+} // end do_bless
+
+/*
+ * The adding for wizbless has been moved into this function so it can be called
+ * from the loop for all in the do function above.
+ */
+void wizbless(CHAR_DATA * victim)
+{
     if (is_affected(victim, gsn_immortal_blessing))
     {
         affect_strip(victim, gsn_immortal_blessing);
@@ -5687,7 +5717,7 @@ void do_wizbless(CHAR_DATA * ch, char *argument)
 
     af.where = TO_AFFECTS;
     af.type = gsn_immortal_blessing;
-    af.level = ch->level;
+    af.level = ML;
     af.duration = 120;
     af.location = APPLY_HITROLL;
     af.modifier = 4;
@@ -5731,10 +5761,7 @@ void do_wizbless(CHAR_DATA * ch, char *argument)
     af.bitvector = 0;
     affect_to_char (victim, &af);
 
-    send_to_char("They have been granted an immortal blessing.\n\r", ch);
-    act("$n has granted you an immortal blessing.", ch, NULL, victim, TO_VICT);
-
-} // end do_bless
+} // end void wizbless
 
 /*
  * Debug function to quickly test code without having to wire something up.
