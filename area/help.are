@@ -1045,17 +1045,29 @@ into an orc).
 ~
 
 56 LOAD~
-Syntax: load mob <vnum>
-	load obj <vnum> <level>
+Syntax:
+  load mob <vnum>
+  load mob <quantity>*<vnum>
+  load obj <vnum>
+  load obj <quantity>*<vnum>
+
+  * Max quantity allowed is 200 at a time.
+
+Example:
+  load obj 5*9400
 
 The load command is used to load new objects or mobiles (use clone to 
 duplicate strung items and mobs).  The vnums can be found with the vnum
 command, or by stat'ing an existing mob or object.
 
 Load puts objects in inventory if they can be carried, otherwise they are
-put in the room.  Mobiles are always put into the same room as the god. Old
-format objects must be given a level argument to determine their power, new
-format objects have a preset level that cannot be changed without set.
+put in the room.  Mobiles are always put into the same room as the immortal. 
+Old format objects must be given a level argument to determine their power, 
+new format objects have a preset level that cannot be changed without set.
+
+You can load multiple (up to 200) of items or objects by providing a 
+quantity and a * before the vnum (e.g. load mob 2*9400).
+
 (see also clone, vnum, stat)
 ~
 
