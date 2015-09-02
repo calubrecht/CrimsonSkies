@@ -1,4 +1,42 @@
 #HELPS
+-1 MOTD~
+* {RCrimson {rSkies{x is open source.  Every line of code here can currently
+  be seen and a project overview reviewed at:
+
+  - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
+
+* I will be attempting to implement object consolidation from the Smaug
+  code base, I may very make things unstable temporarly.  I have backed
+  up pfiles in case I temporarly corrupt them which will be highly possible.
+* Reclass system is in, there are two reclasses currently which are
+  enchantors for mages and healers for clerics.  2 more reclasses
+  and the oceans are all that stand between us and version 1.
+* Any 'rules' are on hold until the game is out of it's beta testing
+  phase.  Feel free to do what you please, just respect others.
+* Important commands: help, commands, notes, score, look, who, scan
+
+{R[{WHit Return to continue{R]{x
+~
+
+52 IMOTD~
+Welcome Immortal!
+
+* Do not link to or reset mobs or objects in other areas.  When it's time to
+  link you area into the game I will handle it.
+* Do not create over powered areas, mobs, objects, etc.  We are here to
+  create balanced content.
+* Have fun with this.  Like those before you, you are leaving a legacy.
+
+{R[{WHit Return to continue{R]{x
+~
+
+-1 PKILL PKILLING PKILLER 'PLAYER KILLING' PSTEAL PSTEALING 'PLAYER STEALING'~
+Player killing and player stealing are allowed to all clan members
+(including loners), provided the victim is is within 8 levels of the
+character and is also in a clan.  This will flag you as a "killer" or
+"thief", allowing any character to attack, and also provoking action
+from the city guard.
+~
 
 0 COLOR COLOUR ANSI~
 Syntax: color 
@@ -2838,45 +2876,6 @@ Thanks to Ezra for drawing the originals of several maps on ROM.
 
 By what name do you wish to be known? ~
  
--1 MOTD~
-* {RCrimson {rSkies{x is open source.  Every line of code here can currently 
-  be seen and a project overview reviewed at:
-  
-  - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
-
-* I will be attempting to implement object consolidation from the Smaug
-  code base, I may very make things unstable temporarly.  I have backed
-  up pfiles in case I temporarly corrupt them which will be highly possible.
-* Reclass system is in, there are two reclasses currently which are
-  enchantors for mages and healers for clerics.  2 more reclasses
-  and the oceans are all that stand between us and version 1.
-* Any 'rules' are on hold until the game is out of it's beta testing
-  phase.  Feel free to do what you please, just respect others.
-* Important commands: help, commands, notes, score, look, who, scan
-  
-{R[{WHit Return to continue{R]{x
-~ 
- 
-52 IMOTD~
-Welcome Immortal!
-
-1.) Do not link to or reset mobs or objects in other areas.  When it's time to
-link you area into the game I will handle it.
-2.) Do not create over powered areas, mobs, objects, etc.  We are here to
-create balanced content.
-3.) Have fun with this.  Like those before you, you are leaving a legacy.
-
-{R[{WHit Return to continue{R]{x
-~
-
--1 PKILL PKILLING PKILLER 'PLAYER KILLING' PSTEAL PSTEALING 'PLAYER STEALING'~
-Player killing and player stealing are allowed to all clan members 
-(including loners), provided the victim is is within 8 levels of the
-character and is also in a clan.  This will flag you as a "killer" or
-"thief", allowing any character to attack, and also provoking action
-from the city guard.
-~
-
 52 COMMANDMENTS LAWS 'GOD RULES' GODS~
 .
                      *************************
