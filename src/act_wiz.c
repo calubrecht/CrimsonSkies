@@ -57,7 +57,7 @@ void raw_kill          args((CHAR_DATA * victim)); // for do_slay
 void save_game_objects args((void)); // for do_copyover
 void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
 void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
-void do_oload          args(( CHAR_DATA *ch, char *argument, int number)); // for do_load
+void do_oload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
@@ -2421,8 +2421,8 @@ void do_load(CHAR_DATA *ch, char *argument)
     {
         send_to_char("Syntax:\n\r",ch);
         send_to_char("  load mob <vnum>\n\r",ch);
-        send_to_char("  load obj <vnum>\n\r",ch);
         send_to_char("  load mob <quantity>*<vnum>\n\r", ch);
+        send_to_char("  load obj <vnum>\n\r",ch);
         send_to_char("  load obj <quantity>*<vnum>\n\r\n\r", ch);
         send_to_char("  * Max quantity allowed is 200 at a time.\n\r", ch);
         return;
