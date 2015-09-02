@@ -3176,7 +3176,15 @@ version of the mud to be put into play while keeping all of the
 players connected.
 
 ~
+52 IMMORTAL BLESSING WIZBLESS~
+Syntax:  wizbless <character|all>
 
+Allows a high level immortal to grant a single player or all players a
+non cancellable or dispellable blessing.  This will increase various
+stats and provide a few small bonuses for 120 ticks.
+
+This should be used as a way to thank players who are logged in.
+~
 0 SPELLCRAFT~
 SPELLCRAFT
 
