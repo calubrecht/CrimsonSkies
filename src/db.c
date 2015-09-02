@@ -4523,5 +4523,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_vitalizing_presence, "vitalizing presence");
     ASSIGN_GSN(gsn_sense_affliction, "sense affliction");
     ASSIGN_GSN(gsn_slow, "slow");
+    ASSIGN_GSN(gsn_immortal_blessing, "immortal blessing");
 
 } // end assign_gsn

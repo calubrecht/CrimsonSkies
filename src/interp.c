@@ -366,6 +366,7 @@ const struct cmd_type cmd_table[] = {
     {"pathfind",        do_pathfind,    POS_DEAD, L3, LOG_ALWAYS, 1},
     {"test",            do_test,        POS_DEAD, IM, LOG_NORMAL, 1},
     {"wizcancel",       do_wizcancel,   POS_DEAD, L5, LOG_ALWAYS, 1},
+    {"wizbless",        do_wizbless,    POS_DEAD, IM, LOG_ALWAYS, 1},
 
     /*
      * OLC

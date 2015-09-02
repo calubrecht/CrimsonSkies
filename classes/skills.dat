@@ -1638,4 +1638,13 @@ MinMana     10
 Beats       12
 End
 
+#SKILL
+Name        immortal blessing~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+End
+
 #END

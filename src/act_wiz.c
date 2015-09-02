@@ -5653,6 +5653,90 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
 } // end do_wizcancel
 
 /*
+ * An immortal command (initial as an implementor command) that will grant an
+ * immortal blessing onto a player (or all players).  This will
+ */
+void do_wizbless(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (argument[0] == '\0')
+    {
+        send_to_char ("Syntax: wizbless <character>\n\r", ch);
+        return;
+    }
+
+    if ((victim = get_char_world (ch, argument)) == NULL)
+    {
+        send_to_char ("They aren't playing.\n\r", ch);
+        return;
+    }
+
+    if (IS_NPC(victim))
+    {
+        send_to_char("Not on NPC's\n\r", ch);
+        return;
+    }
+
+    if (is_affected(victim, gsn_immortal_blessing))
+    {
+        affect_strip(victim, gsn_immortal_blessing);
+    }
+
+    AFFECT_DATA af;
+
+    af.where = TO_AFFECTS;
+    af.type = gsn_immortal_blessing;
+    af.level = ch->level;
+    af.duration = 120;
+    af.location = APPLY_HITROLL;
+    af.modifier = 4;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_DAMROLL;
+    af.modifier = 4;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_SAVING_SPELL;
+    af.modifier = -5;
+    affect_to_char (victim, &af);
+
+    af.modifier = -40;
+    af.location = APPLY_AC;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_DEX;
+    af.modifier = 2;
+    af.bitvector = AFF_HASTE;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_CON;
+    af.modifier = 3;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_WIS;
+    af.modifier = 3;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_INT;
+    af.modifier = 3;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    af.location = APPLY_STR;
+    af.modifier = 3;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    send_to_char("They have been granted an immortal blessing.\n\r", ch);
+    act("$n has granted you an immortal blessing.", ch, NULL, victim, TO_VICT);
+
+} // end do_bless
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)

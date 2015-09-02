@@ -130,6 +130,7 @@ Sk 'restore mental presence' 46 1
 Sk 'sacrificial heal' 51 1
 Sk 'reserved' 52 -1
 Sk 'spellcraft' 52 -1
+Sk 'immortal blessing' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
