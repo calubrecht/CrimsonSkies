@@ -197,6 +197,8 @@ const struct cmd_type cmd_table[] = {
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, 1},
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, 1},
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, 1},
+    {"direct",          do_direct,      POS_RESTING,  0, LOG_NORMAL, 1},
+    {">",               do_direct,      POS_RESTING,  0, LOG_NORMAL, 0},
 
     /*
      * Note commands.

@@ -1937,3 +1937,54 @@ char *reclass_list()
     return buf;
 } // end char *reclass_list
 
+/*
+ * Directs a say towards a specific individual.  The room, the sayer and the
+ * directed person will all get the property direction of where the say is
+ * directed.
+ */
+void do_direct( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *victim;
+
+    argument = one_argument(argument, arg);
+
+    if ( argument[0] == '\0' || arg[0] == '\0' )
+    {
+        send_to_char( "Say what and to whom?\n\r", ch );
+        return;
+    }
+
+    if ((victim = get_char_room(ch, arg)) == NULL)
+    {
+        send_to_char("They arent here.\n\r",ch);
+        return;
+    }
+
+    sprintf(buf, "{x$n says (to {g$N{x) '{g%s{x'", argument);
+    act(buf, ch, NULL, victim, TO_NOTVICT);
+
+    sprintf(buf, "{xYou say (to {g$N{x) '{g%s{x'", argument);
+    act(buf, ch, NULL, victim, TO_CHAR);
+
+    sprintf(buf, "{x$n says (to {gYou{x) '{g%s{x'", argument);
+    act(buf, ch, NULL, victim, TO_VICT);
+
+    // This was snagged from do_say
+    if (!IS_NPC (ch))
+    {
+        CHAR_DATA *mob, *mob_next;
+        for (mob = ch->in_room->people; mob != NULL; mob = mob_next)
+        {
+            mob_next = mob->next_in_room;
+            if (IS_NPC (mob) && HAS_TRIGGER (mob, TRIG_SPEECH)
+                && mob->position == mob->pIndexData->default_pos)
+                mp_act_trigger (argument, mob, ch, NULL, NULL, TRIG_SPEECH);
+        }
+    }
+
+   return;
+
+} // end do_direct
+
