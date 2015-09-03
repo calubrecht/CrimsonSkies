@@ -765,7 +765,8 @@ void char_update (void)
                     act ("$p flickers.", ch, obj, NULL, TO_CHAR);
             }
 
-            if (IS_IMMORTAL (ch))
+            // Immortals and testers won't disappear into the void
+            if (IS_IMMORTAL (ch) || IS_TESTER(ch))
                 ch->timer = 0;
 
             if (++ch->timer >= 12)
