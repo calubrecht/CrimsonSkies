@@ -3071,8 +3071,10 @@ void do_report (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * The practice command can be used to both show a player all of their skills
+ * and spells as well as actually practice them once they find a trainer.
+ */
 void do_practice (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -3094,7 +3096,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
                 || ch->pcdata->learned[sn] < 1 /* skill is not known */ )
                 continue;
 
-            sprintf (buf, "%-18s %3d%%  ",
+            sprintf (buf, "%-19.19s %3d%%  ",
                      skill_table[sn]->name, ch->pcdata->learned[sn]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
