@@ -1647,4 +1647,13 @@ MinMana     0
 Beats       0
 End
 
+#SKILL
+Name        nurishment~
+SpellFun    spell_nurishment~
+Target      2
+MinPos      0
+MinMana     5
+Beats       12
+End
+
 #END
