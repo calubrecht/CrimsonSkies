@@ -3451,7 +3451,7 @@ void do_class(CHAR_DATA *ch, char *argument)
         // of a static char.
         sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
 
-        sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-3d\n\r",
+        sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\n\r",
             capitalize(class_table[i]->name),
             class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
             class_table[i]->who_name,
