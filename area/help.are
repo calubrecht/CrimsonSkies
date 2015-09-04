@@ -3339,6 +3339,29 @@ they can heal.  If the healer examines the individual they
 will specifically see what is afflicting the person.
 ~
 
+0 GUILDLIST~
+Syntax: guildlist
+
+The guildlist command will show you basic information about the clans and kingdoms
+available to join and any additional information know about them.
+~
+
+0 CLASS~
+Syntax: class
+
+The class command will give you information about all of the classes and reclasses
+available in Crimson Skies.  It will provide you with the class name, whether it's
+a base class or reclass, the who name, the primary stat of the class, whether the
+class casts spells at level and how high their skill adept is set (which is how
+high they can practice the skill at a trainer).
+~
+
+0 SKILL ADEPT~
+A classes skill adept is how high a player can train their skills at a trainer.
+The base classes have a skill adept of 75%.  There are some reclasses that will
+have a higher skill adept at around 85%.
+~
+
 0 $~
 
 #$
