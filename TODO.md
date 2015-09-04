@@ -78,3 +78,4 @@ This is my to do list, mostly will be things big and small as I think about them
     depending on the order they're loaded in (consider making an exact match lookup and making 
     users type in the whole skill/group they want in creation.
   - Don't show hunger and thirst messages while reclassing.
+  - Shocking damage to spread to area while underwater
