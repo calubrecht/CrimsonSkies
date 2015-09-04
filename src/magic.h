@@ -144,3 +144,4 @@ DECLARE_SPELL_FUN(spell_cure_weaken);
 DECLARE_SPELL_FUN(spell_restore_mental_presence);
 DECLARE_SPELL_FUN(spell_sense_affliction);
 DECLARE_SPELL_FUN(spell_cure_slow);
+DECLARE_SPELL_FUN(spell_nurishment);

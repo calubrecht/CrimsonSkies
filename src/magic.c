@@ -5130,6 +5130,7 @@ SPELL_FUN *spell_function_lookup(char *name)
         case 'n':
             if ( !str_cmp( name, "spell_null" )) return spell_null;
             if ( !str_cmp( name, "spell_nexus" )) return spell_nexus;
+            if ( !str_cmp( name, "spell_nurishment" )) return spell_nurishment;
             break;
         case 'p':
             if ( !str_cmp( name, "spell_poison" )) return spell_poison;
@@ -5308,6 +5309,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_restore_mental_presence) return "spell_restore_mental_presence";
     if (spell == spell_sense_affliction) return "spell_sense_affliction";
     if (spell == spell_cure_slow) return "spell_cure_slow";
+    if (spell == spell_nurishment) return "spell_nurishment";
 
     return "reserved";
 

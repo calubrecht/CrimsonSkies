@@ -412,3 +412,29 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 
 } // end spell_sense_affliction
 
+/*
+ * The nurishment spell will allow the healer to nurish a person and alleviate any
+ * hunger and thirst they might have without food and water.  I originally wrote this
+ * spell (on 1/4/2000) for another class but it seems to fit here better.
+ */
+void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    // Rhien 1-4-00
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (IS_NPC(victim))
+    {
+        send_to_char("You cannot provide them with nurishment.\n\r", ch);
+        return;
+    }
+
+    // Only players as this hits the pcdata
+    victim->pcdata->condition[COND_THIRST]  = 48;
+    victim->pcdata->condition[COND_FULL]    = 48;
+    victim->pcdata->condition[COND_HUNGER]  = 48;
+
+    act("$N has been filled with nurishment.", victim, NULL, victim, TO_ROOM);
+    send_to_char( "You feel nurishment filling your body.\n\r", victim);
+
+} // end nurishment
+
