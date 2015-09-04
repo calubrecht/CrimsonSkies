@@ -75,14 +75,15 @@ int max_on = 0;
 /*
  * Local functions.
  */
-char *format_obj_to_char args ((OBJ_DATA * obj, CHAR_DATA * ch, bool fShort));
-void show_list_to_char args ((OBJ_DATA * list, CHAR_DATA * ch,
-                              bool fShort, bool fShowNothing));
-void show_char_to_char_0 args ((CHAR_DATA * victim, CHAR_DATA * ch));
-void show_char_to_char_1 args ((CHAR_DATA * victim, CHAR_DATA * ch));
-void show_char_to_char args ((CHAR_DATA * list, CHAR_DATA * ch));
-bool check_blind args ((CHAR_DATA * ch));
-bool char_in_list args((CHAR_DATA * ch));
+char *format_obj_to_char args((OBJ_DATA * obj, CHAR_DATA * ch, bool fShort));
+void show_list_to_char   args((OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing));
+void show_char_to_char_0 args((CHAR_DATA * victim, CHAR_DATA * ch));
+void show_char_to_char_1 args((CHAR_DATA * victim, CHAR_DATA * ch));
+void show_char_to_char   args((CHAR_DATA * list, CHAR_DATA * ch));
+bool check_blind         args((CHAR_DATA * ch));
+bool char_in_list        args((CHAR_DATA * ch));
+char *flag_string        args((const struct flag_type *flag_table, int bits)); // used in do_class
+
 
 char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
 {
@@ -3417,3 +3418,49 @@ void do_guildlist ( CHAR_DATA *ch, char *argument )
     }
 
 } // end guildlist
+
+/*
+ * Displays information about all classes and reclasses.  This can be expanded in the future
+ * to allow for more information and to be smarter in telling people what the qualifications are
+ * for the class also.
+ */
+void do_class(CHAR_DATA *ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    char prime_stat[5];
+    int i = 0;
+
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
+    for (i = 0; i < top_class; i++)
+    {
+        if (class_table[i]->name == NULL)
+        {
+            log_string("BUG: null class");
+            continue;
+        }
+
+        // We can only use capitalize once per sprintf.. it dups up otherwise due to the use
+        // of a static char.
+        sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
+
+        sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-3d\n\r",
+            capitalize(class_table[i]->name),
+            class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
+            class_table[i]->who_name,
+            prime_stat,
+            class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
+            class_table[i]->skill_adept
+        );
+
+        send_to_char(buf, ch);
+    }
+
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
+    sprintf(buf, "Total Classes: %d\n\r", top_class);
+    send_to_char(buf, ch);
+
+} // end do_class
