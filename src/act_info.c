@@ -3405,15 +3405,20 @@ void do_guildlist ( CHAR_DATA *ch, char *argument )
     int clan;
     char buf[MAX_STRING_LENGTH];
 
-    send_to_char("Current Clans are:\n\r", ch);
-    send_to_char("------------------\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("{WClan                  Independent{x\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch); 
 
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
         if (IS_NULLSTR(clan_table[clan].name))
             continue;
 
-        sprintf(buf,"%s\n\r", clan_table[clan].who_name);
+        sprintf(buf, "%-25s{x %-5s\n\r",
+            clan_table[clan].who_name,
+            clan_table[clan].independent == TRUE ? "True" : "False"
+        );
+
         send_to_char(buf,ch);
     }
 
