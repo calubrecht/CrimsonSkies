@@ -833,8 +833,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 // The user is no longer reclassing, set the flag as false so they will save properly.
                 ch->pcdata->is_reclassing = FALSE;
 
-		char_from_room(ch);
-		char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+        		char_from_room(ch);
+		        char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
             }
             else if (ch->in_room != NULL)
             {
@@ -857,14 +857,12 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             do_unread(ch,"");
 
-            wiznet ("$N has left real life behind.", ch, NULL,
-                    WIZ_LOGINS, WIZ_SITES, get_trust (ch));
+            wiznet ("$N has left real life behind.", ch, NULL, WIZ_LOGINS, WIZ_SITES, get_trust (ch));
 
             if (ch->pet != NULL)
             {
                 char_to_room (ch->pet, ch->in_room);
-                act ("$n has entered the game.", ch->pet, NULL, NULL,
-                     TO_ROOM);
+                act ("$n has entered the game.", ch->pet, NULL, NULL, TO_ROOM);
             }
 
             break;
