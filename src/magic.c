@@ -1168,6 +1168,9 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel (level, victim, skill_lookup ("detect magic")))
         found = TRUE;
 
+    if (check_dispel(level, victim, gsn_enhanced_recovery))
+        found = TRUE;
+
     if (check_dispel (level, victim, skill_lookup ("faerie fire")))
     {
         act ("$n's outline fades.", victim, NULL, NULL, TO_ROOM);
@@ -2446,6 +2449,11 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
     if (check_dispel (level, victim, skill_lookup("sense affliction")))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_enhanced_recovery))
     {
         found = TRUE;
     }
@@ -5075,6 +5083,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_enchant_person" )) return spell_enchant_person;
             if ( !str_cmp( name, "spell_enchant_gem" )) return spell_enchant_gem;
             if ( !str_cmp( name, "spell_energy_drain" )) return spell_energy_drain;
+            if ( !str_cmp( name, "spell_enhanced_recovery" )) return spell_enhanced_recovery;
             break;
         case 'f':
             if ( !str_cmp( name, "spell_fly" )) return spell_fly;
@@ -5310,6 +5319,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_sense_affliction) return "spell_sense_affliction";
     if (spell == spell_cure_slow) return "spell_cure_slow";
     if (spell == spell_nurishment) return "spell_nurishment";
+    if (spell == spell_enhanced_recovery) return "spell_enhanced_recovery";
 
     return "reserved";
 

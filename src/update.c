@@ -251,7 +251,14 @@ int hit_gain (CHAR_DATA * ch)
     if (IS_AFFECTED (ch, AFF_HASTE) || IS_AFFECTED (ch, AFF_SLOW))
         gain /= 2;
 
+    // Healer's enhanced recovery
+    if (is_affected(ch, gsn_enhanced_recovery))
+    {
+        gain += number_range(20, 50);
+    }
+
     return UMIN (gain, ch->max_hit - ch->hit);
+
 } // end int hit_gain
 
 /*
@@ -341,7 +348,14 @@ int mana_gain (CHAR_DATA * ch)
     if (IS_AFFECTED (ch, AFF_HASTE) || IS_AFFECTED (ch, AFF_SLOW))
         gain /= 2;
 
+    // Healer's enhanced recovery
+    if (is_affected(ch, gsn_enhanced_recovery))
+    {
+        gain += number_range(20, 50);
+    }
+
     return UMIN (gain, ch->max_mana - ch->mana);
+
 } // end int mana_gain
 
 /*
@@ -397,7 +411,14 @@ int move_gain (CHAR_DATA * ch)
     if (IS_AFFECTED (ch, AFF_HASTE) || IS_AFFECTED (ch, AFF_SLOW))
         gain /= 2;
 
+    // Healer's enhanced recovery
+    if (is_affected(ch, gsn_enhanced_recovery))
+    {
+        gain += number_range(20, 50);
+    }
+
     return UMIN (gain, ch->max_move - ch->move);
+
 } // end int move_gain
 
 /*

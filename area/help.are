@@ -3298,6 +3298,11 @@ A healing spell that will heal small bits of health to the affected
 over an extended period of time.
 ~
 
+0 ENHANCED RECOVERY~
+A healer spell that will help the recipient gain back more health, 
+mana and movement during their normal healing process.
+~
+
 0 LIFE BOOST~
 A healing spell that allows a healer to increase the health (HP) of
 an individual for a period of time.
@@ -3337,6 +3342,11 @@ The sense affliction spell will allow healers to see any
 individuals in a room that are affected by a spell that
 they can heal.  If the healer examines the individual they
 will specifically see what is afflicting the person.
+~
+
+0 NURISHMENT~
+The nurishment spell allows a healer to nurish a person removing all
+hunger and thirst.
 ~
 
 0 GUILDLIST~

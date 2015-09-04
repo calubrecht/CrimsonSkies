@@ -193,7 +193,6 @@ void load_skills args((void));
 void load_game_objects args((void));
 void assign_gsn args((void));
 
-
 SPELL_FUN  *spell_function_lookup args(( char *name ));
 
 /* For saving of PC corpses and donation pits across copyover and reboots */
@@ -4524,5 +4523,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_sense_affliction, "sense affliction");
     ASSIGN_GSN(gsn_slow, "slow");
     ASSIGN_GSN(gsn_immortal_blessing, "immortal blessing");
+    ASSIGN_GSN(gsn_enhanced_recovery, "enhanced recovery");
 
 } // end assign_gsn

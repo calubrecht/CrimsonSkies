@@ -438,3 +438,40 @@ void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
 } // end nurishment
 
+/*
+ * Enhanced recovery will allow the recipient to heal more on every tick.  Originally this
+ * spell was written for another class (on 5/26/2000) but it fits better under a healer.
+ */
+void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    // Rhien 5-26-00
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N is already blessed with enhanced recovery.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where     = TO_AFFECTS;
+    af.type      = sn;
+    af.level     = level;
+    af.duration  = (ch->level / 2);
+    af.modifier  = 0;
+    af.location  = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char( victim, &af );
+
+    act("$N has been blessed with an enhanced recovery.", victim, NULL, victim, TO_ROOM);
+    send_to_char("You feel blessed with a enhanced recovery.\n\r", victim);
+
+} // end spell_enhanced_recovery

@@ -1656,4 +1656,14 @@ MinMana     5
 Beats       12
 End
 
+#SKILL
+Name        enhanced recovery~
+SpellFun    spell_enhanced_recovery~
+Target      2
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      The enhanced recovery leaves your body.~
+End
+
 #END
