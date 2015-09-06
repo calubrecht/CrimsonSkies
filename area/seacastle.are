@@ -26,6 +26,22 @@ AB DFJU 1 0
 EFLRU 0 0 J
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
+#9401
+statue illerion~
+Status of Illerion~
+A statue of the first great sea-elf king Illerion stands here.
+~
+The statue almost seems to be life like as you gaze into the kind looking
+face.  As the tale was once told, Illerion died a tragic death while out
+adventuring in the Dragon Sea.  
+~
+human~
+AB HV 2 0
+54 0 50d10+5500 26d9+100 6d7+20 none
+-22 -22 -22 2
+EF 0 0 0
+stand stand none 5000
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -48,9 +64,9 @@ weapon G AN
 sword 5 6 stab C
 45 50 2000 P
 A
-19 2
-A
 18 2
+A
+19 2
 #9402
 sea dragon eye~
 a {CSea{x-Dragon's Eye~
@@ -60,13 +76,13 @@ light AG A
 0 0 0 0 0
 46 1 1000 P
 A
-14 -50
-A
-1 -2
+12 75
 A
 2 -2
 A
-12 75
+1 -2
+A
+14 -50
 #9403
 armplate illerion~
 the armplates of Illerion~
@@ -76,13 +92,13 @@ armor G AI
 BD BD BD AC 0
 49 50 4000 P
 A
-19 1
-A
-18 1
+12 10
 A
 13 20
 A
-12 10
+18 1
+A
+19 1
 #9404
 quartz staff~
 a {Wquartz{x staff~
@@ -108,13 +124,13 @@ treasure G AO
 0 0 0 0 0
 47 10 1150 P
 A
-12 10
-A
-13 20
+19 2
 A
 18 2
 A
-19 2
+13 20
+A
+12 10
 #0
 
 
