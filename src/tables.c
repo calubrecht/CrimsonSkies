@@ -761,5 +761,6 @@ const struct continent_type continent_table[] = {
     { CONTINENT_LIMBO,   "limbo" },
     { CONTINENT_OCEANS,  "oceans" },
     { CONTINENT_ARCANIS, "arcanis" },
+    { CONTINENT_SHALON,  "shalon"  },
     { 0, NULL }
 };

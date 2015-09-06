@@ -1194,6 +1194,7 @@ struct    kill_data
 #define CONTINENT_LIMBO       0
 #define CONTINENT_OCEANS      1
 #define CONTINENT_ARCANIS     2
+#define CONTINENT_SHALON      3
 
 /***************************************************************************
  *                                                                         *
