@@ -701,8 +701,7 @@ void one_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
         if (ch->fighting == victim && IS_WEAPON_STAT (wield, WEAPON_SHOCKING))
         {
             dam = number_range (1, wield->level / 5 + 2);
-            act ("$n is struck by lightning from $p.", victim, wield, NULL,
-                 TO_ROOM);
+            act ("$n is struck by lightning from $p.", victim, wield, NULL, TO_ROOM);
             act ("You are shocked by $p.", victim, wield, NULL, TO_CHAR);
             shock_effect (victim, wield->level / 2, dam, TARGET_CHAR);
             damage (ch, victim, dam, 0, DAM_LIGHTNING, FALSE);
@@ -827,16 +826,6 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
 
     }
 
-    // Lightning/shockers cause lots of damage in the water
-    // or under water.
-    if( dam_type == DAM_LIGHTNING &&
-        victim->in_room != NULL &&
-        (victim->in_room->sector_type == SECT_UNDERWATER ||
-         victim->in_room->sector_type == SECT_OCEAN))
-    {
-        dam *= 2;
-    }
-
     switch (check_immune (victim, dam_type))
     {
         case (IS_IMMUNE):
@@ -851,8 +840,52 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
             break;
     }
 
+    // Lightning/shockers cause lots of damage in the water or under water.  This doubles
+    // the damage and has to happen before the dam_message is displayed so it displays
+    // correctly (later on, we'll spread the shock through the water).
+    if( dam_type == DAM_LIGHTNING &&
+        victim->in_room != NULL &&
+        (victim->in_room->sector_type == SECT_UNDERWATER ||
+         victim->in_room->sector_type == SECT_OCEAN))
+    {
+        dam *= 2;
+    }
+
     if (show)
         dam_message (ch, victim, dam, dt, immune);
+
+    // We want the shock to spread even if the initial person is immune to lightning.
+    if( dam_type == DAM_LIGHTNING &&
+        victim->in_room != NULL &&
+        (victim->in_room->sector_type == SECT_UNDERWATER ||
+         victim->in_room->sector_type == SECT_OCEAN))
+    {
+        // Spread the shocking effect... one level.. we'll have to change this
+        // from DAM shocking so we don't endlessly loop on ourselves with shocks
+        // since we're recalling damage from here.
+        CHAR_DATA * rch;
+
+        for (rch = ch->in_room->people; rch; rch = rch->next_in_room)
+        {
+            // Skip under these circumstances, same group, not in the same room, can't
+            // be the initiator of the attack or the initial victim (they've already been hit).
+            // We also don't want to hit immortals that might be in the room.
+            if (is_same_group (rch, ch) ||
+                rch->in_room != ch->in_room ||
+                rch == ch ||
+                rch == victim ||
+                IS_IMMORTAL(rch))
+            {
+                continue;
+            }
+
+            // 25 damage for the spread, not lightning to stop an endless loop
+            act ("The electrical shock spreads through the water to $n.", rch, NULL, NULL, TO_ROOM);
+            send_to_char ("The electrical shock spreads through the water to you.\n\r", rch);
+            damage (ch, rch, 25, TYPE_UNDEFINED, DAM_NONE, FALSE);
+        }
+
+    }
 
     if (dam == 0)
         return FALSE;
@@ -1154,8 +1187,7 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
 
             if (!is_clan (victim))
             {
-                send_to_char ("They aren't in a clan, leave them alone.\n\r",
-                              ch);
+                act ("$N is not in a clan, leave them alone!", ch, NULL, victim, TO_CHAR);
                 return TRUE;
             }
 
@@ -2369,9 +2401,9 @@ void do_bash (CHAR_DATA * ch, char *argument)
     if (number_percent () < chance)
     {
 
-        act ("{5$n sends you sprawling with a powerful bash!{x", ch, NULL, victim, TO_VICT);
-        act ("{5You slam into $N, and send $M flying!{x", ch, NULL, victim, TO_CHAR);
-        act ("{5$n sends $N sprawling with a powerful bash.{x", ch, NULL, victim, TO_NOTVICT);
+        act ("$n sends you sprawling with a powerful bash!", ch, NULL, victim, TO_VICT);
+        act ("You slam into $N, and send $M flying!", ch, NULL, victim, TO_CHAR);
+        act ("$n sends $N sprawling with a powerful bash.", ch, NULL, victim, TO_NOTVICT);
         check_improve (ch, gsn_bash, TRUE, 1);
 
         DAZE_STATE (victim, 3 * PULSE_VIOLENCE);

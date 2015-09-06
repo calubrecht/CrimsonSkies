@@ -5798,7 +5798,16 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Nothing here currently, move along.\r\n", ch);
+    CHAR_DATA * rch;
+    char buf[MSL];
+
+    for (rch = ch->in_room->people; rch; rch = rch->next_in_room)
+    {
+        sprintf(buf, "%s is in the room.\n\r", rch->name);
+        send_to_char(buf, ch);
+    }
+
+    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 
 } // end do_debug
