@@ -42,6 +42,51 @@ AB HV 2 0
 EF 0 0 0
 stand stand none 5000
 AHMV ABCDEFGHIJK medium unknown
+#9402
+giant turtle~
+a giant turtle~
+A giant turtle is here, slowly edging its way toward you.
+~
+A giant turtle is here, slowly edging its way toward you.  An irritating
+scraping noise comes from his claws as they drag along the stone floor.  
+~
+fish~
+AB DFJb 1 0
+50 0 50d10+4500 25d9+100 5d8+20 none
+-15 15 -15 0
+ELRU 0 R J
+stand stand male 2000
+AGHMVW ADEFKO medium unknown
+#9403
+lost adventurer~
+A lost adventurer~
+A lost adventurer wanders aimlessly about.
+~
+A rather strong looking man wanders about here.  He eyes you slowly and
+proceeds to ask if you know a way out....  Hmm...  Bet he's lost.  
+~
+human~
+AB DFHJV 3 0
+42 0 15d10+1850 20d9+100 4d8+13 none
+-13 -13 -13 5
+EFK 0 0 0
+stand stand none 5000
+AHMV ABCDEFGHIJK medium unknown
+#9404
+giant fish~
+A giant fish~
+A giant fish is here, swimming around looking for something to eat.
+~
+A bright green scaled fish. He has a large fan tail and beady black eyes. 
+~
+fish~
+AB DFJVb 1 0
+45 0 15d10+2500 20d9+100 4d8+13 none
+-16 16 16 4
+FM 0 R 0
+stand stand either 1000
+AGHMVb ADEFKO medium unknown
+F for W
 #0
 
 
@@ -64,9 +109,9 @@ weapon G AN
 sword 5 6 stab C
 45 50 2000 P
 A
-18 2
-A
 19 2
+A
+18 2
 #9402
 sea dragon eye~
 a {CSea{x-Dragon's Eye~
@@ -76,13 +121,13 @@ light AG A
 0 0 0 0 0
 46 1 1000 P
 A
-12 75
-A
-2 -2
+14 -50
 A
 1 -2
 A
-14 -50
+2 -2
+A
+12 75
 #9403
 armplate illerion~
 the armplates of Illerion~
@@ -92,13 +137,13 @@ armor G AI
 BD BD BD AC 0
 49 50 4000 P
 A
-12 10
-A
-13 20
+19 1
 A
 18 1
 A
-19 1
+13 20
+A
+12 10
 #9404
 quartz staff~
 a {Wquartz{x staff~
@@ -124,13 +169,13 @@ treasure G AO
 0 0 0 0 0
 47 10 1150 P
 A
-19 2
-A
-18 2
+12 10
 A
 13 20
 A
-12 10
+18 2
+A
+19 2
 #0
 
 
