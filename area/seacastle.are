@@ -87,6 +87,22 @@ FM 0 R 0
 stand stand either 1000
 AGHMVb ADEFKO medium unknown
 F for W
+#9405
+sea lion~
+a sea-lion~
+A Sea-Lion roams nearby, looking to prey on something.
+~
+The creature which has made it's presence known looks to be a mix between
+a lion and a fish.  It's agility in the water as well as on land makes it a
+formidable foe.
+~
+human~
+ABF a 1 0
+52 0 45d10+4500 27d9+100 7d6+15 none
+-20 -20 -20 2
+EFU R H 0
+stand stand male 4000
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -109,9 +125,9 @@ weapon G AN
 sword 5 6 stab C
 45 50 2000 P
 A
-19 2
-A
 18 2
+A
+19 2
 #9402
 sea dragon eye~
 a {CSea{x-Dragon's Eye~
@@ -121,13 +137,13 @@ light AG A
 0 0 0 0 0
 46 1 1000 P
 A
-14 -50
-A
-1 -2
+12 75
 A
 2 -2
 A
-12 75
+1 -2
+A
+14 -50
 #9403
 armplate illerion~
 the armplates of Illerion~
@@ -137,13 +153,13 @@ armor G AI
 BD BD BD AC 0
 49 50 4000 P
 A
-19 1
-A
-18 1
+12 10
 A
 13 20
 A
-12 10
+18 1
+A
+19 1
 #9404
 quartz staff~
 a {Wquartz{x staff~
@@ -169,13 +185,13 @@ treasure G AO
 0 0 0 0 0
 47 10 1150 P
 A
-12 10
-A
-13 20
+19 2
 A
 18 2
 A
-19 2
+13 20
+A
+12 10
 #0
 
 
