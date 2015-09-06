@@ -103,6 +103,20 @@ ABF a 1 0
 EFU R H 0
 stand stand male 4000
 AHMV ABCDEFGHIJK medium unknown
+#9406
+statue royal guard~
+Statue of a Royal Guard~
+A statue of a royal guard stands here and seems to eye you.
+~
+The statue of the guard eyes the dungeon solemnly.
+~
+elf~
+ABT CDFHJVZ 3 3000
+45 30 1d1+3999 1d1+499 5d4+40 crush
+-20 -20 -20 0
+CDEFKNO 0 B JZ
+stand stand male 5000
+AHMV ABCDEFGHIJK large unknown
 #0
 
 
@@ -1514,6 +1528,7 @@ S
 
 
 #SPECIALS
+M 9406 spec_executioner
 S
 
 
