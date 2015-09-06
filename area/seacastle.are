@@ -51,7 +51,7 @@ A giant turtle is here, slowly edging its way toward you.  An irritating
 scraping noise comes from his claws as they drag along the stone floor.  
 ~
 fish~
-AB DFJb 1 0
+ABF DFJb 1 0
 50 0 50d10+4500 25d9+100 5d8+20 none
 -15 15 -15 0
 ELRU 0 R J
@@ -117,6 +117,38 @@ ABT CDFHJVZ 3 3000
 CDEFKNO 0 B JZ
 stand stand male 5000
 AHMV ABCDEFGHIJK large unknown
+#9407
+sea dragon~
+a {Csea{x dragon~
+A {Csea{x dragon is here.
+~
+It seems this dragon has taking a liking to the area.....  It doesn't
+look like he wants to be friends either...
+~
+dragon~
+A DFJTV 1 0
+52 0 50d10+5000 26d9+100 6d7+20 none
+-22 -22 -22 2
+FNU A BEH F
+stand stand none 7000
+AHMVZ ABCDEFGHIJKPQUVX giant unknown
+F vul I
+#9408
+spirit prisoner~
+spirit of a prisoner~
+The spirit of a prisoner wanders here.
+~
+The Spirit looks very upset and disturbed.
+~
+elf~
+ABT DFJUZ 3 3000
+45 30 1d1+3999 1d1+499 5d4+40 crush
+-20 -20 -20 0
+CDEFK 0 0 J
+stand stand either 5000
+AHMV ABCDEFGHIJK large unknown
+F res B
+F vul Z
 #0
 
 
@@ -359,6 +391,10 @@ dark room from which you can hear scratching noises.  As you peer down you
 almost get a light-headed feeling from the distance.  
 ~
 0 0 0
+D0
+~
+~
+0 0 9474
 D5
 ~
 ~
@@ -1523,6 +1559,17 @@ D2
 ~
 0 0 9470
 S
+#9474
+A Dark Room~
+You are standing in a dark room where a lone light creeps in from a high
+open window and shines down onto a lone statue in room.  
+~
+0 8 0
+D2
+~
+~
+0 0 9407
+S
 #0
 
 
@@ -1548,9 +1595,25 @@ D 0 9452 5 1
 D 0 9453 4 1
 D 0 9458 0 1
 D 0 9459 2 1
+M 0 9400 10 9401 1 Load a sea-elf spirit
 O 0 9400 0 9402 A potion of underwater breathing loaded to A Small Closet
+M 0 9400 10 9406 1 Load a sea-elf spirit
+O 0 9405 0 9409 A sea-elf's harp loaded to Music Room
+M 0 9402 15 9411 15 Load a giant turtle
+M 0 9402 15 9411 15 Load a giant turtle
+M 0 9402 15 9411 15 Load a giant turtle
+M 0 9402 15 9411 15 Load a giant turtle
+M 0 9400 10 9412 1 Load a sea-elf spirit
+M 0 9400 10 9445 10 Load a sea-elf spirit
+M 0 9400 10 9445 10 Load a sea-elf spirit
 O 0 9400 0 9446 A potion of underwater breathing loaded to A small closet
+M 0 9400 10 9452 1 Load a sea-elf spirit
+M 0 9400 10 9455 1 Load a sea-elf spirit
 O 0 9400 0 9465 A potion of underwater breathing loaded to Pantry
+M 0 9401 1 9474 1 Load Status of Illerion
+E 0 9403 0 10 The armplates of illerion is loaded on the arms of Status of Illerion
+M 0 9400 15 9474 15 Load a sea-elf spirit
+M 0 9400 15 9474 15 Load a sea-elf spirit
 S
 
 
