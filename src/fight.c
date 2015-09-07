@@ -267,6 +267,12 @@ void multi_hit (CHAR_DATA * ch, CHAR_DATA * victim, int dt)
         one_hit( ch, victim, dt, TRUE );
     }
 
+    // Attack 7 (Bladesong)
+    if (is_affected(ch, gsn_bladesong))
+    {
+        one_hit(ch, victim, dt, FALSE );
+    }
+
     if (ch->fighting != victim || dt == gsn_backstab)
         return;
 
@@ -1385,6 +1391,12 @@ bool check_parry (CHAR_DATA * ch, CHAR_DATA * victim)
     if (!can_see (ch, victim))
         chance /= 2;
 
+    // Bladesinger bonus on parry
+    if (is_affected(victim, gsn_bladesong))
+    {
+        chance += 10;
+    }
+
     if (number_percent () >= chance + victim->level - ch->level)
         return FALSE;
 
@@ -1432,6 +1444,12 @@ bool check_dodge (CHAR_DATA * ch, CHAR_DATA * victim)
 
     if (!can_see (victim, ch))
         chance /= 2;
+
+    // Bladesinger bonus on dodge
+    if (is_affected(victim, gsn_bladesong))
+    {
+        chance += 10;
+    }
 
     if (number_percent () >= chance + victim->level - ch->level)
         return FALSE;
@@ -2173,15 +2191,15 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
 
     if (IS_OBJ_STAT (obj, ITEM_NOREMOVE))
     {
-        act ("{5$S weapon won't budge!{x", ch, NULL, victim, TO_CHAR);
-        act ("{5$n tries to disarm you, but your weapon won't budge!{x", ch, NULL, victim, TO_VICT);
-        act ("{5$n tries to disarm $N, but fails.{x", ch, NULL, victim, TO_NOTVICT);
+        act ("$S weapon won't budge!", ch, NULL, victim, TO_CHAR);
+        act ("$n tries to disarm you, but your weapon won't budge!", ch, NULL, victim, TO_VICT);
+        act ("$n tries to disarm $N, but fails.", ch, NULL, victim, TO_NOTVICT);
         return;
     }
 
-    act ("{5$n DISARMS you and sends your weapon flying!{x", ch, NULL, victim, TO_VICT);
-    act ("{5You disarm $N!{x", ch, NULL, victim, TO_CHAR);
-    act ("{5$n disarms $N!{x", ch, NULL, victim, TO_NOTVICT);
+    act ("$n DISARMS you and sends your weapon flying!", ch, NULL, victim, TO_VICT);
+    act ("You disarm $N!", ch, NULL, victim, TO_CHAR);
+    act ("$n disarms $N!", ch, NULL, victim, TO_NOTVICT);
 
     obj_from_char (obj);
 
@@ -2201,6 +2219,12 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
         act ("$n stops using $p.", victim, vobj, NULL, TO_ROOM);
         act ("You stop using $p.", victim, vobj, NULL, TO_CHAR);
         unequip_char(victim,vobj);
+    }
+
+    // A bladesinger can't use bladesong without their weapon
+    if (is_affected( victim, gsn_bladesong))
+    {
+        affect_strip(victim, gsn_bladesong);
     }
 
     return;
@@ -3154,6 +3178,18 @@ void do_disarm (CHAR_DATA * ch, char *argument)
 
     /* level */
     chance += (ch->level - victim->level) * 2;
+
+    // Bladesingers get a disarm bonus attacking and a disarm
+    // bonus defending
+    if (is_affected(ch, gsn_bladesong))
+    {
+        chance += 8;
+    }
+
+    if (is_affected(victim, gsn_bladesong))
+    {
+        chance /= 2;
+    }
 
     /* and now the attack */
     if (number_percent () < chance)

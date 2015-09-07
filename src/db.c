@@ -4524,5 +4524,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_slow, "slow");
     ASSIGN_GSN(gsn_immortal_blessing, "immortal blessing");
     ASSIGN_GSN(gsn_enhanced_recovery, "enhanced recovery");
+    ASSIGN_GSN(gsn_bladesong, "bladesong");
 
 } // end assign_gsn

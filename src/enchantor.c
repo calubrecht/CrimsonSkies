@@ -1061,4 +1061,10 @@ void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int t
      act( "$n looks very weary and falls to the ground asleep.", victim, NULL, NULL, TO_ROOM );
      victim->position = POS_SLEEPING;
 
+    // Removing a weapon removes bladesong.
+    if (is_affected(victim, gsn_bladesong ))
+    {
+        affect_strip(victim, gsn_bladesong);
+    }
+
 } // end spell_waves_of_weariness

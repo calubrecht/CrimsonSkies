@@ -1387,15 +1387,22 @@ bool remove_obj (CHAR_DATA * ch, int iWear, bool fReplace)
         return FALSE;
     }
 
-    // If it's the primary weapon, also remove the secondary weapon if the
-    // player is wearing one.
+    // Things to happen when removing a weapon
     if (obj->wear_loc == WEAR_WIELD)
     {
+        // If it's the primary weapon, also remove the secondary weapon if the
+        // player is wearing one.
         if ((vobj = get_eq_char(ch,WEAR_SECONDARY_WIELD)) != NULL)
         {
             act ("$n stops using $p.", ch, vobj, NULL, TO_ROOM);
             act ("You stop using $p.", ch, vobj, NULL, TO_CHAR);
             unequip_char(ch,vobj);
+        }
+
+        // Removing the weapon removes the bladesong
+        if (is_affected(ch, gsn_bladesong))
+        {
+            affect_strip(ch, gsn_bladesong);
         }
 
     }

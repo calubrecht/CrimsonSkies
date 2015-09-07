@@ -39,6 +39,13 @@ Sk 'mace'
 End
 
 #GROUP
+Name 'bladesinger basics'
+Sk 'sword'
+Sk 'dagger'
+Sk 'bladesong'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -122,6 +129,20 @@ Sk 'shield block'
 Sk 'transportation'
 Sk 'advanced healing'
 Sk 'advanced curative'
+End
+
+#GROUP
+Name 'bladesinger default'
+Sk 'enhanced damage'
+Sk 'parry'
+Sk 'dodge'
+Sk 'enhancement'
+Sk 'transportation'
+Sk 'detection'
+Sk 'second attack'
+Sk 'third attack'
+Sk 'combat'
+Sk 'dual wield'
 End
 
 #GROUP

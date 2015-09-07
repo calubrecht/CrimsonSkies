@@ -222,7 +222,7 @@ Name        create rose~
 SpellFun    spell_create_rose~
 Target      0
 MinPos      8
-MinMana     30
+MinMana     5
 Beats       12
 MsgOff      !Create Rose!~
 End
@@ -1664,6 +1664,16 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      The enhanced recovery leaves your body.~
+End
+
+#SKILL
+Name        bladesong~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       0
+MsgOff      You cease to dance the bladesong.~
 End
 
 #END

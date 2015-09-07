@@ -1,118 +1,129 @@
-Name        mage~
-Class       0
-WhoName     Mag~
-Attrprime   int
-Weapon      3701
+Name        bladesinger~
+Class       6
+WhoName     Bla~
+Attrprime   dex
+Weapon      3702
 Guild       3018
 Guild       9618
 Skilladept  75
 Thac0_00    20
-Thac0_32    6
-Hpmin       6
-Hpmax       8
+Thac0_32    -10
+Hpmin       10
+Hpmax       14
 Mana        1
-BaseGroup   'mage basics'
-DefGroup    'mage default'
-IsReclass   0
-Sk 'magic missile' 1 1
+BaseGroup   'bladesinger basics'
+DefGroup    'bladesinger default'
+IsReclass   1
 Sk 'ventriloquate' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 2
 Sk 'flail' 1 6
 Sk 'mace' 1 5
 Sk 'polearm' 1 6
-Sk 'shield block' 1 6
+Sk 'shield block' 1 4
 Sk 'spear' 1 4
-Sk 'sword' 1 5
+Sk 'sword' 1 2
 Sk 'whip' 1 6
+Sk 'parry' 1 4
 Sk 'scrolls' 1 2
 Sk 'staves' 1 2
 Sk 'wands' 1 2
 Sk 'recall' 1 2
-Sk 'spellcraft' 1 4
 Sk 'swim' 1 1
-Sk 'detect magic' 2 1
-Sk 'detect invis' 3 1
-Sk 'chill touch' 4 1
-Sk 'floating disc' 4 1
+Sk 'bladesong' 1 1
+Sk 'magic missile' 2 1
+Sk 'dirt kicking' 3 4
+Sk 'chill touch' 5 1
 Sk 'invisibility' 5 1
-Sk 'continual light' 6 1
-Sk 'faerie fire' 6 1
-Sk 'meditation' 6 5
-Sk 'armor' 7 1
-Sk 'burning hands' 7 1
+Sk 'faerie fire' 7 1
 Sk 'haggle' 7 5
-Sk 'create water' 8 1
-Sk 'refresh' 8 1
-Sk 'peek' 8 5
-Sk 'infravision' 9 1
-Sk 'locate object' 9 1
+Sk 'burning hands' 8 1
+Sk 'continual light' 8 1
+Sk 'bash' 8 4
+Sk 'meditation' 8 5
+Sk 'armor' 9 1
 Sk 'recharge' 9 1
-Sk 'create food' 10 1
-Sk 'fly' 10 1
-Sk 'shocking grasp' 10 1
+Sk 'create water' 10 1
+Sk 'floating disc' 10 1
 Sk 'sleep' 10 1
-Sk 'lore' 10 6
-Sk 'detect evil' 11 1
-Sk 'detect good' 11 1
-Sk 'giant strength' 11 1
-Sk 'weaken' 11 1
-Sk 'blindness' 12 1
-Sk 'know alignment' 12 1
-Sk 'protection evil' 12 1
-Sk 'protection good' 12 1
-Sk 'fireproof' 13 1
-Sk 'lightning bolt' 13 1
+Sk 'rescue' 10 4
+Sk 'second attack' 10 4
+Sk 'lore' 10 4
+Sk 'sneak' 10 4
+Sk 'create food' 11 1
+Sk 'shocking grasp' 12 1
+Sk 'hide' 12 4
+Sk 'peek' 12 12
 Sk 'teleport' 13 1
-Sk 'create spring' 14 1
-Sk 'faerie fog' 14 1
-Sk 'farsight' 14 1
-Sk 'control weather' 15 1
-Sk 'detect hidden' 15 1
-Sk 'detect poison' 15 1
-Sk 'identify' 15 1
-Sk 'fast healing' 15 8
-Sk 'color spray' 16 1
-Sk 'create rose' 16 1
-Sk 'dispel magic' 16 1
+Sk 'fast healing' 13 6
+Sk 'blindness' 14 1
+Sk 'protection evil' 14 1
+Sk 'protection good' 14 1
+Sk 'weaken' 14 1
+Sk 'word of recall' 14 1
+Sk 'hand to hand' 14 6
+Sk 'lightning bolt' 15 1
 Sk 'enchant armor' 16 2
+Sk 'fireproof' 16 1
+Sk 'fly' 16 1
+Sk 'create spring' 17 1
 Sk 'enchant weapon' 17 2
-Sk 'poison' 17 1
-Sk 'cancellation' 18 1
-Sk 'curse' 18 1
-Sk 'energy drain' 19 1
-Sk 'water breathing' 20 1
+Sk 'refresh' 17 1
+Sk 'disarm' 17 4
+Sk 'dodge' 17 6
+Sk 'color spray' 18 1
+Sk 'control weather' 19 1
+Sk 'faerie fog' 19 1
+Sk 'infravision' 19 1
+Sk 'poison' 19 1
 Sk 'charm person' 20 1
-Sk 'shield' 20 1
-Sk 'dodge' 20 8
-Sk 'haste' 21 1
-Sk 'fireball' 22 1
-Sk 'mass invis' 22 1
-Sk 'parry' 22 8
+Sk 'create rose' 20 1
+Sk 'giant strength' 20 1
+Sk 'enhanced damage' 20 4
+Sk 'third attack' 20 4
+Sk 'curse' 22 1
+Sk 'energy drain' 22 1
+Sk 'summon' 22 1
+Sk 'kick' 22 4
+Sk 'detect magic' 23 1
 Sk 'plague' 23 1
-Sk 'slow' 23 1
-Sk 'pass door' 24 1
-Sk 'summon' 24 1
-Sk 'stone skin' 25 1
-Sk 'hand to hand' 25 8
-Sk 'pick lock' 25 8
+Sk 'cancellation' 24 1
+Sk 'dispel magic' 24 1
+Sk 'fireball' 24 1
+Sk 'identify' 24 1
+Sk 'pick lock' 25 16
 Sk 'call lightning' 26 1
-Sk 'gate' 27 1
-Sk 'acid blast' 28 1
-Sk 'second attack' 30 10
-Sk 'acid breath' 31 1
-Sk 'word of recall' 32 1
-Sk 'chain lightning' 33 1
-Sk 'frost breath' 34 1
-Sk 'portal' 35 2
+Sk 'know alignment' 27 1
+Sk 'gate' 28 1
+Sk 'shield' 28 1
+Sk 'trip' 28 8
+Sk 'haste' 29 1
+Sk 'acid blast' 30 1
+Sk 'detect invis' 30 1
+Sk 'detect hidden' 31 1
+Sk 'locate object' 31 1
+Sk 'pass door' 31 1
+Sk 'detect poison' 32 1
+Sk 'spellcraft' 32 4
+Sk 'water breathing' 33 1
+Sk 'detect evil' 33 1
+Sk 'detect good' 33 1
+Sk 'chain lightning' 35 1
+Sk 'stone skin' 35 1
 Sk 'sanctuary' 36 1
-Sk 'lightning breath' 37 1
-Sk 'gas breath' 39 1
-Sk 'nexus' 40 2
-Sk 'fire breath' 40 1
-Sk 'enhanced damage' 45 10
+Sk 'slow' 36 1
+Sk 'farsight' 39 1
+Sk 'dual wield' 39 6
+Sk 'portal' 40 2
+Sk 'nexus' 46 2
 Sk 'calm' 48 1
+Sk 'mass invis' 48 1
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -124,7 +135,6 @@ Sk 'cure slow' 52 -1
 Sk 'immortal blessing' 52 -1
 Sk 'nurishment' 52 -1
 Sk 'enhanced recovery' 52 -1
-Sk 'bladesong' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -162,19 +172,9 @@ Sk 'general purpose' 53 0
 Sk 'high explosive' 53 0
 Sk 'locate wizard mark' 53 2
 Sk 'backstab' 53 0
-Sk 'bash' 53 0
 Sk 'berserk' 53 0
-Sk 'dirt kicking' 53 0
-Sk 'disarm' 53 0
 Sk 'envenom' 53 0
-Sk 'kick' 53 0
-Sk 'rescue' 53 0
-Sk 'trip' 53 0
-Sk 'third attack' 53 0
-Sk 'hide' 53 0
-Sk 'sneak' 53 0
 Sk 'steal' 53 0
-Sk 'dual wield' 53 0
 Sk 'waves of weariness' 53 0
 Sk 'sacrificial heal' 53 0
 Sk 'mass refresh' 53 0
@@ -186,23 +186,23 @@ Gr 'warrior basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
-Gr 'mage default' 40
+Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
-Gr 'bladesinger default' 0
+Gr 'bladesinger default' 40
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
-Gr 'beguiling' 4
+Gr 'beguiling' 0
 Gr 'benedictions' 0
 Gr 'combat' 6
 Gr 'creation' 4
 Gr 'curative' 0
 Gr 'detection' 4
-Gr 'draconian' 8
-Gr 'enchantment' 6
+Gr 'draconian' 0
+Gr 'enchantment' 0
 Gr 'enhancement' 5
 Gr 'harmful' 0
 Gr 'healing' 0

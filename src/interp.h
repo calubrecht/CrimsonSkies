@@ -328,3 +328,4 @@ DECLARE_DO_FUN(do_wizcancel);
 DECLARE_DO_FUN(do_wizbless);
 DECLARE_DO_FUN(do_direct);
 DECLARE_DO_FUN(do_class);
+DECLARE_DO_FUN(do_bladesong);

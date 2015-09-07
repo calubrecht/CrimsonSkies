@@ -131,6 +131,7 @@ Sk 'cure slow' 52 -1
 Sk 'immortal blessing' 52 -1
 Sk 'nurishment' 52 -1
 Sk 'enhanced recovery' 52 -1
+Sk 'bladesong' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -184,12 +185,14 @@ Gr 'thief basics' 0
 Gr 'warrior basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
+Gr 'bladesinger basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 40
 Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
+Gr 'bladesinger default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
 Gr 'beguiling' 0

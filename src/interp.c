@@ -260,6 +260,7 @@ const struct cmd_type cmd_table[] = {
     {"rescue",          do_rescue,      POS_FIGHTING, 0, LOG_NORMAL, 0},
     {"surrender",       do_surrender,   POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"trip",            do_trip,        POS_FIGHTING, 0, LOG_NORMAL, 1},
+    {"bladesong",       do_bladesong,   POS_FIGHTING, 0, LOG_NORMAL, 1},
 
     /*
      * Mob command interpreter (placed here for faster scan...)
