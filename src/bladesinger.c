@@ -67,15 +67,15 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
         return;
     }
 
-    if ( ch->level < skill_table[gsn_bladesong]->skill_level[ch->class] )
+    if ( ch->fighting == NULL )
     {
-        send_to_char("You are not yet skilled enough.\n\r", ch);
+        send_to_char("You can only initiate the bladesong in combat.\n\r", ch);
         return;
     }
 
-    if ( ch->fighting == NULL )
+    if ( ch->level < skill_table[gsn_bladesong]->skill_level[ch->class] )
     {
-        send_to_char("You aren't in combat.\n\r", ch);
+        send_to_char("You are not yet skilled enough.\n\r", ch);
         return;
     }
 
