@@ -80,3 +80,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Don't show hunger and thirst messages while reclassing.
   - Ailall, cold continent
   - blind fighting skill
+  - fix trains on reclass (so you can't save them all and have a 1300hp level 1 char)
+  - outfit after reclass
+  - remove wanted after reclass
+
