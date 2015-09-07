@@ -49,12 +49,14 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     OBJ_DATA *weapon;
     int modifier = 0;
 
+    // No NPC's
     if (IS_NPC(ch))
     {
         send_to_char("You cannot dance the bladesong.\n\r", ch);
         return;
     }
 
+    // Only bladesingers
     if (ch->class != BLADESINGER_CLASS_LOOKUP)
     {
         send_to_char("Only bladesingers can dance the bladesong.\n\r", ch);
@@ -63,28 +65,35 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
 
     if (is_affected(ch, gsn_bladesong))
     {
-        send_to_char("You are already using the Bladesong.\n\r", ch);
+        send_to_char("You are already using the bladesong.\n\r", ch);
         return;
     }
 
+    // The singer has to be fighting someone to initiate the bladesong.
     if ( ch->fighting == NULL )
     {
         send_to_char("You can only initiate the bladesong in combat.\n\r", ch);
         return;
     }
 
+    // I put this check here but bladesong is also in bladesinger basics
+    // so every bladesinger should get it.  If someone changes that though
+    // then this is needed so we'll keep it in place.
     if ( ch->level < skill_table[gsn_bladesong]->skill_level[ch->class] )
     {
         send_to_char("You are not yet skilled enough.\n\r", ch);
         return;
     }
 
+    // The bladesinger has to be wielding a weapon in order to dance
+    // the bladesong.
     if ((weapon = get_eq_char( ch, WEAR_WIELD )) == NULL)
     {
         send_to_char("You must be wielding a weapon to dance the bladesong.\n\r", ch);
         return;
     }
 
+    // Only swords and daggers can be used with the bladesong.
     switch (weapon->value[0])
     {
         case(WEAPON_SWORD):
@@ -95,6 +104,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
             return;
     }
 
+    // Check to see if they meet the skill check
     if (!CHANCE_SKILL(ch, gsn_bladesong))
     {
         act("You lose your concentration and stumble.", ch, NULL, NULL, TO_CHAR);
@@ -103,9 +113,12 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
         return;
     }
 
+    // Success!
     act("You hum a haunting tune and begin to dance about.", ch, NULL, NULL, TO_CHAR);
     act("$n hums a haunting tune and begins to dance about.", ch, NULL, NULL, TO_ROOM);
 
+    // Singers get a bonus to hit/dam and armor class (as well as other bonsues
+    // throughout the code, like a dodge bonus, parry bonus, disarm bonus, etc.).
     modifier = UMAX(1, ch->level / 10);
 
     af.where = TO_AFFECTS;
