@@ -79,4 +79,4 @@ This is my to do list, mostly will be things big and small as I think about them
     users type in the whole skill/group they want in creation.
   - Don't show hunger and thirst messages while reclassing.
   - Ailall, cold continent
-
+  - blind fighting skill
