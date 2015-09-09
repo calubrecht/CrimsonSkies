@@ -26,7 +26,10 @@
  *                                                                         *
  *  Bladesingers have been perfected by the elven race to be a perfect     *
  *  blend of sword play and magic.  They are nimble and elegant in battle. *
- *  Only elves and elf sub races can be bladesingers.                      *
+ *  Only elves and elf sub races can be bladesingers.  The bladesong is    *
+ *  the base of their skills and magic.  It allows them heightened attack, *
+ *  dodging, disarming as well as the ability to a handful of protective   *
+ *  spells.
  *                                                                         *
  ***************************************************************************/
 
@@ -124,7 +127,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     af.where = TO_AFFECTS;
     af.type = gsn_bladesong;
     af.level = ch->level;
-    af.duration = 5;
+    af.duration = UMAX(2, ch->level / 5);  // 2 to 10 ticks
     af.modifier = modifier;
     af.location = APPLY_HITROLL;
     af.bitvector = 0;
@@ -140,6 +143,52 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     check_improve(ch, gsn_bladesong, TRUE, 5);
 
 } // end do_bladesong
+
+/*
+ * A spell that will offer all grouped members a small AC bonus.  This spell can be
+ * cast both in and out of battle as long as the bladesinger is affected by the bladesong.
+ */
+void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    CHAR_DATA *gch;
+    AFFECT_DATA af;
+    //bool found = FALSE;
+
+    // Must be affected by the bladesong in order to use.
+    if (!is_affected(ch, gsn_bladesong))
+    {
+        send_to_char("You cannot use the song of protection unless you are using the bladesong.\n\r", ch);
+        return;
+    }
+
+    act("$n hums a melodic tune of protection.", ch, NULL, NULL, TO_ROOM);
+    send_to_char("You hum a melodic tune of protection.\n\r", ch);
+
+    // Will set these once here, then add them in the loop
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = ch->level;
+    af.modifier = -10;
+    af.location = APPLY_AC;
+    af.bitvector = 0;
+
+    // Find group members who aren't NPC's
+    for (gch = char_list; gch != NULL; gch = gch->next)
+    {
+        if (!IS_NPC(gch) && is_same_group (gch, ch))
+        {
+            if (!is_affected(gch, sn))
+            {
+                act("You are now influenced by $n's song of protection.", ch, NULL, gch, TO_VICT);
+                affect_to_char (gch, &af);
+            }
+        }
+    }
+
+    send_to_char("You group is now influenced by the song of protection.\n\r", ch);
+
+} // end spell_song_of_protection
 
 /*
  * Circle is a skill that allows the bladesinger to disorient it's opponent.  The

@@ -5169,6 +5169,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_sequestor" )) return spell_sequestor;
             if ( !str_cmp( name, "spell_sacrificial_heal" )) return spell_sacrificial_heal;
             if ( !str_cmp( name, "spell_sense_affliction" )) return spell_sense_affliction;
+            if ( !str_cmp( name, "spell_song_of_protection" )) return spell_song_of_protection;
             break;
         case 't':
             if ( !str_cmp( name, "spell_teleport" )) return spell_teleport;
@@ -5320,6 +5321,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_cure_slow) return "spell_cure_slow";
     if (spell == spell_nurishment) return "spell_nurishment";
     if (spell == spell_enhanced_recovery) return "spell_enhanced_recovery";
+    if (spell == spell_song_of_protection) return "spell_song_of_protection";
 
     return "reserved";
 

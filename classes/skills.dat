@@ -1704,4 +1704,13 @@ MinMana     0
 Beats       0
 End
 
+#SKILL
+Name        song of protection~
+SpellFun    spell_song_of_protection~
+Target      2
+MinPos      7
+MinMana     5
+Beats       12
+End
+
 #END
