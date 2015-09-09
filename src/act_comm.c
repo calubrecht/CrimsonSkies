@@ -1787,6 +1787,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only clerics can reclass into healers.\n\r", ch);
         return;
     }
+    else if (iClass == BLADESINGER_CLASS_LOOKUP && ch->race != ELF_RACE_LOOKUP)
+    {
+        send_to_char("Only elves can be bladesingers.\n\r", ch);
+        return;
+    }
 
     char buf[MSL];
     int oldLevel = 0;
@@ -1820,10 +1825,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Reclassing will give a bonus so that the higher the level you were before you reclassed the more
     // initial trains/practices you get to start with.  This should encourage players to level up their
     // initial class.
-    ch->train += 5;
+    ch->train = 5;
     ch->train += oldLevel / 5;
 
-    ch->practice += 5;
+    ch->practice = 5;
     ch->practice += oldLevel / 5;
 
     // Reset the users stats back to default (they will have more trains now to up them quicker).
