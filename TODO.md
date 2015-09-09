@@ -83,4 +83,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - fix trains on reclass (so you can't save them all and have a 1300hp level 1 char)
   - outfit after reclass
   - remove wanted after reclass
-
+  - Healer skill (not spell) to help remove some physical affects (not from spells)
