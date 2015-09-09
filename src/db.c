@@ -4525,5 +4525,8 @@ void assign_gsn()
     ASSIGN_GSN(gsn_immortal_blessing, "immortal blessing");
     ASSIGN_GSN(gsn_enhanced_recovery, "enhanced recovery");
     ASSIGN_GSN(gsn_bladesong, "bladesong");
+    ASSIGN_GSN(gsn_circle, "circle");
+    ASSIGN_GSN(gsn_disorientation, "disorientation");
+    ASSIGN_GSN(gsn_blind_fighting, "blind fighting");
 
 } // end assign_gsn

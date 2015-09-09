@@ -1676,4 +1676,32 @@ Beats       0
 MsgOff      You cease to dance the bladesong.~
 End
 
+#SKILL
+Name        circle~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       12
+End
+
+#SKILL
+Name        disorientation~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      You feel less disoriented.~
+End
+
+#SKILL
+Name        blind fighting~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+End
+
 #END

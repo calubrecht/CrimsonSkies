@@ -81,6 +81,7 @@ Sk 'create rose' 20 1
 Sk 'giant strength' 20 1
 Sk 'enhanced damage' 20 4
 Sk 'third attack' 20 4
+Sk 'circle' 20 2
 Sk 'curse' 22 1
 Sk 'energy drain' 22 1
 Sk 'summon' 22 1
@@ -115,6 +116,7 @@ Sk 'slow' 36 1
 Sk 'farsight' 39 1
 Sk 'dual wield' 39 6
 Sk 'portal' 40 2
+Sk 'blind fighting' 44 2
 Sk 'nexus' 46 2
 Sk 'calm' 48 1
 Sk 'mass invis' 48 1
@@ -135,6 +137,7 @@ Sk 'cure slow' 52 -1
 Sk 'immortal blessing' 52 -1
 Sk 'nurishment' 52 -1
 Sk 'enhanced recovery' 52 -1
+Sk 'disorientation' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1

@@ -76,6 +76,7 @@ Sk 'fireproof' 18 2
 Sk 'berserk' 18 5
 Sk 'cause critical' 19 2
 Sk 'cure critical' 19 2
+Sk 'blind fighting' 19 2
 Sk 'water breathing' 20 2
 Sk 'calm' 20 2
 Sk 'color spray' 20 2
@@ -141,6 +142,8 @@ Sk 'immortal blessing' 52 -1
 Sk 'nurishment' 52 -1
 Sk 'enhanced recovery' 52 -1
 Sk 'bladesong' 52 -1
+Sk 'circle' 52 -1
+Sk 'disorientation' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2

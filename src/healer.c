@@ -353,7 +353,8 @@ void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 /*
  * Restore mental presence will allow the caster to remove any stun affect on a
  * character (from bash, etc.).  It will not be much use on themselves since they
- * have to be ablet to cast it and stun may stop that.
+ * have to be ablet to cast it and stun may stop that.  We will also have this spell
+ * alleviate certain other affects like disorientation.
  */
 void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
@@ -367,6 +368,12 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
 
     // This is all the code needed, it will remove the stun state from the player.
     victim->daze = 0;
+
+    // Disorientation isn't a spell, we aren't going to make a saves check
+    if (is_affected(victim, gsn_disorientation))
+    {
+        affect_strip(victim, gsn_disorientation);
+    }
 
     send_to_char("Your mental presence has been restored.\n\r", victim);
     act ("$n's mental presence has been restored.", victim, NULL, NULL, TO_ROOM);
