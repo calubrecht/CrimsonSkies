@@ -886,6 +886,7 @@ struct    kill_data
 #define OBJ_VNUM_DISC              23
 #define OBJ_VNUM_WARPSTONE         24
 #define OBJ_VNUM_PORTAL            25
+#define OBJ_VNUM_HEALERS_BIND      26
 
 #define OBJ_VNUM_ROSE              1001
 

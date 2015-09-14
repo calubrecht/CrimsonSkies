@@ -31,6 +31,10 @@
  *  in does well.  -Rhien                                                  *
  ***************************************************************************/
 
+/***************************************************************************
+ *  TODO - Ranged heal, more curatives (remember to update sense affliction)
+/***************************************************************************/
+
 // General Includes
 #include <stdio.h>
 #include <stdlib.h>
@@ -433,6 +437,70 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 } // end spell_sense_affliction
 
 /*
+ * A healer spell that will allow the healer to create a bind stone that will stay in the
+ * room with some of their healing power imbued into it.  The bind stone will be an object
+ * that can't be moved or sacrificed.  Only one can exist in an area.  It will have a certain
+ * amount of charges that it can be used.  When a player touches it, they will be healed.
+ * when the bind stone's magic is used up it will disappear into the ether.  The item won't
+ * disappear with time however.. it must be used.  For now, this will not survive copyover's
+ * or reboots.
+ */
+void spell_healers_bind( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+{
+    OBJ_DATA *obj;
+    OBJ_DATA *objSearch;
+    int charges=0;
+
+    // First, let's see if there are any other bind stones in the area, if so, we
+    // are not going to cast this.  These will not be in containers.
+    for (objSearch = object_list; objSearch != NULL; objSearch = objSearch->next)
+    {
+        // Can't be in a null room
+        if (objSearch->in_room != NULL)
+        {
+            // Only one per area at a time.
+            if (objSearch->pIndexData->vnum == OBJ_VNUM_HEALERS_BIND
+                && objSearch->in_room->area->vnum == ch->in_room->area->vnum)
+            {
+                send_to_char("A healer's bind stone already exists somewhere in this area...\n\r", ch);
+                return;
+            }
+        }
+    }
+
+    // Base is level / 5
+    charges = ch->level / 5;
+
+    // +1 for bless
+    if (is_affected(ch, gsn_bless))
+    {
+        charges += 1;
+    }
+
+    // +1 for enhanced recovery, the healer can then pass that along.
+    if (is_affected(ch, gsn_enhanced_recovery))
+    {
+        charges += 1;
+    }
+
+    // Cut in half if these are the case..
+    if (is_affected(ch, gsn_curse) || is_affected(ch, gsn_weaken))
+    {
+        charges = charges / 2;
+    }
+
+    obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND), 0);
+
+    obj->value[0] = charges;  // The number of charges
+    obj->value[1] = 50;       // The amount it heals
+
+    obj_to_room(obj, ch->in_room);
+    act("$p slowly fades into existence.", ch, obj, NULL, TO_ROOM);
+    act("$p slowly fades into existence.", ch, obj, NULL, TO_CHAR);
+
+} // end spell_create_healers_bind
+
+/*
  * The nurishment spell will allow the healer to nurish a person and alleviate any
  * hunger and thirst they might have without food and water.  I originally wrote this
  * spell (on 1/4/2000) for another class but it seems to fit here better.
@@ -495,3 +563,4 @@ void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int ta
     send_to_char("You feel blessed with a enhanced recovery.\n\r", victim);
 
 } // end spell_enhanced_recovery
+

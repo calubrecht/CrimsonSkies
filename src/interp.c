@@ -124,6 +124,7 @@ const struct cmd_type cmd_table[] = {
     {"credits",   do_credits,   POS_DEAD,     0, LOG_NORMAL, 1},
     {"equipment", do_equipment, POS_DEAD,     0, LOG_NORMAL, 1},
     {"examine",   do_examine,   POS_RESTING,  0, LOG_NORMAL, 1},
+    {"touch",     do_touch,     POS_RESTING,  0, LOG_NORMAL, 1},
     {"help",      do_help,      POS_DEAD,     0, LOG_NORMAL, 1},
     {"info",      do_groups,    POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"motd",      do_motd,      POS_DEAD,     0, LOG_NORMAL, 1},

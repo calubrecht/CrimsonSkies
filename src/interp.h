@@ -330,3 +330,4 @@ DECLARE_DO_FUN(do_direct);
 DECLARE_DO_FUN(do_class);
 DECLARE_DO_FUN(do_bladesong);
 DECLARE_DO_FUN(do_circle);
+DECLARE_DO_FUN(do_touch);

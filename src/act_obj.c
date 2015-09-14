@@ -3216,3 +3216,83 @@ void do_second( CHAR_DATA *ch, char *argument )
     return;
 
 } // end do_second
+
+/*
+ * Touch will allow a player to touch another object or player.  Most of the time, nothing
+ * will happen though it can be made to interact with different objects differently.  Our
+ * first case will be allowing players to touch healers bind stones (which can heal them).
+ * We're only going to focus on objects until we need to touch players also (ya ya, I walked
+ * into the that's what she said).
+ */
+void do_touch(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA * obj;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("What would you like to touch?\n\r", ch);
+        return;
+    }
+
+    // Look for an object in the room
+    obj = get_obj_list(ch, argument, ch->in_room->contents);
+
+    if (obj == NULL)
+    {
+        act ("I see no $T here.", ch, NULL, argument, TO_CHAR);
+        return;
+    }
+
+    // We're just going to use an if statement because we'll be dealing with multiple
+    // fields (vnums maybe, item_types maybe, etc.).
+    if (obj->pIndexData->vnum == OBJ_VNUM_HEALERS_BIND)
+    {
+        // No NPC's wasting the charges
+        if (IS_NPC(ch))
+        {
+            send_to_char ("You touch the healers bind stone but nothing happens.\n\r", ch);
+            act ("$n touches the healer's bind stone but nothing happens.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        // They're at full health, no need to waste charges
+        if (ch->hit == ch->max_hit)
+        {
+            send_to_char ("You touch the healers bind stone but nothing happens.\n\r", ch);
+            act ("$n touches the healer's bind stone but nothing happens.", ch, NULL, NULL, TO_ROOM);
+            return;
+        }
+
+        // Add the hit/move, but don't go over max, then update the person's position.
+        ch->hit = UMIN(ch->hit + obj->value[1], ch->max_hit);
+        ch->move = UMIN(ch->move + obj->value[1], ch->max_move);
+        update_pos(ch);
+
+        send_to_char ("The healer's bind stone glows {Bblue{x as you feel a warm feeling fill your body.\n\r", ch);
+        act ("The healer's bind stone glows {Bblue{x as $n touches it.", ch, NULL, NULL, TO_ROOM);
+
+        // Make the character wait the length of a normal spell, assuming they're not an
+        // immortal
+        if (!IS_IMMORTAL(ch))
+        {
+            WAIT_STATE (ch, 12);
+        }
+
+        // Remove one charge, see if it should be extracted.
+        obj->value[0] -= 1;
+
+        if (obj->value[0] <= 0)
+        {
+            send_to_char ("The healer's bind stone fades slowly out of existence.\n\r", ch);
+            act ("The healer's bind stone fades slowly out of existence.", ch, NULL, NULL, TO_ROOM);
+            extract_obj(obj);
+        }
+
+        return;
+    }
+    else
+    {
+        send_to_char("Nothing happens.\n\r", ch);
+        return;
+    }
+
+} // end do_touch
