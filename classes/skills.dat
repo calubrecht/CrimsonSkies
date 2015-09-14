@@ -1713,4 +1713,13 @@ MinMana     5
 Beats       12
 End
 
+#SKILL
+Name        healers bind~
+SpellFun    spell_healers_bind~
+Target      0
+MinPos      8
+MinMana     200
+Beats       36
+End
+
 #END
