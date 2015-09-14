@@ -1416,8 +1416,13 @@ void spell_change_sex (int sn, int level, CHAR_DATA * ch, void *vo,
                  TO_CHAR);
         return;
     }
+
     if (saves_spell (level, victim, DAM_OTHER))
+    {
+        send_to_char("You failed.\n\r", ch);
         return;
+    }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
