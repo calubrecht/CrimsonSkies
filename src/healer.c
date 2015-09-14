@@ -42,7 +42,7 @@
 
 /*
  * Will heal an individual to full health at great cost to the healer who will lose most of
- * their health .  In order to use this spell the healer must have most of their health
+ * their health.  In order to use this spell the healer must have most of their health
  * themselves.  This is the hail mary of heals.
  */
 void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int target)
@@ -224,7 +224,8 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
  * A spell to help the healer resist some offensive magics against it.  Healer's don't
  * have many offensive weapons and thus are vulnerable characters, this should help
  * at least protect them a little more from spells.  This should be set to target
- * char_self
+ * char_self so it can only be cast on the healer themselves.  We don't want to create
+ * super chars with saves who make casters worthless.
  */
 void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
@@ -295,7 +296,8 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
 } // end spell_mana_transfer
 
 /*
- * Allows a healer to remove a weaken spell specifically.
+ * Allows a healer to remove a weaken spell specifically.  Healers get a +3 level
+ * bonus on their curative spells.
  */
 void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
@@ -329,7 +331,8 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
 /*
  * Spell to cure people affected by slow (haste does this also, but cleric and cleric
- * reclasses don't get haste (usually).
+ * reclasses don't get haste (usually).  Healers get a +3 level bonus on their curative
+ * spells.
  */
 void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
