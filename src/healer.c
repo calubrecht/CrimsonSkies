@@ -147,7 +147,17 @@ void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int 
     af.where     = TO_AFFECTS;
     af.type      = sn;
     af.level     = level;
-    af.duration  = 5;
+
+    // Lasts longer on yourself
+    if (ch == victim)
+    {
+        af.duration = 15;
+    }
+    else
+    {
+        af.duration = 5;
+    }
+
     af.modifier  = 0;
     af.location  = APPLY_NONE;
     af.bitvector = 0;
