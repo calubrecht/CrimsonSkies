@@ -3303,6 +3303,14 @@ A healer spell that will help the recipient gain back more health,
 mana and movement during their normal healing process.
 ~
 
+0 HEALERS BIND~
+The healers bind spell allows a skilled healer to create a bind stone
+that can stay in a room.  When other characters touch the bind stone
+they will be both healed and refreshed.  When a bind stone has used
+all of it's energy it will fade out of existence.
+
+Only one bind stone is allowed to exist in an area at any given time.
+~
 0 LIFE BOOST~
 A healing spell that allows a healer to increase the health (HP) of
 an individual for a period of time.
