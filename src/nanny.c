@@ -216,7 +216,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             {
                 if (wizlock && !IS_IMMORTAL (ch))
                 {
-                    send_to_desc ("The game is wizlocked.\n\r", d);
+                    send_to_desc ("\n\rThe game is currently locked to all except immortals  Please try again later.\n\r", d);
                     close_socket (d);
                     return;
                 }
@@ -235,7 +235,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 /* New player */
                 if (newlock)
                 {
-                    send_to_desc ("The game is newlocked.\n\r", d);
+                    send_to_desc ("The game is new locked.  Please try again later.\n\r", d);
                     close_socket (d);
                     return;
                 }
