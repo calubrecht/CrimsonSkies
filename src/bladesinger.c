@@ -145,7 +145,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
 } // end do_bladesong
 
 /*
- * A spell that will offer all grouped members a small AC bonus.  This spell can be
+ * A bladesong spell that will offer all grouped members a small AC bonus.  This spell can be
  * cast both in and out of battle as long as the bladesinger is affected by the bladesong.
  */
 void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int target)
@@ -189,6 +189,50 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     send_to_char("You group is now influenced by the song of protection.\n\r", ch);
 
 } // end spell_song_of_protection
+
+/*
+ * A bladesong that will allow the bladesinger to disorient (once) and add a few ticks
+ * of a victim being deaf.  Awful singing FTW!
+ */
+void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    CHAR_DATA *gch;
+    AFFECT_DATA af;
+
+    // Must be affected by the bladesong in order to use.
+    if (!is_affected(ch, gsn_bladesong))
+    {
+        send_to_char("You cannot use the song of dissonance unless you are using the bladesong.\n\r", ch);
+        return;
+    }
+
+    act("$n hums a piercing dissonant tune.", ch, NULL, NULL, TO_ROOM);
+    send_to_char("You hum a piercing dissonant tune.\n\r", ch);
+
+    // Will set these once here, then add them in the loop
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 3;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+
+    // Find group members who aren't NPC's
+    for (gch = char_list; gch != NULL; gch = gch->next)
+    {
+        if (!IS_NPC(gch) && !is_same_group(gch, ch) && gch != ch)
+        {
+            if (!is_affected(gch, sn))
+            {
+                act("$N's looks pained.", ch, NULL, gch, TO_CHAR);
+                act("You feel a piercing pain in your ears as your hearing becomes muffled.", ch, NULL, gch, TO_VICT);
+                affect_to_char (gch, &af);
+            }
+        }
+    }
+
+} // end spell_song_of_dissonance
 
 /*
  * Circle is a skill that allows the bladesinger to disorient it's opponent.  The

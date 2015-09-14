@@ -147,3 +147,4 @@ DECLARE_SPELL_FUN(spell_cure_slow);
 DECLARE_SPELL_FUN(spell_nurishment);
 DECLARE_SPELL_FUN(spell_enhanced_recovery);
 DECLARE_SPELL_FUN(spell_song_of_protection);
+DECLARE_SPELL_FUN(spell_song_of_dissonance);
