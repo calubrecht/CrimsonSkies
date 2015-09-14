@@ -111,11 +111,10 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int targ
     affect_to_char (victim, &af);
 
     send_to_char ("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
+    act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim, TO_ROOM);
 
     if (ch != victim)
     {
-        act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim, TO_CHAR);
-
         // Small mana transfer from the caster to the target, but no more than their max mana.
         victim->mana += number_range(10, 20);
 
