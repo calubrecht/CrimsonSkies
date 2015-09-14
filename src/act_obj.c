@@ -3245,7 +3245,7 @@ void do_touch(CHAR_DATA * ch, char *argument)
 
     // We're just going to use an if statement because we'll be dealing with multiple
     // fields (vnums maybe, item_types maybe, etc.).
-    if (obj->pIndexData->vnum == OBJ_VNUM_HEALERS_BIND)
+    if (obj->pIndexData != NULL && obj->pIndexData->vnum == OBJ_VNUM_HEALERS_BIND)
     {
         // No NPC's wasting the charges
         if (IS_NPC(ch))
