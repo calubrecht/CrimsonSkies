@@ -173,6 +173,14 @@ shadow~
 portal GOT 0
 0 0 0 0 0
 0 0 0 P
+#26
+healers bind~
+a healers bind stone~
+A healers bind stone stands here filled with magical imbuement.~
+unknown~
+trash ABG P
+0 0 0 0 0
+0 0 0 P
 #30
 dummy object~
 a dummy object~
