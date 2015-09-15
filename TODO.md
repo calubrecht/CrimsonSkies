@@ -83,5 +83,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - outfit after reclass
   - remove wanted after reclass
   - add another affect field that is in the smaug style with xis_set
-  - Add healer spell to create a healing bind stone, one per area with charges.. player can touch and 
-    be healed.  Item cannot be moved, sac'd.
+  - add enabled field on class that allows the class to be enabled/not, this
+    will affect whether people can actively reclass or take a class.  It will
+    allow a class to exist without it being generally available.
