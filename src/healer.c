@@ -148,9 +148,9 @@ void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int 
         }
     }
 
-    af.where     = TO_AFFECTS;
-    af.type      = sn;
-    af.level     = level;
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
 
     // Lasts longer on yourself
     if (ch == victim)
@@ -162,8 +162,8 @@ void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int 
         af.duration = 5;
     }
 
-    af.modifier  = 0;
-    af.location  = APPLY_NONE;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
@@ -206,14 +206,14 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
         }
     }
 
-    af.where     = TO_AFFECTS;
-    af.type      = sn;
-    af.level     = level;
-    af.duration  = level;
-    af.modifier  = ch->level;
-    af.location  = APPLY_HIT;
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.modifier = ch->level;
+    af.location = APPLY_HIT;
     af.bitvector = 0;
-    affect_to_char( victim, &af );
+    affect_to_char(victim, &af);
 
     af.location = APPLY_MOVE;
     affect_to_char (victim, &af);
@@ -222,7 +222,8 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
     send_to_char("You feel an increased vitality.\n\r", victim);
 
     return;
-}
+
+} // end spell_life_boost
 
 /*
  * A spell to help the healer resist some offensive magics against it.  Healer's don't
@@ -241,15 +242,14 @@ void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int tar
         affect_strip(victim, sn);
     }
 
-    af.where     = TO_AFFECTS;
-    af.type      = sn;
-    af.level     = level;
-    af.duration  = level;
-    af.modifier  = (ch->level / 10) * -1;
-    af.location  = APPLY_SAVING_SPELL;
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.modifier = (ch->level / 10) * -1;
+    af.location = APPLY_SAVING_SPELL;
     af.bitvector = 0;
-    affect_to_char( victim, &af );
-
+    affect_to_char(victim, &af);
 
     act("$N has an enhanced resistance to magic.", victim, NULL, victim, TO_ROOM);
     send_to_char("You feel an enhanced resistance to magic.\n\r", victim);
@@ -416,12 +416,12 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
         affect_strip(victim, sn);
     }
 
-    af.where     = TO_AFFECTS;
-    af.type      = sn;
-    af.level     = level;
-    af.duration  = ch->level + (ch->level / 2);
-    af.modifier  = 0;
-    af.location  = APPLY_NONE;
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = ch->level + (ch->level / 2);
+    af.modifier = 0;
+    af.location = APPLY_NONE;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
@@ -490,7 +490,6 @@ void spell_healers_bind( int sn, int level, CHAR_DATA *ch, void *vo, int target 
     }
 
     obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND), 0);
-
     obj->value[0] = charges;  // The number of charges
     obj->value[1] = 50;       // The amount it heals
 
@@ -517,9 +516,9 @@ void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
     }
 
     // Only players as this hits the pcdata
-    victim->pcdata->condition[COND_THIRST]  = 48;
-    victim->pcdata->condition[COND_FULL]    = 48;
-    victim->pcdata->condition[COND_HUNGER]  = 48;
+    victim->pcdata->condition[COND_THIRST] = 48;
+    victim->pcdata->condition[COND_FULL] = 48;
+    victim->pcdata->condition[COND_HUNGER] = 48;
 
     act("$N has been filled with nurishment.", victim, NULL, victim, TO_ROOM);
     send_to_char( "You feel nurishment filling your body.\n\r", victim);
@@ -550,14 +549,14 @@ void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int ta
         }
     }
 
-    af.where     = TO_AFFECTS;
-    af.type      = sn;
-    af.level     = level;
-    af.duration  = (ch->level / 2);
-    af.modifier  = 0;
-    af.location  = APPLY_NONE;
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = (ch->level / 2);
+    af.modifier = 0;
+    af.location = APPLY_NONE;
     af.bitvector = 0;
-    affect_to_char( victim, &af );
+    affect_to_char(victim, &af);
 
     act("$N has been blessed with an enhanced recovery.", victim, NULL, victim, TO_ROOM);
     send_to_char("You feel blessed with a enhanced recovery.\n\r", victim);
