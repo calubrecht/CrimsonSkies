@@ -22,13 +22,12 @@
 
 /***************************************************************************
  *  Healer Class (not to be confused with a healer mob who you can buy     *
- *  healing spels from)                                                    *
+ *  healing spells from)                                                   *
  *                                                                         *
  *  Healers are masters of healing people's bodies as well as having       *
  *  curative expertise such as removing disease, poison, etc.  They are    *
- *  more of a support class that are effective group individuals.  In the  *
- *  new pk system even support classes can benefit if the group they are   *
- *  in does well.  -Rhien                                                  *
+ *  more of a support class that are effective group individuals.          *
+ *                                            -Rhien                       *
  ***************************************************************************/
 
 /***************************************************************************
@@ -184,6 +183,7 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
+    int modifier = 0;
 
     // Not on NPC's
     if (IS_NPC(victim))
@@ -206,11 +206,21 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
         }
     }
 
+    // Base is the players level
+    modifier = ch->level;
+
+    // If the player is casting it on themselves we'll give them a 12hp-13hp bonus at 51.  Healer's
+    // aren't going to be huge player killers so why not.
+    if (ch == victim)
+    {
+        modifier += ch->level / 4;
+    }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
     af.duration = level;
-    af.modifier = ch->level;
+    af.modifier = modifier;
     af.location = APPLY_HIT;
     af.bitvector = 0;
     affect_to_char(victim, &af);

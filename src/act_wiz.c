@@ -5798,10 +5798,6 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    ch->hit = ch->max_hit;
-    ch->mana = ch->max_mana;
-    ch->move = ch->max_move;
-
     /*CHAR_DATA * rch;
     char buf[MSL];
 
@@ -5811,7 +5807,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
         send_to_char(buf, ch);
     }*/
 
-    //send_to_char("Nothing here currently, move along.\r\n", ch);
+    send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 
 } // end do_debug
