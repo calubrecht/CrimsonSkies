@@ -180,6 +180,12 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
         {
             if (!is_affected(gch, sn))
             {
+                // Strip the affect and re-add it
+                if (is_affected(gch, sn))
+                {
+                    affect_strip(gch, sn);
+                }
+
                 act("You are now influenced by $n's song of protection.", ch, NULL, gch, TO_VICT);
                 affect_to_char (gch, &af);
             }
