@@ -46,34 +46,35 @@ typedef unsigned char            bool;
 /*
  * Structure types.
  */
-typedef struct    affect_data      AFFECT_DATA;
-typedef struct    area_data        AREA_DATA;
-typedef struct    ban_data         BAN_DATA;
-typedef struct    buf_type         BUFFER;
-typedef struct    char_data        CHAR_DATA;
-typedef struct    descriptor_data  DESCRIPTOR_DATA;
-typedef struct    exit_data        EXIT_DATA;
-typedef struct    extra_descr_data EXTRA_DESCR_DATA;
-typedef struct    help_data        HELP_DATA;
-typedef struct    help_area_data   HELP_AREA;
-typedef struct    kill_data        KILL_DATA;
-typedef struct    mem_data         MEM_DATA;
-typedef struct    mob_index_data   MOB_INDEX_DATA;
-typedef struct    note_data        NOTE_DATA;
-typedef struct    obj_data         OBJ_DATA;
-typedef struct    obj_index_data   OBJ_INDEX_DATA;
-typedef struct    pc_data          PC_DATA;
-typedef struct    gen_data         GEN_DATA;
-typedef struct    reset_data       RESET_DATA;
-typedef struct    room_index_data  ROOM_INDEX_DATA;
-typedef struct    shop_data        SHOP_DATA;
-typedef struct    time_info_data   TIME_INFO_DATA;
-typedef struct    weather_data     WEATHER_DATA;
-typedef struct    mprog_list       MPROG_LIST;
-typedef struct    mprog_code       MPROG_CODE;
-typedef struct    group_type       GROUPTYPE;
-typedef struct    class_type       CLASSTYPE;
-typedef struct    skill_type       SKILLTYPE;
+typedef struct    affect_data        AFFECT_DATA;
+typedef struct    area_data          AREA_DATA;
+typedef struct    ban_data           BAN_DATA;
+typedef struct    buf_type           BUFFER;
+typedef struct    char_data          CHAR_DATA;
+typedef struct    descriptor_data    DESCRIPTOR_DATA;
+typedef struct    exit_data          EXIT_DATA;
+typedef struct    extra_descr_data   EXTRA_DESCR_DATA;
+typedef struct    help_data          HELP_DATA;
+typedef struct    help_area_data     HELP_AREA;
+typedef struct    kill_data          KILL_DATA;
+typedef struct    mem_data           MEM_DATA;
+typedef struct    mob_index_data     MOB_INDEX_DATA;
+typedef struct    note_data          NOTE_DATA;
+typedef struct    obj_data           OBJ_DATA;
+typedef struct    obj_index_data     OBJ_INDEX_DATA;
+typedef struct    pc_data            PC_DATA;
+typedef struct    gen_data           GEN_DATA;
+typedef struct    reset_data         RESET_DATA;
+typedef struct    room_index_data    ROOM_INDEX_DATA;
+typedef struct    shop_data          SHOP_DATA;
+typedef struct    time_info_data     TIME_INFO_DATA;
+typedef struct    weather_data       WEATHER_DATA;
+typedef struct    mprog_list         MPROG_LIST;
+typedef struct    mprog_code         MPROG_CODE;
+typedef struct    group_type         GROUPTYPE;
+typedef struct    class_type         CLASSTYPE;
+typedef struct    skill_type         SKILLTYPE;
+typedef struct    extended_bitvector EXT_BV;
 
 /*
  * Function types.
@@ -1800,12 +1801,57 @@ struct mprog_code
 #define ENTRE(min,num,max)  (((min) < (num)) && ((num) < (max)) )
 #define CHANCE(percent)     (number_range(1,100) < percent) // - Rhien, 7/7/2015
 #define CHANCE_SKILL(ch, sn)(number_percent() < get_skill(ch, sn)) // Rhien, 8/16/2015
-
 #define CHECK_POS(a, b, c)    {                            \
                     (a) = (b);                    \
                     if ( (a) < 0 )                    \
                     bug( "CHECK_POS : " c " == %d < 0", a );    \
                 }                            \
+
+/*
+ * Defines for extended bitvectors
+ */
+#ifndef INTBITS
+  #define INTBITS       32
+#endif
+#define XBM             31      /* extended bitmask   ( INTBITS - 1 )   */
+#define RSV             5       /* right-shift value  ( sqrt(XBM+1) )   */
+#define XBI             4       /* integers in an extended bitvector    */
+#define MAX_BITS        XBI * INTBITS
+
+/*
+ * Structure for extended bitvectors -- Thoric (Smaug)
+ */
+struct extended_bitvector
+{
+    int         bits[XBI];
+};
+
+/*
+ * The functions for these prototypes can be found in misc.c
+ * They are up here because they are used by the macros below
+ */
+bool    ext_is_empty            args( ( EXT_BV *bits ) );
+void    ext_clear_bits          args( ( EXT_BV *bits ) );
+int     ext_has_bits            args( ( EXT_BV *var, EXT_BV *bits) );
+bool    ext_same_bits           args( ( EXT_BV *var, EXT_BV *bits) );
+void    ext_set_bits            args( ( EXT_BV *var, EXT_BV *bits) );
+void    ext_remove_bits         args( ( EXT_BV *var, EXT_BV *bits) );
+void    ext_toggle_bits         args( ( EXT_BV *var, EXT_BV *bits) );
+
+/*
+ * Here are the extended bitvector macros:
+ */
+#define xIS_SET(var, bit)       ((var).bits[(bit) >> RSV] & 1 << ((bit) & XBM))
+#define xSET_BIT(var, bit)      ((var).bits[(bit) >> RSV] |= 1 << ((bit) & XBM))
+#define xSET_BITS(var, bit)     (ext_set_bits(&(var), &(bit)))
+#define xREMOVE_BIT(var, bit)   ((var).bits[(bit) >> RSV] &= ~(1 << ((bit) & XBM)))
+#define xREMOVE_BITS(var, bit)  (ext_remove_bits(&(var), &(bit)))
+#define xTOGGLE_BIT(var, bit)   ((var).bits[(bit) >> RSV] ^= 1 << ((bit) & XBM))
+#define xTOGGLE_BITS(var, bit)  (ext_toggle_bits(&(var), &(bit)))
+#define xCLEAR_BITS(var)        (ext_clear_bits(&(var)))
+#define xIS_EMPTY(var)          (ext_is_empty(&(var)))
+#define xHAS_BITS(var, bit)     (ext_has_bits(&(var), &(bit)))
+#define xSAME_BITS(var, bit)    (ext_same_bits(&(var), &(bit)))
 
 /*
  * Character macros.
