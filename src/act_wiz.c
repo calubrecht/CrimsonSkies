@@ -93,48 +93,49 @@ void do_wiznet (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Wiznet "status" and "show" combined together.
     /* show wiznet status */
-    if (!str_prefix (argument, "status"))
+    if (!str_prefix(argument,"status") || !str_prefix(argument,"show"))
     {
+        bool lf = FALSE;
         buf[0] = '\0';
 
-        if (!IS_SET (ch->wiznet, WIZ_ON))
-            strcat (buf, "off ");
+        sprintf(buf, "{WWiznet{x is toggled %s{x.\n\r\n\r", IS_SET(ch->wiznet,WIZ_ON) ? "{GON" : "{ROFF");
+        send_to_char( buf, ch);
 
-        for (flag = 0; wiznet_table[flag].name != NULL; flag++)
-            if (IS_SET (ch->wiznet, wiznet_table[flag].flag))
-            {
-                strcat (buf, wiznet_table[flag].name);
-                strcat (buf, " ");
-            }
-
-        strcat (buf, "\n\r");
-
-        send_to_char ("Wiznet status:\n\r", ch);
-        send_to_char (buf, ch);
-        return;
-    }
-
-    if (!str_prefix (argument, "show"))
-        /* list of all wiznet options */
-    {
-        buf[0] = '\0';
-
-        for (flag = 0; wiznet_table[flag].name != NULL; flag++)
+        for (flag = 1; wiznet_table[flag].name != NULL; flag++)
         {
-            if (wiznet_table[flag].level <= get_trust (ch))
+            if (ch->level < wiznet_table[flag].level)
+                continue;
+
+            sprintf(buf,"{W%-10s    %6s   ",
+            capitalize(wiznet_table[flag].name),
+            IS_SET(ch->wiznet,wiznet_table[flag].flag) ? "{GON" : "{ROFF");
+            send_to_char(buf,ch);
+
+            if (lf)
             {
-                strcat (buf, wiznet_table[flag].name);
-                strcat (buf, " ");
+                lf= FALSE;
+                send_to_char("\n\r{x", ch);
+            }
+            else
+            {
+                lf = TRUE;
             }
         }
 
-        strcat (buf, "\n\r");
-
-        send_to_char ("Wiznet options available to you are:\n\r", ch);
-        send_to_char (buf, ch);
+        send_to_char("\n\r{x",ch);
         return;
     }
+
+    flag = wiznet_lookup(argument);
+
+    if (flag == -1 || get_trust(ch) < wiznet_table[flag].level)
+    {
+    send_to_char("No such option.\n\r",ch);
+    return;
+    }
+
 
     flag = wiznet_lookup (argument);
 
