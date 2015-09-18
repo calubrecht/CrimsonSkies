@@ -360,4 +360,9 @@ Sk 'faerie fog'
 Sk 'lightning bolt'
 End
 
+#GROUP
+Name 'bladesongs'
+Sk 'song of protection'
+End
+
 #END

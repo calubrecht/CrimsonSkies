@@ -72,6 +72,7 @@ Sk 'refresh' 17 1
 Sk 'disarm' 17 4
 Sk 'dodge' 17 6
 Sk 'color spray' 18 1
+Sk 'song of protection' 18 1
 Sk 'control weather' 19 1
 Sk 'faerie fog' 19 1
 Sk 'infravision' 19 1
@@ -138,7 +139,6 @@ Sk 'immortal blessing' 52 -1
 Sk 'nurishment' 52 -1
 Sk 'enhanced recovery' 52 -1
 Sk 'disorientation' 52 -1
-Sk 'song of protection' 52 -1
 Sk 'healers bind' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
@@ -218,6 +218,7 @@ Gr 'maladictions' 5
 Gr 'protective' 4
 Gr 'transportation' 4
 Gr 'weather' 4
+Gr 'bladesongs' 4
 Mult 0 100
 Mult 1 100
 Mult 2 100
