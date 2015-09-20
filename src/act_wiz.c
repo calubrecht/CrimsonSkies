@@ -64,38 +64,25 @@ void do_wiznet (CHAR_DATA * ch, char *argument)
     int flag;
     char buf[MAX_STRING_LENGTH];
 
-    if (argument[0] == '\0')
+    if (!str_cmp (argument, "on"))
     {
-        if (IS_SET (ch->wiznet, WIZ_ON))
-        {
-            send_to_char ("Signing off of Wiznet.\n\r", ch);
-            REMOVE_BIT (ch->wiznet, WIZ_ON);
-        }
-        else
-        {
-            send_to_char ("Welcome to Wiznet!\n\r", ch);
-            SET_BIT (ch->wiznet, WIZ_ON);
-        }
-        return;
-    }
-
-    if (!str_prefix (argument, "on"))
-    {
-        send_to_char ("Welcome to Wiznet!\n\r", ch);
+        send_to_char("Welcome to Wiznet!", ch);
+        send_to_char("Syntax:  wiznet [on|off]\n\r", ch);
         SET_BIT (ch->wiznet, WIZ_ON);
         return;
     }
 
-    if (!str_prefix (argument, "off"))
+    if (!str_cmp (argument, "off"))
     {
-        send_to_char ("Signing off of Wiznet.\n\r", ch);
+        send_to_char("Signing off of Wiznet!", ch);
+        send_to_char("Syntax:  wiznet [on|off]\n\r", ch);
         REMOVE_BIT (ch->wiznet, WIZ_ON);
         return;
     }
 
     // Wiznet "status" and "show" combined together.
     /* show wiznet status */
-    if (!str_prefix(argument,"status") || !str_prefix(argument,"show"))
+    if (!str_prefix(argument,"status") || !str_prefix(argument,"show") || argument[0] == '\0')
     {
         bool lf = FALSE;
         buf[0] = '\0';
