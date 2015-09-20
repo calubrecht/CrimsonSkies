@@ -3059,12 +3059,113 @@ void do_value (CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Equips a low level character with some sub issue gear.
+ * Equips a low level character with some sub issue gear.  If the player is a tester and
+ * level 51 it will equip the with some test gear.
  */
 void do_outfit (CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj;
     int i, sn, vnum;
+    char buf[MAX_STRING_LENGTH];
+
+    // This section is only for testers who are level 51, this is so we can get
+    // testers equipped quickly, because well, I hate finding and loading gear. ;-)
+    // This is going to use stock gear in the game, if the vnums change or are
+    // removed then this will *crash*.  We will set this gear to rot death in the off
+    // chance that anyone tries to proliferate it.  Not as good as the real deal.  Consider
+    // putting this in a table with the vnum and wear location and then loop through it.
+    if ((IS_SET(ch->act, PLR_TESTER) && ch->level == 51)
+        || IS_IMMORTAL(ch))
+    {
+        if ((obj = get_eq_char(ch, WEAR_LIGHT)) == NULL)
+        {
+            // Sceptre of Might
+            obj = create_object (get_obj_index (9321), 0);
+            obj->cost = 0;
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_LIGHT);
+        }
+
+        if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL)
+        {
+            // sea sword
+            obj = create_object(get_obj_index(9401), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_WIELD);
+        }
+
+        if (get_eq_char (ch, WEAR_FINGER_L) == NULL)
+        {
+            // opal ring
+            obj = create_object(get_obj_index(2803), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_FINGER_L);
+        }
+
+        if (get_eq_char (ch, WEAR_FINGER_R) == NULL)
+        {
+            // opal ring
+            obj = create_object(get_obj_index(2803), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char (ch, obj, WEAR_FINGER_R);
+        }
+
+        if (get_eq_char(ch, WEAR_NECK_1) == NULL)
+        {
+            // Shimmering cloak of many colors
+            obj = create_object(get_obj_index(1396), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+
+            equip_char(ch, obj, WEAR_NECK_1);
+        }
+
+        if (get_eq_char(ch, WEAR_NECK_2) == NULL)
+        {
+            // Shimmering cloak of many colors
+            obj = create_object(get_obj_index(1396), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_NECK_2);
+        }
+
+        if (get_eq_char(ch, WEAR_ARMS) == NULL)
+        {
+            // Armplates of Illerion
+            obj = create_object(get_obj_index(9403), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_ARMS);
+        }
+
+        if (get_eq_char(ch, WEAR_WRIST_L) == NULL)
+        {
+            // copper bracelet
+            obj = create_object(get_obj_index(5025), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_WRIST_L);
+        }
+
+        if (get_eq_char(ch, WEAR_WRIST_R) == NULL)
+        {
+            // copper bracelet
+            obj = create_object(get_obj_index(5025), 0);
+            obj_to_char(obj, ch);
+            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+            equip_char(ch, obj, WEAR_WRIST_R);
+        }
+
+        send_to_char("You have been equipped with testing gear.\n\r", ch);
+        sprintf(buf, "%s has equipped themselves with testing gear.", ch->name);
+        wiznet(buf, NULL, NULL, WIZ_GENERAL, 0, 0);
+
+        return;
+    }
 
     if (ch->level > 5 || IS_NPC (ch))
     {
@@ -3133,7 +3234,7 @@ void do_outfit (CHAR_DATA * ch, char *argument)
     // A little lag in case someone is trying to abuse this.
     WAIT_STATE(ch, PULSE_PER_SECOND);
 
-} // end do_output
+} // end do_outfit
 
 /*
  * Dual wield - This snippit is a modified version of Erwin Andreasen's dual wield
