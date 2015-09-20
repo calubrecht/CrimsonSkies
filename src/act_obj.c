@@ -51,8 +51,9 @@ void wear_obj args ((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
 CD *find_keeper args ((CHAR_DATA * ch));
 int get_cost args ((CHAR_DATA * keeper, OBJ_DATA * obj, bool fBuy));
 void obj_to_keeper args ((OBJ_DATA * obj, CHAR_DATA * ch));
-OD *get_obj_keeper
-args ((CHAR_DATA * ch, CHAR_DATA * keeper, char *argument));
+OD *get_obj_keeper args ((CHAR_DATA * ch, CHAR_DATA * keeper, char *argument));
+void outfit args((CHAR_DATA *ch, int wear_position, int vnum));
+
 
 #undef OD
 #undef CD
@@ -3072,93 +3073,20 @@ void do_outfit (CHAR_DATA * ch, char *argument)
     // testers equipped quickly, because well, I hate finding and loading gear. ;-)
     // This is going to use stock gear in the game, if the vnums change or are
     // removed then this will *crash*.  We will set this gear to rot death in the off
-    // chance that anyone tries to proliferate it.  Not as good as the real deal.  Consider
-    // putting this in a table with the vnum and wear location and then loop through it.
+    // chance that anyone tries to proliferate it.  Not as good as the real deal.
     if ((IS_SET(ch->act, PLR_TESTER) && ch->level == 51)
         || IS_IMMORTAL(ch))
     {
-        if ((obj = get_eq_char(ch, WEAR_LIGHT)) == NULL)
-        {
-            // Sceptre of Might
-            obj = create_object (get_obj_index (9321), 0);
-            obj->cost = 0;
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_LIGHT);
-        }
-
-        if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL)
-        {
-            // sea sword
-            obj = create_object(get_obj_index(9401), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_WIELD);
-        }
-
-        if (get_eq_char (ch, WEAR_FINGER_L) == NULL)
-        {
-            // opal ring
-            obj = create_object(get_obj_index(2803), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_FINGER_L);
-        }
-
-        if (get_eq_char (ch, WEAR_FINGER_R) == NULL)
-        {
-            // opal ring
-            obj = create_object(get_obj_index(2803), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char (ch, obj, WEAR_FINGER_R);
-        }
-
-        if (get_eq_char(ch, WEAR_NECK_1) == NULL)
-        {
-            // Shimmering cloak of many colors
-            obj = create_object(get_obj_index(1396), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-
-            equip_char(ch, obj, WEAR_NECK_1);
-        }
-
-        if (get_eq_char(ch, WEAR_NECK_2) == NULL)
-        {
-            // Shimmering cloak of many colors
-            obj = create_object(get_obj_index(1396), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_NECK_2);
-        }
-
-        if (get_eq_char(ch, WEAR_ARMS) == NULL)
-        {
-            // Armplates of Illerion
-            obj = create_object(get_obj_index(9403), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_ARMS);
-        }
-
-        if (get_eq_char(ch, WEAR_WRIST_L) == NULL)
-        {
-            // copper bracelet
-            obj = create_object(get_obj_index(5025), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_WRIST_L);
-        }
-
-        if (get_eq_char(ch, WEAR_WRIST_R) == NULL)
-        {
-            // copper bracelet
-            obj = create_object(get_obj_index(5025), 0);
-            obj_to_char(obj, ch);
-            SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-            equip_char(ch, obj, WEAR_WRIST_R);
-        }
+        outfit(ch, WEAR_LIGHT,    9321);  // sceptre of might
+        outfit(ch, WEAR_WIELD,    9401);  // sea sword
+        outfit(ch, WEAR_FINGER_L, 2803);  // opal ring
+        outfit(ch, WEAR_FINGER_R, 2803);  // opal ring
+        outfit(ch, WEAR_NECK_1,   1396);  // shimmering cloak of many colors
+        outfit(ch, WEAR_NECK_2,   1396);  // shimmering cloak of many colors
+        outfit(ch, WEAR_ARMS,     9403);  // armplates of illerion
+        outfit(ch, WEAR_WRIST_L,  5025);  // copper bracelet
+        outfit(ch, WEAR_WRIST_R,  5025);  // copper bracelet
+        outfit(ch, WEAR_HOLD,     9406);  // tentacle of a squid
 
         send_to_char("You have been equipped with testing gear.\n\r", ch);
         sprintf(buf, "%s has equipped themselves with testing gear.", ch->name);
@@ -3177,28 +3105,20 @@ void do_outfit (CHAR_DATA * ch, char *argument)
     if (ch->carry_number + 3 > can_carry_n(ch))
     {
         send_to_char("You are carrying too many items to be outfitted.\n\r", ch);
+
         // A little lag in case someone is trying to abuse this.
         WAIT_STATE(ch, PULSE_PER_SECOND * 2);
+
         return;
     }
 
-    if ((obj = get_eq_char (ch, WEAR_LIGHT)) == NULL)
-    {
-        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_BANNER), 0);
-        obj->cost = 0;
-        obj_to_char (obj, ch);
-        equip_char (ch, obj, WEAR_LIGHT);
-    }
+    // Their below level 5, here's some basic sub issue gear.
+    outfit(ch, WEAR_LIGHT, OBJ_VNUM_SCHOOL_BANNER);
+    outfit(ch, WEAR_BODY, OBJ_VNUM_SCHOOL_VEST);
 
-    if ((obj = get_eq_char (ch, WEAR_BODY)) == NULL)
-    {
-        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_VEST), 0);
-        obj->cost = 0;
-        obj_to_char (obj, ch);
-        equip_char (ch, obj, WEAR_BODY);
-    }
-
-    /* do the weapon thing */
+    // Do the weapon thing
+    // We're not going to use the outfit function because this is doing
+    // some extra checks to get the default weapon from the class table.
     if ((obj = get_eq_char (ch, WEAR_WIELD)) == NULL)
     {
         sn = 0;
@@ -3219,22 +3139,44 @@ void do_outfit (CHAR_DATA * ch, char *argument)
         equip_char (ch, obj, WEAR_WIELD);
     }
 
+    // If the weapon equipped isn't two handed and the character
+    // isn't wearing a shield.
     if (((obj = get_eq_char (ch, WEAR_WIELD)) == NULL
          || !IS_WEAPON_STAT (obj, WEAPON_TWO_HANDS))
         && (obj = get_eq_char (ch, WEAR_SHIELD)) == NULL)
     {
-        obj = create_object (get_obj_index (OBJ_VNUM_SCHOOL_SHIELD), 0);
-        obj->cost = 0;
-        obj_to_char (obj, ch);
-        equip_char (ch, obj, WEAR_SHIELD);
+        outfit(ch, WEAR_SHIELD, OBJ_VNUM_SCHOOL_SHIELD);
     }
 
     send_to_char ("You have been equipped by the gods.\n\r", ch);
 
-    // A little lag in case someone is trying to abuse this.
-    WAIT_STATE(ch, PULSE_PER_SECOND);
+    // A little lag in case someone is trying to abuse this (12 beats which is
+    // about what a normal spell runs).
+    WAIT_STATE(ch, 12);
 
 } // end do_outfit
+
+/*
+ * Helper function for do_outfit.  This will load a vnum and equip
+ * it onto the property wear position if the character isn't wearing
+ * something there already.  This will set the item loaded's cost to
+ * 0 and also mark it as ROT_DEATH, e.g. This shouldn't be loaded
+ * for general loading and wearing.
+ */
+void outfit(CHAR_DATA *ch, int wear_position, int vnum)
+{
+    OBJ_DATA *obj;
+
+    if ((obj = get_eq_char(ch, wear_position)) == NULL)
+    {
+        obj = create_object(get_obj_index (vnum), 0);
+        obj->cost = 0;
+        obj_to_char(obj, ch);
+        SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
+        equip_char(ch, obj, wear_position);
+    }
+
+} // end void outfit
 
 /*
  * Dual wield - This snippit is a modified version of Erwin Andreasen's dual wield
