@@ -4863,7 +4863,7 @@ void do_copyover (CHAR_DATA * ch, char *argument)
             // With or without a reason
             if (argument[0] == '\0')
             {
-                sprintf (buf, "\n\r{RWARNING: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\n\r",
+                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\n\r",
                      ch->name, copyover_timer);
             }
             else
