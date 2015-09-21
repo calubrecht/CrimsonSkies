@@ -3366,12 +3366,15 @@ available to join and any additional information know about them.
 
 0 CLASS~
 Syntax: class
+        class <class name>
 
 The class command will give you information about all of the classes and reclasses
 available in Crimson Skies.  It will provide you with the class name, whether it's
 a base class or reclass, the who name, the primary stat of the class, whether the
 class casts spells at level and how high their skill adept is set (which is how
-high they can practice the skill at a trainer).
+high they can practice the skill at a trainer).  The detailed view by specifying
+the class you want to view will provide you with all of the publically available
+information.
 ~
 
 0 SKILL ADEPT~
