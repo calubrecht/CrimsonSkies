@@ -3087,6 +3087,13 @@ void do_outfit (CHAR_DATA * ch, char *argument)
         outfit(ch, WEAR_WRIST_L,  5025);  // copper bracelet
         outfit(ch, WEAR_WRIST_R,  5025);  // copper bracelet
         outfit(ch, WEAR_HOLD,     9406);  // tentacle of a squid
+        outfit(ch, WEAR_WAIST,    9304);  // titanic belt of orion
+        outfit(ch, WEAR_HEAD,     9206);  // hurricane helmet
+        outfit(ch, WEAR_LEGS,      656);  // golden dragonscale leggings
+        outfit(ch, WEAR_BODY,     2301);  // spiked garde armor
+        outfit(ch, WEAR_FEET,      642);  // platinum boots
+        outfit(ch, WEAR_HANDS,    2300);  // minotaur combat gloves
+        outfit(ch, WEAR_ABOUT,    4176);  // ciquala's robe
 
         send_to_char("You have been equipped with testing gear.\n\r", ch);
         sprintf(buf, "%s has equipped themselves with testing gear.", ch->name);
