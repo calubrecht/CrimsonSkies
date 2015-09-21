@@ -3435,37 +3435,98 @@ void do_class(CHAR_DATA *ch, char *argument)
     char prime_stat[5];
     int i = 0;
 
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-
-    for (i = 0; i < top_class; i++)
+    if (IS_NULLSTR(argument))
     {
-        if (class_table[i]->name == NULL)
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
+        for (i = 0; i < top_class; i++)
         {
-            log_string("BUG: null class");
-            continue;
+            if (class_table[i]->name == NULL)
+            {
+                log_string("BUG: null class");
+                continue;
+            }
+
+            // We can only use capitalize once per sprintf.. it dups up otherwise due to the use
+            // of a static char.
+            sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
+
+            sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\n\r",
+                capitalize(class_table[i]->name),
+                class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
+                class_table[i]->who_name,
+                prime_stat,
+                class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
+                class_table[i]->skill_adept
+            );
+
+            send_to_char(buf, ch);
         }
 
-        // We can only use capitalize once per sprintf.. it dups up otherwise due to the use
-        // of a static char.
-        sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
-        sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\n\r",
-            capitalize(class_table[i]->name),
-            class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
-            class_table[i]->who_name,
-            prime_stat,
-            class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
-            class_table[i]->skill_adept
-        );
-
+        sprintf(buf, "Total Classes: %d\n\r\n\r", top_class);
         send_to_char(buf, ch);
+        send_to_char("For more detailed information about a class please use: class <class name>\n\r", ch);
+
+        return;
+    }
+
+    // We have an argument, try to find that class
+    i = class_lookup(argument);
+
+    // Check that it's a valid class and that the player can be that class
+    if (i == -1)
+    {
+        send_to_char("That's not a valid class.\n\r", ch);
+        return;
     }
 
     send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("{WDetailed Class Information{x\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
-    sprintf(buf, "Total Classes: %d\n\r", top_class);
+    sprintf(buf, "%-30s [%s]\n\r", "{WClass:{x", capitalize(class_table[i]->name));
     send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WClass Type{x:", class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WWho Name{x:", class_table[i]->who_name);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WPrime Attribute{x:", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%2d%%]\n\r", "{WSkill Adept{x:", class_table[i]->skill_adept);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%2d]\n\r", "{WTo Hit AC 0 @ Level 0{x:", class_table[i]->thac0_00);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%2d]\n\r", "{WTo Hit AC 0 @ Level 32{x:", class_table[i]->thac0_32);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%2d]\n\r", "{WHP Minimum Per Level{x:", class_table[i]->hp_min);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%2d]\n\r", "{wHP Maximum Per Level{x:", class_table[i]->hp_max);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WBase Group{x:", class_table[i]->base_group);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-30s [%s]\n\r", "{WDefault Group{x:", class_table[i]->default_group);
+    send_to_char(buf, ch);
+
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("Note:  Some of these settings are the default and maybe influenced by other in\n\r", ch);
+    send_to_char("       game factors.\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
 } // end do_class
