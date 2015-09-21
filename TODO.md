@@ -86,3 +86,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - add enabled field on class that allows the class to be enabled/not, this
     will affect whether people can actively reclass or take a class.  It will
     allow a class to exist without it being generally available.
+  - Fix the smaug extended bitvector stuff.  The declarations need to be moved up higher
+    in merc.h so they are declared before EXT_BV is used in places like CHAR_DATA.
