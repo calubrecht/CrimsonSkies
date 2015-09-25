@@ -110,9 +110,8 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int targ
     af.location = APPLY_AC;
     affect_to_char (victim, &af);
 
-    send_to_char ("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
-    act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim, TO_ROOM);
-    act ("$N is surrounded with a light translucent {Bblue{x aura.", ch, NULL, victim, TO_CHAR);
+    send_to_char("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
+    act ("$n is surrounded with a light translucent {Bblue{x aura.", victim, NULL, NULL, TO_ROOM);
 
     if (ch != victim)
     {
