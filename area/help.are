@@ -196,7 +196,7 @@ get put drop give sacrifice         help commands areas
 wear wield hold                     report score time weather where who
 recite quaff zap brandish           description password title
 lock unlock open close pick         idea bug typo
-inventory equipment look compare    gossip cgossip say shout tell yell
+inventory equipment look compare    gossip cgossip say tell yell shout
 eat drink fill                      emote
 list buy sell value                 note, news, change, oocn, storyn,
                                     history
@@ -445,11 +445,12 @@ Syntax: gossip  <message>
 Syntax: cgossip <message>
 Syntax: shout   <message>
 Syntax: yell    <message>
-
-SHOUT sends a message to all awake players in the world.  To curb excessive
-shouting, SHOUT imposes a three-second delay on the shouter.
-
-GOSSIP and CGOSSIP are variants of SHOUT (without the delay).
+Syntax: shout   <message>
+Syntax: clan    <message>
+Syntax: ask     <message>
+Syntax: answer  <message>
+Syntax: auction <message>
+Syntax: imm     <message> (immortal only)
 
 YELL sends a message to all awake players within your area.
 
