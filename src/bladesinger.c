@@ -107,15 +107,6 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
             return;
     }
 
-    // Check to see if they meet the skill check
-    if (!CHANCE_SKILL(ch, gsn_bladesong))
-    {
-        act("You lose your concentration and stumble.", ch, NULL, NULL, TO_CHAR);
-        act("$n loses their concentration and stumbles.", ch, NULL, NULL, TO_ROOM);
-        check_improve(ch, gsn_bladesong, FALSE, 5);
-        return;
-    }
-
     // Success!
     act("You hum a haunting tune and begin to dance about.", ch, NULL, NULL, TO_CHAR);
     act("$n hums a haunting tune and begins to dance about.", ch, NULL, NULL, TO_ROOM);
