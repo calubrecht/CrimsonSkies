@@ -1010,6 +1010,13 @@ void do_prompt (CHAR_DATA * ch, char *argument)
         {
             send_to_char ("You will now see prompts.\n\r", ch);
             SET_BIT (ch->comm, COMM_PROMPT);
+
+            if (ch->prompt != NULL)
+            {
+                sprintf (buf, "Your current prompt is: %s\n\r", ch->prompt);
+                send_to_char (buf, ch);
+            }
+
         }
         return;
     }
@@ -1021,6 +1028,21 @@ void do_prompt (CHAR_DATA * ch, char *argument)
     }
     else if (!strcmp(argument, "basic")) {
         strcpy(buf, "<%hhp %mm %vmv> ");
+    }
+    else if (!strcmp(argument, "list") || !strcmp(argument, "current"))
+    {
+        if (ch->prompt != NULL)
+        {
+            sprintf (buf, "Your current prompt is: %s\n\r", ch->prompt);
+            send_to_char (buf, ch);
+            return;
+        }
+        else
+        {
+            send_to_char("You do not currently have a prompt set.\n\r", ch);
+            return;
+        }
+
     }
     else
     {
@@ -3350,7 +3372,7 @@ void do_stats(CHAR_DATA *ch, char *argument)
     char buf[MAX_STRING_LENGTH];
 
     send_to_char("------------------------------------------------------\n\r", ch);
-    sprintf(buf, "Statistic       Permanent  Current  Max for Race/Class\n\r");
+    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class{x\n\r");
     send_to_char(buf, ch);
     send_to_char("------------------------------------------------------\n\r", ch);
 
