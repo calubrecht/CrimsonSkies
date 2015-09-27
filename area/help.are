@@ -1,10 +1,5 @@
 #HELPS
 -1 MOTD~
-* {RCrimson {rSkies{x is open source.  Every line of code here can currently
-  be seen and a project overview reviewed at:
-
-  - {Bhttp://www.github.com/blakepell/CrimsonSkies{x
-
 * I will be attempting to implement object consolidation from the Smaug
   code base, I may very make things unstable temporarly.  I have backed
   up pfiles in case I temporarly corrupt them which will be highly possible.
@@ -149,6 +144,7 @@ Syntax: prompt
 Syntax: prompt all
 Syntax: prompt basic
 Syntax: prompt reset
+Syntax: prompt current
 Syntax: prompt <%*>
  
 PROMPT with out an argument will turn your prompt on or off.
@@ -157,6 +153,8 @@ PROMPT ALL or PROMPT RESET will give you <hits mana moves (directions) room titl
 
 PROMPT BASIC will give you the standard "<hits mana moves>" prompt.
  
+PROMPT CURRENT will show you the code of your current prompt.
+
 PROMPT <%*> where the %* are the various variables you may set yourself.
  
         %h :  Display your current hits
