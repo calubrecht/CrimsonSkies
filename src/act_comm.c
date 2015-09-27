@@ -111,25 +111,36 @@ void do_channels (CHAR_DATA * ch, char *argument)
     send_to_char ("Channel        Status\n\r", ch);
     send_to_char ("---------------------\n\r", ch);
 
-    send_to_char ("{dgossip{x         ", ch);
+    if (is_clan(ch))
+    {
+        send_to_char("clan           ", ch);
+
+        if (!IS_SET (ch->comm, COMM_NOCLAN))
+            send_to_char ("{GON{x\n\r", ch);
+        else
+            send_to_char ("{ROFF{x\n\r", ch);
+
+    }
+
+    send_to_char ("gossip         ", ch);
     if (!IS_SET (ch->comm, COMM_NOGOSSIP))
         send_to_char ("{GON{x\n\r", ch);
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
-    send_to_char ("{aauction{x        ", ch);
+    send_to_char ("auction        ", ch);
     if (!IS_SET (ch->comm, COMM_NOAUCTION))
         send_to_char ("{GON{x\n\r", ch);
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
-    send_to_char ("{qQ{x/{fA{x            ", ch);
+    send_to_char ("Q/A            ", ch);
     if (!IS_SET (ch->comm, COMM_NOQUESTION))
         send_to_char ("{GON{x\n\r", ch);
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
-    send_to_char ("{tgrats{x          ", ch);
+    send_to_char ("grats          ", ch);
     if (!IS_SET (ch->comm, COMM_NOGRATS))
         send_to_char ("{GON{x\n\r", ch);
     else
@@ -137,26 +148,20 @@ void do_channels (CHAR_DATA * ch, char *argument)
 
     if (IS_IMMORTAL (ch))
     {
-        send_to_char ("{igod channel{x    ", ch);
+        send_to_char ("imm channel    ", ch);
         if (!IS_SET (ch->comm, COMM_NOWIZ))
             send_to_char ("{GON{x\n\r", ch);
         else
             send_to_char ("{ROFF{x\n\r", ch);
     }
 
-    send_to_char ("{tshouts{x         ", ch);
-    if (!IS_SET (ch->comm, COMM_SHOUTSOFF))
-        send_to_char ("{GON{x\n\r", ch);
-    else
-        send_to_char ("{ROFF{x\n\r", ch);
-
-    send_to_char ("{ktells{x          ", ch);
+    send_to_char ("tells          ", ch);
     if (!IS_SET (ch->comm, COMM_DEAF))
         send_to_char ("{GON{x\n\r", ch);
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
-    send_to_char ("{tquiet mode{x     ", ch);
+    send_to_char ("quiet mode     ", ch);
     if (IS_SET (ch->comm, COMM_QUIET))
         send_to_char ("{GON{x\n\r", ch);
     else
@@ -295,6 +300,9 @@ void do_auction (CHAR_DATA * ch, char *argument)
             send_to_char ("{aAuction channel is now OFF.{x\n\r", ch);
             SET_BIT (ch->comm, COMM_NOAUCTION);
         }
+
+        return;
+
     }
     else
     {                            /* auction message sent, turn auction on if it is off */
@@ -325,6 +333,7 @@ void do_auction (CHAR_DATA * ch, char *argument)
 
         if (d->connected == CON_PLAYING &&
             d->character != ch &&
+            !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
             !IS_SET (victim->comm, COMM_NOAUCTION) &&
             !IS_SET (victim->comm, COMM_QUIET))
         {
@@ -382,6 +391,7 @@ void do_gossip (CHAR_DATA * ch, char *argument)
 
             if (d->connected == CON_PLAYING &&
                 d->character != ch &&
+                !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
                 !IS_SET (victim->comm, COMM_NOGOSSIP) &&
                 !IS_SET (victim->comm, COMM_QUIET))
             {
@@ -605,11 +615,11 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
         if (d->connected == CON_PLAYING &&
             d->character != ch &&
             is_same_clan (ch, d->character) &&
-            !IS_SET (d->character->comm, COMM_NOCLAN) &&
-            !IS_SET (d->character->comm, COMM_QUIET))
+            !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
+            !IS_SET(d->character->comm, COMM_NOCLAN) &&
+            !IS_SET(d->character->comm, COMM_QUIET))
         {
-            act_new ("{x$n clans '{G$t{x'", ch, argument, d->character, TO_VICT,
-                     POS_DEAD);
+            act_new ("{x$n clans '{G$t{x'", ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
 
@@ -667,7 +677,7 @@ void do_pray(CHAR_DATA * ch, char *argument)
 		return;
 	}
 	else
-	{                            
+	{
 		sprintf(buf, "{xYou pray '{G%s{x'\n\r", argument);
 		send_to_char(buf, ch);
 		for (d = descriptor_list; d != NULL; d = d->next)
@@ -710,56 +720,6 @@ void do_say (CHAR_DATA * ch, char *argument)
                 mp_act_trigger (argument, mob, ch, NULL, NULL, TRIG_SPEECH);
         }
     }
-    return;
-}
-
-
-
-void do_shout (CHAR_DATA * ch, char *argument)
-{
-    DESCRIPTOR_DATA *d;
-
-    if (argument[0] == '\0')
-    {
-        if (IS_SET (ch->comm, COMM_SHOUTSOFF))
-        {
-            send_to_char ("You can hear shouts again.\n\r", ch);
-            REMOVE_BIT (ch->comm, COMM_SHOUTSOFF);
-        }
-        else
-        {
-            send_to_char ("You will no longer hear shouts.\n\r", ch);
-            SET_BIT (ch->comm, COMM_SHOUTSOFF);
-        }
-        return;
-    }
-
-    if (IS_SET (ch->comm, COMM_NOSHOUT))
-    {
-        send_to_char ("You can't shout.\n\r", ch);
-        return;
-    }
-
-    REMOVE_BIT (ch->comm, COMM_SHOUTSOFF);
-
-    WAIT_STATE (ch, 12);
-
-    act ("{xYou shout '{Y$T{x'", ch, NULL, argument, TO_CHAR);
-    for (d = descriptor_list; d != NULL; d = d->next)
-    {
-        CHAR_DATA *victim;
-
-        victim = d->original ? d->original : d->character;
-
-        if (d->connected == CON_PLAYING &&
-            d->character != ch &&
-            !IS_SET (victim->comm, COMM_SHOUTSOFF) &&
-            !IS_SET (victim->comm, COMM_QUIET))
-        {
-            act ("{x$n shouts '{Y$t{x'", ch, argument, d->character, TO_VICT);
-        }
-    }
-
     return;
 }
 
@@ -820,6 +780,12 @@ void do_tell (CHAR_DATA * ch, char *argument)
         && !IS_AWAKE (victim))
     {
         act ("$E can't hear you.", ch, 0, victim, TO_CHAR);
+        return;
+    }
+
+    if (IS_SET(victim->affected_by, AFF_DEAFEN))
+    {
+        act ("$E is deaf and can't hear you currently.", ch, 0, victim, TO_CHAR);
         return;
     }
 
@@ -961,6 +927,7 @@ void do_yell (CHAR_DATA * ch, char *argument)
         if (d->connected == CON_PLAYING
             && d->character != ch
             && d->character->in_room != NULL
+            && !IS_SET(d->character->affected_by, AFF_DEAFEN)
             && d->character->in_room->area == ch->in_room->area
             && !IS_SET (d->character->comm, COMM_QUIET))
         {
@@ -1973,8 +1940,16 @@ void do_direct( CHAR_DATA *ch, char *argument )
     sprintf(buf, "{xYou say (to {g$N{x) '{g%s{x'", argument);
     act(buf, ch, NULL, victim, TO_CHAR);
 
-    sprintf(buf, "{x$n says (to {gYou{x) '{g%s{x'", argument);
-    act(buf, ch, NULL, victim, TO_VICT);
+    if (!IS_SET(victim->affected_by, AFF_DEAFEN))
+    {
+        sprintf(buf, "{x$n says (to {gYou{x) '{g%s{x'", argument);
+        act(buf, ch, NULL, victim, TO_VICT);
+    }
+    else
+    {
+        // They're currently deaf
+        act("{x$n appears to be saying something to you but you cannot hear them because you're deaf.", ch, NULL, victim, TO_VICT);
+    }
 
     // This was snagged from do_say
     if (!IS_NPC (ch))

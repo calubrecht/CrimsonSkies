@@ -194,7 +194,7 @@ const struct cmd_type cmd_table[] = {
     {"reply",           do_reply,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"replay",          do_replay,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"say",             do_say,         POS_RESTING,  0, LOG_NORMAL, TRUE},
-    {"shout",           do_shout,       POS_RESTING,  3, LOG_NORMAL, TRUE},
+    {"shout",           do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, TRUE},
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, TRUE},

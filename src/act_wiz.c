@@ -5786,6 +5786,30 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+
+    AFFECT_DATA af;
+    affect_strip(ch, gsn_disorientation);
+    af.where = TO_AFFECTS;
+    af.type = gsn_disorientation;
+    af.level = ch->level;
+    af.duration = 1;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = AFF_DEAFEN;
+    affect_to_char (ch, &af);
+
+/*    if (IS_SET(ch->affected_by, AFF_DEAFEN))
+    {
+        REMOVE_BIT(ch->affected_by, AFF_DEAFEN);
+        send_to_char("Deafen removed\n\r", ch);
+    }
+    else
+    {
+        SET_BIT(ch->affected_by, AFF_DEAFEN);
+        send_to_char("Deafen added\n\r", ch);
+    }
+*/
+
     /*CHAR_DATA * rch;
     char buf[MSL];
 
@@ -5795,9 +5819,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
         send_to_char(buf, ch);
     }*/
 
-    send_to_char("Nothing here currently, move along.\r\n", ch);
+    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 
 } // end do_debug
-
-

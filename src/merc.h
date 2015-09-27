@@ -810,7 +810,7 @@ struct    kill_data
 #define AFF_FAERIE_FIRE    (I)
 #define AFF_INFRARED       (J)
 #define AFF_CURSE          (K)
-#define AFF_UNUSED_FLAG    (L)    /* unused */
+#define AFF_DEAFEN         (L)
 #define AFF_POISON         (M)
 #define AFF_PROTECT_EVIL   (N)
 #define AFF_PROTECT_GOOD   (O)
@@ -1269,7 +1269,7 @@ struct    kill_data
 #define COMM_NOQUESTION     (F)
 #define COMM_NOCLAN         (H)
 //#define EMPTY             (I)
-#define COMM_SHOUTSOFF      (J)
+//#define COMM_SHOUTSOFF      (J)
 
 /* display flags */
 #define COMM_COMPACT        (L)
