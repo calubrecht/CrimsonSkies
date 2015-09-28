@@ -187,6 +187,7 @@ const struct cmd_type cmd_table[] = {
     {"emote",           do_emote,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"pmote",           do_pmote,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"gossip",          do_gossip,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"cgossip",         do_cgossip,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"grats",           do_grats,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"gtell",           do_gtell,       POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"question",        do_question,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},

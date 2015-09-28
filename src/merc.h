@@ -1268,7 +1268,7 @@ struct    kill_data
 #define COMM_NOGOSSIP       (E)
 #define COMM_NOQUESTION     (F)
 #define COMM_NOCLAN         (H)
-//#define EMPTY             (I)
+#define COMM_NOCGOSSIP      (I)
 //#define COMM_SHOUTSOFF      (J)
 
 /* display flags */

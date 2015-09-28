@@ -128,6 +128,12 @@ void do_channels (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
+    send_to_char ("clan gossip    ", ch);
+    if (!IS_SET (ch->comm, COMM_NOCGOSSIP))
+        send_to_char ("{GON{x\n\r", ch);
+    else
+        send_to_char ("{ROFF{x\n\r", ch);
+
     send_to_char ("auction        ", ch);
     if (!IS_SET (ch->comm, COMM_NOAUCTION))
         send_to_char ("{GON{x\n\r", ch);
@@ -373,16 +379,15 @@ void do_gossip (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
+            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
             return;
-
         }
 
         REMOVE_BIT (ch->comm, COMM_NOGOSSIP);
 
-        sprintf (buf, "{xYou gossip '{w%s{x'\n\r", argument);
-        send_to_char (buf, ch);
+        sprintf(buf, "{xYou gossip '{W%s{x'\n\r", argument);
+        send_to_char(buf, ch);
+
         for (d = descriptor_list; d != NULL; d = d->next)
         {
             CHAR_DATA *victim;
@@ -395,12 +400,70 @@ void do_gossip (CHAR_DATA * ch, char *argument)
                 !IS_SET (victim->comm, COMM_NOGOSSIP) &&
                 !IS_SET (victim->comm, COMM_QUIET))
             {
-                act_new ("{x$n gossips '{w$t{x'",
-                         ch, argument, d->character, TO_VICT, POS_SLEEPING);
+                act_new ("{x$n gossips '{W$t{x'", ch, argument, d->character, TO_VICT, POS_SLEEPING);
             }
         }
     }
-}
+} // end do_gossip
+
+/*
+ * Clan gossip channel
+ */
+void do_cgossip(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d;
+
+    if (argument[0] == '\0')
+    {
+        if (IS_SET (ch->comm, COMM_NOCGOSSIP))
+        {
+            send_to_char ("Clan gossip channel is now ON.\n\r", ch);
+            REMOVE_BIT (ch->comm, COMM_NOCGOSSIP);
+        }
+        else
+        {
+            send_to_char ("Clan gossip channel is now OFF.\n\r", ch);
+            SET_BIT (ch->comm, COMM_NOCGOSSIP);
+        }
+    }
+    else
+    {
+        /* gossip message sent, turn gossip on if it isn't already */
+        if (IS_SET (ch->comm, COMM_QUIET))
+        {
+            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            return;
+        }
+
+        if (IS_SET (ch->comm, COMM_NOCHANNELS))
+        {
+            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+            return;
+        }
+
+        REMOVE_BIT (ch->comm, COMM_NOCGOSSIP);
+
+        sprintf(buf, "{xYou clan gossip '{R%s{x'\n\r", argument);
+        send_to_char(buf, ch);
+
+        for (d = descriptor_list; d != NULL; d = d->next)
+        {
+            CHAR_DATA *victim;
+
+            victim = d->original ? d->original : d->character;
+
+            if (d->connected == CON_PLAYING &&
+                d->character != ch &&
+                !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
+                !IS_SET (victim->comm, COMM_NOCGOSSIP) &&
+                !IS_SET (victim->comm, COMM_QUIET))
+            {
+                act_new ("{x$n clan gossips '{R$t{x'", ch, argument, d->character, TO_VICT, POS_SLEEPING);
+            }
+        }
+    }
+} // end do_cgossip
 
 void do_grats (CHAR_DATA * ch, char *argument)
 {
