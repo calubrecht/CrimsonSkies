@@ -3334,6 +3334,11 @@ The cure weaken spell will allow a healer to cure a weaken spell
 with great precision.
 ~
 
+0 CURE DEAFNESS~
+The cure deafness spell allows a healer to cure players who are
+inflicted with deafness either by skill or spell.  
+~
+
 0 CURE SLOW~
 The cure weaken spell will allow a healer to cure a weaken spell
 with great precision.
