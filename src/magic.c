@@ -5067,6 +5067,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_create_rose" )) return spell_create_rose;
             if ( !str_cmp( name, "spell_cure_weaken" )) return spell_cure_weaken;
             if ( !str_cmp( name, "spell_cure_slow" )) return spell_cure_slow;
+            if ( !str_cmp( name, "spell_cure_deafness" )) return spell_cure_deafness;
             break;
         case 'd':
             if ( !str_cmp( name, "spell_detect_hidden" )) return spell_detect_hidden;
@@ -5331,6 +5332,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_song_of_protection) return "spell_song_of_protection";
     if (spell == spell_song_of_dissonance) return "spell_song_of_dissonance";
     if (spell == spell_healers_bind) return "spell_healers_bind";
+    if (spell == spell_cure_deafness) return "spell_cure_deafness";
 
     return "reserved";
 

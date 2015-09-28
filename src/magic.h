@@ -149,3 +149,4 @@ DECLARE_SPELL_FUN(spell_enhanced_recovery);
 DECLARE_SPELL_FUN(spell_song_of_protection);
 DECLARE_SPELL_FUN(spell_song_of_dissonance);
 DECLARE_SPELL_FUN(spell_healers_bind);
+DECLARE_SPELL_FUN(spell_cure_deafness);

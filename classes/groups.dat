@@ -304,6 +304,7 @@ Sk 'cure weaken'
 Sk 'restore mental presence'
 Sk 'sense affliction'
 Sk 'cure slow'
+Sk 'cure deafness'
 End
 
 #GROUP

@@ -1732,4 +1732,13 @@ Beats       12
 MsgOff      You can hear again.~
 End
 
+#SKILL
+Name        cure deafness~
+SpellFun    spell_cure_deafness~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+End
+
 #END

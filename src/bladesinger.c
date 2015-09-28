@@ -137,7 +137,9 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
 
 /*
  * A bladesong spell that will offer all grouped members a small AC bonus.  This spell can be
- * cast both in and out of battle as long as the bladesinger is affected by the bladesong.
+ * cast both in and out of battle as long as the bladesinger is affected by the bladesong. It
+ * can be cast over and over but the affect will only land once (it will refresh the affect
+ * if cast again).
  */
 void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {

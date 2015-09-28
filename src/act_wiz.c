@@ -5788,11 +5788,11 @@ void do_debug(CHAR_DATA * ch, char *argument)
 {
 
     AFFECT_DATA af;
-    affect_strip(ch, gsn_disorientation);
+    affect_strip(ch, gsn_song_of_dissonance);
     af.where = TO_AFFECTS;
-    af.type = gsn_disorientation;
+    af.type = gsn_song_of_dissonance;
     af.level = ch->level;
-    af.duration = 1;
+    af.duration = 5;
     af.modifier = 0;
     af.location = APPLY_NONE;
     af.bitvector = AFF_DEAFEN;

@@ -573,3 +573,38 @@ void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int ta
 
 } // end spell_enhanced_recovery
 
+/*
+ * Allows a healer to remove a deafen affect.  Healers get a +3 level
+ * bonus on their curative spells.  This should remove ALL skills/spells
+ * that add a deafen affect.
+ */
+void spell_cure_deafness(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (!is_affected(victim, gsn_song_of_dissonance))
+    {
+        if (victim == ch)
+        {
+            send_to_char ("You aren't currently deaf.\n\r", ch);
+        }
+        else
+        {
+            act ("$N doesn't appear to be currently deaf.", ch, NULL, victim, TO_CHAR);
+        }
+
+        return;
+    }
+
+    // Healer's get a casting bonus when removing certain spells.
+    if (check_dispel(level + 3, victim, gsn_song_of_dissonance))
+    {
+        act("$n is no longer deaf.", victim, NULL, NULL, TO_ROOM);
+    }
+    else
+    {
+        send_to_char("Spell failed.\n\r", ch);
+    }
+
+} // end spell_cure_deafness
+
