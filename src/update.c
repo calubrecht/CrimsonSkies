@@ -431,6 +431,11 @@ void gain_condition (CHAR_DATA * ch, int iCond, int value)
     if (value == 0 || IS_NPC (ch) || ch->level >= LEVEL_IMMORTAL)
         return;
 
+    // If a player is reclassing they won't see their condition messages
+    // and it also won't degrade.
+    if (ch->pcdata->is_reclassing == TRUE)
+        return;
+
     condition = ch->pcdata->condition[iCond];
     if (condition == -1)
         return;
