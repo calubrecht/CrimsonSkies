@@ -1907,6 +1907,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         affect_remove(ch, af);
     }
 
+    // Remove the players wanted flag, we don't want them to get smoked right out of the gate, they
+    // get a clean slate in this respect upon reclassing.
+    REMOVE_BIT (ch->act, PLR_WANTED);
+
     // Call here for safety, this is also called on login.
     reset_char(ch);
 
