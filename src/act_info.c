@@ -276,7 +276,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     if (IS_AFFECTED(victim, AFF_SANCTUARY))
         strcat(buf, "({WWhite Aura{x) ");
     if (IS_AFFECTED(victim, AFF_DEAFEN))
-        strcat(buf, "(Deaf) ");
+        strcat(buf, "({wDeaf{x) ");
 
     // Healers sense affliction
     if (is_affected(ch, gsn_sense_affliction))

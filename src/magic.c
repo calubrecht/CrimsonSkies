@@ -1291,6 +1291,13 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    // Affects that don't need a specialized message here.
+    if (check_dispel(level, victim, gsn_song_of_dissonance)
+        || check_dispel(level, victim, gsn_song_of_protection))
+    {
+        found = TRUE;
+    }
+
     if (found)
         send_to_char ("Ok.\n\r", ch);
     else
@@ -2454,6 +2461,12 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
     if (check_dispel (level, victim, skill_lookup("sense affliction")))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel (level, victim, gsn_song_of_protection)
+        || check_dispel (level, victim, gsn_song_of_dissonance))
     {
         found = TRUE;
     }

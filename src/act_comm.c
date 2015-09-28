@@ -706,8 +706,32 @@ void do_say (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    act ("{x$n says '{g$T{x'", ch, NULL, argument, TO_ROOM);
-    act ("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
+    // The old way only took these two lines, I'm leaving them here in case I want
+    // to roll back.
+    //act ("{x$n says '{g$T{x'", ch, NULL, argument, TO_ROOM);
+    //act ("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
+
+    if (ch->in_room != NULL)
+    {
+        CHAR_DATA *to;
+
+        to = ch->in_room->people;
+
+        act("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
+
+        for (; to != NULL; to = to->next_in_room)
+        {
+            // marker
+            if (!IS_SET(to->affected_by, AFF_DEAFEN))
+            {
+                act_new ("{x$n says '{g$t{x'", ch, argument, to, TO_VICT, POS_RESTING);
+            }
+            else
+            {
+                act_new ("{x$n appears to be saying something but you cannot hear them because you're deaf.", ch, NULL, to, TO_VICT, POS_RESTING);
+            }
+        }
+    }
 
     if (!IS_NPC (ch))
     {
