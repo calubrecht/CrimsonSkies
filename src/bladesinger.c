@@ -210,15 +210,24 @@ void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
-    af.duration = 3;
+    af.duration = 1;
     af.modifier = 0;
     af.location = APPLY_NONE;
-    af.bitvector = 0;
+    af.bitvector = AFF_DEAFEN;
 
-    // Find group members who aren't NPC's
+    // Find non group members, in the same room, who aren't NPC's
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
-        if (!IS_NPC(gch) && !is_same_group(gch, ch) && gch != ch)
+        if (gch->in_room == NULL)
+            continue;
+
+        if (gch->in_room != ch->in_room)
+            continue;
+
+        if (!IS_NPC(gch)
+            && !is_same_group(gch, ch)
+            && gch != ch
+            && !is_safe_spell(ch, gch, TRUE))
         {
             if (!is_affected(gch, sn))
             {
