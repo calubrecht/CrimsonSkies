@@ -511,6 +511,7 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_poison) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
+            is_affected(victim, gsn_song_of_dissonance) ||
             is_affected(victim, gsn_weaken))
         {
             // The victim will be affected by one of these so we know we can
@@ -531,6 +532,8 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
                 strcat(buf, "sleep, ");
             if (is_affected(victim, gsn_weaken))
                 strcat(buf, "weaken, ");
+            if (is_affected(victim, gsn_song_of_dissonance))
+                strcat(buf, "deaf, ");
 
             // It should always be greater than 2 if it gets here, but I'm paranoid, if someone
             // where to add a check in the first if but not add the strcat of the affliction it could
