@@ -140,6 +140,12 @@ void do_channels (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
+    send_to_char ("ooc            ", ch);
+    if (!IS_SET (ch->comm, COMM_NOOOC))
+        send_to_char ("{GON{x\n\r", ch);
+    else
+        send_to_char ("{ROFF{x\n\r", ch);
+
     send_to_char ("Q/A            ", ch);
     if (!IS_SET (ch->comm, COMM_NOQUESTION))
         send_to_char ("{GON{x\n\r", ch);
@@ -464,6 +470,65 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
         }
     }
 } // end do_cgossip
+
+/*
+ * OOC channel for out of character conversation.
+ */
+void do_ooc(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d;
+
+    if (argument[0] == '\0')
+    {
+        if (IS_SET (ch->comm, COMM_NOOOC))
+        {
+            send_to_char ("OOC (out of character) channel is now ON.\n\r", ch);
+            REMOVE_BIT (ch->comm, COMM_NOOOC);
+        }
+        else
+        {
+            send_to_char ("OOC (out of character) channel is now OFF.\n\r", ch);
+            SET_BIT (ch->comm, COMM_NOOOC);
+        }
+    }
+    else
+    {                            /* gossip message sent, turn gossip on if it isn't already */
+
+        if (IS_SET (ch->comm, COMM_QUIET))
+        {
+            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            return;
+        }
+
+        if (IS_SET (ch->comm, COMM_NOCHANNELS))
+        {
+            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+            return;
+        }
+
+        REMOVE_BIT (ch->comm, COMM_NOOOC);
+
+        sprintf(buf, "{xYou OOC '{C%s{x'\n\r", argument);
+        send_to_char(buf, ch);
+
+        for (d = descriptor_list; d != NULL; d = d->next)
+        {
+            CHAR_DATA *victim;
+
+            victim = d->original ? d->original : d->character;
+
+            if (d->connected == CON_PLAYING &&
+                d->character != ch &&
+                !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
+                !IS_SET (victim->comm, COMM_NOGOSSIP) &&
+                !IS_SET (victim->comm, COMM_QUIET))
+            {
+                act_new ("{x$n OOC '{C$t{x'", ch, argument, d->character, TO_VICT, POS_SLEEPING);
+            }
+        }
+    }
+} // end do_gossip
 
 void do_grats (CHAR_DATA * ch, char *argument)
 {
