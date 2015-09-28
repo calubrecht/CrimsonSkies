@@ -252,7 +252,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
     buf[0] = '\0';
 
     if (IS_SET (victim->comm, COMM_AFK))
-        strcat(buf, "[AFK] ");
+        strcat(buf, "[{cAFK{x] ");
     if (IS_AFFECTED (victim, AFF_INVISIBLE))
         strcat(buf, "({wInvis{x) ");
     if (victim->invis_level >= LEVEL_HERO)
@@ -287,6 +287,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_poison) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
+            is_affected(victim, gsn_song_of_dissonance) ||
             is_affected(victim, gsn_weaken))
         {
             strcat(buf, "({RAfflicted{x) ");
