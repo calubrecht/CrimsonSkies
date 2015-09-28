@@ -1913,7 +1913,7 @@ void    ext_toggle_bits         args( ( EXT_BV *var, EXT_BV *bits) );
  */
 #define PERS(ch, looker)    ( can_see( looker, (ch) ) ?        \
                 ( IS_NPC(ch) ? (ch)->short_descr    \
-                : (ch)->name ) : "someone" )
+                : (ch)->name ) : (ch)->level >= LEVEL_IMMORTAL  && !IS_NPC(ch) ? "(An Imm)" : "someone")
 
 /*
  * Structure for a social in the socials table.
