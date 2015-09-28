@@ -3497,7 +3497,9 @@ void do_class(CHAR_DATA *ch, char *argument)
 
         sprintf(buf, "Total Classes: %d\n\r\n\r", top_class);
         send_to_char(buf, ch);
-        send_to_char("For more detailed information about a class please use: class <class name>\n\r", ch);
+        send_to_char("For more detailed information about a class please use these commands\n\r\n\r", ch);
+        send_to_char("  - class <class name>\n\r", ch);
+        send_to_char("  - help <class name>\n\r", ch);
 
         return;
     }
