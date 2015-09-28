@@ -1722,4 +1722,14 @@ MinMana     200
 Beats       36
 End
 
+#SKILL
+Name        song of dissonance~
+SpellFun    spell_song_of_dissonance~
+Target      0
+MinPos      7
+MinMana     25
+Beats       12
+MsgOff      You can hear again.~
+End
+
 #END

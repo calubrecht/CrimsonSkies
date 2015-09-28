@@ -146,6 +146,7 @@ Sk 'circle' 52 -1
 Sk 'disorientation' 52 -1
 Sk 'song of protection' 52 -1
 Sk 'healers bind' 52 -1
+Sk 'song of dissonance' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2
@@ -218,6 +219,7 @@ Gr 'maladictions' 9
 Gr 'protective' 8
 Gr 'transportation' 9
 Gr 'weather' 8
+Gr 'bladesongs' 0
 Mult 0 100
 Mult 1 100
 Mult 2 120

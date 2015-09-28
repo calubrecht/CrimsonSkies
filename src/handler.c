@@ -2847,6 +2847,8 @@ char *affect_bit_name (int vector)
         strcat (buf, " plague");
     if (vector & AFF_DARK_VISION)
         strcat (buf, " dark_vision");
+    if (vector & AFF_DEAFEN)
+        strcat (buf, " deafen");
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 

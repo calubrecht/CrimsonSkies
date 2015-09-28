@@ -130,6 +130,7 @@ Sk 'disorientation' 52 -1
 Sk 'blind fighting' 52 -1
 Sk 'song of protection' 52 -1
 Sk 'healers bind' 52 -1
+Sk 'song of dissonance' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -218,6 +219,7 @@ Gr 'maladictions' 5
 Gr 'protective' 4
 Gr 'transportation' 4
 Gr 'weather' 4
+Gr 'bladesongs' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

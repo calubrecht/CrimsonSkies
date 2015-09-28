@@ -232,7 +232,7 @@ void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int ta
             if (!is_affected(gch, sn))
             {
                 act("$N's looks pained.", ch, NULL, gch, TO_CHAR);
-                act("You feel a piercing pain in your ears as your hearing becomes muffled.", ch, NULL, gch, TO_VICT);
+                send_to_char("You feeling a piercing pain in your ears as your hearing becomes muffled", gch);
                 affect_to_char (gch, &af);
             }
         }
