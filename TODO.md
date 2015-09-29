@@ -32,7 +32,6 @@ This is my to do list, mostly will be things big and small as I think about them
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
     if looted can't be used by others if they so choose).  (maybe overpowered)
-  - enhanced recall skill, open to all classes that only makes recall 25% of movement.
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug, note mem leak testing
@@ -79,3 +78,4 @@ This is my to do list, mostly will be things big and small as I think about them
     allow a class to exist without it being generally available.
   - Fix the smaug extended bitvector stuff.  The declarations need to be moved up higher
     in merc.h so they are declared before EXT_BV is used in places like CHAR_DATA.
+  - Barbarian class - 4th attack, warcry, acute vision, bash bonus, no magic, spell vulnerable
