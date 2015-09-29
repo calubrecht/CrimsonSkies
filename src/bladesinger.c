@@ -29,7 +29,9 @@
  *  Only elves and elf sub races can be bladesingers.  The bladesong is    *
  *  the base of their skills and magic.  It allows them heightened attack, *
  *  dodging, disarming as well as the ability to a handful of protective   *
- *  spells.
+ *  spells.  The bladesong is required to be in affect in order to execute *
+ *  battle skills.  The bladesinger will also have other bladesongs which  *
+ *  are magical and can in some cases be cast outside of battle.           *
  *                                                                         *
  ***************************************************************************/
 
@@ -137,7 +139,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
 
 /*
  * A bladesong spell that will offer all grouped members a small AC bonus.  This spell can be
- * cast both in and out of battle as long as the bladesinger is affected by the bladesong. It
+ * cast both in and out of battle and does not require the bladesong to be in affect.  It
  * can be cast over and over but the affect will only land once (it will refresh the affect
  * if cast again).
  */
@@ -146,13 +148,6 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     CHAR_DATA *gch;
     AFFECT_DATA af;
     //bool found = FALSE;
-
-    // Must be affected by the bladesong in order to use.
-    if (!is_affected(ch, gsn_bladesong))
-    {
-        send_to_char("You cannot use the song of protection unless you are using the bladesong.\n\r", ch);
-        return;
-    }
 
     act("$n hums a melodic tune of protection.", ch, NULL, NULL, TO_ROOM);
     send_to_char("You hum a melodic tune of protection.\n\r", ch);
@@ -185,7 +180,7 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
         }
     }
 
-    send_to_char("You group is now influenced by the song of protection.\n\r", ch);
+    send_to_char("Your group is now influenced by the song of protection.\n\r", ch);
 
 } // end spell_song_of_protection
 
@@ -231,8 +226,11 @@ void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int ta
             && gch != ch
             && !is_safe_spell(ch, gch, TRUE))
         {
+            // They were a good target but they're already affected
             if (!is_affected(gch, sn))
             {
+                // Very small stunning affect, this is due to no saves check
+                DAZE_STATE(gch, PULSE_VIOLENCE);
                 act("$N's looks pained.", ch, NULL, gch, TO_CHAR);
                 send_to_char("You feeling a piercing pain in your ears as your hearing becomes muffled", gch);
                 affect_to_char (gch, &af);
