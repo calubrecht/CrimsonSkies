@@ -1,5 +1,9 @@
 #HELPS
 -1 MOTD~
+* {RCrimson {rSkies{x is open source.  You can view every line of code at:
+
+  - {B{_https://github.com/blakepell/CrimsonSkies{x
+
 * I will be attempting to implement object consolidation from the Smaug
   code base, I may very make things unstable temporarly.  I have backed
   up pfiles in case I temporarly corrupt them which will be highly possible.
@@ -9,6 +13,7 @@
 * Any 'rules' are on hold until the game is out of it's beta testing
   phase.  Feel free to do what you please, just respect others.
 * Important commands: help, commands, notes, score, look, who, scan
+* See 'help credits' for code contributions from others.
 
 {R[{WHit Return to continue{R]{x
 ~
@@ -581,7 +586,7 @@ to the mud implementors.
           - [Area Contributions]----------------
           --------------------------------------
           See the 'area' command where each area
-          credits the buildersv involved.
+          credits the builders involved.
           --------------------------------------
 
 ~
