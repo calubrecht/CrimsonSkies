@@ -238,9 +238,10 @@ int flag_find (const char *name, const struct flag_type *flag_table)
  * This is the table to hold our friendly neighborhood continents.
  */
 const struct flag_type continent_flags[]= {
-    { "limbo",   CONTINENT_LIMBO,   TRUE },
-    { "oceans",  CONTINENT_OCEANS,  TRUE },
-    { "arcanis", CONTINENT_ARCANIS, TRUE },
+    { "limbo",    CONTINENT_LIMBO,    TRUE },
+    { "oceans",   CONTINENT_OCEANS,   TRUE },
+    { "midgaard", CONTINENT_MIDGAARD, TRUE },
+    { "arcanis",  CONTINENT_ARCANIS,  TRUE },
     { NULL, 0, 0 }
 };
 

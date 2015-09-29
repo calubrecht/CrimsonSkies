@@ -757,9 +757,9 @@ const struct bit_type bitvector_type[] = {
 };
 
 const struct continent_type continent_table[] = {
-    { CONTINENT_LIMBO,   "limbo" },
-    { CONTINENT_OCEANS,  "oceans" },
-    { CONTINENT_ARCANIS, "arcanis" },
-    { CONTINENT_SHALON,  "shalon"  },
+    { CONTINENT_LIMBO,    "limbo"    },
+    { CONTINENT_OCEANS,   "oceans"   },
+    { CONTINENT_MIDGAARD, "midgaard" },
+    { CONTINENT_ARCANIS,  "arcanis"  },
     { 0, NULL }
 };
