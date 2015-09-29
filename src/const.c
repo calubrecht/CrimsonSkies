@@ -521,7 +521,7 @@ const struct wis_app_type wis_app[26] = {
     {4},
     {4},
     {4},
-    {5}                            /* 25 */
+    {5}                         /* 25 */
 };
 
 

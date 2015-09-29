@@ -33,6 +33,9 @@
  *  battle skills.  The bladesinger will also have other bladesongs which  *
  *  are magical and can in some cases be cast outside of battle.           *
  *                                                                         *
+ *  The code for bladesong originated from Moosehead Sled which has been   *
+ *  made open source on GitHub.  The rest is my creation. -Rhien           *
+ *                                                                         *
  ***************************************************************************/
 
 // General Includes
