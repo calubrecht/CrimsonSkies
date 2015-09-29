@@ -438,7 +438,7 @@ REPLY sends a message to the last player who sent you a TELL.  REPLY will work
 even if you can't see the player, and without revealing their identity.  This
 is handy for talking to invisible or switched immortal players.
 ~
-0 GOSSIP CGOSSIP . SHOUT YELL~
+0 GOSSIP CGOSSIP SHOUT YELL CLAN ASK ANSWER OOC IMM~
 Syntax: gossip  <message>
 Syntax: cgossip <message>
 Syntax: shout   <message>
@@ -448,6 +448,7 @@ Syntax: clan    <message>
 Syntax: ask     <message>
 Syntax: answer  <message>
 Syntax: auction <message>
+Syntax: ooc     <message>
 Syntax: imm     <message> (immortal only)
 
 YELL sends a message to all awake players within your area.
