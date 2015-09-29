@@ -4565,10 +4565,12 @@ void spell_weaken (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
-
-
-/* RT recall spell is back */
-
+/*
+ * Word of recall is much like the recall skill.  It will halve your movement
+ * in order to send you back to the recall point.  If the character has the
+ * enhanced recall skill and the check passes it will only half the movement
+ * by 25%.
+ */
 void spell_word_of_recall (int sn, int level, CHAR_DATA * ch, void *vo,
                            int target)
 {
@@ -4594,13 +4596,30 @@ void spell_word_of_recall (int sn, int level, CHAR_DATA * ch, void *vo,
     if (victim->fighting != NULL)
         stop_fighting (victim, TRUE);
 
-    ch->move /= 2;
+
+    // Movement penalty if you are not an immortal.  If you have the enhanced recall
+    // skill and pass the skill check you will lose less movement.
+    if (!IS_IMMORTAL(ch))
+    {
+        if (CHANCE_SKILL(ch, gsn_enhanced_recall))
+        {
+            // They passed the enhanced recall check, they only lose 25% of movement.
+            ch->move = (ch->move * 3) / 4;
+        }
+        else
+        {
+            // Normal recall, costs 50% of movement
+            ch->move /= 2;
+        }
+    }
+
     act ("$n disappears.", victim, NULL, NULL, TO_ROOM);
     char_from_room (victim);
     char_to_room (victim, location);
     act ("$n appears in the room.", victim, NULL, NULL, TO_ROOM);
     do_function (victim, &do_look, "auto");
-}
+
+} // end spell_word_of_recall
 
 /*
  * NPC spells.

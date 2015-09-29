@@ -852,21 +852,25 @@ command.
 There is no RENT in this mud.  Just QUIT whenever you want to leave.
 ~
 
-0 RECALL /~
+0 RECALL ENHANCED RECALL~
 Syntax: RECALL
 
 RECALL prays to the gods for miraculous transportation from where you are
-back to the Temple of Midgaard.  '/' is a synonym for RECALL.
+back to the Temple of Midgaard.
 
 If you RECALL during combat, you will lose experience (more than for fleeing),
 and you will have a chance of failing (again, more than for fleeing).  This
 chance is based on your recall skill, although a 100% recall does not 
 insure success.
 
-RECALL costs half of your movement points.
+RECALL costs half of your movement points unless the character also has the
+enhanced recall skill in which case it will only cost 25% if it meets the
+skill check.
 
 RECALL doesn't work in certain god-forsaken rooms.  Characters afflicted by a
 curse may not recall at all.
+
+ENHANCED RECALL is available to all classes.
 ~
 
 -1 SPLIT~

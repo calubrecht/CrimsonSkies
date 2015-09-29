@@ -1708,7 +1708,7 @@ End
 Name        song of protection~
 SpellFun    spell_song_of_protection~
 Target      2
-MinPos      7
+MinPos      8
 MinMana     5
 Beats       12
 End
@@ -1739,6 +1739,16 @@ Target      2
 MinPos      8
 MinMana     10
 Beats       12
+End
+
+#SKILL
+Name        enhanced recall~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      !Enhanced Recall!~
 End
 
 #END

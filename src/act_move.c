@@ -1660,14 +1660,20 @@ void do_visible (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-void do_recall (CHAR_DATA * ch, char *argument)
+/*
+ * Recall - This is a skill (a prayer to the gods) that will allow a person to return
+ * to their recall point.  This will be kept alongside the word of recall spell because
+ * classes that can't cast magic will need it to survive.  This skill can be enhanced by
+ * the enhanced recall skill.  When that is practiced it will raise the chance it works
+ * and lower the movement it costs.
+ */
+void do_recall(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *location;
 
-    if (IS_NPC (ch) && !IS_SET (ch->act, ACT_PET))
+    if (IS_NPC(ch) && !IS_SET(ch->act, ACT_PET))
     {
         send_to_char ("Only players can recall.\n\r", ch);
         return;
@@ -1715,8 +1721,21 @@ void do_recall (CHAR_DATA * ch, char *argument)
 
     }
 
+    // Movement penalty if you are not an immortal.  If you have the enhanced recall
+    // skill and pass the skill check you will lose less movement.
     if (!IS_IMMORTAL(ch))
-        ch->move /= 2;
+    {
+        if (CHANCE_SKILL(ch, gsn_enhanced_recall))
+        {
+            // They passed the enhanced recall check, they only lose 25% of movement.
+            ch->move = (ch->move * 3) / 4;
+        }
+        else
+        {
+            // Normal recall, costs 50% of movement
+            ch->move /= 2;
+        }
+    }
 
     act ("$n disappears.", ch, NULL, NULL, TO_ROOM);
     char_from_room (ch);
