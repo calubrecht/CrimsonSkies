@@ -1751,4 +1751,13 @@ Beats       0
 MsgOff      !Enhanced Recall!~
 End
 
+#SKILL
+Name        circle stab~
+SpellFun    spell_null~
+Target      1
+MinPos      7
+MinMana     0
+Beats       12
+End
+
 #END

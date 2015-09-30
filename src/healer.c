@@ -607,4 +607,3 @@ void spell_cure_deafness(int sn, int level, CHAR_DATA * ch, void *vo, int target
     }
 
 } // end spell_cure_deafness
-

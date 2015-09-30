@@ -4532,5 +4532,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_song_of_dissonance, "song of dissonance");
     ASSIGN_GSN(gsn_song_of_protection, "song of protection");
     ASSIGN_GSN(gsn_enhanced_recall, "enhanced recall");
+    ASSIGN_GSN(gsn_circlestab, "circle stab");
 
 } // end assign_gsn

@@ -329,6 +329,7 @@ DECLARE_DO_FUN(do_direct);
 DECLARE_DO_FUN(do_class);
 DECLARE_DO_FUN(do_bladesong);
 DECLARE_DO_FUN(do_circle);
+DECLARE_DO_FUN(do_circlestab);
 DECLARE_DO_FUN(do_touch);
 DECLARE_DO_FUN(do_cgossip);
 DECLARE_DO_FUN(do_ooc);

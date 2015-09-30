@@ -33,8 +33,9 @@
  *  battle skills.  The bladesinger will also have other bladesongs which  *
  *  are magical and can in some cases be cast outside of battle.           *
  *                                                                         *
- *  The code for bladesong originated from Moosehead Sled which has been   *
- *  made open source on GitHub.  The rest is my creation. -Rhien           *
+ *  The code for bladesong originated (slightly tweaked) from Moosehead    *
+ *  Sled which has been  made open source on GitHub.  The rest is my       *
+ *  creation. -Rhien                                                       *
  *                                                                         *
  ***************************************************************************/
 
@@ -46,6 +47,8 @@
 #include "interp.h"
 #include "magic.h"
 #include "recycle.h"
+
+void one_hit args((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
 
 /*
  * Bladesong is the underpinning skill of all bladesingers.  They must be
@@ -420,3 +423,135 @@ void do_circle(CHAR_DATA *ch, char *argument)
 
 } // end do_circle
 
+/*
+ * Circle stab is a skill that will allow a bladesinger to strike for an extra attack
+ * if the victim is already disoriented by the circle technique.  It can only be used
+ * on their primary target.
+ */
+void do_circlestab(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    // Must be a character who has the skill.
+    if (!IS_NPC(ch) && ch->level < skill_table[gsn_circlestab]->skill_level[ch->class])
+    {
+        send_to_char("You don't know how to perform the circle stab technique.\n\r", ch);
+        return;
+    }
+
+    // Must be dancing the bladesong
+    if (!is_affected(ch, gsn_bladesong))
+    {
+        send_to_char("You must be dancing the bladesong first.\n\r", ch);
+        return;
+    }
+
+    // The character can only use this in battle.
+    if ((victim = ch->fighting) == NULL)
+    {
+        send_to_char ("You aren't fighting anyone.\n\r", ch);
+        return;
+    }
+
+    // You can't use this on someone who has charmed you.
+    if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
+    {
+        act("But $N is your friend!",ch,NULL,victim,TO_CHAR);
+        return;
+    }
+
+    // See if the victim is already disoriented.
+    if (!is_affected(victim, gsn_disorientation))
+    {
+        send_to_char("You victim must first be disoriented with the circle technique.\n\r", ch);
+        WAIT_STATE(ch, skill_table[gsn_circlestab]->beats);
+        check_improve(ch, gsn_circlestab, TRUE, 1);
+        return;
+    }
+
+    // The time it takes to execute the command.
+    WAIT_STATE(ch, skill_table[gsn_circlestab]->beats);
+
+    if (CHANCE_SKILL(ch, gsn_circlestab))
+    {
+        // Success!
+        act("$n circles and then stabs at you!", ch, NULL, victim, TO_VICT);
+        act("You circle and stab at $N!", ch, NULL, victim, TO_CHAR);
+        act("$n circles and stabs at $N!", ch, NULL, victim, TO_NOTVICT);
+
+        // Chance for two additional hits
+        one_hit(ch, victim, TYPE_UNDEFINED, FALSE);
+        one_hit(ch, victim, TYPE_UNDEFINED, FALSE);
+
+        // Chance for stun (50% base at 51 if the player isn't stunned)
+        int chance = ch->level / 2;
+        chance += get_skill(ch, gsn_circlestab) / 4;
+
+        if (IS_AFFECTED(ch, AFF_HASTE) && !IS_AFFECTED(victim, AFF_HASTE))
+        {
+            // Gain 25% if the character is hasted but the victim isn't
+            chance += 25;
+        }
+        else if (!IS_AFFECTED(ch, AFF_HASTE) && IS_AFFECTED(victim, AFF_HASTE))
+        {
+            // Lose 25% if the character isn't hasted but the victim is
+            chance -= 25;
+        }
+
+        // Harder to stun them while blind
+        if (IS_AFFECTED(ch, AFF_BLIND) && !CHANCE_SKILL(ch, gsn_blind_fighting))
+        {
+            chance -= 30;
+        }
+        else if (IS_AFFECTED(victim, AFF_BLIND) && !CHANCE_SKILL(victim, gsn_blind_fighting))
+        {
+            chance += 15;
+        }
+
+        // Bonus or negative for level difference
+        if (ch->level > victim->level)
+        {
+            chance += ch->level - victim->level;
+        }
+        else if (victim->level > ch->level)
+        {
+            chance -= victim->level - ch->level;
+        }
+
+        // Easier on mobs than on characters.
+        if (IS_NPC(victim))
+        {
+            chance += 5;
+        }
+        else
+        {
+            chance -= 5;
+        }
+
+        if (CHANCE(chance))
+        {
+            // Success for stun!
+            DAZE_STATE(victim, 3 * PULSE_VIOLENCE);
+            act("$n strikes you across the head with the hilt of their weapon.", ch, NULL, victim, TO_VICT);
+            act("You strike $N across the head with the hilt of your weapon.", ch, NULL, victim, TO_CHAR);
+            act("$n strikes $N across the head with the hilt of their weapon.", ch, NULL, victim, TO_NOTVICT);
+        }
+
+        // Check to see if you get better at it
+        check_improve(ch, gsn_circlestab, TRUE, 1);
+    }
+    else
+    {
+        // Failure
+        act("$n attemps to circle stab you but stumbles in mid stride!", ch, NULL, victim, TO_VICT);
+        act("You circle stab at $N but stumble in mid stride.", ch, NULL, victim, TO_CHAR);
+        act("$n circle stabs at $N but stumbles in mid stride.", ch, NULL, victim, TO_NOTVICT);
+
+        // Check to see if you get better at it
+        check_improve(ch, gsn_circlestab, FALSE, 2);
+    }
+
+    check_wanted(ch, victim);
+    return;
+
+} // end do_circlestab
