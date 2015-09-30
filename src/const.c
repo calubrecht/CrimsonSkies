@@ -402,7 +402,7 @@ struct pc_race_type pc_race_table[] = {
     {
      "kender", "Kender", 5, {100, 100, 100, 100, 100},
      {"sneak", "swim", "peek", "dodge", "pick lock"},
-     {10, 14, 14, 18, 11}, {14, 18, 19, 22, 15}, SIZE_SMALL}
+     {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL}
 
 };
 
