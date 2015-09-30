@@ -113,6 +113,9 @@ SPEC_FUN *spec_lookup (const char *name)
     return 0;
 }
 
+/*
+ * Given a spec function will return the name.
+ */
 char *spec_name (SPEC_FUN * function)
 {
     int i;
@@ -884,7 +887,7 @@ bool spec_executioner (CHAR_DATA * ch)
     if (victim == NULL)
         return FALSE;
 
-    sprintf (buf, "%s is a %s!  PROTECT THE INNOCENT!  MORE BLOOOOD!!!",
+    sprintf (buf, "%s is a %s!  PROTECT THE INNOCENT!!!",
              victim->name, crime);
     REMOVE_BIT (ch->comm, COMM_NOSHOUT);
     do_function (ch, &do_yell, buf);
