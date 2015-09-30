@@ -5787,7 +5787,14 @@ void wizbless(CHAR_DATA * victim)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    AFFECT_DATA af;
+    if (ch->race == KENDER_RACE_LOOKUP)
+        send_to_char("You are a kender\n\r", ch);
+    else
+        send_to_char("You are not a kender\n\r", ch);
+
+
+
+/*    AFFECT_DATA af;
     affect_strip(ch, gsn_song_of_dissonance);
     af.where = TO_AFFECTS;
     af.type = gsn_song_of_dissonance;
@@ -5797,7 +5804,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
     af.location = APPLY_NONE;
     af.bitvector = AFF_DEAFEN;
     affect_to_char (ch, &af);
-
+*/
 /*    if (IS_SET(ch->affected_by, AFF_DEAFEN))
     {
         REMOVE_BIT(ch->affected_by, AFF_DEAFEN);

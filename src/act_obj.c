@@ -2191,8 +2191,11 @@ void do_zap (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * Allows a player to steal an item from another.  If the player is a clanner they will
+ * receive a WANTED flag it it fails.  Kender are acute at stealing or "finding misplaced
+ * items).
+ */
 void do_steal (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -2242,12 +2245,14 @@ void do_steal (CHAR_DATA * ch, char *argument)
     WAIT_STATE (ch, skill_table[gsn_steal]->beats);
     percent = number_percent ();
 
-    if (!IS_AWAKE (victim))
-        percent -= 10;
-    else if (!can_see (victim, ch))
-        percent += 25;
-    else
-        percent += 50;
+    if (!IS_AWAKE(victim))
+        percent += 5;
+
+    if (!can_see(victim, ch))
+        percent += 5;
+
+    if (ch->race == KENDER_RACE_LOOKUP)
+        percent += 20;
 
     if (((ch->level + 7 < victim->level || ch->level - 7 > victim->level)
          && !IS_NPC (victim) && !IS_NPC (ch))

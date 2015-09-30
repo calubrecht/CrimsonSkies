@@ -1792,11 +1792,12 @@ High level mages may learn and cast these spells as well.
 ~
 
 -1 'RACE HELP' 'RACE' 'RACES'~
-ROM has the following races for player characters:
+Crimson Skies has the following races for player characters:
   Human  the standard race
   Dwarf  good warriors and priests, cost 8 creation points
   Elf    good thieves and mages, cost 5 creation points
   Giant  huge, tough warriors, cost 6 creation points
+  Kender fast, excellent thieves, cost 5 creation points
 
 Different races have different starting statistics, and also different
 stat maximums for magic items and training.
@@ -3401,6 +3402,27 @@ information.
 A classes skill adept is how high a player can train their skills at a trainer.
 The base classes have a skill adept of 75%.  There are some reclasses that will
 have a higher skill adept at around 85%.
+~
+
+0 KENDER~
+Adult Kender resemble young teenage humans: Aside from their pointed ears,
+they could pass as human youths.  Despite their attenuate limbs, kender are
+well-muscled.  Most stand between 3'6" and 3'9" tall, although some few grow
+to be up to four and a half feet.  Mature kender weigh between 85 and 105
+pounds.  Typically, kender faces bear the intense, bright-eyed
+inquisitiveness of children.  Happy kender grin madly; sad kender wear an
+intractable pout.  When throwing taunts, kender look impish and shout in an
+incredibly grating tone.  Their emotional intensity is infectious.  In their
+countless pouches, pockets, and belt packs, kender carry a wide assortment
+of junk.  Kender of all ages share a childlike nature: curious, fearless,
+irrepressibly independent, lazy, taunting, and irresponsible with others
+possessions.  
+
+Kender receive pick lock for free due to it being one of a kender's most
+passionate hobbies.  The receive dodge for being so quick and nimble.  They,
+of course, get peek for free as they can't seem to stay out of others
+possessions.  The get sneak for being lightfooted and taunt is a kender only
+skill.
 ~
 
 0 WORLD MIDGAARD ARCANIS CONTINENT~

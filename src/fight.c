@@ -2405,12 +2405,15 @@ void do_bash (CHAR_DATA * ch, char *argument)
     /* speed */
     if (IS_SET (ch->off_flags, OFF_FAST) || IS_AFFECTED (ch, AFF_HASTE))
         chance += 10;
-    if (IS_SET (victim->off_flags, OFF_FAST)
-        || IS_AFFECTED (victim, AFF_HASTE))
+    if (IS_SET (victim->off_flags, OFF_FAST) || IS_AFFECTED (victim, AFF_HASTE))
         chance -= 30;
 
     /* level */
     chance += (ch->level - victim->level);
+
+    // Kender are very hard to bash
+    if (victim->race == KENDER_RACE_LOOKUP)
+        chance -= 20;
 
     if (!IS_NPC (victim) && chance < get_skill (victim, gsn_dodge))
     {
