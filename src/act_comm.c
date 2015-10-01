@@ -845,7 +845,7 @@ void do_say (CHAR_DATA * ch, char *argument)
 
         to = ch->in_room->people;
 
-        act("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
+        act_new("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR, POS_RESTING);
 
         for (; to != NULL; to = to->next_in_room)
         {
