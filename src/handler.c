@@ -1740,7 +1740,8 @@ int apply_ac (OBJ_DATA * obj, int iWear, int type)
 
 
 /*
- * Find a piece of eq on a character.
+ * Find a piece of equipment that a character is currently wearing at a
+ * specified location
  */
 OBJ_DATA *get_eq_char (CHAR_DATA * ch, int iWear)
 {
