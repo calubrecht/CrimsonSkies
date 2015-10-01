@@ -47,7 +47,6 @@
  */
 void affect_modify args ((CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd));
 
-
 /*
  * Returns number of people on an object.
  */
@@ -137,6 +136,10 @@ char *item_name (int item_type)
     return "none";
 }
 
+/*
+ * Returns the index in the table of the attack based on the name (e.g. slash,
+ * pound, punch, slap, cleave, stab, slice, etc.)
+ */
 int attack_lookup (const char *name)
 {
     int att;
@@ -151,7 +154,9 @@ int attack_lookup (const char *name)
     return 0;
 }
 
-/* returns a flag for wiznet */
+/*
+ * Returns the index in the table for the specified wiznet command.
+ */
 long wiznet_lookup (const char *name)
 {
     int flag;
@@ -166,7 +171,9 @@ long wiznet_lookup (const char *name)
     return -1;
 }
 
-/* returns class number */
+/*
+ * Returns the class index for the specified class name.
+ */
 int class_lookup (const char *name)
 {
     int class;
@@ -182,10 +189,11 @@ int class_lookup (const char *name)
     return -1;
 }
 
-/* for immunity, vulnerabiltiy, and resistant
-   the 'globals' (magic and weapons) may be overriden
-   three other cases -- wood, silver, and iron -- are checked in fight.c */
-
+/*
+ * for immunity, vulnerabiltiy, and resistant
+ * the 'globals' (magic and weapons) may be overriden
+ * three other cases -- wood, silver, and iron -- are checked in fight.c
+ */
 int check_immune (CHAR_DATA * ch, int dam_type)
 {
     int immune, def;
@@ -207,8 +215,8 @@ int check_immune (CHAR_DATA * ch, int dam_type)
             def = IS_VULNERABLE;
     }
     else
-    {                            /* magical attack */
-
+    {
+        /* magical attack */
         if (IS_SET (ch->imm_flags, IMM_MAGIC))
             def = IS_IMMUNE;
         else if (IS_SET (ch->res_flags, RES_MAGIC))
@@ -295,11 +303,17 @@ int check_immune (CHAR_DATA * ch, int dam_type)
         return immune;
 }
 
+/*
+ * Whether or not the character is in a clan or not.
+ */
 bool is_clan (CHAR_DATA * ch)
 {
     return ch->clan;
 }
 
+/*
+ * Whether or not two characters are in the same clan.
+ */
 bool is_same_clan (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (clan_table[ch->clan].independent)
@@ -308,35 +322,39 @@ bool is_same_clan (CHAR_DATA * ch, CHAR_DATA * victim)
         return (ch->clan == victim->clan);
 }
 
-/* for returning skill information */
+/*
+ * Returns the skill proficiency for a requested sn (skill number).  This will return
+ * what the person's % learned is and then factor in other environmental factors like
+ * whether the player is drunk or stunned (lowers the %).  There is a CHANCE_SKILL
+ * macro in merc.h that will use this function and then return a TRUE/FALSE based on
+ * a random check.
+ */
 int get_skill (CHAR_DATA * ch, int sn)
 {
     int skill;
 
     if (sn == -1)
-    {                            /* shorthand for level based skills */
+    {
+        // Shorthand for level based skills
         skill = ch->level * 5 / 2;
     }
-
     else if (sn < -1 || sn > top_sn)
     {
+        // This skill doesn't exist.
         bug ("Bad sn %d in get_skill.", sn);
         skill = 0;
     }
-
     else if (!IS_NPC (ch))
     {
+        // This is a player, get the skill %
         if (ch->level < skill_table[sn]->skill_level[ch->class])
             skill = 0;
         else
             skill = ch->pcdata->learned[sn];
     }
-
     else
-    {                            /* mobiles */
-
-
-
+    {
+        // This is a mobile
         if (skill_table[sn]->spell_fun != spell_null)
             skill = 40 + 2 * ch->level;
 
@@ -398,6 +416,7 @@ int get_skill (CHAR_DATA * ch, int sn)
             skill = 0;
     }
 
+    // Is the player stunned in any way?  If so, lower their %
     if (ch->daze > 0)
     {
         if (skill_table[sn]->spell_fun != spell_null)
@@ -406,19 +425,24 @@ int get_skill (CHAR_DATA * ch, int sn)
             skill = 2 * skill / 3;
     }
 
+    //  Are they drunk?
     if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
         skill = 9 * skill / 10;
 
     return URANGE (0, skill, 100);
 }
 
-/* for returning weapon information */
+/*
+ * Returns the weapon sn (skill number) for the weapon that the character
+ * is currently wearing (either for the primary weapon or a secondary (dual)
+ * wielded weapon.  e.g. this will return gsn_sword, gsn_dagger, gsn_mace, etc.
+ */
 int get_weapon_sn (CHAR_DATA * ch, bool dual)
 {
     OBJ_DATA *wield;
     int sn;
 
-    if(!dual)
+    if (!dual)
     {
         wield = get_eq_char( ch, WEAR_WIELD );
     }
@@ -428,8 +452,11 @@ int get_weapon_sn (CHAR_DATA * ch, bool dual)
     }
 
     if (wield == NULL || wield->item_type != ITEM_WEAPON)
+    {
         sn = gsn_hand_to_hand;
+    }
     else
+    {
         switch (wield->value[0])
         {
             default:
@@ -460,16 +487,22 @@ int get_weapon_sn (CHAR_DATA * ch, bool dual)
                 sn = gsn_polearm;
                 break;
         }
+    }
     return sn;
 }
 
+/*
+ * Returns the proficiency % for the specified sn (skill number).  e.g. for a player
+ * passing in gsn_sword would give the % learned that player is with swords.
+ */
 int get_weapon_skill (CHAR_DATA * ch, int sn)
 {
     int skill;
 
-    /* -1 is exotic */
-    if (IS_NPC (ch))
+    // -1 is exotic
+    if (IS_NPC(ch))
     {
+        // Mobiles
         if (sn == -1)
             skill = 3 * ch->level;
         else if (sn == gsn_hand_to_hand)
@@ -477,9 +510,9 @@ int get_weapon_skill (CHAR_DATA * ch, int sn)
         else
             skill = 40 + 5 * ch->level / 2;
     }
-
     else
     {
+        // Players
         if (sn == -1)
             skill = 3 * ch->level;
         else
@@ -490,7 +523,9 @@ int get_weapon_skill (CHAR_DATA * ch, int sn)
 }
 
 
-/* used to de-screw characters */
+/*
+ * Used to de-screw characters
+ */
 void reset_char (CHAR_DATA * ch)
 {
     int loc, mod, stat;
@@ -795,7 +830,6 @@ void reset_char (CHAR_DATA * ch)
         ch->sex = ch->pcdata->true_sex;
 }
 
-
 /*
  * Retrieve a character's trusted level for permission checking.
  */
@@ -813,7 +847,6 @@ int get_trust (CHAR_DATA * ch)
         return ch->level;
 }
 
-
 /*
  * Retrieve a character's age.
  */
@@ -822,7 +855,10 @@ int get_age (CHAR_DATA * ch)
     return 17 + (ch->played + (int) (current_time - ch->logon)) / 72000;
 }
 
-/* command for retrieving stats */
+/*
+ * Returns the current value of the requested stat after modifications by spells,
+ * equipment, etc.
+ */
 int get_curr_stat (CHAR_DATA * ch, int stat)
 {
     int max;
@@ -846,7 +882,11 @@ int get_curr_stat (CHAR_DATA * ch, int stat)
     return URANGE (3, ch->perm_stat[stat] + ch->mod_stat[stat], max);
 }
 
-/* command for returning max training score */
+/*
+ * Returns the maximum number a stat can be trained to for the race.  If it's the
+ * primary stat for the class then they are afforded a bonus, 2 for most classes
+ * and 3 for humans.
+ */
 int get_max_train (CHAR_DATA * ch, int stat)
 {
     int max;
@@ -866,7 +906,6 @@ int get_max_train (CHAR_DATA * ch, int stat)
     return UMIN (max, 25);
 }
 
-
 /*
  * Retrieve a character's carry capacity.
  */
@@ -880,8 +919,6 @@ int can_carry_n (CHAR_DATA * ch)
 
     return MAX_WEAR + 2 * get_curr_stat (ch, STAT_DEX) + ch->level;
 }
-
-
 
 /*
  * Retrieve a character's carry capacity.
@@ -897,12 +934,11 @@ int can_carry_w (CHAR_DATA * ch)
     return str_app[get_curr_stat (ch, STAT_STR)].carry * 10 + ch->level * 25;
 }
 
-
-
 /*
- * See if a string is one of the names of an object.
+ * See if a string is one of the names of an object using a partial match.  This can be
+ * used to see if a string is contained in a list of other strings.  This uses str_prefix and
+ * will return partial matches (e.g. searching for Bla should return true for Blake).
  */
-
 bool is_name (char *str, char *namelist)
 {
     char name[MAX_INPUT_LENGTH], part[MAX_INPUT_LENGTH];
@@ -942,6 +978,11 @@ bool is_name (char *str, char *namelist)
     }
 }
 
+/*
+ * See if a string is one of the names of an object using an exact match.  This can be
+ * used to see if a string is contained in a list of other strings.  This uses str_cmp and
+ * will return true only if a full match is found.
+ */
 bool is_exact_name (char *str, char *namelist)
 {
     char name[MAX_INPUT_LENGTH];
@@ -959,7 +1000,10 @@ bool is_exact_name (char *str, char *namelist)
     }
 }
 
-/* enchanted stuff for eq */
+/*
+ * Not sure what this is intended to do in the grand scheme (it's only called from
+ * the acid effect code when it pits an item.  This is slotting in a new affect.
+ */
 void affect_enchant (OBJ_DATA * obj)
 {
     /* okay, move all the old flags into new vectors if we have to */
@@ -986,9 +1030,9 @@ void affect_enchant (OBJ_DATA * obj)
     }
 }
 
-
 /*
- * Apply or remove an affect to a character.
+ * Apply or remove an affect to a character.  This is a lower level  method
+ * used by affect_strip, affect_to_char, affect_strip_all, affect_remove, etc.
  */
 void affect_modify (CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd)
 {
@@ -1137,8 +1181,10 @@ void affect_modify (CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd)
     return;
 }
 
-
-/* find an effect in an affect list */
+/*
+ * Finds an effect in an affect list.  It looks through the affect list
+ * looking for the sn (skill number).
+ */
 AFFECT_DATA *affect_find (AFFECT_DATA * paf, int sn)
 {
     AFFECT_DATA *paf_find;
@@ -1152,7 +1198,9 @@ AFFECT_DATA *affect_find (AFFECT_DATA * paf, int sn)
     return NULL;
 }
 
-/* fix object affects when removing one */
+/*
+ * Fix object affects when removing one.
+ */
 void affect_check (CHAR_DATA * ch, int where, int vector)
 {
     AFFECT_DATA *paf;
@@ -1253,7 +1301,9 @@ void affect_to_char (CHAR_DATA * ch, AFFECT_DATA * paf)
     return;
 }
 
-/* give an affect to an object */
+/*
+ * Give an affect to an object
+ */
 void affect_to_obj (OBJ_DATA * obj, AFFECT_DATA * paf)
 {
     AFFECT_DATA *paf_new;
@@ -1282,8 +1332,6 @@ void affect_to_obj (OBJ_DATA * obj, AFFECT_DATA * paf)
 
     return;
 }
-
-
 
 /*
  * Remove an affect from a char.
@@ -1333,6 +1381,9 @@ void affect_remove (CHAR_DATA * ch, AFFECT_DATA * paf)
     return;
 }
 
+/*
+ * Removes an affect from an object.
+ */
 void affect_remove_obj (OBJ_DATA * obj, AFFECT_DATA * paf)
 {
     int where, vector;
@@ -1392,10 +1443,8 @@ void affect_remove_obj (OBJ_DATA * obj, AFFECT_DATA * paf)
     return;
 }
 
-
-
 /*
- * Strip all affects of a given sn.
+ * Strip all affects of a given sn (skill number).
  */
 void affect_strip (CHAR_DATA * ch, int sn)
 {
@@ -1443,15 +1492,13 @@ bool is_affected (CHAR_DATA * ch, int sn)
     return FALSE;
 }
 
-
-
 /*
  * Add or enhance an affect.
  */
 void affect_join (CHAR_DATA * ch, AFFECT_DATA * paf)
 {
     AFFECT_DATA *paf_old;
-   
+ 
     for (paf_old = ch->affected; paf_old != NULL; paf_old = paf_old->next)
     {
         if (paf_old->type == paf->type)
@@ -1467,8 +1514,6 @@ void affect_join (CHAR_DATA * ch, AFFECT_DATA * paf)
     affect_to_char (ch, paf);
     return;
 }
-
-
 
 /*
  * Move a char out of a room.
@@ -1517,8 +1562,6 @@ void char_from_room (CHAR_DATA * ch)
     ch->on = NULL;                /* sanity check! */
     return;
 }
-
-
 
 /*
  * Move a char into a room.
@@ -1603,8 +1646,6 @@ void char_to_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
     return;
 }
 
-
-
 /*
  * Give an obj to a char.
  */
@@ -1618,8 +1659,6 @@ void obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch)
     ch->carry_number += get_obj_number (obj);
     ch->carry_weight += get_obj_weight (obj);
 }
-
-
 
 /*
  * Take an obj from its character.
@@ -1665,8 +1704,6 @@ void obj_from_char (OBJ_DATA * obj)
     return;
 }
 
-
-
 /*
  * Find the ac value of an obj, including position effect.
  */
@@ -1710,8 +1747,6 @@ int apply_ac (OBJ_DATA * obj, int iWear, int type)
     return 0;
 }
 
-
-
 /*
  * Find a piece of equipment that a character is currently wearing at a
  * specified location
@@ -1731,8 +1766,6 @@ OBJ_DATA *get_eq_char (CHAR_DATA * ch, int iWear)
 
     return NULL;
 }
-
-
 
 /*
  * Equip a char with an obj.
@@ -1781,8 +1814,6 @@ void equip_char (CHAR_DATA * ch, OBJ_DATA * obj, int iWear)
 
     return;
 }
-
-
 
 /*
  * Unequip a char with an obj.
@@ -1862,8 +1893,6 @@ void unequip_char (CHAR_DATA * ch, OBJ_DATA * obj)
     return;
 }
 
-
-
 /*
  * Count occurrences of an obj in a list.
  */
@@ -1881,8 +1910,6 @@ int count_obj_list (OBJ_INDEX_DATA * pObjIndex, OBJ_DATA * list)
 
     return nMatch;
 }
-
-
 
 /*
  * Move an obj out of a room.
@@ -1931,8 +1958,6 @@ void obj_from_room (OBJ_DATA * obj)
     return;
 }
 
-
-
 /*
  * Move an obj into a room.
  */
@@ -1945,8 +1970,6 @@ void obj_to_room (OBJ_DATA * obj, ROOM_INDEX_DATA * pRoomIndex)
     obj->in_obj = NULL;
     return;
 }
-
-
 
 /*
  * Move an object into an object.
@@ -1973,8 +1996,6 @@ void obj_to_obj (OBJ_DATA * obj, OBJ_DATA * obj_to)
 
     return;
 }
-
-
 
 /*
  * Move an object out of an object.
@@ -2029,8 +2050,6 @@ void obj_from_obj (OBJ_DATA * obj)
     return;
 }
 
-
-
 /*
  * Extract an obj from the world.
  */
@@ -2080,8 +2099,6 @@ void extract_obj (OBJ_DATA * obj)
     free_obj (obj);
     return;
 }
-
-
 
 /*
  * Extract a char from the world.
@@ -2172,8 +2189,6 @@ void extract_char (CHAR_DATA * ch, bool fPull)
     return;
 }
 
-
-
 /*
  * Find a char in the room.
  */
@@ -2198,9 +2213,6 @@ CHAR_DATA *get_char_room (CHAR_DATA * ch, char *argument)
 
     return NULL;
 }
-
-
-
 
 /*
  * Find a char in the world.
@@ -2229,8 +2241,6 @@ CHAR_DATA *get_char_world (CHAR_DATA * ch, char *argument)
     return NULL;
 }
 
-
-
 /*
  * Find some object with a given index data.
  * Used by area-reset 'P' command.
@@ -2247,7 +2257,6 @@ OBJ_DATA *get_obj_type (OBJ_INDEX_DATA * pObjIndex)
 
     return NULL;
 }
-
 
 /*
  * Find an obj in a list.
@@ -2272,8 +2281,6 @@ OBJ_DATA *get_obj_list (CHAR_DATA * ch, char *argument, OBJ_DATA * list)
 
     return NULL;
 }
-
-
 
 /*
  * Find an obj in player's inventory.
@@ -2300,8 +2307,6 @@ OBJ_DATA *get_obj_carry (CHAR_DATA * ch, char *argument, CHAR_DATA * viewer)
     return NULL;
 }
 
-
-
 /*
  * Find an obj in player's equipment.
  */
@@ -2327,8 +2332,6 @@ OBJ_DATA *get_obj_wear (CHAR_DATA * ch, char *argument)
     return NULL;
 }
 
-
-
 /*
  * Find an obj in the room or in inventory.
  */
@@ -2348,8 +2351,6 @@ OBJ_DATA *get_obj_here (CHAR_DATA * ch, char *argument)
 
     return NULL;
 }
-
-
 
 /*
  * Find an obj in the world.
@@ -2378,8 +2379,9 @@ OBJ_DATA *get_obj_world (CHAR_DATA * ch, char *argument)
     return NULL;
 }
 
-/* deduct cost from a character */
-
+/*
+ * Deduct cost from a character
+ */
 void deduct_cost (CHAR_DATA * ch, int cost)
 {
     int silver = 0, gold = 0;
@@ -2466,8 +2468,6 @@ OBJ_DATA *create_money (int gold, int silver)
     return obj;
 }
 
-
-
 /*
  * Return # of objects which an object counts as.
  * Thanks to Tony Chamberlain for the correct recursive code here.
@@ -2488,7 +2488,6 @@ int get_obj_number (OBJ_DATA * obj)
     return number;
 }
 
-
 /*
  * Return weight of an object, including weight of contents.
  */
@@ -2504,6 +2503,10 @@ int get_obj_weight (OBJ_DATA * obj)
     return weight;
 }
 
+/*
+ * Returns the true weight of an object, including weight of contents without
+ * the weight multiplier of the container if it is.
+ */
 int get_true_weight (OBJ_DATA * obj)
 {
     int weight;
@@ -2535,7 +2538,9 @@ bool room_is_dark (ROOM_INDEX_DATA * pRoomIndex)
     return FALSE;
 }
 
-
+/*
+ * Whether the character is the owner of the requested room.
+ */
 bool is_room_owner (CHAR_DATA * ch, ROOM_INDEX_DATA * room)
 {
     if (room->owner == NULL || room->owner[0] == '\0')
@@ -2572,7 +2577,9 @@ bool room_is_private (ROOM_INDEX_DATA * pRoomIndex)
     return FALSE;
 }
 
-/* visibility on a room -- for entering and exits */
+/*
+ * Visibility on a room -- for entering and exits
+ */
 bool can_see_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
 {
     if (IS_SET (pRoomIndex->room_flags, ROOM_IMP_ONLY)
@@ -2595,8 +2602,6 @@ bool can_see_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
 
     return TRUE;
 }
-
-
 
 /*
  * True if char can see victim.
@@ -2649,8 +2654,6 @@ bool can_see (CHAR_DATA * ch, CHAR_DATA * victim)
     return TRUE;
 }
 
-
-
 /*
  * True if char can see obj.
  */
@@ -2681,8 +2684,6 @@ bool can_see_obj (CHAR_DATA * ch, OBJ_DATA * obj)
     return TRUE;
 }
 
-
-
 /*
  * True if char can drop obj.
  */
@@ -2696,7 +2697,6 @@ bool can_drop_obj (CHAR_DATA * ch, OBJ_DATA * obj)
 
     return FALSE;
 }
-
 
 /*
  * Return ascii name of an affect location.
@@ -2758,8 +2758,6 @@ char *affect_loc_name (int location)
     bug ("Affect_location_name: unknown location %d.", location);
     return "(unknown)";
 }
-
-
 
 /*
  * Return ascii name of an affect bit vector.
@@ -2826,8 +2824,6 @@ char *affect_bit_name (int vector)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
-
-
 /*
  * Return ascii name of extra flags vector.
  */
@@ -2881,7 +2877,9 @@ char *extra_bit_name (int extra_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
-/* return ascii name of an act vector */
+/*
+ * Return ascii name of an act vector
+ */
 char *act_bit_name (int act_flags)
 {
     static char buf[512];
@@ -2961,6 +2959,9 @@ char *act_bit_name (int act_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the text description of the comm flags.
+ */
 char *comm_bit_name (int comm_flags)
 {
     static char buf[512];
@@ -3000,6 +3001,9 @@ char *comm_bit_name (int comm_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the text description of the immunity flags.
+ */
 char *imm_bit_name (int imm_flags)
 {
     static char buf[512];
@@ -3054,6 +3058,9 @@ char *imm_bit_name (int imm_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the text description of the wear flags.
+ */
 char *wear_bit_name (int wear_flags)
 {
     static char buf[512];
@@ -3097,6 +3104,9 @@ char *wear_bit_name (int wear_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the form bit names from the form flags.
+ */
 char *form_bit_name (int form_flags)
 {
     static char buf[512];
@@ -3158,6 +3168,9 @@ char *form_bit_name (int form_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the text description of the part bit flags.
+ */
 char *part_bit_name (int part_flags)
 {
     static char buf[512];
@@ -3209,6 +3222,9 @@ char *part_bit_name (int part_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns the text description of the weapon flags (e.g. frost, vampiric, sharp, etc.).
+ */
 char *weapon_bit_name (int weapon_flags)
 {
     static char buf[512];
@@ -3234,6 +3250,9 @@ char *weapon_bit_name (int weapon_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
+/*
+ * Returns container bit flags as text.
+ */
 char *cont_bit_name (int cont_flags)
 {
     static char buf[512];
@@ -3252,7 +3271,9 @@ char *cont_bit_name (int cont_flags)
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
-
+/*
+ * Returns mob offensive bit flags as text.
+ */
 char *off_bit_name (int off_flags)
 {
     static char buf[512];
@@ -3304,20 +3325,3 @@ char *off_bit_name (int off_flags)
 
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
-
-/*
- * See if a string is one of the names of an object (from Erwin's Boards)
- */
-bool is_full_name( const char *str, char *namelist )
-{
-    char name[MIL];
-
-    for ( ; ; )
-    {
-        namelist = one_argument( namelist, name );
-        if ( name[0] == '\0' )
-            return FALSE;
-        if ( !str_cmp( str, name ) )
-            return TRUE;
-    }
-} // end bool_is_full_name
