@@ -68,12 +68,17 @@ int count_users (OBJ_DATA * obj)
     return count;
 }
 
-/* returns material number */
+/*
+ * TODO - Returns material number (do with nature/crafting code)
+ */
 int material_lookup (const char *name)
 {
     return 0;
 }
 
+/*
+ * Returns the weapon index from the weapon_type table.
+ */
 int weapon_lookup (const char *name)
 {
     int type;
@@ -88,6 +93,9 @@ int weapon_lookup (const char *name)
     return -1;
 }
 
+/*
+ * Returns the weapon type from the weapon type table (e.g. WEAPON_SWORD, etc.)
+ */
 int weapon_type (const char *name)
 {
     int type;
@@ -102,16 +110,9 @@ int weapon_type (const char *name)
     return WEAPON_EXOTIC;
 }
 
-char *item_name (int item_type)
-{
-    int type;
-
-    for (type = 0; item_table[type].name != NULL; type++)
-        if (item_type == item_table[type].type)
-            return item_table[type].name;
-    return "none";
-}
-
+/*
+ * Returns the name of the weapon provided the int value.  (e.g. sword, dagger, etc.)
+ */
 char *weapon_name (int weapon_type)
 {
     int type;
@@ -120,6 +121,20 @@ char *weapon_name (int weapon_type)
         if (weapon_type == weapon_table[type].type)
             return weapon_table[type].name;
     return "exotic";
+}
+
+/*
+ * Returns the name of the item type provided the index (e.g. light, scroll,
+ * weapon, food, portal, gem, foundation, pc_corpse, etc.)
+ */
+char *item_name (int item_type)
+{
+    int type;
+
+    for (type = 0; item_table[type].name != NULL; type++)
+        if (item_type == item_table[type].type)
+            return item_table[type].name;
+    return "none";
 }
 
 int attack_lookup (const char *name)
