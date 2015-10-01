@@ -2240,7 +2240,6 @@ int    get_max_train      args( ( CHAR_DATA *ch, int stat ) );
 int    can_carry_n        args( ( CHAR_DATA *ch ) );
 int    can_carry_w        args( ( CHAR_DATA *ch ) );
 bool   is_name            args( ( char *str, char *namelist ) );
-bool   is_full_name	  args( ( const char *str, char *namelist ) );
 bool   is_exact_name      args( ( char *str, char *namelist ) );
 void   affect_to_char     args( ( CHAR_DATA *ch, AFFECT_DATA *paf ) );
 void   affect_to_obj      args( ( OBJ_DATA *obj, AFFECT_DATA *paf ) );

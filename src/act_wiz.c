@@ -5787,11 +5787,8 @@ void wizbless(CHAR_DATA * victim)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    if (ch->race == KENDER_RACE_LOOKUP)
-        send_to_char("You are a kender\n\r", ch);
-    else
-        send_to_char("You are not a kender\n\r", ch);
-
+    if (is_name("Bla", "John, Blake, Bill"))
+        send_to_char("Match found\n\r", ch);
 
 
 /*    AFFECT_DATA af;
