@@ -23,6 +23,7 @@ PORT = 4000
 USER = ""
 PASS = ""
 VERBOSE = True
+KEEP_ALIVE_LENGTH = 40
 
 # Print function where the verbose can be toggled on or off.
 def _print(buf):
@@ -79,6 +80,16 @@ def _tcpReaderThread():
 
         time.sleep(1)
 
+# Thread that will send an empty line to keep the connection alive and then will sleep
+# for an amount of seconds.
+def _keepAliveThread():
+    while True:
+        # By putting the send after the timer it will wait for seconds after login to
+        # run for the first time.
+        time.sleep(KEEP_ALIVE_LENGTH)
+        _print("LOCAL TICK!!!  NOW TO SLEEP FOR 40 SECONDS.")
+        _send("")
+
 # Literal Triggers
 triggers = {
             "Do you want color? (Y/N) ->" : "N",
@@ -89,31 +100,36 @@ triggers = {
             "You are thirsty" : "drink",
             "[Hit Return to continue]" : "",
             " tells you '" : "reply I'm sorry, I am a bot that is currently being used for load testing.",
-            "Reconnecting. Type replay to see missed tells." : "mudschool",
+            "Reconnecting. Type replay to see missed tells." : "start",
             "In your dreams, or what?" : "wake",
             "You can not sleep while flying, you must land first." : "land",
-            "Welcome to Crimson Skies" : "mudschool",
+            "Welcome to Crimson Skies" : "start",
             "is DEAD!!" : "recall;n;sleep",
+            "waiting to be read" : "catchup",
             "^.+, right here." : "say someone is here.",
            }
 
 alias = {
-            "start" : "scan",
+            "start" : "prompt <<%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>>",
             "mudschool" : "wake;recall;u;n;n;w;n;n;w;d;s;kill mon;blade"
         }
-
-# Setup the telnet library and connect
-tn = telnetlib.Telnet(HOST, PORT, timeout = 2)
 
 ##############################################################################
 #  Main Logic Loop
 ##############################################################################
 
+# Setup the telnet library and connect
+tn = telnetlib.Telnet(HOST, PORT, timeout = 2)
+
 # Start the TCP thread to read incoming data and do triggers and all
 # that fun stuff.
-thread = Thread(target = _tcpReaderThread)
-thread.daemon = True
-thread.start()
+tcpThread = Thread(target = _tcpReaderThread)
+tcpThread.daemon = True
+tcpThread.start()
+
+keepAliveThread = Thread(target = _keepAliveThread)
+keepAliveThread.daemon = True
+keepAliveThread.start()
 
 # Main input loop.  This will allow us to enter input if we actually need to.
 while True:
