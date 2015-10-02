@@ -4,6 +4,7 @@ import telnetlib
 import time
 import os
 import re
+import string
 from threading import Thread
 
 ##############################################################################
@@ -17,6 +18,11 @@ from threading import Thread
 #                idea of how to write a mud bot and should be easily tweaked #
 #                to work on other muds (or anything telnet/raw tcp based. My #
 #                goal is to use this for load testing.                       #
+#                                                                            #
+#                Mud Bot Supports:                                           #
+#                  - Simple aliases                                          #
+#                  - Literal Triggers                                        #
+#                  - RegEx Triggers                                          #
 #                                                                            #
 ##############################################################################
 
@@ -71,11 +77,39 @@ def _tcpReaderThread():
         if ("\n" in buf or "Password:" in buf):
             _print(buf)
 
-            # Check our triggers
+            # Check our literal triggers, split on lines, then process if there are multiple
+            # lines that came through
             for key in triggers:
-                if key in buf:
-                    _print("[Trigger]")
-                    _send(triggers[key])
+                for line in buf.splitlines():
+                    if key in line:
+                        _print("[Trigger]")
+                        _send(triggers[key])
+
+            # Check our regex triggers, split on lines, then process if there are multiple
+            # lines that came through
+            for key in regexTriggers:
+                for line in buf.splitlines():
+                    regex = re.compile(key, re.IGNORECASE)
+                    x = 0
+                    cmd = regexTriggers[key]
+                    found = False
+                    for match in regex.finditer(line):                        
+                        found = True
+                        _print("[RegEx Trigger]")
+
+                        # I see this as hacky.. not sure why we can't get the count in the group
+                        # this will work for now.
+                        for x in (1, 2, 3, 4, 5, 6, 7, 8, 9):
+                            var = "%%%d" % x
+                            try:
+                                cmd = string.replace(cmd, var, match.group(x))
+                            except:
+                                # If we have to put something here... I suppose we'll set the ceiling :p
+                                x = x - 1
+
+                    # Only send if we found a trigger
+                    if found:
+                        _send(cmd)
 
             # We've done all we want with this buffer, clear it
             buf = ""
@@ -94,22 +128,29 @@ def _keepAliveThread():
 
 # Literal Triggers
 triggers = {
+            # Login/Connecting
             "Do you want color? (Y/N) ->" : "N",
             "By what name do you wish to be known?" : USER,
             "Password:" : PASS,
             "Do you wish to connect anyway (Y/N)" : "Y",
+            "[Hit Return to continue]" : "",
+            "Welcome to Crimson Skies" : "start",
+            
             "You are hungry" : "say i sure am hungry",
             "You are thirsty" : "drink",
-            "[Hit Return to continue]" : "",
             " tells you '" : "reply I'm sorry, I am a bot that is currently being used for load testing.",
             "Reconnecting. Type replay to see missed tells." : "start",
             "In your dreams, or what?" : "wake",
             "You can not sleep while flying, you must land first." : "land",
-            "Welcome to Crimson Skies" : "start",
             "is DEAD!!" : "recall;n;sleep",
-            "waiting to be read" : "catchup",
-            "^.+, right here." : "say someone is here.",
+            "waiting to be read" : "catchup"
            }
+
+#RegEx Triggers
+regexTriggers = {
+    #"(\w+), right here." : "> %1 say Hello %1, I am a bot written in Python, nice to meet you!",
+    "(\w+), nearby to the (\w+)." : "say i see %1 to the %2"
+}
 
 alias = {
             "start" : "prompt <<%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>>",
