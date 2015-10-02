@@ -89,6 +89,7 @@ def _keepAliveThread():
         # By putting the send after the timer it will wait for seconds after login to
         # run for the first time.
         time.sleep(KEEP_ALIVE_LENGTH)
+        _print("KEEP ALIVE")
         _send("")
 
 # Literal Triggers
@@ -141,8 +142,8 @@ while True:
     # entered.
     if os.getpgrp() == os.tcgetpgrp(sys.stdout.fileno()):
         userInput = raw_input("")
+        _send(str(userInput))
 
-    _send(str(userInput))
     time.sleep(1)
 
     # Special handling for quit or logout so we can quit this thread.
