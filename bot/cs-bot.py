@@ -2,6 +2,7 @@ import getpass
 import sys
 import telnetlib
 import time
+import os
 import re
 from threading import Thread
 
@@ -14,7 +15,8 @@ from threading import Thread
 #                This was written specifically for Crimson Skies (CS-Mud)    #
 #                which is a DikuMud/Merc/Rom derivative.  It should give a   #
 #                idea of how to write a mud bot and should be easily tweaked #
-#                to work on other muds (or anything telnet/raw tcp based.    #
+#                to work on other muds (or anything telnet/raw tcp based. My #
+#                goal is to use this for load testing.                       #
 #                                                                            #
 ##############################################################################
 
@@ -87,7 +89,6 @@ def _keepAliveThread():
         # By putting the send after the timer it will wait for seconds after login to
         # run for the first time.
         time.sleep(KEEP_ALIVE_LENGTH)
-        _print("LOCAL TICK!!!  NOW TO SLEEP FOR 40 SECONDS.")
         _send("")
 
 # Literal Triggers
@@ -134,7 +135,13 @@ keepAliveThread.start()
 # Main input loop.  This will allow us to enter input if we actually need to.
 while True:
     userInput = ""
-    userInput = raw_input("")
+
+    # This should allow the raw_input to work both from the terminal and
+    # if it's running in the background (where no input would ever be
+    # entered.
+    if os.getpgrp() == os.tcgetpgrp(sys.stdout.fileno()):
+        userInput = raw_input("")
+
     _send(str(userInput))
     time.sleep(1)
 
