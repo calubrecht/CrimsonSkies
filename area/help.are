@@ -169,13 +169,13 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
         %v :  Display your current moves
         %V :  Display your maximum moves
         %x :  Display your current experience
-	%X :  Display experience to level
+        %X :  Display experience to level
         %g :  Display your gold held
-	%s :  Display silver carried
+        %s :  Display silver carried
         %a :  Display your alignment
         %r :  Display the room name you are in
-	%e :  Display the exits from the room in NESWDU style
-	%c :  Display a carriage return (useful for multi-line prompts)
+        %e :  Display the exits from the room in NESWDU style
+        %c :  Display a carriage return (useful for multi-line prompts)
         %R :  Display the vnum you are in (IMMORTAL ONLY)
         %z :  Display the area name you are in (IMMORTAL ONLY)
         %i :  Displays the level your incognito at (IMMORTAL ONLY)
@@ -227,9 +227,6 @@ the way back to the beginning of your level.
 
 Corpses decay after time, and the objects inside corpses decay with them.
 Player corpses last *roughly* 30 hours of game time (15 minutes of real time).
-Only the player who died, or someone in the same group, can retrieve objects
-from a player's corpse.
-
 ~
 
 0 EXPERIENCE LEVEL XP~
