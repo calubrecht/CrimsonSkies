@@ -96,6 +96,7 @@ const struct cmd_type cmd_table[] = {
     {"kill",      do_kill,      POS_FIGHTING, 0,  LOG_NORMAL, TRUE},
     {"look",      do_look,      POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"clan",      do_clantalk,  POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
+    {"oclan",     do_oclantalk, POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"order",     do_order,     POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"practice",  do_practice,  POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"rest",      do_rest,      POS_SLEEPING, 0,  LOG_NORMAL, TRUE},

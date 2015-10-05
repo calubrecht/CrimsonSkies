@@ -120,6 +120,13 @@ void do_channels (CHAR_DATA * ch, char *argument)
         else
             send_to_char ("{ROFF{x\n\r", ch);
 
+        send_to_char("ooc clan       ", ch);
+
+        if (!IS_SET (ch->comm, COMM_NOOCLAN))
+            send_to_char ("{GON{x\n\r", ch);
+        else
+            send_to_char ("{ROFF{x\n\r", ch);
+
     }
 
     send_to_char ("gossip         ", ch);
@@ -712,6 +719,7 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
         send_to_char ("You aren't in a clan.\n\r", ch);
         return;
     }
+
     if (argument[0] == '\0')
     {
         if (IS_SET (ch->comm, COMM_NOCLAN))
@@ -753,6 +761,61 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
 
     return;
 }
+
+/*
+ * OOC Clan Talk
+ */
+void do_oclantalk(CHAR_DATA *ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d;
+
+    if (!is_clan (ch) || clan_table[ch->clan].independent)
+    {
+        send_to_char ("You aren't in a clan.\n\r", ch);
+        return;
+    }
+
+    if (argument[0] == '\0')
+    {
+        if (IS_SET (ch->comm, COMM_NOOCLAN))
+        {
+            send_to_char("OOC Clan channel is now ON\n\r", ch);
+            REMOVE_BIT(ch->comm, COMM_NOOCLAN);
+        }
+        else
+        {
+            send_to_char("OOC Clan channel is now OFF\n\r", ch);
+            SET_BIT(ch->comm, COMM_NOOCLAN);
+        }
+        return;
+    }
+
+    if (IS_SET(ch->comm, COMM_NOCHANNELS))
+    {
+        send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+        return;
+    }
+
+    REMOVE_BIT(ch->comm, COMM_NOOCLAN);
+
+    sprintf (buf, "{xYou OOC clan '{c%s{x'\n\r", argument);
+    send_to_char (buf, ch);
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->connected == CON_PLAYING &&
+            d->character != ch &&
+            is_same_clan (ch, d->character) &&
+            !IS_SET(d->character->affected_by, AFF_DEAFEN) &&
+            !IS_SET(d->character->comm, COMM_NOCLAN) &&
+            !IS_SET(d->character->comm, COMM_QUIET))
+        {
+            act_new("{x$n OOC clans '{c$t{x'", ch, argument, d->character, TO_VICT, POS_DEAD);
+        }
+    }
+
+    return;
+} // end oclantalk
 
 void do_immtalk (CHAR_DATA * ch, char *argument)
 {

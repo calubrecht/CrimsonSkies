@@ -1271,7 +1271,7 @@ struct    kill_data
 #define COMM_NOOOC          (G)
 #define COMM_NOCLAN         (H)
 #define COMM_NOCGOSSIP      (I)
-//#define COMM_SHOUTSOFF      (J)
+#define COMM_NOOCLAN        (J)
 
 /* display flags */
 #define COMM_COMPACT        (L)
