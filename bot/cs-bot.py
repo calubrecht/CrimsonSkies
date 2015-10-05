@@ -153,7 +153,7 @@ regexTriggers = {
 }
 
 alias = {
-            "start" : "prompt <<%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>>",
+            "start" : "prompt <%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>",
             "mudschool" : "wake;recall;u;n;n;w;n;n;w;d;s;kill mon;blade"
         }
 
