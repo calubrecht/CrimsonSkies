@@ -28,8 +28,8 @@ from threading import Thread
 
 HOST = "localhost"
 PORT = 4000
-USER = ""
-PASS = ""
+USER = sys.argv[1]
+PASS = sys.argv[2]
 VERBOSE = True
 KEEP_ALIVE_LENGTH = 40
 
@@ -160,8 +160,6 @@ alias = {
 ##############################################################################
 #  Main Logic Loop
 ##############################################################################
-
-# Setup the telnet library and connect
 tn = telnetlib.Telnet(HOST, PORT, timeout = 2)
 
 # Start the TCP thread to read incoming data and do triggers and all
