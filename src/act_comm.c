@@ -1607,9 +1607,12 @@ void do_order (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
-void do_group (CHAR_DATA * ch, char *argument)
+/*
+ * Group command, will allow you to add and remove players from your
+ * group, see your groups condition.  Grouped members can then communicate
+ * through gtell.
+ */
+void do_group(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
@@ -1623,28 +1626,27 @@ void do_group (CHAR_DATA * ch, char *argument)
         CHAR_DATA *leader;
 
         leader = (ch->leader != NULL) ? ch->leader : ch;
-        sprintf (buf, "%s's group:\n\r", PERS (leader, ch));
-        send_to_char (buf, ch);
+        sprintf(buf, "%s's group:\n\r", PERS (leader, ch));
+        send_to_char(buf, ch);
 
         for (gch = char_list; gch != NULL; gch = gch->next)
         {
-            if (is_same_group (gch, ch))
+            if (is_same_group(gch, ch))
             {
-                sprintf (buf,
+                sprintf(buf,
                          "[%2d %s] %-16s %4d/%4d hp %4d/%4d mana %4d/%4d mv %5d xp\n\r",
                          gch->level,
-                         IS_NPC (gch) ? "Mob" : class_table[gch->
-                                                            class]->who_name,
+                         IS_NPC (gch) ? "Mob" : class_table[gch->class]->who_name,
                          capitalize (PERS (gch, ch)), gch->hit, gch->max_hit,
                          gch->mana, gch->max_mana, gch->move, gch->max_move,
                          gch->exp);
-                send_to_char (buf, ch);
+                send_to_char(buf, ch);
             }
         }
         return;
     }
 
-    if ((victim = get_char_room (ch, arg)) == NULL)
+    if ((victim = get_char_room(ch, arg)) == NULL)
     {
         send_to_char ("They aren't here.\n\r", ch);
         return;
@@ -1658,42 +1660,35 @@ void do_group (CHAR_DATA * ch, char *argument)
 
     if (victim->master != ch && ch != victim)
     {
-        act_new ("$N isn't following you.", ch, NULL, victim, TO_CHAR,
-                 POS_SLEEPING);
+        act_new ("$N isn't following you.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
         return;
     }
 
     if (IS_AFFECTED (victim, AFF_CHARM))
     {
-        send_to_char ("You can't remove charmed mobs from your group.\n\r",
-                      ch);
+        send_to_char ("You can't remove charmed mobs from your group.\n\r", ch);
         return;
     }
 
-    if (IS_AFFECTED (ch, AFF_CHARM))
+    if (IS_AFFECTED(ch, AFF_CHARM))
     {
-        act_new ("You like your master too much to leave $m!",
-                 ch, NULL, victim, TO_VICT, POS_SLEEPING);
+        act_new ("You like your master too much to leave $m!", ch, NULL, victim, TO_VICT, POS_SLEEPING);
         return;
     }
 
-    if (is_same_group (victim, ch) && ch != victim)
+    if (is_same_group(victim, ch) && ch != victim)
     {
         victim->leader = NULL;
-        act_new ("$n removes $N from $s group.",
-                 ch, NULL, victim, TO_NOTVICT, POS_RESTING);
-        act_new ("$n removes you from $s group.",
-                 ch, NULL, victim, TO_VICT, POS_SLEEPING);
-        act_new ("You remove $N from your group.",
-                 ch, NULL, victim, TO_CHAR, POS_SLEEPING);
+        act_new("$n removes $N from $s group.", ch, NULL, victim, TO_NOTVICT, POS_RESTING);
+        act_new("$n removes you from $s group.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
+        act_new("You remove $N from your group.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
         return;
     }
 
     victim->leader = ch;
-    act_new ("$N joins $n's group.", ch, NULL, victim, TO_NOTVICT,
-             POS_RESTING);
-    act_new ("You join $n's group.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
-    act_new ("$N joins your group.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
+    act_new("$N joins $n's group.", ch, NULL, victim, TO_NOTVICT, POS_RESTING);
+    act_new("You join $n's group.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
+    act_new("$N joins your group.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
     return;
 }
 
