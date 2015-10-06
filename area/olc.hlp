@@ -21,8 +21,9 @@ Definition: [optional]  <required>  (combined arguments)
 code is based on was written by Surreality and installed in The Isles by Locke.
 It was then converted to work with Envy by Jason Dinkel, and ported to ROM
 2.3 by Hans Birkeland (Hugin). Port to Rom 2.4 by Ivan Toledo (ver 1.7).
-Online editing of groups, classes and skills ported from SmaugFUSS by Blake 
-Pell (Rhien) of Crimson Skies (CSMud).
+Dynamic loading of groups, classes and skills ported from SmaugFUSS by Blake 
+Pell (Rhien) of Crimson Skies (CS-Mud) with additional code added to OLC to
+allow for online editing.
 
      Inside an editor, typing COMMANDS lists working commands and ? gives
 help. AEDIT and REDIT default to the current area or room. EDIT ROOM RESET
