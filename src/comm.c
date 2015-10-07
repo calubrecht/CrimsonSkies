@@ -193,6 +193,7 @@ bool process_output args ((DESCRIPTOR_DATA * d, bool fPrompt));
 void read_from_buffer args ((DESCRIPTOR_DATA * d));
 void stop_idling args ((CHAR_DATA * ch));
 void bust_a_prompt args ((CHAR_DATA * ch));
+void twiddle args((void));
 
 /* Needs to be global because of do_copyover */
 int port, control;
@@ -2588,6 +2589,62 @@ void bugf (char *fmt, ...)
 
     bug (buf, 0);
 }
+
+/*
+ * This will show and keep track of an indicator which will allow you to
+ * show a rotating bar during global locking operations like a copyover.
+ * Everytime it is called it will send the next bar to the descriptor over-writing
+ * the last via the BACK ansi character (which will backspace over the previous
+ * one).
+ */
+void twiddle()
+{
+    DESCRIPTOR_DATA *d;
+    static int twiddle;
+    char buf[10];
+    char buf2[10];
+    buf[0] = '\0';
+    buf2[0] = '\0';
+
+    switch(twiddle)
+    {
+        case 0:
+            sprintf(buf,"-%s",BACK);
+            sprintf(buf2,".");
+            twiddle=1;
+            break;
+        case 1:
+            sprintf(buf,"\\%s",BACK);
+            twiddle=2;
+            break;
+        case 2:
+            sprintf(buf,"|%s",BACK);
+            twiddle=3;
+            break;
+        case 3:
+            sprintf(buf,"/%s",BACK);
+            twiddle=0;
+            break;
+    }
+
+    for (d = descriptor_list ; d ; d= d->next )
+    {
+        if (d->ansi)
+        {
+            write_to_descriptor(d->descriptor, buf, 0, d);
+        }
+        else
+        {
+            if (buf2[0] != '\0')
+            {
+                write_to_descriptor (d->descriptor,buf2, 0,d);
+            }
+        }
+    }
+
+    return;
+
+} // end twiddle
 
 /*
  * Windows support functions
