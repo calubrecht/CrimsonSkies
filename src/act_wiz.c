@@ -4984,7 +4984,9 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 
 } // end do_copyover
 
-/* Recover from a copyover - load players */
+/*
+ * Recover for a copyover and re-load players.
+ */
 void copyover_recover()
 {
     DESCRIPTOR_DATA *d;
@@ -4999,7 +5001,8 @@ void copyover_recover()
     fp = fopen (COPYOVER_FILE, "r");
 
     if (!fp)
-    {                            /* there are some descriptors open which will hang forever then ? */
+    {
+        /* there are some descriptors open which will hang forever then ? */
         perror ("copyover_recover:fopen");
         log_f ("Copyover file not found. Exitting.\n\r");
         exit (1);
@@ -5020,15 +5023,13 @@ void copyover_recover()
             break;
 
         /* Write something, and check if it goes error-free */
-        if (!write_to_descriptor
-            (desc, "\n\rRestoring from copyover...\n\r", 0, NULL))
+        if (!write_to_descriptor(desc, "\n\rRestoring from copyover...\n\r", 0, NULL))
         {
 #if defined(_WIN32)
             _close(desc);        /* nope */
 #else
             close (desc);        /* nope */
 #endif
-
             continue;
         }
 
@@ -5042,21 +5043,18 @@ void copyover_recover()
         d->ansi = TRUE;
 
         /* Now, find the pfile */
-
         fOld = load_char_obj (d, name);
 
         if (!fOld)
-        {                        /* Player file not found?! */
-            write_to_descriptor (desc,
-                                 "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r",
-                                 0, d);
+        {
+            /* Player file not found?! */
+            write_to_descriptor (desc, "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r", 0, d);
             close_socket (d);
         }
         else
-        {                        /* ok! */
-
-            write_to_descriptor (desc, "\n\rCopyover recovery complete.\n\r",
-                                 0, d);
+        {
+            /* ok! */
+            write_to_descriptor (desc, "\n\rCopyover recovery complete.\n\r", 0, d);
 
             /* Just In Case */
             if (!d->character->in_room)
@@ -5074,8 +5072,7 @@ void copyover_recover()
             if (d->character->pet != NULL)
             {
                 char_to_room (d->character->pet, d->character->in_room);
-                act ("$n materializes!.", d->character->pet, NULL, NULL,
-                     TO_ROOM);
+                act ("$n materializes!.", d->character->pet, NULL, NULL, TO_ROOM);
             }
         }
 
@@ -5781,14 +5778,15 @@ void wizbless(CHAR_DATA * victim)
 
 } // end void wizbless
 
+void twiddle args((void));
+
 /*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    if (is_name("Bla", "John, Blake, Bill"))
-        send_to_char("Match found\n\r", ch);
+    twiddle();
 
 
 /*    AFFECT_DATA af;
