@@ -152,8 +152,7 @@ triggers = {
 regexTriggers = {
     #"(\w+), right here." : "> %1 say Hello %1, I am a bot written in Python, nice to meet you!",
     "(\w+), nearby to the (\w+)." : "say i see %1 to the %2",
-    "(\w+) has arrived." : "> %1 If you need a spell I can provide, directly speak to me and say it's name.",
-    "(\w+) has arrived." : "examine %1",
+    "(\w+) has arrived." : "> %1 If you need a spell I can provide, directly speak to me and say it's name.;examine %1",
     "(\w+) says \(to You\) '(\w+)'" : "> %1 My blessings be with you;cast '%2' %1",
     "(\w+) says \(to You\) '(\w+) (\w+)'" : "> %1 My blessings be with you;cast '%2 %3' %1",
     "(\w+) has a few scratches." : "cast 'heal' %1",
@@ -161,8 +160,8 @@ regexTriggers = {
     "(\w+) has quite a few wounds." : "cast 'heal' %1",
     "(\w+) has some big nasty wounds and scratches." : "cast 'heal' %1",
     "(\w+) looks pretty hurt." : "cast 'heal' %1",
-    "(\w+) is in awful condition." : "cast 'heal' %1",
-    "(\w+) is bleeding to death." : "cast 'heal' %1"
+    "(\w+) is in awful condition." : "> %1 You look awful.;cast 'heal' %1",
+    "(\w+) is bleeding to death." : "> %1 You look awful.;cast 'heal' %1"
 }
 
 alias = {
