@@ -99,7 +99,7 @@ DESCRIPTOR_DATA *new_descriptor (void)
     d->showstr_point = NULL;
     d->outsize = 2000;
     d->outbuf = alloc_mem (d->outsize);
-
+    d->name = str_dup( "" ); // Copyover
     return d;
 }
 

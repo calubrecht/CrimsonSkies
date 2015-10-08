@@ -59,6 +59,8 @@ void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
 void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 void do_oload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 
+extern bool fCopyOver;  // Whether or not we're currently in a copyover
+
 void do_wiznet (CHAR_DATA * ch, char *argument)
 {
     int flag;
@@ -4985,27 +4987,28 @@ void do_copyover (CHAR_DATA * ch, char *argument)
 } // end do_copyover
 
 /*
- * Recover for a copyover and re-load players.
+ * The first step in the copyover recovery process.  We will load the descriptors
+ * in first so we can send them the status messages as the game reloads.  This helps
+ * coders quickly spot where a game might crash on re-load also.
  */
-void copyover_recover()
+void copyover_load_descriptors()
 {
     DESCRIPTOR_DATA *d;
     FILE *fp;
-    char name[100];
+    char name [100];
     char host[MSL];
     int desc;
-    bool fOld;
 
-    log_f ("Copyover recovery initiated");
+    log_f("Copyover recovery initiated", 0);
 
-    fp = fopen (COPYOVER_FILE, "r");
+    fp = fopen(COPYOVER_FILE, "r");
 
     if (!fp)
     {
         /* there are some descriptors open which will hang forever then ? */
-        perror ("copyover_recover:fopen");
-        log_f ("Copyover file not found. Exitting.\n\r");
-        exit (1);
+        perror("copyover_recover:fopen");
+        log_f("Copyover file not found. Exitting.\n\r", 0);
+        exit(1);
     }
 
 #if defined(_WIN32)
@@ -5016,14 +5019,20 @@ void copyover_recover()
 
     for (;;)
     {
-        int errorcheck = fscanf (fp, "%d %s %s\n", &desc, name, host);
+        int errorcheck = fscanf(fp, "%d %s %s\n", &desc, name, host);
+
         if ( errorcheck < 0 )
+        {
             break;
+        }
+
         if (desc == -1)
+        {
             break;
+        }
 
         /* Write something, and check if it goes error-free */
-        if (!write_to_descriptor(desc, "\n\rRestoring from copyover...\n\r", 0, NULL))
+        if (!write_to_descriptor (desc, "\n\rRestoring from copyover...\n\r\n\r",0,NULL))
         {
 #if defined(_WIN32)
             _close(desc);        /* nope */
@@ -5033,28 +5042,49 @@ void copyover_recover()
             continue;
         }
 
-        d = new_descriptor ();
+        d = new_descriptor();
         d->descriptor = desc;
 
-        d->host = str_dup (host);
+        d->host = str_dup(host);
         d->next = descriptor_list;
+        d->name = str_dup(name);
         descriptor_list = d;
-        d->connected = CON_COPYOVER_RECOVER;    /* -15, so close_socket frees the char */
+        d->connected = CON_COPYOVER_RECOVER;   /* -15, so close_socket frees the char */
         d->ansi = TRUE;
+    }
+
+    fclose (fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end copyover_load_descriptors()
+
+/*
+ * Recover for a copyover and re-load players.
+ */
+void copyover_recover()
+{
+    DESCRIPTOR_DATA *d, *d_next;
+    bool fOld;
+
+    if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Players. ");
+
+    for ( d = descriptor_list; d != NULL; d = d_next )
+    {
+        d_next = d->next;
 
         /* Now, find the pfile */
-        fOld = load_char_obj (d, name);
+        fOld = load_char_obj (d, d->name);
 
         if (!fOld)
         {
             /* Player file not found?! */
-            write_to_descriptor (desc, "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r", 0, d);
-            close_socket (d);
+            write_to_descriptor (d->descriptor, "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r", 0, d);
+            close_socket(d);
         }
         else
         {
             /* ok! */
-            write_to_descriptor (desc, "\n\rCopyover recovery complete.\n\r", 0, d);
+            write_to_descriptor(d->descriptor, "Done.\n\r\n\rCopyover recovery complete.\n\r", 0, d);
 
             /* Just In Case */
             if (!d->character->in_room)
@@ -5075,10 +5105,7 @@ void copyover_recover()
                 act ("$n materializes!.", d->character->pet, NULL, NULL, TO_ROOM);
             }
         }
-
     }
-    fclose (fp);
-
 } // end void copyover_recover
 
 // Rhien - 04/13/2015

@@ -101,6 +101,7 @@ extern const struct continent_type continent_table[];
  * main game loop starts.
  */
 extern bool game_loaded;
+extern bool fCopyOver;
 
 /*
  * Locals.
@@ -270,17 +271,20 @@ void boot_db ()
     }
 
     log_string("STATUS: Loading Skills");
+    if (fCopyOver) write_to_all_desc("STATUS: Loading Skills. ");
     load_skills();
-
     log_f("STATUS: %d Skills Loaded", top_sn);
 
     log_string("STATUS: Loading Groups");
+    if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Groups. ");
     load_groups();
 
     log_string("STATUS: Loading Classes");
+    if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Classes. ");
     load_classes();
 
     log_string("STATUS: Assigning GSNs (Global Skill Numbers)");
+    if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Assigning GSNs (Global Skill Numbers). ");
     assign_gsn();
 
     /*
@@ -288,6 +292,7 @@ void boot_db ()
      */
     {
         log_string("STATUS: Loading Areas");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Areas. ");
 
         FILE *fpList;
 
@@ -374,19 +379,31 @@ void boot_db ()
      */
     {
         log_string("STATUS: Fixing Exits");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Fixing Exits. ");
         fix_exits();
+
         log_string("STATUS: Fixing MobProgs");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Fixing MobProgs. ");
         fix_mobprogs();
         fBootDb = FALSE;
+
         // The loading of saved objects needs to happen before the
         // resetting otherwise we'll have duplicate objects
         log_string("STATUS: Loading Saved Game Objects (Pits/Corpses)");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Saved Game Objects (Pits/Corpses). ");
         load_game_objects();
+
         log_string("STATUS: Resetting Areas");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Resetting Areas. ");
         area_update();
-        log_string("STATUS: Loading Bans");
+
+        log_string("STATUS: Loading Banned Sites");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Banned Sites. ");
         load_bans();
+
         log_string("STATUS: Loading Notes");
+        if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Notes. ");
+
         load_notes();
 
     }

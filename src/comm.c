@@ -197,6 +197,7 @@ void twiddle args((void));
 
 /* Needs to be global because of do_copyover */
 int port, control;
+bool fCopyOver = FALSE;
 
 /* Set this to the IP address you want to listen on (127.0.0.1 is good for    */
 /* paranoid types who don't want the 'net at large peeking at their MUD)      */
@@ -205,7 +206,6 @@ char *mud_ipaddress = "0.0.0.0";
 int main (int argc, char **argv)
 {
     struct timeval now_time;
-    bool fCopyOver = FALSE;
 
     /*
      * Memory debugging if needed.
@@ -282,12 +282,15 @@ int main (int argc, char **argv)
     if (!fCopyOver)
         control = init_socket (port);
 
-    boot_db ();
-    log_f ("Crimson Skies is ready to rock on port %d.", port);
+    if (fCopyOver)
+        copyover_load_descriptors();
+
+    boot_db();
 
     if (fCopyOver)
-        copyover_recover ();
+        copyover_recover();
 
+    log_f("Crimson Skies is ready to rock on port %d.", port);
     game_loaded = TRUE;
 
     game_loop (control);
@@ -305,7 +308,7 @@ int main (int argc, char **argv)
      * That's all, folks.
      */
     log_string ("Normal termination of game.");
-    exit (0);
+    exit(0);
     return 0;
 }
 
