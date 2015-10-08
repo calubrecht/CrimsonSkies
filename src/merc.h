@@ -2137,6 +2137,7 @@ void     bugf                args( ( char *, ... ) );
 bool     write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 void     write_to_all_desc   args( ( char *txt) );
 void     send_to_all_char    args( ( char *txt) );
+void     copyover_broadcast  args( ( char *txt, bool show_last_result, bool last_result ) );
 
 /* db.c */
 void     reset_area          args( ( AREA_DATA * pArea ) );        /* OLC */

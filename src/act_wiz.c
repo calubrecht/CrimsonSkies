@@ -5066,7 +5066,7 @@ void copyover_recover()
     DESCRIPTOR_DATA *d, *d_next;
     bool fOld;
 
-    if (fCopyOver) write_to_all_desc("Done.\n\rSTATUS: Loading Players. ");
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Players.", TRUE, TRUE);
 
     for ( d = descriptor_list; d != NULL; d = d_next )
     {
@@ -5078,13 +5078,13 @@ void copyover_recover()
         if (!fOld)
         {
             /* Player file not found?! */
-            write_to_descriptor (d->descriptor, "\n\rSomehow, your character was lost in the copyover. Sorry.\n\r", 0, d);
+            write_to_descriptor (d->descriptor, "[ {RFailure{x ]\n\rSomehow, your character was lost in the copyover. Sorry.\n\r", 0, d);
             close_socket(d);
         }
         else
         {
             /* ok! */
-            write_to_descriptor(d->descriptor, "Done.\n\r\n\rCopyover recovery complete.\n\r", 0, d);
+            write_to_descriptor(d->descriptor, "[ {GSuccess{x ]\n\r\n\rCopyover recovery complete.\n\r", 0, d);
 
             /* Just In Case */
             if (!d->character->in_room)

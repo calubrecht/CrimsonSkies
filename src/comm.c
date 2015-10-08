@@ -1482,6 +1482,33 @@ void write_to_all_desc(char *txt)
 }
 
 /*
+ * A method for handling sending messages about a copyover to all players, this
+ * will handle some formatting for us.
+ */
+void copyover_broadcast(char *txt, bool show_last_result, bool last_result)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    if (show_last_result)
+    {
+        if (last_result)
+        {
+            sprintf(buf, "[ {GSuccess{x ]\n\r%-55s", txt);
+        }
+        else
+        {
+            sprintf(buf, "[ {RFailure{x ]\n\r%-55s", txt);
+        }
+    }
+    else
+    {
+        sprintf(buf, "%-55s", txt);
+    }
+
+    write_to_all_desc(buf);
+}
+
+/*
  * Rhien 5/15/2015
  * Writes a message to all characters through the send_to_char mechansim.
  */
