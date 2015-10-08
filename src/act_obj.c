@@ -311,6 +311,12 @@ void do_get (CHAR_DATA * ch, char *argument)
         else
         {
             /* 'get all container' or 'get all.obj container' */
+            if (container->item_type == ITEM_CORPSE_PC)
+            {
+                send_to_char ("Don't be so greedy!\n\r", ch);
+                return;
+            }
+
             found = FALSE;
             for (obj = container->contains; obj != NULL; obj = obj_next)
             {
