@@ -3435,6 +3435,64 @@ Travel through the ocean is harsh, many rely on portals from mages both
 temporarly and permanent to traverse the world quickly.
 ~
 
+0 BLADESINGER~
+The Bladesinger is an elite fighter, skillfully combining magic and
+might to defeat his foes, and the foes of all elves.  The Bladesinger is a
+rarely multi-classed mixture of Mage and Warrior, effective using his spells
+to augment his swordarm.  Bladesingers are most effective in combat when
+dancing the bladesong an art that has been passed down through the elven
+generations.
+~
+
+0 BLADESONG~
+The Bladesong is at the core of a bladesingers power.  A bladesinger trained
+in the art of the bladesong is said to both hit more accurately and harder.  It's
+ritual also allows the bladesinger to cast a group of spells called the bladesongs.
+The bladesinger further dodges better and hits more while dancing the bladesong.
+They may not however use any weapons other than a sword of dagger and the removal
+of those weapons either by their own accord or being disarmed will cease the
+beneficial affects from it.
+
+Bladesongs:
+
+ - Song of Protection
+ - Song of Dissonance
+~
+
+0 SONG OF PROTECTION~
+The song of protection is a bladesong that will protect the bladesinger defensively 
+as well as any of their group members.  The bladesinger must first be dancing the
+bladesong in order to cast this spell.
+~
+
+0 SONG OF DISSONANCE~
+The song of dissonance is a bladesong that pierces the ears of enemies that render
+their hearing useless for a short duration.  It is directed in a manner that allows
+the bladesinger to avoid hitting their group members.
+~
+
+0 CIRCLE~
+The circling tactic is a manuever of the Bladesong in which the bladesinger
+nimbly disorients the victim by quickly circling them.  It's been told that
+though all bladesingers learn this method, that full blooded elves are often
+just slightly more profiecient in it's movements.
+~
+
+0 CIRCLE STAB~
+The circle stab is a technique that a bladesinger can use on targets that have
+already been disoriented by circling.  If successful the bladesinger will gain
+an additional two hit attempt in a round as well as potentially dealing a
+stunning blow although the circumstances must be just right for that.  As with
+all bladesinger skills, they must be dancing the bladesong first to attempt
+this.
+~
+
+0 BLIND FIGHTING~
+The blind fighting skill allows warriors to fight better while blind than they
+otherwise would have.  This advantage pertains to all blindness, magical and
+physical (a blind spell, dirt kicking).
+~
+
 0 $~
 
 #$
