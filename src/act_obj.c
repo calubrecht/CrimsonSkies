@@ -228,6 +228,12 @@ void do_get (CHAR_DATA * ch, char *argument)
                 return;
             }
 
+            if (obj->item_type == ITEM_CORPSE_PC)
+            {
+                send_to_char("You cannot take a character's corpse.\n\r", ch);
+                return;
+            }
+
             get_obj (ch, obj, NULL);
         }
         else
@@ -280,14 +286,13 @@ void do_get (CHAR_DATA * ch, char *argument)
                 break;
 
             case ITEM_CORPSE_PC:
+            {
+                if (!can_loot (ch, container))
                 {
-
-                    if (!can_loot (ch, container))
-                    {
-                        send_to_char ("You can't do that.\n\r", ch);
-                        return;
-                    }
+                    send_to_char ("You can't do that.\n\r", ch);
+                    return;
                 }
+            }
         }
 
         if (IS_SET (container->value[1], CONT_CLOSED))
@@ -311,7 +316,11 @@ void do_get (CHAR_DATA * ch, char *argument)
         else
         {
             /* 'get all container' or 'get all.obj container' */
-            if (container->item_type == ITEM_CORPSE_PC)
+
+            // No looting all from a corpse unless you're the owner
+            if (container->item_type == ITEM_CORPSE_PC &&
+                container->owner != NULL &&
+                (str_cmp(ch->name, container->owner)))
             {
                 send_to_char ("Don't be so greedy!\n\r", ch);
                 return;

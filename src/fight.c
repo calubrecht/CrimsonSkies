@@ -1547,6 +1547,7 @@ void make_corpse (CHAR_DATA * ch)
 
     if (IS_NPC (ch))
     {
+        // Mob
         name = ch->short_descr;
         corpse = create_object (get_obj_index (OBJ_VNUM_CORPSE_NPC), 0);
         corpse->timer = number_range (3, 6);
@@ -1560,22 +1561,19 @@ void make_corpse (CHAR_DATA * ch)
     }
     else
     {
+        // Player
         name = ch->name;
         corpse = create_object (get_obj_index (OBJ_VNUM_CORPSE_PC), 0);
         corpse->timer = number_range (25, 40);
         REMOVE_BIT (ch->act, PLR_CANLOOT);
-        if (!is_clan (ch))
-            corpse->owner = str_dup (ch->name);
-        else
+        corpse->owner = str_dup (ch->name);
+
+        if (ch->gold > 1 || ch->silver > 1)
         {
-            corpse->owner = NULL;
-            if (ch->gold > 1 || ch->silver > 1)
-            {
-                obj_to_obj (create_money (ch->gold / 2, ch->silver / 2),
-                            corpse);
-                ch->gold -= ch->gold / 2;
-                ch->silver -= ch->silver / 2;
-            }
+            obj_to_obj (create_money (ch->gold / 2, ch->silver / 2),
+                        corpse);
+            ch->gold -= ch->gold / 2;
+            ch->silver -= ch->silver / 2;
         }
 
         corpse->cost = 0;

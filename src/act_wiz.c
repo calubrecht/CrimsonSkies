@@ -1200,6 +1200,12 @@ void do_ostat (CHAR_DATA * ch, char *argument)
         send_to_char(buf, ch);
     }
 
+    if (obj->owner != NULL)
+    {
+        sprintf(buf, "Owner: %s\n\r", obj->owner);
+        send_to_char(buf, ch);
+    }
+
     sprintf (buf, "Number: %d/%d  Weight: %d/%d/%d (10th pounds)\n\r",
              1, get_obj_number (obj),
              obj->weight, get_obj_weight (obj), get_true_weight (obj));
