@@ -2834,7 +2834,7 @@ void spell_gate (int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || IS_SET (ch->in_room->room_flags, ROOM_NO_GATE)
         || victim->level >= level + 3
         || (is_clan (victim) && !is_same_clan (ch, victim))
-        || (!IS_NPC (victim) && victim->level >= LEVEL_HERO)    /* NOT trust */
+        || (!IS_NPC (victim) && victim->level >= LEVEL_IMMORTAL)
         || (IS_NPC (victim) && IS_SET (victim->imm_flags, IMM_SUMMON))
         || (IS_NPC (victim) && saves_spell (level, victim, DAM_OTHER)))
     {
