@@ -1869,7 +1869,6 @@ bool is_same_group (CHAR_DATA * ach, CHAR_DATA * bch)
  */
 void do_color (CHAR_DATA * ch, char *argument)
 {
-
     if (IS_NPC(ch))
     {
         send_to_char ("Color is not available for mobs or while switched.\n\r", ch);

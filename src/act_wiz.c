@@ -5095,6 +5095,13 @@ void copyover_recover()
             char_list = d->character;
 
             char_to_room (d->character, d->character->in_room);
+
+            /* Reset their color setting */
+            if (IS_SET(d->character->act, PLR_COLOR))
+                d->ansi = TRUE;
+            else
+                d->ansi = FALSE;
+
             do_look (d->character, "auto");
             act ("$n materializes!", d->character, NULL, NULL, TO_ROOM);
             d->connected = CON_PLAYING;
