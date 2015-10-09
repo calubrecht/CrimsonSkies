@@ -647,12 +647,17 @@ example, 'whois a' shows all characters whose name begins with A.
 0 WHERE~
 Syntax: where
 Syntax: where <character>
+Syntax: where all (Immortals Only)
 
 WHERE without an argument tells you the location of visible players in the same
 area as you are.
 
 WHERE with an argument tells you the location of one character with that name
 within your area, including monsters.
+
+If you are an immortal, WHERE all will show you all players in the world
+including additionally the area they are in.
+
 ~
 
 0 HELP~

@@ -2827,8 +2827,11 @@ void do_credits (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * The where command allows a player to see the other players near
+ * them in an area.  An immortal can additionally run pass the "all"
+ * argument in to see where all players are in the world.
+ */
 void do_where (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -2841,6 +2844,7 @@ void do_where (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
+        // Players in the current area that are visible to you.
         send_to_char ("Players near you:\n\r", ch);
         found = FALSE;
         for (d = descriptor_list; d; d = d->next)
@@ -2855,13 +2859,30 @@ void do_where (CHAR_DATA * ch, char *argument)
                 && can_see (ch, victim))
             {
                 found = TRUE;
-                sprintf (buf, "%-28s %s\n\r",
+                sprintf (buf, "%-20s %s\n\r",
                          victim->name, victim->in_room->name);
                 send_to_char (buf, ch);
             }
         }
         if (!found)
             send_to_char ("None\n\r", ch);
+    }
+    else if (IS_IMMORTAL(ch) && !str_cmp (arg, "all"))
+    {
+        // Immortals only option to show where all players are in all areas
+        send_to_char ("Players in the world:\n\r", ch);
+        for (d = descriptor_list; d; d = d->next)
+        {
+            if (d->connected == CON_PLAYING
+                && (victim = d->character) != NULL && !IS_NPC (victim)
+                && victim->in_room != NULL
+                && can_see (ch, victim))
+            {
+                sprintf (buf, "%-15s %-30s %s\n\r", victim->name, victim->in_room->area->name, victim->in_room->name);
+                send_to_char (buf, ch);
+            }
+        }
+
     }
     else
     {
