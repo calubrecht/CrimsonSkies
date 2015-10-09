@@ -2872,15 +2872,20 @@ void do_where (CHAR_DATA * ch, char *argument)
     else if (IS_IMMORTAL(ch) && !str_cmp (arg, "all"))
     {
         // Immortals only option to show where all players are in all areas
-        send_to_char ("Players in the world:\n\r", ch);
+        send_to_char("Players in the world:\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        sprintf(buf, "{W%-15s %-30s %s{x\n\r", "Player", "Area", "Room");
+        send_to_char(buf, ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
         for (d = descriptor_list; d; d = d->next)
         {
             if (d->connected == CON_PLAYING
                 && (victim = d->character) != NULL && !IS_NPC(victim)
                 && victim->in_room != NULL)
             {
-                sprintf (buf, "%-15s %-30s %s\n\r", victim->name, victim->in_room->area->name, victim->in_room->name);
-                send_to_char (buf, ch);
+                sprintf(buf, "%-15s %-30s %s\n\r", victim->name, victim->in_room->area->name, victim->in_room->name);
+                send_to_char(buf, ch);
             }
         }
 
