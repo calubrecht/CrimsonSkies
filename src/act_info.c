@@ -2819,8 +2819,10 @@ void do_compare (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * The credits showing where most known credit should be given starting at
+ * the Diku coders onward.
+ */
 void do_credits (CHAR_DATA * ch, char *argument)
 {
     do_function (ch, &do_help, "credits");
@@ -2874,9 +2876,8 @@ void do_where (CHAR_DATA * ch, char *argument)
         for (d = descriptor_list; d; d = d->next)
         {
             if (d->connected == CON_PLAYING
-                && (victim = d->character) != NULL && !IS_NPC (victim)
-                && victim->in_room != NULL
-                && can_see (ch, victim))
+                && (victim = d->character) != NULL && !IS_NPC(victim)
+                && victim->in_room != NULL)
             {
                 sprintf (buf, "%-15s %-30s %s\n\r", victim->name, victim->in_room->area->name, victim->in_room->name);
                 send_to_char (buf, ch);
@@ -2907,10 +2908,7 @@ void do_where (CHAR_DATA * ch, char *argument)
     }
 
     return;
-}
-
-
-
+} // end do_where
 
 void do_consider (CHAR_DATA * ch, char *argument)
 {
