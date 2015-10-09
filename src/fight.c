@@ -1565,7 +1565,6 @@ void make_corpse (CHAR_DATA * ch)
         name = ch->name;
         corpse = create_object (get_obj_index (OBJ_VNUM_CORPSE_PC), 0);
         corpse->timer = number_range (25, 40);
-        REMOVE_BIT (ch->act, PLR_CANLOOT);
         corpse->owner = str_dup (ch->name);
 
         if (ch->gold > 1 || ch->silver > 1)
