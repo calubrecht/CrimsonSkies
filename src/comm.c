@@ -1681,16 +1681,13 @@ bool check_parse_name (char *name)
 {
     int clan;
 
-    /*
-     * Reserved words.
-     */
-    if (is_exact_name (name,
-                       "all auto immortal self someone something the you loner none"))
+    // Reserved words.
+    if (is_exact_name (name, "all auto immortal self someone something the you loner none"))
     {
         return FALSE;
     }
 
-    /* check clans */
+    // Check clans
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
         if (LOWER (name[0]) == LOWER (clan_table[clan].name[0])
@@ -1698,22 +1695,14 @@ bool check_parse_name (char *name)
             return FALSE;
     }
 
-    /*
-     * Length restrictions.
-     */
-
+    // Length restrictions
     if (strlen (name) < 2)
         return FALSE;
 
-#if defined(__APPLE__) || defined(unix) || defined(_WIN32)
     if (strlen (name) > 12)
         return FALSE;
-#endif
 
-    /*
-     * Alphanumerics only.
-     * Lock out IllIll twits.
-     */
+    // Alphanumerics only.  Lock out IllIll twits.
     {
         char *pc;
         bool fIll, adjcaps = FALSE, cleancaps = FALSE;
@@ -1722,7 +1711,7 @@ bool check_parse_name (char *name)
         fIll = TRUE;
         for (pc = name; *pc != '\0'; pc++)
         {
-            if (!isalpha (*pc))
+            if (!isalpha (*pc) && *pc != '\'')
                 return FALSE;
 
             if (isupper (*pc))
@@ -1742,14 +1731,11 @@ bool check_parse_name (char *name)
         if (fIll)
             return FALSE;
 
-        if (cleancaps
-            || (total_caps > (strlen (name)) / 2
-                && strlen (name) < 3)) return FALSE;
+        if (cleancaps || (total_caps > (strlen (name)) / 2 && strlen (name) < 3))
+            return FALSE;
     }
 
-    /*
-     * Prevent players from naming themselves after mobs.
-     */
+    // Prevent players from naming themselves after mobs.
     {
         extern MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
         MOB_INDEX_DATA *pMobIndex;
