@@ -79,8 +79,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fix the smaug extended bitvector stuff.  The declarations need to be moved up higher
     in merc.h so they are declared before EXT_BV is used in places like CHAR_DATA.
   - Barbarian class - 4th attack, warcry, acute vision, bash bonus, no magic, spell vulnerable
-  - Bladesinger help files.
   - Bladesinger reposition skill.
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
   - Make lore do something (like give info about the item when looked at)
-  - Fix looting, remove get all cor from another player.
+  - Fix looting (it's currently totally disabled), remove get all cor from another player.
