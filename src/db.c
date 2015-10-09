@@ -173,7 +173,7 @@ char strArea[MAX_INPUT_LENGTH];
  * Local booting procedures.
 */
 void init_random args ((void));
-void new_load_area args ((FILE * fp));    /* OLC */
+void load_area args ((FILE * fp));    /* OLC */
 void load_helps args ((FILE * fp, char *fname));
 void load_mobiles args ((FILE * fp));
 void load_objects args ((FILE * fp));
@@ -341,7 +341,7 @@ void boot_db ()
                 if (word[0] == '$')
                     break;
                 else if (!str_cmp (word, "AREADATA"))
-                    new_load_area (fpArea);
+                    load_area (fpArea);
                 else if (!str_cmp (word, "HELPS"))
                     load_helps (fpArea, strArea);
                 else if (!str_cmp (word, "MOBILES"))
@@ -417,7 +417,7 @@ void boot_db ()
 /*
  * OLC
  * Use these macros to load any new area formats that you choose to
- * support on your MUD.  See the new_load_area format below for
+ * support on your MUD.  See the load_area format below for
  * a short example.
  */
 #if defined(KEY)
@@ -451,7 +451,7 @@ void boot_db ()
  * Recall 3001
  * End
  */
-void new_load_area (FILE * fp)
+void load_area (FILE * fp)
 {
     AREA_DATA *pArea;
     char *word;
