@@ -83,3 +83,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
   - Make lore do something (like give info about the item when looked at)
   - Fix looting (it's currently totally disabled), remove get all cor from another player.
+  - Guild rooms seem busted.
