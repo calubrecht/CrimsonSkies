@@ -1494,7 +1494,7 @@ struct pc_data
     bool            confirm_delete;
     char *          alias[MAX_ALIAS];
     char *          alias_sub[MAX_ALIAS];
-    int	            security;               /* OLC */ /* Builder security */   
+    int	            security;               /* OLC - Builder security */
     bool            is_reclassing;          /* Whether or not the user is currently reclassing */
     time_t          last_note;
     time_t          last_penalty;
@@ -1504,6 +1504,7 @@ struct pc_data
     time_t          last_story;
     time_t          last_history;
     time_t          last_immnote;
+    int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
 };
 
 /* Data for generating characters -- only used during generation */

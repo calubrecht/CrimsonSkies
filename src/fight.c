@@ -1313,6 +1313,14 @@ void check_wanted (CHAR_DATA * ch, CHAR_DATA * victim)
 {
     char buf[MAX_STRING_LENGTH];
 
+    // Player and/or victim cannot logout for 3 ticks after the last
+    // attack on another player started.
+    if (!IS_NPC(victim) && !IS_NPC(ch) && ch != victim)
+    {
+        victim->pcdata->pk_timer = 3;
+        ch->pcdata->pk_timer = 3;
+    }
+
     /*
      * Follow charm thread to responsible character.
      * Attacking someone's charmed char is hostile!
@@ -1324,8 +1332,7 @@ void check_wanted (CHAR_DATA * ch, CHAR_DATA * victim)
      * NPC's are fair game.
      * So are killers and thieves.
      */
-    if (IS_NPC (victim)
-        || IS_SET (victim->act, PLR_WANTED))
+    if (IS_NPC (victim) || IS_SET (victim->act, PLR_WANTED))
         return;
 
     /*

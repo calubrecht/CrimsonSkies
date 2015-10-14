@@ -1320,6 +1320,15 @@ void do_quit (CHAR_DATA * ch, char *argument)
         send_to_char ("You're not DEAD yet.\n\r", ch);
         return;
     }
+
+    // Don't allow a player to quit for a few ticks after they have been involved in player
+    // killing.  This will stop a player from fleeing and quitting to get out of battle.
+    if (ch->pcdata->pk_timer > 0)
+    {
+        send_to_char("You must wait a few moments to quit after fighting another player.\n\r",ch);
+        return;
+    }
+
     send_to_char ("Alas, all good things must come to an end.\n\r", ch);
     act ("$n has left the game.", ch, NULL, NULL, TO_ROOM);
     sprintf (log_buf, "%s has quit.", ch->name);

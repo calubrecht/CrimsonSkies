@@ -605,6 +605,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->condition[COND_HUNGER] = 48;
     ch->pcdata->security = 0;    /* OLC */
 	ch->pcdata->is_reclassing = FALSE;
+    ch->pcdata->pk_timer = 0;
 
     found = FALSE;
     fclose (fpReserve);

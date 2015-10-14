@@ -307,6 +307,7 @@ CHAR_DATA *new_char (void)
     ch->max_mana = 100;
     ch->move = 100;
     ch->max_move = 100;
+
     for (i = 0; i < MAX_STATS; i++)
     {
         ch->perm_stat[i] = 13;

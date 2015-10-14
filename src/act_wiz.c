@@ -5882,21 +5882,11 @@ void do_debug(CHAR_DATA * ch, char *argument)
 {
 
     char buf[MSL];
-    OBJ_DATA *obj;
-    OBJ_DATA *obj_next;
-    int obj_count = 0;
-    int total_obj_count = 0;
+    if (ch->pcdata->pk_timer)
+        send_to_char("Yes\n\r", ch);
+    else
+        send_to_char("No\n\r", ch);
 
-    for (obj = object_list; obj != NULL; obj = obj_next)
-    {
-        obj_next = obj->next;
-
-        obj_count++;
-        total_obj_count += obj->count;
-    }
-
-    sprintf(buf, "%d Memory Objects - %d Total Count\n\r", obj_count, total_obj_count);
-    send_to_char(buf, ch);
 
     return;
 

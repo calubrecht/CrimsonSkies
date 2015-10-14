@@ -741,6 +741,18 @@ void char_update (void)
         if (ch->timer > 30)
             ch_quit = ch;
 
+
+        // Player Kill Timer - This will make it so the players involved in pk have to wait
+        // a few ticks after in order to quit.
+        if (!IS_NPC(ch))
+        {
+            if (IS_IMMORTAL(ch))
+                ch->pcdata->pk_timer = 0;
+
+            if(ch->pcdata->pk_timer)
+                --ch->pcdata->pk_timer;
+        }
+
         if (ch->position >= POS_STUNNED)
         {
             /* check to see if we need to go home */
