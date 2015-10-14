@@ -90,3 +90,6 @@ This is my to do list, mostly will be things big and small as I think about them
     add 20+ classes will be needless overhead (when only currently 8 rooms are guild rooms in the
     game out of 3000+ rooms).
   - rwhere command to find room by keyword and return room name/vnum.
+  - Add set 1k per level to set command (for testing). ch->exp = ch->level * 1000, ch->pcdata->points = 40;
+  - Count number of items in the pit + their actual count.
+  - Command to globally purge the pits.
