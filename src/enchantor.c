@@ -266,8 +266,10 @@ void spell_enchant_gem(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     // warpstone to the player
     obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE), 0);
     sprintf(buf, "%s glows a bright {Mmagenta{x and changes into %s.", obj->short_descr, obj_warpstone->short_descr);
-    obj_from_char( obj );
-    obj_to_char( obj_warpstone, ch );
+
+    separate_obj(obj);
+    obj_from_char(obj);
+    obj_to_char(obj_warpstone, ch);
 
     // Show the caster and the room what has happened
     act(buf, ch, NULL, NULL, TO_ROOM);
@@ -978,7 +980,7 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
     number = 0;
     max_found = IS_IMMORTAL (ch) ? 200 : 2 * level;
 
-    buffer = new_buf ();
+    buffer = new_buf();
 
     for (obj = object_list; obj != NULL; obj = obj->next)
     {
