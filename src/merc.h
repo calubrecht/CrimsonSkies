@@ -1911,6 +1911,7 @@ void    ext_toggle_bits         args( ( EXT_BV *var, EXT_BV *bits) );
 #define IS_WEAPON_STAT(obj,stat)(IS_SET((obj)->value[4],(stat)))
 #define WEIGHT_MULT(obj)    ((obj)->item_type == ITEM_CONTAINER ? \
     (obj)->value[4] : 100)
+#define IS_PIT(obj) (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE))
 
 /*
  * Description macros.
