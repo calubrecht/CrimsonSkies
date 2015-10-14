@@ -1875,6 +1875,7 @@ OBJ_DATA *create_object (OBJ_INDEX_DATA * pObjIndex, int level)
     obj->enchanted = FALSE;
     obj->level = pObjIndex->level;
     obj->wear_loc = -1;
+    obj->count = 1;
     obj->name = str_dup (pObjIndex->name);    /* OLC */
     obj->short_descr = str_dup (pObjIndex->short_descr);    /* OLC */
     obj->description = str_dup (pObjIndex->description);    /* OLC */
@@ -1967,6 +1968,7 @@ void clone_object (OBJ_DATA * parent, OBJ_DATA * clone)
     clone->condition = parent->condition;
     clone->material = str_dup (parent->material);
     clone->timer = parent->timer;
+    clone->count = 1;
 
     for (i = 0; i < 5; i++)
         clone->value[i] = parent->value[i];

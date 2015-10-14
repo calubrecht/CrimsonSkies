@@ -2373,6 +2373,20 @@ void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
                         else
                             bug("Act: bad code $S for 'vch'",0);
                         break;
+                    case 'o':
+                        if (to && obj1)
+                            i = can_see_obj(to, obj1) ? obj_short(obj1) : "something";
+                        else
+                             bug("Act: bad code $o for 'to' or 'obj1'",0);
+                        break;
+
+                    case 'O':
+                        if (to && obj2)
+                            i = can_see_obj( to, obj2 ) ? obj_short(obj2) : "something";
+                        else
+                             bug("Act: bad code $O for 'to' or 'obj2'",0);
+                        break;
+
                     case 'p':
                         if (to && obj1)
                             i = can_see_obj (to, obj1)
@@ -2425,6 +2439,53 @@ void act_new (const char *format, CHAR_DATA * ch, const void *arg1,
     }
     return;
 }
+
+int obj_short_item_cnt;
+
+/*
+ * Gives a short description of an object with additional handling for counts
+ * where a player might be using multiple of an item.
+ */
+char *obj_short( OBJ_DATA *obj )
+{
+    static char buf[MAX_STRING_LENGTH];
+    int count;
+
+    if(obj->count > 1)
+    {
+        count = obj->count;
+    }
+    else if (obj_short_item_cnt > 1)
+    {
+        count = obj_short_item_cnt;
+    }
+    else
+    {
+        count = 1;
+    }
+
+    if (count > 1)
+    {
+        if (!str_prefix("a ", obj->short_descr))
+        {
+            sprintf(buf, "%d %ss", count, &obj->short_descr[2]);
+        }
+        else if (!str_prefix("an ",obj->short_descr))
+        {
+            sprintf(buf, "%d %ss", count, &obj->short_descr[3]);
+        }
+        else if (!str_prefix("the ",obj->short_descr))
+        {
+            sprintf(buf, "%d %ss", count, &obj->short_descr[4]);
+        }
+        else
+        {
+            sprintf(buf, "%d %ss", count, obj->short_descr);
+        }
+        return buf;
+    }
+    return obj->short_descr;
+} // end obj_short
 
 int color(char type, CHAR_DATA *ch, char *string)
 {

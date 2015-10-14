@@ -2206,7 +2206,10 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
     {
         obj_to_room (obj, victim->in_room);
         if (IS_NPC (victim) && victim->wait == 0 && can_see_obj (victim, obj))
+        {
+            separate_obj(obj);
             get_obj (victim, obj, NULL);
+        }
     }
 
     // Can't dual with without a primary, consider changing this to moving the
@@ -2219,7 +2222,7 @@ void disarm (CHAR_DATA * ch, CHAR_DATA * victim)
     }
 
     // A bladesinger can't use bladesong without their weapon
-    if (is_affected( victim, gsn_bladesong))
+    if (is_affected(victim, gsn_bladesong))
     {
         affect_strip(victim, gsn_bladesong);
     }

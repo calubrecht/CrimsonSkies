@@ -1599,6 +1599,7 @@ struct    obj_data
     char *              material;
     sh_int              timer;
     int                 value [5];
+    int                 count;
 };
 
 /*
@@ -2095,6 +2096,7 @@ void     nuke_pets           args( ( CHAR_DATA *ch ) );
 void     die_follower        args( ( CHAR_DATA *ch ) );
 bool     is_same_group       args( ( CHAR_DATA *ach, CHAR_DATA *bch ) );
 void     log_f               args( ( char * fmt, ... ) );
+char     *obj_short          args( ( OBJ_DATA *obj ) );
 
 /* act_enter.c */
 RID      *get_random_room    args( ( CHAR_DATA *ch ) );
@@ -2254,7 +2256,7 @@ bool   is_affected        args( ( CHAR_DATA *ch, int sn ) );
 void   affect_join        args( ( CHAR_DATA *ch, AFFECT_DATA *paf ) );
 void   char_from_room     args( ( CHAR_DATA *ch ) );
 void   char_to_room       args( ( CHAR_DATA *ch, ROOM_INDEX_DATA *pRoomIndex ) );
-void   obj_to_char        args( ( OBJ_DATA *obj, CHAR_DATA *ch ) );
+OD *   obj_to_char        args( ( OBJ_DATA *obj, CHAR_DATA *ch ) );
 void   obj_from_char      args( ( OBJ_DATA *obj ) );
 int    apply_ac           args( ( OBJ_DATA *obj, int iWear, int type ) );
 OD *   get_eq_char        args( ( CHAR_DATA *ch, int iWear ) );
@@ -2262,11 +2264,13 @@ void   equip_char         args( ( CHAR_DATA *ch, OBJ_DATA *obj, int iWear ) );
 void   unequip_char       args( ( CHAR_DATA *ch, OBJ_DATA *obj ) );
 int    count_obj_list     args( ( OBJ_INDEX_DATA *obj, OBJ_DATA *list ) );
 void   obj_from_room      args( ( OBJ_DATA *obj ) );
-void   obj_to_room        args( ( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex ) );
-void   obj_to_obj         args( ( OBJ_DATA *obj, OBJ_DATA *obj_to ) );
+OBJ_DATA *obj_to_room     args( ( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex ) );
+OBJ_DATA *obj_to_obj      args( ( OBJ_DATA *obj, OBJ_DATA *obj_to ) );
 void   obj_from_obj       args( ( OBJ_DATA *obj ) );
 void   extract_obj        args( ( OBJ_DATA *obj ) );
 void   extract_char       args( ( CHAR_DATA *ch, bool fPull ) );
+void   separate_obj       args( ( OBJ_DATA *obj ) );
+void   split_obj          args( ( OBJ_DATA *obj, int num ) );
 CD *   get_char_room      args( ( CHAR_DATA *ch, char *argument ) );
 CD *   get_char_world     args( ( CHAR_DATA *ch, char *argument ) );
 OD *   get_obj_type       args( ( OBJ_INDEX_DATA *pObjIndexData ) );

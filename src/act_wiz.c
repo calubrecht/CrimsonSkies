@@ -2782,6 +2782,15 @@ void do_restore (CHAR_DATA * ch, char *argument)
             vch->hit = vch->max_hit;
             vch->mana = vch->max_mana;
             vch->move = vch->max_move;
+
+            if (!IS_NPC(vch))
+            {
+                // Only players as this hits the pcdata, remove their hunger and thirst.
+                vch->pcdata->condition[COND_THIRST] = 48;
+                vch->pcdata->condition[COND_FULL] = 48;
+                vch->pcdata->condition[COND_HUNGER] = 48;
+            }
+
             update_pos (vch);
             act ("$n has restored you.", ch, NULL, vch, TO_VICT);
         }
@@ -2814,6 +2823,12 @@ void do_restore (CHAR_DATA * ch, char *argument)
             victim->hit = victim->max_hit;
             victim->mana = victim->max_mana;
             victim->move = victim->max_move;
+
+            // Only players as this hits the pcdata, remove their hunger and thirst.
+            victim->pcdata->condition[COND_THIRST] = 48;
+            victim->pcdata->condition[COND_FULL] = 48;
+            victim->pcdata->condition[COND_HUNGER] = 48;
+
             update_pos (victim);
             if (victim->in_room != NULL)
                 act ("$n has restored you.", ch, NULL, victim, TO_VICT);
@@ -2836,6 +2851,15 @@ void do_restore (CHAR_DATA * ch, char *argument)
     victim->hit = victim->max_hit;
     victim->mana = victim->max_mana;
     victim->move = victim->max_move;
+
+    if (!IS_NPC(victim))
+    {
+        // Only players as this hits the pcdata, remove their hunger and thirst.
+        victim->pcdata->condition[COND_THIRST] = 48;
+        victim->pcdata->condition[COND_FULL] = 48;
+        victim->pcdata->condition[COND_HUNGER] = 48;
+    }
+
     update_pos (victim);
     act ("$n has restored you.", ch, NULL, victim, TO_VICT);
     sprintf (buf, "$N restored %s",
@@ -4149,6 +4173,8 @@ void do_string (CHAR_DATA * ch, char *argument)
             return;
         }
 
+        separate_obj(obj);
+
         if (!str_prefix (arg2, "name"))
         {
             free_string (obj->name);
@@ -4199,8 +4225,6 @@ void do_string (CHAR_DATA * ch, char *argument)
     do_function (ch, &do_string, "");
 }
 
-
-
 void do_oset (CHAR_DATA * ch, char *argument)
 {
     char arg1[MAX_INPUT_LENGTH];
@@ -4230,6 +4254,8 @@ void do_oset (CHAR_DATA * ch, char *argument)
         send_to_char ("Nothing like that in heaven or earth.\n\r", ch);
         return;
     }
+
+    separate_obj(obj);
 
     /*
      * Snarf the value (which need not be numeric).
@@ -5826,8 +5852,9 @@ void twiddle args((void));
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    twiddle();
-
+    char buf[MSL];
+    sprintf(buf, "%d\n\r", ch->class);
+    send_to_char(buf, ch);
 
 /*    AFFECT_DATA af;
     affect_strip(ch, gsn_song_of_dissonance);

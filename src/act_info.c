@@ -145,6 +145,20 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
     if (ch->desc == NULL)
         return;
 
+    // If there's no list... then don't do all this crap!  -Thoric
+    if ( !list )
+    {
+        if ( fShowNothing )
+        {
+            if ( IS_NPC(ch) || IS_SET(ch->comm, COMM_COMBINE) )
+            {
+                send_to_char( "     ", ch );
+            }
+            send_to_char( "Nothing.\n\r", ch );
+        }
+        return;
+    }
+
     /*
      * Alloc space for output lines.
      */
@@ -178,7 +192,7 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
                 {
                     if (!strcmp (prgpstrShow[iShow], pstrShow))
                     {
-                        prgnShow[iShow]++;
+                        prgnShow[iShow] += obj->count;
                         fCombine = TRUE;
                         break;
                     }
@@ -190,8 +204,8 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
              */
             if (!fCombine)
             {
-                prgpstrShow[nShow] = str_dup (pstrShow);
-                prgnShow[nShow] = 1;
+                prgpstrShow[nShow] = str_dup(pstrShow);
+                prgnShow[nShow] = obj->count;
                 nShow++;
             }
         }
@@ -228,9 +242,12 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
     if (fShowNothing && nShow == 0)
     {
         if (IS_NPC (ch) || IS_SET (ch->comm, COMM_COMBINE))
+        {
             send_to_char ("     ", ch);
+        }
         send_to_char ("Nothing.\n\r", ch);
     }
+
     page_to_char (buf_string (output), ch);
 
     /*

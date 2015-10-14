@@ -467,6 +467,9 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
         fprintf( fp, "RoomVnum    %d\n", room_vnum);
     }
 
+    if ( obj->count > 1 )
+        fprintf( fp, "Count %d\n", obj->count);
+
     /* these data are only used if they do not match the defaults */
     if (obj->name != obj->pIndexData->name)
         fprintf (fp, "Name %s~\n", obj->name);
@@ -1427,7 +1430,8 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
         obj->enchanted_by = str_dup ("");
     }
 
-    fNest = FALSE;
+    obj->count = 1;
+    fNest = TRUE;
     fVnum = TRUE;
     iNest = 0;
 
@@ -1497,8 +1501,10 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                 break;
 
             case 'C':
-                KEY ("Cond", obj->condition, fread_number (fp));
-                KEY ("Cost", obj->cost, fread_number (fp));
+                KEY ("Cond",  obj->condition, fread_number(fp));
+                KEY ("Cost",  obj->cost,      fread_number(fp));
+                KEY ("Count", obj->count,     fread_number(fp));
+
                 break;
 
             case 'D':
@@ -1557,26 +1563,49 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
                             obj->pIndexData->count++;
                         }
 
+                        if (fNest)        /* NEW NEST CODE */
+                            rgObjNest[iNest] = obj;
+
+
                         if (iNest == 0 || rgObjNest[iNest] == NULL)
                         {
                             if (ch)
                             {
-                                obj_to_char (obj, ch);
+                                obj = obj_to_char(obj, ch);
                             }
                             else if (room_vnum != 1)
                             {
-                                obj_to_room(obj, get_room_index(room_vnum));
+                                obj = obj_to_room(obj, get_room_index(room_vnum));
                             }
                         }
                         else
                         {
-                            obj_to_obj (obj, rgObjNest[iNest - 1]);
+                            if (rgObjNest[iNest - 1]) /* NEW NEST CODE */
+                            {
+                                separate_obj(rgObjNest[iNest - 1]);
+                                obj = obj_to_obj(obj, rgObjNest[iNest - 1]);
+                            }
+                            else
+                            {
+                                if (ch)
+                                {
+                                    obj_to_char(obj, ch);
+                                }
+                                else if (room_vnum != 1)
+                                {
+                                    obj = obj_to_room(obj, get_room_index(room_vnum));
+                                }
+                            }
+
                         }
+
+                        if (fNest) /* NEW NEST CODE */
+                            rgObjNest[iNest] = obj;
+
                         return;
                     }
                 }
                 break;
-
             case 'I':
                 KEY ("ItemType", obj->item_type, fread_number (fp));
                 KEY ("Ityp", obj->item_type, fread_number (fp));
@@ -1590,20 +1619,18 @@ void fread_obj (CHAR_DATA * ch, FILE * fp)
             case 'N':
                 KEY ("Name", obj->name, fread_string (fp));
 
-                if (!str_cmp (word, "Nest"))
+                if (!str_cmp(word, "Nest")) /* NEW NEST CODE */
                 {
-                    iNest = fread_number (fp);
+                    iNest = fread_number(fp);
                     if (iNest < 0 || iNest >= MAX_NEST)
                     {
-                        bug ("Fread_obj: bad nest %d.", iNest);
-                    }
-                    else
-                    {
-                        rgObjNest[iNest] = obj;
-                        fNest = TRUE;
+                        bug("Fread_obj: bad nest %d.", iNest);
+                        iNest = 0;
+                        fNest = FALSE;
                     }
                     fMatch = TRUE;
                 }
+
                 break;
             case 'R':
                 KEY( "RoomVnum", room_vnum, fread_number(fp));

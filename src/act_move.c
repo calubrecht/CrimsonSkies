@@ -119,6 +119,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
         int iClass, iGuild;
         int move;
 
+
         for (iClass = 0; iClass < top_class; iClass++)
         {
             for (iGuild = 0; iGuild < MAX_GUILD; iGuild++)
@@ -952,16 +953,13 @@ void do_pick (CHAR_DATA * ch, char *argument)
                 return;
             }
 
+            separate_obj(obj);
             REMOVE_BIT (obj->value[1], EX_LOCKED);
             act ("You pick the lock on $p.", ch, obj, NULL, TO_CHAR);
             act ("$n picks the lock on $p.", ch, obj, NULL, TO_ROOM);
             check_improve (ch, gsn_pick_lock, TRUE, 2);
             return;
         }
-
-
-
-
 
         /* 'pick object' */
         if (obj->item_type != ITEM_CONTAINER)

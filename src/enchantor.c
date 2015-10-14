@@ -56,6 +56,7 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo, int t
 
     if (!IS_SET (obj->extra_flags, ITEM_ROT_DEATH))
     {
+        separate_obj(obj);
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
         act ("$p glows with a withered aura.", ch, obj, NULL, TO_CHAR);
         act ("$p glows with a withered aura.", ch, obj, NULL, TO_ROOM);
@@ -137,13 +138,15 @@ void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     {
         act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
         act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+        separate_obj(obj);
         REMOVE_BIT(obj->extra_flags,ITEM_NOLOCATE);
     }
     else
     {
-       SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
-       act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
-       act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+        separate_obj(obj);
+        SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
     }
 
 } // end spell_sequestor
@@ -159,15 +162,17 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
     {
-	send_to_char("You can only interlace your spirit into weapons or armor.\n\r",ch);
-	return;
+        send_to_char("You can only interlace your spirit into weapons or armor.\n\r",ch);
+        return;
     }
 
     if (obj->wear_loc != -1)
     {
-	send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r",ch);
-	return;
+        send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r",ch);
+        return;
     }
+
+    separate_obj(obj);
 
     if (IS_GOOD(ch))
     {
@@ -225,6 +230,8 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
             return;
         }
     }
+
+    separate_obj(obj);
 
     sprintf(buf,"%s", ch->name);
     free_string(obj->wizard_mark);
@@ -307,6 +314,8 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 	}
 
 	// find the bonuses
+    separate_obj(obj);
+
 	if (!obj->enchanted)
 	{
 		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
@@ -534,6 +543,8 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 	}
 
 	// find the bonuses
+    separate_obj(obj);
+
 	if (!obj->enchanted)
 	{
 		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
@@ -800,6 +811,7 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     if (chance >= 1 && chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
+        separate_obj(obj);
         extract_obj(obj);
         act(buf, ch, NULL, NULL, TO_ROOM);
         act(buf, ch, NULL, NULL, TO_CHAR);
@@ -814,6 +826,7 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     {
         obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
         obj_to_char( obj2, ch );
+        separate_obj(obj);
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
 
@@ -840,14 +853,14 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_ARMOR)
     {
-	send_to_char("That isn't armor.\n\r",ch);
-	return;
+        send_to_char("That isn't armor.\n\r",ch);
+        return;
     }
 
     if (obj->wear_loc != -1)
     {
-	send_to_char("The armor must be carried to be restored.\n\r",ch);
-	return;
+        send_to_char("The armor must be carried to be restored.\n\r",ch);
+        return;
     }
 
     // Default, 40% won't work (20% nothing happens, 20% crumble)
@@ -864,6 +877,7 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     if (chance >= 1 && chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
+        separate_obj(obj);
         extract_obj(obj);
         act(buf, ch, NULL, NULL, TO_ROOM);
         act(buf, ch, NULL, NULL, TO_CHAR);
@@ -878,6 +892,7 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     {
         obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
         obj_to_char( obj2, ch );
+        separate_obj(obj);
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
 
@@ -902,18 +917,19 @@ void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
 
     if (obj->item_type != ITEM_WEAPON && obj->item_type != ITEM_ARMOR)
     {
-	send_to_char("That item is neither weapon or armor.\n\r",ch);
-	return;
+        send_to_char("That item is neither weapon or armor.\n\r",ch);
+        return;
     }
 
     if (obj->wear_loc != -1)
     {
-	send_to_char("The item must be carried to be disenchanted.\n\r",ch);
-	return;
+        send_to_char("The item must be carried to be disenchanted.\n\r",ch);
+        return;
     }
 
     act("$p glows brightly, then fades to a dull color",ch,obj,NULL,TO_CHAR);
     act("$p glows brightly, then fades to a dull color.",ch,obj,NULL,TO_ROOM);
+    separate_obj(obj);
     obj->enchanted = TRUE;
 
     /* remove all affects */

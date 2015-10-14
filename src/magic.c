@@ -840,6 +840,8 @@ void spell_bless (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (target == TARGET_OBJ)
     {
         obj = (OBJ_DATA *) vo;
+        separate_obj(obj);
+
         if (IS_OBJ_STAT (obj, ITEM_BLESS))
         {
             act ("$p is already blessed.", ch, obj, NULL, TO_CHAR);
@@ -1591,6 +1593,8 @@ void spell_continual_light (int sn, int level, CHAR_DATA * ch, void *vo,
             return;
         }
 
+        separate_obj(light);
+
         if (IS_OBJ_STAT (light, ITEM_GLOW))
         {
             REMOVE_BIT(light->extra_flags, ITEM_INVIS);
@@ -1695,6 +1699,7 @@ void spell_create_water (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (water > 0)
     {
+        separate_obj(obj);
         obj->value[2] = LIQ_WATER;
         obj->value[1] += water;
         if (!is_name ("water", obj->name))
@@ -1894,6 +1899,8 @@ void spell_curse (int sn, int level, CHAR_DATA * ch, void *vo, int target)
             act ("$p is already filled with evil.", ch, obj, NULL, TO_CHAR);
             return;
         }
+
+        separate_obj(obj);
 
         if (IS_OBJ_STAT (obj, ITEM_BLESS))
         {
@@ -3019,6 +3026,8 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                      victim, obj_lose, NULL, TO_CHAR);
                                 dam +=
                                     (number_range (1, obj_lose->level) / 3);
+
+                                separate_obj(obj_lose);
                                 obj_from_char (obj_lose);
                                 obj_to_room (obj_lose, victim->in_room);
                                 fail = FALSE;
@@ -3044,6 +3053,7 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                      victim, obj_lose, NULL, TO_CHAR);
                                 dam +=
                                     (number_range (1, obj_lose->level) / 6);
+                                separate_obj(obj_lose);
                                 obj_from_char (obj_lose);
                                 obj_to_room (obj_lose, victim->in_room);
                                 fail = FALSE;
@@ -3076,6 +3086,7 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                     ("You throw your red-hot weapon to the ground!\n\r",
                                      victim);
                                 dam += 1;
+                                separate_obj(obj_lose);
                                 obj_from_char (obj_lose);
                                 obj_to_room (obj_lose, victim->in_room);
                                 fail = FALSE;
@@ -3087,6 +3098,7 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                 {
                                     act ("$n stops using $p.", victim, vobj, NULL, TO_ROOM);
                                     act ("You stop using $p.", victim, vobj, NULL, TO_CHAR);
+                                    separate_obj(vobj);
                                     unequip_char(victim,vobj);
                                 }
 
@@ -3113,6 +3125,7 @@ void spell_heat_metal (int sn, int level, CHAR_DATA * ch, void *vo,
                                      victim, obj_lose, NULL, TO_CHAR);
                                 dam +=
                                     (number_range (1, obj_lose->level) / 6);
+                                separate_obj(obj_lose);
                                 obj_from_char (obj_lose);
                                 obj_to_room (obj_lose, victim->in_room);
                                 fail = FALSE;
@@ -3503,6 +3516,7 @@ void spell_invis (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (target == TARGET_OBJ)
     {
         obj = (OBJ_DATA *) vo;
+        separate_obj(obj);
 
         if (IS_OBJ_STAT (obj, ITEM_INVIS))
         {
@@ -3828,6 +3842,7 @@ void spell_poison (int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (target == TARGET_OBJ)
     {
         obj = (OBJ_DATA *) vo;
+        separate_obj(obj);
 
         if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
         {
@@ -4056,6 +4071,8 @@ void spell_recharge (int sn, int level, CHAR_DATA * ch, void *vo, int target)
         send_to_char ("That item has already been recharged once.\n\r", ch);
         return;
     }
+
+    separate_obj(obj);
 
     chance = 40 + 2 * level;
 
@@ -4924,6 +4941,7 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 	{
 		act("You draw upon the power of $p.", ch, stone, NULL, TO_CHAR);
 		act("It flares brightly and vanishes!", ch, stone, NULL, TO_CHAR);
+        separate_obj(stone);
 		extract_obj(stone);
 	}
 
@@ -4979,6 +4997,7 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 	{
 		act("You draw upon the power of $p.", ch, stone, NULL, TO_CHAR);
 		act("It flares brightly and vanishes!", ch, stone, NULL, TO_CHAR);
+        separate_obj(stone);
 		extract_obj(stone);
 	}
 

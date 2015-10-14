@@ -47,6 +47,9 @@
  */
 void affect_modify args ((CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd));
 
+OBJ_DATA *group_object args((OBJ_DATA *obj1, OBJ_DATA *obj2));
+
+
 /*
  * Returns number of people on an object.
  */
@@ -1649,15 +1652,35 @@ void char_to_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
 /*
  * Give an obj to a char.
  */
-void obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch)
+OBJ_DATA *obj_to_char( OBJ_DATA *obj, CHAR_DATA *ch )
 {
-    obj->next_content = ch->carrying;
-    ch->carrying = obj;
-    obj->carried_by = ch;
-    obj->in_room = NULL;
-    obj->in_obj = NULL;
-    ch->carry_number += get_obj_number (obj);
-    ch->carry_weight += get_obj_weight (obj);
+    OBJ_DATA *otmp;
+    OBJ_DATA *oret = obj;
+    bool grouped;
+    int oweight = get_obj_weight(obj);
+    int onum = get_obj_number(obj);
+
+    grouped = FALSE;
+
+    for ( otmp = ch->carrying; otmp; otmp = otmp->next_content )
+        if ( (oret=group_object( otmp, obj )) == otmp )
+        {
+        grouped = TRUE;
+        break;
+        }
+
+    if (!grouped)
+    {
+        obj->next_content    = ch->carrying;
+        ch->carrying         = obj;
+        obj->carried_by      = ch;
+        obj->in_room         = NULL;
+        obj->in_obj          = NULL;
+    }
+
+    ch->carry_number        += onum;
+    ch->carry_weight        += oweight;
+    return (oret ? oret : obj);
 }
 
 /*
@@ -1780,6 +1803,8 @@ void equip_char (CHAR_DATA * ch, OBJ_DATA * obj, int iWear)
         bug ("Equip_char: already equipped (%d).", iWear);
         return;
     }
+
+    separate_obj(obj);
 
     if ((IS_OBJ_STAT (obj, ITEM_ANTI_EVIL) && IS_EVIL (ch))
         || (IS_OBJ_STAT (obj, ITEM_ANTI_GOOD) && IS_GOOD (ch))
@@ -1961,40 +1986,70 @@ void obj_from_room (OBJ_DATA * obj)
 /*
  * Move an obj into a room.
  */
-void obj_to_room (OBJ_DATA * obj, ROOM_INDEX_DATA * pRoomIndex)
+OBJ_DATA *obj_to_room( OBJ_DATA *obj, ROOM_INDEX_DATA *pRoomIndex)
 {
-    obj->next_content = pRoomIndex->contents;
-    pRoomIndex->contents = obj;
-    obj->in_room = pRoomIndex;
-    obj->carried_by = NULL;
-    obj->in_obj = NULL;
-    return;
+    OBJ_DATA *otmp, *oret;
+
+    if (pRoomIndex == NULL)
+    {
+        bug( "Obj_to_room: room not found removeing from game.", 0 );
+    extract_obj(obj);   /* This is to prevent memory leaks */
+        return NULL;
+    }
+
+    if (obj == NULL)
+    {
+        bug( "Obj_to_room: obj not found.", 0 );
+        return NULL;
+    }
+
+    for ( otmp = pRoomIndex->contents; otmp; otmp = otmp->next_content )
+        if ( (oret=group_object( otmp, obj )) == otmp )
+            return oret;
+
+    obj->next_content           = pRoomIndex->contents;
+    pRoomIndex->contents        = obj;
+    obj->in_room                = pRoomIndex;
+    obj->carried_by             = NULL;
+    obj->in_obj                 = NULL;
+    return obj;
 }
 
 /*
  * Move an object into an object.
  */
-void obj_to_obj (OBJ_DATA * obj, OBJ_DATA * obj_to)
+OBJ_DATA *obj_to_obj( OBJ_DATA *obj, OBJ_DATA *obj_to )
 {
-    obj->next_content = obj_to->contains;
-    obj_to->contains = obj;
-    obj->in_obj = obj_to;
-    obj->in_room = NULL;
-    obj->carried_by = NULL;
-    if (obj_to->pIndexData->vnum == OBJ_VNUM_PIT)
-        obj->cost = 0;
+    OBJ_DATA *otmp, *oret;
 
-    for (; obj_to != NULL; obj_to = obj_to->in_obj)
+    if ( obj == obj_to )
     {
-        if (obj_to->carried_by != NULL)
-        {
-            obj_to->carried_by->carry_number += get_obj_number (obj);
-            obj_to->carried_by->carry_weight += get_obj_weight (obj)
-                * WEIGHT_MULT (obj_to) / 100;
-        }
+        bug( "Obj_to_obj: trying to put object inside itself: vnum %d", obj->pIndexData->vnum );
+        return obj;
     }
 
-    return;
+    if (!obj || !obj_to) return NULL;
+
+    if (obj_to->carried_by)
+    {
+        obj_to->carried_by->carry_number += get_obj_number( obj );
+        obj_to->carried_by->carry_weight += get_obj_weight( obj ) * WEIGHT_MULT(obj_to) / 100;
+    }
+
+
+    for ( otmp = obj_to->contains; otmp; otmp = otmp->next_content )
+        if ( (oret=group_object(otmp, obj)) == otmp )
+            return oret;
+
+        obj->next_content           = obj_to->contains;
+        obj_to->contains            = obj;
+        obj->in_obj                 = obj_to;
+        obj->in_room                = NULL;
+        obj->carried_by             = NULL;
+        if (obj_to->pIndexData->vnum == OBJ_VNUM_PIT)
+        obj->cost = 0;
+
+        return obj;
 }
 
 /*
@@ -2274,8 +2329,10 @@ OBJ_DATA *get_obj_list (CHAR_DATA * ch, char *argument, OBJ_DATA * list)
     {
         if (can_see_obj (ch, obj) && is_name (arg, obj->name))
         {
-            if (++count == number)
+            if ((count += obj->count) >= number)
+            {
                 return obj;
+            }
         }
     }
 
@@ -2299,7 +2356,7 @@ OBJ_DATA *get_obj_carry (CHAR_DATA * ch, char *argument, CHAR_DATA * viewer)
         if (obj->wear_loc == WEAR_NONE && (can_see_obj (viewer, obj))
             && is_name (arg, obj->name))
         {
-            if (++count == number)
+            if ((count += obj->count) >= number)
                 return obj;
         }
     }
@@ -2324,7 +2381,7 @@ OBJ_DATA *get_obj_wear (CHAR_DATA * ch, char *argument)
         if (obj->wear_loc != WEAR_NONE && can_see_obj (ch, obj)
             && is_name (arg, obj->name))
         {
-            if (++count == number)
+            if ((count += obj->count) >= number)
                 return obj;
         }
     }
@@ -2371,7 +2428,7 @@ OBJ_DATA *get_obj_world (CHAR_DATA * ch, char *argument)
     {
         if (can_see_obj (ch, obj) && is_name (arg, obj->name))
         {
-            if (++count == number)
+            if ((count += obj->count) >= number)
                 return obj;
         }
     }
@@ -2480,7 +2537,7 @@ int get_obj_number (OBJ_DATA * obj)
         || obj->item_type == ITEM_GEM || obj->item_type == ITEM_JEWELRY)
         number = 0;
     else
-        number = 1;
+        number = obj->count;
 
     for (obj = obj->contains; obj != NULL; obj = obj->next_content)
         number += get_obj_number (obj);
@@ -2496,7 +2553,8 @@ int get_obj_weight (OBJ_DATA * obj)
     int weight;
     OBJ_DATA *tobj;
 
-    weight = obj->weight;
+    weight = obj->count * obj->weight;
+
     for (tobj = obj->contains; tobj != NULL; tobj = tobj->next_content)
         weight += get_obj_weight (tobj) * WEIGHT_MULT (obj) / 100;
 
@@ -2511,7 +2569,8 @@ int get_true_weight (OBJ_DATA * obj)
 {
     int weight;
 
-    weight = obj->weight;
+    weight = obj->count * obj->weight;
+
     for (obj = obj->contains; obj != NULL; obj = obj->next_content)
         weight += get_obj_weight (obj);
 
@@ -3324,4 +3383,125 @@ char *off_bit_name (int off_flags)
         strcat (buf, " assist_vnum");
 
     return (buf[0] != '\0') ? buf + 1 : "none";
+}
+
+/*
+ * If possible group obj2 into obj1                             -Thoric
+ * This code, along with clone_object, obj->count, and special support
+ * for it implemented throughout handler.c and save.c should show improved
+ * performance on MUDs with players that hoard tons of potions and scrolls
+ * as this will allow them to be grouped together both in memory, and in
+ * the player files.
+ */
+OBJ_DATA *group_object( OBJ_DATA *obj1, OBJ_DATA *obj2 )
+{
+    if ( !obj1 || !obj2 )
+        return NULL;
+
+    if (IS_OBJ_STAT(obj2,ITEM_MELT_DROP) || obj2->item_type == ITEM_CONTAINER)
+        return obj2;
+
+    if ( obj1 == obj2 )
+        return obj1;
+
+
+    if ( obj1->pIndexData == obj2->pIndexData
+    &&   !str_cmp( obj1->name,        obj2->name )
+    &&   !str_cmp( obj1->short_descr, obj2->short_descr )
+    &&   !str_cmp( obj1->description, obj2->description )
+    &&   obj1->item_type        == obj2->item_type
+    &&   obj1->extra_flags  == obj2->extra_flags
+    &&   obj1->wear_flags       == obj2->wear_flags
+    &&   obj1->wear_loc         == obj2->wear_loc
+    &&   obj1->weight           == obj2->weight
+    &&   obj1->cost             == obj2->cost
+    &&   obj1->level            == obj2->level
+    &&   obj1->timer            == obj2->timer
+    &&   obj1->value[0]         == obj2->value[0]
+    &&   obj1->value[1]         == obj2->value[1]
+    &&   obj1->value[2]         == obj2->value[2]
+    &&   obj1->value[3]         == obj2->value[3]
+    &&   obj1->value[4]         == obj2->value[4]
+    &&  !obj1->extra_descr      && !obj2->extra_descr
+    &&  !obj1->affected         && !obj2->affected
+    &&  !obj1->contains     && !obj2->contains
+    &&   obj1->count + obj2->count > 0 ) /* prevent count overflow */
+    {
+        obj1->count += obj2->count;
+        obj1->pIndexData->count += obj2->count; /* to be decremented in */
+        /*numobjsloaded += obj2->count;*/               /* extract_obj */
+        extract_obj( obj2 );
+        return obj1;
+    }
+    return obj2;
+}
+
+void split_obj_sub( OBJ_DATA *obj, int num, bool complete )
+{
+    int count = obj->count;
+    OBJ_DATA *rest;
+
+    if ( count <= num || num == 0 )
+      return;
+
+    rest = create_object(obj->pIndexData,0);
+    clone_object(obj, rest);
+
+    if (!complete)
+    {
+        --obj->pIndexData->count;   /* since clone_object() ups this value */
+        rest->count = obj->count - num;
+        obj->count = num;
+    }
+    else
+    {
+        --obj->pIndexData->count;   /* since clone_object() ups this value */
+        rest->count = 1;
+        obj->count--;
+    }
+
+
+    if ( obj->carried_by )
+    {
+
+        rest->next_content      = obj->carried_by->carrying;
+        obj->carried_by->carrying       = rest;
+        rest->carried_by                = obj->carried_by;
+        rest->in_room                   = NULL;
+        rest->in_obj                    = NULL;
+    }
+    else
+    if ( obj->in_room )
+    {
+        rest->next_content              = obj->in_room->contents;
+        obj->in_room->contents          = rest;
+        rest->carried_by                = NULL;
+        rest->in_room                   = obj->in_room;
+        rest->in_obj                    = NULL;
+    }
+    else
+    if ( obj->in_obj )
+    {
+        rest->next_content               = obj->in_obj->contains;
+        obj->in_obj->contains            = rest;
+        rest->in_obj                     = obj->in_obj;
+        rest->in_room                    = NULL;
+        rest->carried_by                 = NULL;
+    }
+}
+
+void split_obj( OBJ_DATA *obj, int num)
+{
+    split_obj_sub(obj, num, FALSE);
+}
+
+void separate_obj( OBJ_DATA *obj )
+{
+    split_obj( obj, 1 );
+}
+
+void ungroup_obj( OBJ_DATA *obj)
+{
+   for (;obj->count > 1;)
+     split_obj_sub(obj, 1, TRUE);
 }
