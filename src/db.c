@@ -2732,9 +2732,28 @@ int area_count(int continent)
 
 } // end area_count
 
+/*
+ * Shows some basic memory usage.  This really should be updated because it doesn't show
+ * updated counts on a lot of the values for changes in memory (it just shows at boot time
+ * where static ints were kept).  Showing the boot stats along with current values would
+ * be more helpful. (TODO item).
+ */
 void do_memory (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
+    OBJ_DATA *obj;
+    OBJ_DATA *obj_next;
+    int obj_count = 0;
+    int total_obj_count = 0;
+
+    // Count all the objects in memory, and then get their additional counts if
+    // they've been consolidated.
+    for (obj = object_list; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->next;
+        obj_count++;
+        total_obj_count += obj->count;
+    }
 
     sprintf (buf, "Affects %5d\n\r", top_affect);
     send_to_char (buf, ch);
@@ -2750,7 +2769,7 @@ void do_memory (CHAR_DATA * ch, char *argument)
     send_to_char (buf, ch);
     sprintf (buf, "Mobs    %5d (%d in use)\n\r", top_mob_index, mobile_count);
     send_to_char (buf, ch);
-    sprintf (buf, "Objs    %5d\n\r", top_obj_index);
+    sprintf (buf, "Objs    %5d (%d loaded with unconsolidated count of %d)\n\r", top_obj_index, obj_count, total_obj_count);
     send_to_char (buf, ch);
     sprintf (buf, "Resets  %5d\n\r", top_reset);
     send_to_char (buf, ch);
