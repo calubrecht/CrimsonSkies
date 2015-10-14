@@ -27,7 +27,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
   - Helper methods to do common tasks, remove all items from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
-  - group obj/separate_obj from smaug for more efficient object storing.
   - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
     spell doesn't translate to other players (e.g. you can't bind another players soul to an object,
     just yours).  Enchantors aren't much as fighters, they will be able to make sure their gear even
@@ -92,3 +91,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - rwhere command to find room by keyword and return room name/vnum.
   - Count number of items in the pit + their actual count.
   - Command to globally purge the pits.
+  - Look at the auto saving code and make sure it's working right.
