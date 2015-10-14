@@ -3578,15 +3578,21 @@ void do_mset (CHAR_DATA * ch, char *argument)
     argument = one_argument (argument, arg2);
     strcpy (arg3, argument);
 
+    // This switch doesn't need a third arg3.  This is a hack to allow the below
+    // validation check work for everything else by putting a dummy value into arg3.
+    if (!str_cmp(arg2, "1k"))
+        sprintf(arg3, "%d", 1);
+
     if (arg1[0] == '\0' || arg2[0] == '\0' || arg3[0] == '\0')
     {
-        send_to_char ("Syntax:\n\r", ch);
-        send_to_char ("  set char <name> <field> <value>\n\r", ch);
-        send_to_char ("  Field being one of:\n\r", ch);
-        send_to_char ("    str int wis dex con sex class level\n\r", ch);
-        send_to_char ("    race group gold silver hp mana move prac\n\r", ch);
-        send_to_char ("    align train thirst hunger drunk full\n\r", ch);
-        send_to_char ("    security hours wanted[on|off] tester[on|off]\n\r", ch);
+        send_to_char("Syntax:\n\r", ch);
+        send_to_char("  set char <name> <field> <value>\n\r", ch);
+        send_to_char("  Field being one of:\n\r", ch);
+        send_to_char("    str int wis dex con sex class level\n\r", ch);
+        send_to_char("    race group gold silver hp mana move prac\n\r", ch);
+        send_to_char("    align train thirst hunger drunk full\n\r", ch);
+        send_to_char("    security hours wanted[on|off] tester[on|off]\n\r", ch);
+        send_to_char("    1k\n\r", ch);
         return;
     }
 
@@ -4049,6 +4055,29 @@ void do_mset (CHAR_DATA * ch, char *argument)
 
         victim->played = ( value * 3600 );
         printf_to_char(ch, "%s's hours set to %d.\n\r", victim->name, value);
+
+        return;
+    }
+
+    if (!str_prefix(arg2, "1k"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPC's\n\r", ch);
+            return;
+        }
+
+        // 1k with the appropriate amount of exp for their level.
+        victim->exp = victim->level * 1000;
+        victim->pcdata->points = 40;
+
+        printf_to_char(ch, "%s has been set to 1k per level.\n\r", victim->name);
+        printf_to_char(victim, "%s has set you to 1k per level.\n\r", ch->name);
+
+        sprintf(buf, "%s has set %s to 1k per level.", ch->name, victim->name);
+        wiznet (buf, NULL, NULL, WIZ_SECURE, 0, 0);
+
+        log_string(buf);
 
         return;
     }
@@ -5853,42 +5882,22 @@ void do_debug(CHAR_DATA * ch, char *argument)
 {
 
     char buf[MSL];
-    sprintf(buf, "%d\n\r", ch->class);
+    OBJ_DATA *obj;
+    OBJ_DATA *obj_next;
+    int obj_count = 0;
+    int total_obj_count = 0;
+
+    for (obj = object_list; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->next;
+
+        obj_count++;
+        total_obj_count += obj->count;
+    }
+
+    sprintf(buf, "%d Memory Objects - %d Total Count\n\r", obj_count, total_obj_count);
     send_to_char(buf, ch);
 
-/*    AFFECT_DATA af;
-    affect_strip(ch, gsn_song_of_dissonance);
-    af.where = TO_AFFECTS;
-    af.type = gsn_song_of_dissonance;
-    af.level = ch->level;
-    af.duration = 5;
-    af.modifier = 0;
-    af.location = APPLY_NONE;
-    af.bitvector = AFF_DEAFEN;
-    affect_to_char (ch, &af);
-*/
-/*    if (IS_SET(ch->affected_by, AFF_DEAFEN))
-    {
-        REMOVE_BIT(ch->affected_by, AFF_DEAFEN);
-        send_to_char("Deafen removed\n\r", ch);
-    }
-    else
-    {
-        SET_BIT(ch->affected_by, AFF_DEAFEN);
-        send_to_char("Deafen added\n\r", ch);
-    }
-*/
-
-    /*CHAR_DATA * rch;
-    char buf[MSL];
-
-    for (rch = ch->in_room->people; rch; rch = rch->next_in_room)
-    {
-        sprintf(buf, "%s is in the room.\n\r", rch->name);
-        send_to_char(buf, ch);
-    }*/
-
-    //send_to_char("Nothing here currently, move along.\r\n", ch);
     return;
 
 } // end do_debug
