@@ -2054,17 +2054,16 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
     #define NULL_FILE       "/dev/null"          /* To reserve one stream  */
 #endif
 
-#define AREA_LIST           "area.lst"           /* List of areas         */
-#define BUG_FILE            "../log/bugs.txt"    /* For 'bug' and bug()   */
-#define TYPO_FILE           "../log/typos.txt"   /* For 'typo'            */
-#define SHUTDOWN_FILE       "shutdown.txt"       /* For 'shutdown'        */
-#define BAN_FILE            "ban.txt"
-#define OHELPS_FILE	    "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+#define AREA_LIST           "area.lst"                   /* List of areas */
+#define SHUTDOWN_FILE       "shutdown.txt"               /* For 'shutdown'*/
+#define BUG_FILE            "../log/bugs.txt"            /* For 'bug' and bug() */
+#define TYPO_FILE           "../log/typos.txt"           /* For 'typo' */
+#define OHELPS_FILE	        "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
 
-#define GROUP_FILE          "../classes/groups.dat"   /* groups file */
-#define CLASS_DIR           "../classes/"             /* classes directory */
-#define CLASS_FILE          "class.lst"               /* classes file */
-#define SKILLS_FILE         "../classes/skills.dat"   /* skills and spells file */
+#define GROUP_FILE          "../classes/groups.dat"      /* groups file */
+#define CLASS_DIR           "../classes/"                /* classes directory */
+#define CLASS_FILE          "class.lst"                  /* classes file */
+#define SKILLS_FILE         "../classes/skills.dat"      /* skills and spells file */
 
 #define NOTE_FILE           "../notes/note.note"
 #define PENALTY_FILE        "../notes/penalty.note"
@@ -2075,7 +2074,8 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 #define HISTORY_FILE        "../notes/history.note"
 #define IMMNOTE_FILE	    "../notes/imm.note"
 
-#define SAVED_OBJECT_FILE   "../gamedata/saved_objects.dat"
+#define BAN_FILE            "../system/ban.dat"
+#define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
 
 /*
  * Our function prototypes.

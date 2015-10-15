@@ -5873,7 +5873,26 @@ void wizbless(CHAR_DATA * victim)
 
 } // end void wizbless
 
-void twiddle args((void));
+
+/*
+ * Game settings - This will contain reward bonuses, game locks and
+ * game mechanic toggles to allow some functionality to be enabled and
+ * disabled on the fly.  This table will be savable via OLC and loaded on
+ * game boot.
+ */
+struct game_settings
+{
+    // Game Bonuses
+    bool double_exp;   // Double Experience
+    bool double_gold;  // Double Gold
+    // Game Locks
+    bool newlock;      // New lock, no new characters can create
+    bool wizlock;      // Only immortals can login
+    // Game Mechanics
+    bool shock_spread; // Shocking effect spreads under water.
+};
+
+typedef struct game_settings GAME_SETTINGS;
 
 /*
  * Debug function to quickly test code without having to wire something up.
@@ -5881,12 +5900,18 @@ void twiddle args((void));
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    char buf[MSL];
-    if (ch->pcdata->pk_timer)
+    //char buf[MSL];
+
+    //struct game_settings settings = {0}; //Initializing to null
+    GAME_SETTINGS settings = {0};
+
+    settings.double_exp = TRUE;
+    settings.double_gold = FALSE;
+
+    if (settings.double_exp)
         send_to_char("Yes\n\r", ch);
     else
         send_to_char("No\n\r", ch);
-
 
     return;
 
