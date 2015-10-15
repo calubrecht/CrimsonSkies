@@ -242,26 +242,26 @@ struct    weather_data
 /*
  * Connected state for a channel.
  */
-#define CON_GET_EMAIL                   -15
-#define CON_GET_NAME			-14
+#define CON_GET_EMAIL               -15
+#define CON_GET_NAME			    -14
 #define CON_GET_OLD_PASSWORD		-13
 #define CON_CONFIRM_NEW_NAME		-12
 #define CON_GET_NEW_PASSWORD		-11
 #define CON_CONFIRM_NEW_PASSWORD	-10
-#define CON_COLOR			-9
-#define CON_GET_TELNETGA		-8
-#define CON_GET_NEW_RACE		-7
-#define CON_GET_NEW_SEX			-6
-#define CON_GET_NEW_CLASS		-5
-#define CON_GET_ALIGNMENT		-4
-#define CON_DEFAULT_CHOICE		-3
-#define CON_GEN_GROUPS			-2
-#define CON_PICK_WEAPON			-1
-#define CON_PLAYING			0
-#define CON_READ_IMOTD			1
-#define CON_READ_MOTD			2
-#define CON_BREAK_CONNECT		3
-#define CON_COPYOVER_RECOVER		4
+#define CON_COLOR                    -9
+#define CON_GET_TELNETGA             -8
+#define CON_GET_NEW_RACE             -7
+#define CON_GET_NEW_SEX              -6
+#define CON_GET_NEW_CLASS            -5
+#define CON_GET_ALIGNMENT            -4
+#define CON_DEFAULT_CHOICE           -3
+#define CON_GEN_GROUPS               -2
+#define CON_PICK_WEAPON              -1
+#define CON_PLAYING                   0
+#define CON_READ_IMOTD                1
+#define CON_READ_MOTD                 2
+#define CON_BREAK_CONNECT             3
+#define CON_COPYOVER_RECOVER          4
 
 /*
  * Descriptor (channel) structure.
@@ -337,7 +337,7 @@ struct    con_app_type
 /*
  * Help table types.
  */
-struct    help_data
+struct help_data
 {
     HELP_DATA *  next;
     HELP_DATA *  next_area;
