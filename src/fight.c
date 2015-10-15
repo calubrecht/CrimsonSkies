@@ -1928,6 +1928,9 @@ int xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     int level_range;
     int time_per_level;
 
+    if (IS_SET(gch->affected_by, AFF_CHARM))
+        return 0;
+
     xp = 0;
     level_range = victim->level - gch->level;
 
