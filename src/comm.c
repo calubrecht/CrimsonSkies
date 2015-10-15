@@ -2623,6 +2623,44 @@ void colorconv (char *buffer, const char *txt, CHAR_DATA * ch)
 }
 
 /*
+ * Function to remove color codes from a string.  Added to help remove color codes
+ * from strings that were colored with Lope's color (e.g. if we want to remove color
+ * codes from a log message, etc).
+ */
+char *strip_color(char *string)
+{
+    static char buf[MAX_STRING_LENGTH];
+    char *point;
+    int count=0;
+
+    buf[0] = '\0';
+
+    for(point = string; *point ; point++)
+    {
+        if( *point == '{' && (point+1 != NULL) )
+        {
+            ++point;
+
+            if (*point == '{')
+            {
+              --point;
+              buf[count] = *point;
+              ++point;
+              ++count;
+            }
+        }
+        else
+        {
+            buf[count] = *point;
+            ++count;
+        }
+    }
+
+    buf[count] = '\0';
+    return buf;
+} // end strip_color
+
+/*
  * Macintosh support functions.
  */
 #if defined(__APPLE__)

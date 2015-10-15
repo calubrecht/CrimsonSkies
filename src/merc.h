@@ -2198,6 +2198,7 @@ int   color           args( ( char type, CHAR_DATA *ch, char *string ) );
 void  colorconv       args( ( char *buffer, const char *txt, CHAR_DATA*ch));
 void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
 void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
+char  *strip_color    args((char *string));
 
 /* effect.c */
 void    acid_effect    args( (void *vo, int level, int dam, int target) );
