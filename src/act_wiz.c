@@ -1958,28 +1958,29 @@ void do_mwhere (CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
-void do_reboo (CHAR_DATA * ch, char *argument)
+/*
+ * Command to force the full reboot command to be entered.
+ */
+void do_reboo(CHAR_DATA * ch, char *argument)
 {
     send_to_char ("If you want to REBOOT, spell it out.\n\r", ch);
     return;
 }
 
-
-
-void do_reboot (CHAR_DATA * ch, char *argument)
+/*
+ * Reboots the mud.  The mud should come back up after this.
+ */
+void do_reboot(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     extern bool merc_down;
     DESCRIPTOR_DATA *d, *d_next;
     CHAR_DATA *vch;
 
-    if (ch->invis_level < LEVEL_HERO)
-    {
-        sprintf (buf, "{RReboot{x by %s.", ch->name);
-        do_function (ch, &do_echo, buf);
-    }
+    sprintf(buf, "{RReboot{x by %s.", ch->name);
+    do_function(ch, &do_echo, buf);
+
+    log_string(strip_color(buf));
 
     // Let's restore the world as part of the reboot as a thank you to the players.
     do_restore(ch, "all");
@@ -1989,8 +1990,12 @@ void do_reboot (CHAR_DATA * ch, char *argument)
     {
         d_next = d->next;
         vch = d->original ? d->original : d->character;
+
         if (vch != NULL)
-            save_char_obj (vch);
+        {
+            save_char_obj(vch);
+        }
+
         close_socket (d);
     }
 
@@ -2019,18 +2024,11 @@ void do_shutdown(CHAR_DATA * ch, char *argument)
     DESCRIPTOR_DATA *d, *d_next;
     CHAR_DATA *vch;
 
-    if (ch->invis_level < LEVEL_HERO)
-    {
-        sprintf(buf, "{RShutdown{x by %s.", ch->name);
-    }
-
-    log_string(buf);
+    sprintf(buf, "{RShutdown{x by %s.", ch->name);
+    log_string(strip_color(buf));
 
     strcat (buf, "\n\r");
-    if (ch->invis_level < LEVEL_HERO)
-    {
-        do_function(ch, &do_echo, buf);
-    }
+    do_function(ch, &do_echo, buf);
 
     // Let's restore the world as part of the shutdown as a thank you to the players.
     do_restore(ch, "all");
@@ -2040,6 +2038,7 @@ void do_shutdown(CHAR_DATA * ch, char *argument)
     {
         d_next = d->next;
         vch = d->original ? d->original : d->character;
+
         if (vch != NULL)
         {
             save_char_obj(vch);
@@ -5913,9 +5912,8 @@ typedef struct game_settings GAME_SETTINGS;
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    //char buf[MSL];
-
     //struct game_settings settings = {0}; //Initializing to null
+    /*
     GAME_SETTINGS settings = {0};
 
     settings.double_exp = TRUE;
@@ -5926,6 +5924,6 @@ void do_debug(CHAR_DATA * ch, char *argument)
     else
         send_to_char("No\n\r", ch);
 
-    return;
+    return; */
 
 } // end do_debug
