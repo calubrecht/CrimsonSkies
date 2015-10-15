@@ -92,6 +92,7 @@ char log_buf[2 * MAX_INPUT_LENGTH];
 OBJ_DATA *object_list;
 TIME_INFO_DATA time_info;
 WEATHER_DATA weather_info;
+SETTINGS_DATA settings;
 extern const struct continent_type continent_table[];
 
 /*

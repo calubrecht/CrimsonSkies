@@ -163,8 +163,6 @@ DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 DESCRIPTOR_DATA *d_next;             /* Next descriptor in loop  */
 FILE *fpReserve;                     /* Reserved file handle     */
 bool merc_down;                      /* Shutdown         */
-bool wizlock;                        /* Game is wizlocked        */
-bool newlock;                        /* Game is newlocked        */
 char str_boot_time[MAX_INPUT_LENGTH];
 time_t current_time;                 /* time of this pulse */
 bool MOBtrigger = TRUE;              /* act() switch                 */

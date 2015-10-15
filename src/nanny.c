@@ -101,8 +101,6 @@ extern DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 extern DESCRIPTOR_DATA *d_next;        /* Next descriptor in loop  */
 extern FILE *fpReserve;                /* Reserved file handle     */
 extern bool merc_down;                    /* Shutdown         */
-extern bool wizlock;                    /* Game is wizlocked        */
-extern bool newlock;                    /* Game is newlocked        */
 extern char str_boot_time[MAX_INPUT_LENGTH];
 extern time_t current_time;            /* time of this pulse */
 
@@ -214,7 +212,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             }
             else
             {
-                if (wizlock && !IS_IMMORTAL (ch))
+                if (settings.wizlock && !IS_IMMORTAL (ch))
                 {
                     send_to_desc ("\n\rThe game is currently locked to all except immortals.\n\r Please try again later.\n\r", d);
                     close_socket (d);
@@ -233,7 +231,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             else
             {
                 /* New player */
-                if (newlock)
+                if (settings.newlock)
                 {
                     send_to_desc ("\n\rThe game is new locked.\n\rPlease try again later.\n\r", d);
                     close_socket (d);

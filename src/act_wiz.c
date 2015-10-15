@@ -3160,20 +3160,22 @@ void do_peace (CHAR_DATA * ch, char *argument)
     return;
 }
 
-void do_wizlock (CHAR_DATA * ch, char *argument)
+/*
+ * Locks the game to all players except immortals.
+ */
+void do_wizlock(CHAR_DATA * ch, char *argument)
 {
-    extern bool wizlock;
-    wizlock = !wizlock;
+    settings.wizlock = !settings.wizlock;
 
-    if (wizlock)
+    if (settings.wizlock)
     {
-        wiznet ("$N has wizlocked the game.", ch, NULL, 0, 0, 0);
-        send_to_char ("Game wizlocked.\n\r", ch);
+        wiznet("$N has wizlocked the game.", ch, NULL, 0, 0, 0);
+        send_to_char("Game wizlocked.\n\r", ch);
     }
     else
     {
-        wiznet ("$N removes wizlock.", ch, NULL, 0, 0, 0);
-        send_to_char ("Game un-wizlocked.\n\r", ch);
+        wiznet("$N removes wizlock.", ch, NULL, 0, 0, 0);
+        send_to_char("Game un-wizlocked.\n\r", ch);
     }
 
     return;
@@ -3181,20 +3183,22 @@ void do_wizlock (CHAR_DATA * ch, char *argument)
 
 /* RT anti-newbie code */
 
+/*
+ * Command that allows an immortal to lock out new players.
+ */
 void do_newlock (CHAR_DATA * ch, char *argument)
 {
-    extern bool newlock;
-    newlock = !newlock;
+    settings.newlock = !settings.newlock;
 
-    if (newlock)
+    if (settings.newlock)
     {
-        wiznet ("$N locks out new characters.", ch, NULL, 0, 0, 0);
-        send_to_char ("New characters have been locked out.\n\r", ch);
+        wiznet("$N locks out new characters.", ch, NULL, 0, 0, 0);
+        send_to_char("New characters have been locked out.\n\r", ch);
     }
     else
     {
-        wiznet ("$N allows new characters back in.", ch, NULL, 0, 0, 0);
-        send_to_char ("Newlock removed.\n\r", ch);
+        wiznet("$N allows new characters back in.", ch, NULL, 0, 0, 0);
+        send_to_char("Newlock removed.\n\r", ch);
     }
 
     return;
@@ -5885,36 +5889,14 @@ void wizbless(CHAR_DATA * victim)
 
 } // end void wizbless
 
-
-/*
- * Game settings - This will contain reward bonuses, game locks and
- * game mechanic toggles to allow some functionality to be enabled and
- * disabled on the fly.  This table will be savable via OLC and loaded on
- * game boot.
- */
-struct game_settings
-{
-    // Game Bonuses
-    bool double_exp;   // Double Experience
-    bool double_gold;  // Double Gold
-    // Game Locks
-    bool newlock;      // New lock, no new characters can create
-    bool wizlock;      // Only immortals can login
-    // Game Mechanics
-    bool shock_spread; // Shocking effect spreads under water.
-};
-
-typedef struct game_settings GAME_SETTINGS;
-
 /*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    //struct game_settings settings = {0}; //Initializing to null
-    /*
-    GAME_SETTINGS settings = {0};
+    SETTINGS_DATA settings = {0};
+    settings.double_exp = TRUE;
 
     settings.double_exp = TRUE;
     settings.double_gold = FALSE;
@@ -5924,6 +5906,6 @@ void do_debug(CHAR_DATA * ch, char *argument)
     else
         send_to_char("No\n\r", ch);
 
-    return; */
+    return;
 
 } // end do_debug

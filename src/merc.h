@@ -73,6 +73,7 @@ typedef struct    mprog_code         MPROG_CODE;
 typedef struct    group_type         GROUPTYPE;
 typedef struct    class_type         CLASSTYPE;
 typedef struct    skill_type         SKILLTYPE;
+typedef struct    settings_data      SETTINGS_DATA;
 typedef struct    extended_bitvector EXT_BV;
 
 /*
@@ -523,6 +524,24 @@ struct    affect_data
 #define TO_RESIST    3
 #define TO_VULN      4
 #define TO_WEAPON    5
+
+/*
+ * Game settings - This will contain reward bonuses, game locks and
+ * game mechanic toggles to allow some functionality to be enabled and
+ * disabled on the fly.  This table will be savable via OLC and loaded on
+ * game boot.  - Rhien
+ */
+struct settings_data
+{
+    // Game Bonuses
+    bool double_exp;   // Double Experience
+    bool double_gold;  // Double Gold
+    // Game Locks
+    bool newlock;      // New lock, no new characters can create
+    bool wizlock;      // Only immortals can login
+    // Game Mechanics
+    bool shock_spread; // Shocking effect spreads under water.
+};
 
 /***************************************************************************
  *                                                                         *
@@ -1964,6 +1983,7 @@ extern  FILE                    * fpReserve;
 extern  char                    log_buf[];
 extern  TIME_INFO_DATA          time_info;
 extern  WEATHER_DATA            weather_info;
+extern  SETTINGS_DATA           settings;
 extern  NOTE_DATA               * note_free;
 extern  OBJ_DATA                * obj_free;
 extern  bool                    MOBtrigger;
