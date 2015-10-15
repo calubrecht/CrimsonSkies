@@ -56,7 +56,6 @@ typedef struct    exit_data          EXIT_DATA;
 typedef struct    extra_descr_data   EXTRA_DESCR_DATA;
 typedef struct    help_data          HELP_DATA;
 typedef struct    help_area_data     HELP_AREA;
-typedef struct    kill_data          KILL_DATA;
 typedef struct    mem_data           MEM_DATA;
 typedef struct    mob_index_data     MOB_INDEX_DATA;
 typedef struct    note_data          NOTE_DATA;
@@ -524,16 +523,6 @@ struct    affect_data
 #define TO_RESIST    3
 #define TO_VULN      4
 #define TO_WEAPON    5
-
-
-/*
- * A kill structure (indexed by level).
- */
-struct    kill_data
-{
-    sh_int  number;
-    sh_int  killed;
-};
 
 /***************************************************************************
  *                                                                         *
@@ -1972,7 +1961,6 @@ extern  char                    bug_buf[];
 extern  time_t                  current_time;
 extern  bool                    fLogAll;
 extern  FILE                    * fpReserve;
-extern  KILL_DATA               kill_table[];
 extern  char                    log_buf[];
 extern  TIME_INFO_DATA          time_info;
 extern  WEATHER_DATA            weather_info;

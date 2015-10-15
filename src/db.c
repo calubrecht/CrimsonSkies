@@ -89,7 +89,6 @@ char bug_buf[2 * MAX_INPUT_LENGTH];
 CHAR_DATA *char_list;
 char *help_greeting;
 char log_buf[2 * MAX_INPUT_LENGTH];
-KILL_DATA kill_table[MAX_LEVEL];
 OBJ_DATA *object_list;
 TIME_INFO_DATA time_info;
 WEATHER_DATA weather_info;
@@ -3698,7 +3697,6 @@ void load_mobiles(FILE * fp)
         top_mob_index++;
         top_vnum_mob = top_vnum_mob < vnum ? vnum : top_vnum_mob;    /* OLC */
         assign_area_vnum(vnum);    /* OLC */
-        kill_table[URANGE(0, pMobIndex->level, MAX_LEVEL - 1)].number++;
     }
 
     return;

@@ -1806,7 +1806,6 @@ void raw_kill (CHAR_DATA * victim)
     if (IS_NPC (victim))
     {
         victim->pIndexData->killed++;
-        kill_table[URANGE (0, victim->level, MAX_LEVEL - 1)].killed++;
         extract_char (victim, TRUE);
         return;
     }
