@@ -2055,7 +2055,6 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 #endif
 
 #define AREA_LIST           "area.lst"                   /* List of areas */
-#define SHUTDOWN_FILE       "shutdown.txt"               /* For 'shutdown'*/
 #define BUG_FILE            "../log/bugs.txt"            /* For 'bug' and bug() */
 #define TYPO_FILE           "../log/typos.txt"           /* For 'typo' */
 #define OHELPS_FILE	        "../log/orphaned_helps.txt"  /* Unmet 'help' requests */

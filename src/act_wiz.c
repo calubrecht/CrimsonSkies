@@ -2000,13 +2000,19 @@ void do_reboot (CHAR_DATA * ch, char *argument)
     return;
 }
 
-void do_shutdow (CHAR_DATA * ch, char *argument)
+/*
+ * Command that forces the full shutdown command to be entered.
+ */
+void do_shutdow(CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("If you want to SHUTDOWN, spell it out.\n\r", ch);
+    send_to_char("If you want to SHUTDOWN, spell it out.\n\r", ch);
     return;
 }
 
-void do_shutdown (CHAR_DATA * ch, char *argument)
+/*
+ * Shuts the mud down where it will not come back up without starting it manually.
+ */
+void do_shutdown(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     extern bool merc_down;
@@ -2014,12 +2020,16 @@ void do_shutdown (CHAR_DATA * ch, char *argument)
     CHAR_DATA *vch;
 
     if (ch->invis_level < LEVEL_HERO)
-        sprintf (buf, "{RShutdown{x by %s.", ch->name);
-    append_file (ch, SHUTDOWN_FILE, buf);
+    {
+        sprintf(buf, "{RShutdown{x by %s.", ch->name);
+    }
+
+    log_string(buf);
+
     strcat (buf, "\n\r");
     if (ch->invis_level < LEVEL_HERO)
     {
-        do_function (ch, &do_echo, buf);
+        do_function(ch, &do_echo, buf);
     }
 
     // Let's restore the world as part of the shutdown as a thank you to the players.
@@ -2031,15 +2041,18 @@ void do_shutdown (CHAR_DATA * ch, char *argument)
         d_next = d->next;
         vch = d->original ? d->original : d->character;
         if (vch != NULL)
-            save_char_obj (vch);
-        close_socket (d);
+        {
+            save_char_obj(vch);
+        }
+
+        close_socket(d);
     }
 
     // Save special items like donation pits and corpses
     save_game_objects();
 
     return;
-}
+} // end do_shutdown
 
 void do_protect (CHAR_DATA * ch, char *argument)
 {
