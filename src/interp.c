@@ -485,23 +485,25 @@ void interpret (CHAR_DATA * ch, char *argument)
         ||   fLogAll
         ||   cmd_table[cmd].log == LOG_ALWAYS )
     {
-        char    s[2*MAX_INPUT_LENGTH],*ps;
-        int     i;
+        char s[2*MAX_INPUT_LENGTH],*ps;
+        int i;
+        char buf[MAX_STRING_LENGTH];
 
         ps=s;
-        sprintf( log_buf, "Log %s: %s", ch->name, logline );
+        sprintf(buf, "Log %s: %s", ch->name, logline);
+
         /* Make sure that was is displayed is what is typed */
-        for (i=0;log_buf[i];i++)
+        for (i=0;buf[i];i++)
         {
-            *ps++=log_buf[i];
-            if (log_buf[i]=='$')
+            *ps++=buf[i];
+            if (buf[i]=='$')
                 *ps++='$';
-            if (log_buf[i]=='{')
+            if (buf[i]=='{')
                 *ps++='{';
         }
         *ps=0;
-        wiznet(s,ch,NULL,WIZ_SECURE,0,get_trust(ch));
-        log_string( log_buf );
+        wiznet(s, ch, NULL, WIZ_SECURE, 0, get_trust(ch));
+        log_string(buf);
     }
 
     if (ch->desc != NULL && ch->desc->snoop_by != NULL)

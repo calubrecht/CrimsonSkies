@@ -955,15 +955,16 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
      */
     if (victim->position == POS_DEAD)
     {
-        group_gain (ch, victim);
+        group_gain(ch, victim);
+        char buf[MAX_STRING_LENGTH];
 
         if (!IS_NPC (victim))
         {
-            sprintf (log_buf, "%s killed by %s at %d",
+            sprintf (buf, "%s killed by %s at %d",
                      victim->name,
                      (IS_NPC (ch) ? ch->short_descr : ch->name),
                      ch->in_room->vnum);
-            log_string (log_buf);
+            log_string(buf);
 
             /*
              * Dying penalty:
@@ -977,15 +978,15 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
                             victim->level - victim->exp) / 3) + 50);
         }
 
-        sprintf (log_buf, "%s got toasted by %s at %s [room %d]",
+        sprintf (buf, "%s got toasted by %s at %s [room %d]",
                  (IS_NPC (victim) ? victim->short_descr : victim->name),
                  (IS_NPC (ch) ? ch->short_descr : ch->name),
                  ch->in_room->name, ch->in_room->vnum);
 
         if (IS_NPC (victim))
-            wiznet (log_buf, NULL, NULL, WIZ_MOBDEATHS, 0, 0);
+            wiznet(buf, NULL, NULL, WIZ_MOBDEATHS, 0, 0);
         else
-            wiznet (log_buf, NULL, NULL, WIZ_DEATHS, 0, 0);
+            wiznet(buf, NULL, NULL, WIZ_DEATHS, 0, 0);
 
         // Send a toast message to the players.
         if (!IS_NPC(ch) && !IS_NPC(victim))
@@ -3308,7 +3309,7 @@ void check_death(CHAR_DATA *victim, int dt)
 
     // Immortals will be immune from dying in this manner, if they go below 0 then set
     // them to 1 hp.
-    if ( victim->level >= LEVEL_IMMORTAL && victim->hit < 1)
+    if (victim->level >= LEVEL_IMMORTAL && victim->hit < 1)
     {
         victim->hit = 1;
     }
@@ -3318,49 +3319,52 @@ void check_death(CHAR_DATA *victim, int dt)
     switch(victim->position)
     {
         case POS_MORTAL:
-            act( "$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM );
-            send_to_char("You are mortally wounded, and will die soon, if not aided.\n\r", victim );
+            act("$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are mortally wounded, and will die soon, if not aided.\n\r", victim);
             break;
         case POS_INCAP:
-            act( "$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM );
-            send_to_char("You are incapacitated and will slowly die, if not aided.\n\r", victim );
+            act("$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are incapacitated and will slowly die, if not aided.\n\r", victim);
             break;
         case POS_STUNNED:
-            act( "$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM );
-            send_to_char("You are stunned, but will probably recover.\n\r", victim );
+            act("$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are stunned, but will probably recover.\n\r", victim);
             break;
         case POS_DEAD:
-            act( "$n is {RDEAD{x!!", victim, 0, 0, TO_ROOM );
-            send_to_char( "You have been {RKILLED{x!!\n\r\n\r", victim );
+            act( "$n is {RDEAD{x!!", victim, 0, 0, TO_ROOM);
+            send_to_char("You have been {RKILLED{x!!\n\r\n\r", victim);
             break;
         default:
             break;
     }
 
     // The character is dead, commence with officially killing them off
-    if ( victim->position == POS_DEAD )
+    if (victim->position == POS_DEAD)
     {
+        char buf[MAX_STRING_LENGTH];
+
         // EXP penalty for dying
         if ( victim->exp > exp_per_level(victim,victim->pcdata->points) * victim->level )
         {
-            gain_exp( victim, (2 * (exp_per_level(victim,victim->pcdata->points)
+            gain_exp(victim, (2 * (exp_per_level(victim,victim->pcdata->points)
                                  * victim->level - victim->exp)/3) + 50 );
         }
 
-	if (dt == DAM_DROWNING)
-	{
-            sprintf(log_buf, "%s drowns at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
-	}
-	else
-	{
-            sprintf( log_buf, "%s was killed at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
-	}
+	    if (dt == DAM_DROWNING)
+	    {
+            sprintf(buf, "%s drowns at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
+	    }
+	    else
+	    {
+            sprintf(buf, "%s was killed at %s [room %d]", victim->name, victim->in_room->name, victim->in_room->vnum);
+	    }
 
-       // Report the death and finish the process
-       wiznet(log_buf,NULL,NULL,WIZ_DEATHS,0,0);
-       log_string (log_buf);
-       raw_kill( victim );
-       return;
+        // Report the death and finish the process
+        wiznet(buf, NULL, NULL, WIZ_DEATHS, 0, 0);
+        log_string(buf);
+        raw_kill(victim);
+        return;
 
     }
+
 } // end check_death

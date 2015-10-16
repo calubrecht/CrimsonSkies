@@ -47,7 +47,7 @@
     //#include <winsock.h>
     #include <WinSock2.h>
     #include "telnet.h"
-    #include <sys/timeb.h> 
+    #include <sys/timeb.h>
 #else
     #include <sys/types.h>
     #include <sys/time.h>
@@ -731,8 +731,7 @@ void init_descriptor (int control)
         sprintf (buf, "%d.%d.%d.%d",
                  (addr >> 24) & 0xFF, (addr >> 16) & 0xFF,
                  (addr >> 8) & 0xFF, (addr) & 0xFF);
-        sprintf (log_buf, "Sock.sinaddr:  %s", buf);
-        log_string (log_buf);
+        log_f("Sock.sinaddr:  %s", buf);
 
 #if !defined(_WIN32)
         from = gethostbyaddr ((char *) &sock.sin_addr,
@@ -815,8 +814,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 
     if ((ch = dclose->character) != NULL)
     {
-        sprintf (log_buf, "Closing link to %s.", ch->name);
-        log_string (log_buf);
+        log_f("Closing link to %s.", ch->name);
         /* cut down on wiznet spam when rebooting */
 
         /* If ch is writing note or playing, just lose link otherwise clear char */
@@ -884,10 +882,8 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     iStart = strlen (d->inbuf);
     if (iStart >= sizeof (d->inbuf) - 10)
     {
-        sprintf (log_buf, "%s input overflow!", d->host);
-        log_string (log_buf);
-        write_to_descriptor (d->descriptor,
-                             "\n\r*** PUT A LID ON IT!!! ***\n\r", 0, d);
+        log_f("%s input overflow!", d->host);
+        write_to_descriptor (d->descriptor, "\n\r*** PUT A LID ON IT!!! ***\n\r", 0, d);
         return FALSE;
     }
 
@@ -1020,8 +1016,7 @@ void read_from_buffer (DESCRIPTOR_DATA * d)
             if (++d->repeat >= 25 && d->character
                 && d->connected == CON_PLAYING)
             {
-                sprintf (log_buf, "%s input spamming!", d->host);
-                log_string (log_buf);
+                log_f("%s input spamming!", d->host);
                 wiznet ("Spam spam spam $N spam spam spam spam spam!",
                         d->character, NULL, WIZ_SPAM, 0,
                         get_trust (d->character));
@@ -1773,8 +1768,9 @@ bool check_parse_name (char *name)
         }
         if (count)
         {
-            sprintf(log_buf,"Double newbie alert (%s)",name);
-            wiznet(log_buf,NULL,NULL,WIZ_LOGINS,0,0);
+            char buf[MAX_STRING_LENGTH];
+            sprintf(buf,"Double newbie alert (%s)",name);
+            wiznet(buf, NULL, NULL, WIZ_LOGINS, 0, 0);
 
             return FALSE;
         }
@@ -1809,15 +1805,11 @@ bool check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
                 d->character = ch;
                 ch->desc = d;
                 ch->timer = 0;
-                send_to_char
-                    ("Reconnecting. Type replay to see missed tells.\n\r",
-                     ch);
+                send_to_char("Reconnecting. Type replay to see missed tells.\n\r", ch);
                 act ("$n has reconnected.", ch, NULL, NULL, TO_ROOM);
 
-                sprintf (log_buf, "%s@%s reconnected.", ch->name, d->host);
-                log_string (log_buf);
-                wiznet ("$N groks the fullness of $S link.",
-                        ch, NULL, WIZ_LINKS, 0, 0);
+                log_f("%s@%s reconnected.", ch->name, d->host);
+                wiznet ("$N groks the fullness of $S link.", ch, NULL, WIZ_LINKS, 0, 0);
                 d->connected = CON_PLAYING;
             }
             return TRUE;

@@ -189,9 +189,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             if (IS_SET (ch->act, PLR_DENY))
             {
-                sprintf (log_buf, "Denying access to %s@%s.", argument,
-                         d->host);
-                log_string (log_buf);
+                log_f("Denying access to %s@%s.", argument, d->host);
                 send_to_desc ("You are denied access.\n\r", d);
                 close_socket (d);
                 return;
@@ -264,9 +262,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 send_to_desc ("Wrong password.\n\r", d);
 
                 // Log the failed login attempt using WIZ_SITES
-                sprintf (log_buf, "%s@%s entered an incorrect password.", ch->name, d->host);
-                log_string (log_buf);
-                wiznet (log_buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
+                sprintf (buf, "%s@%s entered an incorrect password.", ch->name, d->host);
+                log_string (buf);
+                wiznet (buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
 
                 close_socket (d);
                 return;
@@ -280,9 +278,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             if (check_reconnect (d, ch->name, TRUE))
                 return;
 
-            sprintf (log_buf, "%s@%s has connected.", ch->name, d->host);
-            log_string (log_buf);
-            wiznet (log_buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
+            sprintf (buf, "%s@%s has connected.", ch->name, d->host);
+            log_string (buf);
+            wiznet (buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
 
             if (ch->desc->ansi)
                 SET_BIT (ch->act, PLR_COLOR);
@@ -594,10 +592,10 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
             ch->class = iClass;
 
-            sprintf (log_buf, "%s@%s new player.", ch->name, d->host);
-            log_string (log_buf);
+            sprintf (buf, "%s@%s new player.", ch->name, d->host);
+            log_string (buf);
             wiznet ("Newbie alert!  $N sighted.", ch, NULL, WIZ_NEWBIE, 0, 0);
-            wiznet (log_buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
+            wiznet (buf, NULL, NULL, WIZ_SITES, 0, get_trust (ch));
 
             write_to_buffer (d, "\n\r", 2);
             send_to_desc ("You may be good, neutral, or evil.\n\r", d);

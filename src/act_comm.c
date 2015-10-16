@@ -1329,12 +1329,10 @@ void do_quit (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    send_to_char ("Alas, all good things must come to an end.\n\r", ch);
-    act ("$n has left the game.", ch, NULL, NULL, TO_ROOM);
-    sprintf (log_buf, "%s has quit.", ch->name);
-    log_string (log_buf);
-    wiznet ("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0,
-            get_trust (ch));
+    send_to_char("Alas, all good things must come to an end.\n\r", ch);
+    act("$n has left the game.", ch, NULL, NULL, TO_ROOM);
+    log_f("%s has quit.", ch->name);
+    wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0, get_trust (ch));
 
     /*
      * After extract_char the ch is no longer valid!
