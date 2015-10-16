@@ -2081,6 +2081,7 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 
 #define BAN_FILE            "../system/ban.dat"
 #define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
+#define SETTINGS_FILE       "../system/settings.dat"
 
 /*
  * Our function prototypes.

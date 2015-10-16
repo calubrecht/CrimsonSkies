@@ -3178,10 +3178,11 @@ void do_wizlock(CHAR_DATA * ch, char *argument)
         send_to_char("Game un-wizlocked.\n\r", ch);
     }
 
+    // Save the settings out to file.
+    do_asave(ch, "settings");
+
     return;
 }
-
-/* RT anti-newbie code */
 
 /*
  * Command that allows an immortal to lock out new players.
@@ -3200,6 +3201,9 @@ void do_newlock (CHAR_DATA * ch, char *argument)
         wiznet("$N allows new characters back in.", ch, NULL, 0, 0, 0);
         send_to_char("Newlock removed.\n\r", ch);
     }
+
+    // Save the settings out to file.
+    do_asave(ch, "settings");
 
     return;
 }

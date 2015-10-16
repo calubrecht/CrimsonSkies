@@ -1148,6 +1148,36 @@ void fwrite_skill(FILE *fp, int sn)
 
 } // end fwrite_skill
 
+/*
+ * Saves all of the game settings to file.
+ */
+void save_settings(void)
+{
+    FILE *fp;
+
+    fclose(fpReserve);
+    fp = fopen (SETTINGS_FILE, "w");
+
+    if (!fp)
+    {
+        bug ("Could not open SETTINGS_FILE for writing.",0);
+        return;
+    }
+
+    // Locks / Bonuses
+    fprintf(fp, "WizLock         %d~\n", settings.wizlock);
+    fprintf(fp, "NewLock         %d~\n", settings.newlock);
+    fprintf(fp, "DoubleExp       %d~\n", settings.double_exp);
+    fprintf(fp, "DoubleGold      %d~\n", settings.double_gold);
+    // Game Mechanics
+    fprintf(fp, "ShockSpread     %d~\n", settings.shock_spread);
+
+    fprintf( fp, "#END\n" );
+    fclose(fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end save_settings
+
 /*****************************************************************************
  Name:       do_asave
  Purpose:    Entry point for saving area data.
@@ -1176,6 +1206,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
             send_to_char("  asave classes  - saves the class files\n\r", ch);
             send_to_char("  asave skills   - saves the skills file\n\r", ch);
             send_to_char("  asave creation - saves the skills, groups and classes\n\r", ch);
+            send_to_char("  asave settings - saves the current game settings\n\r", ch);
             send_to_char("\n\r", ch);
         }
 
@@ -1319,6 +1350,15 @@ void do_asave (CHAR_DATA * ch, char *argument)
         save_groups();
         save_classes();
         send_to_char("Skills, groups and classes saved.\n\r", ch);
+        return;
+    }
+
+    /* Saves the game settings out to the settings file */
+    if (!str_cmp(arg1, "settings"))
+    {
+        save_settings();
+        send_to_char("Game settings have been saved.\n\r", ch);
+        log_f("Game settings save was triggered by %s.", ch->name);
         return;
     }
 

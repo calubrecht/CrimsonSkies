@@ -188,6 +188,7 @@ void fix_mobprogs args ((void));
 void reset_area args ((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
+void load_settings args((void));
 void load_skills args((void));
 void load_game_objects args((void));
 void assign_gsn args((void));
@@ -268,8 +269,12 @@ void boot_db ()
 
     }
 
+    log_string("STATUS: Loading Settings");
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
+    load_settings();
+
     log_string("STATUS: Loading Skills");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", FALSE, TRUE);
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", TRUE, TRUE);
     load_skills();
     log_f("STATUS: %d Skills Loaded", top_sn);
 
@@ -4365,6 +4370,14 @@ SKILLTYPE *fread_skill( FILE *fp)
         }
     }
     return skill;
+}
+
+/*
+ * Loads the game settings from the settings.dat file.
+ */
+void load_settings()
+{
+    return;
 }
 
 /*
