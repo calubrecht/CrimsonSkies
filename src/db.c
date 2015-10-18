@@ -4377,8 +4377,25 @@ SKILLTYPE *fread_skill( FILE *fp)
  */
 void load_settings()
 {
+    FILE *fp;
+    fclose( fpReserve );
+    fp = fopen (SETTINGS_FILE, "r");
+
+    if (!fp)
+    {
+        log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
+        fpReserve = fopen( NULL_FILE, "r" );
+        return;
+    }
+
+    // marker - TODO - finish load settings code to load by key.
+
+    fclose (fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
     return;
-}
+
+} // end load_settings
 
 /*
  * Saves certain items types that will persist across copyovers and
@@ -4506,7 +4523,7 @@ void load_game_objects(void)
     }
     else
     {
-        log_f("%s was not found", SAVED_OBJECT_FILE);
+        log_f("WARNING: %s was not found", SAVED_OBJECT_FILE);
     }
 
     fpReserve = fopen(NULL_FILE, "r");
