@@ -11,7 +11,7 @@ Syntax: EDIT SKILL [create] <name>           - Creates a skill.
 
 Syntax: ASAVE  <world/area/changed/list      - Save Editing to Disk.
                 groups/classes/skills
-                creation>
+                creation/settings>
 Syntax: ALIST                                - Listing of Areas.
 Syntax: RESET  See Help Resets.              - Set Game Resets.
 
