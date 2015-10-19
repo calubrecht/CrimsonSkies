@@ -81,15 +81,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bladesinger reposition skill.
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
   - Make lore do something (like give info about the item when looked at)
-  - Guild rooms are busted, the logic check fell apart once we added new classes.  To fix, add
-    a guild room bit, then if a user tries to move into it then check their guild numbers.  The
-    bug I created was because reclasses shared guild rooms with their base class.  This will also
-    stop having to loop over all classes and all their guilds every room movement, which after we
-    add 20+ classes will be needless overhead (when only currently 8 rooms are guild rooms in the
-    game out of 3000+ rooms).
   - rwhere command to find room by keyword and return room name/vnum.
   - Count number of items in the pit + their actual count.
   - Command to globally purge the pits.
   - Look at the auto saving code and make sure it's working right.
-  - Add banish faerie fire spell to healers.
   - Check looting
+  - Add guild room names and area names to class command.
