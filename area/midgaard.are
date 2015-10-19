@@ -225,7 +225,7 @@ vast amount of knowledge she possesses. She is wearing fine magic clothing,
 and you notice that she is surrounded by a blue shimmering aura.
 ~
 elf~
-ABKRV DEFJZ 3 0
+ABJKRV DEFJZ 3 0
 36 0 1d1+1999 1d1+999 3d8+24 magic
 -15 -15 -15 -15
 FG ABCD B Z
@@ -240,7 +240,7 @@ You are in no doubt that this guildmaster is truly close to your god; he has
 a peaceful, loving look. You notice that he is surrounded by a white aura.
 ~
 human~
-ABKQV CDEFHZ 3 0
+ABJKQV CDEFHZ 3 0
 36 0 1d1+1999 1d1+999 3d8+24 divine
 -15 -15 -15 -15
 EFHIK ABCD 0 0
@@ -256,7 +256,7 @@ the way of the true thief.  She is dressed in poor clothing, having
 the appearance of a beggar.
 human~
 unique~
-ABKSV DFZ 3 0
+ABJKSV DFZ 3 0
 36 0 1d1+1999 1d1+199 3d8+24 punch
 -15 -15 -15 -15
 BEFHJN ABCD 0 0
@@ -4783,7 +4783,7 @@ Cleric's Bar~
 The bar is one of the finest in the land, lucky it is members only.  Fine
 furniture is set all around the room.  A small sign is hanging on the wall.
 ~
-0 262156 0
+0 262188 0
 E
 sign~
 The sign reads:
@@ -5163,7 +5163,7 @@ Mage's Bar~
 The bar is one of the wierdest in the land.  Mystical images float around
 the air.  Illusions of fine furniture appear all around the room.
 ~
-0 262156 0
+0 262188 0
 D0
 You see the lobby.
 ~
@@ -5247,7 +5247,7 @@ The bar of swordsmen, once upon a time beautifully furnished.  But now the
 furniture is all around you in small pieces.  To the south is the yard, and
 to the west is the entrance hall.
 ~
-0 262156 0
+0 262188 0
 D2
 You see the practice yard.
 ~
@@ -5390,7 +5390,7 @@ furnished, but now it seems almost empty.  To the south is the yard, and to
 the west is the entrance hall.
    (Maybe the furniture has been stolen?!)
 ~
-0 262156 0
+0 262188 0
 E
 furniture~
 As you look at the furniture, the chair you sit on disappears.
@@ -6204,7 +6204,7 @@ G 0 3167 0 A map of new thalos  is given to Melancholy
 G 0 3166 0 A map of the first level of moria is given to Melancholy
 G 0 3165 0 A map of the dwarven kingdom is given to Melancholy
 G 0 3164 0 A map of southern midgaard is given to Melancholy
-G 0 3163 0 A map of arcadis is given to Melancholy
+G 0 3163 0 A map of arcanis is given to Melancholy
 G 0 3162 0 A map of the city of midgaard is given to Melancholy
 M 0 3161 1 3160 1 Load Lister
 M 0 3071 2 3255 2 Load the cityguard

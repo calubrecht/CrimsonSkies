@@ -116,21 +116,28 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
 
     if (!IS_NPC (ch))
     {
-        int iClass, iGuild;
+        int iGuild;
         int move;
 
-
-        for (iClass = 0; iClass < top_class; iClass++)
+        // Is it a guild room?  If so, see if they can go in.
+        if (IS_SET(to_room->room_flags, ROOM_GUILD))
         {
+            bool guildFound = FALSE;
+
             for (iGuild = 0; iGuild < MAX_GUILD; iGuild++)
             {
-                if (iClass != ch->class
-                    && to_room->vnum == class_table[iClass]->guild[iGuild])
+                if (to_room->vnum == class_table[ch->class]->guild[iGuild])
                 {
-                    send_to_char ("You aren't allowed in there.\n\r", ch);
-                    return;
+                    guildFound = TRUE;
                 }
             }
+
+            if (!guildFound)
+            {
+                send_to_char("That is not your guild.  You aren't allowed in there.\n\r", ch);
+                return;
+            }
+
         }
 
         if (in_room->sector_type == SECT_AIR

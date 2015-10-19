@@ -386,6 +386,7 @@ const struct flag_type room_flags[] = {
     {"nowhere", ROOM_NOWHERE, TRUE},
     {"arena", ROOM_ARENA, TRUE}, /* Arena where a player can die and not lose items */
     {"no_gate", ROOM_NO_GATE, TRUE},
+    {"guild", ROOM_GUILD, TRUE},
     {NULL, 0, 0}
 };
 

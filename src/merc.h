@@ -1111,10 +1111,11 @@ struct settings_data
  * Used in #ROOMS.
  */
 #define ROOM_DARK         (A)
-#define ROOM_ARENA        (B) /* Arena where player can die and not lose items */
+#define ROOM_ARENA        (B) // Arena where player can die and not lose items
 #define ROOM_NO_MOB       (C)
 #define ROOM_INDOORS      (D)
 #define ROOM_NO_GATE      (E)
+#define ROOM_GUILD        (F) // A guild room for a class (the actually guild vnums are defined in the class).
 #define ROOM_PRIVATE      (J)
 #define ROOM_SAFE         (K)
 #define ROOM_SOLITARY     (L)
