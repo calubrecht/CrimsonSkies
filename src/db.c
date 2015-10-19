@@ -4373,11 +4373,19 @@ SKILLTYPE *fread_skill( FILE *fp)
 }
 
 /*
- * Loads the game settings from the settings.dat file.
+ * Loads the game settings from the settings.dat file.  I skipped using the KEY macro in this
+ * case an opt'd for an if ladder.  If an invalid setting is found in the file it will attempt to
+ * log it.  I don't read ahead on that value in case it's corrupt, I want to hit the #END marker
+ * eventually and get out without crashing (if an unfound setting is logged, it will then read in
+ * its value if it has one and do the if/else on it.. looking for a 0 or 1 case maybe that won't
+ * be found).  This file should only be generated through the game or OLC so this case shouldn't
+ * happen.  - Rhien.
  */
 void load_settings()
 {
     FILE *fp;
+    char *word;
+
     fclose( fpReserve );
     fp = fopen (SETTINGS_FILE, "r");
 
@@ -4388,10 +4396,39 @@ void load_settings()
         return;
     }
 
-    // marker - TODO - finish load settings code to load by key.
+    for (;;)
+    {
+        word = feof(fp) ? "#END" : fread_word(fp);
 
-    fclose (fp);
-    fpReserve = fopen( NULL_FILE, "r" );
+        // End marker?  Exit cleanly
+        if (!str_cmp(word, "#END"))
+            return;
+
+        if (!str_cmp(word, "WizLock"))
+        {
+            settings.wizlock = fread_number(fp);
+        }
+        else if (!str_cmp(word, "NewLock"))
+        {
+            settings.newlock = fread_number(fp);
+        }
+        else if (!str_cmp(word, "DoubleExp"))
+        {
+            settings.double_exp = fread_number(fp);
+        }
+        else if (!str_cmp(word, "ShockSpread"))
+        {
+            settings.shock_spread = fread_number(fp);
+        }
+        else
+        {
+            log_f("Invalid setting '%s' found.", word);
+        }
+
+    }
+
+    fclose(fp);
+    fpReserve = fopen(NULL_FILE, "r");
 
     return;
 

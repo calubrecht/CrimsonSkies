@@ -1165,12 +1165,12 @@ void save_settings(void)
     }
 
     // Locks / Bonuses
-    fprintf(fp, "WizLock         %d~\n", settings.wizlock);
-    fprintf(fp, "NewLock         %d~\n", settings.newlock);
-    fprintf(fp, "DoubleExp       %d~\n", settings.double_exp);
-    fprintf(fp, "DoubleGold      %d~\n", settings.double_gold);
+    fprintf(fp, "WizLock         %d\n", settings.wizlock);
+    fprintf(fp, "NewLock         %d\n", settings.newlock);
+    fprintf(fp, "DoubleExp       %d\n", settings.double_exp);
+    fprintf(fp, "DoubleGold      %d\n", settings.double_gold);
     // Game Mechanics
-    fprintf(fp, "ShockSpread     %d~\n", settings.shock_spread);
+    fprintf(fp, "ShockSpread     %d\n", settings.shock_spread);
 
     fprintf( fp, "#END\n" );
     fclose(fp);
