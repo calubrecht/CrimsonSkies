@@ -421,7 +421,7 @@ void boot_db ()
  * OLC
  * Use these macros to load any new area formats that you choose to
  * support on your MUD.  See the load_area format below for
- * a short example.
+ * a short example. 
  */
 #if defined(KEY)
 #undef KEY
@@ -538,8 +538,14 @@ void load_area (FILE * fp)
 
                 break;
         }
+
+        if (!fMatch)
+        {
+            bugf("load_area key not found: %s", word);
+        }
+
     }
-}
+} // end load_area
 
 /*
  * Sets vnum range for area using OLC protection features.
@@ -4093,6 +4099,12 @@ bool load_class (char *fname)
                 KEY("Weapon",      	class->weapon, 		fread_number(fp) );
                 break;
         }
+
+        if (!fMatch)
+        {
+            bugf("load_class key not found: %s", word);
+        }
+
     }
 } // end bool load_class
 
