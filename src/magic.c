@@ -1175,7 +1175,7 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (check_dispel (level, victim, skill_lookup ("faerie fire")))
     {
-        act ("$n's outline fades.", victim, NULL, NULL, TO_ROOM);
+        act ("The pink outline around $n fades away.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2342,7 +2342,7 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (check_dispel (level, victim, skill_lookup ("faerie fire")))
     {
-        act ("$n's outline fades.", victim, NULL, NULL, TO_ROOM);
+        act ("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -5214,6 +5214,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_ray_of_truth" )) return spell_ray_of_truth;
             if ( !str_cmp( name, "spell_recharge" )) return spell_recharge;
             if ( !str_cmp( name, "spell_remove_curse" )) return spell_remove_curse;
+            if ( !str_cmp( name, "spell_remove_faerie_fire" )) return spell_remove_faerie_fire;
             if ( !str_cmp( name, "spell_restore_mental_presence" )) return spell_restore_mental_presence;
             break;
         case 's':
@@ -5384,6 +5385,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_song_of_dissonance) return "spell_song_of_dissonance";
     if (spell == spell_healers_bind) return "spell_healers_bind";
     if (spell == spell_cure_deafness) return "spell_cure_deafness";
+    if (spell == spell_remove_faerie_fire) return "spell_remove_faerie_fire";
 
     return "reserved";
 

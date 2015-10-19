@@ -1760,4 +1760,14 @@ MinMana     0
 Beats       12
 End
 
+#SKILL
+Name        remove faerie fire~
+SpellFun    spell_remove_faerie_fire~
+Target      2
+MinPos      7
+MinMana     10
+Beats       12
+MsgOff      !Remove Faerie Fire!~
+End
+
 #END

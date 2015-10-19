@@ -607,3 +607,34 @@ void spell_cure_deafness(int sn, int level, CHAR_DATA * ch, void *vo, int target
     }
 
 } // end spell_cure_deafness
+
+/*
+ * Spell to remove faerie fire outline from an individual
+ */
+void spell_remove_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+
+    if (!IS_AFFECTED(victim, AFF_FAERIE_FIRE))
+    {
+        if (victim == ch)
+        {
+            send_to_char ("You aren't afflicted by faerie fire.\n\r", ch);
+        }
+        else
+        {
+            act ("$N doesn't appear to be afflicted by faerie fire.", ch, NULL, victim, TO_CHAR);
+        }
+        return;
+    }
+
+    if (check_dispel(level + 3, victim, skill_lookup("faerie fire")))
+    {
+        act("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
+    }
+    else
+    {
+        send_to_char("Spell failed.\n\r", ch);
+    }
+
+} // end spell_remove_faerie_fire
