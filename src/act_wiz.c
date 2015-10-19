@@ -1787,6 +1787,7 @@ void do_ofind (CHAR_DATA * ch, char *argument)
     int nMatch;
     bool fAll;
     bool found;
+    bool showHeader;
 
     one_argument (argument, arg);
     if (arg[0] == '\0')
@@ -1797,6 +1798,7 @@ void do_ofind (CHAR_DATA * ch, char *argument)
 
     fAll = FALSE;                /* !str_cmp( arg, "all" ); */
     found = FALSE;
+    showHeader = FALSE;
     nMatch = 0;
 
     /*
@@ -1805,8 +1807,6 @@ void do_ofind (CHAR_DATA * ch, char *argument)
      * Do you?
      * -- Furey
      */
-    send_to_char("[Lv  Vnum] [Object]\n\r", ch);
-
     for (vnum = 0; nMatch < top_obj_index; vnum++)
     {
         if ((pObjIndex = get_obj_index (vnum)) != NULL)
@@ -1814,6 +1814,12 @@ void do_ofind (CHAR_DATA * ch, char *argument)
             nMatch++;
             if (fAll || is_name (argument, pObjIndex->name))
             {
+                if (!showHeader)
+                {
+                    send_to_char("[Lv  Vnum] [Object]\n\r", ch);
+                    showHeader = TRUE;
+                }
+
                 found = TRUE;
                 sprintf (buf, "[%2d %5d] %s\n\r",
                          pObjIndex->level, pObjIndex->vnum, pObjIndex->short_descr);
