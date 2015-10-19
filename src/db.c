@@ -534,6 +534,7 @@ void load_area (FILE * fp)
                 if (!str_cmp(word, "Continent"))
                 {
                     pArea->continent = fread_number(fp);
+                    fMatch = TRUE;
                 }
 
                 break;
