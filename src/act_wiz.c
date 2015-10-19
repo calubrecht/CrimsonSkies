@@ -1805,6 +1805,8 @@ void do_ofind (CHAR_DATA * ch, char *argument)
      * Do you?
      * -- Furey
      */
+    send_to_char("[Lv  Vnum] [Object]\n\r", ch);
+
     for (vnum = 0; nMatch < top_obj_index; vnum++)
     {
         if ((pObjIndex = get_obj_index (vnum)) != NULL)
@@ -1813,8 +1815,8 @@ void do_ofind (CHAR_DATA * ch, char *argument)
             if (fAll || is_name (argument, pObjIndex->name))
             {
                 found = TRUE;
-                sprintf (buf, "[%5d] %s\n\r",
-                         pObjIndex->vnum, pObjIndex->short_descr);
+                sprintf (buf, "[%2d %5d] %s\n\r",
+                         pObjIndex->level, pObjIndex->vnum, pObjIndex->short_descr);
                 send_to_char (buf, ch);
             }
         }
