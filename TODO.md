@@ -85,3 +85,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at the auto saving code and make sure it's working right.
   - Check looting
   - Add guild room names and area names to class command.
+  - Disable gain convert, potentially give more HP per train to compenstate and really make practices
+    about learning skills or practicing something (like a language, etc.).
