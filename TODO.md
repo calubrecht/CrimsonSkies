@@ -5,11 +5,9 @@ This is my to do list, mostly will be things big and small as I think about them
 
   - Add custom recall field for each clan in the tables struct.
   - Add command so anyone can go loner.
-  - Create a branch that is bare bones (one area, skills and spells removed, etc so that you can 
-    start with a working code base that literally has to be built from the ground up with the 
-    exception of the plumping for socket server, pfile handling, area loading, that are necessary
-    for it to run)
   - Add Charisma stat (CHA)
+  - Anti-magic areas
+  - Add more items to be sold in Midgaard for 15-20 levels.
   - Fighting Style (Offensive/Normal/Defensive)
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
