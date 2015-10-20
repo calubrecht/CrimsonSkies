@@ -67,7 +67,7 @@ Sk 'lightning bolt' 15 1
 Sk 'enchant armor' 16 2
 Sk 'fireproof' 16 1
 Sk 'fly' 16 1
-Sk 'circle stab' 16 2
+Sk 'circle stab' 20 2
 Sk 'create spring' 17 1
 Sk 'enchant weapon' 17 2
 Sk 'refresh' 17 1
@@ -84,7 +84,7 @@ Sk 'create rose' 20 1
 Sk 'giant strength' 20 1
 Sk 'enhanced damage' 20 4
 Sk 'third attack' 20 4
-Sk 'circle' 20 2
+Sk 'circle' 16 2
 Sk 'curse' 22 1
 Sk 'energy drain' 22 1
 Sk 'summon' 22 1
