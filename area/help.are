@@ -590,13 +590,16 @@ to the mud implementors.
 
 0 AREAS COMMANDS REPORT SCORE TIME~
 Syntax: areas
+Syntax: area recommend
 Syntax: commands
 Syntax: report
 Syntax: score
 Syntax: time
 Syntax: weather
 
-AREAS shows you a list of areas in the game.
+AREAS shows you a list of areas in the game.  If you include the 'recommend'
+argument like 'area recommend' the area list will then be filtered to just
+the areas that are in your level range.
 
 COMMANDS shows you all the commands in the game.
 

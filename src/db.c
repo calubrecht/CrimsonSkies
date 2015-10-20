@@ -198,7 +198,7 @@ SPELL_FUN  *spell_function_lookup args(( char *name ));
 /* For saving of PC corpses and donation pits across copyover and reboots */
 void fwrite_obj args((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest));
 void fread_obj  args((CHAR_DATA * ch, FILE * fp));
-int  area_count args((int continent));
+int  area_count args((int continent, int level));
 
 /*
  * Big mama top level function.
@@ -2665,11 +2665,13 @@ void free_string (char *pstr)
 }
 
 /*
- * List the areas in the game with the credits
+ * List the areas in the game with the credits.  The area command by default will show you
+ * all of the areas.  If you provide the optional 'recommend' flag it will only show you
+ * areas in your level range.  - Rhien.
  */
 void do_areas (CHAR_DATA * ch, char *argument)
 {
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         return;
 
     BUFFER *output;
@@ -2677,6 +2679,12 @@ void do_areas (CHAR_DATA * ch, char *argument)
     char border[MAX_STRING_LENGTH];
     AREA_DATA *pArea;
     int continent;
+    bool recommend = FALSE;
+
+    if (!IS_NULLSTR(argument) && !str_cmp(argument, "recommend"))
+    {
+        recommend = TRUE;
+    }
 
     output = new_buf();
 
@@ -2685,9 +2693,18 @@ void do_areas (CHAR_DATA * ch, char *argument)
     for (continent = 0; continent_table[continent].name != NULL; continent++)
     {
         // Send the continent
-        sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent));
-        add_buf(output, buf);
+        if (!recommend)
+        {
+            // All levels
+            sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent, -1));
+        }
+        else
+        {
+            // Recommended only the players levels shown.
+            sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent, ch->level));
+        }
 
+        add_buf(output, buf);
         add_buf(output, border);
 
         // Send the header
@@ -2701,9 +2718,23 @@ void do_areas (CHAR_DATA * ch, char *argument)
             if (pArea->continent != continent)
                 continue;
 
-            sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
-                pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
-            add_buf(output, buf);
+            if (!recommend)
+            {
+                // This is the general area command with now parameters, it will show you all of the
+                // areas.
+                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
+                    pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+                add_buf(output, buf);
+            }
+            else if (recommend && (ch->level >= pArea->min_level && ch->level <= pArea->max_level))
+            {
+                // This is the area command witht he 'recommend' flag.  It will show you only areas
+                // that fall within your level range.
+                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
+                    pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
+                add_buf(output, buf);
+            }
+
         }
 
         // Bottom Border
@@ -2713,7 +2744,15 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
     }
 
-    sprintf(buf, "{CTotal Areas: %d{x\n\r", area_count(-1));
+    if (!recommend)
+    {
+        sprintf(buf, "{CTotal Areas: %d (Use 'area recommend' to see areas in your level range){x\n\r\n\r", area_count(-1, -1));
+    }
+    else
+    {
+        sprintf(buf, "{CTotal Recommend Areas: %d{x\n\r\n\r", area_count(-1, ch->level));
+    }
+
     add_buf(output, buf);
 
     page_to_char(buf_string(output),ch);
@@ -2722,9 +2761,10 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
 /*
  * Returns the number of areas on a specified continent.  If -1 is supplied for
- * the continent number then all areas will be counted.
+ * the continent number then all areas will be counted.  The level will indicate
+ * whether the area falls in the level range.  If it is -1 it will be ignored.
  */
-int area_count(int continent)
+int area_count(int continent, int level)
 {
     AREA_DATA *pArea;
     int counter=0;
@@ -2734,8 +2774,23 @@ int area_count(int continent)
         if (pArea == NULL)
             break;
 
-        if (pArea->continent == continent || continent == -1)
-            counter++;
+        if (level == -1)
+        {
+            if (pArea->continent == continent || continent == -1)
+            {
+                counter++;
+            }
+        }
+        else
+        {
+            if (pArea->continent == continent || continent == -1)
+            {
+                if (pArea->min_level <= level && pArea->max_level >= level)
+                {
+                    counter++;
+                }
+            }
+        }
     }
 
     return counter;
