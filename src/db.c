@@ -4484,6 +4484,10 @@ void load_settings()
         {
             settings.double_exp = fread_number(fp);
         }
+        else if (!str_cmp(word, "DoubleGold"))
+        {
+            settings.double_gold = fread_number(fp);
+        }
         else if (!str_cmp(word, "ShockSpread"))
         {
             settings.shock_spread = fread_number(fp);
