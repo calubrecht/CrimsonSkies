@@ -260,7 +260,7 @@ const struct cmd_type cmd_table[] = {
     {"flee",            do_flee,        POS_FIGHTING, 0, LOG_NORMAL, TRUE},
     {"kick",            do_kick,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"murde",           do_murde,       POS_FIGHTING, 0, LOG_NORMAL, FALSE},
-    {"murder",          do_murder,      POS_FIGHTING, 5, LOG_ALWAYS, TRUE},
+    {"murder",          do_murder,      POS_FIGHTING, 5, LOG_NORMAL, TRUE},
     {"rescue",          do_rescue,      POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"surrender",       do_surrender,   POS_FIGHTING, 0, LOG_NORMAL, TRUE},
     {"trip",            do_trip,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
