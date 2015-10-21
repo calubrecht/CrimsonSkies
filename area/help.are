@@ -1140,7 +1140,8 @@ pardon.
 
 56 PURGE~
 Syntax: purge
-	purge <character>
+        purge <character>
+        purge pits
 
 Purge is used to clean up the world.  Purge with no arguments removes all the
 NPC's and objects in the current room.  Purge with an argument purges one
@@ -1149,6 +1150,12 @@ character from anywhere in the world.
 Purge will not get rid of PC's, or objects or mobiles with a NOPURGE flag
 set (i.e. the pit, the fountain, shopkeepers, Hassan).  Mobiles may be
 purged if they are called directly by name.
+
+PURGE PITS will allow a coder level or above immortal to purge the contents
+of all of the pits/shelves in the world.  Pits are now saved across boots and
+even with object consolidation can become very bloated over time.  From time
+to time they may need to be cleared.
+
 ~
 
 56 RESTORE~
@@ -3005,7 +3012,8 @@ gain convert: turns 10 practices into one training session
 
 Gain uses training sessions, not practices. (see 'help train')
 Gained skills and groups do NOT increase your experience per level or total
-number of creation points. 
+number of creation points.  The gain convert option can be enabled or 
+disabled by the game administrators.
 ~
 
 52 CLONE~

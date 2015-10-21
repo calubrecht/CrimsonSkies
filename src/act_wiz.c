@@ -2604,6 +2604,21 @@ void do_purge (CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (!str_cmp(arg, "pit") || !str_cmp(arg, "pits"))
+    {
+        // Purging the pits globally requires a higher level.
+        if (ch->level < CODER)
+        {
+            send_to_char("You are not a high enough level to globally purge the pits and shelves.\n\r", ch);
+            return;
+        }
+
+        // This will purge all pits in the world.
+        empty_pits();
+        send_to_char("The contents of all of the pits in the world have been purged.\n\r", ch);
+        return;
+    }
+
     if ((victim = get_char_world (ch, arg)) == NULL)
     {
         send_to_char ("They aren't here.\n\r", ch);
@@ -5907,17 +5922,5 @@ void wizbless(CHAR_DATA * victim)
 void do_debug(CHAR_DATA * ch, char *argument)
 {
 
-    SETTINGS_DATA settings = {0};
-    settings.double_exp = TRUE;
-
-    settings.double_exp = TRUE;
-    settings.double_gold = FALSE;
-
-    if (settings.double_exp)
-        send_to_char("Yes\n\r", ch);
-    else
-        send_to_char("No\n\r", ch);
-
     return;
-
 } // end do_debug

@@ -2282,6 +2282,7 @@ void   extract_obj        args( ( OBJ_DATA *obj ) );
 void   extract_char       args( ( CHAR_DATA *ch, bool fPull ) );
 void   separate_obj       args( ( OBJ_DATA *obj ) );
 void   split_obj          args( ( OBJ_DATA *obj, int num ) );
+void   empty_pits         args( ( void ) );
 CD *   get_char_room      args( ( CHAR_DATA *ch, char *argument ) );
 CD *   get_char_world     args( ( CHAR_DATA *ch, char *argument ) );
 OD *   get_obj_type       args( ( OBJ_INDEX_DATA *pObjIndexData ) );

@@ -3505,3 +3505,53 @@ void ungroup_obj( OBJ_DATA *obj)
    for (;obj->count > 1;)
      split_obj_sub(obj, 1, TRUE);
 }
+
+/*
+ * This procedure will locate all pits in the world and empty their contents.  It is currently
+ * setup to ignore all ITEM_NOPURGE items, when we want to empty pits, we want to empty pits, since
+ * we're saving their contents across boots, this is important.
+ */
+void empty_pits(void)
+{
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA * obj;
+    OBJ_DATA * obj_next;
+    OBJ_DATA * obj_pit_item;
+    OBJ_DATA * obj_pit_item_next;
+    int base_objects_purged = 0;
+    int all_objects_purged = 0;
+    int pits_purged = 0;
+
+    // Look for all pits in the world.
+    for (obj = object_list; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->next;
+
+        if ((obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE))
+             && obj->wear_loc == WEAR_NONE
+             && obj->in_room != NULL)
+        {
+            // We have a pit, let's go through it's contents.
+            for (obj_pit_item = obj->contains; obj_pit_item; obj_pit_item = obj_pit_item_next)
+            {
+                // Get the count by items that are consolidated and their total counts.
+                all_objects_purged += obj_pit_item->count;
+                base_objects_purged++;
+
+                obj_pit_item_next = obj_pit_item->next_content;
+
+                // No need to separate, we want to dump everything in the pits.  The extract
+                // must be done after the next item is gotten from it.
+                extract_obj(obj_pit_item);
+            }
+
+            pits_purged++;
+        }
+    }
+
+    sprintf(buf, "%d pit(s) found that contained %d object(s) (%d after consolidation) were purged.", pits_purged, all_objects_purged, base_objects_purged);
+    log_string(buf);
+
+    return;
+
+} // end empty_pits
