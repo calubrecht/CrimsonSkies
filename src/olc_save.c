@@ -1171,6 +1171,7 @@ void save_settings(void)
     fprintf(fp, "DoubleGold      %d\n", settings.double_gold);
     // Game Mechanics
     fprintf(fp, "ShockSpread     %d\n", settings.shock_spread);
+    fprintf(fp, "GainConvert     %d\n", settings.gain_convert);
 
     fprintf( fp, "#END\n" );
     fclose(fp);

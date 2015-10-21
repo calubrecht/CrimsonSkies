@@ -135,10 +135,15 @@ void do_gain (CHAR_DATA * ch, char *argument)
 
     if (!str_prefix (arg, "convert"))
     {
+        if (!settings.gain_convert)
+        {
+            act ("$N tells you 'We do not allow that currently.'", ch, NULL, trainer, TO_CHAR);
+            return;
+        }
+
         if (ch->practice < 10)
         {
-            act ("$N tells you 'You are not yet ready.'",
-                 ch, NULL, trainer, TO_CHAR);
+            act ("$N tells you 'You are not yet ready.'", ch, NULL, trainer, TO_CHAR);
             return;
         }
 

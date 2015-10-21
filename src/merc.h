@@ -541,6 +541,7 @@ struct settings_data
     bool wizlock;      // Only immortals can login
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
+    bool gain_convert; // Whether or not gain convert is enabled.
 };
 
 /***************************************************************************

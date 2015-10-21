@@ -4488,6 +4488,10 @@ void load_settings()
         {
             settings.shock_spread = fread_number(fp);
         }
+        else if (!str_cmp(word, "GainConvert"))
+        {
+            settings.gain_convert = fread_number(fp);
+        }
         else
         {
             log_f("Invalid setting '%s' found.", word);
