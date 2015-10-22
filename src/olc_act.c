@@ -428,6 +428,8 @@ REDIT(redit_mlist)
     fAll = !str_cmp(arg, "all");
     found = FALSE;
 
+    send_to_char("[Lv  Vnum] [Mob Name]              [Lv  Vnum] [Mob Name]\n\r", ch);
+
     for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
         if ((pMobIndex = get_mob_index(vnum)) != NULL)
@@ -435,11 +437,13 @@ REDIT(redit_mlist)
             if (fAll || is_name(arg, pMobIndex->player_name))
             {
                 found = TRUE;
-                sprintf(buf, "[%5d] %-17.16s",
+                sprintf(buf, "[%s%2d{x %5d] %-24.23s",
+                    pMobIndex->level < 0 ? "{R" : "",
+                    pMobIndex->level,
                     pMobIndex->vnum,
                     capitalize(pMobIndex->short_descr));
                 add_buf(buf1, buf);
-                if (++col % 3 == 0)
+                if (++col % 2 == 0)
                     add_buf(buf1, "\n\r");
             }
         }
@@ -451,7 +455,7 @@ REDIT(redit_mlist)
         return FALSE;
     }
 
-    if (col % 3 != 0)
+    if (col % 2 != 0)
         add_buf(buf1, "\n\r");
 
     page_to_char(buf_string(buf1), ch);
@@ -483,6 +487,8 @@ REDIT(redit_olist)
     fAll = !str_cmp(arg, "all");
     found = FALSE;
 
+    send_to_char("[Lv  Vnum] [Object Name]           [Lv  Vnum] [Object Name]", ch);
+
     for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
         if ((pObjIndex = get_obj_index(vnum)))
@@ -491,11 +497,13 @@ REDIT(redit_olist)
                 || flag_value(type_flags, arg) == pObjIndex->item_type)
             {
                 found = TRUE;
-                sprintf(buf, "[%5d] %-17.16s",
+                sprintf(buf, "[%s%2d{x %5d] %-24.23s",
+                    pObjIndex->level < 0 ? "{R" : "",
+                    pObjIndex->level,
                     pObjIndex->vnum,
                     capitalize(pObjIndex->short_descr));
                 add_buf(buf1, buf);
-                if (++col % 3 == 0)
+                if (++col % 2 == 0)
                     add_buf(buf1, "\n\r");
             }
         }
@@ -507,7 +515,7 @@ REDIT(redit_olist)
         return FALSE;
     }
 
-    if (col % 3 != 0)
+    if (col % 2 != 0)
         add_buf(buf1, "\n\r");
 
     page_to_char(buf_string(buf1), ch);
