@@ -1477,6 +1477,10 @@ void affect_strip_all(CHAR_DATA *ch)
         paf_next = paf->next;
         affect_remove (ch, paf);
     }
+
+    // Remove all affects!
+    ch->affected_by = 0;
+
 }
 
 /*
