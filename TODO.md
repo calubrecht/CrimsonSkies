@@ -14,6 +14,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Statistics.
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
+  - Add languages
   - Add ranged spells (fireball)
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
@@ -85,5 +86,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at the auto saving code and make sure it's working right.
   - Check looting
   - Add guild room names and area names to class command.
-  - Disable gain convert, potentially give more HP per train to compenstate and really make practices
-    about learning skills or practicing something (like a language, etc.).
+  - Update do_ofind to have two columns like olc olist
+  - Update do_mfind to have two columns like olc mlist
