@@ -2088,19 +2088,19 @@ Haon-Dor   |     Guild           |                 Guild     Wall Road
         Midgaard              Midgaard                       Midgaard
 ~
 #3163
-map arcanis~
-a map of Arcanis~
+map midgaard continent~
+a map of the Midgaard continent~
 A rolled up map is here.~
 paper~
 map 0 A
 A 0 0 0 0
 0 10 1500 P
 E
-map arcanis~
+map midgaard continent~
 .
-                               ===================
-                                     Arcamis
-                               ===================
+                               ==================
+                               Midgaard Continent
+                               ==================
 
                          Ciquala's
                            Lair  Olympus
@@ -2127,11 +2127,11 @@ Grove---Galaxy              Midgaard   G'harne       |            \Holy
          Clouds      Gang Land  | Graveyard  Sorrow \         \
         (Harpies)               |     \              Pyramid  Elemental
                             Miden'nir  Chapel                  Canyon
-                            (Goblins) Catacombs     
-                                       /     \
-                                 Darkness    Hell
+                          / (Goblins) Catacombs     
+                      Warlock          /     \
+                       Keep        Darkness    Hell
  
-This map shows just about all the major areas on the Arcadis continent.  This map is 
+This map shows just about all the major areas on the Midgaard continent.  This map is 
 NOT drawn to scale.  This map shows the GENERAL location of an area with respect 
 to the other areas.  Type "areas" for a complete list with suggested levels and 
 the authors.
