@@ -979,12 +979,10 @@ bool spec_guard (CHAR_DATA * ch)
     CHAR_DATA *v_next;
     CHAR_DATA *ech;
     char *crime;
-    int max_evil;
 
     if (!IS_AWAKE (ch) || ch->fighting != NULL)
         return FALSE;
 
-    max_evil = 300;
     ech = NULL;
     crime = "";
 
@@ -1000,9 +998,8 @@ bool spec_guard (CHAR_DATA * ch)
         }
 
         if (victim->fighting != NULL
-            && victim->fighting != ch && victim->alignment < max_evil)
+            && victim->fighting != ch)
         {
-            max_evil = victim->alignment;
             ech = victim;
         }
     }
