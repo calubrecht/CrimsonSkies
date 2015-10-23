@@ -1935,6 +1935,8 @@ ROOM_INDEX_DATA *get_random_room(CHAR_DATA * ch)
         if (room != NULL)
             if (can_see_room(ch, room)
                 && !room_is_private(room)
+                && room->sector_type != SECT_OCEAN
+                && room->sector_type != SECT_UNDERWATER
                 && !IS_SET(room->room_flags, ROOM_PRIVATE)
                 && !IS_SET(room->room_flags, ROOM_SOLITARY)
                 && !IS_SET(room->room_flags, ROOM_SAFE)

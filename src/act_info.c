@@ -2107,6 +2107,17 @@ void do_affects (CHAR_DATA * ch, char *argument)
         send_to_char ("You are affected by the following spells:\n\r", ch);
         for (paf = ch->affected; paf != NULL; paf = paf->next)
         {
+            if (paf->type < 0)
+            {
+                // There won't be negagive index entries in the skills table, something has
+                // gone wrong here, like eq trying to add an affect that doesn't exist.  Log
+                // the error and go on.
+                sprintf(buf, "%s had a bad affect type (%d).", ch->name, paf->type);
+                bug(buf, 0);
+                wiznet(buf, NULL, NULL, WIZ_GENERAL, 0, 0);
+                continue;
+            }
+
             if (paf_last != NULL && paf->type == paf_last->type)
             {
                 // This is part of a previous spell that has multiple affects
