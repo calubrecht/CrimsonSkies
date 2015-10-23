@@ -1,7 +1,7 @@
 #AREADATA
 Name Keep of the Warlock~
 Builders Yaegar~
-VNUMs 15700 15742
+VNUMs 15700 15743
 LevelRange 15 35
 Credits {10 35} Yaegar The Keep of the Warlock~
 Security 9
@@ -764,6 +764,55 @@ A
 2 -4
 A
 14 -150
+#15743
+map baragar keep~
+a map of baragar's keep~
+A rolled up map is here.~
+paper~
+map 0 A
+A 0 0 0 0
+0 10 0 P
+E
+map baragar keep~
+.
+                                                        Baragar's              
+                                               Roof     Chambers     (norecall)
+                                              Inner        |
+                                               Keep        =
+                                                /          |
+                                             Stairwell-=-Antechamber (norecall)
+                                                /          |
+                                                /          =
+                                                /          |
+                                                /       Alara's 
+                                                /       Chamber      (norecall)          
+                                                /                                        
+                                                /       Assassin's                                                       
+                                                /       Quarters                                                         
+                                                /          |          Guard                           Dog                
+                                                /          =          Guard                           Pits       
+                                                /          |          Guard                            |        
+                                             Stairwell-=-Antechamber  Room                             =              Roof
+                                                /          |            |                              |              Tower   
+                                                /          =            |                  Inner     Inner   Stables  /       
+                                                /          |            |                Courtyard--Courtyard   |   Guard 
+                                                /       Apprentice      =               /    |         |        =   Tower 
+                                                /       Quarters        |      Garbage Pit   |         |        |  /
+                                                /                     Inner                Inner     Inner    Inside   Before  Path
+                           Fiery              Stairwell-----------=---Keep---=-----------Courtyard--Courtyard-=-Keep-=--Keep--to the--
+                          Cavern   Treasure     /                       |                    |         |        |              Keep
+                             |       Room       /                       =                    |         |        =
+        Mines              Dark       |         /                       |                  Inner     Inner      |
+          |               Passage     =         /                     Guard              Courtyard--Courtyard  Barraks
+          |    Entryway      |        |         /                     Room               /             |             
+          |    to the----Junction-Dungeons----Dungeons                       Crocodile_Pit             =         
+Mines---Mines / Mines        |        |                                                                |          
+          |  /               =        =                                                               Dog 
+          | /                |        |                                                               Pits
+          |/                Lab    Summoning
+        Mines                        Room
+
+~
 #0
 
 
@@ -1573,6 +1622,7 @@ E 0 15716 0 5 A suit of bronze plate is loaded on the body of a keep guard
 E 0 15717 0 11 A bronze shield is loaded as a shield of a keep guard
 E 0 15718 0 6 A bronze helm is loaded over the head of a keep guard
 E 0 15719 0 16 A bronze sword is loaded wielded of a keep guard
+G 0 15743 0 A map of baragar's keep is given to a keep guard
 M 0 15709 12 15702 12 Load a keep guard
 E 0 15716 0 5 A suit of bronze plate is loaded on the body of a keep guard
 E 0 15717 0 11 A bronze shield is loaded as a shield of a keep guard
