@@ -1522,11 +1522,8 @@ void reset_room (ROOM_INDEX_DATA * pRoom)
                                               UMIN (number_fuzzy (level),
                                                     LEVEL_HERO - 1));
                         /* error message if it is too high */
-                        if (pObj->level > LastMob->level + 3
-                            || (pObj->item_type == ITEM_WEAPON
-                                && pReset->command == 'E'
-                                && pObj->level < LastMob->level - 7
-                                && pObj->level < 45)) {
+                        if (pObj->level > LastMob->level + 3)
+                        {
                             log_f ("Check Levels:");
                             log_f ("  Object: (VNUM %5d)(Level %2d) %s",
                                      pObj->pIndexData->vnum,
