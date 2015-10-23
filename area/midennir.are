@@ -529,9 +529,9 @@ The forest continues.
 S
 #3515
 Light Forest~
-The forest is light here and you can easily pick your way through the 
-trail.  To the east, the forest becomes thick and darker. South, the trail
-continues.
+The forest is light here and you can easily pick your way through the
+trail.  To the east, the forest becomes thick and darker.  South, the trail
+continues.  To the west what seems to be a keep can be seen in the distance.
 ~
 0 0 3
 D0
@@ -549,6 +549,10 @@ More trees and some small hills.
 ~
 ~
 0 0 3518
+D3
+~
+~
+0 0 15700
 S
 #3516
 Muddy Ground~
@@ -1029,11 +1033,6 @@ return to the forest.
 ~
 0 0 3
 E
-sign~
-The sign reads:
-   The Woodsman
-~
-E
 credits credit author~
 +-------------------------------------------------+
 | This zone originally written for Copper II DIKU |
@@ -1041,6 +1040,11 @@ credits credit author~
 | Modification and alterations for MERCmud DIKU   |
 |   by VampLestat                        1 JAN 93 |
 +-------------------------------------------------+
+~
+E
+sign~
+The sign reads:
+   The Woodsman
 ~
 D0
 You can go north around the inn.
