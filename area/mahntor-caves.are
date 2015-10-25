@@ -1,0 +1,87 @@
+#AREADATA
+Name Caves of Mahn-Tor~
+Builders Rhien~
+VNUMs 3675 3699
+LevelRange 25 40
+Credits (null)~
+Security 1
+Continent 0
+End
+
+
+
+#MOBILES
+#3675
+cave troll~
+a cave troll~
+A cave troll is here.
+~
+A cave troll stands here towering almost 11 feet in height.  They have a
+dark yellow skin tinted with blue and purple hues.  
+~
+troll~
+AG DF 1 0
+35 5 6d12+853 15d9+100 5d7+15 none
+-12 -12 -12 -1
+DFNU 0 F H
+stand stand male 0
+ABHMV ABCDEFGHIJKUV medium unknown
+F aff Jc
+F res BE
+F vul K
+#3676
+black bat~
+a black bat~
+A black bat is flying here.
+~
+A black bat is flying here.  It has short black hair with a contrasting
+reddish-brown mantle.  
+~
+bat~
+A DFJTZ 2 0
+25 0 5d10+550 12d9+100 2d10+7 bite
+-7 -7 -7 6
+FHU 0 0 S
+stand stand either 0
+AGHMV ABCDEFHIJKP small unknown
+#0
+
+
+
+#OBJECTS
+#0
+
+
+
+#ROOMS
+#3675
+Entrance to the Caves of Mahn-Tor~
+You are standing outside the entrance to a large cave.  The stone opening
+leads downwards into a pitch black darkness.  You can hear what you think is
+the sounds of creatures coming from within.  
+~
+0 0 3
+S
+#0
+
+
+
+#SPECIALS
+S
+
+
+
+#RESETS
+S
+
+
+
+#SHOPS
+0
+
+
+
+#MOBPROGS
+#0
+
+#$
