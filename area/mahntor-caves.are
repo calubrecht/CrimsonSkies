@@ -104,7 +104,7 @@ A rather strong looking man wanders about here.  He eyes you slowly and
 proceeds to ask if you know a way out....  Hmm...  Bet he's lost.  
 ~
 human~
-AB DFHJV 3 0
+A DFHJV 3 0
 40 5 14d10+750 20d9+100 4d7+10 none
 -13 -13 -13 5
 EFK 0 0 0
@@ -115,6 +115,42 @@ AHMV ABCDEFGHIJK medium unknown
 
 
 #OBJECTS
+#3675
+wand create spring~
+wand of create spring~
+A wand of create spring lies forgotten on the ground.~
+wood~
+wand A AO
+15 10 10 'create spring' 0
+5 70 3900 P
+#3676
+ring earth~
+a mithril ring~
+A mithril ring with runes inscribed on it lays here.~
+mithril~
+jewelry 0 AB
+0 0 0 0 0
+30 50 1140 P
+A
+3 2
+A
+4 2
+#3677
+spring~
+a spring~
+A spring from the cave flows here.~
+water~
+fountain 0 0
+100000 100000 'water' 0 0
+0 0 0 P
+#3678
+blue pill~
+a blue pill~
+A blue pill lays here.~
+unknown~
+pill 0 A
+15 'cure critical' 'reserved' 'reserved' 'reserved'
+5 1 500 P
 #0
 
 
@@ -126,7 +162,7 @@ You are standing outside the entrance to a large cave.  The stone opening
 leads downwards into a pitch black darkness.  You can hear what you think is
 the sounds of creatures coming from within.  
 ~
-0 0 3
+0 4 3
 S
 #0
 
