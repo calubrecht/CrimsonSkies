@@ -44,6 +44,72 @@ A DFJTZ 2 0
 FHU 0 0 S
 stand stand either 0
 AGHMV ABCDEFHIJKP small unknown
+#3677
+copperhead snake~
+a copperhead snake~
+A copperhead snake is here.
+~
+The copperhead snake here is a dark tan color with crossbands that are a
+light tan to pale brown in the center but darker towards the edges.  
+~
+snake~
+AG DF 3 0
+30 3 6d12+853 15d9+100 4d6+8 bite
+-9 -9 -9 6
+U 0 L 0
+stand stand male 0
+AGHMVXYc ABCDEFGHIJKLQVX small unknown
+F vul I
+#3678
+goblin leader~
+the goblin leader~
+The goblin leader is here.
+~
+The goblin leader is here.  He seems very much in control of the trolls
+and other creatures who roam the cave.  His grotesque look sends chills down
+even the bravest of warriors.  
+~
+goblin~
+AG DFHJV 1 0
+40 7 10d12+900 15d9+100 6d7+20 none
+-12 -12 -12 -1
+DFNU 0 Q CH
+stand stand male 0
+ABHMV ABCDEFGHIJKUV medium unknown
+#3679
+goblin~
+a goblin~
+A goblin is here.
+~
+A very grotesque goblin is here.  They seem to be ordering the trolls
+around who are acting as their save.  Every moment or so you hear a snarling
+noise come from them.  
+~
+troll~
+AG DF 1 0
+35 5 6d12+853 15d9+100 5d7+15 none
+-12 -12 -12 -1
+DFNU 0 F H
+stand stand male 0
+ABHMV ABCDEFGHIJKUV medium unknown
+F aff Jc
+F res BE
+F vul K
+#3680
+lost adventurer~
+A lost adventurer~
+A lost adventurer wanders aimlessly about.
+~
+A rather strong looking man wanders about here.  He eyes you slowly and
+proceeds to ask if you know a way out....  Hmm...  Bet he's lost.  
+~
+human~
+AB DFHJV 3 0
+40 5 14d10+750 20d9+100 4d7+10 none
+-13 -13 -13 5
+EFK 0 0 0
+stand stand none 5000
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -67,6 +133,7 @@ S
 
 
 #SPECIALS
+M 3677 spec_poison
 S
 
 
