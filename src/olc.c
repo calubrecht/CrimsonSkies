@@ -760,7 +760,7 @@ void do_olc(CHAR_DATA * ch, char *argument)
 
     if (command[0] == '\0')
     {
-        do_help(ch, "olc");
+        do_help(ch, "olc edit");
         return;
     }
 
@@ -775,7 +775,7 @@ void do_olc(CHAR_DATA * ch, char *argument)
     }
 
     /* Invalid command, send help. */
-    do_help(ch, "olc");
+    do_help(ch, "olc edit");
     return;
 }
 
