@@ -3610,3 +3610,37 @@ void do_class(CHAR_DATA *ch, char *argument)
     send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
 } // end do_class
+
+/*
+ * Command to show a character the current game settings, locks, etc. setup by the mud
+ * mud admin.  Potentially also show player based settings here as that list grows.
+ */
+void do_settings(CHAR_DATA *ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("{WGame Settings{x\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
+    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        "Game Locked (Wizlock)", settings.wizlock ? "{GON{x" : "{ROFF{x",
+        "New Lock", settings.newlock ? "{GON{x" : "{ROFF{x");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        "Double Experience", settings.double_exp ? "{GON{x" : "{ROFF{x",
+        "Double Gold", settings.double_gold ? "{GON{x" : "{ROFF{x");
+    send_to_char(buf, ch);
+
+    send_to_char("\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("{WGame Mechanics{x\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+
+    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        "Gain Convert", settings.gain_convert ? "{GON{x" : "{ROFF{x",
+        "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
+    send_to_char(buf, ch);
+
+} // end do_settings
