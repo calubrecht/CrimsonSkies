@@ -487,7 +487,7 @@ REDIT(redit_olist)
     fAll = !str_cmp(arg, "all");
     found = FALSE;
 
-    send_to_char("[Lv  Vnum] [Object Name]           [Lv  Vnum] [Object Name]", ch);
+    send_to_char("[Lv  Vnum] [Object Name]           [Lv  Vnum] [Object Name]\n\r", ch);
 
     for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
