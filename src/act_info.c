@@ -3649,9 +3649,10 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char(buf, ch);
     }
 
-    // Since this is a dual mortal/immortal command, kick the mortals out here.
-    if (!IS_IMMORTAL(ch))
+    // Since this is a dual mortal/immortal command, kick the mortals out here and lower level imms.
+    if (ch->level < CODER)
     {
+        send_to_char("You do not have permissions to change the game settings.\n\r", ch);
         return;
     }
 
@@ -3665,5 +3666,93 @@ void do_settings(CHAR_DATA *ch, char *argument)
         return;
     }
 
+    if (!str_cmp(arg1, "wizlock"))
+    {
+        do_wizlock(ch, "");
+    }
+    else if (!str_cmp(arg1, "newlock"))
+    {
+        do_newlock(ch, "");
+    }
+    else if (!str_cmp(arg1, "doubleexperience"))
+    {
+        settings.double_exp = !settings.double_exp;
+
+        if (settings.double_exp)
+        {
+            wiznet("$N has enabled double experience.", ch, NULL, 0, 0, 0);
+            send_to_char("Double experience enabled.\n\r", ch);
+        }
+        else
+        {
+            wiznet("$N has disabled double experience.", ch, NULL, 0, 0, 0);
+            send_to_char("Double experience disabled.\n\r", ch);
+        }
+
+        // Save the settings out to file.
+        do_asave(ch, "settings");
+    }
+    else if (!str_cmp(arg1, "doublegold"))
+    {
+        settings.double_gold = !settings.double_gold;
+
+        if (settings.double_gold)
+        {
+            wiznet("$N has enabled double gold.", ch, NULL, 0, 0, 0);
+            send_to_char("Double gold enabled.\n\r", ch);
+        }
+        else
+        {
+            wiznet("$N has disabled double gold.", ch, NULL, 0, 0, 0);
+            send_to_char("Double gold disabled.\n\r", ch);
+        }
+
+        // Save the settings out to file.
+        do_asave(ch, "settings");
+
+    }
+    else if (!str_cmp(arg1, "gainconvert"))
+    {
+        settings.gain_convert = !settings.gain_convert;
+
+        if (settings.gain_convert)
+        {
+            wiznet("$N has the gain convert feature.", ch, NULL, 0, 0, 0);
+            send_to_char("The gain convert feature has been enabled.\n\r", ch);
+        }
+        else
+        {
+            wiznet("$N has disabled the gain convert feature.", ch, NULL, 0, 0, 0);
+            send_to_char("The gain convert feature has been disabled.\n\r", ch);
+        }
+
+        // Save the settings out to file.
+        do_asave(ch, "settings");
+
+    }
+    else if (!str_cmp(arg1, "shockspread"))
+    {
+        settings.shock_spread = !settings.shock_spread;
+
+        if (settings.shock_spread)
+        {
+            wiznet("$N has enabled the shock spread mechanic.", ch, NULL, 0, 0, 0);
+            send_to_char("The shock spread mechanic has been enabled.\n\r", ch);
+        }
+        else
+        {
+            wiznet("$N has disabled the shock spread mechanic.", ch, NULL, 0, 0, 0);
+            send_to_char("The shock spread mechanic has been enabled.\n\r", ch);
+        }
+
+        // Save the settings out to file.
+        do_asave(ch, "settings");
+
+    }
+    else
+    {
+        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|", ch);
+        send_to_char("          gainconvert|shockspread", ch);
+    }
 
 } // end do_settings
