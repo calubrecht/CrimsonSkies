@@ -3618,29 +3618,52 @@ void do_class(CHAR_DATA *ch, char *argument)
 void do_settings(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
 
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("{WGame Settings{x\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    // Show the game and player settings
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("{WGame Settings{x\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
-    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
-        "Game Locked (Wizlock)", settings.wizlock ? "{GON{x" : "{ROFF{x",
-        "New Lock", settings.newlock ? "{GON{x" : "{ROFF{x");
-    send_to_char(buf, ch);
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+            "Game Locked (Wizlock)", settings.wizlock ? "{GON{x" : "{ROFF{x",
+            "New Lock", settings.newlock ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
 
-    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
-        "Double Experience", settings.double_exp ? "{GON{x" : "{ROFF{x",
-        "Double Gold", settings.double_gold ? "{GON{x" : "{ROFF{x");
-    send_to_char(buf, ch);
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+            "Double Experience", settings.double_exp ? "{GON{x" : "{ROFF{x",
+            "Double Gold", settings.double_gold ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
 
-    send_to_char("\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("{WGame Mechanics{x\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("{WGame Mechanics{x\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
 
-    sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
-        "Gain Convert", settings.gain_convert ? "{GON{x" : "{ROFF{x",
-        "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
-    send_to_char(buf, ch);
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+            "Gain Convert", settings.gain_convert ? "{GON{x" : "{ROFF{x",
+            "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+    }
+
+    // Since this is a dual mortal/immortal command, kick the mortals out here.
+    if (!IS_IMMORTAL(ch))
+    {
+        return;
+    }
+
+    // Get the arguments we need
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    if (IS_NULLSTR(arg1))
+    {
+        send_to_char("\n\rProvide an argument to set or toggle a setting..\n\r", ch);
+        return;
+    }
+
 
 } // end do_settings
