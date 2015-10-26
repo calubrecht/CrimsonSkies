@@ -88,4 +88,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add guild room names and area names to class command.
   - Update do_ofind to have two columns like olc olist
   - Update do_mfind to have two columns like olc mlist
-  - update vnum mob to show level like I updated vnum obj.
