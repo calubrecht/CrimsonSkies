@@ -860,9 +860,11 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
     if (show)
         dam_message (ch, victim, dam, dt, immune);
 
-    // We want the shock to spread even if the initial person is immune to lightning.
+    // We want the shock to spread even if the initial person is immune to lightning.  This will
+    // only fire if the setting for shock_spread is set.
     if( dam_type == DAM_LIGHTNING &&
         victim->in_room != NULL &&
+        settings.shock_spread &&
         (victim->in_room->sector_type == SECT_UNDERWATER ||
          victim->in_room->sector_type == SECT_OCEAN))
     {
