@@ -166,9 +166,9 @@ jewelry 0 AB
 0 0 0 0 0
 30 50 1140 P
 A
-3 2
-A
 4 2
+A
+3 2
 #3677
 spring~
 a spring~
@@ -185,6 +185,14 @@ unknown~
 pill 0 A
 15 'cure critical' 'reserved' 'reserved' 'reserved'
 5 1 500 P
+#3679
+statue~
+statue of a minotaur guard~
+A weathered statue of a minotaur guard is here.~
+rock~
+trash 0 0
+0 0 0 0 0
+0 1000 0 P
 #0
 
 
@@ -201,6 +209,10 @@ D1
 ~
 ~
 0 0 3676
+D4
+~
+~
+0 0 3693
 D6
 ~
 ~
@@ -461,6 +473,35 @@ D4
 ~
 0 0 3691
 S
+#3693
+A rocky trail leading upwards~
+You are standing on a rocky trail leading upwards.  Below you is the
+entrance to the Caves of Mahn-tor.  Above the trail seems to continue to
+lead to what appears to be a large overlook.  
+~
+0 0 0
+D4
+~
+~
+0 0 3694
+D5
+~
+~
+0 0 3675
+S
+#3694
+A Lookout~
+You are standing at the top of stone carved lookout in the rocky side of
+the hill.  From here you can see over the tree tops and westward over the
+Keep of Mahn-tor and into the lands.  There is a large weather worn statue
+of a minotaur guard overlooking the lands for signs of trouble.  
+~
+0 0 0
+D5
+~
+~
+0 0 3693
+S
 #0
 
 
@@ -501,6 +542,7 @@ M 0 3682 5 3692 5 Load a copperhead snake
 M 0 3682 5 3692 5 Load a copperhead snake
 M 0 3682 5 3692 5 Load a copperhead snake
 M 0 3682 5 3692 5 Load a copperhead snake
+O 0 3679 0 3694 Statue of a minotaur guard loaded to A Lookout
 S
 
 
