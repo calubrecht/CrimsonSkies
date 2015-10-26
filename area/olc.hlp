@@ -16,7 +16,9 @@ Syntax: ALIST                                - Listing of Areas.
 Syntax: RESET  See Help Resets.              - Set Game Resets.
 
 Definition: [optional]  <required>  (combined arguments)
-
+~
+-1 OLC CREDITS~
+OLC CREDITS
      The above commands are used to expand the game world.  The original
 code is based on was written by Surreality and installed in The Isles by Locke.
 It was then converted to work with Envy by Jason Dinkel, and ported to ROM
