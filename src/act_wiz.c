@@ -1736,6 +1736,9 @@ void do_mfind (CHAR_DATA * ch, char *argument)
     int nMatch;
     bool fAll;
     bool found;
+    bool showHeader;
+
+    showHeader = TRUE;
 
     one_argument (argument, arg);
     if (arg[0] == '\0')
@@ -1761,9 +1764,15 @@ void do_mfind (CHAR_DATA * ch, char *argument)
             nMatch++;
             if (fAll || is_name (argument, pMobIndex->player_name))
             {
+                if (!showHeader)
+                {
+                    send_to_char("[Lv  Vnum] [Object]\n\r", ch);
+                    showHeader = TRUE;
+                }
+
                 found = TRUE;
-                sprintf (buf, "[%5d] %s\n\r",
-                         pMobIndex->vnum, pMobIndex->short_descr);
+                sprintf (buf, "[%2d %5d] %s\n\r",
+                         pMobIndex->level, pMobIndex->vnum, pMobIndex->short_descr);
                 send_to_char (buf, ch);
             }
         }
