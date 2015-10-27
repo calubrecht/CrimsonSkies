@@ -998,7 +998,7 @@ from restarting it.
 
 56 WIZLOCK NEWLOCK~
 Syntax: wizlock
-	newlock
+	    newlock
 
 Wizlock and newlock both block login attempts to the game. Wizlock locks
 out all non-gods (i.e. level less than 51), except for link-dead players who
@@ -3512,6 +3512,29 @@ this.
 The blind fighting skill allows warriors to fight better while blind than they
 otherwise would have.  This advantage pertains to all blindness, magical and
 physical (a blind spell, dirt kicking).
+~
+
+0 SETTINGS~
+Syntax: settings
+Syntax: settings <setting to change> <optional value>
+
+The settings command allows a player to see the current game settings that
+are in play (this includes things for locks, features and game mechanics).
+
+As an immortal of a high enough level you can use the settings command to
+additionally change the game settings.
+~
+
+0 DOUBLE EXPERIENCE~
+Double experience is an optional setting a game admin can turn on that will
+give players double the experience for the duration that the setting is on.
+This is typically something an admin might turn on for a special occasion.
+~
+
+0 DOUBLE GOLD~
+Double experience is an optional setting a game admin can turn on that will
+give players double the gold haul for the duration that the setting is on.
+This is typically something an admin might turn on for a special occasion.
 ~
 
 0 $~
