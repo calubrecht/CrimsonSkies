@@ -1894,6 +1894,11 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
         }
 
         xp = xp_compute (gch, victim, group_levels);
+
+        // Double experience bonus
+        if (settings.double_exp)
+            xp *= 2;
+
         sprintf (buf, "You receive %d experience points.\n\r", xp);
         send_to_char (buf, gch);
         gain_exp (gch, xp);
