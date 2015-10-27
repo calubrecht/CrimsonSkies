@@ -3649,6 +3649,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char(buf, ch);
     }
 
+    send_to_char("\n\r", ch);
+
     // Since this is a dual mortal/immortal command, kick the mortals out here and lower level imms.
     if (ch->level < CODER)
     {
