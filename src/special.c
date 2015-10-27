@@ -67,6 +67,7 @@ DECLARE_SPEC_FUN (spec_nasty);
 DECLARE_SPEC_FUN (spec_troll_member);
 DECLARE_SPEC_FUN (spec_ogre_member);
 DECLARE_SPEC_FUN (spec_patrolman);
+DECLARE_SPEC_FUN (spec_woodland_fighter);
 
 /* the function table */
 const struct spec_type spec_table[] = {
@@ -93,6 +94,7 @@ const struct spec_type spec_table[] = {
     {"spec_troll_member", spec_troll_member},
     {"spec_ogre_member", spec_ogre_member},
     {"spec_patrolman", spec_patrolman},
+    {"spec_woodland_fighter", spec_woodland_fighter},
     {NULL, NULL}
 };
 
@@ -1222,3 +1224,46 @@ bool spec_thief (CHAR_DATA * ch)
 
     return FALSE;
 }
+
+/*
+ * A woodland fighter.  Who fights with, uh, nature.
+ */
+bool spec_woodland_fighter(CHAR_DATA *ch)
+{
+    CHAR_DATA *victim;
+
+    // Only available in the forest
+    if (ch->in_room->sector_type != SECT_FOREST)
+        return FALSE;
+
+    if (ch->position != POS_FIGHTING
+        || (victim = ch->fighting) == NULL
+        || number_percent() > (2 * ch->level) / 3)
+        return FALSE;
+
+    switch(number_range(1, 3))
+    {
+        case(1):
+            // Stun!
+            act("$n grabs a tree limb and slams it into $N!", ch, NULL, victim, TO_NOTVICT);
+            act("$n grabs a tree limb and slams it into you!", ch, NULL, victim, TO_VICT);
+            DAZE_STATE(victim, 2 * PULSE_VIOLENCE);
+            break;
+        case(2):
+            // Damage!
+            act("$n grabs onto a tree branch and swing kicks at $N!", ch, NULL, victim, TO_NOTVICT);
+            act("$n grabs onto a tree branch and swing kicks into you!", ch, NULL, victim, TO_VICT);
+            damage(ch, victim, number_range(ch->level, ch->level * 2), gsn_bash, DAM_NONE, TRUE);
+            break;
+        case(3):
+            // Move damage!
+            act("$n grabs a tree limb and swings it at $N's legs!", ch, NULL, victim, TO_NOTVICT );
+            act("$n grabs a tree limb and swings it at your legs!", ch, NULL, victim, TO_VICT );
+            victim->position = POS_SITTING;
+            victim->move = UMAX(0, ((victim->move * 9) / 10));
+            break;
+    } // end switch
+
+    return TRUE;
+
+} // end spec_woodland_fighter
