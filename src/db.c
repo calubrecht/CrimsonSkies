@@ -2805,6 +2805,11 @@ void do_memory (CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     OBJ_DATA *obj;
     OBJ_DATA *obj_next;
+    OBJ_DATA * obj_pit_item;
+    OBJ_DATA * obj_pit_item_next;
+    int base_objects_purged = 0;
+    int all_objects_purged = 0;
+    int pits_purged = 0;
     int obj_count = 0;
     int total_obj_count = 0;
 
@@ -2847,6 +2852,32 @@ void do_memory (CHAR_DATA * ch, char *argument)
     sprintf (buf, "Perms   %5d blocks  of %7zd bytes.\n\r",
              nAllocPerm, sAllocPerm);
     send_to_char (buf, ch);
+
+    // Look for all pits in the world.
+    for (obj = object_list; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->next;
+
+        if ((obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE))
+             && obj->wear_loc == WEAR_NONE
+             && obj->in_room != NULL)
+        {
+            // We have a pit, let's go through it's contents.
+            for (obj_pit_item = obj->contains; obj_pit_item; obj_pit_item = obj_pit_item_next)
+            {
+                // Get the count by items that are consolidated and their total counts.
+                all_objects_purged += obj_pit_item->count;
+                base_objects_purged++;
+
+                obj_pit_item_next = obj_pit_item->next_content;
+            }
+
+            pits_purged++;
+        }
+    }
+
+    sprintf(buf, "Pits    %5d (%d objects in the pits, %d after consolidation)\n\r", pits_purged, all_objects_purged, base_objects_purged);
+    send_to_char(buf, ch);
 
     return;
 }
