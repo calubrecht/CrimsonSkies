@@ -35,8 +35,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Note cleanup, note forward bug, note mem leak testing
   - gain_exp tweaks
   - main menu
-  - double exp mode
-  - double gold mode
   - questing
   - Add red oak village at the base of the mountains for the dwarves.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
@@ -56,7 +54,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Set autogold by default on creation
   - Allow any player to change their recall to any number of custom bind stones for recall.
   - Crafting system, intertwine it with my nature code (that I need to dig up and add)
-  - Add settings, use OLC to set them.
   - Add game stats that are persisted.  
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
   - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement
