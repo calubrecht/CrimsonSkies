@@ -188,7 +188,7 @@ const struct race_type race_table[] = {
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
 
     {
-     "giant", TRUE,
+     "ogre", TRUE,
      0, 0, 0,
      0, RES_FIRE | RES_COLD, VULN_MENTAL | VULN_LIGHTNING,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
@@ -392,7 +392,7 @@ struct pc_race_type pc_race_table[] = {
      {14, 12, 14, 10, 15}, {20, 16, 19, 14, 21}, SIZE_MEDIUM},
 
     {
-     "giant", "Giant", 6, {200, 150, 150, 105, 200},
+     "ogre", "Ogre", 6, {200, 150, 150, 105, 200},
      {"bash", "fast healing"},
      {16, 11, 13, 11, 14}, {22, 15, 18, 15, 20}, SIZE_LARGE},
 
