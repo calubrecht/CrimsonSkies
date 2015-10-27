@@ -1563,6 +1563,12 @@ void make_corpse (CHAR_DATA * ch)
         corpse->timer = number_range (3, 6);
         if (ch->gold > 0)
         {
+            // Double gold bonus
+            if (settings.double_gold)
+            {
+                ch->gold *= 2;
+            }
+
             obj_to_obj (create_money (ch->gold, ch->silver), corpse);
             ch->gold = 0;
             ch->silver = 0;
