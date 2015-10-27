@@ -3751,7 +3751,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
     }
     else
     {
-        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|", ch);
+        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|\n\r", ch);
         send_to_char("          gainconvert|shockspread", ch);
     }
 
