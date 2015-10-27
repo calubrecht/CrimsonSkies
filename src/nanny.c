@@ -21,11 +21,7 @@
  **************************************************************************/
 
 // System Specific Includes
-#if defined(__APPLE__)
-    #include <types.h>
-    #include <unistd.h>                /* OLC -- for close read write etc */
-    #include <time.h>
-#elif defined(_WIN32)
+#if defined(_WIN32)
     #include <sys/types.h>
     #include <time.h>
     #include <io.h>
@@ -53,12 +49,6 @@
     extern const char go_ahead_str[];
 #endif
 
-#if    defined(__APPLE__) 
-    extern const char echo_off_str[];
-    extern const char echo_on_str[];
-    extern const char go_ahead_str[];
-#endif
-
 #if    defined(unix)
     #include <fcntl.h>
     #include <netdb.h>
@@ -73,12 +63,6 @@
 /*
  * OS-dependent local functions.
  */
-#if defined(__APPLE__)
-    void game_loop args ((int control));
-    bool read_from_descriptor args ((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
-#endif
-
 #if defined(unix)
     void game_loop args ((int control));
     int init_socket args ((int port));

@@ -2015,13 +2015,6 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
     #endif
 #endif
 
-#if defined(__APPLE__)
-    #define NOCRYPT
-    #if    defined(unix)
-        #undef    unix
-    #endif
-#endif
-
 /*
  * The crypt(3) function is not available on some operating systems.
  * In particular, the U.S. Government prohibits its export from the
@@ -2043,12 +2036,6 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
  *   so players can go ahead and telnet to all the other descriptors.
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
-#if defined(__APPLE__)
-    #define PLAYER_DIR      ""                  /* Player files            */
-    #define TEMP_FILE       "romtmp"
-    #define NULL_FILE       "proto.are"         /* To reserve one stream   */
-#endif
-
 #if defined(_WIN32)
     #define PLAYER_DIR	    "../player/"        /* Player files */
     #define TEMP_FILE	    "../player/romtmp"

@@ -36,11 +36,7 @@
  */
 
 // System Specific Includes
-#if defined(__APPLE__)
-    #include <types.h>
-    #include <time.h>
-    #include <unistd.h>                /* OLC -- for close read write etc */
-#elif defined(_WIN32)
+#if defined(_WIN32)
     #include <sys/types.h>
     #include <time.h>
     #include <io.h>
@@ -86,7 +82,7 @@ int line_count	args( (char *orig) );
 /*
  * Socket and TCP/IP stuff.
  */
-#if defined(_WIN32) || defined (__APPLE__)
+#if defined(_WIN32)
     const	char	echo_off_str[] = { IAC, WILL, TELOPT_ECHO, '\0' };
     const	char	echo_on_str[] = { IAC, WONT, TELOPT_ECHO, '\0' };
     const	char 	go_ahead_str	[] = { IAC, GA, '\0' };
@@ -136,22 +132,6 @@ int line_count	args( (char *orig) );
     /* int    write        args( ( int fd, char *buf, int nbyte ) ); *//* read,write in unistd.h */
 #endif
 
-#if    defined(__APPLE__)
-    #include <console.h>
-    #include <fcntl.h>
-    #include <unix.h>
-    struct timeval {
-        time_t tv_sec;
-        time_t tv_usec;
-    };
-    #if    !defined(isascii)
-    #define    isascii(c)        ( (c) < 0200 )
-    #endif
-    static long theKeys[4];
-
-    int gettimeofday args ((struct timeval * tp, void *tzp));
-#endif
-
 #if defined(_WIN32)
     void gettimeofday args((struct timeval *tp, void *tzp));
 #endif
@@ -171,7 +151,7 @@ bool game_loaded = FALSE;            /* Whether the game has finished loading, b
 /*
  * OS-dependent local functions.
  */
-#if defined(unix) || defined(_WIN32) || defined (__APPLE__)
+#if defined(unix) || defined(_WIN32)
     void game_loop args ((int control));
     int init_socket args ((int port));
     void init_descriptor args ((int control));
@@ -224,16 +204,6 @@ int main (int argc, char **argv)
     log_string("------------------------------------");
 
     /*
-     * Macintosh console initialization.
-     */
-#if defined(__APPLE__)
-    console_options.nrows = 31;
-    cshow (stdout);
-    csetmode (C_RAW, stdin);
-    cecho2file ("log file", 1, stderr);
-#endif
-
-    /*
      * Reserve one channel for our use.
      */
     if ((fpReserve = fopen (NULL_FILE, "r")) == NULL)
@@ -275,7 +245,7 @@ int main (int argc, char **argv)
     /*
      * Run the game.
      */
-#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
+#if defined(unix) || defined(_WIN32)
 
     if (!fCopyOver)
         control = init_socket (port);
@@ -312,7 +282,7 @@ int main (int argc, char **argv)
 
 
 
-#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
+#if defined(unix) || defined(_WIN32)
 int init_socket (int port)
 {
     static struct sockaddr_in sa_zero;
@@ -424,7 +394,7 @@ int init_socket (int port)
 #endif
 
 
-#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
+#if defined(unix) || defined(_WIN32)
 void game_loop (int control)
 {
     static struct timeval null_time;
@@ -660,7 +630,7 @@ void game_loop (int control)
 
 
 
-#if defined(unix) || defined(_WIN32) || defined(__APPLE__)
+#if defined(unix) || defined(_WIN32)
 
 void init_descriptor (int control)
 {
@@ -864,9 +834,6 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 #endif
 
     free_descriptor (dclose);
-#if defined(__APPLE__)
-    exit (1);
-#endif
     return;
 }
 
@@ -888,22 +855,6 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     }
 
     /* Snarf input. */
-#if defined(__APPLE__)
-    for (;;)
-    {
-        int c;
-        c = getc (stdin);
-        if (c == '\0' || c == EOF)
-            break;
-        putc (c, stdout);
-        if (c == '\r')
-            putc ('\n', stdout);
-        d->inbuf[iStart++] = c;
-        if (iStart > sizeof (d->inbuf) - 10)
-            break;
-    }
-#endif
-
 #if defined(unix) || defined(_WIN32)
     for (;;)
     {
@@ -2650,17 +2601,6 @@ char *strip_color(char *string)
     return buf;
 } // end strip_color
 
-/*
- * Macintosh support functions.
- */
-#if defined(__APPLE__)
-int gettimeofday (struct timeval *tp, void *tzp)
-{
-    tp->tv_sec = time (NULL);
-    tp->tv_usec = 0;
-}
-#endif
-
 /* source: EOD, by John Booth <???> */
 void printf_to_desc (DESCRIPTOR_DATA * d, char *fmt, ...)
 {
@@ -2757,17 +2697,6 @@ void twiddle()
  */
 #if defined( _WIN32 )
 void gettimeofday(struct timeval *tp, void *tzp)
-{
-    tp->tv_sec = time(NULL);
-    tp->tv_usec = 0;
-}
-#endif
-
-/*
- * Macintosh support functions.
- */
-#if defined(__APPLE__)
-int gettimeofday(struct timeval *tp, void *tzp)
 {
     tp->tv_sec = time(NULL);
     tp->tv_usec = 0;

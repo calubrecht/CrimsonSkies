@@ -87,7 +87,7 @@ void	mpedit          args((CHAR_DATA *ch, char *argument));
 void	hedit           args((CHAR_DATA *, char *));
 void    gedit           args((CHAR_DATA *ch, char *argument));
 void    cedit           args((CHAR_DATA *ch, char *argument));
-void    sedit           args(( CHAR_DATA *ch, char *argument));
+void    sedit           args((CHAR_DATA *ch, char *argument));
 
 /*
  * OLC Constants
