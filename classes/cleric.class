@@ -142,6 +142,7 @@ Sk 'song of dissonance' 52 -1
 Sk 'cure deafness' 52 -1
 Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
+Sk 'gore' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -230,4 +231,5 @@ Mult 2 125
 Mult 3 100
 Mult 4 150
 Mult 5 150
+Mult 6 150
 End

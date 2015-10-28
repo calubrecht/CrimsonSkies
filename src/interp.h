@@ -335,3 +335,4 @@ DECLARE_DO_FUN(do_cgossip);
 DECLARE_DO_FUN(do_ooc);
 DECLARE_DO_FUN(do_oclantalk);
 DECLARE_DO_FUN(do_settings);
+DECLARE_DO_FUN(do_gore);

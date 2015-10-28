@@ -264,6 +264,7 @@ const struct cmd_type cmd_table[] = {
     {"bladesong",       do_bladesong,   POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"circle",          do_circle,      POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"circlestab",      do_circlestab,  POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"gore",            do_gore,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)
@@ -295,7 +296,6 @@ const struct cmd_type cmd_table[] = {
     {"guildlist",       do_guildlist,   POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"land",            do_land,        POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"class",           do_class,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
-    {"settings",        do_settings,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
 
     /*
      * Immortal commands.
@@ -316,6 +316,7 @@ const struct cmd_type cmd_table[] = {
     {"reboo",           do_reboo,       POS_DEAD, L1, LOG_NORMAL, FALSE},
     {"reboot",          do_reboot,      POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"set",             do_set,         POS_DEAD, L2, LOG_ALWAYS, TRUE},
+    {"settings",        do_settings,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"shutdow",         do_shutdow,     POS_DEAD, L1, LOG_NORMAL, FALSE},
     {"shutdown",        do_shutdown,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"wizlock",         do_wizlock,     POS_DEAD, L2, LOG_ALWAYS, TRUE},

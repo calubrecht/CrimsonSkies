@@ -1770,4 +1770,14 @@ Beats       12
 MsgOff      !Remove Faerie Fire!~
 End
 
+#SKILL
+Name        gore~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       36
+Damage      gore~
+End
+
 #END

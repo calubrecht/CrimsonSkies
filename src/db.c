@@ -4739,5 +4739,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_song_of_protection, "song of protection");
     ASSIGN_GSN(gsn_enhanced_recall, "enhanced recall");
     ASSIGN_GSN(gsn_circlestab, "circle stab");
+    ASSIGN_GSN(gsn_gore, "gore");
 
 } // end assign_gsn

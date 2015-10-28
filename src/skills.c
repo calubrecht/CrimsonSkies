@@ -1082,3 +1082,28 @@ void group_remove (CHAR_DATA * ch, const char *name)
         gn_remove (ch, gn);        /* be sure to call gn_add on all remaining groups */
     }
 }
+
+/*
+ * Whether or not a given skill is a racial skill for the player.  This originated
+ * from Dennis Reichel on the ROM mailing list.
+ */
+bool is_racial_skill(CHAR_DATA * ch, int sn)
+{
+    int i;
+    bool skill_found = FALSE;
+
+    for (i = 0; i < 5; i++)
+    {
+        if (pc_race_table[ch->race].skills[i] == NULL)
+            break;
+
+        if (sn == skill_lookup( pc_race_table[ch->race].skills[i]))
+        {
+            skill_found = TRUE;
+        }
+    }
+
+    return skill_found;
+
+} // end is_racial_skill
+

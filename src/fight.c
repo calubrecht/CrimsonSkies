@@ -3378,3 +3378,152 @@ void check_death(CHAR_DATA *victim, int dt)
     }
 
 } // end check_death
+
+/*
+ * Gore command that will allow minotaur's to charge a victim.
+ */
+void do_gore( CHAR_DATA *ch, char *argument )
+{
+    CHAR_DATA *victim;
+    char arg[MAX_INPUT_LENGTH];
+    int chance;
+    int dam;
+
+    // Not for NPC's (currently)
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+    if (ch->race != MINOTAUR_RACE_LOOKUP)
+    {
+        send_to_char("You do not have the horns necessary to gore someone.\n\r", ch);
+        return;
+    }
+
+    one_argument(argument, arg);
+
+    // Can't use this skill if you don't have it.. this will be a racial skill not
+    // selectable by classes.
+    if (get_skill(ch, gsn_gore) == 0 || ch->level < skill_table[gsn_gore]->skill_level[ch->class])
+    {
+        send_to_char("You do not have the skill to gore someone.\n\r", ch);
+        return;
+    }
+
+    // Get the target
+    if (arg[0] == '\0')
+    {
+        victim = ch->fighting;
+
+        if (victim == NULL)
+        {
+            send_to_char("Gore who?\n\r", ch);
+            return;
+        }
+    }
+    else if ((victim = get_char_room(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\n\r",ch);
+        return;
+    }
+
+    // Can't charge yourself.
+    if (victim == ch)
+    {
+        send_to_char("You cannot gore yourself...\n\r", ch);
+        return;
+    }
+
+    // Is the victim a safe target.. like a non-clanner.
+    if (is_safe(ch, victim))
+    {
+        return;
+    }
+
+    // Can't gore someone who has you charmed.
+    if (IS_AFFECTED(ch,AFF_CHARM) && ch->master == victim)
+    {
+        act("But $N is your friend!", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    // Base skill, higher base chance against NPC's
+    if (IS_NPC(victim))
+    {
+        // Start at 90% if the skill is 100%.
+        chance = (get_skill(ch, gsn_gore ) * 9) / 10;
+    }
+    else
+    {
+        // Start at 80% if the skill is 100%.
+        chance = (get_skill(ch, gsn_gore ) * 8) / 10;
+    }
+
+    // Adjust for level difference
+    chance += (ch->level - victim->level) * 5;
+
+    // Factor in dexterity difference
+    chance += (get_curr_stat(ch, STAT_DEX) - get_curr_stat(victim, STAT_DEX)) * 4;
+
+    // If the character is affected by haste and the victim isn't they get a bonus, conversely, if the
+    // victim is affected by haste and the player isn't, they get a penalty.
+    if (IS_AFFECTED(ch, AFF_HASTE) && !IS_AFFECTED(victim, AFF_HASTE))
+    {
+        chance += 10;
+    }
+    else if (!IS_AFFECTED(ch, AFF_HASTE) && IS_AFFECTED(victim, AFF_HASTE))
+    {
+        chance -= 10;
+    }
+
+    // Is the minotaur blind?  Penalize (heavily) if so.
+    if (IS_AFFECTED(ch, AFF_BLIND))
+    {
+        chance -= 30;
+    }
+
+    // Bonus or penalty for size
+    chance += (ch->size - victim->size) * 4;
+
+    // The moment of truth
+    if (number_percent() > chance)
+    {
+        act("You charge at $N and miss!", ch, NULL, victim, TO_CHAR);
+        act("$n charges at you and miss!", ch, NULL, victim, TO_VICT);
+        act("$n charges at $N and misses.", ch, NULL, victim, TO_NOTVICT);
+
+        damage(ch, victim, 0, TYPE_UNDEFINED, DAM_PIERCE, TRUE);
+        check_improve(ch, gsn_gore, FALSE, 4);
+        WAIT_STATE(ch, skill_table[gsn_gore]->beats);
+        return;
+    }
+    else
+    {
+        act("You charge hard at $N!", ch, NULL, victim, TO_CHAR);
+        act("$n charges hard into you!", ch, NULL, victim, TO_VICT);
+        act("$n charges hard at $N.", ch, NULL, victim, TO_NOTVICT);
+
+        // Calculate base damage for hit.
+        dam = number_range(ch->level, ch->level * 2);
+
+        // Factor in both strength of the character and victim for the stun chance
+        chance = 80 + (get_curr_stat(ch, STAT_STR) * 4) - (get_curr_stat(victim, STAT_STR) * 4);
+
+        // Factor in the weight that the victim is carrying in the stun chance similiar to bash
+        chance -= victim->carry_weight / 100;
+
+        if (number_percent() < chance)
+        {
+            act("You toss $N through the air!", ch, NULL, victim, TO_CHAR);
+            act("$n tosses you into the air!", ch, NULL, victim, TO_VICT);
+            act("$n tosses $N into the air!", ch, NULL, victim, TO_NOTVICT);
+            DAZE_STATE(victim, 2 * PULSE_VIOLENCE);
+        }
+
+        damage(ch, victim, dam, gsn_gore, DAM_PIERCE, TRUE);
+        check_improve(ch, gsn_gore, TRUE, 2);
+        WAIT_STATE(ch, skill_table[gsn_gore]->beats);
+    }
+
+} // end do_gore

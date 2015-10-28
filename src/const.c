@@ -198,7 +198,11 @@ const struct race_type race_table[] = {
      0, 0, 0,
      0, RES_BASH, VULN_COLD | VULN_POISON,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
-
+    {
+     "minotaur", TRUE,
+     0, 0, 0,
+     0, 0, VULN_FIRE,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
     {
      "bat", FALSE,
      0, AFF_FLYING | AFF_DARK_VISION, OFF_DODGE | OFF_FAST,
@@ -399,8 +403,11 @@ struct pc_race_type pc_race_table[] = {
     {
      "kender", "Kender", 5, {100, 100, 100, 100, 100},
      {"sneak", "swim", "peek", "dodge", "pick lock"},
-     {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL}
-
+     {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL},
+    {
+     "minotaur", "Minotr", 5, {200, 150, 150, 105, 200},
+     {"gore"},
+     {10, 12, 14, 18, 10}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 };
 
 

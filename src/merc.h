@@ -108,7 +108,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          5
 #define MAX_CLASS          10   // top_class
-#define MAX_PC_RACE        6
+#define MAX_PC_RACE        7
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
 #define MAX_LEVEL          60
@@ -177,6 +177,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 #define DWARF_RACE_LOOKUP                       3
 #define GIANT_RACE_LOOKUP                       4
 #define KENDER_RACE_LOOKUP                      5
+#define MINOTAUR_RACE_LOOKUP                    6
 
 /*
  * Thanks Dingo for making life a bit easier ;)

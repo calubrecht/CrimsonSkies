@@ -144,6 +144,7 @@ Sk 'song of dissonance' 52 -1
 Sk 'cure deafness' 52 -1
 Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
+Sk 'gore' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -230,4 +231,5 @@ Mult 2 100
 Mult 3 150
 Mult 4 200
 Mult 5 150
+Mult 6 200
 End
