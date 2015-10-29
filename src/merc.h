@@ -2304,11 +2304,14 @@ char * comm_bit_name      args( ( int comm_flags ) );
 char * cont_bit_name      args( ( int cont_flags) );
 
 /* interp.c */
-void   interpret          args( ( CHAR_DATA *ch, char *argument ) );
-bool   is_number          args( ( char *arg ) );
-int    number_argument    args( ( char *argument, char *arg ) );
-int    mult_argument      args( ( char *argument, char *arg) );
-char * one_argument       args( ( char *argument, char *arg_first ) );
+void    interpret          args( ( CHAR_DATA *ch, char *argument ) );
+bool    is_number          args( ( char *arg ) );
+int     number_argument    args( ( char *argument, char *arg ) );
+int     mult_argument      args( ( char *argument, char *arg) );
+char *  one_argument       args( ( char *argument, char *arg_first ) );
+void    start_timer        args( ( struct timeval *stime ) );
+time_t  end_timer          args( ( struct timeval *stime ) );
+void    subtract_times     args( ( struct timeval *etime, struct timeval *stime ) );
 
 /* magic.c */
 int    find_spell     args( ( CHAR_DATA *ch, const char *name) );

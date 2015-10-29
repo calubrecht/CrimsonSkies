@@ -404,11 +404,14 @@ const struct cmd_type cmd_table[] = {
  */
 void interpret (CHAR_DATA * ch, char *argument)
 {
+    char buf[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
     char logline[MAX_INPUT_LENGTH];
     int cmd;
     int trust;
     bool found;
+    long tmptime;             // Command timing
+    struct timeval time_used; // Command timing
 
     /*
      * Strip leading spaces.
@@ -563,11 +566,26 @@ void interpret (CHAR_DATA * ch, char *argument)
     }
 
     /*
-     * Dispatch the command.
+     * Dispatch the command and get the time it took to execute.
      */
-    (*cmd_table[cmd].do_fun) (ch, argument);
+    start_timer(&time_used);
+    (*cmd_table[cmd].do_fun) (ch, argument);  // This is the command
+    end_timer(&time_used);
 
-    tail_chain ();
+    tmptime = UMIN(time_used.tv_sec,19) * 1000000 + time_used.tv_usec;
+
+    /* laggy command notice: command took longer than 1.5 seconds */
+    if( tmptime > 1500000)
+    {
+        sprintf(buf, "[*****] LAG: %s: %s %s (R:%d S:%zu.%06zu)", ch->name,
+            cmd_table[cmd].name, (cmd_table[cmd].log == LOG_NEVER ? "XXX" : argument),
+            ch->in_room ? ch->in_room->vnum : 0,
+            time_used.tv_sec, time_used.tv_usec );
+        wiznet(buf, ch, NULL, WIZ_SECURE, 0, 0);
+        log_string(buf);
+    }
+
+    tail_chain();
     return;
 }
 
@@ -1111,3 +1129,60 @@ void do_unalias (CHAR_DATA * ch, char *argument)
     if (!found)
         send_to_char ("No alias of that name to remove.\n\r", ch);
 } // end do_unalias
+
+/*
+ * Starts a timer.  To be used in tandem with end_timer.  These two come to us
+ * from the Smaug code base.
+ */
+void start_timer(struct timeval *stime)
+{
+    if (!stime)
+    {
+        bug("start_timer: NULL stime.", 0);
+        return;
+    }
+
+    gettimeofday(stime, NULL);
+    return;
+} // end start_timer
+
+/*
+ * Ends a timer.  To be used in tandem with end_timer.  These two come to us
+ * from the Smaug code base.
+ */
+time_t end_timer(struct timeval *stime)
+{
+    struct timeval etime;
+
+    /* Mark etime before checking stime, so that we get a better reading.. */
+    gettimeofday(&etime, NULL);
+
+    if (!stime || (!stime->tv_sec && !stime->tv_usec))
+    {
+        bug("End_timer: bad stime.", 0);
+        return 0;
+    }
+
+    subtract_times(&etime, stime);
+    /* stime becomes time used */
+    *stime = etime;
+    return (etime.tv_sec*1000000)+etime.tv_usec;
+} // end end_timer
+
+/*
+ * Subtracts two times.  This comes from the Smaug code base.
+ */
+void subtract_times(struct timeval *etime, struct timeval *stime)
+{
+    etime->tv_sec -= stime->tv_sec;
+    etime->tv_usec -= stime->tv_usec;
+
+    while (etime->tv_usec < 0)
+    {
+        etime->tv_usec += 1000000;
+        etime->tv_sec--;
+    }
+
+    return;
+}  // end subtract_times
+
