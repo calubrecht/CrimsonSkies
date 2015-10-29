@@ -4446,9 +4446,12 @@ SKILLTYPE *fread_skill( FILE *fp)
             KEY("MinPos",	skill->minimum_position,fread_number(fp) );
             KEY("MsgObj",      	skill->msg_obj, 	fread_string(fp) );
             KEY("MsgOff",      	skill->msg_off, 	fread_string(fp) );
-	    break;
+	        break;
         case 'N':
-	    KEY( "Name",     	skill->name,		fread_string(fp));
+    	    KEY("Name",     	skill->name,		fread_string(fp));
+            break;
+        case 'R':
+            KEY("Race",         skill->race,        fread_number(fp));
             break;
         case 'S':
             KEY("SpellFun",	skill->spell_fun,	spell_function_lookup(fread_string(fp)));

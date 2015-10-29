@@ -172,6 +172,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo, int t
 /*
  * PC Race Lookup
  */
+#define NONE_RACE_LOOKUP                        0
 #define HUMAN_RACE_LOOKUP                       1
 #define ELF_RACE_LOOKUP                         2
 #define DWARF_RACE_LOOKUP                       3
@@ -1753,6 +1754,7 @@ struct skill_type
     char *      noun_damage;               /* Damage message               */
     char *      msg_off;                   /* Wear off message             */
     char *      msg_obj;                   /* Wear off message for obects  */
+    sh_int      race;                      /* Specific race if the skill is only for one race */
 };
 
 struct  group_type

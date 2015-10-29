@@ -6570,8 +6570,8 @@ CEDIT( cedit_create )
         if (!skill_table[x]->name)
             break;
 
-	skill_table[x]->skill_level[top_class] = LEVEL_IMMORTAL;
-	skill_table[x]->rating[top_class] = -1;
+    	skill_table[x]->skill_level[top_class] = LEVEL_IMMORTAL;
+	    skill_table[x]->rating[top_class] = 1;
     }
 
     for (x=0; x < top_group; x++)
@@ -7039,13 +7039,14 @@ SEDIT( sedit_create )
     skill->msg_off = str_dup( "" );
     skill->msg_obj = str_dup( "" );
     skill->spell_fun = spell_null;
+    skill->race = 0;
 
     // Set the default level for all of the classes to the level of an immortal
     // so we will only have to set the levels of those classes receiving the skill.
     for ( x = 0; x < top_class; x++ )
     {
         skill->skill_level[x] = LEVEL_IMMORTAL;
-        skill->rating[x] = -1;
+        skill->rating[x] = 1;
     }
 
     // Put the n ew skill in the table then incriment the top_sn
@@ -7092,7 +7093,19 @@ SEDIT( sedit_show)
     sprintf(buf, "MsgObj:       [%s]\n\r", skill->msg_obj);
     send_to_char(buf, ch);
 
-    send_to_char("Class         Level  Rating  Class         Level  Rating\n\r", ch);
+    if (skill->race == 0)
+    {
+        sprintf(buf, "Race:         [none]\n\r");
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        sprintf(buf, "Race:         [%s]\n\r", pc_race_table[skill->race].name);
+        send_to_char(buf, ch);
+    }
+
+
+    send_to_char("\n\rClass         Level  Rating  Class         Level  Rating\n\r", ch);
     send_to_char("--------------------------------------------------------\n\r", ch);
 
     for(class = 0; class < top_class; class++)
@@ -7412,5 +7425,23 @@ SEDIT( sedit_rating)
    sprintf (buf, "OK, %s will now cost %d for %s.\n\r", class_table[class_no]->name, rating, skill->name);
    send_to_char(buf, ch);
    return TRUE;
+}
+
+SEDIT(sedit_race)
+{
+    SKILLTYPE *skill;
+
+    EDIT_SKILL(ch, skill);
+
+    if ( argument[0] == '\0')
+    {
+        send_to_char( "Syntax:  race [string]\n\r", ch );
+        return FALSE;
+    }
+
+    skill->race = race_lookup(argument);
+
+    send_to_char( "Race set.\n\r", ch);
+    return TRUE;
 }
 

@@ -5,6 +5,7 @@ Target      0
 MinPos      8
 MinMana     0
 Beats       0
+Race        0
 End
 
 #SKILL
@@ -16,6 +17,7 @@ MinMana     20
 Beats       12
 Damage      acid blast~
 MsgOff      !Acid Blast!~
+Race        0
 End
 
 #SKILL
@@ -26,6 +28,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You feel less armored.~
+Race        0
 End
 
 #SKILL
@@ -37,6 +40,7 @@ MinMana     5
 Beats       12
 MsgOff      You feel less righteous.~
 MsgObj      $p's holy aura fades.~
+Race        0
 End
 
 #SKILL
@@ -47,6 +51,7 @@ MinPos      7
 MinMana     5
 Beats       12
 MsgOff      You can see again.~
+Race        0
 End
 
 #SKILL
@@ -57,6 +62,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You begin to breath normally again.~
+Race        0
 End
 
 #SKILL
@@ -68,6 +74,7 @@ MinMana     15
 Beats       12
 Damage      burning hands~
 MsgOff      !Burning Hands!~
+Race        0
 End
 
 #SKILL
@@ -79,6 +86,7 @@ MinMana     15
 Beats       12
 Damage      lightning bolt~
 MsgOff      !Call Lightning!~
+Race        0
 End
 
 #SKILL
@@ -89,6 +97,7 @@ MinPos      7
 MinMana     30
 Beats       12
 MsgOff      You have lost your peace of mind.~
+Race        0
 End
 
 #SKILL
@@ -99,6 +108,7 @@ MinPos      7
 MinMana     20
 Beats       12
 Damage      !cancellation!~
+Race        0
 End
 
 #SKILL
@@ -110,6 +120,7 @@ MinMana     20
 Beats       12
 Damage      spell~
 MsgOff      !Cause Critical!~
+Race        0
 End
 
 #SKILL
@@ -121,6 +132,7 @@ MinMana     15
 Beats       12
 Damage      spell~
 MsgOff      !Cause Light!~
+Race        0
 End
 
 #SKILL
@@ -132,6 +144,7 @@ MinMana     17
 Beats       12
 Damage      spell~
 MsgOff      !Cause Serious!~
+Race        0
 End
 
 #SKILL
@@ -143,6 +156,7 @@ MinMana     25
 Beats       12
 Damage      lightning~
 MsgOff      !Chain Lightning!~
+Race        0
 End
 
 #SKILL
@@ -153,6 +167,7 @@ MinPos      7
 MinMana     15
 Beats       12
 MsgOff      Your body feels familiar again.~
+Race        0
 End
 
 #SKILL
@@ -163,6 +178,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You feel more self-confident.~
+Race        0
 End
 
 #SKILL
@@ -174,6 +190,7 @@ MinMana     15
 Beats       12
 Damage      chilling touch~
 MsgOff      You feel less cold.~
+Race        0
 End
 
 #SKILL
@@ -185,6 +202,7 @@ MinMana     15
 Beats       12
 Damage      color spray~
 MsgOff      !Color Spray!~
+Race        0
 End
 
 #SKILL
@@ -195,6 +213,7 @@ MinPos      8
 MinMana     7
 Beats       12
 MsgOff      !Continual Light!~
+Race        0
 End
 
 #SKILL
@@ -205,6 +224,7 @@ MinPos      8
 MinMana     25
 Beats       12
 MsgOff      !Control Weather!~
+Race        0
 End
 
 #SKILL
@@ -215,6 +235,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Create Food!~
+Race        0
 End
 
 #SKILL
@@ -225,6 +246,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Create Rose!~
+Race        0
 End
 
 #SKILL
@@ -235,6 +257,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      !Create Spring!~
+Race        0
 End
 
 #SKILL
@@ -245,6 +268,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Create Water!~
+Race        0
 End
 
 #SKILL
@@ -255,6 +279,7 @@ MinPos      7
 MinMana     5
 Beats       12
 MsgOff      !Cure Blindness!~
+Race        0
 End
 
 #SKILL
@@ -265,6 +290,7 @@ MinPos      7
 MinMana     20
 Beats       12
 MsgOff      !Cure Critical!~
+Race        0
 End
 
 #SKILL
@@ -275,6 +301,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      !Cure Disease!~
+Race        0
 End
 
 #SKILL
@@ -285,6 +312,7 @@ MinPos      7
 MinMana     10
 Beats       12
 MsgOff      !Cure Light!~
+Race        0
 End
 
 #SKILL
@@ -295,6 +323,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Cure Poison!~
+Race        0
 End
 
 #SKILL
@@ -305,6 +334,7 @@ MinPos      7
 MinMana     15
 Beats       12
 MsgOff      !Cure Serious!~
+Race        0
 End
 
 #SKILL
@@ -317,6 +347,7 @@ Beats       12
 Damage      curse~
 MsgOff      The curse wears off.~
 MsgObj      $p is no longer impure.~
+Race        0
 End
 
 #SKILL
@@ -328,6 +359,7 @@ MinMana     20
 Beats       12
 Damage      torments~
 MsgOff      !Demonfire!~
+Race        0
 End
 
 #SKILL
@@ -338,6 +370,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      The red in your vision disappears.~
+Race        0
 End
 
 #SKILL
@@ -348,6 +381,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      The gold in your vision disappears.~
+Race        0
 End
 
 #SKILL
@@ -358,6 +392,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You feel less aware of your surroundings.~
+Race        0
 End
 
 #SKILL
@@ -368,6 +403,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You no longer see invisible objects.~
+Race        0
 End
 
 #SKILL
@@ -378,6 +414,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      The detect magic wears off.~
+Race        0
 End
 
 #SKILL
@@ -388,6 +425,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Detect Poison!~
+Race        0
 End
 
 #SKILL
@@ -399,6 +437,7 @@ MinMana     15
 Beats       12
 Damage      dispel evil~
 MsgOff      !Dispel Evil!~
+Race        0
 End
 
 #SKILL
@@ -410,6 +449,7 @@ MinMana     15
 Beats       12
 Damage      dispel good~
 MsgOff      !Dispel Good!~
+Race        0
 End
 
 #SKILL
@@ -420,6 +460,7 @@ MinPos      7
 MinMana     15
 Beats       12
 MsgOff      !Dispel Magic!~
+Race        0
 End
 
 #SKILL
@@ -431,6 +472,7 @@ MinMana     15
 Beats       12
 Damage      earthquake~
 MsgOff      !Earthquake!~
+Race        0
 End
 
 #SKILL
@@ -441,6 +483,7 @@ MinPos      8
 MinMana     100
 Beats       24
 MsgOff      !Enchant Armor!~
+Race        0
 End
 
 #SKILL
@@ -451,6 +494,7 @@ MinPos      8
 MinMana     100
 Beats       24
 MsgOff      !Enchant Weapon!~
+Race        0
 End
 
 #SKILL
@@ -462,6 +506,7 @@ MinMana     25
 Beats       24
 Damage      enchant person~
 MsgOff      The translucent blue aura around your body fades.~
+Race        0
 End
 
 #SKILL
@@ -472,6 +517,7 @@ MinPos      8
 MinMana     25
 Beats       24
 MsgOff      !Withering Enchant!~
+Race        0
 End
 
 #SKILL
@@ -482,6 +528,7 @@ MinPos      8
 MinMana     50
 Beats       24
 MsgOff      !Sequestor!~
+Race        0
 End
 
 #SKILL
@@ -492,6 +539,7 @@ MinPos      8
 MinMana     25
 Beats       24
 MsgOff      !Interlace Spirit!~
+Race        0
 End
 
 #SKILL
@@ -502,6 +550,7 @@ MinPos      8
 MinMana     150
 Beats       24
 MsgOff      !Wizard Mark!~
+Race        0
 End
 
 #SKILL
@@ -512,6 +561,7 @@ MinPos      8
 MinMana     25
 Beats       24
 MsgOff      !Enchant Gem!~
+Race        0
 End
 
 #SKILL
@@ -522,6 +572,7 @@ MinPos      8
 MinMana     25
 Beats       24
 MsgOff      !Restore Weapon!~
+Race        0
 End
 
 #SKILL
@@ -532,6 +583,7 @@ MinPos      8
 MinMana     25
 Beats       24
 MsgOff      !Restore Armor!~
+Race        0
 End
 
 #SKILL
@@ -542,6 +594,7 @@ MinPos      8
 MinMana     10
 Beats       24
 MsgOff      !Disenchant!~
+Race        0
 End
 
 #SKILL
@@ -553,6 +606,7 @@ MinMana     35
 Beats       12
 Damage      energy drain~
 MsgOff      !Energy Drain!~
+Race        0
 End
 
 #SKILL
@@ -564,6 +618,7 @@ MinMana     5
 Beats       12
 Damage      faerie fire~
 MsgOff      The pink aura around you fades away.~
+Race        0
 End
 
 #SKILL
@@ -575,6 +630,7 @@ MinMana     12
 Beats       12
 Damage      faerie fog~
 MsgOff      !Faerie Fog!~
+Race        0
 End
 
 #SKILL
@@ -586,6 +642,7 @@ MinMana     36
 Beats       20
 Damage      farsight~
 MsgOff      !Farsight!~
+Race        0
 End
 
 #SKILL
@@ -597,6 +654,7 @@ MinMana     15
 Beats       12
 Damage      fireball~
 MsgOff      !Fireball!~
+Race        0
 End
 
 #SKILL
@@ -607,6 +665,7 @@ MinPos      8
 MinMana     10
 Beats       12
 MsgObj      $p's protective aura fades.~
+Race        0
 End
 
 #SKILL
@@ -618,6 +677,7 @@ MinMana     20
 Beats       12
 Damage      flamestrike~
 MsgOff      !Flamestrike!~
+Race        0
 End
 
 #SKILL
@@ -628,6 +688,7 @@ MinPos      8
 MinMana     10
 Beats       18
 MsgOff      You slowly float to the ground.~
+Race        0
 End
 
 #SKILL
@@ -638,6 +699,7 @@ MinPos      8
 MinMana     40
 Beats       24
 MsgOff      !Floating disc!~
+Race        0
 End
 
 #SKILL
@@ -648,6 +710,7 @@ MinPos      8
 MinMana     30
 Beats       24
 MsgOff      Your rage ebbs.~
+Race        0
 End
 
 #SKILL
@@ -658,6 +721,7 @@ MinPos      7
 MinMana     80
 Beats       12
 MsgOff      !Gate!~
+Race        0
 End
 
 #SKILL
@@ -668,6 +732,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      You feel weaker.~
+Race        0
 End
 
 #SKILL
@@ -679,6 +744,7 @@ MinMana     35
 Beats       12
 Damage      harm spell~
 MsgOff      !Harm!,        ~
+Race        0
 End
 
 #SKILL
@@ -689,6 +755,7 @@ MinPos      7
 MinMana     30
 Beats       12
 MsgOff      You feel yourself slow down.~
+Race        0
 End
 
 #SKILL
@@ -699,6 +766,7 @@ MinPos      7
 MinMana     50
 Beats       12
 MsgOff      !Heal!~
+Race        0
 End
 
 #SKILL
@@ -710,6 +778,7 @@ MinMana     25
 Beats       18
 Damage      spell~
 MsgOff      !Heat Metal!~
+Race        0
 End
 
 #SKILL
@@ -721,6 +790,7 @@ MinMana     200
 Beats       24
 Damage      divine wrath~
 MsgOff      !Holy Word!~
+Race        0
 End
 
 #SKILL
@@ -731,6 +801,7 @@ MinPos      8
 MinMana     12
 Beats       24
 MsgOff      !Identify!~
+Race        0
 End
 
 #SKILL
@@ -741,6 +812,7 @@ MinPos      8
 MinMana     5
 Beats       18
 MsgOff      You no longer see in the dark.~
+Race        0
 End
 
 #SKILL
@@ -752,6 +824,7 @@ MinMana     5
 Beats       12
 MsgOff      You are no longer invisible.~
 MsgObj      $p fades into view.~
+Race        0
 End
 
 #SKILL
@@ -762,6 +835,7 @@ MinPos      7
 MinMana     9
 Beats       12
 MsgOff      !Know Alignment!~
+Race        0
 End
 
 #SKILL
@@ -773,6 +847,7 @@ MinMana     15
 Beats       12
 Damage      lightning bolt~
 MsgOff      !Lightning Bolt!~
+Race        0
 End
 
 #SKILL
@@ -783,6 +858,7 @@ MinPos      8
 MinMana     20
 Beats       18
 MsgOff      !Locate Object!~
+Race        0
 End
 
 #SKILL
@@ -794,6 +870,7 @@ MinMana     15
 Beats       12
 Damage      magic missile~
 MsgOff      !Magic Missile!~
+Race        0
 End
 
 #SKILL
@@ -804,6 +881,7 @@ MinPos      8
 MinMana     100
 Beats       36
 MsgOff      !Mass Healing!~
+Race        0
 End
 
 #SKILL
@@ -814,6 +892,7 @@ MinPos      8
 MinMana     20
 Beats       24
 MsgOff      You are no longer invisible.~
+Race        0
 End
 
 #SKILL
@@ -824,6 +903,7 @@ MinPos      8
 MinMana     150
 Beats       36
 MsgOff      !Nexus!~
+Race        0
 End
 
 #SKILL
@@ -834,6 +914,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      You feel solid again.~
+Race        0
 End
 
 #SKILL
@@ -845,6 +926,7 @@ MinMana     20
 Beats       12
 Damage      sickness~
 MsgOff      Your sores vanish.~
+Race        0
 End
 
 #SKILL
@@ -857,6 +939,7 @@ Beats       12
 Damage      poison~
 MsgOff      You feel less sick.~
 MsgObj      The poison on $p dries up.~
+Race        0
 End
 
 #SKILL
@@ -867,6 +950,7 @@ MinPos      8
 MinMana     100
 Beats       24
 MsgOff      !Portal!~
+Race        0
 End
 
 #SKILL
@@ -877,6 +961,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You feel less protected.~
+Race        0
 End
 
 #SKILL
@@ -887,6 +972,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      You feel less protected.~
+Race        0
 End
 
 #SKILL
@@ -898,6 +984,7 @@ MinMana     20
 Beats       12
 Damage      ray of truth~
 MsgOff      !Ray of Truth!~
+Race        0
 End
 
 #SKILL
@@ -908,6 +995,7 @@ MinPos      8
 MinMana     60
 Beats       24
 MsgOff      !Recharge!~
+Race        0
 End
 
 #SKILL
@@ -919,6 +1007,7 @@ MinMana     12
 Beats       18
 Damage      refresh~
 MsgOff      !Refresh!~
+Race        0
 End
 
 #SKILL
@@ -929,6 +1018,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Remove Curse!~
+Race        0
 End
 
 #SKILL
@@ -939,6 +1029,7 @@ MinPos      8
 MinMana     75
 Beats       12
 MsgOff      The white aura around your body fades.~
+Race        0
 End
 
 #SKILL
@@ -949,6 +1040,7 @@ MinPos      8
 MinMana     12
 Beats       18
 MsgOff      Your force shield shimmers then fades away.~
+Race        0
 End
 
 #SKILL
@@ -960,6 +1052,7 @@ MinMana     15
 Beats       12
 Damage      shocking grasp~
 MsgOff      !Shocking Grasp!~
+Race        0
 End
 
 #SKILL
@@ -970,6 +1063,7 @@ MinPos      8
 MinMana     15
 Beats       12
 MsgOff      You feel less tired.~
+Race        0
 End
 
 #SKILL
@@ -980,6 +1074,7 @@ MinPos      7
 MinMana     30
 Beats       12
 MsgOff      You feel yourself speed up.~
+Race        0
 End
 
 #SKILL
@@ -990,6 +1085,7 @@ MinPos      8
 MinMana     12
 Beats       18
 MsgOff      Your skin feels soft again.~
+Race        0
 End
 
 #SKILL
@@ -1000,6 +1096,7 @@ MinPos      8
 MinMana     50
 Beats       12
 MsgOff      !Summon!~
+Race        0
 End
 
 #SKILL
@@ -1010,6 +1107,7 @@ MinPos      7
 MinMana     35
 Beats       12
 MsgOff      !Teleport!~
+Race        0
 End
 
 #SKILL
@@ -1020,6 +1118,7 @@ MinPos      8
 MinMana     5
 Beats       12
 MsgOff      !Ventriloquate!~
+Race        0
 End
 
 #SKILL
@@ -1031,6 +1130,7 @@ MinMana     20
 Beats       12
 Damage      spell~
 MsgOff      You feel stronger.~
+Race        0
 End
 
 #SKILL
@@ -1041,6 +1141,7 @@ MinPos      5
 MinMana     5
 Beats       12
 MsgOff      !Word of Recall!~
+Race        0
 End
 
 #SKILL
@@ -1052,6 +1153,7 @@ MinMana     100
 Beats       24
 Damage      blast of acid~
 MsgOff      !Acid Breath!~
+Race        0
 End
 
 #SKILL
@@ -1063,6 +1165,7 @@ MinMana     200
 Beats       24
 Damage      blast of flame~
 MsgOff      The smoke leaves your eyes.~
+Race        0
 End
 
 #SKILL
@@ -1074,6 +1177,7 @@ MinMana     125
 Beats       24
 Damage      blast of frost~
 MsgOff      !Frost Breath!~
+Race        0
 End
 
 #SKILL
@@ -1085,6 +1189,7 @@ MinMana     175
 Beats       24
 Damage      blast of gas~
 MsgOff      !Gas Breath!~
+Race        0
 End
 
 #SKILL
@@ -1096,6 +1201,7 @@ MinMana     150
 Beats       24
 Damage      blast of lightning~
 MsgOff      !Lightning Breath!~
+Race        0
 End
 
 #SKILL
@@ -1107,6 +1213,7 @@ MinMana     0
 Beats       12
 Damage      general purpose ammo~
 MsgOff      !General Purpose Ammo!~
+Race        0
 End
 
 #SKILL
@@ -1118,6 +1225,7 @@ MinMana     0
 Beats       12
 Damage      high explosive ammo~
 MsgOff      !High Explosive Ammo!~
+Race        0
 End
 
 #SKILL
@@ -1128,6 +1236,7 @@ MinPos      8
 MinMana     20
 Beats       18
 MsgOff      !Locate Wizard Mark!~
+Race        0
 End
 
 #SKILL
@@ -1138,6 +1247,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Axe!~
+Race        0
 End
 
 #SKILL
@@ -1148,6 +1258,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Dagger!~
+Race        0
 End
 
 #SKILL
@@ -1158,6 +1269,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Flail!~
+Race        0
 End
 
 #SKILL
@@ -1168,6 +1280,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Mace!~
+Race        0
 End
 
 #SKILL
@@ -1178,6 +1291,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Polearm!~
+Race        0
 End
 
 #SKILL
@@ -1188,6 +1302,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Shield!~
+Race        0
 End
 
 #SKILL
@@ -1198,6 +1313,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Spear!~
+Race        0
 End
 
 #SKILL
@@ -1208,6 +1324,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !sword!~
+Race        0
 End
 
 #SKILL
@@ -1218,6 +1335,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Whip!~
+Race        0
 End
 
 #SKILL
@@ -1229,6 +1347,7 @@ MinMana     0
 Beats       24
 Damage      backstab~
 MsgOff      !Backstab!~
+Race        0
 End
 
 #SKILL
@@ -1240,6 +1359,7 @@ MinMana     0
 Beats       24
 Damage      bash~
 MsgOff      !Bash!~
+Race        0
 End
 
 #SKILL
@@ -1250,6 +1370,7 @@ MinPos      7
 MinMana     0
 Beats       24
 MsgOff      You feel your pulse slow down.~
+Race        0
 End
 
 #SKILL
@@ -1261,6 +1382,7 @@ MinMana     0
 Beats       24
 Damage      kicked dirt~
 MsgOff      You rub the dirt out of your eyes.~
+Race        0
 End
 
 #SKILL
@@ -1271,6 +1393,7 @@ MinPos      7
 MinMana     0
 Beats       24
 MsgOff      !Disarm!~
+Race        0
 End
 
 #SKILL
@@ -1281,6 +1404,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Dodge!~
+Race        0
 End
 
 #SKILL
@@ -1291,6 +1415,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Enhanced Damage!~
+Race        0
 End
 
 #SKILL
@@ -1301,6 +1426,7 @@ MinPos      5
 MinMana     0
 Beats       36
 MsgOff      !Envenom!~
+Race        0
 End
 
 #SKILL
@@ -1311,6 +1437,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Hand to Hand!~
+Race        0
 End
 
 #SKILL
@@ -1322,6 +1449,7 @@ MinMana     0
 Beats       12
 Damage      kick~
 MsgOff      !Kick!~
+Race        0
 End
 
 #SKILL
@@ -1332,6 +1460,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Parry!~
+Race        0
 End
 
 #SKILL
@@ -1342,6 +1471,7 @@ MinPos      7
 MinMana     0
 Beats       12
 MsgOff      !Rescue!~
+Race        0
 End
 
 #SKILL
@@ -1353,6 +1483,7 @@ MinMana     0
 Beats       24
 Damage      trip~
 MsgOff      !Trip!~
+Race        0
 End
 
 #SKILL
@@ -1363,6 +1494,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Second Attack!~
+Race        0
 End
 
 #SKILL
@@ -1373,6 +1505,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      !Third Attack!~
+Race        0
 End
 
 #SKILL
@@ -1383,6 +1516,7 @@ MinPos      4
 MinMana     0
 Beats       0
 MsgOff      !Fast Healing!~
+Race        0
 End
 
 #SKILL
@@ -1393,6 +1527,7 @@ MinPos      5
 MinMana     0
 Beats       0
 MsgOff      !Haggle!~
+Race        0
 End
 
 #SKILL
@@ -1403,6 +1538,7 @@ MinPos      5
 MinMana     0
 Beats       12
 MsgOff      !Hide!~
+Race        0
 End
 
 #SKILL
@@ -1413,6 +1549,7 @@ MinPos      5
 MinMana     0
 Beats       36
 MsgOff      !Lore!~
+Race        0
 End
 
 #SKILL
@@ -1423,6 +1560,7 @@ MinPos      4
 MinMana     0
 Beats       0
 MsgOff      Meditation~
+Race        0
 End
 
 #SKILL
@@ -1433,6 +1571,7 @@ MinPos      8
 MinMana     0
 Beats       0
 MsgOff      !Peek!~
+Race        0
 End
 
 #SKILL
@@ -1443,6 +1582,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Pick!~
+Race        0
 End
 
 #SKILL
@@ -1453,6 +1593,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      You no longer feel stealthy.~
+Race        0
 End
 
 #SKILL
@@ -1463,6 +1604,7 @@ MinPos      8
 MinMana     0
 Beats       24
 MsgOff      !Steal!~
+Race        0
 End
 
 #SKILL
@@ -1473,6 +1615,7 @@ MinPos      8
 MinMana     0
 Beats       24
 MsgOff      !Scrolls!~
+Race        0
 End
 
 #SKILL
@@ -1483,6 +1626,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Staves!~
+Race        0
 End
 
 #SKILL
@@ -1493,6 +1637,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Wands!~
+Race        0
 End
 
 #SKILL
@@ -1503,6 +1648,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Recall!~
+Race        0
 End
 
 #SKILL
@@ -1513,6 +1659,7 @@ MinPos      8
 MinMana     0
 Beats       12
 MsgOff      !Dual Wield!~
+Race        0
 End
 
 #SKILL
@@ -1523,6 +1670,7 @@ MinPos      8
 MinMana     0
 Beats       0
 MsgOff      !Spellcraft!~
+Race        0
 End
 
 #SKILL
@@ -1532,6 +1680,7 @@ Target      0
 MinPos      0
 MinMana     0
 Beats       0
+Race        0
 End
 
 #SKILL
@@ -1542,6 +1691,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      You feel less weary.~
+Race        0
 End
 
 #SKILL
@@ -1551,6 +1701,7 @@ Target      2
 MinPos      8
 MinMana     250
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1560,6 +1711,7 @@ Target      2
 MinPos      8
 MinMana     15
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1570,6 +1722,7 @@ MinPos      8
 MinMana     25
 Beats       12
 MsgOff      You feel the vitalizing presence leave your body.~
+Race        0
 End
 
 #SKILL
@@ -1580,6 +1733,7 @@ MinPos      8
 MinMana     10
 Beats       12
 MsgOff      You no longer feel as vitalized.~
+Race        0
 End
 
 #SKILL
@@ -1590,6 +1744,7 @@ MinPos      8
 MinMana     25
 Beats       12
 MsgOff      You no longer have a resistance to magic.~
+Race        0
 End
 
 #SKILL
@@ -1599,6 +1754,7 @@ Target      2
 MinPos      8
 MinMana     50
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1608,6 +1764,7 @@ Target      2
 MinPos      8
 MinMana     10
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1617,6 +1774,7 @@ Target      2
 MinPos      8
 MinMana     10
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1627,6 +1785,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      You can no longer sense those that are afflicted.~
+Race        0
 End
 
 #SKILL
@@ -1636,6 +1795,7 @@ Target      2
 MinPos      8
 MinMana     10
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1645,6 +1805,7 @@ Target      0
 MinPos      0
 MinMana     0
 Beats       0
+Race        0
 End
 
 #SKILL
@@ -1654,6 +1815,7 @@ Target      2
 MinPos      0
 MinMana     5
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1664,6 +1826,7 @@ MinPos      8
 MinMana     20
 Beats       12
 MsgOff      The enhanced recovery leaves your body.~
+Race        0
 End
 
 #SKILL
@@ -1674,6 +1837,7 @@ MinPos      7
 MinMana     0
 Beats       0
 MsgOff      You cease to dance the bladesong.~
+Race        0
 End
 
 #SKILL
@@ -1683,6 +1847,7 @@ Target      0
 MinPos      7
 MinMana     0
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1693,6 +1858,7 @@ MinPos      0
 MinMana     0
 Beats       0
 MsgOff      You feel less disoriented.~
+Race        0
 End
 
 #SKILL
@@ -1702,6 +1868,7 @@ Target      0
 MinPos      0
 MinMana     0
 Beats       0
+Race        0
 End
 
 #SKILL
@@ -1711,6 +1878,7 @@ Target      2
 MinPos      8
 MinMana     5
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1720,6 +1888,7 @@ Target      0
 MinPos      8
 MinMana     200
 Beats       36
+Race        0
 End
 
 #SKILL
@@ -1730,6 +1899,7 @@ MinPos      7
 MinMana     25
 Beats       12
 MsgOff      You can hear again.~
+Race        0
 End
 
 #SKILL
@@ -1739,6 +1909,7 @@ Target      2
 MinPos      8
 MinMana     10
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1749,6 +1920,7 @@ MinPos      0
 MinMana     0
 Beats       0
 MsgOff      !Enhanced Recall!~
+Race        0
 End
 
 #SKILL
@@ -1758,6 +1930,7 @@ Target      1
 MinPos      7
 MinMana     0
 Beats       12
+Race        0
 End
 
 #SKILL
@@ -1768,6 +1941,7 @@ MinPos      7
 MinMana     10
 Beats       12
 MsgOff      !Remove Faerie Fire!~
+Race        0
 End
 
 #SKILL
@@ -1778,6 +1952,7 @@ MinPos      7
 MinMana     0
 Beats       36
 Damage      gore~
+Race        6
 End
 
 #END

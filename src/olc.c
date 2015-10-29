@@ -378,6 +378,7 @@ const struct olc_cmd_type sedit_table[] =
     {   "level",        sedit_level     },
     {   "rating",       sedit_rating    },
     {   "show",         sedit_show      },
+    {   "race",         sedit_race      },
     {   "?",            show_help       },
     {   "",             0,              }
 };

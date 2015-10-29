@@ -1141,6 +1141,8 @@ void fwrite_skill(FILE *fp, int sn)
     if ( skill_table[sn]->msg_obj && skill_table[sn]->msg_obj[0] != '\0' )
         fprintf(fp,"MsgObj      %s~\n",skill_table[sn]->msg_obj);
 
+    fprintf(fp,"Race        %d\n", skill_table[sn]->race);
+
     fprintf( fp, "End\n\n" );
 
 } // end fwrite_skill

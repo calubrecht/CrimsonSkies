@@ -318,6 +318,7 @@ DECLARE_OLC_FUN( sedit_create           );
 DECLARE_OLC_FUN( sedit_show             );
 DECLARE_OLC_FUN( sedit_level            );
 DECLARE_OLC_FUN( sedit_rating           );
+DECLARE_OLC_FUN( sedit_race             );
 
 /* Class Editor */
 DECLARE_OLC_FUN( cedit_name             );
