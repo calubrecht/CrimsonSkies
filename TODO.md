@@ -85,3 +85,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add guild room names and area names to class command.
   - Update do_ofind to have two columns like olc olist
   - Update do_mfind to have two columns like olc mlist
+  - Add class/race multipliers to OLC.
+  - Gore is in the code, make it a racial skill for Minotaurs now (which isn't as straight forward
+    as it seems since skills are tethered to classes in ROM).
