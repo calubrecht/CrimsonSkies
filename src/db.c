@@ -4407,6 +4407,9 @@ SKILLTYPE *fread_skill( FILE *fp)
     int x;
 
     skill = alloc_perm(sizeof(*skill));
+
+    // Set all of the ratings to 52, -1 by default.  These values will later be
+    // loaded when the classes are loaded (which is where they are stored).
     for ( x = 0; x < MAX_CLASS; x++ )
     {
         skill->skill_level[x] = LEVEL_IMMORTAL;
