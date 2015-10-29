@@ -410,42 +410,6 @@ struct pc_race_type pc_race_table[] = {
      {10, 12, 14, 18, 10}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 };
 
-
-
-// reclass
-/*
- * Class table.
- * who_name, attr_prime, weapon, vnum of guild rooms, thac0_00
- * thac0_32, hp_min, hp_max, fMana, base_group, default_group, is_reclass
- */
-/*const struct class_type class_table[MAX_CLASS] = {
-    {
-     "mage", "Mag", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
-     {3018, 9618}, 75, 20, 6, 6, 8, TRUE,
-     "mage basics", "mage default", FALSE},
-
-    {
-     "cleric", "Cle", STAT_WIS, OBJ_VNUM_SCHOOL_MACE,
-     {3003, 9619}, 75, 20, 2, 7, 10, TRUE,
-     "cleric basics", "cleric default", FALSE},
-
-    {
-     "thief", "Thi", STAT_DEX, OBJ_VNUM_SCHOOL_DAGGER,
-     {3028, 9639}, 75, 20, -4, 8, 13, FALSE,
-     "thief basics", "thief default", FALSE},
-
-    {
-     "warrior", "War", STAT_STR, OBJ_VNUM_SCHOOL_SWORD,
-     {3022, 9633}, 75, 20, -10, 11, 15, FALSE,
-     "warrior basics", "warrior default", FALSE},
-
-     {
-     "enchantor", "Enc", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER,
-         { 3018, 9618 }, 75, 20, 6, 6, 8, TRUE,
-     "enchantor basics", "enchantor default", TRUE},
-
-}; */
-
 /*
  * Attribute bonus tables.
  */
