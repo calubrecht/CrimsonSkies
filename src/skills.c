@@ -1085,22 +1085,38 @@ void group_remove (CHAR_DATA * ch, const char *name)
 
 /*
  * Whether or not a given skill is a racial skill for the player.  This originated
- * from Dennis Reichel on the ROM mailing list.
+ * from Dennis Reichel on the ROM mailing list.  This looks at the race table and
+ * determines whether the class gets the skill for free.  A true racial skill (like
+ * gore for Minotaur's) will be flagged with a value in the Race field of the skill.
+ * The difference is some races get skills that other races can take for a cost.  A
+ * true racial skill is free for that race and may not be taken by anyone through
+ * creation.
  */
 bool is_racial_skill(CHAR_DATA * ch, int sn)
 {
     int i;
     bool skill_found = FALSE;
 
+    // First, check to see if it's a racial skill in the sense that the character
+    // gets it for free (but others can take it, it's not special per se)
     for (i = 0; i < 5; i++)
     {
         if (pc_race_table[ch->race].skills[i] == NULL)
+        {
             break;
+        }
 
-        if (sn == skill_lookup( pc_race_table[ch->race].skills[i]))
+        if (sn == skill_lookup(pc_race_table[ch->race].skills[i]))
         {
             skill_found = TRUE;
         }
+    }
+
+    // Now, check the skill itself, see if it's a racial skill and if so see if
+    // it matches the characters race.
+    if (skill_table[sn]->race == ch->race)
+    {
+        skill_found = TRUE;
     }
 
     return skill_found;
