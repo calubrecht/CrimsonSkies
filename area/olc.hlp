@@ -1,5 +1,5 @@
 #HELPS
--1 OLC EDIT~
+-1 OLC EDIT ASAVE~
 Syntax: EDIT AREA  [create/reset] [vnum]     - Area Creation and Repoping.
 Syntax: EDIT ROOM  [create] [vnum]           - Room Creation and Editing.
 Syntax: EDIT OBJ   [create] <vnum>           - Object Creation and Editing.

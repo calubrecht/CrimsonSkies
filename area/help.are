@@ -67,7 +67,7 @@ Syntax: color
 
         Color is written by Lope (ant@solace.mh.se)
 ~
--1 NOTES CHANGES NEWS OOCNOTES STORYNOTES UNREAD CATCHUP~
+-1 NOTES CHANGES NEWS OOCNOTES STORYNOTES HISTORY PENALTY IMMNOTE UNREAD CATCHUP~
 
 Crimson Skies has various note spools that you can post to, each with
 a specified purpose (notes, changes, news, ooc notes, story notes, e.g.
@@ -1211,17 +1211,21 @@ command, and then moving you back (if the command didn't change your
 location).
 ~
 
-54 ECHO GECHO PECHO~
+54 ECHO GECHO PECHO CECHO ZECHO~
 Syntax: echo  <message>
-	gecho <message>
-	pecho <character> <message>
+	    gecho <message>
+	    pecho <character> <message>
+        zecho <message>
+        cecho <message>
 
 These commands all perform similar functions.  Echo sends the message to
 all characters in the same room as the user, with no indication of who sent
 it.  Gecho does the same for all players connected to the game, and pecho
 sends the message to the player specified as the target.  Any higher-level
 god will see a prompt in front of your message, informing him or her that it
-is an echo.
+is an echo.  cecho (continent echo) is used to send a message to all players 
+on the same continent as youself.  zecho (zone echo) is used to send an
+echo to all players in the same area (zone) as yourself.
 ~
 
 52 GOTO~
@@ -1306,10 +1310,11 @@ standing in.  Stat can be used to find room vnums for goto.
 (see also goto, transfer)
 ~
 
-53 MWHERE~
+53 MWHERE OWHERE~
 Syntax: mwhere <name>
-
+        owhere <name>
 Mwhere shows you the locations of all mobiles with a particular name.
+Owhere shows you the location of all objects with a particular name.
 ~
 
 55 PEACE~
@@ -3670,6 +3675,129 @@ The room sees:
     Rhien says (to Isaac) 'hello'
 Isaac sees:
     Rhien says (to you) 'hello'
+~
+
+0 SHOW~
+Syntax: show
+
+Toggles whether affects will show in the score/oldscore commands.
+~
+
+0 SURRENDER~
+Syntax: surrender
+
+Attempts to surrender to an enemy in order to stop a battle.
+~
+
+0 ENTER~
+Syntax: enter <portal>
+
+The enter command will allow you to step into a portal which in turn
+will transport you somewhere else in the realm.
+~
+
+0 LAND~
+Syntax: land
+
+The 'land' command will cause you to float to the ground if you are
+currently affected by the fly spell or are floating.
+~
+
+52 VIOLATE~
+Syntax: violate <vnum>
+        violate <player name>
+
+The violate command will allow an immortal of a high enough level to
+goto a player or a vnum of a room that is private and doesn't normally
+allow other players.
+~
+
+52 NOCHANNELS~
+Syntax: nochannels <player name>
+
+The 'nochannels' command (nochan for short) is a penalty that allows
+an immortal to take channel access away from a player.  The player
+can still hear all channels but will no longer be allowed to speak
+on them.
+~
+
+52 BROADCAST~
+Syntax: broadcast <message>
+
+The broadcast command will send a message to all players AND people
+connected to the MUD.  This means they will see the message in active
+playing state, in creation, at the login prompt, etc.  The command
+will also display your name and will be heard whether a player is
+sleeping, in quiet mode or deaf, etc.  It cannot be ignored.
+
+[Broadcast from Rhien]: We will be implementing new areas in the next hour.
+~
+
+52 PREFIX~
+Syntax: prefix
+
+The 'prefix' command will toggle whether or not you see a prefix set of
+characters before wiznet messages.  E.g.
+
+Rhien has logged in.
+
+vs.
+
+--> Rhien has logged in.
+
+~
+
+52 FORCETICK~
+Syntax: forcetick
+
+The 'forcetick' command forces the processing of a tick and all tick
+related logic out of the normal 40 second cycle.  This should only
+be used by coders or implementors who know what they are doing and
+have a specific purpose for it (like testing).
+~
+
+52 RENAME~
+Syntax: rename <old name> <new name>
+
+Renames a character.
+~
+
+52 VNUMGAP~
+Syntax: vnumgap room
+        vnumgap obj
+        vnumgap mob
+
+The 'vnumgap' command will show you all vnums not assigned to an area.
+~
+
+52 PATHFIND~
+Syntax: pathfind <character>
+
+Pathfind is an immortal command that will attempt to give you the
+shortest path to a given character or mob in the area you are in.
+This can be helpful when mapping out directions to get to places
+that you might want to share on a web page or wiki.
+
+~
+
+52 TEST~
+Syntax: test
+
+The test command toggles whether you are in tester mode or not.
+If you are in tester mode you (or a player if they are set via
+the set command) will be denoted with a (Tester) flag and will
+see additional information throughout the game (for instance,
+how much damage each attack makes, etc.).  Testers also do not
+timeout and disconnect.  It should *only* be used on players
+currently testing.
+~
+
+52 WIZCANCEL~
+Syntax: wizcancel <character>
+
+The wizcancel command will cancel ALL affects on a player.  This
+is mainly used for testing and also to remove affects that maybe
+broken or added via a bug that aren't cancellable.
 ~
 
 0 $~
