@@ -2264,7 +2264,7 @@ void do_help (CHAR_DATA * ch, char *argument)
             /* add seperator if found */
             if (found)
                 add_buf (output,
-                         "\n\r============================================================\n\r\n\r");
+                         "\n\r================================================================================\n\r\n\r");
             if (pHelp->level >= 0 && str_cmp (argall, "imotd"))
             {
                 add_buf (output, pHelp->keyword);
@@ -2289,6 +2289,7 @@ void do_help (CHAR_DATA * ch, char *argument)
     if (!found)
     {
         send_to_char ("No help on that word.\n\r", ch);
+
         /*
          * Let's log unmet help requests so studious IMP's can improve their help files ;-)
          * But to avoid idiots, we will check the length of the help request, and trim to
