@@ -33,9 +33,8 @@ Welcome Immortal!
 -1 PKILL PKILLING PKILLER 'PLAYER KILLING' PSTEAL PSTEALING 'PLAYER STEALING'~
 Player killing and player stealing are allowed to all clan members
 (including loners), provided the victim is is within 8 levels of the
-character and is also in a clan.  This will flag you as a "killer" or
-"thief", allowing any character to attack, and also provoking action
-from the city guard.
+character and is also in a clan.  This will flag you as a "WANTED", allowing 
+any character to attack, and also provoking action from the city guard.
 ~
 
 0 COLOR COLOUR ANSI~
@@ -408,6 +407,7 @@ If your charmed creature engages in combat, that will break the charm.
 ~
 
 0 REST SLEEP STAND WAKE~
+Syntax: sit
 Syntax: rest
 Syntax: sleep
 Syntax: stand
@@ -440,22 +440,29 @@ REPLY sends a message to the last player who sent you a TELL.  REPLY will work
 even if you can't see the player, and without revealing their identity.  This
 is handy for talking to invisible or switched immortal players.
 ~
-0 GOSSIP CGOSSIP SHOUT YELL CLAN ASK ANSWER OOC IMM~
-Syntax: gossip  <message>
-Syntax: cgossip <message>
-Syntax: shout   <message>
-Syntax: yell    <message>
-Syntax: shout   <message>
-Syntax: clan    <message>
-Syntax: ask     <message>
-Syntax: answer  <message>
-Syntax: auction <message>
-Syntax: ooc     <message>
-Syntax: imm     <message> (immortal only)
+0 GOSSIP CGOSSIP SHOUT YELL CLAN QUESTION ANSWER OOC AUCTION OCLAN GRATS IMM CHANNEL~
+Syntax: gossip   <message>
+Syntax: cgossip  <message>
+Syntax: shout    <message>
+Syntax: yell     <message>
+Syntax: shout    <message>
+Syntax: clan     <message>
+Syntax: oclan    <message>
+Syntax: question <message>
+Syntax: answer   <message>
+Syntax: auction  <message>
+Syntax: ooc      <message>
+Syntax: grats    <message>
+Syntax: imm      <message> (immortal only)
 
 YELL sends a message to all awake players within your area.
 
 Type a channel name by itself to turn it off.
+~
+
+0 CHANNELS~
+The channels command will show you the current status of all channels that
+you have access to (whether they are currently on or off).
 ~
 
 0 EMOTE PMOTE POSE SOCIAL~
@@ -3546,6 +3553,123 @@ This is typically something an admin might turn on for a special occasion.
 Double experience is an optional setting a game admin can turn on that will
 give players double the gold haul for the duration that the setting is on.
 This is typically something an admin might turn on for a special occasion.
+~
+
+0 KILL MURDER~
+The 'kill' command will allow you to attack an in game creature (referred
+to as a mob).  The 'murder' command will allow you to attack another game
+player given that the player is within 8 levels of you and is a clanner.
+~
+
+0 SCAN~
+
+Syntax: scan
+Syntax: scan <direction>
+
+The scan command (without an argument) will show you all visible players
+to you who are currently in the room with you or are only one room away.
+If you include a direction with scan (such as 'scan north') you will peer
+in that direction and you will be able to see visible players and
+creatures as far as 3 rooms away.
+~
+
+0 TOUCH~
+
+Syntax: touch <object or player>
+
+The touch command simply allows you to touch another player or object.
+In most cases, this won't have any affect but there are certain objects
+that can be triggered by touching them (healer's binds, certain buttons,
+and other magical items).
+~
+
+0 WORTH~
+Syntax: worth
+
+The worth command will show you the amount of money that you own as well
+as give you information about how much experience you currently have.
+~
+
+0 COMBINE~
+Syntax: combine
+
+Toggles whether you have item combining turned on.  Item combining will
+determine how you see you see objects individually in your inventory or
+see them combined with a total count:  e.g.
+
+    Inventory:
+        A mithril ring
+        A mithril ring
+
+    vs.
+
+    Inventory
+        (2) A mithril ring
+
+~
+
+0 NOFOLLOW~
+Syntax: nofollow
+
+Toggles whether you allow other people to follow you or not.  If you turn
+nofollow on while someone is following you then they will be forced to
+stop following you.  If you lead a group and turn nofollow on the group
+will be dissolved.
+~
+
+0 NOLOOT~
+Syntax: noloot
+
+Toggles whether or not you allow looting on your corpse after you die.  If
+you do not have looting turned on you will also not be allowed to loot
+other players.  This only pertains to pkill situations.
+~
+
+0 NOSUMMON~
+Syntax: nosummon
+
+Toggles whether or not you allow other players to summon you with magic.
+If this is toggled on, other players will not be able to cast the summon
+spell and transport you across the world.
+~
+
+0 TELNETGA~
+Syntax: telnetga
+
+"Telnet go ahead" is a protocol which in which the server sends a packet
+to the client telling it that it is ok to start sending data back.  This
+is likely not needed with most modern clients (modern being anything
+newer than the mid 90's).
+~
+
+0 QUIET~
+Syntax: quiet
+
+The quiet command will toggle on and off quiet mode.  Quiet mode will
+silence all channels.  You will still see things that are happening
+in the room you are in and also hear people talking to you in the
+current room.
+
+When you are in quiet mode the who list will indicate to other players
+via a [Quiet] tag that you cannot hear channels.
+~
+
+0 DIRECT~
+Syntax: direct <player> <what you want to say>
+        > <player> <what you want to say>
+
+Direct or '>' will allow you to say something directly to a player
+who is in the same room.  All other players in the room will see that
+you have directect the say at that individual.  Example:
+
+> Isaac hello, how are you.
+
+You see:
+    You say (to Isaac) 'hello'
+The room sees:
+    Rhien says (to Isaac) 'hello'
+Isaac sees:
+    Rhien says (to you) 'hello'
 ~
 
 0 $~
