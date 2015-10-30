@@ -1561,12 +1561,6 @@ void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, sh_int depth, sh_int door)
     return;
 }
 
-/* RT added back for the hell of it */
-void do_read (CHAR_DATA * ch, char *argument)
-{
-    do_function (ch, &do_look, argument);
-}
-
 void do_examine (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];

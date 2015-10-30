@@ -199,7 +199,6 @@ DECLARE_DO_FUN(do_question);
 DECLARE_DO_FUN(do_qui);
 DECLARE_DO_FUN(do_quiet);
 DECLARE_DO_FUN(do_quit);
-DECLARE_DO_FUN(do_read);
 DECLARE_DO_FUN(do_reboo);
 DECLARE_DO_FUN(do_reboot);
 DECLARE_DO_FUN(do_recall);
