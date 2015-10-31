@@ -538,7 +538,7 @@ void reset_char (CHAR_DATA * ch)
 
     if (ch->pcdata->perm_hit == 0
         || ch->pcdata->perm_mana == 0
-        || ch->pcdata->perm_move == 0 || ch->pcdata->last_level == 0)
+        || ch->pcdata->perm_move == 0)
     {
         /* do a FULL reset */
         for (loc = 0; loc < MAX_WEAR; loc++)
