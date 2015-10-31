@@ -540,6 +540,9 @@ void reset_char (CHAR_DATA * ch)
         || ch->pcdata->perm_mana == 0
         || ch->pcdata->perm_move == 0)
     {
+        // If we're doing a full reset we're going to strip all affects first.
+        affect_strip_all(ch);
+
         /* do a FULL reset */
         for (loc = 0; loc < MAX_WEAR; loc++)
         {
