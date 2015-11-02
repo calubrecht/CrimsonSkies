@@ -3165,6 +3165,11 @@ void do_practice (CHAR_DATA * ch, char *argument)
         {
             if (skill_table[sn]->name == NULL)
                 break;
+
+            // If it is a racial skill, but not the players race then continue.
+            if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+                continue;
+
             if (ch->level < skill_table[sn]->skill_level[ch->class]
                 || ch->pcdata->learned[sn] < 1 /* skill is not known */ )
                 continue;
@@ -3215,6 +3220,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
              (!IS_NPC(ch)
                && (ch->level < skill_table[sn]->skill_level[ch->class]
                || ch->pcdata->learned[sn] < 1    /* skill is not known */
+               || (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
                || skill_table[sn]->rating[ch->class] == 0)))
         {
             send_to_char("You can't practice that.\n\r", ch);

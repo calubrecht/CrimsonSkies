@@ -113,6 +113,10 @@ void do_gain (CHAR_DATA * ch, char *argument)
             if (skill_table[sn]->name == NULL)
                 break;
 
+            // If it is a racial skill, but not the players race then continue.
+            if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+                continue;
+
             if (!ch->pcdata->learned[sn]
                 && skill_table[sn]->rating[ch->class] > 0
                 && skill_table[sn]->spell_fun == spell_null)
@@ -239,6 +243,13 @@ void do_gain (CHAR_DATA * ch, char *argument)
         {
             act ("$N tells you 'You are not yet ready for that skill.'",
                  ch, NULL, trainer, TO_CHAR);
+            return;
+        }
+
+        // If it is a racial skill, but not the players race then continue.
+        if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+        {
+            send_to_char("That is a racial skill that is not suitable for your race.\n\r", ch);
             return;
         }
 
@@ -457,6 +468,10 @@ void do_skills (CHAR_DATA * ch, char *argument)
         if (skill_table[sn]->name == NULL)
             break;
 
+        // If it is a racial skill, but not the players race then continue.
+        if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+            continue;
+
         if ((level = skill_table[sn]->skill_level[ch->class]) < LEVEL_HERO + 1
             && (fAll || level <= ch->level)
             && level >= min_lev && level <= max_lev
@@ -547,6 +562,10 @@ void list_group_costs (CHAR_DATA * ch)
         if (skill_table[sn]->name == NULL)
             break;
 
+        // If it is a racial skill, but not the players race then continue.
+        if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+            continue;
+
         if (!ch->gen_data->skill_chosen[sn]
             && ch->pcdata->learned[sn] == 0
             && skill_table[sn]->spell_fun == spell_null
@@ -615,6 +634,10 @@ void list_group_chosen (CHAR_DATA * ch)
     {
         if (skill_table[sn]->name == NULL)
             break;
+
+        // If it is a racial skill, but not the players race then continue.
+        if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+            continue;
 
         if (ch->gen_data->skill_chosen[sn]
             && skill_table[sn]->rating[ch->class] > 0)
@@ -753,6 +776,13 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
                 || skill_table[sn]->spell_fun != spell_null)
             {
                 send_to_char ("That skill is not available.\n\r", ch);
+                return TRUE;
+            }
+
+            // Do not allow them to add a racial skill that's not for their race.
+            if (skill_table[sn]->race > 0 && ch->race != skill_table[sn]->race)
+            {
+                send_to_char("That is a racial skill that your race cannot choose.\n\r", ch);
                 return TRUE;
             }
 
