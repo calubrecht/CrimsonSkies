@@ -405,9 +405,9 @@ struct pc_race_type pc_race_table[] = {
      {"sneak", "swim", "peek", "dodge", "pick lock"},
      {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL},
     {
-     "minotaur", "Minotr", 5, {200, 150, 150, 105, 200},
+     "minotaur", "Minotr", 6, {200, 150, 150, 105, 200},
      {"gore"},
-     {10, 12, 14, 18, 10}, {20, 18, 17, 14, 20}, SIZE_LARGE}
+     {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 };
 
 /*
