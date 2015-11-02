@@ -1681,6 +1681,13 @@ void do_recall(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Cannot recall until a few ticks after battle.
+    if (!IS_NPC(ch) && ch->pcdata->pk_timer > 0)
+    {
+        send_to_char("You failed!\n\r",ch);
+        return;
+    }
+
     act ("$n prays for transportation!", ch, 0, 0, TO_ROOM);
 
     if ((location = get_room_index (ROOM_VNUM_TEMPLE)) == NULL)

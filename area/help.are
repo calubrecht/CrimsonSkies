@@ -891,7 +891,9 @@ enhanced recall skill in which case it will only cost 25% if it meets the
 skill check.
 
 RECALL doesn't work in certain god-forsaken rooms.  Characters afflicted by a
-curse may not recall at all.
+curse may not recall at all.  RECALL also will not work for a small amount of
+time after a battle with another player (the spell word of recall however
+will).
 
 ENHANCED RECALL is available to all classes.
 ~
@@ -1797,9 +1799,9 @@ This command is logged so immortals can view it later if none are online.
 0 'WORD OF RECALL'~
 Syntax: cast 'word of recall'
 
-This spell duplicates the built-in RECALL ability.  It is provided solely for
-Merc-based muds which wish to eliminate the built-in ability while still
-providing the spell.
+The word of recall spell works much like the recall skill except it costs 
+mana and has the ability to be used after a battle with another player
+without having to wait.
 ~
 
 0 'ACID BREATH' 'FIRE BREATH' 'FROST BREATH' 'GAS BREATH' 'LIGHTNING BREATH'~
