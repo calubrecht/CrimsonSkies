@@ -3800,6 +3800,14 @@ is mainly used for testing and also to remove affects that maybe
 broken or added via a bug that aren't cancellable.
 ~
 
+0 GORE~
+Syntax: gore <character>
+
+Gore is a technique used by the minotaur race in which they are
+able to charge and ram a victim with their horns.  All minotaurs
+of all classes have this ability by default.
+~
+
 0 $~
 
 #$
