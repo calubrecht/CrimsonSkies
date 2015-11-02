@@ -815,6 +815,9 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
 
         		char_from_room(ch);
 		        char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+
+                // Outfit them with sub issue gear if they need it.
+                do_function (ch, &do_outfit, "");
             }
             else if (ch->in_room != NULL)
             {
