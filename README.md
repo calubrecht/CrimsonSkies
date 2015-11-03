@@ -1,8 +1,8 @@
 Crimson Skies Mud (CS-Mud)
 ==========================
 
-Crimson Skies is an open source MUD starting from ROM 2.4b6.  Creative and innovative features from other open source code
-bases (like Smaug) will be included as well as what will be a lot of custom code.  The first version release is nearing
+Crimson Skies is an open source MUD starting from ROM 2.4b6.  Useful features from other open source code bases
+(like Smaug) will be included as well as what will be a lot of custom code.  The first version release is nearing
 completion.  Classes, groups, skills and spells are loading from files and all have OLC built in so you can maintain
 all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).
 
@@ -12,7 +12,7 @@ a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on 
   - 66.244.102.112 port 4000
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
-official go to version 1.0 (version 1 will be official when I finish 3 more reclasses so each base class has a reclass
+official go to version 1.0 (version 1 will be official when I finish 2 more reclasses so each base class has a reclass
 and when I finish resets of ocean life in the oceans).  The next version on the roadmap will include 4 more reclasses 
 and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.  You can check my TODO
 file for short and long term things I'm going to work on (and the list is way larger, I just haven't added it all, 
@@ -36,6 +36,7 @@ open source/GitHub it has been under private development since 1998 (as my hobby
 
 ## Project Goals:
 
+  - To provide a code base that continues to evolve whereas many these days have stopped.
   - To provide a ROM code base that includes creative additions that keep the same
     feel of what made ROM great (I will be changing and re-organizing things though) and will probably
     remove or drastically change some areas that don't fit imo (like the smurf village).  I would like
