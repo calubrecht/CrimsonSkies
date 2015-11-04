@@ -88,6 +88,8 @@ OBJ_DATA *object_list;
 TIME_INFO_DATA time_info;
 WEATHER_DATA weather_info;
 SETTINGS_DATA settings;
+STATISTICS_DATA statistics;
+
 extern const struct continent_type continent_table[];
 
 /*
@@ -4673,6 +4675,36 @@ void load_game_objects(void)
     fpReserve = fopen(NULL_FILE, "r");
 
 } // end load_game_objects
+
+/*
+ * Saves all of the game statistics to file.
+ */
+void save_statistics(void)
+{
+    FILE *fp;
+
+    fclose(fpReserve);
+    fp = fopen (STATISTICS_FILE, "w");
+
+    if (!fp)
+    {
+        bug ("Could not open STATISTICS_FILE for writing.",0);
+        return;
+    }
+
+    // Game statistics
+    fprintf(fp, "MaxPlayersOnline     %d\n",  statistics.max_players_online);
+    fprintf(fp, "MobsKilled           %ld\n", statistics.mobs_killed);
+    fprintf(fp, "PlayersKilled        %ld\n", statistics.players_killed);
+    fprintf(fp, "PKills               %ld\n", statistics.pkills);
+    fprintf(fp, "Logins               %ld\n", statistics.logins);
+    fprintf(fp, "TotalCharacters      %ld\n", statistics.total_characters);
+
+    fprintf( fp, "#END\n" );
+    fclose(fp);
+    fpReserve = fopen( NULL_FILE, "r" );
+
+} // end save_statistics
 
 /*
  * Assign GSN's to the proper skill.

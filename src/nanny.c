@@ -841,6 +841,7 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             do_unread(ch,"");
 
             wiznet ("$N has left real life behind.", ch, NULL, WIZ_LOGINS, WIZ_SITES, get_trust (ch));
+            statistics.logins++;
 
             if (ch->pet != NULL)
             {

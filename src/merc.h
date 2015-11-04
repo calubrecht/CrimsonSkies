@@ -74,6 +74,7 @@ typedef struct    group_type         GROUPTYPE;
 typedef struct    class_type         CLASSTYPE;
 typedef struct    skill_type         SKILLTYPE;
 typedef struct    settings_data      SETTINGS_DATA;
+typedef struct    statistics_data    STATISTICS_DATA;
 typedef struct    extended_bitvector EXT_BV;
 
 /*
@@ -530,8 +531,8 @@ struct    affect_data
 /*
  * Game settings - This will contain reward bonuses, game locks and
  * game mechanic toggles to allow some functionality to be enabled and
- * disabled on the fly.  This table will be savable via OLC and loaded on
- * game boot.  - Rhien
+ * disabled on the fly.  This table will be savable via the setgings 
+ * comand and loaded on game boot.  - Rhien
  */
 struct settings_data
 {
@@ -544,6 +545,22 @@ struct settings_data
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
+};
+
+/*
+ * Game statistics - This will be used to save information about in game
+ * stats, such as the maximum amount of players ever online, mobs killed,
+ * players killed, etc.  The stats will be saved on some interval in the
+ * update module and re/loaded on boot.
+ */
+struct statistics_data
+{
+    int  max_players_online;     // Most players ever online
+    long mobs_killed;            // Total number of mobs killed
+    long players_killed;         // Total number of times players killed
+    long pkills;                 // Players killed by other players
+    long logins;                 // Total number of logins
+    long total_characters;       // Total number of characters created
 };
 
 /***************************************************************************
@@ -1987,6 +2004,7 @@ extern  FILE                    * fpReserve;
 extern  TIME_INFO_DATA          time_info;
 extern  WEATHER_DATA            weather_info;
 extern  SETTINGS_DATA           settings;
+extern  STATISTICS_DATA         statistics;
 extern  NOTE_DATA               * note_free;
 extern  OBJ_DATA                * obj_free;
 extern  bool                    MOBtrigger;
@@ -2074,6 +2092,7 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 #define BAN_FILE            "../system/ban.dat"
 #define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
 #define SETTINGS_FILE       "../system/settings.dat"
+#define STATISTICS_FILE     "../system/statistics.dat"
 
 /*
  * Our function prototypes.
@@ -2191,6 +2210,7 @@ void     bug                 args( ( const char *str, int param ) );
 void     log_string          args( ( const char *str ) );
 void     tail_chain          args( ( void ) );
 bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
+void     save_statistics     args( (void ) );
 
 /*  Color stuff by Lope */
 int   color           args( ( char type, CHAR_DATA *ch, char *string ) );

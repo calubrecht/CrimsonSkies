@@ -1265,6 +1265,11 @@ void update_handler (bool forced)
         // Save pits and player corpses that might be laying around, consider saving
         // player corposes very frequently but pits on a lesser schedule.
         save_game_objects();
+
+        // Save the game statistics.  This can probably be done on a lesser schedule.  Consider
+        // making a longer term method, something that occurs every 10 minutes or so.  We'll start
+        // here though as it's writing out very litte.
+        save_statistics();
     }
 
     // Just firing the tick, not messing with violence, mobiles or areas.

@@ -5926,6 +5926,7 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-
+    save_statistics();
+    send_to_char("Statistics Saved.\n\r", ch);
     return;
 } // end do_debug
