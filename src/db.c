@@ -190,6 +190,7 @@ void load_groups args((void));
 void load_settings args((void));
 void load_skills args((void));
 void load_game_objects args((void));
+void load_statistics args((void));
 void assign_gsn args((void));
 
 SPELL_FUN  *spell_function_lookup args(( char *name ));
@@ -410,6 +411,10 @@ void boot_db ()
         log_string("STATUS: Loading Notes");
         if (fCopyOver) copyover_broadcast("STATUS: Loading Notes.", TRUE, TRUE);
         load_notes();
+
+        log_string("STATUS: Loading Statistics");
+        if (fCopyOver) copyover_broadcast("STATUS: Loading Statistics.", TRUE, TRUE);
+        load_statistics();
 
     }
 
@@ -4487,13 +4492,13 @@ void load_settings()
     FILE *fp;
     char *word;
 
-    fclose( fpReserve );
-    fp = fopen (SETTINGS_FILE, "r");
+    fclose(fpReserve);
+    fp = fopen(SETTINGS_FILE, "r");
 
     if (!fp)
     {
         log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
-        fpReserve = fopen( NULL_FILE, "r" );
+        fpReserve = fopen(NULL_FILE, "r");
         return;
     }
 
@@ -4705,6 +4710,74 @@ void save_statistics(void)
     fpReserve = fopen( NULL_FILE, "r" );
 
 } // end save_statistics
+
+/*
+ * Loads the game statistics from the statistics.dat file.  I skipped using the KEY macro in this
+ * case an opt'd for an if ladder.  If an invalid statistic is found in the file it will attempt to
+ * log it.  I don't read ahead on that value in case it's corrupt, I want to hit the #END marker
+ * eventually and get out without crashing (if an unfound setting is logged, it will then read in
+ * its value if it has one and do the if/else on it.
+ */
+void load_statistics()
+{
+    FILE *fp;
+    char *word;
+
+    fclose(fpReserve);
+    fp = fopen(STATISTICS_FILE, "r");
+
+    if (!fp)
+    {
+        log_f("WARNING: Statistics file '%s' was not found or is inaccessible.", STATISTICS_FILE);
+        fpReserve = fopen(NULL_FILE, "r");
+        return;
+    }
+
+    for (;;)
+    {
+        word = feof(fp) ? "#END" : fread_word(fp);
+
+        // End marker?  Exit cleanly
+        if (!str_cmp(word, "#END"))
+            return;
+
+        if (!str_cmp(word, "MaxPlayersOnline"))
+        {
+            statistics.max_players_online = fread_number(fp);
+        }
+        else if (!str_cmp(word, "MobsKilled"))
+        {
+            statistics.mobs_killed = fread_number(fp);
+        }
+        else if (!str_cmp(word, "PlayersKilled"))
+        {
+            statistics.players_killed = fread_number(fp);
+        }
+        else if (!str_cmp(word, "PKills"))
+        {
+            statistics.pkills = fread_number(fp);
+        }
+        else if (!str_cmp(word, "Logins"))
+        {
+            statistics.logins = fread_number(fp);
+        }
+        else if (!str_cmp(word, "TotalCharacters"))
+        {
+            statistics.total_characters = fread_number(fp);
+        }
+        else
+        {
+            log_f("Invalid statistic '%s' found.", word);
+        }
+
+    }
+
+    fclose(fp);
+    fpReserve = fopen(NULL_FILE, "r");
+
+    return;
+
+} // end load_statistics
 
 /*
  * Assign GSN's to the proper skill.

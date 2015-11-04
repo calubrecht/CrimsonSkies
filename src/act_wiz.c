@@ -51,6 +51,7 @@ CHAR_DATA       *copyover_ch;
 
 void raw_kill          args((CHAR_DATA * victim)); // for do_slay
 void save_game_objects args((void)); // for do_copyover
+void save_statistics   args((void)); // for do_copyover
 void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
 void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 void do_oload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
@@ -2015,6 +2016,9 @@ void do_reboot(CHAR_DATA * ch, char *argument)
     // Save special items like donation pits and corpses
     save_game_objects();
 
+    // Save the current statistics to file
+    save_statistics();
+
     return;
 }
 
@@ -2062,6 +2066,9 @@ void do_shutdown(CHAR_DATA * ch, char *argument)
 
     // Save special items like donation pits and corpses
     save_game_objects();
+
+    // Save the current statistics to file
+    save_statistics();
 
     return;
 } // end do_shutdown
@@ -5076,6 +5083,9 @@ void do_copyover (CHAR_DATA * ch, char *argument)
         /* Save the special items like donation pits and player corpses */
         save_game_objects();
 
+        // Save the current statistics to file
+        save_statistics();
+
         /* Close reserve and other always-open files and release other resources */
         fclose (fpReserve);
 
@@ -5926,7 +5936,11 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    save_statistics();
+    char buf[MAX_STRING_LENGTH];
+
+    sprintf(buf, "Logins: %ld\n\r", statistics.logins);
+    send_to_char(buf, ch);
+
     send_to_char("Statistics Saved.\n\r", ch);
     return;
 } // end do_debug
