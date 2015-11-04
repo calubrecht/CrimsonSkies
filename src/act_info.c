@@ -2673,6 +2673,10 @@ void do_who (CHAR_DATA * ch, char *argument)
     return;
 } // end do_who
 
+/*
+ * Counts and shows the number of players currently on as well as showing
+ * the historical statisic for what the most we've ever had on is.
+ */
 void do_count (CHAR_DATA * ch, char *argument)
 {
     int count;
@@ -2682,22 +2686,54 @@ void do_count (CHAR_DATA * ch, char *argument)
     count = 0;
 
     for (d = descriptor_list; d != NULL; d = d->next)
-        if (d->connected == CON_PLAYING && can_see (ch, d->character))
+    {
+        if (d->connected == CON_PLAYING)
             count++;
+    }
 
-    max_on = UMAX (count, max_on);
+    max_on = UMAX(count, max_on);
 
     if (max_on == count)
-        sprintf (buf,
-                 "There are %d characters on, the most so far today.\n\r",
-                 count);
+    {
+        sprintf(buf, "There are %d characters on, the most so far today.\n\r", count);
+    }
     else
-        sprintf (buf,
-                 "There are %d characters on, the most on today was %d.\n\r",
-                 count, max_on);
+    {
+        sprintf(buf, "There are %d characters on, the most on today was %d.\n\r", count, max_on);
+    }
 
     send_to_char (buf, ch);
-}
+
+    sprintf(buf, "The most we've ever had on was {R%d{x.\n\r", statistics.max_players_online);
+    send_to_char(buf, ch);
+
+} // end do_count
+
+/*
+ * This procedure will check the number of players online and if it's greater than the
+ * statistic for max players online will set that and then save the statistics.
+ */
+void max_players_check()
+{
+    DESCRIPTOR_DATA *d;
+    int count = 0;
+
+    // Check if we've broken our total online characters count.
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->connected == CON_PLAYING)
+            count++;
+    }
+
+    // This should happen rarely, but if the max players online is met go ahead
+    // and also save the statistics (which is why we didn't use UMAX here).
+    if (count > statistics.max_players_online)
+    {
+        statistics.max_players_online = count;
+        save_statistics();
+    }
+
+} // end max_players_check
 
 void do_inventory (CHAR_DATA * ch, char *argument)
 {

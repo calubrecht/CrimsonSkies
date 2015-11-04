@@ -72,11 +72,12 @@
 #endif
 
 /*
- *  * Other local functions (OS-independent).
- *   */
+ * Other local functions (OS-independent).
+ */
 bool check_parse_name args ((char *name));
 bool check_reconnect args ((DESCRIPTOR_DATA * d, char *name, bool fConn));
 bool check_playing args ((DESCRIPTOR_DATA * d, char *name));
+void max_players_check args((void));
 
 /*
  * Global variables.
@@ -796,13 +797,16 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                 SET_BIT(ch->act, PLR_AUTOEXIT);
 
                 do_function (ch, &do_outfit, "");
-                obj_to_char (create_object (get_obj_index (OBJ_VNUM_MAP), 0),
-                             ch);
+                obj_to_char (create_object (get_obj_index (OBJ_VNUM_MAP), 0), ch);
 
                 char_to_room (ch, get_room_index (ROOM_VNUM_SCHOOL));
                 send_to_char ("\n\r", ch);
                 do_function (ch, &do_help, "newbie info");
                 send_to_char ("\n\r", ch);
+
+                // Incriment the stat for total characters created
+                statistics.total_characters++;
+
             }
             else if (ch->pcdata->is_reclassing == TRUE)
             {
@@ -841,7 +845,13 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
             do_unread(ch,"");
 
             wiznet ("$N has left real life behind.", ch, NULL, WIZ_LOGINS, WIZ_SITES, get_trust (ch));
+
+            // Update the statistics for total logins
             statistics.logins++;
+
+            // This will check to see if this login pushes us over the maximum players online
+            // and if so will incriment that statistic and then save them.
+            max_players_check();
 
             if (ch->pet != NULL)
             {
