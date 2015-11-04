@@ -11,7 +11,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fighting Style (Offensive/Normal/Defensive)
   - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
-  - Statistics.
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
@@ -20,7 +19,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Number of connections per boot saved on count as well as most online ever.
   - Add profile command and/or way for user to store some OOC data like email.
   - have do_dump put files in the log directory.
-  - Use Alander's random number generator which is the system, remove Furey's code but stash it somewhere for posterity.
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
   - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
@@ -54,7 +52,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Set autogold by default on creation
   - Allow any player to change their recall to any number of custom bind stones for recall.
   - Crafting system, intertwine it with my nature code (that I need to dig up and add)
-  - Add game stats that are persisted.  
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
   - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement
     to move so a character can get to their corpse easier.
@@ -66,7 +63,6 @@ This is my to do list, mostly will be things big and small as I think about them
     depending on the order they're loaded in (consider making an exact match lookup and making 
     users type in the whole skill/group they want in creation.
   - Ice continent
-  - outfit after reclass
   - add another affect field that is in the smaug style with xis_set
   - add enabled field on class that allows the class to be enabled/not, this
     will affect whether people can actively reclass or take a class.  It will
@@ -78,13 +74,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
   - Make lore do something (like give info about the item when looked at)
   - rwhere command to find room by keyword and return room name/vnum.
-  - Count number of items in the pit + their actual count.
-  - Command to globally purge the pits.
   - Look at the auto saving code and make sure it's working right.
   - Check looting
   - Add guild room names and area names to class command.
   - Update do_ofind to have two columns like olc olist
   - Update do_mfind to have two columns like olc mlist
   - Add class/race multipliers to OLC.
-  - Gore is in the code, make it a racial skill for Minotaurs now (which isn't as straight forward
-    as it seems since skills are tethered to classes in ROM).
