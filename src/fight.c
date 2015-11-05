@@ -1786,12 +1786,12 @@ void death_cry (CHAR_DATA * ch)
 /*
  * Kills a player or NPC, makes a corpse, etc.
  */
-void raw_kill (CHAR_DATA * victim)
+void raw_kill(CHAR_DATA * victim)
 {
     int i;
 
-    stop_fighting (victim, TRUE);
-    death_cry (victim);
+    stop_fighting(victim, TRUE);
+    death_cry(victim);
 
     // If the victim is not an NPC and they were in an arena room, transfer them to their
     // death repop spot with all of their gear.  There wil be no corpse and the victim
@@ -1806,13 +1806,19 @@ void raw_kill (CHAR_DATA * victim)
         // Otherwise, make corpse, then send them to the repop room.
         make_corpse(victim);
         char_from_room (victim);
-        char_to_room (victim, get_room_index (clan_table[victim->clan].hall));
+        char_to_room(victim, get_room_index(clan_table[victim->clan].hall));
     }
 
-    if (IS_NPC (victim))
+    // If it's a mob..
+    if (IS_NPC(victim))
     {
+        // Incriment the mobs killed statistic
+        statistics.mobs_killed++;
+
+        // This isn't really used anymore, in Merc the killed variable was used to change the
+        // xp computed on a mob, ROM took that out but left this.  It is not persisted across boots.
         victim->pIndexData->killed++;
-        extract_char (victim, TRUE);
+        extract_char(victim, TRUE);
         return;
     }
 
