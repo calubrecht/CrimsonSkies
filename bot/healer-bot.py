@@ -11,7 +11,7 @@ from threading import Thread
 #                                                                            #
 #       Script:  Mud Bot                                                     #
 #   Written by:  Blake Pell (blakepell@hotmail.com, http://www.blakepell.com #
-# Last Updated:  10/1/2015                                                   #
+# Last Updated:  11/05/2015                                                  #
 #                                                                            #
 #                This was written specifically for Crimson Skies (CS-Mud)    #
 #                which is a DikuMud/Merc/Rom derivative.  It should give a   #
@@ -23,6 +23,7 @@ from threading import Thread
 #                  - Simple aliases                                          #
 #                  - Literal Triggers                                        #
 #                  - RegEx Triggers                                          #
+#                  - Simple Functions                                        #
 #                                                                            #
 ##############################################################################
 
@@ -43,16 +44,46 @@ def _print(buf):
 # will also check aliases.  If the alias is split up into multiple commands we
 # will recurse to get them all.
 def _send(buf):
-    for cmd in buf.split(";"):    
+    for cmd in buf.split(";"):
         cmd = _alias(cmd)
 
         if ";" in cmd:
             # There are more commands in this cmd that need processed
             _send(cmd)
         else:
-            # This is a single command, send it.
-            tn.write(cmd + "\n")
-            _print("[Sent: " + cmd + "]")
+            # Check first to see if it's a function call, if it's not,
+            # then send the raw cmd to the output
+            if cmd[:1] == "#":
+                # We have a function, it will do something.
+                _parseFunction(cmd)
+            else:
+                # This is a single command, send it.
+                tn.write(cmd + "\n")
+                _print("[Sent: " + cmd + "]")
+    return
+
+# Will parse and execute a function.  This is hacky currently with just one supported
+# function, make the arg parsing robust and not static.
+def _parseFunction(cmd):
+    if len(cmd) == 0:
+        return
+
+    if cmd[:1] != "#":
+        return
+
+    try:
+        func, arg1 = cmd.split(' ', 1)
+        if func == "#WAIT":
+            if float(arg1) < 60 * 5:
+                _print("[Pausing for " + arg1 + " seconds.]")
+                time.sleep(float(arg1))
+            else:
+                _print("[Wait greater than 5 minutes cancelled]")
+        else:
+            _print("[Function " + cmd + " not found]")
+    except:
+        _print("[Function Error]")
+
     return
 
 # See if the command is an alias, if so, swap the alias in, if not, return
