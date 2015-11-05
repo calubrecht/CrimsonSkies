@@ -3681,7 +3681,6 @@ void do_settings(CHAR_DATA *ch, char *argument)
     // Since this is a dual mortal/immortal command, kick the mortals out here and lower level imms.
     if (ch->level < CODER)
     {
-        send_to_char("You do not have permissions to change the game settings.\n\r", ch);
         return;
     }
 
