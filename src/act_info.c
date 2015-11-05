@@ -3691,7 +3691,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
     if (IS_NULLSTR(arg1))
     {
-        send_to_char("\n\rProvide an argument to set or toggle a setting..\n\r", ch);
+        send_to_char("\n\r{YProvide an argument to set or toggle a setting.{x\n\r\n\r", ch);
+        send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\n\r", ch);
+        send_to_char("                  gainconvert|shockspread>\n\r", ch);
         return;
     }
 
@@ -3771,7 +3773,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         else
         {
             wiznet("$N has disabled the shock spread mechanic.", ch, NULL, 0, 0, 0);
-            send_to_char("The shock spread mechanic has been enabled.\n\r", ch);
+            send_to_char("The shock spread mechanic has been disabled.\n\r", ch);
         }
 
         // Save the settings out to file.
