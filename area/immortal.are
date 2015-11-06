@@ -16,6 +16,14 @@ End
 
 
 #OBJECTS
+#1200
+potion crystal vial~
+a crystal vial~
+A crystal vial is here.~
+glass~
+potion G AO
+20 'sanctuary' 'haste' 'heal' 'refresh'
+11 10 0 P
 #0
 
 
@@ -38,14 +46,14 @@ tear savagely at your fragile body.
 ~
 0 9224 0
 E
+sky wind winds~
+Cold winds plunge ceaselessly at you from the dark, cloudless sky.
+~
+E
 floor~
 The stone floor is the same shade of grey as the sky and is completely plain
 and unscratched.  It is probably too hard for anything to leave as much as a
 scratch on it.
-~
-E
-sky wind winds~
-Cold winds plunge ceaselessly at you from the dark, cloudless sky.
 ~
 D0
 The hard floor seems to go on forever.
