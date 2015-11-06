@@ -694,16 +694,16 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     }
 
 
-    /* RT initialize skills */
-
+    // Handle versioning of pfiles.  This is commented out here because we have brought
+    // our pfiles back to version 1.  This code from ROM doesn't need to be run.
+    /*
     if (found && ch->version < 2)
-    {   
-		/* need to add the new skills */
-        group_add (ch, "rom basics", FALSE);
-        group_add (ch, class_table[ch->class]->base_group, FALSE);
-        group_add (ch, class_table[ch->class]->default_group, TRUE);
+    {
+		// need to add the new skills
+        group_add(ch, "rom basics", FALSE);
         ch->pcdata->learned[gsn_recall] = 50;
     }
+    */
 
     return found;
 }
