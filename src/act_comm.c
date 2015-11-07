@@ -1501,7 +1501,6 @@ void nuke_pets (CHAR_DATA * ch)
 }
 
 
-
 void die_follower (CHAR_DATA * ch)
 {
     CHAR_DATA *fch;
@@ -1509,8 +1508,11 @@ void die_follower (CHAR_DATA * ch)
     if (ch->master != NULL)
     {
         if (ch->master->pet == ch)
+        {
             ch->master->pet = NULL;
-        stop_follower (ch);
+        }
+
+        stop_follower(ch);
     }
 
     ch->leader = NULL;
@@ -1518,16 +1520,23 @@ void die_follower (CHAR_DATA * ch)
     for (fch = char_list; fch != NULL; fch = fch->next)
     {
         if (fch->master == ch)
-            stop_follower (fch);
+        {
+            stop_follower(fch);
+        }
+
         if (fch->leader == ch)
+        {
             fch->leader = fch;
+        }
     }
 
     return;
-}
+} // end die_follower
 
-
-
+/*
+ * Order command, where a magic user who has charmed someone can order them
+ * to do various things.
+ */
 void do_order (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -1610,7 +1619,7 @@ void do_order (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("You have no followers here.\n\r", ch);
     return;
-}
+} // end do_order
 
 /*
  * Group command, will allow you to add and remove players from your
@@ -1821,6 +1830,10 @@ void do_split (CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Group talk, e.g. group tells.  All group members will see these awake
+ * or asleep.
+ */
 void do_gtell (CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *gch;
@@ -1831,24 +1844,23 @@ void do_gtell (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (IS_SET (ch->comm, COMM_NOTELL))
+    if (IS_SET(ch->comm, COMM_NOTELL))
     {
-        send_to_char ("Your message didn't get through!\n\r", ch);
+        send_to_char("Your message didn't get through!\n\r", ch);
         return;
     }
 
     act("{xYou tell the group '{C$T{x'", ch, NULL, argument, TO_CHAR);
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
-        if (is_same_group (gch, ch))
-            act_new ("{x$n tells the group '{C$t{x'",
-                     ch, argument, gch, TO_VICT, POS_SLEEPING);
+        if (is_same_group(gch, ch))
+        {
+            act_new("{x$n tells the group '{C$t{x'", ch, argument, gch, TO_VICT, POS_SLEEPING);
+        }
     }
 
     return;
 }
-
-
 
 /*
  * It is very important that this be an equivalence relation:
@@ -1870,9 +1882,8 @@ bool is_same_group (CHAR_DATA * ach, CHAR_DATA * bch)
 
 /*
  * Lopes Color, Oct-94
- *
  */
-void do_color (CHAR_DATA * ch, char *argument)
+void do_color(CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC(ch))
     {
@@ -1880,17 +1891,17 @@ void do_color (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!IS_SET (ch->act, PLR_COLOR))
+    if (!IS_SET(ch->act, PLR_COLOR))
     {
         ch->desc->ansi = TRUE;
-        SET_BIT (ch->act, PLR_COLOR);
-        send_to_char ("{RC{Yo{Bl{Go{Cr{x is now ON, Way Cool!\n\r", ch);
+        SET_BIT(ch->act, PLR_COLOR);
+        send_to_char("{RC{Yo{Bl{Go{Cr{x is now ON, Way Cool!\n\r", ch);
     }
     else
     {
         ch->desc->ansi = FALSE;
-        REMOVE_BIT (ch->act, PLR_COLOR);
-        send_to_char ("Color is now OFF, <sigh>\n\r", ch);
+        REMOVE_BIT(ch->act, PLR_COLOR);
+        send_to_char("Color is now OFF, <sigh>\n\r", ch);
     }
     return;
 
