@@ -2123,7 +2123,7 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
             sprintf( buf1, "$N %s $n%c",  vp, punct );
             sprintf( buf2, "You %s $N%c", vs, punct );
             sprintf( buf3, "$n %s you%c", vp, punct );
-	}
+        }
     }
     else
     {
@@ -2131,16 +2131,16 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
         {
             attack = skill_table[dt]->noun_damage;
         }
-	else if ( dt >= TYPE_HIT && dt < TYPE_HIT + MAX_DAMAGE_MESSAGE)
+	    else if ( dt >= TYPE_HIT && dt < TYPE_HIT + MAX_DAMAGE_MESSAGE)
         {
             attack = attack_table[dt - TYPE_HIT].noun;
         }
-	else
-	{
+        else
+        {
             bug( "Dam_message: bad dt %d.", dt );
             dt  = TYPE_HIT;
             attack = attack_table[0].name;
-	}
+        }
 
 	if (immune)
 	{
