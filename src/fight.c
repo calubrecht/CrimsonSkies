@@ -2137,7 +2137,7 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
         }
         else
         {
-            bug( "Dam_message: bad dt %d.", dt );
+            bugf( "Dam_message: bad dt %d, ch=%s, victim=%s", dt, ch->name, victim->name);
             dt  = TYPE_HIT;
             attack = attack_table[0].name;
         }
@@ -2174,8 +2174,8 @@ void dam_message( CHAR_DATA *ch, CHAR_DATA *victim,register int dam,int dt,bool 
 
     if (ch == victim)
     {
-	act(buf1,ch,NULL,ch,TO_ROOM);
-	act(buf2,ch,NULL,NULL,TO_CHAR);
+        act(buf1,ch,NULL,ch,TO_ROOM);
+        act(buf2,ch,NULL,NULL,TO_CHAR);
     }
     else
     {
