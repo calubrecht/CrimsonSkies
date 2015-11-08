@@ -982,10 +982,17 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
                  (IS_NPC (ch) ? ch->short_descr : ch->name),
                  ch->in_room->name, ch->in_room->vnum);
 
-        if (IS_NPC (victim))
+        if (IS_NPC(victim))
+        {
             wiznet(buf, NULL, NULL, WIZ_MOBDEATHS, 0, 0);
+        }
         else
+        {
+            // Player killed either by other player or mob.  We do this here and
+            // not in the toast function because we want every death.
+            statistics.players_killed++;
             wiznet(buf, NULL, NULL, WIZ_DEATHS, 0, 0);
+        }
 
         // Send a toast message to the players.
         if (!IS_NPC(ch) && !IS_NPC(victim))
@@ -3383,6 +3390,7 @@ void check_death(CHAR_DATA *victim, int dt)
 	    }
 
         // Report the death and finish the process
+        statistics.players_killed++;
         wiznet(buf, NULL, NULL, WIZ_DEATHS, 0, 0);
         log_string(buf);
         raw_kill(victim);
