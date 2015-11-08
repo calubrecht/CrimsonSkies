@@ -3277,6 +3277,10 @@ void toast( CHAR_DATA *ch, CHAR_DATA *victim )
     if( ch == victim )
         return;
 
+    // All pkills come through here, let's incriment the game pkill
+    // statistic.
+    statistics.pkills++;
+
     // How bad where they beaten?
     if( ch->hit < ch->max_hit / 5 ) {
         sprintf(verb,"{yoffed{x");
