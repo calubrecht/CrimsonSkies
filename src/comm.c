@@ -492,6 +492,12 @@ void game_loop (int control)
             if (d->character != NULL && d->character->daze > 0)
                 --d->character->daze;
 
+            // Update any timers for the character if they're not null
+            if ( d->character != NULL)
+            {
+                timer_update(d->character);
+            }
+
             if (d->character != NULL && d->character->wait > 0)
             {
                 --d->character->wait;

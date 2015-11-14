@@ -3703,3 +3703,194 @@ void do_touch(CHAR_DATA * ch, char *argument)
     }
 
 } // end do_touch
+
+/*
+ * Command to bury an item.  This comes to us via the Smaug code base
+ */
+void do_bury(CHAR_DATA *ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    OBJ_DATA *obj;
+    bool shovel;
+    sh_int move;
+    one_argument(argument, arg);
+
+    if ( arg[0] == '\0' )
+    {
+        send_to_char( "What do you wish to bury?\n\r", ch );
+        return;
+    }
+
+    if (ch->fighting != NULL)
+    {
+        send_to_char("Not while you are fighting!!!\n\r", ch);
+        return;
+    }
+
+    shovel = FALSE;
+
+    for (obj = ch->carrying; obj; obj = obj->next_content)
+    {
+        if (obj->item_type == ITEM_SHOVEL)
+        {
+            shovel = TRUE;
+            break;
+        }
+    }
+
+    obj = get_obj_list(ch, arg, ch->in_room->contents);
+
+    if (!obj)
+    {
+        send_to_char( "You can't find it.\n\r", ch );
+        return;
+    }
+
+    if (!can_loot(ch, obj))
+    {
+        act("You cannot bury $p.", ch, obj, 0, TO_CHAR);
+        return;
+    }
+
+    switch(ch->in_room->sector_type)
+    {
+        case SECT_CITY:
+        case SECT_INSIDE:
+            send_to_char( "The floor is too hard to dig through.\n\r", ch);
+            return;
+        case SECT_WATER_SWIM:
+        case SECT_WATER_NOSWIM:
+        case SECT_UNDERWATER:
+            send_to_char("You cannot bury something here.\n\r", ch);
+            return;
+        case SECT_AIR:
+            send_to_char("What?  In the air?!\n\r", ch );
+            return;
+    }
+
+    if (obj->weight > (UMAX(5, (can_carry_w(ch) / 10))) && !shovel)
+    {
+        send_to_char( "You'd need a shovel to bury something that big.\n\r", ch);
+        return;
+    }
+
+    move = (obj->weight * 50 * (shovel ? 1 : 5)) / UMAX(1, can_carry_w(ch));
+    move = URANGE( 2, move, 1000 );
+
+    if ( move > ch->move )
+    {
+        send_to_char( "You don't have the energy to bury something of that size.\n\r", ch );
+        return;
+    }
+
+    ch->move -= move;
+    act("You bury $p...", ch, obj, NULL, TO_CHAR);
+    act("$n buries $p...", ch, obj, NULL, TO_ROOM);
+    separate_obj(obj);
+    SET_BIT( obj->extra_flags, ITEM_BURIED );
+    WAIT_STATE(ch, URANGE(10, move / 2, 100));
+
+    return;
+
+} // end do_bury
+
+/*
+ * Command to dig in a room to look for buried items.  A shovel helps.  This
+ * comes to us via the Smaug code base.
+ */
+void do_dig(CHAR_DATA *ch, char *argument) {
+    OBJ_DATA *obj;
+    OBJ_DATA *startobj;
+    bool found;
+    bool shovel;
+
+    switch (ch->substate)
+    {
+    default:
+        if (IS_NPC(ch) && IS_AFFECTED(ch, AFF_CHARM))
+        {
+            send_to_char("You can't concentrate enough for that.\n\r", ch);
+            return;
+        }
+
+        switch (ch->in_room->sector_type)
+        {
+        case SECT_CITY:
+        case SECT_INSIDE:
+            send_to_char("The floor is too hard to dig through.\n\r", ch);
+            return;
+        case SECT_WATER_SWIM:
+        case SECT_WATER_NOSWIM:
+        case SECT_UNDERWATER:
+            send_to_char("You cannot dig here.\n\r", ch);
+            return;
+        case SECT_AIR:
+            send_to_char("What?  In the air?!\n\r", ch);
+            return;
+        }
+
+        // Having a shovel speeds up digging
+        shovel = FALSE;
+
+        for (obj = ch->carrying; obj; obj = obj->next_content)
+        {
+            if (obj->item_type == ITEM_SHOVEL)
+            {
+                shovel = TRUE;
+                break;
+            }
+        }
+
+        if (shovel)
+        {
+            add_timer(ch, TIMER_DO_FUN, 12, do_dig, 1, NULL);
+            send_to_char("You begin digging with a shovel...\n\r", ch);
+            act("$n begins digging with a shovel...", ch, NULL, NULL, TO_ROOM);
+        }
+        else
+        {
+            add_timer(ch, TIMER_DO_FUN, 24, do_dig, 1, NULL);
+            send_to_char("You begin digging with your hands...\n\r", ch);
+            act("$n begins digging with their hands...", ch, NULL, NULL, TO_ROOM);
+        }
+
+        return;
+    case 1:
+        // Continue onward with said digging.
+        break;
+    case SUB_TIMER_DO_ABORT:
+        ch->substate = SUB_NONE;
+        send_to_char("You stop digging...\n\r", ch);
+        act("$n stops digging...", ch, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    ch->substate = SUB_NONE;
+
+    startobj = ch->in_room->contents;
+    found = FALSE;
+
+    for (obj = startobj; obj; obj = obj->next_content)
+    {
+        if (IS_OBJ_STAT(obj, ITEM_BURIED))
+        {
+            found = TRUE;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("Your dig uncovered nothing.\n\r", ch);
+        act("$n's dig uncovered nothing.", ch, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    separate_obj(obj);
+    REMOVE_BIT(obj->extra_flags, ITEM_BURIED);
+    act("Your dig uncovered $p!", ch, obj, NULL, TO_CHAR);
+    act("$n's dig uncovered $p!", ch, obj, NULL, TO_ROOM);
+
+    return;
+
+} // end do_dig

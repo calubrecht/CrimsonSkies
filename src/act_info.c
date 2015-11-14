@@ -82,6 +82,10 @@ bool char_in_list        args((CHAR_DATA * ch));
 char *flag_string        args((const struct flag_type *flag_table, int bits)); // used in do_class
 
 
+/*
+ * Formats an object to be shown to a character.  The determination of whether an object
+ * can be seen or not happens before here.
+ */
 char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
 {
     static char buf[MAX_STRING_LENGTH];
@@ -93,33 +97,37 @@ char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
         return buf;
 
     if (IS_OBJ_STAT (obj, ITEM_INVIS))
-        strcat (buf, "({wInvis{x) ");
-    if (IS_AFFECTED (ch, AFF_DETECT_EVIL) && IS_OBJ_STAT (obj, ITEM_EVIL))
-        strcat (buf, "({RRed Aura{x) ");
-    if (IS_AFFECTED (ch, AFF_DETECT_GOOD) && IS_OBJ_STAT (obj, ITEM_BLESS))
-        strcat (buf, "({BBlue Aura{x) ");
-    if (IS_AFFECTED (ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT (obj, ITEM_MAGIC))
-        strcat (buf, "({YMagical{x) ");
-    if (IS_OBJ_STAT (obj, ITEM_GLOW))
-        strcat (buf, "({cGlowing{x) ");
-    if (IS_OBJ_STAT (obj, ITEM_HUM))
-        strcat (buf, "({YHumming{x) ");
+        strcat(buf, "({wInvis{x) ");
+    if (IS_AFFECTED(ch, AFF_DETECT_EVIL) && IS_OBJ_STAT (obj, ITEM_EVIL))
+        strcat(buf, "({RRed Aura{x) ");
+    if (IS_AFFECTED(ch, AFF_DETECT_GOOD) && IS_OBJ_STAT (obj, ITEM_BLESS))
+        strcat(buf, "({BBlue Aura{x) ");
+    if (IS_AFFECTED(ch, AFF_DETECT_MAGIC) && IS_OBJ_STAT (obj, ITEM_MAGIC))
+        strcat(buf, "({YMagical{x) ");
+    if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        strcat(buf, "({cGlowing{x) ");
+    if (IS_OBJ_STAT(obj, ITEM_HUM))
+        strcat(buf, "({YHumming{x) ");
+    if (IS_OBJ_STAT(obj, ITEM_BURIED))
+        strcat(buf, "({yBuried{x) ");
 
     if (fShort)
     {
         if (obj->short_descr != NULL)
+        {
             strcat (buf, obj->short_descr);
+        }
     }
     else
     {
         if (obj->description != NULL)
+        {
             strcat (buf, obj->description);
+        }
     }
 
     return buf;
 }
-
-
 
 /*
  * Show a list to a character.

@@ -243,6 +243,8 @@ const struct cmd_type cmd_table[] = {
     {"value",           do_value,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"wear",            do_wear,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"zap",             do_zap,         POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"bury",            do_bury,        POS_STANDING, 0, LOG_NORMAL, TRUE},
+    {"dig",             do_dig,         POS_STANDING, 0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.
@@ -411,14 +413,18 @@ void interpret (CHAR_DATA * ch, char *argument)
     bool found;
     long tmptime;             // Command timing
     struct timeval time_used; // Command timing
+    TIMER *timer = NULL;
 
     /*
      * Strip leading spaces.
      */
     while (isspace (*argument))
         argument++;
+
     if (argument[0] == '\0')
         return;
+
+    timer = get_timerptr( ch, TIMER_DO_FUN );
 
     /*
      * No hiding.
@@ -512,6 +518,26 @@ void interpret (CHAR_DATA * ch, char *argument)
         write_to_buffer (ch->desc->snoop_by, "% ", 2);
         write_to_buffer (ch->desc->snoop_by, logline, 0);
         write_to_buffer (ch->desc->snoop_by, "\n\r", 2);
+    }
+
+    if (timer)
+    {
+        int tempsub;
+
+        tempsub = ch->substate;
+        ch->substate = SUB_TIMER_DO_ABORT;
+        (timer->do_fun)(ch, timer->cmd);
+
+        if (ch->substate != SUB_TIMER_CANT_ABORT)
+        {
+            ch->substate = tempsub;
+            extract_timer( ch, timer );
+        }
+        else
+        {
+            ch->substate = tempsub;
+            return;
+        }
     }
 
     if (!found)

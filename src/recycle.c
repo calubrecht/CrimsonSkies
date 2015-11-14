@@ -726,3 +726,34 @@ void free_note(NOTE_DATA *note)
     note->next = note_free;
     note_free   = note;
 }
+
+TIMER *timer_free;
+
+TIMER *new_timer(void)
+{
+    static TIMER timer_zero;
+    TIMER *timer;
+
+    if (timer_free == NULL)
+        timer = alloc_perm(sizeof(*timer));
+    else
+    {
+        timer = timer_free;
+        timer_free = timer_free->next;
+    }
+
+    *timer = timer_zero;
+    return timer;
+}
+
+void free_timer(TIMER *timer)
+{
+    if (timer != NULL)
+    {
+        if (timer->cmd)
+            free_string (timer->cmd);
+        timer->next = timer_free;
+        timer_free = timer;
+    }
+}
+

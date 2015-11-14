@@ -490,14 +490,21 @@ void mobile_update (void)
                 continue;
         }
 
-        if (ch->pIndexData->pShop != NULL)    /* give him some gold */
+        if (ch->pIndexData->pShop != NULL)
+        {
+            /* give him some gold */
             if ((ch->gold * 100 + ch->silver) < ch->pIndexData->wealth)
             {
-                ch->gold +=
-                    ch->pIndexData->wealth * number_range (1, 20) / 5000000;
-                ch->silver +=
-                    ch->pIndexData->wealth * number_range (1, 20) / 50000;
+                ch->gold += ch->pIndexData->wealth * number_range (1, 20) / 5000000;
+                ch->silver += ch->pIndexData->wealth * number_range (1, 20) / 50000;
             }
+        }
+
+        // Timers for mobiles
+        if (IS_NPC(ch) && !ch->desc)
+        {
+            timer_update(ch);
+        }
 
         /*
          * Check triggers only if mobile still in default position
@@ -536,7 +543,9 @@ void mobile_update (void)
             obj_best = 0;
             for (obj = ch->in_room->contents; obj; obj = obj->next_content)
             {
-                if (CAN_WEAR (obj, ITEM_TAKE) && can_loot (ch, obj)
+                if (CAN_WEAR (obj, ITEM_TAKE)
+                    && !IS_OBJ_STAT(obj, ITEM_BURIED)
+                    && can_loot (ch, obj)
                     && obj->cost > max && obj->cost > 0)
                 {
                     obj_best = obj;
@@ -1521,3 +1530,33 @@ void environment_update()
     } // end for
 
 } // end environment_update
+
+/*
+ * Updates any outstanding timer and keeps them rolling.
+ */
+void timer_update(CHAR_DATA *ch)
+{
+    TIMER *timer, *timer_next;
+
+    for (timer = ch->first_timer; timer; timer = timer_next)
+    {
+        timer_next = timer->next;
+
+        if (--timer->count <= 0)
+        {
+            // Check the timer type, then do something with it
+            if (timer->type == TIMER_DO_FUN)
+            {
+                int tempsub;
+                tempsub = ch->substate;
+                ch->substate = timer->value;
+                (timer->do_fun)(ch, timer->cmd);
+                ch->substate = tempsub;
+            }
+
+            // Now that we've done somethign with it, clean it up.
+            extract_timer(ch, timer);
+        }
+    }
+} // end timer_update
+

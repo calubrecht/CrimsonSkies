@@ -76,6 +76,7 @@ typedef struct    skill_type         SKILLTYPE;
 typedef struct    settings_data      SETTINGS_DATA;
 typedef struct    statistics_data    STATISTICS_DATA;
 typedef struct    extended_bitvector EXT_BV;
+typedef struct    timer_data         TIMER;
 
 /*
  * Function types.
@@ -563,6 +564,25 @@ struct statistics_data
     long total_characters;       // Total number of characters created
 };
 
+/*
+ * Character Sub States / Timers (from Smaug)
+ */
+typedef enum
+{
+    SUB_NONE, SUB_PAUSE,
+    /* timer types ONLY below this point */
+    SUB_TIMER_DO_ABORT = 128, SUB_TIMER_CANT_ABORT
+} char_substates;
+
+/*
+ * Types of timers available
+ */
+typedef enum
+{
+    TIMER_NONE, TIMER_DO_FUN
+} timer_types;
+
+
 /***************************************************************************
  *                                                                         *
  *                   VALUES OF INTEREST TO AREA BUILDERS                   *
@@ -972,6 +992,7 @@ struct statistics_data
 #define ITEM_ROOM_KEY    31
 #define ITEM_GEM         32
 #define ITEM_JEWELRY     33
+#define ITEM_SHOVEL      34
 
 /*
  * Extra flags.
@@ -994,6 +1015,7 @@ struct statistics_data
 #define ITEM_NOPURGE       (O)
 #define ITEM_ROT_DEATH     (P)
 #define ITEM_VIS_DEATH     (Q)
+#define ITEM_BURIED        (R)
 #define ITEM_NONMETAL      (S)
 #define ITEM_NOLOCATE      (T)
 #define ITEM_MELT_DROP     (U)
@@ -1496,6 +1518,11 @@ struct    char_data
     sh_int             start_pos;
     sh_int             default_pos;
     sh_int             mprog_delay;
+    /* Smaug style timer */
+    TIMER *            first_timer;
+    TIMER *            last_timer;
+    sh_int             substate;
+    void *             dest_buf;
 };
 
 /*
@@ -1732,6 +1759,20 @@ struct    room_index_data
 };
 
 /*
+ * Timer data - from Smaug
+ */
+struct timer_data
+{
+    TIMER  *    prev;
+    TIMER  *    next;
+    DO_FUN *    do_fun;
+    int         value;
+    sh_int      type;
+    sh_int      count;
+    char *  cmd;
+};
+
+/*
  * Types of attacks.
  * Must be non-overlapping with spell/skill types,
  * but may be arbitrary beyond that.
@@ -1841,6 +1882,33 @@ struct mprog_code
                     if ( (a) < 0 )                    \
                     bug( "CHECK_POS : " c " == %d < 0", a );    \
                 }                            \
+
+#define LINK(link, first, last, next, prev)                     \
+do                                                              \
+{                                                               \
+    if ( !(first) )                                             \
+      (first)                   = (link);                       \
+    else                                                        \
+      (last)->next              = (link);                       \
+    (link)->next                = NULL;                         \
+    (link)->prev                = (last);                       \
+    (last)                      = (link);                       \
+} while(0)
+
+
+#define UNLINK(link, first, last, next, prev)                   \
+do                                                              \
+{                                                               \
+    if ( !(link)->prev )                                        \
+      (first)                   = (link)->next;                 \
+    else                                                        \
+      (link)->prev->next        = (link)->next;                 \
+    if ( !(link)->next )                                        \
+      (last)                    = (link)->prev;                 \
+    else                                                        \
+      (link)->next->prev        = (link)->prev;                 \
+} while(0)
+
 
 /*
  * Defines for extended bitvectors
@@ -2324,6 +2392,15 @@ char * part_bit_name      args( ( int part_flags ) );
 char * weapon_bit_name    args( ( int weapon_flags ) );
 char * comm_bit_name      args( ( int comm_flags ) );
 char * cont_bit_name      args( ( int cont_flags) );
+void   add_timer          args( ( CHAR_DATA *ch, sh_int type, sh_int count, DO_FUN *fun, int value, char *argument  ) );
+TIMER *get_timerptr       args( ( CHAR_DATA *ch, sh_int type ) );
+sh_int get_timer          args( ( CHAR_DATA *ch, sh_int type ) );
+void   extract_timer      args( ( CHAR_DATA *ch, TIMER *timer ) );
+void   remove_timer       args( ( CHAR_DATA *ch, sh_int type ) );
+
+/* recycle.c */
+TIMER *new_timer          args( (void) );
+void   free_timer         args( (TIMER *timer) );
 
 /* interp.c */
 void    interpret          args( ( CHAR_DATA *ch, char *argument ) );
@@ -2384,6 +2461,7 @@ void    advance_level    args( ( CHAR_DATA *ch, bool hide ) );
 void    gain_exp         args( ( CHAR_DATA *ch, int gain ) );
 void    gain_condition   args( ( CHAR_DATA *ch, int iCond, int value ) );
 void    update_handler   args( ( bool forced ) );
+void    timer_update     args( (CHAR_DATA *ch) );
 
 /* string.c */
 void    string_edit    args( ( CHAR_DATA *ch, char **pString ) );

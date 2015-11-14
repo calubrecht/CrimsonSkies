@@ -5936,11 +5936,6 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-
-    sprintf(buf, "Logins: %ld\n\r", statistics.logins);
-    send_to_char(buf, ch);
-
-    send_to_char("Statistics Saved.\n\r", ch);
+    send_to_char("Nothing to see here.\n\r", ch);
     return;
 } // end do_debug

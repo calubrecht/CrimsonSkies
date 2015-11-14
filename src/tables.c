@@ -433,6 +433,7 @@ const struct flag_type type_flags[] = {
     {"roomkey", ITEM_ROOM_KEY, TRUE},
     {"gem", ITEM_GEM, TRUE},
     {"jewelry", ITEM_JEWELRY, TRUE},
+    {"shovel", ITEM_SHOVEL, TRUE},
     {NULL, 0, 0}
 };
 
@@ -461,6 +462,7 @@ const struct flag_type extra_flags[] = {
     {"sellextract", ITEM_SELL_EXTRACT, TRUE},
     {"burnproof", ITEM_BURN_PROOF, TRUE},
     {"nouncurse", ITEM_NOUNCURSE, TRUE},
+    {"buried", ITEM_BURIED, TRUE},
     {NULL, 0, 0}
 };
 

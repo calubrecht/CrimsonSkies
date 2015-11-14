@@ -2639,6 +2639,9 @@ char *str_dup (const char *str)
 {
     char *str_new;
 
+    if (str == NULL)
+        return &str_empty[0];
+
     if (str[0] == '\0')
         return &str_empty[0];
 
