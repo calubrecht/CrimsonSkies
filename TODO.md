@@ -81,6 +81,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update do_mfind to have two columns like olc mlist
   - Add class/race multipliers to OLC.
   - Higher lag time digging by hand.
-  - Save buried items.
-  - Update the purge command to purge buried items.
-  - Make locate show (Buried) flag next to buried items that are located.
+  - Save buried items, update the purge command to purge buried items.
+  - Fix bug where buried item not in container duplicates.
