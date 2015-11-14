@@ -4587,8 +4587,8 @@ void save_game_objects(void)
             // no purge and that can't be worn.  We will also write out owned items like
             // disarmed weapons and buried items.
             if ((obj->owner != NULL
-                 || obj->pIndexData->vnum == OBJ_VNUM_CORPSE_PC
-                 || IS_OBJ_STAT(obj, ITEM_BURIED)
+                 //|| obj->pIndexData->vnum == OBJ_VNUM_CORPSE_PC
+                 //|| IS_OBJ_STAT(obj, ITEM_BURIED)
                  || (obj->item_type == ITEM_CONTAINER && IS_OBJ_STAT(obj,ITEM_NOPURGE)))
                  && obj->wear_loc == WEAR_NONE
                  && obj->in_room != NULL)
