@@ -3810,6 +3810,22 @@ able to charge and ram a victim with their horns.  All minotaurs
 of all classes have this ability by default.
 ~
 
+0 DIG BURY~
+Syntax:  dig
+Syntax:  bury
+
+Bury will allow you to take an object and bury it in the ground.
+The ground must be soft enough for an object to be buried.  Small
+objects can be buried with your hands but larger objects will
+require the use of a shovel.
+
+Digging up objects also requires the ground is soft enough to
+dig (so city streets won't be diggable, but fields will).  You
+can dig with your hands but will find it much faster to dig with
+a shovel.  If you interrupt your digging with another action you
+will have to start over digging.
+~
+
 0 $~
 
 #$
