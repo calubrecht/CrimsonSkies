@@ -3656,12 +3656,14 @@ void spell_locate_object (int sn, int level, CHAR_DATA * ch, void *vo, int targe
         else
         {
             if (IS_IMMORTAL (ch) && in_obj->in_room != NULL)
-                sprintf (buf, "one is in %s [Room %d]\n\r",
-                         in_obj->in_room->name, in_obj->in_room->vnum);
+                sprintf (buf, "one is in %s%s [Room %d]\n\r",
+                         in_obj->in_room->name,
+                         IS_OBJ_STAT(obj, ITEM_BURIED) ? " (Buried)" : "",
+                         in_obj->in_room->vnum);
             else
-                sprintf (buf, "one is in %s\n\r",
-                         in_obj->in_room == NULL
-                         ? "somewhere" : in_obj->in_room->name);
+                sprintf (buf, "one is in %s%s\n\r",
+                         in_obj->in_room == NULL ? "somewhere" : in_obj->in_room->name,
+                         IS_OBJ_STAT(obj, ITEM_BURIED) ? " (Buried)" : "");
         }
 
         buf[0] = UPPER (buf[0]);
