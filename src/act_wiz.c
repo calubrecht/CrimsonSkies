@@ -1880,10 +1880,11 @@ void do_owhere (CHAR_DATA * ch, char *argument)
                      in_obj->carried_by->in_room->vnum);
         else if (in_obj->in_room != NULL
                  && can_see_room (ch, in_obj->in_room)) sprintf (buf,
-                                                                 "%3d) %s is in %s [Room %d]\n\r",
+                                                                 "%3d) %s is in %s%s [Room %d]\n\r",
                                                                  number,
                                                                  obj->short_descr,
                                                                  in_obj->in_room->name,
+                                                                 IS_OBJ_STAT(in_obj, ITEM_BURIED) ? " (Buried)" : "",
                                                                  in_obj->in_room->vnum);
         else
             sprintf (buf, "%3d) %s is somewhere\n\r", number,
