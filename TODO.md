@@ -83,3 +83,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Higher lag time digging by hand.
   - Save buried items.
   - Update the purge command to purge buried items.
+  - Make locate show (Buried) flag next to buried items that are located.
