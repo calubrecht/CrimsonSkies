@@ -420,11 +420,17 @@ void fwrite_obj (CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
     int room_vnum = 0;
 
     /*
-     * Slick recursion to write lists backwards,
-     *   so loading them will load in forwards order.
+     * Slick recursion to write lists backwards, so loading them will load in forwards order.
+     * This will only run for players now since we're using this to save objects like pits and
+     * corpses.
      */
-    if (obj->next_content != NULL)
-        fwrite_obj (ch, obj->next_content, fp, iNest);
+    if ((ch && !IS_NPC(ch)) || obj->in_room == NULL)
+    {
+        if (obj->next_content != NULL)
+        {
+            fwrite_obj (ch, obj->next_content, fp, iNest);
+        }
+    }
 
     /*
      * Castrate storage characters.  This will skip writing objects that are more than

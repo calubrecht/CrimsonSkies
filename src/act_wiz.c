@@ -5937,6 +5937,7 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Nothing to see here.\n\r", ch);
+    save_game_objects();
+    send_to_char("Game objects saved..\n\r", ch);
     return;
 } // end do_debug
