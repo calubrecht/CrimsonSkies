@@ -1152,6 +1152,7 @@ pardon.
 Syntax: purge
         purge <character>
         purge pits
+        purge buried
 
 Purge is used to clean up the world.  Purge with no arguments removes all the
 NPC's and objects in the current room.  Purge with an argument purges one
@@ -1166,6 +1167,9 @@ of all of the pits/shelves in the world.  Pits are now saved across boots and
 even with object consolidation can become very bloated over time.  From time
 to time they may need to be cleared.
 
+PURGE BURIED will allow a coder level or above immortal to purge all of the
+buried items in the world.  Buried items are now saved between boots and
+over time can build up and may need to be cleared.
 ~
 
 56 RESTORE~

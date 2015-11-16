@@ -2587,6 +2587,7 @@ void do_purge (CHAR_DATA * ch, char *argument)
     char buf[100];
     CHAR_DATA *victim;
     OBJ_DATA *obj;
+    OBJ_DATA *obj_next;
     DESCRIPTOR_DATA *d;
 
     one_argument (argument, arg);
@@ -2629,6 +2630,33 @@ void do_purge (CHAR_DATA * ch, char *argument)
         // This will purge all pits in the world.
         empty_pits();
         send_to_char("The contents of all of the pits in the world have been purged.\n\r", ch);
+        log_f("%s purged all the pits and shelves in the world.", ch->name);
+        return;
+    }
+
+    if (!str_cmp(arg, "buried"))
+    {
+        // Purging the buried items globally requires a higher level.
+        if (ch->level < CODER)
+        {
+            send_to_char("You are not a high enough level to globally purge buried items.\n\r", ch);
+            return;
+        }
+
+        // No need to seperate, find them and purge them.  Since we're extracting the item
+        // we need to use the temporary obj_next to keep the next pointer.
+        for (obj = object_list; obj != NULL; obj = obj_next)
+        {
+            obj_next = obj->next;
+
+            if (IS_OBJ_STAT(obj,ITEM_BURIED))
+            {
+                extract_obj(obj);
+            }
+        }
+
+        log_f("%s purged all of the buried items in the world.\n\r", ch->name);
+        send_to_char("All buried items have been purged from the world.\n\r", ch);
         return;
     }
 
