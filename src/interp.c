@@ -334,7 +334,6 @@ const struct cmd_type cmd_table[] = {
     {"restore",         do_restore,     POS_DEAD, L4, LOG_ALWAYS, TRUE},
     {"sla",             do_sla,         POS_DEAD, L3, LOG_NORMAL, FALSE},
     {"slay",            do_slay,        POS_DEAD, L3, LOG_ALWAYS, TRUE},
-    {"teleport",        do_transfer,    POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"transfer",        do_transfer,    POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"poofin",          do_bamfin,      POS_DEAD, L8, LOG_NORMAL, TRUE},
     {"poofout",         do_bamfout,     POS_DEAD, L8, LOG_NORMAL, TRUE},
