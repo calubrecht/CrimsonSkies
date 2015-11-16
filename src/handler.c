@@ -3673,3 +3673,26 @@ void remove_timer(CHAR_DATA *ch, sh_int type)
     }
 
 } // end remove_timer
+
+/*
+ * Whether or not a player is carrying a certain type of item in their
+ * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).
+ */
+bool has_item_type(CHAR_DATA *ch, sh_int item_type)
+{
+    OBJ_DATA * obj;
+
+    if (ch == NULL)
+        return FALSE;
+
+    for (obj = ch->carrying; obj != NULL; obj = obj->next_content)
+    {
+        if (obj->item_type == item_type)
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+
+} // end has_item_type
