@@ -3727,16 +3727,7 @@ void do_bury(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    shovel = FALSE;
-
-    for (obj = ch->carrying; obj; obj = obj->next_content)
-    {
-        if (obj->item_type == ITEM_SHOVEL)
-        {
-            shovel = TRUE;
-            break;
-        }
-    }
+    shovel = has_item_type(ch, ITEM_SHOVEL);
 
     obj = get_obj_list(ch, arg, ch->in_room->contents);
 
@@ -3830,16 +3821,7 @@ void do_dig(CHAR_DATA *ch, char *argument) {
         }
 
         // Having a shovel speeds up digging
-        shovel = FALSE;
-
-        for (obj = ch->carrying; obj; obj = obj->next_content)
-        {
-            if (obj->item_type == ITEM_SHOVEL)
-            {
-                shovel = TRUE;
-                break;
-            }
-        }
+        shovel = has_item_type(ch, ITEM_SHOVEL);
 
         if (shovel)
         {

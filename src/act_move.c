@@ -154,29 +154,16 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
              || to_room->sector_type == SECT_OCEAN)
              && !IS_AFFECTED (ch, AFF_FLYING))
         {
-            OBJ_DATA *obj;
             bool found;
 
             /*
              * Look for a boat.
              */
-            found = FALSE;
+            found = has_item_type(ch, ITEM_BOAT);
 
-            if (IS_IMMORTAL (ch))
+            // Immortal gets a courtesy boat.
+            if (IS_IMMORTAL(ch))
                 found = TRUE;
-
-            // No need to loop through all the objects if it's already been found.
-            if (!found)
-            {
-                for (obj = ch->carrying; obj != NULL; obj = obj->next_content)
-                {
-                    if (obj->item_type == ITEM_BOAT)
-                    {
-                        found = TRUE;
-                        break;
-                    }
-                }
-            }
 
             // Check swim skill, this should be the last one as we're going to deal
             // some damage and return out at this point if none of the other cases
