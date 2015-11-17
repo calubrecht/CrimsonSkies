@@ -56,6 +56,14 @@ gold~
 money 0 A
 0 0 0 0 0
 0 10 0 P
+#6
+jeweled egg~
+a beautiful jeweled egg~
+A stunningly intricate jeweled egg rolls around.~
+gem~
+gem TW AO
+0 0 0 0 0
+0 1 500000 P
 #10
 corpse~
 the corpse of %s~
