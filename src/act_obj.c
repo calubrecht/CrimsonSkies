@@ -3831,7 +3831,7 @@ void do_dig(CHAR_DATA *ch, char *argument) {
         }
         else
         {
-            add_timer(ch, TIMER_DO_FUN, 24, do_dig, 1, NULL);
+            add_timer(ch, TIMER_DO_FUN, 36, do_dig, 1, NULL);
             send_to_char("You begin digging with your hands...\n\r", ch);
             act("$n begins digging with their hands...", ch, NULL, NULL, TO_ROOM);
         }
