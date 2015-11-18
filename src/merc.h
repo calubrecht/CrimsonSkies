@@ -921,6 +921,8 @@ typedef enum
 #define OBJ_VNUM_GOLD_SOME          3
 #define OBJ_VNUM_SILVER_SOME        4
 #define OBJ_VNUM_COINS              5
+#define OBJ_VNUM_EGG                6
+#define OBJ_VNUM_BLUE_DIAMOND       7
 
 #define OBJ_VNUM_CORPSE_NPC        10
 #define OBJ_VNUM_CORPSE_PC         11
