@@ -3876,3 +3876,90 @@ void do_dig(CHAR_DATA *ch, char *argument) {
     return;
 
 } // end do_dig
+
+/*
+ * Flips a coin in the air and determines head's or tails.  The character must have
+ * a silver or gold coin on them.  This will take it out of their worth and create
+ * a single coins that will land on the ground.
+ */
+void do_flipcoin(CHAR_DATA *ch, char *argument)
+{
+    bool gold = FALSE;
+    bool silver = FALSE;
+
+    // Get whether they have gold or silver, the if statement below will be setup
+    // to use silver before gold if the player has both since silver is cheaper.
+    if (ch->silver > 0)
+        silver = TRUE;
+
+    if (ch->gold > 0)
+        gold = TRUE;
+
+    switch (ch->substate)
+    {
+        default:
+            if (!silver && !gold)
+            {
+                send_to_char("You don't have a single gold or silver coin to use.\n\r",ch);
+                return;
+            }
+
+            if (silver)
+            {
+                act("You take a silver coin out and flip it high into the air.", ch, NULL, NULL, TO_CHAR);
+                act("$n takes a silver coin out and flip it high into the air.", ch, NULL, NULL, TO_ROOM);
+            }
+            else if (gold)
+            {
+                act("You take a gold coin out and flip it high into the air.", ch, NULL, NULL, TO_CHAR);
+                act("$n takes a gold coin out and flip it high into the air.", ch, NULL, NULL, TO_ROOM);
+            }
+
+            add_timer(ch, TIMER_DO_FUN, 6, do_flipcoin, 1, NULL);
+            return;
+
+        case 1:
+        case SUB_TIMER_DO_ABORT:
+            if (number_range(0, 1) == 0)
+            {
+                // Heads
+                if (silver)
+                {
+                    act("The silver coin falls to the ground heads side up!", ch, NULL, NULL, TO_ALL);
+                }
+                else if (gold)
+                {
+                    act("The gold coin falls to the ground heads side up!", ch, NULL, NULL, TO_ALL);
+                }
+            }
+            else
+            {
+                // Tails
+                if (silver)
+                {
+                    act("The silver coin falls to the ground tails side up!", ch, NULL, NULL, TO_ALL);
+                }
+                else if (gold)
+                {
+                    act("The gold coin falls to the ground tails side up!", ch, NULL, NULL, TO_ALL);
+                }
+            }
+
+            // Start with silver, it's cheaper.
+            if (silver)
+            {
+                ch->silver -= 1;
+                obj_to_room(create_money(0, 1), ch->in_room);
+            }
+            else if (gold)
+            {
+                ch->gold -= 1;
+                obj_to_room(create_money(1, 0), ch->in_room);
+            }
+
+    }
+
+    ch->substate = SUB_NONE;
+    return;
+
+} // end flipcoin

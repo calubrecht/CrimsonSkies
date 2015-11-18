@@ -245,6 +245,7 @@ const struct cmd_type cmd_table[] = {
     {"zap",             do_zap,         POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"bury",            do_bury,        POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"dig",             do_dig,         POS_STANDING, 0, LOG_NORMAL, TRUE},
+    {"flipcoin",        do_flipcoin,    POS_RESTING,  0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.
