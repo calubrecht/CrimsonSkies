@@ -11,6 +11,7 @@ triggers = {
     "Do you wish to connect anyway (Y/N)" : "Y",
     "[Hit Return to continue]" : "",
     "Welcome to Crimson Skies" : "start",
+    "Copyover recovery complete." : "start",
 
     # General
     "You are hungry" : "say i am very hungry.",
