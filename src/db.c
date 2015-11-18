@@ -354,8 +354,8 @@ void boot_db ()
 
         // The loading of saved objects needs to happen before the
         // resetting otherwise we'll have duplicate objects
-        log_string("STATUS: Loading Saved Objects (Pits/Corpses)");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Saved Objects (Pits/Corpses).", TRUE, TRUE);
+        log_string("STATUS: Loading Saved Objects (Pits/Corpses/Buried Items)");
+        if (fCopyOver) copyover_broadcast("STATUS: Loading Saved Objects.", TRUE, TRUE);
         load_game_objects();
 
         log_string("STATUS: Resetting Areas");
