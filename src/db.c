@@ -191,6 +191,7 @@ void load_settings args((void));
 void load_skills args((void));
 void load_game_objects args((void));
 void load_statistics args((void));
+void init_weather args((void));
 void assign_gsn args((void));
 
 SPELL_FUN  *spell_function_lookup args(( char *name ));
@@ -215,59 +216,16 @@ void boot_db ()
             bug ("Boot_db: can't alloc %d string space.", MAX_STRING);
             exit (1);
         }
+
         top_string = string_space;
         fBootDb = TRUE;
     }
 
-    /*
-     * Init random number generator.
-     */
-    {
-        init_random ();
-    }
+    log_string("STATUS: Initializing Random Number Generator");
+    init_random();
 
-    /*
-     * Set time and weather.
-     */
-    {
-        long lhour, lday, lmonth;
-
-        lhour = (current_time - 650336715) / (PULSE_TICK / PULSE_PER_SECOND);
-        time_info.hour = lhour % 24;
-        lday = lhour / 24;
-        time_info.day = lday % 35;
-        lmonth = lday / 35;
-        time_info.month = lmonth % 17;
-        time_info.year = lmonth / 17;
-
-        if (time_info.hour < 5)
-            weather_info.sunlight = SUN_DARK;
-        else if (time_info.hour < 6)
-            weather_info.sunlight = SUN_RISE;
-        else if (time_info.hour < 19)
-            weather_info.sunlight = SUN_LIGHT;
-        else if (time_info.hour < 20)
-            weather_info.sunlight = SUN_SET;
-        else
-            weather_info.sunlight = SUN_DARK;
-
-        weather_info.change = 0;
-        weather_info.mmhg = 960;
-        if (time_info.month >= 7 && time_info.month <= 12)
-            weather_info.mmhg += number_range (1, 50);
-        else
-            weather_info.mmhg += number_range (1, 80);
-
-        if (weather_info.mmhg <= 980)
-            weather_info.sky = SKY_LIGHTNING;
-        else if (weather_info.mmhg <= 1000)
-            weather_info.sky = SKY_RAINING;
-        else if (weather_info.mmhg <= 1020)
-            weather_info.sky = SKY_CLOUDY;
-        else
-            weather_info.sky = SKY_CLOUDLESS;
-
-    }
+    log_string("STATUS: Initializing Weather");
+    init_weather();
 
     log_string("STATUS: Loading Settings");
     if (fCopyOver) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
@@ -568,6 +526,51 @@ void assign_area_vnum (int vnum)
     }
     return;
 }
+
+/*
+ * Initialize the time and weather
+ */
+void init_weather()
+{
+    long lhour, lday, lmonth;
+
+    lhour = (current_time - 650336715) / (PULSE_TICK / PULSE_PER_SECOND);
+    time_info.hour = lhour % 24;
+    lday = lhour / 24;
+    time_info.day = lday % 35;
+    lmonth = lday / 35;
+    time_info.month = lmonth % 17;
+    time_info.year = lmonth / 17;
+
+    if (time_info.hour < 5)
+        weather_info.sunlight = SUN_DARK;
+    else if (time_info.hour < 6)
+        weather_info.sunlight = SUN_RISE;
+    else if (time_info.hour < 19)
+        weather_info.sunlight = SUN_LIGHT;
+    else if (time_info.hour < 20)
+        weather_info.sunlight = SUN_SET;
+    else
+        weather_info.sunlight = SUN_DARK;
+
+    weather_info.change = 0;
+    weather_info.mmhg = 960;
+
+    if (time_info.month >= 7 && time_info.month <= 12)
+        weather_info.mmhg += number_range (1, 50);
+    else
+        weather_info.mmhg += number_range (1, 80);
+
+    if (weather_info.mmhg <= 980)
+        weather_info.sky = SKY_LIGHTNING;
+    else if (weather_info.mmhg <= 1000)
+        weather_info.sky = SKY_RAINING;
+    else if (weather_info.mmhg <= 1020)
+        weather_info.sky = SKY_CLOUDY;
+    else
+        weather_info.sky = SKY_CLOUDLESS;
+
+} // end init_weather
 
 /*
  * Snarf a help section.
