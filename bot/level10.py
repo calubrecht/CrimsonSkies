@@ -22,8 +22,8 @@ triggers = {
     "Nah... You feel too relaxed..." : "wake",
     "You can not sleep while flying, you must land first." : "land",
     "waiting to be read" : "catchup",
-    "is DEAD" : "recall;n;>lae spells;sleep;#WAIT 180;wake;s;s;s;e;e;e;e;e;e;e;n;n;n;n;n;kill bard",
-    "They aren't here." : "recall;n;>lae spells;sleep;#WAIT 180;wake;s;s;s;e;e;e;e;e;e;e;n;n;n;n;n;kill bard"
+    "is DEAD" : "recall;n;>lae spells;sleep;#WAIT 180;wake;s;s;e;e;e;e;e;e;e;n;n;n;n;n;n;n;n;n;w;w;n;n;n;kill man",
+    "They aren't here." : "recall;n;>lae spells;sleep;#WAIT 180;wake;s;s;e;e;e;e;e;e;e;n;n;n;n;n;n;n;n;n;w;w;n;n;n;kill man"
 }
 
 #RegEx Triggers
@@ -35,6 +35,6 @@ regexTriggers = {
 
 # Aliases
 alias = {
-    "start" : "prompt <%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>;recall;n;s;s;s;e;e;e;e;e;e;e;n;n;n;n;n;kill bard"
+    "start" : "say test;prompt <%hhp/%Hmhp %mm/%Mmm %vmv/%Vmmv [%r] (%e)>;wake;recall;s;s;e;e;e;e;e;e;e;n;n;n;n;n;n;n;n;n;w;w;n;n;n;kill man"
 }
 
