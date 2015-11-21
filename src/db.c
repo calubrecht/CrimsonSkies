@@ -4860,5 +4860,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_enhanced_recall, "enhanced recall");
     ASSIGN_GSN(gsn_circlestab, "circle stab");
     ASSIGN_GSN(gsn_gore, "gore");
+    ASSIGN_GSN(gsn_ghost, "ghost");
 
 } // end assign_gsn
