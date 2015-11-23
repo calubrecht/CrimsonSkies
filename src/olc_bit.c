@@ -1,4 +1,6 @@
 /***************************************************************************
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2015 by Blake Pell (Rhien)   *
+ ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
  *                                                                         *
@@ -8,9 +10,7 @@
  *  ROM 2.4 improvements copyright (C) 1993-1998 Russ Taylor, Gabrielle    *
  *  Taylor and Brian Moore                                                 *
  *                                                                         *
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2015 by Blake Pell (Rhien)   *
- *                                                                         *
- *  In order to use any part of this Merc Diku Mud, you must comply with   *
+ *  In order to use any part of this Diku Mud, you must comply with        *
  *  both the original Diku license in 'license.doc' as well the Merc       *
  *  license in 'license.txt' as well as the ROM license.  In particular,   *
  *  you may not remove these copyright notices.                            *
