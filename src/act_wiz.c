@@ -5991,7 +5991,9 @@ void do_debug(CHAR_DATA * ch, char *argument)
 
     affect_strip(victim, gsn_ghost);
 
-    af.where = TO_AFFECTS;
+    make_ghost(victim);
+
+/*    af.where = TO_AFFECTS;
     af.type = gsn_ghost;
     af.level = ML;
     af.duration = 3;
@@ -6008,7 +6010,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
     {
         sprintf(buf, "%s is now a ghost.\n\r", victim->name);
         send_to_char(buf, ch);
-    }
+    }*/
 
     //send_to_char("Huh?\n\r", ch);
     return;

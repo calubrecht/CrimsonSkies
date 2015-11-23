@@ -3696,3 +3696,55 @@ bool has_item_type(CHAR_DATA *ch, sh_int item_type)
     return FALSE;
 
 } // end has_item_type
+
+/*
+ * Turns a player into a ghost after they die.  Ghosts receive pass door and flying, they
+ * cannot be attacked (or attack) and have their movement restored so they have a fighting
+ * chance at retrieving their corpse.
+ */
+void make_ghost( CHAR_DATA *ch)
+{
+    AFFECT_DATA af;
+
+    // This probably won't happen unless an immortal kills somebody, but might as we'll
+    // strip a ghost affect if they're ghosted.
+    if (IS_GHOST(ch))
+    {
+        affect_strip(ch, gsn_ghost);
+        return;
+    }
+
+    // Add a ghost affect and tact on a pass door bit vector so as a ghost you can pass
+    // through doors.
+    af.where = TO_AFFECTS;
+    af.type = gsn_ghost;
+    af.level = 0;
+    af.duration = 5;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = AFF_PASS_DOOR;
+    affect_to_char(ch, &af);
+
+    // Add a fly affect for the ghost with the same duration.  We're adding this seperate
+    // so the ghost can land if they want to (and go to sleep).
+    if (!IS_AFFECTED(ch, AFF_FLYING))
+    {
+        af.where = TO_AFFECTS;
+        af.type = gsn_fly;
+        af.level = 0;
+        af.duration = 5;
+        af.location = APPLY_NONE;
+        af.modifier = 0;
+        af.bitvector = AFF_FLYING;
+        affect_to_char(ch, &af);
+    }
+
+    // Restore the ghost's movement giving them a better chance of getting back to
+    // their corpse to retrieve their items.
+    ch->move = ch->max_move;
+
+    send_to_char( "Your spirit leaves your corpse as your body has perished.\n\r", ch );
+    return;
+
+} // end make_ghost
+

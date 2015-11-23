@@ -2401,6 +2401,7 @@ sh_int get_timer          args( ( CHAR_DATA *ch, sh_int type ) );
 void   extract_timer      args( ( CHAR_DATA *ch, TIMER *timer ) );
 void   remove_timer       args( ( CHAR_DATA *ch, sh_int type ) );
 bool   has_item_type      args( ( CHAR_DATA *ch, sh_int item_type) );
+void   make_ghost         args( ( CHAR_DATA *ch) );
 
 /* recycle.c */
 TIMER *new_timer          args( (void) );
