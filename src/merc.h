@@ -2019,8 +2019,8 @@ void    ext_toggle_bits         args( ( EXT_BV *var, EXT_BV *bits) );
  * Description macros.
  */
 #define PERS(ch, looker)    ( can_see( looker, (ch) ) ?        \
-                ( IS_NPC(ch) ? (ch)->short_descr    \
-                : (ch)->name ) : (ch)->level >= LEVEL_IMMORTAL  && !IS_NPC(ch) ? "(An Imm)" : "someone")
+                ( IS_NPC(ch) ? (ch)->short_descr               \
+                : pers(ch, looker)) : (ch)->level >= LEVEL_IMMORTAL  && !IS_NPC(ch) ? "(An Imm)" : "someone")
 
 /*
  * Structure for a social in the socials table.
@@ -2192,8 +2192,9 @@ char     *obj_short          args( ( OBJ_DATA *obj ) );
 RID      *get_random_room    args( ( CHAR_DATA *ch ) );
 
 /* act_info.c */
-void     set_title           args( ( CHAR_DATA *ch, char *title ) );
-bool     char_in_list        args( ( CHAR_DATA *ch));
+void     set_title           args((CHAR_DATA *ch, char *title));
+bool     char_in_list        args((CHAR_DATA *ch));
+char     *pers               args((CHAR_DATA *ch, CHAR_DATA *looker));
 
 /* act_move.c */
 void     move_char           args( ( CHAR_DATA *ch, int door, bool follow ) );

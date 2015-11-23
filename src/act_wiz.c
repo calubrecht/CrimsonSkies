@@ -5965,7 +5965,6 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    AFFECT_DATA af;
     CHAR_DATA *victim;
     char buf[MAX_STRING_LENGTH];
 
@@ -5990,27 +5989,10 @@ void do_debug(CHAR_DATA * ch, char *argument)
     }
 
     affect_strip(victim, gsn_ghost);
-
     make_ghost(victim);
 
-/*    af.where = TO_AFFECTS;
-    af.type = gsn_ghost;
-    af.level = ML;
-    af.duration = 3;
-    af.location = APPLY_NONE;
-    af.modifier = 0;
-    af.bitvector = 0;
-    affect_to_char (victim, &af);
-
-    if (ch == victim)
-    {
-        send_to_char("You are not a ghost.\n\r", ch);
-    }
-    else
-    {
-        sprintf(buf, "%s is now a ghost.\n\r", victim->name);
-        send_to_char(buf, ch);
-    }*/
+    sprintf(buf, "%s is not a ghost, very spooky.\n\r", victim->name);
+    send_to_char(buf, ch);
 
     //send_to_char("Huh?\n\r", ch);
     return;

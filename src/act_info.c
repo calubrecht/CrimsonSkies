@@ -3794,3 +3794,26 @@ void do_settings(CHAR_DATA *ch, char *argument)
     }
 
 } // end do_settings
+
+/*
+ * A function for use in the PERS macro in merc.h that will allow us to format
+ * what a player looks like to the room.  This function name comes from the macro's
+ * corresponding name.
+ */
+char *pers(CHAR_DATA *ch, CHAR_DATA *looker)
+{
+    static char buf[MAX_STRING_LENGTH];
+
+    if (IS_GHOST(ch))
+    {
+        buf[0] = '\0';
+        sprintf(buf, "The ghost of %s", ch->name);
+        return buf;
+    }
+    else
+    {
+        return ch->name;
+    }
+
+} // end pers
+
