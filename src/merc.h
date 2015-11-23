@@ -2001,8 +2001,9 @@ void    ext_toggle_bits         args( ( EXT_BV *var, EXT_BV *bits) );
                 ( ch->pcdata->security >= Area->security  \
                 || strstr( Area->builders, ch->name )      \
                 || strstr( Area->builders, "All" ) ) )
-#define IS_WANTED(ch) (IS_SET (ch->act, PLR_WANTED))
-#define IS_TESTER(ch) (IS_SET (ch->act, PLR_TESTER))
+#define IS_WANTED(ch) (IS_SET(ch->act, PLR_WANTED))
+#define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER))
+#define IS_GHOST(ch) (is_affected(ch,gsn_ghost))
 
 /*
  * Object macros.
