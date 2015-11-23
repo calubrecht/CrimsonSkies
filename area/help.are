@@ -3814,6 +3814,14 @@ able to charge and ram a victim with their horns.  All minotaurs
 of all classes have this ability by default.
 ~
 
+0 GHOST~
+Upon dying to either a player or a creature you will become a
+ghost for a short period of time.  Ghosts can not attack or be
+attacked.  It is said that they float and take on a transparent
+appearance able of passing through doors.
+
+~
+
 0 DIG BURY~
 Syntax:  dig
 Syntax:  bury
