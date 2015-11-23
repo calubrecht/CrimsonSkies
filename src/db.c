@@ -4861,5 +4861,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_circlestab, "circle stab");
     ASSIGN_GSN(gsn_gore, "gore");
     ASSIGN_GSN(gsn_ghost, "ghost");
+    ASSIGN_GSN(gsn_enchant_person, "enchant person");
 
 } // end assign_gsn

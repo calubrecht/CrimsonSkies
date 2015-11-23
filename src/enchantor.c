@@ -356,8 +356,12 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 
 	if (IS_OBJ_STAT(obj, ITEM_BLESS))
 		fail -= 15;
+
 	if (IS_OBJ_STAT(obj, ITEM_GLOW))
 		fail -= 5;
+
+    if (is_affected(ch, gsn_enchant_person))
+        fail -= 2;
 
 	fail = URANGE(5, fail, 85);
 
@@ -598,8 +602,12 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
 	if (IS_OBJ_STAT(obj, ITEM_BLESS))
 		fail -= 15;
+
 	if (IS_OBJ_STAT(obj, ITEM_GLOW))
 		fail -= 5;
+
+    if (is_affected(ch, gsn_enchant_person))
+        fail -= 2;
 
 	fail = URANGE(5, fail, 95);
 	result = number_percent();
@@ -808,6 +816,10 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     // Contiual light increases chance and lowers crumbling chance
     if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        chance += 1;
+
+    // If the caster is enchanted themselves, lowers crumbling chance.
+    if (is_affected(ch, gsn_enchant_person))
         chance += 1;
 
     if (chance >= 1 && chance <= 2)
