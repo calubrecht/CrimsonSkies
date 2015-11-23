@@ -1250,9 +1250,9 @@ typedef enum
 #define MAX_WEAR             20
 
 #define CONTINENT_LIMBO       0
-#define CONTINENT_OCEANS      1
-#define CONTINENT_MIDGAARD    2
-#define CONTINENT_ARCANIS     3
+#define CONTINENT_MIDGAARD    1
+#define CONTINENT_ARCANIS     2
+#define CONTINENT_OCEANS      3
 
 /***************************************************************************
  *                                                                         *
