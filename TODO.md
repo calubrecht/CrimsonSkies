@@ -53,8 +53,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Allow any player to change their recall to any number of custom bind stones for recall.
   - Crafting system, intertwine it with my nature code (that I need to dig up and add)
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
-  - Make a character a ghost for 5 ticks after they die, ghosts can't be attacked and use less movement
-    to move so a character can get to their corpse easier.
   - Make the guild command a one stop command for all guild actions (putting people in clans, listing
     clans, listing clan recruiters, etc.).
   - Alchemist Class, mage and/or cleric reclass.
@@ -80,6 +78,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update do_ofind to have two columns like olc olist
   - Update do_mfind to have two columns like olc mlist
   - Add class/race multipliers to OLC.
-  - Higher lag time digging by hand.
-  - Save buried items, update the purge command to purge buried items.
-  - Fix bug where buried item not in container duplicates.
