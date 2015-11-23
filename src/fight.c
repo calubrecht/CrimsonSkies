@@ -1844,18 +1844,31 @@ void raw_kill(CHAR_DATA * victim)
     // Extract the char (nuking their objects) if it's not an arena kill.
     if (!IS_NPC(victim) && victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
     {
-        extract_char (victim, FALSE);
+        extract_char(victim, FALSE);
     }
 
     while (victim->affected)
-        affect_remove (victim, victim->affected);
+    {
+        affect_remove(victim, victim->affected);
+    }
+
     victim->affected_by = race_table[victim->race].aff;
+
     for (i = 0; i < 4; i++)
+    {
         victim->armor[i] = 100;
+    }
+
     victim->position = POS_RESTING;
     victim->hit = UMAX (1, victim->hit);
     victim->mana = UMAX (1, victim->mana);
     victim->move = UMAX (1, victim->move);
+
+    // Last step, make them a ghost
+    if (!IS_NPC(victim))
+    {
+        make_ghost(victim);
+    }
 
     return;
 
