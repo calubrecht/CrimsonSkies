@@ -1102,7 +1102,7 @@ bool damage (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
 /*
  * Whether one player can attack another.
  */
-bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
+bool is_safe(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (victim->in_room == NULL || ch->in_room == NULL)
         return TRUE;
@@ -1110,15 +1110,25 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
     if (victim->fighting == ch || victim == ch)
         return FALSE;
 
-    if (IS_IMMORTAL (ch) && ch->level > LEVEL_IMMORTAL)
+    if (IS_IMMORTAL(ch) && ch->level > LEVEL_IMMORTAL)
         return FALSE;
 
-    /* killing mobiles */
-    if (IS_NPC (victim))
-    {
+    // Cannot attack a player which has recently died.
+    if (IS_GHOST(victim))
+        return TRUE;
 
+    // You cannot attack if you are a player that has recently died.
+    if (IS_GHOST(ch))
+    {
+        send_to_char("You cannot attack while you are a ghost.\n\r", ch);
+        return TRUE;
+    }
+
+    /* killing mobiles */
+    if (IS_NPC(victim))
+    {
         /* safe room? */
-        if (IS_SET (victim->in_room->room_flags, ROOM_SAFE))
+        if (IS_SET(victim->in_room->room_flags, ROOM_SAFE))
         {
             send_to_char ("Not in this room.\n\r", ch);
             return TRUE;
@@ -1145,8 +1155,7 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
             /* no pets */
             if (IS_SET (victim->act, ACT_PET))
             {
-                act ("But $N looks so cute and cuddly...",
-                     ch, NULL, victim, TO_CHAR);
+                act ("But $N looks so cute and cuddly...", ch, NULL, victim, TO_CHAR);
                 return TRUE;
             }
 
@@ -1162,20 +1171,20 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
     else
     {
         /* NPC doing the killing */
-        if (IS_NPC (ch))
+        if (IS_NPC(ch))
         {
             /* safe room check */
-            if (IS_SET (victim->in_room->room_flags, ROOM_SAFE))
+            if (IS_SET(victim->in_room->room_flags, ROOM_SAFE))
             {
-                send_to_char ("Not in this room.\n\r", ch);
+                send_to_char("Not in this room.\n\r", ch);
                 return TRUE;
             }
 
             /* charmed mobs and pets cannot attack players while owned */
-            if (IS_AFFECTED (ch, AFF_CHARM) && ch->master != NULL
+            if (IS_AFFECTED(ch, AFF_CHARM) && ch->master != NULL
                 && ch->master->fighting != victim)
             {
-                send_to_char ("Players are your friends!\n\r", ch);
+                send_to_char("Players are your friends!\n\r", ch);
                 return TRUE;
             }
         }
@@ -1188,17 +1197,16 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
                 return FALSE;
             }
 
-            if (!is_clan (ch))
+            if (!is_clan(ch))
             {
-                send_to_char ("Join a clan if you want to kill players.\n\r",
-                              ch);
+                send_to_char("Join a clan if you want to kill players.\n\r", ch);
                 return TRUE;
             }
 
-            if (IS_SET (victim->act, PLR_WANTED))
+            if (IS_SET(victim->act, PLR_WANTED))
                 return FALSE;
 
-            if (!is_clan (victim))
+            if (!is_clan(victim))
             {
                 act ("$N is not in a clan, leave them alone!", ch, NULL, victim, TO_CHAR);
                 return TRUE;
@@ -1206,7 +1214,7 @@ bool is_safe (CHAR_DATA * ch, CHAR_DATA * victim)
 
             if (ch->level > victim->level + 8)
             {
-                send_to_char ("Pick on someone your own size.\n\r", ch);
+                send_to_char("Pick on someone your own size.\n\r", ch);
                 return TRUE;
             }
         }
@@ -1230,6 +1238,10 @@ bool is_safe_spell (CHAR_DATA * ch, CHAR_DATA * victim, bool area)
 
     if (IS_IMMORTAL (ch) && ch->level > LEVEL_IMMORTAL && !area)
         return FALSE;
+
+    // Cannot attack a player or attack as a player if you or your victim are a ghost.
+    if (IS_GHOST(ch) || IS_GHOST(victim))
+        return TRUE;
 
     /* killing mobiles */
     if (IS_NPC (victim))

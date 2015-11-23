@@ -5965,6 +5965,51 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Huh?\n\r", ch);
+    AFFECT_DATA af;
+    CHAR_DATA *victim;
+    char buf[MAX_STRING_LENGTH];
+
+    // This gets rid of a compiler warning about unitialized variables even
+    // the logic won't get past the else if statement without victim having
+    // something.
+    victim = NULL;
+
+    if (argument[0] == '\0')
+    {
+        victim = ch;
+    }
+    else if (!victim)
+    {
+        // If the victim is null that means they entered something.. try
+        // to find them.
+        if ((victim = get_char_world(ch, argument)) == NULL)
+        {
+            send_to_char ("They aren't here.\n\r", ch);
+            return;
+        }
+    }
+
+    affect_strip(victim, gsn_ghost);
+
+    af.where = TO_AFFECTS;
+    af.type = gsn_ghost;
+    af.level = ML;
+    af.duration = 3;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    if (ch == victim)
+    {
+        send_to_char("You are not a ghost.\n\r", ch);
+    }
+    else
+    {
+        sprintf(buf, "%s is now a ghost.\n\r", victim->name);
+        send_to_char(buf, ch);
+    }
+
+    //send_to_char("Huh?\n\r", ch);
     return;
 } // end do_debug
