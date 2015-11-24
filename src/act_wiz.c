@@ -4636,7 +4636,7 @@ void do_sockets (CHAR_DATA * ch, char *argument)
 
     send_to_char("{c--------------------------------------------------------------------------------{x\n\r", ch);
     send_to_char("{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\n\r", ch);
-    send_to_char("{c--------------------------------------------------------------------------------{x\n\r", ch);
+    send_to_char("{c--------------------------------------------------------------------------------{x", ch);
 
     page_to_char (buf, ch);
     return;
