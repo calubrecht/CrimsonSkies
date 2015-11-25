@@ -4,15 +4,13 @@
 
   - {B{_https://github.com/blakepell/CrimsonSkies{x
 
-* I will be attempting to implement object consolidation from the Smaug
-  code base, I may very make things unstable temporarly.  I have backed
-  up pfiles in case I temporarly corrupt them which will be highly possible.
 * Reclass system is in, there are two reclasses currently which are
   enchantors for mages and healers for clerics.  2 more reclasses
   and the oceans are all that stand between us and version 1.
 * Any 'rules' are on hold until the game is out of it's beta testing
   phase.  Feel free to do what you please, just respect others.
 * Important commands: help, commands, notes, score, look, who, scan
+* To see the current game settings, type settings.
 * See 'help credits' for code contributions from others.
 
 {R[{WHit Return to continue{R]{x
