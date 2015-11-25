@@ -2069,7 +2069,9 @@ OBJ_INDEX_DATA *get_obj_index (int vnum)
 
 /*
  * Translates mob virtual number to its room index struct.
- * Hash table lookup.
+ * Hash table lookup.  This will exit/crash the game on boot
+ * if a requested room isn't found, otherwise it will return
+ * a null.
  */
 ROOM_INDEX_DATA *get_room_index (int vnum)
 {
