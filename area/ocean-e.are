@@ -8,6 +8,8 @@ Security 1
 Continent 3
 End
 
+
+
 #MOBILES
 #11200
 tuna fish~
@@ -154,139 +156,23 @@ F for W
 #0
 
 
+
 #OBJECTS
 #0
 
 
 
 #ROOMS
-#11264
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11254
-D1
-~
-~
-0 0 11265
-D2
-~
-~
-0 0 11274
-D3
-~
-~
-0 0 11263
-D6
-~
-~
-0 0 11253
-D7
-~
-~
-0 0 11255
-D8
-~
-~
-0 0 11273
-D9
-~
-~
-0 0 11275
-S
-#11265
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11255
-D1
-~
-~
-0 0 11266
-D2
-~
-~
-0 0 11275
-D3
-~
-~
-0 0 11264
-D6
-~
-~
-0 0 11254
-D7
-~
-~
-0 0 11256
-D8
-~
-~
-0 0 11274
-D9
-~
-~
-0 0 11276
-S
-#11266
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11256
-D1
-~
-~
-0 0 11267
-D2
-~
-~
-0 0 11276
-D3
-~
-~
-0 0 11265
-D6
-~
-~
-0 0 11255
-D7
-~
-~
-0 0 11257
-D8
-~
-~
-0 0 11275
-D9
-~
-~
-0 0 11277
-S
 #11267
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Eastern Shores~
+You are standing on the eastern shores of Arcanis and the Silver Sea. 
+The waters stretch farther than the eye can see as the Silver Sea meets the
+Great Barrier Sea in a vast nothingness.  Gulls fly over head and the
+crashing of waves can be heard on the beach.  There is a sense of loneliness
+that lays on these waters that can be felt deep within you.  The shore is
+covered with many shells and small rocks here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -299,14 +185,6 @@ D2
 ~
 ~
 0 0 11277
-D3
-~
-~
-0 0 11266
-D6
-~
-~
-0 0 11256
 D7
 ~
 ~
@@ -323,7 +201,7 @@ S
 #11268
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -363,7 +241,7 @@ S
 #11269
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -403,7 +281,7 @@ S
 #11270
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -443,7 +321,7 @@ S
 #11271
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -483,7 +361,7 @@ S
 #11272
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -507,10 +385,6 @@ D6
 ~
 ~
 0 0 11261
-D7
-~
-~
-0 0 11263
 D8
 ~
 ~
@@ -521,20 +395,12 @@ D9
 0 0 11283
 S
 #11273
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southwestern Shore~
+You are standing on the southwestern shore of Arcanis and the Silver Sea.
+The gray waters of the Silver Sea stretch far into the horizon getting
+darker and deeper the farther south the coast goes.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11263
-D1
-~
-~
-0 0 11274
+0 0 12
 D2
 ~
 ~
@@ -547,10 +413,6 @@ D6
 ~
 ~
 0 0 11262
-D7
-~
-~
-0 0 11264
 D8
 ~
 ~
@@ -560,97 +422,13 @@ D9
 ~
 0 0 11284
 S
-#11274
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11264
-D1
-~
-~
-0 0 11275
-D2
-~
-~
-0 0 11284
-D3
-~
-~
-0 0 11273
-D6
-~
-~
-0 0 11263
-D7
-~
-~
-0 0 11265
-D8
-~
-~
-0 0 11283
-D9
-~
-~
-0 0 11285
-S
-#11275
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11265
-D1
-~
-~
-0 0 11276
-D2
-~
-~
-0 0 11285
-D3
-~
-~
-0 0 11274
-D6
-~
-~
-0 0 11264
-D7
-~
-~
-0 0 11266
-D8
-~
-~
-0 0 11284
-D9
-~
-~
-0 0 11286
-S
 #11276
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southeastern Shore~
+You are standing on the southeastern shoreline of Arcanis and the Silver
+Sea.  The waves are crashing in on the beach as a foamy mist appears and
+then dissipates with a quiet hiss.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11266
+0 0 12
 D1
 ~
 ~
@@ -659,14 +437,6 @@ D2
 ~
 ~
 0 0 11286
-D3
-~
-~
-0 0 11275
-D6
-~
-~
-0 0 11265
 D7
 ~
 ~
@@ -681,12 +451,12 @@ D9
 0 0 11287
 S
 #11277
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southeastern Shore~
+You are standing on the southeastern shoreline of Arcanis and the Silver
+Sea.  The waves are crashing in on the beach as a foamy mist appears and
+then dissipates with a quiet hiss.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -703,10 +473,6 @@ D3
 ~
 ~
 0 0 11276
-D6
-~
-~
-0 0 11266
 D7
 ~
 ~
@@ -723,7 +489,7 @@ S
 #11278
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -763,7 +529,7 @@ S
 #11279
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -803,7 +569,7 @@ S
 #11280
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -843,7 +609,7 @@ S
 #11281
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -883,7 +649,7 @@ S
 #11282
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -923,7 +689,7 @@ S
 #11283
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -947,10 +713,6 @@ D6
 ~
 ~
 0 0 11272
-D7
-~
-~
-0 0 11274
 D8
 ~
 ~
@@ -961,16 +723,13 @@ D9
 0 0 11294
 S
 #11284
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southern Shore~
+You are standing on the southern shoreline of Arcanis and the Silver Sea.
+There is a chilly breeze coming in from the south and the waters are a much
+darker gray than seen on the northern porition of the continent.  The waves
+are very large here and pounding against the shoreline.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11274
+0 0 12
 D1
 ~
 ~
@@ -987,10 +746,6 @@ D6
 ~
 ~
 0 0 11273
-D7
-~
-~
-0 0 11275
 D8
 ~
 ~
@@ -1001,16 +756,13 @@ D9
 0 0 11295
 S
 #11285
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southern Shore~
+You are standing on the southern shoreline of Arcanis and the Silver Sea.
+There is a chilly breeze coming in from the south and the waters are a much
+darker gray than seen on the northern porition of the continent.  The waves
+are very large here and pounding against the shoreline.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11275
+0 0 12
 D1
 ~
 ~
@@ -1023,10 +775,6 @@ D3
 ~
 ~
 0 0 11284
-D6
-~
-~
-0 0 11274
 D7
 ~
 ~
@@ -1041,12 +789,13 @@ D9
 0 0 11296
 S
 #11286
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Southern Shore~
+You are standing on the southern shoreline of Arcanis and the Silver Sea.
+There is a chilly breeze coming in from the south and the waters are a much
+darker gray than seen on the northern porition of the continent.  The waves
+are very large here and pounding against the shoreline.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -1063,10 +812,6 @@ D3
 ~
 ~
 0 0 11285
-D6
-~
-~
-0 0 11275
 D7
 ~
 ~
@@ -1083,7 +828,7 @@ S
 #11287
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1123,7 +868,7 @@ S
 #11288
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1163,7 +908,7 @@ S
 #11289
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1203,7 +948,7 @@ S
 #11290
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1243,7 +988,7 @@ S
 #11291
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1283,7 +1028,7 @@ S
 #11292
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1323,7 +1068,7 @@ S
 #11293
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1363,7 +1108,7 @@ S
 #11294
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1403,7 +1148,7 @@ S
 #11295
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1443,7 +1188,7 @@ S
 #11296
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1483,7 +1228,7 @@ S
 #11297
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1523,7 +1268,7 @@ S
 #11298
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1563,7 +1308,7 @@ S
 #11299
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1599,7 +1344,7 @@ S
 #11200
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1639,7 +1384,7 @@ S
 #11201
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -1677,20 +1422,17 @@ D9
 0 0 11212
 S
 #11202
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+A rocky shoreline~
+You are standing on a rocky shoreline with coarse sand below your feet. 
+You are at the point where the waters of the Silver Sea converge with those
+of the Great Northwest Ocean.  Beyond the beach the are rock walls that rise
+high into the land of the Arcanis continent.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11592
-D1
-~
-~
-0 0 11203
 D2
 ~
 ~
@@ -1703,266 +1445,18 @@ D6
 ~
 ~
 0 0 11591
-D7
-~
-~
-0 0 11593
 D8
 ~
 ~
 0 0 11211
-D9
-~
-~
-0 0 11213
-S
-#11203
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11593
-D1
-~
-~
-0 0 11204
-D2
-~
-~
-0 0 11213
-D3
-~
-~
-0 0 11202
-D6
-~
-~
-0 0 11592
-D7
-~
-~
-0 0 11594
-D8
-~
-~
-0 0 11212
-D9
-~
-~
-0 0 11214
-S
-#11204
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11594
-D1
-~
-~
-0 0 11205
-D2
-~
-~
-0 0 11214
-D3
-~
-~
-0 0 11203
-D6
-~
-~
-0 0 11593
-D7
-~
-~
-0 0 11595
-D8
-~
-~
-0 0 11213
-D9
-~
-~
-0 0 11215
-S
-#11205
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11595
-D1
-~
-~
-0 0 11206
-D2
-~
-~
-0 0 11215
-D3
-~
-~
-0 0 11204
-D6
-~
-~
-0 0 11594
-D7
-~
-~
-0 0 11596
-D8
-~
-~
-0 0 11214
-D9
-~
-~
-0 0 11216
-S
-#11206
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11596
-D1
-~
-~
-0 0 11207
-D2
-~
-~
-0 0 11216
-D3
-~
-~
-0 0 11205
-D6
-~
-~
-0 0 11595
-D7
-~
-~
-0 0 11597
-D8
-~
-~
-0 0 11215
-D9
-~
-~
-0 0 11217
-S
-#11207
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11597
-D1
-~
-~
-0 0 11208
-D2
-~
-~
-0 0 11217
-D3
-~
-~
-0 0 11206
-D6
-~
-~
-0 0 11596
-D7
-~
-~
-0 0 11598
-D8
-~
-~
-0 0 11216
-D9
-~
-~
-0 0 11218
-S
-#11208
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11598
-D1
-~
-~
-0 0 11209
-D2
-~
-~
-0 0 11218
-D3
-~
-~
-0 0 11207
-D6
-~
-~
-0 0 11597
-D7
-~
-~
-0 0 11599
-D8
-~
-~
-0 0 11217
-D9
-~
-~
-0 0 11219
 S
 #11209
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Northeastern Shore~
+The shore bends here heading in a northeast and southwest line.  The land
+to the interior appears to be rising in altitude and becoming much more
+rocky to the north where the Arcanis highlands reside.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -1975,10 +1469,6 @@ D2
 ~
 ~
 0 0 11219
-D3
-~
-~
-0 0 11208
 D6
 ~
 ~
@@ -1995,7 +1485,7 @@ S
 #11210
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2035,7 +1525,7 @@ S
 #11211
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2073,20 +1563,17 @@ D9
 0 0 11222
 S
 #11212
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+A rocky shoreline~
+You are standing a rocky beach on the shores of the Silver Sea.  Towards
+the land the rock walls rise high into the lands of Arcanis.  The oceans
+gray waters hit the beach in waves of rhythmic pulses as if there was a
+melody playing with them just beyond the reach of your hearing.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11202
-D1
-~
-~
-0 0 11213
 D2
 ~
 ~
@@ -2099,230 +1586,18 @@ D6
 ~
 ~
 0 0 11201
-D7
-~
-~
-0 0 11203
 D8
 ~
 ~
 0 0 11221
-D9
-~
-~
-0 0 11223
-S
-#11213
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11203
-D1
-~
-~
-0 0 11214
-D2
-~
-~
-0 0 11223
-D3
-~
-~
-0 0 11212
-D6
-~
-~
-0 0 11202
-D7
-~
-~
-0 0 11204
-D8
-~
-~
-0 0 11222
-D9
-~
-~
-0 0 11224
-S
-#11214
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11204
-D1
-~
-~
-0 0 11215
-D2
-~
-~
-0 0 11224
-D3
-~
-~
-0 0 11213
-D6
-~
-~
-0 0 11203
-D7
-~
-~
-0 0 11205
-D8
-~
-~
-0 0 11223
-D9
-~
-~
-0 0 11225
-S
-#11215
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11205
-D1
-~
-~
-0 0 11216
-D2
-~
-~
-0 0 11225
-D3
-~
-~
-0 0 11214
-D6
-~
-~
-0 0 11204
-D7
-~
-~
-0 0 11206
-D8
-~
-~
-0 0 11224
-D9
-~
-~
-0 0 11226
-S
-#11216
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11206
-D1
-~
-~
-0 0 11217
-D2
-~
-~
-0 0 11226
-D3
-~
-~
-0 0 11215
-D6
-~
-~
-0 0 11205
-D7
-~
-~
-0 0 11207
-D8
-~
-~
-0 0 11225
-D9
-~
-~
-0 0 11227
-S
-#11217
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11207
-D1
-~
-~
-0 0 11218
-D2
-~
-~
-0 0 11227
-D3
-~
-~
-0 0 11216
-D6
-~
-~
-0 0 11206
-D7
-~
-~
-0 0 11208
-D8
-~
-~
-0 0 11226
-D9
-~
-~
-0 0 11228
 S
 #11218
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Northeastern Shore~
+The shore bends here heading in a northeast and southwest line.  The land
+to the interior appears to be rising in altitude and becoming much more
+rocky to the north where the Arcanis highlands reside.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11208
+0 0 12
 D1
 ~
 ~
@@ -2331,14 +1606,6 @@ D2
 ~
 ~
 0 0 11228
-D3
-~
-~
-0 0 11217
-D6
-~
-~
-0 0 11207
 D7
 ~
 ~
@@ -2355,7 +1622,7 @@ S
 #11219
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2375,10 +1642,6 @@ D3
 ~
 ~
 0 0 11218
-D6
-~
-~
-0 0 11208
 D7
 ~
 ~
@@ -2395,7 +1658,7 @@ S
 #11220
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2435,7 +1698,7 @@ S
 #11221
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2473,20 +1736,18 @@ D9
 0 0 11232
 S
 #11222
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+A shoreline~
+The damp sand underfoot slowly sinks down as you step on it.  There are
+many rocks and shells laying about as the rhythmic pulses from the waves can
+almost be felt.  Towards land the hills are beginning to rise into higher
+rock walls to the north.  To the south the shore continues on as the land of
+Arcanis lays low.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11212
-D1
-~
-~
-0 0 11223
 D2
 ~
 ~
@@ -2499,190 +1760,21 @@ D6
 ~
 ~
 0 0 11211
-D7
-~
-~
-0 0 11213
 D8
 ~
 ~
 0 0 11231
-D9
-~
-~
-0 0 11233
-S
-#11223
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11213
-D1
-~
-~
-0 0 11224
-D2
-~
-~
-0 0 11233
-D3
-~
-~
-0 0 11222
-D6
-~
-~
-0 0 11212
-D7
-~
-~
-0 0 11214
-D8
-~
-~
-0 0 11232
-D9
-~
-~
-0 0 11234
-S
-#11224
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11214
-D1
-~
-~
-0 0 11225
-D2
-~
-~
-0 0 11234
-D3
-~
-~
-0 0 11223
-D6
-~
-~
-0 0 11213
-D7
-~
-~
-0 0 11215
-D8
-~
-~
-0 0 11233
-D9
-~
-~
-0 0 11235
-S
-#11225
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11215
-D1
-~
-~
-0 0 11226
-D2
-~
-~
-0 0 11235
-D3
-~
-~
-0 0 11224
-D6
-~
-~
-0 0 11214
-D7
-~
-~
-0 0 11216
-D8
-~
-~
-0 0 11234
-D9
-~
-~
-0 0 11236
-S
-#11226
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11216
-D1
-~
-~
-0 0 11227
-D2
-~
-~
-0 0 11236
-D3
-~
-~
-0 0 11225
-D6
-~
-~
-0 0 11215
-D7
-~
-~
-0 0 11217
-D8
-~
-~
-0 0 11235
-D9
-~
-~
-0 0 11237
 S
 #11227
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Eastern Shores~
+You are standing on the eastern shores of Arcanis and the Silver Sea. 
+The waters stretch farther than the eye can see as the Silver Sea meets the
+Great Barrier Sea in a vast nothingness.  Gulls fly over head and the
+crashing of waves can be heard on the beach.  There is a sense of loneliness
+that lays on these waters that can be felt deep within you.  The shore is
+covered with many shells and small rocks here.  
 ~
-0 0 11
-D0
-~
-~
-0 0 11217
+0 0 12
 D1
 ~
 ~
@@ -2691,22 +1783,10 @@ D2
 ~
 ~
 0 0 11237
-D3
-~
-~
-0 0 11226
-D6
-~
-~
-0 0 11216
 D7
 ~
 ~
 0 0 11218
-D8
-~
-~
-0 0 11236
 D9
 ~
 ~
@@ -2715,7 +1795,7 @@ S
 #11228
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2735,10 +1815,6 @@ D3
 ~
 ~
 0 0 11227
-D6
-~
-~
-0 0 11217
 D7
 ~
 ~
@@ -2755,7 +1831,7 @@ S
 #11229
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2795,7 +1871,7 @@ S
 #11230
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2835,7 +1911,7 @@ S
 #11231
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -2873,20 +1949,18 @@ D9
 0 0 11242
 S
 #11232
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+Western Port of Arcanis~
+The western port of Arcanis stands here with many docks jetting out into
+the ocean, some large, some small.  Ships come to here from all parts of the
+world as this port is second in usage only to that of New Thalos.  To the
+east is Red Oak Road which runs through the center of Arcanis to the great
+city of Red Oak.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11222
-D1
-~
-~
-0 0 11233
 D2
 ~
 ~
@@ -2899,186 +1973,21 @@ D6
 ~
 ~
 0 0 11221
-D7
-~
-~
-0 0 11223
 D8
 ~
 ~
 0 0 11241
-D9
-~
-~
-0 0 11243
-S
-#11233
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11223
-D1
-~
-~
-0 0 11234
-D2
-~
-~
-0 0 11243
-D3
-~
-~
-0 0 11232
-D6
-~
-~
-0 0 11222
-D7
-~
-~
-0 0 11224
-D8
-~
-~
-0 0 11242
-D9
-~
-~
-0 0 11244
-S
-#11234
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11224
-D1
-~
-~
-0 0 11235
-D2
-~
-~
-0 0 11244
-D3
-~
-~
-0 0 11233
-D6
-~
-~
-0 0 11223
-D7
-~
-~
-0 0 11225
-D8
-~
-~
-0 0 11243
-D9
-~
-~
-0 0 11245
-S
-#11235
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11225
-D1
-~
-~
-0 0 11236
-D2
-~
-~
-0 0 11245
-D3
-~
-~
-0 0 11234
-D6
-~
-~
-0 0 11224
-D7
-~
-~
-0 0 11226
-D8
-~
-~
-0 0 11244
-D9
-~
-~
-0 0 11246
-S
-#11236
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11226
-D1
-~
-~
-0 0 11237
-D2
-~
-~
-0 0 11246
-D3
-~
-~
-0 0 11235
-D6
-~
-~
-0 0 11225
-D7
-~
-~
-0 0 11227
-D8
-~
-~
-0 0 11245
-D9
-~
-~
-0 0 11247
 S
 #11237
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Eastern Shores~
+You are standing on the eastern shores of Arcanis and the Silver Sea. 
+The waters stretch farther than the eye can see as the Silver Sea meets the
+Great Barrier Sea in a vast nothingness.  Gulls fly over head and the
+crashing of waves can be heard on the beach.  There is a sense of loneliness
+that lays on these waters that can be felt deep within you.  The shore is
+covered with many shells and small rocks here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -3091,22 +2000,10 @@ D2
 ~
 ~
 0 0 11247
-D3
-~
-~
-0 0 11236
-D6
-~
-~
-0 0 11226
 D7
 ~
 ~
 0 0 11228
-D8
-~
-~
-0 0 11246
 D9
 ~
 ~
@@ -3115,7 +2012,7 @@ S
 #11238
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3155,7 +2052,7 @@ S
 #11239
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3195,7 +2092,7 @@ S
 #11240
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3235,7 +2132,7 @@ S
 #11241
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3273,20 +2170,16 @@ D9
 0 0 11252
 S
 #11242
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+Western Shores of Arcanis~
+You are standing on the western shoreline of Arcanis.  To the north is the
+port of Arcanis where you can see ships sailing into.  To the south
+continues the shoreline along the Silver Sea.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11232
-D1
-~
-~
-0 0 11243
 D2
 ~
 ~
@@ -3299,186 +2192,21 @@ D6
 ~
 ~
 0 0 11231
-D7
-~
-~
-0 0 11233
 D8
 ~
 ~
 0 0 11251
-D9
-~
-~
-0 0 11253
-S
-#11243
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11233
-D1
-~
-~
-0 0 11244
-D2
-~
-~
-0 0 11253
-D3
-~
-~
-0 0 11242
-D6
-~
-~
-0 0 11232
-D7
-~
-~
-0 0 11234
-D8
-~
-~
-0 0 11252
-D9
-~
-~
-0 0 11254
-S
-#11244
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11234
-D1
-~
-~
-0 0 11245
-D2
-~
-~
-0 0 11254
-D3
-~
-~
-0 0 11243
-D6
-~
-~
-0 0 11233
-D7
-~
-~
-0 0 11235
-D8
-~
-~
-0 0 11253
-D9
-~
-~
-0 0 11255
-S
-#11245
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11235
-D1
-~
-~
-0 0 11246
-D2
-~
-~
-0 0 11255
-D3
-~
-~
-0 0 11244
-D6
-~
-~
-0 0 11234
-D7
-~
-~
-0 0 11236
-D8
-~
-~
-0 0 11254
-D9
-~
-~
-0 0 11256
-S
-#11246
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11236
-D1
-~
-~
-0 0 11247
-D2
-~
-~
-0 0 11256
-D3
-~
-~
-0 0 11245
-D6
-~
-~
-0 0 11235
-D7
-~
-~
-0 0 11237
-D8
-~
-~
-0 0 11255
-D9
-~
-~
-0 0 11257
 S
 #11247
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Eastern Shores~
+You are standing on the eastern shores of Arcanis and the Silver Sea. 
+The waters stretch farther than the eye can see as the Silver Sea meets the
+Great Barrier Sea in a vast nothingness.  Gulls fly over head and the
+crashing of waves can be heard on the beach.  There is a sense of loneliness
+that lays on these waters that can be felt deep within you.  The shore is
+covered with many shells and small rocks here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -3491,22 +2219,10 @@ D2
 ~
 ~
 0 0 11257
-D3
-~
-~
-0 0 11246
-D6
-~
-~
-0 0 11236
 D7
 ~
 ~
 0 0 11238
-D8
-~
-~
-0 0 11256
 D9
 ~
 ~
@@ -3515,7 +2231,7 @@ S
 #11248
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3555,7 +2271,7 @@ S
 #11249
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3595,7 +2311,7 @@ S
 #11250
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3635,7 +2351,7 @@ S
 #11251
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3673,20 +2389,16 @@ D9
 0 0 11262
 S
 #11252
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+Western Shores of Arcanis~
+You are standing on the western shoreline of Arcanis.  To north and south
+continues the coarse sanded beach on the waters of the Silver Sea.  There is
+sea weed sparse shells that have washed ashore here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11242
-D1
-~
-~
-0 0 11253
 D2
 ~
 ~
@@ -3699,186 +2411,21 @@ D6
 ~
 ~
 0 0 11241
-D7
-~
-~
-0 0 11243
 D8
 ~
 ~
 0 0 11261
-D9
-~
-~
-0 0 11263
-S
-#11253
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11243
-D1
-~
-~
-0 0 11254
-D2
-~
-~
-0 0 11263
-D3
-~
-~
-0 0 11252
-D6
-~
-~
-0 0 11242
-D7
-~
-~
-0 0 11244
-D8
-~
-~
-0 0 11262
-D9
-~
-~
-0 0 11264
-S
-#11254
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11244
-D1
-~
-~
-0 0 11255
-D2
-~
-~
-0 0 11264
-D3
-~
-~
-0 0 11253
-D6
-~
-~
-0 0 11243
-D7
-~
-~
-0 0 11245
-D8
-~
-~
-0 0 11263
-D9
-~
-~
-0 0 11265
-S
-#11255
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11245
-D1
-~
-~
-0 0 11256
-D2
-~
-~
-0 0 11265
-D3
-~
-~
-0 0 11254
-D6
-~
-~
-0 0 11244
-D7
-~
-~
-0 0 11246
-D8
-~
-~
-0 0 11264
-D9
-~
-~
-0 0 11266
-S
-#11256
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11246
-D1
-~
-~
-0 0 11257
-D2
-~
-~
-0 0 11266
-D3
-~
-~
-0 0 11255
-D6
-~
-~
-0 0 11245
-D7
-~
-~
-0 0 11247
-D8
-~
-~
-0 0 11265
-D9
-~
-~
-0 0 11267
 S
 #11257
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+The Eastern Shores~
+You are standing on the eastern shores of Arcanis and the Silver Sea. 
+The waters stretch farther than the eye can see as the Silver Sea meets the
+Great Barrier Sea in a vast nothingness.  Gulls fly over head and the
+crashing of waves can be heard on the beach.  There is a sense of loneliness
+that lays on these waters that can be felt deep within you.  The shore is
+covered with many shells and small rocks here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
@@ -3891,22 +2438,10 @@ D2
 ~
 ~
 0 0 11267
-D3
-~
-~
-0 0 11256
-D6
-~
-~
-0 0 11246
 D7
 ~
 ~
 0 0 11248
-D8
-~
-~
-0 0 11266
 D9
 ~
 ~
@@ -3915,7 +2450,7 @@ S
 #11258
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3955,7 +2490,7 @@ S
 #11259
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -3995,7 +2530,7 @@ S
 #11260
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -4035,7 +2570,7 @@ S
 #11261
 The Silver Sea~
 You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
+and protect the Arcanis continent and there is a magical feel in the air.  These waters
 have long been the domain of the sea elves who traverse their waves.
 ~
 0 0 11
@@ -4073,20 +2608,17 @@ D9
 0 0 11272
 S
 #11262
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
+A turning point in the western shore~
+You are standing at a bend in the shore.  To north is the western shore
+which continues north far past the port of Arcanis.  To the southeast the
+shore bends and travels towards the southern points of the Silver Sea.  The
+salty air of the oceans gray waters seems very strong here.  
 ~
-0 0 11
+0 0 12
 D0
 ~
 ~
 0 0 11252
-D1
-~
-~
-0 0 11263
 D2
 ~
 ~
@@ -4099,10 +2631,6 @@ D6
 ~
 ~
 0 0 11251
-D7
-~
-~
-0 0 11253
 D8
 ~
 ~
@@ -4111,46 +2639,6 @@ D9
 ~
 ~
 0 0 11273
-S
-#11263
-The Silver Sea~
-You are surrounded by the peaceful gray waters of the Silver Sea.  The waters surround
-and protect the Ereland continent and there is a magical feel in the air.  These waters
-have long been the domain of the sea elves who traverse their waves.
-~
-0 0 11
-D0
-~
-~
-0 0 11253
-D1
-~
-~
-0 0 11264
-D2
-~
-~
-0 0 11273
-D3
-~
-~
-0 0 11262
-D6
-~
-~
-0 0 11252
-D7
-~
-~
-0 0 11254
-D8
-~
-~
-0 0 11272
-D9
-~
-~
-0 0 11274
 S
 #0
 
