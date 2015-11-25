@@ -199,10 +199,9 @@ void string_add (CHAR_DATA * ch, char *argument)
             return;
         }
 
-        if (!str_cmp (arg1, ".ld"))
+        if (!str_cmp(arg1, ".ld") || !str_cmp(arg1, ".dl"))
         {
-            *ch->desc->pString =
-                string_linedel (*ch->desc->pString, atoi (arg2));
+            *ch->desc->pString = string_linedel(*ch->desc->pString, atoi(arg2));
             send_to_char ("Line deleted.\n\r", ch);
             return;
         }
@@ -227,21 +226,17 @@ void string_add (CHAR_DATA * ch, char *argument)
 
         if (!str_cmp (arg1, ".h"))
         {
-            send_to_char ("Sedit help (commands on blank line):   \n\r", ch);
-            send_to_char (".r 'old' 'new'   - replace a substring \n\r", ch);
-            send_to_char ("                   (requires '', \"\") \n\r", ch);
-            send_to_char (".h               - get help (this info)\n\r", ch);
-            send_to_char (".s               - show string so far  \n\r", ch);
-            send_to_char (".f               - word wrap (format string)\n\r", ch);
-            send_to_char (".c               - clear string so far \n\r", ch);
-            send_to_char (".ld <num>        - delete line number <num>\n\r",
-                          ch);
-            send_to_char (".li <num> <str>  - insert <str> at line <num>\n\r",
-                          ch);
-            send_to_char
-                (".lr <num> <str>  - replace line <num> with <str>\n\r",
-                 ch);
-            send_to_char ("@                - end string          \n\r", ch);
+            send_to_char("Sedit help (commands on blank line):   \n\r", ch);
+            send_to_char(".r 'old' 'new'   - replace a substring \n\r", ch);
+            send_to_char("                   (requires '', \"\") \n\r", ch);
+            send_to_char(".h               - get help (this info)\n\r", ch);
+            send_to_char(".s               - show string so far  \n\r", ch);
+            send_to_char(".f               - word wrap (format string)\n\r", ch);
+            send_to_char(".c               - clear string so far \n\r", ch);
+            send_to_char(".ld <num>        - delete line number <num>\n\r", ch);
+            send_to_char(".li <num> <str>  - insert <str> at line <num>\n\r", ch);
+            send_to_char(".lr <num> <str>  - replace line <num> with <str>\n\r", ch);
+            send_to_char("@                - end string          \n\r", ch);
             return;
         }
 
