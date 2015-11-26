@@ -111,7 +111,7 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
         return;
     }
 
-    if (!IS_NPC (ch))
+    if (!IS_NPC(ch))
     {
         int iGuild;
         int move;
@@ -203,7 +203,6 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
         if (IS_IMMORTAL(ch))
             move = 0;
 
-
         /* conditional effects */
         if (IS_AFFECTED (ch, AFF_FLYING) || IS_AFFECTED (ch, AFF_HASTE))
             move /= 2;
@@ -217,7 +216,21 @@ void move_char (CHAR_DATA * ch, int door, bool follow)
             return;
         }
 
-        WAIT_STATE (ch, 1);
+        // Lag per movement, more lag in the ocean, less out of it.  I don't
+        // want to over do it here, so the ocean is the only sector type we
+        // are really going to slow down since we don't want people swimming
+        // the worlds length in the ocean.  - Rhien.
+        if (in_room->sector_type == SECT_OCEAN)
+        {
+            // Ocean Lag, Phew
+            WAIT_STATE(ch, 6);
+        }
+        else
+        {
+            // Normal Movement Lag
+            WAIT_STATE(ch, 1);
+        }
+
         ch->move -= move;
     }
 
