@@ -2149,7 +2149,15 @@ void extract_obj (OBJ_DATA * obj)
 
         if (prev == NULL)
         {
-            bug ("Extract_obj: obj %d not found.", obj->pIndexData->vnum);
+            if (obj->in_room != NULL)
+            {
+                bugf("Extract_obj: obj %d not found in room %d.", obj->pIndexData->vnum, obj->in_room->vnum);
+            }
+            else
+            {
+                bug("Extract_obj: obj %d not found.", obj->pIndexData->vnum);
+            }
+
             return;
         }
     }
