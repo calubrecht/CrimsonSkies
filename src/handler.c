@@ -1694,9 +1694,16 @@ void obj_from_char (OBJ_DATA * obj)
 {
     CHAR_DATA *ch;
 
+    // Character is null... do some logging.
     if ((ch = obj->carried_by) == NULL)
     {
-        bug ("Obj_from_char: null ch.", 0);
+        bug("Obj_from_char: null ch.", 0);
+
+        if (obj != NULL && obj->pIndexData != NULL)
+        {
+            bugf("obj_from_char: VNUM=%d, Short Description=%s", obj->pIndexData->vnum, obj->short_descr);
+        }
+
         return;
     }
 
