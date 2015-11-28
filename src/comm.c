@@ -1611,7 +1611,7 @@ bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
 } // end bool write_to_descriptor
 
 /*
- * Writes a formattec entry to the log table.
+ * Writes a formatted entry to the log file.
  */
 void log_f (char *fmt, ...)
 {
