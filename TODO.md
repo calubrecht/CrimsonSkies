@@ -80,4 +80,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add class/race multipliers to OLC.
   - Functions that will log (for bugs) basic info about provieded obj/ch.
   - Implement MCCP
-  - blue diamond misspelled
+  - mudstrlcat from smaug
