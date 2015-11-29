@@ -81,3 +81,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Functions that will log (for bugs) basic info about provieded obj/ch.
   - Implement MCCP
   - mudstrlcat from smaug
+  - Settings to use str_suffix
