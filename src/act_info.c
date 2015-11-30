@@ -3704,15 +3704,15 @@ void do_settings(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    if (!str_cmp(arg1, "wizlock"))
+    if (!str_prefix(arg1, "wizlock"))
     {
         do_wizlock(ch, "");
     }
-    else if (!str_cmp(arg1, "newlock"))
+    else if (!str_prefix(arg1, "newlock"))
     {
         do_newlock(ch, "");
     }
-    else if (!str_cmp(arg1, "doubleexperience"))
+    else if (!str_prefix(arg1, "doubleexperience"))
     {
         settings.double_exp = !settings.double_exp;
 
@@ -3730,7 +3730,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         // Save the settings out to file.
         do_asave(ch, "settings");
     }
-    else if (!str_cmp(arg1, "doublegold"))
+    else if (!str_prefix(arg1, "doublegold"))
     {
         settings.double_gold = !settings.double_gold;
 
@@ -3749,7 +3749,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         do_asave(ch, "settings");
 
     }
-    else if (!str_cmp(arg1, "gainconvert"))
+    else if (!str_prefix(arg1, "gainconvert"))
     {
         settings.gain_convert = !settings.gain_convert;
 
@@ -3768,7 +3768,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         do_asave(ch, "settings");
 
     }
-    else if (!str_cmp(arg1, "shockspread"))
+    else if (!str_prefix(arg1, "shockspread"))
     {
         settings.shock_spread = !settings.shock_spread;
 
@@ -3790,7 +3790,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
     else
     {
         send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|\n\r", ch);
-        send_to_char("          gainconvert|shockspread", ch);
+        send_to_char("          gainconvert|shockspread\n\r", ch);
     }
 
 } // end do_settings
