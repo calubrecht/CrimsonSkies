@@ -78,7 +78,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update do_ofind to have two columns like olc olist
   - Update do_mfind to have two columns like olc mlist
   - Add class/race multipliers to OLC.
-  - Functions that will log (for bugs) basic info about provieded obj/ch.
   - Implement MCCP
   - mudstrlcat from smaug
-  - Settings to use str_suffix
