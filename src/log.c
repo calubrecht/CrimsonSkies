@@ -97,7 +97,7 @@ void bug(const char *str, int param)
 /*
  * Writes a string to the log.
  */
-void log_string (const char *str)
+void log_string(const char *str)
 {
     char *strtime;
 
