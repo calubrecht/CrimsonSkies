@@ -1611,20 +1611,6 @@ bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
 } // end bool write_to_descriptor
 
 /*
- * Writes a formatted entry to the log file.
- */
-void log_f (char *fmt, ...)
-{
-    char buf[2 * MSL];
-    va_list args;
-    va_start (args, fmt);
-    vsprintf (buf, fmt, args);
-    va_end (args);
-
-    log_string (buf);
-} // end void log_f
-
-/*
  * Parse a name for acceptability.
  */
 bool check_parse_name (char *name)
@@ -2628,17 +2614,6 @@ void printf_to_char (CHAR_DATA * ch, char *fmt, ...)
     va_end (args);
 
     send_to_char (buf, ch);
-}
-
-void bugf (char *fmt, ...)
-{
-    char buf[2 * MSL];
-    va_list args;
-    va_start (args, fmt);
-    vsprintf (buf, fmt, args);
-    va_end (args);
-
-    bug (buf, 0);
 }
 
 /*

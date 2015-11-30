@@ -3377,57 +3377,6 @@ void append_file (CHAR_DATA * ch, char *file, char *str)
 }
 
 /*
- * Reports a bug.
- */
-void bug (const char *str, int param)
-{
-    char buf[MAX_STRING_LENGTH];
-
-    if (fpArea != NULL)
-    {
-        int iLine;
-        int iChar;
-
-        if (fpArea == stdin)
-        {
-            iLine = 0;
-        }
-        else
-        {
-            iChar = ftell (fpArea);
-            fseek (fpArea, 0, 0);
-            for (iLine = 0; ftell (fpArea) < iChar; iLine++)
-            {
-                while (getc (fpArea) != '\n');
-            }
-            fseek (fpArea, iChar, 0);
-        }
-
-        sprintf (buf, "[*****] FILE: %s LINE: %d", strArea, iLine);
-        log_string (buf);
-    }
-
-    strcpy (buf, "[*****] BUG: ");
-    sprintf (buf + strlen (buf), str, param);
-    log_string (buf);
-
-    return;
-}
-
-/*
- * Writes a string to the log.
- */
-void log_string (const char *str)
-{
-    char *strtime;
-
-    strtime = ctime (&current_time);
-    strtime[strlen (strtime) - 1] = '\0';
-    fprintf (stderr, "%s :: %s\n", strtime, str);
-    return;
-}
-
-/*
  * This function is here to aid in debugging.
  * If the last expression in a function is another function call,
  *   gcc likes to generate a JMP instead of a CALL.

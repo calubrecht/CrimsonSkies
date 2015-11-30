@@ -2185,7 +2185,6 @@ void     stop_follower       args( ( CHAR_DATA *ch ) );
 void     nuke_pets           args( ( CHAR_DATA *ch ) );
 void     die_follower        args( ( CHAR_DATA *ch ) );
 bool     is_same_group       args( ( CHAR_DATA *ach, CHAR_DATA *bch ) );
-void     log_f               args( ( char * fmt, ... ) );
 char     *obj_short          args( ( OBJ_DATA *obj ) );
 
 /* act_enter.c */
@@ -2226,7 +2225,6 @@ void     act                 args( ( const char *format, CHAR_DATA *ch, const vo
 void     act_new             args( ( const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type, int min_pos) );
 void     printf_to_char      args( ( CHAR_DATA *, char *, ... ) );
 void     printf_to_desc      args( ( DESCRIPTOR_DATA *, char *, ... ) );
-void     bugf                args( ( char *, ... ) );
 bool     write_to_descriptor args( ( int desc, char *txt, int length, DESCRIPTOR_DATA *d ));
 void     write_to_all_desc   args( ( char *txt) );
 void     send_to_all_char    args( ( char *txt) );
@@ -2278,8 +2276,6 @@ bool     str_infix           args( ( const char *astr, const char *bstr ) );
 bool     str_suffix          args( ( const char *astr, const char *bstr ) );
 char *   capitalize          args( ( const char *str ) );
 void     append_file         args( ( CHAR_DATA *ch, char *file, char *str ) );
-void     bug                 args( ( const char *str, int param ) );
-void     log_string          args( ( const char *str ) );
 void     tail_chain          args( ( void ) );
 bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
 void     save_statistics     args( (void ) );
@@ -2489,6 +2485,13 @@ char    *olc_ed_vnum      args( ( CHAR_DATA *ch ) );
 int    race_lookup    args( ( const char *name) );
 int    item_lookup    args( ( const char *name) );
 int    liq_lookup     args( ( const char *name) );
+
+/* log.c */
+void   bug            args((const char *str, int param));
+void   log_string     args((const char *str));
+void   log_obj        args((OBJ_DATA * obj));
+void   log_f          args(( char * fmt, ... ));
+void   bugf           args(( char *, ... ));
 
 #undef    CD
 #undef    MID

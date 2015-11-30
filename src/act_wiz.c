@@ -5965,35 +5965,17 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    CHAR_DATA *victim;
-    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA *obj;
 
-    // This gets rid of a compiler warning about unitialized variables even
-    // the logic won't get past the else if statement without victim having
-    // something.
-    victim = NULL;
-
-    if (argument[0] == '\0')
+    if ((obj = get_obj_world(ch, argument)) == NULL)
     {
-        victim = ch;
+        send_to_char("That object was not found.\n\r", ch);
     }
-    else if (!victim)
+    else
     {
-        // If the victim is null that means they entered something.. try
-        // to find them.
-        if ((victim = get_char_world(ch, argument)) == NULL)
-        {
-            send_to_char ("They aren't here.\n\r", ch);
-            return;
-        }
+        log_obj(obj);
+        send_to_char("Object logged.\n\r", ch);
     }
 
-    affect_strip(victim, gsn_ghost);
-    make_ghost(victim);
-
-    sprintf(buf, "%s is not a ghost, very spooky.\n\r", victim->name);
-    send_to_char(buf, ch);
-
-    //send_to_char("Huh?\n\r", ch);
     return;
 } // end do_debug
