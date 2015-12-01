@@ -20,6 +20,14 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
+/***************************************************************************
+ *  File: special.c                                                        *
+ *                                                                         *
+ *  This module handles code that can add specific behaviors to a mobile.  *
+ *  These are typically more global than what a mobprog would provide.     *
+ *                                                                         *
+ ***************************************************************************/
+
 // System Specific Includes
 #if defined(_WIN32)
     #include <sys/types.h>
