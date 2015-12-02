@@ -99,7 +99,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
         spell = spell_cure_serious;
         sn = skill_lookup("cure serious");
         words = "judicandus gzfuajg";
-        cost = 1600;
+        cost = 1500;
     }
 
     else if (!str_prefix(arg, "critical"))
