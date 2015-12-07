@@ -3820,6 +3820,13 @@ appearance able of passing through doors.
 
 ~
 
+0 PORTAL MERCHANT~
+A portal merchant is a merchant who will create portals for you
+to other parts of the world for a price.  The price generally
+will cost more if you're wanting a portal that spans continents.
+The portal the merchant creates will only last for a few moments.
+~
+
 0 DIG BURY~
 Syntax:  dig
 Syntax:  bury
