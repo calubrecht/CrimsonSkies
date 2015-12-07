@@ -3827,6 +3827,21 @@ will cost more if you're wanting a portal that spans continents.
 The portal the merchant creates will only last for a few moments.
 ~
 
+52 PORTAL~
+Syntax: portal <vnum>
+        portal <vnum> <optional tick duration>
+        portal <player name/mob name>
+        portal <player name/mob name> <optional tick duration>
+
+The portal command allows an immortal to create a portal to a
+specific vnum, a player, a mob or an object (in that order).
+An optional numeric value for duration can be provided if the
+immortal wants the portal to disappear after a set number of
+ticks.  Portals created with this command will always be
+purgable.
+
+~
+
 0 DIG BURY~
 Syntax:  dig
 Syntax:  bury
