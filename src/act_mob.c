@@ -42,8 +42,11 @@
 #include <stdlib.h>
 #include "merc.h"
 #include "magic.h"
+#include "tables.h"
 
-// Command for a healer mob that can sell spell 
+/*
+ * Command for a healer mob that can sell spell
+ */
 void do_heal(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *mob;
@@ -70,8 +73,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         /* display price list */
-        act("$N says 'I offer the following spells:'", ch, NULL, mob,
-            TO_CHAR);
+        act("$N says 'I offer the following spells:'", ch, NULL, mob, TO_CHAR);
         send_to_char("  light: cure light wounds      10 gold\n\r", ch);
         send_to_char("  serious: cure serious wounds  15 gold\n\r", ch);
         send_to_char("  critic: cure critical wounds  25 gold\n\r", ch);
@@ -169,15 +171,13 @@ void do_heal(CHAR_DATA * ch, char *argument)
 
     else
     {
-        act("$N says 'Type 'heal' for a list of spells.'",
-            ch, NULL, mob, TO_CHAR);
+        act("$N says 'Type 'heal' for a list of spells.'", ch, NULL, mob, TO_CHAR);
         return;
     }
 
     if (cost > (ch->gold * 100 + ch->silver))
     {
-        act("$N says 'You do not have enough gold for my services.'",
-            ch, NULL, mob, TO_CHAR);
+        act("$N says 'You do not have enough gold for my services.'", ch, NULL, mob, TO_CHAR);
         return;
     }
 
@@ -200,4 +200,162 @@ void do_heal(CHAR_DATA * ch, char *argument)
         return;
 
     spell(sn, mob->level, mob, ch, TARGET_CHAR);
-}
+
+} // end do_heal
+
+extern const struct portal_shop_type portal_shop_table[];
+
+/*
+ * Procedure which allows a player to purchase a portal from a mob.  The mob must be
+ * set as act portalmerchant.  There is a base cost in the portal_shop_table and those
+ * prices will be altered here based on the desination (e.g. it will cost more to create
+ * a portal across continents than it will to travel inter-continent.  This procedure
+ * will be called from do_list and do_buy to make it function like a normal shop. - Rhien.
+ */
+void process_portal_merchant(CHAR_DATA * ch, char *argument)
+{
+    int x = 0;
+    char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+    bool found = FALSE;
+    CHAR_DATA *mob;
+    OBJ_DATA *portal;
+    int cost = 0;
+
+    if ((mob = find_portal_merchant(ch)) == NULL)
+    {
+        send_to_char("You must find a portal merchant in order to purchase a portal.\n\r", ch);
+        return;
+    }
+
+    // Not with people that can't be seen.. this will depend on the mob.. if the mob has detect hidden
+    // or detect invis they will see most people unless they are in another for of non-detect, etc.
+    if (!can_see(mob, ch))
+    {
+        act("{x$N says '{gI don't trade with folks I can't see, please make yourself 'visible'.{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // No argument was sent, send them the list of destinations.
+    if (IS_NULLSTR(argument))
+    {
+        act("{x$N says '{gI offer the creation of portals to following destinations.{x'\n\r", ch, NULL, mob, TO_CHAR);
+
+        // Loop through the destinations for display
+        for (x = 0; portal_shop_table[x].name != NULL; x++)
+        {
+            int temp_cost = 0;
+
+            if (same_continent(ch->in_room->vnum, portal_shop_table[x].to_vnum))
+            {
+                // They're in the same continent, normal cost (converted to gold).
+                temp_cost = portal_shop_table[x].cost / 100;
+            }
+            else
+            {
+                // They are in different continents, double the cost (converted to gold).
+                temp_cost = (portal_shop_table[x].cost / 100) * 2;
+            }
+
+            // To get the : into the formatted string
+            sprintf(buf2, "{_%s{x:", portal_shop_table[x].name);
+
+            sprintf(buf, "  %-17s{x {c%-40s{x %d gold\n\r",
+                buf2,
+                get_room_name(portal_shop_table[x].to_vnum),
+                temp_cost);
+            send_to_char(buf, ch);
+        }
+
+        send_to_char("\n\rType buy <location> to purchase a portal to that destination.\n\r", ch);
+        return;
+    }
+
+    // Did the user select a valid input?
+    for (x = 0; portal_shop_table[x].name != NULL; x++)
+    {
+        if (!str_prefix(argument, portal_shop_table[x].name))
+        {
+            if (same_continent(ch->in_room->vnum, portal_shop_table[x].to_vnum))
+            {
+                // They're in the same continent, normal cost (the raw cost).
+                cost = portal_shop_table[x].cost;
+            }
+            else
+            {
+                // They are in different continents, double the cost (the raw cost)
+                cost = (portal_shop_table[x].cost) * 2;
+            }
+
+            found = TRUE;
+            break;
+        }
+    }
+
+    // What the location found?
+    if (!found)
+    {
+        act("{x$N says '{gThat is not a place that I know of.{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Do they have enough money?
+    if (cost > (ch->gold * 100 + ch->silver))
+    {
+        act("{x$N says '{gYou do not have enough gold for my services.{x'", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Slight lag, then deduct the money.
+    WAIT_STATE(ch, PULSE_VIOLENCE);
+    deduct_cost(ch, cost);
+
+
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal->timer = 2;  // 2 ticks.
+    portal->value[3] = portal_shop_table[x].to_vnum;
+
+    // Alter the keywords for the portal to include the destination to make the portals easier to use
+    // than the enter 3.portal syntax (if there are multiples in the room)
+    sprintf(buf, "portal gate %s", portal_shop_table[x].name);
+    free_string(portal->name);
+    portal->name = str_dup(buf);
+
+    // Alter the portal's description to the room, we'll presume we know where these are going.
+    sprintf(buf, "A shimmering black gate rises from the ground, leading to %s.", get_area_name(portal_shop_table[x].to_vnum));
+    free_string(portal->description);
+    portal->description = str_dup(buf);
+
+    // Put said object in said room.
+    obj_to_room(portal, ch->in_room);
+
+    act("$N raises $s hand and begans chanting.", ch, NULL, mob, TO_CHAR);
+    act("$p rises up from the ground.", ch, portal, NULL, TO_ALL);
+
+} // end do_portal
+
+/*
+ * Determins whether a merchant who sells portals is in the same room
+ * with the player and returns that mob.
+ */
+CHAR_DATA *find_portal_merchant(CHAR_DATA * ch)
+{
+    CHAR_DATA *mob;
+
+    if (ch == NULL)
+    {
+        return NULL;
+    }
+
+    // Check for portal merchant
+    for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
+    {
+        if (mob != NULL && IS_NPC(mob) && IS_SET(mob->act, ACT_IS_PORTAL_MERCHANT))
+        {
+            return mob;
+        }
+    }
+
+    return NULL;
+
+} // end find_portal_merchant

@@ -1687,15 +1687,31 @@ void do_exits (CHAR_DATA * ch, char *argument)
             }
             else
             {
-                sprintf (buf + strlen (buf), "%-9s - %s",
+                // If the player (immortal) has holy light on always show them the
+                // room name, otherwise if it's a player see if the room is dark.
+                if (IS_SET(ch->act, PLR_HOLYLIGHT))
+                {
+                    sprintf (buf + strlen (buf), "%-9s - %s",
+                         capitalize (dir_name[door]),
+                         pexit->u1.to_room->name);
+                }
+                else
+                {
+                    sprintf (buf + strlen (buf), "%-9s - %s",
                          capitalize (dir_name[door]),
                          room_is_dark (pexit->u1.to_room)
                          ? "Too dark to tell" : pexit->u1.to_room->name);
-                if (IS_IMMORTAL (ch))
-                    sprintf (buf + strlen (buf),
-                             " (room %d)\n\r", pexit->u1.to_room->vnum);
+                }
+
+                // Immortals additionally see the vnum of the room
+                if (IS_IMMORTAL(ch))
+                {
+                    sprintf (buf + strlen(buf), " (room %d)\n\r", pexit->u1.to_room->vnum);
+                }
                 else
+                {
                     sprintf (buf + strlen (buf), "\n\r");
+                }
             }
         }
     }

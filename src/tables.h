@@ -67,12 +67,27 @@ struct stat_type
     char *name;
 };
 
+/*
+ * The portal shop type holds information that portal shops can use to transfer
+ * customers around the world.  Define the location via the vnum, give it a keyword
+ * name (the description will be read from the vnum) and the base cost (the actual
+ * command can then manipulate the cost based off of factors like if it's transfering
+ * a user across continents, etc).  - Rhien.
+ */
+struct portal_shop_type
+{
+    char *name;
+    int to_vnum;
+    int cost;
+};
+
 /* game tables */
 extern	const	struct	clan_type	clan_table[MAX_CLAN];
 extern	const	struct	position_type	position_table[];
 extern	const	struct	sex_type	sex_table[];
 extern	const	struct	size_type	size_table[];
 extern  const   struct  continent_type  continent_table[];
+extern  const   struct  portal_shop_type portal_shop_table[];
 
 /* flag tables */
 extern	const	struct	flag_type	act_flags[];

@@ -2757,8 +2757,7 @@ CHAR_DATA *find_keeper (CHAR_DATA * ch)
      */
     if (!can_see (keeper, ch))
     {
-        do_function (keeper, &do_say,
-                     "I don't trade with folks I can't see.");
+        do_function (keeper, &do_say, "I don't trade with folks I can't see.");
         return NULL;
     }
 
@@ -2889,6 +2888,12 @@ int get_cost (CHAR_DATA * keeper, OBJ_DATA * obj, bool fBuy)
     return cost;
 }
 
+/*
+ * The buy commmand, for purchasing stuffs.  There are different merchants a
+ * player can buy from, a regular merchant that has goods, a pet shop merchant
+ * which sells pets that can assist players and a portal merchant which will
+ * sell magical portals to other parts of the world.
+ */
 void do_buy (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -2898,6 +2903,15 @@ void do_buy (CHAR_DATA * ch, char *argument)
     if (argument[0] == '\0')
     {
         send_to_char ("Buy what?\n\r", ch);
+        return;
+    }
+
+    // Check and see if it's a portal merchant, if not, continue on with
+    // the normal list command.
+    if (find_portal_merchant(ch) != NULL)
+    {
+        // Make the call to act_mob, just pass this call down the line.
+        process_portal_merchant(ch, argument);
         return;
     }
 
@@ -3161,11 +3175,24 @@ void do_buy (CHAR_DATA * ch, char *argument)
     }
 } // end do_buy
 
-void do_list (CHAR_DATA * ch, char *argument)
+/*
+ * Lists items in the given shop.  You won't be able to have two types of shop merchants
+ * in the same room.  There are normal shops, pet shops and portal shops.
+ */
+void do_list(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
-    if (IS_SET (ch->in_room->room_flags, ROOM_PET_SHOP))
+    // Check and see if it's a portal merchant, if not, continue on with
+    // the normal list command.
+    if (find_portal_merchant(ch) != NULL)
+    {
+        // Make the call to act_mob.
+        process_portal_merchant(ch, "");
+        return;
+    }
+
+    if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         ROOM_INDEX_DATA *pRoomIndexNext;
         CHAR_DATA *pet;
@@ -3173,35 +3200,39 @@ void do_list (CHAR_DATA * ch, char *argument)
 
         /* hack to make new thalos pets work */
         if (ch->in_room->vnum == 9621)
-            pRoomIndexNext = get_room_index (9706);
+            pRoomIndexNext = get_room_index(9706);
         else
-            pRoomIndexNext = get_room_index (ch->in_room->vnum + 1);
+            pRoomIndexNext = get_room_index(ch->in_room->vnum + 1);
 
         if (pRoomIndexNext == NULL)
         {
-            bug ("Do_list: bad pet shop at vnum %d.", ch->in_room->vnum);
-            send_to_char ("You can't do that here.\n\r", ch);
+            bug("Do_list: bad pet shop at vnum %d.", ch->in_room->vnum);
+            send_to_char("You can't do that here.\n\r", ch);
             return;
         }
 
         found = FALSE;
         for (pet = pRoomIndexNext->people; pet; pet = pet->next_in_room)
         {
-            if (IS_SET (pet->act, ACT_PET))
+            if (IS_SET(pet->act, ACT_PET))
             {
                 if (!found)
                 {
                     found = TRUE;
-                    send_to_char ("Pets for sale:\n\r", ch);
+                    send_to_char("Pets for sale:\n\r", ch);
                 }
-                sprintf (buf, "[%2d] %8d - %s\n\r",
+                sprintf(buf, "[%2d] %8d - %s\n\r",
                          pet->level,
                          10 * pet->level * pet->level, pet->short_descr);
-                send_to_char (buf, ch);
+                send_to_char(buf, ch);
             }
         }
+
         if (!found)
-            send_to_char ("Sorry, we're out of pets right now.\n\r", ch);
+        {
+            send_to_char("Sorry, we're out of pets right now.\n\r", ch);
+        }
+
         return;
     }
     else
@@ -3212,16 +3243,17 @@ void do_list (CHAR_DATA * ch, char *argument)
         bool found;
         char arg[MAX_INPUT_LENGTH];
 
-        if ((keeper = find_keeper (ch)) == NULL)
+        if ((keeper = find_keeper(ch)) == NULL)
             return;
-        one_argument (argument, arg);
+
+        one_argument(argument, arg);
 
         found = FALSE;
         for (obj = keeper->carrying; obj; obj = obj->next_content)
         {
-            if (obj->wear_loc == WEAR_NONE && can_see_obj (ch, obj)
-                && (cost = get_cost (keeper, obj, TRUE)) > 0
-                && (arg[0] == '\0' || is_name (arg, obj->name)))
+            if (obj->wear_loc == WEAR_NONE && can_see_obj(ch, obj)
+                && (cost = get_cost(keeper, obj, TRUE)) > 0
+                && (arg[0] == '\0' || is_name(arg, obj->name)))
             {
                 if (!found)
                 {
@@ -3229,14 +3261,14 @@ void do_list (CHAR_DATA * ch, char *argument)
                     send_to_char ("[Lv Price Qty] Item\n\r", ch);
                 }
 
-                if (IS_OBJ_STAT (obj, ITEM_INVENTORY))
-                    sprintf (buf, "[%2d %5d -- ] %s\n\r",
+                if (IS_OBJ_STAT(obj, ITEM_INVENTORY))
+                    sprintf(buf, "[%2d %5d -- ] %s\n\r",
                              obj->level, cost, obj->short_descr);
                 else
                 {
                     count = 1;
 
-                    while (obj->next_content != NULL
+                    while(obj->next_content != NULL
                            && obj->pIndexData == obj->next_content->pIndexData
                            && !str_cmp (obj->short_descr,
                                         obj->next_content->short_descr))
@@ -3244,15 +3276,18 @@ void do_list (CHAR_DATA * ch, char *argument)
                         obj = obj->next_content;
                         count++;
                     }
-                    sprintf (buf, "[%2d %5d %2d ] %s\n\r",
+                    sprintf(buf, "[%2d %5d %2d ] %s\n\r",
                              obj->level, cost, count, obj->short_descr);
                 }
-                send_to_char (buf, ch);
+                send_to_char(buf, ch);
             }
         }
 
         if (!found)
-            send_to_char ("You can't buy anything here.\n\r", ch);
+        {
+            send_to_char("You can't buy anything here.\n\r", ch);
+        }
+
         return;
     }
 }

@@ -5965,17 +5965,44 @@ void wizbless(CHAR_DATA * victim)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    OBJ_DATA *obj;
+    ROOM_INDEX_DATA *pRoomIndex;
+    AREA_DATA *pArea;
+    char buf[MAX_STRING_LENGTH];
+    bool found;
+    int vnum;
+    int col = 0;
 
-    if ((obj = get_obj_world(ch, argument)) == NULL)
+
+    pArea = ch->in_room->area;
+    found = FALSE;
+
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
-        send_to_char("That object was not found.\n\r", ch);
+        if ((pRoomIndex = get_room_index(vnum)))
+        {
+            if (IS_SET(pRoomIndex->room_flags, ROOM_ARENA))
+            {
+                found = TRUE;
+                sprintf(buf, "[%5d] %-17.16s",
+                    vnum, capitalize(pRoomIndex->name));
+
+                send_to_char(buf, ch);
+
+                if (++col % 3 == 0)
+                    send_to_char("\n\r", ch);
+            }
+
+        }
     }
-    else
+
+    if (!found)
     {
-        log_obj(obj);
-        send_to_char("Object logged.\n\r", ch);
+        send_to_char("Room(s) not found in this area.\n\r", ch);
+        return;
     }
+
+    if (col % 3 != 0)
+        send_to_char("\n\r", ch);
 
     return;
 } // end do_debug

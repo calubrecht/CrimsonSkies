@@ -3403,6 +3403,51 @@ char *off_bit_name (int off_flags)
 }
 
 /*
+ * Returns the room name for a given vnum.
+ */
+char *get_room_name(int vnum)
+{
+    static char buf[512];
+    ROOM_INDEX_DATA *room;
+
+    room = get_room_index(vnum);
+
+    if (room != NULL && room->name != NULL)
+    {
+        sprintf(buf, "%s", room->name);
+    }
+    else
+    {
+        bugf("Null room->name or ROOM_INDEX_DATA for vnum %d", vnum);
+        sprintf(buf, "(null)");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns the area name for a given vnum.
+ */
+char *get_area_name(int vnum)
+{
+    static char buf[512];
+    ROOM_INDEX_DATA *room;
+
+    room = get_room_index(vnum);
+
+    if (room != NULL && room->area != NULL && room->area->name != NULL)
+    {
+        sprintf(buf, "%s", room->area->name);
+    }
+    else
+    {
+        sprintf(buf, "(null)");
+    }
+
+    return buf;
+}
+
+/*
  * If possible group obj2 into obj1                             -Thoric
  * This code, along with clone_object, obj->count, and special support
  * for it implemented throughout handler.c and save.c should show improved
@@ -3758,3 +3803,37 @@ void make_ghost( CHAR_DATA *ch)
 
 } // end make_ghost
 
+/*
+ * Will determine if two vnums are on the same continent.
+ */
+bool same_continent(sh_int vnum_one, sh_int vnum_two)
+{
+    ROOM_INDEX_DATA *room_one;
+    ROOM_INDEX_DATA *room_two;
+
+    room_one = get_room_index(vnum_one);
+
+    if (room_one == NULL || room_one->area == NULL)
+    {
+        return FALSE;
+    }
+
+    room_two = get_room_index(vnum_two);
+
+    if (room_two == NULL || room_two->area == NULL)
+    {
+        return FALSE;
+    }
+
+    // Now that we have all non null stuff checked, see if they're
+    // on the same continent.
+    if (room_one->area->continent == room_two->area->continent)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+
+} // end bool same_continent

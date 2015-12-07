@@ -639,28 +639,29 @@ typedef enum
  * ACT bits for mobs.
  * Used in #MOBILES.
  */
-#define ACT_IS_NPC         (A)   /* Auto set for mobs  */
-#define ACT_SENTINEL       (B)   /* Stays in one room  */
-#define ACT_SCAVENGER      (C)   /* Picks up objects   */
-#define ACT_AGGRESSIVE     (F)   /* Attacks PC's       */
-#define ACT_STAY_AREA      (G)   /* Won't leave area   */
-#define ACT_WIMPY          (H)
-#define ACT_PET            (I)   /* Auto set for pets  */
-#define ACT_TRAIN          (J)   /* Can train PC's     */
-#define ACT_PRACTICE       (K)   /* Can practice PC's  */
-#define ACT_UNDEAD         (O)
-#define ACT_CLERIC         (Q)
-#define ACT_MAGE           (R)
-#define ACT_THIEF          (S)
-#define ACT_WARRIOR        (T)
-#define ACT_NOALIGN        (U)
-#define ACT_NOPURGE        (V)
-#define ACT_OUTDOORS       (W)
-#define ACT_INDOORS        (Y)
-#define ACT_IS_HEALER      (aa)
-#define ACT_GAIN           (bb)
-#define ACT_UPDATE_ALWAYS  (cc)
-#define ACT_IS_CHANGER     (dd)
+#define ACT_IS_NPC             (A)   /* Auto set for mobs  */
+#define ACT_SENTINEL           (B)   /* Stays in one room  */
+#define ACT_SCAVENGER          (C)   /* Picks up objects   */
+#define ACT_IS_PORTAL_MERCHANT (D)   /* Mob that sells portals to places */
+#define ACT_AGGRESSIVE         (F)   /* Attacks PC's       */
+#define ACT_STAY_AREA          (G)   /* Won't leave area   */
+#define ACT_WIMPY              (H)   /* Mob will flee when it has little life left */
+#define ACT_PET                (I)   /* Auto set for pets  */
+#define ACT_TRAIN              (J)   /* Can train PC's     */
+#define ACT_PRACTICE           (K)   /* Can practice PC's  */
+#define ACT_UNDEAD             (O)
+#define ACT_CLERIC             (Q)   /* Mob can cast cleric spells in battle */
+#define ACT_MAGE               (R)   /* Mob can cast mage spells in battle */
+#define ACT_THIEF              (S)
+#define ACT_WARRIOR            (T)
+#define ACT_NOALIGN            (U)
+#define ACT_NOPURGE            (V)   /* Mob can't be purged from a room */
+#define ACT_OUTDOORS           (W)
+#define ACT_INDOORS            (Y)
+#define ACT_IS_HEALER          (aa)  /* Mob sells healing services */
+#define ACT_GAIN               (bb)
+#define ACT_UPDATE_ALWAYS      (cc)
+#define ACT_IS_CHANGER         (dd)
 
 /* damage classes */
 #define DAM_NONE            0
@@ -2399,6 +2400,10 @@ void   extract_timer      args( ( CHAR_DATA *ch, TIMER *timer ) );
 void   remove_timer       args( ( CHAR_DATA *ch, sh_int type ) );
 bool   has_item_type      args( ( CHAR_DATA *ch, sh_int item_type) );
 void   make_ghost         args( ( CHAR_DATA *ch) );
+char * get_room_name      args( (int vnum) );
+char * get_area_name      args( (int vnum) );
+bool   same_continent     args( (sh_int vnum_one, sh_int vnum_two) );
+
 
 /* recycle.c */
 TIMER *new_timer          args( (void) );
@@ -2482,16 +2487,20 @@ char    *olc_ed_name      args( ( CHAR_DATA *ch ) );
 char    *olc_ed_vnum      args( ( CHAR_DATA *ch ) );
 
 /* lookup.c */
-int    race_lookup    args( ( const char *name) );
-int    item_lookup    args( ( const char *name) );
-int    liq_lookup     args( ( const char *name) );
+int    race_lookup          args( ( const char *name) );
+int    item_lookup          args( ( const char *name) );
+int    liq_lookup           args( ( const char *name) );
 
 /* log.c */
-void   bug            args((const char *str, int param));
-void   log_string     args((const char *str));
-void   log_obj        args((OBJ_DATA * obj));
-void   log_f          args(( char * fmt, ... ));
-void   bugf           args(( char *, ... ));
+void   bug                  args((const char *str, int param));
+void   log_string           args((const char *str));
+void   log_obj              args((OBJ_DATA * obj));
+void   log_f                args(( char * fmt, ... ));
+void   bugf                 args(( char *, ... ));
+
+/* act_mob.c */
+void          process_portal_merchant args((CHAR_DATA * ch, char *argument));
+CHAR_DATA *   find_portal_merchant args((CHAR_DATA * ch));
 
 #undef    CD
 #undef    MID

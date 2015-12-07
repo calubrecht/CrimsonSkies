@@ -1134,7 +1134,7 @@ bool is_safe(CHAR_DATA * ch, CHAR_DATA * victim)
             return TRUE;
         }
 
-        if (victim->pIndexData->pShop != NULL)
+        if (victim->pIndexData->pShop != NULL || IS_SET(victim->act, ACT_IS_PORTAL_MERCHANT))
         {
             send_to_char ("The shopkeeper wouldn't like that.\n\r", ch);
             return TRUE;

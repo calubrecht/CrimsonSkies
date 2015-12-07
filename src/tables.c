@@ -91,6 +91,7 @@ const struct flag_type act_flags[] = {
     {"npc",            A, FALSE},
     {"sentinel",       B, TRUE},
     {"scavenger",      C, TRUE},
+    {"portalmerchant", D, TRUE},
     {"aggressive",     F, TRUE},
     {"stay_area",      G, TRUE},
     {"wimpy",          H, TRUE},
@@ -757,10 +758,33 @@ const struct bit_type bitvector_type[] = {
     {weapon_type2, "weapon"}
 };
 
+/*
+ * This is a list of the continents currently used in the game.  Each area
+ * is associated with a continent.
+ */
 const struct continent_type continent_table[] = {
     { CONTINENT_LIMBO,    "limbo"    },
     { CONTINENT_MIDGAARD, "midgaard" },
     { CONTINENT_ARCANIS,  "arcanis"  },
 	{ CONTINENT_OCEANS,   "oceans"   },
     { 0, NULL }
+};
+
+/*
+ * This is the portal shop type that defines where portal shops are allowed
+ * to send players and how much it costs.  Each shop will manipulate the price
+ * depending on where the player is and where they are going (e.g. if you're
+ * sending a player across continents the price may be doubled, etc.).  As the
+ * world grows I'd make these more general types of places that will get players
+ * closer to where they want to go.
+ */
+const struct portal_shop_type portal_shop_table[] = {
+    { "midgaard",     3014, 2000 },
+    { "newthalos",    9506, 2000 },
+    { "arcanisport", 11232, 2000 },
+    { "catacombs",    3458, 3000 },
+    { "cave",         3675, 3000 },
+    { "mahn-tor",     2302, 3000 },
+    { "plains",        324, 2500 },
+    { NULL,              0,    0 }
 };
