@@ -221,6 +221,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     CHAR_DATA *mob;
     OBJ_DATA *portal;
     int cost = 0;
+    int roll = 0;
 
     if ((mob = find_portal_merchant(ch)) == NULL)
     {
@@ -306,10 +307,26 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // Slight lag, then deduct the money.
-    WAIT_STATE(ch, PULSE_VIOLENCE);
-    deduct_cost(ch, cost);
+    // Can the player haggle, if successful, adjust the price down?
+    roll = number_percent();
 
+    if (roll < get_skill(ch, gsn_haggle))
+    {
+        cost -= cost / 2 * roll / 100;
+        sprintf(buf, "You haggle the price down to %d coins.\n\r", cost);
+        send_to_char(buf, ch);
+        check_improve(ch, gsn_haggle, TRUE, 4);
+    }
+    else
+    {
+        check_improve(ch, gsn_haggle, FALSE, 2);
+    }
+
+    // Slight purchase lag, same as buy.
+    WAIT_STATE(ch, PULSE_VIOLENCE);
+
+    // Deduct the money.
+    deduct_cost(ch, cost);
 
     portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
     portal->timer = 2;  // 2 ticks.
