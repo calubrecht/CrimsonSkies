@@ -338,3 +338,4 @@ DECLARE_DO_FUN(do_gore);
 DECLARE_DO_FUN(do_bury);
 DECLARE_DO_FUN(do_dig);
 DECLARE_DO_FUN(do_flipcoin);
+DECLARE_DO_FUN(do_portal);

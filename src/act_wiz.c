@@ -708,24 +708,27 @@ void do_pecho (CHAR_DATA * ch, char *argument)
 }
 
 
+/*
+ * Finds a location, it will first try to go to a vnum of it's a number, second
+ * it will try to go to a player in the world, third it will try to go to an
+ * object.
+ */
 ROOM_INDEX_DATA *find_location (CHAR_DATA * ch, char *arg)
 {
     CHAR_DATA *victim;
     OBJ_DATA *obj;
 
-    if (is_number (arg))
-        return get_room_index (atoi (arg));
+    if (is_number(arg) && atoi(arg) > 0)
+        return get_room_index(atoi (arg));
 
-    if ((victim = get_char_world (ch, arg)) != NULL)
+    if ((victim = get_char_world(ch, arg)) != NULL)
         return victim->in_room;
 
-    if ((obj = get_obj_world (ch, arg)) != NULL)
+    if ((obj = get_obj_world(ch, arg)) != NULL)
         return obj->in_room;
 
     return NULL;
 }
-
-
 
 void do_transfer (CHAR_DATA * ch, char *argument)
 {
@@ -5959,6 +5962,70 @@ void wizbless(CHAR_DATA * victim)
     affect_to_char (victim, &af);
 
 } // end void wizbless
+
+/*
+ * Immortal command to create a portal to another location.  This can be used
+ * to create a portal to a vnum, a player, a mob or an object.  The optional
+ * second argument will set the number of ticks in which the portal should
+ * disappear.  If it's omitted the portal will for the remainder of the boot.
+ * This portal will have the no purge bit unflagged so immortal can get rid
+ * of their creations.
+ */
+void do_portal(CHAR_DATA *ch, char *argument)
+{
+    ROOM_INDEX_DATA *room;
+    OBJ_DATA *portal;
+    char arg[MAX_STRING_LENGTH];
+    char arg2[MAX_STRING_LENGTH];
+
+    argument = one_argument(argument, arg);
+
+    if (arg[0] == '\0')
+    {
+        send_to_char("Syntax: portal <vnum>", ch);
+        send_to_char("        portal <vnum> <optional tick duration>", ch);
+        send_to_char("        portal <player name/mob name>", ch);
+        send_to_char("        portal <player name/mob name> <optional tick duration>", ch);
+        return;
+    }
+
+    if ((room = find_location(ch, arg)) == NULL)
+    {
+        send_to_char ("No such location.\n\r", ch);
+        return;
+    }
+
+    // Create the portal object
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal->value[3] = room->vnum;
+
+    // Get the second argument which is the duration, if it's a number
+    // and atoi doesn't kill it, set the duration at which the item
+    // will crumble.
+    argument = one_argument(argument, arg2);
+
+    if (!IS_NULLSTR(arg2) && is_number(arg2))
+    {
+        if (atoi(arg2) >= 1)
+        {
+            portal->timer = atoi(arg2);
+        }
+    }
+
+    // Remove the no purge flag if it exists so immortals can clear out
+    // any portals they create.
+    if (IS_OBJ_STAT (portal, ITEM_NOPURGE))
+    {
+        REMOVE_BIT(portal->extra_flags, ITEM_NOPURGE);
+    }
+
+    // Put said object in said room.
+    obj_to_room(portal, ch->in_room);
+
+    // Show the room that the portal has risen.
+    act("$p rises up from the ground.", ch, portal, NULL, TO_ALL);
+
+} // end do_portal
 
 /*
  * Debug function to quickly test code without having to wire something up.

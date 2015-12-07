@@ -1036,7 +1036,6 @@ void obj_update (void)
             }
         }
 
-
         if (obj->timer <= 0 || --obj->timer > 0)
             continue;
 
