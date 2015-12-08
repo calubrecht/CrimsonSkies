@@ -91,14 +91,19 @@ S
 Western Red Oak Road~
 From the middle of the field, you can just make out the tips of the sails
 in the port to the west, but Red Oak's city gates are looming to the east. 
-The trees all around you seem young and fresh, fragile as the breeze sends 
-another wave of leaves down at the edges of the field. 
+The trees all around you seem young and fresh, fragile as the breeze sends
+another wave of leaves down at the edges of the field.  A smaller road leads
+to the south from here.  
 ~
 0 0 2
 D1
 ~
 ~
 0 0 1805
+D2
+~
+~
+0 0 1807
 D3
 ~
 ~
@@ -132,6 +137,43 @@ D3
 ~
 0 0 1805
 S
+#1807
+Blade Dancer's Road~
+You are standing on a small but well traveled path that runs north and
+south.  To the north is Red Oak Road which runs east and west through
+Arcanis.  To the south appears to be sparse trees which have grown up in the
+fields.  There also appears to be what looks like an establishment to the
+south.  
+~
+0 0 2
+D0
+~
+~
+0 0 1804
+D2
+~
+~
+0 0 1808
+S
+#1808
+Outside the Blade Dancer's Inn~
+You are standing outside the Blade Dancer's Inn.  There are lights coming
+from within and horses tied off outside.  The crowd appears to be small in
+this corner of the world as the inn looks like it has seen better days.  
+ 
+There appears to be a large door to the south that grants access to the
+inn.
+~
+0 0 2
+D0
+~
+~
+0 0 1807
+D2
+~
+~
+1 0 6950
+S
 #0
 
 
@@ -142,6 +184,7 @@ S
 
 
 #RESETS
+D 0 1808 2 1
 S
 
 
