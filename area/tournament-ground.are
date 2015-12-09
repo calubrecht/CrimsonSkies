@@ -197,20 +197,6 @@ ABGTV 0 2 0
 EFNU ABCDLQ 0 0
 stand stand female 50
 AHMV ABCDEFGHIJK medium unknown
-#8662
-white stag~
-A gleaming {WWhite{x Stag~
-A noble {Wwhite{x stag with long {Ygolden{x horns guards the pass.
-~
-This stag glows with its own inner light. Everything about this stag speaks of nobility.
-~
-human~
-AB HN 3 0
-10 0 25d10+100 2d50+50 19d3+33 pierce
--20 -20 -20 -20
-CFHIKN N CS MZ
-stand stand none 5000
-AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -233,9 +219,9 @@ armor A AE
 B B A B 0
 3 20 270 P
 A
-2 -1
-A
 4 1
+A
+2 -1
 #8652
 handkerchief hankie~
 a handkerchief~
@@ -253,9 +239,9 @@ armor A AE
 B B A B 0
 3 20 270 P
 A
-2 1
-A
 4 -1
+A
+2 1
 #8654
 cloak~
 a brightly {Gcol{You{Cred{x cloak~
@@ -299,9 +285,9 @@ trash 0 AO
 0 0 0 0 0
 1 5 25 P
 A
-2 -1
-A
 1 1
+A
+2 -1
 #8659
 bread food~
 freshly baked bread~
@@ -759,11 +745,6 @@ D3
 ~
 0 0 8655
 S
-#8669
-none~
-~
-0 4 0
-S
 #8670
 The Tournament Ground~
 This is a widely trodden area with clumps of grass growing
@@ -930,74 +911,6 @@ D3
 ~
 0 0 8668
 S
-#8679
-Heavy fog.~
-The fog is very thick here. The path behind you is covered by this magical fog.
-Ahead, you notice a light guiding you forward. It seems to beckon you onward.
-~
-0 0 0
-D0
-~
-~
-0 0 8680
-S
-#8680
-A rolling hillside~
-The green hills seem to span on forever.  The area is peaceful.  The
-birds sing as the sun is shining brightly.  A trail opens up to the north.  
-~
-0 0 2
-D0
-~
-~
-0 0 8681
-D2
-~
-~
-0 0 8679
-S
-#8681
-A steep trail downward~
-The hills end abruptly as the ground seems to drop away.  There is a
-steep winding trail that leads down to a sandy beach.  
-~
-0 0 2
-D2
-~
-~
-0 0 8680
-D5
-~
-~
-0 0 8682
-S
-#8682
-A steep trail~
-The path winds down this cliff erratically.  Although steep, the path is
-not very difficult.  However, ahead of you is a white stag with golden
-horns.  Just standing there, waiting.  
-~
-0 0 0
-D4
-~
-~
-0 0 8681
-D5
-~
-~
-0 0 8683
-S
-#8683
-The base of the cliff~
-This sandy alcove, neslted peacefully at the base of the cliff seems very
-peaceful.  To the south is a wide cave mouth.  
-~
-0 0 0
-D4
-~
-~
-0 0 8682
-S
 #0
 
 
@@ -1059,7 +972,6 @@ M 0 8650 8 8675 1 Load a spectator
 E 0 8652 0 17 A handkerchief is loaded held in the hands of a spectator
 M 0 8650 8 8676 1 Load a spectator
 E 0 8652 0 17 A handkerchief is loaded held in the hands of a spectator
-M 0 8662 1 8682 1 Load A gleaming {WWhite{x Stag
 S
 
 
