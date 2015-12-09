@@ -143,13 +143,18 @@ You are standing on a small but well traveled path that runs north and
 south.  To the north is Red Oak Road which runs east and west through
 Arcanis.  To the south appears to be sparse trees which have grown up in the
 fields.  There also appears to be what looks like an establishment to the
-south.  
+south.  To the east you can hear the clashing of swords on armor as if there
+was a battle going on.  
 ~
 0 0 2
 D0
 ~
 ~
 0 0 1804
+D1
+~
+~
+0 0 8650
 D2
 ~
 ~
