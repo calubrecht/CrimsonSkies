@@ -6028,6 +6028,69 @@ void do_portal(CHAR_DATA *ch, char *argument)
 } // end do_portal
 
 /*
+ * Confiscates an object from a player.
+ * Code by Keridan of Benevolent Iniquity, additions by Rhien of CS-Mud.
+ */
+void do_confiscate(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    bool found = FALSE;
+
+    argument = one_argument(argument,arg1);
+
+    if (IS_NPC(ch))
+    {
+        send_to_char("Mobiles can't use that command.\n\r", ch );
+        return;
+    }
+
+    if (IS_NULLSTR(argument) || IS_NULLSTR(arg1))
+    {
+        send_to_char("Syntax: confiscate <item> <player>\n\r",ch);
+        return;
+    }
+
+    if ((victim = get_char_world(ch, argument)) == NULL)
+    {
+        send_to_char("They aren't here.\n\r", ch);
+        return;
+    }
+
+    if (victim->level >= ch->level)
+    {
+        send_to_char("They are too high level for you to do that.\n\r",ch);
+        return;
+    }
+
+    for (obj = victim->carrying; obj != NULL; obj = obj->next_content)
+    {
+        if (is_name(arg1, obj->name))
+        {
+            found = TRUE;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("They do not have that item.\n\r", ch);
+        return;
+    }
+
+    separate_obj(obj);
+    obj_from_char(obj);
+    obj_to_char(obj, ch);
+
+    printf_to_char(ch, "You have confiscated %s from %s.\n\r", obj->short_descr, victim->name);
+    printf_to_char(victim, "%s has confiscated %s from you.\n\r", PERS(ch, victim), obj->short_descr);
+
+    return;
+
+} // end do_confiscate
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)

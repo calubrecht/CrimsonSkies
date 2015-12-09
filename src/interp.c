@@ -378,6 +378,7 @@ const struct cmd_type cmd_table[] = {
     {"test",            do_test,        POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"wizcancel",       do_wizcancel,   POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"wizbless",        do_wizbless,    POS_DEAD, IM, LOG_ALWAYS, TRUE},
+    {"confiscate",      do_confiscate,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
 
     /*
      * OLC

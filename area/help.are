@@ -3857,6 +3857,15 @@ a shovel.  If you interrupt your digging with another action you
 will have to start over digging.
 ~
 
+52 CONFISCATE~
+Syntax: confiscate <item> <player>
+
+Confiscate will take an item from a player and put it in the
+immortal's inventory.  If the item is equipped on the player it
+will be unequipped.
+
+The player is given notice that this has occurred.
+~
 0 $~
 
 #$
