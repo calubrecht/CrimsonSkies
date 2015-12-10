@@ -1029,6 +1029,10 @@ void do_alias (CHAR_DATA * ch, char *argument)
                      rch->pcdata->alias_sub[pos]);
             send_to_char (buf, ch);
         }
+
+        sprintf(buf, "\n\rYou are currently using %d of your %d allotted aliases.\n\r", pos, MAX_ALIAS);
+        send_to_char(buf, ch);
+
         return;
     }
 
