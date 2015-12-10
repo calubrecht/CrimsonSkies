@@ -3867,6 +3867,14 @@ will be unequipped.
 
 The player is given notice that this has occurred.
 ~
+
+0 TERRAIN~
+Syntax: terrain
+
+The terrain command will show you what the surrounding terrain
+is (e.g. hills, forest, city, ocean, underwater, beach, etc.).
+~
+
 0 $~
 
 #$

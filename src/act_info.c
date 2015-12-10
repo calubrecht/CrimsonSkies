@@ -3844,4 +3844,59 @@ char *pers(CHAR_DATA *ch, CHAR_DATA *looker)
 
 } // end pers
 
+/*
+ * Command to allow the player to show the terrain type of the room they
+ * are in.
+ */
+void do_terrain(CHAR_DATA *ch, char *argument)
+{
+
+    if (ch == NULL || ch->in_room == NULL)
+        return;
+
+    switch(ch->in_room->sector_type)
+    {
+        case(SECT_INSIDE):
+            send_to_char("You are indoors.\n\r", ch);
+            break;
+        case(SECT_CITY):
+            send_to_char("You see the city about you... not a lot of terrain.\n\r", ch);
+            break;
+        case(SECT_FIELD):
+            send_to_char("The terrain is that of fields.\n\r", ch);
+            break;
+        case(SECT_FOREST):
+            send_to_char("The terrain is that of the forest.\n\r", ch);
+            break;
+        case(SECT_HILLS):
+            send_to_char("The terrain is that of the hills.\n\r", ch);
+            break;
+        case(SECT_MOUNTAIN):
+            send_to_char("The terrain is that of the mountains.\n\r", ch);
+            break;
+        case(SECT_AIR):
+            send_to_char("There is no terrain, your in the air!\n\r", ch);
+            break;
+        case(SECT_DESERT):
+            send_to_char("The terrain is that of the desert.\n\r", ch);
+            break;
+        case(SECT_BEACH):
+            send_to_char("The terrain is that of the beach.\n\r", ch);
+            break;
+        case(SECT_OCEAN):
+            send_to_char("You are in the ocean!\n\r", ch);
+            break;
+        case(SECT_UNDERWATER):
+            send_to_char("You are underwater!\n\r", ch);
+            break;
+        default:
+            send_to_char("The terrain type is undetermined.\n\r", ch);
+            bugf("Unhandled terrain type in do_terrain for vnum %d", ch->in_room->vnum);
+            break;
+    }
+
+    act( "$n takes a look around $mself and examines the terrain.", ch, NULL, NULL, TO_ROOM);
+    return;
+
+} // end do_terrain
 
