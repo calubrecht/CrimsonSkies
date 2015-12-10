@@ -1662,9 +1662,13 @@ void do_exits (CHAR_DATA * ch, char *argument)
     {
         if ((pexit = ch->in_room->exit[door]) != NULL
             && pexit->u1.to_room != NULL
-            && can_see_room (ch, pexit->u1.to_room)
-            && !IS_SET (pexit->exit_info, EX_CLOSED))
+            && can_see_room (ch, pexit->u1.to_room))
         {
+
+            // If it's closed and the user isn't affected by detect door then skip it
+            if (IS_SET(pexit->exit_info, EX_CLOSED) && !is_affected(ch, gsn_detect_door))
+                continue;
+
             found = TRUE;
             if (fAuto)
             {
@@ -1681,6 +1685,13 @@ void do_exits (CHAR_DATA * ch, char *argument)
                     // Default coloring, normal exit
                     strcat(buf, " ");
                     strcat(buf, dir_name[door]);
+                }
+
+                // If the user is affected by detect door and the door is closed give them an
+                // indicator
+                if (is_affected(ch, gsn_detect_door) && IS_SET(pexit->exit_info, EX_CLOSED))
+                {
+                    strcat(buf, "(c)");
                 }
 
             }

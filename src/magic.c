@@ -1290,6 +1290,11 @@ void spell_cancellation (int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, gsn_detect_door))
+    {
+        found = TRUE;
+    }
+
     // Affects that don't need a specialized message here.
     if (check_dispel(level, victim, gsn_song_of_dissonance)
         || check_dispel(level, victim, gsn_song_of_protection))
@@ -2105,8 +2110,6 @@ void spell_detect_hidden (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
 void spell_detect_invis (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
 {
@@ -2141,7 +2144,45 @@ void spell_detect_invis (int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
+/*
+ * A spell that will make it clear when a door is on the exits of a current room.
+ */
+void spell_detect_door (int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
 
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip (victim, sn);
+        }
+        else
+        {
+            act ("$N is already able to detect doors.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char (victim, &af);
+
+    send_to_char ("Your awareness of exit routes increases.\n\r", victim);
+
+    if (ch != victim)
+        send_to_char ("Ok.\n\r", ch);
+
+    return;
+
+} // end spell_detect_door
 
 void spell_detect_magic (int sn, int level, CHAR_DATA * ch, void *vo,
                          int target)
@@ -2476,6 +2517,11 @@ void spell_dispel_magic (int sn, int level, CHAR_DATA * ch, void *vo,
     }
 
     if (check_dispel(level, victim, gsn_enhanced_recovery))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_detect_door))
     {
         found = TRUE;
     }
@@ -5131,6 +5177,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if ( !str_cmp( name, "spell_dispel_good" )) return spell_dispel_good;
             if ( !str_cmp( name, "spell_disenchant" )) return spell_disenchant;
             if ( !str_cmp( name, "spell_demonfire" )) return spell_demonfire;
+            if ( !str_cmp( name, "spell_detect_door" )) return spell_detect_door;
             break;
         case 'e':
             if ( !str_cmp( name, "spell_earthquake" )) return spell_earthquake;
@@ -5385,6 +5432,7 @@ char *spell_name_lookup( SPELL_FUN *spell )
     if (spell == spell_healers_bind) return "spell_healers_bind";
     if (spell == spell_cure_deafness) return "spell_cure_deafness";
     if (spell == spell_remove_faerie_fire) return "spell_remove_faerie_fire";
+    if (spell == spell_detect_door) return "spell_detect_door";
 
     return "reserved";
 

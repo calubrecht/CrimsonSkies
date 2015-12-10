@@ -1966,4 +1966,15 @@ MsgOff      Your return to your corporeal form.~
 Race        0
 End
 
+#SKILL
+Name        detect door~
+SpellFun    spell_detect_door~
+Target      3
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      You become less aware of exit routes.~
+Race        0
+End
+
 #END

@@ -4813,5 +4813,6 @@ void assign_gsn()
     ASSIGN_GSN(gsn_gore, "gore");
     ASSIGN_GSN(gsn_ghost, "ghost");
     ASSIGN_GSN(gsn_enchant_person, "enchant person");
+    ASSIGN_GSN(gsn_detect_door, "detect door");
 
 } // end assign_gsn
