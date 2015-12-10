@@ -1672,16 +1672,15 @@ void do_exits (CHAR_DATA * ch, char *argument)
                 if (pexit->u1.to_room->sector_type == SECT_OCEAN
                     || pexit->u1.to_room->sector_type == SECT_UNDERWATER)
                 {
-		    strcat( buf,"{c");
-                    strcat (buf, " ");
-                    strcat (buf, dir_name[door]);
-                    strcat (buf,"{x");
+                    strcat(buf,"{c ");
+                    strcat(buf, dir_name[door]);
+                    strcat(buf,"{x");
                 }
                 else
                 {
                     // Default coloring, normal exit
-                    strcat (buf, " ");
-                    strcat (buf, dir_name[door]);
+                    strcat(buf, " ");
+                    strcat(buf, dir_name[door]);
                 }
 
             }
@@ -1734,8 +1733,20 @@ void do_exits (CHAR_DATA * ch, char *argument)
             if ((pexit = ch->in_room->exit[door]) != NULL && pexit->u1.to_room != NULL)
             {
                 found = TRUE;
-                strcat (buf, " ");
-                strcat (buf, dir_name[door]);
+
+                if (pexit->u1.to_room->sector_type == SECT_OCEAN
+                    || pexit->u1.to_room->sector_type == SECT_UNDERWATER)
+                {
+                    strcat(buf,"{c ");
+                    strcat(buf, dir_name[door]);
+                    strcat(buf,"{x");
+                }
+                else
+                {
+                    // Default coloring, normal exit
+                    strcat(buf, " ");
+                    strcat(buf, dir_name[door]);
+                }
 
                 if (IS_SET (pexit->exit_info, EX_CLOSED))
                 {
@@ -3832,4 +3843,5 @@ char *pers(CHAR_DATA *ch, CHAR_DATA *looker)
     }
 
 } // end pers
+
 
