@@ -1681,13 +1681,13 @@ void do_group( CHAR_DATA *ch, char *argument )
         return;
     }
 
-    if (IS_AFFECTED(victim,AFF_CHARM))
+    if (IS_AFFECTED(victim, AFF_CHARM))
     {
         send_to_char("You can't remove charmed mobs from your group.\n\r", ch);
         return;
     }
 
-    if (IS_AFFECTED(ch,AFF_CHARM))
+    if (IS_AFFECTED(ch, AFF_CHARM))
     {
         act_new("You like your master too much to leave $m!", ch, NULL, victim, TO_VICT, POS_SLEEPING);
         return;
