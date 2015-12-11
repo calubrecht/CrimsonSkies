@@ -1626,13 +1626,13 @@ void do_order (CHAR_DATA * ch, char *argument)
  * group, see your groups condition.  Grouped members can then communicate
  * through gtell.
  */
-void do_group(CHAR_DATA * ch, char *argument)
+void do_group( CHAR_DATA *ch, char *argument )
 {
     char buf[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *victim;
 
-    one_argument (argument, arg);
+    one_argument(argument, arg);
 
     if (arg[0] == '\0')
     {
@@ -1640,53 +1640,56 @@ void do_group(CHAR_DATA * ch, char *argument)
         CHAR_DATA *leader;
 
         leader = (ch->leader != NULL) ? ch->leader : ch;
-        sprintf(buf, "%s's group:\n\r", PERS (leader, ch));
+        sprintf(buf, "%s's group:\n\r", PERS(leader, ch));
         send_to_char(buf, ch);
 
         for (gch = char_list; gch != NULL; gch = gch->next)
         {
             if (is_same_group(gch, ch))
             {
-                sprintf(buf,
-                         "[%2d %s] %-16s %4d/%4d hp %4d/%4d mana %4d/%4d mv %5d xp\n\r",
-                         gch->level,
-                         IS_NPC (gch) ? "Mob" : class_table[gch->class]->who_name,
-                         capitalize (PERS (gch, ch)), gch->hit, gch->max_hit,
-                         gch->mana, gch->max_mana, gch->move, gch->max_move,
-                         gch->exp);
-                send_to_char(buf, ch);
+                sprintf(buf, "[%2d %s] %-16s {%s%3d{x%% hp {%s%3d{x%% mana {%s%3d{x%% mv\n\r",
+                    gch->level,
+                    IS_NPC(gch) ? "Mob" : class_table[gch->class]->who_name, capitalize(PERS(gch, ch)),
+                    gch->hit < gch->max_hit /2 ? "R" : gch->hit < gch->max_hit * 3 / 4 ? "Y" : "W",
+                    (int) (((float) gch->hit / (float) gch->max_hit) * 100),
+                    gch->mana < gch->max_mana /2 ? "R" : gch->mana < gch->max_mana * 3 / 4 ? "Y" : "W",
+                    (int) (((float) gch->mana / (gch->max_mana == 0 ? 1.0 : (float) gch->max_mana) )  * 100),
+                    gch->move < gch->max_move /2 ? "R" : gch->move < gch->max_move * 3 / 4 ? "Y" : "W",
+                    (int) (((float) gch->move / (float) gch->max_move) * 100));
+                send_to_char( buf, ch );
             }
         }
+
         return;
     }
 
     if ((victim = get_char_room(ch, arg)) == NULL)
     {
-        send_to_char ("They aren't here.\n\r", ch);
+        send_to_char("They aren't here.\n\r", ch);
         return;
     }
 
     if (ch->master != NULL || (ch->leader != NULL && ch->leader != ch))
     {
-        send_to_char ("But you are following someone else!\n\r", ch);
+        send_to_char("But you are following someone else!\n\r", ch);
         return;
     }
 
     if (victim->master != ch && ch != victim)
     {
-        act_new ("$N isn't following you.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
+        act_new("$N isn't following you.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
         return;
     }
 
-    if (IS_AFFECTED (victim, AFF_CHARM))
+    if (IS_AFFECTED(victim,AFF_CHARM))
     {
-        send_to_char ("You can't remove charmed mobs from your group.\n\r", ch);
+        send_to_char("You can't remove charmed mobs from your group.\n\r", ch);
         return;
     }
 
-    if (IS_AFFECTED(ch, AFF_CHARM))
+    if (IS_AFFECTED(ch,AFF_CHARM))
     {
-        act_new ("You like your master too much to leave $m!", ch, NULL, victim, TO_VICT, POS_SLEEPING);
+        act_new("You like your master too much to leave $m!", ch, NULL, victim, TO_VICT, POS_SLEEPING);
         return;
     }
 
@@ -1699,14 +1702,20 @@ void do_group(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if ((abs(victim->level - ch->level) > 8) && !IS_IMMORTAL(ch))
+    {
+        send_to_char("You cannot group outside of the pkill range.\n\r", ch);
+        return;
+    }
+
     victim->leader = ch;
     act_new("$N joins $n's group.", ch, NULL, victim, TO_NOTVICT, POS_RESTING);
     act_new("You join $n's group.", ch, NULL, victim, TO_VICT, POS_SLEEPING);
     act_new("$N joins your group.", ch, NULL, victim, TO_CHAR, POS_SLEEPING);
+
     return;
-}
 
-
+} // end do_group
 
 /*
  * 'Split' originally by Gnort, God of Chaos.
