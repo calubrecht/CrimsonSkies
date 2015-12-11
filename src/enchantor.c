@@ -134,10 +134,10 @@ void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
 
-    if (IS_OBJ_STAT(obj,ITEM_NOLOCATE))
+    if (IS_OBJ_STAT(obj, ITEM_NOLOCATE))
     {
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+        act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_CHAR);
+        act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_ROOM);
         separate_obj(obj);
         REMOVE_BIT(obj->extra_flags,ITEM_NOLOCATE);
     }
@@ -145,8 +145,8 @@ void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     {
         separate_obj(obj);
         SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_CHAR);
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch,obj,NULL,TO_ROOM);
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_CHAR);
+        act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_ROOM);
     }
 
 } // end spell_sequestor
@@ -162,13 +162,13 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("You can only interlace your spirit into weapons or armor.\n\r",ch);
+        send_to_char("You can only interlace your spirit into weapons or armor.\n\r", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r",ch);
+        send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r", ch);
         return;
     }
 
