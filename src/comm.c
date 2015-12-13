@@ -327,6 +327,10 @@ int init_socket (int port)
         exit (1);
     }
 
+// SO_DONTLINGER isn't defined and I don't know why we would ever
+// want to use it in our setup, if the below runs the connection would
+// linger for 1000 seconds at which it would block the rest of mud at
+// that time if it did.. if anything something shorter would be reasonable.
 #if defined(SO_DONTLINGER) && !defined(SYSV)
     {
         struct linger ld;
