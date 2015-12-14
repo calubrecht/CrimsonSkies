@@ -40,7 +40,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Ranger class
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
-  - Ocean, thread them together, create coastlines for intial continents.
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
@@ -60,7 +59,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Fix creation bug where a partial lookup can cause a group in another group not to be loaded 
     depending on the order they're loaded in (consider making an exact match lookup and making 
     users type in the whole skill/group they want in creation.
-  - Ice continent
   - add another affect field that is in the smaug style with xis_set
   - add enabled field on class that allows the class to be enabled/not, this
     will affect whether people can actively reclass or take a class.  It will
