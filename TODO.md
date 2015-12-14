@@ -80,3 +80,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add class/race multipliers to OLC.
   - Implement MCCP
   - mudstrlcat from smaug
+  - duress skill that allows player to do more damage if they are towards death.
+  - surrounded closed door with parens instead of (c)
