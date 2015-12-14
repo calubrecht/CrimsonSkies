@@ -80,3 +80,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - mudstrlcat from smaug
   - duress skill that allows player to do more damage if they are towards death.
   - surrounded closed door with parens instead of (c)
+  - have enchant weapon tag all enchantors onto the object, then have faded items clear all enchantors but the last.
