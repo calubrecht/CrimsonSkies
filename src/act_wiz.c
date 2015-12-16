@@ -6095,9 +6095,31 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    char buf[MAX_STRING_LENGTH];
+    char display_buf[MAX_STRING_LENGTH];
+    char *tokenPtr;
+
+    sprintf(buf, "One,Two,Three,Four,Five,Six");
+
+    // initialize the string tokenizer and receive pointer to first token
+    tokenPtr = strtok(buf, ",");
+
+    while(tokenPtr != NULL)
+    {
+        sprintf(display_buf, "token - %s\n\r",tokenPtr);
+        send_to_char(display_buf, ch);
+        send_to_char("original buf: ", ch);
+        send_to_char(buf, ch);
+        tokenPtr = strtok(NULL, " ,.\n");
+    }
+
+    send_to_char("original buf: ", ch);
+    send_to_char(buf, ch);
+
+    return;
     ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;
-    char buf[MAX_STRING_LENGTH];
+    //char buf[MAX_STRING_LENGTH];
     bool found;
     int vnum;
     int col = 0;

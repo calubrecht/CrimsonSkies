@@ -40,19 +40,17 @@
 #include "magic.h"
 #include "recycle.h"
 
+// Local Declarations
+void set_obj_enchanted args((CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first));
+
 /*
  * Spell that sets a rot-death flag on an item so it crumbles when the
- * player dies.
+ * player dies.  The spell is set to obj_inventory so it can only be cast
+ * on an item a player holds.
  */
-void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo, int target)
+void spell_withering_enchant(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
-
-    if (obj->wear_loc != 1)
-    {
-        send_to_char("You cannot wither an item that you cannot carry.\n\r", ch);
-        return;
-    }
 
     if (!IS_SET (obj->extra_flags, ITEM_ROT_DEATH))
     {
@@ -73,7 +71,7 @@ void spell_withering_enchant (int sn, int level, CHAR_DATA * ch, void *vo, int t
  * based off of the users casting level.  The target will also gain a small
  * mana boost if the victim is not the caster as well as a small AC boost.
  */
-void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int target)
+void spell_enchant_person(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
     AFFECT_DATA af;
@@ -130,20 +128,20 @@ void spell_enchant_person (int sn, int level, CHAR_DATA * ch, void *vo, int targ
 /*
  * Enchantor spell that toggles whether an object is no locate or not.
  */
-void spell_sequestor( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+void spell_sequestor(int sn, int level, CHAR_DATA *ch, void *vo,int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *) vo;
+
+    separate_obj(obj);
 
     if (IS_OBJ_STAT(obj, ITEM_NOLOCATE))
     {
         act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_CHAR);
         act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_ROOM);
-        separate_obj(obj);
         REMOVE_BIT(obj->extra_flags,ITEM_NOLOCATE);
     }
     else
     {
-        separate_obj(obj);
         SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
         act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_CHAR);
         act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_ROOM);
@@ -290,7 +288,6 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 	int result, fail;
 	int ac_bonus, added;
 	bool ac_found = FALSE;
-	char buf[MAX_STRING_LENGTH];
 
 	if (obj->item_type != ITEM_ARMOR)
 	{
@@ -397,7 +394,7 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 
 		act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
 		act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
-		obj->enchanted = TRUE;
+        set_obj_enchanted(ch, obj, TRUE);
 
 		// remove all affects
 		for (paf = obj->affected; paf != NULL; paf = paf_next)
@@ -443,9 +440,7 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 	}
 
 	// They have a success at this point, go ahead and set the enchanted_by
-	sprintf(buf, "%s", ch->name);
-	free_string(obj->enchanted_by);
-	obj->enchanted_by = str_dup(buf);
+    set_obj_enchanted(ch, obj, FALSE);
 
 	if (ch->class == ENCHANTOR_CLASS_LOOKUP && result <= (90 - level))
 	{
@@ -522,7 +517,6 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 	int result, fail;
 	int hit_bonus, dam_bonus, added;
 	bool hit_found = FALSE, dam_found = FALSE;
-	char buf[MAX_STRING_LENGTH];
 
 	if (obj->item_type != ITEM_WEAPON)
 	{
@@ -644,7 +638,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
 		act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
 		act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
-		obj->enchanted = TRUE;
+        set_obj_enchanted(ch, obj, TRUE);
 
 		// remove all affects
 		for (paf = obj->affected; paf != NULL; paf = paf_next)
@@ -666,7 +660,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 		return;
 	}
 
-	// move all the old flags into new vectors if we have to 
+	// move all the old flags into new vectors if we have to
 	if (!obj->enchanted)
 	{
 		AFFECT_DATA *af_new;
@@ -690,9 +684,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 	}
 
 	// They have a success at this point, go ahead and set the enchanted_by
-	sprintf(buf, "%s", ch->name);
-	free_string(obj->enchanted_by);
-	obj->enchanted_by = str_dup(buf);
+    set_obj_enchanted(ch, obj, FALSE);
 
 	if (ch->class == ENCHANTOR_CLASS_LOOKUP && result >= (110 - level / 5))
 	{
@@ -838,8 +830,8 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
     else
     {
-        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
-        obj_to_char( obj2, ch );
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
@@ -904,8 +896,8 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
     else
     {
-        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level );
-        obj_to_char( obj2, ch );
+        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
@@ -944,7 +936,7 @@ void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
     act("$p glows brightly, then fades to a dull color",ch,obj,NULL,TO_CHAR);
     act("$p glows brightly, then fades to a dull color.",ch,obj,NULL,TO_ROOM);
     separate_obj(obj);
-    obj->enchanted = TRUE;
+    set_obj_enchanted(ch, obj, TRUE);
 
     /* remove all affects */
     for (paf = obj->affected; paf != NULL; paf = paf_next)
@@ -1097,3 +1089,51 @@ void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int t
     }
 
 } // end spell_waves_of_weariness
+
+/*
+ * Sets an object as being enchanted by an enchantor and allows for the history
+ * to be cleared (or kept).  This sets the obj->enchanted value and also the
+ * obj->enchanted_by for history of the object.  This will not separate the object
+ * currently, that should be done ahead of time.
+ */
+void set_obj_enchanted(CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    if (ch == NULL || obj == NULL)
+    {
+        return;
+    }
+
+    obj->enchanted = TRUE;
+
+    if (!clear_first)
+    {
+        // Don't clear the list, check to see if they are already in it
+        // before adding them
+        if (!is_exact_name(ch->name, obj->enchanted_by))
+        {
+            if (IS_NULLSTR(obj->enchanted_by))
+            {
+                sprintf(buf, "%s", ch->name);
+            }
+            else
+            {
+                sprintf(buf, "%s %s", obj->enchanted_by, ch->name);
+            }
+
+            free_string(obj->enchanted_by);
+            obj->enchanted_by = str_dup(buf);
+        }
+    }
+    else
+    {
+        // Clear the list first, then add them in.
+        sprintf(buf, "%s", ch->name);
+        free_string(obj->enchanted_by);
+        obj->enchanted_by = str_dup(buf);
+    }
+
+    return;
+
+} // end set_obj_enchanted
