@@ -1570,16 +1570,6 @@ Syntax: cast 'detect hidden'
 This spell enables the caster to detect hidden creatures.
 ~
 
-0 DETECT DOOR~
-Syntax: cast 'detect door'
-
-This spell enables the caster to see in their exits when a door is
-closed.  This will be indicated with a "(c)".  e.g.
-
-[Exits: north south down(c)]
-
-~
-
 0 'DETECT INVIS'~
 Syntax: cast 'detect invis'
 
