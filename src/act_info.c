@@ -1665,33 +1665,37 @@ void do_exits (CHAR_DATA * ch, char *argument)
             && can_see_room (ch, pexit->u1.to_room))
         {
 
-            // If it's closed and the user isn't affected by detect door then skip it
-            if (IS_SET(pexit->exit_info, EX_CLOSED) && !is_affected(ch, gsn_detect_door))
-                continue;
-
             found = TRUE;
             if (fAuto)
             {
+                // Open for the door indicator (marker)
+                if (IS_SET(pexit->exit_info, EX_CLOSED))
+                {
+                    strcat(buf, " (");
+                }
+                else
+                {
+                    strcat(buf, " ");
+                }
+
                 // Show the ocean and underwater exits as a light cyan
                 if (pexit->u1.to_room->sector_type == SECT_OCEAN
                     || pexit->u1.to_room->sector_type == SECT_UNDERWATER)
                 {
-                    strcat(buf,"{c ");
+                    strcat(buf,"{c");
                     strcat(buf, dir_name[door]);
                     strcat(buf,"{x");
                 }
                 else
                 {
                     // Default coloring, normal exit
-                    strcat(buf, " ");
                     strcat(buf, dir_name[door]);
                 }
 
-                // If the user is affected by detect door and the door is closed give them an
-                // indicator
-                if (is_affected(ch, gsn_detect_door) && IS_SET(pexit->exit_info, EX_CLOSED))
+                // Close for the door indicator
+                if (IS_SET(pexit->exit_info, EX_CLOSED))
                 {
-                    strcat(buf, "(c)");
+                    strcat(buf, ")");
                 }
 
             }
@@ -1745,24 +1749,35 @@ void do_exits (CHAR_DATA * ch, char *argument)
             {
                 found = TRUE;
 
+                // Open for the door indicator
+                if (IS_SET(pexit->exit_info, EX_CLOSED))
+                {
+                    strcat(buf, " (");
+                }
+                else
+                {
+                    strcat(buf, " ");
+                }
+
                 if (pexit->u1.to_room->sector_type == SECT_OCEAN
                     || pexit->u1.to_room->sector_type == SECT_UNDERWATER)
                 {
-                    strcat(buf,"{c ");
+                    strcat(buf,"{c");
                     strcat(buf, dir_name[door]);
                     strcat(buf,"{x");
                 }
                 else
                 {
                     // Default coloring, normal exit
-                    strcat(buf, " ");
                     strcat(buf, dir_name[door]);
                 }
 
-                if (IS_SET (pexit->exit_info, EX_CLOSED))
+                // Open for the door indicator
+                if (IS_SET(pexit->exit_info, EX_CLOSED))
                 {
-                    strcat(buf, "(c)");
+                    strcat(buf, ")");
                 }
+
             }
         }
 
