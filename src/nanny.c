@@ -431,7 +431,8 @@ void nanny (DESCRIPTOR_DATA * d, char *argument)
                    return;
                }
 
-               ch->pcdata->email = str_dup (argument);
+               free_string(ch->pcdata->email);
+               ch->pcdata->email = str_dup(argument);
             }
 
             send_to_desc ("The following races are available:\n\r  ", d);
