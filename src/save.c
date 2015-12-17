@@ -178,6 +178,7 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
     fprintf (fp, "Id   %ld\n", ch->id);
     fprintf (fp, "LogO %ld\n", current_time);
     fprintf (fp, "Vers %d\n", 1);
+
     if (ch->short_descr[0] != '\0')
         fprintf (fp, "ShD  %s~\n", ch->short_descr);
     if (ch->long_descr[0] != '\0')
@@ -261,6 +262,33 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
     else
     {
         fprintf (fp, "Pass %s~\n", ch->pcdata->pwd);
+
+        // Update the last available IP address
+        if (ch->desc != NULL
+            && !IS_NULLSTR(ch->desc->host)
+            && !IS_NULLSTR(ch->pcdata->last_ip)
+            && !str_cmp(ch->pcdata->last_ip, ch->desc->host))
+        {
+            // Last IP was the same, just write it out
+            fprintf (fp, "LastIpAddress %s~\n", ch->pcdata->last_ip);
+        }
+        else if (ch->desc != NULL && !IS_NULLSTR(ch->desc->host))
+        {
+            // The IP was different, update it, then write it out
+            free_string(ch->pcdata->last_ip);
+            ch->pcdata->last_ip = str_dup(ch->desc->host);
+            fprintf (fp, "LastIpAddress %s~\n", ch->pcdata->last_ip);
+        }
+        else if (ch->desc == NULL && !IS_NULLSTR(ch->pcdata->last_ip))
+        {
+            // They're link dead, but we have a last_ip, save it
+            fprintf (fp, "LastIpAddress %s~\n", ch->pcdata->last_ip);
+        }
+        else
+        {
+            fprintf (fp, "LastIpAddress Unknown~\n");
+        }
+
         if (ch->pcdata->bamfin[0] != '\0')
             fprintf (fp, "Bin  %s~\n", ch->pcdata->bamfin);
 
@@ -600,6 +628,7 @@ bool load_char_obj (DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->bamfin = str_dup ("");
     ch->pcdata->bamfout = str_dup ("");
     ch->pcdata->email = str_dup ("");
+    ch->pcdata->last_ip = str_dup ("");
     ch->pcdata->title = str_dup ("");
     for (stat = 0; stat < MAX_STATS; stat++)
         ch->perm_stat[stat] = 13;
@@ -1038,6 +1067,7 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("LastStoryNote", ch->pcdata->last_story, fread_number(fp));
                 KEY ("LastHistory", ch->pcdata->last_history, fread_number(fp));
                 KEY ("LastImmNote", ch->pcdata->last_immnote, fread_number(fp));
+                KEY ("LastIpAddress", ch->pcdata->last_ip, fread_string(fp));
 
                 break;
 

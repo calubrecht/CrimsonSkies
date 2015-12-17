@@ -1564,6 +1564,7 @@ struct pc_data
     time_t          last_history;
     time_t          last_immnote;
     int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
+    char *          last_ip;         // Saves the last IP address used, see save.c for notes.
 };
 
 /* Data for generating characters -- only used during generation */
