@@ -217,6 +217,7 @@ const struct cmd_type cmd_table[] = {
     /*
      * Object manipulation commands.
      */
+    {"use",             do_use,         POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"brandish",        do_brandish,    POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"close",           do_close,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"drink",           do_drink,       POS_RESTING,  0, LOG_NORMAL, TRUE},

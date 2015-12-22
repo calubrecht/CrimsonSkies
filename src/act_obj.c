@@ -2437,7 +2437,7 @@ void do_zap (CHAR_DATA * ch, char *argument)
 
     if (wand->item_type != ITEM_WAND)
     {
-        send_to_char ("You can zap only with a wand.\n\r", ch);
+        send_to_char ("You can zap only with a wand you are holding.\n\r", ch);
         return;
     }
 
@@ -3998,3 +3998,84 @@ void do_flipcoin(CHAR_DATA *ch, char *argument)
     return;
 
 } // end flipcoin
+
+/*
+ * Use command to simplfy the simplify the amount of commands needed to interact
+ * with items.  We won't remove the other commands, but they can be called from
+ * here (e.g. brandish, zap, eat, look in some cases, etc.).  We're basically going
+ * to pass the input down the line.  I always forget what I'm supposed to brandish
+ * anyway and try to zap first. :p  - Rhien
+ */
+void do_use(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, arg1);
+
+    if (IS_NULLSTR(arg1))
+    {
+        send_to_char("Use what?\r\n", ch);
+        return;
+    }
+
+    if ((obj = get_obj_here(ch, arg1)) != NULL)
+    {
+        switch (obj->item_type)
+        {
+            default:
+                send_to_char("You're not quite sure how to use that.\r\n", ch);
+                break;
+            case ITEM_MONEY:
+            case ITEM_GEM:
+                do_function(ch, &do_help, "money");
+                break;
+            case ITEM_FOUNTAIN:
+                do_function(ch, &do_drink, "");
+                break;
+            case ITEM_DRINK_CON:
+                do_function(ch, &do_drink, argument);
+                break;
+            case ITEM_JEWELRY:
+            case ITEM_WARP_STONE:
+            case ITEM_CONTAINER:
+            case ITEM_WEAPON:
+            case ITEM_ARMOR:
+            case ITEM_LIGHT:
+                do_function(ch, &do_wear, arg1);
+                break;
+            case ITEM_SCROLL:
+                do_function(ch, &do_recite, argument);
+                break;
+            case ITEM_WAND:
+               do_function(ch, &do_zap, argument);
+                break;
+            case ITEM_STAFF:
+                do_function(ch, &do_brandish, argument);
+                break;
+            case ITEM_POTION:
+                do_function(ch, &do_quaff, arg1);
+                break;
+            case ITEM_FURNITURE:
+                do_function(ch, &do_rest, arg1);
+                break;
+            case ITEM_FOOD:
+            case ITEM_PILL:
+                do_function(ch, &do_eat, arg1);
+                break;
+            case ITEM_MAP:
+                do_function(ch, &do_look, arg1);
+                break;
+            case ITEM_PORTAL:
+                do_function(ch, &do_enter, arg1);
+                break;
+        }
+    }
+    else
+    {
+        send_to_char("Use what?\r\n", ch);
+        return;
+    }
+
+    return;
+} // end do_use
