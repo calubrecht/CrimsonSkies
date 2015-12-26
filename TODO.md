@@ -79,5 +79,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Implement MCCP
   - mudstrlcat from smaug
   - duress skill that allows player to do more damage if they are towards death.
-  - surrounded closed door with parens instead of (c)
-  - have enchant weapon tag all enchantors onto the object, then have faded items clear all enchantors but the last.
+  - Add a field to type item type field of whether it can be set via OLC, then add OLC support
+    to check that field before setting it.  This will allow for the creation of items with a
+    type via code that you may not want people creating via OLC (like a healer's bind).
