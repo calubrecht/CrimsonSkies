@@ -4011,6 +4011,8 @@ void do_use(CHAR_DATA * ch, char *argument)
     OBJ_DATA *obj;
     char arg1[MAX_INPUT_LENGTH];
 
+    // arg1 will be the object we want to use, we'll verify it's available
+    // and then pass the argument down the line.
     argument = one_argument(argument, arg1);
 
     if (IS_NULLSTR(arg1))
@@ -4021,6 +4023,15 @@ void do_use(CHAR_DATA * ch, char *argument)
 
     if ((obj = get_obj_here(ch, arg1)) != NULL)
     {
+
+        // Objects that need to be handled specifically first
+        if (obj->pIndexData != NULL && obj->pIndexData->vnum == OBJ_VNUM_HEALERS_BIND)
+        {
+            do_function(ch, &do_touch, arg1);
+            return;
+        }
+
+        // Now by type
         switch (obj->item_type)
         {
             default:
