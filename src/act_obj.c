@@ -4010,6 +4010,9 @@ void do_use(CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj;
     char arg1[MAX_INPUT_LENGTH];
+    char orig_argument[MAX_INPUT_LENGTH];
+
+    sprintf(orig_argument, "%s", argument);
 
     // arg1 will be the object we want to use, we'll verify it's available
     // and then pass the argument down the line.
@@ -4056,7 +4059,7 @@ void do_use(CHAR_DATA * ch, char *argument)
                 do_function(ch, &do_wear, arg1);
                 break;
             case ITEM_SCROLL:
-                do_function(ch, &do_recite, argument);
+                do_function(ch, &do_recite, orig_argument);
                 break;
             case ITEM_WAND:
                do_function(ch, &do_zap, argument);
