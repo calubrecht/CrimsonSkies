@@ -4004,7 +4004,9 @@ void do_flipcoin(CHAR_DATA *ch, char *argument)
  * with items.  We won't remove the other commands, but they can be called from
  * here (e.g. brandish, zap, eat, look in some cases, etc.).  We're basically going
  * to pass the input down the line.  I always forget what I'm supposed to brandish
- * anyway and try to zap first. :p  - Rhien
+ * anyway and try to zap first. :p  Since use interacts with an object, it maybe
+ * less verbose to use the base command (e.g. use wand rhien vs. zap rhien).  We
+ * will offer both. - Rhien.
  */
 void do_use(CHAR_DATA * ch, char *argument)
 {
