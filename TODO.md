@@ -82,3 +82,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add a field to type item type field of whether it can be set via OLC, then add OLC support
     to check that field before setting it.  This will allow for the creation of items with a
     type via code that you may not want people creating via OLC (like a healer's bind).
+  - comm.c bool check_parse_name (char *name):  add check to compare against interp commands.
+  - auto name generator methods
