@@ -1619,7 +1619,7 @@ bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
  */
 bool check_parse_name (char *name)
 {
-    int clan;
+    int x;
 
     // Reserved words.
     if (is_exact_name (name, "all auto immortal self someone something the you loner none"))
@@ -1627,11 +1627,20 @@ bool check_parse_name (char *name)
         return FALSE;
     }
 
-    // Check clans
-    for (clan = 0; clan < MAX_CLAN; clan++)
+    // Check against command table.
+    for (x = 0; cmd_table[x].name[0] != '\0'; x++)
     {
-        if (LOWER (name[0]) == LOWER (clan_table[clan].name[0])
-            && !str_cmp (name, clan_table[clan].name))
+        if (!str_cmp(name, cmd_table[x].name))
+        {
+            return FALSE;
+        }
+    }
+
+    // Check clans
+    for (x = 0; x < MAX_CLAN; x++)
+    {
+        if (LOWER (name[0]) == LOWER (clan_table[x].name[0])
+            && !str_cmp (name, clan_table[x].name))
             return FALSE;
     }
 
