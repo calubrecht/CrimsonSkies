@@ -28,6 +28,19 @@ Welcome Immortal!
 {R[{WHit Return to continue{R]{x
 ~
 
+0 USE~
+Syntax: use <object name>
+        use <object name> <target>
+
+The use command is a shortcut command that allows you to interact with a wide 
+variety of objects.  You can still quaff a potion, but you can also use 
+the 'use' command.  You can still zap with a wand, but you can also use the 
+'use' command to zap (this command is slightly more verbose but it allows you 
+to use a wide variety of items without having to remember the individual command 
+for each item type).
+
+~
+
 -1 PKILL PKILLING PKILLER 'PLAYER KILLING' PSTEAL PSTEALING 'PLAYER STEALING'~
 Player killing and player stealing are allowed to all clan members
 (including loners), provided the victim is is within 8 levels of the
@@ -183,28 +196,27 @@ Example:  PROMPT <%hhp %mm %vmv>
  
 ~
 -1 SUMMARY~
-MOVEMENT                            GROUP
+Basic game commands:
+
+{R[{WMOVEMENT{R]{x                          {R[{WGROUP{R]{x
 north south east west up down       follow group gtell split
 northwest northeast southeast
-southwest (n,s,e,w,u,d,nw,ne,
-se,sw)
+southwest (n,s,e,w,u,d,nw,ne,       {R[{WCOMBAT{R]{x
+se,sw)                              kill flee case wimpy
 exits recall
-sleep wake rest stand
+sleep wake rest stand               {R[{WOTHER{R]{x
+                                    save quit logout
+                                    practice train
 
-OBJECTS                             INFORMATION / COMMUNICATION
-get put drop give sacrifice         help commands areas
-wear wield hold                     report score time weather where who
+{R[{WOBJECTS{R]{x                           {R[{WINFORMATION / COMMUNICATION{R]{x
+get put drop give use               help commands areas
+wear wield hold sacrifice           report score time weather where who
 recite quaff zap brandish           description password title
 lock unlock open close pick         idea bug typo
 inventory equipment look compare    gossip cgossip say tell yell shout
 eat drink fill                      emote
 list buy sell value                 note, news, change, oocn, storyn,
                                     history
-
-COMBAT                              OTHER
-kill flee kick rescue disarm        save quit logout
-backstab cast wimpy                 practice train
-
 
 For more help, type 'help <topic>' for any command, skill, or spell.
 Also help on: DAMAGE DEATH EXPERIENCE NEWS STORY TICK WIZLIST
@@ -2769,7 +2781,8 @@ to gain experience to face the trials outside.  Be sure to practice a weapon
 in the guild room, or your stay with us shall be very short indeed.  Type
 '{gequipment{x' to see what your are wielding, '{gspells{x' to see your spells,
 '{gskills{x' to see your skills, and '{gcommands{x' for a list of commands. Help is
-available on most commands and abilities.
+available on most commands and abilities.  To use a wide variety of objects you may
+encounter you can use the 'use' command.
 
 Once you reach a minimum of level 10 you will have the ability to reclass
 into a more specialized class.  Type '{ghelp reclass{x' to read more about that.
