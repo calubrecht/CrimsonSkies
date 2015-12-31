@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,13 +18,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -78,10 +78,8 @@
     <ClCompile Include="src\act_move.c" />
     <ClCompile Include="src\act_obj.c" />
     <ClCompile Include="src\act_wiz.c" />
-    <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
-    <ClCompile Include="src\bit.c" />
-    <ClCompile Include="src\board.c" />
+    <ClCompile Include="src\bladesinger.c" />
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
@@ -89,27 +87,33 @@
     <ClCompile Include="src\enchantor.c" />
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
+    <ClCompile Include="src\healer.c" />
     <ClCompile Include="src\interp.c" />
+    <ClCompile Include="src\log.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
-    <ClCompile Include="src\mem.c" />
+    <ClCompile Include="src\misc.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />
     <ClCompile Include="src\nanny.c" />
+    <ClCompile Include="src\note.c" />
     <ClCompile Include="src\olc.c" />
     <ClCompile Include="src\olc_act.c" />
+    <ClCompile Include="src\olc_bit.c" />
+    <ClCompile Include="src\olc_mem.c" />
     <ClCompile Include="src\olc_save.c" />
+    <ClCompile Include="src\olc_string.c" />
     <ClCompile Include="src\recycle.c" />
     <ClCompile Include="src\save.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
-    <ClCompile Include="src\string.c" />
     <ClCompile Include="src\tables.c" />
     <ClCompile Include="src\update.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h" />
     <ClInclude Include="src\db.h" />
+    <ClInclude Include="src\gsn.h" />
     <ClInclude Include="src\interp.h" />
     <ClInclude Include="src\lookup.h" />
     <ClInclude Include="src\magic.h" />
