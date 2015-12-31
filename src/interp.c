@@ -24,6 +24,7 @@
 #if defined(_WIN32)
     #include <sys/types.h>
     #include <time.h>
+	#include <winsock2.h> // for timeval in Windows
 #else
     #include <sys/types.h>
     #include <sys/time.h>
