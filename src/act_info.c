@@ -2517,7 +2517,16 @@ void do_who (CHAR_DATA * ch, char *argument)
     int iLevelUpper;
     int nNumber;
     int nMatch;
+    
+#if !defined(_WIN32)
     bool rgfClass[top_class];
+#else
+    // This is a hack for Windows/Visual C++, the gcc compiler allows for variable length arrays so
+    // top_class is the number of classes dynamically read in.  This is akin to the old
+    // MAX_CLASS (which now defines the ceiling and not the actual max classes).
+    bool rgfClass[7];
+#endif
+
     bool rgfRace[MAX_PC_RACE];
     bool rgfClan[MAX_CLAN];
     bool fClassRestrict = FALSE;
