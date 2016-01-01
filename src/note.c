@@ -513,9 +513,14 @@ bool is_note_to( CHAR_DATA *ch, NOTE_DATA *pnote )
     if (get_trust(ch) >= IMPLEMENTOR )
         return TRUE;
 
-    // The note was sent to the sender
+    // The note was sent to the sender	
+#if !defined( _WIN32 )
     if ( !strcasecmp( ch->name, pnote->sender ) )
         return TRUE;
+#else
+	if (!_stricmp(ch->name, pnote->sender))
+		return TRUE;
+#endif
 
     // The note was sent to everyone
     if ( is_exact_name( "all", pnote->to_list ) )

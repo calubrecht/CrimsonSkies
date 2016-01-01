@@ -30,6 +30,7 @@ To fix:
 To fix:
 	- error C4996: 'write': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _write. See online help for details.	
 	- Add _WIN32 code and change write to _write
+	- Alt fix, use send instead of write in Windows.
 
 Additional Notes:
 

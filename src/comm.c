@@ -1604,11 +1604,23 @@ bool write_to_descriptor( int desc, char *str, int length, DESCRIPTOR_DATA *d )
     for ( iStart = 0; iStart < length; iStart += nWrite )
     {
         nBlock = UMIN( length - iStart, 4096 );
-        if ( ( nWrite = write( desc, buf_string(txt) + iStart, nBlock ) ) < 0 )
+
+#if !defined( _WIN32 )
+        // POSIX
+		if ( ( nWrite = write( desc, buf_string(txt) + iStart, nBlock ) ) < 0 )
         {
             return FALSE;
         }
-    }
+#else
+        // Windows
+		//if ((nWrite = _write(desc, buf_string(txt) + iStart, nBlock)) < 0)
+		if ((nWrite = send(desc, buf_string(txt) + iStart, nBlock, 0)) < 0)
+		{
+			return FALSE;
+		}
+#endif
+
+	}
 
     free_buf(txt);
     return TRUE;
