@@ -4,10 +4,10 @@ Crimson Skies Mud (CS-Mud)
 Crimson Skies is an open source MUD starting from ROM 2.4b6.  Useful features from other open source code bases
 (like Smaug) will be included as well as what will be a lot of custom code.  The first version release is nearing
 completion.  Classes, groups, skills and spells are loading from files and all have OLC built in so you can maintain
-all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).
+all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).  
 
-The current development server which is playable and will reflect the latest commits here is at (you can telnet or use
-a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
+The current development server which is stable and playable and will reflect the latest commits here is at (you can 
+telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
 
   - 66.244.102.112 port 4000
 
@@ -22,10 +22,9 @@ Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 14.04
   - Rasbian for use with the RaspberryPi
-  - ~~Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial 
+  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2013 & 2015, for your initial 
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
-    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)~~
-  - Windows compilation is temporarly broken, I will fix it, I temporarly neglected it.
+    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
 Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
@@ -36,13 +35,10 @@ open source/GitHub it has been under private development since 1998 (as my hobby
 
 ## Project Goals:
 
-  - To provide a code base that continues to evolve whereas many these days have stopped.
-  - To provide a ROM code base that includes creative additions that keep the same
-    feel of what made ROM great (I will be changing and re-organizing things though) and will probably
-    remove or drastically change some areas that don't fit imo (like the smurf village).  I would like
-    all of what I provide to not include smurfs.  I will be leaving villages like Midgaard and New 
-    Thalos which I find to be both iconic and nostalic.  Any old mudder can surely recall a battle
-    they had at the crossroads.
+  - To provide a code base that continues to evolve without losing the Rom feel and balance (whereas many these days 
+    have stopped or don't share their code).
+  - To provide a ROM code base that includes a world that is setup for pkill or roleplaying (e.g. the things like the
+    smurf village have been changed or removed).
   - Server side LUA to suppliment and/or replace standard mob progs (safe, feature rich and little
     chance of memory leaks, yes, yes and yes).
   - To document the old functions with descriptions and hopefully well document new functions.
@@ -53,7 +49,7 @@ open source/GitHub it has been under private development since 1998 (as my hobby
     will allow for dragging and dropping over rooms on a map (I had originally completed
     a program that did this back in 2000 and I will start from that concept).
   - I will be using both Nano on the Linux side and Visual Studio on the Windows side to
-    program for this (you can use anything you want if you decide to edit).  Visual Studio 2013 
+    program for this (you can use anything you want if you decide to edit).  Visual Studio 2015 
     allows some pretty cool intellisense which makes coding in C in this project way friendlier
     than back in the day when I was using solely pico.  The solution will compile and is fully
     debugable with Visual Studio which means you can run it and when it crashes you'll be sitting
