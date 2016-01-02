@@ -77,10 +77,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update do_mfind to have two columns like olc mlist
   - Add class/race multipliers to OLC.
   - Implement MCCP
-  - mudstrlcat from smaug
   - duress skill that allows player to do more damage if they are towards death.
   - Add a field to type item type field of whether it can be set via OLC, then add OLC support
     to check that field before setting it.  This will allow for the creation of items with a
     type via code that you may not want people creating via OLC (like a healer's bind).
-  - comm.c bool check_parse_name (char *name):  add check to compare against interp commands.
   - auto name generator methods
+  - Move base string functions into a new strings.c file (separate from the olc strings in olc_string).
