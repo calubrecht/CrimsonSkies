@@ -174,20 +174,20 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
     {
         if (ban_list == NULL)
         {
-            send_to_char("No sites banned at this time.\n\r", ch);
+            send_to_char("No sites banned at this time.\r\n", ch);
             return;
         }
 
         buffer = new_buf();
 
-        add_buf(buffer, "Banned sites  level  type     status\n\r");
+        add_buf(buffer, "Banned sites  level  type     status\r\n");
         for (pban = ban_list; pban != NULL; pban = pban->next)
         {
             sprintf(buf2, "%s%s%s",
                      IS_SET (pban->ban_flags, BAN_PREFIX) ? "*" : "",
                      pban->name,
                      IS_SET (pban->ban_flags, BAN_SUFFIX) ? "*" : "");
-            sprintf(buf, "%-12s    %-3d  %-7s  %s\n\r",
+            sprintf(buf, "%-12s    %-3d  %-7s  %s\r\n",
                      buf2, pban->level,
                      IS_SET (pban->ban_flags, BAN_NEWBIES) ? "newbies" :
                      IS_SET (pban->ban_flags, BAN_PERMIT) ? "permit" :
@@ -217,7 +217,7 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
     }
     else
     {
-        send_to_char("Acceptable ban types are all, newbies, and permit.\n\r", ch);
+        send_to_char("Acceptable ban types are all, newbies, and permit.\r\n", ch);
         return;
     }
 
@@ -237,7 +237,7 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
 
     if (strlen (name) == 0)
     {
-        send_to_char ("You have to ban SOMETHING.\n\r", ch);
+        send_to_char ("You have to ban SOMETHING.\r\n", ch);
         return;
     }
 
@@ -248,7 +248,7 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
         {
             if (pban->level > get_trust(ch))
             {
-                send_to_char("That ban was set by a higher power.\n\r", ch);
+                send_to_char("That ban was set by a higher power.\r\n", ch);
                 return;
             }
             else
@@ -283,7 +283,7 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
     pban->next = ban_list;
     ban_list = pban;
     save_bans();
-    sprintf(buf, "%s has been banned.\n\r", pban->name);
+    sprintf(buf, "%s has been banned.\r\n", pban->name);
     send_to_char(buf, ch);
     return;
 
@@ -320,7 +320,7 @@ void do_allow (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char("Remove which site from the ban list?\n\r", ch);
+        send_to_char("Remove which site from the ban list?\r\n", ch);
         return;
     }
 
@@ -331,7 +331,7 @@ void do_allow (CHAR_DATA * ch, char *argument)
         {
             if (curr->level > get_trust (ch))
             {
-                send_to_char("You are not powerful enough to lift that ban.\n\r", ch);
+                send_to_char("You are not powerful enough to lift that ban.\r\n", ch);
                 return;
             }
 
@@ -345,14 +345,14 @@ void do_allow (CHAR_DATA * ch, char *argument)
             }
 
             free_ban(curr);
-            sprintf(buf, "Ban on %s lifted.\n\r", arg);
+            sprintf(buf, "Ban on %s lifted.\r\n", arg);
             send_to_char(buf, ch);
             save_bans();
             return;
         }
     }
 
-    send_to_char("Site is not banned.\n\r", ch);
+    send_to_char("Site is not banned.\r\n", ch);
     return;
 
 } // end do_allow

@@ -441,7 +441,7 @@ void interpret (CHAR_DATA * ch, char *argument)
      */
     if (!IS_NPC (ch) && IS_SET (ch->act, PLR_FREEZE))
     {
-        send_to_char ("You're totally frozen!\n\r", ch);
+        send_to_char ("You're totally frozen!\r\n", ch);
         return;
     }
 
@@ -522,7 +522,7 @@ void interpret (CHAR_DATA * ch, char *argument)
     {
         write_to_buffer (ch->desc->snoop_by, "% ", 2);
         write_to_buffer (ch->desc->snoop_by, logline, 0);
-        write_to_buffer (ch->desc->snoop_by, "\n\r", 2);
+        write_to_buffer (ch->desc->snoop_by, "\r\n", 2);
     }
 
     if (timer)
@@ -551,7 +551,7 @@ void interpret (CHAR_DATA * ch, char *argument)
          * Look for command in socials table.
          */
         if (!check_social (ch, command, argument))
-            send_to_char ("Huh?\n\r", ch);
+            send_to_char ("Huh?\r\n", ch);
         return;
     }
 
@@ -563,32 +563,32 @@ void interpret (CHAR_DATA * ch, char *argument)
         switch (ch->position)
         {
             case POS_DEAD:
-                send_to_char ("Lie still; you are DEAD.\n\r", ch);
+                send_to_char ("Lie still; you are DEAD.\r\n", ch);
                 break;
 
             case POS_MORTAL:
             case POS_INCAP:
-                send_to_char ("You are hurt far too bad for that.\n\r", ch);
+                send_to_char ("You are hurt far too bad for that.\r\n", ch);
                 break;
 
             case POS_STUNNED:
-                send_to_char ("You are too stunned to do that.\n\r", ch);
+                send_to_char ("You are too stunned to do that.\r\n", ch);
                 break;
 
             case POS_SLEEPING:
-                send_to_char ("In your dreams, or what?\n\r", ch);
+                send_to_char ("In your dreams, or what?\r\n", ch);
                 break;
 
             case POS_RESTING:
-                send_to_char ("Nah... You feel too relaxed...\n\r", ch);
+                send_to_char ("Nah... You feel too relaxed...\r\n", ch);
                 break;
 
             case POS_SITTING:
-                send_to_char ("Better stand up first.\n\r", ch);
+                send_to_char ("Better stand up first.\r\n", ch);
                 break;
 
             case POS_FIGHTING:
-                send_to_char ("No way!  You are still fighting!\n\r", ch);
+                send_to_char ("No way!  You are still fighting!\r\n", ch);
                 break;
 
         }
@@ -657,23 +657,23 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
 
     if (!IS_NPC (ch) && IS_SET (ch->comm, COMM_NOEMOTE))
     {
-        send_to_char ("You are anti-social!\n\r", ch);
+        send_to_char ("You are anti-social!\r\n", ch);
         return TRUE;
     }
 
     switch (ch->position)
     {
         case POS_DEAD:
-            send_to_char ("Lie still; you are DEAD.\n\r", ch);
+            send_to_char ("Lie still; you are DEAD.\r\n", ch);
             return TRUE;
 
         case POS_INCAP:
         case POS_MORTAL:
-            send_to_char ("You are hurt far too bad for that.\n\r", ch);
+            send_to_char ("You are hurt far too bad for that.\r\n", ch);
             return TRUE;
 
         case POS_STUNNED:
-            send_to_char ("You are too stunned to do that.\n\r", ch);
+            send_to_char ("You are too stunned to do that.\r\n", ch);
             return TRUE;
 
         case POS_SLEEPING:
@@ -683,7 +683,7 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
              */
             if (!str_cmp (social_table[cmd].name, "snore"))
                 break;
-            send_to_char ("In your dreams, or what?\n\r", ch);
+            send_to_char ("In your dreams, or what?\r\n", ch);
             return TRUE;
 
     }
@@ -697,7 +697,7 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
     }
     else if ((victim = get_char_room (ch, arg)) == NULL)
     {
-        send_to_char ("They aren't here.\n\r", ch);
+        send_to_char ("They aren't here.\r\n", ch);
     }
     else if (victim == ch)
     {
@@ -874,12 +874,12 @@ void do_commands (CHAR_DATA * ch, char *argument)
             sprintf (buf, "%-12s", cmd_table[cmd].name);
             send_to_char (buf, ch);
             if (++col % 6 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
 
     if (col % 6 != 0)
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
     return;
 }
 
@@ -901,12 +901,12 @@ void do_wizhelp (CHAR_DATA * ch, char *argument)
             sprintf (buf, "%-12s", cmd_table[cmd].name);
             send_to_char (buf, ch);
             if (++col % 6 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
 
     if (col % 6 != 0)
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
     return;
 }
 
@@ -986,7 +986,7 @@ void substitute_alias (DESCRIPTOR_DATA * d, char *argument)
  */
 void do_alia (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("I'm sorry, alias must be entered in full.\n\r", ch);
+    send_to_char ("I'm sorry, alias must be entered in full.\r\n", ch);
     return;
 } // end do_alia
 
@@ -1017,10 +1017,10 @@ void do_alias (CHAR_DATA * ch, char *argument)
 
         if (rch->pcdata->alias[0] == NULL)
         {
-            send_to_char ("You have no aliases defined.\n\r", ch);
+            send_to_char ("You have no aliases defined.\r\n", ch);
             return;
         }
-        send_to_char ("Your current aliases are:\n\r", ch);
+        send_to_char ("Your current aliases are:\r\n", ch);
 
         for (pos = 0; pos < MAX_ALIAS; pos++)
         {
@@ -1028,12 +1028,12 @@ void do_alias (CHAR_DATA * ch, char *argument)
                 || rch->pcdata->alias_sub[pos] == NULL)
                 break;
 
-            sprintf (buf, "    %s:  %s\n\r", rch->pcdata->alias[pos],
+            sprintf (buf, "    %s:  %s\r\n", rch->pcdata->alias[pos],
                      rch->pcdata->alias_sub[pos]);
             send_to_char (buf, ch);
         }
 
-        sprintf(buf, "\n\rYou are currently using %d of your %d allotted aliases.\n\r", pos, MAX_ALIAS);
+        sprintf(buf, "\r\nYou are currently using %d of your %d allotted aliases.\r\n", pos, MAX_ALIAS);
         send_to_char(buf, ch);
 
         return;
@@ -1041,7 +1041,7 @@ void do_alias (CHAR_DATA * ch, char *argument)
 
     if (!str_prefix ("una", arg) || !str_cmp ("alias", arg))
     {
-        send_to_char ("Sorry, that word is reserved.\n\r", ch);
+        send_to_char ("Sorry, that word is reserved.\r\n", ch);
         return;
     }
 
@@ -1049,7 +1049,7 @@ void do_alias (CHAR_DATA * ch, char *argument)
     if (strchr(arg,' ')||strchr(arg,'"')||strchr(arg,'\''))
     {
         send_to_char("The word to be aliased should not contain a space, "
-            "a tick or a double-quote.\n\r",ch);
+            "a tick or a double-quote.\r\n",ch);
         return;
     }
 
@@ -1063,7 +1063,7 @@ void do_alias (CHAR_DATA * ch, char *argument)
 
             if (!str_cmp (arg, rch->pcdata->alias[pos]))
             {
-                sprintf (buf, "%s aliases to '%s'.\n\r",
+                sprintf (buf, "%s aliases to '%s'.\r\n",
                          rch->pcdata->alias[pos],
                          rch->pcdata->alias_sub[pos]);
                 send_to_char (buf, ch);
@@ -1071,13 +1071,13 @@ void do_alias (CHAR_DATA * ch, char *argument)
             }
         }
 
-        send_to_char ("That alias is not defined.\n\r", ch);
+        send_to_char ("That alias is not defined.\r\n", ch);
         return;
     }
 
     if (!str_prefix (argument, "delete") || !str_prefix (argument, "prefix"))
     {
-        send_to_char ("That shall not be done!\n\r", ch);
+        send_to_char ("That shall not be done!\r\n", ch);
         return;
     }
 
@@ -1090,7 +1090,7 @@ void do_alias (CHAR_DATA * ch, char *argument)
         {                        /* redefine an alias */
             free_string (rch->pcdata->alias_sub[pos]);
             rch->pcdata->alias_sub[pos] = str_dup (argument);
-            sprintf (buf, "%s is now realiased to '%s'.\n\r", arg, argument);
+            sprintf (buf, "%s is now realiased to '%s'.\r\n", arg, argument);
             send_to_char (buf, ch);
             return;
         }
@@ -1098,14 +1098,14 @@ void do_alias (CHAR_DATA * ch, char *argument)
 
     if (pos >= MAX_ALIAS)
     {
-        send_to_char ("Sorry, you have reached the alias limit.\n\r", ch);
+        send_to_char ("Sorry, you have reached the alias limit.\r\n", ch);
         return;
     }
 
     /* make a new alias */
     rch->pcdata->alias[pos] = str_dup (arg);
     rch->pcdata->alias_sub[pos] = str_dup (argument);
-    sprintf (buf, "%s is now aliased to '%s'.\n\r", arg, argument);
+    sprintf (buf, "%s is now aliased to '%s'.\r\n", arg, argument);
     send_to_char (buf, ch);
 } // end do_alias
 
@@ -1131,7 +1131,7 @@ void do_unalias (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Unalias what?\n\r", ch);
+        send_to_char ("Unalias what?\r\n", ch);
         return;
     }
 
@@ -1151,7 +1151,7 @@ void do_unalias (CHAR_DATA * ch, char *argument)
 
         if (!strcmp (arg, rch->pcdata->alias[pos]))
         {
-            send_to_char ("Alias removed.\n\r", ch);
+            send_to_char ("Alias removed.\r\n", ch);
             free_string (rch->pcdata->alias[pos]);
             free_string (rch->pcdata->alias_sub[pos]);
             rch->pcdata->alias[pos] = NULL;
@@ -1161,7 +1161,7 @@ void do_unalias (CHAR_DATA * ch, char *argument)
     }
 
     if (!found)
-        send_to_char ("No alias of that name to remove.\n\r", ch);
+        send_to_char ("No alias of that name to remove.\r\n", ch);
 } // end do_unalias
 
 /*

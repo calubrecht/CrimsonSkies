@@ -45,7 +45,7 @@ extern char strArea[MAX_INPUT_LENGTH];
 // Level to post a note
 #define NOTE_LEVEL 1
 
-#define HEADER "--------------------------------------------------------------------------------\n\r"
+#define HEADER "--------------------------------------------------------------------------------\r\n"
 
 /* local procedures */
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time);
@@ -97,7 +97,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,news_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"There %s %d new news article%s waiting.\n\r",
+        sprintf(buf,"There %s %d new news article%s waiting.\r\n",
             count > 1 ? "are" : "is",count, count > 1 ? "s" : "");
 	send_to_char(buf,ch);
     }
@@ -105,7 +105,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,changes_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"There %s %d change%s waiting to be read.\n\r",
+        sprintf(buf,"There %s %d change%s waiting to be read.\r\n",
             count > 1 ? "are" : "is", count, count > 1 ? "s" : "");
         send_to_char(buf,ch);
     }
@@ -113,7 +113,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,note_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"You have %d new note%s waiting.\n\r",
+        sprintf(buf,"You have %d new note%s waiting.\r\n",
             count, count > 1 ? "s" : "");
         send_to_char(buf,ch);
     }
@@ -121,7 +121,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,ooc_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"You have %d new ooc note%s waiting.\n\r",
+        sprintf(buf,"You have %d new ooc note%s waiting.\r\n",
             count, count > 1 ? "s" : "");
         send_to_char(buf,ch);
     }
@@ -129,7 +129,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,story_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"%d %s been added.\n\r",
+        sprintf(buf,"%d %s been added.\r\n",
             count, count > 1 ? "story notes have" : "story note has");
         send_to_char(buf,ch);
     }
@@ -137,7 +137,7 @@ void do_unread(CHAR_DATA *ch)
     if ((count = count_spool(ch,history_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"%d %s been added.\n\r",
+        sprintf(buf,"%d %s been added.\r\n",
             count, count > 1 ? "history notes have" : "history note has");
         send_to_char(buf,ch);
     }
@@ -145,7 +145,7 @@ void do_unread(CHAR_DATA *ch)
     if (IS_IMMORTAL(ch) && (count = count_spool(ch,penalty_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"%d %s been added.\n\r",
+        sprintf(buf,"%d %s been added.\r\n",
             count, count > 1 ? "penalties have" : "penalty has");
         send_to_char(buf,ch);
     }
@@ -153,14 +153,14 @@ void do_unread(CHAR_DATA *ch)
     if (IS_IMMORTAL(ch) && (count = count_spool(ch,immnote_list)) > 0)
     {
         found = TRUE;
-        sprintf(buf,"%d %s been added.\n\r",
+        sprintf(buf,"%d %s been added.\r\n",
             count, count > 1 ? "imm notes have" : "imm note has");
         send_to_char(buf,ch);
     }
 
     if (!found)
     {
-        send_to_char("You have no unread notes.\n\r",ch);
+        send_to_char("You have no unread notes.\r\n",ch);
     }
 
 } // end do_unread
@@ -496,7 +496,7 @@ void remote_notify( NOTE_DATA *pnote )
 
         if ( d->connected == CON_PLAYING && notify(d->character,pnote))
         {
-            sprintf(buf,"%s left you a note in the %s spool!{!\n\r",pnote->sender,list_name);
+            sprintf(buf,"%s left you a note in the %s spool!{!\r\n",pnote->sender,list_name);
             send_to_char(buf,d->character);
         }
     }
@@ -914,7 +914,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             {
                 if (!hide_note(ch,pnote))
                 {
-                    sprintf( buf, "[%3d] %s: %s\n\r%s\n\rTo: %s\n\r",
+                    sprintf( buf, "[%3d] %s: %s\r\n%s\r\nTo: %s\r\n",
                         vnum,
                         pnote->sender,
                         pnote->subject,
@@ -935,7 +935,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                     vnum++;
                 }
             }
-            sprintf(buf,"You have no unread %s.\n\r",list_name);
+            sprintf(buf,"You have no unread %s.\r\n",list_name);
             send_to_char(buf,ch);
             return;
         }
@@ -946,7 +946,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         }
         else
         {
-            send_to_char( "Read which number?\n\r", ch );
+            send_to_char( "Read which number?\r\n", ch );
             return;
         }
 
@@ -955,7 +955,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         {
             if ( is_note_to( ch, pnote ) && ( vnum++ == anum || fAll ) )
             {
-                sprintf( buf, "[%3d] %s: %s\n\r%s\n\rTo: %s\n\r",
+                sprintf( buf, "[%3d] %s: %s\r\n%s\r\nTo: %s\r\n",
                         vnum - 1,
                         pnote->sender,
                         pnote->subject,
@@ -973,7 +973,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             }
         }
 
-        sprintf(buf,"There aren't that many %s.\n\r",list_name);
+        sprintf(buf,"There aren't that many %s.\r\n",list_name);
         send_to_char(buf,ch);
         return;
     }
@@ -992,7 +992,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         {
             if (!hide_note(ch,pnote) && !str_cmp(ch->name,pnote->to_list))
             {
-                sprintf( buf, "[%3d] %s: %s\n\r%s\n\rTo: %s\n\r",
+                sprintf( buf, "[%3d] %s: %s\r\n%s\r\nTo: %s\r\n",
                             vnum,
                             pnote->sender,
                             pnote->subject,
@@ -1013,7 +1013,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                     vnum++;
              }
         }
-        sprintf(buf,"You have no unread %s.\n\r",list_name);
+        sprintf(buf,"You have no unread %s.\r\n",list_name);
         send_to_char(buf,ch);
         return;
     }
@@ -1053,7 +1053,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         	case 1:
             	    if ( str_list(pnote->to_list, argument) && hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                     	    vnum, hide_note(ch,pnote) ? " " : "N",
                     	   pnote->sender, pnote->subject );
                         count++;
@@ -1063,7 +1063,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 2:
                     if ( str_list(pnote->to_list, argument) && !hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                         pnote->sender, pnote->subject );
                         count++;
@@ -1073,7 +1073,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 3:
                     if ( str_list(pnote->to_list, argument) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                         pnote->sender, pnote->subject );
                         count++;
@@ -1094,7 +1094,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 1:
                     if ( str_list(pnote->subject, argument) && hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1104,7 +1104,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 2:
                     if ( str_list(pnote->subject, argument) && !hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1114,7 +1114,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             	case 3:
                     if ( str_list(pnote->subject, argument) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1137,7 +1137,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 1:
                     if ( !str_cmp(pnote->sender, argument) && hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1147,7 +1147,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 2:
                     if ( !str_cmp(pnote->sender, argument) && !hide_note(ch,pnote) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1157,7 +1157,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
                 case 3:
                     if ( !str_cmp(pnote->sender, argument) && is_note_to(ch,pnote))
                     {
-                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                        sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                             vnum, hide_note(ch,pnote) ? " " : "N",
                             pnote->sender, pnote->subject );
                         count++;
@@ -1172,7 +1172,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             }
         }
 
-        sprintf(buf, "Your search returned a total of %d matches in the %s spool using:%s\n\r\n\r",count,list_name,argument);
+        sprintf(buf, "Your search returned a total of %d matches in the %s spool using:%s\r\n\r\n",count,list_name,argument);
         send_to_char(buf,ch);
         page_to_char(buf_string(output),ch);
 
@@ -1181,28 +1181,28 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             switch(type)
             {
                 case NOTE_NOTE:
-                    send_to_char("There are no notes for you.\n\r",ch);
+                    send_to_char("There are no notes for you.\r\n",ch);
                     break;
                 case NOTE_STORY:
-                    send_to_char("There are no story notes for you.\n\r",ch);
+                    send_to_char("There are no story notes for you.\r\n",ch);
                     break;
                 case NOTE_OOC:
-                    send_to_char("There are no ooc notes for you.\n\r",ch);
+                    send_to_char("There are no ooc notes for you.\r\n",ch);
                     break;
                 case NOTE_PENALTY:
-                    send_to_char("There are no penalties for you.\n\r",ch);
+                    send_to_char("There are no penalties for you.\r\n",ch);
                     break;
                 case NOTE_NEWS:
-                    send_to_char("There is no news for you.\n\r",ch);
+                    send_to_char("There is no news for you.\r\n",ch);
                     break;
                 case NOTE_CHANGES:
-                    send_to_char("There are no changes for you.\n\r",ch);
+                    send_to_char("There are no changes for you.\r\n",ch);
                     break;
                 case NOTE_HISTORY:
-                    send_to_char("There are no history notes for you.\n\r",ch);
+                    send_to_char("There are no history notes for you.\r\n",ch);
                     break;
                 case NOTE_IMM:
-                    send_to_char("There are no imm notes for you.\n\r",ch);
+                    send_to_char("There are no imm notes for you.\r\n",ch);
                     break;
             }
         }
@@ -1220,7 +1220,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         {
             if ( is_note_to( ch, pnote ) )
             {
-                sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                     vnum, hide_note(ch,pnote) ? " " : "N",
                     pnote->sender, pnote->subject );
 		add_buf(output,buf);
@@ -1238,28 +1238,28 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             switch(type)
             {
         	case NOTE_NOTE:
-                    send_to_char("There are no notes for you.\n\r",ch);
+                    send_to_char("There are no notes for you.\r\n",ch);
                     break;
                 case NOTE_STORY:
-                    send_to_char("There are no story notes for you.\n\r",ch);
+                    send_to_char("There are no story notes for you.\r\n",ch);
                     break;
                 case NOTE_OOC:
-                    send_to_char("There are no ooc notes for you.\n\r",ch);
+                    send_to_char("There are no ooc notes for you.\r\n",ch);
                     break;
                 case NOTE_PENALTY:
-                    send_to_char("There are no penalties for you.\n\r",ch);
+                    send_to_char("There are no penalties for you.\r\n",ch);
                     break;
                 case NOTE_NEWS:
-                    send_to_char("There is no news for you.\n\r",ch);
+                    send_to_char("There is no news for you.\r\n",ch);
                     break;
                 case NOTE_CHANGES:
-                    send_to_char("There are no changes for you.\n\r",ch);
+                    send_to_char("There are no changes for you.\r\n",ch);
                     break;
                 case NOTE_HISTORY:
-                    send_to_char("There are no history notes for you.\n\r",ch);
+                    send_to_char("There are no history notes for you.\r\n",ch);
                     break;
                 case NOTE_IMM:
-                    send_to_char("There are no imm notes for you.\n\r",ch);
+                    send_to_char("There are no imm notes for you.\r\n",ch);
                     break;
 	    }
 	}
@@ -1276,7 +1276,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         {
             if ( is_note_to( ch, pnote ) && !hide_note(ch,pnote))
             {
-                sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\n\r",
+                sprintf( buf, "[{G%3d{X%s{x] {R%s{x: {C%s{x\r\n",
                     vnum, hide_note(ch,pnote) ? " " : "N",
                     pnote->sender, pnote->subject );
                 add_buf(output,buf);
@@ -1294,7 +1294,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 
         if (!count)
         {
-          send_to_char("There are no notes of that spool for you.\n\r", ch);
+          send_to_char("There are no notes of that spool for you.\r\n", ch);
         }
 
         return;
@@ -1304,7 +1304,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     {
         if ( !is_number( argument ) )
         {
-            send_to_char( "Note remove which number?\n\r", ch );
+            send_to_char( "Note remove which number?\r\n", ch );
             return;
         }
 
@@ -1315,12 +1315,12 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             if ( is_note_to( ch, pnote ) && vnum++ == anum )
             {
                 note_remove( ch, pnote, FALSE );
-                send_to_char( "Ok.\n\r", ch );
+                send_to_char( "Ok.\r\n", ch );
                 return;
             }
         }
 
-        sprintf(buf,"There aren't that many %s.\n\r",list_name);
+        sprintf(buf,"There aren't that many %s.\r\n",list_name);
         send_to_char(buf,ch);
         return;
     }
@@ -1329,7 +1329,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     {
         if ( !is_number( argument ) )
         {
-            send_to_char( "Note delete which number?\n\r", ch );
+            send_to_char( "Note delete which number?\r\n", ch );
             return;
         }
 
@@ -1340,12 +1340,12 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             if ( is_note_to( ch, pnote ) && vnum++ == anum )
             {
                 note_remove( ch, pnote,TRUE );
-                send_to_char( "Ok.\n\r", ch );
+                send_to_char( "Ok.\r\n", ch );
                 return;
             }
         }
 
-        sprintf(buf,"There aren't that many %s.\n\r",list_name);
+        sprintf(buf,"There aren't that many %s.\r\n",list_name);
         send_to_char(buf,ch);
         return;
     }
@@ -1388,7 +1388,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     || (type == NOTE_CHANGES && !IS_IMMORTAL(ch))
     || (type == NOTE_IMM && !IS_IMMORTAL(ch)))
     {
-	sprintf(buf,"You must be an immortal to write %s.\n\r",list_name);
+	sprintf(buf,"You must be an immortal to write %s.\r\n",list_name);
 	send_to_char(buf,ch);
 	return;
     }
@@ -1398,24 +1398,24 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         note_attach( ch,type );
         if (ch->pnote->type != type)
         {
-            send_to_char("You already have a different note in progress.\n\r",ch);
+            send_to_char("You already have a different note in progress.\r\n",ch);
             return;
         }
 
         if (strlen(ch->pnote->text)+strlen(argument) >= 4096)
         {
-            send_to_char( "Note too long.\n\r", ch );
+            send_to_char( "Note too long.\r\n", ch );
             return;
         }
 
         buffer = new_buf();
         add_buf(buffer,ch->pnote->text);
         add_buf(buffer,argument);
-        add_buf(buffer,"\n\r");
+        add_buf(buffer,"\r\n");
         free_string( ch->pnote->text );
         ch->pnote->text = str_dup( buf_string(buffer) );
         free_buf(buffer);
-        send_to_char( "Ok.\n\r", ch );
+        send_to_char( "Ok.\r\n", ch );
         return;
     }
 
@@ -1424,7 +1424,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         note_attach( ch,type );
         if (ch->pnote->type != type)
         {
-            send_to_char("You already have a different note in progress.\n\r",ch);
+            send_to_char("You already have a different note in progress.\r\n",ch);
             return;
         }
 
@@ -1440,13 +1440,13 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         note_attach(ch,type);
         if (ch->pnote->type != type)
         {
-            send_to_char("You already have a different note in progress.\n\r",ch);
+            send_to_char("You already have a different note in progress.\r\n",ch);
             return;
         }
 
         if (ch->pnote->text == NULL || ch->pnote->text[0] == '\0')
         {
-            send_to_char("No lines left to remove.\n\r",ch);
+            send_to_char("No lines left to remove.\r\n",ch);
             return;
         }
 
@@ -1482,13 +1482,13 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         note_attach( ch,type );
         if (ch->pnote->type != type)
         {
-            send_to_char("You already have a different note in progress.\n\r",ch);
+            send_to_char("You already have a different note in progress.\r\n",ch);
             return;
         }
 
         free_string( ch->pnote->subject );
         ch->pnote->subject = str_dup( argument );
-        send_to_char( "Ok.\n\r", ch );
+        send_to_char( "Ok.\r\n", ch );
         return;
     }
 
@@ -1497,12 +1497,12 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	note_attach( ch,type );
         if (ch->pnote->type != type)
         {
-            send_to_char("You already have a different note in progress.\n\r",ch);
+            send_to_char("You already have a different note in progress.\r\n",ch);
             return;
         }
         free_string( ch->pnote->to_list );
         ch->pnote->to_list = str_dup( argument );
-        send_to_char( "Ok.\n\r", ch );
+        send_to_char( "Ok.\r\n", ch );
         return;
     }
 
@@ -1510,7 +1510,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     {
         if (!ch->pnote)
         {
-             send_to_char("You don't have a note in progress.\n\r",ch);
+             send_to_char("You don't have a note in progress.\r\n",ch);
              return;
         }
         argument = one_argument( argument, arg );
@@ -1533,12 +1533,12 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             type = NOTE_HISTORY;
         else
         {
-            send_to_char ("That spool doesn't exist!\n\r",ch);
+            send_to_char ("That spool doesn't exist!\r\n",ch);
             return;
         }
 
         ch->pnote->type = type;
-        send_to_char("Ok.\n\r",ch);
+        send_to_char("Ok.\r\n",ch);
          return;
     }
 
@@ -1550,7 +1550,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
             ch->pnote = NULL;
         }
 
-        send_to_char( "Ok.\n\r", ch );
+        send_to_char( "Ok.\r\n", ch );
         return;
     }
 
@@ -1558,17 +1558,17 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     {
         if ( ch->pnote == NULL )
         {
-            send_to_char( "You have no note in progress.\n\r", ch );
+            send_to_char( "You have no note in progress.\r\n", ch );
             return;
         }
 
         if (ch->pnote->type != type)
         {
-            send_to_char("You aren't working on that kind of note.\n\r",ch);
+            send_to_char("You aren't working on that kind of note.\r\n",ch);
             return;
         }
 
-        sprintf( buf, "%s: %s\n\rTo: %s\n\r", ch->pnote->sender, ch->pnote->subject, ch->pnote->to_list);
+        sprintf( buf, "%s: %s\r\nTo: %s\r\n", ch->pnote->sender, ch->pnote->subject, ch->pnote->to_list);
         output = new_buf();
         add_buf(output,HEADER);
         add_buf(output,buf);
@@ -1583,18 +1583,18 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
     {
         if ( ch->pnote == NULL )
         {
-            send_to_char( "You have no note in progress.\n\r", ch );
+            send_to_char( "You have no note in progress.\r\n", ch );
             return;
         }
 
         if (ch->pnote->type != type)
         {
-            send_to_char("You aren't working on that kind of note.\n\r",ch);
+            send_to_char("You aren't working on that kind of note.\r\n",ch);
             return;
         }
 
         ch->pnote->text = format_string( ch->pnote->text );
-        send_to_char( "Your note has now been formatted.\n\r", ch );
+        send_to_char( "Your note has now been formatted.\r\n", ch );
         return;
     }
 
@@ -1604,32 +1604,32 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 
         if ( ch->pnote == NULL )
         {
-            send_to_char( "You have no note in progress.\n\r", ch );
+            send_to_char( "You have no note in progress.\r\n", ch );
             return;
         }
 
         if ( ch->level < NOTE_LEVEL )
         {
-            sprintf(buf, "You cannot post public notes until you are level %d.\n\r", NOTE_LEVEL);
+            sprintf(buf, "You cannot post public notes until you are level %d.\r\n", NOTE_LEVEL);
             send_to_char(buf, ch );
             return;
         }
 
         if (ch->pnote->type != type)
         {
-            send_to_char("You aren't working on that kind of note.\n\r",ch);
+            send_to_char("You aren't working on that kind of note.\r\n",ch);
             return;
         }
 
         if (!str_cmp(ch->pnote->to_list,""))
         {
-            send_to_char("You need to provide a recipient (name, all, or immortal).\n\r", ch);
+            send_to_char("You need to provide a recipient (name, all, or immortal).\r\n", ch);
             return;
         }
 
         if (!str_cmp(ch->pnote->subject,""))
         {
-            send_to_char("You need to provide a subject.\n\r",ch);
+            send_to_char("You need to provide a subject.\r\n",ch);
             return;
         }
 
@@ -1640,7 +1640,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
         ch->pnote->date_stamp = current_time;
 
         append_note(ch->pnote);
-        send_to_char("Thank you for contributing.\n\r", ch);
+        send_to_char("Thank you for contributing.\r\n", ch);
 
         // TODO - notifications
         remote_notify(ch->pnote);
@@ -1650,7 +1650,7 @@ void parse_note( CHAR_DATA *ch, char *argument, int type )
 	return;
     }
 
-    send_to_char( "You can't do that.\n\r", ch );
+    send_to_char( "You can't do that.\r\n", ch );
     return;
 } // end void parse_note
 
@@ -1713,13 +1713,13 @@ void forward_note(CHAR_DATA *ch,NOTE_DATA *spoolfrom, char *argument,char *list_
     }
     else
     {
-        send_to_char( "Forward which note?\n\r", ch );
+        send_to_char( "Forward which note?\r\n", ch );
         return;
     }
 
     if ( ch->level < NOTE_LEVEL )
     {
-        sprintf(buf, "You cannot forward notes until you are level %d.\n\r", NOTE_LEVEL);
+        sprintf(buf, "You cannot forward notes until you are level %d.\r\n", NOTE_LEVEL);
         send_to_char(buf, ch );
         return;
     }
@@ -1760,7 +1760,7 @@ void forward_note(CHAR_DATA *ch,NOTE_DATA *spoolfrom, char *argument,char *list_
     }
     else
     {
-        sprintf(buf,"%s number spool to_list\n\r",list_name);
+        sprintf(buf,"%s number spool to_list\r\n",list_name);
         send_to_char(buf,ch);
         return;
     }
@@ -1787,21 +1787,21 @@ void forward_note(CHAR_DATA *ch,NOTE_DATA *spoolfrom, char *argument,char *list_
 	pNoteTo->to_list = str_dup (argument);
 	sprintf (buf,"Fw: %s", pNoteFrom->subject);
 	pNoteTo->subject = str_dup( buf);
-	sprintf (buf,"\n\r| -----Original Message-----\n\r| From: %s\n\r| To:  %s\n\r| Subject: %s\n\r| Date: %s\n\r\n\r", pNoteFrom->sender,pNoteFrom->to_list,pNoteFrom->subject,pNoteFrom->date);
+	sprintf (buf,"\r\n| -----Original Message-----\r\n| From: %s\r\n| To:  %s\r\n| Subject: %s\r\n| Date: %s\r\n\r\n", pNoteFrom->sender,pNoteFrom->to_list,pNoteFrom->subject,pNoteFrom->date);
   	add_buf(buffer,buf);
         add_buf(buffer,pNoteFrom->text);
         pNoteTo->text = str_dup( buf_string(buffer) );
         pNoteTo->type = type;
         free_buf(buffer);
         append_note(pNoteTo);
-        send_to_char("Thank you for contributing.\n\r", ch);
+        send_to_char("Thank you for contributing.\r\n", ch);
 
         remote_notify(pNoteTo);
         // TODO - add notification
     }
     else
     {
-        sprintf(buf,"There aren't that many %s.\n\r",list_name);
+        sprintf(buf,"There aren't that many %s.\r\n",list_name);
         send_to_char(buf,ch);
     }
     return;
@@ -1826,6 +1826,6 @@ void do_catchup( CHAR_DATA *ch, char *argument )
     ch->pcdata->last_immnote = current_time;
     ch->pcdata->last_penalty = current_time;
 
-    send_to_char("Your note spools have been caught up.\n\r", ch);
+    send_to_char("Your note spools have been caught up.\r\n", ch);
 
 } // end do_catchup

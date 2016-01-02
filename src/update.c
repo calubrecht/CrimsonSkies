@@ -120,7 +120,7 @@ void advance_level (CHAR_DATA * ch, bool hide)
     if (!hide)
     {
         sprintf (buf,
-                 "You gain %d hit point%s, %d mana, %d move, %d practice%s and %d train%s.\n\r",
+                 "You gain %d hit point%s, %d mana, %d move, %d practice%s and %d train%s.\r\n",
                  add_hp, add_hp == 1 ? "" : "s", add_mana, add_move,
                  add_prac, add_prac == 1 ? "" : "s",
 		 add_train, add_train == 1 ? "" : "s");
@@ -140,7 +140,7 @@ void gain_exp (CHAR_DATA * ch, int gain)
     while (ch->level < LEVEL_HERO && ch->exp >=
            exp_per_level (ch, ch->pcdata->points) * (ch->level + 1))
     {
-        send_to_char ("{GYou raise a level!!{x\n\r", ch);
+        send_to_char ("{GYou raise a level!!{x\r\n", ch);
         ch->level += 1;
         sprintf (buf, "%s gained level %d", ch->name, ch->level);
         log_string (buf);
@@ -443,16 +443,16 @@ void gain_condition (CHAR_DATA * ch, int iCond, int value)
         switch (iCond)
         {
             case COND_HUNGER:
-                send_to_char ("You are hungry.\n\r", ch);
+                send_to_char ("You are hungry.\r\n", ch);
                 break;
 
             case COND_THIRST:
-                send_to_char ("You are thirsty.\n\r", ch);
+                send_to_char ("You are thirsty.\r\n", ch);
                 break;
 
             case COND_DRUNK:
                 if (condition != 0)
-                    send_to_char ("You are sober.\n\r", ch);
+                    send_to_char ("You are sober.\r\n", ch);
                 break;
         }
     }
@@ -598,22 +598,22 @@ void weather_update (void)
     {
         case 5:
             weather_info.sunlight = SUN_LIGHT;
-            strcat (buf, "The day has begun.\n\r");
+            strcat (buf, "The day has begun.\r\n");
             break;
 
         case 6:
             weather_info.sunlight = SUN_RISE;
-            strcat (buf, "The sun rises in the east.\n\r");
+            strcat (buf, "The sun rises in the east.\r\n");
             break;
 
         case 19:
             weather_info.sunlight = SUN_SET;
-            strcat (buf, "The sun slowly disappears in the west.\n\r");
+            strcat (buf, "The sun slowly disappears in the west.\r\n");
             break;
 
         case 20:
             weather_info.sunlight = SUN_DARK;
-            strcat (buf, "The night has begun.\n\r");
+            strcat (buf, "The night has begun.\r\n");
             break;
 
         case 24:
@@ -661,7 +661,7 @@ void weather_update (void)
             if (weather_info.mmhg < 990
                 || (weather_info.mmhg < 1010 && number_bits (2) == 0))
             {
-                strcat (buf, "The sky is getting cloudy.\n\r");
+                strcat (buf, "The sky is getting cloudy.\r\n");
                 weather_info.sky = SKY_CLOUDY;
             }
             break;
@@ -670,13 +670,13 @@ void weather_update (void)
             if (weather_info.mmhg < 970
                 || (weather_info.mmhg < 990 && number_bits (2) == 0))
             {
-                strcat (buf, "It starts to rain.\n\r");
+                strcat (buf, "It starts to rain.\r\n");
                 weather_info.sky = SKY_RAINING;
             }
 
             if (weather_info.mmhg > 1030 && number_bits (2) == 0)
             {
-                strcat (buf, "The clouds disappear.\n\r");
+                strcat (buf, "The clouds disappear.\r\n");
                 weather_info.sky = SKY_CLOUDLESS;
             }
             break;
@@ -684,14 +684,14 @@ void weather_update (void)
         case SKY_RAINING:
             if (weather_info.mmhg < 970 && number_bits (2) == 0)
             {
-                strcat (buf, "Lightning flashes in the sky.\n\r");
+                strcat (buf, "Lightning flashes in the sky.\r\n");
                 weather_info.sky = SKY_LIGHTNING;
             }
 
             if (weather_info.mmhg > 1030
                 || (weather_info.mmhg > 1010 && number_bits (2) == 0))
             {
-                strcat (buf, "The rain stopped.\n\r");
+                strcat (buf, "The rain stopped.\r\n");
                 weather_info.sky = SKY_CLOUDY;
             }
             break;
@@ -700,7 +700,7 @@ void weather_update (void)
             if (weather_info.mmhg > 1010
                 || (weather_info.mmhg > 990 && number_bits (2) == 0))
             {
-                strcat (buf, "The lightning has stopped.\n\r");
+                strcat (buf, "The lightning has stopped.\r\n");
                 weather_info.sky = SKY_RAINING;
                 break;
             }
@@ -822,7 +822,7 @@ void char_update (void)
                         stop_fighting (ch, TRUE);
                     act ("$n disappears into the void.",
                          ch, NULL, NULL, TO_ROOM);
-                    send_to_char ("You disappear into the void.\n\r", ch);
+                    send_to_char ("You disappear into the void.\r\n", ch);
                     if (ch->level > 1)
                         save_char_obj (ch);
                     char_from_room (ch);
@@ -855,7 +855,7 @@ void char_update (void)
                     if (paf->type > 0 && skill_table[paf->type]->msg_off)
                     {
                         send_to_char (skill_table[paf->type]->msg_off, ch);
-                        send_to_char ("\n\r", ch);
+                        send_to_char ("\r\n", ch);
                     }
                 }
 
@@ -880,7 +880,7 @@ void char_update (void)
 
             act ("$n writhes in agony as plague sores erupt from $s skin.",
                  ch, NULL, NULL, TO_ROOM);
-            send_to_char ("You writhe in agony from the plague.\n\r", ch);
+            send_to_char ("You writhe in agony from the plague.\r\n", ch);
             for (af = ch->affected; af != NULL; af = af->next)
             {
                 if (af->type == gsn_plague)
@@ -911,7 +911,7 @@ void char_update (void)
                     && !IS_IMMORTAL (vch)
                     && !IS_AFFECTED (vch, AFF_PLAGUE) && number_bits (4) == 0)
                 {
-                    send_to_char ("You feel hot and feverish.\n\r", vch);
+                    send_to_char ("You feel hot and feverish.\r\n", vch);
                     act ("$n shivers and looks very ill.", vch, NULL, NULL,
                          TO_ROOM);
                     affect_join (vch, &plague);
@@ -933,7 +933,7 @@ void char_update (void)
             if (poison != NULL)
             {
                 act ("$n shivers and suffers.", ch, NULL, NULL, TO_ROOM);
-                send_to_char ("You shiver and suffer.\n\r", ch);
+                send_to_char ("You shiver and suffer.\r\n", ch);
                 damage (ch, ch, poison->level / 10 + 1, gsn_poison,
                         DAM_POISON, FALSE);
             }
@@ -1331,7 +1331,7 @@ void tick_update()
             }
             else
             {
-                sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x cancelled.\n\r");
+                sprintf (buf, "\r\n{RWARNING{x: auto-{R{*copyover{x cancelled.\r\n");
                 send_to_all_char(buf);
             }
 
@@ -1339,7 +1339,7 @@ void tick_update()
         else
         {
             // Show the current countdown to the game.
-            sprintf (buf, "\n\r{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick(s).\n\r",
+            sprintf (buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick(s).\r\n",
                  copyover_timer);
             send_to_all_char(buf);
         }
@@ -1370,7 +1370,7 @@ void half_tick_update()
             // Only show the healing message if they're actually healing
             if (ch->hit < ch->max_hit)
             {
-                send_to_char("You feel a healing presence throughout your body\n\r", ch);
+                send_to_char("You feel a healing presence throughout your body\r\n", ch);
             }
 
         }
@@ -1422,13 +1422,13 @@ void shore_update()
     switch (number_range(0, 2))
     {
         case 0:
-             sprintf(buf,"{cThe waves from the ocean gently roll onto the shore that surrounds you.{x\n\r");
+             sprintf(buf,"{cThe waves from the ocean gently roll onto the shore that surrounds you.{x\r\n");
              break;
         case 1:
-             sprintf(buf,"{cWaves gently break as they reach the shore and a light breeze from the{x\n\r{cocean flows in.{x\n\r");
+             sprintf(buf,"{cWaves gently break as they reach the shore and a light breeze from the{x\r\n{cocean flows in.{x\r\n");
              break;
         case 2:
-             sprintf(buf,"{cWaves crash against the shore as a moderate breeze blows in.{x\n\r");
+             sprintf(buf,"{cWaves crash against the shore as a moderate breeze blows in.{x\r\n");
              break;
     }
 
@@ -1482,7 +1482,7 @@ void environment_update()
             if ( ch->move <= 0  &&
                 !is_affected(ch,gsn_water_breathing) )
             {
-                send_to_char("You gasp for air as water fills your lungs!\n\r",ch);
+                send_to_char("You gasp for air as water fills your lungs!\r\n",ch);
                 ch->hit -= (UMAX(1,(ch->hit/6)));
                 check_death(ch, DAM_DROWNING);
             }
@@ -1490,7 +1490,7 @@ void environment_update()
             {
                 // Everyone loses movement treading water in the ocean.  Consider adding
                 // swim skill to lessen this, also maybe make stronger people lose less.
-                send_to_char("You struggle to tread water in the ocean.\n\r",ch);
+                send_to_char("You struggle to tread water in the ocean.\r\n",ch);
                 ch->move -= 10;
 
                 // Don't allow movement to go below 0
@@ -1519,7 +1519,7 @@ void environment_update()
                     ch->move = 0;
                 }
 
-                send_to_char("You gasp for air as water fills your lungs!\n\r",ch);
+                send_to_char("You gasp for air as water fills your lungs!\r\n",ch);
                 ch->hit -= (UMAX(1,(ch->hit/6)));
                 check_death(ch, DAM_DROWNING);
             }

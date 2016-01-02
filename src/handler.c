@@ -1641,7 +1641,7 @@ void char_to_room (CHAR_DATA * ch, ROOM_INDEX_DATA * pRoomIndex)
                 && !IS_IMMORTAL (vch) &&
                 !IS_AFFECTED (vch, AFF_PLAGUE) && number_bits (6) == 0)
             {
-                send_to_char ("You feel hot and feverish.\n\r", vch);
+                send_to_char ("You feel hot and feverish.\r\n", vch);
                 act ("$n shivers and looks very ill.", vch, NULL, NULL,
                      TO_ROOM);
                 affect_join (vch, &plague);
@@ -3798,7 +3798,7 @@ void make_ghost( CHAR_DATA *ch)
     // their corpse to retrieve their items.
     ch->move = ch->max_move;
 
-    send_to_char( "Your spirit leaves your corpse as your body has perished.\n\r", ch );
+    send_to_char( "Your spirit leaves your corpse as your body has perished.\r\n", ch );
     return;
 
 } // end make_ghost

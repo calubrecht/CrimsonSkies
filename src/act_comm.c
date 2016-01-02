@@ -47,7 +47,7 @@ char *reclass_list args(());
  */
 void do_delet (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("You must type the full command to delete yourself.\n\r", ch);
+    send_to_char ("You must type the full command to delete yourself.\r\n", ch);
 } // end void do_delet
 
 /*
@@ -64,7 +64,7 @@ void do_delete (CHAR_DATA * ch, char *argument)
     {
         if (argument[0] != '\0')
         {
-            send_to_char ("Delete status removed.\n\r", ch);
+            send_to_char ("Delete status removed.\r\n", ch);
             ch->pcdata->confirm_delete = FALSE;
             return;
         }
@@ -87,13 +87,13 @@ void do_delete (CHAR_DATA * ch, char *argument)
 
     if (argument[0] != '\0')
     {
-        send_to_char ("Just type delete. No argument.\n\r", ch);
+        send_to_char ("Just type delete. No argument.\r\n", ch);
         return;
     }
 
-    send_to_char ("Type delete again to confirm this command.\n\r", ch);
-    send_to_char ("{RWARNING:{x this command is irreversible.\n\r", ch);
-    send_to_char ("Typing delete with an argument will undo delete status.\n\r", ch);
+    send_to_char ("Type delete again to confirm this command.\r\n", ch);
+    send_to_char ("{RWARNING:{x this command is irreversible.\r\n", ch);
+    send_to_char ("Typing delete with an argument will undo delete status.\r\n", ch);
     ch->pcdata->confirm_delete = TRUE;
     wiznet ("$N is contemplating deletion.", ch, NULL, 0, 0, get_trust (ch));
 } // end void do_delete
@@ -106,119 +106,119 @@ void do_channels (CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
 
     /* lists all channels and their status */
-    send_to_char ("Channel        Status\n\r", ch);
-    send_to_char ("---------------------\n\r", ch);
+    send_to_char ("Channel        Status\r\n", ch);
+    send_to_char ("---------------------\r\n", ch);
 
     if (is_clan(ch))
     {
         send_to_char("clan           ", ch);
 
         if (!IS_SET (ch->comm, COMM_NOCLAN))
-            send_to_char ("{GON{x\n\r", ch);
+            send_to_char ("{GON{x\r\n", ch);
         else
-            send_to_char ("{ROFF{x\n\r", ch);
+            send_to_char ("{ROFF{x\r\n", ch);
 
         send_to_char("ooc clan       ", ch);
 
         if (!IS_SET (ch->comm, COMM_NOOCLAN))
-            send_to_char ("{GON{x\n\r", ch);
+            send_to_char ("{GON{x\r\n", ch);
         else
-            send_to_char ("{ROFF{x\n\r", ch);
+            send_to_char ("{ROFF{x\r\n", ch);
 
     }
 
     send_to_char ("gossip         ", ch);
     if (!IS_SET (ch->comm, COMM_NOGOSSIP))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("clan gossip    ", ch);
     if (!IS_SET (ch->comm, COMM_NOCGOSSIP))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("auction        ", ch);
     if (!IS_SET (ch->comm, COMM_NOAUCTION))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("ooc            ", ch);
     if (!IS_SET (ch->comm, COMM_NOOOC))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("Q/A            ", ch);
     if (!IS_SET (ch->comm, COMM_NOQUESTION))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("grats          ", ch);
     if (!IS_SET (ch->comm, COMM_NOGRATS))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     if (IS_IMMORTAL (ch))
     {
         send_to_char ("imm channel    ", ch);
         if (!IS_SET (ch->comm, COMM_NOWIZ))
-            send_to_char ("{GON{x\n\r", ch);
+            send_to_char ("{GON{x\r\n", ch);
         else
-            send_to_char ("{ROFF{x\n\r", ch);
+            send_to_char ("{ROFF{x\r\n", ch);
     }
 
     send_to_char ("tells          ", ch);
     if (!IS_SET (ch->comm, COMM_DEAF))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("quiet mode     ", ch);
     if (IS_SET (ch->comm, COMM_QUIET))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     if (IS_SET (ch->comm, COMM_AFK))
-        send_to_char ("You are AFK.\n\r", ch);
+        send_to_char ("You are AFK.\r\n", ch);
 
     if (IS_SET (ch->comm, COMM_SNOOP_PROOF))
-        send_to_char ("You are immune to snooping.\n\r", ch);
+        send_to_char ("You are immune to snooping.\r\n", ch);
 
     if (ch->lines != PAGELEN)
     {
         if (ch->lines)
         {
-            sprintf (buf, "You display %d lines of scroll.\n\r",
+            sprintf (buf, "You display %d lines of scroll.\r\n",
                      ch->lines + 2);
             send_to_char (buf, ch);
         }
         else
-            send_to_char ("Scroll buffering is off.\n\r", ch);
+            send_to_char ("Scroll buffering is off.\r\n", ch);
     }
 
     if (ch->prompt != NULL)
     {
-        sprintf (buf, "Your current prompt is: %s\n\r", ch->prompt);
+        sprintf (buf, "Your current prompt is: %s\r\n", ch->prompt);
         send_to_char (buf, ch);
     }
 
     if (IS_SET (ch->comm, COMM_NOSHOUT))
-        send_to_char ("You cannot shout.\n\r", ch);
+        send_to_char ("You cannot shout.\r\n", ch);
 
     if (IS_SET (ch->comm, COMM_NOTELL))
-        send_to_char ("You cannot use tell.\n\r", ch);
+        send_to_char ("You cannot use tell.\r\n", ch);
 
     if (IS_SET (ch->comm, COMM_NOCHANNELS))
-        send_to_char ("You cannot use channels.\n\r", ch);
+        send_to_char ("You cannot use channels.\r\n", ch);
 
     if (IS_SET (ch->comm, COMM_NOEMOTE))
-        send_to_char ("You cannot show emotions.\n\r", ch);
+        send_to_char ("You cannot show emotions.\r\n", ch);
 
 } // end void do_channels
 
@@ -229,12 +229,12 @@ void do_deaf (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_DEAF))
     {
-        send_to_char ("You can now hear tells again.\n\r", ch);
+        send_to_char ("You can now hear tells again.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_DEAF);
     }
     else
     {
-        send_to_char ("From now on, you won't hear tells.\n\r", ch);
+        send_to_char ("From now on, you won't hear tells.\r\n", ch);
         SET_BIT (ch->comm, COMM_DEAF);
     }
 } // end do_deaf
@@ -246,12 +246,12 @@ void do_quiet (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_QUIET))
     {
-        send_to_char ("Quiet mode removed.\n\r", ch);
+        send_to_char ("Quiet mode removed.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_QUIET);
     }
     else
     {
-        send_to_char ("From now on, you will only hear says and emotes.\n\r",
+        send_to_char ("From now on, you will only hear says and emotes.\r\n",
                       ch);
         SET_BIT (ch->comm, COMM_QUIET);
     }
@@ -264,13 +264,13 @@ void do_afk (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_AFK))
     {
-        send_to_char ("AFK mode removed. Type 'replay' to see tells.\n\r",
+        send_to_char ("AFK mode removed. Type 'replay' to see tells.\r\n",
                       ch);
         REMOVE_BIT (ch->comm, COMM_AFK);
     }
     else
     {
-        send_to_char ("You are now in AFK mode.\n\r", ch);
+        send_to_char ("You are now in AFK mode.\r\n", ch);
         SET_BIT (ch->comm, COMM_AFK);
     }
 } // end do_afk
@@ -283,13 +283,13 @@ void do_replay (CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC (ch))
     {
-        send_to_char ("You can't replay.\n\r", ch);
+        send_to_char ("You can't replay.\r\n", ch);
         return;
     }
 
     if (buf_string (ch->pcdata->buffer)[0] == '\0')
     {
-        send_to_char ("You have no tells to replay.\n\r", ch);
+        send_to_char ("You have no tells to replay.\r\n", ch);
         return;
     }
 
@@ -309,12 +309,12 @@ void do_auction (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOAUCTION))
         {
-            send_to_char ("{aAuction channel is now ON.{x\n\r", ch);
+            send_to_char ("{aAuction channel is now ON.{x\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOAUCTION);
         }
         else
         {
-            send_to_char ("{aAuction channel is now OFF.{x\n\r", ch);
+            send_to_char ("{aAuction channel is now OFF.{x\r\n", ch);
             SET_BIT (ch->comm, COMM_NOAUCTION);
         }
 
@@ -326,21 +326,21 @@ void do_auction (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
             send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
+                ("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOAUCTION);
     }
 
-    sprintf (buf, "{xYou auction '{m%s{x'\n\r", argument);
+    sprintf (buf, "{xYou auction '{m%s{x'\r\n", argument);
     send_to_char (buf, ch);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
@@ -370,12 +370,12 @@ void do_gossip (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOGOSSIP))
         {
-            send_to_char ("Gossip channel is now ON.\n\r", ch);
+            send_to_char ("Gossip channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOGOSSIP);
         }
         else
         {
-            send_to_char ("Gossip channel is now OFF.\n\r", ch);
+            send_to_char ("Gossip channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOGOSSIP);
         }
     }
@@ -384,19 +384,19 @@ void do_gossip (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOGOSSIP);
 
-        sprintf(buf, "{xYou gossip '{W%s{x'\n\r", argument);
+        sprintf(buf, "{xYou gossip '{W%s{x'\r\n", argument);
         send_to_char(buf, ch);
 
         for (d = descriptor_list; d != NULL; d = d->next)
@@ -429,12 +429,12 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOCGOSSIP))
         {
-            send_to_char ("Clan gossip channel is now ON.\n\r", ch);
+            send_to_char ("Clan gossip channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOCGOSSIP);
         }
         else
         {
-            send_to_char ("Clan gossip channel is now OFF.\n\r", ch);
+            send_to_char ("Clan gossip channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOCGOSSIP);
         }
     }
@@ -443,19 +443,19 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
         /* gossip message sent, turn gossip on if it isn't already */
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOCGOSSIP);
 
-        sprintf(buf, "{xYou clan gossip '{R%s{x'\n\r", argument);
+        sprintf(buf, "{xYou clan gossip '{R%s{x'\r\n", argument);
         send_to_char(buf, ch);
 
         for (d = descriptor_list; d != NULL; d = d->next)
@@ -488,12 +488,12 @@ void do_ooc(CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOOOC))
         {
-            send_to_char ("OOC (out of character) channel is now ON.\n\r", ch);
+            send_to_char ("OOC (out of character) channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOOOC);
         }
         else
         {
-            send_to_char ("OOC (out of character) channel is now OFF.\n\r", ch);
+            send_to_char ("OOC (out of character) channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOOOC);
         }
     }
@@ -502,19 +502,19 @@ void do_ooc(CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOOOC);
 
-        sprintf(buf, "{xYou OOC '{C%s{x'\n\r", argument);
+        sprintf(buf, "{xYou OOC '{C%s{x'\r\n", argument);
         send_to_char(buf, ch);
 
         for (d = descriptor_list; d != NULL; d = d->next)
@@ -544,12 +544,12 @@ void do_grats (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOGRATS))
         {
-            send_to_char ("Grats channel is now ON.\n\r", ch);
+            send_to_char ("Grats channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOGRATS);
         }
         else
         {
-            send_to_char ("Grats channel is now OFF.\n\r", ch);
+            send_to_char ("Grats channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOGRATS);
         }
     }
@@ -558,21 +558,21 @@ void do_grats (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
             send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
+                ("The gods have revoked your channel priviliges.\r\n", ch);
             return;
 
         }
 
         REMOVE_BIT (ch->comm, COMM_NOGRATS);
 
-        sprintf (buf, "{xYou grats '{c%s{x'\n\r", argument);
+        sprintf (buf, "{xYou grats '{c%s{x'\r\n", argument);
         send_to_char (buf, ch);
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -602,12 +602,12 @@ void do_question (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOQUESTION))
         {
-            send_to_char ("Q/A channel is now ON.\n\r", ch);
+            send_to_char ("Q/A channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOQUESTION);
         }
         else
         {
-            send_to_char ("Q/A channel is now OFF.\n\r", ch);
+            send_to_char ("Q/A channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOQUESTION);
         }
     }
@@ -616,20 +616,20 @@ void do_question (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
             send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
+                ("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOQUESTION);
 
-        sprintf (buf, "{xYou question '{Y%s{x'\n\r", argument);
+        sprintf (buf, "{xYou question '{Y%s{x'\r\n", argument);
         send_to_char (buf, ch);
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -659,12 +659,12 @@ void do_answer (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOQUESTION))
         {
-            send_to_char ("Q/A channel is now ON.\n\r", ch);
+            send_to_char ("Q/A channel is now ON.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOQUESTION);
         }
         else
         {
-            send_to_char ("Q/A channel is now OFF.\n\r", ch);
+            send_to_char ("Q/A channel is now OFF.\r\n", ch);
             SET_BIT (ch->comm, COMM_NOQUESTION);
         }
     }
@@ -673,20 +673,20 @@ void do_answer (CHAR_DATA * ch, char *argument)
 
         if (IS_SET (ch->comm, COMM_QUIET))
         {
-            send_to_char ("You must turn off quiet mode first.\n\r", ch);
+            send_to_char ("You must turn off quiet mode first.\r\n", ch);
             return;
         }
 
         if (IS_SET (ch->comm, COMM_NOCHANNELS))
         {
             send_to_char
-                ("The gods have revoked your channel priviliges.\n\r", ch);
+                ("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT (ch->comm, COMM_NOQUESTION);
 
-        sprintf (buf, "{xYou answer '{Y%s{x'\n\r", argument);
+        sprintf (buf, "{xYou answer '{Y%s{x'\r\n", argument);
         send_to_char (buf, ch);
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -714,7 +714,7 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
 
     if (!is_clan (ch) || clan_table[ch->clan].independent)
     {
-        send_to_char ("You aren't in a clan.\n\r", ch);
+        send_to_char ("You aren't in a clan.\r\n", ch);
         return;
     }
 
@@ -722,12 +722,12 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOCLAN))
         {
-            send_to_char ("Clan channel is now ON\n\r", ch);
+            send_to_char ("Clan channel is now ON\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOCLAN);
         }
         else
         {
-            send_to_char ("Clan channel is now OFF\n\r", ch);
+            send_to_char ("Clan channel is now OFF\r\n", ch);
             SET_BIT (ch->comm, COMM_NOCLAN);
         }
         return;
@@ -735,14 +735,14 @@ void do_clantalk (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->comm, COMM_NOCHANNELS))
     {
-        send_to_char ("The gods have revoked your channel priviliges.\n\r",
+        send_to_char ("The gods have revoked your channel priviliges.\r\n",
                       ch);
         return;
     }
 
     REMOVE_BIT (ch->comm, COMM_NOCLAN);
 
-    sprintf (buf, "{xYou clan '{G%s{x'\n\r", argument);
+    sprintf (buf, "{xYou clan '{G%s{x'\r\n", argument);
     send_to_char (buf, ch);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
@@ -770,7 +770,7 @@ void do_oclantalk(CHAR_DATA *ch, char *argument)
 
     if (!is_clan (ch) || clan_table[ch->clan].independent)
     {
-        send_to_char ("You aren't in a clan.\n\r", ch);
+        send_to_char ("You aren't in a clan.\r\n", ch);
         return;
     }
 
@@ -778,12 +778,12 @@ void do_oclantalk(CHAR_DATA *ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOOCLAN))
         {
-            send_to_char("OOC Clan channel is now ON\n\r", ch);
+            send_to_char("OOC Clan channel is now ON\r\n", ch);
             REMOVE_BIT(ch->comm, COMM_NOOCLAN);
         }
         else
         {
-            send_to_char("OOC Clan channel is now OFF\n\r", ch);
+            send_to_char("OOC Clan channel is now OFF\r\n", ch);
             SET_BIT(ch->comm, COMM_NOOCLAN);
         }
         return;
@@ -791,13 +791,13 @@ void do_oclantalk(CHAR_DATA *ch, char *argument)
 
     if (IS_SET(ch->comm, COMM_NOCHANNELS))
     {
-        send_to_char("The gods have revoked your channel priviliges.\n\r", ch);
+        send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
         return;
     }
 
     REMOVE_BIT(ch->comm, COMM_NOOCLAN);
 
-    sprintf (buf, "{xYou OOC clan '{c%s{x'\n\r", argument);
+    sprintf (buf, "{xYou OOC clan '{c%s{x'\r\n", argument);
     send_to_char (buf, ch);
     for (d = descriptor_list; d != NULL; d = d->next)
     {
@@ -823,12 +823,12 @@ void do_immtalk (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_NOWIZ))
         {
-            send_to_char ("Immortal channel is now ON\n\r", ch);
+            send_to_char ("Immortal channel is now ON\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_NOWIZ);
         }
         else
         {
-            send_to_char ("Immortal channel is now OFF\n\r", ch);
+            send_to_char ("Immortal channel is now OFF\r\n", ch);
             SET_BIT (ch->comm, COMM_NOWIZ);
         }
         return;
@@ -862,12 +862,12 @@ void do_pray(CHAR_DATA * ch, char *argument)
 
 	if (argument[0] == '\0')
 	{
-        send_to_char("What do you wish to pray?\n\r", ch);
+        send_to_char("What do you wish to pray?\r\n", ch);
 		return;
 	}
 	else
 	{
-		sprintf(buf, "{xYou pray '{G%s{x'\n\r", argument);
+		sprintf(buf, "{xYou pray '{G%s{x'\r\n", argument);
 		send_to_char(buf, ch);
 		for (d = descriptor_list; d != NULL; d = d->next)
 		{
@@ -891,7 +891,7 @@ void do_say (CHAR_DATA * ch, char *argument)
 {
     if (argument[0] == '\0')
     {
-        send_to_char ("Say what?\n\r", ch);
+        send_to_char ("Say what?\r\n", ch);
         return;
     }
 
@@ -943,19 +943,19 @@ void do_tell (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->comm, COMM_NOTELL) || IS_SET (ch->comm, COMM_DEAF))
     {
-        send_to_char ("Your message didn't get through.\n\r", ch);
+        send_to_char ("Your message didn't get through.\r\n", ch);
         return;
     }
 
     if (IS_SET (ch->comm, COMM_QUIET))
     {
-        send_to_char ("You must turn off quiet mode first.\n\r", ch);
+        send_to_char ("You must turn off quiet mode first.\r\n", ch);
         return;
     }
 
     if (IS_SET (ch->comm, COMM_DEAF))
     {
-        send_to_char ("You must turn off deaf mode first.\n\r", ch);
+        send_to_char ("You must turn off deaf mode first.\r\n", ch);
         return;
     }
 
@@ -963,7 +963,7 @@ void do_tell (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0' || argument[0] == '\0')
     {
-        send_to_char ("Tell whom what?\n\r", ch);
+        send_to_char ("Tell whom what?\r\n", ch);
         return;
     }
 
@@ -974,7 +974,7 @@ void do_tell (CHAR_DATA * ch, char *argument)
     if ((victim = get_char_world (ch, arg)) == NULL
         || (IS_NPC (victim) && victim->in_room != ch->in_room))
     {
-        send_to_char ("They aren't here.\n\r", ch);
+        send_to_char ("They aren't here.\r\n", ch);
         return;
     }
 
@@ -982,7 +982,7 @@ void do_tell (CHAR_DATA * ch, char *argument)
     {
         act ("$N seems to have misplaced $S link...try again later.",
              ch, NULL, victim, TO_CHAR);
-        sprintf (buf, "{x%s tells you '{W%s{x'{x\n\r", PERS (ch, victim),
+        sprintf (buf, "{x%s tells you '{W%s{x'{x\r\n", PERS (ch, victim),
                  argument);
         buf[0] = UPPER (buf[0]);
         add_buf (victim->pcdata->buffer, buf);
@@ -1021,7 +1021,7 @@ void do_tell (CHAR_DATA * ch, char *argument)
 
         act ("$E is AFK, but your tell will go through when $E returns.",
              ch, NULL, victim, TO_CHAR);
-        sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim),
+        sprintf (buf, "{x%s tells you '{W%s{x'\r\n", PERS (ch, victim),
                  argument);
         buf[0] = UPPER (buf[0]);
         add_buf (victim->pcdata->buffer, buf);
@@ -1047,13 +1047,13 @@ void do_reply (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->comm, COMM_NOTELL))
     {
-        send_to_char ("Your message didn't get through.\n\r", ch);
+        send_to_char ("Your message didn't get through.\r\n", ch);
         return;
     }
 
     if ((victim = ch->reply) == NULL)
     {
-        send_to_char ("They aren't here.\n\r", ch);
+        send_to_char ("They aren't here.\r\n", ch);
         return;
     }
 
@@ -1061,7 +1061,7 @@ void do_reply (CHAR_DATA * ch, char *argument)
     {
         act ("$N seems to have misplaced $S link...try again later.",
              ch, NULL, victim, TO_CHAR);
-        sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim),
+        sprintf (buf, "{x%s tells you '{W%s{x'\r\n", PERS (ch, victim),
                  argument);
         buf[0] = UPPER (buf[0]);
         add_buf (victim->pcdata->buffer, buf);
@@ -1086,7 +1086,7 @@ void do_reply (CHAR_DATA * ch, char *argument)
 
     if (!IS_IMMORTAL (victim) && !IS_AWAKE (ch))
     {
-        send_to_char ("In your dreams, or what?\n\r", ch);
+        send_to_char ("In your dreams, or what?\r\n", ch);
         return;
     }
 
@@ -1101,7 +1101,7 @@ void do_reply (CHAR_DATA * ch, char *argument)
 
         act_new ("$E is AFK, but your tell will go through when $E returns.",
                  ch, NULL, victim, TO_CHAR, POS_DEAD);
-        sprintf (buf, "{x%s tells you '{W%s{x'\n\r", PERS (ch, victim),
+        sprintf (buf, "{x%s tells you '{W%s{x'\r\n", PERS (ch, victim),
                  argument);
         buf[0] = UPPER (buf[0]);
         add_buf (victim->pcdata->buffer, buf);
@@ -1123,13 +1123,13 @@ void do_yell (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->comm, COMM_NOSHOUT))
     {
-        send_to_char ("You can't yell.\n\r", ch);
+        send_to_char ("You can't yell.\r\n", ch);
         return;
     }
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Yell what?\n\r", ch);
+        send_to_char ("Yell what?\r\n", ch);
         return;
     }
 
@@ -1155,13 +1155,13 @@ void do_emote (CHAR_DATA * ch, char *argument)
 {
     if (!IS_NPC (ch) && IS_SET (ch->comm, COMM_NOEMOTE))
     {
-        send_to_char ("You can't show your emotions.\n\r", ch);
+        send_to_char ("You can't show your emotions.\r\n", ch);
         return;
     }
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Emote what?\n\r", ch);
+        send_to_char ("Emote what?\r\n", ch);
         return;
     }
 
@@ -1170,7 +1170,7 @@ void do_emote (CHAR_DATA * ch, char *argument)
      */
     if (!(isalpha(argument[0])) || (isspace(argument[0])))
     {
-    send_to_char ("Moron!\n\r", ch);
+    send_to_char ("Moron!\r\n", ch);
     return;
     }
 
@@ -1191,13 +1191,13 @@ void do_pmote (CHAR_DATA * ch, char *argument)
 
     if (!IS_NPC (ch) && IS_SET (ch->comm, COMM_NOEMOTE))
     {
-        send_to_char ("You can't show your emotions.\n\r", ch);
+        send_to_char ("You can't show your emotions.\r\n", ch);
         return;
     }
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Emote what?\n\r", ch);
+        send_to_char ("Emote what?\r\n", ch);
         return;
     }
 
@@ -1206,7 +1206,7 @@ void do_pmote (CHAR_DATA * ch, char *argument)
      */
     if (!(isalpha(argument[0])) || (isspace(argument[0])))
     {
-    send_to_char ("Moron!\n\r", ch);
+    send_to_char ("Moron!\r\n", ch);
     return;
     }
 
@@ -1282,20 +1282,20 @@ void do_pmote (CHAR_DATA * ch, char *argument)
 void do_bug (CHAR_DATA * ch, char *argument)
 {
     append_file (ch, BUG_FILE, argument);
-    send_to_char ("Bug logged.\n\r", ch);
+    send_to_char ("Bug logged.\r\n", ch);
     return;
 }
 
 void do_typo (CHAR_DATA * ch, char *argument)
 {
     append_file (ch, TYPO_FILE, argument);
-    send_to_char ("Typo logged.\n\r", ch);
+    send_to_char ("Typo logged.\r\n", ch);
     return;
 }
 
 void do_qui (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("If you want to QUIT, you have to spell it out.\n\r", ch);
+    send_to_char ("If you want to QUIT, you have to spell it out.\r\n", ch);
     return;
 }
 
@@ -1309,13 +1309,13 @@ void do_quit (CHAR_DATA * ch, char *argument)
 
     if (ch->position == POS_FIGHTING)
     {
-        send_to_char ("No way! You are fighting.\n\r", ch);
+        send_to_char ("No way! You are fighting.\r\n", ch);
         return;
     }
 
     if (ch->position < POS_STUNNED)
     {
-        send_to_char ("You're not DEAD yet.\n\r", ch);
+        send_to_char ("You're not DEAD yet.\r\n", ch);
         return;
     }
 
@@ -1323,11 +1323,11 @@ void do_quit (CHAR_DATA * ch, char *argument)
     // killing.  This will stop a player from fleeing and quitting to get out of battle.
     if (ch->pcdata->pk_timer > 0)
     {
-        send_to_char("You must wait a few moments to quit after fighting another player.\n\r",ch);
+        send_to_char("You must wait a few moments to quit after fighting another player.\r\n",ch);
         return;
     }
 
-    send_to_char("Alas, all good things must come to an end.\n\r", ch);
+    send_to_char("Alas, all good things must come to an end.\r\n", ch);
     act("$n has left the game.", ch, NULL, NULL, TO_ROOM);
     log_f("%s has quit.", ch->name);
     wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0, get_trust (ch));
@@ -1368,7 +1368,7 @@ void do_save (CHAR_DATA * ch, char *argument)
         return;
 
     save_char_obj (ch);
-    send_to_char("Saving. Remember that {RCrimson {rSkies{x has automatic saving now.\n\r", ch);
+    send_to_char("Saving. Remember that {RCrimson {rSkies{x has automatic saving now.\r\n", ch);
 
     // Add lag on save, but on if it's not an immortal
     if (!IS_IMMORTAL(ch)) {
@@ -1390,13 +1390,13 @@ void do_follow (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Follow whom?\n\r", ch);
+        send_to_char ("Follow whom?\r\n", ch);
         return;
     }
 
     if ((victim = get_char_room (ch, arg)) == NULL)
     {
-        send_to_char ("They aren't here.\n\r", ch);
+        send_to_char ("They aren't here.\r\n", ch);
         return;
     }
 
@@ -1410,7 +1410,7 @@ void do_follow (CHAR_DATA * ch, char *argument)
     {
         if (ch->master == NULL)
         {
-            send_to_char ("You already follow yourself.\n\r", ch);
+            send_to_char ("You already follow yourself.\r\n", ch);
             return;
         }
         stop_follower (ch);
@@ -1420,7 +1420,7 @@ void do_follow (CHAR_DATA * ch, char *argument)
     if (!IS_NPC (victim) && IS_SET (victim->act, PLR_NOFOLLOW)
         && !IS_IMMORTAL (ch))
     {
-        act ("$N doesn't seem to want any followers.\n\r", ch, NULL, victim,
+        act ("$N doesn't seem to want any followers.\r\n", ch, NULL, victim,
              TO_CHAR);
         return;
     }
@@ -1552,19 +1552,19 @@ void do_order (CHAR_DATA * ch, char *argument)
 
     if (!str_cmp (arg2, "delete") || !str_cmp (arg2, "mob"))
     {
-        send_to_char ("That will NOT be done.\n\r", ch);
+        send_to_char ("That will NOT be done.\r\n", ch);
         return;
     }
 
     if (arg[0] == '\0' || argument[0] == '\0')
     {
-        send_to_char ("Order whom to do what?\n\r", ch);
+        send_to_char ("Order whom to do what?\r\n", ch);
         return;
     }
 
     if (IS_AFFECTED (ch, AFF_CHARM))
     {
-        send_to_char ("You feel like taking, not giving, orders.\n\r", ch);
+        send_to_char ("You feel like taking, not giving, orders.\r\n", ch);
         return;
     }
 
@@ -1578,20 +1578,20 @@ void do_order (CHAR_DATA * ch, char *argument)
         fAll = FALSE;
         if ((victim = get_char_room (ch, arg)) == NULL)
         {
-            send_to_char ("They aren't here.\n\r", ch);
+            send_to_char ("They aren't here.\r\n", ch);
             return;
         }
 
         if (victim == ch)
         {
-            send_to_char ("Aye aye, right away!\n\r", ch);
+            send_to_char ("Aye aye, right away!\r\n", ch);
             return;
         }
 
         if (!IS_AFFECTED (victim, AFF_CHARM) || victim->master != ch
             || (IS_IMMORTAL (victim) && victim->trust >= ch->trust))
         {
-            send_to_char ("Do it yourself!\n\r", ch);
+            send_to_char ("Do it yourself!\r\n", ch);
             return;
         }
     }
@@ -1614,10 +1614,10 @@ void do_order (CHAR_DATA * ch, char *argument)
     if (found)
     {
         WAIT_STATE (ch, PULSE_VIOLENCE);
-        send_to_char ("Ok.\n\r", ch);
+        send_to_char ("Ok.\r\n", ch);
     }
     else
-        send_to_char ("You have no followers here.\n\r", ch);
+        send_to_char ("You have no followers here.\r\n", ch);
     return;
 } // end do_order
 
@@ -1640,14 +1640,14 @@ void do_group( CHAR_DATA *ch, char *argument )
         CHAR_DATA *leader;
 
         leader = (ch->leader != NULL) ? ch->leader : ch;
-        sprintf(buf, "%s's group:\n\r", PERS(leader, ch));
+        sprintf(buf, "%s's group:\r\n", PERS(leader, ch));
         send_to_char(buf, ch);
 
         for (gch = char_list; gch != NULL; gch = gch->next)
         {
             if (is_same_group(gch, ch))
             {
-                sprintf(buf, "[%2d %s] %-16s {%s%3d{x%% hp {%s%3d{x%% mana {%s%3d{x%% mv\n\r",
+                sprintf(buf, "[%2d %s] %-16s {%s%3d{x%% hp {%s%3d{x%% mana {%s%3d{x%% mv\r\n",
                     gch->level,
                     IS_NPC(gch) ? "Mob" : class_table[gch->class]->who_name, capitalize(PERS(gch, ch)),
                     gch->hit < gch->max_hit /2 ? "R" : gch->hit < gch->max_hit * 3 / 4 ? "Y" : "W",
@@ -1665,13 +1665,13 @@ void do_group( CHAR_DATA *ch, char *argument )
 
     if ((victim = get_char_room(ch, arg)) == NULL)
     {
-        send_to_char("They aren't here.\n\r", ch);
+        send_to_char("They aren't here.\r\n", ch);
         return;
     }
 
     if (ch->master != NULL || (ch->leader != NULL && ch->leader != ch))
     {
-        send_to_char("But you are following someone else!\n\r", ch);
+        send_to_char("But you are following someone else!\r\n", ch);
         return;
     }
 
@@ -1683,7 +1683,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 
     if (IS_AFFECTED(victim, AFF_CHARM))
     {
-        send_to_char("You can't remove charmed mobs from your group.\n\r", ch);
+        send_to_char("You can't remove charmed mobs from your group.\r\n", ch);
         return;
     }
 
@@ -1704,7 +1704,7 @@ void do_group( CHAR_DATA *ch, char *argument )
 
     if ((abs(victim->level - ch->level) > 8) && !IS_IMMORTAL(ch))
     {
-        send_to_char("You cannot group outside of the pkill range.\n\r", ch);
+        send_to_char("You cannot group outside of the pkill range.\r\n", ch);
         return;
     }
 
@@ -1735,7 +1735,7 @@ void do_split (CHAR_DATA * ch, char *argument)
 
     if (arg1[0] == '\0')
     {
-        send_to_char ("Split how much?\n\r", ch);
+        send_to_char ("Split how much?\r\n", ch);
         return;
     }
 
@@ -1746,19 +1746,19 @@ void do_split (CHAR_DATA * ch, char *argument)
 
     if (amount_gold < 0 || amount_silver < 0)
     {
-        send_to_char ("Your group wouldn't like that.\n\r", ch);
+        send_to_char ("Your group wouldn't like that.\r\n", ch);
         return;
     }
 
     if (amount_gold == 0 && amount_silver == 0)
     {
-        send_to_char ("You hand out zero coins, but no one notices.\n\r", ch);
+        send_to_char ("You hand out zero coins, but no one notices.\r\n", ch);
         return;
     }
 
     if (ch->gold < amount_gold || ch->silver < amount_silver)
     {
-        send_to_char ("You don't have that much to split.\n\r", ch);
+        send_to_char ("You don't have that much to split.\r\n", ch);
         return;
     }
 
@@ -1771,7 +1771,7 @@ void do_split (CHAR_DATA * ch, char *argument)
 
     if (members < 2)
     {
-        send_to_char ("Just keep it all.\n\r", ch);
+        send_to_char ("Just keep it all.\r\n", ch);
         return;
     }
 
@@ -1783,7 +1783,7 @@ void do_split (CHAR_DATA * ch, char *argument)
 
     if (share_gold == 0 && share_silver == 0)
     {
-        send_to_char ("Don't even bother, cheapskate.\n\r", ch);
+        send_to_char ("Don't even bother, cheapskate.\r\n", ch);
         return;
     }
 
@@ -1795,7 +1795,7 @@ void do_split (CHAR_DATA * ch, char *argument)
     if (share_silver > 0)
     {
         sprintf (buf,
-                 "You split %d silver coins. Your share is %d silver.\n\r",
+                 "You split %d silver coins. Your share is %d silver.\r\n",
                  amount_silver, share_silver + extra_silver);
         send_to_char (buf, ch);
     }
@@ -1803,7 +1803,7 @@ void do_split (CHAR_DATA * ch, char *argument)
     if (share_gold > 0)
     {
         sprintf (buf,
-                 "You split %d gold coins. Your share is %d gold.\n\r",
+                 "You split %d gold coins. Your share is %d gold.\r\n",
                  amount_gold, share_gold + extra_gold);
         send_to_char (buf, ch);
     }
@@ -1821,7 +1821,7 @@ void do_split (CHAR_DATA * ch, char *argument)
     else
     {
         sprintf (buf,
-                 "$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\n\r",
+                 "$n splits %d silver and %d gold coins, giving you %d silver and %d gold.\r\n",
                  amount_silver, amount_gold, share_silver, share_gold);
     }
 
@@ -1849,13 +1849,13 @@ void do_gtell (CHAR_DATA * ch, char *argument)
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Tell your group what?\n\r", ch);
+        send_to_char ("Tell your group what?\r\n", ch);
         return;
     }
 
     if (IS_SET(ch->comm, COMM_NOTELL))
     {
-        send_to_char("Your message didn't get through!\n\r", ch);
+        send_to_char("Your message didn't get through!\r\n", ch);
         return;
     }
 
@@ -1896,7 +1896,7 @@ void do_color(CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC(ch))
     {
-        send_to_char ("Color is not available for mobs or while switched.\n\r", ch);
+        send_to_char ("Color is not available for mobs or while switched.\r\n", ch);
         return;
     }
 
@@ -1904,13 +1904,13 @@ void do_color(CHAR_DATA * ch, char *argument)
     {
         ch->desc->ansi = TRUE;
         SET_BIT(ch->act, PLR_COLOR);
-        send_to_char("{RC{Yo{Bl{Go{Cr{x is now ON, Way Cool!\n\r", ch);
+        send_to_char("{RC{Yo{Bl{Go{Cr{x is now ON, Way Cool!\r\n", ch);
     }
     else
     {
         ch->desc->ansi = FALSE;
         REMOVE_BIT(ch->act, PLR_COLOR);
-        send_to_char("Color is now OFF, <sigh>\n\r", ch);
+        send_to_char("Color is now OFF, <sigh>\r\n", ch);
     }
     return;
 
@@ -1935,26 +1935,26 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     // Players must be at least level 10 to reclass.
     if (ch->level < 10) {
-        send_to_char("You must be at least level 10 to reclass.\n\r", ch);
+        send_to_char("You must be at least level 10 to reclass.\r\n", ch);
         return;
     }
 
     // Immortals can't reclass.. they must set.
     if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
-        send_to_char("Immortals cannot reclass, use set to change your class instead.\n\r", ch);
+        send_to_char("Immortals cannot reclass, use set to change your class instead.\r\n", ch);
         return;
     }
 
     // Do not allow someone who is fighting or stunned to reclass.
     if (ch->position == POS_FIGHTING)
     {
-        send_to_char("No way! You are fighting.\n\r", ch);
+        send_to_char("No way! You are fighting.\r\n", ch);
         return;
     }
 
     if (ch->position < POS_STUNNED)
     {
-        send_to_char("You're not DEAD yet.\n\r", ch);
+        send_to_char("You're not DEAD yet.\r\n", ch);
         return;
     }
 
@@ -1967,30 +1967,30 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
     {
-        send_to_char("That's not a valid class.\n\r", ch);
+        send_to_char("That's not a valid class.\r\n", ch);
         send_to_char(reclass_list(), ch);
         return;
     }
     else if (class_table[iClass]->is_reclass == FALSE)
     {
-        send_to_char("That is a base class, you must choose a reclass.\n\r", ch);
+        send_to_char("That is a base class, you must choose a reclass.\r\n", ch);
         send_to_char(reclass_list(), ch);
         return;
     }
 
     if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
     {
-        send_to_char("Only mages can reclass into enchantors.\n\r", ch);
+        send_to_char("Only mages can reclass into enchantors.\r\n", ch);
         return;
     }
     else if (iClass == HEALER_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
     {
-        send_to_char("Only clerics can reclass into healers.\n\r", ch);
+        send_to_char("Only clerics can reclass into healers.\r\n", ch);
         return;
     }
     else if (iClass == BLADESINGER_CLASS_LOOKUP && ch->race != ELF_RACE_LOOKUP)
     {
-        send_to_char("Only elves can be bladesingers.\n\r", ch);
+        send_to_char("Only elves can be bladesingers.\r\n", ch);
         return;
     }
 
@@ -2093,11 +2093,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     group_add(ch, class_table[ch->class]->base_group, FALSE);
     ch->pcdata->learned[gsn_recall] = 50;
 
-    sprintf(buf, "\n\r{YCongratulations{x, you are preparing to reclass as a %s.\n\r", class_table[ch->class]->name);
+    sprintf(buf, "\r\n{YCongratulations{x, you are preparing to reclass as a %s.\r\n", class_table[ch->class]->name);
     send_to_char(buf, ch);
 
-    send_to_char("\n\rDo you wish to customize this character?\n\r", ch);
-    send_to_char("Customization takes time, but allows a wider range of skills and abilities.\n\r", ch);
+    send_to_char("\r\nDo you wish to customize this character?\r\n", ch);
+    send_to_char("Customization takes time, but allows a wider range of skills and abilities.\r\n", ch);
     send_to_char("Customize (Y/N)? ", ch);
 
     // Move character to LIMBO so they can't be attacked or messed with while this 
@@ -2142,7 +2142,7 @@ char *reclass_list()
             strcat (buf, class_table[i]->name);
         }
     }
-    strcat (buf, "]\n\r");
+    strcat (buf, "]\r\n");
 
     return buf;
 } // end char *reclass_list
@@ -2162,13 +2162,13 @@ void do_direct( CHAR_DATA *ch, char *argument )
 
     if ( argument[0] == '\0' || arg[0] == '\0' )
     {
-        send_to_char( "Say what and to whom?\n\r", ch );
+        send_to_char( "Say what and to whom?\r\n", ch );
         return;
     }
 
     if ((victim = get_char_room(ch, arg)) == NULL)
     {
-        send_to_char("They arent here.\n\r",ch);
+        send_to_char("They arent here.\r\n",ch);
         return;
     }
 

@@ -464,7 +464,7 @@ void poison_effect (void *vo, int level, int dam, int target)
         {
             AFFECT_DATA af;
 
-            send_to_char ("You feel poison coursing through your veins.\n\r",
+            send_to_char ("You feel poison coursing through your veins.\r\n",
                           victim);
             act ("$n looks very ill.", victim, NULL, NULL, TO_ROOM);
 
@@ -551,7 +551,7 @@ void shock_effect (void *vo, int level, int dam, int target)
         /* daze and confused? */
         if (!saves_spell (level / 4 + dam / 20, victim, DAM_LIGHTNING))
         {
-            send_to_char ("Your muscles stop responding.\n\r", victim);
+            send_to_char ("Your muscles stop responding.\r\n", victim);
             DAZE_STATE (victim, UMAX (12, level / 4 + dam / 20));
         }
 

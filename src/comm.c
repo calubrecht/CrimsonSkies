@@ -735,7 +735,7 @@ void init_descriptor (int control)
     if (check_ban (dnew->host, BAN_ALL))
     {
         write_to_descriptor (desc,
-                             "Your site has been banned from this mud.\n\r",
+                             "Your site has been banned from this mud.\r\n",
                              0, dnew);
 
 #if defined(_WIN32)
@@ -757,7 +757,7 @@ void init_descriptor (int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\n\rDo you want color? (Y/N) -> ", 0, dnew);
+    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", 0, dnew);
 
     return;
 }
@@ -779,7 +779,7 @@ void close_socket (DESCRIPTOR_DATA * dclose)
 
     if (dclose->snoop_by != NULL)
     {
-        write_to_buffer (dclose->snoop_by, "Your victim has left the game.\n\r", 0);
+        write_to_buffer (dclose->snoop_by, "Your victim has left the game.\r\n", 0);
     }
 
     {
@@ -860,7 +860,7 @@ bool read_from_descriptor (DESCRIPTOR_DATA * d)
     if (iStart >= sizeof (d->inbuf) - 10)
     {
         log_f("%s input overflow!", d->host);
-        write_to_descriptor (d->descriptor, "\n\r*** PUT A LID ON IT!!! ***\n\r", 0, d);
+        write_to_descriptor (d->descriptor, "\r\n*** PUT A LID ON IT!!! ***\r\n", 0, d);
         return FALSE;
     }
 
@@ -936,7 +936,7 @@ void read_from_buffer (DESCRIPTOR_DATA * d)
     {
         if (k >= MAX_INPUT_LENGTH - 2)
         {
-            write_to_descriptor (d->descriptor, "Line too long.\n\r", 0, d);
+            write_to_descriptor (d->descriptor, "Line too long.\r\n", 0, d);
 
             /* skip the rest of the line */
             for (; d->inbuf[i] != '\0'; i++)
@@ -991,7 +991,7 @@ void read_from_buffer (DESCRIPTOR_DATA * d)
                 d->repeat = 0;
 /*
         write_to_descriptor( d->descriptor,
-            "\n\r*** PUT A LID ON IT!!! ***\n\r", 0 );
+            "\r\n*** PUT A LID ON IT!!! ***\r\n", 0 );
         strcpy( d->incomm, "quit" );
 */
             }
@@ -1031,7 +1031,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
     if (!merc_down)
     {
         if (d->showstr_point)
-            write_to_buffer( d, "\n\r{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
+            write_to_buffer( d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
             write_to_buffer (d, "> ", 2);
         else if (fPrompt && d->connected == CON_PLAYING)
@@ -1073,7 +1073,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
                 else
                     sprintf (wound, "is {rbleeding{x to death.");
 
-                sprintf (buf, "%s %s \n\r",
+                sprintf (buf, "%s %s \r\n",
                          IS_NPC (victim) ? victim->short_descr : victim->name,
                          wound);
                 buf[0] = UPPER (buf[0]);
@@ -1085,7 +1085,7 @@ bool process_output (DESCRIPTOR_DATA * d, bool fPrompt)
 
             ch = d->original ? d->original : d->character;
             if (!IS_SET (ch->comm, COMM_COMPACT))
-                write_to_buffer (d, "\n\r", 2);
+                write_to_buffer (d, "\r\n", 2);
 
 
             if (IS_SET (ch->comm, COMM_PROMPT))
@@ -1202,7 +1202,7 @@ void bust_a_prompt (CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'c':
-                sprintf (buf2, "%s", "\n\r");
+                sprintf (buf2, "%s", "\r\n");
                 i = buf2;
                 break;
             case 'h':
@@ -1367,7 +1367,7 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
 	return;
 
     /*
-     * Initial \n\r if needed.
+     * Initial \r\n if needed.
      */
     if ( d->outtop == 0 && !d->fcommand )
     {
@@ -1386,11 +1386,11 @@ void write_to_buffer( DESCRIPTOR_DATA *d, const char *txt, int length )
         if (d->outsize >= 32000)
 	{
             char abuf[ MAX_STRING_LENGTH ];
-            char* pOverflowMsg = "There is too much for you to take in. Your senses shut down.\n\r";
+            char* pOverflowMsg = "There is too much for you to take in. Your senses shut down.\r\n";
 
             if ( d->character != NULL )
             {
-                sprintf( abuf, "Write to buffer - Buffer overflow from %s. Check what this char is doing.\n\r",
+                sprintf( abuf, "Write to buffer - Buffer overflow from %s. Check what this char is doing.\r\n",
                          d->character->name );
                 bug( abuf, 0 );
             }
@@ -1447,11 +1447,11 @@ void copyover_broadcast(char *txt, bool show_last_result, bool last_result)
     {
         if (last_result)
         {
-            sprintf(buf, "[ {GSuccess{x ]\n\r%-55s", txt);
+            sprintf(buf, "[ {GSuccess{x ]\r\n%-55s", txt);
         }
         else
         {
-            sprintf(buf, "[ {RFailure{x ]\n\r%-55s", txt);
+            sprintf(buf, "[ {RFailure{x ]\r\n%-55s", txt);
         }
     }
     else
@@ -1773,7 +1773,7 @@ bool check_reconnect (DESCRIPTOR_DATA * d, char *name, bool fConn)
                 d->character = ch;
                 ch->desc = d;
                 ch->timer = 0;
-                send_to_char("Reconnecting. Type replay to see missed tells.\n\r", ch);
+                send_to_char("Reconnecting. Type replay to see missed tells.\r\n", ch);
                 act ("$n has reconnected.", ch, NULL, NULL, TO_ROOM);
 
                 log_f("%s@%s reconnected.", ch->name, d->host);
@@ -1805,7 +1805,7 @@ bool check_playing (DESCRIPTOR_DATA * d, char *name)
             && !str_cmp (name, dold->original
                          ? dold->original->name : dold->character->name))
         {
-            write_to_buffer (d, "That character is already playing.\n\r", 0);
+            write_to_buffer (d, "That character is already playing.\r\n", 0);
             write_to_buffer (d, "Do you wish to connect anyway (Y/N)?", 0);
             d->connected = CON_BREAK_CONNECT;
             return TRUE;
@@ -2081,8 +2081,8 @@ void show_string(struct descriptor_data *d, char *input)
             d->showstr_point = d->showstr_head;
             break;
         case 'H': /* Show some help */
-            write_to_buffer( d, "\n\rC, or Return = continue, R = redraw this page, B = back one page\n\r", 0 );
-            write_to_buffer( d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\n\r",0 );
+            write_to_buffer( d, "\r\nC, or Return = continue, R = redraw this page, B = back one page\r\n", 0 );
+            write_to_buffer( d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\r\n",0 );
             return;
             break;
         case 'Q': /*otherwise, stop the text viewing */
@@ -2110,7 +2110,7 @@ void show_string(struct descriptor_data *d, char *input)
     }
 
     if (max_linecount > d->character->lines)
-        write_to_buffer( d, "\n\r",0);
+        write_to_buffer( d, "\r\n",0);
 
     /* do any backing up necessary */
     if (lines < 0)
@@ -2510,7 +2510,7 @@ int color(char type, CHAR_DATA *ch, char *string)
         sprintf(code, BLINK);
         break;
     case '/':
-        sprintf(code, "\n\r");
+        sprintf(code, "\r\n");
         break;
     case '_':
         sprintf(code, UNDERLINE);  // Underline

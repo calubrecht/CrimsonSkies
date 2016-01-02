@@ -885,7 +885,7 @@ void save_other_helps (CHAR_DATA * ch)
             save_helps (fp, ha);
 
             if (ch)
-                printf_to_char (ch, "%s\n\r", ha->filename);
+                printf_to_char (ch, "%s\r\n", ha->filename);
 
             fprintf (fp, "#$\n");
             fclose (fp);
@@ -1196,18 +1196,18 @@ void do_asave (CHAR_DATA * ch, char *argument)
     {
         if (ch)
         {
-            send_to_char("Syntax:\n\r", ch);
-            send_to_char("  asave <vnum>   - saves a particular area\n\r", ch);
-            send_to_char("  asave list     - saves the area.lst file\n\r", ch);
-            send_to_char("  asave area     - saves the area being edited\n\r", ch);
-            send_to_char("  asave changed  - saves all changed areas\n\r", ch);
-            send_to_char("  asave world    - saves the world! (db dump)\n\r", ch);
-            send_to_char("  asave groups   - saves the group files\n\r",  ch );
-            send_to_char("  asave classes  - saves the class files\n\r", ch);
-            send_to_char("  asave skills   - saves the skills file\n\r", ch);
-            send_to_char("  asave creation - saves the skills, groups and classes\n\r", ch);
-            send_to_char("  asave settings - saves the current game settings\n\r", ch);
-            send_to_char("\n\r", ch);
+            send_to_char("Syntax:\r\n", ch);
+            send_to_char("  asave <vnum>   - saves a particular area\r\n", ch);
+            send_to_char("  asave list     - saves the area.lst file\r\n", ch);
+            send_to_char("  asave area     - saves the area being edited\r\n", ch);
+            send_to_char("  asave changed  - saves all changed areas\r\n", ch);
+            send_to_char("  asave world    - saves the world! (db dump)\r\n", ch);
+            send_to_char("  asave groups   - saves the group files\r\n",  ch );
+            send_to_char("  asave classes  - saves the class files\r\n", ch);
+            send_to_char("  asave skills   - saves the skills file\r\n", ch);
+            send_to_char("  asave creation - saves the skills, groups and classes\r\n", ch);
+            send_to_char("  asave settings - saves the current game settings\r\n", ch);
+            send_to_char("\r\n", ch);
         }
 
         return;
@@ -1218,7 +1218,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!(pArea = get_area_data (value)) && is_number (arg1))
     {
         if (ch)
-            send_to_char ("That area does not exist.\n\r", ch);
+            send_to_char ("That area does not exist.\r\n", ch);
         return;
     }
 
@@ -1228,7 +1228,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     {
         if (ch && !IS_BUILDER (ch, pArea))
         {
-            send_to_char ("You are not a builder for this area.\n\r", ch);
+            send_to_char ("You are not a builder for this area.\r\n", ch);
             return;
         }
 
@@ -1254,7 +1254,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
         }
 
         if (ch)
-            send_to_char ("You saved the world.\n\r", ch);
+            send_to_char ("You saved the world.\r\n", ch);
 
         save_other_helps (NULL);
 
@@ -1270,11 +1270,11 @@ void do_asave (CHAR_DATA * ch, char *argument)
         save_area_list ();
 
         if (ch)
-            send_to_char ("Saved zones:\n\r", ch);
+            send_to_char ("Saved zones:\r\n", ch);
         else
             log_string ("Saved zones:");
 
-        sprintf (buf, "None.\n\r");
+        sprintf (buf, "None.\r\n");
 
         for (pArea = area_first; pArea; pArea = pArea->next)
         {
@@ -1290,7 +1290,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
                 if (ch)
                 {
                     send_to_char (buf, ch);
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
                 }
                 else
                     log_string (buf);
@@ -1300,7 +1300,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
 
         save_other_helps (ch);
 
-        if (!str_cmp (buf, "None.\n\r"))
+        if (!str_cmp (buf, "None.\r\n"))
         {
             if (ch)
                 send_to_char (buf, ch);
@@ -1323,7 +1323,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!str_cmp (arg1, "groups"))
     {
         save_groups();
-        send_to_char("Groups have been saved.\n\r", ch);
+        send_to_char("Groups have been saved.\r\n", ch);
         return;
     }
 
@@ -1331,7 +1331,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!str_cmp (arg1, "classes"))
     {
         save_classes();
-        send_to_char("Classes have been saved.\n\r", ch);
+        send_to_char("Classes have been saved.\r\n", ch);
         return;
     }
 
@@ -1339,7 +1339,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!str_cmp (arg1, "skills"))
     {
         save_skills();
-        send_to_char("Skills have been saved.\n\r", ch);
+        send_to_char("Skills have been saved.\r\n", ch);
         return;
     }
 
@@ -1349,7 +1349,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
         save_skills();
         save_groups();
         save_classes();
-        send_to_char("Skills, groups and classes saved.\n\r", ch);
+        send_to_char("Skills, groups and classes saved.\r\n", ch);
         return;
     }
 
@@ -1357,7 +1357,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
     if (!str_cmp(arg1, "settings"))
     {
         save_settings();
-        send_to_char("Game settings have been saved.\n\r", ch);
+        send_to_char("Game settings have been saved.\r\n", ch);
         log_f("Game settings save was triggered by %s.", ch->name);
         return;
     }
@@ -1373,7 +1373,7 @@ void do_asave (CHAR_DATA * ch, char *argument)
         if (ch->desc->editor == ED_NONE)
         {
             send_to_char ("You are not editing an area, "
-                          "therefore an area vnum is required.\n\r", ch);
+                          "therefore an area vnum is required.\r\n", ch);
             return;
         }
 
@@ -1403,14 +1403,14 @@ void do_asave (CHAR_DATA * ch, char *argument)
 
         if (!IS_BUILDER (ch, pArea))
         {
-            send_to_char ("You are not a builder for this area.\n\r", ch);
+            send_to_char ("You are not a builder for this area.\r\n", ch);
             return;
         }
 
         save_area_list ();
         save_area (pArea);
         REMOVE_BIT (pArea->area_flags, AREA_CHANGED);
-        send_to_char ("Area saved.\n\r", ch);
+        send_to_char ("Area saved.\r\n", ch);
         return;
     }
 

@@ -2716,7 +2716,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
     output = new_buf();
 
-    sprintf(border, "---------------------------------------------------------------------------\n\r");
+    sprintf(border, "---------------------------------------------------------------------------\r\n");
 
     for (continent = 0; continent_table[continent].name != NULL; continent++)
     {
@@ -2724,19 +2724,19 @@ void do_areas (CHAR_DATA * ch, char *argument)
         if (!recommend)
         {
             // All levels
-            sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent, -1));
+            sprintf(buf, "{CContinent: %s (%d Areas){x\r\n", capitalize(continent_table[continent].name), area_count(continent, -1));
         }
         else
         {
             // Recommended only the players levels shown.
-            sprintf(buf, "{CContinent: %s (%d Areas){x\n\r", capitalize(continent_table[continent].name), area_count(continent, ch->level));
+            sprintf(buf, "{CContinent: %s (%d Areas){x\r\n", capitalize(continent_table[continent].name), area_count(continent, ch->level));
         }
 
         add_buf(output, buf);
         add_buf(output, border);
 
         // Send the header
-        sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-25s{x]\n\r", "Level", "Area Name", "Builders");
+        sprintf(buf, "[{G%-5s{x][{R%-39s{x][{C%-25s{x]\r\n", "Level", "Area Name", "Builders");
         add_buf(output, buf);
         add_buf(output, border);
 
@@ -2750,7 +2750,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
             {
                 // This is the general area command with now parameters, it will show you all of the
                 // areas.
-                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
+                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\r\n",
                     pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
                 add_buf(output, buf);
             }
@@ -2758,7 +2758,7 @@ void do_areas (CHAR_DATA * ch, char *argument)
             {
                 // This is the area command witht he 'recommend' flag.  It will show you only areas
                 // that fall within your level range.
-                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\n\r",
+                sprintf (buf, "[{G%2d %2d{x] {R%-39.39s{x [{C%-25.25s{x]\r\n",
                     pArea->min_level, pArea->max_level, pArea->name, pArea->builders);
                 add_buf(output, buf);
             }
@@ -2767,18 +2767,18 @@ void do_areas (CHAR_DATA * ch, char *argument)
 
         // Bottom Border
         add_buf(output, border);
-        sprintf(buf, "\n\r");
+        sprintf(buf, "\r\n");
         add_buf(output, buf);
 
     }
 
     if (!recommend)
     {
-        sprintf(buf, "{CTotal Areas: %d (Use 'area recommend' to see areas in your level range){x\n\r\n\r", area_count(-1, -1));
+        sprintf(buf, "{CTotal Areas: %d (Use 'area recommend' to see areas in your level range){x\r\n\r\n", area_count(-1, -1));
     }
     else
     {
-        sprintf(buf, "{CTotal Recommend Areas: %d{x\n\r\n\r", area_count(-1, ch->level));
+        sprintf(buf, "{CTotal Recommend Areas: %d{x\r\n\r\n", area_count(-1, ch->level));
     }
 
     add_buf(output, buf);
@@ -2853,34 +2853,34 @@ void do_memory (CHAR_DATA * ch, char *argument)
         total_obj_count += obj->count;
     }
 
-    sprintf (buf, "Affects %5d\n\r", top_affect);
+    sprintf (buf, "Affects %5d\r\n", top_affect);
     send_to_char (buf, ch);
-    sprintf (buf, "Areas   %5d\n\r", top_area);
+    sprintf (buf, "Areas   %5d\r\n", top_area);
     send_to_char (buf, ch);
-    sprintf (buf, "ExDes   %5d\n\r", top_ed);
+    sprintf (buf, "ExDes   %5d\r\n", top_ed);
     send_to_char (buf, ch);
-    sprintf (buf, "Exits   %5d\n\r", top_exit);
+    sprintf (buf, "Exits   %5d\r\n", top_exit);
     send_to_char (buf, ch);
-    sprintf (buf, "Helps   %5d\n\r", top_help);
+    sprintf (buf, "Helps   %5d\r\n", top_help);
     send_to_char (buf, ch);
-    sprintf (buf, "Socials %5d\n\r", social_count);
+    sprintf (buf, "Socials %5d\r\n", social_count);
     send_to_char (buf, ch);
-    sprintf (buf, "Mobs    %5d (%d in use)\n\r", top_mob_index, mobile_count);
+    sprintf (buf, "Mobs    %5d (%d in use)\r\n", top_mob_index, mobile_count);
     send_to_char (buf, ch);
-    sprintf (buf, "Objs    %5d (%d loaded with unconsolidated count of %d)\n\r", top_obj_index, obj_count, total_obj_count);
+    sprintf (buf, "Objs    %5d (%d loaded with unconsolidated count of %d)\r\n", top_obj_index, obj_count, total_obj_count);
     send_to_char (buf, ch);
-    sprintf (buf, "Resets  %5d\n\r", top_reset);
+    sprintf (buf, "Resets  %5d\r\n", top_reset);
     send_to_char (buf, ch);
-    sprintf (buf, "Rooms   %5d\n\r", top_room);
+    sprintf (buf, "Rooms   %5d\r\n", top_room);
     send_to_char (buf, ch);
-    sprintf (buf, "Shops   %5d\n\r", top_shop);
+    sprintf (buf, "Shops   %5d\r\n", top_shop);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Strings %5d strings of %7zd bytes (max %d).\n\r",
+    sprintf (buf, "Strings %5d strings of %7zd bytes (max %d).\r\n",
              nAllocString, sAllocString, MAX_STRING);
     send_to_char (buf, ch);
 
-    sprintf (buf, "Perms   %5d blocks  of %7zd bytes.\n\r",
+    sprintf (buf, "Perms   %5d blocks  of %7zd bytes.\r\n",
              nAllocPerm, sAllocPerm);
     send_to_char (buf, ch);
 
@@ -2907,7 +2907,7 @@ void do_memory (CHAR_DATA * ch, char *argument)
         }
     }
 
-    sprintf(buf, "Pits    %5d (%d objects in the pits, %d after consolidation)\n\r", pits_purged, all_objects_purged, base_objects_purged);
+    sprintf(buf, "Pits    %5d (%d objects in the pits, %d after consolidation)\r\n", pits_purged, all_objects_purged, base_objects_purged);
     send_to_char(buf, ch);
 
     return;
@@ -3381,7 +3381,7 @@ void append_file (CHAR_DATA * ch, char *file, char *str)
     if ((fp = fopen (file, "a")) == NULL)
     {
         perror (file);
-        send_to_char ("Could not open the file!\n\r", ch);
+        send_to_char ("Could not open the file!\r\n", ch);
     }
     else
     {
@@ -3461,7 +3461,7 @@ void load_socials(FILE * fp)
             return;                /* done */
 #if defined(social_debug)
         else
-            fprintf(stderr, "%s\n\r", temp);
+            fprintf(stderr, "%s\r\n", temp);
 #endif
 
         strcpy(social.name, temp);

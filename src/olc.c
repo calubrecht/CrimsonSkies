@@ -200,11 +200,11 @@ void show_olc_cmds(CHAR_DATA * ch, const struct olc_cmd_type *olc_table)
         sprintf(buf, "%-15.15s", olc_table[cmd].name);
         strcat(buf1, buf);
         if (++col % 4 == 0)
-            strcat(buf1, "\n\r");
+            strcat(buf1, "\r\n");
     }
 
     if (col % 4 != 0)
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
 
     send_to_char(buf1, ch);
     return;
@@ -518,7 +518,7 @@ void aedit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("AEdit:  Insufficient security to modify area.\n\r",
+        send_to_char("AEdit:  Insufficient security to modify area.\r\n",
             ch);
         edit_done(ch);
         return;
@@ -540,7 +540,7 @@ void aedit(CHAR_DATA * ch, char *argument)
     {
         TOGGLE_BIT(pArea->area_flags, value);
 
-        send_to_char("Flag toggled.\n\r", ch);
+        send_to_char("Flag toggled.\r\n", ch);
         return;
     }
 
@@ -582,7 +582,7 @@ void redit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("REdit:  Insufficient security to modify room.\n\r",
+        send_to_char("REdit:  Insufficient security to modify room.\r\n",
             ch);
         edit_done(ch);
         return;
@@ -638,7 +638,7 @@ void oedit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("OEdit: Insufficient security to modify area.\n\r", ch);
+        send_to_char("OEdit: Insufficient security to modify area.\r\n", ch);
         edit_done(ch);
         return;
     }
@@ -693,7 +693,7 @@ void medit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("MEdit: Insufficient security to modify area.\n\r", ch);
+        send_to_char("MEdit: Insufficient security to modify area.\r\n", ch);
         edit_done(ch);
         return;
     }
@@ -796,7 +796,7 @@ void do_aedit(CHAR_DATA * ch, char *argument)
         value = atoi(arg);
         if (!(pArea = get_area_data(value)))
         {
-            send_to_char("That area vnum does not exist.\n\r", ch);
+            send_to_char("That area vnum does not exist.\r\n", ch);
             return;
         }
     }
@@ -804,7 +804,7 @@ void do_aedit(CHAR_DATA * ch, char *argument)
     {
         if (ch->pcdata->security < 9)
         {
-            send_to_char("AEdit : Insufficient security to create area.\n\r",
+            send_to_char("AEdit : Insufficient security to create area.\r\n",
                 ch);
             return;
         }
@@ -816,7 +816,7 @@ void do_aedit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("Insufficient security to edit areas.\n\r", ch);
+        send_to_char("Insufficient security to edit areas.\r\n", ch);
         return;
     }
 
@@ -842,12 +842,12 @@ void do_redit(CHAR_DATA * ch, char *argument)
     {                            /* redit reset */
         if (!IS_BUILDER(ch, pRoom->area))
         {
-            send_to_char("Insufficient security to modify room.\n\r", ch);
+            send_to_char("Insufficient security to modify room.\r\n", ch);
             return;
         }
 
         reset_room(pRoom);
-        send_to_char("Room reset.\n\r", ch);
+        send_to_char("Room reset.\r\n", ch);
 
         return;
     }
@@ -855,7 +855,7 @@ void do_redit(CHAR_DATA * ch, char *argument)
     {                            /* redit create <vnum> */
         if (argument[0] == '\0' || atoi(argument) == 0)
         {
-            send_to_char("Syntax:  edit room create [vnum]\n\r", ch);
+            send_to_char("Syntax:  edit room create [vnum]\r\n", ch);
             return;
         }
 
@@ -876,13 +876,13 @@ void do_redit(CHAR_DATA * ch, char *argument)
 
         if (!pRoom)
         {
-            send_to_char("REdit : Nonexistant room.\n\r", ch);
+            send_to_char("REdit : Nonexistant room.\r\n", ch);
             return;
         }
 
         if (!IS_BUILDER(ch, pRoom->area))
         {
-            send_to_char("REdit : Insufficient security to modify room.\n\r",
+            send_to_char("REdit : Insufficient security to modify room.\r\n",
                 ch);
             return;
         }
@@ -893,7 +893,7 @@ void do_redit(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, pRoom->area))
     {
-        send_to_char("REdit : Insufficient security to modify room.\n\r",
+        send_to_char("REdit : Insufficient security to modify room.\r\n",
             ch);
         return;
     }
@@ -922,13 +922,13 @@ void do_oedit(CHAR_DATA * ch, char *argument)
         value = atoi(arg1);
         if (!(pObj = get_obj_index(value)))
         {
-            send_to_char("OEdit:  That vnum does not exist.\n\r", ch);
+            send_to_char("OEdit:  That vnum does not exist.\r\n", ch);
             return;
         }
 
         if (!IS_BUILDER(ch, pObj->area))
         {
-            send_to_char("Insufficient security to modify objects.\n\r", ch);
+            send_to_char("Insufficient security to modify objects.\r\n", ch);
             return;
         }
 
@@ -943,7 +943,7 @@ void do_oedit(CHAR_DATA * ch, char *argument)
             value = atoi(argument);
             if (argument[0] == '\0' || value == 0)
             {
-                send_to_char("Syntax:  edit object create [vnum]\n\r", ch);
+                send_to_char("Syntax:  edit object create [vnum]\r\n", ch);
                 return;
             }
 
@@ -952,13 +952,13 @@ void do_oedit(CHAR_DATA * ch, char *argument)
             if (!pArea)
             {
                 send_to_char
-                    ("OEdit:  That vnum is not assigned an area.\n\r", ch);
+                    ("OEdit:  That vnum is not assigned an area.\r\n", ch);
                 return;
             }
 
             if (!IS_BUILDER(ch, pArea))
             {
-                send_to_char("Insufficient security to modify objects.\n\r",
+                send_to_char("Insufficient security to modify objects.\r\n",
                     ch);
                 return;
             }
@@ -972,7 +972,7 @@ void do_oedit(CHAR_DATA * ch, char *argument)
         }
     }
 
-    send_to_char("OEdit:  There is no default object to edit.\n\r", ch);
+    send_to_char("OEdit:  There is no default object to edit.\r\n", ch);
     return;
 }
 
@@ -994,13 +994,13 @@ void do_medit(CHAR_DATA * ch, char *argument)
         value = atoi(arg1);
         if (!(pMob = get_mob_index(value)))
         {
-            send_to_char("MEdit:  That vnum does not exist.\n\r", ch);
+            send_to_char("MEdit:  That vnum does not exist.\r\n", ch);
             return;
         }
 
         if (!IS_BUILDER(ch, pMob->area))
         {
-            send_to_char("Insufficient security to modify mobs.\n\r", ch);
+            send_to_char("Insufficient security to modify mobs.\r\n", ch);
             return;
         }
 
@@ -1015,7 +1015,7 @@ void do_medit(CHAR_DATA * ch, char *argument)
             value = atoi(argument);
             if (arg1[0] == '\0' || value == 0)
             {
-                send_to_char("Syntax:  edit mobile create [vnum]\n\r", ch);
+                send_to_char("Syntax:  edit mobile create [vnum]\r\n", ch);
                 return;
             }
 
@@ -1024,13 +1024,13 @@ void do_medit(CHAR_DATA * ch, char *argument)
             if (!pArea)
             {
                 send_to_char
-                    ("OEdit:  That vnum is not assigned an area.\n\r", ch);
+                    ("OEdit:  That vnum is not assigned an area.\r\n", ch);
                 return;
             }
 
             if (!IS_BUILDER(ch, pArea))
             {
-                send_to_char("Insufficient security to modify mobs.\n\r",
+                send_to_char("Insufficient security to modify mobs.\r\n",
                     ch);
                 return;
             }
@@ -1044,7 +1044,7 @@ void do_medit(CHAR_DATA * ch, char *argument)
         }
     }
 
-    send_to_char("MEdit:  There is no default mobile to edit.\n\r", ch);
+    send_to_char("MEdit:  There is no default mobile to edit.\r\n", ch);
     return;
 }
 
@@ -1062,9 +1062,9 @@ void display_resets(CHAR_DATA * ch)
 
     send_to_char
         (" No.  Loads    Description       Location         Vnum   Mx Mn Description"
-        "\n\r"
+        "\r\n"
         "==== ======== ============= =================== ======== ===== ==========="
-        "\n\r", ch);
+        "\r\n", ch);
 
     for (pReset = pRoom->reset_first; pReset; pReset = pReset->next)
     {
@@ -1087,7 +1087,7 @@ void display_resets(CHAR_DATA * ch)
         case 'M':
             if (!(pMobIndex = get_mob_index(pReset->arg1)))
             {
-                sprintf(buf, "Load Mobile - Bad Mob %d\n\r",
+                sprintf(buf, "Load Mobile - Bad Mob %d\r\n",
                     pReset->arg1);
                 strcat(final, buf);
                 continue;
@@ -1095,7 +1095,7 @@ void display_resets(CHAR_DATA * ch)
 
             if (!(pRoomIndex = get_room_index(pReset->arg3)))
             {
-                sprintf(buf, "Load Mobile - Bad Room %d\n\r",
+                sprintf(buf, "Load Mobile - Bad Room %d\r\n",
                     pReset->arg3);
                 strcat(final, buf);
                 continue;
@@ -1103,7 +1103,7 @@ void display_resets(CHAR_DATA * ch)
 
             pMob = pMobIndex;
             sprintf(buf,
-                "M[%5d] %-13.13s in room             R[%5d] %2d-%2d %-15.15s\n\r",
+                "M[%5d] %-13.13s in room             R[%5d] %2d-%2d %-15.15s\r\n",
                 pReset->arg1, pMob->short_descr, pReset->arg3,
                 pReset->arg2, pReset->arg4, pRoomIndex->name);
             strcat(final, buf);
@@ -1126,7 +1126,7 @@ void display_resets(CHAR_DATA * ch)
         case 'O':
             if (!(pObjIndex = get_obj_index(pReset->arg1)))
             {
-                sprintf(buf, "Load Object - Bad Object %d\n\r",
+                sprintf(buf, "Load Object - Bad Object %d\r\n",
                     pReset->arg1);
                 strcat(final, buf);
                 continue;
@@ -1136,14 +1136,14 @@ void display_resets(CHAR_DATA * ch)
 
             if (!(pRoomIndex = get_room_index(pReset->arg3)))
             {
-                sprintf(buf, "Load Object - Bad Room %d\n\r",
+                sprintf(buf, "Load Object - Bad Room %d\r\n",
                     pReset->arg3);
                 strcat(final, buf);
                 continue;
             }
 
             sprintf(buf, "O[%5d] %-13.13s in room             "
-                "R[%5d]       %-15.15s\n\r",
+                "R[%5d]       %-15.15s\r\n",
                 pReset->arg1, pObj->short_descr,
                 pReset->arg3, pRoomIndex->name);
             strcat(final, buf);
@@ -1153,7 +1153,7 @@ void display_resets(CHAR_DATA * ch)
         case 'P':
             if (!(pObjIndex = get_obj_index(pReset->arg1)))
             {
-                sprintf(buf, "Put Object - Bad Object %d\n\r",
+                sprintf(buf, "Put Object - Bad Object %d\r\n",
                     pReset->arg1);
                 strcat(final, buf);
                 continue;
@@ -1163,14 +1163,14 @@ void display_resets(CHAR_DATA * ch)
 
             if (!(pObjToIndex = get_obj_index(pReset->arg3)))
             {
-                sprintf(buf, "Put Object - Bad To Object %d\n\r",
+                sprintf(buf, "Put Object - Bad To Object %d\r\n",
                     pReset->arg3);
                 strcat(final, buf);
                 continue;
             }
 
             sprintf(buf,
-                "O[%5d] %-13.13s inside              O[%5d] %2d-%2d %-15.15s\n\r",
+                "O[%5d] %-13.13s inside              O[%5d] %2d-%2d %-15.15s\r\n",
                 pReset->arg1,
                 pObj->short_descr,
                 pReset->arg3,
@@ -1184,7 +1184,7 @@ void display_resets(CHAR_DATA * ch)
         case 'E':
             if (!(pObjIndex = get_obj_index(pReset->arg1)))
             {
-                sprintf(buf, "Give/Equip Object - Bad Object %d\n\r",
+                sprintf(buf, "Give/Equip Object - Bad Object %d\r\n",
                     pReset->arg1);
                 strcat(final, buf);
                 continue;
@@ -1195,7 +1195,7 @@ void display_resets(CHAR_DATA * ch)
             if (!pMob)
             {
                 sprintf(buf,
-                    "Give/Equip Object - No Previous Mobile\n\r");
+                    "Give/Equip Object - No Previous Mobile\r\n");
                 strcat(final, buf);
                 break;
             }
@@ -1203,14 +1203,14 @@ void display_resets(CHAR_DATA * ch)
             if (pMob->pShop)
             {
                 sprintf(buf,
-                    "O[%5d] %-13.13s in the inventory of S[%5d]       %-15.15s\n\r",
+                    "O[%5d] %-13.13s in the inventory of S[%5d]       %-15.15s\r\n",
                     pReset->arg1,
                     pObj->short_descr, pMob->vnum,
                     pMob->short_descr);
             }
             else
                 sprintf(buf,
-                "O[%5d] %-13.13s %-19.19s M[%5d]       %-15.15s\n\r",
+                "O[%5d] %-13.13s %-19.19s M[%5d]       %-15.15s\r\n",
                 pReset->arg1,
                 pObj->short_descr,
                 (pReset->command == 'G') ?
@@ -1228,7 +1228,7 @@ void display_resets(CHAR_DATA * ch)
             */
         case 'D':
             pRoomIndex = get_room_index(pReset->arg1);
-            sprintf(buf, "R[%5d] %s door of %-19.19s reset to %s\n\r",
+            sprintf(buf, "R[%5d] %s door of %-19.19s reset to %s\r\n",
                 pReset->arg1,
                 capitalize(dir_name[pReset->arg2]),
                 pRoomIndex->name,
@@ -1242,13 +1242,13 @@ void display_resets(CHAR_DATA * ch)
         case 'R':
             if (!(pRoomIndex = get_room_index(pReset->arg1)))
             {
-                sprintf(buf, "Randomize Exits - Bad Room %d\n\r",
+                sprintf(buf, "Randomize Exits - Bad Room %d\r\n",
                     pReset->arg1);
                 strcat(final, buf);
                 continue;
             }
 
-            sprintf(buf, "R[%5d] Exits are randomized in %s\n\r",
+            sprintf(buf, "R[%5d] Exits are randomized in %s\r\n",
                 pReset->arg1, pRoomIndex->name);
             strcat(final, buf);
 
@@ -1324,7 +1324,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
 
     if (!IS_BUILDER(ch, ch->in_room->area))
     {
-        send_to_char("Resets: Invalid security for editing this area.\n\r",
+        send_to_char("Resets: Invalid security for editing this area.\r\n",
             ch);
         return;
     }
@@ -1338,11 +1338,11 @@ void do_resets(CHAR_DATA * ch, char *argument)
         if (ch->in_room->reset_first)
         {
             send_to_char("Resets: M = mobile, R = room, O = object, "
-                "P = pet, S = shopkeeper\n\r", ch);
+                "P = pet, S = shopkeeper\r\n", ch);
             display_resets(ch);
         }
         else
-            send_to_char("No resets in this room.\n\r", ch);
+            send_to_char("No resets in this room.\r\n", ch);
     }
 
 
@@ -1364,7 +1364,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
 
             if (!ch->in_room->reset_first)
             {
-                send_to_char("No resets in this area.\n\r", ch);
+                send_to_char("No resets in this area.\r\n", ch);
                 return;
             }
 
@@ -1390,7 +1390,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
 
                 if (!pReset)
                 {
-                    send_to_char("Reset not found.\n\r", ch);
+                    send_to_char("Reset not found.\r\n", ch);
                     return;
                 }
 
@@ -1405,7 +1405,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
             }
 
             free_reset_data(pReset);
-            send_to_char("Reset deleted.\n\r", ch);
+            send_to_char("Reset deleted.\r\n", ch);
         }
         else
             /*
@@ -1424,7 +1424,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
                     if (get_mob_index(is_number(arg3) ? atoi(arg3) : 1) ==
                         NULL)
                     {
-                        send_to_char("Mob doesn't exist.\n\r", ch);
+                        send_to_char("Mob doesn't exist.\r\n", ch);
                         return;
                     }
                     pReset = new_reset_data();
@@ -1453,14 +1453,14 @@ void do_resets(CHAR_DATA * ch, char *argument)
 
                             temp = get_obj_index(is_number(arg5) ? atoi(arg5) : 1);
                             if (temp == NULL) {
-                                send_to_char("Object not found.\n\r", ch);
+                                send_to_char("Object not found.\r\n", ch);
                                 return;
                             }
 
                             if ((temp->item_type != ITEM_CONTAINER) &&
                                 (temp->item_type != ITEM_CORPSE_NPC))
                             {
-                                send_to_char("Object 2 is not a container.\n\r", ch);
+                                send_to_char("Object 2 is not a container.\r\n", ch);
                                 return;
                             }
                             pReset->command = 'P';
@@ -1477,7 +1477,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
                             {
                                 if (get_obj_index(atoi(arg3)) == NULL)
                                 {
-                                    send_to_char("Vnum doesn't exist.\n\r", ch);
+                                    send_to_char("Vnum doesn't exist.\r\n", ch);
                                     return;
                                 }
                                 pReset->command = 'O';
@@ -1493,12 +1493,12 @@ void do_resets(CHAR_DATA * ch, char *argument)
                             {
                                 if (flag_value(wear_loc_flags, arg4) == NO_FLAG)
                                 {
-                                    send_to_char("Resets: '? wear-loc'\n\r", ch);
+                                    send_to_char("Resets: '? wear-loc'\r\n", ch);
                                     return;
                                 }
                                 if (get_obj_index(atoi(arg3)) == NULL)
                                 {
-                                    send_to_char("Vnum doesn't exist.\n\r", ch);
+                                    send_to_char("Vnum doesn't exist.\r\n", ch);
                                     return;
                                 }
                                 pReset->arg1 = atoi(arg3);
@@ -1511,13 +1511,13 @@ void do_resets(CHAR_DATA * ch, char *argument)
                     }
                 add_reset(ch->in_room, pReset, atoi(arg1));
                 SET_BIT(ch->in_room->area->area_flags, AREA_CHANGED);
-                send_to_char("Reset added.\n\r", ch);
+                send_to_char("Reset added.\r\n", ch);
             }
             else if (!str_cmp(arg2, "random") && is_number(arg3))
             {
                 if (atoi(arg3) < 1 || atoi(arg3) > 6)
                 {
-                    send_to_char("Invalid argument.\n\r", ch);
+                    send_to_char("Invalid argument.\r\n", ch);
                     return;
                 }
                 pReset = new_reset_data();
@@ -1526,21 +1526,21 @@ void do_resets(CHAR_DATA * ch, char *argument)
                 pReset->arg2 = atoi(arg3);
                 add_reset(ch->in_room, pReset, atoi(arg1));
                 SET_BIT(ch->in_room->area->area_flags, AREA_CHANGED);
-                send_to_char("Random exits reset added.\n\r", ch);
+                send_to_char("Random exits reset added.\r\n", ch);
             }
             else
             {
-                send_to_char("Syntax: RESET <number> OBJ <vnum> <wear_loc>\n\r",
+                send_to_char("Syntax: RESET <number> OBJ <vnum> <wear_loc>\r\n",
                     ch);
                 send_to_char
-                    ("        RESET <number> OBJ <vnum> inside <vnum> [limit] [count]\n\r",
+                    ("        RESET <number> OBJ <vnum> inside <vnum> [limit] [count]\r\n",
                     ch);
-                send_to_char("        RESET <number> OBJ <vnum> room\n\r", ch);
+                send_to_char("        RESET <number> OBJ <vnum> room\r\n", ch);
                 send_to_char
-                    ("        RESET <number> MOB <vnum> [max #x area] [max #x room]\n\r",
+                    ("        RESET <number> MOB <vnum> [max #x area] [max #x room]\r\n",
                     ch);
-                send_to_char("        RESET <number> DELETE\n\r", ch);
-                send_to_char("        RESET <number> RANDOM [#x exits]\n\r", ch);
+                send_to_char("        RESET <number> DELETE\r\n", ch);
+                send_to_char("        RESET <number> RANDOM [#x exits]\r\n", ch);
             }
     }
 
@@ -1575,7 +1575,7 @@ void do_alist( CHAR_DATA *ch, char *argument )
 
     for ( pArea = area_first; pArea; pArea = pArea->next )
     {
-    sprintf( buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
+    sprintf( buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\r\n",
          pArea->vnum,
          pArea->name,
          pArea->min_vnum,
@@ -1604,7 +1604,7 @@ void do_gedit( CHAR_DATA *ch, char *argument )
     sn = group_lookup(arg1);
     if (sn == -1 && str_cmp(arg1,"create" ))
     {
-	send_to_char( "GEdit:  That group does not exist.  Valid groups are:\n\r\n\r", ch );
+	send_to_char( "GEdit:  That group does not exist.  Valid groups are:\r\n\r\n", ch );
         do_function (ch, &do_groups, "all");
 	return;
     }
@@ -1613,7 +1613,7 @@ void do_gedit( CHAR_DATA *ch, char *argument )
     {
         if ( argument[0] == '\0')
         {
-            send_to_char( "Syntax:  edit group create group_name\n\r", ch );
+            send_to_char( "Syntax:  edit group create group_name\r\n", ch );
             return;
 	}
 
@@ -1631,7 +1631,7 @@ void do_gedit( CHAR_DATA *ch, char *argument )
 	return;
     }
 
-    send_to_char( "GEdit:  There is no default group to edit.\n\r", ch );
+    send_to_char( "GEdit:  There is no default group to edit.\r\n", ch );
     return;
 }
 
@@ -1647,14 +1647,14 @@ void gedit( CHAR_DATA *ch, char *argument )
 
     if (IS_SWITCHED(ch) )
     {
-        send_to_char("You cannot use OLC functions while switched!\n\r",ch);
+        send_to_char("You cannot use OLC functions while switched!\r\n",ch);
         edit_done(ch);
         return;
     }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-        send_to_char( "GEdit:  Insufficient security to modify groups.\n\r", ch );
+        send_to_char( "GEdit:  Insufficient security to modify groups.\r\n", ch );
         edit_done( ch );
         interpret( ch, arg );
         return;
@@ -1705,7 +1705,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
     sn = class_lookup(arg1);
     if (sn == -1 && str_cmp(arg1,"create" ))
     {
-	send_to_char( "CEdit:  That class does not exist.\n\r", ch );
+	send_to_char( "CEdit:  That class does not exist.\r\n", ch );
 	return;
     }
 
@@ -1713,7 +1713,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	{
 	    if ( argument[0] == '\0')
 	    {
-		send_to_char( "Syntax:  edit class create group_name\n\r", ch );
+		send_to_char( "Syntax:  edit class create group_name\r\n", ch );
 		return;
 	    }
 
@@ -1731,7 +1731,7 @@ void do_cedit( CHAR_DATA *ch, char *argument )
 	    return;
 	}
 
-    send_to_char( "CEdit:  There is no default skill to edit.\n\r", ch );
+    send_to_char( "CEdit:  There is no default skill to edit.\r\n", ch );
     return;
 }
 
@@ -1749,14 +1749,14 @@ void cedit( CHAR_DATA *ch, char *argument )
 
     if ( IS_SWITCHED(ch) )
      {
-	send_to_char("You cannot use OLC functions while switched!!!\n\r",ch);
+	send_to_char("You cannot use OLC functions while switched!!!\r\n",ch);
 	edit_done(ch);
 	return;
      }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-	send_to_char( "CEdit:  Insufficient security to modify classes.\n\r", ch );
+	send_to_char( "CEdit:  Insufficient security to modify classes.\r\n", ch );
 	edit_done( ch );
 	interpret( ch, arg );
 	return;
@@ -1809,7 +1809,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
     sn = skill_lookup(arg1);
     if (sn == -1 && str_cmp( arg1, "create"))
     {
-        send_to_char( "SEdit:  That skill does not exist.\n\r", ch );
+        send_to_char( "SEdit:  That skill does not exist.\r\n", ch );
         return;
     }
 
@@ -1817,7 +1817,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
         {
             if ( argument[0] == '\0')
             {
-                send_to_char( "Syntax:  edit skill create skill_name\n\r", ch );
+                send_to_char( "Syntax:  edit skill create skill_name\r\n", ch );
                 return;
             }
 
@@ -1835,7 +1835,7 @@ void do_sedit( CHAR_DATA *ch, char *argument )
             return;
         }
 
-    send_to_char( "SEdit:  There is no default skill to edit.\n\r", ch );
+    send_to_char( "SEdit:  There is no default skill to edit.\r\n", ch );
     return;
 
 } // end do_sedit
@@ -1855,14 +1855,14 @@ void sedit( CHAR_DATA *ch, char *argument )
 
     if ( IS_SWITCHED(ch) )
      {
-        send_to_char("You cannot use OLC functions while switched!!!\n\r",ch);
+        send_to_char("You cannot use OLC functions while switched!!!\r\n",ch);
         edit_done(ch);
         return;
      }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-        send_to_char( "SEdit:  Insufficient security to modify skills.\n\r", ch );
+        send_to_char( "SEdit:  Insufficient security to modify skills.\r\n", ch );
         edit_done( ch );
         interpret( ch, arg );
         return;

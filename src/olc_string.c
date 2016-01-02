@@ -59,10 +59,10 @@ char *numlines (char *);
  ****************************************************************************/
 void string_edit (CHAR_DATA * ch, char **pString)
 {
-    send_to_char ("-========- Entering EDIT Mode -=========-\n\r", ch);
-    send_to_char ("    Type .h on a new line for help\n\r", ch);
-    send_to_char (" Terminate with a ~ or @ on a blank line.\n\r", ch);
-    send_to_char ("-=======================================-\n\r", ch);
+    send_to_char ("-========- Entering EDIT Mode -=========-\r\n", ch);
+    send_to_char ("    Type .h on a new line for help\r\n", ch);
+    send_to_char (" Terminate with a ~ or @ on a blank line.\r\n", ch);
+    send_to_char ("-=======================================-\r\n", ch);
 
     if (*pString == NULL)
     {
@@ -87,10 +87,10 @@ void string_edit (CHAR_DATA * ch, char **pString)
  ****************************************************************************/
 void string_append (CHAR_DATA * ch, char **pString)
 {
-    send_to_char ("-=======- Entering APPEND Mode -========-\n\r", ch);
-    send_to_char ("    Type .h on a new line for help\n\r", ch);
-    send_to_char (" Terminate with a ~ or @ on a blank line.\n\r", ch);
-    send_to_char ("-=======================================-\n\r", ch);
+    send_to_char ("-=======- Entering APPEND Mode -========-\r\n", ch);
+    send_to_char ("    Type .h on a new line for help\r\n", ch);
+    send_to_char (" Terminate with a ~ or @ on a blank line.\r\n", ch);
+    send_to_char ("-=======================================-\r\n", ch);
 
     if (*pString == NULL)
     {
@@ -98,9 +98,9 @@ void string_append (CHAR_DATA * ch, char **pString)
     }
     send_to_char (numlines (*pString), ch);
 
-/* numlines sends the string with \n\r */
+/* numlines sends the string with \r\n */
 /*  if ( *(*pString + strlen( *pString ) - 1) != '\r' )
-    send_to_char( "\n\r", ch ); */
+    send_to_char( "\r\n", ch ); */
 
     ch->desc->pString = pString;
 
@@ -163,7 +163,7 @@ void string_add (CHAR_DATA * ch, char *argument)
 
         if (!str_cmp (arg1, ".c"))
         {
-            send_to_char ("String cleared.\n\r", ch);
+            send_to_char ("String cleared.\r\n", ch);
             free_string (*ch->desc->pString);
             *ch->desc->pString = str_dup ("");
             return;
@@ -171,7 +171,7 @@ void string_add (CHAR_DATA * ch, char *argument)
 
         if (!str_cmp (arg1, ".s"))
         {
-            send_to_char ("String so far:\n\r", ch);
+            send_to_char ("String so far:\r\n", ch);
             send_to_char (numlines (*ch->desc->pString), ch);
             return;
         }
@@ -180,14 +180,14 @@ void string_add (CHAR_DATA * ch, char *argument)
         {
             if (arg2[0] == '\0')
             {
-                send_to_char ("usage:  .r \"old string\" \"new string\"\n\r",
+                send_to_char ("usage:  .r \"old string\" \"new string\"\r\n",
                               ch);
                 return;
             }
 
             *ch->desc->pString =
                 string_replace (*ch->desc->pString, arg2, arg3);
-            sprintf (buf, "'%s' replaced with '%s'.\n\r", arg2, arg3);
+            sprintf (buf, "'%s' replaced with '%s'.\r\n", arg2, arg3);
             send_to_char (buf, ch);
             return;
         }
@@ -195,14 +195,14 @@ void string_add (CHAR_DATA * ch, char *argument)
         if (!str_cmp (arg1, ".f"))
         {
             *ch->desc->pString = format_string (*ch->desc->pString);
-            send_to_char ("String formatted.\n\r", ch);
+            send_to_char ("String formatted.\r\n", ch);
             return;
         }
 
         if (!str_cmp(arg1, ".ld") || !str_cmp(arg1, ".dl"))
         {
             *ch->desc->pString = string_linedel(*ch->desc->pString, atoi(arg2));
-            send_to_char ("Line deleted.\n\r", ch);
+            send_to_char ("Line deleted.\r\n", ch);
             return;
         }
 
@@ -210,7 +210,7 @@ void string_add (CHAR_DATA * ch, char *argument)
         {
             *ch->desc->pString =
                 string_lineadd (*ch->desc->pString, tmparg3, atoi (arg2));
-            send_to_char ("Line inserted.\n\r", ch);
+            send_to_char ("Line inserted.\r\n", ch);
             return;
         }
 
@@ -220,27 +220,27 @@ void string_add (CHAR_DATA * ch, char *argument)
                 string_linedel (*ch->desc->pString, atoi (arg2));
             *ch->desc->pString =
                 string_lineadd (*ch->desc->pString, tmparg3, atoi (arg2));
-            send_to_char ("Line replaced.\n\r", ch);
+            send_to_char ("Line replaced.\r\n", ch);
             return;
         }
 
         if (!str_cmp (arg1, ".h"))
         {
-            send_to_char("Sedit help (commands on blank line):   \n\r", ch);
-            send_to_char(".r 'old' 'new'   - replace a substring \n\r", ch);
-            send_to_char("                   (requires '', \"\") \n\r", ch);
-            send_to_char(".h               - get help (this info)\n\r", ch);
-            send_to_char(".s               - show string so far  \n\r", ch);
-            send_to_char(".f               - word wrap (format string)\n\r", ch);
-            send_to_char(".c               - clear string so far \n\r", ch);
-            send_to_char(".ld <num>        - delete line number <num>\n\r", ch);
-            send_to_char(".li <num> <str>  - insert <str> at line <num>\n\r", ch);
-            send_to_char(".lr <num> <str>  - replace line <num> with <str>\n\r", ch);
-            send_to_char("@                - end string          \n\r", ch);
+            send_to_char("Sedit help (commands on blank line):   \r\n", ch);
+            send_to_char(".r 'old' 'new'   - replace a substring \r\n", ch);
+            send_to_char("                   (requires '', \"\") \r\n", ch);
+            send_to_char(".h               - get help (this info)\r\n", ch);
+            send_to_char(".s               - show string so far  \r\n", ch);
+            send_to_char(".f               - word wrap (format string)\r\n", ch);
+            send_to_char(".c               - clear string so far \r\n", ch);
+            send_to_char(".ld <num>        - delete line number <num>\r\n", ch);
+            send_to_char(".li <num> <str>  - insert <str> at line <num>\r\n", ch);
+            send_to_char(".lr <num> <str>  - replace line <num> with <str>\r\n", ch);
+            send_to_char("@                - end string          \r\n", ch);
             return;
         }
 
-        send_to_char ("SEdit:  Invalid dot command.\n\r", ch);
+        send_to_char ("SEdit:  Invalid dot command.\r\n", ch);
         return;
     }
 
@@ -261,7 +261,7 @@ void string_add (CHAR_DATA * ch, char *argument)
                         for (mpl = mob->mprogs; mpl; mpl = mpl->next)
                             if (mpl->vnum == mpc->vnum)
                             {
-                                sprintf (buf, "Editting mob %d.\n\r",
+                                sprintf (buf, "Editting mob %d.\r\n",
                                          mob->vnum);
                                 send_to_char (buf, ch);
                                 mpl->code = mpc->code;
@@ -282,7 +282,7 @@ void string_add (CHAR_DATA * ch, char *argument)
      */
     if (strlen ( *ch->desc->pString ) + strlen (argument) >= (MAX_STRING_LENGTH - 4))
     {
-        send_to_char ("String too long, last line skipped.\n\r", ch);
+        send_to_char ("String too long, last line skipped.\r\n", ch);
 
         /* Force character out of editing mode. */
         ch->desc->pString = NULL;
@@ -296,7 +296,7 @@ void string_add (CHAR_DATA * ch, char *argument)
     smash_tilde (argument);
 
     strcat (buf, argument);
-    strcat (buf, "\n\r");
+    strcat (buf, "\r\n");
     free_string (*ch->desc->pString);
     *ch->desc->pString = str_dup (buf);
     return;
@@ -441,7 +441,7 @@ char *format_string (char *oldstring /*, bool fSpace */ )
         {
             *(rdesc + i) = 0;
             strcat (xbuf, rdesc);
-            strcat (xbuf, "\n\r");
+            strcat (xbuf, "\r\n");
             rdesc += i + 1;
             while (*rdesc == ' ')
                 rdesc++;
@@ -451,7 +451,7 @@ char *format_string (char *oldstring /*, bool fSpace */ )
             bug ("No spaces", 0);
             *(rdesc + 75) = 0;
             strcat (xbuf, rdesc);
-            strcat (xbuf, "-\n\r");
+            strcat (xbuf, "-\r\n");
             rdesc += 76;
         }
     }
@@ -461,7 +461,7 @@ char *format_string (char *oldstring /*, bool fSpace */ )
     *(rdesc + i + 1) = 0;
     strcat (xbuf, rdesc);
     if (xbuf[strlen (xbuf) - 2] != '\n')
-        strcat (xbuf, "\n\r");
+        strcat (xbuf, "\r\n");
 
     free_string (oldstring);
     return (str_dup (xbuf));
@@ -635,7 +635,7 @@ char *string_lineadd (char *string, char *newstr, int line)
         if (cnt == line && !done)
         {
             strcat (buf, newstr);
-            strcat (buf, "\n\r");
+            strcat (buf, "\r\n");
             tmp += strlen (newstr) + 2;
             cnt++;
             done = TRUE;
@@ -701,7 +701,7 @@ char *numlines (char *string)
     while (*string)
     {
         string = merc_getline (string, tmpb);
-        sprintf (buf2, "%2d. %s\n\r", cnt++, tmpb);
+        sprintf (buf2, "%2d. %s\r\n", cnt++, tmpb);
         strcat (buf, buf2);
     }
 

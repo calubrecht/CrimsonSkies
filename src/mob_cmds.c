@@ -177,33 +177,33 @@ void do_mpstat (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Mpstat whom?\n\r", ch);
+        send_to_char ("Mpstat whom?\r\n", ch);
         return;
     }
 
     if ((victim = get_char_world (ch, arg)) == NULL)
     {
-        send_to_char ("No such creature.\n\r", ch);
+        send_to_char ("No such creature.\r\n", ch);
         return;
     }
 
     if (!IS_NPC (victim))
     {
-        send_to_char ("That is not a mobile.\n\r", ch);
+        send_to_char ("That is not a mobile.\r\n", ch);
         return;
     }
 
     if ((victim = get_char_world (ch, arg)) == NULL)
     {
-        send_to_char ("No such creature visible.\n\r", ch);
+        send_to_char ("No such creature visible.\r\n", ch);
         return;
     }
 
-    sprintf (arg, "Mobile #%-6d [%s]\n\r",
+    sprintf (arg, "Mobile #%-6d [%s]\r\n",
              victim->pIndexData->vnum, victim->short_descr);
     send_to_char (arg, ch);
 
-    sprintf (arg, "Delay   %-6d [%s]\n\r",
+    sprintf (arg, "Delay   %-6d [%s]\r\n",
              victim->mprog_delay,
              victim->mprog_target == NULL
              ? "No target" : victim->mprog_target->name);
@@ -211,14 +211,14 @@ void do_mpstat (CHAR_DATA * ch, char *argument)
 
     if (!victim->pIndexData->mprog_flags)
     {
-        send_to_char ("[No programs set]\n\r", ch);
+        send_to_char ("[No programs set]\r\n", ch);
         return;
     }
 
     for (i = 0, mprg = victim->pIndexData->mprogs; mprg != NULL;
          mprg = mprg->next)
     {
-        sprintf (arg, "[%2d] Trigger [%-8s] Program [%4d] Phrase [%s]\n\r",
+        sprintf (arg, "[%2d] Trigger [%-8s] Program [%4d] Phrase [%s]\r\n",
                  ++i,
                  mprog_type_to_name (mprg->trig_type),
                  mprg->vnum, mprg->trig_phrase);
@@ -242,7 +242,7 @@ void do_mpdump (CHAR_DATA * ch, char *argument)
     one_argument (argument, buf);
     if ((mprg = get_mprog_index (atoi (buf))) == NULL)
     {
-        send_to_char ("No such MOBprogram.\n\r", ch);
+        send_to_char ("No such MOBprogram.\r\n", ch);
         return;
     }
     page_to_char (mprg->code, ch);
@@ -271,7 +271,7 @@ void do_mpgecho (CHAR_DATA * ch, char *argument)
             if (IS_IMMORTAL (d->character))
                 send_to_char ("Mob echo> ", d->character);
             send_to_char (argument, d->character);
-            send_to_char ("\n\r", d->character);
+            send_to_char ("\r\n", d->character);
         }
     }
 }
@@ -304,7 +304,7 @@ void do_mpzecho (CHAR_DATA * ch, char *argument)
             if (IS_IMMORTAL (d->character))
                 send_to_char ("Mob echo> ", d->character);
             send_to_char (argument, d->character);
-            send_to_char ("\n\r", d->character);
+            send_to_char ("\r\n", d->character);
         }
     }
 }

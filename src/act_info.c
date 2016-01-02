@@ -159,7 +159,7 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
             {
                 send_to_char( "     ", ch );
             }
-            send_to_char( "Nothing.\n\r", ch );
+            send_to_char( "Nothing.\r\n", ch );
         }
         return;
     }
@@ -240,7 +240,7 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
             }
         }
         add_buf (output, prgpstrShow[iShow]);
-        add_buf (output, "\n\r");
+        add_buf (output, "\r\n");
         free_string (prgpstrShow[iShow]);
     }
 
@@ -250,7 +250,7 @@ void show_list_to_char (OBJ_DATA * list, CHAR_DATA * ch, bool fShort,
         {
             send_to_char ("     ", ch);
         }
-        send_to_char ("Nothing.\n\r", ch);
+        send_to_char ("Nothing.\r\n", ch);
     }
 
     page_to_char (buf_string (output), ch);
@@ -461,7 +461,7 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
             break;
     }
 
-    strcat (buf, "\n\r");
+    strcat (buf, "\r\n");
     buf[0] = UPPER (buf[0]);
     send_to_char (buf, ch);
     return;
@@ -505,21 +505,21 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
     strcpy (buf, PERS (victim, ch));
 
     if (percent >= 100)
-        strcat (buf, " is in excellent condition.\n\r");
+        strcat (buf, " is in excellent condition.\r\n");
     else if (percent >= 90)
-        strcat (buf, " has a few scratches.\n\r");
+        strcat (buf, " has a few scratches.\r\n");
     else if (percent >= 75)
-        strcat (buf, " has some small wounds and bruises.\n\r");
+        strcat (buf, " has some small wounds and bruises.\r\n");
     else if (percent >= 50)
-        strcat (buf, " has quite a few wounds.\n\r");
+        strcat (buf, " has quite a few wounds.\r\n");
     else if (percent >= 30)
-        strcat (buf, " has some big nasty wounds and scratches.\n\r");
+        strcat (buf, " has some big nasty wounds and scratches.\r\n");
     else if (percent >= 15)
-        strcat (buf, " looks pretty hurt.\n\r");
+        strcat (buf, " looks pretty hurt.\r\n");
     else if (percent >= 0)
-        strcat (buf, " is in awful condition.\n\r");
+        strcat (buf, " is in awful condition.\r\n");
     else
-        strcat (buf, " is bleeding to death.\n\r");
+        strcat (buf, " is bleeding to death.\r\n");
 
     buf[0] = UPPER (buf[0]);
     send_to_char (buf, ch);
@@ -538,7 +538,7 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
         {
             // The victim will be affected by one of these so we know we can
             // safely lop off the last two characters.
-            sprintf(buf, "\n\r%s appears to be afflicted by ", PERS(victim, ch));
+            sprintf(buf, "\r\n%s appears to be afflicted by ", PERS(victim, ch));
 
             if (is_affected(victim, gsn_blindness))
                 strcat(buf, "blindness, ");
@@ -566,7 +566,7 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
             {
                 buf[len - 2] = '\0';
                 send_to_char(buf, ch);
-                send_to_char("\n\r", ch);
+                send_to_char("\r\n", ch);
             }
         }
     }
@@ -579,20 +579,20 @@ void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch)
         {
             if (!found)
             {
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
                 act ("$N is using:", ch, NULL, victim, TO_CHAR);
                 found = TRUE;
             }
             send_to_char (where_name[iWear], ch);
             send_to_char (format_obj_to_char (obj, ch, TRUE), ch);
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
         }
     }
 
     if (victim != ch && !IS_NPC (ch)
         && number_percent () < get_skill (ch, gsn_peek))
     {
-        send_to_char ("\n\rYou peek at the inventory:\n\r", ch);
+        send_to_char ("\r\nYou peek at the inventory:\r\n", ch);
         check_improve (ch, gsn_peek, TRUE, 4);
         show_list_to_char (victim->carrying, ch, TRUE, TRUE);
     }
@@ -621,7 +621,7 @@ void show_char_to_char (CHAR_DATA * list, CHAR_DATA * ch)
         else if (room_is_dark (ch->in_room)
                  && IS_AFFECTED (rch, AFF_INFRARED))
         {
-            send_to_char ("You see glowing red eyes watching YOU!\n\r", ch);
+            send_to_char ("You see glowing red eyes watching YOU!\r\n", ch);
         }
     }
 
@@ -657,7 +657,7 @@ bool check_blind (CHAR_DATA * ch)
 
     if (IS_AFFECTED (ch, AFF_BLIND))
     {
-        send_to_char ("You can't see a thing!\n\r", ch);
+        send_to_char ("You can't see a thing!\r\n", ch);
         return FALSE;
     }
 
@@ -676,10 +676,10 @@ void do_scroll (CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         if (ch->lines == 0)
-            send_to_char ("You do not page long messages.\n\r", ch);
+            send_to_char ("You do not page long messages.\r\n", ch);
         else
         {
-            sprintf (buf, "You currently display %d lines per page.\n\r",
+            sprintf (buf, "You currently display %d lines per page.\r\n",
                      ch->lines + 2);
             send_to_char (buf, ch);
         }
@@ -688,7 +688,7 @@ void do_scroll (CHAR_DATA * ch, char *argument)
 
     if (!is_number (arg))
     {
-        send_to_char ("You must provide a number.\n\r", ch);
+        send_to_char ("You must provide a number.\r\n", ch);
         return;
     }
 
@@ -696,18 +696,18 @@ void do_scroll (CHAR_DATA * ch, char *argument)
 
     if (lines == 0)
     {
-        send_to_char ("Paging disabled.\n\r", ch);
+        send_to_char ("Paging disabled.\r\n", ch);
         ch->lines = 0;
         return;
     }
 
     if (lines < 10 || lines > 100)
     {
-        send_to_char ("You must provide a reasonable number.\n\r", ch);
+        send_to_char ("You must provide a reasonable number.\r\n", ch);
         return;
     }
 
-    sprintf (buf, "Scroll set to %d lines.\n\r", lines);
+    sprintf (buf, "Scroll set to %d lines.\r\n", lines);
     send_to_char (buf, ch);
     ch->lines = lines - 2;
 }
@@ -726,11 +726,11 @@ void do_socials (CHAR_DATA * ch, char *argument)
         sprintf (buf, "%-12s", social_table[iSocial].name);
         send_to_char (buf, ch);
         if (++col % 6 == 0)
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
     }
 
     if (col % 6 != 0)
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
     return;
 }
 
@@ -740,13 +740,13 @@ void do_socials (CHAR_DATA * ch, char *argument)
 
 void do_motd (CHAR_DATA * ch, char *argument)
 {
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
     do_function (ch, &do_help, "motd");
 }
 
 void do_imotd (CHAR_DATA * ch, char *argument)
 {
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
     do_function (ch, &do_help, "imotd");
 }
 
@@ -769,83 +769,83 @@ void do_autolist (CHAR_DATA * ch, char *argument)
     if (IS_NPC (ch))
         return;
 
-    send_to_char ("   action     status\n\r", ch);
-    send_to_char ("---------------------\n\r", ch);
+    send_to_char ("   action     status\r\n", ch);
+    send_to_char ("---------------------\r\n", ch);
 
     send_to_char ("autoassist     ", ch);
     if (IS_SET (ch->act, PLR_AUTOASSIST))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("autoexit       ", ch);
     if (IS_SET (ch->act, PLR_AUTOEXIT))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("autogold       ", ch);
     if (IS_SET (ch->act, PLR_AUTOGOLD))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("autoloot       ", ch);
     if (IS_SET (ch->act, PLR_AUTOLOOT))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("autosac        ", ch);
     if (IS_SET (ch->act, PLR_AUTOSAC))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("autosplit      ", ch);
     if (IS_SET (ch->act, PLR_AUTOSPLIT))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("telnetga       ", ch);
     if (IS_SET (ch->comm, COMM_TELNET_GA))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r",ch);
+        send_to_char ("{ROFF{x\r\n",ch);
 
     send_to_char ("compact mode   ", ch);
     if (IS_SET (ch->comm, COMM_COMPACT))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("prompt         ", ch);
     if (IS_SET (ch->comm, COMM_PROMPT))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     send_to_char ("combine items  ", ch);
     if (IS_SET (ch->comm, COMM_COMBINE))
-        send_to_char ("{GON{x\n\r", ch);
+        send_to_char ("{GON{x\r\n", ch);
     else
-        send_to_char ("{ROFF{x\n\r", ch);
+        send_to_char ("{ROFF{x\r\n", ch);
 
     if (!IS_SET (ch->act, PLR_CANLOOT))
-        send_to_char ("Your corpse is safe from thieves.\n\r", ch);
+        send_to_char ("Your corpse is safe from thieves.\r\n", ch);
     else
-        send_to_char ("Your corpse may be looted.\n\r", ch);
+        send_to_char ("Your corpse may be looted.\r\n", ch);
 
     if (IS_SET (ch->act, PLR_NOSUMMON))
-        send_to_char ("You cannot be summoned.\n\r", ch);
+        send_to_char ("You cannot be summoned.\r\n", ch);
     else
-        send_to_char ("You can be summoned.\n\r", ch);
+        send_to_char ("You can be summoned.\r\n", ch);
 
     if (IS_SET (ch->act, PLR_NOFOLLOW))
-        send_to_char ("You do not welcome followers.\n\r", ch);
+        send_to_char ("You do not welcome followers.\r\n", ch);
     else
-        send_to_char ("You accept followers.\n\r", ch);
+        send_to_char ("You accept followers.\r\n", ch);
 }
 
 void do_autoassist (CHAR_DATA * ch, char *argument)
@@ -855,12 +855,12 @@ void do_autoassist (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOASSIST))
     {
-        send_to_char ("Autoassist removed.\n\r", ch);
+        send_to_char ("Autoassist removed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOASSIST);
     }
     else
     {
-        send_to_char ("You will now assist when needed.\n\r", ch);
+        send_to_char ("You will now assist when needed.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOASSIST);
     }
 }
@@ -872,12 +872,12 @@ void do_autoexit (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOEXIT))
     {
-        send_to_char ("Exits will no longer be displayed.\n\r", ch);
+        send_to_char ("Exits will no longer be displayed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOEXIT);
     }
     else
     {
-        send_to_char ("Exits will now be displayed.\n\r", ch);
+        send_to_char ("Exits will now be displayed.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOEXIT);
     }
 }
@@ -889,12 +889,12 @@ void do_autogold (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOGOLD))
     {
-        send_to_char ("Autogold removed.\n\r", ch);
+        send_to_char ("Autogold removed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOGOLD);
     }
     else
     {
-        send_to_char ("Automatic gold looting set.\n\r", ch);
+        send_to_char ("Automatic gold looting set.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOGOLD);
     }
 }
@@ -906,12 +906,12 @@ void do_autoloot (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOLOOT))
     {
-        send_to_char ("Autolooting removed.\n\r", ch);
+        send_to_char ("Autolooting removed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOLOOT);
     }
     else
     {
-        send_to_char ("Automatic corpse looting set.\n\r", ch);
+        send_to_char ("Automatic corpse looting set.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOLOOT);
     }
 }
@@ -923,12 +923,12 @@ void do_autosac (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOSAC))
     {
-        send_to_char ("Autosacrificing removed.\n\r", ch);
+        send_to_char ("Autosacrificing removed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOSAC);
     }
     else
     {
-        send_to_char ("Automatic corpse sacrificing set.\n\r", ch);
+        send_to_char ("Automatic corpse sacrificing set.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOSAC);
     }
 }
@@ -940,12 +940,12 @@ void do_autosplit (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_AUTOSPLIT))
     {
-        send_to_char ("Autosplitting removed.\n\r", ch);
+        send_to_char ("Autosplitting removed.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_AUTOSPLIT);
     }
     else
     {
-        send_to_char ("Automatic gold splitting set.\n\r", ch);
+        send_to_char ("Automatic gold splitting set.\r\n", ch);
         SET_BIT (ch->act, PLR_AUTOSPLIT);
     }
 }
@@ -964,7 +964,7 @@ void do_autoall (CHAR_DATA *ch, char * argument)
         SET_BIT(ch->act,PLR_AUTOSAC);
         SET_BIT(ch->act,PLR_AUTOSPLIT);
 
-        send_to_char("All autos turned on.\n\r",ch);
+        send_to_char("All autos turned on.\r\n",ch);
     }
     else if (!strcmp (argument, "off"))
     {
@@ -975,22 +975,22 @@ void do_autoall (CHAR_DATA *ch, char * argument)
         REMOVE_BIT (ch->act, PLR_AUTOSAC);
         REMOVE_BIT (ch->act, PLR_AUTOSPLIT);
 
-        send_to_char("All autos turned off.\n\r", ch);
+        send_to_char("All autos turned off.\r\n", ch);
     }
     else
-        send_to_char("Usage: autoall [on|off]\n\r", ch);
+        send_to_char("Usage: autoall [on|off]\r\n", ch);
 }
 
 void do_brief (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_BRIEF))
     {
-        send_to_char ("Full descriptions activated.\n\r", ch);
+        send_to_char ("Full descriptions activated.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_BRIEF);
     }
     else
     {
-        send_to_char ("Short descriptions activated.\n\r", ch);
+        send_to_char ("Short descriptions activated.\r\n", ch);
         SET_BIT (ch->comm, COMM_BRIEF);
     }
 }
@@ -999,12 +999,12 @@ void do_compact (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_COMPACT))
     {
-        send_to_char ("Compact mode removed.\n\r", ch);
+        send_to_char ("Compact mode removed.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_COMPACT);
     }
     else
     {
-        send_to_char ("Compact mode set.\n\r", ch);
+        send_to_char ("Compact mode set.\r\n", ch);
         SET_BIT (ch->comm, COMM_COMPACT);
     }
 }
@@ -1013,12 +1013,12 @@ void do_show (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
     {
-        send_to_char ("Affects will no longer be shown in score.\n\r", ch);
+        send_to_char ("Affects will no longer be shown in score.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_SHOW_AFFECTS);
     }
     else
     {
-        send_to_char ("Affects will now be shown in score.\n\r", ch);
+        send_to_char ("Affects will now be shown in score.\r\n", ch);
         SET_BIT (ch->comm, COMM_SHOW_AFFECTS);
     }
 }
@@ -1031,17 +1031,17 @@ void do_prompt (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->comm, COMM_PROMPT))
         {
-            send_to_char ("You will no longer see prompts.\n\r", ch);
+            send_to_char ("You will no longer see prompts.\r\n", ch);
             REMOVE_BIT (ch->comm, COMM_PROMPT);
         }
         else
         {
-            send_to_char ("You will now see prompts.\n\r", ch);
+            send_to_char ("You will now see prompts.\r\n", ch);
             SET_BIT (ch->comm, COMM_PROMPT);
 
             if (ch->prompt != NULL)
             {
-                sprintf (buf, "Your current prompt is: %s\n\r", ch->prompt);
+                sprintf (buf, "Your current prompt is: %s\r\n", ch->prompt);
                 send_to_char (buf, ch);
             }
 
@@ -1061,13 +1061,13 @@ void do_prompt (CHAR_DATA * ch, char *argument)
     {
         if (ch->prompt != NULL)
         {
-            sprintf (buf, "Your current prompt is: %s\n\r", ch->prompt);
+            sprintf (buf, "Your current prompt is: %s\r\n", ch->prompt);
             send_to_char (buf, ch);
             return;
         }
         else
         {
-            send_to_char("You do not currently have a prompt set.\n\r", ch);
+            send_to_char("You do not currently have a prompt set.\r\n", ch);
             return;
         }
 
@@ -1085,7 +1085,7 @@ void do_prompt (CHAR_DATA * ch, char *argument)
 
     free_string (ch->prompt);
     ch->prompt = str_dup (buf);
-    sprintf (buf, "Prompt set to %s\n\r", ch->prompt);
+    sprintf (buf, "Prompt set to %s\r\n", ch->prompt);
     send_to_char (buf, ch);
     return;
 }
@@ -1094,12 +1094,12 @@ void do_combine (CHAR_DATA * ch, char *argument)
 {
     if (IS_SET (ch->comm, COMM_COMBINE))
     {
-        send_to_char ("Long inventory selected.\n\r", ch);
+        send_to_char ("Long inventory selected.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_COMBINE);
     }
     else
     {
-        send_to_char ("Combined inventory selected.\n\r", ch);
+        send_to_char ("Combined inventory selected.\r\n", ch);
         SET_BIT (ch->comm, COMM_COMBINE);
     }
 }
@@ -1111,12 +1111,12 @@ void do_noloot (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_CANLOOT))
     {
-        send_to_char ("Your corpse is now safe from thieves.\n\r", ch);
+        send_to_char ("Your corpse is now safe from thieves.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_CANLOOT);
     }
     else
     {
-        send_to_char ("Your corpse may now be looted.\n\r", ch);
+        send_to_char ("Your corpse may now be looted.\r\n", ch);
         SET_BIT (ch->act, PLR_CANLOOT);
     }
 }
@@ -1128,12 +1128,12 @@ void do_nofollow (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->act, PLR_NOFOLLOW))
     {
-        send_to_char ("You now accept followers.\n\r", ch);
+        send_to_char ("You now accept followers.\r\n", ch);
         REMOVE_BIT (ch->act, PLR_NOFOLLOW);
     }
     else
     {
-        send_to_char ("You no longer accept followers.\n\r", ch);
+        send_to_char ("You no longer accept followers.\r\n", ch);
         SET_BIT (ch->act, PLR_NOFOLLOW);
         die_follower (ch);
     }
@@ -1145,12 +1145,12 @@ void do_nosummon (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->imm_flags, IMM_SUMMON))
         {
-            send_to_char ("You are no longer immune to summon.\n\r", ch);
+            send_to_char ("You are no longer immune to summon.\r\n", ch);
             REMOVE_BIT (ch->imm_flags, IMM_SUMMON);
         }
         else
         {
-            send_to_char ("You are now immune to summoning.\n\r", ch);
+            send_to_char ("You are now immune to summoning.\r\n", ch);
             SET_BIT (ch->imm_flags, IMM_SUMMON);
         }
     }
@@ -1158,12 +1158,12 @@ void do_nosummon (CHAR_DATA * ch, char *argument)
     {
         if (IS_SET (ch->act, PLR_NOSUMMON))
         {
-            send_to_char ("You are no longer immune to summon.\n\r", ch);
+            send_to_char ("You are no longer immune to summon.\r\n", ch);
             REMOVE_BIT (ch->act, PLR_NOSUMMON);
         }
         else
         {
-            send_to_char ("You are now immune to summoning.\n\r", ch);
+            send_to_char ("You are now immune to summoning.\r\n", ch);
             SET_BIT (ch->act, PLR_NOSUMMON);
         }
     }
@@ -1187,13 +1187,13 @@ void do_look (CHAR_DATA * ch, char *argument)
 
     if (ch->position < POS_SLEEPING)
     {
-        send_to_char ("You can't see anything but stars!\n\r", ch);
+        send_to_char ("You can't see anything but stars!\r\n", ch);
         return;
     }
 
     if (ch->position == POS_SLEEPING)
     {
-        send_to_char ("You can't see anything, you're sleeping!\n\r", ch);
+        send_to_char ("You can't see anything, you're sleeping!\r\n", ch);
         return;
     }
 
@@ -1203,7 +1203,7 @@ void do_look (CHAR_DATA * ch, char *argument)
     if (!IS_NPC (ch)
         && !IS_SET (ch->act, PLR_HOLYLIGHT) && room_is_dark (ch->in_room))
     {
-        send_to_char ("It is pitch black ... \n\r", ch);
+        send_to_char ("It is pitch black ... \r\n", ch);
         show_char_to_char (ch->in_room->people, ch);
         return;
     }
@@ -1229,7 +1229,7 @@ void do_look (CHAR_DATA * ch, char *argument)
             send_to_char (buf, ch);
         }
 
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
 
         if (arg1[0] == '\0'
             || (!IS_NPC (ch) && !IS_SET (ch->comm, COMM_BRIEF)))
@@ -1242,7 +1242,7 @@ void do_look (CHAR_DATA * ch, char *argument)
 
         if (!IS_NPC (ch) && IS_SET (ch->act, PLR_AUTOEXIT))
         {
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
             do_function (ch, &do_exits, "auto");
         }
 
@@ -1257,30 +1257,30 @@ void do_look (CHAR_DATA * ch, char *argument)
         /* 'look in' */
         if (arg2[0] == '\0')
         {
-            send_to_char ("Look in what?\n\r", ch);
+            send_to_char ("Look in what?\r\n", ch);
             return;
         }
 
         if ((obj = get_obj_here (ch, arg2)) == NULL)
         {
-            send_to_char ("You do not see that here.\n\r", ch);
+            send_to_char ("You do not see that here.\r\n", ch);
             return;
         }
 
         switch (obj->item_type)
         {
             default:
-                send_to_char ("That is not a container.\n\r", ch);
+                send_to_char ("That is not a container.\r\n", ch);
                 break;
 
             case ITEM_DRINK_CON:
                 if (obj->value[1] <= 0)
                 {
-                    send_to_char ("It is empty.\n\r", ch);
+                    send_to_char ("It is empty.\r\n", ch);
                     break;
                 }
 
-                sprintf (buf, "It's %sfilled with  a %s liquid.\n\r",
+                sprintf (buf, "It's %sfilled with  a %s liquid.\r\n",
                          obj->value[1] < obj->value[0] / 4
                          ? "less than half-" :
                          obj->value[1] < 3 * obj->value[0] / 4
@@ -1295,7 +1295,7 @@ void do_look (CHAR_DATA * ch, char *argument)
             case ITEM_CORPSE_PC:
                 if (IS_SET (obj->value[1], CONT_CLOSED))
                 {
-                    send_to_char ("It is closed.\n\r", ch);
+                    send_to_char ("It is closed.\r\n", ch);
                     break;
                 }
 
@@ -1344,7 +1344,7 @@ void do_look (CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char (obj->description, ch);
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
                     return;
                 }
         }
@@ -1374,7 +1374,7 @@ void do_look (CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char (obj->description, ch);
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
                     return;
                 }
         }
@@ -1393,9 +1393,9 @@ void do_look (CHAR_DATA * ch, char *argument)
     if (count > 0 && count != number)
     {
         if (count == 1)
-            sprintf (buf, "You only see one %s here.\n\r", arg3);
+            sprintf (buf, "You only see one %s here.\r\n", arg3);
         else
-            sprintf (buf, "You only see %d of those here.\n\r", count);
+            sprintf (buf, "You only see %d of those here.\r\n", count);
 
         send_to_char (buf, ch);
         return;
@@ -1423,21 +1423,21 @@ void do_look (CHAR_DATA * ch, char *argument)
         door = 9;
     else
     {
-        send_to_char ("You do not see that here.\n\r", ch);
+        send_to_char ("You do not see that here.\r\n", ch);
         return;
     }
 
     /* 'look direction' */
     if ((pexit = ch->in_room->exit[door]) == NULL)
     {
-        send_to_char ("Nothing special there.\n\r", ch);
+        send_to_char ("Nothing special there.\r\n", ch);
         return;
     }
 
     if (pexit->description != NULL && pexit->description[0] != '\0')
         send_to_char (pexit->description, ch);
     else
-        send_to_char ("Nothing special there.\n\r", ch);
+        send_to_char ("Nothing special there.\r\n", ch);
 
     if (pexit->keyword != NULL
         && pexit->keyword[0] != '\0' && pexit->keyword[0] != ' ')
@@ -1480,7 +1480,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
     if (arg1[0] == '\0')
     {
         act("$n looks all around.", ch, NULL, NULL, TO_ROOM);
-        send_to_char("Looking around you see:\n\r", ch);
+        send_to_char("Looking around you see:\r\n", ch);
         scan_list(ch->in_room, ch, 0, -1);
 
         for (door = 0; door < 9; door++)
@@ -1512,13 +1512,13 @@ void do_scan(CHAR_DATA * ch, char *argument)
         door = 9;
     else
     {
-        send_to_char("Which way do you want to scan?\n\r", ch);
+        send_to_char("Which way do you want to scan?\r\n", ch);
         return;
     }
 
     act("You peer intently $T.", ch, NULL, dir_name[door], TO_CHAR);
     act("$n peers intently $T.", ch, NULL, dir_name[door], TO_ROOM);
-    sprintf(buf, "Looking %s you see:\n\r", dir_name[door]);
+    sprintf(buf, "Looking %s you see:\r\n", dir_name[door]);
 
     scan_room = ch->in_room;
 
@@ -1563,7 +1563,7 @@ void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, sh_int depth, sh_int door)
     strcat(buf, ", ");
     sprintf(buf2, distance[depth], dir_name[door]);
     strcat(buf, buf2);
-    strcat(buf, "\n\r");
+    strcat(buf, "\r\n");
 
     send_to_char(buf, ch);
     return;
@@ -1579,7 +1579,7 @@ void do_examine (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Examine what?\n\r", ch);
+        send_to_char ("Examine what?\r\n", ch);
         return;
     }
 
@@ -1597,26 +1597,26 @@ void do_examine (CHAR_DATA * ch, char *argument)
                 {
                     if (obj->value[1] == 0)
                         sprintf (buf,
-                                 "Odd...there's no coins in the pile.\n\r");
+                                 "Odd...there's no coins in the pile.\r\n");
                     else if (obj->value[1] == 1)
-                        sprintf (buf, "Wow. One gold coin.\n\r");
+                        sprintf (buf, "Wow. One gold coin.\r\n");
                     else
                         sprintf (buf,
-                                 "There are %d gold coins in the pile.\n\r",
+                                 "There are %d gold coins in the pile.\r\n",
                                  obj->value[1]);
                 }
                 else if (obj->value[1] == 0)
                 {
                     if (obj->value[0] == 1)
-                        sprintf (buf, "Wow. One silver coin.\n\r");
+                        sprintf (buf, "Wow. One silver coin.\r\n");
                     else
                         sprintf (buf,
-                                 "There are %d silver coins in the pile.\n\r",
+                                 "There are %d silver coins in the pile.\r\n",
                                  obj->value[0]);
                 }
                 else
                     sprintf (buf,
-                             "There are %d gold and %d silver coins in the pile.\n\r",
+                             "There are %d gold and %d silver coins in the pile.\r\n",
                              obj->value[1], obj->value[0]);
                 send_to_char (buf, ch);
                 break;
@@ -1653,9 +1653,9 @@ void do_exits (CHAR_DATA * ch, char *argument)
     if (fAuto)
         sprintf (buf, "[Exits:");
     else if (IS_IMMORTAL (ch))
-        sprintf (buf, "Obvious exits from room %d:\n\r", ch->in_room->vnum);
+        sprintf (buf, "Obvious exits from room %d:\r\n", ch->in_room->vnum);
     else
-        sprintf (buf, "Obvious exits:\n\r");
+        sprintf (buf, "Obvious exits:\r\n");
 
     found = FALSE;
     for (door = 0; door < MAX_DIR; door++)
@@ -1720,21 +1720,21 @@ void do_exits (CHAR_DATA * ch, char *argument)
                 // Immortals additionally see the vnum of the room
                 if (IS_IMMORTAL(ch))
                 {
-                    sprintf (buf + strlen(buf), " (room %d)\n\r", pexit->u1.to_room->vnum);
+                    sprintf (buf + strlen(buf), " (room %d)\r\n", pexit->u1.to_room->vnum);
                 }
                 else
                 {
-                    sprintf (buf + strlen (buf), "\n\r");
+                    sprintf (buf + strlen (buf), "\r\n");
                 }
             }
         }
     }
 
     if (!found)
-        strcat (buf, fAuto ? " none" : "None.\n\r");
+        strcat (buf, fAuto ? " none" : "None.\r\n");
 
     if (fAuto)
-        strcat (buf, "]{x\n\r");
+        strcat (buf, "]{x\r\n");
 
     // If immortal Holy Light is set, show all the available exits
     if (IS_SET (ch->act, PLR_HOLYLIGHT) && fAuto)
@@ -1783,10 +1783,10 @@ void do_exits (CHAR_DATA * ch, char *argument)
 
         if (!found)
         {
-            strcat (buf, fAuto ? " none" : "None.\n\r");
+            strcat (buf, fAuto ? " none" : "None.\r\n");
         }
 
-        strcat (buf, "]\n\r");
+        strcat (buf, "]\r\n");
     }
 
     send_to_char (buf, ch);
@@ -1799,14 +1799,14 @@ void do_worth (CHAR_DATA * ch, char *argument)
 
     if (IS_NPC (ch))
     {
-        sprintf (buf, "You have %ld gold and %ld silver.\n\r",
+        sprintf (buf, "You have %ld gold and %ld silver.\r\n",
                  ch->gold, ch->silver);
         send_to_char (buf, ch);
         return;
     }
 
     sprintf (buf,
-             "You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",
+             "You have %ld gold, %ld silver, and %d experience (%d exp to level).\r\n",
              ch->gold, ch->silver, ch->exp,
              (ch->level + 1) * exp_per_level (ch,
                                               ch->pcdata->points) - ch->exp);
@@ -1820,12 +1820,12 @@ void do_score(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
-    printf_to_char(ch, "\r\n{gScore for %s%s.\n\r", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+    printf_to_char(ch, "\r\n{gScore for %s%s.\r\n", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
     if (get_trust(ch) != ch->level)
-        printf_to_char(ch, "You are trusted at level %d.\n\r", get_trust(ch));
+        printf_to_char(ch, "You are trusted at level %d.\r\n", get_trust(ch));
 
-    send_to_char("----------------------------------------------------------------------------\n\r", ch);
+    send_to_char("----------------------------------------------------------------------------\r\n", ch);
 
     printf_to_char(ch, "{gLEVEL: {w%-3d          {gRace: {w%-10.10s        {gPlayed: {w%ld hours{x\r\n",
         ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
@@ -1839,13 +1839,13 @@ void do_score(CHAR_DATA * ch, char *argument)
         get_curr_stat(ch, STAT_STR),
         GET_HITROLL(ch), ctime(&current_time));
 
-    printf_to_char(ch, "{gINT  : {w%2.2d{g(%s%2.2d{g)    DamRoll: {w%-4d\n\r",
+    printf_to_char(ch, "{gINT  : {w%2.2d{g(%s%2.2d{g)    DamRoll: {w%-4d\r\n",
         ch->perm_stat[STAT_INT],
         get_curr_stat(ch,STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch,STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
         get_curr_stat(ch, STAT_INT),
         GET_DAMROLL(ch));
 
-    printf_to_char(ch, "{gWIS  : {w%2.2d{g(%s%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\n\r",
+    printf_to_char(ch, "{gWIS  : {w%2.2d{g(%s%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\r\n",
         ch->perm_stat[STAT_WIS],
         get_curr_stat(ch,STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch,STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
         get_curr_stat(ch, STAT_WIS),
@@ -1878,7 +1878,7 @@ void do_score(CHAR_DATA * ch, char *argument)
         can_carry_w(ch));
 
 
-    printf_to_char(ch, "                   {gWimpy: {w%-5d{x\n\r", ch->wimpy);
+    printf_to_char(ch, "                   {gWimpy: {w%-5d{x\r\n", ch->wimpy);
 
     printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
         ch->practice, ch->hit, ch->max_hit,
@@ -1913,7 +1913,7 @@ void do_score(CHAR_DATA * ch, char *argument)
                     IS_SET( ch->act, PLR_COLOR ) ? 'X' : ' ' );
 
 
-    send_to_char("{g----------------------------------------------------------------------------{x\n\r", ch);
+    send_to_char("{g----------------------------------------------------------------------------{x\r\n", ch);
     // position, condition (hunger, thirst, drunk),
     // immortal data, affect data
 
@@ -1925,7 +1925,7 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
     int i;
 
     sprintf (buf,
-             "You are %s%s, level %d, %d years old (%d hours).\n\r",
+             "You are %s%s, level %d, %d years old (%d hours).\r\n",
              ch->name,
              IS_NPC (ch) ? "" : ch->pcdata->title,
              ch->level, get_age (ch),
@@ -1934,11 +1934,11 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
 
     if (get_trust (ch) != ch->level)
     {
-        sprintf (buf, "You are trusted at level %d.\n\r", get_trust (ch));
+        sprintf (buf, "You are trusted at level %d.\r\n", get_trust (ch));
         send_to_char (buf, ch);
     }
 
-    sprintf (buf, "Race: %s  Sex: %s  Class: %s\n\r",
+    sprintf (buf, "Race: %s  Sex: %s  Class: %s\r\n",
              race_table[ch->race].name,
              ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
              IS_NPC (ch) ? "mobile" : class_table[ch->class]->name);
@@ -1946,24 +1946,24 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
 
 
     sprintf (buf,
-             "You have %d/%d hit, %d/%d mana, %d/%d movement.\n\r",
+             "You have %d/%d hit, %d/%d mana, %d/%d movement.\r\n",
              ch->hit, ch->max_hit,
              ch->mana, ch->max_mana, ch->move, ch->max_move);
     send_to_char (buf, ch);
 
     sprintf (buf,
-             "You have %d practices and %d training sessions.\n\r",
+             "You have %d practices and %d training sessions.\r\n",
              ch->practice, ch->train);
     send_to_char (buf, ch);
 
     sprintf (buf,
-             "You are carrying %d/%d items with weight %ld/%d pounds.\n\r",
+             "You are carrying %d/%d items with weight %ld/%d pounds.\r\n",
              ch->carry_number, can_carry_n (ch),
              get_carry_weight (ch) / 10, can_carry_w (ch) / 10);
     send_to_char (buf, ch);
 
     sprintf (buf,
-             "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r",
+             "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
              ch->perm_stat[STAT_STR],
              get_curr_stat (ch, STAT_STR),
              ch->perm_stat[STAT_INT],
@@ -1976,7 +1976,7 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
     send_to_char (buf, ch);
 
     sprintf (buf,
-             "You have scored %d exp, and have %ld gold and %ld silver coins.\n\r",
+             "You have scored %d exp, and have %ld gold and %ld silver coins.\r\n",
              ch->exp, ch->gold, ch->silver);
     send_to_char (buf, ch);
 
@@ -1984,50 +1984,50 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
     if (!IS_NPC (ch) && ch->level < LEVEL_HERO)
     {
         sprintf (buf,
-                 "You need %d exp to level.\n\r",
+                 "You need %d exp to level.\r\n",
                  ((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) -
                   ch->exp));
         send_to_char (buf, ch);
     }
 
-    sprintf (buf, "Wimpy set to %d hit points.\n\r", ch->wimpy);
+    sprintf (buf, "Wimpy set to %d hit points.\r\n", ch->wimpy);
     send_to_char (buf, ch);
 
     if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
-        send_to_char ("You are drunk.\n\r", ch);
+        send_to_char ("You are drunk.\r\n", ch);
     if (!IS_NPC (ch) && ch->pcdata->condition[COND_THIRST] == 0)
-        send_to_char ("You are thirsty.\n\r", ch);
+        send_to_char ("You are thirsty.\r\n", ch);
     if (!IS_NPC (ch) && ch->pcdata->condition[COND_HUNGER] == 0)
-        send_to_char ("You are hungry.\n\r", ch);
+        send_to_char ("You are hungry.\r\n", ch);
 
     switch (ch->position)
     {
         case POS_DEAD:
-            send_to_char ("You are DEAD!!\n\r", ch);
+            send_to_char ("You are DEAD!!\r\n", ch);
             break;
         case POS_MORTAL:
-            send_to_char ("You are mortally wounded.\n\r", ch);
+            send_to_char ("You are mortally wounded.\r\n", ch);
             break;
         case POS_INCAP:
-            send_to_char ("You are incapacitated.\n\r", ch);
+            send_to_char ("You are incapacitated.\r\n", ch);
             break;
         case POS_STUNNED:
-            send_to_char ("You are stunned.\n\r", ch);
+            send_to_char ("You are stunned.\r\n", ch);
             break;
         case POS_SLEEPING:
-            send_to_char ("You are sleeping.\n\r", ch);
+            send_to_char ("You are sleeping.\r\n", ch);
             break;
         case POS_RESTING:
-            send_to_char ("You are resting.\n\r", ch);
+            send_to_char ("You are resting.\r\n", ch);
             break;
         case POS_SITTING:
-            send_to_char ("You are sitting.\n\r", ch);
+            send_to_char ("You are sitting.\r\n", ch);
             break;
         case POS_STANDING:
-            send_to_char ("You are standing.\n\r", ch);
+            send_to_char ("You are standing.\r\n", ch);
             break;
         case POS_FIGHTING:
-            send_to_char ("You are fighting.\n\r", ch);
+            send_to_char ("You are fighting.\r\n", ch);
             break;
     }
 
@@ -2035,7 +2035,7 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
     /* print AC values */
     if (ch->level >= 25)
     {
-        sprintf (buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\n\r",
+        sprintf (buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
                  GET_AC (ch, AC_PIERCE),
                  GET_AC (ch, AC_BASH),
                  GET_AC (ch, AC_SLASH), GET_AC (ch, AC_EXOTIC));
@@ -2068,29 +2068,29 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
         send_to_char ("You are ", ch);
 
         if (GET_AC (ch, i) >= 101)
-            sprintf (buf, "hopelessly vulnerable to %s.\n\r", temp);
+            sprintf (buf, "hopelessly vulnerable to %s.\r\n", temp);
         else if (GET_AC (ch, i) >= 80)
-            sprintf (buf, "defenseless against %s.\n\r", temp);
+            sprintf (buf, "defenseless against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= 60)
-            sprintf (buf, "barely protected from %s.\n\r", temp);
+            sprintf (buf, "barely protected from %s.\r\n", temp);
         else if (GET_AC (ch, i) >= 40)
-            sprintf (buf, "slightly armored against %s.\n\r", temp);
+            sprintf (buf, "slightly armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= 20)
-            sprintf (buf, "somewhat armored against %s.\n\r", temp);
+            sprintf (buf, "somewhat armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= 0)
-            sprintf (buf, "armored against %s.\n\r", temp);
+            sprintf (buf, "armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= -20)
-            sprintf (buf, "well-armored against %s.\n\r", temp);
+            sprintf (buf, "well-armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= -40)
-            sprintf (buf, "very well-armored against %s.\n\r", temp);
+            sprintf (buf, "very well-armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= -60)
-            sprintf (buf, "heavily armored against %s.\n\r", temp);
+            sprintf (buf, "heavily armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= -80)
-            sprintf (buf, "superbly armored against %s.\n\r", temp);
+            sprintf (buf, "superbly armored against %s.\r\n", temp);
         else if (GET_AC (ch, i) >= -100)
-            sprintf (buf, "almost invulnerable to %s.\n\r", temp);
+            sprintf (buf, "almost invulnerable to %s.\r\n", temp);
         else
-            sprintf (buf, "divinely armored against %s.\n\r", temp);
+            sprintf (buf, "divinely armored against %s.\r\n", temp);
 
         send_to_char (buf, ch);
     }
@@ -2116,12 +2116,12 @@ void do_oldscore (CHAR_DATA * ch, char *argument)
             sprintf (buf, "  Incognito: level %d", ch->incog_level);
             send_to_char (buf, ch);
         }
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
     }
 
     if (ch->level >= 15)
     {
-        sprintf (buf, "Hitroll: %d  Damroll: %d.\n\r",
+        sprintf (buf, "Hitroll: %d  Damroll: %d.\r\n",
                  GET_HITROLL (ch), GET_DAMROLL (ch));
         send_to_char (buf, ch);
     }
@@ -2156,7 +2156,7 @@ void do_affects (CHAR_DATA * ch, char *argument)
 
     if (ch->affected != NULL)
     {
-        send_to_char ("You are affected by the following spells:\n\r", ch);
+        send_to_char ("You are affected by the following spells:\r\n", ch);
         for (paf = ch->affected; paf != NULL; paf = paf->next)
         {
             if (paf->type < 0)
@@ -2198,13 +2198,13 @@ void do_affects (CHAR_DATA * ch, char *argument)
 
             send_to_char (buf, ch);
 
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
             paf_last = paf;
         }
     }
     else
     {
-        send_to_char ("You are not affected by any spells.\n\r", ch);
+        send_to_char ("You are not affected by any spells.\r\n", ch);
     }
     return;
 } // end do_affects
@@ -2249,7 +2249,7 @@ void do_time (CHAR_DATA * ch, char *argument)
              time_info.hour >= 12 ? "pm" : "am",
              day_name[day % 7], day, suf, month_name[time_info.month]);
     send_to_char (buf, ch);
-    sprintf (buf, "Crimson Skies started up at %s\n\rThe system time is %s",
+    sprintf (buf, "Crimson Skies started up at %s\r\nThe system time is %s",
              str_boot_time, (char *) ctime (&current_time));
 
     send_to_char (buf, ch);
@@ -2271,11 +2271,11 @@ void do_weather (CHAR_DATA * ch, char *argument)
 
     if (!IS_OUTSIDE (ch))
     {
-        send_to_char ("You can't see the weather indoors.\n\r", ch);
+        send_to_char ("You can't see the weather indoors.\r\n", ch);
         return;
     }
 
-    sprintf (buf, "The sky is %s and %s.\n\r",
+    sprintf (buf, "The sky is %s and %s.\r\n",
              sky_look[weather_info.sky],
              weather_info.change >= 0
              ? "a warm southerly breeze blows"
@@ -2319,11 +2319,11 @@ void do_help (CHAR_DATA * ch, char *argument)
             /* add seperator if found */
             if (found)
                 add_buf (output,
-                         "\n\r================================================================================\n\r\n\r");
+                         "\r\n================================================================================\r\n\r\n");
             if (pHelp->level >= 0 && str_cmp (argall, "imotd"))
             {
                 add_buf (output, pHelp->keyword);
-                add_buf (output, "\n\r");
+                add_buf (output, "\r\n");
             }
 
             /*
@@ -2343,7 +2343,7 @@ void do_help (CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char ("No help on that word.\n\r", ch);
+        send_to_char ("No help on that word.\r\n", ch);
 
         /*
          * Let's log unmet help requests so studious IMP's can improve their help files ;-)
@@ -2354,7 +2354,7 @@ void do_help (CHAR_DATA * ch, char *argument)
         {
             argall[MAX_CMD_LEN - 1] = '\0';
             log_f ("Excessive command length: %s requested %s.", ch, argall);
-            send_to_char ("That was rude!\n\r", ch);
+            send_to_char ("That was rude!\r\n", ch);
         }
         /* OHELPS_FILE is the "orphaned helps" files. Defined in merc.h -- JR */
         else
@@ -2373,7 +2373,7 @@ void do_help (CHAR_DATA * ch, char *argument)
 void do_whoami (CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
-    sprintf(buf, "You are logged on as %s.\n\r", ch->name);
+    sprintf(buf, "You are logged on as %s.\r\n", ch->name);
     send_to_char(buf, ch);
 } // end do_whoami
 
@@ -2394,7 +2394,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("You must provide a name.\n\r", ch);
+        send_to_char ("You must provide a name.\r\n", ch);
         return;
     }
 
@@ -2457,7 +2457,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
             /* a little formatting */
             if (!IS_IMMORTAL(wch))
             {
-                sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\n\r",
+                sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
                          wch->level,
                          wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                          class,
@@ -2473,7 +2473,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
             }
             else
             {
-                sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\n\r",
+                sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
                          immbuf,
                          wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
                          wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
@@ -2491,7 +2491,7 @@ void do_whois (CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char ("No one of that name is playing.\n\r", ch);
+        send_to_char ("No one of that name is playing.\r\n", ch);
         return;
     }
 
@@ -2570,7 +2570,7 @@ void do_who (CHAR_DATA * ch, char *argument)
                     iLevelUpper = atoi (arg);
                     break;
                 default:
-                    send_to_char ("Only two level numbers allowed.\n\r", ch);
+                    send_to_char ("Only two level numbers allowed.\r\n", ch);
                     return;
             }
         }
@@ -2606,7 +2606,7 @@ void do_who (CHAR_DATA * ch, char *argument)
                             else
                             {
                                 send_to_char
-                                    ("That's not a valid race, class, or clan.\n\r",
+                                    ("That's not a valid race, class, or clan.\r\n",
                                      ch);
                                 return;
                             }
@@ -2705,7 +2705,7 @@ void do_who (CHAR_DATA * ch, char *argument)
          */
         if (!IS_IMMORTAL(wch))
         {
-            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\n\r",
+            sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
                  wch->level,
                  wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
                  class,
@@ -2721,7 +2721,7 @@ void do_who (CHAR_DATA * ch, char *argument)
         }
         else
         {
-            sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\n\r",
+            sprintf (buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
                  immbuf,
                  wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
                  wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
@@ -2736,7 +2736,7 @@ void do_who (CHAR_DATA * ch, char *argument)
         add_buf (output, buf);
     }
 
-    sprintf (buf2, "\n\rPlayers found: %d\n\r", nMatch);
+    sprintf (buf2, "\r\nPlayers found: %d\r\n", nMatch);
     add_buf (output, buf2);
     page_to_char (buf_string (output), ch);
     free_buf (output);
@@ -2765,16 +2765,16 @@ void do_count (CHAR_DATA * ch, char *argument)
 
     if (max_on == count)
     {
-        sprintf(buf, "There are %d characters on, the most so far today.\n\r", count);
+        sprintf(buf, "There are %d characters on, the most so far today.\r\n", count);
     }
     else
     {
-        sprintf(buf, "There are %d characters on, the most on today was %d.\n\r", count, max_on);
+        sprintf(buf, "There are %d characters on, the most on today was %d.\r\n", count, max_on);
     }
 
     send_to_char (buf, ch);
 
-    sprintf(buf, "The most we've ever had on was {R%d{x.\n\r", statistics.max_players_online);
+    sprintf(buf, "The most we've ever had on was {R%d{x.\r\n", statistics.max_players_online);
     send_to_char(buf, ch);
 
 } // end do_count
@@ -2807,7 +2807,7 @@ void max_players_check()
 
 void do_inventory (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("You are carrying:\n\r", ch);
+    send_to_char ("You are carrying:\r\n", ch);
     show_list_to_char (ch->carrying, ch, TRUE, TRUE);
     return;
 }
@@ -2820,14 +2820,14 @@ void do_equipment (CHAR_DATA * ch, char *argument)
     int iWear;
     bool found;
 
-    send_to_char ("You are using:\n\r", ch);
+    send_to_char ("You are using:\r\n", ch);
     found = FALSE;
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
     {
         if ((obj = get_eq_char (ch, iWear)) == NULL)
         {
             send_to_char (where_name[iWear], ch);
-            send_to_char ("(Nothing)\n\r", ch);
+            send_to_char ("(Nothing)\r\n", ch);
             continue;
         }
 
@@ -2835,17 +2835,17 @@ void do_equipment (CHAR_DATA * ch, char *argument)
         if (can_see_obj (ch, obj))
         {
             send_to_char (format_obj_to_char (obj, ch, TRUE), ch);
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
         }
         else
         {
-            send_to_char ("something.\n\r", ch);
+            send_to_char ("something.\r\n", ch);
         }
         found = TRUE;
     }
 
     if (!found)
-        send_to_char ("Nothing.\n\r", ch);
+        send_to_char ("Nothing.\r\n", ch);
 
     return;
 }
@@ -2866,13 +2866,13 @@ void do_compare (CHAR_DATA * ch, char *argument)
     argument = one_argument (argument, arg2);
     if (arg1[0] == '\0')
     {
-        send_to_char ("Compare what to what?\n\r", ch);
+        send_to_char ("Compare what to what?\r\n", ch);
         return;
     }
 
     if ((obj1 = get_obj_carry (ch, arg1, ch)) == NULL)
     {
-        send_to_char ("You do not have that item.\n\r", ch);
+        send_to_char ("You do not have that item.\r\n", ch);
         return;
     }
 
@@ -2888,14 +2888,14 @@ void do_compare (CHAR_DATA * ch, char *argument)
 
         if (obj2 == NULL)
         {
-            send_to_char ("You aren't wearing anything comparable.\n\r", ch);
+            send_to_char ("You aren't wearing anything comparable.\r\n", ch);
             return;
         }
     }
 
     else if ((obj2 = get_obj_carry (ch, arg2, ch)) == NULL)
     {
-        send_to_char ("You do not have that item.\n\r", ch);
+        send_to_char ("You do not have that item.\r\n", ch);
         return;
     }
 
@@ -2973,7 +2973,7 @@ void do_where (CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         // Players in the current area that are visible to you.
-        send_to_char ("Players near you:\n\r", ch);
+        send_to_char ("Players near you:\r\n", ch);
         found = FALSE;
         for (d = descriptor_list; d; d = d->next)
         {
@@ -2987,22 +2987,22 @@ void do_where (CHAR_DATA * ch, char *argument)
                 && can_see (ch, victim))
             {
                 found = TRUE;
-                sprintf (buf, "%-20s %s\n\r",
+                sprintf (buf, "%-20s %s\r\n",
                          victim->name, victim->in_room->name);
                 send_to_char (buf, ch);
             }
         }
         if (!found)
-            send_to_char ("None\n\r", ch);
+            send_to_char ("None\r\n", ch);
     }
     else if (IS_IMMORTAL(ch) && !str_cmp (arg, "all"))
     {
         // Immortals only option to show where all players are in all areas
-        send_to_char("Players in the world:\n\r", ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-        sprintf(buf, "{W%-15s %-30s %s{x\n\r", "Player", "Area", "Room");
+        send_to_char("Players in the world:\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        sprintf(buf, "{W%-15s %-30s %s{x\r\n", "Player", "Area", "Room");
         send_to_char(buf, ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         for (d = descriptor_list; d; d = d->next)
         {
@@ -3010,7 +3010,7 @@ void do_where (CHAR_DATA * ch, char *argument)
                 && (victim = d->character) != NULL && !IS_NPC(victim)
                 && victim->in_room != NULL)
             {
-                sprintf(buf, "%-15s %-30s %s\n\r", victim->name, victim->in_room->area->name, victim->in_room->name);
+                sprintf(buf, "%-15s %-30s %s\r\n", victim->name, victim->in_room->area->name, victim->in_room->name);
                 send_to_char(buf, ch);
             }
         }
@@ -3028,7 +3028,7 @@ void do_where (CHAR_DATA * ch, char *argument)
                 && can_see (ch, victim) && is_name (arg, victim->name))
             {
                 found = TRUE;
-                sprintf (buf, "%-28s %s\n\r",
+                sprintf (buf, "%-28s %s\r\n",
                          PERS (victim, ch), victim->in_room->name);
                 send_to_char (buf, ch);
                 break;
@@ -3052,19 +3052,19 @@ void do_consider (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Consider killing whom?\n\r", ch);
+        send_to_char ("Consider killing whom?\r\n", ch);
         return;
     }
 
     if ((victim = get_char_room (ch, arg)) == NULL)
     {
-        send_to_char ("They're not here.\n\r", ch);
+        send_to_char ("They're not here.\r\n", ch);
         return;
     }
 
     if (is_safe (ch, victim))
     {
-        send_to_char ("Don't even think about it.\n\r", ch);
+        send_to_char ("Don't even think about it.\r\n", ch);
         return;
     }
 
@@ -3140,13 +3140,13 @@ void do_title (CHAR_DATA * ch, char *argument)
 
     if (argument[0] == '\0')
     {
-        send_to_char ("Change your title to what?\n\r", ch);
+        send_to_char ("Change your title to what?\r\n", ch);
         return;
     }
 
     smash_tilde (argument);
     set_title (ch, argument);
-    send_to_char ("Ok.\n\r", ch);
+    send_to_char ("Ok.\r\n", ch);
 }
 
 
@@ -3167,7 +3167,7 @@ void do_description (CHAR_DATA * ch, char *argument)
 
             if (ch->description == NULL || ch->description[0] == '\0')
             {
-                send_to_char ("No lines left to remove.\n\r", ch);
+                send_to_char ("No lines left to remove.\r\n", ch);
                 return;
             }
 
@@ -3189,9 +3189,9 @@ void do_description (CHAR_DATA * ch, char *argument)
                         buf[len + 1] = '\0';
                         free_string (ch->description);
                         ch->description = str_dup (buf);
-                        send_to_char ("Your description is:\n\r", ch);
+                        send_to_char ("Your description is:\r\n", ch);
                         send_to_char (ch->description ? ch->description :
-                                      "(None).\n\r", ch);
+                                      "(None).\r\n", ch);
                         return;
                     }
                 }
@@ -3199,7 +3199,7 @@ void do_description (CHAR_DATA * ch, char *argument)
             buf[0] = '\0';
             free_string (ch->description);
             ch->description = str_dup (buf);
-            send_to_char ("Description cleared.\n\r", ch);
+            send_to_char ("Description cleared.\r\n", ch);
             return;
         }
         if (argument[0] == '+')
@@ -3213,18 +3213,18 @@ void do_description (CHAR_DATA * ch, char *argument)
 
         if (strlen (buf) >= 1024)
         {
-            send_to_char ("Description too long.\n\r", ch);
+            send_to_char ("Description too long.\r\n", ch);
             return;
         }
 
         strcat (buf, argument);
-        strcat (buf, "\n\r");
+        strcat (buf, "\r\n");
         free_string (ch->description);
         ch->description = str_dup (buf);
     }
 
-    send_to_char ("Your description is:\n\r", ch);
-    send_to_char (ch->description ? ch->description : "(None).\n\r", ch);
+    send_to_char ("Your description is:\r\n", ch);
+    send_to_char (ch->description ? ch->description : "(None).\r\n", ch);
     return;
 }
 
@@ -3235,7 +3235,7 @@ void do_report (CHAR_DATA * ch, char *argument)
     char buf[MAX_INPUT_LENGTH];
 
     sprintf (buf,
-             "You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\n\r",
+             "You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\r\n",
              ch->hit, ch->max_hit,
              ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
 
@@ -3284,13 +3284,13 @@ void do_practice (CHAR_DATA * ch, char *argument)
                      skill_table[sn]->name, ch->pcdata->learned[sn]);
             send_to_char(buf, ch);
             if (++col % 3 == 0)
-                send_to_char("\n\r", ch);
+                send_to_char("\r\n", ch);
         }
 
         if (col % 3 != 0)
-            send_to_char("\n\r", ch);
+            send_to_char("\r\n", ch);
 
-        sprintf(buf, "You have %d practice sessions left.\n\r", ch->practice);
+        sprintf(buf, "You have %d practice sessions left.\r\n", ch->practice);
         send_to_char(buf, ch);
     }
     else
@@ -3300,7 +3300,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
 
         if (!IS_AWAKE(ch))
         {
-            send_to_char ("In your dreams, or what?\n\r", ch);
+            send_to_char ("In your dreams, or what?\r\n", ch);
             return;
         }
 
@@ -3312,13 +3312,13 @@ void do_practice (CHAR_DATA * ch, char *argument)
 
         if (mob == NULL)
         {
-            send_to_char("You can't do that here.\n\r", ch);
+            send_to_char("You can't do that here.\r\n", ch);
             return;
         }
 
         if (ch->practice <= 0)
         {
-            send_to_char("You have no practice sessions left.\n\r", ch);
+            send_to_char("You have no practice sessions left.\r\n", ch);
             return;
         }
 
@@ -3329,7 +3329,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
                || (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
                || skill_table[sn]->rating[ch->class] == 0)))
         {
-            send_to_char("You can't practice that.\n\r", ch);
+            send_to_char("You can't practice that.\r\n", ch);
             return;
         }
 
@@ -3337,7 +3337,7 @@ void do_practice (CHAR_DATA * ch, char *argument)
 
         if (ch->pcdata->learned[sn] >= adept)
         {
-            sprintf(buf, "You are already learned at %s.\n\r", skill_table[sn]->name);
+            sprintf(buf, "You are already learned at %s.\r\n", skill_table[sn]->name);
             send_to_char(buf, ch);
         }
         else
@@ -3386,18 +3386,18 @@ void do_wimpy (CHAR_DATA * ch, char *argument)
 
     if (wimpy < 0)
     {
-        send_to_char ("Your courage exceeds your wisdom.\n\r", ch);
+        send_to_char ("Your courage exceeds your wisdom.\r\n", ch);
         return;
     }
 
     if (wimpy > ch->max_hit / 2)
     {
-        send_to_char ("Such cowardice ill becomes you.\n\r", ch);
+        send_to_char ("Such cowardice ill becomes you.\r\n", ch);
         return;
     }
 
     ch->wimpy = wimpy;
-    sprintf (buf, "Wimpy set to %d hit points.\n\r", wimpy);
+    sprintf (buf, "Wimpy set to %d hit points.\r\n", wimpy);
     send_to_char (buf, ch);
     return;
 }
@@ -3460,21 +3460,21 @@ void do_password (CHAR_DATA * ch, char *argument)
 
     if (arg1[0] == '\0' || arg2[0] == '\0')
     {
-        send_to_char ("Syntax: password <old> <new>.\n\r", ch);
+        send_to_char ("Syntax: password <old> <new>.\r\n", ch);
         return;
     }
     
     if (strcmp (crypt (arg1, ch->pcdata->pwd), ch->pcdata->pwd))
     {
         WAIT_STATE (ch, 40);
-        send_to_char ("Wrong password.  Wait 10 seconds.\n\r", ch);
+        send_to_char ("Wrong password.  Wait 10 seconds.\r\n", ch);
         return;
     }
 
     if (strlen (arg2) < 5)
     {
         send_to_char
-            ("New password must be at least five characters long.\n\r", ch);
+            ("New password must be at least five characters long.\r\n", ch);
         return;
     }
 
@@ -3486,7 +3486,7 @@ void do_password (CHAR_DATA * ch, char *argument)
     {
         if (*p == '~')
         {
-            send_to_char ("New password not acceptable, try again.\n\r", ch);
+            send_to_char ("New password not acceptable, try again.\r\n", ch);
             return;
         }
     }
@@ -3494,7 +3494,7 @@ void do_password (CHAR_DATA * ch, char *argument)
     free_string (ch->pcdata->pwd);
     ch->pcdata->pwd = str_dup (pwdnew);
     save_char_obj (ch);
-    send_to_char ("Ok.\n\r", ch);
+    send_to_char ("Ok.\r\n", ch);
     return;
 }
 
@@ -3505,12 +3505,12 @@ void do_telnetga (CHAR_DATA * ch, char *argument)
 
     if (IS_SET (ch->comm, COMM_TELNET_GA))
     {
-        send_to_char ("Telnet GA removed.\n\r", ch);
+        send_to_char ("Telnet GA removed.\r\n", ch);
         REMOVE_BIT (ch->comm, COMM_TELNET_GA);
     }
     else
     {
-        send_to_char ("Telnet GA enabled.\n\r", ch);
+        send_to_char ("Telnet GA enabled.\r\n", ch);
         SET_BIT (ch->comm, COMM_TELNET_GA);
     }
 } // end do_telnetga
@@ -3524,47 +3524,47 @@ void do_stats(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
-    send_to_char("------------------------------------------------------\n\r", ch);
-    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class{x\n\r");
+    send_to_char("------------------------------------------------------\r\n", ch);
+    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class{x\r\n");
     send_to_char(buf, ch);
-    send_to_char("------------------------------------------------------\n\r", ch);
+    send_to_char("------------------------------------------------------\r\n", ch);
 
-    sprintf(buf, "Strength        {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
+    sprintf(buf, "Strength        {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_STR],
         get_curr_stat(ch,STAT_STR) < ch->perm_stat[STAT_STR] ? "{R" : get_curr_stat(ch,STAT_STR) > ch->perm_stat[STAT_STR] ? "{G" : "{W",
         get_curr_stat(ch,STAT_STR),
 	get_max_train(ch, STAT_STR));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Intelligence    {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
+    sprintf(buf, "Intelligence    {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_INT],
         get_curr_stat(ch,STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch,STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
         get_curr_stat(ch,STAT_INT),
         get_max_train(ch, STAT_INT));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Wisdom          {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
+    sprintf(buf, "Wisdom          {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_WIS],
         get_curr_stat(ch,STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch,STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
         get_curr_stat(ch,STAT_WIS),
         get_max_train(ch, STAT_WIS));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Dexterity       {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
+    sprintf(buf, "Dexterity       {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_DEX],
         get_curr_stat(ch,STAT_DEX) < ch->perm_stat[STAT_DEX] ? "{R" : get_curr_stat(ch,STAT_DEX) > ch->perm_stat[STAT_DEX] ? "{G" : "{W",
         get_curr_stat(ch,STAT_DEX),
         get_max_train(ch, STAT_DEX));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Constitution    {W%-2d{x         %s%-2d{x       {W%-2d{x\n\r",
+    sprintf(buf, "Constitution    {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_CON],
         get_curr_stat(ch,STAT_CON) < ch->perm_stat[STAT_CON] ? "{R" : get_curr_stat(ch,STAT_CON) > ch->perm_stat[STAT_CON] ? "{G" : "{W",
         get_curr_stat(ch,STAT_CON),
         get_max_train(ch, STAT_CON));
     send_to_char(buf, ch);
 
-    send_to_char("------------------------------------------------------\n\r", ch);
+    send_to_char("------------------------------------------------------\r\n", ch);
 
     return;
 } // end do_stats
@@ -3580,16 +3580,16 @@ void do_guildlist ( CHAR_DATA *ch, char *argument )
     int clan;
     char buf[MAX_STRING_LENGTH];
 
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("{WClan                  Independent{x\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch); 
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WClan                  Independent{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch); 
 
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
         if (IS_NULLSTR(clan_table[clan].name))
             continue;
 
-        sprintf(buf, "%-25s{x %-5s\n\r",
+        sprintf(buf, "%-25s{x %-5s\r\n",
             clan_table[clan].who_name,
             clan_table[clan].independent == TRUE ? "True" : "False"
         );
@@ -3612,9 +3612,9 @@ void do_class(CHAR_DATA *ch, char *argument)
 
     if (IS_NULLSTR(argument))
     {
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-        send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\n\r", ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         for (i = 0; i < top_class; i++)
         {
@@ -3628,7 +3628,7 @@ void do_class(CHAR_DATA *ch, char *argument)
             // of a static char.
             sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
 
-            sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\n\r",
+            sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\r\n",
                 capitalize(class_table[i]->name),
                 class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
                 class_table[i]->who_name,
@@ -3640,13 +3640,13 @@ void do_class(CHAR_DATA *ch, char *argument)
             send_to_char(buf, ch);
         }
 
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
-        sprintf(buf, "Total Classes: %d\n\r\n\r", top_class);
+        sprintf(buf, "Total Classes: %d\r\n\r\n", top_class);
         send_to_char(buf, ch);
-        send_to_char("For more detailed information about a class please use these commands\n\r\n\r", ch);
-        send_to_char("  - class <class name>\n\r", ch);
-        send_to_char("  - help <class name>\n\r", ch);
+        send_to_char("For more detailed information about a class please use these commands\r\n\r\n", ch);
+        send_to_char("  - class <class name>\r\n", ch);
+        send_to_char("  - help <class name>\r\n", ch);
 
         return;
     }
@@ -3657,54 +3657,54 @@ void do_class(CHAR_DATA *ch, char *argument)
     // Check that it's a valid class and that the player can be that class
     if (i == -1)
     {
-        send_to_char("That's not a valid class.\n\r", ch);
+        send_to_char("That's not a valid class.\r\n", ch);
         return;
     }
 
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("{WDetailed Class Information{x\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WDetailed Class Information{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WClass:{x", capitalize(class_table[i]->name));
+    sprintf(buf, "%-30s [%s]\r\n", "{WClass:{x", capitalize(class_table[i]->name));
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WClass Type{x:", class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass");
+    sprintf(buf, "%-30s [%s]\r\n", "{WClass Type{x:", class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass");
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WWho Name{x:", class_table[i]->who_name);
+    sprintf(buf, "%-30s [%s]\r\n", "{WWho Name{x:", class_table[i]->who_name);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WPrime Attribute{x:", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
+    sprintf(buf, "%-30s [%s]\r\n", "{WPrime Attribute{x:", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d%%]\n\r", "{WSkill Adept{x:", class_table[i]->skill_adept);
+    sprintf(buf, "%-30s [%2d%%]\r\n", "{WSkill Adept{x:", class_table[i]->skill_adept);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d]\n\r", "{WTo Hit AC 0 @ Level 0{x:", class_table[i]->thac0_00);
+    sprintf(buf, "%-30s [%2d]\r\n", "{WTo Hit AC 0 @ Level 0{x:", class_table[i]->thac0_00);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d]\n\r", "{WTo Hit AC 0 @ Level 32{x:", class_table[i]->thac0_32);
+    sprintf(buf, "%-30s [%2d]\r\n", "{WTo Hit AC 0 @ Level 32{x:", class_table[i]->thac0_32);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d]\n\r", "{WHP Minimum Per Level{x:", class_table[i]->hp_min);
+    sprintf(buf, "%-30s [%2d]\r\n", "{WHP Minimum Per Level{x:", class_table[i]->hp_min);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d]\n\r", "{wHP Maximum Per Level{x:", class_table[i]->hp_max);
+    sprintf(buf, "%-30s [%2d]\r\n", "{wHP Maximum Per Level{x:", class_table[i]->hp_max);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
+    sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WBase Group{x:", class_table[i]->base_group);
+    sprintf(buf, "%-30s [%s]\r\n", "{WBase Group{x:", class_table[i]->base_group);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\n\r", "{WDefault Group{x:", class_table[i]->default_group);
+    sprintf(buf, "%-30s [%s]\r\n", "{WDefault Group{x:", class_table[i]->default_group);
     send_to_char(buf, ch);
 
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-    send_to_char("Note:  Some of these settings are the default and maybe influenced by other in\n\r", ch);
-    send_to_char("       game factors.\n\r", ch);
-    send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("Note:  Some of these settings are the default and maybe influenced by other in\r\n", ch);
+    send_to_char("       game factors.\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
 } // end do_class
 
@@ -3721,32 +3721,32 @@ void do_settings(CHAR_DATA *ch, char *argument)
     // Show the game and player settings
     if (IS_NULLSTR(argument))
     {
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-        send_to_char("{WGame Settings{x\n\r", ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        send_to_char("{WGame Settings{x\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
-        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\r\n",
             "Game Locked (Wizlock)", settings.wizlock ? "{GON{x" : "{ROFF{x",
             "New Lock", settings.newlock ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\r\n",
             "Double Experience", settings.double_exp ? "{GON{x" : "{ROFF{x",
             "Double Gold", settings.double_gold ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        send_to_char("\n\r", ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
-        send_to_char("{WGame Mechanics{x\n\r", ch);
-        send_to_char("--------------------------------------------------------------------------------\n\r", ch);
+        send_to_char("\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        send_to_char("{WGame Mechanics{x\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
-        sprintf(buf, "%-25s %-7s  %-25s %-7s\n\r",
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\r\n",
             "Gain Convert", settings.gain_convert ? "{GON{x" : "{ROFF{x",
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
     }
 
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
 
     // Since this is a dual mortal/immortal command, kick the mortals out here and lower level imms.
     if (ch->level < CODER)
@@ -3760,9 +3760,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
     if (IS_NULLSTR(arg1))
     {
-        send_to_char("\n\r{YProvide an argument to set or toggle a setting.{x\n\r\n\r", ch);
-        send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\n\r", ch);
-        send_to_char("                  gainconvert|shockspread>\n\r", ch);
+        send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
+        send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
+        send_to_char("                  gainconvert|shockspread>\r\n", ch);
         return;
     }
 
@@ -3781,12 +3781,12 @@ void do_settings(CHAR_DATA *ch, char *argument)
         if (settings.double_exp)
         {
             wiznet("$N has enabled double experience.", ch, NULL, 0, 0, 0);
-            send_to_char("Double experience enabled.\n\r", ch);
+            send_to_char("Double experience enabled.\r\n", ch);
         }
         else
         {
             wiznet("$N has disabled double experience.", ch, NULL, 0, 0, 0);
-            send_to_char("Double experience disabled.\n\r", ch);
+            send_to_char("Double experience disabled.\r\n", ch);
         }
 
         // Save the settings out to file.
@@ -3799,12 +3799,12 @@ void do_settings(CHAR_DATA *ch, char *argument)
         if (settings.double_gold)
         {
             wiznet("$N has enabled double gold.", ch, NULL, 0, 0, 0);
-            send_to_char("Double gold enabled.\n\r", ch);
+            send_to_char("Double gold enabled.\r\n", ch);
         }
         else
         {
             wiznet("$N has disabled double gold.", ch, NULL, 0, 0, 0);
-            send_to_char("Double gold disabled.\n\r", ch);
+            send_to_char("Double gold disabled.\r\n", ch);
         }
 
         // Save the settings out to file.
@@ -3818,12 +3818,12 @@ void do_settings(CHAR_DATA *ch, char *argument)
         if (settings.gain_convert)
         {
             wiznet("$N has the gain convert feature.", ch, NULL, 0, 0, 0);
-            send_to_char("The gain convert feature has been enabled.\n\r", ch);
+            send_to_char("The gain convert feature has been enabled.\r\n", ch);
         }
         else
         {
             wiznet("$N has disabled the gain convert feature.", ch, NULL, 0, 0, 0);
-            send_to_char("The gain convert feature has been disabled.\n\r", ch);
+            send_to_char("The gain convert feature has been disabled.\r\n", ch);
         }
 
         // Save the settings out to file.
@@ -3837,12 +3837,12 @@ void do_settings(CHAR_DATA *ch, char *argument)
         if (settings.shock_spread)
         {
             wiznet("$N has enabled the shock spread mechanic.", ch, NULL, 0, 0, 0);
-            send_to_char("The shock spread mechanic has been enabled.\n\r", ch);
+            send_to_char("The shock spread mechanic has been enabled.\r\n", ch);
         }
         else
         {
             wiznet("$N has disabled the shock spread mechanic.", ch, NULL, 0, 0, 0);
-            send_to_char("The shock spread mechanic has been disabled.\n\r", ch);
+            send_to_char("The shock spread mechanic has been disabled.\r\n", ch);
         }
 
         // Save the settings out to file.
@@ -3851,8 +3851,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
     }
     else
     {
-        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|\n\r", ch);
-        send_to_char("          gainconvert|shockspread\n\r", ch);
+        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
+        send_to_char("          gainconvert|shockspread\r\n", ch);
     }
 
 } // end do_settings
@@ -3892,40 +3892,40 @@ void do_terrain(CHAR_DATA *ch, char *argument)
     switch(ch->in_room->sector_type)
     {
         case(SECT_INSIDE):
-            send_to_char("You are indoors.\n\r", ch);
+            send_to_char("You are indoors.\r\n", ch);
             break;
         case(SECT_CITY):
-            send_to_char("You see the city about you... not a lot of terrain.\n\r", ch);
+            send_to_char("You see the city about you... not a lot of terrain.\r\n", ch);
             break;
         case(SECT_FIELD):
-            send_to_char("The terrain is that of fields.\n\r", ch);
+            send_to_char("The terrain is that of fields.\r\n", ch);
             break;
         case(SECT_FOREST):
-            send_to_char("The terrain is that of the forest.\n\r", ch);
+            send_to_char("The terrain is that of the forest.\r\n", ch);
             break;
         case(SECT_HILLS):
-            send_to_char("The terrain is that of the hills.\n\r", ch);
+            send_to_char("The terrain is that of the hills.\r\n", ch);
             break;
         case(SECT_MOUNTAIN):
-            send_to_char("The terrain is that of the mountains.\n\r", ch);
+            send_to_char("The terrain is that of the mountains.\r\n", ch);
             break;
         case(SECT_AIR):
-            send_to_char("There is no terrain, your in the air!\n\r", ch);
+            send_to_char("There is no terrain, your in the air!\r\n", ch);
             break;
         case(SECT_DESERT):
-            send_to_char("The terrain is that of the desert.\n\r", ch);
+            send_to_char("The terrain is that of the desert.\r\n", ch);
             break;
         case(SECT_BEACH):
-            send_to_char("The terrain is that of the beach.\n\r", ch);
+            send_to_char("The terrain is that of the beach.\r\n", ch);
             break;
         case(SECT_OCEAN):
-            send_to_char("You are in the ocean!\n\r", ch);
+            send_to_char("You are in the ocean!\r\n", ch);
             break;
         case(SECT_UNDERWATER):
-            send_to_char("You are underwater!\n\r", ch);
+            send_to_char("You are underwater!\r\n", ch);
             break;
         default:
-            send_to_char("The terrain type is undetermined.\n\r", ch);
+            send_to_char("The terrain type is undetermined.\r\n", ch);
             bugf("Unhandled terrain type in do_terrain for vnum %d", ch->in_room->vnum);
             break;
     }

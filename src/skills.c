@@ -59,7 +59,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
 
     if (trainer == NULL || !can_see (ch, trainer))
     {
-        send_to_char ("You can't do that here.\n\r", ch);
+        send_to_char ("You can't do that here.\r\n", ch);
         return;
     }
 
@@ -77,7 +77,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
 
         col = 0;
 
-        sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\n\r",
+        sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n",
                  "group", "cost", "group", "cost", "group", "cost");
         send_to_char (buf, ch);
 
@@ -94,17 +94,17 @@ void do_gain (CHAR_DATA * ch, char *argument)
                          group_table[gn]->rating[ch->class]);
                 send_to_char (buf, ch);
                 if (++col % 3 == 0)
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
             }
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
 
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
 
         col = 0;
 
-        sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\n\r",
+        sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n",
                  "skill", "cost", "skill", "cost", "skill", "cost");
         send_to_char (buf, ch);
 
@@ -126,11 +126,11 @@ void do_gain (CHAR_DATA * ch, char *argument)
                          skill_table[sn]->rating[ch->class]);
                 send_to_char (buf, ch);
                 if (++col % 3 == 0)
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
             }
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
         return;
     }
 
@@ -249,7 +249,7 @@ void do_gain (CHAR_DATA * ch, char *argument)
         // If it is a racial skill, but not the players race then continue.
         if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
         {
-            send_to_char("That is a racial skill that is not suitable for your race.\n\r", ch);
+            send_to_char("That is a racial skill that is not suitable for your race.\r\n", ch);
             return;
         }
 
@@ -287,14 +287,14 @@ void do_spells (CHAR_DATA * ch, char *argument)
             argument = one_argument (argument, arg);
             if (!is_number (arg))
             {
-                send_to_char ("Arguments must be numerical or all.\n\r", ch);
+                send_to_char ("Arguments must be numerical or all.\r\n", ch);
                 return;
             }
             max_lev = atoi (arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf (buf, "Levels must be between 1 and %d.\n\r",
+                sprintf (buf, "Levels must be between 1 and %d.\r\n",
                          LEVEL_HERO);
                 send_to_char (buf, ch);
                 return;
@@ -305,7 +305,7 @@ void do_spells (CHAR_DATA * ch, char *argument)
                 argument = one_argument (argument, arg);
                 if (!is_number (arg))
                 {
-                    send_to_char ("Arguments must be numerical or all.\n\r",
+                    send_to_char ("Arguments must be numerical or all.\r\n",
                                   ch);
                     return;
                 }
@@ -315,7 +315,7 @@ void do_spells (CHAR_DATA * ch, char *argument)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf (buf,
-                             "Levels must be between 1 and %d.\n\r",
+                             "Levels must be between 1 and %d.\r\n",
                              LEVEL_HERO);
                     send_to_char (buf, ch);
                     return;
@@ -323,7 +323,7 @@ void do_spells (CHAR_DATA * ch, char *argument)
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char ("That would be silly.\n\r", ch);
+                    send_to_char ("That would be silly.\r\n", ch);
                     return;
                 }
             }
@@ -362,12 +362,12 @@ void do_spells (CHAR_DATA * ch, char *argument)
             }
 
             if (spell_list[level][0] == '\0')
-                sprintf (spell_list[level], "\n\rLevel %2d: %s", level, buf);
+                sprintf (spell_list[level], "\r\nLevel %2d: %s", level, buf);
             else
             {                    /* append */
 
                 if (++spell_columns[level] % 2 == 0)
-                    strcat (spell_list[level], "\n\r          ");
+                    strcat (spell_list[level], "\r\n          ");
                 strcat (spell_list[level], buf);
             }
         }
@@ -377,7 +377,7 @@ void do_spells (CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char ("No spells found.\n\r", ch);
+        send_to_char ("No spells found.\r\n", ch);
         return;
     }
 
@@ -385,7 +385,7 @@ void do_spells (CHAR_DATA * ch, char *argument)
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (spell_list[level][0] != '\0')
             add_buf (buffer, spell_list[level]);
-    add_buf (buffer, "\n\r");
+    add_buf (buffer, "\r\n");
     page_to_char (buf_string (buffer), ch);
     free_buf (buffer);
 }
@@ -412,14 +412,14 @@ void do_skills (CHAR_DATA * ch, char *argument)
             argument = one_argument (argument, arg);
             if (!is_number (arg))
             {
-                send_to_char ("Arguments must be numerical or all.\n\r", ch);
+                send_to_char ("Arguments must be numerical or all.\r\n", ch);
                 return;
             }
             max_lev = atoi (arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf (buf, "Levels must be between 1 and %d.\n\r",
+                sprintf (buf, "Levels must be between 1 and %d.\r\n",
                          LEVEL_HERO);
                 send_to_char (buf, ch);
                 return;
@@ -430,7 +430,7 @@ void do_skills (CHAR_DATA * ch, char *argument)
                 argument = one_argument (argument, arg);
                 if (!is_number (arg))
                 {
-                    send_to_char ("Arguments must be numerical or all.\n\r",
+                    send_to_char ("Arguments must be numerical or all.\r\n",
                                   ch);
                     return;
                 }
@@ -440,7 +440,7 @@ void do_skills (CHAR_DATA * ch, char *argument)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf (buf,
-                             "Levels must be between 1 and %d.\n\r",
+                             "Levels must be between 1 and %d.\r\n",
                              LEVEL_HERO);
                     send_to_char (buf, ch);
                     return;
@@ -448,7 +448,7 @@ void do_skills (CHAR_DATA * ch, char *argument)
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char ("That would be silly.\n\r", ch);
+                    send_to_char ("That would be silly.\r\n", ch);
                     return;
                 }
             }
@@ -487,12 +487,12 @@ void do_skills (CHAR_DATA * ch, char *argument)
                          ch->pcdata->learned[sn]);
 
             if (skill_list[level][0] == '\0')
-                sprintf (skill_list[level], "\n\rLevel %2d: %s", level, buf);
+                sprintf (skill_list[level], "\r\nLevel %2d: %s", level, buf);
             else
             {                    /* append */
 
                 if (++skill_columns[level] % 2 == 0)
-                    strcat (skill_list[level], "\n\r          ");
+                    strcat (skill_list[level], "\r\n          ");
                 strcat (skill_list[level], buf);
             }
         }
@@ -502,7 +502,7 @@ void do_skills (CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char ("No skills found.\n\r", ch);
+        send_to_char ("No skills found.\r\n", ch);
         return;
     }
 
@@ -510,7 +510,7 @@ void do_skills (CHAR_DATA * ch, char *argument)
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (skill_list[level][0] != '\0')
             add_buf (buffer, skill_list[level]);
-    add_buf (buffer, "\n\r");
+    add_buf (buffer, "\r\n");
     page_to_char (buf_string (buffer), ch);
     free_buf (buffer);
 }
@@ -527,7 +527,7 @@ void list_group_costs (CHAR_DATA * ch)
 
     col = 0;
 
-    sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "group", "cp",
+    sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "group", "cp",
              "group", "cp", "group", "cp");
     send_to_char (buf, ch);
 
@@ -544,16 +544,16 @@ void list_group_costs (CHAR_DATA * ch)
                      group_table[gn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
-    send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
+    send_to_char ("\r\n", ch);
 
     col = 0;
 
-    sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\n\r", "skill", "cp",
+    sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "skill", "cp",
              "skill", "cp", "skill", "cp");
     send_to_char (buf, ch);
 
@@ -575,16 +575,16 @@ void list_group_costs (CHAR_DATA * ch)
                      skill_table[sn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
-    send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
+    send_to_char ("\r\n", ch);
 
-    sprintf (buf, "Creation points: %d\n\r", ch->pcdata->points);
+    sprintf (buf, "Creation points: %d\r\n", ch->pcdata->points);
     send_to_char (buf, ch);
-    sprintf (buf, "Experience per level: %d\n\r",
+    sprintf (buf, "Experience per level: %d\r\n",
              exp_per_level (ch, ch->gen_data->points_chosen));
     send_to_char (buf, ch);
     return;
@@ -602,7 +602,7 @@ void list_group_chosen (CHAR_DATA * ch)
     col = 0;
 
     sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "group", "cp", "group",
-             "cp", "group", "cp\n\r");
+             "cp", "group", "cp\r\n");
     send_to_char (buf, ch);
 
     for (gn = 0; gn < top_group; gn++)
@@ -617,17 +617,17 @@ void list_group_chosen (CHAR_DATA * ch)
                      group_table[gn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
-    send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
+    send_to_char ("\r\n", ch);
 
     col = 0;
 
     sprintf (buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "skill", "cp", "skill",
-             "cp", "skill", "cp\n\r");
+             "cp", "skill", "cp\r\n");
     send_to_char (buf, ch);
 
     for (sn = 0; sn < top_sn; sn++)
@@ -646,16 +646,16 @@ void list_group_chosen (CHAR_DATA * ch)
                      skill_table[sn]->rating[ch->class]);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
-    send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
+    send_to_char ("\r\n", ch);
 
-    sprintf (buf, "Creation points: %d\n\r", ch->gen_data->points_chosen);
+    sprintf (buf, "Creation points: %d\r\n", ch->gen_data->points_chosen);
     send_to_char (buf, ch);
-    sprintf (buf, "Experience per level: %d\n\r",
+    sprintf (buf, "Experience per level: %d\r\n",
              exp_per_level (ch, ch->gen_data->points_chosen));
     send_to_char (buf, ch);
     return;
@@ -725,7 +725,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
     {
         if (argument[0] == '\0')
         {
-            send_to_char ("You must provide a skill name.\n\r", ch);
+            send_to_char ("You must provide a skill name.\r\n", ch);
             return TRUE;
         }
 
@@ -734,13 +734,13 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
         {
             if (ch->gen_data->group_chosen[gn] || ch->pcdata->group_known[gn])
             {
-                send_to_char ("You already know that group!\n\r", ch);
+                send_to_char ("You already know that group!\r\n", ch);
                 return TRUE;
             }
 
             if (group_table[gn]->rating[ch->class] < 1)
             {
-                send_to_char ("That group is not available.\n\r", ch);
+                send_to_char ("That group is not available.\r\n", ch);
                 return TRUE;
             }
 
@@ -749,12 +749,12 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
                 group_table[gn]->rating[ch->class] > 300)
             {
                 send_to_char
-                    ("You cannot take more than 300 creation points.\n\r",
+                    ("You cannot take more than 300 creation points.\r\n",
                      ch);
                 return TRUE;
             }
 
-            sprintf (buf, "%s group added\n\r", group_table[gn]->name);
+            sprintf (buf, "%s group added\r\n", group_table[gn]->name);
             send_to_char (buf, ch);
             ch->gen_data->group_chosen[gn] = TRUE;
             ch->gen_data->points_chosen += group_table[gn]->rating[ch->class];
@@ -768,21 +768,21 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
         {
             if (ch->gen_data->skill_chosen[sn] || ch->pcdata->learned[sn] > 0)
             {
-                send_to_char ("You already know that skill!\n\r", ch);
+                send_to_char ("You already know that skill!\r\n", ch);
                 return TRUE;
             }
 
             if (skill_table[sn]->rating[ch->class] < 1
                 || skill_table[sn]->spell_fun != spell_null)
             {
-                send_to_char ("That skill is not available.\n\r", ch);
+                send_to_char ("That skill is not available.\r\n", ch);
                 return TRUE;
             }
 
             // Do not allow them to add a racial skill that's not for their race.
             if (skill_table[sn]->race > 0 && ch->race != skill_table[sn]->race)
             {
-                send_to_char("That is a racial skill that your race cannot choose.\n\r", ch);
+                send_to_char("That is a racial skill that your race cannot choose.\r\n", ch);
                 return TRUE;
             }
 
@@ -791,11 +791,11 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
                 skill_table[sn]->rating[ch->class] > 300)
             {
                 send_to_char
-                    ("You cannot take more than 300 creation points.\n\r",
+                    ("You cannot take more than 300 creation points.\r\n",
                      ch);
                 return TRUE;
             }
-            sprintf (buf, "%s skill added\n\r", skill_table[sn]->name);
+            sprintf (buf, "%s skill added\r\n", skill_table[sn]->name);
             send_to_char (buf, ch);
             ch->gen_data->skill_chosen[sn] = TRUE;
             ch->gen_data->points_chosen += skill_table[sn]->rating[ch->class];
@@ -804,7 +804,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
             return TRUE;
         }
 
-        send_to_char ("No skills or groups by that name...\n\r", ch);
+        send_to_char ("No skills or groups by that name...\r\n", ch);
         return TRUE;
     }
 
@@ -812,14 +812,14 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
     {
         if (argument[0] == '\0')
         {
-            send_to_char ("You must provide a skill to drop.\n\r", ch);
+            send_to_char ("You must provide a skill to drop.\r\n", ch);
             return TRUE;
         }
 
         gn = group_lookup (argument);
         if (gn != -1 && ch->gen_data->group_chosen[gn])
         {
-            send_to_char ("Group dropped.\n\r", ch);
+            send_to_char ("Group dropped.\r\n", ch);
             ch->gen_data->group_chosen[gn] = FALSE;
             ch->gen_data->points_chosen -= group_table[gn]->rating[ch->class];
             gn_remove (ch, gn);
@@ -835,7 +835,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
         sn = skill_lookup (argument);
         if (sn != -1 && ch->gen_data->skill_chosen[sn])
         {
-            send_to_char ("Skill dropped.\n\r", ch);
+            send_to_char ("Skill dropped.\r\n", ch);
             ch->gen_data->skill_chosen[sn] = FALSE;
             ch->gen_data->points_chosen -= skill_table[sn]->rating[ch->class];
             ch->pcdata->learned[sn] = 0;
@@ -843,7 +843,7 @@ bool parse_gen_groups (CHAR_DATA * ch, char *argument)
             return TRUE;
         }
 
-        send_to_char ("You haven't bought any such skill or group.\n\r", ch);
+        send_to_char ("You haven't bought any such skill or group.\r\n", ch);
         return TRUE;
     }
 
@@ -898,12 +898,12 @@ void do_groups (CHAR_DATA * ch, char *argument)
                 sprintf (buf, "%-20s ", group_table[gn]->name);
                 send_to_char (buf, ch);
                 if (++col % 3 == 0)
-                    send_to_char ("\n\r", ch);
+                    send_to_char ("\r\n", ch);
             }
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
-        sprintf (buf, "Creation points: %d\n\r", ch->pcdata->points);
+            send_to_char ("\r\n", ch);
+        sprintf (buf, "Creation points: %d\r\n", ch->pcdata->points);
         send_to_char (buf, ch);
         return;
     }
@@ -917,12 +917,12 @@ void do_groups (CHAR_DATA * ch, char *argument)
             sprintf (buf, "%-20s ", group_table[gn]->name);
             send_to_char (buf, ch);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char ("\r\n", ch);
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
 
-        sprintf(buf, "\n\r%d groups listed.\n\r", top_group);
+        sprintf(buf, "\r\n%d groups listed.\r\n", top_group);
         send_to_char(buf, ch);
 
         return;
@@ -933,9 +933,9 @@ void do_groups (CHAR_DATA * ch, char *argument)
     gn = group_lookup (argument);
     if (gn == -1)
     {
-        send_to_char ("No group of that name exist.\n\r", ch);
+        send_to_char ("No group of that name exist.\r\n", ch);
         send_to_char
-            ("Type 'groups all' or 'info all' for a full listing.\n\r", ch);
+            ("Type 'groups all' or 'info all' for a full listing.\r\n", ch);
         return;
     }
 
@@ -946,10 +946,10 @@ void do_groups (CHAR_DATA * ch, char *argument)
         sprintf (buf, "%-20s ", group_table[gn]->spells[sn]);
         send_to_char (buf, ch);
         if (++col % 3 == 0)
-            send_to_char ("\n\r", ch);
+            send_to_char ("\r\n", ch);
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
+        send_to_char ("\r\n", ch);
 }
 
 /* checks for skill improvement */
@@ -981,7 +981,7 @@ void check_improve (CHAR_DATA * ch, int sn, bool success, int multiplier)
         chance = URANGE (5, 100 - ch->pcdata->learned[sn], 95);
         if (number_percent () < chance)
         {
-            sprintf (buf, "You have become better at %s!\n\r",
+            sprintf (buf, "You have become better at %s!\r\n",
                      skill_table[sn]->name);
             send_to_char (buf, ch);
             ch->pcdata->learned[sn]++;
@@ -995,7 +995,7 @@ void check_improve (CHAR_DATA * ch, int sn, bool success, int multiplier)
         if (number_percent () < chance)
         {
             sprintf (buf,
-                     "You learn from your mistakes, and your %s skill improves.\n\r",
+                     "You learn from your mistakes, and your %s skill improves.\r\n",
                      skill_table[sn]->name);
             send_to_char (buf, ch);
             ch->pcdata->learned[sn] += number_range (1, 3);

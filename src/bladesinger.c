@@ -63,27 +63,27 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     // No NPC's
     if (IS_NPC(ch))
     {
-        send_to_char("You cannot dance the bladesong.\n\r", ch);
+        send_to_char("You cannot dance the bladesong.\r\n", ch);
         return;
     }
 
     // Only bladesingers
     if (ch->class != BLADESINGER_CLASS_LOOKUP)
     {
-        send_to_char("Only bladesingers can dance the bladesong.\n\r", ch);
+        send_to_char("Only bladesingers can dance the bladesong.\r\n", ch);
         return;
     }
 
     if (is_affected(ch, gsn_bladesong))
     {
-        send_to_char("You are already using the bladesong.\n\r", ch);
+        send_to_char("You are already using the bladesong.\r\n", ch);
         return;
     }
 
     // The singer has to be fighting someone to initiate the bladesong.
     if ( ch->fighting == NULL )
     {
-        send_to_char("You can only initiate the bladesong in combat.\n\r", ch);
+        send_to_char("You can only initiate the bladesong in combat.\r\n", ch);
         return;
     }
 
@@ -92,7 +92,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     // then this is needed so we'll keep it in place.
     if ( ch->level < skill_table[gsn_bladesong]->skill_level[ch->class] )
     {
-        send_to_char("You are not yet skilled enough.\n\r", ch);
+        send_to_char("You are not yet skilled enough.\r\n", ch);
         return;
     }
 
@@ -100,7 +100,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     // the bladesong.
     if ((weapon = get_eq_char( ch, WEAR_WIELD )) == NULL)
     {
-        send_to_char("You must be wielding a weapon to dance the bladesong.\n\r", ch);
+        send_to_char("You must be wielding a weapon to dance the bladesong.\r\n", ch);
         return;
     }
 
@@ -111,7 +111,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
         case(WEAPON_DAGGER):
             break;
         default:
-            send_to_char("The bladesong art is only possible with swords and daggers.\n\r", ch);
+            send_to_char("The bladesong art is only possible with swords and daggers.\r\n", ch);
             return;
     }
 
@@ -156,7 +156,7 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     //bool found = FALSE;
 
     act("$n hums a melodic tune of protection.", ch, NULL, NULL, TO_ROOM);
-    send_to_char("You hum a melodic tune of protection.\n\r", ch);
+    send_to_char("You hum a melodic tune of protection.\r\n", ch);
 
     // Will set these once here, then add them in the loop
     af.where = TO_AFFECTS;
@@ -186,7 +186,7 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
         }
     }
 
-    send_to_char("Your group is now influenced by the song of protection.\n\r", ch);
+    send_to_char("Your group is now influenced by the song of protection.\r\n", ch);
 
 } // end spell_song_of_protection
 
@@ -202,12 +202,12 @@ void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     // Must be affected by the bladesong in order to use.
     if (!is_affected(ch, gsn_bladesong))
     {
-        send_to_char("You cannot use the song of dissonance unless you are using the bladesong.\n\r", ch);
+        send_to_char("You cannot use the song of dissonance unless you are using the bladesong.\r\n", ch);
         return;
     }
 
     act("$n hums a piercing dissonant tune.", ch, NULL, NULL, TO_ROOM);
-    send_to_char("You hum a piercing dissonant tune.\n\r", ch);
+    send_to_char("You hum a piercing dissonant tune.\r\n", ch);
 
     // Will set these once here, then add them in the loop
     af.where = TO_AFFECTS;
@@ -272,21 +272,21 @@ void do_circle(CHAR_DATA *ch, char *argument)
     // Must be over the level to use this skill.
     if (ch->level < skill_table[gsn_circle]->skill_level[ch->class])
     {
-        send_to_char("You are not skilled enough to use the circle technique.\n\r", ch);
+        send_to_char("You are not skilled enough to use the circle technique.\r\n", ch);
         return;
     }
 
     // Must be dancing the bladesong
     if (!is_affected(ch, gsn_bladesong))
     {
-        send_to_char("You must be dancing the bladesong first.\n\r", ch);
+        send_to_char("You must be dancing the bladesong first.\r\n", ch);
         return;
     }
 
     // Must be fighting someone already, can't initiate with this skill.
     if (ch->fighting == NULL)
     {
-        send_to_char("You're not fighting anybody to circle.\n\r", ch);
+        send_to_char("You're not fighting anybody to circle.\r\n", ch);
         return;
     }
     else
@@ -305,7 +305,7 @@ void do_circle(CHAR_DATA *ch, char *argument)
     // See if the victim is already disoriented.
     if (is_affected(victim, gsn_disorientation))
     {
-        send_to_char("You circle your opponent but they already look disoriented.\n\r", ch);
+        send_to_char("You circle your opponent but they already look disoriented.\r\n", ch);
         WAIT_STATE(ch, skill_table[gsn_circle]->beats);
         check_improve(ch, gsn_circle, TRUE, 1);
         return;
@@ -435,21 +435,21 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
     // Must be a character who has the skill.
     if (!IS_NPC(ch) && ch->level < skill_table[gsn_circlestab]->skill_level[ch->class])
     {
-        send_to_char("You don't know how to perform the circle stab technique.\n\r", ch);
+        send_to_char("You don't know how to perform the circle stab technique.\r\n", ch);
         return;
     }
 
     // Must be dancing the bladesong
     if (!is_affected(ch, gsn_bladesong))
     {
-        send_to_char("You must be dancing the bladesong first.\n\r", ch);
+        send_to_char("You must be dancing the bladesong first.\r\n", ch);
         return;
     }
 
     // The character can only use this in battle.
     if ((victim = ch->fighting) == NULL)
     {
-        send_to_char ("You aren't fighting anyone.\n\r", ch);
+        send_to_char ("You aren't fighting anyone.\r\n", ch);
         return;
     }
 
@@ -463,7 +463,7 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
     // See if the victim is already disoriented.
     if (!is_affected(victim, gsn_disorientation))
     {
-        send_to_char("You victim must first be disoriented with the circle technique.\n\r", ch);
+        send_to_char("You victim must first be disoriented with the circle technique.\r\n", ch);
         WAIT_STATE(ch, skill_table[gsn_circlestab]->beats);
         check_improve(ch, gsn_circlestab, TRUE, 1);
         return;

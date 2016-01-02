@@ -92,13 +92,13 @@ struct olc_help_type {
 bool show_version(CHAR_DATA * ch, char *argument)
 {
     send_to_char(VERSION, ch);
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
     send_to_char(AUTHOR, ch);
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
     send_to_char(DATE, ch);
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
     send_to_char(CREDITS, ch);
-    send_to_char("\n\r", ch);
+    send_to_char("\r\n", ch);
 
     return FALSE;
 }
@@ -172,12 +172,12 @@ void show_flag_cmds(CHAR_DATA * ch, const struct flag_type *flag_table)
             sprintf(buf, "%-19.18s", flag_table[flag].name);
             strcat(buf1, buf);
             if (++col % 4 == 0)
-                strcat(buf1, "\n\r");
+                strcat(buf1, "\r\n");
         }
     }
 
     if (col % 4 != 0)
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
 
     send_to_char(buf1, ch);
     return;
@@ -216,12 +216,12 @@ void show_skill_cmds(CHAR_DATA * ch, int tar)
             sprintf(buf, "%-19.18s", skill_table[sn]->name);
             strcat(buf1, buf);
             if (++col % 4 == 0)
-                strcat(buf1, "\n\r");
+                strcat(buf1, "\r\n");
         }
     }
 
     if (col % 4 != 0)
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
 
     send_to_char(buf1, ch);
     return;
@@ -243,17 +243,17 @@ void show_spec_cmds(CHAR_DATA * ch)
 
     buf1[0] = '\0';
     col = 0;
-    send_to_char("Preceed special functions with 'spec_'\n\r\n\r", ch);
+    send_to_char("Preceed special functions with 'spec_'\r\n\r\n", ch);
     for (spec = 0; spec_table[spec].function != NULL; spec++)
     {
         sprintf(buf, "%-19.18s", &spec_table[spec].name[5]);
         strcat(buf1, buf);
         if (++col % 4 == 0)
-            strcat(buf1, "\n\r");
+            strcat(buf1, "\r\n");
     }
 
     if (col % 4 != 0)
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
 
     send_to_char(buf1, ch);
     return;
@@ -281,11 +281,11 @@ bool show_help(CHAR_DATA * ch, char *argument)
     */
     if (arg[0] == '\0')
     {
-        send_to_char("Syntax:  ? [command]\n\r\n\r", ch);
-        send_to_char("[command]  [description]\n\r", ch);
+        send_to_char("Syntax:  ? [command]\r\n\r\n", ch);
+        send_to_char("[command]  [description]\r\n", ch);
         for (cnt = 0; help_table[cnt].command != NULL; cnt++)
         {
-            sprintf(buf, "%-10.10s -%s\n\r",
+            sprintf(buf, "%-10.10s -%s\r\n",
                 capitalize(help_table[cnt].command),
                 help_table[cnt].desc);
             send_to_char(buf, ch);
@@ -323,7 +323,7 @@ bool show_help(CHAR_DATA * ch, char *argument)
                 if (spell[0] == '\0')
                 {
                     send_to_char("Syntax:  ? spells "
-                        "[ignore/attack/defend/self/object/all]\n\r",
+                        "[ignore/attack/defend/self/object/all]\r\n",
                         ch);
                     return FALSE;
                 }
@@ -342,7 +342,7 @@ bool show_help(CHAR_DATA * ch, char *argument)
                     show_skill_cmds(ch, TAR_OBJ_INV);
                 else
                     send_to_char("Syntax:  ? spell "
-                    "[ignore/attack/defend/self/object/all]\n\r",
+                    "[ignore/attack/defend/self/object/all]\r\n",
                     ch);
 
                 return FALSE;
@@ -386,18 +386,18 @@ REDIT(redit_rlist)
                 vnum, capitalize(pRoomIndex->name));
             add_buf(buf1, buf);
             if (++col % 3 == 0)
-                add_buf(buf1, "\n\r");
+                add_buf(buf1, "\r\n");
         }
     }
 
     if (!found)
     {
-        send_to_char("Room(s) not found in this area.\n\r", ch);
+        send_to_char("Room(s) not found in this area.\r\n", ch);
         return FALSE;
     }
 
     if (col % 3 != 0)
-        add_buf(buf1, "\n\r");
+        add_buf(buf1, "\r\n");
 
     page_to_char(buf_string(buf1), ch);
     free_buf(buf1);
@@ -418,7 +418,7 @@ REDIT(redit_mlist)
     one_argument(argument, arg);
     if (arg[0] == '\0')
     {
-        send_to_char("Syntax:  mlist <all/name>\n\r", ch);
+        send_to_char("Syntax:  mlist <all/name>\r\n", ch);
         return FALSE;
     }
 
@@ -428,7 +428,7 @@ REDIT(redit_mlist)
     fAll = !str_cmp(arg, "all");
     found = FALSE;
 
-    send_to_char("[Lv  Vnum] [Mob Name]              [Lv  Vnum] [Mob Name]\n\r", ch);
+    send_to_char("[Lv  Vnum] [Mob Name]              [Lv  Vnum] [Mob Name]\r\n", ch);
 
     for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
@@ -444,19 +444,19 @@ REDIT(redit_mlist)
                     capitalize(pMobIndex->short_descr));
                 add_buf(buf1, buf);
                 if (++col % 2 == 0)
-                    add_buf(buf1, "\n\r");
+                    add_buf(buf1, "\r\n");
             }
         }
     }
 
     if (!found)
     {
-        send_to_char("Mobile(s) not found in this area.\n\r", ch);
+        send_to_char("Mobile(s) not found in this area.\r\n", ch);
         return FALSE;
     }
 
     if (col % 2 != 0)
-        add_buf(buf1, "\n\r");
+        add_buf(buf1, "\r\n");
 
     page_to_char(buf_string(buf1), ch);
     free_buf(buf1);
@@ -477,7 +477,7 @@ REDIT(redit_olist)
     one_argument(argument, arg);
     if (arg[0] == '\0')
     {
-        send_to_char("Syntax:  olist <all/name/item_type>\n\r", ch);
+        send_to_char("Syntax:  olist <all/name/item_type>\r\n", ch);
         return FALSE;
     }
 
@@ -487,7 +487,7 @@ REDIT(redit_olist)
     fAll = !str_cmp(arg, "all");
     found = FALSE;
 
-    send_to_char("[Lv  Vnum] [Object Name]           [Lv  Vnum] [Object Name]\n\r", ch);
+    send_to_char("[Lv  Vnum] [Object Name]           [Lv  Vnum] [Object Name]\r\n", ch);
 
     for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
     {
@@ -504,19 +504,19 @@ REDIT(redit_olist)
                     capitalize(pObjIndex->short_descr));
                 add_buf(buf1, buf);
                 if (++col % 2 == 0)
-                    add_buf(buf1, "\n\r");
+                    add_buf(buf1, "\r\n");
             }
         }
     }
 
     if (!found)
     {
-        send_to_char("Object(s) not found in this area.\n\r", ch);
+        send_to_char("Object(s) not found in this area.\r\n", ch);
         return FALSE;
     }
 
     if (col % 2 != 0)
-        add_buf(buf1, "\n\r");
+        add_buf(buf1, "\r\n");
 
     page_to_char(buf_string(buf1), ch);
     free_buf(buf1);
@@ -530,13 +530,13 @@ REDIT(redit_mshow)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  mshow <vnum>\n\r", ch);
+        send_to_char("Syntax:  mshow <vnum>\r\n", ch);
         return FALSE;
     }
 
     if (!is_number(argument))
     {
-        send_to_char("REdit: Must be a number.\n\r", ch);
+        send_to_char("REdit: Must be a number.\r\n", ch);
         return FALSE;
     }
 
@@ -545,7 +545,7 @@ REDIT(redit_mshow)
         value = atoi(argument);
         if (!(pMob = get_mob_index(value)))
         {
-            send_to_char("REdit:  That mobile does not exist.\n\r", ch);
+            send_to_char("REdit:  That mobile does not exist.\r\n", ch);
             return FALSE;
         }
 
@@ -564,13 +564,13 @@ REDIT(redit_oshow)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  oshow <vnum>\n\r", ch);
+        send_to_char("Syntax:  oshow <vnum>\r\n", ch);
         return FALSE;
     }
 
     if (!is_number(argument))
     {
-        send_to_char("REdit: Must be a number.\n\r", ch);
+        send_to_char("REdit: Must be a number.\r\n", ch);
         return FALSE;
     }
 
@@ -579,7 +579,7 @@ REDIT(redit_oshow)
         value = atoi(argument);
         if (!(pObj = get_obj_index(value)))
         {
-            send_to_char("REdit:  That object does not exist.\n\r", ch);
+            send_to_char("REdit:  That object does not exist.\r\n", ch);
             return FALSE;
         }
 
@@ -639,44 +639,44 @@ AEDIT(aedit_show)
 
     EDIT_AREA(ch, pArea);
 
-    sprintf(buf, "Name:       [%5d] %s\n\r", pArea->vnum, pArea->name);
+    sprintf(buf, "Name:       [%5d] %s\r\n", pArea->vnum, pArea->name);
     send_to_char(buf, ch);
 
 #if 0                            /* ROM OLC */
-    sprintf(buf, "Recall:     [%5d] %s\n\r", pArea->recall,
+    sprintf(buf, "Recall:     [%5d] %s\r\n", pArea->recall,
         get_room_index(pArea->recall)
         ? get_room_index(pArea->recall)->name : "none");
     send_to_char(buf, ch);
 #endif /* ROM */
 
-    sprintf(buf, "File:       %s\n\r", pArea->file_name);
+    sprintf(buf, "File:       %s\r\n", pArea->file_name);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Vnums:      [%d-%d]\n\r", pArea->min_vnum, pArea->max_vnum);
+    sprintf(buf, "Vnums:      [%d-%d]\r\n", pArea->min_vnum, pArea->max_vnum);
     send_to_char(buf, ch);
 
-    sprintf(buf, "LevelRange: [%d-%d]\n\r", pArea->min_level, pArea->max_level);
+    sprintf(buf, "LevelRange: [%d-%d]\r\n", pArea->min_level, pArea->max_level);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Age:        [%d]\n\r", pArea->age);
+    sprintf(buf, "Age:        [%d]\r\n", pArea->age);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Players:    [%d]\n\r", pArea->nplayer);
+    sprintf(buf, "Players:    [%d]\r\n", pArea->nplayer);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Security:   [%d]\n\r", pArea->security);
+    sprintf(buf, "Security:   [%d]\r\n", pArea->security);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Builders:   [%s]\n\r", pArea->builders);
+    sprintf(buf, "Builders:   [%s]\r\n", pArea->builders);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Credits :   [%s]\n\r", pArea->credits);
+    sprintf(buf, "Credits :   [%s]\r\n", pArea->credits);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Flags:      [%s]\n\r", flag_string(area_flags, pArea->area_flags));
+    sprintf(buf, "Flags:      [%s]\r\n", flag_string(area_flags, pArea->area_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Continent:  [%s]\n\r", continent_table[pArea->continent].name);
+    sprintf(buf, "Continent:  [%s]\r\n", continent_table[pArea->continent].name);
     send_to_char(buf, ch);
 
     return FALSE;
@@ -689,7 +689,7 @@ AEDIT(aedit_reset)
     EDIT_AREA(ch, pArea);
 
     reset_area(pArea);
-    send_to_char("Area reset.\n\r", ch);
+    send_to_char("Area reset.\r\n", ch);
 
     return FALSE;
 }
@@ -704,7 +704,7 @@ AEDIT(aedit_create)
     ch->desc->pEdit = (void *)pArea;
 
     SET_BIT(pArea->area_flags, AREA_ADDED);
-    send_to_char("Area Created.\n\r", ch);
+    send_to_char("Area Created.\r\n", ch);
     return FALSE;
 }
 
@@ -716,14 +716,14 @@ AEDIT(aedit_name)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:   name [$name]\n\r", ch);
+        send_to_char("Syntax:   name [$name]\r\n", ch);
         return FALSE;
     }
 
     free_string(pArea->name);
     pArea->name = str_dup(argument);
 
-    send_to_char("Name set.\n\r", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -735,14 +735,14 @@ AEDIT(aedit_credits)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:   credits [$credits]\n\r", ch);
+        send_to_char("Syntax:   credits [$credits]\r\n", ch);
         return FALSE;
     }
 
     free_string(pArea->credits);
     pArea->credits = str_dup(argument);
 
-    send_to_char("Credits set.\n\r", ch);
+    send_to_char("Credits set.\r\n", ch);
     return TRUE;
 }
 
@@ -758,7 +758,7 @@ AEDIT(aedit_file)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  filename [$file]\n\r", ch);
+        send_to_char("Syntax:  filename [$file]\r\n", ch);
         return FALSE;
     }
 
@@ -774,7 +774,7 @@ AEDIT(aedit_file)
     {
         if (!isalnum(file[i]))
         {
-            send_to_char("Only letters and numbers are valid.\n\r", ch);
+            send_to_char("Only letters and numbers are valid.\r\n", ch);
             return FALSE;
         }
     }
@@ -783,7 +783,7 @@ AEDIT(aedit_file)
     strcat(file, ".are");
     pArea->file_name = str_dup(file);
 
-    send_to_char("Filename set.\n\r", ch);
+    send_to_char("Filename set.\r\n", ch);
     return TRUE;
 }
 
@@ -798,13 +798,13 @@ AEDIT(aedit_age)
 
     if (!is_number(age) || age[0] == '\0')
     {
-        send_to_char("Syntax:  age [#xage]\n\r", ch);
+        send_to_char("Syntax:  age [#xage]\r\n", ch);
         return FALSE;
     }
 
     pArea->age = atoi(age);
 
-    send_to_char("Age set.\n\r", ch);
+    send_to_char("Age set.\r\n", ch);
     return TRUE;
 }
 
@@ -821,7 +821,7 @@ AEDIT(aedit_recall)
 
     if (!is_number(argument) || argument[0] == '\0')
     {
-        send_to_char("Syntax:  recall [#xrvnum]\n\r", ch);
+        send_to_char("Syntax:  recall [#xrvnum]\r\n", ch);
         return FALSE;
     }
 
@@ -829,13 +829,13 @@ AEDIT(aedit_recall)
 
     if (!get_room_index(value))
     {
-        send_to_char("AEdit:  Room vnum does not exist.\n\r", ch);
+        send_to_char("AEdit:  Room vnum does not exist.\r\n", ch);
         return FALSE;
     }
 
     pArea->recall = value;
 
-    send_to_char("Recall set.\n\r", ch);
+    send_to_char("Recall set.\r\n", ch);
     return TRUE;
 }
 #endif /* ROM OLC */
@@ -853,7 +853,7 @@ AEDIT(aedit_security)
 
     if (!is_number(sec) || sec[0] == '\0')
     {
-        send_to_char("Syntax:  security [#xlevel]\n\r", ch);
+        send_to_char("Syntax:  security [#xlevel]\r\n", ch);
         return FALSE;
     }
 
@@ -863,17 +863,17 @@ AEDIT(aedit_security)
     {
         if (ch->pcdata->security != 0)
         {
-            sprintf(buf, "Security is 0-%d.\n\r", ch->pcdata->security);
+            sprintf(buf, "Security is 0-%d.\r\n", ch->pcdata->security);
             send_to_char(buf, ch);
         }
         else
-            send_to_char("Security is 0 only.\n\r", ch);
+            send_to_char("Security is 0 only.\r\n", ch);
         return FALSE;
     }
 
     pArea->security = value;
 
-    send_to_char("Security set.\n\r", ch);
+    send_to_char("Security set.\r\n", ch);
     return TRUE;
 }
 
@@ -889,8 +889,8 @@ AEDIT(aedit_builder)
 
     if (name[0] == '\0')
     {
-        send_to_char("Syntax:  builder [$name]  -toggles builder\n\r", ch);
-        send_to_char("Syntax:  builder All      -allows everyone\n\r", ch);
+        send_to_char("Syntax:  builder [$name]  -toggles builder\r\n", ch);
+        send_to_char("Syntax:  builder All      -allows everyone\r\n", ch);
         return FALSE;
     }
 
@@ -906,7 +906,7 @@ AEDIT(aedit_builder)
             free_string(pArea->builders);
             pArea->builders = str_dup("None");
         }
-        send_to_char("Builder removed.\n\r", ch);
+        send_to_char("Builder removed.\r\n", ch);
         return TRUE;
     }
     else
@@ -927,7 +927,7 @@ AEDIT(aedit_builder)
         free_string(pArea->builders);
         pArea->builders = string_proper(str_dup(buf));
 
-        send_to_char("Builder added.\n\r", ch);
+        send_to_char("Builder added.\r\n", ch);
         send_to_char(pArea->builders, ch);
         return TRUE;
     }
@@ -951,39 +951,39 @@ AEDIT(aedit_vnum)
     if (!is_number(lower) || lower[0] == '\0'
         || !is_number(upper) || upper[0] == '\0')
     {
-        send_to_char("Syntax:  vnum [#xlower] [#xupper]\n\r", ch);
+        send_to_char("Syntax:  vnum [#xlower] [#xupper]\r\n", ch);
         return FALSE;
     }
 
     if ((ilower = atoi(lower)) > (iupper = atoi(upper)))
     {
-        send_to_char("AEdit:  Upper must be larger then lower.\n\r", ch);
+        send_to_char("AEdit:  Upper must be larger then lower.\r\n", ch);
         return FALSE;
     }
 
     if (!check_range(atoi(lower), atoi(upper)))
     {
-        send_to_char("AEdit:  Range must include only this area.\n\r", ch);
+        send_to_char("AEdit:  Range must include only this area.\r\n", ch);
         return FALSE;
     }
 
     if (get_vnum_area(ilower) && get_vnum_area(ilower) != pArea)
     {
-        send_to_char("AEdit:  Lower vnum already assigned.\n\r", ch);
+        send_to_char("AEdit:  Lower vnum already assigned.\r\n", ch);
         return FALSE;
     }
 
     pArea->min_vnum = ilower;
-    send_to_char("Lower vnum set.\n\r", ch);
+    send_to_char("Lower vnum set.\r\n", ch);
 
     if (get_vnum_area(iupper) && get_vnum_area(iupper) != pArea)
     {
-        send_to_char("AEdit:  Upper vnum already assigned.\n\r", ch);
+        send_to_char("AEdit:  Upper vnum already assigned.\r\n", ch);
         return TRUE;            /* The lower value has been set. */
     }
 
     pArea->max_vnum = iupper;
-    send_to_char("Upper vnum set.\n\r", ch);
+    send_to_char("Upper vnum set.\r\n", ch);
 
     return TRUE;
 }
@@ -1001,31 +1001,31 @@ AEDIT(aedit_lvnum)
 
     if (!is_number(lower) || lower[0] == '\0')
     {
-        send_to_char("Syntax:  min_vnum [#xlower]\n\r", ch);
+        send_to_char("Syntax:  min_vnum [#xlower]\r\n", ch);
         return FALSE;
     }
 
     if ((ilower = atoi(lower)) > (iupper = pArea->max_vnum))
     {
-        send_to_char("AEdit:  Value must be less than the max_vnum.\n\r",
+        send_to_char("AEdit:  Value must be less than the max_vnum.\r\n",
             ch);
         return FALSE;
     }
 
     if (!check_range(ilower, iupper))
     {
-        send_to_char("AEdit:  Range must include only this area.\n\r", ch);
+        send_to_char("AEdit:  Range must include only this area.\r\n", ch);
         return FALSE;
     }
 
     if (get_vnum_area(ilower) && get_vnum_area(ilower) != pArea)
     {
-        send_to_char("AEdit:  Lower vnum already assigned.\n\r", ch);
+        send_to_char("AEdit:  Lower vnum already assigned.\r\n", ch);
         return FALSE;
     }
 
     pArea->min_vnum = ilower;
-    send_to_char("Lower vnum set.\n\r", ch);
+    send_to_char("Lower vnum set.\r\n", ch);
     return TRUE;
 }
 
@@ -1042,30 +1042,30 @@ AEDIT(aedit_uvnum)
 
     if (!is_number(upper) || upper[0] == '\0')
     {
-        send_to_char("Syntax:  max_vnum [#xupper]\n\r", ch);
+        send_to_char("Syntax:  max_vnum [#xupper]\r\n", ch);
         return FALSE;
     }
 
     if ((ilower = pArea->min_vnum) > (iupper = atoi(upper)))
     {
-        send_to_char("AEdit:  Upper must be larger then lower.\n\r", ch);
+        send_to_char("AEdit:  Upper must be larger then lower.\r\n", ch);
         return FALSE;
     }
 
     if (!check_range(ilower, iupper))
     {
-        send_to_char("AEdit:  Range must include only this area.\n\r", ch);
+        send_to_char("AEdit:  Range must include only this area.\r\n", ch);
         return FALSE;
     }
 
     if (get_vnum_area(iupper) && get_vnum_area(iupper) != pArea)
     {
-        send_to_char("AEdit:  Upper vnum already assigned.\n\r", ch);
+        send_to_char("AEdit:  Upper vnum already assigned.\r\n", ch);
         return FALSE;
     }
 
     pArea->max_vnum = iupper;
-    send_to_char("Upper vnum set.\n\r", ch);
+    send_to_char("Upper vnum set.\r\n", ch);
 
     return TRUE;
 }
@@ -1087,19 +1087,19 @@ AEDIT(aedit_levelrange)
     if (!is_number(lower) || lower[0] == '\0'
         || !is_number(upper) || upper[0] == '\0')
     {
-        send_to_char("Syntax:  levelrange [#xlower] [#xupper]\n\r", ch);
+        send_to_char("Syntax:  levelrange [#xlower] [#xupper]\r\n", ch);
         return FALSE;
     }
 
     if ((ilower = atoi(lower)) > (iupper = atoi(upper)))
     {
-        send_to_char("AEdit:  Upper must be larger then lower.\n\r", ch);
+        send_to_char("AEdit:  Upper must be larger then lower.\r\n", ch);
         return FALSE;
     }
 
     pArea->min_level = ilower;
     pArea->max_level = iupper;
-    send_to_char("Level range set.\n\r", ch);
+    send_to_char("Level range set.\r\n", ch);
 
     return TRUE;
 
@@ -1122,38 +1122,38 @@ REDIT(redit_show)
 
     buf1[0] = '\0';
 
-    sprintf(buf, "Description:\n\r%s", pRoom->description);
+    sprintf(buf, "Description:\r\n%s", pRoom->description);
     strcat(buf1, buf);
 
-    sprintf(buf, "Name:       [%s]\n\rArea:       [%5d] %s\n\r",
+    sprintf(buf, "Name:       [%s]\r\nArea:       [%5d] %s\r\n",
         pRoom->name, pRoom->area->vnum, pRoom->area->name);
     strcat(buf1, buf);
 
-    sprintf(buf, "Vnum:       [%5d]\n\rSector:     [%s]\n\r",
+    sprintf(buf, "Vnum:       [%5d]\r\nSector:     [%s]\r\n",
         pRoom->vnum, flag_string(sector_flags, pRoom->sector_type));
     strcat(buf1, buf);
 
-    sprintf(buf, "Room flags: [%s]\n\r",
+    sprintf(buf, "Room flags: [%s]\r\n",
         flag_string(room_flags, pRoom->room_flags));
     strcat(buf1, buf);
 
     if (pRoom->heal_rate != 100 || pRoom->mana_rate != 100)
     {
-        sprintf(buf, "Health rec: [%d]\n\rMana rec  : [%d]\n\r",
+        sprintf(buf, "Health rec: [%d]\r\nMana rec  : [%d]\r\n",
             pRoom->heal_rate, pRoom->mana_rate);
         strcat(buf1, buf);
     }
 
     if (pRoom->clan > 0)
     {
-        sprintf(buf, "Clan      : [%d] %s\n\r",
+        sprintf(buf, "Clan      : [%d] %s\r\n",
             pRoom->clan, clan_table[pRoom->clan].name);
         strcat(buf1, buf);
     }
 
     if (!IS_NULLSTR(pRoom->owner))
     {
-        sprintf(buf, "Owner     : [%s]\n\r", pRoom->owner);
+        sprintf(buf, "Owner     : [%s]\r\n", pRoom->owner);
         strcat(buf1, buf);
     }
 
@@ -1168,7 +1168,7 @@ REDIT(redit_show)
             if (ed->next)
                 strcat(buf1, " ");
         }
-        strcat(buf1, "]\n\r");
+        strcat(buf1, "]\r\n");
     }
 
     strcat(buf1, "Characters: [");
@@ -1187,10 +1187,10 @@ REDIT(redit_show)
 
         end = strlen(buf1) - 1;
         buf1[end] = ']';
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
     }
     else
-        strcat(buf1, "none]\n\r");
+        strcat(buf1, "none]\r\n");
 
     strcat(buf1, "Objects:    [");
     fcnt = FALSE;
@@ -1208,10 +1208,10 @@ REDIT(redit_show)
 
         end = strlen(buf1) - 1;
         buf1[end] = ']';
-        strcat(buf1, "\n\r");
+        strcat(buf1, "\r\n");
     }
     else
-        strcat(buf1, "none]\n\r");
+        strcat(buf1, "none]\r\n");
 
     for (door = 0; door < MAX_DIR; door++)
     {
@@ -1247,7 +1247,7 @@ REDIT(redit_show)
 
                     end = strlen(buf1) - 1;
                     buf1[end] = ']';
-                    strcat(buf1, "\n\r");
+                    strcat(buf1, "\r\n");
                     break;
                 }
 
@@ -1263,7 +1263,7 @@ REDIT(redit_show)
 
             if (pexit->keyword && pexit->keyword[0] != '\0')
             {
-                sprintf(buf, "Kwds: [%s]\n\r", pexit->keyword);
+                sprintf(buf, "Kwds: [%s]\r\n", pexit->keyword);
                 strcat(buf1, buf);
             }
             if (pexit->description && pexit->description[0] != '\0')
@@ -1299,7 +1299,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (!pRoom->exit[door])
         {
-            send_to_char("Exit doesn't exist.\n\r", ch);
+            send_to_char("Exit doesn't exist.\r\n", ch);
             return FALSE;
         }
 
@@ -1322,7 +1322,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
             pToRoom->exit[rev]->exit_info = pRoom->exit[door]->exit_info;
         }
 
-        send_to_char("Exit flag toggled.\n\r", ch);
+        send_to_char("Exit flag toggled.\r\n", ch);
         return TRUE;
     }
 
@@ -1351,7 +1351,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (!pRoom->exit[door])
         {
-            send_to_char("REdit:  Cannot delete a null exit.\n\r", ch);
+            send_to_char("REdit:  Cannot delete a null exit.\r\n", ch);
             return FALSE;
         }
 
@@ -1373,7 +1373,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         free_exit(pRoom->exit[door]);
         pRoom->exit[door] = NULL;
 
-        send_to_char("Exit unlinked.\n\r", ch);
+        send_to_char("Exit unlinked.\r\n", ch);
         return TRUE;
     }
 
@@ -1384,7 +1384,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (arg[0] == '\0' || !is_number(arg))
         {
-            send_to_char("Syntax:  [direction] link [vnum]\n\r", ch);
+            send_to_char("Syntax:  [direction] link [vnum]\r\n", ch);
             return FALSE;
         }
 
@@ -1392,20 +1392,20 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (!(toRoom = get_room_index(value)))
         {
-            send_to_char("REdit:  Cannot link to non-existant room.\n\r",
+            send_to_char("REdit:  Cannot link to non-existant room.\r\n",
                 ch);
             return FALSE;
         }
 
         if (!IS_BUILDER(ch, toRoom->area))
         {
-            send_to_char("REdit:  Cannot link to that area.\n\r", ch);
+            send_to_char("REdit:  Cannot link to that area.\r\n", ch);
             return FALSE;
         }
 
         if (toRoom->exit[rev_dir[door]])
         {
-            send_to_char("REdit:  Remote side's exit already exists.\n\r",
+            send_to_char("REdit:  Remote side's exit already exists.\r\n",
                 ch);
             return FALSE;
         }
@@ -1422,7 +1422,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         pExit->orig_door = door;
         toRoom->exit[door] = pExit;
 
-        send_to_char("Two-way link established.\n\r", ch);
+        send_to_char("Two-way link established.\r\n", ch);
         return TRUE;
     }
 
@@ -1432,7 +1432,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (arg[0] == '\0' || !is_number(arg))
         {
-            send_to_char("Syntax: [direction] dig <vnum>\n\r", ch);
+            send_to_char("Syntax: [direction] dig <vnum>\r\n", ch);
             return FALSE;
         }
 
@@ -1448,7 +1448,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (arg[0] == '\0' || !is_number(arg))
         {
-            send_to_char("Syntax:  [direction] room [vnum]\n\r", ch);
+            send_to_char("Syntax:  [direction] room [vnum]\r\n", ch);
             return FALSE;
         }
 
@@ -1456,7 +1456,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (!(toRoom = get_room_index(value)))
         {
-            send_to_char("REdit:  Cannot link to non-existant room.\n\r",
+            send_to_char("REdit:  Cannot link to non-existant room.\r\n",
                 ch);
             return FALSE;
         }
@@ -1467,7 +1467,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         pRoom->exit[door]->u1.to_room = toRoom;    /* ROM OLC */
         pRoom->exit[door]->orig_door = door;
 
-        send_to_char("One-way link established.\n\r", ch);
+        send_to_char("One-way link established.\r\n", ch);
         return TRUE;
     }
 
@@ -1477,13 +1477,13 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (arg[0] == '\0' || !is_number(arg))
         {
-            send_to_char("Syntax:  [direction] key [vnum]\n\r", ch);
+            send_to_char("Syntax:  [direction] key [vnum]\r\n", ch);
             return FALSE;
         }
 
         if (!pRoom->exit[door])
         {
-            send_to_char("Exit doesn't exist.\n\r", ch);
+            send_to_char("Exit doesn't exist.\r\n", ch);
             return FALSE;
         }
 
@@ -1491,19 +1491,19 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
 
         if (!(key = get_obj_index(value)))
         {
-            send_to_char("REdit:  Key doesn't exist.\n\r", ch);
+            send_to_char("REdit:  Key doesn't exist.\r\n", ch);
             return FALSE;
         }
 
         if (key->item_type != ITEM_KEY)
         {
-            send_to_char("REdit:  Object is not a key.\n\r", ch);
+            send_to_char("REdit:  Object is not a key.\r\n", ch);
             return FALSE;
         }
 
         pRoom->exit[door]->key = value;
 
-        send_to_char("Exit key set.\n\r", ch);
+        send_to_char("Exit key set.\r\n", ch);
         return TRUE;
     }
 
@@ -1511,14 +1511,14 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
     {
         if (arg[0] == '\0')
         {
-            send_to_char("Syntax:  [direction] name [string]\n\r", ch);
-            send_to_char("         [direction] name none\n\r", ch);
+            send_to_char("Syntax:  [direction] name [string]\r\n", ch);
+            send_to_char("         [direction] name none\r\n", ch);
             return FALSE;
         }
 
         if (!pRoom->exit[door])
         {
-            send_to_char("Exit doesn't exist.\n\r", ch);
+            send_to_char("Exit doesn't exist.\r\n", ch);
             return FALSE;
         }
 
@@ -1529,7 +1529,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         else
             pRoom->exit[door]->keyword = str_dup("");
 
-        send_to_char("Exit name set.\n\r", ch);
+        send_to_char("Exit name set.\r\n", ch);
         return TRUE;
     }
 
@@ -1539,7 +1539,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
         {
             if (!pRoom->exit[door])
             {
-                send_to_char("Exit doesn't exist.\n\r", ch);
+                send_to_char("Exit doesn't exist.\r\n", ch);
                 return FALSE;
             }
 
@@ -1547,7 +1547,7 @@ bool change_exit(CHAR_DATA * ch, char *argument, int door)
             return TRUE;
         }
 
-        send_to_char("Syntax:  [direction] desc\n\r", ch);
+        send_to_char("Syntax:  [direction] desc\r\n", ch);
         return FALSE;
     }
 
@@ -1648,10 +1648,10 @@ REDIT(redit_ed)
 
     if (command[0] == '\0' || keyword[0] == '\0')
     {
-        send_to_char("Syntax:  ed add [keyword]\n\r", ch);
-        send_to_char("         ed edit [keyword]\n\r", ch);
-        send_to_char("         ed delete [keyword]\n\r", ch);
-        send_to_char("         ed format [keyword]\n\r", ch);
+        send_to_char("Syntax:  ed add [keyword]\r\n", ch);
+        send_to_char("         ed edit [keyword]\r\n", ch);
+        send_to_char("         ed delete [keyword]\r\n", ch);
+        send_to_char("         ed format [keyword]\r\n", ch);
         return FALSE;
     }
 
@@ -1659,7 +1659,7 @@ REDIT(redit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed add [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed add [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -1679,7 +1679,7 @@ REDIT(redit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed edit [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed edit [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -1691,7 +1691,7 @@ REDIT(redit_ed)
 
         if (!ed)
         {
-            send_to_char("REdit:  Extra description keyword not found.\n\r",
+            send_to_char("REdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
@@ -1708,7 +1708,7 @@ REDIT(redit_ed)
 
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed delete [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed delete [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -1721,7 +1721,7 @@ REDIT(redit_ed)
 
         if (!ed)
         {
-            send_to_char("REdit:  Extra description keyword not found.\n\r",
+            send_to_char("REdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
@@ -1733,7 +1733,7 @@ REDIT(redit_ed)
 
         free_extra_descr(ed);
 
-        send_to_char("Extra description deleted.\n\r", ch);
+        send_to_char("Extra description deleted.\r\n", ch);
         return TRUE;
     }
 
@@ -1742,7 +1742,7 @@ REDIT(redit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed format [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed format [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -1754,14 +1754,14 @@ REDIT(redit_ed)
 
         if (!ed)
         {
-            send_to_char("REdit:  Extra description keyword not found.\n\r",
+            send_to_char("REdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
 
         ed->description = format_string(ed->description);
 
-        send_to_char("Extra description formatted.\n\r", ch);
+        send_to_char("Extra description formatted.\r\n", ch);
         return TRUE;
     }
 
@@ -1782,26 +1782,26 @@ REDIT(redit_create)
 
     if (argument[0] == '\0' || value <= 0)
     {
-        send_to_char("Syntax:  create [vnum > 0]\n\r", ch);
+        send_to_char("Syntax:  create [vnum > 0]\r\n", ch);
         return FALSE;
     }
 
     pArea = get_vnum_area(value);
     if (!pArea)
     {
-        send_to_char("REdit:  That vnum is not assigned an area.\n\r", ch);
+        send_to_char("REdit:  That vnum is not assigned an area.\r\n", ch);
         return FALSE;
     }
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("REdit:  Vnum in an area you cannot build in.\n\r", ch);
+        send_to_char("REdit:  Vnum in an area you cannot build in.\r\n", ch);
         return FALSE;
     }
 
     if (get_room_index(value))
     {
-        send_to_char("REdit:  Room vnum already exists.\n\r", ch);
+        send_to_char("REdit:  Room vnum already exists.\r\n", ch);
         return FALSE;
     }
 
@@ -1817,7 +1817,7 @@ REDIT(redit_create)
     room_index_hash[iHash] = pRoom;
     ch->desc->pEdit = (void *)pRoom;
 
-    send_to_char("Room created.\n\r", ch);
+    send_to_char("Room created.\r\n", ch);
     return TRUE;
 }
 
@@ -1829,14 +1829,14 @@ REDIT(redit_name)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  name [name]\n\r", ch);
+        send_to_char("Syntax:  name [name]\r\n", ch);
         return FALSE;
     }
 
     free_string(pRoom->name);
     pRoom->name = str_dup(argument);
 
-    send_to_char("Name set.\n\r", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -1852,7 +1852,7 @@ REDIT(redit_desc)
         return TRUE;
     }
 
-    send_to_char("Syntax:  desc\n\r", ch);
+    send_to_char("Syntax:  desc\r\n", ch);
     return FALSE;
 }
 
@@ -1865,11 +1865,11 @@ REDIT(redit_heal)
     if (is_number(argument))
     {
         pRoom->heal_rate = atoi(argument);
-        send_to_char("Heal rate set.\n\r", ch);
+        send_to_char("Heal rate set.\r\n", ch);
         return TRUE;
     }
 
-    send_to_char("Syntax: heal <#xnumber>\n\r", ch);
+    send_to_char("Syntax: heal <#xnumber>\r\n", ch);
     return FALSE;
 }
 
@@ -1882,11 +1882,11 @@ REDIT(redit_mana)
     if (is_number(argument))
     {
         pRoom->mana_rate = atoi(argument);
-        send_to_char("Mana rate set.\n\r", ch);
+        send_to_char("Mana rate set.\r\n", ch);
         return TRUE;
     }
 
-    send_to_char("Syntax: mana <#xnumber>\n\r", ch);
+    send_to_char("Syntax: mana <#xnumber>\r\n", ch);
     return FALSE;
 }
 
@@ -1898,7 +1898,7 @@ REDIT(redit_clan)
 
     pRoom->clan = clan_lookup(argument);
 
-    send_to_char("Clan set.\n\r", ch);
+    send_to_char("Clan set.\r\n", ch);
     return TRUE;
 }
 
@@ -1910,7 +1910,7 @@ REDIT(redit_format)
 
     pRoom->description = format_string(pRoom->description);
 
-    send_to_char("String formatted.\n\r", ch);
+    send_to_char("String formatted.\r\n", ch);
     return TRUE;
 }
 
@@ -1932,19 +1932,19 @@ REDIT(redit_mreset)
 
     if (arg[0] == '\0' || !is_number(arg))
     {
-        send_to_char("Syntax:  mreset <vnum> <max #x> <mix #x>\n\r", ch);
+        send_to_char("Syntax:  mreset <vnum> <max #x> <mix #x>\r\n", ch);
         return FALSE;
     }
 
     if (!(pMobIndex = get_mob_index(atoi(arg))))
     {
-        send_to_char("REdit: No mobile has that vnum.\n\r", ch);
+        send_to_char("REdit: No mobile has that vnum.\r\n", ch);
         return FALSE;
     }
 
     if (pMobIndex->area != pRoom->area)
     {
-        send_to_char("REdit: No such mobile in this area.\n\r", ch);
+        send_to_char("REdit: No such mobile in this area.\r\n", ch);
         return FALSE;
     }
 
@@ -1965,8 +1965,8 @@ REDIT(redit_mreset)
     newmob = create_mobile(pMobIndex);
     char_to_room(newmob, pRoom);
 
-    sprintf(output, "%s (%d) has been loaded and added to resets.\n\r"
-        "There will be a maximum of %d loaded to this room.\n\r",
+    sprintf(output, "%s (%d) has been loaded and added to resets.\r\n"
+        "There will be a maximum of %d loaded to this room.\r\n",
         capitalize(pMobIndex->short_descr),
         pMobIndex->vnum, pReset->arg2);
     send_to_char(output, ch);
@@ -2060,22 +2060,22 @@ REDIT(redit_oreset)
 
     if (arg1[0] == '\0' || !is_number(arg1))
     {
-        send_to_char("Syntax:  oreset <vnum> <args>\n\r", ch);
-        send_to_char("        -no_args               = into room\n\r", ch);
-        send_to_char("        -<obj_name>            = into obj\n\r", ch);
-        send_to_char("        -<mob_name> <wear_loc> = into mob\n\r", ch);
+        send_to_char("Syntax:  oreset <vnum> <args>\r\n", ch);
+        send_to_char("        -no_args               = into room\r\n", ch);
+        send_to_char("        -<obj_name>            = into obj\r\n", ch);
+        send_to_char("        -<mob_name> <wear_loc> = into mob\r\n", ch);
         return FALSE;
     }
 
     if (!(pObjIndex = get_obj_index(atoi(arg1))))
     {
-        send_to_char("REdit: No object has that vnum.\n\r", ch);
+        send_to_char("REdit: No object has that vnum.\r\n", ch);
         return FALSE;
     }
 
     if (pObjIndex->area != pRoom->area)
     {
-        send_to_char("REdit: No such object in this area.\n\r", ch);
+        send_to_char("REdit: No such object in this area.\r\n", ch);
         return FALSE;
     }
 
@@ -2095,7 +2095,7 @@ REDIT(redit_oreset)
         newobj = create_object(pObjIndex, number_fuzzy(olevel));
         obj_to_room(newobj, pRoom);
 
-        sprintf(output, "%s (%d) has been loaded and added to resets.\n\r",
+        sprintf(output, "%s (%d) has been loaded and added to resets.\r\n",
             capitalize(pObjIndex->short_descr), pObjIndex->vnum);
         send_to_char(output, ch);
     }
@@ -2119,7 +2119,7 @@ REDIT(redit_oreset)
             obj_to_obj(newobj, to_obj);
 
             sprintf(output, "%s (%d) has been loaded into "
-                "%s (%d) and added to resets.\n\r",
+                "%s (%d) and added to resets.\r\n",
                 capitalize(newobj->short_descr),
                 newobj->pIndexData->vnum,
                 to_obj->short_descr, to_obj->pIndexData->vnum);
@@ -2138,7 +2138,7 @@ REDIT(redit_oreset)
                 */
                 if ((wear_loc = flag_value(wear_loc_flags, argument)) == NO_FLAG)
                 {
-                    send_to_char("REdit: Invalid wear_loc.  '? wear-loc'\n\r", ch);
+                    send_to_char("REdit: Invalid wear_loc.  '? wear-loc'\r\n", ch);
                     return FALSE;
                 }
 
@@ -2148,7 +2148,7 @@ REDIT(redit_oreset)
                 if (!IS_SET(pObjIndex->wear_flags, wear_bit(wear_loc)))
                 {
                     sprintf(output,
-                        "%s (%d) has wear flags: [%s]\n\r",
+                        "%s (%d) has wear flags: [%s]\r\n",
                         capitalize(pObjIndex->short_descr),
                         pObjIndex->vnum,
                         flag_string(wear_flags, pObjIndex->wear_flags));
@@ -2161,7 +2161,7 @@ REDIT(redit_oreset)
                 */
                 if (get_eq_char(to_mob, wear_loc))
                 {
-                    send_to_char("REdit:  Object already equipped.\n\r", ch);
+                    send_to_char("REdit:  Object already equipped.\r\n", ch);
                     return FALSE;
                 }
 
@@ -2224,7 +2224,7 @@ REDIT(redit_oreset)
                     equip_char(to_mob, newobj, pReset->arg3);
 
                 sprintf(output, "%s (%d) has been loaded "
-                    "%s of %s (%d) and added to resets.\n\r",
+                    "%s of %s (%d) and added to resets.\r\n",
                     capitalize(pObjIndex->short_descr),
                     pObjIndex->vnum,
                     flag_string(wear_loc_strings, pReset->arg3),
@@ -2234,7 +2234,7 @@ REDIT(redit_oreset)
             else
             {                            /* Display Syntax */
 
-                send_to_char("REdit:  That mobile isn't here.\n\r", ch);
+                send_to_char("REdit:  That mobile isn't here.\r\n", ch);
                 return FALSE;
             }
 
@@ -2256,19 +2256,19 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_LIGHT:
         if (obj->value[2] == -1 || obj->value[2] == 999)    /* ROM OLC */
-            sprintf(buf, "[v2] Light:  Infinite[-1]\n\r");
+            sprintf(buf, "[v2] Light:  Infinite[-1]\r\n");
         else
-            sprintf(buf, "[v2] Light:  [%d]\n\r", obj->value[2]);
+            sprintf(buf, "[v2] Light:  [%d]\r\n", obj->value[2]);
         send_to_char(buf, ch);
         break;
 
     case ITEM_WAND:
     case ITEM_STAFF:
         sprintf(buf,
-            "[v0] Level:          [%d]\n\r"
-            "[v1] Charges Total:  [%d]\n\r"
-            "[v2] Charges Left:   [%d]\n\r"
-            "[v3] Spell:          %s\n\r",
+            "[v0] Level:          [%d]\r\n"
+            "[v1] Charges Total:  [%d]\r\n"
+            "[v2] Charges Left:   [%d]\r\n"
+            "[v3] Spell:          %s\r\n",
             obj->value[0],
             obj->value[1],
             obj->value[2],
@@ -2279,10 +2279,10 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_PORTAL:
         sprintf(buf,
-            "[v0] Charges:        [%d]\n\r"
-            "[v1] Exit Flags:     %s\n\r"
-            "[v2] Portal Flags:   %s\n\r"
-            "[v3] Goes to (vnum): [%d]\n\r",
+            "[v0] Charges:        [%d]\r\n"
+            "[v1] Exit Flags:     %s\r\n"
+            "[v2] Portal Flags:   %s\r\n"
+            "[v3] Goes to (vnum): [%d]\r\n",
             obj->value[0],
             flag_string(exit_flags, obj->value[1]),
             flag_string(portal_flags, obj->value[2]),
@@ -2292,11 +2292,11 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_FURNITURE:
         sprintf(buf,
-            "[v0] Max people:      [%d]\n\r"
-            "[v1] Max weight:      [%d]\n\r"
-            "[v2] Furniture Flags: %s\n\r"
-            "[v3] Heal bonus:      [%d]\n\r"
-            "[v4] Mana bonus:      [%d]\n\r",
+            "[v0] Max people:      [%d]\r\n"
+            "[v1] Max weight:      [%d]\r\n"
+            "[v2] Furniture Flags: %s\r\n"
+            "[v3] Heal bonus:      [%d]\r\n"
+            "[v4] Mana bonus:      [%d]\r\n",
             obj->value[0],
             obj->value[1],
             flag_string(furniture_flags, obj->value[2]),
@@ -2308,11 +2308,11 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
     case ITEM_POTION:
     case ITEM_PILL:
         sprintf(buf,
-            "[v0] Level:  [%d]\n\r"
-            "[v1] Spell:  %s\n\r"
-            "[v2] Spell:  %s\n\r"
-            "[v3] Spell:  %s\n\r"
-            "[v4] Spell:  %s\n\r",
+            "[v0] Level:  [%d]\r\n"
+            "[v1] Spell:  %s\r\n"
+            "[v2] Spell:  %s\r\n"
+            "[v3] Spell:  %s\r\n"
+            "[v4] Spell:  %s\r\n",
             obj->value[0],
             obj->value[1] != -1 ? skill_table[obj->value[1]]->name
             : "none",
@@ -2329,10 +2329,10 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_ARMOR:
         sprintf(buf,
-            "[v0] Ac pierce       [%d]\n\r"
-            "[v1] Ac bash         [%d]\n\r"
-            "[v2] Ac slash        [%d]\n\r"
-            "[v3] Ac exotic       [%d]\n\r",
+            "[v0] Ac pierce       [%d]\r\n"
+            "[v1] Ac bash         [%d]\r\n"
+            "[v2] Ac slash        [%d]\r\n"
+            "[v3] Ac exotic       [%d]\r\n",
             obj->value[0], obj->value[1], obj->value[2],
             obj->value[3]);
         send_to_char(buf, ch);
@@ -2342,28 +2342,28 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
         /* I had to split the output here, I have no idea why, but it helped -- Hugin */
         /* It somehow fixed a bug in showing scroll/pill/potions too ?! */
     case ITEM_WEAPON:
-        sprintf(buf, "[v0] Weapon class:   %s\n\r",
+        sprintf(buf, "[v0] Weapon class:   %s\r\n",
             flag_string(weapon_class, obj->value[0]));
         send_to_char(buf, ch);
-        sprintf(buf, "[v1] Number of dice: [%d]\n\r", obj->value[1]);
+        sprintf(buf, "[v1] Number of dice: [%d]\r\n", obj->value[1]);
         send_to_char(buf, ch);
-        sprintf(buf, "[v2] Type of dice:   [%d]\n\r", obj->value[2]);
+        sprintf(buf, "[v2] Type of dice:   [%d]\r\n", obj->value[2]);
         send_to_char(buf, ch);
-        sprintf(buf, "[v3] Type:           %s\n\r",
+        sprintf(buf, "[v3] Type:           %s\r\n",
             attack_table[obj->value[3]].name);
         send_to_char(buf, ch);
-        sprintf(buf, "[v4] Special type:   %s\n\r",
+        sprintf(buf, "[v4] Special type:   %s\r\n",
             flag_string(weapon_type2, obj->value[4]));
         send_to_char(buf, ch);
         break;
 
     case ITEM_CONTAINER:
         sprintf(buf,
-            "[v0] Weight:     [%d kg]\n\r"
-            "[v1] Flags:      [%s]\n\r"
-            "[v2] Key:     %s [%d]\n\r"
-            "[v3] Capacity    [%d]\n\r"
-            "[v4] Weight Mult [%d]\n\r",
+            "[v0] Weight:     [%d kg]\r\n"
+            "[v1] Flags:      [%s]\r\n"
+            "[v2] Key:     %s [%d]\r\n"
+            "[v3] Capacity    [%d]\r\n"
+            "[v4] Weight Mult [%d]\r\n",
             obj->value[0],
             flag_string(container_flags, obj->value[1]),
             get_obj_index(obj->value[2])
@@ -2374,10 +2374,10 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_DRINK_CON:
         sprintf(buf,
-            "[v0] Liquid Total: [%d]\n\r"
-            "[v1] Liquid Left:  [%d]\n\r"
-            "[v2] Liquid:       %s\n\r"
-            "[v3] Poisoned:     %s\n\r",
+            "[v0] Liquid Total: [%d]\r\n"
+            "[v1] Liquid Left:  [%d]\r\n"
+            "[v2] Liquid:       %s\r\n"
+            "[v3] Poisoned:     %s\r\n",
             obj->value[0],
             obj->value[1],
             liq_table[obj->value[2]].liq_name,
@@ -2387,9 +2387,9 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_FOUNTAIN:
         sprintf(buf,
-            "[v0] Liquid Total: [%d]\n\r"
-            "[v1] Liquid Left:  [%d]\n\r"
-            "[v2] Liquid:        %s\n\r",
+            "[v0] Liquid Total: [%d]\r\n"
+            "[v1] Liquid Left:  [%d]\r\n"
+            "[v2] Liquid:        %s\r\n",
             obj->value[0],
             obj->value[1], liq_table[obj->value[2]].liq_name);
         send_to_char(buf, ch);
@@ -2397,18 +2397,18 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     case ITEM_FOOD:
         sprintf(buf,
-            "[v0] Food hours: [%d]\n\r"
-            "[v1] Full hours: [%d]\n\r"
-            "[v3] Poisoned:   %s\n\r",
+            "[v0] Food hours: [%d]\r\n"
+            "[v1] Full hours: [%d]\r\n"
+            "[v3] Poisoned:   %s\r\n",
             obj->value[0],
             obj->value[1], obj->value[3] != 0 ? "Yes" : "No");
         send_to_char(buf, ch);
         break;
 
     case ITEM_MONEY:
-        sprintf(buf, "[v0] Silver: [%d]\n\r", obj->value[0]);
+        sprintf(buf, "[v0] Silver: [%d]\r\n", obj->value[0]);
         send_to_char(buf, ch);
-        sprintf(buf, "[v1] Gold    [%d]\n\r", obj->value[1]);
+        sprintf(buf, "[v1] Gold    [%d]\r\n", obj->value[1]);
         send_to_char(buf, ch);
         break;
     }
@@ -2431,7 +2431,7 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_LIGHT");
             return FALSE;
         case 2:
-            send_to_char("HOURS OF LIGHT SET.\n\r\n\r", ch);
+            send_to_char("HOURS OF LIGHT SET.\r\n\r\n", ch);
             pObj->value[2] = atoi(argument);
             break;
         }
@@ -2445,20 +2445,20 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_STAFF_WAND");
             return FALSE;
         case 0:
-            send_to_char("SPELL LEVEL SET.\n\r\n\r", ch);
+            send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("TOTAL NUMBER OF CHARGES SET.\n\r\n\r", ch);
+            send_to_char("TOTAL NUMBER OF CHARGES SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("CURRENT NUMBER OF CHARGES SET.\n\r\n\r",
+            send_to_char("CURRENT NUMBER OF CHARGES SET.\r\n\r\n",
                 ch);
             pObj->value[2] = atoi(argument);
             break;
         case 3:
-            send_to_char("SPELL TYPE SET.\n\r", ch);
+            send_to_char("SPELL TYPE SET.\r\n", ch);
             pObj->value[3] = skill_lookup(argument);
             break;
         }
@@ -2473,23 +2473,23 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_SCROLL_POTION_PILL");
             return FALSE;
         case 0:
-            send_to_char("SPELL LEVEL SET.\n\r\n\r", ch);
+            send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("SPELL TYPE 1 SET.\n\r\n\r", ch);
+            send_to_char("SPELL TYPE 1 SET.\r\n\r\n", ch);
             pObj->value[1] = skill_lookup(argument);
             break;
         case 2:
-            send_to_char("SPELL TYPE 2 SET.\n\r\n\r", ch);
+            send_to_char("SPELL TYPE 2 SET.\r\n\r\n", ch);
             pObj->value[2] = skill_lookup(argument);
             break;
         case 3:
-            send_to_char("SPELL TYPE 3 SET.\n\r\n\r", ch);
+            send_to_char("SPELL TYPE 3 SET.\r\n\r\n", ch);
             pObj->value[3] = skill_lookup(argument);
             break;
         case 4:
-            send_to_char("SPELL TYPE 4 SET.\n\r\n\r", ch);
+            send_to_char("SPELL TYPE 4 SET.\r\n\r\n", ch);
             pObj->value[4] = skill_lookup(argument);
             break;
         }
@@ -2504,19 +2504,19 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_ARMOR");
             return FALSE;
         case 0:
-            send_to_char("AC PIERCE SET.\n\r\n\r", ch);
+            send_to_char("AC PIERCE SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("AC BASH SET.\n\r\n\r", ch);
+            send_to_char("AC BASH SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("AC SLASH SET.\n\r\n\r", ch);
+            send_to_char("AC SLASH SET.\r\n\r\n", ch);
             pObj->value[2] = atoi(argument);
             break;
         case 3:
-            send_to_char("AC EXOTIC SET.\n\r\n\r", ch);
+            send_to_char("AC EXOTIC SET.\r\n\r\n", ch);
             pObj->value[3] = atoi(argument);
             break;
         }
@@ -2531,24 +2531,24 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_WEAPON");
             return FALSE;
         case 0:
-            send_to_char("WEAPON CLASS SET.\n\r\n\r", ch);
+            send_to_char("WEAPON CLASS SET.\r\n\r\n", ch);
             ALT_FLAGVALUE_SET(pObj->value[0], weapon_class,
                 argument);
             break;
         case 1:
-            send_to_char("NUMBER OF DICE SET.\n\r\n\r", ch);
+            send_to_char("NUMBER OF DICE SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("TYPE OF DICE SET.\n\r\n\r", ch);
+            send_to_char("TYPE OF DICE SET.\r\n\r\n", ch);
             pObj->value[2] = atoi(argument);
             break;
         case 3:
-            send_to_char("WEAPON TYPE SET.\n\r\n\r", ch);
+            send_to_char("WEAPON TYPE SET.\r\n\r\n", ch);
             pObj->value[3] = attack_lookup(argument);
             break;
         case 4:
-            send_to_char("SPECIAL WEAPON TYPE TOGGLED.\n\r\n\r", ch);
+            send_to_char("SPECIAL WEAPON TYPE TOGGLED.\r\n\r\n", ch);
             ALT_FLAGVALUE_TOGGLE(pObj->value[4], weapon_type2,
                 argument);
             break;
@@ -2563,20 +2563,20 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             return FALSE;
 
         case 0:
-            send_to_char("CHARGES SET.\n\r\n\r", ch);
+            send_to_char("CHARGES SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("EXIT FLAGS SET.\n\r\n\r", ch);
+            send_to_char("EXIT FLAGS SET.\r\n\r\n", ch);
             ALT_FLAGVALUE_SET(pObj->value[1], exit_flags, argument);
             break;
         case 2:
-            send_to_char("PORTAL FLAGS SET.\n\r\n\r", ch);
+            send_to_char("PORTAL FLAGS SET.\r\n\r\n", ch);
             ALT_FLAGVALUE_SET(pObj->value[2], portal_flags,
                 argument);
             break;
         case 3:
-            send_to_char("EXIT VNUM SET.\n\r\n\r", ch);
+            send_to_char("EXIT VNUM SET.\r\n\r\n", ch);
             pObj->value[3] = atoi(argument);
             break;
         }
@@ -2590,24 +2590,24 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             return FALSE;
 
         case 0:
-            send_to_char("NUMBER OF PEOPLE SET.\n\r\n\r", ch);
+            send_to_char("NUMBER OF PEOPLE SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("MAX WEIGHT SET.\n\r\n\r", ch);
+            send_to_char("MAX WEIGHT SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("FURNITURE FLAGS TOGGLED.\n\r\n\r", ch);
+            send_to_char("FURNITURE FLAGS TOGGLED.\r\n\r\n", ch);
             ALT_FLAGVALUE_TOGGLE(pObj->value[2], furniture_flags,
                 argument);
             break;
         case 3:
-            send_to_char("HEAL BONUS SET.\n\r\n\r", ch);
+            send_to_char("HEAL BONUS SET.\r\n\r\n", ch);
             pObj->value[3] = atoi(argument);
             break;
         case 4:
-            send_to_char("MANA BONUS SET.\n\r\n\r", ch);
+            send_to_char("MANA BONUS SET.\r\n\r\n", ch);
             pObj->value[4] = atoi(argument);
             break;
         }
@@ -2622,7 +2622,7 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_CONTAINER");
             return FALSE;
         case 0:
-            send_to_char("WEIGHT CAPACITY SET.\n\r\n\r", ch);
+            send_to_char("WEIGHT CAPACITY SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
@@ -2634,14 +2634,14 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
                 do_help(ch, "ITEM_CONTAINER");
                 return FALSE;
             }
-            send_to_char("CONTAINER TYPE SET.\n\r\n\r", ch);
+            send_to_char("CONTAINER TYPE SET.\r\n\r\n", ch);
             break;
         case 2:
             if (atoi(argument) != 0)
             {
                 if (!get_obj_index(atoi(argument)))
                 {
-                    send_to_char("THERE IS NO SUCH ITEM.\n\r\n\r",
+                    send_to_char("THERE IS NO SUCH ITEM.\r\n\r\n",
                         ch);
                     return FALSE;
                 }
@@ -2649,20 +2649,20 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
                 if (get_obj_index(atoi(argument))->item_type !=
                     ITEM_KEY)
                 {
-                    send_to_char("THAT ITEM IS NOT A KEY.\n\r\n\r",
+                    send_to_char("THAT ITEM IS NOT A KEY.\r\n\r\n",
                         ch);
                     return FALSE;
                 }
             }
-            send_to_char("CONTAINER KEY SET.\n\r\n\r", ch);
+            send_to_char("CONTAINER KEY SET.\r\n\r\n", ch);
             pObj->value[2] = atoi(argument);
             break;
         case 3:
-            send_to_char("CONTAINER MAX WEIGHT SET.\n\r", ch);
+            send_to_char("CONTAINER MAX WEIGHT SET.\r\n", ch);
             pObj->value[3] = atoi(argument);
             break;
         case 4:
-            send_to_char("WEIGHT MULTIPLIER SET.\n\r\n\r", ch);
+            send_to_char("WEIGHT MULTIPLIER SET.\r\n\r\n", ch);
             pObj->value[4] = atoi(argument);
             break;
         }
@@ -2677,21 +2677,21 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             return FALSE;
         case 0:
             send_to_char
-                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\n\r\n\r", ch);
+                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
             send_to_char
-                ("CURRENT AMOUNT OF LIQUID HOURS SET.\n\r\n\r", ch);
+                ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("LIQUID TYPE SET.\n\r\n\r", ch);
+            send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
             pObj->value[2] = (liq_lookup(argument) != -1 ?
                 liq_lookup(argument) : 0);
             break;
         case 3:
-            send_to_char("POISON VALUE TOGGLED.\n\r\n\r", ch);
+            send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
             pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
             break;
         }
@@ -2706,16 +2706,16 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             return FALSE;
         case 0:
             send_to_char
-                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\n\r\n\r", ch);
+                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
             send_to_char
-                ("CURRENT AMOUNT OF LIQUID HOURS SET.\n\r\n\r", ch);
+                ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 2:
-            send_to_char("LIQUID TYPE SET.\n\r\n\r", ch);
+            send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
             pObj->value[2] = (liq_lookup(argument) != -1 ?
                 liq_lookup(argument) : 0);
             break;
@@ -2729,15 +2729,15 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_FOOD");
             return FALSE;
         case 0:
-            send_to_char("HOURS OF FOOD SET.\n\r\n\r", ch);
+            send_to_char("HOURS OF FOOD SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("HOURS OF FULL SET.\n\r\n\r", ch);
+            send_to_char("HOURS OF FULL SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         case 3:
-            send_to_char("POISON VALUE TOGGLED.\n\r\n\r", ch);
+            send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
             pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
             break;
         }
@@ -2750,11 +2750,11 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
             do_help(ch, "ITEM_MONEY");
             return FALSE;
         case 0:
-            send_to_char("SILVER AMOUNT SET.\n\r\n\r", ch);
+            send_to_char("SILVER AMOUNT SET.\r\n\r\n", ch);
             pObj->value[0] = atoi(argument);
             break;
         case 1:
-            send_to_char("GOLD AMOUNT SET.\n\r\n\r", ch);
+            send_to_char("GOLD AMOUNT SET.\r\n\r\n", ch);
             pObj->value[1] = atoi(argument);
             break;
         }
@@ -2775,37 +2775,37 @@ OEDIT(oedit_show)
 
     EDIT_OBJ(ch, pObj);
 
-    sprintf(buf, "Name:        [%s]\n\rArea:        [%5d] %s\n\r",
+    sprintf(buf, "Name:        [%s]\r\nArea:        [%5d] %s\r\n",
         pObj->name,
         !pObj->area ? -1 : pObj->area->vnum,
         !pObj->area ? "No Area" : pObj->area->name);
     send_to_char(buf, ch);
 
 
-    sprintf(buf, "Vnum:        [%5d]\n\rType:        [%s]\n\r",
+    sprintf(buf, "Vnum:        [%5d]\r\nType:        [%s]\r\n",
         pObj->vnum, flag_string(type_flags, pObj->item_type));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Level:       [%5d]\n\r", pObj->level);
+    sprintf(buf, "Level:       [%5d]\r\n", pObj->level);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Wear flags:  [%s]\n\r",
+    sprintf(buf, "Wear flags:  [%s]\r\n",
         flag_string(wear_flags, pObj->wear_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Extra flags: [%s]\n\r",
+    sprintf(buf, "Extra flags: [%s]\r\n",
         flag_string(extra_flags, pObj->extra_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Material:    [%s]\n\r",    /* ROM */
+    sprintf(buf, "Material:    [%s]\r\n",    /* ROM */
         pObj->material);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Condition:   [%5d]\n\r",    /* ROM */
+    sprintf(buf, "Condition:   [%5d]\r\n",    /* ROM */
         pObj->condition);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Weight:      [%5d]\n\rCost:        [%5d]\n\r",
+    sprintf(buf, "Weight:      [%5d]\r\nCost:        [%5d]\r\n",
         pObj->weight, pObj->cost);
     send_to_char(buf, ch);
 
@@ -2822,10 +2822,10 @@ OEDIT(oedit_show)
             send_to_char("]", ch);
         }
 
-        send_to_char("\n\r", ch);
+        send_to_char("\r\n", ch);
     }
 
-    sprintf(buf, "Short desc:  %s\n\rLong desc:\n\r     %s\n\r",
+    sprintf(buf, "Short desc:  %s\r\nLong desc:\r\n     %s\r\n",
         pObj->short_descr, pObj->description);
     send_to_char(buf, ch);
 
@@ -2833,10 +2833,10 @@ OEDIT(oedit_show)
     {
         if (cnt == 0)
         {
-            send_to_char("Number Modifier Affects\n\r", ch);
-            send_to_char("------ -------- -------\n\r", ch);
+            send_to_char("Number Modifier Affects\r\n", ch);
+            send_to_char("------ -------- -------\r\n", ch);
         }
-        sprintf(buf, "[%4d] %-8d %s\n\r", cnt,
+        sprintf(buf, "[%4d] %-8d %s\r\n", cnt,
             paf->modifier, flag_string(apply_flags, paf->location));
         send_to_char(buf, ch);
         cnt++;
@@ -2865,13 +2865,13 @@ OEDIT(oedit_addaffect)
 
     if (loc[0] == '\0' || mod[0] == '\0' || !is_number(mod))
     {
-        send_to_char("Syntax:  addaffect [location] [#xmod]\n\r", ch);
+        send_to_char("Syntax:  addaffect [location] [#xmod]\r\n", ch);
         return FALSE;
     }
 
     if ((value = flag_value(apply_flags, loc)) == NO_FLAG)
     {                            /* Hugin */
-        send_to_char("Valid affects are:\n\r", ch);
+        send_to_char("Valid affects are:\r\n", ch);
         show_help(ch, "apply");
         return FALSE;
     }
@@ -2887,7 +2887,7 @@ OEDIT(oedit_addaffect)
     pAf->next = pObj->affected;
     pObj->affected = pAf;
 
-    send_to_char("Affect added.\n\r", ch);
+    send_to_char("Affect added.\r\n", ch);
     return TRUE;
 }
 
@@ -2910,14 +2910,14 @@ OEDIT(oedit_addapply)
 
     if (type[0] == '\0' || (typ = flag_value(apply_types, type)) == NO_FLAG)
     {
-        send_to_char("Invalid apply type. Valid apply types are:\n\r", ch);
+        send_to_char("Invalid apply type. Valid apply types are:\r\n", ch);
         show_help(ch, "apptype");
         return FALSE;
     }
 
     if (loc[0] == '\0' || (value = flag_value(apply_flags, loc)) == NO_FLAG)
     {
-        send_to_char("Valid applys are:\n\r", ch);
+        send_to_char("Valid applys are:\r\n", ch);
         show_help(ch, "apply");
         return FALSE;
     }
@@ -2925,8 +2925,8 @@ OEDIT(oedit_addapply)
     if (bvector[0] == '\0'
         || (bv = flag_value(bitvector_type[typ].table, bvector)) == NO_FLAG)
     {
-        send_to_char("Invalid bitvector type.\n\r", ch);
-        send_to_char("Valid bitvector types are:\n\r", ch);
+        send_to_char("Invalid bitvector type.\r\n", ch);
+        send_to_char("Valid bitvector types are:\r\n", ch);
         show_help(ch, bitvector_type[typ].help);
         return FALSE;
     }
@@ -2934,7 +2934,7 @@ OEDIT(oedit_addapply)
     if (mod[0] == '\0' || !is_number(mod))
     {
         send_to_char
-            ("Syntax:  addapply [type] [location] [#xmod] [bitvector]\n\r",
+            ("Syntax:  addapply [type] [location] [#xmod] [bitvector]\r\n",
             ch);
         return FALSE;
     }
@@ -2950,7 +2950,7 @@ OEDIT(oedit_addapply)
     pAf->next = pObj->affected;
     pObj->affected = pAf;
 
-    send_to_char("Apply added.\n\r", ch);
+    send_to_char("Apply added.\r\n", ch);
     return TRUE;
 }
 
@@ -2973,7 +2973,7 @@ OEDIT(oedit_delaffect)
 
     if (!is_number(affect) || affect[0] == '\0')
     {
-        send_to_char("Syntax:  delaffect [#xaffect]\n\r", ch);
+        send_to_char("Syntax:  delaffect [#xaffect]\r\n", ch);
         return FALSE;
     }
 
@@ -2981,13 +2981,13 @@ OEDIT(oedit_delaffect)
 
     if (value < 0)
     {
-        send_to_char("Only non-negative affect-numbers allowed.\n\r", ch);
+        send_to_char("Only non-negative affect-numbers allowed.\r\n", ch);
         return FALSE;
     }
 
     if (!(pAf = pObj->affected))
     {
-        send_to_char("OEdit:  Non-existant affect.\n\r", ch);
+        send_to_char("OEdit:  Non-existant affect.\r\n", ch);
         return FALSE;
     }
 
@@ -3011,12 +3011,12 @@ OEDIT(oedit_delaffect)
         else
         {                        /* Doesn't exist */
 
-            send_to_char("No such affect.\n\r", ch);
+            send_to_char("No such affect.\r\n", ch);
             return FALSE;
         }
     }
 
-    send_to_char("Affect removed.\n\r", ch);
+    send_to_char("Affect removed.\r\n", ch);
     return TRUE;
 }
 
@@ -3030,14 +3030,14 @@ OEDIT(oedit_name)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  name [string]\n\r", ch);
+        send_to_char("Syntax:  name [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pObj->name);
     pObj->name = str_dup(argument);
 
-    send_to_char("Name set.\n\r", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -3051,7 +3051,7 @@ OEDIT(oedit_short)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  short [string]\n\r", ch);
+        send_to_char("Syntax:  short [string]\r\n", ch);
         return FALSE;
     }
 
@@ -3059,7 +3059,7 @@ OEDIT(oedit_short)
     pObj->short_descr = str_dup(argument);
     pObj->short_descr[0] = LOWER(pObj->short_descr[0]);
 
-    send_to_char("Short description set.\n\r", ch);
+    send_to_char("Short description set.\r\n", ch);
     return TRUE;
 }
 
@@ -3073,7 +3073,7 @@ OEDIT(oedit_long)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  long [string]\n\r", ch);
+        send_to_char("Syntax:  long [string]\r\n", ch);
         return FALSE;
     }
 
@@ -3081,7 +3081,7 @@ OEDIT(oedit_long)
     pObj->description = str_dup(argument);
     pObj->description[0] = UPPER(pObj->description[0]);
 
-    send_to_char("Long description set.\n\r", ch);
+    send_to_char("Long description set.\r\n", ch);
     return TRUE;
 }
 
@@ -3180,13 +3180,13 @@ OEDIT(oedit_weight)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  weight [number]\n\r", ch);
+        send_to_char("Syntax:  weight [number]\r\n", ch);
         return FALSE;
     }
 
     pObj->weight = atoi(argument);
 
-    send_to_char("Weight set.\n\r", ch);
+    send_to_char("Weight set.\r\n", ch);
     return TRUE;
 }
 
@@ -3198,13 +3198,13 @@ OEDIT(oedit_cost)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  cost [number]\n\r", ch);
+        send_to_char("Syntax:  cost [number]\r\n", ch);
         return FALSE;
     }
 
     pObj->cost = atoi(argument);
 
-    send_to_char("Cost set.\n\r", ch);
+    send_to_char("Cost set.\r\n", ch);
     return TRUE;
 }
 
@@ -3220,26 +3220,26 @@ OEDIT(oedit_create)
     value = atoi(argument);
     if (argument[0] == '\0' || value == 0)
     {
-        send_to_char("Syntax:  oedit create [vnum]\n\r", ch);
+        send_to_char("Syntax:  oedit create [vnum]\r\n", ch);
         return FALSE;
     }
 
     pArea = get_vnum_area(value);
     if (!pArea)
     {
-        send_to_char("OEdit:  That vnum is not assigned an area.\n\r", ch);
+        send_to_char("OEdit:  That vnum is not assigned an area.\r\n", ch);
         return FALSE;
     }
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("OEdit:  Vnum in an area you cannot build in.\n\r", ch);
+        send_to_char("OEdit:  Vnum in an area you cannot build in.\r\n", ch);
         return FALSE;
     }
 
     if (get_obj_index(value))
     {
-        send_to_char("OEdit:  Object vnum already exists.\n\r", ch);
+        send_to_char("OEdit:  Object vnum already exists.\r\n", ch);
         return FALSE;
     }
 
@@ -3255,7 +3255,7 @@ OEDIT(oedit_create)
     obj_index_hash[iHash] = pObj;
     ch->desc->pEdit = (void *)pObj;
 
-    send_to_char("Object Created.\n\r", ch);
+    send_to_char("Object Created.\r\n", ch);
     return TRUE;
 }
 
@@ -3275,10 +3275,10 @@ OEDIT(oedit_ed)
 
     if (command[0] == '\0')
     {
-        send_to_char("Syntax:  ed add [keyword]\n\r", ch);
-        send_to_char("         ed delete [keyword]\n\r", ch);
-        send_to_char("         ed edit [keyword]\n\r", ch);
-        send_to_char("         ed format [keyword]\n\r", ch);
+        send_to_char("Syntax:  ed add [keyword]\r\n", ch);
+        send_to_char("         ed delete [keyword]\r\n", ch);
+        send_to_char("         ed edit [keyword]\r\n", ch);
+        send_to_char("         ed format [keyword]\r\n", ch);
         return FALSE;
     }
 
@@ -3286,7 +3286,7 @@ OEDIT(oedit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed add [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed add [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -3304,7 +3304,7 @@ OEDIT(oedit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed edit [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed edit [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -3316,7 +3316,7 @@ OEDIT(oedit_ed)
 
         if (!ed)
         {
-            send_to_char("OEdit:  Extra description keyword not found.\n\r",
+            send_to_char("OEdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
@@ -3332,7 +3332,7 @@ OEDIT(oedit_ed)
 
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed delete [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed delete [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -3345,7 +3345,7 @@ OEDIT(oedit_ed)
 
         if (!ed)
         {
-            send_to_char("OEdit:  Extra description keyword not found.\n\r",
+            send_to_char("OEdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
@@ -3357,7 +3357,7 @@ OEDIT(oedit_ed)
 
         free_extra_descr(ed);
 
-        send_to_char("Extra description deleted.\n\r", ch);
+        send_to_char("Extra description deleted.\r\n", ch);
         return TRUE;
     }
 
@@ -3367,7 +3367,7 @@ OEDIT(oedit_ed)
     {
         if (keyword[0] == '\0')
         {
-            send_to_char("Syntax:  ed format [keyword]\n\r", ch);
+            send_to_char("Syntax:  ed format [keyword]\r\n", ch);
             return FALSE;
         }
 
@@ -3379,14 +3379,14 @@ OEDIT(oedit_ed)
 
         if (!ed)
         {
-            send_to_char("OEdit:  Extra description keyword not found.\n\r",
+            send_to_char("OEdit:  Extra description keyword not found.\r\n",
                 ch);
             return FALSE;
         }
 
         ed->description = format_string(ed->description);
 
-        send_to_char("Extra description formatted.\n\r", ch);
+        send_to_char("Extra description formatted.\r\n", ch);
         return TRUE;
     }
 
@@ -3413,13 +3413,13 @@ OEDIT(oedit_extra)
         {
             TOGGLE_BIT(pObj->extra_flags, value);
 
-            send_to_char("Extra flag toggled.\n\r", ch);
+            send_to_char("Extra flag toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax:  extra [flag]\n\r"
-        "Type '? extra' for a list of flags.\n\r", ch);
+    send_to_char("Syntax:  extra [flag]\r\n"
+        "Type '? extra' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -3437,13 +3437,13 @@ OEDIT(oedit_wear)
         {
             TOGGLE_BIT(pObj->wear_flags, value);
 
-            send_to_char("Wear flag toggled.\n\r", ch);
+            send_to_char("Wear flag toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax:  wear [flag]\n\r"
-        "Type '? wear' for a list of flags.\n\r", ch);
+    send_to_char("Syntax:  wear [flag]\r\n"
+        "Type '? wear' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -3461,7 +3461,7 @@ OEDIT(oedit_type)
         {
             pObj->item_type = value;
 
-            send_to_char("Type set.\n\r", ch);
+            send_to_char("Type set.\r\n", ch);
 
             /*
             * Clear the values.
@@ -3476,8 +3476,8 @@ OEDIT(oedit_type)
         }
     }
 
-    send_to_char("Syntax:  type [flag]\n\r"
-        "Type '? type' for a list of flags.\n\r", ch);
+    send_to_char("Syntax:  type [flag]\r\n"
+        "Type '? type' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -3489,14 +3489,14 @@ OEDIT(oedit_material)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  material [string]\n\r", ch);
+        send_to_char("Syntax:  material [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pObj->material);
     pObj->material = str_dup(argument);
 
-    send_to_char("Material set.\n\r", ch);
+    send_to_char("Material set.\r\n", ch);
     return TRUE;
 }
 
@@ -3508,13 +3508,13 @@ OEDIT(oedit_level)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  level [number]\n\r", ch);
+        send_to_char("Syntax:  level [number]\r\n", ch);
         return FALSE;
     }
 
     pObj->level = atoi(argument);
 
-    send_to_char("Level set.\n\r", ch);
+    send_to_char("Level set.\r\n", ch);
     return TRUE;
 }
 
@@ -3531,13 +3531,13 @@ OEDIT(oedit_condition)
         EDIT_OBJ(ch, pObj);
 
         pObj->condition = value;
-        send_to_char("Condition set.\n\r", ch);
+        send_to_char("Condition set.\r\n", ch);
 
         return TRUE;
     }
 
-    send_to_char("Syntax:  condition [number]\n\r"
-        "Where number can range from 0 (ruined) to 100 (perfect).\n\r",
+    send_to_char("Syntax:  condition [number]\r\n"
+        "Where number can range from 0 (ruined) to 100 (perfect).\r\n",
         ch);
     return FALSE;
 }
@@ -3557,17 +3557,17 @@ MEDIT(medit_show)
 
     EDIT_MOB(ch, pMob);
 
-    sprintf(buf, "Name:        [%s]\n\rArea:        [%5d] %s\n\r",
+    sprintf(buf, "Name:        [%s]\r\nArea:        [%5d] %s\r\n",
         pMob->player_name,
         !pMob->area ? -1 : pMob->area->vnum,
         !pMob->area ? "No Area" : pMob->area->name);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Act:         [%s]\n\r",
+    sprintf(buf, "Act:         [%s]\r\n",
         flag_string(act_flags, pMob->act));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Vnum:        [%5d] Sex:   [%s]   Race: [%s]\n\r",
+    sprintf(buf, "Vnum:        [%5d] Sex:   [%s]   Race: [%s]\r\n",
         pMob->vnum,
         pMob->sex == SEX_MALE ? "male   " :
         pMob->sex == SEX_FEMALE ? "female " :
@@ -3576,14 +3576,14 @@ MEDIT(medit_show)
     send_to_char(buf, ch);
 
     sprintf(buf,
-        "Level:       [%2d]    Align: [%4d]      Hitroll: [%2d] Dam Type:    [%s]\n\r",
+        "Level:       [%2d]    Align: [%4d]      Hitroll: [%2d] Dam Type:    [%s]\r\n",
         pMob->level, pMob->alignment,
         pMob->hitroll, attack_table[pMob->dam_type].name);
     send_to_char(buf, ch);
 
     if (pMob->group)
     {
-        sprintf(buf, "Group:       [%5d]\n\r", pMob->group);
+        sprintf(buf, "Group:       [%5d]\r\n", pMob->group);
         send_to_char(buf, ch);
     }
 
@@ -3597,80 +3597,80 @@ MEDIT(medit_show)
         pMob->damage[DICE_TYPE], pMob->damage[DICE_BONUS]);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Mana dice:   [%2dd%-3d+%4d]\n\r",
+    sprintf(buf, "Mana dice:   [%2dd%-3d+%4d]\r\n",
         pMob->mana[DICE_NUMBER],
         pMob->mana[DICE_TYPE], pMob->mana[DICE_BONUS]);
     send_to_char(buf, ch);
 
     /* ROM values end */
 
-    sprintf(buf, "Affected by: [%s]\n\r",
+    sprintf(buf, "Affected by: [%s]\r\n",
         flag_string(affect_flags, pMob->affected_by));
     send_to_char(buf, ch);
 
     /* ROM values: */
 
     sprintf(buf,
-        "Armor:       [pierce: %d  bash: %d  slash: %d  magic: %d]\n\r",
+        "Armor:       [pierce: %d  bash: %d  slash: %d  magic: %d]\r\n",
         pMob->ac[AC_PIERCE], pMob->ac[AC_BASH], pMob->ac[AC_SLASH],
         pMob->ac[AC_EXOTIC]);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Form:        [%s]\n\r",
+    sprintf(buf, "Form:        [%s]\r\n",
         flag_string(form_flags, pMob->form));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Parts:       [%s]\n\r",
+    sprintf(buf, "Parts:       [%s]\r\n",
         flag_string(part_flags, pMob->parts));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Imm:         [%s]\n\r",
+    sprintf(buf, "Imm:         [%s]\r\n",
         flag_string(imm_flags, pMob->imm_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Res:         [%s]\n\r",
+    sprintf(buf, "Res:         [%s]\r\n",
         flag_string(res_flags, pMob->res_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Vuln:        [%s]\n\r",
+    sprintf(buf, "Vuln:        [%s]\r\n",
         flag_string(vuln_flags, pMob->vuln_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Off:         [%s]\n\r",
+    sprintf(buf, "Off:         [%s]\r\n",
         flag_string(off_flags, pMob->off_flags));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Size:        [%s]\n\r",
+    sprintf(buf, "Size:        [%s]\r\n",
         flag_string(size_flags, pMob->size));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Material:    [%s]\n\r", pMob->material);
+    sprintf(buf, "Material:    [%s]\r\n", pMob->material);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Start pos.   [%s]\n\r",
+    sprintf(buf, "Start pos.   [%s]\r\n",
         flag_string(position_flags, pMob->start_pos));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Default pos  [%s]\n\r",
+    sprintf(buf, "Default pos  [%s]\r\n",
         flag_string(position_flags, pMob->default_pos));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Wealth:      [%5ld]\n\r", pMob->wealth);
+    sprintf(buf, "Wealth:      [%5ld]\r\n", pMob->wealth);
     send_to_char(buf, ch);
 
     /* ROM values end */
 
     if (pMob->spec_fun)
     {
-        sprintf(buf, "Spec fun:    [%s]\n\r", spec_name(pMob->spec_fun));
+        sprintf(buf, "Spec fun:    [%s]\r\n", spec_name(pMob->spec_fun));
         send_to_char(buf, ch);
     }
 
-    sprintf(buf, "Short descr: %s\n\rLong descr:\n\r%s",
+    sprintf(buf, "Short descr: %s\r\nLong descr:\r\n%s",
         pMob->short_descr, pMob->long_descr);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Description:\n\r%s", pMob->description);
+    sprintf(buf, "Description:\r\n%s", pMob->description);
     send_to_char(buf, ch);
 
     if (pMob->pShop)
@@ -3681,12 +3681,12 @@ MEDIT(medit_show)
         pShop = pMob->pShop;
 
         sprintf(buf,
-            "Shop data for [%5d]:\n\r"
-            "  Markup for purchaser: %d%%\n\r"
-            "  Markdown for seller:  %d%%\n\r",
+            "Shop data for [%5d]:\r\n"
+            "  Markup for purchaser: %d%%\r\n"
+            "  Markdown for seller:  %d%%\r\n",
             pShop->keeper, pShop->profit_buy, pShop->profit_sell);
         send_to_char(buf, ch);
-        sprintf(buf, "  Hours: %d to %d.\n\r",
+        sprintf(buf, "  Hours: %d to %d.\r\n",
             pShop->open_hour, pShop->close_hour);
         send_to_char(buf, ch);
 
@@ -3696,10 +3696,10 @@ MEDIT(medit_show)
             {
                 if (iTrade == 0)
                 {
-                    send_to_char("  Number Trades Type\n\r", ch);
-                    send_to_char("  ------ -----------\n\r", ch);
+                    send_to_char("  Number Trades Type\r\n", ch);
+                    send_to_char("  ------ -----------\r\n", ch);
                 }
-                sprintf(buf, "  [%4d] %s\n\r", iTrade,
+                sprintf(buf, "  [%4d] %s\r\n", iTrade,
                     flag_string(type_flags, pShop->buy_type[iTrade]));
                 send_to_char(buf, ch);
             }
@@ -3710,18 +3710,18 @@ MEDIT(medit_show)
     {
         int cnt;
 
-        sprintf(buf, "\n\rMOBPrograms for [%5d]:\n\r", pMob->vnum);
+        sprintf(buf, "\r\nMOBPrograms for [%5d]:\r\n", pMob->vnum);
         send_to_char(buf, ch);
 
         for (cnt = 0, list = pMob->mprogs; list; list = list->next)
         {
             if (cnt == 0)
             {
-                send_to_char(" Number Vnum Trigger Phrase\n\r", ch);
-                send_to_char(" ------ ---- ------- ------\n\r", ch);
+                send_to_char(" Number Vnum Trigger Phrase\r\n", ch);
+                send_to_char(" ------ ---- ------- ------\r\n", ch);
             }
 
-            sprintf(buf, "[%5d] %4d %7s %s\n\r", cnt,
+            sprintf(buf, "[%5d] %4d %7s %s\r\n", cnt,
                 list->vnum, mprog_type_to_name(list->trig_type),
                 list->trig_phrase);
             send_to_char(buf, ch);
@@ -3744,7 +3744,7 @@ MEDIT(medit_create)
     value = atoi(argument);
     if (argument[0] == '\0' || value == 0)
     {
-        send_to_char("Syntax:  medit create [vnum]\n\r", ch);
+        send_to_char("Syntax:  medit create [vnum]\r\n", ch);
         return FALSE;
     }
 
@@ -3752,19 +3752,19 @@ MEDIT(medit_create)
 
     if (!pArea)
     {
-        send_to_char("MEdit:  That vnum is not assigned an area.\n\r", ch);
+        send_to_char("MEdit:  That vnum is not assigned an area.\r\n", ch);
         return FALSE;
     }
 
     if (!IS_BUILDER(ch, pArea))
     {
-        send_to_char("MEdit:  Vnum in an area you cannot build in.\n\r", ch);
+        send_to_char("MEdit:  Vnum in an area you cannot build in.\r\n", ch);
         return FALSE;
     }
 
     if (get_mob_index(value))
     {
-        send_to_char("MEdit:  Mobile vnum already exists.\n\r", ch);
+        send_to_char("MEdit:  Mobile vnum already exists.\r\n", ch);
         return FALSE;
     }
 
@@ -3781,7 +3781,7 @@ MEDIT(medit_create)
     mob_index_hash[iHash] = pMob;
     ch->desc->pEdit = (void *)pMob;
 
-    send_to_char("Mobile Created.\n\r", ch);
+    send_to_char("Mobile Created.\r\n", ch);
     return TRUE;
 }
 
@@ -3795,7 +3795,7 @@ MEDIT(medit_spec)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  spec [special function]\n\r", ch);
+        send_to_char("Syntax:  spec [special function]\r\n", ch);
         return FALSE;
     }
 
@@ -3804,18 +3804,18 @@ MEDIT(medit_spec)
     {
         pMob->spec_fun = NULL;
 
-        send_to_char("Spec removed.\n\r", ch);
+        send_to_char("Spec removed.\r\n", ch);
         return TRUE;
     }
 
     if (spec_lookup(argument))
     {
         pMob->spec_fun = spec_lookup(argument);
-        send_to_char("Spec set.\n\r", ch);
+        send_to_char("Spec set.\r\n", ch);
         return TRUE;
     }
 
-    send_to_char("MEdit: No such special function.\n\r", ch);
+    send_to_char("MEdit: No such special function.\r\n", ch);
     return FALSE;
 }
 
@@ -3827,15 +3827,15 @@ MEDIT(medit_damtype)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  damtype [damage message]\n\r", ch);
+        send_to_char("Syntax:  damtype [damage message]\r\n", ch);
         send_to_char
-            ("For a list of damage types, type '? weapon'.\n\r",
+            ("For a list of damage types, type '? weapon'.\r\n",
             ch);
         return FALSE;
     }
 
     pMob->dam_type = attack_lookup(argument);
-    send_to_char("Damage type set.\n\r", ch);
+    send_to_char("Damage type set.\r\n", ch);
     return TRUE;
 }
 
@@ -3848,21 +3848,21 @@ MEDIT(medit_align)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  alignment [number]\n\r", ch);
-        send_to_char("         Evil=1, Neutral=2, Good=3\n\r", ch);
+        send_to_char("Syntax:  alignment [number]\r\n", ch);
+        send_to_char("         Evil=1, Neutral=2, Good=3\r\n", ch);
         return FALSE;
     }
 
     if (atoi(argument) < 1 || atoi(argument) > 3)
     {
-        send_to_char("Syntax:  alignment [number]\n\r", ch);
-        send_to_char("         Evil=1, Neutral=2, Good=3\n\r", ch);
+        send_to_char("Syntax:  alignment [number]\r\n", ch);
+        send_to_char("         Evil=1, Neutral=2, Good=3\r\n", ch);
         return FALSE;
     }
 
     pMob->alignment = atoi(argument);
 
-    send_to_char("Alignment set.\n\r", ch);
+    send_to_char("Alignment set.\r\n", ch);
     return TRUE;
 }
 
@@ -3876,13 +3876,13 @@ MEDIT(medit_level)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  level [number]\n\r", ch);
+        send_to_char("Syntax:  level [number]\r\n", ch);
         return FALSE;
     }
 
     pMob->level = atoi(argument);
 
-    send_to_char("Level set.\n\r", ch);
+    send_to_char("Level set.\r\n", ch);
     return TRUE;
 }
 
@@ -3900,7 +3900,7 @@ MEDIT(medit_desc)
         return TRUE;
     }
 
-    send_to_char("Syntax:  desc    - line edit\n\r", ch);
+    send_to_char("Syntax:  desc    - line edit\r\n", ch);
     return FALSE;
 }
 
@@ -3915,16 +3915,16 @@ MEDIT(medit_long)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  long [string]\n\r", ch);
+        send_to_char("Syntax:  long [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pMob->long_descr);
-    strcat(argument, "\n\r");
+    strcat(argument, "\r\n");
     pMob->long_descr = str_dup(argument);
     pMob->long_descr[0] = UPPER(pMob->long_descr[0]);
 
-    send_to_char("Long description set.\n\r", ch);
+    send_to_char("Long description set.\r\n", ch);
     return TRUE;
 }
 
@@ -3938,14 +3938,14 @@ MEDIT(medit_short)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  short [string]\n\r", ch);
+        send_to_char("Syntax:  short [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pMob->short_descr);
     pMob->short_descr = str_dup(argument);
 
-    send_to_char("Short description set.\n\r", ch);
+    send_to_char("Short description set.\r\n", ch);
     return TRUE;
 }
 
@@ -3959,14 +3959,14 @@ MEDIT(medit_name)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  name [string]\n\r", ch);
+        send_to_char("Syntax:  name [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pMob->player_name);
     pMob->player_name = str_dup(argument);
 
-    send_to_char("Name set.\n\r", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -3983,12 +3983,12 @@ MEDIT(medit_shop)
 
     if (command[0] == '\0')
     {
-        send_to_char("Syntax:  shop hours [#xopening] [#xclosing]\n\r", ch);
-        send_to_char("         shop profit [#xbuying%] [#xselling%]\n\r",
+        send_to_char("Syntax:  shop hours [#xopening] [#xclosing]\r\n", ch);
+        send_to_char("         shop profit [#xbuying%] [#xselling%]\r\n",
             ch);
-        send_to_char("         shop type [#x0-4] [item type]\n\r", ch);
-        send_to_char("         shop assign\n\r", ch);
-        send_to_char("         shop remove\n\r", ch);
+        send_to_char("         shop type [#x0-4] [item type]\r\n", ch);
+        send_to_char("         shop assign\r\n", ch);
+        send_to_char("         shop remove\r\n", ch);
         return FALSE;
     }
 
@@ -3998,7 +3998,7 @@ MEDIT(medit_shop)
         if (arg1[0] == '\0' || !is_number(arg1)
             || argument[0] == '\0' || !is_number(argument))
         {
-            send_to_char("Syntax:  shop hours [#xopening] [#xclosing]\n\r",
+            send_to_char("Syntax:  shop hours [#xopening] [#xclosing]\r\n",
                 ch);
             return FALSE;
         }
@@ -4006,7 +4006,7 @@ MEDIT(medit_shop)
         if (!pMob->pShop)
         {
             send_to_char
-                ("MEdit:  You must create the shop first (shop assign).\n\r",
+                ("MEdit:  You must create the shop first (shop assign).\r\n",
                 ch);
             return FALSE;
         }
@@ -4014,7 +4014,7 @@ MEDIT(medit_shop)
         pMob->pShop->open_hour = atoi(arg1);
         pMob->pShop->close_hour = atoi(argument);
 
-        send_to_char("Shop hours set.\n\r", ch);
+        send_to_char("Shop hours set.\r\n", ch);
         return TRUE;
     }
 
@@ -4024,7 +4024,7 @@ MEDIT(medit_shop)
         if (arg1[0] == '\0' || !is_number(arg1)
             || argument[0] == '\0' || !is_number(argument))
         {
-            send_to_char("Syntax:  shop profit [#xbuying%] [#xselling%]\n\r",
+            send_to_char("Syntax:  shop profit [#xbuying%] [#xselling%]\r\n",
                 ch);
             return FALSE;
         }
@@ -4032,7 +4032,7 @@ MEDIT(medit_shop)
         if (!pMob->pShop)
         {
             send_to_char
-                ("MEdit:  You must create the shop first (shop assign).\n\r",
+                ("MEdit:  You must create the shop first (shop assign).\r\n",
                 ch);
             return FALSE;
         }
@@ -4040,7 +4040,7 @@ MEDIT(medit_shop)
         pMob->pShop->profit_buy = atoi(arg1);
         pMob->pShop->profit_sell = atoi(argument);
 
-        send_to_char("Shop profit set.\n\r", ch);
+        send_to_char("Shop profit set.\r\n", ch);
         return TRUE;
     }
 
@@ -4052,13 +4052,13 @@ MEDIT(medit_shop)
 
         if (arg1[0] == '\0' || !is_number(arg1) || argument[0] == '\0')
         {
-            send_to_char("Syntax:  shop type [#x0-4] [item type]\n\r", ch);
+            send_to_char("Syntax:  shop type [#x0-4] [item type]\r\n", ch);
             return FALSE;
         }
 
         if (atoi(arg1) >= MAX_TRADE)
         {
-            sprintf(buf, "MEdit:  May sell %d items max.\n\r", MAX_TRADE);
+            sprintf(buf, "MEdit:  May sell %d items max.\r\n", MAX_TRADE);
             send_to_char(buf, ch);
             return FALSE;
         }
@@ -4066,20 +4066,20 @@ MEDIT(medit_shop)
         if (!pMob->pShop)
         {
             send_to_char
-                ("MEdit:  You must create the shop first (shop assign).\n\r",
+                ("MEdit:  You must create the shop first (shop assign).\r\n",
                 ch);
             return FALSE;
         }
 
         if ((value = flag_value(type_flags, argument)) == NO_FLAG)
         {
-            send_to_char("MEdit:  That type of item is not known.\n\r", ch);
+            send_to_char("MEdit:  That type of item is not known.\r\n", ch);
             return FALSE;
         }
 
         pMob->pShop->buy_type[atoi(arg1)] = value;
 
-        send_to_char("Shop type set.\n\r", ch);
+        send_to_char("Shop type set.\r\n", ch);
         return TRUE;
     }
 
@@ -4089,7 +4089,7 @@ MEDIT(medit_shop)
     {
         if (pMob->pShop)
         {
-            send_to_char("Mob already has a shop assigned to it.\n\r", ch);
+            send_to_char("Mob already has a shop assigned to it.\r\n", ch);
             return FALSE;
         }
 
@@ -4102,7 +4102,7 @@ MEDIT(medit_shop)
 
         pMob->pShop->keeper = pMob->vnum;
 
-        send_to_char("New shop assigned to mobile.\n\r", ch);
+        send_to_char("New shop assigned to mobile.\r\n", ch);
         return TRUE;
     }
 
@@ -4144,7 +4144,7 @@ MEDIT(medit_shop)
 
         free_shop(pShop);
 
-        send_to_char("Mobile is no longer a shopkeeper.\n\r", ch);
+        send_to_char("Mobile is no longer a shopkeeper.\r\n", ch);
         return TRUE;
     }
 
@@ -4169,13 +4169,13 @@ MEDIT(medit_sex)
         {
             pMob->sex = value;
 
-            send_to_char("Sex set.\n\r", ch);
+            send_to_char("Sex set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: sex [sex]\n\r"
-        "Type '? sex' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: sex [sex]\r\n"
+        "Type '? sex' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4194,13 +4194,13 @@ MEDIT(medit_act)
             pMob->act ^= value;
             SET_BIT(pMob->act, ACT_IS_NPC);
 
-            send_to_char("Act flag toggled.\n\r", ch);
+            send_to_char("Act flag toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: act [flag]\n\r"
-        "Type '? act' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: act [flag]\r\n"
+        "Type '? act' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4218,13 +4218,13 @@ MEDIT(medit_affect)
         {
             pMob->affected_by ^= value;
 
-            send_to_char("Affect flag toggled.\n\r", ch);
+            send_to_char("Affect flag toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: affect [flag]\n\r"
-        "Type '? affect' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: affect [flag]\r\n"
+        "Type '? affect' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4283,13 +4283,13 @@ MEDIT(medit_ac)
         pMob->ac[AC_SLASH] = slash;
         pMob->ac[AC_EXOTIC] = exotic;
 
-        send_to_char("Ac set.\n\r", ch);
+        send_to_char("Ac set.\r\n", ch);
         return TRUE;
     } while (FALSE);                /* Just do it once.. */
 
     send_to_char
-        ("Syntax:  ac [ac-pierce [ac-bash [ac-slash [ac-exotic]]]]\n\r"
-        "help MOB_AC  gives a list of reasonable ac-values.\n\r", ch);
+        ("Syntax:  ac [ac-pierce [ac-bash [ac-slash [ac-exotic]]]]\r\n"
+        "help MOB_AC  gives a list of reasonable ac-values.\r\n", ch);
     return FALSE;
 }
 
@@ -4305,13 +4305,13 @@ MEDIT(medit_form)
         if ((value = flag_value(form_flags, argument)) != NO_FLAG)
         {
             pMob->form ^= value;
-            send_to_char("Form toggled.\n\r", ch);
+            send_to_char("Form toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: form [flags]\n\r"
-        "Type '? form' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: form [flags]\r\n"
+        "Type '? form' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4327,13 +4327,13 @@ MEDIT(medit_part)
         if ((value = flag_value(part_flags, argument)) != NO_FLAG)
         {
             pMob->parts ^= value;
-            send_to_char("Parts toggled.\n\r", ch);
+            send_to_char("Parts toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: part [flags]\n\r"
-        "Type '? part' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: part [flags]\r\n"
+        "Type '? part' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4349,13 +4349,13 @@ MEDIT(medit_imm)
         if ((value = flag_value(imm_flags, argument)) != NO_FLAG)
         {
             pMob->imm_flags ^= value;
-            send_to_char("Immunity toggled.\n\r", ch);
+            send_to_char("Immunity toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: imm [flags]\n\r"
-        "Type '? imm' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: imm [flags]\r\n"
+        "Type '? imm' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4371,13 +4371,13 @@ MEDIT(medit_res)
         if ((value = flag_value(res_flags, argument)) != NO_FLAG)
         {
             pMob->res_flags ^= value;
-            send_to_char("Resistance toggled.\n\r", ch);
+            send_to_char("Resistance toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: res [flags]\n\r"
-        "Type '? res' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: res [flags]\r\n"
+        "Type '? res' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4393,13 +4393,13 @@ MEDIT(medit_vuln)
         if ((value = flag_value(vuln_flags, argument)) != NO_FLAG)
         {
             pMob->vuln_flags ^= value;
-            send_to_char("Vulnerability toggled.\n\r", ch);
+            send_to_char("Vulnerability toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: vuln [flags]\n\r"
-        "Type '? vuln' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: vuln [flags]\r\n"
+        "Type '? vuln' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4411,14 +4411,14 @@ MEDIT(medit_material)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  material [string]\n\r", ch);
+        send_to_char("Syntax:  material [string]\r\n", ch);
         return FALSE;
     }
 
     free_string(pMob->material);
     pMob->material = str_dup(argument);
 
-    send_to_char("Material set.\n\r", ch);
+    send_to_char("Material set.\r\n", ch);
     return TRUE;
 }
 
@@ -4434,13 +4434,13 @@ MEDIT(medit_off)
         if ((value = flag_value(off_flags, argument)) != NO_FLAG)
         {
             pMob->off_flags ^= value;
-            send_to_char("Offensive behaviour toggled.\n\r", ch);
+            send_to_char("Offensive behaviour toggled.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: off [flags]\n\r"
-        "Type '? off' for a list of flags.\n\r", ch);
+    send_to_char("Syntax: off [flags]\r\n"
+        "Type '? off' for a list of flags.\r\n", ch);
     return FALSE;
 }
 
@@ -4456,19 +4456,19 @@ MEDIT(medit_size)
         if ((value = flag_value(size_flags, argument)) != NO_FLAG)
         {
             pMob->size = value;
-            send_to_char("Size set.\n\r", ch);
+            send_to_char("Size set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char("Syntax: size [size]\n\r"
-        "Type '? size' for a list of sizes.\n\r", ch);
+    send_to_char("Syntax: size [size]\r\n"
+        "Type '? size' for a list of sizes.\r\n", ch);
     return FALSE;
 }
 
 MEDIT(medit_hitdice)
 {
-    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\n\r";
+    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4513,14 +4513,14 @@ MEDIT(medit_hitdice)
     pMob->hit[DICE_TYPE] = atoi(type);
     pMob->hit[DICE_BONUS] = atoi(bonus);
 
-    send_to_char("Hitdice set.\n\r", ch);
+    send_to_char("Hitdice set.\r\n", ch);
     return TRUE;
 }
 
 MEDIT(medit_manadice)
 {
     static char syntax[] =
-        "Syntax:  manadice <number> d <type> + <bonus>\n\r";
+        "Syntax:  manadice <number> d <type> + <bonus>\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4571,13 +4571,13 @@ MEDIT(medit_manadice)
     pMob->mana[DICE_TYPE] = atoi(type);
     pMob->mana[DICE_BONUS] = atoi(bonus);
 
-    send_to_char("Manadice set.\n\r", ch);
+    send_to_char("Manadice set.\r\n", ch);
     return TRUE;
 }
 
 MEDIT(medit_damdice)
 {
-    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\n\r";
+    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4628,7 +4628,7 @@ MEDIT(medit_damdice)
     pMob->damage[DICE_TYPE] = atoi(type);
     pMob->damage[DICE_BONUS] = atoi(bonus);
 
-    send_to_char("Damdice set.\n\r", ch);
+    send_to_char("Damdice set.\r\n", ch);
     return TRUE;
 }
 
@@ -4652,7 +4652,7 @@ MEDIT(medit_race)
         pMob->form |= race_table[race].form;
         pMob->parts |= race_table[race].parts;
 
-        send_to_char("Race set.\n\r", ch);
+        send_to_char("Race set.\r\n", ch);
         return TRUE;
     }
 
@@ -4665,17 +4665,17 @@ MEDIT(medit_race)
         for (race = 0; race_table[race].name != NULL; race++)
         {
             if ((race % 3) == 0)
-                send_to_char("\n\r", ch);
+                send_to_char("\r\n", ch);
             sprintf(buf, " %-15s", race_table[race].name);
             send_to_char(buf, ch);
         }
 
-        send_to_char("\n\r", ch);
+        send_to_char("\r\n", ch);
         return FALSE;
     }
 
-    send_to_char("Syntax:  race [race]\n\r"
-        "Type 'race ?' for a list of races.\n\r", ch);
+    send_to_char("Syntax:  race [race]\r\n"
+        "Type 'race ?' for a list of races.\r\n", ch);
     return FALSE;
 }
 
@@ -4704,7 +4704,7 @@ MEDIT(medit_position)
         EDIT_MOB(ch, pMob);
 
         pMob->start_pos = value;
-        send_to_char("Start position set.\n\r", ch);
+        send_to_char("Start position set.\r\n", ch);
         return TRUE;
 
     case 'D':
@@ -4718,12 +4718,12 @@ MEDIT(medit_position)
         EDIT_MOB(ch, pMob);
 
         pMob->default_pos = value;
-        send_to_char("Default position set.\n\r", ch);
+        send_to_char("Default position set.\r\n", ch);
         return TRUE;
     }
 
-    send_to_char("Syntax:  position [start/default] [position]\n\r"
-        "Type '? position' for a list of positions.\n\r", ch);
+    send_to_char("Syntax:  position [start/default] [position]\r\n"
+        "Type '? position' for a list of positions.\r\n", ch);
     return FALSE;
 }
 
@@ -4736,13 +4736,13 @@ MEDIT(medit_gold)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  wealth [number]\n\r", ch);
+        send_to_char("Syntax:  wealth [number]\r\n", ch);
         return FALSE;
     }
 
     pMob->wealth = atoi(argument);
 
-    send_to_char("Wealth set.\n\r", ch);
+    send_to_char("Wealth set.\r\n", ch);
     return TRUE;
 }
 
@@ -4754,13 +4754,13 @@ MEDIT(medit_hitroll)
 
     if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char("Syntax:  hitroll [number]\n\r", ch);
+        send_to_char("Syntax:  hitroll [number]\r\n", ch);
         return FALSE;
     }
 
     pMob->hitroll = atoi(argument);
 
-    send_to_char("Hitroll set.\n\r", ch);
+    send_to_char("Hitroll set.\r\n", ch);
     return TRUE;
 }
 
@@ -4776,9 +4776,9 @@ void show_liqlist(CHAR_DATA * ch)
     {
         if ((liq % 21) == 0)
             add_buf(buffer,
-            "Name                 Color          Proof Full Thirst Food Ssize\n\r");
+            "Name                 Color          Proof Full Thirst Food Ssize\r\n");
 
-        sprintf(buf, "%-20s %-14s %5d %4d %6d %4d %5d\n\r",
+        sprintf(buf, "%-20s %-14s %5d %4d %6d %4d %5d\r\n",
             liq_table[liq].liq_name, liq_table[liq].liq_color,
             liq_table[liq].liq_affect[0], liq_table[liq].liq_affect[1],
             liq_table[liq].liq_affect[2], liq_table[liq].liq_affect[3],
@@ -4803,9 +4803,9 @@ void show_damlist(CHAR_DATA * ch)
     for (att = 0; attack_table[att].name != NULL; att++)
     {
         if ((att % 21) == 0)
-            add_buf(buffer, "Name                 Noun\n\r");
+            add_buf(buffer, "Name                 Noun\r\n");
 
-        sprintf(buf, "%-20s %-20s\n\r",
+        sprintf(buf, "%-20s %-20s\r\n",
             attack_table[att].name, attack_table[att].noun);
         add_buf(buffer, buf);
     }
@@ -4830,15 +4830,15 @@ MEDIT(medit_group)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax: group [number]\n\r", ch);
-        send_to_char("        group show [number]\n\r", ch);
+        send_to_char("Syntax: group [number]\r\n", ch);
+        send_to_char("        group show [number]\r\n", ch);
         return FALSE;
     }
 
     if (is_number(argument))
     {
         pMob->group = atoi(argument);
-        send_to_char("Group set.\n\r", ch);
+        send_to_char("Group set.\r\n", ch);
         return TRUE;
     }
 
@@ -4848,7 +4848,7 @@ MEDIT(medit_group)
     {
         if (atoi(argument) == 0)
         {
-            send_to_char("Are you crazy?\n\r", ch);
+            send_to_char("Are you crazy?\r\n", ch);
             return FALSE;
         }
 
@@ -4860,7 +4860,7 @@ MEDIT(medit_group)
             if (pMTemp && (pMTemp->group == atoi(argument)))
             {
                 found = TRUE;
-                sprintf(buf, "[%5d] %s\n\r", pMTemp->vnum,
+                sprintf(buf, "[%5d] %s\r\n", pMTemp->vnum,
                     pMTemp->player_name);
                 add_buf(buffer, buf);
             }
@@ -4869,7 +4869,7 @@ MEDIT(medit_group)
         if (found)
             page_to_char(buf_string(buffer), ch);
         else
-            send_to_char("No mobs in that group.\n\r", ch);
+            send_to_char("No mobs in that group.\r\n", ch);
 
         free_buf(buffer);
         return FALSE;
@@ -4886,8 +4886,8 @@ REDIT(redit_owner)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  owner [owner]\n\r", ch);
-        send_to_char("         owner none\n\r", ch);
+        send_to_char("Syntax:  owner [owner]\r\n", ch);
+        send_to_char("         owner none\r\n", ch);
         return FALSE;
     }
 
@@ -4897,7 +4897,7 @@ REDIT(redit_owner)
     else
         pRoom->owner = str_dup(argument);
 
-    send_to_char("Owner set.\n\r", ch);
+    send_to_char("Owner set.\r\n", ch);
     return TRUE;
 }
 
@@ -4918,20 +4918,20 @@ MEDIT(medit_addmprog)
 
     if (!is_number(num) || trigger[0] == '\0' || phrase[0] == '\0')
     {
-        send_to_char("Syntax:   addmprog [vnum] [trigger] [phrase]\n\r", ch);
+        send_to_char("Syntax:   addmprog [vnum] [trigger] [phrase]\r\n", ch);
         return FALSE;
     }
 
     if ((value = flag_value(mprog_flags, trigger)) == NO_FLAG)
     {
-        send_to_char("Valid flags are:\n\r", ch);
+        send_to_char("Valid flags are:\r\n", ch);
         show_help(ch, "mprog");
         return FALSE;
     }
 
     if ((code = get_mprog_index(atoi(num))) == NULL)
     {
-        send_to_char("No such MOBProgram.\n\r", ch);
+        send_to_char("No such MOBProgram.\r\n", ch);
         return FALSE;
     }
 
@@ -4944,7 +4944,7 @@ MEDIT(medit_addmprog)
     list->next = pMob->mprogs;
     pMob->mprogs = list;
 
-    send_to_char("Mprog Added.\n\r", ch);
+    send_to_char("Mprog Added.\r\n", ch);
     return TRUE;
 }
 
@@ -4962,7 +4962,7 @@ MEDIT(medit_delmprog)
     one_argument(argument, mprog);
     if (!is_number(mprog) || mprog[0] == '\0')
     {
-        send_to_char("Syntax:  delmprog [#mprog]\n\r", ch);
+        send_to_char("Syntax:  delmprog [#mprog]\r\n", ch);
         return FALSE;
     }
 
@@ -4970,13 +4970,13 @@ MEDIT(medit_delmprog)
 
     if (value < 0)
     {
-        send_to_char("Only non-negative mprog-numbers allowed.\n\r", ch);
+        send_to_char("Only non-negative mprog-numbers allowed.\r\n", ch);
         return FALSE;
     }
 
     if (!(list = pMob->mprogs))
     {
-        send_to_char("MEdit:  Non existant mprog.\n\r", ch);
+        send_to_char("MEdit:  Non existant mprog.\r\n", ch);
         return FALSE;
     }
 
@@ -5000,12 +5000,12 @@ MEDIT(medit_delmprog)
         }
         else
         {
-            send_to_char("No such mprog.\n\r", ch);
+            send_to_char("No such mprog.\r\n", ch);
             return FALSE;
         }
     }
 
-    send_to_char("Mprog removed.\n\r", ch);
+    send_to_char("Mprog removed.\r\n", ch);
     return TRUE;
 }
 
@@ -5018,12 +5018,12 @@ REDIT(redit_room)
 
     if ((value = flag_value(room_flags, argument)) == NO_FLAG)
     {
-        send_to_char("Syntax: room [flags]\n\r", ch);
+        send_to_char("Syntax: room [flags]\r\n", ch);
         return FALSE;
     }
 
     TOGGLE_BIT(room->room_flags, value);
-    send_to_char("Room flags toggled.\n\r", ch);
+    send_to_char("Room flags toggled.\r\n", ch);
     return TRUE;
 }
 
@@ -5036,12 +5036,12 @@ REDIT(redit_sector)
 
     if ((value = flag_value(sector_flags, argument)) == NO_FLAG)
     {
-        send_to_char("Syntax: sector [tipo]\n\r", ch);
+        send_to_char("Syntax: sector [tipo]\r\n", ch);
         return FALSE;
     }
 
     room->sector_type = value;
-    send_to_char("Sector type set.\n\r", ch);
+    send_to_char("Sector type set.\r\n", ch);
 
     return TRUE;
 }
@@ -5053,12 +5053,12 @@ REDIT(redit_copy) {
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax: copy  \n\r", ch);
+        send_to_char("Syntax: copy  \r\n", ch);
         return FALSE;
     }
     if (!is_number(argument))
     {
-        send_to_char("REdit: You must enter a number (vnum).\n\r", ch);
+        send_to_char("REdit: You must enter a number (vnum).\r\n", ch);
         return FALSE;
     }
     else
@@ -5068,7 +5068,7 @@ REDIT(redit_copy) {
 
         if (!(pRoom2 = get_room_index(vnum)))
         {
-            send_to_char("REdit: That room does not exist.\n\r", ch);
+            send_to_char("REdit: That room does not exist.\r\n", ch);
             return FALSE;
         }
     }
@@ -5087,7 +5087,7 @@ REDIT(redit_copy) {
     free_string(pRoom->owner);
     pRoom->owner = str_dup(pRoom2->owner);
     pRoom->extra_descr = pRoom2->extra_descr;
-    send_to_char("Room info copied.\n\r", ch);
+    send_to_char("Room info copied.\r\n", ch);
     return TRUE;
 }
 
@@ -5102,13 +5102,13 @@ OEDIT(oedit_copy)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax: copy  \n\r", ch);
+        send_to_char("Syntax: copy  \r\n", ch);
         return FALSE;
     }
 
     if (!is_number(argument))
     {
-        send_to_char("OEdit: You must enter a number (vnum).\n\r", ch);
+        send_to_char("OEdit: You must enter a number (vnum).\r\n", ch);
         return FALSE;
     }
     else /* argument is a number */
@@ -5117,7 +5117,7 @@ OEDIT(oedit_copy)
 
         if (!(pObj2 = get_obj_index(vnum)))
         {
-            send_to_char("OEdit: That object does not exist.\n\r", ch);
+            send_to_char("OEdit: That object does not exist.\r\n", ch);
             return FALSE;
         }
 
@@ -5148,7 +5148,7 @@ OEDIT(oedit_copy)
         pObj->value[i] = pObj2->value[i];
     }
 
-    send_to_char("Object info copied.\n\r", ch);
+    send_to_char("Object info copied.\r\n", ch);
     return TRUE;
 }
 
@@ -5164,13 +5164,13 @@ MEDIT(medit_copy)
     /* MPROG_LIST *list; */ /* Used for the mob prog for loop */
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax: copy  \n\r", ch);
+        send_to_char("Syntax: copy  \r\n", ch);
         return FALSE;
     }
 
     if (!is_number(argument))
     {
-        send_to_char("MEdit: You must enter a number (vnum).\n\r", ch);
+        send_to_char("MEdit: You must enter a number (vnum).\r\n", ch);
         return FALSE;
     }
     else /* argument is a number */
@@ -5178,7 +5178,7 @@ MEDIT(medit_copy)
         vnum = atoi(argument);
         if (!(pMob2 = get_mob_index(vnum)))
         {
-            send_to_char("MEdit: That mob does not exist.\n\r", ch);
+            send_to_char("MEdit: That mob does not exist.\r\n", ch);
             return FALSE;
         }
     }
@@ -5229,7 +5229,7 @@ MEDIT(medit_copy)
     pMob->description = str_dup(pMob2->description);
 
     /* Hopefully get the shop data to copy later * This is the fields here if you get it copying send me * a copy and I'll add it to the snippet with credit to * you of course :) same with the mobprogs for loop :) */ /* if ( pMob->pShop ) { SHOP_DATA *pShop, *pShop2; pShop = pMob->pShop; pShop2 = pMob2->pShop; pShop->profit_buy = pShop2->profit_buy; pShop->profit_sell = pShop2->profit_sell; pShop->open_hour = pShop2->open_hour; pShop->close_hour = pShop2->close_hour; pShop->buy_type[iTrade] = pShop2->buy_type[iTrade]; } */ /* for loop thanks to Ivan, still needs work though for (list = pMob->mprogs; list; list = list->next ) { MPROG_LIST *newp = new_mprog(); newp->trig_type = list->trig_type; free_string( newp->trig_phrase ); newp->trig_phrase = str_dup( list->trig_phrase ); newp->vnum = list->vnum; free_string( newp->code ) newp->code = str_dup( list->code ); pMob->mprogs = newp; } */
-    send_to_char("Mob info copied.\n\r", ch);
+    send_to_char("Mob info copied.\r\n", ch);
     return FALSE;
 }
 
@@ -5274,10 +5274,10 @@ HEDIT(hedit_show)
 
     EDIT_HELP(ch, help);
 
-    sprintf(buf, "Keyword : [%s]\n\r"
-        "Level   : [%d]\n\r"
-        "Text    :\n\r"
-        "%s-END-\n\r", help->keyword, help->level, help->text);
+    sprintf(buf, "Keyword : [%s]\r\n"
+        "Level   : [%d]\r\n"
+        "Text    :\r\n"
+        "%s-END-\r\n", help->keyword, help->level, help->text);
     send_to_char(buf, ch);
 
     return FALSE;
@@ -5292,7 +5292,7 @@ HEDIT(hedit_level)
 
     if (IS_NULLSTR(argument) || !is_number(argument))
     {
-        send_to_char("Syntax: level [-1..MAX_LEVEL]\n\r", ch);
+        send_to_char("Syntax: level [-1..MAX_LEVEL]\r\n", ch);
         return FALSE;
     }
 
@@ -5300,13 +5300,13 @@ HEDIT(hedit_level)
 
     if (lev < -1 || lev > MAX_LEVEL)
     {
-        printf_to_char(ch, "HEdit : levels are between -1 and %d inclusive.\n\r",
+        printf_to_char(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
             MAX_LEVEL);
         return FALSE;
     }
 
     help->level = lev;
-    send_to_char("Ok.\n\r", ch);
+    send_to_char("Ok.\r\n", ch);
     return TRUE;
 }
 
@@ -5318,14 +5318,14 @@ HEDIT(hedit_keyword)
 
     if (IS_NULLSTR(argument))
     {
-        send_to_char("Syntax: keyword [keywords]\n\r", ch);
+        send_to_char("Syntax: keyword [keywords]\r\n", ch);
         return FALSE;
     }
 
     free_string(help->keyword);
     help->keyword = str_dup(argument);
 
-    send_to_char("Ok.\n\r", ch);
+    send_to_char("Ok.\r\n", ch);
     return TRUE;
 }
 
@@ -5338,8 +5338,8 @@ HEDIT(hedit_new)
 
     if (IS_NULLSTR(argument))
     {
-        send_to_char("Syntax: new [name]\n\r", ch);
-        send_to_char("         new [area] [name]\n\r", ch);
+        send_to_char("Syntax: new [name]\r\n", ch);
+        send_to_char("         new [area] [name]\r\n", ch);
         return FALSE;
     }
 
@@ -5354,7 +5354,7 @@ HEDIT(hedit_new)
 
     if (help_lookup(argument))
     {
-        send_to_char("HEdit : help exists.\n\r", ch);
+        send_to_char("HEdit : help exists.\r\n", ch);
         return FALSE;
     }
 
@@ -5398,7 +5398,7 @@ HEDIT(hedit_new)
     ch->desc->pEdit = (HELP_DATA *)help;
     ch->desc->editor = ED_HELP;
 
-    send_to_char("Ok.\n\r", ch);
+    send_to_char("Ok.\r\n", ch);
     return FALSE;
 }
 
@@ -5410,7 +5410,7 @@ HEDIT(hedit_text)
 
     if (!IS_NULLSTR(argument))
     {
-        send_to_char("Syntax: text\n\r", ch);
+        send_to_char("Syntax: text\r\n", ch);
         return FALSE;
     }
 
@@ -5444,7 +5444,7 @@ void hedit(CHAR_DATA * ch, char *argument)
 
     if (ch->pcdata->security < 9)
     {
-        send_to_char("HEdit: Insufficient security to edit helps.\n\r",
+        send_to_char("HEdit: Insufficient security to edit helps.\r\n",
             ch);
         edit_done(ch);
         return;
@@ -5487,7 +5487,7 @@ return;
 
 if ((pHelp = help_lookup (argument)) == NULL)
 {
-send_to_char ("HEdit : Help doesn't exist.\n\r", ch);
+send_to_char ("HEdit : Help doesn't exist.\r\n", ch);
 return;
 }
 
@@ -5537,7 +5537,7 @@ void do_hedit(CHAR_DATA *ch, char *argument)
         {
             if (argument[0] == '\0')
             {
-                send_to_char("Syntax: edit help new [topic]\n\r", ch);
+                send_to_char("Syntax: edit help new [topic]\r\n", ch);
                 return;
             }
             if (hedit_new(ch, argument))
@@ -5545,7 +5545,7 @@ void do_hedit(CHAR_DATA *ch, char *argument)
             return;
         }
     }
-    send_to_char("HEdit:  There is no default help to edit.\n\r", ch);
+    send_to_char("HEdit:  There is no default help to edit.\r\n", ch);
     return;
 }
 
@@ -5610,7 +5610,7 @@ HEDIT(hedit_delete)
 
     free_help(pHelp);
 
-    send_to_char("Ok.\n\r", ch);
+    send_to_char("Ok.\r\n", ch);
     return TRUE;
 }
 
@@ -5630,13 +5630,13 @@ HEDIT(hedit_list)
         for (pHelp = help_first; pHelp; pHelp = pHelp->next)
         {
             sprintf(buf, "%3d. %-14.14s%s", cnt, pHelp->keyword,
-                cnt % 4 == 3 ? "\n\r" : " ");
+                cnt % 4 == 3 ? "\r\n" : " ");
             add_buf(buffer, buf);
             cnt++;
         }
 
         if (cnt % 4)
-            add_buf(buffer, "\n\r");
+            add_buf(buffer, "\r\n");
 
         page_to_char(buf_string(buffer), ch);
         return FALSE;
@@ -5646,7 +5646,7 @@ HEDIT(hedit_list)
     {
         if (ch->in_room->area->helps == NULL)
         {
-            send_to_char("No helps in this area.\n\r", ch);
+            send_to_char("No helps in this area.\r\n", ch);
             return FALSE;
         }
 
@@ -5656,13 +5656,13 @@ HEDIT(hedit_list)
             pHelp = pHelp->next_area)
         {
             sprintf(buf, "%3d. %-14.14s%s", cnt, pHelp->keyword,
-                cnt % 4 == 3 ? "\n\r" : " ");
+                cnt % 4 == 3 ? "\r\n" : " ");
             add_buf(buffer, buf);
             cnt++;
         }
 
         if (cnt % 4)
-            add_buf(buffer, "\n\r");
+            add_buf(buffer, "\r\n");
 
         page_to_char(buf_string(buffer), ch);
         return FALSE;
@@ -5670,8 +5670,8 @@ HEDIT(hedit_list)
 
     if (IS_NULLSTR(argument))
     {
-        send_to_char("Syntax: list all\n\r", ch);
-        send_to_char("        list area\n\r", ch);
+        send_to_char("Syntax: list all\r\n", ch);
+        send_to_char("        list area\r\n", ch);
         return FALSE;
     }
 
@@ -5721,7 +5721,7 @@ void mpedit(CHAR_DATA * ch, char *argument)
 
         if (!IS_BUILDER(ch, ad))
         {
-            send_to_char("MPEdit: Insufficient security to modify code.\n\r",
+            send_to_char("MPEdit: Insufficient security to modify code.\r\n",
                 ch);
             edit_done(ch);
             return;
@@ -5770,7 +5770,7 @@ void do_mpedit(CHAR_DATA * ch, char *argument)
 
         if ((pMcode = get_mprog_index(vnum)) == NULL)
         {
-            send_to_char("MPEdit : That vnum does not exist.\n\r", ch);
+            send_to_char("MPEdit : That vnum does not exist.\r\n", ch);
             return;
         }
 
@@ -5778,14 +5778,14 @@ void do_mpedit(CHAR_DATA * ch, char *argument)
 
         if (ad == NULL)
         {
-            send_to_char("MPEdit : VNUM not assigned to any area.\n\r", ch);
+            send_to_char("MPEdit : VNUM not assigned to any area.\r\n", ch);
             return;
         }
 
         if (!IS_BUILDER(ch, ad))
         {
             send_to_char
-                ("MPEdit : Insufficient security to edit area.\n\r", ch);
+                ("MPEdit : Insufficient security to edit area.\r\n", ch);
             return;
         }
 
@@ -5799,7 +5799,7 @@ void do_mpedit(CHAR_DATA * ch, char *argument)
     {
         if (argument[0] == '\0')
         {
-            send_to_char("Syntax : mpedit create [vnum]\n\r", ch);
+            send_to_char("Syntax : mpedit create [vnum]\r\n", ch);
             return;
         }
 
@@ -5807,8 +5807,8 @@ void do_mpedit(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    send_to_char("Syntax : mpedit [vnum]\n\r", ch);
-    send_to_char("           mpedit create [vnum]\n\r", ch);
+    send_to_char("Syntax : mpedit [vnum]\r\n", ch);
+    send_to_char("           mpedit create [vnum]\r\n", ch);
 
     return;
 }
@@ -5821,7 +5821,7 @@ MPEDIT(mpedit_create)
 
     if (IS_NULLSTR(argument) || value < 1)
     {
-        send_to_char("Syntax : mpedit create [vnum]\n\r", ch);
+        send_to_char("Syntax : mpedit create [vnum]\r\n", ch);
         return FALSE;
     }
 
@@ -5829,20 +5829,20 @@ MPEDIT(mpedit_create)
 
     if (ad == NULL)
     {
-        send_to_char("MPEdit : VNUM not assigned to an area.\n\r", ch);
+        send_to_char("MPEdit : VNUM not assigned to an area.\r\n", ch);
         return FALSE;
     }
 
     if (!IS_BUILDER(ch, ad))
     {
         send_to_char
-            ("MPEdit : Insufficient seucrity to edit MobProgs.\n\r", ch);
+            ("MPEdit : Insufficient seucrity to edit MobProgs.\r\n", ch);
         return FALSE;
     }
 
     if (get_mprog_index(value))
     {
-        send_to_char("MPEdit: Code vnum already exists.\n\r", ch);
+        send_to_char("MPEdit: Code vnum already exists.\r\n", ch);
         return FALSE;
     }
 
@@ -5853,7 +5853,7 @@ MPEDIT(mpedit_create)
     ch->desc->pEdit = (void *)pMcode;
     ch->desc->editor = ED_MPCODE;
 
-    send_to_char("MobProgram Code Created.\n\r", ch);
+    send_to_char("MobProgram Code Created.\r\n", ch);
 
     return TRUE;
 }
@@ -5866,8 +5866,8 @@ MPEDIT(mpedit_show)
     EDIT_MPCODE(ch, pMcode);
 
     sprintf(buf,
-        "Vnum:       [%d]\n\r"
-        "Code:\n\r%s\n\r", pMcode->vnum, pMcode->code);
+        "Vnum:       [%d]\r\n"
+        "Code:\r\n%s\r\n", pMcode->vnum, pMcode->code);
     send_to_char(buf, ch);
 
     return FALSE;
@@ -5884,7 +5884,7 @@ MPEDIT(mpedit_code)
         return TRUE;
     }
 
-    send_to_char("Syntax: code\n\r", ch);
+    send_to_char("Syntax: code\r\n", ch);
     return FALSE;
 }
 
@@ -5914,7 +5914,7 @@ MPEDIT(mpedit_list)
             else
                 blah = ' ';
 
-            sprintf(buf, "[%3d] (%c) %5d\n\r", count, blah, mprg->vnum);
+            sprintf(buf, "[%3d] (%c) %5d\r\n", count, blah, mprg->vnum);
             add_buf(buffer, buf);
 
             count++;
@@ -5923,9 +5923,9 @@ MPEDIT(mpedit_list)
     if (count == 1)
     {
         if (fAll)
-            add_buf(buffer, "MobPrograms do not exist!\n\r");
+            add_buf(buffer, "MobPrograms do not exist!\r\n");
         else
-            add_buf(buffer, "MobPrograms do not exist in this area.\n\r");
+            add_buf(buffer, "MobPrograms do not exist in this area.\r\n");
     }
 
     page_to_char(buf_string(buffer), ch);
@@ -5947,7 +5947,7 @@ REDIT(aedit_continent) {
     }
 
     pArea->continent = continent_lookup(argument);
-    sprintf(buf, "Continent set to %s.\n\r", continent_table[pArea->continent].name);
+    sprintf(buf, "Continent set to %s.\r\n", continent_table[pArea->continent].name);
     send_to_char(buf,ch);
     return TRUE;
 } // end REDIT(aedit_continent)
@@ -5961,7 +5961,7 @@ bool gedit_show( CHAR_DATA *ch, char *argument )
 
     EDIT_GROUP(ch, group);
 
-    sprintf( buf, "\n\rName:         [%s]\n\r\n\r",group->name);
+    sprintf( buf, "\r\nName:         [%s]\r\n\r\n",group->name);
     send_to_char(buf, ch);
 
     for(x =0; x <= fact; x++)
@@ -5972,20 +5972,20 @@ bool gedit_show( CHAR_DATA *ch, char *argument )
 	send_to_char(buf,ch);
 	if (x+((fact+1)*2) < MAX_IN_GROUP)
 	{
-	    sprintf(buf,"%2d) [%-15.15s]\n\r",x+((fact+1)*2),group->spells[x+((fact+1)*2)] ? group->spells[x+((fact+1)*2)] : "None" );
+	    sprintf(buf,"%2d) [%-15.15s]\r\n",x+((fact+1)*2),group->spells[x+((fact+1)*2)] ? group->spells[x+((fact+1)*2)] : "None" );
 	    send_to_char(buf,ch); 
 	}
 	else
 	{
-	    send_to_char("\n\r",ch);
+	    send_to_char("\r\n",ch);
 	}
     }
 
 
-    sprintf( buf,"\n\rClass         Rating  Class         Rating\n\r");
+    sprintf( buf,"\r\nClass         Rating  Class         Rating\r\n");
     send_to_char(buf, ch);
 
-    sprintf( buf, "--------------------------------------------------------\n\r");
+    sprintf( buf, "--------------------------------------------------------\r\n");
     send_to_char(buf, ch);
 
     for(class =0; class < top_class; class++)
@@ -5997,11 +5997,11 @@ bool gedit_show( CHAR_DATA *ch, char *argument )
 	}
 	else
 	{
-	     strcat(buf,"\n\r");
+	     strcat(buf,"\r\n");
 	}
 	send_to_char(buf,ch);
     }
-    send_to_char("\n\r",ch);
+    send_to_char("\r\n",ch);
 
     return TRUE;
 }
@@ -6015,19 +6015,19 @@ GEDIT( gedit_create)
 
     if ( argument[0] == '\0' )
     {
-	send_to_char( "Syntax:  edit group create group_name\n\r", ch );
+	send_to_char( "Syntax:  edit group create group_name\r\n", ch );
 	return FALSE;
     }
 
     if (gn != -1)
     {
-	send_to_char( "GEdit:  group already exists.\n\r", ch );
+	send_to_char( "GEdit:  group already exists.\r\n", ch );
 	return FALSE;
     }
 
     if (top_group + 1 >= MAX_GROUP)
     {
-	send_to_char("MAX_GROUP Exceeded, please increae the MAX_GROUP in merc.h\n\r",ch);
+	send_to_char("MAX_GROUP Exceeded, please increae the MAX_GROUP in merc.h\r\n",ch);
 	return FALSE;
     }
 
@@ -6040,7 +6040,7 @@ GEDIT( gedit_create)
     group_table[top_group] = group;
     ch->desc->pEdit = (void *)group;
     top_group++;
-    send_to_char( "Group Created.\n\r", ch );
+    send_to_char( "Group Created.\r\n", ch );
     return TRUE;
 }
 
@@ -6061,7 +6061,7 @@ GEDIT( gedit_add)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  add [#] group/skill\n\r", ch );
+        send_to_char( "Syntax:  add [#] group/skill\r\n", ch );
         return FALSE;
     }
 
@@ -6070,7 +6070,7 @@ GEDIT( gedit_add)
 
     if (!is_number(arg1) || !argument || argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  add [#] group/skill\n\r", ch );
+        send_to_char( "Syntax:  add [#] group/skill\r\n", ch );
         return FALSE;
     }
 
@@ -6086,11 +6086,11 @@ GEDIT( gedit_add)
     }
     else
     {
-        sprintf(buf,"%s doesn't exist.\n\r",argument);
+        sprintf(buf,"%s doesn't exist.\r\n",argument);
         send_to_char(buf, ch);
         return FALSE;
     }
-    send_to_char("Ok.\n\r",ch);
+    send_to_char("Ok.\r\n",ch);
     return TRUE;
 }
 
@@ -6104,7 +6104,7 @@ GEDIT( gedit_del)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  del [#]\n\r", ch );
+        send_to_char( "Syntax:  del [#]\r\n", ch );
         return FALSE;
     }
 
@@ -6113,13 +6113,13 @@ GEDIT( gedit_del)
 
     if (!is_number(arg1))
     {
-        send_to_char( "Syntax:  del [#]\n\r", ch );
+        send_to_char( "Syntax:  del [#]\r\n", ch );
      	return FALSE;
     }
 
     free_string(group->spells[num]);
     group->spells[num] = '\0';
-    send_to_char("Ok.\n\r",ch);
+    send_to_char("Ok.\r\n",ch);
 
     return TRUE;
 }
@@ -6132,7 +6132,7 @@ GEDIT( gedit_name)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  name [string]\n\r", ch );
+        send_to_char( "Syntax:  name [string]\r\n", ch );
         return FALSE;
     }
 
@@ -6140,7 +6140,7 @@ GEDIT( gedit_name)
     group->name = str_dup( argument );
     group->name[0] = LOWER(group->name[0]);
 
-    send_to_char( "Name set.\n\r", ch);
+    send_to_char( "Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -6156,7 +6156,7 @@ GEDIT( gedit_rating)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        send_to_char( "Syntax:  rating class [#]\r\n", ch );
         return FALSE;
     }
 
@@ -6166,7 +6166,7 @@ GEDIT( gedit_rating)
 
     if (!is_number(arg1))
     {
-        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        send_to_char( "Syntax:  rating class [#]\r\n", ch );
      	return FALSE;
     }
 
@@ -6181,7 +6181,7 @@ GEDIT( gedit_rating)
        group->rating[class_no] = rating;
      }
 
-       sprintf (buf, "OK, Cost set at %d for all classes.\n\r", rating);
+       sprintf (buf, "OK, Cost set at %d for all classes.\r\n", rating);
        send_to_char(buf, ch);
    }
    else
@@ -6193,12 +6193,12 @@ GEDIT( gedit_rating)
 
     if (class_no >= top_class)
     {
-   	sprintf (buf, "No class named '%s' exists.\n\r", class_name);
+   	sprintf (buf, "No class named '%s' exists.\r\n", class_name);
         send_to_char(buf, ch);
       	return FALSE;
     }
        group->rating[class_no] = rating;
-       sprintf (buf, "OK, %s will now cost %d for %s.\n\r", group->name, rating,class_table[class_no]->name);
+       sprintf (buf, "OK, %s will now cost %d for %s.\r\n", group->name, rating,class_table[class_no]->name);
        send_to_char(buf, ch);
    }
 
@@ -6213,7 +6213,7 @@ CEDIT( cedit_name )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  name [string]\n\r", ch );
+        send_to_char( "Syntax:  name [string]\r\n", ch );
         return FALSE;
     }
 
@@ -6221,7 +6221,7 @@ CEDIT( cedit_name )
     class->name = str_dup(argument);
     class->name[0] = LOWER(class->name[0]);
 
-    send_to_char( "Name set.\n\r", ch);
+    send_to_char( "Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -6233,20 +6233,20 @@ CEDIT( cedit_whoname )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  whoname [string]\n\r", ch );
+        send_to_char( "Syntax:  whoname [string]\r\n", ch );
         return FALSE;
     }
 
     if (strlen(argument) > 4)
     {
-	send_to_char( "Who name must be 3 characters or less.\n\r",ch);
+	send_to_char( "Who name must be 3 characters or less.\r\n",ch);
 	return FALSE;
     }
 
     class->who_name[0] = '\0';
     strcpy(class->who_name,argument);
 
-    send_to_char( "Name set.\n\r", ch);
+    send_to_char( "Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -6264,12 +6264,12 @@ CEDIT( cedit_attrprime )
         {
             class->attr_prime = value;
 
-            send_to_char( "Prime Attribute set.\n\r", ch);
+            send_to_char( "Prime Attribute set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  attrprime [attr]\n\r", ch);
+    send_to_char( "Syntax:  attrprime [attr]\r\n", ch);
     return FALSE;
 }
 
@@ -6282,13 +6282,13 @@ CEDIT( cedit_weapon )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  weapon [vnum]\n\r", ch );
+	send_to_char( "Syntax:  weapon [vnum]\r\n", ch );
 	return FALSE;
     }
 
     class->weapon = atoi( argument );
 
-    send_to_char( "Weapon vnum set.\n\r", ch);
+    send_to_char( "Weapon vnum set.\r\n", ch);
     return TRUE;
 }
 
@@ -6301,13 +6301,13 @@ CEDIT( cedit_skilladept )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  skilladept [number]\n\r", ch );
+	send_to_char( "Syntax:  skilladept [number]\r\n", ch );
 	return FALSE;
     }
 
     class->skill_adept = atoi( argument );
 
-    send_to_char( "Skill Adept set.\n\r", ch);
+    send_to_char( "Skill Adept set.\r\n", ch);
     return TRUE;
 }
 
@@ -6320,13 +6320,13 @@ CEDIT( cedit_thac0 )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  thac0 [number]\n\r", ch );
+	send_to_char( "Syntax:  thac0 [number]\r\n", ch );
 	return FALSE;
     }
 
     class->thac0_00 = atoi( argument );
 
-    send_to_char( "Thac0 set.\n\r", ch);
+    send_to_char( "Thac0 set.\r\n", ch);
     return TRUE;
 }
 
@@ -6339,13 +6339,13 @@ CEDIT( cedit_thac32 )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  thac32 [number]\n\r", ch );
+	send_to_char( "Syntax:  thac32 [number]\r\n", ch );
 	return FALSE;
     }
 
     class->thac0_32 = atoi( argument );
 
-    send_to_char( "Thac32 set.\n\r", ch);
+    send_to_char( "Thac32 set.\r\n", ch);
     return TRUE;
 }
 
@@ -6358,13 +6358,13 @@ CEDIT( cedit_hpmin )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  hpmin [number]\n\r", ch );
+	send_to_char( "Syntax:  hpmin [number]\r\n", ch );
 	return FALSE;
     }
 
     class->hp_min = atoi( argument );
 
-    send_to_char( "HP Min set.\n\r", ch);
+    send_to_char( "HP Min set.\r\n", ch);
     return TRUE;
 }
 
@@ -6377,13 +6377,13 @@ CEDIT( cedit_hpmax )
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-	send_to_char( "Syntax:  hpmax [number]\n\r", ch );
+	send_to_char( "Syntax:  hpmax [number]\r\n", ch );
 	return FALSE;
     }
 
     class->hp_max = atoi( argument );
 
-    send_to_char( "HP Max set.\n\r", ch);
+    send_to_char( "HP Max set.\r\n", ch);
     return TRUE;
 }
 
@@ -6396,7 +6396,7 @@ CEDIT( cedit_mana )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
@@ -6410,11 +6410,11 @@ CEDIT( cedit_mana )
     }
     else
     {
-        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
-    send_to_char( "Mana set.\n\r", ch);
+    send_to_char( "Mana set.\r\n", ch);
     return TRUE;
 }
 
@@ -6426,7 +6426,7 @@ CEDIT( cedit_isreclass )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
@@ -6440,11 +6440,11 @@ CEDIT( cedit_isreclass )
     }
     else
     {
-        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
-    send_to_char( "Reclass flag set.\n\r", ch);
+    send_to_char( "Reclass flag set.\r\n", ch);
     return TRUE;
 
 }
@@ -6459,7 +6459,7 @@ CEDIT( cedit_isreclass )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  mana [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  mana [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
@@ -6473,11 +6473,11 @@ CEDIT( cedit_isreclass )
     }
     else
     {
-        send_to_char( "Syntax:  moon [TRUE/FALSE]\n\r", ch );
+        send_to_char( "Syntax:  moon [TRUE/FALSE]\r\n", ch );
         return FALSE;
     }
 
-    send_to_char( "Moon set.\n\r", ch);
+    send_to_char( "Moon set.\r\n", ch);
     return TRUE;
 }*/
 
@@ -6491,13 +6491,13 @@ CEDIT( cedit_basegroup )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  basegroup group\n\r", ch );
+        send_to_char( "Syntax:  basegroup group\r\n", ch );
         return FALSE;
     }
 
     if ( group_lookup(argument) == -1 )
     {
-	sprintf(buf, "%s doesn't exist.\n\r", argument);
+	sprintf(buf, "%s doesn't exist.\r\n", argument);
         send_to_char(buf, ch);
 	return FALSE;
     }
@@ -6518,13 +6518,13 @@ CEDIT( cedit_defgroup )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  defaultgroup group\n\r", ch );
+        send_to_char( "Syntax:  defaultgroup group\r\n", ch );
         return FALSE;
     }
 
     if (group_lookup(argument) == -1 )
     {
-	sprintf(buf, "%s doesn't exist.\n\r", argument);
+	sprintf(buf, "%s doesn't exist.\r\n", argument);
         send_to_char(buf, ch);
 	return FALSE;
     }
@@ -6545,19 +6545,19 @@ CEDIT( cedit_create )
 
     if ( argument[0] == '\0' )
     {
-	send_to_char( "Syntax:  edit class create group_name\n\r", ch );
+	send_to_char( "Syntax:  edit class create group_name\r\n", ch );
 	return FALSE;
     }
 
     if (cl != -1)
     {
-	send_to_char( "CEdit:  group already exists.\n\r", ch );
+	send_to_char( "CEdit:  group already exists.\r\n", ch );
 	return FALSE;
     }
 
     if (top_class+1 >= MAX_CLASS)
     {
-	send_to_char("MAX_CLASS Exceeded, please increae the MAX_CLASS in merc.h\n\r",ch);
+	send_to_char("MAX_CLASS Exceeded, please increae the MAX_CLASS in merc.h\r\n",ch);
 	return FALSE;
     }
 
@@ -6588,7 +6588,7 @@ CEDIT( cedit_create )
 	pc_race_table[x].class_mult[top_class] = 100;
     }
     top_class++;
-    send_to_char( "Class Created.\n\r", ch );
+    send_to_char( "Class Created.\r\n", ch );
     return TRUE;
 }
 
@@ -6602,43 +6602,43 @@ CEDIT( cedit_show )
 
     EDIT_CLASS(ch, class);
 
-    sprintf(buf, "\n\rName:          [%s]\n\r", class->name);
+    sprintf(buf, "\r\nName:          [%s]\r\n", class->name);
     send_to_char(buf, ch);
-    sprintf(buf, "WhoName:       [%s]\n\r", class->who_name);
+    sprintf(buf, "WhoName:       [%s]\r\n", class->who_name);
     send_to_char(buf, ch);
-    sprintf(buf2, "Attr Prime:    [%s]\n\r", flag_string( stat_flags, class->attr_prime));
+    sprintf(buf2, "Attr Prime:    [%s]\r\n", flag_string( stat_flags, class->attr_prime));
     send_to_char(buf2, ch);
-    //sprintf(buf, "Attr Second:   [%s]\n\r", flag_string( stat_flags, class->attr_second));
+    //sprintf(buf, "Attr Second:   [%s]\r\n", flag_string( stat_flags, class->attr_second));
     //send_to_char(buf, ch);
-    sprintf(buf, "Weapon Vnum:   [%d]\n\r", class->weapon);
+    sprintf(buf, "Weapon Vnum:   [%d]\r\n", class->weapon);
     send_to_char(buf, ch);
-    sprintf(buf, "Skill Adept:   [%d]\n\r", class->skill_adept);
+    sprintf(buf, "Skill Adept:   [%d]\r\n", class->skill_adept);
     send_to_char(buf, ch);
-    sprintf(buf, "Thac0_00:      [%d]\n\r", class->thac0_00);
+    sprintf(buf, "Thac0_00:      [%d]\r\n", class->thac0_00);
     send_to_char(buf, ch);
-    sprintf(buf, "Thac0_32:      [%d]\n\r", class->thac0_32);
+    sprintf(buf, "Thac0_32:      [%d]\r\n", class->thac0_32);
     send_to_char(buf, ch);
-    sprintf(buf, "HP Min:        [%d]\n\r", class->hp_min);
+    sprintf(buf, "HP Min:        [%d]\r\n", class->hp_min);
     send_to_char(buf, ch);
-    sprintf(buf, "HP Max:        [%d]\n\r", class->hp_max);
+    sprintf(buf, "HP Max:        [%d]\r\n", class->hp_max);
     send_to_char(buf, ch);
-    sprintf(buf, "Mana:          [%s]\n\r", class->fMana ? "True" : "False");
+    sprintf(buf, "Mana:          [%s]\r\n", class->fMana ? "True" : "False");
     send_to_char(buf, ch);
-    //sprintf(buf, "Moon:          [%s]\n\r",class->fMoon ? "True" : "False");
-    sprintf(buf, "Is Reclass:    [%s]\n\r", class->is_reclass ? "True" : "False");
+    //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
+    sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
     send_to_char(buf, ch);
-    sprintf(buf, "Base Group:    [%s]\n\r", class->base_group);
+    sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);
-    sprintf(buf, "Default Group: [%s]\n\r", class->default_group);
+    sprintf(buf, "Default Group: [%s]\r\n", class->default_group);
     send_to_char(buf, ch);
 
     for (x=0;x< MAX_GUILD;x++)
     {
-    	sprintf(buf, "%d) Guild:      [%d]\n\r", x, class->guild[x]);
+    	sprintf(buf, "%d) Guild:      [%d]\r\n", x, class->guild[x]);
         send_to_char(buf, ch);
     }
 
-    sprintf(buf, "\n\rUse 'skills' and 'spells' to view spells for the %s class.\n\r",  class->name);
+    sprintf(buf, "\r\nUse 'skills' and 'spells' to view spells for the %s class.\r\n",  class->name);
     send_to_char(buf, ch);
 
     return FALSE;
@@ -6658,12 +6658,12 @@ CEDIT( cedit_show )
         {
             class->attr_second = value;
 
-            send_to_char( "Second Attribute set.\n\r", ch);
+            send_to_char( "Second Attribute set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  attrsecond [attr]\n\r", ch);
+    send_to_char( "Syntax:  attrsecond [attr]\r\n", ch);
     return FALSE;
 }*/
 
@@ -6678,7 +6678,7 @@ CEDIT(cedit_guild)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  guild [#] Room_Vnum\n\r", ch );
+        send_to_char( "Syntax:  guild [#] Room_Vnum\r\n", ch );
         return FALSE;
     }
 
@@ -6689,13 +6689,13 @@ CEDIT(cedit_guild)
 
     if (!is_number(arg1) || !is_number(arg2) == '\0' )
     {
-        send_to_char( "Syntax:  guild [#] Room_Vnum\n\r", ch );
+        send_to_char( "Syntax:  guild [#] Room_Vnum\r\n", ch );
      	return FALSE;
     }
 
     if (num > MAX_GUILD)
     {
-	send_to_char("MAX_GUILD exceded, please increase MAX_GUILD in merc.h\n\r",ch);
+	send_to_char("MAX_GUILD exceded, please increase MAX_GUILD in merc.h\r\n",ch);
 	return FALSE;
     }
 
@@ -6729,14 +6729,14 @@ CEDIT( cedit_skills)
             argument = one_argument(argument,arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\n\r",ch);
+                send_to_char("Arguments must be numerical or all.\r\n",ch);
                 return FALSE;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf,"Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                sprintf(buf,"Levels must be between 1 and %d.\r\n",LEVEL_HERO);
                 send_to_char(buf,ch);
                 return FALSE;
             }
@@ -6746,7 +6746,7 @@ CEDIT( cedit_skills)
                 argument = one_argument(argument,arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\n\r",ch);
+                    send_to_char("Arguments must be numerical or all.\r\n",ch);
                     return FALSE;
                 }
                 min_lev = max_lev;
@@ -6755,14 +6755,14 @@ CEDIT( cedit_skills)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf(buf,
-                        "Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                        "Levels must be between 1 and %d.\r\n",LEVEL_HERO);
                     send_to_char(buf,ch);
                     return FALSE;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\n\r",ch);
+                    send_to_char("That would be silly.\r\n",ch);
                     return FALSE;
                 }
             }
@@ -6790,11 +6790,11 @@ CEDIT( cedit_skills)
                 sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
-                sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
+                sprintf(skill_list[level],"\r\nLevel %2d: %s",level,buf);
             else /* append */
             {
                 if ( ++skill_columns[level] % 2 == 0)
-                    strcat(skill_list[level],"\n\r          ");
+                    strcat(skill_list[level],"\r\n          ");
                 strcat(skill_list[level],buf);
             }
         }
@@ -6804,7 +6804,7 @@ CEDIT( cedit_skills)
 
     if (!found)
     {
-        send_to_char("No skills found.\n\r",ch);
+        send_to_char("No skills found.\r\n",ch);
         return FALSE;
     }
 
@@ -6812,7 +6812,7 @@ CEDIT( cedit_skills)
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (skill_list[level][0] != '\0')
             add_buf(buffer,skill_list[level]);
-    add_buf(buffer,"\n\r");
+    add_buf(buffer,"\r\n");
     page_to_char(buf_string(buffer),ch);
     free_buf(buffer);
     return FALSE;
@@ -6843,14 +6843,14 @@ CEDIT( cedit_spells)
             argument = one_argument(argument,arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\n\r",ch);
+                send_to_char("Arguments must be numerical or all.\r\n",ch);
                 return FALSE;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf,"Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                sprintf(buf,"Levels must be between 1 and %d.\r\n",LEVEL_HERO);
                 send_to_char(buf,ch);
                 return FALSE;
             }
@@ -6860,7 +6860,7 @@ CEDIT( cedit_spells)
                 argument = one_argument(argument,arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\n\r",ch);
+                    send_to_char("Arguments must be numerical or all.\r\n",ch);
                     return FALSE;
                 }
                 min_lev = max_lev;
@@ -6869,14 +6869,14 @@ CEDIT( cedit_spells)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf(buf,
-                        "Levels must be between 1 and %d.\n\r",LEVEL_HERO);
+                        "Levels must be between 1 and %d.\r\n",LEVEL_HERO);
                     send_to_char(buf,ch);
                     return FALSE;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\n\r",ch);
+                    send_to_char("That would be silly.\r\n",ch);
                     return FALSE;
                 }
             }
@@ -6905,11 +6905,11 @@ CEDIT( cedit_spells)
                 sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
-                sprintf(skill_list[level],"\n\rLevel %2d: %s",level,buf);
+                sprintf(skill_list[level],"\r\nLevel %2d: %s",level,buf);
             else /* append */
             {
                 if ( ++skill_columns[level] % 2 == 0)
-                    strcat(skill_list[level],"\n\r          ");
+                    strcat(skill_list[level],"\r\n          ");
                 strcat(skill_list[level],buf);
             }
         }
@@ -6919,7 +6919,7 @@ CEDIT( cedit_spells)
 
     if (!found)
     {
-        send_to_char("No skills found.\n\r",ch);
+        send_to_char("No skills found.\r\n",ch);
         return FALSE;
     }
 
@@ -6927,7 +6927,7 @@ CEDIT( cedit_spells)
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (skill_list[level][0] != '\0')
             add_buf(buffer,skill_list[level]);
-    add_buf(buffer,"\n\r");
+    add_buf(buffer,"\r\n");
     page_to_char(buf_string(buffer),ch);
     free_buf(buffer);
     return FALSE;
@@ -6959,11 +6959,11 @@ CEDIT( cedit_groups)
 		sprintf(buf,"%-20s ",group_table[gn]->name);
 		send_to_char(buf,ch);
 		if (++col % 3 == 0)
-		    send_to_char("\n\r",ch);
+		    send_to_char("\r\n",ch);
 	    }
         }
         if ( col % 3 != 0 )
-            send_to_char( "\n\r", ch );
+            send_to_char( "\r\n", ch );
 	return TRUE;
      }
 
@@ -6972,14 +6972,14 @@ CEDIT( cedit_groups)
 
      if (gn == -1)
      {
-	send_to_char("No group of that name exist.\n\r",ch);
-	send_to_char("Type 'groups all' or 'info all' for a full listing.\n\r",ch);
+	send_to_char("No group of that name exist.\r\n",ch);
+	send_to_char("Type 'groups all' or 'info all' for a full listing.\r\n",ch);
 	return FALSE;
      }
 
      if (group_table[gn]->rating[class_no] < 0) gn = -1;
      {
-         send_to_char("That roup doesn't exist for this class.\n\r", ch);
+         send_to_char("That roup doesn't exist for this class.\r\n", ch);
          return FALSE;
      }
 
@@ -6996,10 +6996,10 @@ CEDIT( cedit_groups)
 	sprintf(buf,"%-20s ",group_table[gn]->spells[sn]);
 	send_to_char(buf,ch);
 	if (++col % 3 == 0)
-	    send_to_char("\n\r",ch);
+	    send_to_char("\r\n",ch);
      }
     if ( col % 3 != 0 )
-        send_to_char( "\n\r", ch );
+        send_to_char( "\r\n", ch );
     return TRUE;
 }
 
@@ -7017,19 +7017,19 @@ SEDIT( sedit_create )
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  edit skill create skill_name\n\r", ch );
+        send_to_char( "Syntax:  edit skill create skill_name\r\n", ch );
         return FALSE;
     }
 
     if (sn != -1)
     {
-        send_to_char( "SEdit:  Skill already exists.\n\r", ch );
+        send_to_char( "SEdit:  Skill already exists.\r\n", ch );
         return FALSE;
     }
 
     if (top_sn+1 >= MAX_SKILL)
     {
-        send_to_char("MAX_SKILL Exceeded, please increae the MAX_SKILL in merc.h\n\r",ch);
+        send_to_char("MAX_SKILL Exceeded, please increae the MAX_SKILL in merc.h\r\n",ch);
         return FALSE;
     }
 
@@ -7054,7 +7054,7 @@ SEDIT( sedit_create )
 
     ch->desc->pEdit = (void *)skill;
     top_sn++;
-    send_to_char( "Skill Created.\n\r", ch );
+    send_to_char( "Skill Created.\r\n", ch );
     return TRUE;
 }
 
@@ -7066,47 +7066,47 @@ SEDIT( sedit_show)
 
     EDIT_SKILL(ch, skill);
 
-    sprintf(buf, "\n\rName:         [%s]\n\r", skill->name);
+    sprintf(buf, "\r\nName:         [%s]\r\n", skill->name);
     send_to_char(buf, ch);
 
-    sprintf(buf, "SpellFun:     [%s]\n\r", spell_name_lookup(skill->spell_fun));
+    sprintf(buf, "SpellFun:     [%s]\r\n", spell_name_lookup(skill->spell_fun));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Target:       [%s]\n\r", flag_string( target_flags, skill->target));
+    sprintf(buf, "Target:       [%s]\r\n", flag_string( target_flags, skill->target));
     send_to_char(buf, ch);
 
-    sprintf(buf, "MinPos:       [%s]\n\r", flag_string( position_flags, skill->minimum_position ));
+    sprintf(buf, "MinPos:       [%s]\r\n", flag_string( position_flags, skill->minimum_position ));
     send_to_char(buf, ch);
 
-    sprintf(buf, "MinMana:      [%d]\n\r", skill->min_mana);
+    sprintf(buf, "MinMana:      [%d]\r\n", skill->min_mana);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Beats:        [%d]\n\r", skill->beats);
+    sprintf(buf, "Beats:        [%d]\r\n", skill->beats);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Damage:       [%s]\n\r", skill->noun_damage);
+    sprintf(buf, "Damage:       [%s]\r\n", skill->noun_damage);
     send_to_char(buf, ch);
 
-    sprintf(buf, "MsgOff:       [%s]\n\r", skill->msg_off);
+    sprintf(buf, "MsgOff:       [%s]\r\n", skill->msg_off);
     send_to_char(buf, ch);
 
-    sprintf(buf, "MsgObj:       [%s]\n\r", skill->msg_obj);
+    sprintf(buf, "MsgObj:       [%s]\r\n", skill->msg_obj);
     send_to_char(buf, ch);
 
     if (skill->race == 0)
     {
-        sprintf(buf, "Race:         [none]\n\r");
+        sprintf(buf, "Race:         [none]\r\n");
         send_to_char(buf, ch);
     }
     else
     {
-        sprintf(buf, "Race:         [%s]\n\r", pc_race_table[skill->race].name);
+        sprintf(buf, "Race:         [%s]\r\n", pc_race_table[skill->race].name);
         send_to_char(buf, ch);
     }
 
 
-    send_to_char("\n\rClass         Level  Rating  Class         Level  Rating\n\r", ch);
-    send_to_char("--------------------------------------------------------\n\r", ch);
+    send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
+    send_to_char("--------------------------------------------------------\r\n", ch);
 
     for(class = 0; class < top_class; class++)
     {
@@ -7117,11 +7117,11 @@ SEDIT( sedit_show)
         }
         else
         {
-             strcat(buf,"\n\r");
+             strcat(buf,"\r\n");
         }
         send_to_char(buf,ch);
     }
-    send_to_char("\n\r",ch);
+    send_to_char("\r\n",ch);
 
     return TRUE;
 }
@@ -7134,14 +7134,14 @@ SEDIT( sedit_name)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  name [string]\n\r", ch );
+        send_to_char( "Syntax:  name [string]\r\n", ch );
         return FALSE;
     }
 
     free_string( skill->name );
     skill->name = str_dup( argument );
 
-    send_to_char( "Name set.\n\r", ch);
+    send_to_char( "Name set.\r\n", ch);
     return TRUE;
 }
 
@@ -7153,7 +7153,7 @@ SEDIT( sedit_damage)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  name [string]\n\r", ch );
+        send_to_char( "Syntax:  name [string]\r\n", ch );
         return FALSE;
     }
 
@@ -7165,7 +7165,7 @@ SEDIT( sedit_damage)
     if ( str_cmp( argument, "clear" ) )
         skill->noun_damage = str_dup( argument );
 
-    send_to_char( "Damage Noun set.\n\r", ch);
+    send_to_char( "Damage Noun set.\r\n", ch);
     return TRUE;
 }
 
@@ -7177,13 +7177,13 @@ SEDIT( sedit_spellfun)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  spellfun [string]\n\r", ch );
+        send_to_char( "Syntax:  spellfun [string]\r\n", ch );
         return FALSE;
     }
 
     skill->spell_fun = spell_function_lookup(argument);
 
-    send_to_char( "Spell function set.\n\r", ch);
+    send_to_char( "Spell function set.\r\n", ch);
     return TRUE;
 }
 
@@ -7200,12 +7200,12 @@ SEDIT( sedit_target)
         {
             skill->target = value;
 
-            send_to_char( "Target set.\n\r", ch);
+            send_to_char( "Target set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  target [flag]\n\r", ch);
+    send_to_char( "Syntax:  target [flag]\r\n", ch);
     return FALSE;
 }
 
@@ -7222,12 +7222,12 @@ SEDIT( sedit_minpos)
         {
             skill->minimum_position = value;
 
-            send_to_char( "Minpos set.\n\r", ch);
+            send_to_char( "Minpos set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  minpos [flag]\n\r", ch);
+    send_to_char( "Syntax:  minpos [flag]\r\n", ch);
     return FALSE;
 }
 
@@ -7239,13 +7239,13 @@ SEDIT( sedit_minmana)
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-        send_to_char( "Syntax:  minmana [number]\n\r", ch );
+        send_to_char( "Syntax:  minmana [number]\r\n", ch );
         return FALSE;
     }
 
     skill->min_mana = atoi( argument );
 
-    send_to_char( "Min Mana set.\n\r", ch);
+    send_to_char( "Min Mana set.\r\n", ch);
     return TRUE;
 }
 
@@ -7257,13 +7257,13 @@ SEDIT( sedit_beats)
 
     if ( argument[0] == '\0' || !is_number( argument ) )
     {
-        send_to_char( "Syntax:  beats [number]\n\r", ch );
+        send_to_char( "Syntax:  beats [number]\r\n", ch );
         return FALSE;
     }
 
     skill->beats = atoi( argument );
 
-    send_to_char( "Beats set.\n\r", ch);
+    send_to_char( "Beats set.\r\n", ch);
     return TRUE;
 }
 
@@ -7275,7 +7275,7 @@ SEDIT( sedit_msgoff)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  msgoff [string/clear]\n\r", ch );
+        send_to_char( "Syntax:  msgoff [string/clear]\r\n", ch );
         return FALSE;
     }
 
@@ -7287,7 +7287,7 @@ SEDIT( sedit_msgoff)
     if ( str_cmp( argument, "clear" ) )
         skill->msg_off = str_dup( argument );
 
-    send_to_char( "Msgoff set.\n\r", ch);
+    send_to_char( "Msgoff set.\r\n", ch);
     return TRUE;
 }
 
@@ -7299,7 +7299,7 @@ SEDIT( sedit_msgobj)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  msgobj [string]\n\r", ch );
+        send_to_char( "Syntax:  msgobj [string]\r\n", ch );
         return FALSE;
     }
 
@@ -7311,7 +7311,7 @@ SEDIT( sedit_msgobj)
     if ( str_cmp( argument, "clear" ) )
         skill->msg_obj = str_dup( argument );
 
-    send_to_char( "Msgobj set.\n\r", ch);
+    send_to_char( "Msgobj set.\r\n", ch);
     return TRUE;
 }
 
@@ -7328,7 +7328,7 @@ SEDIT( sedit_level)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  level class [#]\n\r", ch );
+        send_to_char( "Syntax:  level class [#]\r\n", ch );
         return FALSE;
     }
 
@@ -7340,7 +7340,7 @@ SEDIT( sedit_level)
 
     if (!is_number(arg1) || level < 0 || level > MAX_LEVEL)
     {
-        sprintf(buf, "Level range is from 0 to %d.\n\r", MAX_LEVEL);
+        sprintf(buf, "Level range is from 0 to %d.\r\n", MAX_LEVEL);
         send_to_char(buf, ch);
         return FALSE;
     }
@@ -7353,7 +7353,7 @@ SEDIT( sedit_level)
        skill->rating[class_no] = rating;
      }
 
-       sprintf(buf, "OK, all classes will now gain %s at level %d.\n\r", skill->name, level);
+       sprintf(buf, "OK, all classes will now gain %s at level %d.\r\n", skill->name, level);
        send_to_char(buf, ch);
    }
    else
@@ -7368,7 +7368,7 @@ SEDIT( sedit_level)
 
     if (class_no >= top_class)
     {
-        sprintf(buf, "No class named '%s' exists.\n\r", class_name);
+        sprintf(buf, "No class named '%s' exists.\r\n", class_name);
         send_to_char(buf, ch);
         return FALSE;
     }
@@ -7376,7 +7376,7 @@ SEDIT( sedit_level)
        skill->skill_level[class_no] = level;
        skill->rating[class_no] = rating;
 
-       sprintf(buf, "OK, %s will now gain %s at level %d.\n\r", class_table[class_no]->name, skill->name, level);
+       sprintf(buf, "OK, %s will now gain %s at level %d.\r\n", class_table[class_no]->name, skill->name, level);
        send_to_char(buf, ch);
 
    }
@@ -7396,7 +7396,7 @@ SEDIT( sedit_rating)
 
     if ( argument[0] == '\0' )
     {
-        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        send_to_char( "Syntax:  rating class [#]\r\n", ch );
         return FALSE;
     }
 
@@ -7406,7 +7406,7 @@ SEDIT( sedit_rating)
 
     if (!is_number(arg1))
     {
-        send_to_char( "Syntax:  rating class [#]\n\r", ch );
+        send_to_char( "Syntax:  rating class [#]\r\n", ch );
         return FALSE;
     }
 
@@ -7416,13 +7416,13 @@ SEDIT( sedit_rating)
 
    if (class_no >= top_class)
    {
-        sprintf(buf, "No class named '%s' exists.\n\r", class_name);
+        sprintf(buf, "No class named '%s' exists.\r\n", class_name);
         send_to_char(buf, ch);
         return FALSE;
    }
 
    skill->rating[class_no] = rating;
-   sprintf (buf, "OK, %s will now cost %d for %s.\n\r", class_table[class_no]->name, rating, skill->name);
+   sprintf (buf, "OK, %s will now cost %d for %s.\r\n", class_table[class_no]->name, rating, skill->name);
    send_to_char(buf, ch);
    return TRUE;
 }
@@ -7435,13 +7435,13 @@ SEDIT(sedit_race)
 
     if ( argument[0] == '\0')
     {
-        send_to_char( "Syntax:  race [string]\n\r", ch );
+        send_to_char( "Syntax:  race [string]\r\n", ch );
         return FALSE;
     }
 
     skill->race = race_lookup(argument);
 
-    send_to_char( "Race set.\n\r", ch);
+    send_to_char( "Race set.\r\n", ch);
     return TRUE;
 }
 

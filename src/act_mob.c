@@ -64,7 +64,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
 
     if (mob == NULL)
     {
-        send_to_char("You can't do that here.\n\r", ch);
+        send_to_char("You can't do that here.\r\n", ch);
         return;
     }
 
@@ -74,17 +74,17 @@ void do_heal(CHAR_DATA * ch, char *argument)
     {
         /* display price list */
         act("$N says 'I offer the following spells:'", ch, NULL, mob, TO_CHAR);
-        send_to_char("  light: cure light wounds      10 gold\n\r", ch);
-        send_to_char("  serious: cure serious wounds  15 gold\n\r", ch);
-        send_to_char("  critic: cure critical wounds  25 gold\n\r", ch);
-        send_to_char("  heal: healing spell           50 gold\n\r", ch);
-        send_to_char("  blind: cure blindness         20 gold\n\r", ch);
-        send_to_char("  disease: cure disease         15 gold\n\r", ch);
-        send_to_char("  poison:  cure poison          25 gold\n\r", ch);
-        send_to_char("  uncurse: remove curse         50 gold\n\r", ch);
-        send_to_char("  refresh: restore movement      5 gold\n\r", ch);
-        send_to_char("  mana:  restore mana           10 gold\n\r", ch);
-        send_to_char(" Type heal <type> to be healed.\n\r", ch);
+        send_to_char("  light: cure light wounds      10 gold\r\n", ch);
+        send_to_char("  serious: cure serious wounds  15 gold\r\n", ch);
+        send_to_char("  critic: cure critical wounds  25 gold\r\n", ch);
+        send_to_char("  heal: healing spell           50 gold\r\n", ch);
+        send_to_char("  blind: cure blindness         20 gold\r\n", ch);
+        send_to_char("  disease: cure disease         15 gold\r\n", ch);
+        send_to_char("  poison:  cure poison          25 gold\r\n", ch);
+        send_to_char("  uncurse: remove curse         50 gold\r\n", ch);
+        send_to_char("  refresh: restore movement      5 gold\r\n", ch);
+        send_to_char("  mana:  restore mana           10 gold\r\n", ch);
+        send_to_char(" Type heal <type> to be healed.\r\n", ch);
         return;
     }
 
@@ -192,7 +192,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
     {                            /* restore mana trap...kinda hackish */
         ch->mana += dice(2, 8) + mob->level / 3;
         ch->mana = UMIN(ch->mana, ch->max_mana);
-        send_to_char("A warm glow passes through you.\n\r", ch);
+        send_to_char("A warm glow passes through you.\r\n", ch);
         return;
     }
 
@@ -225,7 +225,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
 
     if ((mob = find_portal_merchant(ch)) == NULL)
     {
-        send_to_char("You must find a portal merchant in order to purchase a portal.\n\r", ch);
+        send_to_char("You must find a portal merchant in order to purchase a portal.\r\n", ch);
         return;
     }
 
@@ -240,7 +240,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     // No argument was sent, send them the list of destinations.
     if (IS_NULLSTR(argument))
     {
-        act("{x$N says '{gI offer the creation of portals to following destinations.{x'\n\r", ch, NULL, mob, TO_CHAR);
+        act("{x$N says '{gI offer the creation of portals to following destinations.{x'\r\n", ch, NULL, mob, TO_CHAR);
 
         // Loop through the destinations for display
         for (x = 0; portal_shop_table[x].name != NULL; x++)
@@ -261,14 +261,14 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
             // To get the : into the formatted string
             sprintf(buf2, "{_%s{x:", portal_shop_table[x].name);
 
-            sprintf(buf, "  %-17s{x {c%-40s{x %d gold\n\r",
+            sprintf(buf, "  %-17s{x {c%-40s{x %d gold\r\n",
                 buf2,
                 get_room_name(portal_shop_table[x].to_vnum),
                 temp_cost);
             send_to_char(buf, ch);
         }
 
-        send_to_char("\n\rType buy <location> to purchase a portal to that destination.\n\r", ch);
+        send_to_char("\r\nType buy <location> to purchase a portal to that destination.\r\n", ch);
         return;
     }
 
@@ -313,7 +313,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     if (roll < get_skill(ch, gsn_haggle))
     {
         cost -= cost / 2 * roll / 100;
-        sprintf(buf, "You haggle the price down to %d coins.\n\r", cost);
+        sprintf(buf, "You haggle the price down to %d coins.\r\n", cost);
         send_to_char(buf, ch);
         check_improve(ch, gsn_haggle, TRUE, 4);
     }

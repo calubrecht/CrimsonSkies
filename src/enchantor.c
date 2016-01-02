@@ -109,7 +109,7 @@ void spell_enchant_person(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     af.location = APPLY_AC;
     affect_to_char (victim, &af);
 
-    send_to_char("You are surrounded with a light translucent {Bblue{x aura.\n\r", victim);
+    send_to_char("You are surrounded with a light translucent {Bblue{x aura.\r\n", victim);
     act ("$n is surrounded with a light translucent {Bblue{x aura.", victim, NULL, NULL, TO_ROOM);
 
     if (ch != victim)
@@ -160,13 +160,13 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("You can only interlace your spirit into weapons or armor.\n\r", ch);
+        send_to_char("You can only interlace your spirit into weapons or armor.\r\n", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("You must be able to carry an item to interlace your spirit into it.\n\r", ch);
+        send_to_char("You must be able to carry an item to interlace your spirit into it.\r\n", ch);
         return;
     }
 
@@ -216,7 +216,7 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("You can only wizard mark weapons or armor.\n\r", ch);
+        send_to_char("You can only wizard mark weapons or armor.\r\n", ch);
         return;
     }
 
@@ -224,7 +224,7 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     {
         if (strstr(obj->wizard_mark, ch->name) != NULL)
         {
-            send_to_char ("This item already carries your wizard mark.\n\r", ch);
+            send_to_char ("This item already carries your wizard mark.\r\n", ch);
             return;
         }
     }
@@ -250,13 +250,13 @@ void spell_enchant_gem(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_GEM)
     {
-        send_to_char("That item is not a gem.\n\r",ch);
+        send_to_char("That item is not a gem.\r\n",ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The gem must be carried to be enchanted.\n\r",ch);
+        send_to_char("The gem must be carried to be enchanted.\r\n",ch);
         return;
     }
 
@@ -291,13 +291,13 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 
 	if (obj->item_type != ITEM_ARMOR)
 	{
-		send_to_char("That isn't an armor.\n\r", ch);
+		send_to_char("That isn't an armor.\r\n", ch);
 		return;
 	}
 
 	if (obj->wear_loc != -1)
 	{
-		send_to_char("The item must be carried to be enchanted.\n\r", ch);
+		send_to_char("The item must be carried to be enchanted.\r\n", ch);
 		return;
 	}
 
@@ -412,7 +412,7 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 	if (result <= fail)
 	{
 		// failed, no bad result
-		send_to_char("Nothing seemed to happen.\n\r", ch);
+		send_to_char("Nothing seemed to happen.\r\n", ch);
 		return;
 	}
 
@@ -520,13 +520,13 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
 	if (obj->item_type != ITEM_WEAPON)
 	{
-		send_to_char("That isn't a weapon.\n\r", ch);
+		send_to_char("That isn't a weapon.\r\n", ch);
 		return;
 	}
 
 	if (obj->wear_loc != -1)
 	{
-		send_to_char("The item must be carried to be enchanted.\n\r", ch);
+		send_to_char("The item must be carried to be enchanted.\r\n", ch);
 		return;
 	}
 
@@ -656,7 +656,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 	if (result <= fail)
 	{
 		// failed, no bad result
-		send_to_char("Nothing seemed to happen.\n\r", ch);
+		send_to_char("Nothing seemed to happen.\r\n", ch);
 		return;
 	}
 
@@ -789,13 +789,13 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_WEAPON)
     {
-        send_to_char("That isn't a weapon.\n\r",ch);
+        send_to_char("That isn't a weapon.\r\n",ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-	send_to_char("The weapon must be carried to be restored.\n\r",ch);
+	send_to_char("The weapon must be carried to be restored.\r\n",ch);
 	return;
     }
 
@@ -825,7 +825,7 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
     else if (chance >= 3 && chance <= 4)
     {
-        send_to_char("Nothing happened.\n\r", ch);
+        send_to_char("Nothing happened.\r\n", ch);
         return;
     }
     else
@@ -859,13 +859,13 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("That isn't armor.\n\r",ch);
+        send_to_char("That isn't armor.\r\n",ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The armor must be carried to be restored.\n\r",ch);
+        send_to_char("The armor must be carried to be restored.\r\n",ch);
         return;
     }
 
@@ -891,7 +891,7 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
     else if (chance >= 3 && chance <= 4)
     {
-        send_to_char("Nothing happened.\n\r", ch);
+        send_to_char("Nothing happened.\r\n", ch);
         return;
     }
     else
@@ -923,13 +923,13 @@ void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
 
     if (obj->item_type != ITEM_WEAPON && obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("That item is neither weapon or armor.\n\r",ch);
+        send_to_char("That item is neither weapon or armor.\r\n",ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The item must be carried to be disenchanted.\n\r",ch);
+        send_to_char("The item must be carried to be disenchanted.\r\n",ch);
         return;
     }
 
@@ -999,15 +999,15 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
         {
             if (in_obj->carried_by != NULL)
             {
-                sprintf (buf, "%s is carried by %s\n\r", in_obj->short_descr, PERS (in_obj->carried_by, ch));
+                sprintf (buf, "%s is carried by %s\r\n", in_obj->short_descr, PERS (in_obj->carried_by, ch));
             }
             else
             {
                 if (IS_IMMORTAL (ch) && in_obj->in_room != NULL)
-                    sprintf (buf, "%s is in %s [Room %d]\n\r",
+                    sprintf (buf, "%s is in %s [Room %d]\r\n",
                          in_obj->short_descr, in_obj->in_room->name, in_obj->in_room->vnum);
                 else
-                    sprintf (buf, "%s is in %s\n\r", in_obj->short_descr,
+                    sprintf (buf, "%s is in %s\r\n", in_obj->short_descr,
                          in_obj->in_room == NULL
                          ? "somewhere" : in_obj->in_room->name);
             }
@@ -1020,7 +1020,7 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
     }
 
     if (!found)
-        send_to_char ("You found no wizard markings of your own in heaven or earth.\n\r", ch);
+        send_to_char ("You found no wizard markings of your own in heaven or earth.\r\n", ch);
     else
         page_to_char (buf_string (buffer), ch);
 
@@ -1045,7 +1045,7 @@ void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int t
     // Make a saves check
     if (saves_spell(level,victim, DAM_OTHER))
     {
-        send_to_char("The waves of weariness enchantment failed.\n\r", ch);
+        send_to_char("The waves of weariness enchantment failed.\r\n", ch);
         return;
     }
 
@@ -1078,7 +1078,7 @@ void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int t
      affect_join( victim, &af );
 
      // Zzzzzzzzz
-     send_to_char( "You feel weariness overtake your body...\n\r", victim );
+     send_to_char( "You feel weariness overtake your body...\r\n", victim );
      act( "$n looks very weary and falls to the ground asleep.", victim, NULL, NULL, TO_ROOM );
      victim->position = POS_SLEEPING;
 
