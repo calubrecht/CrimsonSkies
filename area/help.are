@@ -531,41 +531,44 @@ to the mud implementors.
 
 0 CREDITS DIKU MERC ROM CRIMSON SMAUG~
           
+.
+          {R[{WDiku Family Tree for Crimson Skies{R]{x
 
-.          Diku Family Tree for Crimson Skies:
-
-          --------------------------------------
-          - [DikuMUD] (1990-1991)---------------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WDikuMUD{R] {R({W1990-1991{R){w --------------
+          --------------------------------------{x
           Katja Nyboe               [Superwoman] 
           Tom Madsen              [Stormbringer] 
           Hans Henrik Staerfeldt           [God] 
           Michael Seifert                 [Papi]
           Sebastian Hammer               [Quinn]
-          --------------------------------------
-          - [Merc DikuMUD] (1991-1993-----------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WMerc DikuMUD{R] {R({W1991-1993{R){w ---------
+          --------------------------------------{x
           Michael Chastain               [Furey]
           Michael Quan                    [Kahn]
           Mitchel Tse                  [Hatchet]
-          --------------------------------------
-          - [ROM 2.4] (1993-1998)---------------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WROM 2.4{R] ({W1993-1998{R){w --------------
+          --------------------------------------{x
           Russ Taylor                  [Alander]
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
-          --------------------------------------
-          - [Crimson Skies 0.9] (1998-2015)-----
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WCrimson Skies 0.9{R] ({W1998-2016{R){w ----
+          --------------------------------------{x
           Blake Pell                     [Rhien]
-          --------------------------------------
+          {w--------------------------------------{x
 
           Code snippits have also been included
-          from these sources:
+          from these sources who have indirectly
+          contributed due to work they have
+          shared with the mud community over the
+          years:
 
-          --------------------------------------
-          - [Smaug/SmaugFuss] (1994-1998) ------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WSmaug/SmaugFuss{R] ({W1994-1998{R){w ------
+          --------------------------------------{x
           Derek Snider                  [Thoric]
                                         [Altrag]
                                        [Blodkai]
@@ -578,32 +581,28 @@ to the mud implementors.
                                          [Nivek]
                                        [Tricops]
                                      [Fireblade]
-          --------------------------------------
-          - [Moosehead Sled] (1993-2014) -------
-          --------------------------------------
-                          [Michael Mraz (Rusty)]
+          {w--------------------------------------
+          - {R[{WMoosehead Sled{R] ({W1993-2014{R){w -------
+          --------------------------------------{x
+          Michael Mraz                   [Rusty]
                                  [Kris Carlgren]
-          --------------------------------------
-          - [Rom NT Port] ----------------------
-          --------------------------------------
-          Michael K. Weise              [Vallyn]
-          --------------------------------------
-          - [Various Code Contributions]--------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WVarious Code Contributions{R]{w -------
+          --------------------------------------{x
                             [Erwin S. Andreasen]
+                                     [Quixadhal]
                                   [Jason Dinkel]
                                           [Lope]
-                       [Jim Robinson (QuickMud)]
+                               [Edwin Groothuis]
+             [Jim Robinson (Flugh of (QuickMud)]
                                 [Dennis Reichel]
                  [Keridan (Benevolent Iniquity)]
-          --------------------------------------
-
-          --------------------------------------
-          - [Area Contributions]----------------
-          --------------------------------------
+          {w--------------------------------------
+          - {R[{WArea Contributions{R]{w ---------------
+          --------------------------------------{x
           See the 'area' command where each area
           credits the builders involved.
-          --------------------------------------
+          {w--------------------------------------{x
 
 ~
 
