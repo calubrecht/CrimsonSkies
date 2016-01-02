@@ -83,4 +83,4 @@ This is my to do list, mostly will be things big and small as I think about them
     type via code that you may not want people creating via OLC (like a healer's bind).
   - auto name generator methods
   - Move base string functions into a new strings.c file (separate from the olc strings in olc_string).
-  - Implement get_random_room from ICE project.
+  - Update get_random_room in some manner to allow for getting a random room in an area, a continent or the world.
