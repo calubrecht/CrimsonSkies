@@ -2262,12 +2262,6 @@ void *   alloc_perm          args( ( size_t sMem ) );
 void     free_mem            args( ( void *pMem, size_t sMem ) );
 char *   str_dup             args( ( const char *str ) );
 void     free_string         args( ( char *pstr ) );
-int      number_fuzzy        args( ( int number ) );
-int      number_range        args( ( int from, int to ) );
-int      number_percent      args( ( void ) );
-int      number_door         args( ( void ) );
-int      number_bits         args( ( int width ) );
-long     number_mm           args( ( void ) );
 int      dice                args( ( int number, int size ) );
 int      interpolate         args( ( int level, int value_00, int value_32 ) );
 void     smash_tilde         args( ( char *str ) );
@@ -2295,6 +2289,16 @@ void    cold_effect    args( (void *vo, int level, int dam, int target) );
 void    fire_effect    args( (void *vo, int level, int dam, int target) );
 void    poison_effect  args( (void *vo, int level, int dam, int target) );
 void    shock_effect   args( (void *vo, int level, int dam, int target) );
+
+/* random.c */
+void     init_random         args( (void) );
+int      number_fuzzy        args( ( int number ) );
+int      number_range        args( ( int from, int to ) );
+int      number_percent      args( ( void ) );
+int      number_door         args( ( void ) );
+int      number_bits         args( ( int width ) );
+long     number_mm           args( ( void ) );
+int      dice                args( ( int number, int size ) );
 
 /* fight.c */
 bool    is_safe         args( (CHAR_DATA *ch, CHAR_DATA *victim ) );
