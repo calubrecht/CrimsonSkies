@@ -95,7 +95,7 @@ int weapon_lookup (const char *name)
 /*
  * Returns the weapon type from the weapon type table (e.g. WEAPON_SWORD, etc.)
  */
-int weapon_type (const char *name)
+int weapon_type_lookup (const char *name)
 {
     int type;
 

@@ -2321,7 +2321,7 @@ void   affect_enchant     args( (OBJ_DATA *obj) );
 int    check_immune       args( (CHAR_DATA *ch, int dam_type) );
 int    material_lookup    args( ( const char *name) );
 int    weapon_lookup      args( ( const char *name) );
-int    weapon_type        args( ( const char *name) );
+int    weapon_type_lookup args( ( const char *name) );
 char  *weapon_name        args( ( int weapon_Type) );
 char  *item_name          args( ( int item_type) ); 
 int    attack_lookup      args( ( const char *name) );
