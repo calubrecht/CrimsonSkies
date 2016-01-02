@@ -1927,29 +1927,82 @@ void do_train (CHAR_DATA * ch, char *argument)
     return;
 }
 
-/* random room generation procedure */
-ROOM_INDEX_DATA *get_random_room(CHAR_DATA * ch)
+/*
+ * Random room selection procedure.  This originated from Quixadhal of the
+ * ICE project (among many others).
+ */
+ROOM_INDEX_DATA *get_random_room( CHAR_DATA *ch )
 {
-    // TODO - Update to get the real max VNUM in use
-    ROOM_INDEX_DATA *room;
+    /*
+     * top_room is the number of rooms loaded. room_index_hash[MAX_KEY_HASH] is the set
+     * of rooms. Each room is stored in rih[vnum % MAX_KEY_HASH].
+     */
 
-    for (;;)
+    ROOM_INDEX_DATA **pRooms = NULL;
+    ROOM_INDEX_DATA *pRoomIndex = NULL;
+    int iHash = 0;
+    int room_count = 0;
+    int target_room = 0;
+
+    if (!(pRooms = (ROOM_INDEX_DATA **) calloc(top_room, sizeof(ROOM_INDEX_DATA *))))
     {
-        room = get_room_index(number_range(0, 32768));
-        if (room != NULL)
-            if (can_see_room(ch, room)
-                && !room_is_private(room)
-                && room->sector_type != SECT_OCEAN
-                && room->sector_type != SECT_UNDERWATER
-                && !IS_SET(room->room_flags, ROOM_PRIVATE)
-                && !IS_SET(room->room_flags, ROOM_SOLITARY)
-                && !IS_SET(room->room_flags, ROOM_SAFE)
-                && (IS_NPC(ch) || IS_SET(ch->act, ACT_AGGRESSIVE)
-                || !IS_SET(room->room_flags, ROOM_LAW)))
-                break;
+        bug("get_random_room: can't alloc %d pointers for room pointer table.", top_room);
     }
 
-    return room;
+    /*
+     * First, we need to filter out rooms that aren't valid choices
+     */
+    for (iHash = 0; iHash < MAX_KEY_HASH; iHash++)
+    {
+        for (pRoomIndex = room_index_hash[iHash];
+             pRoomIndex != NULL; pRoomIndex = pRoomIndex->next)
+        {
+            /*
+             * Skip private/safe rooms, no hiding in there!
+             */
+            if (IS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
+                 || IS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
+                 || IS_SET(pRoomIndex->room_flags, ROOM_SAFE))
+                continue;
+
+            /*
+             * Skip the ocean or underwater rooms just to be nice.
+             */
+            if (pRoomIndex->sector_type == SECT_OCEAN
+                || pRoomIndex->sector_type == SECT_UNDERWATER)
+                continue;
+
+            /*
+             * Skip rooms the target can't "see"
+             */
+            if ( !can_see_room( ch, pRoomIndex ) )
+                continue;
+
+            /*
+             * Skip rooms that are considered private beyond the flags
+             */
+            if (room_is_private(pRoomIndex))
+                continue;
+
+            /*
+             * Skip rooms that are LAW if the target is a non-PK player
+             */
+            if (IS_SET(pRoomIndex->room_flags, ROOM_LAW)
+                 && !IS_NPC(ch) && !IS_SET(ch->act, ACT_AGGRESSIVE))
+                continue;
+
+            pRooms[room_count++] = pRoomIndex;
+        }
+    }
+
+    /*
+     * Now, we pick a random number and grab the room pointer
+     */
+    target_room = number_range(0, room_count);
+    pRoomIndex = pRooms[target_room];
+    free(pRooms);
+
+    return pRoomIndex;
 }
 
 /* RT Enter portals */
