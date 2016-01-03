@@ -24,13 +24,13 @@
 #if defined(_WIN32)
     #include <sys/types.h>
 #else
+    #include <unistd.h>
     #include <sys/types.h>
     #include <sys/time.h>
 #endif
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <time.h>
 #include "merc.h"
 
@@ -41,15 +41,19 @@
  * -- Furey
  */
 
-/* I noticed streaking with this random number generator, so I switched
-   back to the system srandom call.  If this doesn't work for you,
-   define OLD_RAND to use the old system -- Alander */
+ /* I noticed streaking with this random number generator, so I switched
+    back to the system srandom call.  If this doesn't work for you,
+    define OLD_RAND to use the old system -- Alander */
+#if defined (_WIN32)
+#define random() rand()
+#define srandom( x ) srand( x )
+#endif
 
 #if defined (OLD_RAND)
 static int rgiState[2 + 55];
 #endif
 
-void init_random ()
+void init_random()
 {
 #if defined (OLD_RAND)
     int *piState;
@@ -60,7 +64,7 @@ void init_random ()
     piState[-2] = 55 - 55;
     piState[-1] = 55 - 24;
 
-    piState[0] = ((int) current_time) & ((1 << 30) - 1);
+    piState[0] = ((int)current_time) & ((1 << 30) - 1);
     piState[1] = 1;
     for (iState = 2; iState < 55; iState++)
     {
@@ -68,7 +72,7 @@ void init_random ()
             & ((1 << 30) - 1);
     }
 #else
-    srandom (time (NULL) ^ getpid ());
+    srandom(time(NULL) ^ getpid());
 #endif
     return;
 }
@@ -76,9 +80,9 @@ void init_random ()
 /*
  * Stick a little fuzz on a number.
  */
-int number_fuzzy (int number)
+int number_fuzzy(int number)
 {
-    switch (number_bits (2))
+    switch (number_bits(2))
     {
         case 0:
             number -= 1;
@@ -88,13 +92,13 @@ int number_fuzzy (int number)
             break;
     }
 
-    return UMAX (1, number);
+    return UMAX(1, number);
 }
 
 /*
  * Generate a random number.
  */
-int number_range (int from, int to)
+int number_range(int from, int to)
 {
     int power;
     int number;
@@ -107,7 +111,7 @@ int number_range (int from, int to)
 
     for (power = 2; power < to; power <<= 1);
 
-    while ((number = number_mm () & (power - 1)) >= to);
+    while ((number = number_mm() & (power - 1)) >= to);
 
     return from + number;
 }
@@ -115,11 +119,11 @@ int number_range (int from, int to)
 /*
  * Generate a percentile roll.
  */
-int number_percent (void)
+int number_percent(void)
 {
     int percent;
 
-    while ((percent = number_mm () & (128 - 1)) > 99);
+    while ((percent = number_mm() & (128 - 1)) > 99);
 
     return 1 + percent;
 }
@@ -127,17 +131,17 @@ int number_percent (void)
 /*
  * Generate a random door.
  */
-int number_door (void)
+int number_door(void)
 {
     return number_range(0, MAX_DIR - 1);
 }
 
-int number_bits (int width)
+int number_bits(int width)
 {
-    return number_mm () & ((1 << width) - 1);
+    return number_mm() & ((1 << width) - 1);
 }
 
-long number_mm (void)
+long number_mm(void)
 {
 #if defined (OLD_RAND)
     int *piState;
@@ -158,7 +162,7 @@ long number_mm (void)
     piState[-1] = iState2;
     return iRand >> 6;
 #else
-    return random () >> 6;
+    return random() >> 6;
 #endif
 }
 
@@ -170,7 +174,7 @@ int dice(int number, int size)
     int idice;
     int sum;
 
-    switch(size)
+    switch (size)
     {
         case 0:
             return 0;
