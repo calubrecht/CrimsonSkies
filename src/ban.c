@@ -60,7 +60,7 @@ void save_bans(void)
         if (IS_SET(pban->ban_flags, BAN_PERMANENT))
         {
             found = TRUE;
-            fprintf(fp, "%-20s %-2d %s\n", pban->name, pban->level, print_flags (pban->ban_flags));
+            fprintf(fp, "%-20s %-2d %s\n", pban->name, pban->level, print_flags(pban->ban_flags));
         }
     }
 
@@ -123,7 +123,7 @@ void load_bans(void)
 /*
  * Checks to see whether a site is banned.
  */
-bool check_ban (char *site, int type)
+bool check_ban(char *site, int type)
 {
     BAN_DATA *pban;
     char host[MAX_STRING_LENGTH];
@@ -157,7 +157,7 @@ bool check_ban (char *site, int type)
 /*
  * Bans a site from being able to login to the mud.
  */
-void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
+void ban_site(CHAR_DATA * ch, char *argument, bool fPerm)
 {
     char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
     char arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
@@ -184,21 +184,21 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
         for (pban = ban_list; pban != NULL; pban = pban->next)
         {
             sprintf(buf2, "%s%s%s",
-                     IS_SET (pban->ban_flags, BAN_PREFIX) ? "*" : "",
-                     pban->name,
-                     IS_SET (pban->ban_flags, BAN_SUFFIX) ? "*" : "");
+                IS_SET(pban->ban_flags, BAN_PREFIX) ? "*" : "",
+                pban->name,
+                IS_SET(pban->ban_flags, BAN_SUFFIX) ? "*" : "");
             sprintf(buf, "%-12s    %-3d  %-7s  %s\r\n",
-                     buf2, pban->level,
-                     IS_SET (pban->ban_flags, BAN_NEWBIES) ? "newbies" :
-                     IS_SET (pban->ban_flags, BAN_PERMIT) ? "permit" :
-                     IS_SET (pban->ban_flags, BAN_ALL) ? "all" : "",
-                     IS_SET (pban->ban_flags,
-                     BAN_PERMANENT) ? "perm" : "temp");
+                buf2, pban->level,
+                IS_SET(pban->ban_flags, BAN_NEWBIES) ? "newbies" :
+                IS_SET(pban->ban_flags, BAN_PERMIT) ? "permit" :
+                IS_SET(pban->ban_flags, BAN_ALL) ? "all" : "",
+                IS_SET(pban->ban_flags,
+                    BAN_PERMANENT) ? "perm" : "temp");
             add_buf(buffer, buf);
         }
 
-        page_to_char(buf_string (buffer), ch);
-        free_buf (buffer);
+        page_to_char(buf_string(buffer), ch);
+        free_buf(buffer);
         return;
     }
 
@@ -229,15 +229,15 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
         name++;
     }
 
-    if (name[strlen (name) - 1] == '*')
+    if (name[strlen(name) - 1] == '*')
     {
         suffix = TRUE;
-        name[strlen (name) - 1] = '\0';
+        name[strlen(name) - 1] = '\0';
     }
 
-    if (strlen (name) == 0)
+    if (strlen(name) == 0)
     {
-        send_to_char ("You have to ban SOMETHING.\r\n", ch);
+        send_to_char("You have to ban SOMETHING.\r\n", ch);
         return;
     }
 
@@ -293,23 +293,23 @@ void ban_site (CHAR_DATA * ch, char *argument, bool fPerm)
  * Command to ban the site, will pass the information along to the ban
  * method.
  */
-void do_ban (CHAR_DATA * ch, char *argument)
+void do_ban(CHAR_DATA * ch, char *argument)
 {
-    ban_site (ch, argument, FALSE);
+    ban_site(ch, argument, FALSE);
 }
 
 /*
  * This will permanently ban a site.
  */
-void do_permban (CHAR_DATA * ch, char *argument)
+void do_permban(CHAR_DATA * ch, char *argument)
 {
-    ban_site (ch, argument, TRUE);
+    ban_site(ch, argument, TRUE);
 }
 
 /*
  * Unbans a site.
  */
-void do_allow (CHAR_DATA * ch, char *argument)
+void do_allow(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
     char buf[MAX_STRING_LENGTH];
@@ -329,7 +329,7 @@ void do_allow (CHAR_DATA * ch, char *argument)
     {
         if (!str_cmp(arg, curr->name))
         {
-            if (curr->level > get_trust (ch))
+            if (curr->level > get_trust(ch))
             {
                 send_to_char("You are not powerful enough to lift that ban.\r\n", ch);
                 return;

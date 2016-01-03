@@ -28,18 +28,18 @@
 *  all the previous coders who released their source code.                *
 *                                                                         *
 ***************************************************************************/
-/*
-* This is a header file for all the OLC files.  Feel free to copy it into
-* merc.h if you wish.  Many of these routines may be handy elsewhere in
-* the code.  -Jason Dinkel
-*/
-
 
 /*
-* The version info.  Please use this info when reporting bugs.
-* It is displayed in the game by typing 'version' while editing.
-* Do not remove these from the code - by request of Jason Dinkel
+ * This is a header file for all the OLC files.  Feel free to copy it into
+ * merc.h if you wish.  Many of these routines may be handy elsewhere in
+ * the code.  -Jason Dinkel
 */
+
+/*
+ * The version info.  Please use this info when reporting bugs.
+ * It is displayed in the game by typing 'version' while editing.
+ * Do not remove these from the code - by request of Jason Dinkel
+ */
 #define VERSION	"ILAB Online Creation [Beta 1.0, ROM 2.3 modified]\r\n" \
         "     Port a ROM 2.4 v1.8\r\n"
 #define AUTHOR	"     By Jason(jdinkel@mines.colorado.edu)\r\n" \
@@ -141,7 +141,7 @@ extern const struct olc_cmd_type        sedit_table[];
 /*
  * Editor Commands.
  */
-int continent_lookup (const char *name);
+int continent_lookup(const char *name);
 
 DECLARE_DO_FUN(do_aedit);
 DECLARE_DO_FUN(do_redit);
@@ -306,41 +306,41 @@ DECLARE_OLC_FUN(gedit_create);
 DECLARE_OLC_FUN(gedit_list);
 
 /* Skill Editor */
-DECLARE_OLC_FUN( sedit_name             );
-DECLARE_OLC_FUN( sedit_spellfun         );
-DECLARE_OLC_FUN( sedit_target           );
-DECLARE_OLC_FUN( sedit_minpos           );
-DECLARE_OLC_FUN( sedit_minmana          );
-DECLARE_OLC_FUN( sedit_beats            );
-DECLARE_OLC_FUN( sedit_msgoff           );
-DECLARE_OLC_FUN( sedit_msgobj           );
-DECLARE_OLC_FUN( sedit_create           );
-DECLARE_OLC_FUN( sedit_show             );
-DECLARE_OLC_FUN( sedit_level            );
-DECLARE_OLC_FUN( sedit_rating           );
-DECLARE_OLC_FUN( sedit_race             );
+DECLARE_OLC_FUN(sedit_name);
+DECLARE_OLC_FUN(sedit_spellfun);
+DECLARE_OLC_FUN(sedit_target);
+DECLARE_OLC_FUN(sedit_minpos);
+DECLARE_OLC_FUN(sedit_minmana);
+DECLARE_OLC_FUN(sedit_beats);
+DECLARE_OLC_FUN(sedit_msgoff);
+DECLARE_OLC_FUN(sedit_msgobj);
+DECLARE_OLC_FUN(sedit_create);
+DECLARE_OLC_FUN(sedit_show);
+DECLARE_OLC_FUN(sedit_level);
+DECLARE_OLC_FUN(sedit_rating);
+DECLARE_OLC_FUN(sedit_race);
 
 /* Class Editor */
-DECLARE_OLC_FUN( cedit_name             );
-DECLARE_OLC_FUN( cedit_whoname          );
-DECLARE_OLC_FUN( cedit_attrprime        );
+DECLARE_OLC_FUN(cedit_name);
+DECLARE_OLC_FUN(cedit_whoname);
+DECLARE_OLC_FUN(cedit_attrprime);
 //DECLARE_OLC_FUN( cedit_attrsecond       );
-DECLARE_OLC_FUN( cedit_weapon           );
-DECLARE_OLC_FUN( cedit_skilladept       );
-DECLARE_OLC_FUN( cedit_thac0            );
-DECLARE_OLC_FUN( cedit_thac32           );
-DECLARE_OLC_FUN( cedit_hpmin            );
-DECLARE_OLC_FUN( cedit_hpmax            );
-DECLARE_OLC_FUN( cedit_mana             );
-DECLARE_OLC_FUN( cedit_moon             );
-DECLARE_OLC_FUN( cedit_basegroup        );
-DECLARE_OLC_FUN( cedit_defgroup         );
-DECLARE_OLC_FUN( cedit_create           );
-DECLARE_OLC_FUN( cedit_show             );
-DECLARE_OLC_FUN( cedit_skills           );
-DECLARE_OLC_FUN( cedit_spells           );
-DECLARE_OLC_FUN( cedit_groups           );
-DECLARE_OLC_FUN( cedit_isreclass        );
+DECLARE_OLC_FUN(cedit_weapon);
+DECLARE_OLC_FUN(cedit_skilladept);
+DECLARE_OLC_FUN(cedit_thac0);
+DECLARE_OLC_FUN(cedit_thac32);
+DECLARE_OLC_FUN(cedit_hpmin);
+DECLARE_OLC_FUN(cedit_hpmax);
+DECLARE_OLC_FUN(cedit_mana);
+DECLARE_OLC_FUN(cedit_moon);
+DECLARE_OLC_FUN(cedit_basegroup);
+DECLARE_OLC_FUN(cedit_defgroup);
+DECLARE_OLC_FUN(cedit_create);
+DECLARE_OLC_FUN(cedit_show);
+DECLARE_OLC_FUN(cedit_skills);
+DECLARE_OLC_FUN(cedit_spells);
+DECLARE_OLC_FUN(cedit_groups);
+DECLARE_OLC_FUN(cedit_isreclass);
 
 /*
 * Macros

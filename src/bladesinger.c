@@ -54,7 +54,7 @@ void one_hit args((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
  * Bladesong is the underpinning skill of all bladesingers.  They must be
  * dancing the bladesong for any of their other skills to work.
  */
-void do_bladesong( CHAR_DATA *ch, char *arg )
+void do_bladesong(CHAR_DATA *ch, char *arg)
 {
     AFFECT_DATA af;
     OBJ_DATA *weapon;
@@ -81,7 +81,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     }
 
     // The singer has to be fighting someone to initiate the bladesong.
-    if ( ch->fighting == NULL )
+    if (ch->fighting == NULL)
     {
         send_to_char("You can only initiate the bladesong in combat.\r\n", ch);
         return;
@@ -90,7 +90,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     // I put this check here but bladesong is also in bladesinger basics
     // so every bladesinger should get it.  If someone changes that though
     // then this is needed so we'll keep it in place.
-    if ( ch->level < skill_table[gsn_bladesong]->skill_level[ch->class] )
+    if (ch->level < skill_table[gsn_bladesong]->skill_level[ch->class])
     {
         send_to_char("You are not yet skilled enough.\r\n", ch);
         return;
@@ -98,7 +98,7 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
 
     // The bladesinger has to be wielding a weapon in order to dance
     // the bladesong.
-    if ((weapon = get_eq_char( ch, WEAR_WIELD )) == NULL)
+    if ((weapon = get_eq_char(ch, WEAR_WIELD)) == NULL)
     {
         send_to_char("You must be wielding a weapon to dance the bladesong.\r\n", ch);
         return;
@@ -107,8 +107,8 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     // Only swords and daggers can be used with the bladesong.
     switch (weapon->value[0])
     {
-        case(WEAPON_SWORD):
-        case(WEAPON_DAGGER):
+        case(WEAPON_SWORD) :
+        case(WEAPON_DAGGER) :
             break;
         default:
             send_to_char("The bladesong art is only possible with swords and daggers.\r\n", ch);
@@ -130,14 +130,14 @@ void do_bladesong( CHAR_DATA *ch, char *arg )
     af.modifier = modifier;
     af.location = APPLY_HITROLL;
     af.bitvector = 0;
-    affect_to_char( ch, &af );
+    affect_to_char(ch, &af);
 
     af.location = APPLY_DAMROLL;
-    affect_to_char( ch, &af );
+    affect_to_char(ch, &af);
 
     af.modifier = modifier * -10;
     af.location = APPLY_AC;
-    affect_to_char( ch, &af );
+    affect_to_char(ch, &af);
 
     check_improve(ch, gsn_bladesong, TRUE, 5);
 
@@ -170,7 +170,7 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
     // Find group members who aren't NPC's
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
-        if (!IS_NPC(gch) && is_same_group (gch, ch))
+        if (!IS_NPC(gch) && is_same_group(gch, ch))
         {
             if (!is_affected(gch, sn))
             {
@@ -181,7 +181,7 @@ void spell_song_of_protection(int sn, int level, CHAR_DATA *ch, void *vo, int ta
                 }
 
                 act("You are now influenced by $n's song of protection.", ch, NULL, gch, TO_VICT);
-                affect_to_char (gch, &af);
+                affect_to_char(gch, &af);
             }
         }
     }
@@ -239,7 +239,7 @@ void spell_song_of_dissonance(int sn, int level, CHAR_DATA *ch, void *vo, int ta
                 DAZE_STATE(gch, PULSE_VIOLENCE);
                 act("$N's looks pained.", ch, NULL, gch, TO_CHAR);
                 send_to_char("You feeling a piercing pain in your ears as your hearing becomes muffled", gch);
-                affect_to_char (gch, &af);
+                affect_to_char(gch, &af);
             }
         }
     }
@@ -298,7 +298,7 @@ void do_circle(CHAR_DATA *ch, char *argument)
     // You can't use this on someone who has charmed you.
     if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
     {
-        act("But $N is your friend!",ch,NULL,victim,TO_CHAR);
+        act("But $N is your friend!", ch, NULL, victim, TO_CHAR);
         return;
     }
 
@@ -316,7 +316,7 @@ void do_circle(CHAR_DATA *ch, char *argument)
     if (!CHANCE_SKILL(ch, gsn_circle))
     {
         act("$n attemps to circle around you but stumbles in mid stride!", ch, NULL, victim, TO_VICT);
-        act("You circle quickly around $N, but you stumble in mid stride.",ch, NULL, victim, TO_CHAR);
+        act("You circle quickly around $N, but you stumble in mid stride.", ch, NULL, victim, TO_CHAR);
         act("$n circles quickly around $N but stumbles in mid stride.", ch, NULL, victim, TO_NOTVICT);
         check_improve(ch, gsn_circle, FALSE, 2);
         WAIT_STATE(ch, skill_table[gsn_circle]->beats);
@@ -398,11 +398,11 @@ void do_circle(CHAR_DATA *ch, char *argument)
     af.modifier = (modifier / 2) * -1;  // -3 or -4 dex
     af.location = APPLY_DEX;
     af.bitvector = 0;
-    affect_to_char( victim, &af );
+    affect_to_char(victim, &af);
 
     af.modifier = modifier * -1;
     af.location = APPLY_HITROLL;
-    affect_to_char( victim, &af );
+    affect_to_char(victim, &af);
 
     // Disorientation will tire the victim a bit.
     victim->move -= (victim->move / 4);
@@ -415,7 +415,7 @@ void do_circle(CHAR_DATA *ch, char *argument)
 
     // Show everyone what's going on.
     act("$n circles quickly around you while dancing the bladesong... you feel the movement disorient you!", ch, NULL, victim, TO_VICT);
-    act("You circle quickly around $N dancing the bladesong, causing $M to become disoriented!",ch, NULL, victim, TO_CHAR);
+    act("You circle quickly around $N dancing the bladesong, causing $M to become disoriented!", ch, NULL, victim, TO_CHAR);
     act("$n circles quickly around $N causing them to become disoriented.", ch, NULL, victim, TO_NOTVICT);
 
     // Check improvement
@@ -449,14 +449,14 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
     // The character can only use this in battle.
     if ((victim = ch->fighting) == NULL)
     {
-        send_to_char ("You aren't fighting anyone.\r\n", ch);
+        send_to_char("You aren't fighting anyone.\r\n", ch);
         return;
     }
 
     // You can't use this on someone who has charmed you.
     if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
     {
-        act("But $N is your friend!",ch,NULL,victim,TO_CHAR);
+        act("But $N is your friend!", ch, NULL, victim, TO_CHAR);
         return;
     }
 

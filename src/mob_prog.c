@@ -49,7 +49,7 @@
 #include "tables.h"
 #include "lookup.h"
 
-extern int flag_lookup (const char *word, const struct flag_type *flag_table);
+extern int flag_lookup(const char *word, const struct flag_type *flag_table);
 
 /*
  * These defines correspond to the entries in fn_keyword[] table.
@@ -200,11 +200,11 @@ const char *fn_evals[] = {
 /*
  * Return a valid keyword from a keyword table
  */
-int keyword_lookup (const char **table, char *keyword)
+int keyword_lookup(const char **table, char *keyword)
 {
     register int i;
     for (i = 0; table[i][0] != '\n'; i++)
-        if (!str_cmp (table[i], keyword))
+        if (!str_cmp(table[i], keyword))
             return (i);
     return -1;
 }
@@ -213,7 +213,7 @@ int keyword_lookup (const char **table, char *keyword)
  * Perform numeric evaluation.
  * Called by cmd_eval()
  */
-int num_eval (int lval, int oper, int rval)
+int num_eval(int lval, int oper, int rval)
 {
     switch (oper)
     {
@@ -230,7 +230,7 @@ int num_eval (int lval, int oper, int rval)
         case EVAL_LT:
             return (lval < rval);
         default:
-            bug ("num_eval: invalid oper", 0);
+            bug("num_eval: invalid oper", 0);
             return 0;
     }
 }
@@ -244,14 +244,14 @@ int num_eval (int lval, int oper, int rval)
 /*
  * Get a random PC in the room (for $r parameter)
  */
-CHAR_DATA *get_random_char (CHAR_DATA * mob)
+CHAR_DATA *get_random_char(CHAR_DATA * mob)
 {
     CHAR_DATA *vch, *victim = NULL;
     int now = 0, highest = 0;
     for (vch = mob->in_room->people; vch; vch = vch->next_in_room)
     {
-        if (mob != vch && !IS_NPC (vch)
-            && can_see (mob, vch) && (now = number_percent ()) > highest)
+        if (mob != vch && !IS_NPC(vch)
+            && can_see(mob, vch) && (now = number_percent()) > highest)
         {
             victim = vch;
             highest = now;
@@ -260,24 +260,24 @@ CHAR_DATA *get_random_char (CHAR_DATA * mob)
     return victim;
 }
 
-/* 
+/*
  * How many other players / mobs are there in the room
  * iFlag: 0: all, 1: players, 2: mobiles 3: mobs w/ same vnum 4: same group
  */
-int count_people_room (CHAR_DATA * mob, int iFlag)
+int count_people_room(CHAR_DATA * mob, int iFlag)
 {
     CHAR_DATA *vch;
     int count;
     for (count = 0, vch = mob->in_room->people; vch; vch = vch->next_in_room)
-        if (mob != vch && (iFlag == 0 || (iFlag == 1 && !IS_NPC (vch))
-                           || (iFlag == 2 && IS_NPC (vch))
-                           || (iFlag == 3 && IS_NPC (mob) && IS_NPC (vch)
-                               && mob->pIndexData->vnum ==
-                               vch->pIndexData->vnum) || (iFlag == 4
-                                                          &&
-                                                          is_same_group (mob,
-                                                                         vch)))
-            && can_see (mob, vch))
+        if (mob != vch && (iFlag == 0 || (iFlag == 1 && !IS_NPC(vch))
+            || (iFlag == 2 && IS_NPC(vch))
+            || (iFlag == 3 && IS_NPC(mob) && IS_NPC(vch)
+                && mob->pIndexData->vnum ==
+                vch->pIndexData->vnum) || (iFlag == 4
+                    &&
+                    is_same_group(mob,
+                        vch)))
+            && can_see(mob, vch))
             count++;
     return (count);
 }
@@ -285,20 +285,20 @@ int count_people_room (CHAR_DATA * mob, int iFlag)
 /*
  * Get the order of a mob in the room. Useful when several mobs in
  * a room have the same trigger and you want only the first of them
- * to act 
+ * to act
  */
-int get_order (CHAR_DATA * ch)
+int get_order(CHAR_DATA * ch)
 {
     CHAR_DATA *vch;
     int i;
 
-    if (!IS_NPC (ch))
+    if (!IS_NPC(ch))
         return 0;
     for (i = 0, vch = ch->in_room->people; vch; vch = vch->next_in_room)
     {
         if (vch == ch)
             return i;
-        if (IS_NPC (vch) && vch->pIndexData->vnum == ch->pIndexData->vnum)
+        if (IS_NPC(vch) && vch->pIndexData->vnum == ch->pIndexData->vnum)
             i++;
     }
     return 0;
@@ -310,7 +310,7 @@ int get_order (CHAR_DATA * ch)
  * item_type: item type or -1
  * fWear: TRUE: item must be worn, FALSE: don't care
  */
-bool has_item (CHAR_DATA * ch, sh_int vnum, sh_int item_type, bool fWear)
+bool has_item(CHAR_DATA * ch, sh_int vnum, sh_int item_type, bool fWear)
 {
     OBJ_DATA *obj;
     for (obj = ch->carrying; obj; obj = obj->next_content)
@@ -324,11 +324,11 @@ bool has_item (CHAR_DATA * ch, sh_int vnum, sh_int item_type, bool fWear)
 /*
  * Check if there's a mob with given vnum in the room
  */
-bool get_mob_vnum_room (CHAR_DATA * ch, sh_int vnum)
+bool get_mob_vnum_room(CHAR_DATA * ch, sh_int vnum)
 {
     CHAR_DATA *mob;
     for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
-        if (IS_NPC (mob) && mob->pIndexData->vnum == vnum)
+        if (IS_NPC(mob) && mob->pIndexData->vnum == vnum)
             return TRUE;
     return FALSE;
 }
@@ -336,7 +336,7 @@ bool get_mob_vnum_room (CHAR_DATA * ch, sh_int vnum)
 /*
  * Check if there's an object with given vnum in the room
  */
-bool get_obj_vnum_room (CHAR_DATA * ch, sh_int vnum)
+bool get_obj_vnum_room(CHAR_DATA * ch, sh_int vnum)
 {
     OBJ_DATA *obj;
     for (obj = ch->in_room->contents; obj; obj = obj->next_content)
@@ -357,21 +357,21 @@ bool get_obj_vnum_room (CHAR_DATA * ch, sh_int vnum)
  *
  *----------------------------------------------------------------------
  */
-int cmd_eval (sh_int vnum, char *line, int check,
-              CHAR_DATA * mob, CHAR_DATA * ch,
-              const void *arg1, const void *arg2, CHAR_DATA * rch)
+int cmd_eval(sh_int vnum, char *line, int check,
+    CHAR_DATA * mob, CHAR_DATA * ch,
+    const void *arg1, const void *arg2, CHAR_DATA * rch)
 {
     CHAR_DATA *lval_char = mob;
-    CHAR_DATA *vch = (CHAR_DATA *) arg2;
-    OBJ_DATA *obj1 = (OBJ_DATA *) arg1;
-    OBJ_DATA *obj2 = (OBJ_DATA *) arg2;
+    CHAR_DATA *vch = (CHAR_DATA *)arg2;
+    OBJ_DATA *obj1 = (OBJ_DATA *)arg1;
+    OBJ_DATA *obj2 = (OBJ_DATA *)arg2;
     OBJ_DATA *lval_obj = NULL;
 
     char *original, buf[MAX_INPUT_LENGTH], code;
     int lval = 0, oper = 0, rval = -1;
 
     original = line;
-    line = one_argument (line, buf);
+    line = one_argument(line, buf);
     if (buf[0] == '\0' || mob == NULL)
         return FALSE;
 
@@ -387,39 +387,39 @@ int cmd_eval (sh_int vnum, char *line, int check,
              * Case 1: keyword and value
              */
         case CHK_RAND:
-            return (atoi (buf) < number_percent ());
+            return (atoi(buf) < number_percent());
         case CHK_MOBHERE:
-            if (is_number (buf))
-                return (get_mob_vnum_room (mob, atoi (buf)));
+            if (is_number(buf))
+                return (get_mob_vnum_room(mob, atoi(buf)));
             else
-                return ((bool) (get_char_room (mob, buf) != NULL));
+                return ((bool)(get_char_room(mob, buf) != NULL));
         case CHK_OBJHERE:
-            if (is_number (buf))
-                return (get_obj_vnum_room (mob, atoi (buf)));
+            if (is_number(buf))
+                return (get_obj_vnum_room(mob, atoi(buf)));
             else
-                return ((bool) (get_obj_here (mob, buf) != NULL));
+                return ((bool)(get_obj_here(mob, buf) != NULL));
         case CHK_MOBEXISTS:
-            return ((bool) (get_char_world (mob, buf) != NULL));
+            return ((bool)(get_char_world(mob, buf) != NULL));
         case CHK_OBJEXISTS:
-            return ((bool) (get_obj_world (mob, buf) != NULL));
+            return ((bool)(get_obj_world(mob, buf) != NULL));
             /*
              * Case 2 begins here: We sneakily use rval to indicate need
              *             for numeric eval...
              */
         case CHK_PEOPLE:
-            rval = count_people_room (mob, 0);
+            rval = count_people_room(mob, 0);
             break;
         case CHK_PLAYERS:
-            rval = count_people_room (mob, 1);
+            rval = count_people_room(mob, 1);
             break;
         case CHK_MOBS:
-            rval = count_people_room (mob, 2);
+            rval = count_people_room(mob, 2);
             break;
         case CHK_CLONES:
-            rval = count_people_room (mob, 3);
+            rval = count_people_room(mob, 3);
             break;
         case CHK_ORDER:
-            rval = get_order (mob);
+            rval = get_order(mob);
             break;
         case CHK_HOUR:
             rval = time_info.hour;
@@ -432,17 +432,17 @@ int cmd_eval (sh_int vnum, char *line, int check,
      */
     if (rval >= 0)
     {
-        if ((oper = keyword_lookup (fn_evals, buf)) < 0)
+        if ((oper = keyword_lookup(fn_evals, buf)) < 0)
         {
-            sprintf (buf, "Cmd_eval: prog %d syntax error(2) '%s'",
-                     vnum, original);
-            bug (buf, 0);
+            sprintf(buf, "Cmd_eval: prog %d syntax error(2) '%s'",
+                vnum, original);
+            bug(buf, 0);
             return FALSE;
         }
-        one_argument (line, buf);
+        one_argument(line, buf);
         lval = rval;
-        rval = atoi (buf);
-        return (num_eval (lval, oper, rval));
+        rval = atoi(buf);
+        return (num_eval(lval, oper, rval));
     }
 
     /*
@@ -450,9 +450,9 @@ int cmd_eval (sh_int vnum, char *line, int check,
      */
     if (buf[0] != '$' || buf[1] == '\0')
     {
-        sprintf (buf, "Cmd_eval: prog %d syntax error(3) '%s'",
-                 vnum, original);
-        bug (buf, 0);
+        sprintf(buf, "Cmd_eval: prog %d syntax error(3) '%s'",
+            vnum, original);
+        bug(buf, 0);
         return FALSE;
     }
     else
@@ -469,7 +469,7 @@ int cmd_eval (sh_int vnum, char *line, int check,
             lval_char = vch;
             break;
         case 'r':
-            lval_char = rch == NULL ? get_random_char (mob) : rch;
+            lval_char = rch == NULL ? get_random_char(mob) : rch;
             break;
         case 'o':
             lval_obj = obj1;
@@ -481,9 +481,9 @@ int cmd_eval (sh_int vnum, char *line, int check,
             lval_char = mob->mprog_target;
             break;
         default:
-            sprintf (buf, "Cmd_eval: prog %d syntax error(4) '%s'",
-                     vnum, original);
-            bug (buf, 0);
+            sprintf(buf, "Cmd_eval: prog %d syntax error(4) '%s'",
+                vnum, original);
+            bug(buf, 0);
             return FALSE;
     }
     /*
@@ -498,22 +498,22 @@ int cmd_eval (sh_int vnum, char *line, int check,
     switch (check)
     {
         case CHK_ISPC:
-            return (lval_char != NULL && !IS_NPC (lval_char));
+            return (lval_char != NULL && !IS_NPC(lval_char));
         case CHK_ISNPC:
-            return (lval_char != NULL && IS_NPC (lval_char));
+            return (lval_char != NULL && IS_NPC(lval_char));
         case CHK_ISGOOD:
-            return (lval_char != NULL && IS_GOOD (lval_char));
+            return (lval_char != NULL && IS_GOOD(lval_char));
         case CHK_ISEVIL:
-            return (lval_char != NULL && IS_EVIL (lval_char));
+            return (lval_char != NULL && IS_EVIL(lval_char));
         case CHK_ISNEUTRAL:
-            return (lval_char != NULL && IS_NEUTRAL (lval_char));
+            return (lval_char != NULL && IS_NEUTRAL(lval_char));
         case CHK_ISIMMORT:
-            return (lval_char != NULL && IS_IMMORTAL (lval_char));
+            return (lval_char != NULL && IS_IMMORTAL(lval_char));
         case CHK_ISCHARM:        /* A relic from MERC 2.2 MOBprograms */
-            return (lval_char != NULL && IS_AFFECTED (lval_char, AFF_CHARM));
+            return (lval_char != NULL && IS_AFFECTED(lval_char, AFF_CHARM));
         case CHK_ISFOLLOW:
             return (lval_char != NULL && lval_char->master != NULL
-                    && lval_char->master->in_room == lval_char->in_room);
+                && lval_char->master->in_room == lval_char->in_room);
         case CHK_ISACTIVE:
             return (lval_char != NULL && lval_char->position > POS_SLEEPING);
         case CHK_ISDELAY:
@@ -527,62 +527,62 @@ int cmd_eval (sh_int vnum, char *line, int check,
                 case 't':
                 case 'r':
                 case 'q':
-                    return (lval_char != NULL && can_see (mob, lval_char));
+                    return (lval_char != NULL && can_see(mob, lval_char));
                 case 'o':
                 case 'p':
-                    return (lval_obj != NULL && can_see_obj (mob, lval_obj));
+                    return (lval_obj != NULL && can_see_obj(mob, lval_obj));
             }
         case CHK_HASTARGET:
             return (lval_char != NULL && lval_char->mprog_target != NULL
-                    && lval_char->in_room ==
-                    lval_char->mprog_target->in_room);
+                && lval_char->in_room ==
+                lval_char->mprog_target->in_room);
         case CHK_ISTARGET:
             return (lval_char != NULL && mob->mprog_target == lval_char);
         default:;
     }
 
-    /* 
+    /*
      * Case 4: Keyword, actor and value
      */
-    line = one_argument (line, buf);
+    line = one_argument(line, buf);
     switch (check)
     {
         case CHK_AFFECTED:
             return (lval_char != NULL
-                    && IS_SET (lval_char->affected_by,
-                               flag_lookup (buf, affect_flags)));
+                && IS_SET(lval_char->affected_by,
+                    flag_lookup(buf, affect_flags)));
         case CHK_ACT:
             return (lval_char != NULL
-                    && IS_SET (lval_char->act, flag_lookup (buf, act_flags)));
+                && IS_SET(lval_char->act, flag_lookup(buf, act_flags)));
         case CHK_IMM:
             return (lval_char != NULL
-                    && IS_SET (lval_char->imm_flags,
-                               flag_lookup (buf, imm_flags)));
+                && IS_SET(lval_char->imm_flags,
+                    flag_lookup(buf, imm_flags)));
         case CHK_OFF:
             return (lval_char != NULL
-                    && IS_SET (lval_char->off_flags,
-                               flag_lookup (buf, off_flags)));
+                && IS_SET(lval_char->off_flags,
+                    flag_lookup(buf, off_flags)));
         case CHK_CARRIES:
-            if (is_number (buf))
+            if (is_number(buf))
                 return (lval_char != NULL
-                        && has_item (lval_char, atoi (buf), -1, FALSE));
+                    && has_item(lval_char, atoi(buf), -1, FALSE));
             else
                 return (lval_char != NULL
-                        && (get_obj_carry (lval_char, buf, lval_char) !=
-                            NULL));
+                    && (get_obj_carry(lval_char, buf, lval_char) !=
+                        NULL));
         case CHK_WEARS:
-            if (is_number (buf))
+            if (is_number(buf))
                 return (lval_char != NULL
-                        && has_item (lval_char, atoi (buf), -1, TRUE));
+                    && has_item(lval_char, atoi(buf), -1, TRUE));
             else
                 return (lval_char != NULL
-                        && (get_obj_wear (lval_char, buf) != NULL));
+                    && (get_obj_wear(lval_char, buf) != NULL));
         case CHK_HAS:
             return (lval_char != NULL
-                    && has_item (lval_char, -1, item_lookup (buf), FALSE));
+                && has_item(lval_char, -1, item_lookup(buf), FALSE));
         case CHK_USES:
             return (lval_char != NULL
-                    && has_item (lval_char, -1, item_lookup (buf), TRUE));
+                && has_item(lval_char, -1, item_lookup(buf), TRUE));
         case CHK_NAME:
             switch (code)
             {
@@ -593,42 +593,42 @@ int cmd_eval (sh_int vnum, char *line, int check,
                 case 'r':
                 case 'q':
                     return (lval_char != NULL
-                            && is_name (buf, lval_char->name));
+                        && is_name(buf, lval_char->name));
                 case 'o':
                 case 'p':
                     return (lval_obj != NULL
-                            && is_name (buf, lval_obj->name));
+                        && is_name(buf, lval_obj->name));
             }
         case CHK_POS:
             return (lval_char != NULL
-                    && lval_char->position == position_lookup (buf));
+                && lval_char->position == position_lookup(buf));
         case CHK_CLAN:
             return (lval_char != NULL
-                    && lval_char->clan == clan_lookup (buf));
+                && lval_char->clan == clan_lookup(buf));
         case CHK_RACE:
             return (lval_char != NULL
-                    && lval_char->race == race_lookup (buf));
+                && lval_char->race == race_lookup(buf));
         case CHK_CLASS:
             return (lval_char != NULL
-                    && lval_char->class == class_lookup (buf));
+                && lval_char->class == class_lookup(buf));
         case CHK_OBJTYPE:
             return (lval_obj != NULL
-                    && lval_obj->item_type == item_lookup (buf));
+                && lval_obj->item_type == item_lookup(buf));
         default:;
     }
 
     /*
      * Case 5: Keyword, actor, comparison and value
      */
-    if ((oper = keyword_lookup (fn_evals, buf)) < 0)
+    if ((oper = keyword_lookup(fn_evals, buf)) < 0)
     {
-        sprintf (buf, "Cmd_eval: prog %d syntax error(5): '%s'",
-                 vnum, original);
-        bug (buf, 0);
+        sprintf(buf, "Cmd_eval: prog %d syntax error(5): '%s'",
+            vnum, original);
+        bug(buf, 0);
         return FALSE;
     }
-    one_argument (line, buf);
-    rval = atoi (buf);
+    one_argument(line, buf);
+    rval = atoi(buf);
 
     switch (check)
     {
@@ -641,7 +641,7 @@ int cmd_eval (sh_int vnum, char *line, int check,
                 case 't':
                 case 'r':
                 case 'q':
-                    if (lval_char != NULL && IS_NPC (lval_char))
+                    if (lval_char != NULL && IS_NPC(lval_char))
                         lval = lval_char->pIndexData->vnum;
                     break;
                 case 'o':
@@ -653,7 +653,7 @@ int cmd_eval (sh_int vnum, char *line, int check,
         case CHK_HPCNT:
             if (lval_char != NULL)
                 lval =
-                    (lval_char->hit * 100) / (UMAX (1, lval_char->max_hit));
+                (lval_char->hit * 100) / (UMAX(1, lval_char->max_hit));
             break;
         case CHK_ROOM:
             if (lval_char != NULL && lval_char->in_room != NULL)
@@ -697,12 +697,12 @@ int cmd_eval (sh_int vnum, char *line, int check,
             break;
         case CHK_GRPSIZE:
             if (lval_char != NULL)
-                lval = count_people_room (lval_char, 4);
+                lval = count_people_room(lval_char, 4);
             break;
         default:
             return FALSE;
     }
-    return (num_eval (lval, oper, rval));
+    return (num_eval(lval, oper, rval));
 }
 
 /*
@@ -712,22 +712,22 @@ int cmd_eval (sh_int vnum, char *line, int check,
  * so that missing or invalid $-codes do not crash the server
  * ------------------------------------------------------------------------
  */
-void expand_arg (char *buf,
-                 const char *format,
-                 CHAR_DATA * mob, CHAR_DATA * ch,
-                 const void *arg1, const void *arg2, CHAR_DATA * rch)
+void expand_arg(char *buf,
+    const char *format,
+    CHAR_DATA * mob, CHAR_DATA * ch,
+    const void *arg1, const void *arg2, CHAR_DATA * rch)
 {
-    static char *const he_she[] = { "it", "he", "she" };
-    static char *const him_her[] = { "it", "him", "her" };
-    static char *const his_her[] = { "its", "his", "her" };
+    static char *const he_she[] = {"it", "he", "she"};
+    static char *const him_her[] = {"it", "him", "her"};
+    static char *const his_her[] = {"its", "his", "her"};
     const char *someone = "someone";
     const char *something = "something";
     const char *someones = "someone's";
 
     char fname[MAX_INPUT_LENGTH];
-    CHAR_DATA *vch = (CHAR_DATA *) arg2;
-    OBJ_DATA *obj1 = (OBJ_DATA *) arg1;
-    OBJ_DATA *obj2 = (OBJ_DATA *) arg2;
+    CHAR_DATA *vch = (CHAR_DATA *)arg2;
+    OBJ_DATA *obj1 = (OBJ_DATA *)arg1;
+    OBJ_DATA *obj2 = (OBJ_DATA *)arg2;
     const char *str;
     const char *i;
     char *point;
@@ -752,11 +752,11 @@ void expand_arg (char *buf,
         switch (*str)
         {
             default:
-                bug ("Expand_arg: bad code %d.", *str);
+                bug("Expand_arg: bad code %d.", *str);
                 i = " <@@@> ";
                 break;
             case 'i':
-                one_argument (mob->name, fname);
+                one_argument(mob->name, fname);
                 i = fname;
                 break;
             case 'I':
@@ -764,152 +764,152 @@ void expand_arg (char *buf,
                 break;
             case 'n':
                 i = someone;
-                if (ch != NULL && can_see (mob, ch))
+                if (ch != NULL && can_see(mob, ch))
                 {
-                    one_argument (ch->name, fname);
-                    i = capitalize (fname);
+                    one_argument(ch->name, fname);
+                    i = capitalize(fname);
                 }
                 break;
             case 'N':
-                i = (ch != NULL && can_see (mob, ch))
-                    ? (IS_NPC (ch) ? ch->short_descr : ch->name) : someone;
+                i = (ch != NULL && can_see(mob, ch))
+                    ? (IS_NPC(ch) ? ch->short_descr : ch->name) : someone;
                 break;
             case 't':
                 i = someone;
-                if (vch != NULL && can_see (mob, vch))
+                if (vch != NULL && can_see(mob, vch))
                 {
-                    one_argument (vch->name, fname);
-                    i = capitalize (fname);
+                    one_argument(vch->name, fname);
+                    i = capitalize(fname);
                 }
                 break;
             case 'T':
-                i = (vch != NULL && can_see (mob, vch))
-                    ? (IS_NPC (vch) ? vch->short_descr : vch->name) : someone;
+                i = (vch != NULL && can_see(mob, vch))
+                    ? (IS_NPC(vch) ? vch->short_descr : vch->name) : someone;
                 break;
             case 'r':
                 if (rch == NULL)
-                    rch = get_random_char (mob);
+                    rch = get_random_char(mob);
                 i = someone;
-                if (rch != NULL && can_see (mob, rch))
+                if (rch != NULL && can_see(mob, rch))
                 {
-                    one_argument (rch->name, fname);
-                    i = capitalize (fname);
+                    one_argument(rch->name, fname);
+                    i = capitalize(fname);
                 }
                 break;
             case 'R':
                 if (rch == NULL)
-                    rch = get_random_char (mob);
-                i = (rch != NULL && can_see (mob, rch))
-                    ? (IS_NPC (ch) ? ch->short_descr : ch->name) : someone;
+                    rch = get_random_char(mob);
+                i = (rch != NULL && can_see(mob, rch))
+                    ? (IS_NPC(ch) ? ch->short_descr : ch->name) : someone;
                 break;
             case 'q':
                 i = someone;
                 if (mob->mprog_target != NULL
-                    && can_see (mob, mob->mprog_target))
+                    && can_see(mob, mob->mprog_target))
                 {
-                    one_argument (mob->mprog_target->name, fname);
-                    i = capitalize (fname);
+                    one_argument(mob->mprog_target->name, fname);
+                    i = capitalize(fname);
                 }
                 break;
             case 'Q':
                 i = (mob->mprog_target != NULL
-                     && can_see (mob,
-                                 mob->
-                                 mprog_target)) ? (IS_NPC (mob->mprog_target)
-                                                   ? mob->
-                                                   mprog_target->short_descr :
-                                                   mob->mprog_target->name) :
+                    && can_see(mob,
+                        mob->
+                        mprog_target)) ? (IS_NPC(mob->mprog_target)
+                            ? mob->
+                            mprog_target->short_descr :
+                            mob->mprog_target->name) :
                     someone;
                 break;
             case 'j':
-                i = he_she[URANGE (0, mob->sex, 2)];
+                i = he_she[URANGE(0, mob->sex, 2)];
                 break;
             case 'e':
-                i = (ch != NULL && can_see (mob, ch))
-                    ? he_she[URANGE (0, ch->sex, 2)] : someone;
+                i = (ch != NULL && can_see(mob, ch))
+                    ? he_she[URANGE(0, ch->sex, 2)] : someone;
                 break;
             case 'E':
-                i = (vch != NULL && can_see (mob, vch))
-                    ? he_she[URANGE (0, vch->sex, 2)] : someone;
+                i = (vch != NULL && can_see(mob, vch))
+                    ? he_she[URANGE(0, vch->sex, 2)] : someone;
                 break;
             case 'J':
-                i = (rch != NULL && can_see (mob, rch))
-                    ? he_she[URANGE (0, rch->sex, 2)] : someone;
+                i = (rch != NULL && can_see(mob, rch))
+                    ? he_she[URANGE(0, rch->sex, 2)] : someone;
                 break;
             case 'X':
                 i = (mob->mprog_target != NULL
-                     && can_see (mob, mob->mprog_target)) ? he_she[URANGE (0,
-                                                                           mob->mprog_target->sex,
-                                                                           2)]
+                    && can_see(mob, mob->mprog_target)) ? he_she[URANGE(0,
+                        mob->mprog_target->sex,
+                        2)]
                     : someone; break;
             case 'k':
-                i = him_her[URANGE (0, mob->sex, 2)];
+                i = him_her[URANGE(0, mob->sex, 2)];
                 break;
             case 'm':
-                i = (ch != NULL && can_see (mob, ch))
-                    ? him_her[URANGE (0, ch->sex, 2)] : someone;
+                i = (ch != NULL && can_see(mob, ch))
+                    ? him_her[URANGE(0, ch->sex, 2)] : someone;
                 break;
             case 'M':
-                i = (vch != NULL && can_see (mob, vch))
-                    ? him_her[URANGE (0, vch->sex, 2)] : someone;
+                i = (vch != NULL && can_see(mob, vch))
+                    ? him_her[URANGE(0, vch->sex, 2)] : someone;
                 break;
             case 'K':
                 if (rch == NULL)
-                    rch = get_random_char (mob);
-                i = (rch != NULL && can_see (mob, rch))
-                    ? him_her[URANGE (0, rch->sex, 2)] : someone;
+                    rch = get_random_char(mob);
+                i = (rch != NULL && can_see(mob, rch))
+                    ? him_her[URANGE(0, rch->sex, 2)] : someone;
                 break;
             case 'Y':
                 i = (mob->mprog_target != NULL
-                     && can_see (mob, mob->mprog_target)) ? him_her[URANGE (0,
-                                                                            mob->mprog_target->sex,
-                                                                            2)]
+                    && can_see(mob, mob->mprog_target)) ? him_her[URANGE(0,
+                        mob->mprog_target->sex,
+                        2)]
                     : someone; break;
             case 'l':
-                i = his_her[URANGE (0, mob->sex, 2)];
+                i = his_her[URANGE(0, mob->sex, 2)];
                 break;
             case 's':
-                i = (ch != NULL && can_see (mob, ch))
-                    ? his_her[URANGE (0, ch->sex, 2)] : someones;
+                i = (ch != NULL && can_see(mob, ch))
+                    ? his_her[URANGE(0, ch->sex, 2)] : someones;
                 break;
             case 'S':
-                i = (vch != NULL && can_see (mob, vch))
-                    ? his_her[URANGE (0, vch->sex, 2)] : someones;
+                i = (vch != NULL && can_see(mob, vch))
+                    ? his_her[URANGE(0, vch->sex, 2)] : someones;
                 break;
             case 'L':
                 if (rch == NULL)
-                    rch = get_random_char (mob);
-                i = (rch != NULL && can_see (mob, rch))
-                    ? his_her[URANGE (0, rch->sex, 2)] : someones;
+                    rch = get_random_char(mob);
+                i = (rch != NULL && can_see(mob, rch))
+                    ? his_her[URANGE(0, rch->sex, 2)] : someones;
                 break;
             case 'Z':
                 i = (mob->mprog_target != NULL
-                     && can_see (mob, mob->mprog_target)) ? his_her[URANGE (0,
-                                                                            mob->mprog_target->sex,
-                                                                            2)]
+                    && can_see(mob, mob->mprog_target)) ? his_her[URANGE(0,
+                        mob->mprog_target->sex,
+                        2)]
                     : someones; break;
             case 'o':
                 i = something;
-                if (obj1 != NULL && can_see_obj (mob, obj1))
+                if (obj1 != NULL && can_see_obj(mob, obj1))
                 {
-                    one_argument (obj1->name, fname);
+                    one_argument(obj1->name, fname);
                     i = fname;
                 }
                 break;
             case 'O':
-                i = (obj1 != NULL && can_see_obj (mob, obj1))
+                i = (obj1 != NULL && can_see_obj(mob, obj1))
                     ? obj1->short_descr : something;
                 break;
             case 'p':
                 i = something;
-                if (obj2 != NULL && can_see_obj (mob, obj2))
+                if (obj2 != NULL && can_see_obj(mob, obj2))
                 {
-                    one_argument (obj2->name, fname);
+                    one_argument(obj2->name, fname);
                     i = fname;
                 }
                 break;
             case 'P':
-                i = (obj2 != NULL && can_see_obj (mob, obj2))
+                i = (obj2 != NULL && can_see_obj(mob, obj2))
                     ? obj2->short_descr : something;
                 break;
         }
@@ -940,10 +940,10 @@ void expand_arg (char *buf,
 #define END_BLOCK        -2        /* Flag: End of if-else-endif block */
 #define MAX_CALL_LEVEL    5        /* Maximum nested calls */
 
-void program_flow (sh_int pvnum,    /* For diagnostic purposes */
-                   char *source,    /* the actual MOBprog code */
-                   CHAR_DATA * mob, CHAR_DATA * ch, const void *arg1,
-                   const void *arg2)
+void program_flow(sh_int pvnum,    /* For diagnostic purposes */
+    char *source,    /* the actual MOBprog code */
+    CHAR_DATA * mob, CHAR_DATA * ch, const void *arg1,
+    const void *arg2)
 {
     CHAR_DATA *rch = NULL;
     char *code, *line;
@@ -954,14 +954,14 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
 
     int level, eval, check;
     int state[MAX_NESTED_LEVEL],    /* Block state (BEGIN,IN,END) */
-      cond[MAX_NESTED_LEVEL];    /* Boolean value based on the last if-check */
+        cond[MAX_NESTED_LEVEL];    /* Boolean value based on the last if-check */
 
     sh_int mvnum = mob->pIndexData->vnum;
 
     if (++call_level > MAX_CALL_LEVEL)
     {
-        bug ("MOBprogs: MAX_CALL_LEVEL exceeded, vnum %d",
-             mob->pIndexData->vnum);
+        bug("MOBprogs: MAX_CALL_LEVEL exceeded, vnum %d",
+            mob->pIndexData->vnum);
         return;
     }
 
@@ -987,13 +987,13 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
          * Get a command line. We sneakily get both the control word
          * (if/and/or) and the rest of the line in one pass.
          */
-        while (isspace (*code) && *code)
+        while (isspace(*code) && *code)
             code++;
         while (*code)
         {
             if (*code == '\n' || *code == '\r')
                 break;
-            else if (isspace (*code))
+            else if (isspace(*code))
             {
                 if (first_arg)
                     first_arg = FALSE;
@@ -1017,26 +1017,26 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
             continue;
 
         line = data;
-        /* 
+        /*
          * Match control words
          */
-        if (!str_cmp (control, "if"))
+        if (!str_cmp(control, "if"))
         {
             if (state[level] == BEGIN_BLOCK)
             {
-                sprintf (buf,
-                         "Mobprog: misplaced if statement, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf,
+                    "Mobprog: misplaced if statement, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             state[level] = BEGIN_BLOCK;
             if (++level >= MAX_NESTED_LEVEL)
             {
-                sprintf (buf,
-                         "Mobprog: Max nested level exceeded, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf,
+                    "Mobprog: Max nested level exceeded, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             if (level && cond[level - 1] == FALSE)
@@ -1044,97 +1044,97 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
                 cond[level] = FALSE;
                 continue;
             }
-            line = one_argument (line, control);
-            if ((check = keyword_lookup (fn_keyword, control)) >= 0)
+            line = one_argument(line, control);
+            if ((check = keyword_lookup(fn_keyword, control)) >= 0)
             {
                 cond[level] =
-                    cmd_eval (pvnum, line, check, mob, ch, arg1, arg2, rch);
+                    cmd_eval(pvnum, line, check, mob, ch, arg1, arg2, rch);
             }
             else
             {
-                sprintf (buf,
-                         "Mobprog: invalid if_check (if), mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf,
+                    "Mobprog: invalid if_check (if), mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             state[level] = END_BLOCK;
         }
-        else if (!str_cmp (control, "or"))
+        else if (!str_cmp(control, "or"))
         {
             if (!level || state[level - 1] != BEGIN_BLOCK)
             {
-                sprintf (buf, "Mobprog: or without if, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf, "Mobprog: or without if, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             if (level && cond[level - 1] == FALSE)
                 continue;
-            line = one_argument (line, control);
-            if ((check = keyword_lookup (fn_keyword, control)) >= 0)
+            line = one_argument(line, control);
+            if ((check = keyword_lookup(fn_keyword, control)) >= 0)
             {
                 eval =
-                    cmd_eval (pvnum, line, check, mob, ch, arg1, arg2, rch);
+                    cmd_eval(pvnum, line, check, mob, ch, arg1, arg2, rch);
             }
             else
             {
-                sprintf (buf,
-                         "Mobprog: invalid if_check (or), mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf,
+                    "Mobprog: invalid if_check (or), mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             cond[level] = (eval == TRUE) ? TRUE : cond[level];
         }
-        else if (!str_cmp (control, "and"))
+        else if (!str_cmp(control, "and"))
         {
             if (!level || state[level - 1] != BEGIN_BLOCK)
             {
-                sprintf (buf, "Mobprog: and without if, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf, "Mobprog: and without if, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             if (level && cond[level - 1] == FALSE)
                 continue;
-            line = one_argument (line, control);
-            if ((check = keyword_lookup (fn_keyword, control)) >= 0)
+            line = one_argument(line, control);
+            if ((check = keyword_lookup(fn_keyword, control)) >= 0)
             {
                 eval =
-                    cmd_eval (pvnum, line, check, mob, ch, arg1, arg2, rch);
+                    cmd_eval(pvnum, line, check, mob, ch, arg1, arg2, rch);
             }
             else
             {
-                sprintf (buf,
-                         "Mobprog: invalid if_check (and), mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf,
+                    "Mobprog: invalid if_check (and), mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             cond[level] = (cond[level] == TRUE)
                 && (eval == TRUE) ? TRUE : FALSE;
         }
-        else if (!str_cmp (control, "endif"))
+        else if (!str_cmp(control, "endif"))
         {
             if (!level || state[level - 1] != BEGIN_BLOCK)
             {
-                sprintf (buf, "Mobprog: endif without if, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf, "Mobprog: endif without if, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             cond[level] = TRUE;
             state[level] = IN_BLOCK;
             state[--level] = END_BLOCK;
         }
-        else if (!str_cmp (control, "else"))
+        else if (!str_cmp(control, "else"))
         {
             if (!level || state[level - 1] != BEGIN_BLOCK)
             {
-                sprintf (buf, "Mobprog: else without if, mob %d prog %d",
-                         mvnum, pvnum);
-                bug (buf, 0);
+                sprintf(buf, "Mobprog: else without if, mob %d prog %d",
+                    mvnum, pvnum);
+                bug(buf, 0);
                 return;
             }
             if (level && cond[level - 1] == FALSE)
@@ -1143,8 +1143,8 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
             cond[level] = (cond[level] == TRUE) ? FALSE : TRUE;
         }
         else if (cond[level] == TRUE
-                 && (!str_cmp (control, "break")
-                     || !str_cmp (control, "end")))
+            && (!str_cmp(control, "break")
+                || !str_cmp(control, "end")))
         {
             call_level--;
             return;
@@ -1152,28 +1152,28 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
         else if ((!level || cond[level] == TRUE) && buf[0] != '\0')
         {
             state[level] = IN_BLOCK;
-            expand_arg (data, buf, mob, ch, arg1, arg2, rch);
-            if (!str_cmp (control, "mob"))
+            expand_arg(data, buf, mob, ch, arg1, arg2, rch);
+            if (!str_cmp(control, "mob"))
             {
-                /* 
+                /*
                  * Found a mob restricted command, pass it to mob interpreter
                  */
-                line = one_argument (data, control);
-                mob_interpret (mob, line);
+                line = one_argument(data, control);
+                mob_interpret(mob, line);
             }
             else
             {
-                /* 
+                /*
                  * Found a normal mud command, pass it to interpreter
                  */
-                interpret (mob, data);
+                interpret(mob, data);
             }
         }
     }
     call_level--;
 }
 
-/* 
+/*
  * ---------------------------------------------------------------------
  * Trigger handlers. These are called from various parts of the code
  * when an event is triggered.
@@ -1184,9 +1184,9 @@ void program_flow (sh_int pvnum,    /* For diagnostic purposes */
  * A general purpose string trigger. Matches argument to a string trigger
  * phrase.
  */
-void mp_act_trigger (
-                     char *argument, CHAR_DATA * mob, CHAR_DATA * ch,
-                     const void *arg1, const void *arg2, int type)
+void mp_act_trigger(
+    char *argument, CHAR_DATA * mob, CHAR_DATA * ch,
+    const void *arg1, const void *arg2, int type)
 {
     MPROG_LIST *prg;
 
@@ -1195,9 +1195,9 @@ void mp_act_trigger (
     for (prg = mob->pIndexData->mprogs; prg != NULL; prg = prg->next)
     {
         if (prg->trig_type == type
-            && strstr (argument, prg->trig_phrase) != NULL)
+            && strstr(argument, prg->trig_phrase) != NULL)
         {
-            program_flow (prg->vnum, prg->code, mob, ch, arg1, arg2);
+            program_flow(prg->vnum, prg->code, mob, ch, arg1, arg2);
             break;
         }
     }
@@ -1208,24 +1208,24 @@ void mp_act_trigger (
  * A general purpose percentage trigger. Checks if a random percentage
  * number is less than trigger phrase
  */
-bool mp_percent_trigger (CHAR_DATA * mob, CHAR_DATA * ch,
-                         const void *arg1, const void *arg2, int type)
+bool mp_percent_trigger(CHAR_DATA * mob, CHAR_DATA * ch,
+    const void *arg1, const void *arg2, int type)
 {
     MPROG_LIST *prg;
 
     for (prg = mob->pIndexData->mprogs; prg != NULL; prg = prg->next)
     {
         if (prg->trig_type == type
-            && number_percent () < atoi (prg->trig_phrase))
+            && number_percent() < atoi(prg->trig_phrase))
         {
-            program_flow (prg->vnum, prg->code, mob, ch, arg1, arg2);
+            program_flow(prg->vnum, prg->code, mob, ch, arg1, arg2);
             return (TRUE);
         }
     }
     return (FALSE);
 }
 
-void mp_bribe_trigger (CHAR_DATA * mob, CHAR_DATA * ch, int amount)
+void mp_bribe_trigger(CHAR_DATA * mob, CHAR_DATA * ch, int amount)
 {
     MPROG_LIST *prg;
 
@@ -1236,25 +1236,25 @@ void mp_bribe_trigger (CHAR_DATA * mob, CHAR_DATA * ch, int amount)
      */
     for (prg = mob->pIndexData->mprogs; prg; prg = prg->next)
     {
-        if (prg->trig_type == TRIG_BRIBE && amount >= atoi (prg->trig_phrase))
+        if (prg->trig_type == TRIG_BRIBE && amount >= atoi(prg->trig_phrase))
         {
-            program_flow (prg->vnum, prg->code, mob, ch, NULL, NULL);
+            program_flow(prg->vnum, prg->code, mob, ch, NULL, NULL);
             break;
         }
     }
     return;
 }
 
-bool mp_exit_trigger (CHAR_DATA * ch, int dir)
+bool mp_exit_trigger(CHAR_DATA * ch, int dir)
 {
     CHAR_DATA *mob;
     MPROG_LIST *prg;
 
     for (mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room)
     {
-        if (IS_NPC (mob)
-            && (HAS_TRIGGER (mob, TRIG_EXIT)
-                || HAS_TRIGGER (mob, TRIG_EXALL)))
+        if (IS_NPC(mob)
+            && (HAS_TRIGGER(mob, TRIG_EXIT)
+                || HAS_TRIGGER(mob, TRIG_EXALL)))
         {
             for (prg = mob->pIndexData->mprogs; prg; prg = prg->next)
             {
@@ -1264,27 +1264,27 @@ bool mp_exit_trigger (CHAR_DATA * ch, int dir)
                  * are caught, use ExAll trigger
                  */
                 if (prg->trig_type == TRIG_EXIT
-                    && dir == atoi (prg->trig_phrase)
+                    && dir == atoi(prg->trig_phrase)
                     && mob->position == mob->pIndexData->default_pos
-                    && can_see (mob, ch))
+                    && can_see(mob, ch))
                 {
-                    program_flow (prg->vnum, prg->code, mob, ch, NULL, NULL);
+                    program_flow(prg->vnum, prg->code, mob, ch, NULL, NULL);
                     return TRUE;
                 }
                 else
                     if (prg->trig_type == TRIG_EXALL
-                        && dir == atoi (prg->trig_phrase))
-                {
-                    program_flow (prg->vnum, prg->code, mob, ch, NULL, NULL);
-                    return TRUE;
-                }
+                        && dir == atoi(prg->trig_phrase))
+                    {
+                        program_flow(prg->vnum, prg->code, mob, ch, NULL, NULL);
+                        return TRUE;
+                    }
             }
         }
     }
     return FALSE;
 }
 
-void mp_give_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
+void mp_give_trigger(CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
 {
 
     char buf[MAX_INPUT_LENGTH], *p;
@@ -1297,12 +1297,12 @@ void mp_give_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
             /*
              * Vnum argument
              */
-            if (is_number (p))
+            if (is_number(p))
             {
-                if (obj->pIndexData->vnum == atoi (p))
+                if (obj->pIndexData->vnum == atoi(p))
                 {
-                    program_flow (prg->vnum, prg->code, mob, ch, (void *) obj,
-                                  NULL);
+                    program_flow(prg->vnum, prg->code, mob, ch, (void *)obj,
+                        NULL);
                     return;
                 }
             }
@@ -1313,12 +1313,12 @@ void mp_give_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
             {
                 while (*p)
                 {
-                    p = one_argument (p, buf);
+                    p = one_argument(p, buf);
 
-                    if (is_name (buf, obj->name) || !str_cmp ("all", buf))
+                    if (is_name(buf, obj->name) || !str_cmp("all", buf))
                     {
-                        program_flow (prg->vnum, prg->code, mob, ch,
-                                      (void *) obj, NULL);
+                        program_flow(prg->vnum, prg->code, mob, ch,
+                            (void *)obj, NULL);
                         return;
                     }
                 }
@@ -1326,41 +1326,41 @@ void mp_give_trigger (CHAR_DATA * mob, CHAR_DATA * ch, OBJ_DATA * obj)
         }
 }
 
-void mp_greet_trigger (CHAR_DATA * ch)
+void mp_greet_trigger(CHAR_DATA * ch)
 {
     CHAR_DATA *mob;
 
     for (mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room)
     {
-        if (IS_NPC (mob)
-            && (HAS_TRIGGER (mob, TRIG_GREET)
-                || HAS_TRIGGER (mob, TRIG_GRALL)))
+        if (IS_NPC(mob)
+            && (HAS_TRIGGER(mob, TRIG_GREET)
+                || HAS_TRIGGER(mob, TRIG_GRALL)))
         {
             /*
              * Greet trigger works only if the mobile is not busy
              * (fighting etc.). If you want to catch all players, use
              * GrAll trigger
              */
-            if (HAS_TRIGGER (mob, TRIG_GREET)
+            if (HAS_TRIGGER(mob, TRIG_GREET)
                 && mob->position == mob->pIndexData->default_pos
-                && can_see (mob, ch))
-                mp_percent_trigger (mob, ch, NULL, NULL, TRIG_GREET);
-            else if (HAS_TRIGGER (mob, TRIG_GRALL))
-                mp_percent_trigger (mob, ch, NULL, NULL, TRIG_GRALL);
+                && can_see(mob, ch))
+                mp_percent_trigger(mob, ch, NULL, NULL, TRIG_GREET);
+            else if (HAS_TRIGGER(mob, TRIG_GRALL))
+                mp_percent_trigger(mob, ch, NULL, NULL, TRIG_GRALL);
         }
     }
     return;
 }
 
-void mp_hprct_trigger (CHAR_DATA * mob, CHAR_DATA * ch)
+void mp_hprct_trigger(CHAR_DATA * mob, CHAR_DATA * ch)
 {
     MPROG_LIST *prg;
 
     for (prg = mob->pIndexData->mprogs; prg != NULL; prg = prg->next)
         if ((prg->trig_type == TRIG_HPCNT)
-            && ((100 * mob->hit / mob->max_hit) < atoi (prg->trig_phrase)))
+            && ((100 * mob->hit / mob->max_hit) < atoi(prg->trig_phrase)))
         {
-            program_flow (prg->vnum, prg->code, mob, ch, NULL, NULL);
+            program_flow(prg->vnum, prg->code, mob, ch, NULL, NULL);
             break;
         }
 }

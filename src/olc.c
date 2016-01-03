@@ -62,35 +62,35 @@ bool run_olc_editor(DESCRIPTOR_DATA * d)
 {
     switch (d->editor)
     {
-    case ED_AREA:
-        aedit(d->character, d->incomm);
-        break;
-    case ED_ROOM:
-        redit(d->character, d->incomm);
-        break;
-    case ED_OBJECT:
-        oedit(d->character, d->incomm);
-        break;
-    case ED_MOBILE:
-        medit(d->character, d->incomm);
-        break;
-    case ED_MPCODE:
-        mpedit(d->character, d->incomm);
-        break;
-    case ED_HELP:
-        hedit(d->character, d->incomm);
-        break;
-    case ED_GROUP:
-        gedit(d->character, d->incomm);
-        break;
-    case ED_CLASS:
-        cedit( d->character, d->incomm );
-        break;
-    case ED_SKILL:
-        sedit( d->character, d->incomm );
-        break;
-    default:
-        return FALSE;
+        case ED_AREA:
+            aedit(d->character, d->incomm);
+            break;
+        case ED_ROOM:
+            redit(d->character, d->incomm);
+            break;
+        case ED_OBJECT:
+            oedit(d->character, d->incomm);
+            break;
+        case ED_MOBILE:
+            medit(d->character, d->incomm);
+            break;
+        case ED_MPCODE:
+            mpedit(d->character, d->incomm);
+            break;
+        case ED_HELP:
+            hedit(d->character, d->incomm);
+            break;
+        case ED_GROUP:
+            gedit(d->character, d->incomm);
+            break;
+        case ED_CLASS:
+            cedit(d->character, d->incomm);
+            break;
+        case ED_SKILL:
+            sedit(d->character, d->incomm);
+            break;
+        default:
+            return FALSE;
     }
     return TRUE;
 }
@@ -102,36 +102,36 @@ char *olc_ed_name(CHAR_DATA * ch)
     buf[0] = '\0';
     switch (ch->desc->editor)
     {
-    case ED_AREA:
-        sprintf(buf, "AEdit");
-        break;
-    case ED_ROOM:
-        sprintf(buf, "REdit");
-        break;
-    case ED_OBJECT:
-        sprintf(buf, "OEdit");
-        break;
-    case ED_MOBILE:
-        sprintf(buf, "MEdit");
-        break;
-    case ED_MPCODE:
-        sprintf(buf, "MPEdit");
-        break;
-    case ED_HELP:
-        sprintf(buf, "HEdit");
-        break;
-    case ED_GROUP:
-        sprintf(buf, "GEdit");
-        break;
-    case ED_CLASS:
-        sprintf( buf, "CEdit" );
-        break;
-    case ED_SKILL:
-        sprintf( buf, "SEdit" );
-        break;
-    default:
-        sprintf(buf, " ");
-        break;
+        case ED_AREA:
+            sprintf(buf, "AEdit");
+            break;
+        case ED_ROOM:
+            sprintf(buf, "REdit");
+            break;
+        case ED_OBJECT:
+            sprintf(buf, "OEdit");
+            break;
+        case ED_MOBILE:
+            sprintf(buf, "MEdit");
+            break;
+        case ED_MPCODE:
+            sprintf(buf, "MPEdit");
+            break;
+        case ED_HELP:
+            sprintf(buf, "HEdit");
+            break;
+        case ED_GROUP:
+            sprintf(buf, "GEdit");
+            break;
+        case ED_CLASS:
+            sprintf(buf, "CEdit");
+            break;
+        case ED_SKILL:
+            sprintf(buf, "SEdit");
+            break;
+        default:
+            sprintf(buf, " ");
+            break;
     }
     return buf;
 }
@@ -149,33 +149,33 @@ char *olc_ed_vnum(CHAR_DATA * ch)
     buf[0] = '\0';
     switch (ch->desc->editor)
     {
-    case ED_AREA:
-        pArea = (AREA_DATA *)ch->desc->pEdit;
-        sprintf(buf, "%d", pArea ? pArea->vnum : 0);
-        break;
-    case ED_ROOM:
-        pRoom = ch->in_room;
-        sprintf(buf, "%d", pRoom ? pRoom->vnum : 0);
-        break;
-    case ED_OBJECT:
-        pObj = (OBJ_INDEX_DATA *)ch->desc->pEdit;
-        sprintf(buf, "%d", pObj ? pObj->vnum : 0);
-        break;
-    case ED_MOBILE:
-        pMob = (MOB_INDEX_DATA *)ch->desc->pEdit;
-        sprintf(buf, "%d", pMob ? pMob->vnum : 0);
-        break;
-    case ED_MPCODE:
-        pMprog = (MPROG_CODE *)ch->desc->pEdit;
-        sprintf(buf, "%d", pMprog ? pMprog->vnum : 0);
-        break;
-    case ED_HELP:
-        pHelp = (HELP_DATA *)ch->desc->pEdit;
-        sprintf(buf, "%s", pHelp ? pHelp->keyword : "");
-        break;
-    default:
-        sprintf(buf, " ");
-        break;
+        case ED_AREA:
+            pArea = (AREA_DATA *)ch->desc->pEdit;
+            sprintf(buf, "%d", pArea ? pArea->vnum : 0);
+            break;
+        case ED_ROOM:
+            pRoom = ch->in_room;
+            sprintf(buf, "%d", pRoom ? pRoom->vnum : 0);
+            break;
+        case ED_OBJECT:
+            pObj = (OBJ_INDEX_DATA *)ch->desc->pEdit;
+            sprintf(buf, "%d", pObj ? pObj->vnum : 0);
+            break;
+        case ED_MOBILE:
+            pMob = (MOB_INDEX_DATA *)ch->desc->pEdit;
+            sprintf(buf, "%d", pMob ? pMob->vnum : 0);
+            break;
+        case ED_MPCODE:
+            pMprog = (MPROG_CODE *)ch->desc->pEdit;
+            sprintf(buf, "%d", pMprog ? pMprog->vnum : 0);
+            break;
+        case ED_HELP:
+            pHelp = (HELP_DATA *)ch->desc->pEdit;
+            sprintf(buf, "%s", pHelp ? pHelp->keyword : "");
+            break;
+        default:
+            sprintf(buf, " ");
+            break;
     }
 
     return buf;
@@ -241,10 +241,10 @@ bool show_commands(CHAR_DATA * ch, char *argument)
             show_olc_cmds(ch, gedit_table);
             break;
         case ED_CLASS:
-            show_olc_cmds( ch, cedit_table );
+            show_olc_cmds(ch, cedit_table);
             break;
         case ED_SKILL:
-            show_olc_cmds( ch, sedit_table );
+            show_olc_cmds(ch, sedit_table);
             break;
     }
 
@@ -1062,9 +1062,9 @@ void display_resets(CHAR_DATA * ch)
 
     send_to_char
         (" No.  Loads    Description       Location         Vnum   Mx Mn Description"
-        "\r\n"
-        "==== ======== ============= =================== ======== ===== ==========="
-        "\r\n", ch);
+            "\r\n"
+            "==== ======== ============= =================== ======== ===== ==========="
+            "\r\n", ch);
 
     for (pReset = pRoom->reset_first; pReset; pReset = pReset->next)
     {
@@ -1079,180 +1079,180 @@ void display_resets(CHAR_DATA * ch)
 
         switch (pReset->command)
         {
-        default:
-            sprintf(buf, "Bad reset command: %c.", pReset->command);
-            strcat(final, buf);
-            break;
-
-        case 'M':
-            if (!(pMobIndex = get_mob_index(pReset->arg1)))
-            {
-                sprintf(buf, "Load Mobile - Bad Mob %d\r\n",
-                    pReset->arg1);
-                strcat(final, buf);
-                continue;
-            }
-
-            if (!(pRoomIndex = get_room_index(pReset->arg3)))
-            {
-                sprintf(buf, "Load Mobile - Bad Room %d\r\n",
-                    pReset->arg3);
-                strcat(final, buf);
-                continue;
-            }
-
-            pMob = pMobIndex;
-            sprintf(buf,
-                "M[%5d] %-13.13s in room             R[%5d] %2d-%2d %-15.15s\r\n",
-                pReset->arg1, pMob->short_descr, pReset->arg3,
-                pReset->arg2, pReset->arg4, pRoomIndex->name);
-            strcat(final, buf);
-
-            /*
-            * Check for pet shop.
-            * -------------------
-            */
-            {
-                ROOM_INDEX_DATA *pRoomIndexPrev;
-
-                pRoomIndexPrev = get_room_index(pRoomIndex->vnum - 1);
-                if (pRoomIndexPrev
-                    && IS_SET(pRoomIndexPrev->room_flags, ROOM_PET_SHOP))
-                    final[5] = 'P';
-            }
-
-            break;
-
-        case 'O':
-            if (!(pObjIndex = get_obj_index(pReset->arg1)))
-            {
-                sprintf(buf, "Load Object - Bad Object %d\r\n",
-                    pReset->arg1);
-                strcat(final, buf);
-                continue;
-            }
-
-            pObj = pObjIndex;
-
-            if (!(pRoomIndex = get_room_index(pReset->arg3)))
-            {
-                sprintf(buf, "Load Object - Bad Room %d\r\n",
-                    pReset->arg3);
-                strcat(final, buf);
-                continue;
-            }
-
-            sprintf(buf, "O[%5d] %-13.13s in room             "
-                "R[%5d]       %-15.15s\r\n",
-                pReset->arg1, pObj->short_descr,
-                pReset->arg3, pRoomIndex->name);
-            strcat(final, buf);
-
-            break;
-
-        case 'P':
-            if (!(pObjIndex = get_obj_index(pReset->arg1)))
-            {
-                sprintf(buf, "Put Object - Bad Object %d\r\n",
-                    pReset->arg1);
-                strcat(final, buf);
-                continue;
-            }
-
-            pObj = pObjIndex;
-
-            if (!(pObjToIndex = get_obj_index(pReset->arg3)))
-            {
-                sprintf(buf, "Put Object - Bad To Object %d\r\n",
-                    pReset->arg3);
-                strcat(final, buf);
-                continue;
-            }
-
-            sprintf(buf,
-                "O[%5d] %-13.13s inside              O[%5d] %2d-%2d %-15.15s\r\n",
-                pReset->arg1,
-                pObj->short_descr,
-                pReset->arg3,
-                pReset->arg2, pReset->arg4,
-                pObjToIndex->short_descr);
-            strcat(final, buf);
-
-            break;
-
-        case 'G':
-        case 'E':
-            if (!(pObjIndex = get_obj_index(pReset->arg1)))
-            {
-                sprintf(buf, "Give/Equip Object - Bad Object %d\r\n",
-                    pReset->arg1);
-                strcat(final, buf);
-                continue;
-            }
-
-            pObj = pObjIndex;
-
-            if (!pMob)
-            {
-                sprintf(buf,
-                    "Give/Equip Object - No Previous Mobile\r\n");
+            default:
+                sprintf(buf, "Bad reset command: %c.", pReset->command);
                 strcat(final, buf);
                 break;
-            }
 
-            if (pMob->pShop)
-            {
+            case 'M':
+                if (!(pMobIndex = get_mob_index(pReset->arg1)))
+                {
+                    sprintf(buf, "Load Mobile - Bad Mob %d\r\n",
+                        pReset->arg1);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                if (!(pRoomIndex = get_room_index(pReset->arg3)))
+                {
+                    sprintf(buf, "Load Mobile - Bad Room %d\r\n",
+                        pReset->arg3);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                pMob = pMobIndex;
                 sprintf(buf,
-                    "O[%5d] %-13.13s in the inventory of S[%5d]       %-15.15s\r\n",
-                    pReset->arg1,
-                    pObj->short_descr, pMob->vnum,
-                    pMob->short_descr);
-            }
-            else
-                sprintf(buf,
-                "O[%5d] %-13.13s %-19.19s M[%5d]       %-15.15s\r\n",
-                pReset->arg1,
-                pObj->short_descr,
-                (pReset->command == 'G') ?
-                flag_string(wear_loc_strings, WEAR_NONE)
-                : flag_string(wear_loc_strings, pReset->arg3),
-                pMob->vnum, pMob->short_descr);
-            strcat(final, buf);
-
-            break;
-
-            /*
-            * Doors are set in rs_flags don't need to be displayed.
-            * If you want to display them then uncomment the new_reset
-            * line in the case 'D' in load_resets in db.c and here.
-            */
-        case 'D':
-            pRoomIndex = get_room_index(pReset->arg1);
-            sprintf(buf, "R[%5d] %s door of %-19.19s reset to %s\r\n",
-                pReset->arg1,
-                capitalize(dir_name[pReset->arg2]),
-                pRoomIndex->name,
-                flag_string(door_resets, pReset->arg3));
-            strcat(final, buf);
-
-            break;
-            /*
-            * End Doors Comment.
-            */
-        case 'R':
-            if (!(pRoomIndex = get_room_index(pReset->arg1)))
-            {
-                sprintf(buf, "Randomize Exits - Bad Room %d\r\n",
-                    pReset->arg1);
+                    "M[%5d] %-13.13s in room             R[%5d] %2d-%2d %-15.15s\r\n",
+                    pReset->arg1, pMob->short_descr, pReset->arg3,
+                    pReset->arg2, pReset->arg4, pRoomIndex->name);
                 strcat(final, buf);
-                continue;
-            }
 
-            sprintf(buf, "R[%5d] Exits are randomized in %s\r\n",
-                pReset->arg1, pRoomIndex->name);
-            strcat(final, buf);
+                /*
+                * Check for pet shop.
+                * -------------------
+                */
+                {
+                    ROOM_INDEX_DATA *pRoomIndexPrev;
 
-            break;
+                    pRoomIndexPrev = get_room_index(pRoomIndex->vnum - 1);
+                    if (pRoomIndexPrev
+                        && IS_SET(pRoomIndexPrev->room_flags, ROOM_PET_SHOP))
+                        final[5] = 'P';
+                }
+
+                break;
+
+            case 'O':
+                if (!(pObjIndex = get_obj_index(pReset->arg1)))
+                {
+                    sprintf(buf, "Load Object - Bad Object %d\r\n",
+                        pReset->arg1);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                pObj = pObjIndex;
+
+                if (!(pRoomIndex = get_room_index(pReset->arg3)))
+                {
+                    sprintf(buf, "Load Object - Bad Room %d\r\n",
+                        pReset->arg3);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                sprintf(buf, "O[%5d] %-13.13s in room             "
+                    "R[%5d]       %-15.15s\r\n",
+                    pReset->arg1, pObj->short_descr,
+                    pReset->arg3, pRoomIndex->name);
+                strcat(final, buf);
+
+                break;
+
+            case 'P':
+                if (!(pObjIndex = get_obj_index(pReset->arg1)))
+                {
+                    sprintf(buf, "Put Object - Bad Object %d\r\n",
+                        pReset->arg1);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                pObj = pObjIndex;
+
+                if (!(pObjToIndex = get_obj_index(pReset->arg3)))
+                {
+                    sprintf(buf, "Put Object - Bad To Object %d\r\n",
+                        pReset->arg3);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                sprintf(buf,
+                    "O[%5d] %-13.13s inside              O[%5d] %2d-%2d %-15.15s\r\n",
+                    pReset->arg1,
+                    pObj->short_descr,
+                    pReset->arg3,
+                    pReset->arg2, pReset->arg4,
+                    pObjToIndex->short_descr);
+                strcat(final, buf);
+
+                break;
+
+            case 'G':
+            case 'E':
+                if (!(pObjIndex = get_obj_index(pReset->arg1)))
+                {
+                    sprintf(buf, "Give/Equip Object - Bad Object %d\r\n",
+                        pReset->arg1);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                pObj = pObjIndex;
+
+                if (!pMob)
+                {
+                    sprintf(buf,
+                        "Give/Equip Object - No Previous Mobile\r\n");
+                    strcat(final, buf);
+                    break;
+                }
+
+                if (pMob->pShop)
+                {
+                    sprintf(buf,
+                        "O[%5d] %-13.13s in the inventory of S[%5d]       %-15.15s\r\n",
+                        pReset->arg1,
+                        pObj->short_descr, pMob->vnum,
+                        pMob->short_descr);
+                }
+                else
+                    sprintf(buf,
+                        "O[%5d] %-13.13s %-19.19s M[%5d]       %-15.15s\r\n",
+                        pReset->arg1,
+                        pObj->short_descr,
+                        (pReset->command == 'G') ?
+                        flag_string(wear_loc_strings, WEAR_NONE)
+                        : flag_string(wear_loc_strings, pReset->arg3),
+                        pMob->vnum, pMob->short_descr);
+                strcat(final, buf);
+
+                break;
+
+                /*
+                * Doors are set in rs_flags don't need to be displayed.
+                * If you want to display them then uncomment the new_reset
+                * line in the case 'D' in load_resets in db.c and here.
+                */
+            case 'D':
+                pRoomIndex = get_room_index(pReset->arg1);
+                sprintf(buf, "R[%5d] %s door of %-19.19s reset to %s\r\n",
+                    pReset->arg1,
+                    capitalize(dir_name[pReset->arg2]),
+                    pRoomIndex->name,
+                    flag_string(door_resets, pReset->arg3));
+                strcat(final, buf);
+
+                break;
+                /*
+                * End Doors Comment.
+                */
+            case 'R':
+                if (!(pRoomIndex = get_room_index(pReset->arg1)))
+                {
+                    sprintf(buf, "Randomize Exits - Bad Room %d\r\n",
+                        pReset->arg1);
+                    strcat(final, buf);
+                    continue;
+                }
+
+                sprintf(buf, "R[%5d] Exits are randomized in %s\r\n",
+                    pReset->arg1, pRoomIndex->name);
+                strcat(final, buf);
+
+                break;
         }
         send_to_char(final, ch);
     }
@@ -1381,7 +1381,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
                 RESET_DATA *prev = NULL;
 
                 for (pReset = pRoom->reset_first;
-                    pReset; pReset = pReset->next)
+                pReset; pReset = pReset->next)
                 {
                     if (++iReset == insert_loc)
                         break;
@@ -1400,7 +1400,7 @@ void do_resets(CHAR_DATA * ch, char *argument)
                     pRoom->reset_first = pRoom->reset_first->next;
 
                 for (pRoom->reset_last = pRoom->reset_first;
-                    pRoom->reset_last->next;
+                pRoom->reset_last->next;
                     pRoom->reset_last = pRoom->reset_last->next);
             }
 
@@ -1530,15 +1530,10 @@ void do_resets(CHAR_DATA * ch, char *argument)
             }
             else
             {
-                send_to_char("Syntax: RESET <number> OBJ <vnum> <wear_loc>\r\n",
-                    ch);
-                send_to_char
-                    ("        RESET <number> OBJ <vnum> inside <vnum> [limit] [count]\r\n",
-                    ch);
+                send_to_char("Syntax: RESET <number> OBJ <vnum> <wear_loc>\r\n", ch);
+                send_to_char("        RESET <number> OBJ <vnum> inside <vnum> [limit] [count]\r\n", ch);
                 send_to_char("        RESET <number> OBJ <vnum> room\r\n", ch);
-                send_to_char
-                    ("        RESET <number> MOB <vnum> [max #x area] [max #x room]\r\n",
-                    ch);
+                send_to_char("        RESET <number> MOB <vnum> [max #x area] [max #x room]\r\n", ch);
                 send_to_char("        RESET <number> DELETE\r\n", ch);
                 send_to_char("        RESET <number> RANDOM [#x exits]\r\n", ch);
             }
@@ -1557,127 +1552,127 @@ Notes:        Due to the large number of areas some muds have on their
               builder ports, the normal OLC alist command has a tendency to
               crash at around 114 areas give or take a couple either way.
 ****************************************************************************/
-void do_alist( CHAR_DATA *ch, char *argument )
+void do_alist(CHAR_DATA *ch, char *argument)
 {
     if (IS_NPC(ch))
         return;
 
     BUFFER *output;
     char buf[MAX_STRING_LENGTH];
-    char result [ MAX_STRING_LENGTH];
+    char result[MAX_STRING_LENGTH];
     AREA_DATA *pArea;
 
     output = new_buf();
 
-    sprintf( result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]",
-       "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders" );
-    send_to_char( result, ch );
+    sprintf(result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]",
+        "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec", "Builders");
+    send_to_char(result, ch);
 
-    for ( pArea = area_first; pArea; pArea = pArea->next )
+    for (pArea = area_first; pArea; pArea = pArea->next)
     {
-    sprintf( buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\r\n",
-         pArea->vnum,
-         pArea->name,
-         pArea->min_vnum,
-         pArea->max_vnum,
-         pArea->file_name,
-         pArea->security,
-         pArea->builders );
-         add_buf(output,buf);
+        sprintf(buf, "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\r\n",
+            pArea->vnum,
+            pArea->name,
+            pArea->min_vnum,
+            pArea->max_vnum,
+            pArea->file_name,
+            pArea->security,
+            pArea->builders);
+        add_buf(output, buf);
     }
 
-    page_to_char(buf_string(output),ch);
+    page_to_char(buf_string(output), ch);
     free_buf(output);
 }
 
-void do_gedit( CHAR_DATA *ch, char *argument )
+void do_gedit(CHAR_DATA *ch, char *argument)
 {
     GROUPTYPE *group;
     char arg1[MAX_STRING_LENGTH];
     int sn;
 
-    if ( IS_NPC(ch) )
-	return;
+    if (IS_NPC(ch))
+        return;
 
-    argument = one_argument( argument, arg1 );
+    argument = one_argument(argument, arg1);
 
     sn = group_lookup(arg1);
-    if (sn == -1 && str_cmp(arg1,"create" ))
+    if (sn == -1 && str_cmp(arg1, "create"))
     {
-	send_to_char( "GEdit:  That group does not exist.  Valid groups are:\r\n\r\n", ch );
-        do_function (ch, &do_groups, "all");
-	return;
+        send_to_char("GEdit:  That group does not exist.  Valid groups are:\r\n\r\n", ch);
+        do_function(ch, &do_groups, "all");
+        return;
     }
 
-    if ( !str_cmp( arg1, "create" )  )
+    if (!str_cmp(arg1, "create"))
     {
-        if ( argument[0] == '\0')
+        if (argument[0] == '\0')
         {
-            send_to_char( "Syntax:  edit group create group_name\r\n", ch );
+            send_to_char("Syntax:  edit group create group_name\r\n", ch);
             return;
-	}
+        }
 
-        if ( gedit_create( ch, argument ) )
+        if (gedit_create(ch, argument))
         {
             ch->desc->editor = ED_GROUP;
         }
-	return;
+        return;
     }
     else
     {
         group = group_table[sn];
-	ch->desc->pEdit = (void *)group;
-	ch->desc->editor = ED_GROUP;
-	return;
+        ch->desc->pEdit = (void *)group;
+        ch->desc->editor = ED_GROUP;
+        return;
     }
 
-    send_to_char( "GEdit:  There is no default group to edit.\r\n", ch );
+    send_to_char("GEdit:  There is no default group to edit.\r\n", ch);
     return;
 }
 
-void gedit( CHAR_DATA *ch, char *argument )
+void gedit(CHAR_DATA *ch, char *argument)
 {
     char arg[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
     int  cmd;
 
-    smash_tilde( argument );
-    strcpy( arg, argument );
-    argument = one_argument( argument, command );
+    smash_tilde(argument);
+    strcpy(arg, argument);
+    argument = one_argument(argument, command);
 
-    if (IS_SWITCHED(ch) )
+    if (IS_SWITCHED(ch))
     {
-        send_to_char("You cannot use OLC functions while switched!\r\n",ch);
+        send_to_char("You cannot use OLC functions while switched!\r\n", ch);
         edit_done(ch);
         return;
     }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-        send_to_char( "GEdit:  Insufficient security to modify groups.\r\n", ch );
-        edit_done( ch );
-        interpret( ch, arg );
+        send_to_char("GEdit:  Insufficient security to modify groups.\r\n", ch);
+        edit_done(ch);
+        interpret(ch, arg);
         return;
     }
 
-    if ( command[0] == '\0' )
+    if (command[0] == '\0')
     {
-        gedit_show( ch, argument );
+        gedit_show(ch, argument);
         return;
     }
 
-    if ( !str_cmp(command, "done") )
+    if (!str_cmp(command, "done"))
     {
-        edit_done( ch );
+        edit_done(ch);
         return;
     }
 
     /* Search Table and Dispatch Command. */
-    for ( cmd = 0; gedit_table[cmd].name[0] != '\0'; cmd++ )
+    for (cmd = 0; gedit_table[cmd].name[0] != '\0'; cmd++)
     {
-        if ( !str_prefix( command, gedit_table[cmd].name ) )
+        if (!str_prefix(command, gedit_table[cmd].name))
         {
-            if ( (*gedit_table[cmd].olc_fun) ( ch, argument ) )
+            if ((*gedit_table[cmd].olc_fun) (ch, argument))
             {
                 return;
             }
@@ -1687,205 +1682,205 @@ void gedit( CHAR_DATA *ch, char *argument )
     }
 
     /* Default to Standard Interpreter. */
-    interpret( ch, arg );
+    interpret(ch, arg);
     return;
 }
 
-void do_cedit( CHAR_DATA *ch, char *argument )
+void do_cedit(CHAR_DATA *ch, char *argument)
 {
     CLASSTYPE *class;
     char arg1[MAX_STRING_LENGTH];
     int sn;
 
-    if ( IS_NPC(ch) )
-	return;
+    if (IS_NPC(ch))
+        return;
 
-    argument = one_argument( argument, arg1 );
+    argument = one_argument(argument, arg1);
 
     sn = class_lookup(arg1);
-    if (sn == -1 && str_cmp(arg1,"create" ))
+    if (sn == -1 && str_cmp(arg1, "create"))
     {
-	send_to_char( "CEdit:  That class does not exist.\r\n", ch );
-	return;
+        send_to_char("CEdit:  That class does not exist.\r\n", ch);
+        return;
     }
 
-	if ( !str_cmp( arg1, "create" )  )
-	{
-	    if ( argument[0] == '\0')
-	    {
-		send_to_char( "Syntax:  edit class create group_name\r\n", ch );
-		return;
-	    }
+    if (!str_cmp(arg1, "create"))
+    {
+        if (argument[0] == '\0')
+        {
+            send_to_char("Syntax:  edit class create group_name\r\n", ch);
+            return;
+        }
 
-	    if ( cedit_create( ch, argument ) )
-	    {
-		ch->desc->editor = ED_CLASS;
-	    }
-	    return;
-	}
-	else
-	{
-            class = class_table[sn];
-	    ch->desc->pEdit = (void *)class;
-	    ch->desc->editor = ED_CLASS;
-	    return;
-	}
+        if (cedit_create(ch, argument))
+        {
+            ch->desc->editor = ED_CLASS;
+        }
+        return;
+    }
+    else
+    {
+        class = class_table[sn];
+        ch->desc->pEdit = (void *)class;
+        ch->desc->editor = ED_CLASS;
+        return;
+    }
 
-    send_to_char( "CEdit:  There is no default skill to edit.\r\n", ch );
+    send_to_char("CEdit:  There is no default skill to edit.\r\n", ch);
     return;
 }
 
-void cedit( CHAR_DATA *ch, char *argument )
+void cedit(CHAR_DATA *ch, char *argument)
 {
     char arg[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
     int  cmd;
 
-    smash_tilde( argument );
-    strcpy( arg, argument );
-    argument = one_argument( argument, command );
+    smash_tilde(argument);
+    strcpy(arg, argument);
+    argument = one_argument(argument, command);
 
     //EDIT_CLASS(ch, class);
 
-    if ( IS_SWITCHED(ch) )
-     {
-	send_to_char("You cannot use OLC functions while switched!!!\r\n",ch);
-	edit_done(ch);
-	return;
-     }
+    if (IS_SWITCHED(ch))
+    {
+        send_to_char("You cannot use OLC functions while switched!!!\r\n", ch);
+        edit_done(ch);
+        return;
+    }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-	send_to_char( "CEdit:  Insufficient security to modify classes.\r\n", ch );
-	edit_done( ch );
-	interpret( ch, arg );
-	return;
+        send_to_char("CEdit:  Insufficient security to modify classes.\r\n", ch);
+        edit_done(ch);
+        interpret(ch, arg);
+        return;
     }
 
-    if ( command[0] == '\0' )
+    if (command[0] == '\0')
     {
-	cedit_show( ch, argument );
-	return;
+        cedit_show(ch, argument);
+        return;
     }
 
-    if ( !str_cmp(command, "done") )
+    if (!str_cmp(command, "done"))
     {
-	edit_done( ch );
-	return;
+        edit_done(ch);
+        return;
     }
 
     /* Search Table and Dispatch Command. */
-    for ( cmd = 0; cedit_table[cmd].name[0] != '\0'; cmd++ )
+    for (cmd = 0; cedit_table[cmd].name[0] != '\0'; cmd++)
     {
-	if ( !str_prefix( command, cedit_table[cmd].name ) )
-	{
-	    if ( (*cedit_table[cmd].olc_fun) ( ch, argument ) )
-	    {
-		return;
-	    }
-	    else
+        if (!str_prefix(command, cedit_table[cmd].name))
+        {
+            if ((*cedit_table[cmd].olc_fun) (ch, argument))
             {
-		return;
+                return;
             }
-	}
+            else
+            {
+                return;
+            }
+        }
     }
 
     /* Default to Standard Interpreter. */
-    interpret( ch, arg );
+    interpret(ch, arg);
     return;
 }
 
-void do_sedit( CHAR_DATA *ch, char *argument )
+void do_sedit(CHAR_DATA *ch, char *argument)
 {
     SKILLTYPE *skill;
     char arg1[MAX_STRING_LENGTH];
     int sn;
 
-    if ( IS_NPC(ch) )
+    if (IS_NPC(ch))
         return;
 
-    argument = one_argument( argument, arg1 );
+    argument = one_argument(argument, arg1);
 
     sn = skill_lookup(arg1);
-    if (sn == -1 && str_cmp( arg1, "create"))
+    if (sn == -1 && str_cmp(arg1, "create"))
     {
-        send_to_char( "SEdit:  That skill does not exist.\r\n", ch );
+        send_to_char("SEdit:  That skill does not exist.\r\n", ch);
         return;
     }
 
-        if ( !str_cmp( arg1, "create" ) )
+    if (!str_cmp(arg1, "create"))
+    {
+        if (argument[0] == '\0')
         {
-            if ( argument[0] == '\0')
-            {
-                send_to_char( "Syntax:  edit skill create skill_name\r\n", ch );
-                return;
-            }
-
-            if ( sedit_create( ch, argument ) )
-            {
-                ch->desc->editor = ED_SKILL;
-            }
+            send_to_char("Syntax:  edit skill create skill_name\r\n", ch);
             return;
         }
-        else
+
+        if (sedit_create(ch, argument))
         {
-            skill = skill_table[sn];
-            ch->desc->pEdit = (void *)skill;
             ch->desc->editor = ED_SKILL;
-            return;
         }
+        return;
+    }
+    else
+    {
+        skill = skill_table[sn];
+        ch->desc->pEdit = (void *)skill;
+        ch->desc->editor = ED_SKILL;
+        return;
+    }
 
-    send_to_char( "SEdit:  There is no default skill to edit.\r\n", ch );
+    send_to_char("SEdit:  There is no default skill to edit.\r\n", ch);
     return;
 
 } // end do_sedit
 
-void sedit( CHAR_DATA *ch, char *argument )
+void sedit(CHAR_DATA *ch, char *argument)
 {
     //SKILLTYPE *skill;
     char arg[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
     int  cmd;
 
-    smash_tilde( argument );
-    strcpy( arg, argument );
-    argument = one_argument( argument, command );
+    smash_tilde(argument);
+    strcpy(arg, argument);
+    argument = one_argument(argument, command);
 
     //EDIT_SKILL(ch, skill);
 
-    if ( IS_SWITCHED(ch) )
-     {
-        send_to_char("You cannot use OLC functions while switched!!!\r\n",ch);
+    if (IS_SWITCHED(ch))
+    {
+        send_to_char("You cannot use OLC functions while switched!!!\r\n", ch);
         edit_done(ch);
         return;
-     }
+    }
 
     if (get_trust(ch) != CODER && get_trust(ch) != IMPLEMENTOR)
     {
-        send_to_char( "SEdit:  Insufficient security to modify skills.\r\n", ch );
-        edit_done( ch );
-        interpret( ch, arg );
+        send_to_char("SEdit:  Insufficient security to modify skills.\r\n", ch);
+        edit_done(ch);
+        interpret(ch, arg);
         return;
     }
 
-    if ( command[0] == '\0' )
+    if (command[0] == '\0')
     {
-        sedit_show( ch, argument );
+        sedit_show(ch, argument);
         return;
     }
 
-    if ( !str_cmp(command, "done") )
+    if (!str_cmp(command, "done"))
     {
-        edit_done( ch );
+        edit_done(ch);
         return;
     }
 
     /* Search Table and Dispatch Command. */
-    for ( cmd = 0; sedit_table[cmd].name[0] != '\0'; cmd++ )
+    for (cmd = 0; sedit_table[cmd].name[0] != '\0'; cmd++)
     {
-        if ( !str_prefix( command, sedit_table[cmd].name ) )
+        if (!str_prefix(command, sedit_table[cmd].name))
         {
-            if ( (*sedit_table[cmd].olc_fun) ( ch, argument ) )
+            if ((*sedit_table[cmd].olc_fun) (ch, argument))
             {
                 return;
             }
@@ -1895,7 +1890,7 @@ void sedit( CHAR_DATA *ch, char *argument )
     }
 
     /* Default to Standard Interpreter. */
-    interpret( ch, arg );
+    interpret(ch, arg);
     return;
 
 } // end void sedit

@@ -37,12 +37,12 @@
 
 // System Specific Includes
 #if defined(_WIN32)
-    #include <sys/types.h>
-    #include <time.h>
+#include <sys/types.h>
+#include <time.h>
 #else
-    #include <sys/types.h>
-    #include <sys/time.h>
-    #include <time.h>
+#include <sys/types.h>
+#include <sys/time.h>
+#include <time.h>
 #endif
 
 // General Includes
@@ -122,7 +122,7 @@ const struct flag_type stat_flags[] =
  Called by:    flag_value and flag_string.
  Note:        This function is local and used only in bit.c.
  ****************************************************************************/
-bool is_stat (const struct flag_type *flag_table)
+bool is_stat(const struct flag_type *flag_table)
 {
     int flag;
 
@@ -140,18 +140,18 @@ bool is_stat (const struct flag_type *flag_table)
  Purpose:    Returns the value of the flags entered.  Multi-flags accepted.
  Called by:    olc.c and olc_act.c.
  ****************************************************************************/
-int flag_value (const struct flag_type *flag_table, char *argument)
+int flag_value(const struct flag_type *flag_table, char *argument)
 {
     char word[MAX_INPUT_LENGTH];
     register int  bit;
     register int  marked = 0;
     bool found = FALSE;
 
-    if ( is_stat( flag_table ) )
+    if (is_stat(flag_table))
     {
-        one_argument( argument, word );
+        one_argument(argument, word);
 
-        if ( ( bit = flag_find( word, flag_table ) ) != NO_FLAG )
+        if ((bit = flag_find(word, flag_table)) != NO_FLAG)
             return bit;
         else
             return NO_FLAG;
@@ -162,19 +162,19 @@ int flag_value (const struct flag_type *flag_table, char *argument)
      */
     for (; ;)
     {
-        argument = one_argument( argument, word );
+        argument = one_argument(argument, word);
 
-        if ( word[0] == '\0' )
+        if (word[0] == '\0')
             break;
 
-        if ( ( bit = flag_find( word, flag_table ) ) != NO_FLAG )
+        if ((bit = flag_find(word, flag_table)) != NO_FLAG)
         {
-            SET_BIT( marked, bit );
+            SET_BIT(marked, bit);
             found = TRUE;
         }
     }
 
-    if ( found )
+    if (found)
         return marked;
     else
         return NO_FLAG;
@@ -186,7 +186,7 @@ int flag_value (const struct flag_type *flag_table, char *argument)
  Purpose:    Returns string with name(s) of the flags or stat entered.
  Called by:    act_olc.c, olc.c, and olc_save.c.
  ****************************************************************************/
-char *flag_string( const struct flag_type *flag_table, register int bits )
+char *flag_string(const struct flag_type *flag_table, register int bits)
 {
     static char buf[512];
     register int  flag;
@@ -195,20 +195,20 @@ char *flag_string( const struct flag_type *flag_table, register int bits )
 
     for (flag = 0; flag_table[flag].name != NULL; flag++)
     {
-        if ( !is_stat( flag_table ) && IS_SET(bits, flag_table[flag].bit) )
+        if (!is_stat(flag_table) && IS_SET(bits, flag_table[flag].bit))
         {
-            strcat( buf, " " );
-            strcat( buf, flag_table[flag].name );
+            strcat(buf, " ");
+            strcat(buf, flag_table[flag].name);
         }
         else
-        if ( flag_table[flag].bit == bits )
-        {
-            strcat( buf, " " );
-            strcat( buf, flag_table[flag].name );
-            break;
-        }
+            if (flag_table[flag].bit == bits)
+            {
+                strcat(buf, " ");
+                strcat(buf, flag_table[flag].name);
+                break;
+            }
     }
-    return (buf[0] != '\0') ? buf+1 : "none";
+    return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
 /*****************************************************************************
@@ -217,14 +217,14 @@ char *flag_string( const struct flag_type *flag_table, register int bits )
  Called by:     flag_value and flag_string.
  Note:          This function is local and used only in bit.c.
  ****************************************************************************/
-int flag_find (const char *name, const struct flag_type *flag_table)
+int flag_find(const char *name, const struct flag_type *flag_table)
 {
     register int flag;
 
     for (flag = 0; flag_table[flag].name != NULL; flag++)
     {
-        if ( !str_cmp( name, flag_table[flag].name )
-          && flag_table[flag].settable )
+        if (!str_cmp(name, flag_table[flag].name)
+            && flag_table[flag].settable)
             return flag_table[flag].bit;
     }
 
@@ -234,7 +234,7 @@ int flag_find (const char *name, const struct flag_type *flag_table)
 /*
  * This is the table to hold our friendly neighborhood continents.
  */
-const struct flag_type continent_flags[]= {
+const struct flag_type continent_flags[] = {
     { "limbo",    CONTINENT_LIMBO,    TRUE },
     { "oceans",   CONTINENT_OCEANS,   TRUE },
     { "midgaard", CONTINENT_MIDGAARD, TRUE },
@@ -246,7 +246,7 @@ const struct flag_type continent_flags[]= {
  * Target flags for spells, this will allow us to save friendtly names in the
  * skills.dat file and then look them up.
  */
-const struct flag_type target_flags[]=
+const struct flag_type target_flags[] =
 {
     {   "ignore",               TAR_IGNORE,             TRUE    },
     {   "char_offensive",       TAR_CHAR_OFFENSIVE,     TRUE    },

@@ -24,7 +24,7 @@
 #if defined(_WIN32)
     #include <sys/types.h>
     #include <time.h>
-	#include <winsock2.h> // for timeval in Windows
+    #include <winsock2.h> // for timeval in Windows
 #else
     #include <sys/types.h>
     #include <sys/time.h>
@@ -39,7 +39,7 @@
 #include "merc.h"
 #include "interp.h"
 
-bool check_social args ((CHAR_DATA * ch, char *command, char *argument));
+bool check_social args((CHAR_DATA * ch, char *command, char *argument));
 
 /*
  * Command logging types.
@@ -408,7 +408,7 @@ const struct cmd_type cmd_table[] = {
  * The main entry point for executing commands.
  * Can be recursively called from 'at', 'order', 'force'.
  */
-void interpret (CHAR_DATA * ch, char *argument)
+void interpret(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     char command[MAX_INPUT_LENGTH];
@@ -423,25 +423,25 @@ void interpret (CHAR_DATA * ch, char *argument)
     /*
      * Strip leading spaces.
      */
-    while (isspace (*argument))
+    while (isspace(*argument))
         argument++;
 
     if (argument[0] == '\0')
         return;
 
-    timer = get_timerptr( ch, TIMER_DO_FUN );
+    timer = get_timerptr(ch, TIMER_DO_FUN);
 
     /*
      * No hiding.
      */
-    REMOVE_BIT (ch->affected_by, AFF_HIDE);
+    REMOVE_BIT(ch->affected_by, AFF_HIDE);
 
     /*
      * Implement freeze command.
      */
-    if (!IS_NPC (ch) && IS_SET (ch->act, PLR_FREEZE))
+    if (!IS_NPC(ch) && IS_SET(ch->act, PLR_FREEZE))
     {
-        send_to_char ("You're totally frozen!\r\n", ch);
+        send_to_char("You're totally frozen!\r\n", ch);
         return;
     }
 
@@ -450,29 +450,29 @@ void interpret (CHAR_DATA * ch, char *argument)
      * Special parsing so ' can be a command,
      * also no spaces needed after punctuation.
      */
-    strcpy (logline, argument);
-    if (!isalpha (argument[0]) && !isdigit (argument[0]))
+    strcpy(logline, argument);
+    if (!isalpha(argument[0]) && !isdigit(argument[0]))
     {
         command[0] = argument[0];
         command[1] = '\0';
         argument++;
-        while (isspace (*argument))
+        while (isspace(*argument))
             argument++;
     }
     else
     {
-        argument = one_argument (argument, command);
+        argument = one_argument(argument, command);
     }
 
     /*
      * Look for command in command table.
      */
     found = FALSE;
-    trust = get_trust (ch);
+    trust = get_trust(ch);
     for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
     {
         if (command[0] == cmd_table[cmd].name[0]
-            && !str_prefix (command, cmd_table[cmd].name)
+            && !str_prefix(command, cmd_table[cmd].name)
             && cmd_table[cmd].level <= trust)
         {
             found = TRUE;
@@ -486,43 +486,43 @@ void interpret (CHAR_DATA * ch, char *argument)
     smash_dollar(logline);
 
     if (cmd_table[cmd].log == LOG_NEVER)
-        strcpy (logline, "");
+        strcpy(logline, "");
 
     /* Replaced original block of code with fix from Edwin
      * to prevent crashes due to dollar signs in logstrings.
      * I threw in the above call to smash_dollar() just for
      * the sake of overkill :) JR -- 10/15/00
      */
-    if ( ( !IS_NPC(ch) && IS_SET(ch->act, PLR_LOG) )
-        ||   fLogAll
-        ||   cmd_table[cmd].log == LOG_ALWAYS )
+    if ((!IS_NPC(ch) && IS_SET(ch->act, PLR_LOG))
+        || fLogAll
+        || cmd_table[cmd].log == LOG_ALWAYS)
     {
-        char s[2*MAX_INPUT_LENGTH],*ps;
+        char s[2 * MAX_INPUT_LENGTH], *ps;
         int i;
         char buf[MAX_STRING_LENGTH];
 
-        ps=s;
+        ps = s;
         sprintf(buf, "Log %s: %s", ch->name, logline);
 
         /* Make sure that was is displayed is what is typed */
-        for (i=0;buf[i];i++)
+        for (i = 0; buf[i]; i++)
         {
-            *ps++=buf[i];
-            if (buf[i]=='$')
-                *ps++='$';
-            if (buf[i]=='{')
-                *ps++='{';
+            *ps++ = buf[i];
+            if (buf[i] == '$')
+                *ps++ = '$';
+            if (buf[i] == '{')
+                *ps++ = '{';
         }
-        *ps=0;
+        *ps = 0;
         wiznet(s, ch, NULL, WIZ_SECURE, 0, get_trust(ch));
         log_string(buf);
     }
 
     if (ch->desc != NULL && ch->desc->snoop_by != NULL)
     {
-        write_to_buffer (ch->desc->snoop_by, "% ", 2);
-        write_to_buffer (ch->desc->snoop_by, logline, 0);
-        write_to_buffer (ch->desc->snoop_by, "\r\n", 2);
+        write_to_buffer(ch->desc->snoop_by, "% ", 2);
+        write_to_buffer(ch->desc->snoop_by, logline, 0);
+        write_to_buffer(ch->desc->snoop_by, "\r\n", 2);
     }
 
     if (timer)
@@ -536,7 +536,7 @@ void interpret (CHAR_DATA * ch, char *argument)
         if (ch->substate != SUB_TIMER_CANT_ABORT)
         {
             ch->substate = tempsub;
-            extract_timer( ch, timer );
+            extract_timer(ch, timer);
         }
         else
         {
@@ -550,8 +550,8 @@ void interpret (CHAR_DATA * ch, char *argument)
         /*
          * Look for command in socials table.
          */
-        if (!check_social (ch, command, argument))
-            send_to_char ("Huh?\r\n", ch);
+        if (!check_social(ch, command, argument))
+            send_to_char("Huh?\r\n", ch);
         return;
     }
 
@@ -563,32 +563,32 @@ void interpret (CHAR_DATA * ch, char *argument)
         switch (ch->position)
         {
             case POS_DEAD:
-                send_to_char ("Lie still; you are DEAD.\r\n", ch);
+                send_to_char("Lie still; you are DEAD.\r\n", ch);
                 break;
 
             case POS_MORTAL:
             case POS_INCAP:
-                send_to_char ("You are hurt far too bad for that.\r\n", ch);
+                send_to_char("You are hurt far too bad for that.\r\n", ch);
                 break;
 
             case POS_STUNNED:
-                send_to_char ("You are too stunned to do that.\r\n", ch);
+                send_to_char("You are too stunned to do that.\r\n", ch);
                 break;
 
             case POS_SLEEPING:
-                send_to_char ("In your dreams, or what?\r\n", ch);
+                send_to_char("In your dreams, or what?\r\n", ch);
                 break;
 
             case POS_RESTING:
-                send_to_char ("Nah... You feel too relaxed...\r\n", ch);
+                send_to_char("Nah... You feel too relaxed...\r\n", ch);
                 break;
 
             case POS_SITTING:
-                send_to_char ("Better stand up first.\r\n", ch);
+                send_to_char("Better stand up first.\r\n", ch);
                 break;
 
             case POS_FIGHTING:
-                send_to_char ("No way!  You are still fighting!\r\n", ch);
+                send_to_char("No way!  You are still fighting!\r\n", ch);
                 break;
 
         }
@@ -602,15 +602,15 @@ void interpret (CHAR_DATA * ch, char *argument)
     (*cmd_table[cmd].do_fun) (ch, argument);  // This is the command
     end_timer(&time_used);
 
-    tmptime = UMIN(time_used.tv_sec,19) * 1000000 + time_used.tv_usec;
+    tmptime = UMIN(time_used.tv_sec, 19) * 1000000 + time_used.tv_usec;
 
     /* laggy command notice: command took longer than 1.5 seconds */
-    if( tmptime > 1500000)
+    if (tmptime > 1500000)
     {
         sprintf(buf, "[*****] LAG: %s: %s %s (R:%d S:%zu.%06zu)", ch->name,
             cmd_table[cmd].name, (cmd_table[cmd].log == LOG_NEVER ? "XXX" : argument),
             ch->in_room ? ch->in_room->vnum : 0,
-            time_used.tv_sec, time_used.tv_usec );
+            time_used.tv_sec, time_used.tv_usec);
         wiznet(buf, ch, NULL, WIZ_SECURE, 0, 0);
         log_string(buf);
     }
@@ -620,21 +620,21 @@ void interpret (CHAR_DATA * ch, char *argument)
 }
 
 /* function to keep argument safe in all commands -- no static strings */
-void do_function (CHAR_DATA * ch, DO_FUN * do_fun, char *argument)
+void do_function(CHAR_DATA * ch, DO_FUN * do_fun, char *argument)
 {
     char *command_string;
 
     /* copy the string */
-    command_string = str_dup (argument);
+    command_string = str_dup(argument);
 
     /* dispatch the command */
     (*do_fun) (ch, command_string);
 
     /* free the string */
-    free_string (command_string);
+    free_string(command_string);
 }
 
-bool check_social (CHAR_DATA * ch, char *command, char *argument)
+bool check_social(CHAR_DATA * ch, char *command, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
     CHAR_DATA *victim;
@@ -645,7 +645,7 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
     for (cmd = 0; social_table[cmd].name[0] != '\0'; cmd++)
     {
         if (command[0] == social_table[cmd].name[0]
-            && !str_prefix (command, social_table[cmd].name))
+            && !str_prefix(command, social_table[cmd].name))
         {
             found = TRUE;
             break;
@@ -655,25 +655,25 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
     if (!found)
         return FALSE;
 
-    if (!IS_NPC (ch) && IS_SET (ch->comm, COMM_NOEMOTE))
+    if (!IS_NPC(ch) && IS_SET(ch->comm, COMM_NOEMOTE))
     {
-        send_to_char ("You are anti-social!\r\n", ch);
+        send_to_char("You are anti-social!\r\n", ch);
         return TRUE;
     }
 
     switch (ch->position)
     {
         case POS_DEAD:
-            send_to_char ("Lie still; you are DEAD.\r\n", ch);
+            send_to_char("Lie still; you are DEAD.\r\n", ch);
             return TRUE;
 
         case POS_INCAP:
         case POS_MORTAL:
-            send_to_char ("You are hurt far too bad for that.\r\n", ch);
+            send_to_char("You are hurt far too bad for that.\r\n", ch);
             return TRUE;
 
         case POS_STUNNED:
-            send_to_char ("You are too stunned to do that.\r\n", ch);
+            send_to_char("You are too stunned to do that.\r\n", ch);
             return TRUE;
 
         case POS_SLEEPING:
@@ -681,40 +681,40 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
              * I just know this is the path to a 12" 'if' statement.  :(
              * But two players asked for it already!  -- Furey
              */
-            if (!str_cmp (social_table[cmd].name, "snore"))
+            if (!str_cmp(social_table[cmd].name, "snore"))
                 break;
-            send_to_char ("In your dreams, or what?\r\n", ch);
+            send_to_char("In your dreams, or what?\r\n", ch);
             return TRUE;
 
     }
 
-    one_argument (argument, arg);
+    one_argument(argument, arg);
     victim = NULL;
     if (arg[0] == '\0')
     {
-        act (social_table[cmd].others_no_arg, ch, NULL, victim, TO_ROOM);
-        act (social_table[cmd].char_no_arg, ch, NULL, victim, TO_CHAR);
+        act(social_table[cmd].others_no_arg, ch, NULL, victim, TO_ROOM);
+        act(social_table[cmd].char_no_arg, ch, NULL, victim, TO_CHAR);
     }
-    else if ((victim = get_char_room (ch, arg)) == NULL)
+    else if ((victim = get_char_room(ch, arg)) == NULL)
     {
-        send_to_char ("They aren't here.\r\n", ch);
+        send_to_char("They aren't here.\r\n", ch);
     }
     else if (victim == ch)
     {
-        act (social_table[cmd].others_auto, ch, NULL, victim, TO_ROOM);
-        act (social_table[cmd].char_auto, ch, NULL, victim, TO_CHAR);
+        act(social_table[cmd].others_auto, ch, NULL, victim, TO_ROOM);
+        act(social_table[cmd].char_auto, ch, NULL, victim, TO_CHAR);
     }
     else
     {
-        act (social_table[cmd].others_found, ch, NULL, victim, TO_NOTVICT);
-        act (social_table[cmd].char_found, ch, NULL, victim, TO_CHAR);
-        act (social_table[cmd].vict_found, ch, NULL, victim, TO_VICT);
+        act(social_table[cmd].others_found, ch, NULL, victim, TO_NOTVICT);
+        act(social_table[cmd].char_found, ch, NULL, victim, TO_CHAR);
+        act(social_table[cmd].vict_found, ch, NULL, victim, TO_VICT);
 
-        if (!IS_NPC (ch) && IS_NPC (victim)
-            && !IS_AFFECTED (victim, AFF_CHARM)
-            && IS_AWAKE (victim) && victim->desc == NULL)
+        if (!IS_NPC(ch) && IS_NPC(victim)
+            && !IS_AFFECTED(victim, AFF_CHARM)
+            && IS_AWAKE(victim) && victim->desc == NULL)
         {
-            switch (number_bits (4))
+            switch (number_bits(4))
             {
                 case 0:
 
@@ -726,21 +726,21 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
                 case 6:
                 case 7:
                 case 8:
-                    act (social_table[cmd].others_found,
-                         victim, NULL, ch, TO_NOTVICT);
-                    act (social_table[cmd].char_found, victim, NULL, ch,
-                         TO_CHAR);
-                    act (social_table[cmd].vict_found, victim, NULL, ch,
-                         TO_VICT);
+                    act(social_table[cmd].others_found,
+                        victim, NULL, ch, TO_NOTVICT);
+                    act(social_table[cmd].char_found, victim, NULL, ch,
+                        TO_CHAR);
+                    act(social_table[cmd].vict_found, victim, NULL, ch,
+                        TO_VICT);
                     break;
 
                 case 9:
                 case 10:
                 case 11:
                 case 12:
-                    act ("$n slaps $N.", victim, NULL, ch, TO_NOTVICT);
-                    act ("You slap $N.", victim, NULL, ch, TO_CHAR);
-                    act ("$n slaps you.", victim, NULL, ch, TO_VICT);
+                    act("$n slaps $N.", victim, NULL, ch, TO_NOTVICT);
+                    act("You slap $N.", victim, NULL, ch, TO_CHAR);
+                    act("$n slaps you.", victim, NULL, ch, TO_VICT);
                     break;
             }
         }
@@ -749,12 +749,10 @@ bool check_social (CHAR_DATA * ch, char *command, char *argument)
     return TRUE;
 }
 
-
-
 /*
  * Return true if an argument is completely numeric.
  */
-bool is_number (char *arg)
+bool is_number(char *arg)
 {
 
     if (*arg == '\0')
@@ -765,19 +763,17 @@ bool is_number (char *arg)
 
     for (; *arg != '\0'; arg++)
     {
-        if (!isdigit (*arg))
+        if (!isdigit(*arg))
             return FALSE;
     }
 
     return TRUE;
 }
 
-
-
 /*
  * Given a string like 14.foo, return 14 and 'foo'
  */
-int number_argument (char *argument, char *arg)
+int number_argument(char *argument, char *arg)
 {
     char *pdot;
     int number;
@@ -787,21 +783,21 @@ int number_argument (char *argument, char *arg)
         if (*pdot == '.')
         {
             *pdot = '\0';
-            number = atoi (argument);
+            number = atoi(argument);
             *pdot = '.';
-            strcpy (arg, pdot + 1);
+            strcpy(arg, pdot + 1);
             return number;
         }
     }
 
-    strcpy (arg, argument);
+    strcpy(arg, argument);
     return 1;
 }
 
 /*
  * Given a string like 14*foo, return 14 and 'foo'
  */
-int mult_argument (char *argument, char *arg)
+int mult_argument(char *argument, char *arg)
 {
     char *pdot;
     int number;
@@ -811,14 +807,14 @@ int mult_argument (char *argument, char *arg)
         if (*pdot == '*')
         {
             *pdot = '\0';
-            number = atoi (argument);
+            number = atoi(argument);
             *pdot = '*';
-            strcpy (arg, pdot + 1);
+            strcpy(arg, pdot + 1);
             return number;
         }
     }
 
-    strcpy (arg, argument);
+    strcpy(arg, argument);
     return 1;
 }
 
@@ -826,11 +822,11 @@ int mult_argument (char *argument, char *arg)
  * Pick off one argument from a string and return the rest.
  * Understands quotes.
  */
-char *one_argument (char *argument, char *arg_first)
+char *one_argument(char *argument, char *arg_first)
 {
     char cEnd;
 
-    while (isspace (*argument))
+    while (isspace(*argument))
         argument++;
 
     cEnd = ' ';
@@ -844,13 +840,13 @@ char *one_argument (char *argument, char *arg_first)
             argument++;
             break;
         }
-        *arg_first = LOWER (*argument);
+        *arg_first = LOWER(*argument);
         arg_first++;
         argument++;
     }
     *arg_first = '\0';
 
-    while (isspace (*argument))
+    while (isspace(*argument))
         argument++;
 
     return argument;
@@ -859,7 +855,7 @@ char *one_argument (char *argument, char *arg_first)
 /*
  * Contributed by Alander.
  */
-void do_commands (CHAR_DATA * ch, char *argument)
+void do_commands(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     int cmd;
@@ -869,24 +865,24 @@ void do_commands (CHAR_DATA * ch, char *argument)
     for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
     {
         if (cmd_table[cmd].level <= LEVEL_HERO
-            && cmd_table[cmd].level <= get_trust (ch) && cmd_table[cmd].show)
+            && cmd_table[cmd].level <= get_trust(ch) && cmd_table[cmd].show)
         {
-            sprintf (buf, "%-12s", cmd_table[cmd].name);
-            send_to_char (buf, ch);
+            sprintf(buf, "%-12s", cmd_table[cmd].name);
+            send_to_char(buf, ch);
             if (++col % 6 == 0)
-                send_to_char ("\r\n", ch);
+                send_to_char("\r\n", ch);
         }
     }
 
     if (col % 6 != 0)
-        send_to_char ("\r\n", ch);
+        send_to_char("\r\n", ch);
     return;
 }
 
 /*
  * Shows all immortal commands available
  */
-void do_wizhelp (CHAR_DATA * ch, char *argument)
+void do_wizhelp(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     int cmd;
@@ -896,17 +892,17 @@ void do_wizhelp (CHAR_DATA * ch, char *argument)
     for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
     {
         if (cmd_table[cmd].level > LEVEL_HERO
-            && cmd_table[cmd].level <= get_trust (ch) && cmd_table[cmd].show)
+            && cmd_table[cmd].level <= get_trust(ch) && cmd_table[cmd].show)
         {
-            sprintf (buf, "%-12s", cmd_table[cmd].name);
-            send_to_char (buf, ch);
+            sprintf(buf, "%-12s", cmd_table[cmd].name);
+            send_to_char(buf, ch);
             if (++col % 6 == 0)
-                send_to_char ("\r\n", ch);
+                send_to_char("\r\n", ch);
         }
     }
 
     if (col % 6 != 0)
-        send_to_char ("\r\n", ch);
+        send_to_char("\r\n", ch);
     return;
 }
 
@@ -917,7 +913,7 @@ void do_wizhelp (CHAR_DATA * ch, char *argument)
 /*
  * Performs the aliasing and other fun stuff.
  */
-void substitute_alias (DESCRIPTOR_DATA * d, char *argument)
+void substitute_alias(DESCRIPTOR_DATA * d, char *argument)
 {
     CHAR_DATA *ch;
     char buf[MAX_STRING_LENGTH], prefix[MAX_INPUT_LENGTH],
@@ -928,47 +924,47 @@ void substitute_alias (DESCRIPTOR_DATA * d, char *argument)
     ch = d->original ? d->original : d->character;
 
     /* check for prefix */
-    if (ch->prefix[0] != '\0' && str_prefix ("prefix", argument))
+    if (ch->prefix[0] != '\0' && str_prefix("prefix", argument))
     {
-        if (strlen (ch->prefix) + strlen (argument) > MAX_INPUT_LENGTH - 2)
-            send_to_char ("Line to long, prefix not processed.\r\n", ch);
+        if (strlen(ch->prefix) + strlen(argument) > MAX_INPUT_LENGTH - 2)
+            send_to_char("Line to long, prefix not processed.\r\n", ch);
         else
         {
-            sprintf (prefix, "%s %s", ch->prefix, argument);
+            sprintf(prefix, "%s %s", ch->prefix, argument);
             argument = prefix;
         }
     }
 
-    if (IS_NPC (ch) || ch->pcdata->alias[0] == NULL
-        || !str_prefix ("alias", argument) || !str_prefix ("una", argument)
-        || !str_prefix ("prefix", argument))
+    if (IS_NPC(ch) || ch->pcdata->alias[0] == NULL
+        || !str_prefix("alias", argument) || !str_prefix("una", argument)
+        || !str_prefix("prefix", argument))
     {
-        interpret (d->character, argument);
+        interpret(d->character, argument);
         return;
     }
 
-    strcpy (buf, argument);
+    strcpy(buf, argument);
 
     for (alias = 0; alias < MAX_ALIAS; alias++)
     {                            /* go through the aliases */
         if (ch->pcdata->alias[alias] == NULL)
             break;
 
-        if (!str_prefix (ch->pcdata->alias[alias], argument))
+        if (!str_prefix(ch->pcdata->alias[alias], argument))
         {
-            point = one_argument (argument, name);
-            if (!strcmp (ch->pcdata->alias[alias], name))
+            point = one_argument(argument, name);
+            if (!strcmp(ch->pcdata->alias[alias], name))
             {
                 /* More Edwin inspired fixes. JR -- 10/15/00 */
                 buf[0] = '\0';
-                strcat(buf,ch->pcdata->alias_sub[alias]);
+                strcat(buf, ch->pcdata->alias_sub[alias]);
                 if (point[0])
                 {
-                    strcat(buf," ");
-                    strcat(buf,point);
+                    strcat(buf, " ");
+                    strcat(buf, point);
                 }
 
-                if (strlen (buf) > MAX_INPUT_LENGTH - 1)
+                if (strlen(buf) > MAX_INPUT_LENGTH - 1)
                 {
                     send_to_char
                         ("Alias substitution too long. Truncated.\r\n", ch);
@@ -978,38 +974,38 @@ void substitute_alias (DESCRIPTOR_DATA * d, char *argument)
             }
         }
     }
-    interpret (d->character, buf);
+    interpret(d->character, buf);
 } // end void substitute_alias
 
 /*
  * Function to force the player to fully type out alias.
  */
-void do_alia (CHAR_DATA * ch, char *argument)
+void do_alia(CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("I'm sorry, alias must be entered in full.\r\n", ch);
+    send_to_char("I'm sorry, alias must be entered in full.\r\n", ch);
     return;
 } // end do_alia
 
 /*
  * Command to allow a player to set one of their aliases.
  */
-void do_alias (CHAR_DATA * ch, char *argument)
+void do_alias(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *rch;
     char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
     int pos;
 
-    smash_tilde (argument);
+    smash_tilde(argument);
 
     if (ch->desc == NULL)
         rch = ch;
     else
         rch = ch->desc->original ? ch->desc->original : ch;
 
-    if (IS_NPC (rch))
+    if (IS_NPC(rch))
         return;
 
-    argument = one_argument (argument, arg);
+    argument = one_argument(argument, arg);
 
 
     if (arg[0] == '\0')
@@ -1017,10 +1013,10 @@ void do_alias (CHAR_DATA * ch, char *argument)
 
         if (rch->pcdata->alias[0] == NULL)
         {
-            send_to_char ("You have no aliases defined.\r\n", ch);
+            send_to_char("You have no aliases defined.\r\n", ch);
             return;
         }
-        send_to_char ("Your current aliases are:\r\n", ch);
+        send_to_char("Your current aliases are:\r\n", ch);
 
         for (pos = 0; pos < MAX_ALIAS; pos++)
         {
@@ -1028,9 +1024,9 @@ void do_alias (CHAR_DATA * ch, char *argument)
                 || rch->pcdata->alias_sub[pos] == NULL)
                 break;
 
-            sprintf (buf, "    %s:  %s\r\n", rch->pcdata->alias[pos],
-                     rch->pcdata->alias_sub[pos]);
-            send_to_char (buf, ch);
+            sprintf(buf, "    %s:  %s\r\n", rch->pcdata->alias[pos],
+                rch->pcdata->alias_sub[pos]);
+            send_to_char(buf, ch);
         }
 
         sprintf(buf, "\r\nYou are currently using %d of your %d allotted aliases.\r\n", pos, MAX_ALIAS);
@@ -1039,17 +1035,17 @@ void do_alias (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!str_prefix ("una", arg) || !str_cmp ("alias", arg))
+    if (!str_prefix("una", arg) || !str_cmp("alias", arg))
     {
-        send_to_char ("Sorry, that word is reserved.\r\n", ch);
+        send_to_char("Sorry, that word is reserved.\r\n", ch);
         return;
     }
 
     /* More Edwin-inspired fixes. JR -- 10/15/00 */
-    if (strchr(arg,' ')||strchr(arg,'"')||strchr(arg,'\''))
+    if (strchr(arg, ' ') || strchr(arg, '"') || strchr(arg, '\''))
     {
         send_to_char("The word to be aliased should not contain a space, "
-            "a tick or a double-quote.\r\n",ch);
+            "a tick or a double-quote.\r\n", ch);
         return;
     }
 
@@ -1061,23 +1057,23 @@ void do_alias (CHAR_DATA * ch, char *argument)
                 || rch->pcdata->alias_sub[pos] == NULL)
                 break;
 
-            if (!str_cmp (arg, rch->pcdata->alias[pos]))
+            if (!str_cmp(arg, rch->pcdata->alias[pos]))
             {
-                sprintf (buf, "%s aliases to '%s'.\r\n",
-                         rch->pcdata->alias[pos],
-                         rch->pcdata->alias_sub[pos]);
-                send_to_char (buf, ch);
+                sprintf(buf, "%s aliases to '%s'.\r\n",
+                    rch->pcdata->alias[pos],
+                    rch->pcdata->alias_sub[pos]);
+                send_to_char(buf, ch);
                 return;
             }
         }
 
-        send_to_char ("That alias is not defined.\r\n", ch);
+        send_to_char("That alias is not defined.\r\n", ch);
         return;
     }
 
-    if (!str_prefix (argument, "delete") || !str_prefix (argument, "prefix"))
+    if (!str_prefix(argument, "delete") || !str_prefix(argument, "prefix"))
     {
-        send_to_char ("That shall not be done!\r\n", ch);
+        send_to_char("That shall not be done!\r\n", ch);
         return;
     }
 
@@ -1086,33 +1082,33 @@ void do_alias (CHAR_DATA * ch, char *argument)
         if (rch->pcdata->alias[pos] == NULL)
             break;
 
-        if (!str_cmp (arg, rch->pcdata->alias[pos]))
+        if (!str_cmp(arg, rch->pcdata->alias[pos]))
         {                        /* redefine an alias */
-            free_string (rch->pcdata->alias_sub[pos]);
-            rch->pcdata->alias_sub[pos] = str_dup (argument);
-            sprintf (buf, "%s is now realiased to '%s'.\r\n", arg, argument);
-            send_to_char (buf, ch);
+            free_string(rch->pcdata->alias_sub[pos]);
+            rch->pcdata->alias_sub[pos] = str_dup(argument);
+            sprintf(buf, "%s is now realiased to '%s'.\r\n", arg, argument);
+            send_to_char(buf, ch);
             return;
         }
     }
 
     if (pos >= MAX_ALIAS)
     {
-        send_to_char ("Sorry, you have reached the alias limit.\r\n", ch);
+        send_to_char("Sorry, you have reached the alias limit.\r\n", ch);
         return;
     }
 
     /* make a new alias */
-    rch->pcdata->alias[pos] = str_dup (arg);
-    rch->pcdata->alias_sub[pos] = str_dup (argument);
-    sprintf (buf, "%s is now aliased to '%s'.\r\n", arg, argument);
-    send_to_char (buf, ch);
+    rch->pcdata->alias[pos] = str_dup(arg);
+    rch->pcdata->alias_sub[pos] = str_dup(argument);
+    sprintf(buf, "%s is now aliased to '%s'.\r\n", arg, argument);
+    send_to_char(buf, ch);
 } // end do_alias
 
 /*
  * Command to allow a player to remove one of their aliases
  */
-void do_unalias (CHAR_DATA * ch, char *argument)
+void do_unalias(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *rch;
     char arg[MAX_INPUT_LENGTH];
@@ -1124,14 +1120,14 @@ void do_unalias (CHAR_DATA * ch, char *argument)
     else
         rch = ch->desc->original ? ch->desc->original : ch;
 
-    if (IS_NPC (rch))
+    if (IS_NPC(rch))
         return;
 
-    argument = one_argument (argument, arg);
+    argument = one_argument(argument, arg);
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Unalias what?\r\n", ch);
+        send_to_char("Unalias what?\r\n", ch);
         return;
     }
 
@@ -1149,11 +1145,11 @@ void do_unalias (CHAR_DATA * ch, char *argument)
             continue;
         }
 
-        if (!strcmp (arg, rch->pcdata->alias[pos]))
+        if (!strcmp(arg, rch->pcdata->alias[pos]))
         {
-            send_to_char ("Alias removed.\r\n", ch);
-            free_string (rch->pcdata->alias[pos]);
-            free_string (rch->pcdata->alias_sub[pos]);
+            send_to_char("Alias removed.\r\n", ch);
+            free_string(rch->pcdata->alias[pos]);
+            free_string(rch->pcdata->alias_sub[pos]);
             rch->pcdata->alias[pos] = NULL;
             rch->pcdata->alias_sub[pos] = NULL;
             found = TRUE;
@@ -1161,7 +1157,7 @@ void do_unalias (CHAR_DATA * ch, char *argument)
     }
 
     if (!found)
-        send_to_char ("No alias of that name to remove.\r\n", ch);
+        send_to_char("No alias of that name to remove.\r\n", ch);
 } // end do_unalias
 
 /*
@@ -1200,7 +1196,7 @@ time_t end_timer(struct timeval *stime)
     subtract_times(&etime, stime);
     /* stime becomes time used */
     *stime = etime;
-    return (etime.tv_sec*1000000)+etime.tv_usec;
+    return (etime.tv_sec * 1000000) + etime.tv_usec;
 } // end end_timer
 
 /*

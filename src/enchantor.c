@@ -50,18 +50,18 @@ void set_obj_enchanted args((CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first));
  */
 void spell_withering_enchant(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
 
-    if (!IS_SET (obj->extra_flags, ITEM_ROT_DEATH))
+    if (!IS_SET(obj->extra_flags, ITEM_ROT_DEATH))
     {
         separate_obj(obj);
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
-        act ("$p glows with a withered aura.", ch, obj, NULL, TO_CHAR);
-        act ("$p glows with a withered aura.", ch, obj, NULL, TO_ROOM);
+        act("$p glows with a withered aura.", ch, obj, NULL, TO_CHAR);
+        act("$p glows with a withered aura.", ch, obj, NULL, TO_ROOM);
     }
     else
     {
-        act ("$p already has a withered aura about it.", ch, obj, NULL, TO_CHAR);
+        act("$p already has a withered aura about it.", ch, obj, NULL, TO_CHAR);
     }
 
 } // end withering_enchant
@@ -73,19 +73,19 @@ void spell_withering_enchant(int sn, int level, CHAR_DATA * ch, void *vo, int ta
  */
 void spell_enchant_person(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
-    if (is_affected (victim, sn))
+    if (is_affected(victim, sn))
     {
         if (victim == ch)
         {
             // Remove the affect so it can be re-added to yourself
-            affect_strip (victim, sn);
+            affect_strip(victim, sn);
         }
         else
         {
-            act ("$N has already been enchanted.", ch, NULL, victim, TO_CHAR);
+            act("$N has already been enchanted.", ch, NULL, victim, TO_CHAR);
             return;
         }
     }
@@ -99,18 +99,18 @@ void spell_enchant_person(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     af.location = APPLY_HITROLL;
     af.modifier = value;
     af.bitvector = 0;
-    affect_to_char (victim, &af);
+    affect_to_char(victim, &af);
 
     af.location = APPLY_DAMROLL;
     af.modifier = value;
-    affect_to_char (victim, &af);
+    affect_to_char(victim, &af);
 
     af.modifier = -5;
     af.location = APPLY_AC;
-    affect_to_char (victim, &af);
+    affect_to_char(victim, &af);
 
     send_to_char("You are surrounded with a light translucent {Bblue{x aura.\r\n", victim);
-    act ("$n is surrounded with a light translucent {Bblue{x aura.", victim, NULL, NULL, TO_ROOM);
+    act("$n is surrounded with a light translucent {Bblue{x aura.", victim, NULL, NULL, TO_ROOM);
 
     if (ch != victim)
     {
@@ -128,9 +128,9 @@ void spell_enchant_person(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 /*
  * Enchantor spell that toggles whether an object is no locate or not.
  */
-void spell_sequestor(int sn, int level, CHAR_DATA *ch, void *vo,int target)
+void spell_sequestor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
 
     separate_obj(obj);
 
@@ -138,13 +138,13 @@ void spell_sequestor(int sn, int level, CHAR_DATA *ch, void *vo,int target)
     {
         act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_CHAR);
         act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_ROOM);
-        REMOVE_BIT(obj->extra_flags,ITEM_NOLOCATE);
+        REMOVE_BIT(obj->extra_flags, ITEM_NOLOCATE);
     }
     else
     {
-        SET_BIT(obj->extra_flags,ITEM_NOLOCATE);
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_CHAR);
-        act("$p turns translucent and then slowly returns to it's orginal form.",ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_NOLOCATE);
+        act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_CHAR);
+        act("$p turns translucent and then slowly returns to it's orginal form.", ch, obj, NULL, TO_ROOM);
     }
 
 } // end spell_sequestor
@@ -153,9 +153,9 @@ void spell_sequestor(int sn, int level, CHAR_DATA *ch, void *vo,int target)
  * Spell that makes it so the weapon or armor is only usable by people of the same alignment.
  * This could potentially make an object unusable if it's already set as ANTI something.
  */
-void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+void spell_interlace_spirit(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     char buf[MAX_STRING_LENGTH];
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
@@ -174,18 +174,18 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 
     if (IS_GOOD(ch))
     {
-        SET_BIT(obj->extra_flags,ITEM_ANTI_EVIL);
-        SET_BIT(obj->extra_flags,ITEM_ANTI_NEUTRAL);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_EVIL);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_NEUTRAL);
     }
     else if (IS_NEUTRAL(ch))
     {
-        SET_BIT(obj->extra_flags,ITEM_ANTI_GOOD);
-        SET_BIT(obj->extra_flags,ITEM_ANTI_EVIL);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_GOOD);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_EVIL);
     }
     else
     {
-        SET_BIT(obj->extra_flags,ITEM_ANTI_GOOD);
-        SET_BIT(obj->extra_flags,ITEM_ANTI_NEUTRAL);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_GOOD);
+        SET_BIT(obj->extra_flags, ITEM_ANTI_NEUTRAL);
     }
 
     sprintf(buf, "%s has had %s's spirit interlaced into it.", obj->short_descr, ch->name);
@@ -193,9 +193,9 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     act(buf, ch, NULL, NULL, TO_CHAR);
 
     // If it's not unwieldable by all alignments send an additional message.
-    if (IS_OBJ_STAT(obj,ITEM_ANTI_GOOD) &&
-        IS_OBJ_STAT(obj,ITEM_ANTI_NEUTRAL) &&
-        IS_OBJ_STAT(obj,ITEM_ANTI_EVIL))
+    if (IS_OBJ_STAT(obj, ITEM_ANTI_GOOD) &&
+        IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) &&
+        IS_OBJ_STAT(obj, ITEM_ANTI_EVIL))
     {
         sprintf(buf, "%s is surrounded by a dull gray aura that quickly dissipates.", obj->short_descr);
         act(buf, ch, NULL, NULL, TO_ROOM);
@@ -209,9 +209,9 @@ void spell_interlace_spirit(int sn,int level,CHAR_DATA *ch, void *vo,int target)
  * be located in the world with locate if it exists, the enchantor can also see (for a lot of mana)
  * at the location of the object if it's not a private place or clan hall, etc.
  */
-void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+void spell_wizard_mark(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     char buf[MAX_INPUT_LENGTH];
 
     if (obj->item_type != ITEM_WEAPON  && obj->item_type != ITEM_ARMOR)
@@ -224,17 +224,17 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
     {
         if (strstr(obj->wizard_mark, ch->name) != NULL)
         {
-            send_to_char ("This item already carries your wizard mark.\r\n", ch);
+            send_to_char("This item already carries your wizard mark.\r\n", ch);
             return;
         }
     }
 
     separate_obj(obj);
 
-    sprintf(buf,"%s", ch->name);
+    sprintf(buf, "%s", ch->name);
     free_string(obj->wizard_mark);
     obj->wizard_mark = str_dup(buf);
-    act("You mark $p with your name.",ch,obj,NULL,TO_CHAR);
+    act("You mark $p with your name.", ch, obj, NULL, TO_CHAR);
 
 } // spell_wizard_mark
 
@@ -242,21 +242,21 @@ void spell_wizard_mark( int sn, int level, CHAR_DATA *ch, void *vo,int target)
  * Spell that allows an enchantor to enchant any type of gem and turn it into
  * a warpstone.
  */
-void spell_enchant_gem(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+void spell_enchant_gem(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     OBJ_DATA *obj_warpstone;
     char buf[MAX_STRING_LENGTH];
 
     if (obj->item_type != ITEM_GEM)
     {
-        send_to_char("That item is not a gem.\r\n",ch);
+        send_to_char("That item is not a gem.\r\n", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The gem must be carried to be enchanted.\r\n",ch);
+        send_to_char("The gem must be carried to be enchanted.\r\n", ch);
         return;
     }
 
@@ -283,225 +283,225 @@ void spell_enchant_gem(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 */
 void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-	OBJ_DATA *obj = (OBJ_DATA *)vo;
-	AFFECT_DATA *paf;
-	int result, fail;
-	int ac_bonus, added;
-	bool ac_found = FALSE;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
+    AFFECT_DATA *paf;
+    int result, fail;
+    int ac_bonus, added;
+    bool ac_found = FALSE;
 
-	if (obj->item_type != ITEM_ARMOR)
-	{
-		send_to_char("That isn't an armor.\r\n", ch);
-		return;
-	}
+    if (obj->item_type != ITEM_ARMOR)
+    {
+        send_to_char("That isn't an armor.\r\n", ch);
+        return;
+    }
 
-	if (obj->wear_loc != -1)
-	{
-		send_to_char("The item must be carried to be enchanted.\r\n", ch);
-		return;
-	}
+    if (obj->wear_loc != -1)
+    {
+        send_to_char("The item must be carried to be enchanted.\r\n", ch);
+        return;
+    }
 
-	// this means they have no bonus
-	ac_bonus = 0;
-	// base 25% chance of failure
-	fail = 25;
+    // this means they have no bonus
+    ac_bonus = 0;
+    // base 25% chance of failure
+    fail = 25;
 
-	// Enchantors have a lower base chance of failure
-	if (ch->class == ENCHANTOR_CLASS_LOOKUP)
-	{
-		fail = 5;
-	}
+    // Enchantors have a lower base chance of failure
+    if (ch->class == ENCHANTOR_CLASS_LOOKUP)
+    {
+        fail = 5;
+    }
 
-	// find the bonuses
+    // find the bonuses
     separate_obj(obj);
 
-	if (!obj->enchanted)
-	{
-		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
-		{
-			if (paf->location == APPLY_AC)
-			{
-				ac_bonus = paf->modifier;
-				ac_found = TRUE;
-				fail += 5 * (ac_bonus * ac_bonus);
-			}
-			else
-			{
-				// things get a little harder
-				fail += 20;
-			}
-		}
-	}
+    if (!obj->enchanted)
+    {
+        for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == APPLY_AC)
+            {
+                ac_bonus = paf->modifier;
+                ac_found = TRUE;
+                fail += 5 * (ac_bonus * ac_bonus);
+            }
+            else
+            {
+                // things get a little harder
+                fail += 20;
+            }
+        }
+    }
 
-	for (paf = obj->affected; paf != NULL; paf = paf->next)
-	{
-		if (paf->location == APPLY_AC)
-		{
-			ac_bonus = paf->modifier;
-			ac_found = TRUE;
-			fail += 5 * (ac_bonus * ac_bonus);
-		}
-		else
-		{
-			// things get a little harder
-			fail += 20;
-		}
-	}
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == APPLY_AC)
+        {
+            ac_bonus = paf->modifier;
+            ac_found = TRUE;
+            fail += 5 * (ac_bonus * ac_bonus);
+        }
+        else
+        {
+            // things get a little harder
+            fail += 20;
+        }
+    }
 
-	/* apply other modifiers */
-	fail -= level;
+    /* apply other modifiers */
+    fail -= level;
 
-	if (IS_OBJ_STAT(obj, ITEM_BLESS))
-		fail -= 15;
+    if (IS_OBJ_STAT(obj, ITEM_BLESS))
+        fail -= 15;
 
-	if (IS_OBJ_STAT(obj, ITEM_GLOW))
-		fail -= 5;
+    if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        fail -= 5;
 
     if (is_affected(ch, gsn_enchant_person))
         fail -= 2;
 
-	fail = URANGE(5, fail, 85);
+    fail = URANGE(5, fail, 85);
 
-	result = number_percent();
+    result = number_percent();
 
-	// Cap in case they get over -14AC
-	for (paf = obj->affected; paf != NULL; paf = paf->next)
-	{
-		if (paf->location == APPLY_AC)
-		{
-			ac_bonus = paf->modifier;
-			if (ac_bonus <= -14)
-			{
-				result = 0;
-			}
-		}
-	}
+    // Cap in case they get over -14AC
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == APPLY_AC)
+        {
+            ac_bonus = paf->modifier;
+            if (ac_bonus <= -14)
+            {
+                result = 0;
+            }
+        }
+    }
 
-	// the moment of truth
-	if (result < (fail / 5))
-	{
-		// item destroyed
-		act("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_CHAR);
-		act("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_ROOM);
-		extract_obj(obj);
-		return;
-	}
+    // the moment of truth
+    if (result < (fail / 5))
+    {
+        // item destroyed
+        act("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_CHAR);
+        act("$p flares blindingly... and evaporates!", ch, obj, NULL, TO_ROOM);
+        extract_obj(obj);
+        return;
+    }
 
-	if (result < (fail / 3))
-	{
-		// item disenchanted
-		AFFECT_DATA *paf_next;
+    if (result < (fail / 3))
+    {
+        // item disenchanted
+        AFFECT_DATA *paf_next;
 
-		act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
-		act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
+        act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
+        act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
         set_obj_enchanted(ch, obj, TRUE);
 
-		// remove all affects
-		for (paf = obj->affected; paf != NULL; paf = paf_next)
-		{
-			paf_next = paf->next;
-			free_affect(paf);
-		}
-		obj->affected = NULL;
+        // remove all affects
+        for (paf = obj->affected; paf != NULL; paf = paf_next)
+        {
+            paf_next = paf->next;
+            free_affect(paf);
+        }
+        obj->affected = NULL;
 
-		// clear all flags
-		obj->extra_flags = 0;
-		return;
-	}
+        // clear all flags
+        obj->extra_flags = 0;
+        return;
+    }
 
-	if (result <= fail)
-	{
-		// failed, no bad result
-		send_to_char("Nothing seemed to happen.\r\n", ch);
-		return;
-	}
+    if (result <= fail)
+    {
+        // failed, no bad result
+        send_to_char("Nothing seemed to happen.\r\n", ch);
+        return;
+    }
 
-	// move all the old flags into new vectors if we have to
-	if (!obj->enchanted)
-	{
-		AFFECT_DATA *af_new;
-		obj->enchanted = TRUE;
+    // move all the old flags into new vectors if we have to
+    if (!obj->enchanted)
+    {
+        AFFECT_DATA *af_new;
+        obj->enchanted = TRUE;
 
-		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
-		{
-			af_new = new_affect();
+        for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
+            af_new = new_affect();
 
-			af_new->next = obj->affected;
-			obj->affected = af_new;
+            af_new->next = obj->affected;
+            obj->affected = af_new;
 
-			af_new->where = paf->where;
-			af_new->type = UMAX(0, paf->type);
-			af_new->level = paf->level;
-			af_new->duration = paf->duration;
-			af_new->location = paf->location;
-			af_new->modifier = paf->modifier;
-			af_new->bitvector = paf->bitvector;
-		}
-	}
+            af_new->where = paf->where;
+            af_new->type = UMAX(0, paf->type);
+            af_new->level = paf->level;
+            af_new->duration = paf->duration;
+            af_new->location = paf->location;
+            af_new->modifier = paf->modifier;
+            af_new->bitvector = paf->bitvector;
+        }
+    }
 
-	// They have a success at this point, go ahead and set the enchanted_by
+    // They have a success at this point, go ahead and set the enchanted_by
     set_obj_enchanted(ch, obj, FALSE);
 
-	if (ch->class == ENCHANTOR_CLASS_LOOKUP && result <= (90 - level))
-	{
-		// Enchantors only have a chance for the highest enchant.
-		act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_CHAR);
-		act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		SET_BIT(obj->extra_flags, ITEM_GLOW);
-		added = -3;
-	}
-	else if (result <= (90 - level / 5))
-	{
-		// success!
-		act("$p shimmers with a gold aura.", ch, obj, NULL, TO_CHAR);
-		act("$p shimmers with a gold aura.", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		added = -1;
-	}
+    if (ch->class == ENCHANTOR_CLASS_LOOKUP && result <= (90 - level))
+    {
+        // Enchantors only have a chance for the highest enchant.
+        act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_CHAR);
+        act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        SET_BIT(obj->extra_flags, ITEM_GLOW);
+        added = -3;
+    }
+    else if (result <= (90 - level / 5))
+    {
+        // success!
+        act("$p shimmers with a gold aura.", ch, obj, NULL, TO_CHAR);
+        act("$p shimmers with a gold aura.", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        added = -1;
+    }
 
-	else
-	{
-		// exceptional enchant, highest a non enchantor can go.
-		act("$p glows a brilliant gold!", ch, obj, NULL, TO_CHAR);
-		act("$p glows a brilliant gold!", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		SET_BIT(obj->extra_flags, ITEM_GLOW);
-		added = -2;
-	}
+    else
+    {
+        // exceptional enchant, highest a non enchantor can go.
+        act("$p glows a brilliant gold!", ch, obj, NULL, TO_CHAR);
+        act("$p glows a brilliant gold!", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        SET_BIT(obj->extra_flags, ITEM_GLOW);
+        added = -2;
+    }
 
-	// now, add the enchantments
-	// level of the object will increase by one
-	if (obj->level < LEVEL_HERO)
-		obj->level = UMIN(LEVEL_HERO - 1, obj->level + 1);
+    // now, add the enchantments
+    // level of the object will increase by one
+    if (obj->level < LEVEL_HERO)
+        obj->level = UMIN(LEVEL_HERO - 1, obj->level + 1);
 
-	if (ac_found)
-	{
-		for (paf = obj->affected; paf != NULL; paf = paf->next)
-		{
-			if (paf->location == APPLY_AC)
-			{
-				paf->type = sn;
-				paf->modifier += added;
-				paf->level = UMAX(paf->level, level);
-			}
-		}
-	}
-	else
-	{                            /* add a new affect */
+    if (ac_found)
+    {
+        for (paf = obj->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == APPLY_AC)
+            {
+                paf->type = sn;
+                paf->modifier += added;
+                paf->level = UMAX(paf->level, level);
+            }
+        }
+    }
+    else
+    {                            /* add a new affect */
 
-		paf = new_affect();
+        paf = new_affect();
 
-		paf->where = TO_OBJECT;
-		paf->type = sn;
-		paf->level = level;
-		paf->duration = -1;
-		paf->location = APPLY_AC;
-		paf->modifier = added;
-		paf->bitvector = 0;
-		paf->next = obj->affected;
-		obj->affected = paf;
-	}
+        paf->where = TO_OBJECT;
+        paf->type = sn;
+        paf->level = level;
+        paf->duration = -1;
+        paf->location = APPLY_AC;
+        paf->modifier = added;
+        paf->bitvector = 0;
+        paf->next = obj->affected;
+        obj->affected = paf;
+    }
 
 } // end spell_enchant_armor
 
@@ -512,267 +512,267 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
 */
 void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-	OBJ_DATA *obj = (OBJ_DATA *)vo;
-	AFFECT_DATA *paf;
-	int result, fail;
-	int hit_bonus, dam_bonus, added;
-	bool hit_found = FALSE, dam_found = FALSE;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
+    AFFECT_DATA *paf;
+    int result, fail;
+    int hit_bonus, dam_bonus, added;
+    bool hit_found = FALSE, dam_found = FALSE;
 
-	if (obj->item_type != ITEM_WEAPON)
-	{
-		send_to_char("That isn't a weapon.\r\n", ch);
-		return;
-	}
+    if (obj->item_type != ITEM_WEAPON)
+    {
+        send_to_char("That isn't a weapon.\r\n", ch);
+        return;
+    }
 
-	if (obj->wear_loc != -1)
-	{
-		send_to_char("The item must be carried to be enchanted.\r\n", ch);
-		return;
-	}
+    if (obj->wear_loc != -1)
+    {
+        send_to_char("The item must be carried to be enchanted.\r\n", ch);
+        return;
+    }
 
-	// this means they have no bonus
-	hit_bonus = 0;
-	dam_bonus = 0;
-	// base 25% chance of failure
-	fail = 25;
+    // this means they have no bonus
+    hit_bonus = 0;
+    dam_bonus = 0;
+    // base 25% chance of failure
+    fail = 25;
 
-	// Enchantors have a lower base chance of failure
-	if (ch->class == ENCHANTOR_CLASS_LOOKUP)
-	{
-		fail = 5;
-	}
+    // Enchantors have a lower base chance of failure
+    if (ch->class == ENCHANTOR_CLASS_LOOKUP)
+    {
+        fail = 5;
+    }
 
-	// find the bonuses
+    // find the bonuses
     separate_obj(obj);
 
-	if (!obj->enchanted)
-	{
-		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
-		{
-			if (paf->location == APPLY_HITROLL)
-			{
-				hit_bonus = paf->modifier;
-				hit_found = TRUE;
-				fail += 2 * (hit_bonus * hit_bonus);
-			}
+    if (!obj->enchanted)
+    {
+        for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == APPLY_HITROLL)
+            {
+                hit_bonus = paf->modifier;
+                hit_found = TRUE;
+                fail += 2 * (hit_bonus * hit_bonus);
+            }
 
-			else if (paf->location == APPLY_DAMROLL)
-			{
-				dam_bonus = paf->modifier;
-				dam_found = TRUE;
-				fail += 2 * (dam_bonus * dam_bonus);
-			}
-			else
-			{
-				// things get a little harder
-				fail += 25;
-			}
-		}
-	}
+            else if (paf->location == APPLY_DAMROLL)
+            {
+                dam_bonus = paf->modifier;
+                dam_found = TRUE;
+                fail += 2 * (dam_bonus * dam_bonus);
+            }
+            else
+            {
+                // things get a little harder
+                fail += 25;
+            }
+        }
+    }
 
-	for (paf = obj->affected; paf != NULL; paf = paf->next)
-	{
-		if (paf->location == APPLY_HITROLL)
-		{
-			hit_bonus = paf->modifier;
-			hit_found = TRUE;
-			fail += 2 * (hit_bonus * hit_bonus);
-		}
-		else if (paf->location == APPLY_DAMROLL)
-		{
-			dam_bonus = paf->modifier;
-			dam_found = TRUE;
-			fail += 2 * (dam_bonus * dam_bonus);
-		}
-		else
-		{
-			// things get a little harder
-			fail += 25;
-		}
-	}
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == APPLY_HITROLL)
+        {
+            hit_bonus = paf->modifier;
+            hit_found = TRUE;
+            fail += 2 * (hit_bonus * hit_bonus);
+        }
+        else if (paf->location == APPLY_DAMROLL)
+        {
+            dam_bonus = paf->modifier;
+            dam_found = TRUE;
+            fail += 2 * (dam_bonus * dam_bonus);
+        }
+        else
+        {
+            // things get a little harder
+            fail += 25;
+        }
+    }
 
-	// apply other modifiers
-	fail -= 3 * level / 2;
+    // apply other modifiers
+    fail -= 3 * level / 2;
 
-	if (IS_OBJ_STAT(obj, ITEM_BLESS))
-		fail -= 15;
+    if (IS_OBJ_STAT(obj, ITEM_BLESS))
+        fail -= 15;
 
-	if (IS_OBJ_STAT(obj, ITEM_GLOW))
-		fail -= 5;
+    if (IS_OBJ_STAT(obj, ITEM_GLOW))
+        fail -= 5;
 
     if (is_affected(ch, gsn_enchant_person))
         fail -= 2;
 
-	fail = URANGE(5, fail, 95);
-	result = number_percent();
+    fail = URANGE(5, fail, 95);
+    result = number_percent();
 
-	// Enchanting cap at 14 hit or 14 damage (which should be impossibly rare)
-	for (paf = obj->affected; paf != NULL; paf = paf->next)
-	{
-		if (paf->location == APPLY_HITROLL)
-		{
-			hit_bonus = paf->modifier;
-			if (hit_bonus >= 14) { result = 0; }
-		}
-		else if (paf->location == APPLY_DAMROLL)
-		{
-			dam_bonus = paf->modifier;
-			if (dam_bonus >= 14) { result = 0; }
-		}
-	}
+    // Enchanting cap at 14 hit or 14 damage (which should be impossibly rare)
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == APPLY_HITROLL)
+        {
+            hit_bonus = paf->modifier;
+            if (hit_bonus >= 14) { result = 0; }
+        }
+        else if (paf->location == APPLY_DAMROLL)
+        {
+            dam_bonus = paf->modifier;
+            if (dam_bonus >= 14) { result = 0; }
+        }
+    }
 
-	// the moment of truth
-	if (result < (fail / 5))
-	{
-		// item destroyed
-		act("$p shivers violently and explodes!", ch, obj, NULL, TO_CHAR);
-		act("$p shivers violently and explodeds!", ch, obj, NULL, TO_ROOM);
-		extract_obj(obj);
-		return;
-	}
+    // the moment of truth
+    if (result < (fail / 5))
+    {
+        // item destroyed
+        act("$p shivers violently and explodes!", ch, obj, NULL, TO_CHAR);
+        act("$p shivers violently and explodeds!", ch, obj, NULL, TO_ROOM);
+        extract_obj(obj);
+        return;
+    }
 
-	if (result < (fail / 2))
-	{
-		// item disenchant
-		AFFECT_DATA *paf_next;
+    if (result < (fail / 2))
+    {
+        // item disenchant
+        AFFECT_DATA *paf_next;
 
-		act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
-		act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
+        act("$p glows brightly, then fades...oops.", ch, obj, NULL, TO_CHAR);
+        act("$p glows brightly, then fades.", ch, obj, NULL, TO_ROOM);
         set_obj_enchanted(ch, obj, TRUE);
 
-		// remove all affects
-		for (paf = obj->affected; paf != NULL; paf = paf_next)
-		{
-			paf_next = paf->next;
-			free_affect(paf);
-		}
-		obj->affected = NULL;
+        // remove all affects
+        for (paf = obj->affected; paf != NULL; paf = paf_next)
+        {
+            paf_next = paf->next;
+            free_affect(paf);
+        }
+        obj->affected = NULL;
 
-		// clear all flags
-		obj->extra_flags = 0;
-		return;
-	}
+        // clear all flags
+        obj->extra_flags = 0;
+        return;
+    }
 
-	if (result <= fail)
-	{
-		// failed, no bad result
-		send_to_char("Nothing seemed to happen.\r\n", ch);
-		return;
-	}
+    if (result <= fail)
+    {
+        // failed, no bad result
+        send_to_char("Nothing seemed to happen.\r\n", ch);
+        return;
+    }
 
-	// move all the old flags into new vectors if we have to
-	if (!obj->enchanted)
-	{
-		AFFECT_DATA *af_new;
-		obj->enchanted = TRUE;
+    // move all the old flags into new vectors if we have to
+    if (!obj->enchanted)
+    {
+        AFFECT_DATA *af_new;
+        obj->enchanted = TRUE;
 
-		for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
-		{
-			af_new = new_affect();
+        for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
+            af_new = new_affect();
 
-			af_new->next = obj->affected;
-			obj->affected = af_new;
+            af_new->next = obj->affected;
+            obj->affected = af_new;
 
-			af_new->where = paf->where;
-			af_new->type = UMAX(0, paf->type);
-			af_new->level = paf->level;
-			af_new->duration = paf->duration;
-			af_new->location = paf->location;
-			af_new->modifier = paf->modifier;
-			af_new->bitvector = paf->bitvector;
-		}
-	}
+            af_new->where = paf->where;
+            af_new->type = UMAX(0, paf->type);
+            af_new->level = paf->level;
+            af_new->duration = paf->duration;
+            af_new->location = paf->location;
+            af_new->modifier = paf->modifier;
+            af_new->bitvector = paf->bitvector;
+        }
+    }
 
-	// They have a success at this point, go ahead and set the enchanted_by
+    // They have a success at this point, go ahead and set the enchanted_by
     set_obj_enchanted(ch, obj, FALSE);
 
-	if (ch->class == ENCHANTOR_CLASS_LOOKUP && result >= (110 - level / 5))
-	{
-		// exceptional enchant for an enchantor
-		act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_CHAR);
-		act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		SET_BIT(obj->extra_flags, ITEM_GLOW);
-		added = 3;
-	}
-	else if (result <= (100 - level / 5))
-	{
-		// success
-		act("$p glows blue.", ch, obj, NULL, TO_CHAR);
-		act("$p glows blue.", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		added = 1;
-	}
-	else
-	{
-		// exceptional enchant
-		act("$p glows a brillant blue!", ch, obj, NULL, TO_CHAR);
-		act("$p glows a brillant blue!", ch, obj, NULL, TO_ROOM);
-		SET_BIT(obj->extra_flags, ITEM_MAGIC);
-		SET_BIT(obj->extra_flags, ITEM_GLOW);
-		added = 2;
-	}
+    if (ch->class == ENCHANTOR_CLASS_LOOKUP && result >= (110 - level / 5))
+    {
+        // exceptional enchant for an enchantor
+        act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_CHAR);
+        act("$p glows a brilliant {Wwhite{x!", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        SET_BIT(obj->extra_flags, ITEM_GLOW);
+        added = 3;
+    }
+    else if (result <= (100 - level / 5))
+    {
+        // success
+        act("$p glows blue.", ch, obj, NULL, TO_CHAR);
+        act("$p glows blue.", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        added = 1;
+    }
+    else
+    {
+        // exceptional enchant
+        act("$p glows a brillant blue!", ch, obj, NULL, TO_CHAR);
+        act("$p glows a brillant blue!", ch, obj, NULL, TO_ROOM);
+        SET_BIT(obj->extra_flags, ITEM_MAGIC);
+        SET_BIT(obj->extra_flags, ITEM_GLOW);
+        added = 2;
+    }
 
-	// add the enchantments
-	if (obj->level < LEVEL_HERO - 1)
-		obj->level = UMIN(LEVEL_HERO - 1, obj->level + 1);
+    // add the enchantments
+    if (obj->level < LEVEL_HERO - 1)
+        obj->level = UMIN(LEVEL_HERO - 1, obj->level + 1);
 
-	if (dam_found)
-	{
-		for (paf = obj->affected; paf != NULL; paf = paf->next)
-		{
-			if (paf->location == APPLY_DAMROLL)
-			{
-				paf->type = sn;
-				paf->modifier += added;
-				paf->level = UMAX(paf->level, level);
-				if (paf->modifier > 4)
-					SET_BIT(obj->extra_flags, ITEM_HUM);
-			}
-		}
-	}
-	else
-	{
-		// add a new affect
-		paf = new_affect();
-		paf->where = TO_OBJECT;
-		paf->type = sn;
-		paf->level = level;
-		paf->duration = -1;
-		paf->location = APPLY_DAMROLL;
-		paf->modifier = added;
-		paf->bitvector = 0;
-		paf->next = obj->affected;
-		obj->affected = paf;
-	}
+    if (dam_found)
+    {
+        for (paf = obj->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == APPLY_DAMROLL)
+            {
+                paf->type = sn;
+                paf->modifier += added;
+                paf->level = UMAX(paf->level, level);
+                if (paf->modifier > 4)
+                    SET_BIT(obj->extra_flags, ITEM_HUM);
+            }
+        }
+    }
+    else
+    {
+        // add a new affect
+        paf = new_affect();
+        paf->where = TO_OBJECT;
+        paf->type = sn;
+        paf->level = level;
+        paf->duration = -1;
+        paf->location = APPLY_DAMROLL;
+        paf->modifier = added;
+        paf->bitvector = 0;
+        paf->next = obj->affected;
+        obj->affected = paf;
+    }
 
-	if (hit_found)
-	{
-		for (paf = obj->affected; paf != NULL; paf = paf->next)
-		{
-			if (paf->location == APPLY_HITROLL)
-			{
-				paf->type = sn;
-				paf->modifier += added;
-				paf->level = UMAX(paf->level, level);
-				if (paf->modifier > 4)
-					SET_BIT(obj->extra_flags, ITEM_HUM);
-			}
-		}
-	}
-	else
-	{
-		// add a new affect
-		paf = new_affect();
-		paf->type = sn;
-		paf->level = level;
-		paf->duration = -1;
-		paf->location = APPLY_HITROLL;
-		paf->modifier = added;
-		paf->bitvector = 0;
-		paf->next = obj->affected;
-		obj->affected = paf;
-	}
+    if (hit_found)
+    {
+        for (paf = obj->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == APPLY_HITROLL)
+            {
+                paf->type = sn;
+                paf->modifier += added;
+                paf->level = UMAX(paf->level, level);
+                if (paf->modifier > 4)
+                    SET_BIT(obj->extra_flags, ITEM_HUM);
+            }
+        }
+    }
+    else
+    {
+        // add a new affect
+        paf = new_affect();
+        paf->type = sn;
+        paf->level = level;
+        paf->duration = -1;
+        paf->location = APPLY_HITROLL;
+        paf->modifier = added;
+        paf->bitvector = 0;
+        paf->next = obj->affected;
+        obj->affected = paf;
+    }
 
 } // end spell_enchant_weapon
 
@@ -780,23 +780,23 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
  * Spell that restores a faded, altered or enchanted weapon to it's original state.  This
  * will basically return it to it's stock value.
  */
-void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+void spell_restore_weapon(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     OBJ_DATA *obj2;
     char buf[MAX_STRING_LENGTH];
     int chance;
 
     if (obj->item_type != ITEM_WEAPON)
     {
-        send_to_char("That isn't a weapon.\r\n",ch);
+        send_to_char("That isn't a weapon.\r\n", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-	send_to_char("The weapon must be carried to be restored.\r\n",ch);
-	return;
+        send_to_char("The weapon must be carried to be restored.\r\n", ch);
+        return;
     }
 
     // Default, 40% won't work (20% nothing happens, 20% crumble)
@@ -836,7 +836,7 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
 
-        if(IS_OBJ_STAT(obj2,ITEM_VIS_DEATH))
+        if (IS_OBJ_STAT(obj2, ITEM_VIS_DEATH))
             REMOVE_BIT(obj2->extra_flags, ITEM_VIS_DEATH);
 
         act(buf, ch, NULL, NULL, TO_ROOM);
@@ -850,22 +850,22 @@ void spell_restore_weapon(int sn,int level,CHAR_DATA *ch, void *vo,int target)
  * Spell that restores a faded, altered or enchanted piece or armor  to it's original state.
  * This will basically return it to it's stock value.
  */
-void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
+void spell_restore_armor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     OBJ_DATA *obj2;
     char buf[MAX_STRING_LENGTH];
     int chance;
 
     if (obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("That isn't armor.\r\n",ch);
+        send_to_char("That isn't armor.\r\n", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The armor must be carried to be restored.\r\n",ch);
+        send_to_char("The armor must be carried to be restored.\r\n", ch);
         return;
     }
 
@@ -896,13 +896,13 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
     }
     else
     {
-        obj2 = create_object( get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
         obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
         sprintf(buf, "With a {Wbright{x flash of light, %s has been restored to it's original form.", obj2->short_descr);
 
-        if(IS_OBJ_STAT(obj2,ITEM_VIS_DEATH))
+        if (IS_OBJ_STAT(obj2, ITEM_VIS_DEATH))
             REMOVE_BIT(obj2->extra_flags, ITEM_VIS_DEATH);
 
         act(buf, ch, NULL, NULL, TO_ROOM);
@@ -915,26 +915,26 @@ void spell_restore_armor(int sn,int level,CHAR_DATA *ch, void *vo,int target)
 /*
  * Spell to disenchant a weapon or piece of armor.
  */
-void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
-    OBJ_DATA *obj = (OBJ_DATA *) vo;
+void spell_disenchant(int sn, int level, CHAR_DATA *ch, void *vo, int target) {
+    OBJ_DATA *obj = (OBJ_DATA *)vo;
     AFFECT_DATA *paf;
     AFFECT_DATA *paf_next;
 
 
     if (obj->item_type != ITEM_WEAPON && obj->item_type != ITEM_ARMOR)
     {
-        send_to_char("That item is neither weapon or armor.\r\n",ch);
+        send_to_char("That item is neither weapon or armor.\r\n", ch);
         return;
     }
 
     if (obj->wear_loc != -1)
     {
-        send_to_char("The item must be carried to be disenchanted.\r\n",ch);
+        send_to_char("The item must be carried to be disenchanted.\r\n", ch);
         return;
     }
 
-    act("$p glows brightly, then fades to a dull color",ch,obj,NULL,TO_CHAR);
-    act("$p glows brightly, then fades to a dull color.",ch,obj,NULL,TO_ROOM);
+    act("$p glows brightly, then fades to a dull color", ch, obj, NULL, TO_CHAR);
+    act("$p glows brightly, then fades to a dull color.", ch, obj, NULL, TO_ROOM);
     separate_obj(obj);
     set_obj_enchanted(ch, obj, TRUE);
 
@@ -949,17 +949,17 @@ void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
 
     /* clear all flags */
     obj->extra_flags = 0;
-    if (IS_WEAPON_STAT(obj,WEAPON_VAMPIRIC))
-        REMOVE_BIT(obj->value[4],WEAPON_VAMPIRIC);
+    if (IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC))
+        REMOVE_BIT(obj->value[4], WEAPON_VAMPIRIC);
 
-    if (IS_WEAPON_STAT(obj,WEAPON_FLAMING))
-        REMOVE_BIT(obj->value[4],WEAPON_FLAMING);
+    if (IS_WEAPON_STAT(obj, WEAPON_FLAMING))
+        REMOVE_BIT(obj->value[4], WEAPON_FLAMING);
 
-    if (IS_WEAPON_STAT(obj,WEAPON_FROST))
-        REMOVE_BIT(obj->value[4],WEAPON_FROST);
+    if (IS_WEAPON_STAT(obj, WEAPON_FROST))
+        REMOVE_BIT(obj->value[4], WEAPON_FROST);
 
-    if (IS_WEAPON_STAT(obj,WEAPON_SHOCKING))
-        REMOVE_BIT(obj->value[4],WEAPON_SHOCKING);
+    if (IS_WEAPON_STAT(obj, WEAPON_SHOCKING))
+        REMOVE_BIT(obj->value[4], WEAPON_SHOCKING);
 
     return;
 
@@ -971,7 +971,7 @@ void spell_disenchant(int sn,int level,CHAR_DATA *ch, void *vo,int target) {
  * locating the objects.  This is an enchantor spell but it will be in the detection
  * group.
  */
-void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int target)
+void spell_locate_wizard_mark(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     char buf[MAX_INPUT_LENGTH];
     BUFFER *buffer;
@@ -982,14 +982,14 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
 
     found = FALSE;
     number = 0;
-    max_found = IS_IMMORTAL (ch) ? 200 : 2 * level;
+    max_found = IS_IMMORTAL(ch) ? 200 : 2 * level;
 
     buffer = new_buf();
 
     for (obj = object_list; obj != NULL; obj = obj->next)
     {
         // The enchantor's name
-        if (!is_name (ch->name, obj->wizard_mark))
+        if (!is_name(ch->name, obj->wizard_mark))
             continue;
 
         found = TRUE;
@@ -999,32 +999,32 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
         {
             if (in_obj->carried_by != NULL)
             {
-                sprintf (buf, "%s is carried by %s\r\n", in_obj->short_descr, PERS (in_obj->carried_by, ch));
+                sprintf(buf, "%s is carried by %s\r\n", in_obj->short_descr, PERS(in_obj->carried_by, ch));
             }
             else
             {
-                if (IS_IMMORTAL (ch) && in_obj->in_room != NULL)
-                    sprintf (buf, "%s is in %s [Room %d]\r\n",
-                         in_obj->short_descr, in_obj->in_room->name, in_obj->in_room->vnum);
+                if (IS_IMMORTAL(ch) && in_obj->in_room != NULL)
+                    sprintf(buf, "%s is in %s [Room %d]\r\n",
+                        in_obj->short_descr, in_obj->in_room->name, in_obj->in_room->vnum);
                 else
-                    sprintf (buf, "%s is in %s\r\n", in_obj->short_descr,
-                         in_obj->in_room == NULL
-                         ? "somewhere" : in_obj->in_room->name);
+                    sprintf(buf, "%s is in %s\r\n", in_obj->short_descr,
+                        in_obj->in_room == NULL
+                        ? "somewhere" : in_obj->in_room->name);
             }
         }
-        buf[0] = UPPER (buf[0]);
-        add_buf (buffer, buf);
+        buf[0] = UPPER(buf[0]);
+        add_buf(buffer, buf);
 
         if (number >= max_found)
             break;
     }
 
     if (!found)
-        send_to_char ("You found no wizard markings of your own in heaven or earth.\r\n", ch);
+        send_to_char("You found no wizard markings of your own in heaven or earth.\r\n", ch);
     else
-        page_to_char (buf_string (buffer), ch);
+        page_to_char(buf_string(buffer), ch);
 
-    free_buf (buffer);
+    free_buf(buffer);
 
     return;
 
@@ -1034,16 +1034,16 @@ void spell_locate_wizard_mark (int sn, int level, CHAR_DATA * ch, void *vo, int 
  * Waves of weariness will allow the enchantor to charm the victim into removing their
  * weapon (or weapons) before lulling them to sleep.
  */
-void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_waves_of_weariness(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     AFFECT_DATA af;
     OBJ_DATA *wield;
     OBJ_DATA *dualwield;
     CHAR_DATA *victim;
-    victim = (CHAR_DATA *) vo;
+    victim = (CHAR_DATA *)vo;
 
     // Make a saves check
-    if (saves_spell(level,victim, DAM_OTHER))
+    if (saves_spell(level, victim, DAM_OTHER))
     {
         send_to_char("The waves of weariness enchantment failed.\r\n", ch);
         return;
@@ -1052,38 +1052,38 @@ void spell_waves_of_weariness( int sn, int level, CHAR_DATA *ch, void *vo, int t
     // Remove it, but send it to the inventory and not to the ground.
     if ((wield = get_eq_char(victim, WEAR_WIELD)) != NULL)
     {
-        act( "You remove $p.", victim, wield, NULL, TO_CHAR );
-        act( "$n removes $p.", victim, wield, NULL, TO_ROOM );
+        act("You remove $p.", victim, wield, NULL, TO_CHAR);
+        act("$n removes $p.", victim, wield, NULL, TO_ROOM);
         obj_from_char(wield);
         obj_to_char(wield, victim);
-     }
+    }
 
-     // Remove the secondary weapon also
-     if ((dualwield = get_eq_char(victim, WEAR_SECONDARY_WIELD)) != NULL)
-     {
-         act("You remove $p.", victim, dualwield, NULL, TO_CHAR);
-         act("$n removes $p.", victim, dualwield, NULL, TO_ROOM);
-         obj_from_char(dualwield);
-         obj_to_char(dualwield, victim );
-     }
+    // Remove the secondary weapon also
+    if ((dualwield = get_eq_char(victim, WEAR_SECONDARY_WIELD)) != NULL)
+    {
+        act("You remove $p.", victim, dualwield, NULL, TO_CHAR);
+        act("$n removes $p.", victim, dualwield, NULL, TO_ROOM);
+        obj_from_char(dualwield);
+        obj_to_char(dualwield, victim);
+    }
 
-     // Add the sleep affect with a random 1 or 2 tick duration
-     af.where     = TO_AFFECTS;
-     af.type      = sn;
-     af.level     = level;
-     af.duration  = number_range(1, 2);
-     af.location  = APPLY_NONE;
-     af.modifier  = 0;
-     af.bitvector = AFF_SLEEP;
-     affect_join( victim, &af );
+    // Add the sleep affect with a random 1 or 2 tick duration
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = number_range(1, 2);
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = AFF_SLEEP;
+    affect_join(victim, &af);
 
-     // Zzzzzzzzz
-     send_to_char( "You feel weariness overtake your body...\r\n", victim );
-     act( "$n looks very weary and falls to the ground asleep.", victim, NULL, NULL, TO_ROOM );
-     victim->position = POS_SLEEPING;
+    // Zzzzzzzzz
+    send_to_char("You feel weariness overtake your body...\r\n", victim);
+    act("$n looks very weary and falls to the ground asleep.", victim, NULL, NULL, TO_ROOM);
+    victim->position = POS_SLEEPING;
 
-    // Removing a weapon removes bladesong.
-    if (is_affected(victim, gsn_bladesong ))
+   // Removing a weapon removes bladesong.
+    if (is_affected(victim, gsn_bladesong))
     {
         affect_strip(victim, gsn_bladesong);
     }

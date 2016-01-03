@@ -30,16 +30,13 @@
 ***************************************************************************/
 
 // System Specific Includes
-#if defined(__apple__)
-#include <types.h>
-#include <time.h>
-#elif defined(_WIN32)
-#include <sys/types.h>
-#include <time.h>
+#if defined(_WIN32)
+    #include <sys/types.h>
+    #include <time.h>
 #else
-#include <sys/types.h>
-#include <sys/time.h>
-#include <time.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <time.h>
 #endif
 
 // General Includes
@@ -68,7 +65,7 @@ char *mprog_type_to_name(int type);
         _blargh ^= (blah == NO_FLAG) ? 0 : blah;    \
     }
 
-char      *spell_name_lookup     args(( SPELL_FUN *spell ));
+char      *spell_name_lookup     args((SPELL_FUN *spell));
 SPELL_FUN *spell_function_lookup args((char *name));
 
 /* Return TRUE if area changed, FALSE if not. */
@@ -149,8 +146,6 @@ const struct olc_help_type help_table[] = {
     { NULL, NULL, NULL }
 };
 
-
-
 /*****************************************************************************
 Name:       show_flag_cmds
 Purpose:    Displays settable flags and stats.
@@ -182,7 +177,6 @@ void show_flag_cmds(CHAR_DATA * ch, const struct flag_type *flag_table)
     send_to_char(buf1, ch);
     return;
 }
-
 
 /*****************************************************************************
 Name:       show_skill_cmds
@@ -227,8 +221,6 @@ void show_skill_cmds(CHAR_DATA * ch, int tar)
     return;
 }
 
-
-
 /*****************************************************************************
 Name:       show_spec_cmds
 Purpose:    Displays settable special functions.
@@ -258,8 +250,6 @@ void show_spec_cmds(CHAR_DATA * ch)
     send_to_char(buf1, ch);
     return;
 }
-
-
 
 /*****************************************************************************
 Name:       show_help
@@ -342,8 +332,8 @@ bool show_help(CHAR_DATA * ch, char *argument)
                     show_skill_cmds(ch, TAR_OBJ_INV);
                 else
                     send_to_char("Syntax:  ? spell "
-                    "[ignore/attack/defend/self/object/all]\r\n",
-                    ch);
+                        "[ignore/attack/defend/self/object/all]\r\n",
+                        ch);
 
                 return FALSE;
             }
@@ -2183,33 +2173,33 @@ REDIT(redit_oreset)
                 {                        /* Shop-keeper? */
                     switch (pObjIndex->item_type)
                     {
-                    default:
-                        olevel = 0;
-                        break;
-                    case ITEM_PILL:
-                        olevel = number_range(0, 10);
-                        break;
-                    case ITEM_POTION:
-                        olevel = number_range(0, 10);
-                        break;
-                    case ITEM_SCROLL:
-                        olevel = number_range(5, 15);
-                        break;
-                    case ITEM_WAND:
-                        olevel = number_range(10, 20);
-                        break;
-                    case ITEM_STAFF:
-                        olevel = number_range(15, 25);
-                        break;
-                    case ITEM_ARMOR:
-                        olevel = number_range(5, 15);
-                        break;
-                    case ITEM_WEAPON:
-                        if (pReset->command == 'G')
+                        default:
+                            olevel = 0;
+                            break;
+                        case ITEM_PILL:
+                            olevel = number_range(0, 10);
+                            break;
+                        case ITEM_POTION:
+                            olevel = number_range(0, 10);
+                            break;
+                        case ITEM_SCROLL:
                             olevel = number_range(5, 15);
-                        else
-                            olevel = number_fuzzy(olevel);
-                        break;
+                            break;
+                        case ITEM_WAND:
+                            olevel = number_range(10, 20);
+                            break;
+                        case ITEM_STAFF:
+                            olevel = number_range(15, 25);
+                            break;
+                        case ITEM_ARMOR:
+                            olevel = number_range(5, 15);
+                            break;
+                        case ITEM_WEAPON:
+                            if (pReset->command == 'G')
+                                olevel = number_range(5, 15);
+                            else
+                                olevel = number_fuzzy(olevel);
+                            break;
                     }
 
                     newobj = create_object(pObjIndex, olevel);
@@ -2251,166 +2241,166 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
 
     switch (obj->item_type)
     {
-    default:                /* No values. */
-        break;
+        default:                /* No values. */
+            break;
 
-    case ITEM_LIGHT:
-        if (obj->value[2] == -1 || obj->value[2] == 999)    /* ROM OLC */
-            sprintf(buf, "[v2] Light:  Infinite[-1]\r\n");
-        else
-            sprintf(buf, "[v2] Light:  [%d]\r\n", obj->value[2]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_LIGHT:
+            if (obj->value[2] == -1 || obj->value[2] == 999)    /* ROM OLC */
+                sprintf(buf, "[v2] Light:  Infinite[-1]\r\n");
+            else
+                sprintf(buf, "[v2] Light:  [%d]\r\n", obj->value[2]);
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_WAND:
-    case ITEM_STAFF:
-        sprintf(buf,
-            "[v0] Level:          [%d]\r\n"
-            "[v1] Charges Total:  [%d]\r\n"
-            "[v2] Charges Left:   [%d]\r\n"
-            "[v3] Spell:          %s\r\n",
-            obj->value[0],
-            obj->value[1],
-            obj->value[2],
-            obj->value[3] != -1 ? skill_table[obj->value[3]]->name
-            : "none");
-        send_to_char(buf, ch);
-        break;
+        case ITEM_WAND:
+        case ITEM_STAFF:
+            sprintf(buf,
+                "[v0] Level:          [%d]\r\n"
+                "[v1] Charges Total:  [%d]\r\n"
+                "[v2] Charges Left:   [%d]\r\n"
+                "[v3] Spell:          %s\r\n",
+                obj->value[0],
+                obj->value[1],
+                obj->value[2],
+                obj->value[3] != -1 ? skill_table[obj->value[3]]->name
+                : "none");
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_PORTAL:
-        sprintf(buf,
-            "[v0] Charges:        [%d]\r\n"
-            "[v1] Exit Flags:     %s\r\n"
-            "[v2] Portal Flags:   %s\r\n"
-            "[v3] Goes to (vnum): [%d]\r\n",
-            obj->value[0],
-            flag_string(exit_flags, obj->value[1]),
-            flag_string(portal_flags, obj->value[2]),
-            obj->value[3]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_PORTAL:
+            sprintf(buf,
+                "[v0] Charges:        [%d]\r\n"
+                "[v1] Exit Flags:     %s\r\n"
+                "[v2] Portal Flags:   %s\r\n"
+                "[v3] Goes to (vnum): [%d]\r\n",
+                obj->value[0],
+                flag_string(exit_flags, obj->value[1]),
+                flag_string(portal_flags, obj->value[2]),
+                obj->value[3]);
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_FURNITURE:
-        sprintf(buf,
-            "[v0] Max people:      [%d]\r\n"
-            "[v1] Max weight:      [%d]\r\n"
-            "[v2] Furniture Flags: %s\r\n"
-            "[v3] Heal bonus:      [%d]\r\n"
-            "[v4] Mana bonus:      [%d]\r\n",
-            obj->value[0],
-            obj->value[1],
-            flag_string(furniture_flags, obj->value[2]),
-            obj->value[3], obj->value[4]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_FURNITURE:
+            sprintf(buf,
+                "[v0] Max people:      [%d]\r\n"
+                "[v1] Max weight:      [%d]\r\n"
+                "[v2] Furniture Flags: %s\r\n"
+                "[v3] Heal bonus:      [%d]\r\n"
+                "[v4] Mana bonus:      [%d]\r\n",
+                obj->value[0],
+                obj->value[1],
+                flag_string(furniture_flags, obj->value[2]),
+                obj->value[3], obj->value[4]);
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_SCROLL:
-    case ITEM_POTION:
-    case ITEM_PILL:
-        sprintf(buf,
-            "[v0] Level:  [%d]\r\n"
-            "[v1] Spell:  %s\r\n"
-            "[v2] Spell:  %s\r\n"
-            "[v3] Spell:  %s\r\n"
-            "[v4] Spell:  %s\r\n",
-            obj->value[0],
-            obj->value[1] != -1 ? skill_table[obj->value[1]]->name
-            : "none",
-            obj->value[2] != -1 ? skill_table[obj->value[2]]->name
-            : "none",
-            obj->value[3] != -1 ? skill_table[obj->value[3]]->name
-            : "none",
-            obj->value[4] != -1 ? skill_table[obj->value[4]]->name
-            : "none");
-        send_to_char(buf, ch);
-        break;
+        case ITEM_SCROLL:
+        case ITEM_POTION:
+        case ITEM_PILL:
+            sprintf(buf,
+                "[v0] Level:  [%d]\r\n"
+                "[v1] Spell:  %s\r\n"
+                "[v2] Spell:  %s\r\n"
+                "[v3] Spell:  %s\r\n"
+                "[v4] Spell:  %s\r\n",
+                obj->value[0],
+                obj->value[1] != -1 ? skill_table[obj->value[1]]->name
+                : "none",
+                obj->value[2] != -1 ? skill_table[obj->value[2]]->name
+                : "none",
+                obj->value[3] != -1 ? skill_table[obj->value[3]]->name
+                : "none",
+                obj->value[4] != -1 ? skill_table[obj->value[4]]->name
+                : "none");
+            send_to_char(buf, ch);
+            break;
 
-        /* ARMOR for ROM */
+            /* ARMOR for ROM */
 
-    case ITEM_ARMOR:
-        sprintf(buf,
-            "[v0] Ac pierce       [%d]\r\n"
-            "[v1] Ac bash         [%d]\r\n"
-            "[v2] Ac slash        [%d]\r\n"
-            "[v3] Ac exotic       [%d]\r\n",
-            obj->value[0], obj->value[1], obj->value[2],
-            obj->value[3]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_ARMOR:
+            sprintf(buf,
+                "[v0] Ac pierce       [%d]\r\n"
+                "[v1] Ac bash         [%d]\r\n"
+                "[v2] Ac slash        [%d]\r\n"
+                "[v3] Ac exotic       [%d]\r\n",
+                obj->value[0], obj->value[1], obj->value[2],
+                obj->value[3]);
+            send_to_char(buf, ch);
+            break;
 
-        /* WEAPON changed in ROM: */
-        /* I had to split the output here, I have no idea why, but it helped -- Hugin */
-        /* It somehow fixed a bug in showing scroll/pill/potions too ?! */
-    case ITEM_WEAPON:
-        sprintf(buf, "[v0] Weapon class:   %s\r\n",
-            flag_string(weapon_class, obj->value[0]));
-        send_to_char(buf, ch);
-        sprintf(buf, "[v1] Number of dice: [%d]\r\n", obj->value[1]);
-        send_to_char(buf, ch);
-        sprintf(buf, "[v2] Type of dice:   [%d]\r\n", obj->value[2]);
-        send_to_char(buf, ch);
-        sprintf(buf, "[v3] Type:           %s\r\n",
-            attack_table[obj->value[3]].name);
-        send_to_char(buf, ch);
-        sprintf(buf, "[v4] Special type:   %s\r\n",
-            flag_string(weapon_type2, obj->value[4]));
-        send_to_char(buf, ch);
-        break;
+            /* WEAPON changed in ROM: */
+            /* I had to split the output here, I have no idea why, but it helped -- Hugin */
+            /* It somehow fixed a bug in showing scroll/pill/potions too ?! */
+        case ITEM_WEAPON:
+            sprintf(buf, "[v0] Weapon class:   %s\r\n",
+                flag_string(weapon_class, obj->value[0]));
+            send_to_char(buf, ch);
+            sprintf(buf, "[v1] Number of dice: [%d]\r\n", obj->value[1]);
+            send_to_char(buf, ch);
+            sprintf(buf, "[v2] Type of dice:   [%d]\r\n", obj->value[2]);
+            send_to_char(buf, ch);
+            sprintf(buf, "[v3] Type:           %s\r\n",
+                attack_table[obj->value[3]].name);
+            send_to_char(buf, ch);
+            sprintf(buf, "[v4] Special type:   %s\r\n",
+                flag_string(weapon_type2, obj->value[4]));
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_CONTAINER:
-        sprintf(buf,
-            "[v0] Weight:     [%d kg]\r\n"
-            "[v1] Flags:      [%s]\r\n"
-            "[v2] Key:     %s [%d]\r\n"
-            "[v3] Capacity    [%d]\r\n"
-            "[v4] Weight Mult [%d]\r\n",
-            obj->value[0],
-            flag_string(container_flags, obj->value[1]),
-            get_obj_index(obj->value[2])
-            ? get_obj_index(obj->value[2])->short_descr
-            : "none", obj->value[2], obj->value[3], obj->value[4]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_CONTAINER:
+            sprintf(buf,
+                "[v0] Weight:     [%d kg]\r\n"
+                "[v1] Flags:      [%s]\r\n"
+                "[v2] Key:     %s [%d]\r\n"
+                "[v3] Capacity    [%d]\r\n"
+                "[v4] Weight Mult [%d]\r\n",
+                obj->value[0],
+                flag_string(container_flags, obj->value[1]),
+                get_obj_index(obj->value[2])
+                ? get_obj_index(obj->value[2])->short_descr
+                : "none", obj->value[2], obj->value[3], obj->value[4]);
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_DRINK_CON:
-        sprintf(buf,
-            "[v0] Liquid Total: [%d]\r\n"
-            "[v1] Liquid Left:  [%d]\r\n"
-            "[v2] Liquid:       %s\r\n"
-            "[v3] Poisoned:     %s\r\n",
-            obj->value[0],
-            obj->value[1],
-            liq_table[obj->value[2]].liq_name,
-            obj->value[3] != 0 ? "Yes" : "No");
-        send_to_char(buf, ch);
-        break;
+        case ITEM_DRINK_CON:
+            sprintf(buf,
+                "[v0] Liquid Total: [%d]\r\n"
+                "[v1] Liquid Left:  [%d]\r\n"
+                "[v2] Liquid:       %s\r\n"
+                "[v3] Poisoned:     %s\r\n",
+                obj->value[0],
+                obj->value[1],
+                liq_table[obj->value[2]].liq_name,
+                obj->value[3] != 0 ? "Yes" : "No");
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_FOUNTAIN:
-        sprintf(buf,
-            "[v0] Liquid Total: [%d]\r\n"
-            "[v1] Liquid Left:  [%d]\r\n"
-            "[v2] Liquid:        %s\r\n",
-            obj->value[0],
-            obj->value[1], liq_table[obj->value[2]].liq_name);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_FOUNTAIN:
+            sprintf(buf,
+                "[v0] Liquid Total: [%d]\r\n"
+                "[v1] Liquid Left:  [%d]\r\n"
+                "[v2] Liquid:        %s\r\n",
+                obj->value[0],
+                obj->value[1], liq_table[obj->value[2]].liq_name);
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_FOOD:
-        sprintf(buf,
-            "[v0] Food hours: [%d]\r\n"
-            "[v1] Full hours: [%d]\r\n"
-            "[v3] Poisoned:   %s\r\n",
-            obj->value[0],
-            obj->value[1], obj->value[3] != 0 ? "Yes" : "No");
-        send_to_char(buf, ch);
-        break;
+        case ITEM_FOOD:
+            sprintf(buf,
+                "[v0] Food hours: [%d]\r\n"
+                "[v1] Full hours: [%d]\r\n"
+                "[v3] Poisoned:   %s\r\n",
+                obj->value[0],
+                obj->value[1], obj->value[3] != 0 ? "Yes" : "No");
+            send_to_char(buf, ch);
+            break;
 
-    case ITEM_MONEY:
-        sprintf(buf, "[v0] Silver: [%d]\r\n", obj->value[0]);
-        send_to_char(buf, ch);
-        sprintf(buf, "[v1] Gold    [%d]\r\n", obj->value[1]);
-        send_to_char(buf, ch);
-        break;
+        case ITEM_MONEY:
+            sprintf(buf, "[v0] Silver: [%d]\r\n", obj->value[0]);
+            send_to_char(buf, ch);
+            sprintf(buf, "[v1] Gold    [%d]\r\n", obj->value[1]);
+            send_to_char(buf, ch);
+            break;
     }
 
     return;
@@ -2421,344 +2411,344 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
 {
     switch (pObj->item_type)
     {
-    default:
-        break;
-
-    case ITEM_LIGHT:
-        switch (value_num)
-        {
         default:
-            do_help(ch, "ITEM_LIGHT");
-            return FALSE;
-        case 2:
-            send_to_char("HOURS OF LIGHT SET.\r\n\r\n", ch);
-            pObj->value[2] = atoi(argument);
             break;
-        }
-        break;
 
-    case ITEM_WAND:
-    case ITEM_STAFF:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_STAFF_WAND");
-            return FALSE;
-        case 0:
-            send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char("TOTAL NUMBER OF CHARGES SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("CURRENT NUMBER OF CHARGES SET.\r\n\r\n",
-                ch);
-            pObj->value[2] = atoi(argument);
-            break;
-        case 3:
-            send_to_char("SPELL TYPE SET.\r\n", ch);
-            pObj->value[3] = skill_lookup(argument);
-            break;
-        }
-        break;
-
-    case ITEM_SCROLL:
-    case ITEM_POTION:
-    case ITEM_PILL:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_SCROLL_POTION_PILL");
-            return FALSE;
-        case 0:
-            send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char("SPELL TYPE 1 SET.\r\n\r\n", ch);
-            pObj->value[1] = skill_lookup(argument);
-            break;
-        case 2:
-            send_to_char("SPELL TYPE 2 SET.\r\n\r\n", ch);
-            pObj->value[2] = skill_lookup(argument);
-            break;
-        case 3:
-            send_to_char("SPELL TYPE 3 SET.\r\n\r\n", ch);
-            pObj->value[3] = skill_lookup(argument);
-            break;
-        case 4:
-            send_to_char("SPELL TYPE 4 SET.\r\n\r\n", ch);
-            pObj->value[4] = skill_lookup(argument);
-            break;
-        }
-        break;
-
-        /* ARMOR for ROM: */
-
-    case ITEM_ARMOR:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_ARMOR");
-            return FALSE;
-        case 0:
-            send_to_char("AC PIERCE SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char("AC BASH SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("AC SLASH SET.\r\n\r\n", ch);
-            pObj->value[2] = atoi(argument);
-            break;
-        case 3:
-            send_to_char("AC EXOTIC SET.\r\n\r\n", ch);
-            pObj->value[3] = atoi(argument);
-            break;
-        }
-        break;
-
-        /* WEAPONS changed in ROM */
-
-    case ITEM_WEAPON:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_WEAPON");
-            return FALSE;
-        case 0:
-            send_to_char("WEAPON CLASS SET.\r\n\r\n", ch);
-            ALT_FLAGVALUE_SET(pObj->value[0], weapon_class,
-                argument);
-            break;
-        case 1:
-            send_to_char("NUMBER OF DICE SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("TYPE OF DICE SET.\r\n\r\n", ch);
-            pObj->value[2] = atoi(argument);
-            break;
-        case 3:
-            send_to_char("WEAPON TYPE SET.\r\n\r\n", ch);
-            pObj->value[3] = attack_lookup(argument);
-            break;
-        case 4:
-            send_to_char("SPECIAL WEAPON TYPE TOGGLED.\r\n\r\n", ch);
-            ALT_FLAGVALUE_TOGGLE(pObj->value[4], weapon_type2,
-                argument);
-            break;
-        }
-        break;
-
-    case ITEM_PORTAL:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_PORTAL");
-            return FALSE;
-
-        case 0:
-            send_to_char("CHARGES SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char("EXIT FLAGS SET.\r\n\r\n", ch);
-            ALT_FLAGVALUE_SET(pObj->value[1], exit_flags, argument);
-            break;
-        case 2:
-            send_to_char("PORTAL FLAGS SET.\r\n\r\n", ch);
-            ALT_FLAGVALUE_SET(pObj->value[2], portal_flags,
-                argument);
-            break;
-        case 3:
-            send_to_char("EXIT VNUM SET.\r\n\r\n", ch);
-            pObj->value[3] = atoi(argument);
-            break;
-        }
-        break;
-
-    case ITEM_FURNITURE:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_FURNITURE");
-            return FALSE;
-
-        case 0:
-            send_to_char("NUMBER OF PEOPLE SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char("MAX WEIGHT SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("FURNITURE FLAGS TOGGLED.\r\n\r\n", ch);
-            ALT_FLAGVALUE_TOGGLE(pObj->value[2], furniture_flags,
-                argument);
-            break;
-        case 3:
-            send_to_char("HEAL BONUS SET.\r\n\r\n", ch);
-            pObj->value[3] = atoi(argument);
-            break;
-        case 4:
-            send_to_char("MANA BONUS SET.\r\n\r\n", ch);
-            pObj->value[4] = atoi(argument);
-            break;
-        }
-        break;
-
-    case ITEM_CONTAINER:
-        switch (value_num)
-        {
-            int value;
-
-        default:
-            do_help(ch, "ITEM_CONTAINER");
-            return FALSE;
-        case 0:
-            send_to_char("WEIGHT CAPACITY SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            if ((value = flag_value(container_flags, argument)) !=
-                NO_FLAG)
-                TOGGLE_BIT(pObj->value[1], value);
-            else
+        case ITEM_LIGHT:
+            switch (value_num)
             {
-                do_help(ch, "ITEM_CONTAINER");
-                return FALSE;
+                default:
+                    do_help(ch, "ITEM_LIGHT");
+                    return FALSE;
+                case 2:
+                    send_to_char("HOURS OF LIGHT SET.\r\n\r\n", ch);
+                    pObj->value[2] = atoi(argument);
+                    break;
             }
-            send_to_char("CONTAINER TYPE SET.\r\n\r\n", ch);
             break;
-        case 2:
-            if (atoi(argument) != 0)
+
+        case ITEM_WAND:
+        case ITEM_STAFF:
+            switch (value_num)
             {
-                if (!get_obj_index(atoi(argument)))
-                {
-                    send_to_char("THERE IS NO SUCH ITEM.\r\n\r\n",
-                        ch);
+                default:
+                    do_help(ch, "ITEM_STAFF_WAND");
                     return FALSE;
-                }
-
-                if (get_obj_index(atoi(argument))->item_type !=
-                    ITEM_KEY)
-                {
-                    send_to_char("THAT ITEM IS NOT A KEY.\r\n\r\n",
+                case 0:
+                    send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("TOTAL NUMBER OF CHARGES SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("CURRENT NUMBER OF CHARGES SET.\r\n\r\n",
                         ch);
-                    return FALSE;
-                }
+                    pObj->value[2] = atoi(argument);
+                    break;
+                case 3:
+                    send_to_char("SPELL TYPE SET.\r\n", ch);
+                    pObj->value[3] = skill_lookup(argument);
+                    break;
             }
-            send_to_char("CONTAINER KEY SET.\r\n\r\n", ch);
-            pObj->value[2] = atoi(argument);
             break;
-        case 3:
-            send_to_char("CONTAINER MAX WEIGHT SET.\r\n", ch);
-            pObj->value[3] = atoi(argument);
-            break;
-        case 4:
-            send_to_char("WEIGHT MULTIPLIER SET.\r\n\r\n", ch);
-            pObj->value[4] = atoi(argument);
-            break;
-        }
-        break;
 
-    case ITEM_DRINK_CON:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_DRINK");
-            /* OLC            do_help( ch, "liquids" );    */
-            return FALSE;
-        case 0:
-            send_to_char
-                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
+        case ITEM_SCROLL:
+        case ITEM_POTION:
+        case ITEM_PILL:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_SCROLL_POTION_PILL");
+                    return FALSE;
+                case 0:
+                    send_to_char("SPELL LEVEL SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("SPELL TYPE 1 SET.\r\n\r\n", ch);
+                    pObj->value[1] = skill_lookup(argument);
+                    break;
+                case 2:
+                    send_to_char("SPELL TYPE 2 SET.\r\n\r\n", ch);
+                    pObj->value[2] = skill_lookup(argument);
+                    break;
+                case 3:
+                    send_to_char("SPELL TYPE 3 SET.\r\n\r\n", ch);
+                    pObj->value[3] = skill_lookup(argument);
+                    break;
+                case 4:
+                    send_to_char("SPELL TYPE 4 SET.\r\n\r\n", ch);
+                    pObj->value[4] = skill_lookup(argument);
+                    break;
+            }
             break;
-        case 1:
-            send_to_char
-                ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
-            pObj->value[2] = (liq_lookup(argument) != -1 ?
-                liq_lookup(argument) : 0);
-            break;
-        case 3:
-            send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
-            pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
-            break;
-        }
-        break;
 
-    case ITEM_FOUNTAIN:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_FOUNTAIN");
-            /* OLC            do_help( ch, "liquids" );    */
-            return FALSE;
-        case 0:
-            send_to_char
-                ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
-            break;
-        case 1:
-            send_to_char
-                ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 2:
-            send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
-            pObj->value[2] = (liq_lookup(argument) != -1 ?
-                liq_lookup(argument) : 0);
-            break;
-        }
-        break;
+            /* ARMOR for ROM: */
 
-    case ITEM_FOOD:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_FOOD");
-            return FALSE;
-        case 0:
-            send_to_char("HOURS OF FOOD SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
+        case ITEM_ARMOR:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_ARMOR");
+                    return FALSE;
+                case 0:
+                    send_to_char("AC PIERCE SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("AC BASH SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("AC SLASH SET.\r\n\r\n", ch);
+                    pObj->value[2] = atoi(argument);
+                    break;
+                case 3:
+                    send_to_char("AC EXOTIC SET.\r\n\r\n", ch);
+                    pObj->value[3] = atoi(argument);
+                    break;
+            }
             break;
-        case 1:
-            send_to_char("HOURS OF FULL SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
-            break;
-        case 3:
-            send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
-            pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
-            break;
-        }
-        break;
 
-    case ITEM_MONEY:
-        switch (value_num)
-        {
-        default:
-            do_help(ch, "ITEM_MONEY");
-            return FALSE;
-        case 0:
-            send_to_char("SILVER AMOUNT SET.\r\n\r\n", ch);
-            pObj->value[0] = atoi(argument);
+            /* WEAPONS changed in ROM */
+
+        case ITEM_WEAPON:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_WEAPON");
+                    return FALSE;
+                case 0:
+                    send_to_char("WEAPON CLASS SET.\r\n\r\n", ch);
+                    ALT_FLAGVALUE_SET(pObj->value[0], weapon_class,
+                        argument);
+                    break;
+                case 1:
+                    send_to_char("NUMBER OF DICE SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("TYPE OF DICE SET.\r\n\r\n", ch);
+                    pObj->value[2] = atoi(argument);
+                    break;
+                case 3:
+                    send_to_char("WEAPON TYPE SET.\r\n\r\n", ch);
+                    pObj->value[3] = attack_lookup(argument);
+                    break;
+                case 4:
+                    send_to_char("SPECIAL WEAPON TYPE TOGGLED.\r\n\r\n", ch);
+                    ALT_FLAGVALUE_TOGGLE(pObj->value[4], weapon_type2,
+                        argument);
+                    break;
+            }
             break;
-        case 1:
-            send_to_char("GOLD AMOUNT SET.\r\n\r\n", ch);
-            pObj->value[1] = atoi(argument);
+
+        case ITEM_PORTAL:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_PORTAL");
+                    return FALSE;
+
+                case 0:
+                    send_to_char("CHARGES SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("EXIT FLAGS SET.\r\n\r\n", ch);
+                    ALT_FLAGVALUE_SET(pObj->value[1], exit_flags, argument);
+                    break;
+                case 2:
+                    send_to_char("PORTAL FLAGS SET.\r\n\r\n", ch);
+                    ALT_FLAGVALUE_SET(pObj->value[2], portal_flags,
+                        argument);
+                    break;
+                case 3:
+                    send_to_char("EXIT VNUM SET.\r\n\r\n", ch);
+                    pObj->value[3] = atoi(argument);
+                    break;
+            }
             break;
-        }
-        break;
+
+        case ITEM_FURNITURE:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_FURNITURE");
+                    return FALSE;
+
+                case 0:
+                    send_to_char("NUMBER OF PEOPLE SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("MAX WEIGHT SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("FURNITURE FLAGS TOGGLED.\r\n\r\n", ch);
+                    ALT_FLAGVALUE_TOGGLE(pObj->value[2], furniture_flags,
+                        argument);
+                    break;
+                case 3:
+                    send_to_char("HEAL BONUS SET.\r\n\r\n", ch);
+                    pObj->value[3] = atoi(argument);
+                    break;
+                case 4:
+                    send_to_char("MANA BONUS SET.\r\n\r\n", ch);
+                    pObj->value[4] = atoi(argument);
+                    break;
+            }
+            break;
+
+        case ITEM_CONTAINER:
+            switch (value_num)
+            {
+                int value;
+
+                default:
+                    do_help(ch, "ITEM_CONTAINER");
+                    return FALSE;
+                case 0:
+                    send_to_char("WEIGHT CAPACITY SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    if ((value = flag_value(container_flags, argument)) !=
+                        NO_FLAG)
+                        TOGGLE_BIT(pObj->value[1], value);
+                    else
+                    {
+                        do_help(ch, "ITEM_CONTAINER");
+                        return FALSE;
+                    }
+                    send_to_char("CONTAINER TYPE SET.\r\n\r\n", ch);
+                    break;
+                case 2:
+                    if (atoi(argument) != 0)
+                    {
+                        if (!get_obj_index(atoi(argument)))
+                        {
+                            send_to_char("THERE IS NO SUCH ITEM.\r\n\r\n",
+                                ch);
+                            return FALSE;
+                        }
+
+                        if (get_obj_index(atoi(argument))->item_type !=
+                            ITEM_KEY)
+                        {
+                            send_to_char("THAT ITEM IS NOT A KEY.\r\n\r\n",
+                                ch);
+                            return FALSE;
+                        }
+                    }
+                    send_to_char("CONTAINER KEY SET.\r\n\r\n", ch);
+                    pObj->value[2] = atoi(argument);
+                    break;
+                case 3:
+                    send_to_char("CONTAINER MAX WEIGHT SET.\r\n", ch);
+                    pObj->value[3] = atoi(argument);
+                    break;
+                case 4:
+                    send_to_char("WEIGHT MULTIPLIER SET.\r\n\r\n", ch);
+                    pObj->value[4] = atoi(argument);
+                    break;
+            }
+            break;
+
+        case ITEM_DRINK_CON:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_DRINK");
+                    /* OLC            do_help( ch, "liquids" );    */
+                    return FALSE;
+                case 0:
+                    send_to_char
+                        ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char
+                        ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
+                    pObj->value[2] = (liq_lookup(argument) != -1 ?
+                        liq_lookup(argument) : 0);
+                    break;
+                case 3:
+                    send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
+                    pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
+                    break;
+            }
+            break;
+
+        case ITEM_FOUNTAIN:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_FOUNTAIN");
+                    /* OLC            do_help( ch, "liquids" );    */
+                    return FALSE;
+                case 0:
+                    send_to_char
+                        ("MAXIMUM AMOUT OF LIQUID HOURS SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char
+                        ("CURRENT AMOUNT OF LIQUID HOURS SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 2:
+                    send_to_char("LIQUID TYPE SET.\r\n\r\n", ch);
+                    pObj->value[2] = (liq_lookup(argument) != -1 ?
+                        liq_lookup(argument) : 0);
+                    break;
+            }
+            break;
+
+        case ITEM_FOOD:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_FOOD");
+                    return FALSE;
+                case 0:
+                    send_to_char("HOURS OF FOOD SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("HOURS OF FULL SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+                case 3:
+                    send_to_char("POISON VALUE TOGGLED.\r\n\r\n", ch);
+                    pObj->value[3] = (pObj->value[3] == 0) ? 1 : 0;
+                    break;
+            }
+            break;
+
+        case ITEM_MONEY:
+            switch (value_num)
+            {
+                default:
+                    do_help(ch, "ITEM_MONEY");
+                    return FALSE;
+                case 0:
+                    send_to_char("SILVER AMOUNT SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char("GOLD AMOUNT SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+            }
+            break;
     }
 
     show_obj_values(ch, pObj);
@@ -2935,7 +2925,7 @@ OEDIT(oedit_addapply)
     {
         send_to_char
             ("Syntax:  addapply [type] [location] [#xmod] [bitvector]\r\n",
-            ch);
+                ch);
         return FALSE;
     }
 
@@ -3830,7 +3820,7 @@ MEDIT(medit_damtype)
         send_to_char("Syntax:  damtype [damage message]\r\n", ch);
         send_to_char
             ("For a list of damage types, type '? weapon'.\r\n",
-            ch);
+                ch);
         return FALSE;
     }
 
@@ -4007,7 +3997,7 @@ MEDIT(medit_shop)
         {
             send_to_char
                 ("MEdit:  You must create the shop first (shop assign).\r\n",
-                ch);
+                    ch);
             return FALSE;
         }
 
@@ -4033,7 +4023,7 @@ MEDIT(medit_shop)
         {
             send_to_char
                 ("MEdit:  You must create the shop first (shop assign).\r\n",
-                ch);
+                    ch);
             return FALSE;
         }
 
@@ -4067,7 +4057,7 @@ MEDIT(medit_shop)
         {
             send_to_char
                 ("MEdit:  You must create the shop first (shop assign).\r\n",
-                ch);
+                    ch);
             return FALSE;
         }
 
@@ -4289,7 +4279,7 @@ MEDIT(medit_ac)
 
     send_to_char
         ("Syntax:  ac [ac-pierce [ac-bash [ac-slash [ac-exotic]]]]\r\n"
-        "help MOB_AC  gives a list of reasonable ac-values.\r\n", ch);
+            "help MOB_AC  gives a list of reasonable ac-values.\r\n", ch);
     return FALSE;
 }
 
@@ -4690,36 +4680,36 @@ MEDIT(medit_position)
 
     switch (arg[0])
     {
-    default:
-        break;
-
-    case 'S':
-    case 's':
-        if (str_prefix(arg, "start"))
+        default:
             break;
 
-        if ((value = flag_value(position_flags, argument)) == NO_FLAG)
-            break;
+        case 'S':
+        case 's':
+            if (str_prefix(arg, "start"))
+                break;
 
-        EDIT_MOB(ch, pMob);
+            if ((value = flag_value(position_flags, argument)) == NO_FLAG)
+                break;
 
-        pMob->start_pos = value;
-        send_to_char("Start position set.\r\n", ch);
-        return TRUE;
+            EDIT_MOB(ch, pMob);
 
-    case 'D':
-    case 'd':
-        if (str_prefix(arg, "default"))
-            break;
+            pMob->start_pos = value;
+            send_to_char("Start position set.\r\n", ch);
+            return TRUE;
 
-        if ((value = flag_value(position_flags, argument)) == NO_FLAG)
-            break;
+        case 'D':
+        case 'd':
+            if (str_prefix(arg, "default"))
+                break;
 
-        EDIT_MOB(ch, pMob);
+            if ((value = flag_value(position_flags, argument)) == NO_FLAG)
+                break;
 
-        pMob->default_pos = value;
-        send_to_char("Default position set.\r\n", ch);
-        return TRUE;
+            EDIT_MOB(ch, pMob);
+
+            pMob->default_pos = value;
+            send_to_char("Default position set.\r\n", ch);
+            return TRUE;
     }
 
     send_to_char("Syntax:  position [start/default] [position]\r\n"
@@ -4776,7 +4766,7 @@ void show_liqlist(CHAR_DATA * ch)
     {
         if ((liq % 21) == 0)
             add_buf(buffer,
-            "Name                 Color          Proof Full Thirst Food Ssize\r\n");
+                "Name                 Color          Proof Full Thirst Food Ssize\r\n");
 
         sprintf(buf, "%-20s %-14s %5d %4d %6d %4d %5d\r\n",
             liq_table[liq].liq_name, liq_table[liq].liq_color,
@@ -5653,7 +5643,7 @@ HEDIT(hedit_list)
         buffer = new_buf();
 
         for (pHelp = ch->in_room->area->helps->first; pHelp;
-            pHelp = pHelp->next_area)
+        pHelp = pHelp->next_area)
         {
             sprintf(buf, "%3d. %-14.14s%s", cnt, pHelp->keyword,
                 cnt % 4 == 3 ? "\r\n" : " ");
@@ -5903,7 +5893,7 @@ MPEDIT(mpedit_list)
     for (mprg = mprog_list; mprg != NULL; mprg = mprg->next)
         if (fAll
             || ENTRE(ch->in_room->area->min_vnum, mprg->vnum,
-            ch->in_room->area->max_vnum))
+                ch->in_room->area->max_vnum))
         {
             ad = get_vnum_area(mprg->vnum);
 
@@ -5940,141 +5930,141 @@ REDIT(aedit_continent) {
 
     EDIT_AREA(ch, pArea);
 
-    if(argument[0] == '\0')
+    if (argument[0] == '\0')
     {
-        send_to_char("Syntax: continent [name]",ch);
+        send_to_char("Syntax: continent [name]", ch);
         return FALSE;
     }
 
     pArea->continent = continent_lookup(argument);
     sprintf(buf, "Continent set to %s.\r\n", continent_table[pArea->continent].name);
-    send_to_char(buf,ch);
+    send_to_char(buf, ch);
     return TRUE;
 } // end REDIT(aedit_continent)
 
-bool gedit_show( CHAR_DATA *ch, char *argument )
+bool gedit_show(CHAR_DATA *ch, char *argument)
 {
     GROUPTYPE *group;
     char buf[MAX_STRING_LENGTH];
-    int class,x,fact;
+    int class, x, fact;
     fact = (MAX_IN_GROUP / 3);
 
     EDIT_GROUP(ch, group);
 
-    sprintf( buf, "\r\nName:         [%s]\r\n\r\n",group->name);
+    sprintf(buf, "\r\nName:         [%s]\r\n\r\n", group->name);
     send_to_char(buf, ch);
 
-    for(x =0; x <= fact; x++)
+    for (x = 0; x <= fact; x++)
     {
-	sprintf(buf,"%2d) [%-15.15s] ",x,group->spells[x] ? group->spells[x] : "None" );
-	send_to_char(buf,ch);
-	sprintf(buf,"%2d) [%-15.15s] ",x+fact+1,group->spells[x+fact+1] ? group->spells[x+fact+1] : "None" );
-	send_to_char(buf,ch);
-	if (x+((fact+1)*2) < MAX_IN_GROUP)
-	{
-	    sprintf(buf,"%2d) [%-15.15s]\r\n",x+((fact+1)*2),group->spells[x+((fact+1)*2)] ? group->spells[x+((fact+1)*2)] : "None" );
-	    send_to_char(buf,ch); 
-	}
-	else
-	{
-	    send_to_char("\r\n",ch);
-	}
+        sprintf(buf, "%2d) [%-15.15s] ", x, group->spells[x] ? group->spells[x] : "None");
+        send_to_char(buf, ch);
+        sprintf(buf, "%2d) [%-15.15s] ", x + fact + 1, group->spells[x + fact + 1] ? group->spells[x + fact + 1] : "None");
+        send_to_char(buf, ch);
+        if (x + ((fact + 1) * 2) < MAX_IN_GROUP)
+        {
+            sprintf(buf, "%2d) [%-15.15s]\r\n", x + ((fact + 1) * 2), group->spells[x + ((fact + 1) * 2)] ? group->spells[x + ((fact + 1) * 2)] : "None");
+            send_to_char(buf, ch);
+        }
+        else
+        {
+            send_to_char("\r\n", ch);
+        }
     }
 
 
-    sprintf( buf,"\r\nClass         Rating  Class         Rating\r\n");
+    sprintf(buf, "\r\nClass         Rating  Class         Rating\r\n");
     send_to_char(buf, ch);
 
-    sprintf( buf, "--------------------------------------------------------\r\n");
+    sprintf(buf, "--------------------------------------------------------\r\n");
     send_to_char(buf, ch);
 
-    for(class =0; class < top_class; class++)
+    for (class = 0; class < top_class; class++)
     {
-	sprintf(buf,"%-13s [%2d]",class_table[class]->name, group->rating[class]);
-	if ((class % 2) == 0)
-	{
-	     strcat(buf,"    ");
-	}
-	else
-	{
-	     strcat(buf,"\r\n");
-	}
-	send_to_char(buf,ch);
+        sprintf(buf, "%-13s [%2d]", class_table[class]->name, group->rating[class]);
+        if ((class % 2) == 0)
+        {
+            strcat(buf, "    ");
+        }
+        else
+        {
+            strcat(buf, "\r\n");
+        }
+        send_to_char(buf, ch);
     }
-    send_to_char("\r\n",ch);
+    send_to_char("\r\n", ch);
 
     return TRUE;
 }
 
-GEDIT( gedit_create)
+GEDIT(gedit_create)
 {
     GROUPTYPE *group;
-    int gn,i;
+    int gn, i;
 
     gn = group_lookup(argument);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-	send_to_char( "Syntax:  edit group create group_name\r\n", ch );
-	return FALSE;
+        send_to_char("Syntax:  edit group create group_name\r\n", ch);
+        return FALSE;
     }
 
     if (gn != -1)
     {
-	send_to_char( "GEdit:  group already exists.\r\n", ch );
-	return FALSE;
+        send_to_char("GEdit:  group already exists.\r\n", ch);
+        return FALSE;
     }
 
     if (top_group + 1 >= MAX_GROUP)
     {
-	send_to_char("MAX_GROUP Exceeded, please increae the MAX_GROUP in merc.h\r\n",ch);
-	return FALSE;
+        send_to_char("MAX_GROUP Exceeded, please increae the MAX_GROUP in merc.h\r\n", ch);
+        return FALSE;
     }
 
     group = alloc_perm(sizeof(*group));
     group->name = str_dup(argument);
     for (i = 0; i < top_class; i++)
     {
-       group->rating[i] = -1;
+        group->rating[i] = -1;
     }
     group_table[top_group] = group;
     ch->desc->pEdit = (void *)group;
     top_group++;
-    send_to_char( "Group Created.\r\n", ch );
+    send_to_char("Group Created.\r\n", ch);
     return TRUE;
 }
 
-GEDIT( gedit_list )
+GEDIT(gedit_list)
 {
-    do_function (ch, &do_groups, "all");
+    do_function(ch, &do_groups, "all");
     return TRUE;
 }
 
-GEDIT( gedit_add)
+GEDIT(gedit_add)
 {
     GROUPTYPE *group;
     char arg1[MAX_STRING_LENGTH];
-    int num,sn;
+    int num, sn;
     char buf[MAX_STRING_LENGTH];
 
     EDIT_GROUP(ch, group);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  add [#] group/skill\r\n", ch );
+        send_to_char("Syntax:  add [#] group/skill\r\n", ch);
         return FALSE;
     }
 
-    argument = one_argument (argument, arg1);
-    num = atoi (arg1);
+    argument = one_argument(argument, arg1);
+    num = atoi(arg1);
 
-    if (!is_number(arg1) || !argument || argument[0] == '\0' )
+    if (!is_number(arg1) || !argument || argument[0] == '\0')
     {
-        send_to_char( "Syntax:  add [#] group/skill\r\n", ch );
+        send_to_char("Syntax:  add [#] group/skill\r\n", ch);
         return FALSE;
     }
 
-    if ((sn = group_lookup(argument)) != -1 )
+    if ((sn = group_lookup(argument)) != -1)
     {
         free_string(group->spells[num]);
         group->spells[num] = str_dup(group_table[sn]->name);
@@ -6086,15 +6076,15 @@ GEDIT( gedit_add)
     }
     else
     {
-        sprintf(buf,"%s doesn't exist.\r\n",argument);
+        sprintf(buf, "%s doesn't exist.\r\n", argument);
         send_to_char(buf, ch);
         return FALSE;
     }
-    send_to_char("Ok.\r\n",ch);
+    send_to_char("Ok.\r\n", ch);
     return TRUE;
 }
 
-GEDIT( gedit_del)
+GEDIT(gedit_del)
 {
     GROUPTYPE *group;
     char arg1[MAX_STRING_LENGTH];
@@ -6102,349 +6092,349 @@ GEDIT( gedit_del)
 
     EDIT_GROUP(ch, group);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  del [#]\r\n", ch );
+        send_to_char("Syntax:  del [#]\r\n", ch);
         return FALSE;
     }
 
-    argument = one_argument (argument, arg1);
-    num = atoi (arg1);
+    argument = one_argument(argument, arg1);
+    num = atoi(arg1);
 
     if (!is_number(arg1))
     {
-        send_to_char( "Syntax:  del [#]\r\n", ch );
-     	return FALSE;
+        send_to_char("Syntax:  del [#]\r\n", ch);
+        return FALSE;
     }
 
     free_string(group->spells[num]);
     group->spells[num] = '\0';
-    send_to_char("Ok.\r\n",ch);
+    send_to_char("Ok.\r\n", ch);
 
     return TRUE;
 }
 
-GEDIT( gedit_name)
+GEDIT(gedit_name)
 {
     GROUPTYPE *group;
 
     EDIT_GROUP(ch, group);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  name [string]\r\n", ch );
+        send_to_char("Syntax:  name [string]\r\n", ch);
         return FALSE;
     }
 
-    free_string( group->name );
-    group->name = str_dup( argument );
+    free_string(group->name);
+    group->name = str_dup(argument);
     group->name[0] = LOWER(group->name[0]);
 
-    send_to_char( "Name set.\r\n", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
-GEDIT( gedit_rating)
+GEDIT(gedit_rating)
 {
     GROUPTYPE *group;
-    int class_no,rating;
+    int class_no, rating;
     char class_name[MAX_INPUT_LENGTH];
     char arg1[MAX_STRING_LENGTH];
     char buf[MAX_STRING_LENGTH];
 
     EDIT_GROUP(ch, group);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  rating class [#]\r\n", ch );
+        send_to_char("Syntax:  rating class [#]\r\n", ch);
         return FALSE;
     }
 
-    argument = one_argument (argument, class_name);
-    argument = one_argument (argument, arg1);
-    rating = atoi (arg1);
+    argument = one_argument(argument, class_name);
+    argument = one_argument(argument, arg1);
+    rating = atoi(arg1);
 
     if (!is_number(arg1))
     {
-        send_to_char( "Syntax:  rating class [#]\r\n", ch );
-     	return FALSE;
-    }
-
-   for (class_no = 0; class_no < top_class; class_no++)
-       if (!str_cmp(class_name, class_table[class_no]->name))
-            break;
-
-   if (!str_cmp(class_name, "all"))
-   {
-     for (class_no = 0; class_no < top_class; class_no++)
-     {
-       group->rating[class_no] = rating;
-     }
-
-       sprintf (buf, "OK, Cost set at %d for all classes.\r\n", rating);
-       send_to_char(buf, ch);
-   }
-   else
-   {
-
-     for (class_no = 0; class_no < top_class; class_no++)
-       if (!str_prefix(class_name, class_table[class_no]->name))
-            break;
-
-    if (class_no >= top_class)
-    {
-   	sprintf (buf, "No class named '%s' exists.\r\n", class_name);
-        send_to_char(buf, ch);
-      	return FALSE;
-    }
-       group->rating[class_no] = rating;
-       sprintf (buf, "OK, %s will now cost %d for %s.\r\n", group->name, rating,class_table[class_no]->name);
-       send_to_char(buf, ch);
-   }
-
-   return TRUE;
-}
-
-CEDIT( cedit_name )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' )
-    {
-        send_to_char( "Syntax:  name [string]\r\n", ch );
+        send_to_char("Syntax:  rating class [#]\r\n", ch);
         return FALSE;
     }
 
-    free_string( class->name );
-    class->name = str_dup(argument);
-    class->name[0] = LOWER(class->name[0]);
+    for (class_no = 0; class_no < top_class; class_no++)
+        if (!str_cmp(class_name, class_table[class_no]->name))
+            break;
 
-    send_to_char( "Name set.\r\n", ch);
+    if (!str_cmp(class_name, "all"))
+    {
+        for (class_no = 0; class_no < top_class; class_no++)
+        {
+            group->rating[class_no] = rating;
+        }
+
+        sprintf(buf, "OK, Cost set at %d for all classes.\r\n", rating);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+
+        for (class_no = 0; class_no < top_class; class_no++)
+            if (!str_prefix(class_name, class_table[class_no]->name))
+                break;
+
+        if (class_no >= top_class)
+        {
+            sprintf(buf, "No class named '%s' exists.\r\n", class_name);
+            send_to_char(buf, ch);
+            return FALSE;
+        }
+        group->rating[class_no] = rating;
+        sprintf(buf, "OK, %s will now cost %d for %s.\r\n", group->name, rating, class_table[class_no]->name);
+        send_to_char(buf, ch);
+    }
+
     return TRUE;
 }
 
-CEDIT( cedit_whoname )
+CEDIT(cedit_name)
 {
     CLASSTYPE *class;
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  whoname [string]\r\n", ch );
+        send_to_char("Syntax:  name [string]\r\n", ch);
+        return FALSE;
+    }
+
+    free_string(class->name);
+    class->name = str_dup(argument);
+    class->name[0] = LOWER(class->name[0]);
+
+    send_to_char("Name set.\r\n", ch);
+    return TRUE;
+}
+
+CEDIT(cedit_whoname)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  whoname [string]\r\n", ch);
         return FALSE;
     }
 
     if (strlen(argument) > 4)
     {
-	send_to_char( "Who name must be 3 characters or less.\r\n",ch);
-	return FALSE;
+        send_to_char("Who name must be 3 characters or less.\r\n", ch);
+        return FALSE;
     }
 
     class->who_name[0] = '\0';
-    strcpy(class->who_name,argument);
+    strcpy(class->who_name, argument);
 
-    send_to_char( "Name set.\r\n", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
 
-CEDIT( cedit_attrprime )
+CEDIT(cedit_attrprime)
 {
     CLASSTYPE *class;
     int value;
 
-    if ( argument[0] != '\0' )
+    if (argument[0] != '\0')
     {
-    	EDIT_CLASS(ch, class);
+        EDIT_CLASS(ch, class);
 
-        if ( ( value = flag_value( stat_flags, argument ) ) != NO_FLAG )
+        if ((value = flag_value(stat_flags, argument)) != NO_FLAG)
         {
             class->attr_prime = value;
 
-            send_to_char( "Prime Attribute set.\r\n", ch);
+            send_to_char("Prime Attribute set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  attrprime [attr]\r\n", ch);
+    send_to_char("Syntax:  attrprime [attr]\r\n", ch);
     return FALSE;
 }
 
 
-CEDIT( cedit_weapon )
+CEDIT(cedit_weapon)
 {
     CLASSTYPE *class;
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' || !is_number( argument ) )
+    if (argument[0] == '\0' || !is_number(argument))
     {
-	send_to_char( "Syntax:  weapon [vnum]\r\n", ch );
-	return FALSE;
-    }
-
-    class->weapon = atoi( argument );
-
-    send_to_char( "Weapon vnum set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_skilladept )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' || !is_number( argument ) )
-    {
-	send_to_char( "Syntax:  skilladept [number]\r\n", ch );
-	return FALSE;
-    }
-
-    class->skill_adept = atoi( argument );
-
-    send_to_char( "Skill Adept set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_thac0 )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' || !is_number( argument ) )
-    {
-	send_to_char( "Syntax:  thac0 [number]\r\n", ch );
-	return FALSE;
-    }
-
-    class->thac0_00 = atoi( argument );
-
-    send_to_char( "Thac0 set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_thac32 )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' || !is_number( argument ) )
-    {
-	send_to_char( "Syntax:  thac32 [number]\r\n", ch );
-	return FALSE;
-    }
-
-    class->thac0_32 = atoi( argument );
-
-    send_to_char( "Thac32 set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_hpmin )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' || !is_number( argument ) )
-    {
-	send_to_char( "Syntax:  hpmin [number]\r\n", ch );
-	return FALSE;
-    }
-
-    class->hp_min = atoi( argument );
-
-    send_to_char( "HP Min set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_hpmax )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' || !is_number( argument ) )
-    {
-	send_to_char( "Syntax:  hpmax [number]\r\n", ch );
-	return FALSE;
-    }
-
-    class->hp_max = atoi( argument );
-
-    send_to_char( "HP Max set.\r\n", ch);
-    return TRUE;
-}
-
-
-CEDIT( cedit_mana )
-{
-    CLASSTYPE *class;
-
-    EDIT_CLASS(ch, class);
-
-    if ( argument[0] == '\0' )
-    {
-        send_to_char( "Syntax:  mana [TRUE/FALSE]\r\n", ch );
+        send_to_char("Syntax:  weapon [vnum]\r\n", ch);
         return FALSE;
     }
 
-    if (!str_prefix(argument,"true"))
+    class->weapon = atoi(argument);
+
+    send_to_char("Weapon vnum set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_skilladept)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0' || !is_number(argument))
     {
-	class->fMana = TRUE;
+        send_to_char("Syntax:  skilladept [number]\r\n", ch);
+        return FALSE;
     }
-    else if (!str_prefix(argument,"false"))
+
+    class->skill_adept = atoi(argument);
+
+    send_to_char("Skill Adept set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_thac0)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0' || !is_number(argument))
     {
-	class->fMana = FALSE;
+        send_to_char("Syntax:  thac0 [number]\r\n", ch);
+        return FALSE;
+    }
+
+    class->thac0_00 = atoi(argument);
+
+    send_to_char("Thac0 set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_thac32)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0' || !is_number(argument))
+    {
+        send_to_char("Syntax:  thac32 [number]\r\n", ch);
+        return FALSE;
+    }
+
+    class->thac0_32 = atoi(argument);
+
+    send_to_char("Thac32 set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_hpmin)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0' || !is_number(argument))
+    {
+        send_to_char("Syntax:  hpmin [number]\r\n", ch);
+        return FALSE;
+    }
+
+    class->hp_min = atoi(argument);
+
+    send_to_char("HP Min set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_hpmax)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0' || !is_number(argument))
+    {
+        send_to_char("Syntax:  hpmax [number]\r\n", ch);
+        return FALSE;
+    }
+
+    class->hp_max = atoi(argument);
+
+    send_to_char("HP Max set.\r\n", ch);
+    return TRUE;
+}
+
+
+CEDIT(cedit_mana)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  mana [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument, "true"))
+    {
+        class->fMana = TRUE;
+    }
+    else if (!str_prefix(argument, "false"))
+    {
+        class->fMana = FALSE;
     }
     else
     {
-        send_to_char( "Syntax:  mana [TRUE/FALSE]\r\n", ch );
+        send_to_char("Syntax:  mana [TRUE/FALSE]\r\n", ch);
         return FALSE;
     }
 
-    send_to_char( "Mana set.\r\n", ch);
+    send_to_char("Mana set.\r\n", ch);
     return TRUE;
 }
 
-CEDIT( cedit_isreclass )
+CEDIT(cedit_isreclass)
 {
     CLASSTYPE *class;
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\r\n", ch );
+        send_to_char("Syntax:  isreclass [TRUE/FALSE]\r\n", ch);
         return FALSE;
     }
 
-    if (!str_prefix(argument,"true"))
+    if (!str_prefix(argument, "true"))
     {
         class->is_reclass = TRUE;
     }
-    else if (!str_prefix(argument,"false"))
+    else if (!str_prefix(argument, "false"))
     {
         class->is_reclass = FALSE;
     }
     else
     {
-        send_to_char( "Syntax:  isreclass [TRUE/FALSE]\r\n", ch );
+        send_to_char("Syntax:  isreclass [TRUE/FALSE]\r\n", ch);
         return FALSE;
     }
 
-    send_to_char( "Reclass flag set.\r\n", ch);
+    send_to_char("Reclass flag set.\r\n", ch);
     return TRUE;
 
 }
@@ -6465,11 +6455,11 @@ CEDIT( cedit_isreclass )
 
     if (!str_prefix(argument,"true"))
     {
-	class->fMoon = TRUE;
+    class->fMoon = TRUE;
     }
     else if (!str_prefix(argument,"false"))
     {
-	class->fMoon = FALSE;
+    class->fMoon = FALSE;
     }
     else
     {
@@ -6482,24 +6472,24 @@ CEDIT( cedit_isreclass )
 }*/
 
 
-CEDIT( cedit_basegroup )
+CEDIT(cedit_basegroup)
 {
     CLASSTYPE *class;
     char buf[MAX_STRING_LENGTH];
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  basegroup group\r\n", ch );
+        send_to_char("Syntax:  basegroup group\r\n", ch);
         return FALSE;
     }
 
-    if ( group_lookup(argument) == -1 )
+    if (group_lookup(argument) == -1)
     {
-	sprintf(buf, "%s doesn't exist.\r\n", argument);
+        sprintf(buf, "%s doesn't exist.\r\n", argument);
         send_to_char(buf, ch);
-	return FALSE;
+        return FALSE;
     }
 
     free_string(class->base_group);
@@ -6509,24 +6499,24 @@ CEDIT( cedit_basegroup )
 }
 
 
-CEDIT( cedit_defgroup )
+CEDIT(cedit_defgroup)
 {
     CLASSTYPE *class;
     char buf[MAX_STRING_LENGTH];
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  defaultgroup group\r\n", ch );
+        send_to_char("Syntax:  defaultgroup group\r\n", ch);
         return FALSE;
     }
 
-    if (group_lookup(argument) == -1 )
+    if (group_lookup(argument) == -1)
     {
-	sprintf(buf, "%s doesn't exist.\r\n", argument);
+        sprintf(buf, "%s doesn't exist.\r\n", argument);
         send_to_char(buf, ch);
-	return FALSE;
+        return FALSE;
     }
 
     free_string(class->default_group);
@@ -6536,64 +6526,64 @@ CEDIT( cedit_defgroup )
 }
 
 
-CEDIT( cedit_create )
+CEDIT(cedit_create)
 {
     CLASSTYPE *class;
-    int cl,x;
+    int cl, x;
 
     cl = class_lookup(argument);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-	send_to_char( "Syntax:  edit class create group_name\r\n", ch );
-	return FALSE;
+        send_to_char("Syntax:  edit class create group_name\r\n", ch);
+        return FALSE;
     }
 
     if (cl != -1)
     {
-	send_to_char( "CEdit:  group already exists.\r\n", ch );
-	return FALSE;
+        send_to_char("CEdit:  group already exists.\r\n", ch);
+        return FALSE;
     }
 
-    if (top_class+1 >= MAX_CLASS)
+    if (top_class + 1 >= MAX_CLASS)
     {
-	send_to_char("MAX_CLASS Exceeded, please increae the MAX_CLASS in merc.h\r\n",ch);
-	return FALSE;
+        send_to_char("MAX_CLASS Exceeded, please increae the MAX_CLASS in merc.h\r\n", ch);
+        return FALSE;
     }
 
     class = alloc_perm(sizeof(*class));
     class->name = str_dup(argument);
     class_table[top_class] = class;
-    ch->desc->pEdit             = (void *)class;
-    for (x=0; x < top_sn; x++)
+    ch->desc->pEdit = (void *)class;
+    for (x = 0; x < top_sn; x++)
     {
         if (!skill_table[x]->name)
             break;
 
-    	skill_table[x]->skill_level[top_class] = LEVEL_IMMORTAL;
-	    skill_table[x]->rating[top_class] = 1;
+        skill_table[x]->skill_level[top_class] = LEVEL_IMMORTAL;
+        skill_table[x]->rating[top_class] = 1;
     }
 
-    for (x=0; x < top_group; x++)
+    for (x = 0; x < top_group; x++)
     {
- 	if(!group_table[x]) break;
-	group_table[x]->rating[top_class] = -1;
+        if (!group_table[x]) break;
+        group_table[x]->rating[top_class] = -1;
     }
 
-    for (x=0; x < MAX_PC_RACE; x++)
+    for (x = 0; x < MAX_PC_RACE; x++)
     {
         if (pc_race_table[x].name == NULL || pc_race_table[x].name[0] == '\0')
             break;
 
-	pc_race_table[x].class_mult[top_class] = 100;
+        pc_race_table[x].class_mult[top_class] = 100;
     }
     top_class++;
-    send_to_char( "Class Created.\r\n", ch );
+    send_to_char("Class Created.\r\n", ch);
     return TRUE;
 }
 
 
-CEDIT( cedit_show )
+CEDIT(cedit_show)
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
@@ -6606,7 +6596,7 @@ CEDIT( cedit_show )
     send_to_char(buf, ch);
     sprintf(buf, "WhoName:       [%s]\r\n", class->who_name);
     send_to_char(buf, ch);
-    sprintf(buf2, "Attr Prime:    [%s]\r\n", flag_string( stat_flags, class->attr_prime));
+    sprintf(buf2, "Attr Prime:    [%s]\r\n", flag_string(stat_flags, class->attr_prime));
     send_to_char(buf2, ch);
     //sprintf(buf, "Attr Second:   [%s]\r\n", flag_string( stat_flags, class->attr_second));
     //send_to_char(buf, ch);
@@ -6632,13 +6622,13 @@ CEDIT( cedit_show )
     sprintf(buf, "Default Group: [%s]\r\n", class->default_group);
     send_to_char(buf, ch);
 
-    for (x=0;x< MAX_GUILD;x++)
+    for (x = 0; x < MAX_GUILD; x++)
     {
-    	sprintf(buf, "%d) Guild:      [%d]\r\n", x, class->guild[x]);
+        sprintf(buf, "%d) Guild:      [%d]\r\n", x, class->guild[x]);
         send_to_char(buf, ch);
     }
 
-    sprintf(buf, "\r\nUse 'skills' and 'spells' to view spells for the %s class.\r\n",  class->name);
+    sprintf(buf, "\r\nUse 'skills' and 'spells' to view spells for the %s class.\r\n", class->name);
     send_to_char(buf, ch);
 
     return FALSE;
@@ -6652,7 +6642,7 @@ CEDIT( cedit_show )
 
     if ( argument[0] != '\0' )
     {
-    	EDIT_CLASS(ch, class);
+        EDIT_CLASS(ch, class);
 
         if ( ( value = flag_value( stat_flags, argument ) ) != NO_FLAG )
         {
@@ -6672,31 +6662,31 @@ CEDIT(cedit_guild)
     CLASSTYPE *class;
     char arg1[MAX_STRING_LENGTH];
     char arg2[MAX_STRING_LENGTH];
-    int num,vnum;
+    int num, vnum;
 
     EDIT_CLASS(ch, class);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  guild [#] Room_Vnum\r\n", ch );
+        send_to_char("Syntax:  guild [#] Room_Vnum\r\n", ch);
         return FALSE;
     }
 
-    argument = one_argument (argument, arg1);
-    argument = one_argument (argument, arg2);
-    num = atoi (arg1);
-    vnum = atoi (arg1);
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+    num = atoi(arg1);
+    vnum = atoi(arg1);
 
-    if (!is_number(arg1) || !is_number(arg2) == '\0' )
+    if (!is_number(arg1) || !is_number(arg2) == '\0')
     {
-        send_to_char( "Syntax:  guild [#] Room_Vnum\r\n", ch );
-     	return FALSE;
+        send_to_char("Syntax:  guild [#] Room_Vnum\r\n", ch);
+        return FALSE;
     }
 
     if (num > MAX_GUILD)
     {
-	send_to_char("MAX_GUILD exceded, please increase MAX_GUILD in merc.h\r\n",ch);
-	return FALSE;
+        send_to_char("MAX_GUILD exceded, please increase MAX_GUILD in merc.h\r\n", ch);
+        return FALSE;
     }
 
     class->guild[num] = vnum;
@@ -6704,7 +6694,7 @@ CEDIT(cedit_guild)
     return TRUE;
 }
 
-CEDIT( cedit_skills)
+CEDIT(cedit_skills)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -6724,29 +6714,29 @@ CEDIT( cedit_skills)
     {
         //fAll = TRUE;
 
-        if (str_prefix(argument,"all"))
+        if (str_prefix(argument, "all"))
         {
-            argument = one_argument(argument,arg);
+            argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n",ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch);
                 return FALSE;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf,"Levels must be between 1 and %d.\r\n",LEVEL_HERO);
-                send_to_char(buf,ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch);
                 return FALSE;
             }
 
             if (argument[0] != '\0')
             {
-                argument = one_argument(argument,arg);
+                argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch);
                     return FALSE;
                 }
                 min_lev = max_lev;
@@ -6755,14 +6745,14 @@ CEDIT( cedit_skills)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",LEVEL_HERO);
-                    send_to_char(buf,ch);
+                        "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch);
                     return FALSE;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n",ch);
+                    send_to_char("That would be silly.\r\n", ch);
                     return FALSE;
                 }
             }
@@ -6778,24 +6768,24 @@ CEDIT( cedit_skills)
 
     for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn]->name == NULL )
+        if (skill_table[sn]->name == NULL)
             break;
 
         if ((level = skill_table[sn]->skill_level[class_no]) < LEVEL_HERO + 1
-        &&  level >= min_lev && level <= max_lev
-	&&  skill_table[sn]->spell_fun == spell_null)
+            && level >= min_lev && level <= max_lev
+            &&  skill_table[sn]->spell_fun == spell_null)
         {
             found = TRUE;
             level = skill_table[sn]->skill_level[class_no];
-                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
+            sprintf(buf, "%-18s  [%2d]   ", skill_table[sn]->name, skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
-                sprintf(skill_list[level],"\r\nLevel %2d: %s",level,buf);
+                sprintf(skill_list[level], "\r\nLevel %2d: %s", level, buf);
             else /* append */
             {
-                if ( ++skill_columns[level] % 2 == 0)
-                    strcat(skill_list[level],"\r\n          ");
-                strcat(skill_list[level],buf);
+                if (++skill_columns[level] % 2 == 0)
+                    strcat(skill_list[level], "\r\n          ");
+                strcat(skill_list[level], buf);
             }
         }
     }
@@ -6804,21 +6794,21 @@ CEDIT( cedit_skills)
 
     if (!found)
     {
-        send_to_char("No skills found.\r\n",ch);
+        send_to_char("No skills found.\r\n", ch);
         return FALSE;
     }
 
     buffer = new_buf();
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (skill_list[level][0] != '\0')
-            add_buf(buffer,skill_list[level]);
-    add_buf(buffer,"\r\n");
-    page_to_char(buf_string(buffer),ch);
+            add_buf(buffer, skill_list[level]);
+    add_buf(buffer, "\r\n");
+    page_to_char(buf_string(buffer), ch);
     free_buf(buffer);
     return FALSE;
 }
 
-CEDIT( cedit_spells)
+CEDIT(cedit_spells)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -6838,29 +6828,29 @@ CEDIT( cedit_spells)
     {
         //fAll = TRUE;
 
-        if (str_prefix(argument,"all"))
+        if (str_prefix(argument, "all"))
         {
-            argument = one_argument(argument,arg);
+            argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n",ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch);
                 return FALSE;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf,"Levels must be between 1 and %d.\r\n",LEVEL_HERO);
-                send_to_char(buf,ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch);
                 return FALSE;
             }
 
             if (argument[0] != '\0')
             {
-                argument = one_argument(argument,arg);
+                argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch);
                     return FALSE;
                 }
                 min_lev = max_lev;
@@ -6869,14 +6859,14 @@ CEDIT( cedit_spells)
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
                     sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",LEVEL_HERO);
-                    send_to_char(buf,ch);
+                        "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch);
                     return FALSE;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n",ch);
+                    send_to_char("That would be silly.\r\n", ch);
                     return FALSE;
                 }
             }
@@ -6893,24 +6883,24 @@ CEDIT( cedit_spells)
 
     for (sn = 0; sn < top_sn; sn++)
     {
-        if (skill_table[sn]->name == NULL )
+        if (skill_table[sn]->name == NULL)
             break;
 
         if ((level = skill_table[sn]->skill_level[class_no]) < LEVEL_HERO + 1
-        &&  level >= min_lev && level <= max_lev
-	&&  skill_table[sn]->spell_fun != spell_null)
+            && level >= min_lev && level <= max_lev
+            &&  skill_table[sn]->spell_fun != spell_null)
         {
             found = TRUE;
             level = skill_table[sn]->skill_level[class_no];
-                sprintf(buf,"%-18s  [%2d]   ",skill_table[sn]->name,skill_table[sn]->rating[class_no]);
+            sprintf(buf, "%-18s  [%2d]   ", skill_table[sn]->name, skill_table[sn]->rating[class_no]);
 
             if (skill_list[level][0] == '\0')
-                sprintf(skill_list[level],"\r\nLevel %2d: %s",level,buf);
+                sprintf(skill_list[level], "\r\nLevel %2d: %s", level, buf);
             else /* append */
             {
-                if ( ++skill_columns[level] % 2 == 0)
-                    strcat(skill_list[level],"\r\n          ");
-                strcat(skill_list[level],buf);
+                if (++skill_columns[level] % 2 == 0)
+                    strcat(skill_list[level], "\r\n          ");
+                strcat(skill_list[level], buf);
             }
         }
     }
@@ -6919,26 +6909,26 @@ CEDIT( cedit_spells)
 
     if (!found)
     {
-        send_to_char("No skills found.\r\n",ch);
+        send_to_char("No skills found.\r\n", ch);
         return FALSE;
     }
 
     buffer = new_buf();
     for (level = 0; level < LEVEL_HERO + 1; level++)
         if (skill_list[level][0] != '\0')
-            add_buf(buffer,skill_list[level]);
-    add_buf(buffer,"\r\n");
-    page_to_char(buf_string(buffer),ch);
+            add_buf(buffer, skill_list[level]);
+    add_buf(buffer, "\r\n");
+    page_to_char(buf_string(buffer), ch);
     free_buf(buffer);
     return FALSE;
 }
 
 /* shows all groups, or the sub-members of a group */
-CEDIT( cedit_groups)
+CEDIT(cedit_groups)
 {
     CLASSTYPE *class;
     char buf[100];
-    int gn,sn,col,class_no;
+    int gn, sn, col, class_no;
 
     EDIT_CLASS(ch, class);
 
@@ -6949,57 +6939,57 @@ CEDIT( cedit_groups)
     if (argument[0] == '\0')
     {   /* show all groups */
 
-	for (gn = 0; gn < top_group; gn++)
+        for (gn = 0; gn < top_group; gn++)
         {
-	    if (group_table[gn]->name == NULL)
-		break;
+            if (group_table[gn]->name == NULL)
+                break;
 
-	    if (group_table[gn]->rating[class_no] >= 0)
-	    {
-		sprintf(buf,"%-20s ",group_table[gn]->name);
-		send_to_char(buf,ch);
-		if (++col % 3 == 0)
-		    send_to_char("\r\n",ch);
-	    }
+            if (group_table[gn]->rating[class_no] >= 0)
+            {
+                sprintf(buf, "%-20s ", group_table[gn]->name);
+                send_to_char(buf, ch);
+                if (++col % 3 == 0)
+                    send_to_char("\r\n", ch);
+            }
         }
-        if ( col % 3 != 0 )
-            send_to_char( "\r\n", ch );
-	return TRUE;
-     }
+        if (col % 3 != 0)
+            send_to_char("\r\n", ch);
+        return TRUE;
+    }
 
-     /* show the sub-members of a group */
-     gn = group_lookup(argument);
+    /* show the sub-members of a group */
+    gn = group_lookup(argument);
 
-     if (gn == -1)
-     {
-	send_to_char("No group of that name exist.\r\n",ch);
-	send_to_char("Type 'groups all' or 'info all' for a full listing.\r\n",ch);
-	return FALSE;
-     }
+    if (gn == -1)
+    {
+        send_to_char("No group of that name exist.\r\n", ch);
+        send_to_char("Type 'groups all' or 'info all' for a full listing.\r\n", ch);
+        return FALSE;
+    }
 
-     if (group_table[gn]->rating[class_no] < 0) gn = -1;
-     {
-         send_to_char("That roup doesn't exist for this class.\r\n", ch);
-         return FALSE;
-     }
+    if (group_table[gn]->rating[class_no] < 0) gn = -1;
+    {
+        send_to_char("That roup doesn't exist for this class.\r\n", ch);
+        return FALSE;
+    }
 
-     for (sn = 0; sn < MAX_IN_GROUP; sn++)
-     {
-	int x;
-	if (group_table[gn]->spells[sn] == NULL)
-	    break;
+    for (sn = 0; sn < MAX_IN_GROUP; sn++)
+    {
+        int x;
+        if (group_table[gn]->spells[sn] == NULL)
+            break;
         x = skill_lookup(group_table[gn]->spells[sn]);
 
-	if (skill_table[x]->skill_level[class_no] > LEVEL_HERO ||
-	skill_table[x]->rating[class_no] < 0) continue;
+        if (skill_table[x]->skill_level[class_no] > LEVEL_HERO ||
+            skill_table[x]->rating[class_no] < 0) continue;
 
-	sprintf(buf,"%-20s ",group_table[gn]->spells[sn]);
-	send_to_char(buf,ch);
-	if (++col % 3 == 0)
-	    send_to_char("\r\n",ch);
-     }
-    if ( col % 3 != 0 )
-        send_to_char( "\r\n", ch );
+        sprintf(buf, "%-20s ", group_table[gn]->spells[sn]);
+        send_to_char(buf, ch);
+        if (++col % 3 == 0)
+            send_to_char("\r\n", ch);
+    }
+    if (col % 3 != 0)
+        send_to_char("\r\n", ch);
     return TRUE;
 }
 
@@ -7007,7 +6997,7 @@ CEDIT( cedit_groups)
  * Creates a new skill or spell.  Something with a skill number that can be learned
  * and used by a player.
  */
-SEDIT( sedit_create )
+SEDIT(sedit_create)
 {
     SKILLTYPE *skill;
     int sn;
@@ -7015,35 +7005,35 @@ SEDIT( sedit_create )
 
     sn = skill_lookup(argument);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  edit skill create skill_name\r\n", ch );
+        send_to_char("Syntax:  edit skill create skill_name\r\n", ch);
         return FALSE;
     }
 
     if (sn != -1)
     {
-        send_to_char( "SEdit:  Skill already exists.\r\n", ch );
+        send_to_char("SEdit:  Skill already exists.\r\n", ch);
         return FALSE;
     }
 
-    if (top_sn+1 >= MAX_SKILL)
+    if (top_sn + 1 >= MAX_SKILL)
     {
-        send_to_char("MAX_SKILL Exceeded, please increae the MAX_SKILL in merc.h\r\n",ch);
+        send_to_char("MAX_SKILL Exceeded, please increae the MAX_SKILL in merc.h\r\n", ch);
         return FALSE;
     }
 
     skill = alloc_perm(sizeof(*skill));
     skill->name = str_dup(argument);
-    skill->noun_damage = str_dup( "" );
-    skill->msg_off = str_dup( "" );
-    skill->msg_obj = str_dup( "" );
+    skill->noun_damage = str_dup("");
+    skill->msg_off = str_dup("");
+    skill->msg_obj = str_dup("");
     skill->spell_fun = spell_null;
     skill->race = 0;
 
     // Set the default level for all of the classes to the level of an immortal
     // so we will only have to set the levels of those classes receiving the skill.
-    for ( x = 0; x < top_class; x++ )
+    for (x = 0; x < top_class; x++)
     {
         skill->skill_level[x] = LEVEL_IMMORTAL;
         skill->rating[x] = 1;
@@ -7054,11 +7044,11 @@ SEDIT( sedit_create )
 
     ch->desc->pEdit = (void *)skill;
     top_sn++;
-    send_to_char( "Skill Created.\r\n", ch );
+    send_to_char("Skill Created.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_show)
+SEDIT(sedit_show)
 {
     SKILLTYPE *skill;
     char buf[MAX_STRING_LENGTH];
@@ -7072,10 +7062,10 @@ SEDIT( sedit_show)
     sprintf(buf, "SpellFun:     [%s]\r\n", spell_name_lookup(skill->spell_fun));
     send_to_char(buf, ch);
 
-    sprintf(buf, "Target:       [%s]\r\n", flag_string( target_flags, skill->target));
+    sprintf(buf, "Target:       [%s]\r\n", flag_string(target_flags, skill->target));
     send_to_char(buf, ch);
 
-    sprintf(buf, "MinPos:       [%s]\r\n", flag_string( position_flags, skill->minimum_position ));
+    sprintf(buf, "MinPos:       [%s]\r\n", flag_string(position_flags, skill->minimum_position));
     send_to_char(buf, ch);
 
     sprintf(buf, "MinMana:      [%d]\r\n", skill->min_mana);
@@ -7108,217 +7098,217 @@ SEDIT( sedit_show)
     send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
     send_to_char("--------------------------------------------------------\r\n", ch);
 
-    for(class = 0; class < top_class; class++)
+    for (class = 0; class < top_class; class++)
     {
-        sprintf(buf,"%-13s [%2d]   [%2d]",class_table[class]->name,skill->skill_level[class],skill->rating[class]);
+        sprintf(buf, "%-13s [%2d]   [%2d]", class_table[class]->name, skill->skill_level[class], skill->rating[class]);
         if ((class % 2) == 0)
         {
-             strcat(buf,"    ");
+            strcat(buf, "    ");
         }
         else
         {
-             strcat(buf,"\r\n");
+            strcat(buf, "\r\n");
         }
-        send_to_char(buf,ch);
+        send_to_char(buf, ch);
     }
-    send_to_char("\r\n",ch);
+    send_to_char("\r\n", ch);
 
     return TRUE;
 }
 
-SEDIT( sedit_name)
+SEDIT(sedit_name)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  name [string]\r\n", ch );
+        send_to_char("Syntax:  name [string]\r\n", ch);
         return FALSE;
     }
 
-    free_string( skill->name );
-    skill->name = str_dup( argument );
+    free_string(skill->name);
+    skill->name = str_dup(argument);
 
-    send_to_char( "Name set.\r\n", ch);
+    send_to_char("Name set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_damage)
+SEDIT(sedit_damage)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  name [string]\r\n", ch );
+        send_to_char("Syntax:  name [string]\r\n", ch);
         return FALSE;
     }
 
     if (skill->noun_damage)
     {
-        free_string( skill->noun_damage );
+        free_string(skill->noun_damage);
         skill->noun_damage = '\0';
     }
-    if ( str_cmp( argument, "clear" ) )
-        skill->noun_damage = str_dup( argument );
+    if (str_cmp(argument, "clear"))
+        skill->noun_damage = str_dup(argument);
 
-    send_to_char( "Damage Noun set.\r\n", ch);
+    send_to_char("Damage Noun set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_spellfun)
+SEDIT(sedit_spellfun)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  spellfun [string]\r\n", ch );
+        send_to_char("Syntax:  spellfun [string]\r\n", ch);
         return FALSE;
     }
 
     skill->spell_fun = spell_function_lookup(argument);
 
-    send_to_char( "Spell function set.\r\n", ch);
+    send_to_char("Spell function set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_target)
+SEDIT(sedit_target)
 {
     SKILLTYPE *skill;
     int value;
 
-    if ( argument[0] != '\0' )
+    if (argument[0] != '\0')
     {
         EDIT_SKILL(ch, skill);
 
-        if ( ( value = flag_value( target_flags, argument ) ) != NO_FLAG )
+        if ((value = flag_value(target_flags, argument)) != NO_FLAG)
         {
             skill->target = value;
 
-            send_to_char( "Target set.\r\n", ch);
+            send_to_char("Target set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  target [flag]\r\n", ch);
+    send_to_char("Syntax:  target [flag]\r\n", ch);
     return FALSE;
 }
 
-SEDIT( sedit_minpos)
+SEDIT(sedit_minpos)
 {
     SKILLTYPE *skill;
     int value;
 
-    if ( argument[0] != '\0' )
+    if (argument[0] != '\0')
     {
         EDIT_SKILL(ch, skill);
 
-        if ( ( value = flag_value( position_flags, argument ) ) != NO_FLAG )
+        if ((value = flag_value(position_flags, argument)) != NO_FLAG)
         {
             skill->minimum_position = value;
 
-            send_to_char( "Minpos set.\r\n", ch);
+            send_to_char("Minpos set.\r\n", ch);
             return TRUE;
         }
     }
 
-    send_to_char( "Syntax:  minpos [flag]\r\n", ch);
+    send_to_char("Syntax:  minpos [flag]\r\n", ch);
     return FALSE;
 }
 
-SEDIT( sedit_minmana)
+SEDIT(sedit_minmana)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' || !is_number( argument ) )
+    if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char( "Syntax:  minmana [number]\r\n", ch );
+        send_to_char("Syntax:  minmana [number]\r\n", ch);
         return FALSE;
     }
 
-    skill->min_mana = atoi( argument );
+    skill->min_mana = atoi(argument);
 
-    send_to_char( "Min Mana set.\r\n", ch);
+    send_to_char("Min Mana set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_beats)
+SEDIT(sedit_beats)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' || !is_number( argument ) )
+    if (argument[0] == '\0' || !is_number(argument))
     {
-        send_to_char( "Syntax:  beats [number]\r\n", ch );
+        send_to_char("Syntax:  beats [number]\r\n", ch);
         return FALSE;
     }
 
-    skill->beats = atoi( argument );
+    skill->beats = atoi(argument);
 
-    send_to_char( "Beats set.\r\n", ch);
+    send_to_char("Beats set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_msgoff)
+SEDIT(sedit_msgoff)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  msgoff [string/clear]\r\n", ch );
+        send_to_char("Syntax:  msgoff [string/clear]\r\n", ch);
         return FALSE;
     }
 
     if (skill->msg_off)
     {
-        free_string( skill->msg_off );
+        free_string(skill->msg_off);
         skill->msg_off = '\0';
     }
-    if ( str_cmp( argument, "clear" ) )
-        skill->msg_off = str_dup( argument );
+    if (str_cmp(argument, "clear"))
+        skill->msg_off = str_dup(argument);
 
-    send_to_char( "Msgoff set.\r\n", ch);
+    send_to_char("Msgoff set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_msgobj)
+SEDIT(sedit_msgobj)
 {
     SKILLTYPE *skill;
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  msgobj [string]\r\n", ch );
+        send_to_char("Syntax:  msgobj [string]\r\n", ch);
         return FALSE;
     }
 
     if (skill->msg_obj)
     {
         skill->msg_obj = '\0';
-        free_string( skill->msg_obj );
+        free_string(skill->msg_obj);
     }
-    if ( str_cmp( argument, "clear" ) )
-        skill->msg_obj = str_dup( argument );
+    if (str_cmp(argument, "clear"))
+        skill->msg_obj = str_dup(argument);
 
-    send_to_char( "Msgobj set.\r\n", ch);
+    send_to_char("Msgobj set.\r\n", ch);
     return TRUE;
 }
 
-SEDIT( sedit_level)
+SEDIT(sedit_level)
 {
     SKILLTYPE *skill;
-    int class_no,level,rating;
+    int class_no, level, rating;
     char class_name[MAX_INPUT_LENGTH];
     char arg1[MAX_STRING_LENGTH];
     char arg2[MAX_STRING_LENGTH];
@@ -7326,17 +7316,17 @@ SEDIT( sedit_level)
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0' )
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  level class [#]\r\n", ch );
+        send_to_char("Syntax:  level class [#]\r\n", ch);
         return FALSE;
     }
 
-    argument = one_argument (argument, class_name);
-    argument = one_argument (argument, arg1);
-    argument = one_argument (argument, arg2);
-    level = atoi (arg1);
-    rating = atoi (arg2);
+    argument = one_argument(argument, class_name);
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+    level = atoi(arg1);
+    rating = atoi(arg2);
 
     if (!is_number(arg1) || level < 0 || level > MAX_LEVEL)
     {
@@ -7345,26 +7335,74 @@ SEDIT( sedit_level)
         return FALSE;
     }
 
-   if (!str_cmp(class_name, "all"))
-   {
-     for (class_no = 0; class_no < top_class; class_no++)
-     {
-       skill->skill_level[class_no] = level;
-       skill->rating[class_no] = rating;
-     }
+    if (!str_cmp(class_name, "all"))
+    {
+        for (class_no = 0; class_no < top_class; class_no++)
+        {
+            skill->skill_level[class_no] = level;
+            skill->rating[class_no] = rating;
+        }
 
-       sprintf(buf, "OK, all classes will now gain %s at level %d.\r\n", skill->name, level);
-       send_to_char(buf, ch);
-   }
-   else
-   {
+        sprintf(buf, "OK, all classes will now gain %s at level %d.\r\n", skill->name, level);
+        send_to_char(buf, ch);
+    }
+    else
+    {
 
-     for (class_no = 0; class_no < top_class; class_no++)
-       if (!str_prefix(class_name, class_table[class_no]->name))
+        for (class_no = 0; class_no < top_class; class_no++)
+            if (!str_prefix(class_name, class_table[class_no]->name))
+                break;
+
+        if (!is_number(arg2))
+            rating = skill->rating[class_no];
+
+        if (class_no >= top_class)
+        {
+            sprintf(buf, "No class named '%s' exists.\r\n", class_name);
+            send_to_char(buf, ch);
+            return FALSE;
+        }
+
+        skill->skill_level[class_no] = level;
+        skill->rating[class_no] = rating;
+
+        sprintf(buf, "OK, %s will now gain %s at level %d.\r\n", class_table[class_no]->name, skill->name, level);
+        send_to_char(buf, ch);
+
+    }
+
+    return TRUE;
+}
+
+SEDIT(sedit_rating)
+{
+    SKILLTYPE *skill;
+    int class_no, rating;
+    char class_name[MAX_INPUT_LENGTH];
+    char arg1[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+
+    EDIT_SKILL(ch, skill);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  rating class [#]\r\n", ch);
+        return FALSE;
+    }
+
+    argument = one_argument(argument, class_name);
+    argument = one_argument(argument, arg1);
+    rating = atoi(arg1);
+
+    if (!is_number(arg1))
+    {
+        send_to_char("Syntax:  rating class [#]\r\n", ch);
+        return FALSE;
+    }
+
+    for (class_no = 0; class_no < top_class; class_no++)
+        if (!str_cmp(class_name, class_table[class_no]->name))
             break;
-
-    if (!is_number(arg2))
-        rating = skill->rating[class_no];
 
     if (class_no >= top_class)
     {
@@ -7373,58 +7411,10 @@ SEDIT( sedit_level)
         return FALSE;
     }
 
-       skill->skill_level[class_no] = level;
-       skill->rating[class_no] = rating;
-
-       sprintf(buf, "OK, %s will now gain %s at level %d.\r\n", class_table[class_no]->name, skill->name, level);
-       send_to_char(buf, ch);
-
-   }
-
-   return TRUE;
-}
-
-SEDIT( sedit_rating)
-{
-    SKILLTYPE *skill;
-    int class_no,rating;
-    char class_name[MAX_INPUT_LENGTH];
-    char arg1[MAX_STRING_LENGTH];
-    char buf[MAX_STRING_LENGTH];
-
-    EDIT_SKILL(ch, skill);
-
-    if ( argument[0] == '\0' )
-    {
-        send_to_char( "Syntax:  rating class [#]\r\n", ch );
-        return FALSE;
-    }
-
-    argument = one_argument (argument, class_name);
-    argument = one_argument (argument, arg1);
-    rating = atoi (arg1);
-
-    if (!is_number(arg1))
-    {
-        send_to_char( "Syntax:  rating class [#]\r\n", ch );
-        return FALSE;
-    }
-
-   for (class_no = 0; class_no < top_class; class_no++)
-       if (!str_cmp(class_name, class_table[class_no]->name))
-            break;
-
-   if (class_no >= top_class)
-   {
-        sprintf(buf, "No class named '%s' exists.\r\n", class_name);
-        send_to_char(buf, ch);
-        return FALSE;
-   }
-
-   skill->rating[class_no] = rating;
-   sprintf (buf, "OK, %s will now cost %d for %s.\r\n", class_table[class_no]->name, rating, skill->name);
-   send_to_char(buf, ch);
-   return TRUE;
+    skill->rating[class_no] = rating;
+    sprintf(buf, "OK, %s will now cost %d for %s.\r\n", class_table[class_no]->name, rating, skill->name);
+    send_to_char(buf, ch);
+    return TRUE;
 }
 
 SEDIT(sedit_race)
@@ -7433,15 +7423,15 @@ SEDIT(sedit_race)
 
     EDIT_SKILL(ch, skill);
 
-    if ( argument[0] == '\0')
+    if (argument[0] == '\0')
     {
-        send_to_char( "Syntax:  race [string]\r\n", ch );
+        send_to_char("Syntax:  race [string]\r\n", ch);
         return FALSE;
     }
 
     skill->race = race_lookup(argument);
 
-    send_to_char( "Race set.\r\n", ch);
+    send_to_char("Race set.\r\n", ch);
     return TRUE;
 }
 

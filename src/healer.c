@@ -51,7 +51,7 @@
 void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     CHAR_DATA *victim;
-    victim = (CHAR_DATA *) vo;
+    victim = (CHAR_DATA *)vo;
 
     // Cannot cast the spell on themselves, credit their mana back.
     if (ch == victim)
@@ -86,8 +86,7 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
  * 3 more mana than a normal refresh.  It also has an additional 1 to 10
  * movement random bonus on top of the normal refresh.
  */
-void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
-                         int target)
+void spell_mass_refresh(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *gch;
     char buf[MAX_STRING_LENGTH];
@@ -96,7 +95,7 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
     {
         // If the character can't be seen they can't be refreshed, we don't
         // want this used to sniff out hidden characters.
-        if (!can_see (ch, gch))
+        if (!can_see(ch, gch))
         {
             continue;
         }
@@ -128,9 +127,9 @@ void spell_mass_refresh (int sn, int level, CHAR_DATA * ch, void *vo,
  * can only be cast once and is spread out.  Players will get 10hp every half tick if
  * they are below their max health.
  */
-void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_vitalizing_presence(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
     if (is_affected(victim, sn))
@@ -179,9 +178,9 @@ void spell_vitalizing_presence( int sn, int level, CHAR_DATA *ch, void *vo, int 
  * (how much hp and move they receive) will be calculated by the healer's casting
  * level.  This cannot be cast on NPC's as a way to make them stronger.
  */
-void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_life_boost(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
     int modifier = 0;
 
@@ -226,7 +225,7 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
     affect_to_char(victim, &af);
 
     af.location = APPLY_MOVE;
-    affect_to_char (victim, &af);
+    affect_to_char(victim, &af);
 
     act("$N has been vitalized.", victim, NULL, victim, TO_ROOM);
     send_to_char("You feel an increased vitality.\r\n", victim);
@@ -242,9 +241,9 @@ void spell_life_boost( int sn, int level, CHAR_DATA *ch, void *vo, int target )
  * char_self so it can only be cast on the healer themselves.  We don't want to create
  * super chars with saves who make casters worthless.
  */
-void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_magic_resistance(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
     if (is_affected(victim, sn))
@@ -272,9 +271,9 @@ void spell_magic_resistance( int sn, int level, CHAR_DATA *ch, void *vo, int tar
  * Mana transfer will allow the healer to transfer mana from themselves to a
  * recipient.  We'll start at 50 for casting and do a 1 to 1 transfer for now.
  */
-void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_mana_transfer(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (IS_NPC(victim))
     {
@@ -288,9 +287,9 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
         return;
     }
 
-    victim->mana = UMIN (victim->mana + 50, victim->max_mana);
+    victim->mana = UMIN(victim->mana + 50, victim->max_mana);
 
-    send_to_char ("You feel a surge of mana course through your body.\r\n", victim);
+    send_to_char("You feel a surge of mana course through your body.\r\n", victim);
 
     // Show the caster it's done
     if (ch != victim)
@@ -302,7 +301,7 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
         }
         else
         {
-            send_to_char ("Ok.\r\n", ch);
+            send_to_char("Ok.\r\n", ch);
         }
     }
 
@@ -315,17 +314,17 @@ void spell_mana_transfer( int sn, int level, CHAR_DATA *ch, void *vo, int target
  */
 void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (!is_affected(victim, gsn_weaken))
     {
         if (victim == ch)
         {
-            send_to_char ("You aren't afflicted by a magical weakeness.\r\n", ch);
+            send_to_char("You aren't afflicted by a magical weakeness.\r\n", ch);
         }
         else
         {
-            act ("$N doesn't appear to be afflicted by a magical weakness.", ch, NULL, victim, TO_CHAR);
+            act("$N doesn't appear to be afflicted by a magical weakness.", ch, NULL, victim, TO_CHAR);
         }
         return;
     }
@@ -350,17 +349,17 @@ void spell_cure_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  */
 void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (!is_affected(victim, gsn_slow))
     {
         if (victim == ch)
         {
-            send_to_char ("You aren't afflicted by slow.\r\n", ch);
+            send_to_char("You aren't afflicted by slow.\r\n", ch);
         }
         else
         {
-            act ("$N doesn't appear to be afflicted by slow.", ch, NULL, victim, TO_CHAR);
+            act("$N doesn't appear to be afflicted by slow.", ch, NULL, victim, TO_CHAR);
         }
         return;
     }
@@ -385,7 +384,7 @@ void spell_cure_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  */
 void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (IS_NPC(victim))
     {
@@ -403,7 +402,7 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
     }
 
     send_to_char("Your mental presence has been restored.\r\n", victim);
-    act ("$n's mental presence has been restored.", victim, NULL, NULL, TO_ROOM);
+    act("$n's mental presence has been restored.", victim, NULL, NULL, TO_ROOM);
 
 } // end spell_restore_mental_presence
 
@@ -415,9 +414,9 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
  * themselves but not others.  This has a long duration and is not dispelable.  I
  * suppose this could also have just been a skill.
  */
-void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_sense_affliction(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
     if (is_affected(victim, sn))
@@ -437,7 +436,7 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
 
     send_to_char("Your senses for those afflicted are heightened.\r\n", victim);
 
-    if ( ch != victim )
+    if (ch != victim)
     {
         act("$N's senses for those afflicted are heightened.", victim, NULL, victim, TO_ROOM);
     }
@@ -455,11 +454,11 @@ void spell_sense_affliction( int sn, int level, CHAR_DATA *ch, void *vo, int tar
  * disappear with time however.. it must be used.  For now, this will not survive copyover's
  * or reboots.
  */
-void spell_healers_bind( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_healers_bind(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     OBJ_DATA *obj;
     OBJ_DATA *objSearch;
-    int charges=0;
+    int charges = 0;
 
     // First, let's see if there are any other bind stones in the area, if so, we
     // are not going to cast this.  These will not be in containers.
@@ -514,10 +513,10 @@ void spell_healers_bind( int sn, int level, CHAR_DATA *ch, void *vo, int target 
  * hunger and thirst they might have without food and water.  I originally wrote this
  * spell (on 1/4/2000) for another class but it seems to fit here better.
  */
-void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
+void spell_nurishment(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     // Rhien 1-4-00
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (IS_NPC(victim))
     {
@@ -531,7 +530,7 @@ void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
     victim->pcdata->condition[COND_HUNGER] = 48;
 
     act("$N has been filled with nurishment.", victim, NULL, victim, TO_ROOM);
-    send_to_char( "You feel nurishment filling your body.\r\n", victim);
+    send_to_char("You feel nurishment filling your body.\r\n", victim);
 
 } // end nurishment
 
@@ -539,10 +538,10 @@ void spell_nurishment( int sn, int level, CHAR_DATA *ch, void *vo, int target)
  * Enhanced recovery will allow the recipient to heal more on every tick.  Originally this
  * spell was written for another class (on 5/26/2000) but it fits better under a healer.
  */
-void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int target )
+void spell_enhanced_recovery(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     // Rhien 5-26-00
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
     if (is_affected(victim, sn))
@@ -580,17 +579,17 @@ void spell_enhanced_recovery( int sn, int level, CHAR_DATA *ch, void *vo, int ta
  */
 void spell_cure_deafness(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (!is_affected(victim, gsn_song_of_dissonance))
     {
         if (victim == ch)
         {
-            send_to_char ("You aren't currently deaf.\r\n", ch);
+            send_to_char("You aren't currently deaf.\r\n", ch);
         }
         else
         {
-            act ("$N doesn't appear to be currently deaf.", ch, NULL, victim, TO_CHAR);
+            act("$N doesn't appear to be currently deaf.", ch, NULL, victim, TO_CHAR);
         }
 
         return;
@@ -613,17 +612,17 @@ void spell_cure_deafness(int sn, int level, CHAR_DATA * ch, void *vo, int target
  */
 void spell_remove_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (!IS_AFFECTED(victim, AFF_FAERIE_FIRE))
     {
         if (victim == ch)
         {
-            send_to_char ("You aren't afflicted by faerie fire.\r\n", ch);
+            send_to_char("You aren't afflicted by faerie fire.\r\n", ch);
         }
         else
         {
-            act ("$N doesn't appear to be afflicted by faerie fire.", ch, NULL, victim, TO_CHAR);
+            act("$N doesn't appear to be afflicted by faerie fire.", ch, NULL, victim, TO_CHAR);
         }
         return;
     }

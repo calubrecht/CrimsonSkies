@@ -35,9 +35,9 @@
 #include "merc.h"
 #include "tables.h"
 
-SKILLTYPE *             skill_table     [MAX_SKILL];
-GROUPTYPE *             group_table     [MAX_GROUP];
-CLASSTYPE *             class_table     [MAX_CLASS];
+SKILLTYPE *             skill_table[MAX_SKILL];
+GROUPTYPE *             group_table[MAX_GROUP];
+CLASSTYPE *             class_table[MAX_CLASS];
 
 /* for clans */
 const struct clan_type clan_table[MAX_CLAN] = {
@@ -766,7 +766,7 @@ const struct continent_type continent_table[] = {
     { CONTINENT_LIMBO,    "limbo"    },
     { CONTINENT_MIDGAARD, "midgaard" },
     { CONTINENT_ARCANIS,  "arcanis"  },
-	{ CONTINENT_OCEANS,   "oceans"   },
+    { CONTINENT_OCEANS,   "oceans"   },
     { 0, NULL }
 };
 

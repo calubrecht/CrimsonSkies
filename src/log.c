@@ -20,17 +20,17 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
-/***************************************************************************
- *  File: log.c                                                            *
- *                                                                         *
- *  This file should contain general purpose logging functions for the     *
- *  game.  Some of these functions may write to the log file or some may   *
- *  write to specialized files (or databases in the future).  For now      *
- *  we are going to keep the flat file logs, they're easy enough to grep   *
- *  for info.  The general ROM logging functions have been moved here as   *
- *  well as some addtional CS-Mud additions.                               *
- *                                                                         *
- ***************************************************************************/
+ /***************************************************************************
+  *  File: log.c                                                            *
+  *                                                                         *
+  *  This file should contain general purpose logging functions for the     *
+  *  game.  Some of these functions may write to the log file or some may   *
+  *  write to specialized files (or databases in the future).  For now      *
+  *  we are going to keep the flat file logs, they're easy enough to grep   *
+  *  for info.  The general ROM logging functions have been moved here as   *
+  *  well as some addtional CS-Mud additions.                               *
+  *                                                                         *
+  ***************************************************************************/
 
 // System Specific Includes
 #if defined(_WIN32)
@@ -110,7 +110,7 @@ void log_string(const char *str)
 /*
  * Writes a formatted entry to the log file.
  */
-void log_f (char *fmt, ...)
+void log_f(char *fmt, ...)
 {
     char buf[2 * MSL];
     va_list args;
@@ -164,12 +164,12 @@ void log_obj(OBJ_DATA * obj)
 
     // Int and bool values
     log_f("  * valid=%s, enchanted=%s, item_type=%d, level=%d, timer=%d",
-            obj->valid ? "true" : "false",
-            obj->enchanted ? "true" : "false",
-            obj->item_type, obj->level, obj->timer);
+        obj->valid ? "true" : "false",
+        obj->enchanted ? "true" : "false",
+        obj->item_type, obj->level, obj->timer);
 
     log_f("  * wear_loc=%d, condition=%d, weight=%d, cost=%d, count=%d",
-            obj->wear_loc, obj->condition, obj->weight, obj->cost, obj->count);
+        obj->wear_loc, obj->condition, obj->weight, obj->cost, obj->count);
 
     // Now log the strings in the object that need extra handling
 
