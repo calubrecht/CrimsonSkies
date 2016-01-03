@@ -127,12 +127,16 @@
   <ItemGroup>
     <None Include="area\air.are" />
     <None Include="area\arachnos.are" />
+    <None Include="area\arcanis-inland.are" />
     <None Include="area\area.lst" />
     <None Include="area\astral.are" />
     <None Include="area\bardcamp.are" />
+    <None Include="area\bladance.are" />
     <None Include="area\canyon.are" />
     <None Include="area\catacomb.are" />
     <None Include="area\chapel.are" />
+    <None Include="area\ciquala.are" />
+    <None Include="area\darkness.are" />
     <None Include="area\daycare.are" />
     <None Include="area\draconia.are" />
     <None Include="area\dream.are" />
@@ -148,11 +152,14 @@
     <None Include="area\help.are" />
     <None Include="area\hitower.are" />
     <None Include="area\hood.are" />
+    <None Include="area\idungeon.are" />
     <None Include="area\immortal.are" />
     <None Include="area\limbo.are" />
+    <None Include="area\mahntor-caves.are" />
     <None Include="area\mahntor.are" />
     <None Include="area\marsh.are" />
     <None Include="area\mega1.are" />
+    <None Include="area\midduel.are" />
     <None Include="area\midennir.are" />
     <None Include="area\midgaard.are" />
     <None Include="area\mirror.are" />
@@ -160,6 +167,18 @@
     <None Include="area\moria.are" />
     <None Include="area\newthalos.are" />
     <None Include="area\nirvana.are" />
+    <None Include="area\ocean-barrier-c.are" />
+    <None Include="area\ocean-barrier-n.are" />
+    <None Include="area\ocean-barrier-s.are" />
+    <None Include="area\ocean-c.are" />
+    <None Include="area\ocean-e.are" />
+    <None Include="area\ocean-n.are" />
+    <None Include="area\ocean-ne.are" />
+    <None Include="area\ocean-nw.are" />
+    <None Include="area\ocean-s.are" />
+    <None Include="area\ocean-se.are" />
+    <None Include="area\ocean-sw.are" />
+    <None Include="area\ocean-w.are" />
     <None Include="area\ofcol.are" />
     <None Include="area\ofcol2.are" />
     <None Include="area\olc.hlp" />
@@ -169,6 +188,7 @@
     <None Include="area\pyramid.are" />
     <None Include="area\redferne.are" />
     <None Include="area\school.are" />
+    <None Include="area\seacastle.are" />
     <None Include="area\sewer.are" />
     <None Include="area\shire.are" />
     <None Include="area\smurf.are" />
@@ -176,9 +196,21 @@
     <None Include="area\startup" />
     <None Include="area\thalos.are" />
     <None Include="area\tohell.are" />
+    <None Include="area\tournament-ground.are" />
     <None Include="area\trollden.are" />
     <None Include="area\valley.are" />
+    <None Include="area\warlock-keep.are" />
     <None Include="area\wyvern.are" />
+    <None Include="classes\bladesinger.class" />
+    <None Include="classes\class.lst" />
+    <None Include="classes\cleric.class" />
+    <None Include="classes\enchantor.class" />
+    <None Include="classes\groups.dat" />
+    <None Include="classes\healer.class" />
+    <None Include="classes\mage.class" />
+    <None Include="classes\skills.dat" />
+    <None Include="classes\thief.class" />
+    <None Include="classes\warrior.class" />
     <None Include="doc\changes.olc" />
     <None Include="doc\historical\telnet.html" />
     <None Include="doc\license.doc" />
@@ -199,6 +231,10 @@
     <None Include="doc\Makefile.linux" />
     <None Include="doc\Makefile.normal" />
     <None Include="doc\Makefile.solaris" />
+    <None Include="system\ban.dat" />
+    <None Include="system\saved_objects.dat" />
+    <None Include="system\settings.dat" />
+    <None Include="system\statistics.dat" />
     <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>

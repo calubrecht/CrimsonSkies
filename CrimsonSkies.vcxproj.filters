@@ -30,16 +30,7 @@
     <ClCompile Include="src\act_wiz.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\alias.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ban.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bit.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\board.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\comm.c">
@@ -67,9 +58,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\magic.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mem.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\mob_cmds.c">
@@ -100,9 +88,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\special.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\string.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\tables.c">
@@ -256,6 +241,42 @@
     <None Include="doc\Makefile.linux" />
     <None Include="doc\Makefile.normal" />
     <None Include="doc\Makefile.solaris" />
+    <None Include="area\arcanis-inland.are" />
+    <None Include="area\bladance.are" />
+    <None Include="area\ciquala.are" />
+    <None Include="area\darkness.are" />
+    <None Include="area\idungeon.are" />
+    <None Include="area\mahntor-caves.are" />
+    <None Include="area\midduel.are" />
+    <None Include="area\ocean-w.are" />
+    <None Include="area\ocean-barrier-c.are" />
+    <None Include="area\ocean-barrier-n.are" />
+    <None Include="area\ocean-barrier-s.are" />
+    <None Include="area\ocean-c.are" />
+    <None Include="area\ocean-e.are" />
+    <None Include="area\ocean-n.are" />
+    <None Include="area\ocean-ne.are" />
+    <None Include="area\ocean-nw.are" />
+    <None Include="area\ocean-s.are" />
+    <None Include="area\ocean-se.are" />
+    <None Include="area\ocean-sw.are" />
+    <None Include="area\seacastle.are" />
+    <None Include="area\tournament-ground.are" />
+    <None Include="area\warlock-keep.are" />
+    <None Include="classes\warrior.class" />
+    <None Include="classes\bladesinger.class" />
+    <None Include="classes\class.lst" />
+    <None Include="classes\cleric.class" />
+    <None Include="classes\enchantor.class" />
+    <None Include="classes\groups.dat" />
+    <None Include="classes\healer.class" />
+    <None Include="classes\mage.class" />
+    <None Include="classes\skills.dat" />
+    <None Include="classes\thief.class" />
+    <None Include="system\statistics.dat" />
+    <None Include="system\ban.dat" />
+    <None Include="system\saved_objects.dat" />
+    <None Include="system\settings.dat" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
