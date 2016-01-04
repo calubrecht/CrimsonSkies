@@ -4418,6 +4418,12 @@ void save_game_objects(void)
         fclose(fp);
     }
 
+#if defined(_WIN32)
+    // In MS C rename will fail if the file exists (not so on POSIX).  In Windows, it will never
+    // save past the first pfile save if this isn't done. - Rhien
+    _unlink(SAVED_OBJECT_FILE);
+#endif
+
     // Rename the temp file to the saved object file
     rename(TEMP_FILE, SAVED_OBJECT_FILE);
     fpReserve = fopen(NULL_FILE, "r");
