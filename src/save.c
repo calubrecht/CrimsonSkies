@@ -164,7 +164,7 @@ void save_char_obj(CHAR_DATA * ch)
     _unlink(save_file);
 #endif
 
-    rename(TEMP_FILE, save_file);  
+    rename(TEMP_FILE, save_file);
     fpReserve = fopen(NULL_FILE, "r");
     return;
 }
@@ -651,11 +651,11 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 
 #if defined(unix)
     /* decompress if .gz file exists */
-    sprintf(save_file, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
-    if ((fp = fopen(save_file, "r")) != NULL)
+    sprintf(strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
+    if ((fp = fopen(strsave, "r")) != NULL)
     {
         fclose(fp);
-        sprintf(buf, "gzip -dfq %s", save_file);
+        sprintf(buf, "gzip -dfq %s", strsave);
         system(buf);
     }
 #endif
