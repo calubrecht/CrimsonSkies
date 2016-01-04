@@ -86,3 +86,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update get_random_room in some manner to allow for getting a random room in an area, a continent or the world.
   - Negate WAIT_STATE for immortals.
   - different versions of teleport, area, continent, world
+  - pfile saving fixed on windows, now fix every other instance that uses rename when saving (OLC, pits, stats, all of them)
