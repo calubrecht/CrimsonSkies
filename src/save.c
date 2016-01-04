@@ -94,7 +94,7 @@ void fread_obj args((CHAR_DATA * ch, FILE * fp));
  */
 void save_char_obj(CHAR_DATA * ch)
 {
-    char strsave[MAX_INPUT_LENGTH];
+    char save_file[MAX_INPUT_LENGTH];
     FILE *fp;
 
     if (IS_NPC(ch))
@@ -124,11 +124,11 @@ void save_char_obj(CHAR_DATA * ch)
     if (IS_IMMORTAL(ch) || ch->level >= LEVEL_IMMORTAL)
     {
         fclose(fpReserve);
-        sprintf(strsave, "%s%s", GOD_DIR, capitalize(ch->name));
-        if ((fp = fopen(strsave, "w")) == NULL)
+        sprintf(save_file, "%s%s", GOD_DIR, capitalize(ch->name));
+        if ((fp = fopen(save_file, "w")) == NULL)
         {
             bug("Save_char_obj: fopen", 0);
-            perror(strsave);
+            perror(save_file);
         }
 
         fprintf(fp, "Lev %2d Trust %2d  %s%s\n",
@@ -139,12 +139,12 @@ void save_char_obj(CHAR_DATA * ch)
 #endif
 
     fclose(fpReserve);
-    sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(ch->name));
+    sprintf(save_file, "%s%s", PLAYER_DIR, capitalize(ch->name));
 
     if ((fp = fopen(TEMP_FILE, "w")) == NULL)
     {
         bug("Save_char_obj: fopen", 0);
-        perror(strsave);
+        perror(save_file);
     }
     else
     {
@@ -157,7 +157,14 @@ void save_char_obj(CHAR_DATA * ch)
         fprintf(fp, "#END\n");
     }
     fclose(fp);
-    rename(TEMP_FILE, strsave);  // marker - This is failing in WIN32 when the pfile already exists
+
+#if defined(_WIN32)
+    // In MS C rename will fail if the file exists (not so on POSIX).  In Windows, it will never
+    // save past the first pfile save if this isn't done. - Rhien
+    _unlink(save_file);
+#endif
+
+    rename(TEMP_FILE, save_file);  
     fpReserve = fopen(NULL_FILE, "r");
     return;
 }
@@ -644,11 +651,11 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 
 #if defined(unix)
     /* decompress if .gz file exists */
-    sprintf(strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
-    if ((fp = fopen(strsave, "r")) != NULL)
+    sprintf(save_file, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
+    if ((fp = fopen(save_file, "r")) != NULL)
     {
         fclose(fp);
-        sprintf(buf, "gzip -dfq %s", strsave);
+        sprintf(buf, "gzip -dfq %s", save_file);
         system(buf);
     }
 #endif
