@@ -4485,6 +4485,11 @@ void do_sockets(CHAR_DATA * ch, char *argument)
     buf[0] = '\0';
 
     one_argument(argument, arg);
+
+    sprintf(buf + strlen(buf), "{c--------------------------------------------------------------------------------{x\r\n");
+    sprintf(buf + strlen(buf), "{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\r\n");
+    sprintf(buf + strlen(buf), "{c--------------------------------------------------------------------------------{x\r\n");
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         switch (d->connected)
@@ -4583,10 +4588,6 @@ void do_sockets(CHAR_DATA * ch, char *argument)
 
     sprintf(buf2, "\r\n{c%d user%s{x\r\n", count, count == 1 ? "" : "s");
     strcat(buf, buf2);
-
-    send_to_char("{c--------------------------------------------------------------------------------{x\r\n", ch);
-    send_to_char("{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\r\n", ch);
-    send_to_char("{c--------------------------------------------------------------------------------{x\r\n", ch);
 
     page_to_char(buf, ch);
     return;
