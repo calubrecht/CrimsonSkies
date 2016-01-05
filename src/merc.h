@@ -2394,17 +2394,11 @@ char * part_bit_name      args((int part_flags));
 char * weapon_bit_name    args((int weapon_flags));
 char * comm_bit_name      args((int comm_flags));
 char * cont_bit_name      args((int cont_flags));
-void   add_timer          args((CHAR_DATA *ch, sh_int type, sh_int count, DO_FUN *fun, int value, char *argument));
-TIMER *get_timerptr       args((CHAR_DATA *ch, sh_int type));
-sh_int get_timer          args((CHAR_DATA *ch, sh_int type));
-void   extract_timer      args((CHAR_DATA *ch, TIMER *timer));
-void   remove_timer       args((CHAR_DATA *ch, sh_int type));
 bool   has_item_type      args((CHAR_DATA *ch, sh_int item_type));
 void   make_ghost         args((CHAR_DATA *ch));
 char * get_room_name      args((int vnum));
 char * get_area_name      args((int vnum));
 bool   same_continent     args((sh_int vnum_one, sh_int vnum_two));
-
 
 /* recycle.c */
 TIMER *new_timer          args((void));
@@ -2416,9 +2410,6 @@ bool    is_number          args((char *arg));
 int     number_argument    args((char *argument, char *arg));
 int     mult_argument      args((char *argument, char *arg));
 char *  one_argument       args((char *argument, char *arg_first));
-void    start_timer        args((struct timeval *stime));
-time_t  end_timer          args((struct timeval *stime));
-void    subtract_times     args((struct timeval *etime, struct timeval *stime));
 
 /* magic.c */
 int    find_spell     args((CHAR_DATA *ch, const char *name));
@@ -2463,6 +2454,16 @@ char *  spec_name        args((SPEC_FUN *function));
 
 /* teleport.c */
 RID *    room_by_name    args((char *target, int level, bool error));
+
+/* timer.c */
+void    start_timer        args((struct timeval *stime));
+time_t  end_timer          args((struct timeval *stime));
+void    subtract_times     args((struct timeval *etime, struct timeval *stime));
+void    add_timer          args((CHAR_DATA *ch, sh_int type, sh_int count, DO_FUN *fun, int value, char *argument));
+TIMER  *get_timerptr       args((CHAR_DATA *ch, sh_int type));
+sh_int  get_timer          args((CHAR_DATA *ch, sh_int type));
+void    extract_timer      args((CHAR_DATA *ch, TIMER *timer));
+void    remove_timer       args((CHAR_DATA *ch, sh_int type));
 
 /* update.c */
 void    advance_level    args((CHAR_DATA *ch, bool hide));

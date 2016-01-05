@@ -129,6 +129,12 @@
     <ClCompile Include="src\random.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\alias.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\timer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">

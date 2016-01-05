@@ -78,6 +78,7 @@
     <ClCompile Include="src\act_move.c" />
     <ClCompile Include="src\act_obj.c" />
     <ClCompile Include="src\act_wiz.c" />
+    <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
     <ClCompile Include="src\bladesinger.c" />
     <ClCompile Include="src\comm.c" />
@@ -109,6 +110,7 @@
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
     <ClCompile Include="src\tables.c" />
+    <ClCompile Include="src\timer.c" />
     <ClCompile Include="src\update.c" />
   </ItemGroup>
   <ItemGroup>
