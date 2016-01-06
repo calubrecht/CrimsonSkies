@@ -307,7 +307,6 @@ DECLARE_DO_FUN(do_pray);
 DECLARE_DO_FUN(do_reclass);
 DECLARE_DO_FUN(do_pathfind);
 DECLARE_DO_FUN(do_ooc_spool);
-DECLARE_DO_FUN(do_note);
 DECLARE_DO_FUN(do_news);
 DECLARE_DO_FUN(do_changes);
 DECLARE_DO_FUN(do_story_spool);
