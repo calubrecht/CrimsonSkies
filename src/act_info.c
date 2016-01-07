@@ -1456,10 +1456,10 @@ char *const distance[4] = {
 };
 
 void scan_list args((ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch,
-    sh_int depth, sh_int door));
+    int depth, int door));
 
 void scan_char args((CHAR_DATA * victim, CHAR_DATA * ch,
-    sh_int depth, sh_int door));
+    int depth, int door));
 
 void do_scan(CHAR_DATA * ch, char *argument)
 {
@@ -1467,7 +1467,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
     char arg1[MAX_INPUT_LENGTH], buf[MAX_INPUT_LENGTH];
     ROOM_INDEX_DATA *scan_room;
     EXIT_DATA *pExit;
-    sh_int door, depth;
+    int door, depth;
 
     argument = one_argument(argument, arg1);
 
@@ -1527,7 +1527,7 @@ void do_scan(CHAR_DATA * ch, char *argument)
     return;
 }
 
-void scan_list(ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch, sh_int depth, sh_int door)
+void scan_list(ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch, int depth, int door)
 {
     CHAR_DATA *rch;
 
@@ -1545,7 +1545,7 @@ void scan_list(ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch, sh_int depth, sh_int
     return;
 }
 
-void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, sh_int depth, sh_int door)
+void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, int depth, int door)
 {
     extern char *const dir_name[];
     extern char *const distance[];

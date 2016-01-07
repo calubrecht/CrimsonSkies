@@ -958,7 +958,7 @@ void spell_burning_hands(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         0, 0, 0, 0, 14, 17, 20, 23, 26, 29,
         29, 29, 30, 30, 31, 31, 32, 32, 33, 33,
@@ -1508,7 +1508,7 @@ void spell_chill_touch(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         0, 0, 6, 7, 8, 9, 12, 13, 13, 13,
         14, 14, 14, 15, 15, 15, 16, 16, 16, 17,
@@ -1549,7 +1549,7 @@ void spell_color_spray(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         30, 35, 40, 45, 50, 55, 55, 55, 56, 57,
@@ -2557,7 +2557,7 @@ void spell_energy_drain(int sn, int level, CHAR_DATA * ch, void *vo,
 void spell_fireball(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 30, 35, 40, 45, 50, 55,
@@ -3592,7 +3592,7 @@ void spell_lightning_bolt(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         0, 0, 0, 0, 0, 0, 0, 0, 25, 28,
         31, 34, 37, 40, 40, 41, 42, 42, 43, 44,
@@ -3682,7 +3682,7 @@ void spell_magic_missile(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    static const sh_int dam_each[] = {
+    static const int dam_each[] = {
         0,
         3, 3, 4, 4, 5, 6, 6, 6, 6, 6,
         7, 7, 7, 7, 7, 8, 8, 8, 8, 8,

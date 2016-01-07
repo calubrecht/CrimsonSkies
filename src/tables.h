@@ -31,7 +31,7 @@ struct clan_type
 {
     char 	*name;
     char 	*who_name;
-    sh_int 	hall;
+    int 	hall;
     bool	independent; /* true for loners */
 };
 

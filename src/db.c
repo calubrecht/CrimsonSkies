@@ -793,7 +793,7 @@ void load_rooms(FILE * fp)
 
     for (;;)
     {
-        sh_int vnum;
+        int vnum;
         char letter;
         int door;
         int iHash;
@@ -1193,7 +1193,7 @@ void load_mobprogs(FILE * fp)
 
     for (;;)
     {
-        sh_int vnum;
+        int vnum;
         char letter;
 
         letter = fread_letter(fp);
@@ -3425,7 +3425,7 @@ void load_mobiles(FILE * fp)
 
     for (;;)
     {
-        sh_int vnum;
+        int vnum;
         char letter;
         int iHash;
 
@@ -3632,7 +3632,7 @@ void load_objects(FILE * fp)
 
     for (;;)
     {
-        sh_int vnum;
+        int vnum;
         char letter;
         int iHash;
 

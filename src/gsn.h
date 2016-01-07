@@ -35,13 +35,13 @@
 
 /*
  * Declare the GSN in every file (via this being included in merc.h).  The
- * variable with be defined as an sh_int in db.c and an extern in every
+ * variable with be defined as an int in db.c and an extern in every
  * other file so they're accessible.
  */
 #ifdef IN_DB_C
-    #define DECLARE_GSN(gsn) sh_int gsn;
+    #define DECLARE_GSN(gsn) int gsn;
 #else
-    #define DECLARE_GSN(gsn) extern sh_int gsn;
+    #define DECLARE_GSN(gsn) extern int gsn;
 #endif
 
 /*

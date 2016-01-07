@@ -1221,7 +1221,7 @@ void do_mpcall(CHAR_DATA * ch, char *argument)
     CHAR_DATA *vch;
     OBJ_DATA *obj1, *obj2;
     MPROG_CODE *prg;
-    extern void program_flow(sh_int, char *, CHAR_DATA *, CHAR_DATA *,
+    extern void program_flow(int, char *, CHAR_DATA *, CHAR_DATA *,
         const void *, const void *);
 
     argument = one_argument(argument, arg);
@@ -1337,7 +1337,7 @@ void do_mpremove(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *victim;
     OBJ_DATA *obj, *obj_next;
-    sh_int vnum = 0;
+    int vnum = 0;
     bool fAll = FALSE;
     char arg[MAX_INPUT_LENGTH];
 

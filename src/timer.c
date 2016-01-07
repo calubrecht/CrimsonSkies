@@ -113,7 +113,7 @@ void subtract_times(struct timeval *etime, struct timeval *stime)
  * Adds a timer to an action with the information necessary to callback later
  * when the timer is up.
  */
-void add_timer(CHAR_DATA *ch, sh_int type, sh_int count, DO_FUN *fun, int value, char *argument) {
+void add_timer(CHAR_DATA *ch, int type, int count, DO_FUN *fun, int value, char *argument) {
     //log_f("add_timer ch=%s, type=%d, count=%d, value=%d, argument=%s", ch->name, type, count, value, argument);
     TIMER *timer;
 
@@ -147,7 +147,7 @@ void add_timer(CHAR_DATA *ch, sh_int type, sh_int count, DO_FUN *fun, int value,
  * Returns a pointer to a TIMER for a character and a specific type.
  * This would be the first one found.
  */
-TIMER *get_timerptr(CHAR_DATA *ch, sh_int type)
+TIMER *get_timerptr(CHAR_DATA *ch, int type)
 {
     TIMER *timer;
     for (timer = ch->first_timer; timer; timer = timer->next)
@@ -165,7 +165,7 @@ TIMER *get_timerptr(CHAR_DATA *ch, sh_int type)
  * Returns the timer->count for the specified type of timer on a
  * player.  This returns the first of the specified type found.
  */
-sh_int get_timer(CHAR_DATA *ch, sh_int type)
+int get_timer(CHAR_DATA *ch, int type)
 {
     TIMER *timer;
 
@@ -201,7 +201,7 @@ void extract_timer(CHAR_DATA *ch, TIMER *timer)
  * Removes a timer of a specified type.  This removes the first instance
  * of this timer type.
  */
-void remove_timer(CHAR_DATA *ch, sh_int type)
+void remove_timer(CHAR_DATA *ch, int type)
 {
     TIMER *timer;
 

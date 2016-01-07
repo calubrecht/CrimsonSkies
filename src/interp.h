@@ -44,10 +44,10 @@ struct	cmd_type
 {
     char * const    name;
     DO_FUN *        do_fun;
-    sh_int          position;
-    sh_int          level;
-    sh_int          log;
-    sh_int          show;
+    int          position;
+    int          level;
+    int          log;
+    int          show;
 };
 
 /* the command table itself */

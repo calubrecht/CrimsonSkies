@@ -45,12 +45,12 @@ char *const dir_name[] = {
 };
 
 // This is the reverse direction to the above list (south is reverse to north, up to down, etc.)
-const sh_int rev_dir[] = {
+const int rev_dir[] = {
     2, 3, 0, 1, 5, 4, 9, 8, 7, 6
 };
 
 // The movement lose per sector.  The position corresponds with the value of the SECT_* and the sector_flags table.
-const sh_int movement_loss[SECT_MAX] = {
+const int movement_loss[SECT_MAX] = {
     1, 2, 2, 3, 4, 6, 4, 1, 6, 10, 6, 30, 5, 10
 };
 
@@ -1754,7 +1754,7 @@ void do_train(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     CHAR_DATA *mob;
-    sh_int stat = -1;
+    int stat = -1;
     char *pOutput = NULL;
     int cost;
 

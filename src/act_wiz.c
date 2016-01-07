@@ -5358,7 +5358,7 @@ void do_rename(CHAR_DATA* ch, char* argument)
 extern ROOM_INDEX_DATA * room_index_hash[MAX_KEY_HASH]; /* db.c */
 
 /* opposite directions */
-const sh_int opposite_dir[10] = {DIR_SOUTH, DIR_WEST, DIR_NORTH, DIR_EAST, DIR_DOWN, DIR_UP, DIR_SOUTHWEST, DIR_SOUTHEAST, DIR_NORTHWEST, DIR_NORTHEAST};
+const int opposite_dir[10] = {DIR_SOUTH, DIR_WEST, DIR_NORTH, DIR_EAST, DIR_DOWN, DIR_UP, DIR_SOUTHWEST, DIR_SOUTHEAST, DIR_NORTHWEST, DIR_NORTHEAST};
 
 /* get the 'short' name of an area (e.g. MIDGAARD, MIRROR etc. */
 /* assumes that the filename saved in the AREA_DATA struct is something like midgaard.are */

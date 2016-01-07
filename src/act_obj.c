@@ -3746,7 +3746,7 @@ void do_bury(CHAR_DATA *ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
     OBJ_DATA *obj;
     bool shovel;
-    sh_int move;
+    int move;
     one_argument(argument, arg);
 
     if (arg[0] == '\0')

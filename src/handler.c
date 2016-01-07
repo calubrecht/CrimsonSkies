@@ -3621,7 +3621,7 @@ void empty_pits(void)
  * Whether or not a player is carrying a certain type of item in their
  * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).
  */
-bool has_item_type(CHAR_DATA *ch, sh_int item_type)
+bool has_item_type(CHAR_DATA *ch, int item_type)
 {
     OBJ_DATA * obj;
 
@@ -3694,7 +3694,7 @@ void make_ghost(CHAR_DATA *ch)
 /*
  * Will determine if two vnums are on the same continent.
  */
-bool same_continent(sh_int vnum_one, sh_int vnum_two)
+bool same_continent(int vnum_one, int vnum_two)
 {
     ROOM_INDEX_DATA *room_one;
     ROOM_INDEX_DATA *room_two;

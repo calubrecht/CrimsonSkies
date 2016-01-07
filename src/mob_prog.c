@@ -310,7 +310,7 @@ int get_order(CHAR_DATA * ch)
  * item_type: item type or -1
  * fWear: TRUE: item must be worn, FALSE: don't care
  */
-bool has_item(CHAR_DATA * ch, sh_int vnum, sh_int item_type, bool fWear)
+bool has_item(CHAR_DATA * ch, int vnum, int item_type, bool fWear)
 {
     OBJ_DATA *obj;
     for (obj = ch->carrying; obj; obj = obj->next_content)
@@ -324,7 +324,7 @@ bool has_item(CHAR_DATA * ch, sh_int vnum, sh_int item_type, bool fWear)
 /*
  * Check if there's a mob with given vnum in the room
  */
-bool get_mob_vnum_room(CHAR_DATA * ch, sh_int vnum)
+bool get_mob_vnum_room(CHAR_DATA * ch, int vnum)
 {
     CHAR_DATA *mob;
     for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
@@ -336,7 +336,7 @@ bool get_mob_vnum_room(CHAR_DATA * ch, sh_int vnum)
 /*
  * Check if there's an object with given vnum in the room
  */
-bool get_obj_vnum_room(CHAR_DATA * ch, sh_int vnum)
+bool get_obj_vnum_room(CHAR_DATA * ch, int vnum)
 {
     OBJ_DATA *obj;
     for (obj = ch->in_room->contents; obj; obj = obj->next_content)
@@ -357,7 +357,7 @@ bool get_obj_vnum_room(CHAR_DATA * ch, sh_int vnum)
  *
  *----------------------------------------------------------------------
  */
-int cmd_eval(sh_int vnum, char *line, int check,
+int cmd_eval(int vnum, char *line, int check,
     CHAR_DATA * mob, CHAR_DATA * ch,
     const void *arg1, const void *arg2, CHAR_DATA * rch)
 {
@@ -940,7 +940,7 @@ void expand_arg(char *buf,
 #define END_BLOCK        -2        /* Flag: End of if-else-endif block */
 #define MAX_CALL_LEVEL    5        /* Maximum nested calls */
 
-void program_flow(sh_int pvnum,    /* For diagnostic purposes */
+void program_flow(int pvnum,    /* For diagnostic purposes */
     char *source,    /* the actual MOBprog code */
     CHAR_DATA * mob, CHAR_DATA * ch, const void *arg1,
     const void *arg2)
@@ -956,7 +956,7 @@ void program_flow(sh_int pvnum,    /* For diagnostic purposes */
     int state[MAX_NESTED_LEVEL],    /* Block state (BEGIN,IN,END) */
         cond[MAX_NESTED_LEVEL];    /* Boolean value based on the last if-check */
 
-    sh_int mvnum = mob->pIndexData->vnum;
+    int mvnum = mob->pIndexData->vnum;
 
     if (++call_level > MAX_CALL_LEVEL)
     {

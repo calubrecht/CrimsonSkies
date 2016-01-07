@@ -194,7 +194,7 @@ void save_mobprogs(FILE * fp, AREA_DATA * pArea)
  ****************************************************************************/
 void save_mobile(FILE * fp, MOB_INDEX_DATA * pMobIndex)
 {
-    sh_int race = pMobIndex->race;
+    int race = pMobIndex->race;
     MPROG_LIST *pMprog;
     char buf[MAX_STRING_LENGTH];
     long temp;
