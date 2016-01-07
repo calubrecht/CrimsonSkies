@@ -341,3 +341,4 @@ DECLARE_DO_FUN(do_portal);
 DECLARE_DO_FUN(do_confiscate);
 DECLARE_DO_FUN(do_terrain);
 DECLARE_DO_FUN(do_use);
+DECLARE_DO_FUN(do_version);

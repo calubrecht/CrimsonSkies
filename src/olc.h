@@ -40,7 +40,7 @@
  * It is displayed in the game by typing 'version' while editing.
  * Do not remove these from the code - by request of Jason Dinkel
  */
-#define VERSION	"ILAB Online Creation [Beta 1.0, ROM 2.3 modified]\r\n" \
+#define OLC_VERSION	"ILAB Online Creation [Beta 1.0, ROM 2.3 modified]\r\n" \
         "     Port a ROM 2.4 v1.8\r\n"
 #define AUTHOR	"     By Jason(jdinkel@mines.colorado.edu)\r\n" \
                 "     Modified for use with ROM 2.3\r\n"        \

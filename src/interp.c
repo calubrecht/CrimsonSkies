@@ -301,6 +301,7 @@ const struct cmd_type cmd_table[] = {
     {"land",            do_land,        POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"class",           do_class,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"terrain",         do_terrain,     POS_SITTING,  0, LOG_NORMAL, TRUE},
+    {"version",         do_version,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
 
     /*
      * Immortal commands.
