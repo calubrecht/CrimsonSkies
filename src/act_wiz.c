@@ -4954,13 +4954,13 @@ void do_copyover(CHAR_DATA * ch, char *argument)
             // With or without a reason
             if (argument[0] == '\0')
             {
-                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\r\n",
-                    ch->name, copyover_timer);
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n",
+                    ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
             }
             else
             {
-                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick(s).\r\n{WReason{x: %s\r\n",
-                    ch->name, copyover_timer, argument);
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n{WReason{x: %s\r\n",
+                    ch->name, copyover_timer, copyover_timer > 1 ? "s" : "", argument);
             }
 
             // Set the pointer back to the person calling it so we can reference them

@@ -1339,8 +1339,17 @@ void tick_update()
         else
         {
             // Show the current countdown to the game.
-            sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick(s).\r\n",
-                copyover_timer);
+            if (copyover_ch != NULL)
+            {
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n",
+                    copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
+            }
+            else
+            {
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick%s.\r\n",
+                    copyover_timer, copyover_timer > 1 ? "s" : "");
+            }
+
             send_to_all_char(buf);
         }
 
