@@ -84,6 +84,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - auto name generator methods
   - Move base string functions into a new strings.c file (separate from the olc strings in olc_string).
   - Update get_random_room in some manner to allow for getting a random room in an area, a continent or the world.
-  - Negate WAIT_STATE for immortals.
   - different versions of teleport, area, continent, world
   - pfile saving fixed on windows, now fix every other instance that uses rename when saving (OLC, pits, stats, all of them)
+  - Try to port Nick Gammon's windows service code.  
+  - Try to port Tyche's copyover code from Murk++ for a Windows copyover.
