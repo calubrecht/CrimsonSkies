@@ -5062,6 +5062,9 @@ void do_copyover(CHAR_DATA * ch, char *argument)
         /* Close reserve and other always-open files and release other resources */
         fclose(fpReserve);
 
+        /* Dereference the copyover_ch */
+        copyover_ch = NULL;
+
         /* exec - descriptors are inherited */
         sprintf(buf, "%d", port);
         sprintf(buf2, "%d", control);
