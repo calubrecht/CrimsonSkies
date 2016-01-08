@@ -2352,7 +2352,6 @@ void do_help(CHAR_DATA * ch, char *argument)
         {
             argall[MAX_CMD_LEN - 1] = '\0';
             log_f("Excessive command length: %s requested %s.", ch, argall);
-            send_to_char("That was rude!\r\n", ch);
         }
         /* OHELPS_FILE is the "orphaned helps" files. Defined in merc.h -- JR */
         else
