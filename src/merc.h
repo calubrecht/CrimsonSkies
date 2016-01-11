@@ -77,6 +77,7 @@ typedef struct    settings_data      SETTINGS_DATA;
 typedef struct    statistics_data    STATISTICS_DATA;
 typedef struct    extended_bitvector EXT_BV;
 typedef struct    timer_data         TIMER;
+typedef struct    disabled_data      DISABLED_DATA;
 
 /*
  * Function types.
@@ -475,6 +476,17 @@ struct spec_type
 {
     char *      name;      /* special function name */
     SPEC_FUN *  function;  /* the function          */
+};
+
+/* 
+ * One disabled command 
+ */
+struct disabled_data
+{
+    DISABLED_DATA *next;            /* pointer to next node */
+    struct cmd_type const *command; /* pointer to the command struct*/
+    char *disabled_by;              /* name of disabler */
+    int level;                      /* level of disabler */
 };
 
 /*
@@ -2083,6 +2095,7 @@ extern  int                     copyover_timer;  // How many ticks are left unti
 extern  GROUPTYPE               * group_table[MAX_GROUP];
 extern  CLASSTYPE               * class_table[MAX_CLASS];
 extern  SKILLTYPE               * skill_table[MAX_SKILL];
+extern  DISABLED_DATA           * disabled_first;
 
 /*
  * OS-dependent declarations.
@@ -2162,6 +2175,7 @@ extern  SKILLTYPE               * skill_table[MAX_SKILL];
 #define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
 #define SETTINGS_FILE       "../system/settings.dat"
 #define STATISTICS_FILE     "../system/statistics.dat"
+#define DISABLED_FILE       "../disabled.dat"
 
 /*
  * Our function prototypes.
@@ -2278,6 +2292,11 @@ void  colorconv       args((char *buffer, const char *txt, CHAR_DATA*ch));
 void  send_to_char_bw args((const char *txt, CHAR_DATA *ch));
 void  page_to_char_bw args((const char *txt, CHAR_DATA *ch));
 char  *strip_color    args((char *string));
+
+/* disable.c */
+bool  check_disabled  args((const struct cmd_type *command));
+void  load_disabled   args((void));
+void  save_disabled   args((void));
 
 /* effect.c */
 void    acid_effect    args((void *vo, int level, int dam, int target));

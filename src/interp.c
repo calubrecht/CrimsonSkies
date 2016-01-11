@@ -54,6 +54,11 @@ bool check_social args((CHAR_DATA * ch, char *command, char *argument));
 bool fLogAll = FALSE;
 
 /*
+ * Disabled commands
+ */
+DISABLED_DATA *disabled_first;
+
+/*
  * Command table.
  */
 const struct cmd_type cmd_table[] = {
@@ -383,6 +388,7 @@ const struct cmd_type cmd_table[] = {
     {"wizcancel",       do_wizcancel,   POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"wizbless",        do_wizbless,    POS_DEAD, IM, LOG_ALWAYS, TRUE},
     {"confiscate",      do_confiscate,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
+    {"disable",         do_disable,     POS_DEAD, L3, LOG_ALWAYS, TRUE},
 
     /*
      * OLC
@@ -552,8 +558,19 @@ void interpret(CHAR_DATA * ch, char *argument)
          * Look for command in socials table.
          */
         if (!check_social(ch, command, argument))
+        {
             send_to_char("Huh?\r\n", ch);
+        }
+
         return;
+    }
+    else
+    {
+        if (check_disabled(&cmd_table[cmd]))
+        {
+            send_to_char("This command has been temporarily disabled.\n\r", ch);
+            return;
+        }
     }
 
     /*

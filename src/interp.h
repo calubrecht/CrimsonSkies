@@ -342,3 +342,4 @@ DECLARE_DO_FUN(do_confiscate);
 DECLARE_DO_FUN(do_terrain);
 DECLARE_DO_FUN(do_use);
 DECLARE_DO_FUN(do_version);
+DECLARE_DO_FUN(do_disable);

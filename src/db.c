@@ -231,6 +231,10 @@ void boot_db()
     if (fCopyOver) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
     load_settings();
 
+    log_string("STATUS: Loading Disabled Commands");
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", FALSE, TRUE);
+    load_disabled();
+
     log_string("STATUS: Loading Skills");
     if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", TRUE, TRUE);
     load_skills();
