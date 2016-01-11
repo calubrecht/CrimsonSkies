@@ -478,8 +478,8 @@ struct spec_type
     SPEC_FUN *  function;  /* the function          */
 };
 
-/* 
- * One disabled command 
+/*
+ * One disabled command
  */
 struct disabled_data
 {
@@ -2175,7 +2175,7 @@ extern  DISABLED_DATA           * disabled_first;
 #define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
 #define SETTINGS_FILE       "../system/settings.dat"
 #define STATISTICS_FILE     "../system/statistics.dat"
-#define DISABLED_FILE       "../disabled.dat"
+#define DISABLED_FILE       "../system/disabled.dat"
 
 /*
  * Our function prototypes.

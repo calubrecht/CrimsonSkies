@@ -232,7 +232,7 @@ void boot_db()
     load_settings();
 
     log_string("STATUS: Loading Disabled Commands");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", FALSE, TRUE);
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, TRUE);
     load_disabled();
 
     log_string("STATUS: Loading Skills");
