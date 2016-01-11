@@ -2301,6 +2301,7 @@ bool    is_safe         args((CHAR_DATA *ch, CHAR_DATA *victim));
 bool    is_safe_spell   args((CHAR_DATA *ch, CHAR_DATA *victim, bool area));
 void    violence_update args((void));
 void    multi_hit       args((CHAR_DATA *ch, CHAR_DATA *victim, int dt));
+void    one_hit         args((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
 bool    damage          args((CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int class, bool show));
 bool    damage_old      args((CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int class, bool show));
 void    update_pos      args((CHAR_DATA *victim));

@@ -48,8 +48,6 @@
 #include "magic.h"
 #include "recycle.h"
 
-void one_hit args((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
-
 /*
  * Bladesong is the underpinning skill of all bladesingers.  They must be
  * dancing the bladesong for any of their other skills to work.
