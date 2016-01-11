@@ -2295,7 +2295,7 @@ char  *strip_color    args((char *string));
 
 /* disable.c */
 bool  check_disabled  args((const struct cmd_type *command));
-void  load_disabled   args((void));
+bool  load_disabled   args((void));
 void  save_disabled   args((void));
 
 /* effect.c */

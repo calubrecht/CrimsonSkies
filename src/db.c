@@ -187,7 +187,7 @@ void fix_mobprogs args((void));
 void reset_area args((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
-void load_settings args((void));
+bool load_settings args((void));
 void load_skills args((void));
 void load_game_objects args((void));
 void load_statistics args((void));
@@ -221,6 +221,8 @@ void boot_db()
         fBootDb = TRUE;
     }
 
+    bool last_result;
+
     log_string("STATUS: Initializing Random Number Generator");
     init_random();
 
@@ -229,14 +231,14 @@ void boot_db()
 
     log_string("STATUS: Loading Settings");
     if (fCopyOver) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
-    load_settings();
+    last_result = load_settings();
 
     log_string("STATUS: Loading Disabled Commands");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, TRUE);
-    load_disabled();
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, last_result);
+    last_result = load_disabled();
 
     log_string("STATUS: Loading Skills");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", TRUE, TRUE);
+    if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", TRUE, last_result);
     load_skills();
     log_f("STATUS: %d Skills Loaded", top_sn);
 
@@ -4308,7 +4310,7 @@ SKILLTYPE *fread_skill(FILE *fp)
  * be found).  This file should only be generated through the game or OLC so this case shouldn't
  * happen.  - Rhien.
  */
-void load_settings()
+bool load_settings()
 {
     FILE *fp;
     char *word;
@@ -4320,7 +4322,7 @@ void load_settings()
     {
         log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
         fpReserve = fopen(NULL_FILE, "r");
-        return;
+        return FALSE;
     }
 
     for (;;)
@@ -4329,7 +4331,7 @@ void load_settings()
 
         // End marker?  Exit cleanly
         if (!str_cmp(word, "#END"))
-            return;
+            return TRUE;
 
         if (!str_cmp(word, "WizLock"))
         {
@@ -4365,7 +4367,7 @@ void load_settings()
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");
 
-    return;
+    return TRUE;
 
 } // end load_settings
 
