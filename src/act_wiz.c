@@ -56,8 +56,6 @@ void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
 void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 void do_oload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
 
-extern bool fCopyOver;  // Whether or not we're currently in a copyover
-
 void do_wiznet(CHAR_DATA * ch, char *argument)
 {
     int flag;
@@ -5161,7 +5159,7 @@ void copyover_recover()
     DESCRIPTOR_DATA *d, *d_next;
     bool fOld;
 
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Players.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Players.", TRUE, TRUE);
 
     for (d = descriptor_list; d != NULL; d = d_next)
     {

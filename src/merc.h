@@ -78,6 +78,7 @@ typedef struct    statistics_data    STATISTICS_DATA;
 typedef struct    extended_bitvector EXT_BV;
 typedef struct    timer_data         TIMER;
 typedef struct    disabled_data      DISABLED_DATA;
+typedef struct    global_data        GLOBAL_DATA;
 
 /*
  * Function types.
@@ -574,6 +575,17 @@ struct statistics_data
     long pkills;                 // Players killed by other players
     long logins;                 // Total number of logins
     long total_characters;       // Total number of characters created
+};
+
+/*
+ * Global data - This is going to store global data that is not persisted
+ * between boots.  This willl help us reign in and organize various global
+ * variables throughout the game (and in a modern IDE will help us quickly
+ * find/use them).
+ */
+struct global_data
+{
+    bool copyover;      // Whether this boot is a copyover or not
 };
 
 /*
@@ -2096,6 +2108,7 @@ extern  GROUPTYPE               * group_table[MAX_GROUP];
 extern  CLASSTYPE               * class_table[MAX_CLASS];
 extern  SKILLTYPE               * skill_table[MAX_SKILL];
 extern  DISABLED_DATA           * disabled_first;
+extern  GLOBAL_DATA             global;
 
 /*
  * OS-dependent declarations.

@@ -90,6 +90,7 @@ TIME_INFO_DATA time_info;
 WEATHER_DATA weather_info;
 SETTINGS_DATA settings;
 STATISTICS_DATA statistics;
+GLOBAL_DATA global;
 
 extern const struct continent_type continent_table[];
 
@@ -99,7 +100,6 @@ extern const struct continent_type continent_table[];
  * main game loop starts.
  */
 extern bool game_loaded;
-extern bool fCopyOver;
 
 /*
  * Locals.
@@ -230,28 +230,28 @@ void boot_db()
     init_weather();
 
     log_string("STATUS: Loading Settings");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
     last_result = load_settings();
 
     log_string("STATUS: Loading Disabled Commands");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, last_result);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, last_result);
     last_result = load_disabled();
 
     log_string("STATUS: Loading Skills");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Skills.", TRUE, last_result);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Skills.", TRUE, last_result);
     load_skills();
     log_f("STATUS: %d Skills Loaded", top_sn);
 
     log_string("STATUS: Loading Groups");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Groups.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Groups.", TRUE, TRUE);
     load_groups();
 
     log_string("STATUS: Loading Classes");
-    if (fCopyOver) copyover_broadcast("STATUS: Loading Classes.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Classes.", TRUE, TRUE);
     load_classes();
 
     log_string("STATUS: Assigning GSNs (Global Skill Numbers)");
-    if (fCopyOver) copyover_broadcast("STATUS: Assigning GSNs (Global Skill Numbers).", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Assigning GSNs (Global Skill Numbers).", TRUE, TRUE);
     assign_gsn();
 
     /*
@@ -259,13 +259,13 @@ void boot_db()
      */
     {
         log_string("STATUS: Loading Areas");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Areas.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Areas.", TRUE, TRUE);
 
         FILE *fpList;
 
         if ((fpList = fopen(AREA_LIST, "r")) == NULL)
         {
-            if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
             perror(AREA_LIST);
             exit(1);
         }
@@ -284,7 +284,7 @@ void boot_db()
             {
                 if ((fpArea = fopen(strArea, "r")) == NULL)
                 {
-                    if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                     perror(strArea);
                     exit(1);
                 }
@@ -299,7 +299,7 @@ void boot_db()
                 if (fread_letter(fpArea) != '#')
                 {
                     bug("Boot_db: # not found.", 0);
-                    if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                     exit(1);
                 }
 
@@ -330,7 +330,7 @@ void boot_db()
                 else
                 {
                     bug("Boot_db: bad section name.", 0);
-                    if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                     exit(1);
                 }
             }
@@ -350,34 +350,34 @@ void boot_db()
      */
     {
         log_string("STATUS: Fixing Exits");
-        if (fCopyOver) copyover_broadcast("STATUS: Fixing Exits.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Fixing Exits.", TRUE, TRUE);
         fix_exits();
 
         log_string("STATUS: Fixing MobProgs");
-        if (fCopyOver) copyover_broadcast("STATUS: Fixing MobProgs.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Fixing MobProgs.", TRUE, TRUE);
         fix_mobprogs();
         fBootDb = FALSE;
 
         // The loading of saved objects needs to happen before the
         // resetting otherwise we'll have duplicate objects
         log_string("STATUS: Loading Saved Objects (Pits/Corpses/Buried Items)");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Saved Objects.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Saved Objects.", TRUE, TRUE);
         load_game_objects();
 
         log_string("STATUS: Resetting Areas");
-        if (fCopyOver) copyover_broadcast("STATUS: Resetting Areas.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Resetting Areas.", TRUE, TRUE);
         area_update();
 
         log_string("STATUS: Loading Banned Sites");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Banned Sites.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Banned Sites.", TRUE, TRUE);
         load_bans();
 
         log_string("STATUS: Loading Notes");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Notes.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Notes.", TRUE, TRUE);
         load_notes();
 
         log_string("STATUS: Loading Statistics");
-        if (fCopyOver) copyover_broadcast("STATUS: Loading Statistics.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Statistics.", TRUE, TRUE);
         load_statistics();
 
     }
@@ -1080,7 +1080,7 @@ void fix_exits(void)
                 {
                     default:
                         bugf("fix_exits : room %d with reset cmd %c", pRoomIndex->vnum, pReset->command);
-                        if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                         exit(1);
                         break;
 
@@ -1099,7 +1099,7 @@ void fix_exits(void)
                         if (iLastObj == NULL)
                         {
                             bugf("fix_exits : reset in room %d with iLastObj NULL", pRoomIndex->vnum);
-                            if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                             exit(1);
                         }
                         break;
@@ -1110,7 +1110,7 @@ void fix_exits(void)
                         if (iLastRoom == NULL)
                         {
                             bugf("fix_exits : reset in room %d with iLastRoom NULL", pRoomIndex->vnum);
-                            if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                             exit(1);
                         }
                         iLastObj = iLastRoom;
@@ -1125,7 +1125,7 @@ void fix_exits(void)
                         if (pReset->arg2 < 0 || pReset->arg2 > MAX_DIR)
                         {
                             bugf("fix_exits : reset in room %d with arg2 %d >= MAX_DIR", pRoomIndex->vnum, pReset->arg2);
-                            if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                             exit(1);
                         }
                         break;
@@ -1262,7 +1262,7 @@ void fix_mobprogs(void)
                 else
                 {
                     bug("Fix_mobprogs: code vnum %d not found.", list->vnum);
-                    if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
                     exit(1);
                 }
             }
@@ -4110,7 +4110,7 @@ void load_groups()
     else
     {
         bug("load_groups: Cannot open groups.dat", 0);
-        if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
         exit(0);
     }
 
@@ -4221,7 +4221,7 @@ void load_skills()
     else
     {
         bug("Cannot open SKILLS_FILE", 0);
-        if (fCopyOver) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
         exit(0);
     }
 } // end load_skills

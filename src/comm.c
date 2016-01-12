@@ -174,7 +174,6 @@ void twiddle args((void));
 
 /* Needs to be global because of do_copyover */
 int port, control;
-bool fCopyOver = FALSE;
 
 /* Set this to the IP address you want to listen on (127.0.0.1 is good for    */
 /* paranoid types who don't want the 'net at large peeking at their MUD)      */
@@ -197,6 +196,7 @@ int main(int argc, char **argv)
     gettimeofday(&now_time, NULL);
     current_time = (time_t)now_time.tv_sec;
     strcpy(str_boot_time, ctime(&current_time));
+    global.copyover = FALSE;    // This will be set later if true
 
     log_string("-------------------------------------------------");
     log_string("STATUS: Initializing Game");
@@ -232,12 +232,12 @@ int main(int argc, char **argv)
         /* Are we recovering from a copyover? */
         if (argv[2] && argv[2][0])
         {
-            fCopyOver = TRUE;
+            global.copyover = TRUE;
             control = atoi(argv[3]);
         }
         else
         {
-            fCopyOver = FALSE;
+            global.copyover = FALSE;
         }
 
     }
@@ -247,15 +247,15 @@ int main(int argc, char **argv)
      */
 #if defined(unix) || defined(_WIN32)
 
-    if (!fCopyOver)
+    if (!global.copyover)
         control = init_socket(port);
 
-    if (fCopyOver)
+    if (global.copyover)
         copyover_load_descriptors();
 
     boot_db();
 
-    if (fCopyOver)
+    if (global.copyover)
         copyover_recover();
 
     log_f("Crimson Skies is ready to rock on port %d.", port);
