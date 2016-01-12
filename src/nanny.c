@@ -85,7 +85,6 @@ void max_players_check args((void));
 extern DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 extern DESCRIPTOR_DATA *d_next;        /* Next descriptor in loop  */
 extern FILE *fpReserve;                /* Reserved file handle     */
-extern char str_boot_time[MAX_INPUT_LENGTH];
 extern time_t current_time;            /* time of this pulse */
 
 

@@ -138,7 +138,6 @@ int line_count	args((char *orig));
 DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 DESCRIPTOR_DATA *d_next;             /* Next descriptor in loop  */
 FILE *fpReserve;                     /* Reserved file handle     */
-char str_boot_time[MAX_INPUT_LENGTH];
 time_t current_time;                 /* time of this pulse */
 bool MOBtrigger = TRUE;              /* act() switch                 */
 
@@ -190,7 +189,7 @@ int main(int argc, char **argv)
      */
     gettimeofday(&now_time, NULL);
     current_time = (time_t)now_time.tv_sec;
-    strcpy(str_boot_time, ctime(&current_time));
+    strcpy(global.boot_time, ctime(&current_time));
     global.copyover = FALSE;    // This will be set later if true
     global.game_loaded = FALSE;
 

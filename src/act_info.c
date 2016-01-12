@@ -2219,7 +2219,6 @@ char *const month_name[] = {
 
 void do_time(CHAR_DATA * ch, char *argument)
 {
-    extern char str_boot_time[];
     char buf[MAX_STRING_LENGTH];
     char *suf;
     int day;
@@ -2244,7 +2243,7 @@ void do_time(CHAR_DATA * ch, char *argument)
         day_name[day % 7], day, suf, month_name[time_info.month]);
     send_to_char(buf, ch);
 
-    sprintf(buf, "{RCrimson {rSkies{x started up on %s", str_boot_time);
+    sprintf(buf, "{RCrimson {rSkies{x started up on %s", global.boot_time);
     send_to_char(buf, ch);
 
     sprintf(buf, "The system time is %s", (char *)ctime(&current_time));

@@ -430,7 +430,7 @@ struct weapon_type
     char *    name;
     int       vnum;
     int       type;
-    int       gsn;
+    int      *gsn;
 };
 
 struct wiznet_type
@@ -585,9 +585,10 @@ struct statistics_data
  */
 struct global_data
 {
-    bool copyover;    // Whether this boot is a copyover or not
-    bool shutdown;    // Whether a shutdown is in progress (formerly merc_down)
-    bool game_loaded; // Whether the game has been fully booted.
+    bool copyover;                    // Whether this boot is a copyover or not
+    bool shutdown;                    // Whether a shutdown is in progress (formerly merc_down)
+    bool game_loaded;                 // Whether the game has been fully booted.
+    char boot_time[MAX_INPUT_LENGTH]; // String of when the mud booted, formerly str_boot_time
 };
 
 /*
