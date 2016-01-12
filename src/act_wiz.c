@@ -47,7 +47,6 @@
  * Local functions.
  */
 ROOM_INDEX_DATA *find_location args((CHAR_DATA * ch, char *arg));
-CHAR_DATA       *copyover_ch;
 
 void raw_kill          args((CHAR_DATA * victim)); // for do_slay
 void save_game_objects args((void)); // for do_copyover
@@ -4961,7 +4960,7 @@ void do_copyover(CHAR_DATA * ch, char *argument)
 
             // Set the pointer back to the person calling it so we can reference them
             // in the timer call back that's in update.c
-            copyover_ch = ch;
+            global.copyover_ch = ch;
 
             send_to_all_char(buf);
         }
@@ -4979,7 +4978,7 @@ void do_copyover(CHAR_DATA * ch, char *argument)
 
         sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x cancelled by {B%s{x.\r\n", ch->name);
 
-        copyover_ch = NULL;
+        global.copyover_ch = NULL;
 
         send_to_all_char(buf);
     }
@@ -5058,8 +5057,8 @@ void do_copyover(CHAR_DATA * ch, char *argument)
         /* Close reserve and other always-open files and release other resources */
         fclose(fpReserve);
 
-        /* Dereference the copyover_ch */
-        copyover_ch = NULL;
+        /* Dereference the global.copyover_ch */
+        global.copyover_ch = NULL;
 
         /* exec - descriptors are inherited */
         sprintf(buf, "%d", port);

@@ -586,6 +586,7 @@ struct statistics_data
 struct global_data
 {
     bool copyover;                    // Whether this boot is a copyover or not
+    CHAR_DATA *copyover_ch;           // Link back to the person who executed the copyover
     bool shutdown;                    // Whether a shutdown is in progress (formerly merc_down)
     bool game_loaded;                 // Whether the game has been fully booted.
     char boot_time[MAX_INPUT_LENGTH]; // String of when the mud booted, formerly str_boot_time
@@ -2105,7 +2106,6 @@ extern  NOTE_DATA               * note_free;
 extern  OBJ_DATA                * obj_free;
 extern  bool                    MOBtrigger;
 extern  bool                    is_copyover;     // Whether a copyover is running or not
-extern  CHAR_DATA               *copyover_ch;    // Link back to the person who executed the copyover
 extern  int                     copyover_timer;  // How many ticks are left until the copyover executes
 extern  GROUPTYPE               * group_table[MAX_GROUP];
 extern  CLASSTYPE               * class_table[MAX_CLASS];

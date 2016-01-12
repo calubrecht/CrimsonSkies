@@ -57,9 +57,6 @@ void save_game_objects  args((void));
 /* used for saving */
 int save_number = 0;
 
-/* Used for timed copyover's, a reference to the initial calling person */
-extern CHAR_DATA *copyover_ch;
-
 /*
  * Advancement stuff.
  */
@@ -1325,9 +1322,9 @@ void tick_update()
 
             // If the copyover person is still active and not null execute the copyover,
             // otherwise cancel it.
-            if (copyover_ch != NULL)
+            if (global.copyover_ch != NULL)
             {
-                do_function(copyover_ch, &do_copyover, "now");
+                do_function(global.copyover_ch, &do_copyover, "now");
             }
             else
             {
@@ -1339,10 +1336,10 @@ void tick_update()
         else
         {
             // Show the current countdown to the game.
-            if (copyover_ch != NULL)
+            if (global.copyover_ch != NULL)
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n",
-                    copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
+                    global.copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
             }
             else
             {
