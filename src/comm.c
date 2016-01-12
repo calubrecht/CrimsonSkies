@@ -141,7 +141,6 @@ int line_count	args((char *orig));
 DESCRIPTOR_DATA *descriptor_list;    /* All open descriptors     */
 DESCRIPTOR_DATA *d_next;             /* Next descriptor in loop  */
 FILE *fpReserve;                     /* Reserved file handle     */
-bool merc_down;                      /* Shutdown         */
 char str_boot_time[MAX_INPUT_LENGTH];
 time_t current_time;                 /* time of this pulse */
 bool MOBtrigger = TRUE;              /* act() switch                 */
@@ -412,7 +411,7 @@ void game_loop(int control)
     current_time = (time_t)last_time.tv_sec;
 
     /* Main loop */
-    while (!merc_down)
+    while (!global.shutdown)
     {
         fd_set in_set;
         fd_set out_set;
@@ -798,7 +797,7 @@ void close_socket(DESCRIPTOR_DATA * dclose)
         /* cut down on wiznet spam when rebooting */
 
         /* If ch is writing note or playing, just lose link otherwise clear char */
-        if ((dclose->connected == CON_PLAYING && !merc_down))
+        if ((dclose->connected == CON_PLAYING && !global.shutdown))
         {
             act("$n has lost $s link.", ch, NULL, NULL, TO_ROOM);
             wiznet("Net death has claimed $N.", ch, NULL, WIZ_LINKS, 0, 0);
@@ -1019,12 +1018,10 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
  */
 bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
 {
-    extern bool merc_down;
-
     /*
      * Bust a prompt.
      */
-    if (!merc_down)
+    if (!global.shutdown)
     {
         if (d->showstr_point)
             write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);

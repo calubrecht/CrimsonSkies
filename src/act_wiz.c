@@ -1966,7 +1966,6 @@ void do_reboo(CHAR_DATA * ch, char *argument)
 void do_reboot(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
-    extern bool merc_down;
     DESCRIPTOR_DATA *d, *d_next;
     CHAR_DATA *vch;
 
@@ -1978,7 +1977,7 @@ void do_reboot(CHAR_DATA * ch, char *argument)
     // Let's restore the world as part of the reboot as a thank you to the players.
     do_restore(ch, "all");
 
-    merc_down = TRUE;
+    global.shutdown = TRUE;
     for (d = descriptor_list; d != NULL; d = d_next)
     {
         d_next = d->next;
@@ -2016,7 +2015,6 @@ void do_shutdow(CHAR_DATA * ch, char *argument)
 void do_shutdown(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
-    extern bool merc_down;
     DESCRIPTOR_DATA *d, *d_next;
     CHAR_DATA *vch;
 
@@ -2029,7 +2027,7 @@ void do_shutdown(CHAR_DATA * ch, char *argument)
     // Let's restore the world as part of the shutdown as a thank you to the players.
     do_restore(ch, "all");
 
-    merc_down = TRUE;
+    global.shutdown = TRUE;
     for (d = descriptor_list; d != NULL; d = d_next)
     {
         d_next = d->next;

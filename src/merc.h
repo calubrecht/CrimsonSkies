@@ -585,7 +585,8 @@ struct statistics_data
  */
 struct global_data
 {
-    bool copyover;      // Whether this boot is a copyover or not
+    bool copyover;    // Whether this boot is a copyover or not
+    bool shutdown;    // Whether or not a shutdown is in progress (formerly merc_down)
 };
 
 /*
