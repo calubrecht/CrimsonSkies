@@ -95,13 +95,6 @@ GLOBAL_DATA global;
 extern const struct continent_type continent_table[];
 
 /*
- * Whether or not the game has finished loading.  This is set in comm.c after the boot db
- * and after copyover recoverying if that happened.  It's the last thing done before the
- * main game loop starts.
- */
-extern bool game_loaded;
-
-/*
  * Locals.
  */
 MOB_INDEX_DATA *mob_index_hash[MAX_KEY_HASH];
@@ -4387,8 +4380,10 @@ void save_game_objects(void)
 
     // Exit this loop if the game hasn't loaded, we don't want to accidently
     // save anything.
-    if (!game_loaded)
+    if (!global.game_loaded)
+    {
         return;
+    }
 
     fclose(fpReserve);
 

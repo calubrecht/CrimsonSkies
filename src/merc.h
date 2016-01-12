@@ -579,14 +579,15 @@ struct statistics_data
 
 /*
  * Global data - This is going to store global data that is not persisted
- * between boots.  This willl help us reign in and organize various global
+ * between boots.  This will help us reign in and organize various global
  * variables throughout the game (and in a modern IDE will help us quickly
  * find/use them).
  */
 struct global_data
 {
     bool copyover;    // Whether this boot is a copyover or not
-    bool shutdown;    // Whether or not a shutdown is in progress (formerly merc_down)
+    bool shutdown;    // Whether a shutdown is in progress (formerly merc_down)
+    bool game_loaded; // Whether the game has been fully booted.
 };
 
 /*

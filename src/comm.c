@@ -144,7 +144,6 @@ FILE *fpReserve;                     /* Reserved file handle     */
 char str_boot_time[MAX_INPUT_LENGTH];
 time_t current_time;                 /* time of this pulse */
 bool MOBtrigger = TRUE;              /* act() switch                 */
-bool game_loaded = FALSE;            /* Whether the game has finished loading, boot or copyover */
 
 /*
  * OS-dependent local functions.
@@ -196,6 +195,7 @@ int main(int argc, char **argv)
     current_time = (time_t)now_time.tv_sec;
     strcpy(str_boot_time, ctime(&current_time));
     global.copyover = FALSE;    // This will be set later if true
+    global.game_loaded = FALSE;
 
     log_string("-------------------------------------------------");
     log_string("STATUS: Initializing Game");
@@ -258,7 +258,7 @@ int main(int argc, char **argv)
         copyover_recover();
 
     log_f("Crimson Skies is ready to rock on port %d.", port);
-    game_loaded = TRUE;
+    global.game_loaded = TRUE;
 
     game_loop(control);
 
