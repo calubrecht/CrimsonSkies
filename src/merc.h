@@ -282,8 +282,8 @@ struct    descriptor_data
     bool               valid;
     bool               ansi;
     char            *  host;
-    int             descriptor;
-    int             connected;
+    int                descriptor;
+    int                connected;
     bool               fcommand;
     char               inbuf[MAX_INPUT_LENGTH * 4];
     char               incomm[MAX_INPUT_LENGTH];
@@ -348,7 +348,7 @@ struct help_data
 {
     HELP_DATA *  next;
     HELP_DATA *  next_area;
-    int       level;
+    int          level;
     char *       keyword;
     char *       text;
 };
@@ -371,13 +371,13 @@ struct help_area_data
 
 struct    shop_data
 {
-    SHOP_DATA *  next;                  /* Next shop in list              */
-    int       keeper;                /* Vnum of shop keeper mob        */
-    int       buy_type[MAX_TRADE];  /* Item types shop will buy       */
-    int       profit_buy;            /* Cost multiplier for buying     */
-    int       profit_sell;           /* Cost multiplier for selling    */
-    int       open_hour;             /* First opening hour             */
-    int       close_hour;            /* First closing hour             */
+    SHOP_DATA * next;                  /* Next shop in list              */
+    int         keeper;                /* Vnum of shop keeper mob        */
+    int         buy_type[MAX_TRADE];  /* Item types shop will buy       */
+    int         profit_buy;            /* Cost multiplier for buying     */
+    int         profit_sell;           /* Cost multiplier for selling    */
+    int         open_hour;             /* First opening hour             */
+    int         close_hour;            /* First closing hour             */
 };
 
 /*
@@ -396,14 +396,14 @@ struct    class_type
 {
     char *  name;              /* the full name of the class  */
     char    who_name[4];       /* Three-letter name for 'who' */
-    int  attr_prime;        /* Prime attribute             */
-    int  weapon;            /* First weapon                */
-    int  guild[MAX_GUILD];  /* Vnum of guild rooms         */
-    int  skill_adept;       /* Maximum skill level         */
-    int  thac0_00;          /* Thac0 for level  0          */
-    int  thac0_32;          /* Thac0 for level 32          */
-    int  hp_min;            /* Min hp gained on leveling   */
-    int  hp_max;            /* Max hp gained on leveling   */
+    int     attr_prime;        /* Prime attribute             */
+    int     weapon;            /* First weapon                */
+    int     guild[MAX_GUILD];  /* Vnum of guild rooms         */
+    int     skill_adept;       /* Maximum skill level         */
+    int     thac0_00;          /* Thac0 for level  0          */
+    int     thac0_32;          /* Thac0 for level 32          */
+    int     hp_min;            /* Min hp gained on leveling   */
+    int     hp_max;            /* Max hp gained on leveling   */
     bool    fMana;             /* Class gains mana on level   */
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
@@ -428,9 +428,9 @@ struct continent_type
 struct weapon_type
 {
     char *    name;
-    int    vnum;
-    int    type;
-    int    *gsn;
+    int       vnum;
+    int       type;
+    int       gsn;
 };
 
 struct wiznet_type
@@ -465,12 +465,12 @@ struct pc_race_type                 /* additional data for pc races    */
 {
     char *  name;                   /* MUST be in race_type            */
     char    who_name[7];
-    int  points;                 /* cost in points of the race      */
-    int  class_mult[MAX_CLASS];  /* exp multiplier for class, * 100 */
+    int     points;                 /* cost in points of the race      */
+    int     class_mult[MAX_CLASS];  /* exp multiplier for class, * 100 */
     char *  skills[5];              /* bonus skills for the race       */
-    int  stats[MAX_STATS];       /* starting stats                  */
-    int  max_stats[MAX_STATS];   /* maximum stats                   */
-    int  size;                   /* aff bits for the race           */
+    int     stats[MAX_STATS];       /* starting stats                  */
+    int     max_stats[MAX_STATS];   /* maximum stats                   */
+    int     size;                   /* aff bits for the race           */
 };
 
 struct spec_type
@@ -484,10 +484,10 @@ struct spec_type
  */
 struct disabled_data
 {
-    DISABLED_DATA *next;            /* pointer to next node */
-    struct cmd_type const *command; /* pointer to the command struct*/
-    char *disabled_by;              /* name of disabler */
-    int level;                      /* level of disabler */
+    DISABLED_DATA         *next;        /* pointer to next node */
+    struct cmd_type const *command;     /* pointer to the command struct*/
+    char                  *disabled_by; /* name of disabler */
+    int                   level;        /* level of disabler */
 };
 
 /*
@@ -509,7 +509,7 @@ struct    note_data
 {
     NOTE_DATA *  next;
     bool         valid;
-    int       type;
+    int          type;
     char *       sender;
     char *       date;
     char *       to_list;
@@ -525,12 +525,12 @@ struct    affect_data
 {
     AFFECT_DATA *  next;
     bool           valid;
-    int         where;
-    int         type;
-    int         level;
-    int         duration;
-    int         location;
-    int         modifier;
+    int            where;
+    int            type;
+    int            level;
+    int            duration;
+    int            location;
+    int            modifier;
     int            bitvector;
 };
 
