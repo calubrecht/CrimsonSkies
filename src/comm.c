@@ -804,6 +804,12 @@ void close_socket(DESCRIPTOR_DATA * dclose)
             // They are reclassing, disconnect them, extract them, don't save them.  Since we re-use the creation connection
             // state we must check the is_reclassing boolean which never gets saved to the pfile.
             wiznet("Net death has claimed $N while reclassing.  They have been extracted from the world and not saved.", ch, NULL, WIZ_LINKS, 0, 0);
+
+            if (ch != NULL)
+            {
+                log_f("Net death has claimed %s while reclassing.  They have been extracted from the world and not saved.", ch->name);
+            }
+
             extract_char(ch, TRUE);
         }
         else
