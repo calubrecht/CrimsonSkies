@@ -86,6 +86,7 @@ int line_count	args((char *orig));
     const	char	echo_off_str[] = {IAC, WILL, TELOPT_ECHO, '\0'};
     const	char	echo_on_str[] = {IAC, WONT, TELOPT_ECHO, '\0'};
     const	char 	go_ahead_str[] = {IAC, GA, '\0'};
+    void  gettimeofday args((struct timeval *tp, void *tzp));
 #endif
 
 #if    defined(unix)
@@ -129,10 +130,6 @@ int line_count	args((char *orig));
     fd_set * exceptfds, struct timeval * timeout));
     int socket args((int domain, int type, int protocol));
     /* int    write        args( ( int fd, char *buf, int nbyte ) ); *//* read,write in unistd.h */
-#endif
-
-#if defined(_WIN32)
-    void gettimeofday args((struct timeval *tp, void *tzp));
 #endif
 
 /*
