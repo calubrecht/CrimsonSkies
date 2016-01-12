@@ -61,17 +61,6 @@
 #endif
 
 /*
- * OS-dependent local functions.
- */
-#if defined(unix)
-    void game_loop args((int control));
-    int init_socket args((int port));
-    void init_descriptor args((int control));
-    bool read_from_descriptor args((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args((int desc, char *txt, int length, DESCRIPTOR_DATA *d));
-#endif
-
-/*
  * Other local functions (OS-independent).
  */
 bool check_parse_name args((char *name));
