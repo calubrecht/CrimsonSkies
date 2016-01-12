@@ -63,7 +63,7 @@ void do_disable(CHAR_DATA *ch, char *argument)
 
     if (IS_NPC(ch))
     {
-        send_to_char("RETURN first.\n\r", ch);
+        send_to_char("RETURN first.\r\n", ch);
         return;
     }
 
@@ -71,16 +71,18 @@ void do_disable(CHAR_DATA *ch, char *argument)
     {
         if (!disabled_first) /* Any disabled at all ? */
         {
-            send_to_char("There are no commands disabled.\n\r", ch);
+            send_to_char("There are no commands disabled.\r\n", ch);
             return;
         }
 
-        send_to_char("Disabled commands:\n\r", ch);
-        send_to_char("Command      Level   Disabled by\n\r", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        send_to_char("{WDisabled Command      Level   Disabled by{x\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
 
         for (p = disabled_first; p; p = p->next)
         {
-            sprintf(buf, "%-12s %5d   %-12s\n\r", p->command->name, p->level, p->disabled_by);
+            sprintf(buf, "%-21s %5d   %-12s\r\n", p->command->name, p->level, p->disabled_by);
             send_to_char(buf, ch);
         }
         return;
@@ -99,17 +101,17 @@ void do_disable(CHAR_DATA *ch, char *argument)
 
     if (p) /* this command is disabled */
     {
-    /* Optional: The level of the imm to enable the command must equal or exceed level
-       of the one that disabled it */
-
+        /*
+         * Optional: The level of the imm to enable the command must equal or exceed level
+         * of the one that disabled it
+         */
         if (get_trust(ch) < p->level)
         {
-            send_to_char("This command was disabled by a higher power.\n\r", ch);
+            send_to_char("This command was disabled by a higher power.\r\n", ch);
             return;
         }
 
         /* Remove */
-
         if (disabled_first == p) /* node to be removed == head ? */
         {
             disabled_first = p->next;
@@ -123,14 +125,14 @@ void do_disable(CHAR_DATA *ch, char *argument)
         free_string(p->disabled_by); /* free name of disabler */
         free_mem(p, sizeof(DISABLED_DATA)); /* free node */
         save_disabled(); /* save to disk */
-        send_to_char("Command enabled.\n\r", ch);
+        send_to_char("Command enabled.\r\n", ch);
     }
     else /* not a disabled command, check if that command exists */
     {
         /* IQ test */
         if (!str_cmp(argument, "disable"))
         {
-            send_to_char("You cannot disable the disable command.\n\r", ch);
+            send_to_char("You cannot disable the disable command.\r\n", ch);
             return;
         }
 
@@ -146,14 +148,14 @@ void do_disable(CHAR_DATA *ch, char *argument)
         /* Found? */
         if (cmd_table[i].name[0] == '\0')
         {
-            send_to_char("No such command.\n\r", ch);
+            send_to_char("No such command.\r\n", ch);
             return;
         }
 
         /* Can the imm use this command at all ? */
         if (cmd_table[i].level > get_trust(ch))
         {
-            send_to_char("You don't have access to that command; you cannot disable it.\n\r", ch);
+            send_to_char("You don't have access to that command; you cannot disable it.\r\n", ch);
             return;
         }
 
@@ -166,15 +168,16 @@ void do_disable(CHAR_DATA *ch, char *argument)
         p->next = disabled_first;
         disabled_first = p; /* add before the current first element */
 
-        send_to_char("Command disabled.\n\r", ch);
+        send_to_char("Command disabled.\r\n", ch);
         save_disabled(); /* save to disk */
     }
 }
 
-/* Check if that command is disabled
-   Note that we check for equivalence of the do_fun pointers; this means
-   that disabling 'chat' will also disable the '.' command
-*/
+/*
+ * Check if that command is disabled
+ *  Note that we check for equivalence of the do_fun pointers; this means
+ *  that disabling 'chat' will also disable the '.' command
+ */
 bool check_disabled(const struct cmd_type *command)
 {
     DISABLED_DATA *p;
@@ -190,7 +193,9 @@ bool check_disabled(const struct cmd_type *command)
     return FALSE;
 }
 
-/* Load disabled commands */
+/*
+ * Load disabled commands
+ */
 bool load_disabled()
 {
     FILE *fp;
@@ -243,7 +248,9 @@ bool load_disabled()
     return TRUE;
 }
 
-/* Save disabled commands */
+/*
+ * Save disabled commands
+ */
 void save_disabled()
 {
     FILE *fp;
