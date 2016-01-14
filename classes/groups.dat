@@ -46,6 +46,12 @@ Sk 'bladesong'
 End
 
 #GROUP
+Name 'ranger basics'
+Sk 'sword'
+Sk 'second attack'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -144,6 +150,18 @@ Sk 'third attack'
 Sk 'combat'
 Sk 'dual wield'
 Sk 'circle'
+End
+
+#GROUP
+Name 'ranger default'
+Sk 'weaponsmaster'
+Sk 'dual wield'
+Sk 'enhanced damage'
+Sk 'parry'
+Sk 'rescue'
+Sk 'third attack'
+Sk 'acute vision'
+Sk 'track'
 End
 
 #GROUP
