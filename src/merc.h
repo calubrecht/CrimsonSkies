@@ -200,20 +200,20 @@ typedef void SPELL_FUN args((int sn, int level, CHAR_DATA *ch, void *vo, int tar
 #define BAN_PERMIT     E
 #define BAN_PERMANENT  F
 
-struct    ban_data
+struct ban_data
 {
-    BAN_DATA *  next;
+    BAN_DATA  * next;
     bool        valid;
-    int      ban_flags;
-    int      level;
-    char *      name;
+    int         ban_flags;
+    int         level;
+    char      * name;
 };
 
 struct buf_type
 {
-    BUFFER *    next;
+    BUFFER    * next;
     bool        valid;
-    int      state;  /* error state of the buffer */
+    int         state;  /* error state of the buffer */
     long        size;   /* size in k */
     char *      string; /* buffer's string */
 };
@@ -231,7 +231,7 @@ struct buf_type
 #define SKY_RAINING    2
 #define SKY_LIGHTNING  3
 
-struct    time_info_data
+struct time_info_data
 {
     int        hour;
     int        day;
@@ -239,7 +239,7 @@ struct    time_info_data
     int        year;
 };
 
-struct    weather_data
+struct weather_data
 {
     int        mmhg;
     int        change;
@@ -274,7 +274,7 @@ struct    weather_data
 /*
  * Descriptor (channel) structure.
  */
-struct    descriptor_data
+struct descriptor_data
 {
     DESCRIPTOR_DATA *  next;
     DESCRIPTOR_DATA *  snoop_by;
@@ -304,7 +304,7 @@ struct    descriptor_data
 /*
  * Attribute bonus structures.
  */
-struct    str_app_type
+struct str_app_type
 {
     int    tohit;
     int    todam;
@@ -312,22 +312,22 @@ struct    str_app_type
     int    wield;
 };
 
-struct    int_app_type
+struct int_app_type
 {
     int    learn;
 };
 
-struct    wis_app_type
+struct wis_app_type
 {
     int    practice;
 };
 
-struct    dex_app_type
+struct dex_app_type
 {
     int    defensive;
 };
 
-struct    con_app_type
+struct con_app_type
 {
     int    hitp;
     int    shock;
@@ -393,7 +393,7 @@ struct    shop_data
 #define STAT_CON   4
 
 // reclass
-struct    class_type
+struct class_type
 {
     char *  name;              /* the full name of the class  */
     char    who_name[4];       /* Three-letter name for 'who' */
@@ -501,12 +501,12 @@ struct disabled_data
 #define NOTE_OOC        4
 #define NOTE_STORY      5
 #define NOTE_HISTORY    6
-#define NOTE_IMM	7
+#define NOTE_IMM	    7
 
 /*
  * Data structure for notes.
  */
-struct    note_data
+struct note_data
 {
     NOTE_DATA *  next;
     bool         valid;
@@ -522,7 +522,7 @@ struct    note_data
 /*
  * An affect.
  */
-struct    affect_data
+struct affect_data
 {
     AFFECT_DATA *  next;
     bool           valid;
@@ -672,13 +672,18 @@ typedef enum
 #define ACT_SENTINEL           (B)   /* Stays in one room  */
 #define ACT_SCAVENGER          (C)   /* Picks up objects   */
 #define ACT_IS_PORTAL_MERCHANT (D)   /* Mob that sells portals to places */
+//                             (E)
 #define ACT_AGGRESSIVE         (F)   /* Attacks PC's       */
 #define ACT_STAY_AREA          (G)   /* Won't leave area   */
 #define ACT_WIMPY              (H)   /* Mob will flee when it has little life left */
 #define ACT_PET                (I)   /* Auto set for pets  */
 #define ACT_TRAIN              (J)   /* Can train PC's     */
 #define ACT_PRACTICE           (K)   /* Can practice PC's  */
+//                             (L)
+//                             (M)
+//                             (N)
 #define ACT_UNDEAD             (O)
+//                             (P)
 #define ACT_CLERIC             (Q)   /* Mob can cast cleric spells in battle */
 #define ACT_MAGE               (R)   /* Mob can cast mage spells in battle */
 #define ACT_THIEF              (S)
@@ -687,6 +692,7 @@ typedef enum
 #define ACT_NOPURGE            (V)   /* Mob can't be purged from a room */
 #define ACT_OUTDOORS           (W)
 #define ACT_INDOORS            (Y)
+//                             (Z)
 #define ACT_IS_HEALER          (aa)  /* Mob sells healing services */
 #define ACT_GAIN               (bb)
 #define ACT_UPDATE_ALWAYS      (cc)
@@ -764,6 +770,9 @@ typedef enum
 #define IMM_DROWNING       (R)
 #define IMM_LIGHT          (S)
 #define IMM_SOUND          (T)
+//                         (U)
+//                         (V)
+//                         (W)
 #define IMM_WOOD           (X)
 #define IMM_SILVER         (Y)
 #define IMM_IRON           (Z)
@@ -789,6 +798,9 @@ typedef enum
 #define RES_DROWNING       (R)
 #define RES_LIGHT          (S)
 #define RES_SOUND          (T)
+//                         (U)
+//                         (V)
+//                         (W)
 #define RES_WOOD           (X)
 #define RES_SILVER         (Y)
 #define RES_IRON           (Z)
@@ -814,6 +826,9 @@ typedef enum
 #define VULN_DROWNING      (R)
 #define VULN_LIGHT         (S)
 #define VULN_SOUND         (T)
+//                         (U)
+//                         (V)
+//                         (W)
 #define VULN_WOOD          (X)
 #define VULN_SILVER        (Y)
 #define VULN_IRON          (Z)
@@ -824,6 +839,7 @@ typedef enum
 #define FORM_MAGICAL       (C)
 #define FORM_INSTANT_DECAY (D)
 #define FORM_OTHER         (E)  /* defined by material bit */
+//                         (F)
 
 /* actual form */
 #define FORM_ANIMAL        (G)
@@ -841,6 +857,8 @@ typedef enum
 #define FORM_WORM          (R)
 #define FORM_BLOB          (S)
 
+//                         (T)
+//                         (U)
 #define FORM_MAMMAL        (V)
 #define FORM_BIRD          (W)
 #define FORM_REPTILE       (X)
@@ -868,6 +886,9 @@ typedef enum
 #define PART_FINS          (O)
 #define PART_WINGS         (P)
 #define PART_TAIL          (Q)
+//                         (R)
+//                         (S)
+//                         (T)
 /* for combat */
 #define PART_CLAWS         (U)
 #define PART_FANGS         (V)
@@ -938,8 +959,8 @@ typedef enum
 #define SIZE_GIANT   5
 
 /* alignments */
-#define ALIGN_EVIL              1
-#define ALIGN_NEUTRAL           2
+#define ALIGN_EVIL      1
+#define ALIGN_NEUTRAL   2
 #define ALIGN_GOOD		3
 
 /*
@@ -1175,10 +1196,6 @@ typedef enum
 #define ROOM_VNUM_TEMPLE   3001
 #define ROOM_VNUM_ALTAR    3054
 #define ROOM_VNUM_SCHOOL   3700
-#define ROOM_VNUM_BALANCE  4500
-#define ROOM_VNUM_CIRCLE   4400
-#define ROOM_VNUM_DEMISE   4201
-#define ROOM_VNUM_HONOR    4300
 
 /*
  * Room flags.
@@ -1408,36 +1425,36 @@ struct    mob_index_data
     SHOP_DATA *       pShop;
     MPROG_LIST *      mprogs;
     AREA_DATA *       area;        /* OLC */
-    int            vnum;
-    int            group;
-    int            count;
-    int            killed;
+    int               vnum;
+    int               group;
+    int               count;
+    int               killed;
     char *            player_name;
     char *            short_descr;
     char *            long_descr;
     char *            description;
     long              act;
     long              affected_by;
-    int            alignment;
-    int            level;
-    int            hitroll;
-    int            hit[3];
-    int            mana[3];
-    int            damage[3];
-    int            ac[4];
-    int            dam_type;
+    int               alignment;
+    int               level;
+    int               hitroll;
+    int               hit[3];
+    int               mana[3];
+    int               damage[3];
+    int               ac[4];
+    int               dam_type;
     long              off_flags;
     long              imm_flags;
     long              res_flags;
     long              vuln_flags;
-    int            start_pos;
-    int            default_pos;
-    int            sex;
-    int            race;
+    int               start_pos;
+    int               default_pos;
+    int               sex;
+    int               race;
     long              wealth;
     long              form;
     long              parts;
-    int            size;
+    int               size;
     char *            material;
     long              mprog_flags;
 };
@@ -1570,15 +1587,15 @@ struct pc_data
     char *          bamfout;
     char *          title;
     char *          email;
-    int          perm_hit;
-    int          perm_mana;
-    int          perm_move;
-    int          true_sex;
+    int             perm_hit;
+    int             perm_mana;
+    int             perm_move;
+    int             true_sex;
     int	            last_level;
-    int          condition[4];
-    int          learned[MAX_SKILL];
+    int             condition[4];
+    int             learned[MAX_SKILL];
     bool            group_known[MAX_GROUP];
-    int          points;
+    int             points;
     bool            confirm_delete;
     char *          alias[MAX_ALIAS];
     char *          alias_sub[MAX_ALIAS];
@@ -1615,7 +1632,7 @@ struct    liq_type
 {
     char *    liq_name;
     char *    liq_color;
-    int    liq_affect[5];
+    int       liq_affect[5];
 };
 
 /*
@@ -1641,16 +1658,16 @@ struct    obj_index_data
     char *              name;
     char *              short_descr;
     char *              description;
-    int              vnum;
-    int              reset_num;
+    int                 vnum;
+    int                 reset_num;
     char *              material;
-    int              item_type;
+    int                 item_type;
     int                 extra_flags;
     int                 wear_flags;
-    int              level;
-    int              condition;
-    int              count;
-    int              weight;
+    int                 level;
+    int                 condition;
+    int                 count;
+    int                 weight;
     int                 cost;
     int                 value[5];
 };
@@ -1678,16 +1695,16 @@ struct    obj_data
     char *              description;
     char *              enchanted_by; /* The last enchantor that enchanted the item */
     char *              wizard_mark;  /* In case the item is wizard marked, it can always be located by the enchantor */
-    int              item_type;
+    int                 item_type;
     int                 extra_flags;
     int                 wear_flags;
-    int              wear_loc;
-    int              weight;
+    int                 wear_loc;
+    int                 weight;
     int                 cost;
-    int              level;
-    int              condition;
+    int                 level;
+    int                 condition;
     char *              material;
-    int              timer;
+    int                 timer;
     int                 value[5];
     int                 count;
 };
@@ -1702,8 +1719,8 @@ struct    exit_data
         ROOM_INDEX_DATA *  to_room;
         int             vnum;
     } u1;
-    int       exit_info;
-    int       key;
+    int          exit_info;
+    int          key;
     char *       keyword;
     char *       description;
     EXIT_DATA *  next;        /* OLC */
@@ -1732,10 +1749,10 @@ struct    reset_data
 {
     RESET_DATA *  next;
     char          command;
-    int        arg1;
-    int        arg2;
-    int        arg3;
-    int        arg4;
+    int           arg1;
+    int           arg2;
+    int           arg3;
+    int           arg4;
 };
 
 /*
@@ -1748,12 +1765,12 @@ struct    area_data
     char *        file_name;
     char *        name;
     char *        credits;
-    int        age;
-    int        nplayer;
-    int        min_level;
-    int        max_level;
-    int        min_vnum;
-    int        max_vnum;
+    int           age;
+    int           nplayer;
+    int           min_level;
+    int           max_level;
+    int           min_vnum;
+    int           max_vnum;
     bool          empty;
     char *        builders;    /* OLC */ /* Listing of */
     int           vnum;        /* OLC */ /* Area vnum  */
@@ -1778,15 +1795,15 @@ struct    room_index_data
     char *               name;
     char *               description;
     char *               owner;
-    int               vnum;
+    int                  vnum;
     int                  room_flags;
-    int               light;
-    int               sector_type;
-    int               heal_rate;
-    int               mana_rate;
-    int               clan;
-    int               heap_index;     /* Path Find */
-    int               steps;          /* Path Find */
+    int                  light;
+    int                  sector_type;
+    int                  heal_rate;
+    int                  mana_rate;
+    int                  clan;
+    int                  heap_index;     /* Path Find */
+    int                  steps;          /* Path Find */
     bool                 visited;        /* Path Find */
 
 };
@@ -1800,9 +1817,9 @@ struct timer_data
     TIMER  *    next;
     DO_FUN *    do_fun;
     int         value;
-    int      type;
-    int      count;
-    char *  cmd;
+    int         type;
+    int         count;
+    char *      cmd;
 };
 
 /*
@@ -1835,23 +1852,23 @@ struct timer_data
 struct skill_type
 {
     char *      name;                      /* Name of skill                */
-    int      skill_level[MAX_CLASS];    /* Level needed by class        */
-    int      rating[MAX_CLASS];         /* How hard it is to learn      */
+    int         skill_level[MAX_CLASS];    /* Level needed by class        */
+    int         rating[MAX_CLASS];         /* How hard it is to learn      */
     SPELL_FUN * spell_fun;                 /* Spell pointer (for spells)   */
-    int      target;                    /* Legal targets                */
-    int      minimum_position;          /* Position for caster / user   */
-    int      min_mana;                  /* Minimum mana used            */
-    int      beats;                     /* Waiting time after use       */
+    int         target;                    /* Legal targets                */
+    int         minimum_position;          /* Position for caster / user   */
+    int         min_mana;                  /* Minimum mana used            */
+    int         beats;                     /* Waiting time after use       */
     char *      noun_damage;               /* Damage message               */
     char *      msg_off;                   /* Wear off message             */
     char *      msg_obj;                   /* Wear off message for obects  */
-    int      race;                      /* Specific race if the skill is only for one race */
+    int         race;                      /* Specific race if the skill is only for one race */
 };
 
 struct  group_type
 {
     char *    name;
-    int    rating[MAX_CLASS];
+    int       rating[MAX_CLASS];
     char *    spells[MAX_IN_GROUP];
 };
 
@@ -1879,7 +1896,7 @@ struct mprog_list
 {
     int           trig_type;
     char *        trig_phrase;
-    int        vnum;
+    int           vnum;
     char *        code;
     MPROG_LIST *  next;
     bool          valid;
@@ -1887,7 +1904,7 @@ struct mprog_list
 
 struct mprog_code
 {
-    int        vnum;
+    int           vnum;
     char *        code;
     MPROG_CODE *  next;
 };
