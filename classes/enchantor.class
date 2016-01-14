@@ -146,6 +146,8 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
+Sk 'track' 52 -1
+Sk 'acute vision' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -198,6 +200,7 @@ Gr 'warrior basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
+Gr 'ranger basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -205,6 +208,7 @@ Gr 'warrior default' 0
 Gr 'enchantor default' 40
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
+Gr 'ranger default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 4

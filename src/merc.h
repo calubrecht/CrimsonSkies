@@ -172,6 +172,7 @@ typedef void SPELL_FUN args((int sn, int level, CHAR_DATA *ch, void *vo, int tar
 #define ENCHANTOR_CLASS_LOOKUP                  4
 #define HEALER_CLASS_LOOKUP                     5
 #define BLADESINGER_CLASS_LOOKUP                6
+#define RANGER_CLASS_LOOKUP                     7
 
 /*
  * PC Race Lookup
@@ -1486,31 +1487,31 @@ struct    char_data
     bool               valid;
     char *             name;
     long               id;
-    int             version;
+    int                version;
     char *             short_descr;
     char *             long_descr;
     char *             description;
     char *             prompt;
     char *             prefix;
-    int             group;
-    int             clan;
-    int             sex;
-    int             class;
-    int             race;
-    int             level;
-    int             trust;
+    int                group;
+    int                clan;
+    int                sex;
+    int                class;
+    int                race;
+    int                level;
+    int                trust;
     int                played;
     int                lines;  /* for the pager */
     time_t             logon;
-    int             timer;
-    int             wait;
-    int             daze;
-    int             hit;
-    int             max_hit;
-    int             mana;
-    int             max_mana;
-    int             move;
-    int             max_move;
+    int                timer;
+    int                wait;
+    int                daze;
+    int                hit;
+    int                max_hit;
+    int                mana;
+    int                max_mana;
+    int                move;
+    int                max_move;
     long               gold;
     long               silver;
     int                exp;
@@ -1520,39 +1521,39 @@ struct    char_data
     long               imm_flags;
     long               res_flags;
     long               vuln_flags;
-    int             invis_level;
-    int             incog_level;
+    int                invis_level;
+    int                incog_level;
     long               affected_by;
-    int             position;
-    int             practice;
-    int             train;
-    int             carry_weight;
-    int             carry_number;
-    int             saving_throw;
-    int             alignment;
-    int             hitroll;
-    int             damroll;
-    int             armor[4];
-    int             wimpy;
+    int                position;
+    int                practice;
+    int                train;
+    int                carry_weight;
+    int                carry_number;
+    int                saving_throw;
+    int                alignment;
+    int                hitroll;
+    int                damroll;
+    int                armor[4];
+    int                wimpy;
     /* stats */
-    int             perm_stat[MAX_STATS];
-    int             mod_stat[MAX_STATS];
+    int                perm_stat[MAX_STATS];
+    int                mod_stat[MAX_STATS];
     /* parts stuff */
     long               form;
     long               parts;
-    int             size;
+    int                size;
     char*              material;
     /* mobile stuff */
     long               off_flags;
-    int             damage[3];
-    int             dam_type;
-    int             start_pos;
-    int             default_pos;
-    int             mprog_delay;
+    int                damage[3];
+    int                dam_type;
+    int                start_pos;
+    int                default_pos;
+    int                mprog_delay;
     /* Smaug style timer */
     TIMER *            first_timer;
     TIMER *            last_timer;
-    int             substate;
+    int                substate;
     void *             dest_buf;
 };
 

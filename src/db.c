@@ -4679,5 +4679,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_gore, "gore");
     ASSIGN_GSN(gsn_ghost, "ghost");
     ASSIGN_GSN(gsn_enchant_person, "enchant person");
+    ASSIGN_GSN(gsn_track, "track");
+    ASSIGN_GSN(gsn_acute_vision, "acute vision");
 
 } // end assign_gsn

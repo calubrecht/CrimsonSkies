@@ -1,19 +1,19 @@
-Name        warrior~
-Class       3
-WhoName     War~
+Name        ranger~
+Class       7
+WhoName     Ran~
 Attrprime   str
 Weapon      3702
 Guild       3022
 Guild       9633
 Skilladept  75
 Thac0_00    20
-Thac0_32    -10
+Thac0_32    -7
 Hpmin       11
 Hpmax       15
 Mana        0
-BaseGroup   'warrior basics'
-DefGroup    'warrior default'
-IsReclass   0
+BaseGroup   'ranger basics'
+DefGroup    'ranger default'
+IsReclass   1
 Sk 'axe' 1 4
 Sk 'dagger' 1 2
 Sk 'flail' 1 4
@@ -32,6 +32,8 @@ Sk 'staves' 1 8
 Sk 'wands' 1 8
 Sk 'recall' 1 2
 Sk 'swim' 1 1
+Sk 'track' 1 1
+Sk 'acute vision' 1 1
 Sk 'magic missile' 2 2
 Sk 'cause light' 3 2
 Sk 'cure light' 3 2
@@ -153,8 +155,6 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
-Sk 'track' 52 -1
-Sk 'acute vision' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2
@@ -204,15 +204,15 @@ Gr 'ranger basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
-Gr 'warrior default' 40
+Gr 'warrior default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
-Gr 'ranger default' 0
+Gr 'ranger default' 40
 Gr 'weaponsmaster' 20
 Gr 'attack' 8
 Gr 'beguiling' 0
-Gr 'benedictions' 8
+Gr 'benedictions' 0
 Gr 'combat' 9
 Gr 'creation' 8
 Gr 'curative' 8
@@ -232,9 +232,9 @@ Gr 'weather' 8
 Gr 'bladesongs' 0
 Mult 0 100
 Mult 1 100
-Mult 2 120
-Mult 3 100
-Mult 4 105
+Mult 2 100
+Mult 3 125
+Mult 4 125
 Mult 5 125
-Mult 6 125
+Mult 6 100
 End

@@ -1993,6 +1993,12 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only elves can be bladesingers.\r\n", ch);
         return;
     }
+    else if (iClass == RANGER_CLASS_LOOKUP &&
+                (ch->class != WARRIOR_CLASS_LOOKUP && ch->class != THIEF_CLASS_LOOKUP))
+    {
+        send_to_char("Only warriors or thieves can reclass into a ranger.\r\n", ch);
+        return;
+    }
 
     char buf[MSL];
     int oldLevel = 0;
