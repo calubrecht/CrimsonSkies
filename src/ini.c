@@ -55,6 +55,7 @@
                                 Includes
  ---------------------------------------------------------------------------*/
 #include "ini.h"
+#include "merc.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,10 +73,6 @@
 
 /** Invalid key token */
 #define DICT_INVALID_KEY    ((char*)-1)
-
-/*---------------------------------------------------------------------------
-                            Private functions
- ---------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -144,9 +141,6 @@ static int dictionary_grow(dictionary * d)
     return 0 ;
 }
 
-/*---------------------------------------------------------------------------
-                            Function codes
- ---------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 /**
   @brief    Compute the hash key for a string.
@@ -423,13 +417,9 @@ void dictionary_dump(const dictionary * d, FILE * out)
     return ;
 }
 
-/*---------------------------- Defines -------------------------------------*/
 #define ASCIILINESZ         (1024)
 #define INI_INVALID_KEY     ((char*)-1)
 
-/*---------------------------------------------------------------------------
-                        Private to this module
- ---------------------------------------------------------------------------*/
 /**
  * This enum stores the status for each parsed line (internal use only).
  */
@@ -767,7 +757,18 @@ const char * iniparser_getstring(const dictionary * d, const char * key, const c
     char tmp_str[ASCIILINESZ+1];
 
     if (d==NULL || key==NULL)
+    {
+        if (key == NULL)
+        {
+            bugf("iniparser_getstring: Null key requested");
+        }
+        else
+        {
+            bugf("iniparser_getstring: %s not found", key);
+        }
+
         return def ;
+    }
 
     lc_key = strlwc(key, tmp_str, sizeof(tmp_str));
     sval = dictionary_get(d, lc_key, def);
@@ -806,7 +807,20 @@ int iniparser_getint(const dictionary * d, const char * key, int notfound)
     const char * str ;
 
     str = iniparser_getstring(d, key, INI_INVALID_KEY);
-    if (str==INI_INVALID_KEY) return notfound ;
+    if (str==INI_INVALID_KEY)
+    {
+        if (key == NULL)
+        {
+            bugf("iniparser_getint: Null key requested");
+        }
+        else
+        {
+            bugf("iniparser_getint: %s not found", key);
+        }
+
+        return notfound;
+    }
+
     return (int)strtol(str, NULL, 0);
 }
 
@@ -828,7 +842,20 @@ double iniparser_getdouble(const dictionary * d, const char * key, double notfou
     const char * str ;
 
     str = iniparser_getstring(d, key, INI_INVALID_KEY);
-    if (str==INI_INVALID_KEY) return notfound ;
+    if (str==INI_INVALID_KEY)
+    {
+        if (key == NULL)
+        {
+            bugf("iniparser_getdouble: Null key requested");
+        }
+        else
+        {
+            bugf("iniparser_getdouble: %s not found", key);
+        }
+
+        return notfound ;
+    }
+
     return atof(str);
 }
 
@@ -876,7 +903,17 @@ int iniparser_getboolean(const dictionary * d, const char * key, int notfound)
     } else if (c[0]=='n' || c[0]=='N' || c[0]=='0' || c[0]=='f' || c[0]=='F') {
         ret = 0 ;
     } else {
-        ret = notfound ;
+        ret = notfound;
+
+        if (key == NULL)
+        {
+            bugf("iniparser_getint: Null key requested");
+        }
+        else
+        {
+            bugf("iniparser_getint: %s not found", key);
+        }
+
     }
     return ret;
 }
@@ -992,7 +1029,7 @@ static line_status iniparser_line(
         strstrip(key);
         strlwc(key, key, len);
         strstrip(value);
-        
+
         sta = LINE_VALUE ;
     } else if (sscanf(line, "%[^=] = %[;#]", key, value)==2
            ||  sscanf(line, "%[^=] %[=]", key, value) == 2) {
