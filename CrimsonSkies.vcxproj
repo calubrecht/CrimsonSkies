@@ -90,6 +90,7 @@
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\healer.c" />
+    <ClCompile Include="src\ini.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\log.c" />
     <ClCompile Include="src\lookup.c" />
@@ -118,6 +119,7 @@
     <ClInclude Include="src\board.h" />
     <ClInclude Include="src\db.h" />
     <ClInclude Include="src\gsn.h" />
+    <ClInclude Include="src\ini.h" />
     <ClInclude Include="src\interp.h" />
     <ClInclude Include="src\lookup.h" />
     <ClInclude Include="src\magic.h" />

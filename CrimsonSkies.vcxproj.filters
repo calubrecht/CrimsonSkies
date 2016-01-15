@@ -138,6 +138,9 @@
     <ClCompile Include="src\disable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ini.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gsn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ini.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
