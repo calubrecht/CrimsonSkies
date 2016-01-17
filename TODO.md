@@ -89,5 +89,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Try to port Nick Gammon's windows service code.  
   - Try to port Tyche's copyover code from Murk++ for a Windows copyover.
   - Implement and debug Moosehead macro's
-  - Have load functions return true or false to pass to the copyover message
-    for if they succeed or fail (for the one's that can fail).
