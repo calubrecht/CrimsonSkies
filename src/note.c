@@ -288,6 +288,11 @@ void load_notes(void)
     load_thread(STORY_FILE, &story_list, NOTE_STORY, 60 * 24 * 60 * 60);
     load_thread(HISTORY_FILE, &history_list, NOTE_HISTORY, 0);
     load_thread(IMMNOTE_FILE, &immnote_list, NOTE_IMM, 30 * 24 * 60 * 60);
+
+    // If it's unknown at this point then it's a success
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
+
 } // end void load_notes
 
 /*
@@ -368,6 +373,7 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
         pnotelast = pnote;
     }
 
+    global.last_boot_result = FAILURE;
     strcpy(strArea, NOTE_FILE);
     fpArea = fp;
     bug("Load_notes: bad key word.", 0);

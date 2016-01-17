@@ -579,6 +579,13 @@ struct statistics_data
 };
 
 /*
+ * Results for a load_* function when the mud is booting.  This will allow us to show
+ * the last status in copyover (whether it failed, etc.).  We'll store the last status
+ * in the global data so we don't have to pass it around.
+ */
+typedef enum {UNKNOWN, SUCCESS, FAILURE, WARNING, DISABLE, DEFAULT, MISSING} boot_result;
+
+/*
  * Global data - This is going to store global data that is not persisted
  * between boots.  This will help us reign in and organize various global
  * variables throughout the game (and in a modern IDE will help us quickly
@@ -591,6 +598,7 @@ struct global_data
     bool shutdown;                    // Whether a shutdown is in progress (formerly merc_down)
     bool game_loaded;                 // Whether the game has been fully booted.
     char boot_time[MAX_INPUT_LENGTH]; // String of when the mud booted, formerly str_boot_time
+    boot_result last_boot_result;     // The status of the last boot function.
 };
 
 /*
@@ -2274,7 +2282,7 @@ void     printf_to_desc      args((DESCRIPTOR_DATA *, char *, ...));
 bool     write_to_descriptor args((int desc, char *txt, int length, DESCRIPTOR_DATA *d));
 void     write_to_all_desc   args((char *txt));
 void     send_to_all_char    args((char *txt));
-void     copyover_broadcast  args((char *txt, bool show_last_result, bool last_result));
+void     copyover_broadcast  args((char *txt, bool show_last_result));
 
 /* db.c */
 void     reset_area          args((AREA_DATA * pArea));        /* OLC */
@@ -2329,7 +2337,7 @@ char  *strip_color    args((char *string));
 
 /* disable.c */
 bool  check_disabled  args((const struct cmd_type *command));
-bool  load_disabled   args((void));
+void  load_disabled   args((void));
 void  save_disabled   args((void));
 
 /* effect.c */

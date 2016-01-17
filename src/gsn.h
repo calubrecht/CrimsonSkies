@@ -50,12 +50,14 @@
  * to go update assign_gsn in db.c to map this gsn to the appripriate
  * entry in the skill table.
  */
-#define ASSIGN_GSN(gsn, skill)                                  \
-do                                                              \
-{                                                               \
-    if ( ((gsn) = skill_lookup((skill))) == -1 )                \
-        fprintf( stderr, "ASSIGN_GSN: Skill %s not found.\n",   \
-                (skill) );                                      \
+#define ASSIGN_GSN(gsn, skill)                                          \
+do                                                                      \
+{                                                                       \
+    if (((gsn) = skill_lookup((skill))) == -1)                          \
+    {                                                                   \
+        fprintf(stderr, "ASSIGN_GSN: Skill %s not found.\n", (skill) ); \
+        global.last_boot_result = WARNING;                              \
+    }                                                                   \
 } while(0)
 
 DECLARE_GSN(gsn_backstab)

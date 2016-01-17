@@ -180,7 +180,7 @@ void fix_mobprogs args((void));
 void reset_area args((AREA_DATA * pArea));
 void load_classes args((void));
 void load_groups args((void));
-bool load_settings args((void));
+void load_settings args((void));
 void load_skills args((void));
 void load_game_objects args((void));
 void load_statistics args((void));
@@ -214,8 +214,6 @@ void boot_db()
         fBootDb = TRUE;
     }
 
-    bool last_result;
-
     log_string("STATUS: Initializing Random Number Generator");
     init_random();
 
@@ -223,28 +221,28 @@ void boot_db()
     init_weather();
 
     log_string("STATUS: Loading Settings");
-    if (global.copyover) copyover_broadcast("STATUS: Loading Settings.", FALSE, TRUE);
-    last_result = load_settings();
+    if (global.copyover) copyover_broadcast("STATUS: Loading Settings.", FALSE);
+    load_settings();
 
     log_string("STATUS: Loading Disabled Commands");
-    if (global.copyover) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE, last_result);
-    last_result = load_disabled();
+    if (global.copyover) copyover_broadcast("STATUS: Loading Disabled Commands.", TRUE);
+    load_disabled();
 
     log_string("STATUS: Loading Skills");
-    if (global.copyover) copyover_broadcast("STATUS: Loading Skills.", TRUE, last_result);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Skills.", TRUE);
     load_skills();
     log_f("STATUS: %d Skills Loaded", top_sn);
 
     log_string("STATUS: Loading Groups");
-    if (global.copyover) copyover_broadcast("STATUS: Loading Groups.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Groups.", TRUE);
     load_groups();
 
     log_string("STATUS: Loading Classes");
-    if (global.copyover) copyover_broadcast("STATUS: Loading Classes.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Classes.", TRUE);
     load_classes();
 
     log_string("STATUS: Assigning GSNs (Global Skill Numbers)");
-    if (global.copyover) copyover_broadcast("STATUS: Assigning GSNs (Global Skill Numbers).", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Assigning GSNs (Global Skill Numbers).", TRUE);
     assign_gsn();
 
     /*
@@ -252,13 +250,14 @@ void boot_db()
      */
     {
         log_string("STATUS: Loading Areas");
-        if (global.copyover) copyover_broadcast("STATUS: Loading Areas.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Areas.", TRUE);
 
         FILE *fpList;
 
         if ((fpList = fopen(AREA_LIST, "r")) == NULL)
         {
-            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+            global.last_boot_result = FAILURE;
+            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
             perror(AREA_LIST);
             exit(1);
         }
@@ -277,7 +276,8 @@ void boot_db()
             {
                 if ((fpArea = fopen(strArea, "r")) == NULL)
                 {
-                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    global.last_boot_result = FAILURE;
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                     perror(strArea);
                     exit(1);
                 }
@@ -292,7 +292,8 @@ void boot_db()
                 if (fread_letter(fpArea) != '#')
                 {
                     bug("Boot_db: # not found.", 0);
-                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    global.last_boot_result = FAILURE;
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                     exit(1);
                 }
 
@@ -322,8 +323,9 @@ void boot_db()
                     load_specials(fpArea);
                 else
                 {
+                    global.last_boot_result = FAILURE;
                     bug("Boot_db: bad section name.", 0);
-                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                     exit(1);
                 }
             }
@@ -333,6 +335,10 @@ void boot_db()
             fpArea = NULL;
         }
         fclose(fpList);
+
+        if (global.last_boot_result == UNKNOWN)
+            global.last_boot_result = SUCCESS;
+
     }
 
     /*
@@ -343,34 +349,34 @@ void boot_db()
      */
     {
         log_string("STATUS: Fixing Exits");
-        if (global.copyover) copyover_broadcast("STATUS: Fixing Exits.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Fixing Exits.", TRUE);
         fix_exits();
 
         log_string("STATUS: Fixing MobProgs");
-        if (global.copyover) copyover_broadcast("STATUS: Fixing MobProgs.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Fixing MobProgs.", TRUE);
         fix_mobprogs();
         fBootDb = FALSE;
 
         // The loading of saved objects needs to happen before the
         // resetting otherwise we'll have duplicate objects
         log_string("STATUS: Loading Saved Objects (Pits/Corpses/Buried Items)");
-        if (global.copyover) copyover_broadcast("STATUS: Loading Saved Objects.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Saved Objects.", TRUE);
         load_game_objects();
 
         log_string("STATUS: Resetting Areas");
-        if (global.copyover) copyover_broadcast("STATUS: Resetting Areas.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Resetting Areas.", TRUE);
         area_update();
 
         log_string("STATUS: Loading Banned Sites");
-        if (global.copyover) copyover_broadcast("STATUS: Loading Banned Sites.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Banned Sites.", TRUE);
         load_bans();
 
         log_string("STATUS: Loading Notes");
-        if (global.copyover) copyover_broadcast("STATUS: Loading Notes.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Notes.", TRUE);
         load_notes();
 
         log_string("STATUS: Loading Statistics");
-        if (global.copyover) copyover_broadcast("STATUS: Loading Statistics.", TRUE, TRUE);
+        if (global.copyover) copyover_broadcast("STATUS: Loading Statistics.", TRUE);
         load_statistics();
 
     }
@@ -503,6 +509,7 @@ void load_area(FILE * fp)
 
         if (!fMatch)
         {
+            global.last_boot_result = WARNING;
             bugf("load_area key not found: %s", word);
         }
 
@@ -1073,7 +1080,8 @@ void fix_exits(void)
                 {
                     default:
                         bugf("fix_exits : room %d with reset cmd %c", pRoomIndex->vnum, pReset->command);
-                        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                        global.last_boot_result = FAILURE;
+                        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                         exit(1);
                         break;
 
@@ -1091,8 +1099,9 @@ void fix_exits(void)
                         get_obj_index(pReset->arg1);
                         if (iLastObj == NULL)
                         {
+                            global.last_boot_result = FAILURE;
                             bugf("fix_exits : reset in room %d with iLastObj NULL", pRoomIndex->vnum);
-                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                             exit(1);
                         }
                         break;
@@ -1102,8 +1111,9 @@ void fix_exits(void)
                         get_obj_index(pReset->arg1);
                         if (iLastRoom == NULL)
                         {
+                            global.last_boot_result = FAILURE;
                             bugf("fix_exits : reset in room %d with iLastRoom NULL", pRoomIndex->vnum);
-                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                             exit(1);
                         }
                         iLastObj = iLastRoom;
@@ -1117,8 +1127,9 @@ void fix_exits(void)
                         get_room_index(pReset->arg1);
                         if (pReset->arg2 < 0 || pReset->arg2 > MAX_DIR)
                         {
+                            global.last_boot_result = FAILURE;
                             bugf("fix_exits : reset in room %d with arg2 %d >= MAX_DIR", pRoomIndex->vnum, pReset->arg2);
-                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                            if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                             exit(1);
                         }
                         break;
@@ -1173,6 +1184,10 @@ void fix_exits(void)
             }
         }
     }*/
+
+    // If it gets here and it's unknown then it's a success
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
 
     return;
 }
@@ -1254,13 +1269,19 @@ void fix_mobprogs(void)
                     list->code = prog->code;
                 else
                 {
+                    global.last_boot_result = FAILURE;
                     bug("Fix_mobprogs: code vnum %d not found.", list->vnum);
-                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+                    if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
                     exit(1);
                 }
             }
         }
     }
+
+    // If it's unknown when it gets here then it's a success.
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
+
 }
 
 /*
@@ -1352,18 +1373,21 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
         switch (pReset->command)
         {
             default:
+                global.last_boot_result = WARNING;
                 bug("Reset_room: bad command %c.", pReset->command);
                 break;
 
             case 'M':
                 if (!(pMobIndex = get_mob_index(pReset->arg1)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'M': bad vnum %d.", pReset->arg1);
                     continue;
                 }
 
                 if ((pRoomIndex = get_room_index(pReset->arg3)) == NULL)
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_area: 'R': bad vnum %d.", pReset->arg3);
                     continue;
                 }
@@ -1421,6 +1445,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
             case 'O':
                 if (!(pObjIndex = get_obj_index(pReset->arg1)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'O' 1 : bad vnum %d", pReset->arg1);
                     sprintf(buf, "%d %d %d %d", pReset->arg1, pReset->arg2,
                         pReset->arg3, pReset->arg4);
@@ -1430,6 +1455,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                 if (!(pRoomIndex = get_room_index(pReset->arg3)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'O' 2 : bad vnum %d.", pReset->arg3);
                     sprintf(buf, "%d %d %d %d", pReset->arg1, pReset->arg2,
                         pReset->arg3, pReset->arg4);
@@ -1455,12 +1481,14 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
             case 'P':
                 if (!(pObjIndex = get_obj_index(pReset->arg1)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'P': bad vnum %d.", pReset->arg1);
                     continue;
                 }
 
                 if (!(pObjToIndex = get_obj_index(pReset->arg3)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'P': bad vnum %d.", pReset->arg3);
                     continue;
                 }
@@ -1506,6 +1534,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
             case 'E':
                 if (!(pObjIndex = get_obj_index(pReset->arg1)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'E' or 'G': bad vnum %d.",
                         pReset->arg1);
                     continue;
@@ -1516,6 +1545,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                 if (!LastMob)
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'E' or 'G': null mob for vnum %d.",
                         pReset->arg1);
                     last = FALSE;
@@ -1575,6 +1605,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
             case 'R':
                 if (!(pRoomIndex = get_room_index(pReset->arg1)))
                 {
+                    global.last_boot_result = WARNING;
                     bug("Reset_room: 'R': bad vnum %d.", pReset->arg1);
                     continue;
                 }
@@ -1612,6 +1643,10 @@ void reset_area(AREA_DATA * pArea)
         if ((pRoom = get_room_index(vnum)))
             reset_room(pRoom);
     }
+
+    // If the result is unknown at this point then it's a success
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
 
     return;
 }
@@ -3858,6 +3893,7 @@ bool load_class(char *fname)
 
     if (!(fp = fopen(buf, "r")))
     {
+        global.last_boot_result = FAILURE;
         sprintf(buf, "Could not open file in order to load class %s%s.", CLASS_DIR, fname);
         log_string(buf);
         return FALSE;
@@ -3909,6 +3945,7 @@ bool load_class(char *fname)
                     group = group_lookup(word);
                     if (group == -1)
                     {
+                        global.last_boot_result = WARNING;
                         sprintf(buf, "load_class_file: Group %s unknown", word);
                         bug(buf, 0);
                     }
@@ -3931,6 +3968,7 @@ bool load_class(char *fname)
                     fclose(fp);
                     if (cl < 0 || cl >= MAX_CLASS)
                     {
+                        global.last_boot_result = FAILURE;
                         sprintf(buf, "Load_class_file: Class (%s) bad/not found (%d)",
                         class->who_name ? class->who_name: "name not found", cl);
                         bug(buf, 0);
@@ -3976,6 +4014,7 @@ bool load_class(char *fname)
                     sn = skill_lookup(word);
                     if (sn == -1)
                     {
+                        global.last_boot_result = WARNING;
                         sprintf(buf, "load_class_file: Skill %s unknown", word);
                         bug(buf, 0);
                     }
@@ -4026,6 +4065,7 @@ void load_classes()
     sprintf(classlist, "%s%s", CLASS_DIR, CLASS_FILE);
     if ((fpList = fopen(classlist, "r")) == NULL)
     {
+        global.last_boot_result = FAILURE;
         log_string(classlist);
         exit(1);
     }
@@ -4038,6 +4078,7 @@ void load_classes()
 
         if (!load_class(filename))
         {
+            global.last_boot_result = FAILURE;
             sprintf(buf, "Cannot load class file: %s", filename);
             bug(buf, 0);
         }
@@ -4045,6 +4086,11 @@ void load_classes()
     fclose(fpList);
 
     log_f("STATUS: %d of a maximum %d Classes Loaded", top_class, MAX_CLASS);
+
+    // It may have been set to a failure or warning, but if it's unknown and we
+    // get here then set it to a success.
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
 
     return;
 
@@ -4074,6 +4120,7 @@ void load_groups()
             if (letter != '#')
             {
                 bug("load_groups: # not found.", 0);
+                global.last_boot_result = WARNING;
                 break;
             }
 
@@ -4083,6 +4130,7 @@ void load_groups()
                 if (top_group >= MAX_GROUP)
                 {
                     bug("load_groups: more skills than top_group %d", top_group);
+                    global.last_boot_result = FAILURE;
                     fclose(fp);
                     return;
                 }
@@ -4094,6 +4142,7 @@ void load_groups()
                     break;
                 else
                 {
+                    global.last_boot_result = WARNING;
                     bug("load_groups: bad section.", 0);
                     continue;
                 }
@@ -4102,12 +4151,14 @@ void load_groups()
     }
     else
     {
+        global.last_boot_result = FAILURE;
         bug("load_groups: Cannot open groups.dat", 0);
-        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
         exit(0);
     }
 
     log_f("STATUS: %d of a maximum %d Groups Loaded", top_group, MAX_GROUP);
+    global.last_boot_result = SUCCESS;
 
 } // end void load_groups
 
@@ -4193,6 +4244,7 @@ void load_skills()
             {
                 if (top_sn >= MAX_SKILL)
                 {
+                    global.last_boot_result = FAILURE;
                     bug("load_skill_table: more skills than top_sn %d.  Increase MAX_SKILL in merc.h.", top_sn);
                     fclose(fp);
                     return;
@@ -4205,6 +4257,7 @@ void load_skills()
                     break;
                 else
                 {
+                    global.last_boot_result = WARNING;
                     bug("Load_skill_table: bad section.", 0);
                     continue;
                 }
@@ -4213,10 +4266,15 @@ void load_skills()
     }
     else
     {
+        global.last_boot_result = FAILURE;
         bug("Cannot open SKILLS_FILE", 0);
-        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE, FALSE);
+        if (global.copyover) copyover_broadcast("STATUS: Shutting Down", TRUE);
         exit(0);
     }
+
+    global.last_boot_result = SUCCESS;
+    return;
+
 } // end load_skills
 
 /*
@@ -4303,7 +4361,7 @@ SKILLTYPE *fread_skill(FILE *fp)
  * be found).  This file should only be generated through the game or OLC so this case shouldn't
  * happen.  - Rhien.
  */
-bool load_settings()
+void load_settings()
 {
     FILE *fp;
     char *word;
@@ -4315,7 +4373,8 @@ bool load_settings()
     {
         log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
         fpReserve = fopen(NULL_FILE, "r");
-        return FALSE;
+        global.last_boot_result = DEFAULT;
+        return;
     }
 
     for (;;)
@@ -4324,7 +4383,10 @@ bool load_settings()
 
         // End marker?  Exit cleanly
         if (!str_cmp(word, "#END"))
-            return TRUE;
+        {
+            global.last_boot_result = SUCCESS;
+            return;
+        }
 
         if (!str_cmp(word, "WizLock"))
         {
@@ -4360,7 +4422,8 @@ bool load_settings()
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");
 
-    return TRUE;
+    global.last_boot_result = SUCCESS;
+    return;
 
 } // end load_settings
 
@@ -4450,7 +4513,8 @@ void load_game_objects(void)
 
     if ((fp = fopen(SAVED_OBJECT_FILE, "r")) == NULL)
     {
-        bug("load_game_objects: fopen of SAVED_OBJECT_FILE", 0);
+       global.last_boot_result = MISSING;
+       bug("load_game_objects: fopen of SAVED_OBJECT_FILE", 0);
     }
     else
     {
@@ -4469,7 +4533,7 @@ void load_game_objects(void)
 
             if (letter != '#')
             {
-                bug("Load_char_obj: # not found.", 0);
+                bug("load_game_objects: # not found.", 0);
                 break;
             }
 
@@ -4485,6 +4549,7 @@ void load_game_objects(void)
             }
             else
             {
+                global.last_boot_result = WARNING;
                 bug("Load_objects: bad section.", 0);
                 break;
             }
@@ -4504,6 +4569,10 @@ void load_game_objects(void)
     }
 
     fpReserve = fopen(NULL_FILE, "r");
+
+    // If it's unknown at this point then it's a success.
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
 
 } // end load_game_objects
 
@@ -4554,6 +4623,7 @@ void load_statistics()
 
     if (!fp)
     {
+        global.last_boot_result = MISSING;
         log_f("WARNING: Statistics file '%s' was not found or is inaccessible.", STATISTICS_FILE);
         fpReserve = fopen(NULL_FILE, "r");
         return;
@@ -4565,7 +4635,12 @@ void load_statistics()
 
         // End marker?  Exit cleanly
         if (!str_cmp(word, "#END"))
+        {
+            fclose(fp);
+            fpReserve = fopen(NULL_FILE, "r");
+            global.last_boot_result = SUCCESS;
             return;
+        }
 
         if (!str_cmp(word, "MaxPlayersOnline"))
         {
@@ -4597,6 +4672,10 @@ void load_statistics()
         }
 
     }
+
+    // It should have closed on the end tag
+    global.last_boot_result = WARNING;
+    bugf("load_statistics: No #END found");
 
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");
@@ -4681,5 +4760,8 @@ void assign_gsn()
     ASSIGN_GSN(gsn_enchant_person, "enchant person");
     ASSIGN_GSN(gsn_track, "track");
     ASSIGN_GSN(gsn_acute_vision, "acute vision");
+
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
 
 } // end assign_gsn

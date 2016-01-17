@@ -5156,7 +5156,7 @@ void copyover_recover()
     DESCRIPTOR_DATA *d, *d_next;
     bool fOld;
 
-    if (global.copyover) copyover_broadcast("STATUS: Loading Players.", TRUE, TRUE);
+    if (global.copyover) copyover_broadcast("STATUS: Loading Players.", TRUE);
 
     for (d = descriptor_list; d != NULL; d = d_next)
     {

@@ -196,7 +196,7 @@ bool check_disabled(const struct cmd_type *command)
 /*
  * Load disabled commands
  */
-bool load_disabled()
+void load_disabled()
 {
     FILE *fp;
     DISABLED_DATA *p;
@@ -208,7 +208,10 @@ bool load_disabled()
     fp = fopen(DISABLED_FILE, "r");
 
     if (!fp) /* No disabled file.. no disabled commands : */
-        return FALSE;
+    {
+        global.last_boot_result = MISSING;
+        return;
+    }
 
     name = fread_word(fp);
 
@@ -245,7 +248,8 @@ bool load_disabled()
 
     fclose(fp);
 
-    return TRUE;
+    global.last_boot_result = TRUE;
+    return;
 }
 
 /*

@@ -87,6 +87,7 @@ void load_bans(void)
 
     if ((fp = fopen(BAN_FILE, "r")) == NULL)
     {
+        global.last_boot_result = MISSING;
         log_string("STATUS: No ban file available to load in the system directory.");
         return;
     }
@@ -97,6 +98,11 @@ void load_bans(void)
         BAN_DATA *pban;
         if (feof(fp))
         {
+            if (global.last_boot_result == UNKNOWN)
+            {
+                global.last_boot_result = SUCCESS;
+            }
+
             fclose(fp);
             return;
         }
@@ -118,6 +124,10 @@ void load_bans(void)
         }
         ban_last = pban;
     }
+
+    if (global.last_boot_result == UNKNOWN)
+        global.last_boot_result = SUCCESS;
+
 } // end load_bans
 
 /*

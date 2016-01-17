@@ -1432,19 +1432,29 @@ void write_to_all_desc(char *txt)
  * A method for handling sending messages about a copyover to all players, this
  * will handle some formatting for us.
  */
-void copyover_broadcast(char *txt, bool show_last_result, bool last_result)
+void copyover_broadcast(char *txt, bool show_last_result)
 {
     char buf[MAX_STRING_LENGTH];
 
     if (show_last_result)
     {
-        if (last_result)
-        {
+        if (global.last_boot_result == UNKNOWN)
+            sprintf(buf, "[ {yUnknown{x ]\r\n%-55s", txt);
+        else if (global.last_boot_result == SUCCESS)
             sprintf(buf, "[ {GSuccess{x ]\r\n%-55s", txt);
-        }
+        else if (global.last_boot_result == FAILURE)
+            sprintf(buf, "[ {RFailure{x ]\r\n%-55s", txt);
+        else if (global.last_boot_result == WARNING)
+            sprintf(buf, "[ {YWarning{x ]\r\n%-55s", txt);
+        else if (global.last_boot_result == MISSING)
+            sprintf(buf, "[ {gMissing{x ]\r\n%-55s", txt);
+        else if (global.last_boot_result == DISABLE)
+            sprintf(buf, "[ {BDisable{x ]\r\n%-55s", txt);
+        else if (global.last_boot_result == DEFAULT)
+            sprintf(buf, "[ {GDefault{x ]\r\n%-55s", txt);
         else
         {
-            sprintf(buf, "[ {RFailure{x ]\r\n%-55s", txt);
+            sprintf(buf, "[ {yUnknown{x ]\r\n%-55s", txt);
         }
     }
     else
@@ -1453,6 +1463,11 @@ void copyover_broadcast(char *txt, bool show_last_result, bool last_result)
     }
 
     write_to_all_desc(buf);
+
+    // Reset the last boot result to UNKNOWN so it indicates on the copyover
+    // if one of the boot functions doesn't set it's result when it's finished.
+    global.last_boot_result = UNKNOWN;
+
 }
 
 /*
