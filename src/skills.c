@@ -952,7 +952,13 @@ void do_groups(CHAR_DATA * ch, char *argument)
         send_to_char("\r\n", ch);
 }
 
-/* checks for skill improvement */
+/*
+ * Checks for skill improvement.  The skill, whether is succeeds or fails
+ * and the multiplier are required.  The higher the multiplier the harder
+ * it is to learn.  Things that are checked very frequently or are harder
+ * to learn should be higher, things that should be learned with less checks
+ * (perhaps if they're used less often) should be lower.
+ */
 void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
 {
     int chance;
