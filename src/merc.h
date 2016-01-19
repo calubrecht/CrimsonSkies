@@ -2504,6 +2504,7 @@ void    list_group_costs args((CHAR_DATA *ch));
 void    list_group_known args((CHAR_DATA *ch));
 int     exp_per_level    args((CHAR_DATA *ch, int points));
 void    check_improve    args((CHAR_DATA *ch, int sn, bool success, int multiplier));
+bool    check_skill_improve args((CHAR_DATA * ch, int sn, int success_multiplier, int failure_multiplier));
 int     group_lookup     args((const char *name));
 void    gn_add           args((CHAR_DATA *ch, int gn));
 void    gn_remove        args((CHAR_DATA *ch, int gn));

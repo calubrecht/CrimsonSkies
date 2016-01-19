@@ -149,6 +149,26 @@ int get_skill(CHAR_DATA * ch, int sn)
     return URANGE(0, skill, 100);
 }
 
+/*
+ * Checks a skill for a player against a random percent and then couples this
+ * with a check_improve call for the success or failure multiplier.
+ */
+bool check_skill_improve(CHAR_DATA * ch, int sn, int success_multiplier, int failure_multiplier)
+{
+    if (CHANCE_SKILL(ch, sn))
+    {
+        // Success
+        check_improve(ch, sn, TRUE, success_multiplier);
+        return TRUE;
+    }
+    else
+    {
+        // Failure
+        check_improve(ch, sn, FALSE, failure_multiplier);
+        return FALSE;
+    }
+}
+
 /* used to get new skills */
 void do_gain(CHAR_DATA * ch, char *argument)
 {
