@@ -197,6 +197,14 @@ unknown~
 trash ABG P
 0 0 0 0 0
 0 0 0 P
+#27
+butchered steak~
+a steak~
+A delicious butchered steak is here~
+food~
+food 0 A
+BD BD 0 0 0
+0 10 0 P
 #30
 dummy object~
 a dummy object~
