@@ -18,22 +18,7 @@ End
 #O
 Vnum 3715
 Nest 1
-Cond 0
-Wear -1
-Cost 0
-End
-
-#O
-Vnum 3715
-Nest 1
-Cond 0
-Wear -1
-Cost 0
-End
-
-#O
-Vnum 3715
-Nest 1
+Count 3
 Cond 0
 Wear -1
 Cost 0
