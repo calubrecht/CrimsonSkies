@@ -2215,7 +2215,7 @@ extern  GLOBAL_DATA             global;
 
 #define BAN_FILE            "../system/ban.dat"
 #define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
-#define SETTINGS_FILE       "../system/settings.dat"
+#define SETTINGS_FILE       "../system/settings.ini"
 #define STATISTICS_FILE     "../system/statistics.dat"
 #define DISABLED_FILE       "../system/disabled.dat"
 

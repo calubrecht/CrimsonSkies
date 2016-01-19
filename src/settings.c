@@ -47,6 +47,7 @@
 #include <ctype.h>
 #include "merc.h"
 #include "interp.h"
+#include "ini.h"
 
 // Local functions
 void save_settings(void);
@@ -208,83 +209,39 @@ void do_settings(CHAR_DATA *ch, char *argument)
 } // end do_settings
 
  /*
-  * Loads the game settings from the settings.dat file.  I skipped using the KEY macro in this
-  * case an opt'd for an if ladder.  If an invalid setting is found in the file it will attempt to
-  * log it.  I don't read ahead on that value in case it's corrupt, I want to hit the #END marker
-  * eventually and get out without crashing (if an unfound setting is logged, it will then read in
-  * its value if it has one and do the if/else on it.. looking for a 0 or 1 case maybe that won't
-  * be found).  This file should only be generated through the game or OLC so this case shouldn't
-  * happen.  - Rhien.
+  * Loads the game settings from the settings.ini file.  This is leveraging the INI parsing
+  * utilities contained in "ini.c".  Any values not found will have default values set.
   */
 void load_settings()
 {
-    FILE *fp;
-    char *word;
+    dictionary  *ini;
 
-    fclose(fpReserve);
-    fp = fopen(SETTINGS_FILE, "r");
+    ini = iniparser_load(SETTINGS_FILE);
 
-    if (!fp)
+    if (ini == NULL)
     {
         log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
-        fpReserve = fopen(NULL_FILE, "r");
         global.last_boot_result = DEFAULT;
         return;
     }
 
-    for (;;)
-    {
-        word = feof(fp) ? "#END" : fread_word(fp);
+    settings.wizlock = iniparser_getboolean(ini, "Settings:WizLock", FALSE);
+    settings.newlock = iniparser_getboolean(ini, "Settings:NewLock", FALSE);
+    settings.double_exp = iniparser_getboolean(ini, "Settings:DoubleExp", FALSE);
+    settings.double_gold = iniparser_getboolean(ini, "Settings:DoubleGold", FALSE);
+    settings.shock_spread = iniparser_getboolean(ini, "Settings:ShockSpread", FALSE);
+    settings.gain_convert = iniparser_getboolean(ini, "Settings:GainConvert", FALSE);
 
-        // End marker?  Exit cleanly
-        if (!str_cmp(word, "#END"))
-        {
-            global.last_boot_result = SUCCESS;
-            return;
-        }
-
-        if (!str_cmp(word, "WizLock"))
-        {
-            settings.wizlock = fread_number(fp);
-        }
-        else if (!str_cmp(word, "NewLock"))
-        {
-            settings.newlock = fread_number(fp);
-        }
-        else if (!str_cmp(word, "DoubleExp"))
-        {
-            settings.double_exp = fread_number(fp);
-        }
-        else if (!str_cmp(word, "DoubleGold"))
-        {
-            settings.double_gold = fread_number(fp);
-        }
-        else if (!str_cmp(word, "ShockSpread"))
-        {
-            settings.shock_spread = fread_number(fp);
-        }
-        else if (!str_cmp(word, "GainConvert"))
-        {
-            settings.gain_convert = fread_number(fp);
-        }
-        else
-        {
-            log_f("Invalid setting '%s' found.", word);
-        }
-
-    }
-
-    fclose(fp);
-    fpReserve = fopen(NULL_FILE, "r");
+    iniparser_freedict(ini);
 
     global.last_boot_result = SUCCESS;
     return;
 
 } // end load_settings
 
- /*
-  * Saves all of the game settings to file.
-  */
+/*
+ * Saves all of the game settings to an INI file.
+ */
 void save_settings(void)
 {
     FILE *fp;
@@ -298,16 +255,19 @@ void save_settings(void)
         return;
     }
 
-    // Locks / Bonuses
-    fprintf(fp, "WizLock         %d\n", settings.wizlock);
-    fprintf(fp, "NewLock         %d\n", settings.newlock);
-    fprintf(fp, "DoubleExp       %d\n", settings.double_exp);
-    fprintf(fp, "DoubleGold      %d\n", settings.double_gold);
-    // Game Mechanics
-    fprintf(fp, "ShockSpread     %d\n", settings.shock_spread);
-    fprintf(fp, "GainConvert     %d\n", settings.gain_convert);
+    // Section
+    fprintf(fp, "[Settings]\n");
 
-    fprintf(fp, "#END\n");
+    // Game Locks and Bonuses
+    fprintf(fp, "WizLock = %s\n", settings.wizlock ? "True" : "False");
+    fprintf(fp, "NewLock = %s\n", settings.newlock ? "True" : "False");
+    fprintf(fp, "DoubleExp = %s\n", settings.double_exp ? "True" : "False");
+    fprintf(fp, "DoubleGold = %s\n", settings.double_gold ? "True" : "False");
+
+    // Game Mechanics Settings
+    fprintf(fp, "ShockSpread = %s\n", settings.shock_spread ? "True" : "False");
+    fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
+
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");
 

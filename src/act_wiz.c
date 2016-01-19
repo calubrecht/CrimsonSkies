@@ -6034,6 +6034,14 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+
+    if (check_skill_improve(ch, gsn_hide, 1, 1))
+        send_to_char("Success", ch);
+    else
+        send_to_char("Failure", ch);
+
+    return;
+
     char buf[MAX_STRING_LENGTH];
     char display_buf[MAX_STRING_LENGTH];
     char *tokenPtr;
