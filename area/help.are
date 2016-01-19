@@ -1578,7 +1578,7 @@ reveal a characteristic red aura.
 0 'DETECT HIDDEN'~
 Syntax: cast 'detect hidden'
 
-This spell enables the caster to detect hidden creatures.
+This spell enables the caster to detect sneaking creatures.
 ~
 
 0 'DETECT INVIS'~
@@ -2483,7 +2483,7 @@ Hide and sneak are similar skills, both related to remaining undetected.
 Hide has a very high chance of success, but only works for as long as the
 character remains stationary.  Sneak may be used when moving (including to
 sneak by monsters), but has a lower chance of success.  Only warriors and
-thieves may learn these skills.
+thieves (and their reclasses) may learn these skills.
 ~
 
 -1 'FAST HEALING'~
