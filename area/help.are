@@ -3887,6 +3887,20 @@ The terrain command will show you what the surrounding terrain
 is (e.g. hills, forest, city, ocean, underwater, beach, etc.).
 ~
 
+0 ACUTE VISION~
+A character skilled in acute vision is able to see creatures
+that are either sneaking or hiding in the immediate area.
+~
+
+0 RANGER~
+Rangers are warriors who are associated with the wisdom of nature.
+They tend to be wise, cunning, and perceptive in addition to being
+skilled woodsmen. Many are skilled in stealth, wilderness survival,
+beast-mastery, herbalism, and tracking.  They are adept at swordplay
+and fight much better in a wilderness setting.  Rangers typically have 
+keen eye sight and are excellent at hiding in forest areas.  
+~
+
 0 $~
 
 #$
