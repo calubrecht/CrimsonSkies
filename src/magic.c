@@ -4612,6 +4612,7 @@ void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo,
         {
             // They passed the enhanced recall check, they only lose 25% of movement.
             ch->move = (ch->move * 3) / 4;
+            check_improve(ch, gsn_enhanced_recall, TRUE, 4);
         }
         else
         {

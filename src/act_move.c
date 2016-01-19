@@ -174,6 +174,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
                 {
                     // Success, they can swim.
                     found = TRUE;
+                    check_improve(ch, gsn_swim, TRUE, 2);
                 }
                 else
                 {
@@ -182,6 +183,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
                     act("$n is not able to swim and {Rchokes{x on a big gulp of {Cwater{x!", ch, NULL, NULL, TO_ROOM);
                     ch->hit -= number_range(5, 10);
                     check_death(ch, DAM_DROWNING);
+                    check_improve(ch, gsn_swim, FALSE, 5);
                     return;
                 }
 
@@ -1716,7 +1718,7 @@ void do_recall(CHAR_DATA * ch, char *argument)
         lose = (ch->desc != NULL) ? 25 : 50;
         gain_exp(ch, 0 - lose);
         check_improve(ch, gsn_recall, TRUE, 4);
-        sprintf(buf, "You recall from combat!  You lose %d exps.\r\n", lose);
+        sprintf(buf, "You recall from combat!  You lose %d experience.\r\n", lose);
         send_to_char(buf, ch);
         stop_fighting(ch, TRUE);
 
@@ -1730,6 +1732,7 @@ void do_recall(CHAR_DATA * ch, char *argument)
         {
             // They passed the enhanced recall check, they only lose 25% of movement.
             ch->move = (ch->move * 3) / 4;
+            check_improve(ch, gsn_enhanced_recall, TRUE, 4);
         }
         else
         {
