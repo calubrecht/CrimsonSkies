@@ -91,3 +91,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Implement and debug Moosehead macro's
   - add improve check for swim, enhanced recall, blind fighting
   - make blind fighting work in more skills.
+  - update dodge and parry, more factors.
