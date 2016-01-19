@@ -606,7 +606,7 @@ struct global_data
  */
 typedef enum
 {
-    SUB_NONE, SUB_PAUSE,
+    SUB_NONE, SUB_PAUSE
     /* timer types ONLY below this point */
     SUB_TIMER_DO_ABORT = 128, SUB_TIMER_CANT_ABORT
 } char_substates;
