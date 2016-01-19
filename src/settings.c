@@ -210,7 +210,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
  /*
   * Loads the game settings from the settings.ini file.  This is leveraging the INI parsing
-  * utilities contained in "ini.c".  Any values not found will have default values set.
+  * utilities contained in "ini.c".  Any values not found will have default values set.  The
+  * INI parser will read in 0, 1, True, False, Yes, No and convert it accordingly.  It will be
+  * then re-saved out with a standard 'True' or 'False' for readability.
   */
 void load_settings()
 {
