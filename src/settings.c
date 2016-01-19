@@ -57,6 +57,12 @@ void save_settings(void);
  */
 void do_settings(CHAR_DATA *ch, char *argument)
 {
+    if (IS_NPC(ch))
+    {
+        send_to_char("NPC's are not allowed to use the settings command.\r\n", ch);
+        return;
+    }
+
     char buf[MAX_STRING_LENGTH];
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
