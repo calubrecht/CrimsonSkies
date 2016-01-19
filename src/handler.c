@@ -2595,9 +2595,20 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
         && !IS_AFFECTED(ch, AFF_DETECT_INVIS))
         return FALSE;
 
-    /* sneaking */
-    if (IS_AFFECTED(victim, AFF_SNEAK)
-        && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN) && victim->fighting == NULL)
+    // Hiding
+    if (IS_AFFECTED(victim, AFF_HIDE)
+       && victim->fighting == NULL
+       && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+       && ( !IS_NPC(victim)
+       || (IS_NPC(victim)
+       && !IS_AFFECTED(ch,AFF_DETECT_HIDDEN))))
+        return FALSE;
+
+    // Sneaking
+    if ( IS_AFFECTED(victim, AFF_SNEAK)
+        && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN)
+        && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+        && victim->fighting == NULL)
     {
         int chance;
         chance = get_skill(victim, gsn_sneak);
@@ -2609,9 +2620,10 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
             return FALSE;
     }
 
+/*
     if (IS_AFFECTED(victim, AFF_HIDE)
         && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN) && victim->fighting == NULL)
-        return FALSE;
+        return FALSE; */
 
     return TRUE;
 }
