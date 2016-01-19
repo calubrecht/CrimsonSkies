@@ -351,6 +351,7 @@ void do_circle(CHAR_DATA *ch, char *argument)
     {
         if (get_skill(victim, gsn_blind_fighting) < number_percent())
         {
+            check_improve(victim, gsn_blind_fighting, TRUE, 2);
             chance += 10;
         }
     }
