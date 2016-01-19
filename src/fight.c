@@ -3528,6 +3528,13 @@ void do_gore(CHAR_DATA *ch, char *argument)
     if (IS_AFFECTED(ch, AFF_BLIND))
     {
         chance -= 30;
+
+        if (CHANCE_SKILL(ch, gsn_blind_fighting))
+        {
+            // They passed a blind fighting check, give them some back.
+            chance += 15;
+        }
+
     }
 
     // Bonus or penalty for size
