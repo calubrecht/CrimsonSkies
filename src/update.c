@@ -1559,7 +1559,7 @@ void timer_update(CHAR_DATA *ch)
                 ch->substate = tempsub;
             }
 
-            // Now that we've done somethign with it, clean it up.
+            // Now that we've done something with it, clean it up.
             extract_timer(ch, timer);
         }
     }
