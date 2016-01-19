@@ -48,6 +48,9 @@
 #include "merc.h"
 #include "interp.h"
 
+// Local functions
+void save_settings(void);
+
 /*
  * Command to show a character the current game settings, locks, etc. setup by the mud
  * mud admin.  Potentially also show player based settings here as that list grows.
@@ -130,7 +133,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
         }
 
         // Save the settings out to file.
-        do_asave(ch, "settings");
+        save_settings();
+
     }
     else if (!str_prefix(arg1, "doublegold"))
     {
@@ -148,7 +152,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         }
 
         // Save the settings out to file.
-        do_asave(ch, "settings");
+        save_settings();
 
     }
     else if (!str_prefix(arg1, "gainconvert"))
@@ -167,7 +171,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         }
 
         // Save the settings out to file.
-        do_asave(ch, "settings");
+        save_settings();
 
     }
     else if (!str_prefix(arg1, "shockspread"))
@@ -186,7 +190,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         }
 
         // Save the settings out to file.
-        do_asave(ch, "settings");
+        save_settings();
 
     }
     else
