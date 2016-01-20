@@ -6033,11 +6033,16 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-
-    if (check_skill_improve(ch, gsn_hide, 1, 1))
-        send_to_char("Success", ch);
+    if (IS_NULLSTR(ch->timer_buf))
+    {
+        send_to_char("NULL ch->timer_buf\r\n", ch);
+    }
     else
-        send_to_char("Failure", ch);
+    {
+        send_to_char("ch->timer_buf", ch);
+    }
+
+    free_string(ch->timer_buf);
 
     return;
 

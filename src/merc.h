@@ -1581,7 +1581,7 @@ struct    char_data
     TIMER *            first_timer;
     TIMER *            last_timer;
     int                substate;
-    void *             dest_buf;
+    char *             timer_buf;    // Reserved for use with timer callbacks
 };
 
 /*

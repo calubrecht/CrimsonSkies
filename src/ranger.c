@@ -89,12 +89,11 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     switch (ch->substate)
     {
         default:
-            add_timer(ch, TIMER_DO_FUN, 12, do_butcher, 1, argument);
+            add_timer(ch, TIMER_DO_FUN, 18, do_butcher, 1, argument);
             send_to_char("You begin to prepare a steak.\r\n", ch);
             act("$n begins to prepare a steak.", ch, NULL, NULL, TO_ROOM);
             return;
         case 1:
-            // Continue onward with said butchering.
             break;
         case SUB_TIMER_DO_ABORT:
             ch->substate = SUB_NONE;

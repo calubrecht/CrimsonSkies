@@ -293,6 +293,7 @@ CHAR_DATA *new_char(void)
     ch->prompt = &str_empty[0];
     ch->prefix = &str_empty[0];
     ch->material = &str_empty[0];
+    ch->timer_buf = &str_empty[0];
     ch->logon = current_time;
     ch->lines = PAGELEN;
     for (i = 0; i < 4; i++)
@@ -346,6 +347,7 @@ void free_char(CHAR_DATA * ch)
     free_string(ch->prompt);
     free_string(ch->prefix);
     free_string(ch->material);
+    free_string(ch->timer_buf);
     free_note(ch->pnote);
     free_pcdata(ch->pcdata);
 
