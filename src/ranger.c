@@ -120,8 +120,8 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     obj_to_char(steak, ch);
 
     // Show the player and the room the spoils (not spoiled)
-    act( "$n prepares $p.", ch, steak, NULL, TO_ROOM );
-    act( "You prepare $p.", ch, steak, NULL, TO_CHAR );
+    act( "$n has prepared $p.", ch, steak, NULL, TO_ROOM );
+    act( "You have successfully prepared $p.", ch, steak, NULL, TO_CHAR );
 
     // Seprate and extract the corpse from the room.
     separate_obj(obj);
