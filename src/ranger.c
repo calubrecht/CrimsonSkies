@@ -50,6 +50,7 @@
 
 /*
  * Skill a ranger can use to butcher steaks from PC and NPC corpses.  Yum.
+ * This will leverage the timer callback methods.
  */
 void do_butcher(CHAR_DATA *ch, char *argument)
 {
@@ -91,8 +92,9 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     {
         default:
             add_timer(ch, TIMER_DO_FUN, number_range(12, 18), do_butcher, 1, argument);
-            send_to_char("You begin to prepare a steak.\r\n", ch);
-            act("$n begins to prepare a steak.", ch, NULL, NULL, TO_ROOM);
+            sprintf(buf, "You begin to butcher a steak from %s\r\n", obj->short_descr);
+            send_to_char(buf, ch);
+            act("$n begins to butcher a steak from $p.", ch, obj, NULL, TO_ROOM);
             return;
         case 1:
             break;
