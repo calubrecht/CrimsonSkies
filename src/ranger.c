@@ -89,7 +89,7 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     switch (ch->substate)
     {
         default:
-            add_timer(ch, TIMER_DO_FUN, 18, do_butcher, 1, argument);
+            add_timer(ch, TIMER_DO_FUN, number_range(12, 18), do_butcher, 1, argument);
             send_to_char("You begin to prepare a steak.\r\n", ch);
             act("$n begins to prepare a steak.", ch, NULL, NULL, TO_ROOM);
             return;
