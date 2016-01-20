@@ -27,8 +27,10 @@
 #define DECLARE_SPELL_FUN(fun)    SPELL_FUN fun
 
 /* system calls */
-int unlink();
-int system();
+#if (!_WIN32)
+    int unlink();
+    int system();
+#endif
 
 #if    !defined(FALSE)
     #define FALSE     0
