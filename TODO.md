@@ -92,3 +92,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - make blind fighting work in more skills.
   - update dodge and parry, more factors.
   - Update butcher to show what is being butchered, don't let someone butcher something of the same race (it's creepy).
+  - Update help file and make a level -1 entries 0 or 1 (this will ensure their keywords are displayed with the entry)
