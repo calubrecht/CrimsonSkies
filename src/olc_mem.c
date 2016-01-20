@@ -68,9 +68,9 @@ HELP_DATA *help_free;
 
 HELP_DATA *help_last;
 
-void free_extra_descr args((EXTRA_DESCR_DATA * pExtra));
-void free_affect args((AFFECT_DATA * af));
-void free_mprog args((MPROG_LIST * mp));
+void free_extra_descr (EXTRA_DESCR_DATA * pExtra);
+void free_affect (AFFECT_DATA * af);
+void free_mprog (MPROG_LIST * mp);
 
 RESET_DATA *new_reset_data(void)
 {

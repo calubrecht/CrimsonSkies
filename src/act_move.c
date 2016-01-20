@@ -57,8 +57,8 @@ const int movement_loss[SECT_MAX] = {
 /*
  * Local functions.
  */
-int find_door args((CHAR_DATA * ch, char *arg));
-bool has_key args((CHAR_DATA * ch, int key));
+int find_door (CHAR_DATA * ch, char *arg);
+bool has_key (CHAR_DATA * ch, int key);
 
 void move_char(CHAR_DATA * ch, int door, bool follow)
 {
@@ -2203,10 +2203,10 @@ void do_land(CHAR_DATA * ch, char *argument)
 bool gFound;
 
 /* local functions */
-bool  examine_room         args((RID *pRoom, RID *tRoom, AREA_DATA *pArea, int steps));
-void  dijkstra             args((RID *chRoom, RID *victRoom));
-RID  *heap_getMinElement   args((HEAP *heap));
-HEAP *init_heap            args((RID *root));
+bool  examine_room         (RID *pRoom, RID *tRoom, AREA_DATA *pArea, int steps);
+void  dijkstra             (RID *chRoom, RID *victRoom);
+RID  *heap_getMinElement   (HEAP *heap);
+HEAP *init_heap            (RID *root);
 
 /*
  * This function will return a shortest path from

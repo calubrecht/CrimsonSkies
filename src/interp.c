@@ -39,7 +39,7 @@
 #include "merc.h"
 #include "interp.h"
 
-bool check_social args((CHAR_DATA * ch, char *command, char *argument));
+bool check_social(CHAR_DATA * ch, char *command, char *argument);
 
 /*
  * Command logging types.

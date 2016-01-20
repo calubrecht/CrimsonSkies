@@ -40,23 +40,23 @@
 /*
  * Local functions.
  */
-void check_assist args((CHAR_DATA * ch, CHAR_DATA * victim));
-bool check_dodge args((CHAR_DATA * ch, CHAR_DATA * victim));
-void check_wanted args((CHAR_DATA * ch, CHAR_DATA * victim));
-bool check_parry args((CHAR_DATA * ch, CHAR_DATA * victim));
-bool check_shield_block args((CHAR_DATA * ch, CHAR_DATA * victim));
-void dam_message args((CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, bool immune));
-void death_cry args((CHAR_DATA * ch));
-void group_gain args((CHAR_DATA * ch, CHAR_DATA * victim));
-int  xp_compute args((CHAR_DATA * gch, CHAR_DATA * victim, int total_levels));
-bool is_safe args((CHAR_DATA * ch, CHAR_DATA * victim));
-void make_corpse args((CHAR_DATA * ch));
-void one_hit args((CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual));
-void mob_hit args((CHAR_DATA * ch, CHAR_DATA * victim, int dt));
-void raw_kill args((CHAR_DATA * victim));
-void set_fighting args((CHAR_DATA * ch, CHAR_DATA * victim));
-void disarm args((CHAR_DATA * ch, CHAR_DATA * victim));
-void toast args((CHAR_DATA *ch, CHAR_DATA *victim));
+void check_assist(CHAR_DATA * ch, CHAR_DATA * victim);
+bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim);
+void check_wanted(CHAR_DATA * ch, CHAR_DATA * victim);
+bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim);
+bool check_shield_block(CHAR_DATA * ch, CHAR_DATA * victim);
+void dam_message(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, bool immune);
+void death_cry(CHAR_DATA * ch);
+void group_gain(CHAR_DATA * ch, CHAR_DATA * victim);
+int  xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels);
+bool is_safe(CHAR_DATA * ch, CHAR_DATA * victim);
+void make_corpse(CHAR_DATA * ch);
+void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual);
+void mob_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt);
+void raw_kill(CHAR_DATA * victim);
+void set_fighting(CHAR_DATA * ch, CHAR_DATA * victim);
+void disarm(CHAR_DATA * ch, CHAR_DATA * victim);
+void toast(CHAR_DATA *ch, CHAR_DATA *victim);
 
 /*
  * Control the fights going on.

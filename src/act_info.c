@@ -71,14 +71,14 @@ int max_on = 0;
 /*
  * Local functions.
  */
-char *format_obj_to_char args((OBJ_DATA * obj, CHAR_DATA * ch, bool fShort));
-void show_list_to_char   args((OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing));
-void show_char_to_char_0 args((CHAR_DATA * victim, CHAR_DATA * ch));
-void show_char_to_char_1 args((CHAR_DATA * victim, CHAR_DATA * ch));
-void show_char_to_char   args((CHAR_DATA * list, CHAR_DATA * ch));
-bool check_blind         args((CHAR_DATA * ch));
-bool char_in_list        args((CHAR_DATA * ch));
-char *flag_string        args((const struct flag_type *flag_table, int bits)); // used in do_class
+char *format_obj_to_char (OBJ_DATA * obj, CHAR_DATA * ch, bool fShort);
+void show_list_to_char   (OBJ_DATA * list, CHAR_DATA * ch, bool fShort, bool fShowNothing);
+void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch);
+void show_char_to_char_1 (CHAR_DATA * victim, CHAR_DATA * ch);
+void show_char_to_char   (CHAR_DATA * list, CHAR_DATA * ch);
+bool check_blind         (CHAR_DATA * ch);
+bool char_in_list        (CHAR_DATA * ch);
+char *flag_string        (const struct flag_type *flag_table, int bits); // used in do_class
 
 
 /*
@@ -1455,11 +1455,8 @@ char *const distance[4] = {
     "off in the distance %s."
 };
 
-void scan_list args((ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch,
-    int depth, int door));
-
-void scan_char args((CHAR_DATA * victim, CHAR_DATA * ch,
-    int depth, int door));
+void scan_list(ROOM_INDEX_DATA * scan_room, CHAR_DATA * ch, int depth, int door);
+void scan_char(CHAR_DATA * victim, CHAR_DATA * ch, int depth, int door);
 
 void do_scan(CHAR_DATA * ch, char *argument)
 {

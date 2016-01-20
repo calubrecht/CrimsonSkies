@@ -40,7 +40,7 @@
 #include "tables.h"
 #include <ctype.h> /* for isalpha() and isspace() -- JR */
 
-char *reclass_list args(());
+char *reclass_list();
 
 /*
  * Void to force player to fully type out delete if they want to delete.

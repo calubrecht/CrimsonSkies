@@ -53,7 +53,7 @@
 #include "tables.h"
 #include "lookup.h"
 
-int flag_find args((const char *name, const struct flag_type *flag_table));
+int flag_find(const char *name, const struct flag_type *flag_table);
 
 struct flag_stat_type {
     const struct flag_type *structure;

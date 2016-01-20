@@ -53,7 +53,7 @@
 /*
 * Local functions.
 */
-AREA_DATA *get_area_data args((int vnum));
+AREA_DATA *get_area_data(int vnum);
 
 extern const struct continent_type continent_table[];
 

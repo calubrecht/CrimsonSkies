@@ -39,20 +39,20 @@
 /*
  * Local functions.
  */
-int  hit_gain           args((CHAR_DATA * ch));
-int  mana_gain          args((CHAR_DATA * ch));
-int  move_gain          args((CHAR_DATA * ch));
-void check_death        args((CHAR_DATA *victim, int dt));
-void mobile_update      args((void));
-void weather_update     args((void));
-void char_update        args((void));
-void obj_update         args((void));
-void aggr_update        args((void));
-void tick_update        args((void));
-void half_tick_update   args((void));
-void shore_update       args((void));
-void environment_update args((void));
-void save_game_objects  args((void));
+int  hit_gain           (CHAR_DATA * ch);
+int  mana_gain          (CHAR_DATA * ch);
+int  move_gain          (CHAR_DATA * ch);
+void check_death        (CHAR_DATA *victim, int dt);
+void mobile_update      (void);
+void weather_update     (void);
+void char_update        (void);
+void obj_update         (void);
+void aggr_update        (void);
+void tick_update        (void);
+void half_tick_update   (void);
+void shore_update       (void);
+void environment_update (void);
+void save_game_objects  (void);
 
 /* used for saving */
 int save_number = 0;

@@ -42,9 +42,8 @@
 /*
  * Local functions.
  */
-void affect_modify args((CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd));
-OBJ_DATA *group_object args((OBJ_DATA *obj1, OBJ_DATA *obj2));
-
+void affect_modify(CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd);
+OBJ_DATA *group_object(OBJ_DATA *obj1, OBJ_DATA *obj2);
 
 /*
  * Returns number of people on an object.

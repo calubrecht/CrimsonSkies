@@ -50,12 +50,12 @@
 
 #define DIF(a,b) (~((~a)|(b)))
 
-void save_groups            args((void));
-void save_class             args((int num));
-void save_classes           args((void));
-void save_skills            args((void));
-void fwrite_skill           args((FILE *fp, int sn));
-char *spell_name_lookup     args((SPELL_FUN *spell));
+void save_groups            (void);
+void save_class             (int num);
+void save_classes           (void);
+void save_skills            (void);
+void fwrite_skill           (FILE *fp, int sn);
+char *spell_name_lookup     (SPELL_FUN *spell);
 
 /*
  *  Verbose writes reset data in plain english into the comments

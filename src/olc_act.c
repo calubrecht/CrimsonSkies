@@ -65,8 +65,8 @@ char *mprog_type_to_name(int type);
         _blargh ^= (blah == NO_FLAG) ? 0 : blah;    \
     }
 
-char      *spell_name_lookup     args((SPELL_FUN *spell));
-SPELL_FUN *spell_function_lookup args((char *name));
+char      *spell_name_lookup     (SPELL_FUN *spell);
+SPELL_FUN *spell_function_lookup (char *name);
 
 /* Return TRUE if area changed, FALSE if not. */
 #define REDIT( fun )        bool fun( CHAR_DATA *ch, char *argument )

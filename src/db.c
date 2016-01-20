@@ -163,36 +163,36 @@ char strArea[MAX_INPUT_LENGTH];
 /*
  * Local booting procedures.
 */
-void load_area args((FILE * fp));    /* OLC */
-void load_helps args((FILE * fp, char *fname));
-void load_mobiles args((FILE * fp));
-void load_objects args((FILE * fp));
-void load_resets args((FILE * fp));
-void load_rooms args((FILE * fp));
-void load_shops args((FILE * fp));
-void load_socials args((FILE * fp));
-void load_specials args((FILE * fp));
-void load_bans args((void));
-void load_mobprogs args((FILE * fp));
-void load_notes args((void));
-void fix_exits args((void));
-void fix_mobprogs args((void));
-void reset_area args((AREA_DATA * pArea));
-void load_classes args((void));
-void load_groups args((void));
-void load_settings args((void));
-void load_skills args((void));
-void load_game_objects args((void));
-void load_statistics args((void));
-void init_weather args((void));
-void assign_gsn args((void));
+void load_area(FILE * fp);    /* OLC */
+void load_helps(FILE * fp, char *fname);
+void load_mobiles(FILE * fp);
+void load_objects(FILE * fp);
+void load_resets(FILE * fp);
+void load_rooms(FILE * fp);
+void load_shops(FILE * fp);
+void load_socials(FILE * fp);
+void load_specials(FILE * fp);
+void load_bans(void);
+void load_mobprogs(FILE * fp);
+void load_notes(void);
+void fix_exits(void);
+void fix_mobprogs(void);
+void reset_area(AREA_DATA * pArea);
+void load_classes(void);
+void load_groups(void);
+void load_settings(void);
+void load_skills(void);
+void load_game_objects(void);
+void load_statistics(void);
+void init_weather(void);
+void assign_gsn(void);
 
-SPELL_FUN  *spell_function_lookup args((char *name));
+SPELL_FUN  *spell_function_lookup(char *name);
 
 /* For saving of PC corpses and donation pits across copyover and reboots */
-void fwrite_obj args((CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest));
-void fread_obj  args((CHAR_DATA * ch, FILE * fp));
-int  area_count args((int continent, int level));
+void fwrite_obj(CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest);
+void fread_obj (CHAR_DATA * ch, FILE * fp);
+int  area_count(int continent, int level);
 
 /*
  * Big mama top level function.
@@ -3307,8 +3307,7 @@ bool check_pet_affected(int vnum, AFFECT_DATA *paf)
     return FALSE;
 }
 
-extern int flag_lookup
-args((const char *name, const struct flag_type * flag_table));
+extern int flag_lookup(const char *name, const struct flag_type * flag_table);
 
 /* values for db2.c */
 struct social_type social_table[MAX_SOCIALS];

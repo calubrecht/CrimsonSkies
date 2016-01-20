@@ -43,13 +43,13 @@
 #define CD CHAR_DATA
 #define OD OBJ_DATA
 
-bool remove_obj args((CHAR_DATA * ch, int iWear, bool fReplace));
-void wear_obj args((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
-CD *find_keeper args((CHAR_DATA * ch));
-int get_cost args((CHAR_DATA * keeper, OBJ_DATA * obj, bool fBuy));
-void obj_to_keeper args((OBJ_DATA * obj, CHAR_DATA * ch));
-OD *get_obj_keeper args((CHAR_DATA * ch, CHAR_DATA * keeper, char *argument));
-void outfit args((CHAR_DATA *ch, int wear_position, int vnum));
+bool remove_obj (CHAR_DATA * ch, int iWear, bool fReplace);
+void wear_obj (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
+CD *find_keeper (CHAR_DATA * ch);
+int get_cost (CHAR_DATA * keeper, OBJ_DATA * obj, bool fBuy);
+void obj_to_keeper (OBJ_DATA * obj, CHAR_DATA * ch);
+OD *get_obj_keeper (CHAR_DATA * ch, CHAR_DATA * keeper, char *argument);
+void outfit (CHAR_DATA *ch, int wear_position, int vnum);
 
 #undef OD
 #undef CD

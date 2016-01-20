@@ -37,18 +37,18 @@
 
 // System Specific Includes
 #if defined(_WIN32)
-    #include <sys/types.h>
-    #include <time.h>
-    #include <io.h>
-    //#include <winsock.h>
-    #include <WinSock2.h>
-    #include "telnet.h"
-    #include <sys/timeb.h>
+#include <sys/types.h>
+#include <time.h>
+#include <io.h>
+//#include <winsock.h>
+#include <WinSock2.h>
+#include "telnet.h"
+#include <sys/timeb.h>
 #else
-    #include <sys/types.h>
-    #include <sys/time.h>
-    #include <unistd.h>                /* OLC -- for close read write etc */
-    #include <time.h>
+#include <sys/types.h>
+#include <sys/time.h>
+#include <unistd.h>                /* OLC -- for close read write etc */
+#include <time.h>
 #endif
 
 // General Includes
@@ -68,12 +68,12 @@
  */
 
 #if defined(MALLOC_DEBUG)
-#include <malloc.h>
-extern int malloc_debug args((int));
-extern int malloc_verify args((void));
+    #include <malloc.h>
+    extern int malloc_debug(int);
+    extern int malloc_verify(void);
 #endif
 
-int line_count	args((char *orig));
+int line_count(char *orig);
 
 #if defined(unix) || defined(_WIN32)
     #include <signal.h>
@@ -86,7 +86,7 @@ int line_count	args((char *orig));
     const	char	echo_off_str[] = {IAC, WILL, TELOPT_ECHO, '\0'};
     const	char	echo_on_str[] = {IAC, WONT, TELOPT_ECHO, '\0'};
     const	char 	go_ahead_str[] = {IAC, GA, '\0'};
-    void  gettimeofday args((struct timeval *tp, void *tzp));
+    void  gettimeofday(struct timeval *tp, void *tzp);
 #endif
 
 #if    defined(unix)
@@ -116,20 +116,19 @@ int line_count	args((char *orig));
         uncommenting these functions.
     */
     /*
-    int    accept        args( ( int s, struct sockaddr *addr, int *addrlen ) );
-    int    bind        args( ( int s, struct sockaddr *name, int namelen ) );
-    int    getpeername    args( ( int s, struct sockaddr *name, int *namelen ) );
-    int    getsockname    args( ( int s, struct sockaddr *name, int *namelen ) );
-    int    listen        args( ( int s, int backlog ) );
-    int    read        args( ( int fd, char *buf, int nbyte ) );
-    int    write        args( ( int fd, char *buf, int nbyte ) );
+    int    accept        ( int s, struct sockaddr *addr, int *addrlen );
+    int    bind        ( int s, struct sockaddr *name, int namelen );
+    int    getpeername    ( int s, struct sockaddr *name, int *namelen );
+    int    getsockname    ( int s, struct sockaddr *name, int *namelen );
+    int    listen        ( int s, int backlog );
+    int    read        ( int fd, char *buf, int nbyte );
+    int    write        ( int fd, char *buf, int nbyte );
     */
 
-    int close args((int fd));
-    int gettimeofday args((struct timeval * tp, struct timezone * tzp));
-    int select args((int width, fd_set * readfds, fd_set * writefds,
-    fd_set * exceptfds, struct timeval * timeout));
-    int socket args((int domain, int type, int protocol));
+    int close(int fd);
+    int gettimeofday(struct timeval * tp, struct timezone * tzp);
+    int select(int width, fd_set * readfds, fd_set * writefds, fd_set * exceptfds, struct timeval * timeout);
+    int socket(int domain, int type, int protocol);
 #endif
 
 /*
@@ -145,26 +144,26 @@ bool MOBtrigger = TRUE;              /* act() switch                 */
  * OS-dependent local functions.
  */
 #if defined(unix) || defined(_WIN32)
-    void game_loop args((int control));
-    int init_socket args((int port));
-    void init_descriptor args((int control));
-    bool read_from_descriptor args((DESCRIPTOR_DATA * d));
-    bool write_to_descriptor args((int desc, char *txt, int length, DESCRIPTOR_DATA *d));
+    void game_loop(int control);
+    int init_socket(int port);
+    void init_descriptor(int control);
+    bool read_from_descriptor(DESCRIPTOR_DATA * d);
+    bool write_to_descriptor(int desc, char *txt, int length, DESCRIPTOR_DATA *d);
 #endif
 
 /*
  * Other local functions (OS-independent).
  */
-bool check_parse_name args((char *name));
-bool check_reconnect args((DESCRIPTOR_DATA * d, char *name, bool fConn));
-bool check_playing args((DESCRIPTOR_DATA * d, char *name));
-int main args((int argc, char **argv));
-void nanny args((DESCRIPTOR_DATA * d, char *argument));
-bool process_output args((DESCRIPTOR_DATA * d, bool fPrompt));
-void read_from_buffer args((DESCRIPTOR_DATA * d));
-void stop_idling args((CHAR_DATA * ch));
-void bust_a_prompt args((CHAR_DATA * ch));
-void twiddle args((void));
+bool check_parse_name(char *name);
+bool check_reconnect(DESCRIPTOR_DATA * d, char *name, bool fConn);
+bool check_playing(DESCRIPTOR_DATA * d, char *name);
+int main(int argc, char **argv);
+void nanny(DESCRIPTOR_DATA * d, char *argument);
+bool process_output(DESCRIPTOR_DATA * d, bool fPrompt);
+void read_from_buffer(DESCRIPTOR_DATA * d);
+void stop_idling(CHAR_DATA * ch);
+void bust_a_prompt(CHAR_DATA * ch);
+void twiddle(void);
 
 /* Needs to be global because of do_copyover */
 int port, control;

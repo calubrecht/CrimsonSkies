@@ -20,11 +20,11 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
-int	        clan_lookup      args((const char *name));
-int	        position_lookup	 args((const char *name));
-int         sex_lookup       args((const char *name));
-int         size_lookup      args((const char *name));
-int	        flag_lookup      args((const char *, const struct flag_type *));
-int         continent_lookup args((const char *name));
-HELP_DATA * help_lookup      args((char *));
-HELP_AREA * had_lookup       args((char *));
+int	        clan_lookup     (const char *name);
+int	        position_lookup	(const char *name);
+int         sex_lookup      (const char *name);
+int         size_lookup     (const char *name);
+int	        flag_lookup     (const char *, const struct flag_type *);
+int         continent_lookup(const char *name);
+HELP_DATA * help_lookup     (char *);
+HELP_AREA * had_lookup      (char *);

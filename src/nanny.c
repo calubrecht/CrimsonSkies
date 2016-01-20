@@ -63,10 +63,10 @@
 /*
  * Other local functions (OS-independent).
  */
-bool check_parse_name args((char *name));
-bool check_reconnect args((DESCRIPTOR_DATA * d, char *name, bool fConn));
-bool check_playing args((DESCRIPTOR_DATA * d, char *name));
-void max_players_check args((void));
+bool check_parse_name(char *name);
+bool check_reconnect(DESCRIPTOR_DATA * d, char *name, bool fConn);
+bool check_playing(DESCRIPTOR_DATA * d, char *name);
+void max_players_check(void);
 
 /*
  * Global variables.

@@ -41,7 +41,7 @@
 #include "recycle.h"
 
 // Local Declarations
-void set_obj_enchanted args((CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first));
+void set_obj_enchanted(CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first);
 
 /*
  * Spell that sets a rot-death flag on an item so it crumbles when the

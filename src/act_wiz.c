@@ -46,14 +46,14 @@
 /*
  * Local functions.
  */
-ROOM_INDEX_DATA *find_location args((CHAR_DATA * ch, char *arg));
+ROOM_INDEX_DATA *find_location (CHAR_DATA * ch, char *arg);
 
-void raw_kill          args((CHAR_DATA * victim)); // for do_slay
-void save_game_objects args((void)); // for do_copyover
-void save_statistics   args((void)); // for do_copyover
-void wizbless          args((CHAR_DATA * victim)); // for do_wizbless
-void do_mload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
-void do_oload          args((CHAR_DATA *ch, char *argument, int number)); // for do_load
+void raw_kill          (CHAR_DATA * victim); // for do_slay
+void save_game_objects (void); // for do_copyover
+void save_statistics   (void); // for do_copyover
+void wizbless          (CHAR_DATA * victim); // for do_wizbless
+void do_mload          (CHAR_DATA *ch, char *argument, int number); // for do_load
+void do_oload          (CHAR_DATA *ch, char *argument, int number); // for do_load
 
 void do_wiznet(CHAR_DATA * ch, char *argument)
 {
@@ -3225,8 +3225,7 @@ void do_newlock(CHAR_DATA * ch, char *argument)
 }
 
 // do_flag code merged in from flags.c since it's a wiz command
-int flag_lookup
-args((const char *name, const struct flag_type * flag_table));
+int flag_lookup(const char *name, const struct flag_type * flag_table);
 
 void do_flag(CHAR_DATA * ch, char *argument)
 {

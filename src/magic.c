@@ -42,11 +42,11 @@
 /*
  * Local functions.
  */
-void say_spell args((CHAR_DATA * ch, int sn));
+void say_spell(CHAR_DATA * ch, int sn);
 
 /* imported functions */
-bool remove_obj args((CHAR_DATA * ch, int iWear, bool fReplace));
-void wear_obj args((CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace));
+bool remove_obj(CHAR_DATA * ch, int iWear, bool fReplace);
+void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
 
 /*
  * Lookup a skill number by name.

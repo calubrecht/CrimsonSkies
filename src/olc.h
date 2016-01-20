@@ -55,8 +55,8 @@
 /*
  * New typedefs.
  */
-typedef	bool OLC_FUN		args((CHAR_DATA *ch, char *argument));
-#define DECLARE_OLC_FUN( fun )	OLC_FUN    fun
+typedef	bool OLC_FUN		(CHAR_DATA *ch, char *argument);
+#define DECLARE_OLC_FUN(fun) OLC_FUN fun
 
 /* Command procedures needed ROM OLC */
 DECLARE_DO_FUN(do_help);
@@ -65,29 +65,29 @@ DECLARE_SPELL_FUN(spell_null);
 /*
  * Connected states for editor.
  */
-#define ED_NONE		0
-#define ED_AREA		1
-#define ED_ROOM		2
-#define ED_OBJECT	3
-#define ED_MOBILE	4
-#define ED_MPCODE	5
-#define ED_HELP		6
-#define ED_GROUP        7
-#define ED_CLASS        8
-#define ED_SKILL        9
+#define ED_NONE     0
+#define ED_AREA     1
+#define ED_ROOM	    2
+#define ED_OBJECT   3
+#define ED_MOBILE   4
+#define ED_MPCODE   5
+#define ED_HELP     6
+#define ED_GROUP    7
+#define ED_CLASS    8
+#define ED_SKILL    9
 
 /*
  * Interpreter Prototypes
  */
-void    aedit           args((CHAR_DATA *ch, char *argument));
-void    redit           args((CHAR_DATA *ch, char *argument));
-void    medit           args((CHAR_DATA *ch, char *argument));
-void    oedit           args((CHAR_DATA *ch, char *argument));
-void	mpedit          args((CHAR_DATA *ch, char *argument));
-void	hedit           args((CHAR_DATA *, char *));
-void    gedit           args((CHAR_DATA *ch, char *argument));
-void    cedit           args((CHAR_DATA *ch, char *argument));
-void    sedit           args((CHAR_DATA *ch, char *argument));
+void    aedit          (CHAR_DATA *ch, char *argument);
+void    redit          (CHAR_DATA *ch, char *argument);
+void    medit          (CHAR_DATA *ch, char *argument);
+void    oedit          (CHAR_DATA *ch, char *argument);
+void	mpedit         (CHAR_DATA *ch, char *argument);
+void	hedit          (CHAR_DATA *, char *);
+void    gedit          (CHAR_DATA *ch, char *argument);
+void    cedit          (CHAR_DATA *ch, char *argument);
+void    sedit          (CHAR_DATA *ch, char *argument);
 
 /*
  * OLC Constants
@@ -115,15 +115,12 @@ struct	editor_cmd_type
 /*
  * Utils.
  */
-AREA_DATA *get_vnum_area	args((int vnum));
-AREA_DATA *get_area_data	args((int vnum));
-int flag_value			args((const struct flag_type *flag_table,
-    char *argument));
-char *flag_string		args((const struct flag_type *flag_table,
-    int bits));
-void add_reset			args((ROOM_INDEX_DATA *room,
-    RESET_DATA *pReset, int index));
-int flag_find                   args((const char *name, const struct flag_type *flag_table));
+AREA_DATA *get_vnum_area    (int vnum);
+AREA_DATA *get_area_data	(int vnum);
+int flag_value			    (const struct flag_type *flag_table, char *argument);
+char *flag_string		    (const struct flag_type *flag_table, int bits);
+void add_reset              (ROOM_INDEX_DATA *room, RESET_DATA *pReset, int index);
+int flag_find               (const char *name, const struct flag_type *flag_table);
 
 /*
  * Interpreter Table Prototypes
@@ -156,10 +153,10 @@ DECLARE_DO_FUN(do_sedit);
 /*
 * General Functions
 */
-bool show_commands		args((CHAR_DATA *ch, char *argument));
-bool show_help			args((CHAR_DATA *ch, char *argument));
-bool edit_done			args((CHAR_DATA *ch));
-bool show_version		args((CHAR_DATA *ch, char *argument));
+bool show_commands		(CHAR_DATA *ch, char *argument);
+bool show_help			(CHAR_DATA *ch, char *argument);
+bool edit_done			(CHAR_DATA *ch);
+bool show_version		(CHAR_DATA *ch, char *argument);
 
 /*
 * Area Editor Prototypes
@@ -362,31 +359,31 @@ DECLARE_OLC_FUN(cedit_isreclass);
 */
 /* mem.c - memory prototypes. */
 #define ED	EXTRA_DESCR_DATA
-RESET_DATA	*new_reset_data		args((void));
-void		free_reset_data		args((RESET_DATA *pReset));
-AREA_DATA	*new_area		args((void));
-void		free_area		args((AREA_DATA *pArea));
-EXIT_DATA	*new_exit		args((void));
-void		free_exit		args((EXIT_DATA *pExit));
-ED 		*new_extra_descr	args((void));
-void		free_extra_descr	args((ED *pExtra));
-ROOM_INDEX_DATA *new_room_index		args((void));
-void		free_room_index		args((ROOM_INDEX_DATA *pRoom));
-AFFECT_DATA	*new_affect		args((void));
-void		free_affect		args((AFFECT_DATA* pAf));
-SHOP_DATA	*new_shop		args((void));
-void		free_shop		args((SHOP_DATA *pShop));
-OBJ_INDEX_DATA	*new_obj_index		args((void));
-void		free_obj_index		args((OBJ_INDEX_DATA *pObj));
-MOB_INDEX_DATA	*new_mob_index		args((void));
-void		free_mob_index		args((MOB_INDEX_DATA *pMob));
+RESET_DATA	*new_reset_data		(void);
+void		free_reset_data		(RESET_DATA *pReset);
+AREA_DATA	*new_area		(void);
+void		free_area		(AREA_DATA *pArea);
+EXIT_DATA	*new_exit		(void);
+void		free_exit		(EXIT_DATA *pExit);
+ED 		*new_extra_descr	(void);
+void		free_extra_descr	(ED *pExtra);
+ROOM_INDEX_DATA *new_room_index		(void);
+void		free_room_index		(ROOM_INDEX_DATA *pRoom);
+AFFECT_DATA	*new_affect		(void);
+void		free_affect		(AFFECT_DATA* pAf);
+SHOP_DATA	*new_shop		(void);
+void		free_shop		(SHOP_DATA *pShop);
+OBJ_INDEX_DATA	*new_obj_index		(void);
+void		free_obj_index		(OBJ_INDEX_DATA *pObj);
+MOB_INDEX_DATA	*new_mob_index		(void);
+void		free_mob_index		(MOB_INDEX_DATA *pMob);
 #undef	ED
 
-void		show_liqlist		args((CHAR_DATA *ch));
-void		show_damlist		args((CHAR_DATA *ch));
+void		show_liqlist		(CHAR_DATA *ch);
+void		show_damlist		(CHAR_DATA *ch);
 
-char *		mprog_type_to_name	args((int type));
-MPROG_LIST      *new_mprog              args((void));
-void            free_mprog              args((MPROG_LIST *mp));
-MPROG_CODE	*new_mpcode		args((void));
-void		free_mpcode		args((MPROG_CODE *pMcode));
+char *		mprog_type_to_name	(int type);
+MPROG_LIST      *new_mprog              (void);
+void            free_mprog              (MPROG_LIST *mp);
+MPROG_CODE	*new_mpcode		(void);
+void		free_mpcode		(MPROG_CODE *pMcode);
