@@ -55,6 +55,7 @@ void do_butcher(CHAR_DATA *ch, char *argument)
 {
     OBJ_DATA *obj;
     OBJ_DATA *steak;
+    char buf[MAX_STRING_LENGTH];
 
     // What do they want to butcher?
     if (IS_NULLSTR(argument))
@@ -108,6 +109,7 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     if (!check_skill_improve(ch, gsn_butcher, 3, 3))
     {
         send_to_char("You fail your attempt to butcher the corpse.\r\n", ch);
+        act( "$n has failed their attempt at butchering.", ch, NULL, NULL, TO_ROOM );
         separate_obj(obj);
         extract_obj(obj);
         return;
@@ -115,12 +117,20 @@ void do_butcher(CHAR_DATA *ch, char *argument)
 
     // Require that an object with a VNUM of 27 is created (as the steak), I didn't
     // feel the need to make a global constant when it's only used once here.
-    steak = create_object(get_obj_index(27), 0);
-    obj_to_char(steak, ch);
+    int count = number_range(1, 4);
+    int x = 0;
+
+    for (x = 1; x <= count; x++)
+    {
+        steak = create_object(get_obj_index(27), 0);
+        obj_to_char(steak, ch);
+    }
 
     // Show the player and the room the spoils (not spoiled)
-    act( "$n has prepared $p.", ch, steak, NULL, TO_ROOM );
-    act( "You have successfully prepared $p.", ch, steak, NULL, TO_CHAR );
+    sprintf(buf, "$n has prepared %d steak%s.", count, (count > 1 ? "s" : ""));
+    act(buf, ch, NULL, NULL, TO_ROOM );
+    sprintf(buf, "You have successfully prepared %d steak%s", count, (count > 1 ? "s" : ""));
+    act(buf, ch, NULL, NULL, TO_CHAR );
 
     // Seprate and extract the corpse from the room.
     separate_obj(obj);
