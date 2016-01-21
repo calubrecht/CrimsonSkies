@@ -47,6 +47,7 @@
 #include "interp.h"
 #include "magic.h"
 #include "recycle.h"
+#include "tables.h"
 
 /*
  * Skill a ranger can use to butcher steaks from PC and NPC corpses.  Yum.
@@ -141,3 +142,107 @@ void do_butcher(CHAR_DATA *ch, char *argument)
     return;
 
 } // end do_butcher
+
+/*
+ * The bandage skill will allow a ranger or healer to attempt to bandage up themselves
+ * or another person/mob who is critically injured.  It will restore a small amount
+ * of HP although it could cause a slight damage itself if done incorrectly.
+ *
+ * This skill orginated from from UltraEnvy/Magma Mud by Xangis.  Conversion to CS-Mud
+ * and additional updates to the code are by Rhien.
+ */
+void do_bandage(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+    int chance;
+    int change;
+
+    if (IS_NPC(ch) || ch->level < skill_table[gsn_bandage]->skill_level[ch->class])
+    {
+        send_to_char("You don't know how to bandage!\r\n", ch);
+        return;
+    }
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char( "Bandage whom?\r\n", ch );
+        return;
+    }
+
+    if (!(victim = get_char_room(ch, argument)))
+    {
+        send_to_char("They're not here.\r\n", ch);
+        return;
+    }
+
+    // The original implementation was for > 0 which meant only stunned people
+    // could be bandaged, we'll allow this to be used on people under 100 to
+    // make it a little more useful, those people are still pretty hurt.
+    if (victim->hit > 100)
+    {
+        send_to_char("They do not need your help.\r\n", ch);
+        return;
+    }
+
+    // Make sure they have enough movement to perform this, even though it takes
+    // less than 50 we'll make them have more than 50.
+    if (ch->move < 50)
+    {
+        send_to_char("You are too tired.\r\n", ch);
+        return;
+    }
+
+    chance = get_skill(ch, gsn_bandage);
+
+    // Ranger's and Healer's get a bonus
+    switch (ch->class)
+    {
+        default:
+            break;
+        case RANGER_CLASS_LOOKUP:
+            chance += 4;
+            break;
+        case HEALER_CLASS_LOOKUP:
+            chance += 6;
+            break;
+    }
+
+    /* Don't allow someone doing more than 1 pt. of damage with bandage. */
+    change = (UMAX(chance - number_percent(), -1) / 20) + 1;
+
+    // The wait period for the user of the skill.
+    WAIT_STATE(ch, skill_table[gsn_bandage]->beats);
+
+    if(change < 0)
+    {
+        send_to_char("You just made the problem worse!\n\r", ch);
+        act("$n tries bandage you but your condition only worsens.", ch, NULL, victim, TO_VICT);
+        act("$n tries bandage $N but $S condition only worsens.", ch, NULL, victim, TO_NOTVICT);
+        check_improve(ch, gsn_bandage, FALSE, 1);
+    }
+    else if(change > 0)
+    {
+        send_to_char("You manage to fix them up a bit.\n\r", ch);
+        act("$n bandages you.", ch, NULL, victim, TO_VICT);
+        act("$n bandages $N.", ch, NULL, victim, TO_NOTVICT);
+        check_improve(ch, gsn_bandage, TRUE, 1);
+    }
+    else
+    {
+        send_to_char("Your bandaging attempt had no effect.\n\r", ch);
+        act("$n tries to bandage you but the wounds are too great.", ch, NULL, victim, TO_VICT);
+        act("$n tries to bandage $N but is unable to have any effect.", ch, NULL, victim, TO_NOTVICT);
+    }
+
+    // Add the additional health
+    victim->hit += change;
+
+    // Have the act of bandaging remove some move from the character using it.
+    ch->move -= change;
+
+    // Update their position in case they were stunned.
+    update_pos(victim);
+
+    return;
+
+} // end do_bandage

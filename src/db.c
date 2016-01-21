@@ -4685,6 +4685,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_track, "track");
     ASSIGN_GSN(gsn_acute_vision, "acute vision");
     ASSIGN_GSN(gsn_butcher, "butcher");
+    ASSIGN_GSN(gsn_bandage, "bandage");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;
