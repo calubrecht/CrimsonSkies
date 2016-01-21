@@ -3914,6 +3914,14 @@ health that might save a person's life.  The skill will put a tax on the
 players movement in order to perform it.
 ~
 
+0 BARK SKIN~
+Syntax: cast 'bark skin'
+
+The bark skin spell allows one who posses the nature spell group to
+turn the texture of one's skin into a hard bark like one.  This spell
+can only be cast on yourself.
+~
+
 0 $~
 
 #$
