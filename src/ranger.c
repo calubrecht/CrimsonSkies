@@ -35,6 +35,8 @@
  *                                                                         *
  *    - Acute Vision                                                       *
  *    - Butcher                                                            *
+ *    - Bark Skin                                                          *
+ *    - Self Growth                                                        *
  *    - Track (hunt.c)                                                     *
  *                                                                         *
  ***************************************************************************/
@@ -282,4 +284,41 @@ void spell_bark_skin(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 
 } // end spell_bark_skin
+
+/*
+ * This spell allows the ranger to channel the powers of nature to promote growth.
+ * This spell should be castable only on one's self.
+ */
+void spell_self_growth(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N is already instilled with self growth.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.location = APPLY_CON;
+    af.modifier = 1;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+    send_to_char("You feel vitalized.\r\n", victim);
+    act("$n's looks more vitalized.", victim, NULL, NULL, TO_ROOM);
+    return;
+
+} // end self growth
 

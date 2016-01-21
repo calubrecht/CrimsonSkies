@@ -2017,4 +2017,15 @@ MsgOff      Your skin loses it's bark like texture.~
 Race        0
 End
 
+#SKILL
+Name        self growth~
+SpellFun    spell_self_growth~
+Target      3
+MinPos      0
+MinMana     30
+Beats       12
+MsgOff      You feel less vitalized.~
+Race        0
+End
+
 #END

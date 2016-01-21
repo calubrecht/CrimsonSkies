@@ -149,6 +149,7 @@ Sk 'acute vision' 52 -1
 Sk 'track' 52 -1
 Sk 'butcher' 52 -1
 Sk 'bark skin' 52 1
+Sk 'self growth' 52 1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -233,6 +234,7 @@ Gr 'protective' 4
 Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
+Gr 'nature' 0
 Mult 0 100
 Mult 1 100
 Mult 2 125

@@ -3922,6 +3922,14 @@ turn the texture of one's skin into a hard bark like one.  This spell
 can only be cast on yourself.
 ~
 
+0 SELF GROWTH~
+Syntax: cast 'self growth'
+
+The self growth spell is one of the nature spell group which allows a
+ranger to raise their constitution slightly.  This spell can only be
+cast on one's self.
+~
+
 0 $~
 
 #$

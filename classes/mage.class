@@ -142,6 +142,7 @@ Sk 'track' 52 -1
 Sk 'butcher' 52 -1
 Sk 'bandage' 52 1
 Sk 'bark skin' 52 1
+Sk 'self growth' 52 1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -233,6 +234,7 @@ Gr 'protective' 4
 Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
+Gr 'nature' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100
