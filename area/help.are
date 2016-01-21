@@ -597,6 +597,7 @@ to the mud implementors.
              [Jim Robinson (Flugh of (QuickMud)]
                                 [Dennis Reichel]
                  [Keridan (Benevolent Iniquity)]
+          [Jason Champion (Xangis of Magma Mud)]
           {w--------------------------------------
           - {R[{WArea Contributions{R]{w ---------------
           --------------------------------------{x
@@ -2040,7 +2041,7 @@ pick lock	a useful skill for breaking and entering
 sneak		with this skill, a thief can walk into a room undetected
 ~
 
--1 WARRIOR 'WARRIOR BASICS' 'WARRIOR DEFAULT'~
+-1 WARRIOR WARRIOR BASICS WARRIOR DEFAULT~
 Warriors live for combat and the thrill of battle. They are the best fighters
 of all the classes, but lack the subtle skills of thieves and the magical
 talents of mages and priests.  Warriors are best for those who don't mind
@@ -3904,6 +3905,13 @@ keen eye sight and are excellent at hiding in forest areas.
 0 BUTCHER~
 The butcher skill allows rangers to prepare edible steaks from the 
 remains of creatures.
+~
+
+0 BANDAGE~
+The bandage skill allows a healer, a cleric or a ranger the ability to
+bandage critically injured players.  This can restore small amounts of
+health that might save a person's life.  The skill will put a tax on the
+players movement in order to perform it.
 ~
 
 0 $~
