@@ -387,4 +387,9 @@ Sk 'song of protection'
 Sk 'song of dissonance'
 End
 
+#GROUP
+Name 'nature'
+Sk 'bark skin'
+End
+
 #END

@@ -2006,4 +2006,15 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        bark skin~
+SpellFun    spell_bark_skin~
+Target      3
+MinPos      8
+MinMana     15
+Beats       12
+MsgOff      Your skin loses it's bark like texture.~
+Race        0
+End
+
 #END

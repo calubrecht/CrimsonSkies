@@ -246,3 +246,40 @@ void do_bandage(CHAR_DATA *ch, char *argument)
     return;
 
 } // end do_bandage
+
+/*
+ * Bark skin - enhances a characters armor class.
+ */
+void spell_bark_skin(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(ch, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N's skin already has the toughness of bark.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = UMIN (UMAX(15, level), 50);
+    af.location = APPLY_AC;
+    af.modifier = -10;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+    act("$n's skin gains the texture and toughness of bark.", victim, NULL, NULL, TO_ROOM);
+    send_to_char("Your skin gains the texture and toughness of bark.\r\n", victim);
+    return;
+
+} // end spell_bark_skin
+

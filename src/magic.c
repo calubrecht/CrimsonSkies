@@ -1280,6 +1280,12 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, skill_lookup("bark skin")))
+    {
+        act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     if (check_dispel(level, victim, skill_lookup("life boost")))
     {
         found = TRUE;
@@ -2473,6 +2479,12 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel(level, victim, gsn_enhanced_recovery))
     {
         found = TRUE;
+    }
+
+    if (check_dispel(level, victim, skill_lookup("bark skin")))
+    {
+        found = TRUE;
+        act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
     }
 
     if (found)
@@ -5081,6 +5093,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_bless")) return spell_bless;
             if (!str_cmp(name, "spell_blindness")) return spell_blindness;
             if (!str_cmp(name, "spell_burning_hands")) return spell_burning_hands;
+            if (!str_cmp(name, "spell_bark_skin")) return spell_bark_skin;
             break;
         case 'c':
             if (!str_cmp(name, "spell_cancellation")) return spell_cancellation;
@@ -5377,6 +5390,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_healers_bind) return "spell_healers_bind";
     if (spell == spell_cure_deafness) return "spell_cure_deafness";
     if (spell == spell_remove_faerie_fire) return "spell_remove_faerie_fire";
+    if (spell == spell_bark_skin) return "spell_bark_skin";
 
     return "reserved";
 
