@@ -1996,4 +1996,14 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        bandage~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       12
+Race        0
+End
+
 #END

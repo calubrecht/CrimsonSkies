@@ -38,6 +38,7 @@ Sk 'faerie fire' 3 1
 Sk 'continual light' 4 1
 Sk 'detect evil' 4 1
 Sk 'detect good' 4 1
+Sk 'bandage' 4 2
 Sk 'create food' 5 1
 Sk 'cure serious' 5 1
 Sk 'life boost' 5 1
@@ -146,8 +147,9 @@ Sk 'song of dissonance' 52 -1
 Sk 'circle stab' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
-Sk 'track' 52 -1
 Sk 'acute vision' 52 -1
+Sk 'track' 52 -1
+Sk 'butcher' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
