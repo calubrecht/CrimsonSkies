@@ -182,8 +182,16 @@ void do_bandage(CHAR_DATA *ch, char *argument)
     // make it a little more useful, those people are still pretty hurt.
     if (victim->hit > 100)
     {
-        send_to_char("They do not need your help.\r\n", ch);
-        return;
+        if (victim == ch)
+        {
+            send_to_char("You do not need any bandages currently.\r\n", ch);
+            return;
+        }
+        else
+        {
+            send_to_char("They do not need your help.\r\n", ch);
+            return;
+        }
     }
 
     // Make sure they have enough movement to perform this, even though it takes
