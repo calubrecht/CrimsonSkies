@@ -1334,7 +1334,6 @@ void bust_a_prompt(CHAR_DATA * ch)
     *point = '\0';
     pbuff = buffer;
     colorconv(pbuff, buf, ch);
-    send_to_char("{p", ch);
     write_to_buffer(ch->desc, buffer, 0);
     send_to_char("{x", ch);
 
