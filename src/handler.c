@@ -1840,7 +1840,8 @@ void obj_from_room(OBJ_DATA * obj)
 
     if ((in_room = obj->in_room) == NULL)
     {
-        bug("obj_from_room: NULL.", 0);
+        bugf("obj_from_room: obj->in_room is NULL.  Object VNUM=%d", obj->pIndexData->vnum);
+        log_obj(obj);
         return;
     }
 
