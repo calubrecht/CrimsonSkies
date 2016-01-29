@@ -97,3 +97,5 @@ This is my to do list, mostly will be things big and small as I think about them
     them out of the room, the log was littered with null in_room from each take in obj_from_char (and spec_janitor).  Find and fix.
   - Make do_worth show global worth of all players logged in for immortals and/or make a world
     stats command that shows.
+  - Update the interp table with a flag to indicate whether a command is a skill.
+    Then, update the commands command to group regular commands and then skills (then don't show skills if a user doesn't have them).
