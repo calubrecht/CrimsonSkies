@@ -3930,6 +3930,13 @@ ranger to raise their constitution slightly.  This spell can only be
 cast on one's self.
 ~
 
+0 QUIET MOVEMENT~
+Syntax:  qmove
+
+Allows a skilled ranger to move undetected through many various
+wilderness terrains.
+~
+
 0 $~
 
 #$
