@@ -1649,6 +1649,7 @@ void do_visible(CHAR_DATA * ch, char *argument)
     affect_strip(ch, gsn_invis);
     affect_strip(ch, gsn_mass_invis);
     affect_strip(ch, gsn_sneak);
+    affect_strip(ch, gsn_quiet_movement);
     REMOVE_BIT(ch->affected_by, AFF_HIDE);
     REMOVE_BIT(ch->affected_by, AFF_INVISIBLE);
     REMOVE_BIT(ch->affected_by, AFF_SNEAK);

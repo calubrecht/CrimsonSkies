@@ -37,6 +37,7 @@
  *    - Butcher                                                            *
  *    - Bark Skin                                                          *
  *    - Self Growth                                                        *
+ *    - Quiet Movement                                                     *
  *    - Track (hunt.c)                                                     *
  *                                                                         *
  ***************************************************************************/
@@ -329,4 +330,40 @@ void spell_self_growth(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 
 } // end self growth
+
+/*
+ * Quiet movement - Will allow rangers to move mostly undetected through
+ * various types of wilderness terrain.  Will not work in cities, water,
+ * underwater, etc.
+ */
+void do_quiet_movement(CHAR_DATA *ch, char *argument)
+{
+    AFFECT_DATA af;
+
+    send_to_char("You attempt to move quietly.\n\r", ch );
+    affect_strip(ch, gsn_quiet_movement);
+
+    if (is_affected(ch, gsn_quiet_movement))
+        return;
+
+    if (CHANCE_SKILL(ch, gsn_quiet_movement))
+    {
+        af.where = TO_AFFECTS;
+        af.type = gsn_quiet_movement;
+        af.level = ch->level;
+        af.duration = ch->level;
+        af.location = APPLY_NONE;
+        af.modifier = 0;
+        af.bitvector = 0;
+        affect_to_char(ch, &af);
+
+        check_improve(ch, gsn_quiet_movement, TRUE, 3);
+    }
+    else
+    {
+        check_improve(ch, gsn_quiet_movement, FALSE, 3);
+    }
+
+    return;
+} // end do_quiet_movement
 
