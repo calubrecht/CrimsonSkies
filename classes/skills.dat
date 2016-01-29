@@ -2028,4 +2028,15 @@ MsgOff      You feel less vitalized.~
 Race        0
 End
 
+#SKILL
+Name        quiet movement~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       0
+MsgOff      You are no longer moving quietly.~
+Race        0
+End
+
 #END
