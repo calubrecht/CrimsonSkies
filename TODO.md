@@ -95,3 +95,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update help file and make a level -1 entries 0 or 1 (this will ensure their keywords are displayed with the entry)
   - There is a bug where I saw two janitors in a room, repeatedly picking things up but never taking
     them out of the room, the log was littered with null in_room from each take in obj_from_char (and spec_janitor).  Find and fix.
+  - Make do_worth show global worth of all players logged in for immortals and/or make a world
+    stats command that shows.
