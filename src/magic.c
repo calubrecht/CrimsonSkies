@@ -3247,6 +3247,12 @@ void spell_identify(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         obj->weight / 10, obj->cost, obj->level);
     send_to_char(buf, ch);
 
+    if (obj->pIndexData->area)
+    {
+        sprintf(buf,"This item comes from '%s'.\r\n", obj->pIndexData->area->name);
+        send_to_char(buf, ch);
+    }
+
     switch (obj->item_type)
     {
         case ITEM_SCROLL:
