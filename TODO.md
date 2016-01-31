@@ -99,3 +99,4 @@ This is my to do list, mostly will be things big and small as I think about them
     stats command that shows.
   - Update the interp table with a flag to indicate whether a command is a skill.
     Then, update the commands command to group regular commands and then skills (then don't show skills if a user doesn't have them).
+  - Research why all items have 0 condition.
