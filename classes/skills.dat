@@ -1547,7 +1547,7 @@ SpellFun    spell_null~
 Target      0
 MinPos      5
 MinMana     0
-Beats       36
+Beats       12
 MsgOff      !Lore!~
 Race        0
 End

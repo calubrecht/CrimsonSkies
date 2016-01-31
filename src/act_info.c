@@ -1274,7 +1274,7 @@ void do_look(CHAR_DATA * ch, char *argument)
                     break;
                 }
 
-                sprintf(buf, "It's %sfilled with  a %s liquid.\r\n",
+                sprintf(buf, "It's %sfilled with a %s liquid.\r\n",
                     obj->value[1] < obj->value[0] / 4
                     ? "less than half-" :
                     obj->value[1] < 3 * obj->value[0] / 4
@@ -1316,6 +1316,7 @@ void do_look(CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char(pdesc, ch);
+                    show_lore(ch, obj);
                     return;
                 }
                 else
@@ -1328,6 +1329,7 @@ void do_look(CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char(pdesc, ch);
+                    show_lore(ch, obj);
                     return;
                 }
                 else
@@ -1338,7 +1340,7 @@ void do_look(CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char(obj->description, ch);
-                    send_to_char("\r\n", ch);
+                    show_lore(ch, obj);
                     return;
                 }
         }

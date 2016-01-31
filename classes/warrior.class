@@ -83,7 +83,6 @@ Sk 'calm' 20 2
 Sk 'color spray' 20 2
 Sk 'create spring' 20 2
 Sk 'giant strength' 20 2
-Sk 'lore' 20 8
 Sk 'dispel evil' 21 2
 Sk 'dispel good' 21 2
 Sk 'poison' 21 2
@@ -121,6 +120,7 @@ Sk 'portal' 40 4
 Sk 'shield' 40 2
 Sk 'frost breath' 40 2
 Sk 'holy word' 42 4
+Sk 'lore' 43 8
 Sk 'demonfire' 45 2
 Sk 'nexus' 45 4
 Sk 'stone skin' 45 2

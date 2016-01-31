@@ -4094,3 +4094,185 @@ void do_use(CHAR_DATA * ch, char *argument)
 
     return;
 } // end do_use
+
+void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
+{
+    // If we're working we nothing then we're doing nothing.
+    if (obj == NULL || ch == NULL)
+        return;
+
+    if (ch->position == POS_FIGHTING)
+        return;
+
+    if (CHANCE_SKILL(ch, gsn_lore))
+    {
+        send_to_char("\r\nYour knowledge of this objects lore has garnered you this additional information:\r\n", ch);
+        check_improve(ch, gsn_lore, TRUE, 9);
+    }
+    else
+    {
+        send_to_char("\r\nYou can't seem to recall any additional information about the lore of this item.\r\n", ch);
+        check_improve(ch, gsn_lore, FALSE, 9);
+        return;
+    }
+
+    char buf[MAX_STRING_LENGTH];
+
+    sprintf(buf, "\r\n%s is of type '%s' and comes from '%s'.\r\nIt weighs %d, costs %d silver and is level %d.\r\n",
+        capitalize(obj->short_descr),
+        item_name(obj->item_type),
+         obj->pIndexData->area->name,
+        obj->weight / 10,
+        obj->cost,
+        obj->level);
+    send_to_char( buf, ch );
+
+/*
+    // Uncomment after condition is fixed
+    if (obj->condition == 100)
+        send_to_char("The object is in perfect condition", ch);
+    else if (obj->condition > 90)
+        send_to_char("The object is in excellent condition", ch);
+    else if (obj->condition > 75)
+        send_to_char("The object is in good condition", ch);
+    else if (obj->condition > 50)
+        send_to_char("The object is in average condition", ch);
+    else if (obj->condition > 25)
+        send_to_char("The object is in below average condition", ch);
+    else if (obj->condition > 5 )
+        send_to_char("The object is in poor condition", ch);
+    else
+        send_to_char("The object is worthless condition", ch);
+*/
+
+    switch (obj->item_type)
+    {
+        case ITEM_LIGHT:
+            if (obj->value[2] < 0)
+            {
+                send_to_char("This item provides infinte light.\r\n", ch);
+            }
+            else
+            {
+                sprintf(buf, "This item is a light with %d ticks of light remaining.\r\n", obj->value[2]);
+                send_to_char(buf, ch);
+            }
+            break;
+        case ITEM_SCROLL:
+        case ITEM_POTION:
+        case ITEM_PILL:
+            sprintf(buf, "Level %d spells of:", obj->value[0]);
+            send_to_char(buf, ch);
+
+            if (obj->value[1] >= 0 && obj->value[1] < top_sn)
+            {
+                send_to_char(" '", ch);
+                send_to_char(skill_table[obj->value[1]]->name, ch);
+                send_to_char( "'", ch);
+            }
+
+            if (obj->value[2] >= 0 && obj->value[2] < top_sn)
+            {
+                send_to_char(" '", ch);
+                send_to_char(skill_table[obj->value[2]]->name, ch);
+                send_to_char("'", ch);
+            }
+
+            if (obj->value[3] >= 0 && obj->value[3] < top_sn)
+            {
+                send_to_char(" '", ch);
+                send_to_char(skill_table[obj->value[3]]->name, ch);
+                send_to_char("'", ch);
+            }
+
+            if (obj->value[4] >= 0 && obj->value[4] < top_sn)
+            {
+                send_to_char(" '", ch);
+                send_to_char(skill_table[obj->value[4]]->name, ch);
+                send_to_char("'", ch);
+            }
+
+            send_to_char(".\n\r", ch);
+            break;
+        case ITEM_WAND:
+        case ITEM_STAFF:
+            sprintf(buf, "Has %d charges of level %d", obj->value[2], obj->value[0]);
+            send_to_char(buf, ch);
+
+            if (obj->value[3] >= 0 && obj->value[3] < top_sn)
+            {
+                send_to_char(" '", ch);
+                send_to_char(skill_table[obj->value[3]]->name, ch);
+                send_to_char("'", ch);
+            }
+
+            send_to_char(".\n\r", ch);
+            break;
+        case ITEM_CONTAINER:
+            sprintf(buf, "Capacity: %d#  Maximum weight: %d#  flags: %s\r\n",
+                obj->value[0], obj->value[3],
+                cont_bit_name(obj->value[1]));
+            send_to_char(buf, ch);
+            if (obj->value[4] != 100)
+            {
+                sprintf(buf, "Weight multiplier: %d%%\r\n", obj->value[4]);
+                send_to_char(buf, ch);
+            }
+            break;
+        case ITEM_WEAPON:
+            send_to_char("Weapon type is ", ch);
+            switch (obj->value[0])
+            {
+                case (WEAPON_EXOTIC) :
+                    send_to_char("an exotic type", ch);
+                    break;
+                case (WEAPON_SWORD) :
+                    send_to_char("a sword", ch);
+                    break;
+                case (WEAPON_DAGGER) :
+                    send_to_char("a dagger", ch);
+                    break;
+                case (WEAPON_SPEAR) :
+                    send_to_char("a spear/staff", ch);
+                    break;
+                case (WEAPON_MACE) :
+                    send_to_char("a mace/club", ch);
+                    break;
+                case (WEAPON_AXE) :
+                    send_to_char("a axe", ch);
+                    break;
+                case (WEAPON_FLAIL) :
+                    send_to_char("a flail", ch);
+                    break;
+                case (WEAPON_WHIP) :
+                    send_to_char("a whip", ch);
+                    break;
+                case (WEAPON_POLEARM) :
+                    send_to_char("a polearm", ch);
+                    break;
+                default:
+                    send_to_char("unknown", ch);
+                    break;
+            }
+
+            sprintf(buf, " and does damage of %dd%d (average %d).\r\n",
+                obj->value[1], obj->value[2],
+                (1 + obj->value[2]) * obj->value[1] / 2);
+            send_to_char(buf, ch);
+
+            if (obj->value[4])
+            {
+                sprintf(buf, "Weapons flags: %s\r\n", weapon_bit_name(obj->value[4]));
+                send_to_char(buf, ch);
+            }
+            break;
+        case ITEM_ARMOR:
+            sprintf(buf, "Armor class is %d pierce, %d bash, %d slash, and %d vs. magic.\r\n",
+                obj->value[0], obj->value[1], obj->value[2],
+                obj->value[3]);
+            send_to_char(buf, ch);
+            break;
+
+    }
+
+} // end show_lore
