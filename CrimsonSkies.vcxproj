@@ -216,6 +216,7 @@
     <None Include="classes\groups.dat" />
     <None Include="classes\healer.class" />
     <None Include="classes\mage.class" />
+    <None Include="classes\ranger.class" />
     <None Include="classes\skills.dat" />
     <None Include="classes\thief.class" />
     <None Include="classes\warrior.class" />

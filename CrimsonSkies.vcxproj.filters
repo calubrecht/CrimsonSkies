@@ -301,6 +301,7 @@
     <None Include="system\ban.dat" />
     <None Include="system\saved_objects.dat" />
     <None Include="system\settings.dat" />
+    <None Include="classes\ranger.class" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
