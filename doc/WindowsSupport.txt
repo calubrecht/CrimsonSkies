@@ -38,3 +38,5 @@ Additional Notes:
 	- rename which renames a file works differently in Windows/VS.  In most POSIX implementations you can rename a file to one that already exists and it will
 	  overwrite.  In Windows, it fails, which means stuff like pfiles never save after the first time.  In Windows the file you are renaming too must be deleted
 	  first (with _unlink).
+	- In order to run in Debug, a Visual Studio project properties change has to be made to tell VS to start in the same working directory as the executable.  Under
+	  "Project->Properties->Working Directory" from "$(ProjectDir)" to "$(SolutionDir)$(Configuration)\".
