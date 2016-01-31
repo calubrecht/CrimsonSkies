@@ -175,12 +175,7 @@ A glittering {Wwhite{x stone lays here.~
 pearl~
 warp_stone T AO
 0 0 0 0 0
-0 10 0 P
-E
-pearl~
-It's a nicely-formed pearl, should be worth a fair amount at the jewellers.
-You look around to see if there are any others nearby.
-~
+1 10 0 P
 #25
 gate portal~
 a shimmering gate~
