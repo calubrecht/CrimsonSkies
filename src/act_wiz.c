@@ -41,6 +41,7 @@
 #include "recycle.h"
 #include "tables.h"
 #include "lookup.h"
+#include "sha256.h"
 #include <assert.h>  // For assert in area_name
 
 /*
@@ -6029,23 +6030,37 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
 } // end do_confiscate
 
 /*
+ * Creates a hash for the provided player name (salt) and the password.
+ */
+void do_crypt(CHAR_DATA * ch, char *argument)
+{
+    char arg1[MAX_INPUT_LENGTH];
+    char temp[MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+
+    argument = one_argument(argument, arg1);
+
+    if (IS_NULLSTR(argument) || IS_NULLSTR(arg1))
+    {
+        send_to_char("Syntax: crypt <player name> <password>\r\n", ch);
+        return;
+    }
+
+    sprintf(temp, "%s%s", capitalize(arg1), argument);
+    sprintf(buf, "Input to hash: %s\r\n", temp);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Output hash:   %s\r\n", sha256_crypt(temp));
+    send_to_char(buf, ch);
+    return;
+
+} // end do_crypt
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    if (IS_NULLSTR(ch->timer_buf))
-    {
-        send_to_char("NULL ch->timer_buf\r\n", ch);
-    }
-    else
-    {
-        send_to_char("ch->timer_buf", ch);
-    }
-
-    free_string(ch->timer_buf);
-
-    return;
-
     char buf[MAX_STRING_LENGTH];
     char display_buf[MAX_STRING_LENGTH];
     char *tokenPtr;

@@ -346,3 +346,4 @@ DECLARE_DO_FUN(do_disable);
 DECLARE_DO_FUN(do_butcher);
 DECLARE_DO_FUN(do_bandage);
 DECLARE_DO_FUN(do_quiet_movement);
+DECLARE_DO_FUN(do_crypt);
