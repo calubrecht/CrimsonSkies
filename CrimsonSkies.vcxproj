@@ -111,6 +111,7 @@
     <ClCompile Include="src\recycle.c" />
     <ClCompile Include="src\save.c" />
     <ClCompile Include="src\settings.c" />
+    <ClCompile Include="src\sha256.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
     <ClCompile Include="src\tables.c" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\mob_cmds.h" />
     <ClInclude Include="src\olc.h" />
     <ClInclude Include="src\recycle.h" />
+    <ClInclude Include="src\sha256.h" />
     <ClInclude Include="src\tables.h" />
     <ClInclude Include="src\telnet.h" />
   </ItemGroup>

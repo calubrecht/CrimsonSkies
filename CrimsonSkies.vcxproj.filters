@@ -147,6 +147,9 @@
     <ClCompile Include="src\settings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\sha256.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ini.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sha256.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
