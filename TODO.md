@@ -100,3 +100,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update the interp table with a flag to indicate whether a command is a skill.
     Then, update the commands command to group regular commands and then skills (then don't show skills if a user doesn't have them).
   - Research why all items have 0 condition.
+  - Replace crypt with cross platform solution.
+  - Look at capitalization in names (e.g. disallow it, make it with capitalize).
+  - Have delete require password to confirm delete
+  - Create command to reset a users password while they maybe offline
+  - IMP command for to create hash.
