@@ -2496,6 +2496,9 @@ very difficult to master, due to their bookish lifestyle.
 ~
 
 -1 LORE~
+Syntax: examine <object>
+        look <object>
+
 Lore is a general skill which allows a player to know much detail about
 an item and it's origins.
 ~
@@ -3931,6 +3934,15 @@ Syntax:  qmove
 
 Allows a skilled ranger to move undetected through many various
 wilderness terrains.
+~
+
+57 CRYPT~
+Syntax: Syntax: crypt <player name> <password>
+
+Creates a encrypted hash based off of a player's name and a password.  This
+can be placed into a players pfile to reset a password (require's access to
+the player files on the server).  Name is case insenstive, password is case
+sensitive.
 ~
 
 0 $~
