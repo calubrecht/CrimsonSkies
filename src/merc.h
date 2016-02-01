@@ -2146,8 +2146,8 @@ extern  GLOBAL_DATA             global;
  * These are all very standard library functions,
  *   but some systems have incomplete or non-ansi header files.
  */
-#if    defined(linux)
-    char *    crypt        (const char *key, const char *salt);
+#if defined(linux)
+    char * crypt(const char *key, const char *salt);
 #endif
 
 #if defined(_WIN32)
@@ -2155,10 +2155,9 @@ extern  GLOBAL_DATA             global;
     #define vsnprintf _vsnprintf
     #define snprintf _snprintf
 
-    //char *    crypt        (const char *key, const char *salt);
     #define NOCRYPT
-    #if    defined(unix)
-        #undef    unix
+    #if defined(unix)
+        #undef unix
     #endif
 #endif
 
