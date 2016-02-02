@@ -42,6 +42,7 @@
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
+#include "sha256.h"
 
 #if defined(_WIN32)
     extern const char echo_off_str[];
@@ -351,9 +352,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (strlen(argument) < 5)
             {
-                send_to_desc
-                    ("Password must be at least five characters long.\r\nPassword: ",
-                        d);
+                send_to_desc("Password must be at least five characters long.\r\nPassword: ", d);
+                return;
+            }
+            else if (strlen(argument) > 20)
+            {
+                send_to_desc("Password must be less than 20 characters long.\r\nPassword: ", d);
                 return;
             }
 
@@ -362,9 +366,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 if (*p == '~')
                 {
-                    send_to_desc
-                        ("New password not acceptable, try again.\r\nPassword: ",
-                            d);
+                    send_to_desc("New password not acceptable, try again.\r\nPassword: ", d);
                     return;
                 }
             }
