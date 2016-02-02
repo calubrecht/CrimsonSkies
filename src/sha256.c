@@ -369,3 +369,18 @@ char *sha256_crypt(const char *pwd)
 	}
 	return output;
 }
+
+/*
+ * Encrypt with some salt, we know sha256_crypt is only going to return a 64
+ * length string so we'll declare our output as that.  The password and salt
+ * from cs-mud will never be over 32 characters combined.
+ */
+char *sha256_crypt_with_salt(const char *pwd, const char *salt)
+{
+    char buf[64];
+    static char output[65];
+
+    sprintf(buf, "%s%s", salt, pwd);
+    sprintf(output, "%s", sha256_crypt(buf));
+    return output;
+}

@@ -46,5 +46,6 @@ char *SHA256_File( const char *, char * );
 char *SHA256_FileChunk( const char *, char *, off_t, off_t );
 char *SHA256_Data( const unsigned char *, unsigned int, char * );
 char *sha256_crypt( const char *pwd );
+char *sha256_crypt_with_salt(const char *pwd, const char *salt);
 
 #endif /* !_SHA256_H_ */
