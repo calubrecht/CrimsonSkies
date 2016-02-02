@@ -226,7 +226,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             write_to_buffer(d, "\r\n", 2);
 #endif
 
-            if (strcmp(crypt(argument, ch->pcdata->pwd), ch->pcdata->pwd))
+            if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
             {
                 send_to_desc("Wrong password.\r\n", d);
 
@@ -361,7 +361,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
 
-            pwdnew = crypt(argument, ch->name);
+            pwdnew = sha256_crypt_with_salt(argument, ch->name);
             for (p = pwdnew; *p != '\0'; p++)
             {
                 if (*p == '~')
@@ -382,7 +382,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             write_to_buffer(d, "\r\n", 2);
 #endif
 
-            if (strcmp(crypt(argument, ch->pcdata->pwd), ch->pcdata->pwd))
+            if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
             {
                 send_to_desc("Passwords don't match.\r\nRetype password: ",
                     d);

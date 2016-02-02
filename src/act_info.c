@@ -41,6 +41,7 @@
 #include "recycle.h"
 #include "tables.h"
 #include "lookup.h"
+#include "sha256.h"
 
 char *const where_name[] = {
     "<used as light>     ",
@@ -3397,8 +3398,9 @@ void do_wimpy(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * Allows a user to change their password.
+ */
 void do_password(CHAR_DATA * ch, char *argument)
 {
     char arg1[MAX_INPUT_LENGTH];
@@ -3459,24 +3461,32 @@ void do_password(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (strcmp(crypt(arg1, ch->pcdata->pwd), ch->pcdata->pwd))
+
+    if (strcmp(sha256_crypt_with_salt(arg1, ch->name), ch->pcdata->pwd))
     {
-        WAIT_STATE(ch, 40);
-        send_to_char("Wrong password.  Wait 10 seconds.\r\n", ch);
-        return;
+        if (IS_IMMORTAL(ch))
+        {
+            send_to_char("Wrong password.\r\n", ch);
+            return;
+        }
+        else
+        {
+            WAIT_STATE(ch, 40);
+            send_to_char("Wrong password.  Wait 10 seconds.\r\n", ch);
+            return;
+        }
     }
 
     if (strlen(arg2) < 5)
     {
-        send_to_char
-            ("New password must be at least five characters long.\r\n", ch);
+        send_to_char("New password must be at least five characters long.\r\n", ch);
         return;
     }
 
     /*
      * No tilde allowed because of player file format.
      */
-    pwdnew = crypt(arg2, ch->name);
+    pwdnew = sha256_crypt_with_salt(arg2, ch->name);
     for (p = pwdnew; *p != '\0'; p++)
     {
         if (*p == '~')
@@ -3490,6 +3500,7 @@ void do_password(CHAR_DATA * ch, char *argument)
     ch->pcdata->pwd = str_dup(pwdnew);
     save_char_obj(ch);
     send_to_char("Ok.\r\n", ch);
+    log_f("%s changed their password.", ch->name);
     return;
 }
 
