@@ -2143,32 +2143,15 @@ extern  GLOBAL_DATA             global;
 
 /*
  * OS-dependent declarations.
- * These are all very standard library functions,
- *   but some systems have incomplete or non-ansi header files.
  */
-#if defined(linux)
-    char * crypt(const char *key, const char *salt);
-#endif
-
 #if defined(_WIN32)
     // Support for snprintf and vsnprintf in WIN32
     #define vsnprintf _vsnprintf
     #define snprintf _snprintf
 
-    #define NOCRYPT
     #if defined(unix)
         #undef unix
     #endif
-#endif
-
-/*
- * The crypt(3) function is not available on some operating systems.
- * In particular, the U.S. Government prohibits its export from the
- *   United States to foreign countries.
- * Turn on NOCRYPT to keep passwords in plain text.
- */
-#if defined(NOCRYPT)
-    #define crypt(s1, s2)    (s1)
 #endif
 
 /*
