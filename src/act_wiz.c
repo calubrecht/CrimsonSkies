@@ -6046,12 +6046,24 @@ void do_crypt(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (strlen(argument) > 20)
+    {
+        send_to_char("A password can only be a maximum of 20 characters.\r\n", ch);
+        return;
+    }
+    else if (strlen(arg1) > 12)
+    {
+        send_to_char("A players name can only be a maximum of 12 characters.\r\n", ch);
+        return;
+    }
+
     sprintf(temp, "%s%s", capitalize(arg1), argument);
     sprintf(buf, "Input to hash: %s\r\n", temp);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Output hash:   %s\r\n", sha256_crypt(temp));
+    sprintf(buf, "Output hash:   %s\r\n", sha256_crypt_with_salt(argument, capitalize(arg1)));
     send_to_char(buf, ch);
+
     return;
 
 } // end do_crypt
