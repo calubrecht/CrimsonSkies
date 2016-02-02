@@ -9,7 +9,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
   - Fighting Style (Offensive/Normal/Defensive)
-  - VNUM conversion from sh_int to int to allow for more than 32,000 vnums.
   - do_reset and aedit_reset collision
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
@@ -104,4 +103,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Have delete require password to confirm delete
   - Create command to reset a users password while they maybe offline
-  - IMP command for to create hash.
