@@ -303,9 +303,283 @@ void string_add(CHAR_DATA * ch, char *argument)
 /*****************************************************************************
  Name:       format_string
  Purpose:    Special string formating and word-wrapping.
- Called by:  string_add(string.c) (many)olc_act.c
+ Called by:  string_add(olc_string.c) (many)olc_act.c
  ****************************************************************************/
-char *format_string(char *oldstring /*, bool fSpace */)
+char *format_string(char *oldstring)
+{
+    char xbuf[MAX_STRING_LENGTH * 15];
+    char xbuf2[MAX_STRING_LENGTH * 15];
+    char *rdesc;
+    int i = 0;
+    int end_of_line;
+    bool cap = TRUE;
+    bool bFormat = TRUE;
+
+    xbuf[0] = xbuf2[0] = 0;
+
+    i = 0;
+
+    for (rdesc = oldstring; *rdesc; rdesc++)
+    {
+        if (*rdesc != '{')
+        {
+            if (bFormat)
+            {
+                if (*rdesc == '\n')
+                {
+                    if (*(rdesc + 1) == '\r' && *(rdesc + 2) == ' ' && *(rdesc + 3) == '\n' && xbuf[i - 1] != '\r')
+                    {
+                        xbuf[i] = '\n';
+                        xbuf[i + 1] = '\r';
+                        xbuf[i + 2] = '\n';
+                        xbuf[i + 3] = '\r';
+                        i += 4;
+                        rdesc += 2;
+                    }
+                    else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == ' ' && *(rdesc + 2) == '\n' && xbuf[i - 1] == '\r')
+                    {
+                        xbuf[i] = '\n';
+                        xbuf[i + 1] = '\r';
+                        i += 2;
+                    }
+                    else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == '\n' && xbuf[i - 1] != '\r')
+                    {
+                        xbuf[i] = '\n';
+                        xbuf[i + 1] = '\r';
+                        xbuf[i + 2] = '\n';
+                        xbuf[i + 3] = '\r';
+                        i += 4;
+                        rdesc += 1;
+                    }
+                    else if (*(rdesc + 1) == '\r' && *(rdesc + 2) == '\n' && xbuf[i - 1] == '\r')
+                    {
+                        xbuf[i] = '\n';
+                        xbuf[i + 1] = '\r';
+                        i += 2;
+                    }
+                    else if (xbuf[i - 1] != ' ' && xbuf[i - 1] != '\r')
+                    {
+                        xbuf[i] = ' ';
+                        i++;
+                    }
+                }
+                else if (*rdesc == '\r');
+                else if (*rdesc == 'i' && *(rdesc + 1) == '.' && *(rdesc + 2) == 'e' && *(rdesc + 3) == '.')
+                {
+                    xbuf[i] = 'i';
+                    xbuf[i + 1] = '.';
+                    xbuf[i + 2] = 'e';
+                    xbuf[i + 3] = '.';
+                    i += 4;
+                    rdesc += 3;
+                }
+                else if (*rdesc == ' ')
+                {
+                    if (xbuf[i - 1] != ' ')
+                    {
+                        xbuf[i] = ' ';
+                        i++;
+                    }
+                }
+                else if (*rdesc == ')')
+                {
+                    if (xbuf[i - 1] == ' ' && xbuf[i - 2] == ' '
+                        && (xbuf[i - 3] == '.' || xbuf[i - 3] == '?' || xbuf[i - 3] == '!'))
+                    {
+                        xbuf[i - 2] = *rdesc;
+                        xbuf[i - 1] = ' ';
+                        xbuf[i] = ' ';
+                        i++;
+                    }
+                    else if (xbuf[i - 1] == ' ' && (xbuf[i - 2] == ',' || xbuf[i - 2] == ';'))
+                    {
+                        xbuf[i - 1] = *rdesc;
+                        xbuf[i] = ' ';
+                        i++;
+                    }
+                    else
+                    {
+                        xbuf[i] = *rdesc;
+                        i++;
+                    }
+                }
+                else if (*rdesc == ',' || *rdesc == ';')
+                {
+                    if (xbuf[i - 1] == ' ')
+                    {
+                        xbuf[i - 1] = *rdesc;
+                        xbuf[i] = ' ';
+                        i++;
+                    }
+                    else
+                    {
+                        xbuf[i] = *rdesc;
+                        if (*(rdesc + 1) != '\"')
+                        {
+                            xbuf[i + 1] = ' ';
+                            i += 2;
+                        }
+                        else
+                        {
+                            xbuf[i + 1] = '\"';
+                            xbuf[i + 2] = ' ';
+                            i += 3;
+                            rdesc++;
+                        }
+                    }
+
+
+                }
+                else if (*rdesc == '.' || *rdesc == '?' || *rdesc == '!')
+                {
+                    if (xbuf[i - 1] == ' ' && xbuf[i - 2] == ' '
+                        && (xbuf[i - 3] == '.' || xbuf[i - 3] == '?' || xbuf[i - 3] == '!'))
+                    {
+                        xbuf[i - 2] = *rdesc;
+                        if (*(rdesc + 1) != '\"')
+                        {
+                            xbuf[i - 1] = ' ';
+                            xbuf[i] = ' ';
+                            i++;
+                        }
+                        else
+                        {
+                            xbuf[i - 1] = '\"';
+                            xbuf[i] = ' ';
+                            xbuf[i + 1] = ' ';
+                            i += 2;
+                            rdesc++;
+                        }
+                    }
+                    else
+                    {
+                        xbuf[i] = *rdesc;
+                        if (*(rdesc + 1) != '\"')
+                        {
+                            xbuf[i + 1] = ' ';
+                            xbuf[i + 2] = ' ';
+                            i += 3;
+                        }
+                        else
+                        {
+                            xbuf[i + 1] = '\"';
+                            xbuf[i + 2] = ' ';
+                            xbuf[i + 3] = ' ';
+                            i += 4;
+                            rdesc++;
+                        }
+                    }
+                    cap = TRUE;
+                }
+                else
+                {
+                    xbuf[i] = *rdesc;
+                    if (cap)
+                    {
+                        cap = FALSE;
+                        xbuf[i] = UPPER(xbuf[i]);
+                    }
+                    i++;
+                }
+            }
+            else
+            {
+                xbuf[i] = *rdesc;
+                i++;
+            }
+        }
+        else
+        {
+            if (*(rdesc + 1) == 'Z')
+                bFormat = !bFormat;
+            xbuf[i] = *rdesc;
+            i++;
+            rdesc++;
+            xbuf[i] = *rdesc;
+            i++;
+        }
+    }
+    xbuf[i] = 0;
+    strcpy(xbuf2, xbuf);
+
+    rdesc = xbuf2;
+
+    xbuf[0] = 0;
+
+    for (;;)
+    {
+        end_of_line = 77;
+        for (i = 0; i < end_of_line; i++)
+        {
+            if (*(rdesc + i) == '{')
+            {
+                end_of_line += 2;
+                i++;
+            }
+
+
+            if (!*(rdesc + i))
+                break;
+
+
+            if (*(rdesc + i) == '\r')
+                end_of_line = i;
+        }
+        if (i < end_of_line)
+        {
+            break;
+        }
+        if (*(rdesc + i - 1) != '\r')
+        {
+            for (i = (xbuf[0] ? (end_of_line - 1) : (end_of_line - 4)); i; i--)
+            {
+                if (*(rdesc + i) == ' ')
+                    break;
+            }
+            if (i)
+            {
+                *(rdesc + i) = 0;
+                strcat(xbuf, rdesc);
+                strcat(xbuf, "\n\r");
+                rdesc += i + 1;
+                while (*rdesc == ' ')
+                    rdesc++;
+            }
+            else
+            {
+                bug("Wrap_string: No spaces", 0);
+                *(rdesc + (end_of_line - 2)) = 0;
+                strcat(xbuf, rdesc);
+                strcat(xbuf, "-\n\r");
+                rdesc += end_of_line - 1;
+            }
+        }
+        else
+        {
+            *(rdesc + i - 1) = 0;
+            strcat(xbuf, rdesc);
+            strcat(xbuf, "\r");
+            rdesc += i;
+            while (*rdesc == ' ')
+                rdesc++;
+        }
+    }
+    while (*(rdesc + i) && (*(rdesc + i) == ' ' ||
+        *(rdesc + i) == '\n' ||
+        *(rdesc + i) == '\r'))
+        i--;
+    *(rdesc + i + 1) = 0;
+    strcat(xbuf, rdesc);
+    if (xbuf[strlen(xbuf) - 2] != '\n')
+        strcat(xbuf, "\n\r");
+
+    free_string(oldstring);
+    return (str_dup(xbuf));
+
+} // end format_string
+
+//char *format_string(char *oldstring /*, bool fSpace */)
+/*
 {
     char xbuf[MAX_STRING_LENGTH];
     char xbuf2[MAX_STRING_LENGTH];
@@ -458,6 +732,7 @@ char *format_string(char *oldstring /*, bool fSpace */)
     free_string(oldstring);
     return (str_dup(xbuf));
 }
+*/
 
 /*
  * Used above in string_add.  Because this function does not
