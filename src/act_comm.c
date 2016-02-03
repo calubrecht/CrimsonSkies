@@ -38,6 +38,7 @@
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
+#include "sha256.h"
 #include <ctype.h> /* for isalpha() and isspace() -- JR */
 
 char *reclass_list();
@@ -56,15 +57,21 @@ void do_delet(CHAR_DATA * ch, char *argument)
 void do_delete(CHAR_DATA * ch, char *argument)
 {
     char strsave[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
 
     if (IS_NPC(ch))
         return;
 
+    // Wiznet and log, but without including the password
+    sprintf(buf, "Log %s: Delete", ch->name);
+    wiznet(buf, ch, NULL, 0, 0, get_trust(ch));
+    log_string(buf);
+
     if (ch->pcdata->confirm_delete)
     {
-        if (argument[0] != '\0')
+        if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
         {
-            send_to_char("Delete status removed.\r\n", ch);
+            send_to_char("Delete status removed.\n\r", ch);
             ch->pcdata->confirm_delete = FALSE;
             return;
         }
@@ -73,7 +80,8 @@ void do_delete(CHAR_DATA * ch, char *argument)
             sprintf(strsave, "%s%s", PLAYER_DIR, capitalize(ch->name));
             wiznet("$N turns $Mself into line noise.", ch, NULL, 0, 0, 0);
             stop_fighting(ch, TRUE);
-            do_function(ch, &do_quit, "");
+            act("$n slowly fades away into the ether...", ch, NULL, NULL, TO_ROOM);
+            do_quit(ch, "");
 
 #if defined(_WIN32)
             _unlink(strsave);
@@ -85,13 +93,13 @@ void do_delete(CHAR_DATA * ch, char *argument)
         }
     }
 
-    if (argument[0] != '\0')
+    if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
     {
-        send_to_char("Just type delete. No argument.\r\n", ch);
+        send_to_char("Just type delete and your password.\n\r", ch);
         return;
     }
 
-    send_to_char("Type delete again to confirm this command.\r\n", ch);
+    send_to_char("Type delete and your password again to confirm this command.\r\n", ch);
     send_to_char("{RWARNING:{x this command is irreversible.\r\n", ch);
     send_to_char("Typing delete with an argument will undo delete status.\r\n", ch);
     ch->pcdata->confirm_delete = TRUE;

@@ -168,7 +168,7 @@ const struct cmd_type cmd_table[] = {
     {"compact",   do_compact,     POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"description", do_description,POS_DEAD,    0, LOG_NORMAL, TRUE},
     {"delet",     do_delet,       POS_DEAD,     0, LOG_ALWAYS, FALSE},
-    {"delete",    do_delete,      POS_STANDING, 0, LOG_ALWAYS, TRUE},
+    {"delete",    do_delete,      POS_STANDING, 0, LOG_NEVER,  TRUE},
     {"nofollow",  do_nofollow,    POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"noloot",    do_noloot,      POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"nosummon",  do_nosummon,    POS_DEAD,     0, LOG_NORMAL, TRUE},
