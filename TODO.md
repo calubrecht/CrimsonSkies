@@ -103,3 +103,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Have delete require password to confirm delete
   - Create command to reset a users password while they maybe offline
+  - Notes aren't line breaking correctly anymore.
