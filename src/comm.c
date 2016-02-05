@@ -975,7 +975,7 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
             if (++d->repeat >= 25 && d->character
                 && d->connected == CON_PLAYING)
             {
-                log_f("%s input spamming!", d->host);
+                log_f("%s@%s input spamming!", d->character->name, d->host);
                 wiznet("Spam spam spam $N spam spam spam spam spam!",
                     d->character, NULL, WIZ_SPAM, 0,
                     get_trust(d->character));
