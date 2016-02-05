@@ -4,13 +4,15 @@
 
   - {B{_https://github.com/blakepell/CrimsonSkies{x
 
-* Reclass system is in, there are two reclasses currently which are
-  enchantors for mages and healers for clerics.  2 more reclasses
-  and the oceans are all that stand between us and version 1.
+* Reclass system is in (help reclass), there are two reclasses currently 
+  which are enchantors for mages and healers for clerics.  2 more reclasses
+  and the oceans are all that stand between now and version 1.
 * Any 'rules' are on hold until the game is out of it's beta testing
   phase.  Feel free to do what you please, just respect others.
 * Important commands: help, commands, notes, score, look, who, scan
 * To see the current game settings, type settings.
+* You may notice bots walking around, these are temporary in order
+  simulate and test game mechanics.
 * See 'help credits' for code contributions from others.
 
 {R[{WHit Return to continue{R]{x
