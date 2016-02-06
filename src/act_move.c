@@ -236,13 +236,23 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         ch->move -= move;
     }
 
-    if (!IS_AFFECTED(ch, AFF_SNEAK) && ch->invis_level < LEVEL_HERO)
+    if (!IS_AFFECTED(ch, AFF_SNEAK)
+        && !is_affected(ch, gsn_quiet_movement)
+        && ch->invis_level < LEVEL_HERO)
+    {
         act("$n leaves $T.", ch, NULL, dir_name[door], TO_ROOM);
+    }
 
+    // Move the character
     char_from_room(ch);
     char_to_room(ch, to_room);
-    if (!IS_AFFECTED(ch, AFF_SNEAK) && ch->invis_level < LEVEL_HERO)
+
+    if (!IS_AFFECTED(ch, AFF_SNEAK)
+        && !is_affected(ch, gsn_quiet_movement)
+        && ch->invis_level < LEVEL_HERO)
+    {
         act("$n has arrived.", ch, NULL, NULL, TO_ROOM);
+    }
 
     do_function(ch, &do_look, "auto");
 

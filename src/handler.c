@@ -2620,10 +2620,28 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
             return FALSE;
     }
 
-/*
-    if (IS_AFFECTED(victim, AFF_HIDE)
-        && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN) && victim->fighting == NULL)
-        return FALSE; */
+    // Rangers quiet movement, they can see each other with acute vision but
+    // non-detectable to others in certain nature like room types.
+    if (is_affected(victim, gsn_quiet_movement)
+        && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+        && victim->fighting == NULL
+        && (victim->in_room->sector_type == SECT_FIELD
+        || victim->in_room->sector_type == SECT_FOREST
+        || victim->in_room->sector_type == SECT_HILLS
+        || victim->in_room->sector_type == SECT_DESERT
+        || victim->in_room->sector_type == SECT_MOUNTAIN))
+    {
+        int chance;
+        chance = get_skill(victim,gsn_quiet_movement);
+        chance += get_curr_stat(victim,STAT_DEX) * 3 / 2;
+        chance -= get_curr_stat(ch,STAT_INT) * 2;
+        chance -= ch->level - victim->level * 3 / 2;
+
+        // Slim chance to see them, if this fails return false, they cannot see.
+        if (CHANCE(chance))
+            return FALSE;
+    }
+
 
     return TRUE;
 }

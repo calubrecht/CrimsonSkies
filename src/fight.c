@@ -716,8 +716,7 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
 /*
  * Inflict damage from a hit.
  */
-bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
-    int dam_type, bool show)
+bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, bool show)
 {
     OBJ_DATA *corpse;
     bool immune;
@@ -793,6 +792,12 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt,
         affect_strip(ch, gsn_mass_invis);
         REMOVE_BIT(ch->affected_by, AFF_INVISIBLE);
         act("$n fades into existence.", ch, NULL, NULL, TO_ROOM);
+    }
+
+    // Remove quiet movement (TODO, make a all encompassing visible void)
+    if (is_affected(victim, gsn_quiet_movement))
+    {
+        affect_strip(victim, gsn_quiet_movement);
     }
 
     /*
