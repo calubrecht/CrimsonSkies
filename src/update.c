@@ -1062,8 +1062,7 @@ void obj_update(void)
             case ITEM_CONTAINER:
                 if (CAN_WEAR(obj, ITEM_WEAR_FLOAT))
                     if (obj->contains)
-                        message =
-                        "$p flickers and vanishes, spilling its contents on the floor.";
+                        message = "$p flickers and vanishes, spilling its contents on the floor.";
                     else
                         message = "$p flickers and vanishes.";
                 else
