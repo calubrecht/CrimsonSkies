@@ -3943,6 +3943,16 @@ Allows a skilled ranger to move undetected through many various
 wilderness terrains.
 ~
 
+0 CAMP CAMPING~
+Syntax: camp
+
+Camping is a skill that allows rangers to setup camp and gain additional
+regeneration while in forests, fields, hills, deserts or the mountains.
+Any player who is grouped with the ranger while they are camping will also
+receive the regeneration bonus.  Camping is interrupted when the ranger
+leaves the current room, is attacked or attacks someone or quits the game.
+~
+
 57 CRYPT~
 Syntax: Syntax: crypt <player name> <password>
 
