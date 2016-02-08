@@ -105,3 +105,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Create command to reset a users password while they maybe offline
   - Notes aren't line breaking correctly anymore.
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
+  - Add camping skill for rangers.  Increase in regen when doing so, moving from the room breaks camp.. other players will see that someone is camping on coming into the room.
