@@ -38,6 +38,7 @@
  *    - Bark Skin                                                          *
  *    - Self Growth                                                        *
  *    - Quiet Movement                                                     *
+ *    - Camp                                                               *
  *    - Track (hunt.c)                                                     *
  *                                                                         *
  ***************************************************************************/
@@ -367,3 +368,13 @@ void do_quiet_movement(CHAR_DATA *ch, char *argument)
     return;
 } // end do_quiet_movement
 
+/*
+ * Camping - allows a ranger to camp in certain wilderness type areas.  Will bring
+ * increased regen to the ranger and anyone with them that is in their group while
+ * camp is setup.  Camp will broken when a ranger leaves the room, breaks camp, is
+ * attacked or attacks.
+ */
+void do_camp(CHAR_DATA *ch, char *argument)
+{
+    send_to_char("Coming soon...\r\n", ch);
+}
