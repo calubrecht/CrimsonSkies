@@ -34,7 +34,7 @@ To fix:
 
 Additional Notes:
 
-	- The crypt function isn't working currently under _WIN32.  Be very aware of that.  If you're just using this for debugging purposes like I am then no biggy.
+    - crypt has been replaced with a sha256 hashing function for passwords.  Depending on the endianness of the machine, this could potentially return a different hash.
 	- rename which renames a file works differently in Windows/VS.  In most POSIX implementations you can rename a file to one that already exists and it will
 	  overwrite.  In Windows, it fails, which means stuff like pfiles never save after the first time.  In Windows the file you are renaming too must be deleted
 	  first (with _unlink).
