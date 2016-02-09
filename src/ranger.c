@@ -376,5 +376,128 @@ void do_quiet_movement(CHAR_DATA *ch, char *argument)
  */
 void do_camp(CHAR_DATA *ch, char *argument)
 {
-    send_to_char("Coming soon...\r\n", ch);
-}
+    AFFECT_DATA af;
+
+    // No NPC's
+    if (IS_NPC(ch))
+    {
+        send_to_char("You cannot setup camp.\r\n", ch);
+        return;
+    }
+
+    if (is_affected(ch, gsn_camping))
+    {
+        send_to_char("You're already in a camp, no reason to setup another.\r\n", ch);
+        return;
+    }
+
+    // Only Rangers
+    if (ch->class != RANGER_CLASS_LOOKUP)
+    {
+        send_to_char("Only rangers are adept at setting up good camps.\r\n", ch);
+        return;
+    }
+
+    if (is_affected(ch, gsn_camping))
+    {
+        send_to_char("You have already setup camp.\r\n", ch);
+        return;
+    }
+
+    // Can't setup a camp while you're fighting.
+    if (ch->fighting != NULL)
+    {
+        send_to_char("You can't setup camp while you're fighting.\r\n", ch);
+        return;
+    }
+
+    // Are they the level yet?
+    if (ch->level < skill_table[gsn_camping]->skill_level[ch->class])
+    {
+        send_to_char("You are not yet skilled enough to setup a good camp.\r\n", ch);
+        return;
+    }
+
+    if (!CHANCE_SKILL(ch, gsn_camping))
+    {
+        send_to_char("You failed at setting up camp.\r\n", ch);
+        check_improve(ch, gsn_camping, FALSE, 5);
+        return;
+    }
+
+    switch (ch->in_room->sector_type)
+    {
+        default:
+            // Fail
+            send_to_char("You are unable to setup camp in this terrain type.\r\n", ch);
+            act("$n is unable to setup camp in this terrain type.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case SECT_INSIDE:
+            // Fail
+            act("You are unable to setup camp inside.", ch, NULL, NULL, TO_CHAR);
+            act("$n is unable to setup camp inside.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case SECT_CITY:
+            // Fail
+            act("You are unable to setup camp within the city.", ch, NULL, NULL, TO_CHAR);
+            act("$n is unable to setup camp within the city.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case SECT_WATER_SWIM:
+        case SECT_WATER_NOSWIM:
+        case SECT_UNDERWATER:
+        case SECT_OCEAN:
+            // Fail
+            act("You are unable to setup camp in the water.", ch, NULL, NULL, TO_CHAR);
+            act("$n are unable to setup camp in the water.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case SECT_AIR:
+            // Fail
+            act("In the air?!", ch, NULL, NULL, TO_CHAR);
+            return;
+        case SECT_FIELD:
+            // Success
+            act("You setup camp here in the field.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here in the field.", ch, NULL, NULL, TO_ROOM);
+            break;
+        case SECT_HILLS:
+            // Success
+            act("You setup camp here in the hills.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here in the hills.", ch, NULL, NULL, TO_ROOM);
+            break;
+        case SECT_DESERT:
+            // Success
+            act("You setup camp here in the desert.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here in the desert.", ch, NULL, NULL, TO_ROOM);
+            break;
+        case SECT_MOUNTAIN:
+            // Success
+            act("You setup camp here in the mountains.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here in the mountains.", ch, NULL, NULL, TO_ROOM);
+            break;
+        case SECT_FOREST:
+            // Success
+            act("You setup camp here under the canopy of the forest.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here under the canopy of the forest.", ch, NULL, NULL, TO_ROOM);
+            break;
+        case SECT_BEACH:
+            // Success
+            act("You setup camp here on the the beach.", ch, NULL, NULL, TO_CHAR);
+            act("$n sets up camp here on the beach.", ch, NULL, NULL, TO_ROOM);
+            break;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = gsn_camping;
+    af.level = ch->level;
+    af.duration = ch->level;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    check_improve(ch, gsn_camping, TRUE, 5);
+
+    // The wait period for the user of the skill.
+    WAIT_STATE(ch, skill_table[gsn_camping]->beats);
+
+} // end do_camp
