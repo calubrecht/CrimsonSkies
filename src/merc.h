@@ -2057,7 +2057,9 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
                 || strstr( Area->builders, "All" ) ) )
 #define IS_WANTED(ch) (IS_SET(ch->act, PLR_WANTED))
 #define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER))
-#define IS_GHOST(ch) (is_affected(ch,gsn_ghost))
+#define IS_GHOST(ch)  (is_affected(ch,gsn_ghost))
+#define IS_DAY()      (time_info.hour > 5 && time_info.hour < 20)
+#define IS_NIGHT()    (!IS_DAY())
 
 /*
  * Object macros.

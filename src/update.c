@@ -245,10 +245,21 @@ int hit_gain(CHAR_DATA * ch)
     if (IS_AFFECTED(ch, AFF_HASTE) || IS_AFFECTED(ch, AFF_SLOW))
         gain /= 2;
 
-    // Healer's enhanced recovery
+    // Healer's enhanced recovery, gains occur after other affect splits
+    // happen.
     if (is_affected(ch, gsn_enhanced_recovery))
     {
         gain += number_range(20, 50);
+    }
+
+    // Rangers camping - regen bonus is greater at night than during
+    // during the day.
+    if (is_affected(ch, gsn_camping))
+    {
+        if (IS_NIGHT())
+            gain += number_range(20, 40);
+        else
+            gain += number_range(15, 25);
     }
 
     return UMIN(gain, ch->max_hit - ch->hit);
@@ -342,10 +353,20 @@ int mana_gain(CHAR_DATA * ch)
     if (IS_AFFECTED(ch, AFF_HASTE) || IS_AFFECTED(ch, AFF_SLOW))
         gain /= 2;
 
-    // Healer's enhanced recovery
+    // Healer's enhanced recovery, gains happen after other splits occur
     if (is_affected(ch, gsn_enhanced_recovery))
     {
         gain += number_range(20, 50);
+    }
+
+    // Rangers camping - regen bonus is greater at night than during
+    // during the day.
+    if (is_affected(ch, gsn_camping))
+    {
+        if (IS_NIGHT())
+            gain += number_range(20, 40);
+        else
+            gain += number_range(15, 25);
     }
 
     return UMIN(gain, ch->max_mana - ch->mana);
@@ -405,10 +426,20 @@ int move_gain(CHAR_DATA * ch)
     if (IS_AFFECTED(ch, AFF_HASTE) || IS_AFFECTED(ch, AFF_SLOW))
         gain /= 2;
 
-    // Healer's enhanced recovery
+    // Healer's enhanced recovery, gains happen after other splits occur.
     if (is_affected(ch, gsn_enhanced_recovery))
     {
         gain += number_range(20, 50);
+    }
+
+    // Rangers camping - regen bonus is greater at night than during
+    // during the day.
+    if (is_affected(ch, gsn_camping))
+    {
+        if (IS_NIGHT())
+            gain += number_range(20, 40);
+        else
+            gain += number_range(15, 25);
     }
 
     return UMIN(gain, ch->max_move - ch->move);
