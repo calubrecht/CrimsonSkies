@@ -377,6 +377,8 @@ void do_quiet_movement(CHAR_DATA *ch, char *argument)
 void do_camp(CHAR_DATA *ch, char *argument)
 {
     AFFECT_DATA af;
+    CHAR_DATA *gch;
+    char buf[MAX_STRING_LENGTH];
 
     // No NPC's
     if (IS_NPC(ch))
@@ -493,7 +495,23 @@ void do_camp(CHAR_DATA *ch, char *argument)
     af.modifier = 0;
     af.location = APPLY_NONE;
     af.bitvector = 0;
-    affect_to_char(ch, &af);
+    //affect_to_char(ch, &af);
+
+    // Find group members who aren't NPC's
+    for (gch = char_list; gch != NULL; gch = gch->next)
+    {
+        if (!IS_NPC(gch) && is_same_group(gch, ch))
+        {
+            affect_strip(gch, gsn_camping);
+            affect_to_char(gch, &af);
+
+            if (ch != gch)
+            {
+                sprintf(buf, "You join %s's camp.\r\n", ch->name);
+                send_to_char(buf, gch);
+            }
+        }
+    }
 
     check_improve(ch, gsn_camping, TRUE, 5);
 
