@@ -3730,6 +3730,29 @@ void do_touch(CHAR_DATA * ch, char *argument)
 
         return;
     }
+    else if (obj->pIndexData != NULL && obj->pIndexData->vnum == OBJ_VNUM_CAMPFIRE)
+    {
+        act("You touch $p... {ROUCH{x.. that fire sure was hot!", ch, obj, NULL, TO_CHAR);
+        act("$n touches $p scorching $s hand.", ch, obj, NULL, TO_ROOM);
+
+        if (ch->race != MINOTAUR_RACE_LOOKUP)
+        {
+            // Non furry people
+            ch->hit -= number_range(5, 10);
+        }
+        else
+        {
+            // Minotaur's are more vulnerable to fire.
+            ch->hit -= number_range(30, 50);
+        }
+
+        if (IS_IMMORTAL(ch) && ch->hit < 1)
+        {
+            ch->hit = 1;
+        }
+
+        update_pos(ch);
+    }
     else
     {
         send_to_char("Nothing happens.\r\n", ch);
