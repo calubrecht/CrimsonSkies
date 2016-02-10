@@ -3951,6 +3951,9 @@ regeneration while in forests, fields, hills, deserts or the mountains.
 Any player who is grouped with the ranger while they are camping will also
 receive the regeneration bonus.  Camping is interrupted when the ranger
 leaves the current room, is attacked or attacks someone or quits the game.
+
+Regeneration benefits from camping are greater when camping at night than
+during the day.
 ~
 
 57 CRYPT~
