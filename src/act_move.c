@@ -240,7 +240,9 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
     // message if a bunch of people are in a group.
     if (is_affected(ch, gsn_camping))
     {
-        send_to_char("You break camp.\r\n", ch);
+        // Extra line feeds to make it stand out since moving will show
+        // the next room description and make it hard to see.
+        send_to_char("\r\nYou break camp.\r\n\r\n", ch);
         affect_strip(ch, gsn_camping);
     }
 
