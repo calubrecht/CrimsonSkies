@@ -794,10 +794,13 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         act("$n fades into existence.", ch, NULL, NULL, TO_ROOM);
     }
 
-    // Remove quiet movement (TODO, make a all encompassing visible void)
-    if (is_affected(victim, gsn_quiet_movement))
+    // Remove quiet movement & camping if fighting
+    if (!IS_NPC(ch))
     {
-        affect_strip(victim, gsn_quiet_movement);
+        // No need to loop over these if they're mobs and can never use
+        // these class specific skills.
+        affect_strip(ch, gsn_quiet_movement);
+        affect_strip(ch, gsn_camping);
     }
 
     /*

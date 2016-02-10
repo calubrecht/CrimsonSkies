@@ -236,6 +236,14 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         ch->move -= move;
     }
 
+    // Break camp if they are moving, no need to spam the room though with the
+    // message if a bunch of people are in a group.
+    if (is_affected(ch, gsn_camping))
+    {
+        send_to_char("You break camp.\r\n", ch);
+        affect_strip(ch, gsn_camping);
+    }
+
     if (!IS_AFFECTED(ch, AFF_SNEAK)
         && !is_affected(ch, gsn_quiet_movement)
         && ch->invis_level < LEVEL_HERO)
@@ -274,10 +282,8 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
                 && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
             {
-                act("You can't bring $N into the city.",
-                    ch, NULL, fch, TO_CHAR);
-                act("You aren't allowed in the city.",
-                    fch, NULL, NULL, TO_CHAR);
+                act("You can't bring $N into the city.", ch, NULL, fch, TO_CHAR);
+                act("You aren't allowed in the city.", fch, NULL, NULL, TO_CHAR);
                 continue;
             }
 
