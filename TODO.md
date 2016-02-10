@@ -107,3 +107,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
   - Camping addition - other players will see that someone is camping on coming into the room.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
+  - Copyover to display reason on all ticks and not just the first one, but the reason in the globals.
