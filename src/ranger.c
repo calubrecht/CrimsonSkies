@@ -129,7 +129,7 @@ void do_butcher(CHAR_DATA *ch, char *argument)
 
     for (x = 1; x <= count; x++)
     {
-        steak = create_object(get_obj_index(27), 0);
+        steak = create_object(get_obj_index(OBJ_VNUM_STEAK), 0);
         obj_to_char(steak, ch);
     }
 
@@ -378,6 +378,7 @@ void do_camp(CHAR_DATA *ch, char *argument)
 {
     AFFECT_DATA af;
     CHAR_DATA *gch;
+    OBJ_DATA *obj;
     char buf[MAX_STRING_LENGTH];
 
     // No NPC's
@@ -488,16 +489,20 @@ void do_camp(CHAR_DATA *ch, char *argument)
             break;
     }
 
+    // Create the campfire, put it on the ground, set the timer so it will burn out.
+    obj = create_object(get_obj_index(OBJ_VNUM_CAMPFIRE), 0);
+    obj->timer = ch->level / 3;
+    obj_to_room(obj, ch->in_room);
+
     af.where = TO_AFFECTS;
     af.type = gsn_camping;
     af.level = ch->level;
-    af.duration = ch->level;
+    af.duration = ch->level / 3;
     af.modifier = 0;
     af.location = APPLY_NONE;
     af.bitvector = 0;
-    //affect_to_char(ch, &af);
 
-    // Find group members who aren't NPC's
+    // Find group members including the ranger who aren't NPC's
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
         if (!IS_NPC(gch) && is_same_group(gch, ch))

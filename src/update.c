@@ -1092,12 +1092,27 @@ void obj_update(void)
                 break;
             case ITEM_CONTAINER:
                 if (CAN_WEAR(obj, ITEM_WEAR_FLOAT))
+                {
                     if (obj->contains)
                         message = "$p flickers and vanishes, spilling its contents on the floor.";
                     else
                         message = "$p flickers and vanishes.";
+                }
                 else
+                {
                     message = "$p crumbles into dust.";
+                }
+                break;
+            case ITEM_TRASH:
+                // Override type message for specific well know vnums that need unique messages.
+                if (obj->pIndexData->vnum == OBJ_VNUM_CAMPFIRE)
+                {
+                    message = "$p stops smoldering and burns out.";
+                }
+                else
+                {
+                    message = "$p crumbles into dust.";
+                }
                 break;
         }
 

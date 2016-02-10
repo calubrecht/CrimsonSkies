@@ -1362,8 +1362,8 @@ void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
          */
     if (d->outtop == 0 && !d->fcommand)
     {
-        d->outbuf[0] = '\n';
-        d->outbuf[1] = '\r';
+        d->outbuf[0] = '\r';
+        d->outbuf[1] = '\n';
         d->outtop = 2;
     }
 
@@ -1384,6 +1384,10 @@ void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
                 sprintf(abuf, "Write to buffer - Buffer overflow from %s. Check what this char is doing.\r\n",
                     d->character->name);
                 bug(abuf, 0);
+            }
+            else
+            {
+                bug("write_to_buffer - Buffer overflow from NULL character.\r\n", 0);
             }
 
             free_mem(d->outbuf, d->outsize);
