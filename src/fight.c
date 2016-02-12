@@ -1819,6 +1819,20 @@ void raw_kill(CHAR_DATA * victim)
     stop_fighting(victim, TRUE);
     death_cry(victim);
 
+    // If it's a mob.. (they'll process first and then exit).
+    if (IS_NPC(victim))
+    {
+        // Incriment the mobs killed statistic
+        statistics.mobs_killed++;
+
+        // This isn't really used anymore, in Merc the killed variable was used to change the
+        // xp computed on a mob, ROM took that out but left this.  It is not persisted across boots.
+        make_corpse(victim);
+        victim->pIndexData->killed++;
+        extract_char(victim, TRUE);
+        return;
+    }
+
     // If the victim is not an NPC and they were in an arena room, transfer them to their
     // death repop spot with all of their gear.  There wil be no corpse and the victim
     // won't be extracted which is where the gear bombing happens.
@@ -1833,19 +1847,6 @@ void raw_kill(CHAR_DATA * victim)
         make_corpse(victim);
         char_from_room(victim);
         char_to_room(victim, get_room_index(clan_table[victim->clan].hall));
-    }
-
-    // If it's a mob..
-    if (IS_NPC(victim))
-    {
-        // Incriment the mobs killed statistic
-        statistics.mobs_killed++;
-
-        // This isn't really used anymore, in Merc the killed variable was used to change the
-        // xp computed on a mob, ROM took that out but left this.  It is not persisted across boots.
-        victim->pIndexData->killed++;
-        extract_char(victim, TRUE);
-        return;
     }
 
     // Extract the char (nuking their objects) if it's not an arena kill.
