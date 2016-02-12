@@ -21,7 +21,7 @@
  **************************************************************************/
 #define VERSION "0.9"
 
-#define args( list )            list
+#define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
 #define DECLARE_SPEC_FUN(fun)     SPEC_FUN  fun
 #define DECLARE_SPELL_FUN(fun)    SPELL_FUN fun
@@ -32,15 +32,15 @@
     int system();
 #endif
 
-#if    !defined(FALSE)
-    #define FALSE     0
+#if !defined(FALSE)
+    #define FALSE    0
 #endif
 
-#if    !defined(TRUE)
+#if !defined(TRUE)
     #define TRUE     1
 #endif
 
-typedef unsigned char            bool;
+typedef unsigned char bool;
 
 /* Global Include for gsn.h */
 #include "gsn.h"
