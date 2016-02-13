@@ -131,9 +131,9 @@ extern const struct olc_cmd_type	oedit_table[];
 extern const struct olc_cmd_type	medit_table[];
 extern const struct olc_cmd_type	mpedit_table[];
 extern const struct olc_cmd_type	hedit_table[];
-extern const struct olc_cmd_type        gedit_table[];
-extern const struct olc_cmd_type        cedit_table[];
-extern const struct olc_cmd_type        sedit_table[];
+extern const struct olc_cmd_type    gedit_table[];
+extern const struct olc_cmd_type    cedit_table[];
+extern const struct olc_cmd_type    sedit_table[];
 
 /*
  * Editor Commands.
