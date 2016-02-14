@@ -4688,6 +4688,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_bandage, "bandage");
     ASSIGN_GSN(gsn_quiet_movement, "quiet movement");
     ASSIGN_GSN(gsn_camping, "camping");
+    ASSIGN_GSN(gsn_camouflage, "camouflage");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

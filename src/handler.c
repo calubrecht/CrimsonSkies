@@ -2596,7 +2596,7 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
         return FALSE;
 
     // Hiding
-    if (IS_AFFECTED(victim, AFF_HIDE)
+    if ((IS_AFFECTED(victim, AFF_HIDE) || is_affected(victim, gsn_camouflage))
        && victim->fighting == NULL
        && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
        && ( !IS_NPC(victim)

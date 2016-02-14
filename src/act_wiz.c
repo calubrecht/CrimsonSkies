@@ -6136,3 +6136,21 @@ void do_debug(CHAR_DATA * ch, char *argument)
 
     return;
 } // end do_debug
+
+/*
+ * Checks all objects in the object list for problems.
+ */
+/*
+void do_objcheck(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+    OBJ_DATA *obj_next;
+    char buf[MAX_STRING_LENGTH];
+
+    for (obj = object_list; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->next;
+
+    }
+
+} */ // end do_objcheck

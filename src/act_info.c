@@ -298,6 +298,8 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
         strcat(buf, "({WWhite Aura{x) ");
     if (IS_AFFECTED(victim, AFF_DEAFEN))
         strcat(buf, "({wDeaf{x) ");
+    if (is_affected(victim, gsn_camouflage))
+        strcat(buf, "({gCamouflage{x) ");
 
     // Healers sense affliction
     if (is_affected(ch, gsn_sense_affliction))
@@ -3021,6 +3023,7 @@ void do_where(CHAR_DATA * ch, char *argument)
                 && victim->in_room->area == ch->in_room->area
                 && !IS_AFFECTED(victim, AFF_HIDE)
                 && !IS_AFFECTED(victim, AFF_SNEAK)
+                && !is_affected(victim, gsn_camouflage)
                 && can_see(ch, victim) && is_name(arg, victim->name))
             {
                 found = TRUE;

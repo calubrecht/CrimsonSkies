@@ -253,6 +253,13 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         act("$n leaves $T.", ch, NULL, dir_name[door], TO_ROOM);
     }
 
+    // Remove camouflage before moving.
+    if (is_affected(ch, gsn_camouflage))
+    {
+        send_to_char("You are no longer camouflaged.\r\n", ch);
+        affect_strip(ch, gsn_camouflage);
+    }
+
     // Move the character
     char_from_room(ch);
     char_to_room(ch, to_room);
@@ -1668,6 +1675,7 @@ void do_visible(CHAR_DATA * ch, char *argument)
     affect_strip(ch, gsn_mass_invis);
     affect_strip(ch, gsn_sneak);
     affect_strip(ch, gsn_quiet_movement);
+    affect_strip(ch, gsn_camouflage);
     REMOVE_BIT(ch->affected_by, AFF_HIDE);
     REMOVE_BIT(ch->affected_by, AFF_INVISIBLE);
     REMOVE_BIT(ch->affected_by, AFF_SNEAK);

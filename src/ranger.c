@@ -39,6 +39,7 @@
  *    - Self Growth                                                        *
  *    - Quiet Movement                                                     *
  *    - Camp                                                               *
+ *    - Camouflage                                                         *
  *    - Track (hunt.c)                                                     *
  *                                                                         *
  ***************************************************************************/
@@ -524,3 +525,81 @@ void do_camp(CHAR_DATA *ch, char *argument)
     WAIT_STATE(ch, skill_table[gsn_camping]->beats);
 
 } // end do_camp
+
+/*
+ * Ranger skill similiar to hide.  Camouflage however will be required in order for
+ * a ranger to use their ambush skill.  The tandem of these two skills have been seem in
+ * many muds.  The idea for these came from Anatolia mud though the implementation did not.
+ */
+void do_camouflage(CHAR_DATA *ch, char *argument)
+{
+    AFFECT_DATA af;
+    int chance;
+
+    if (get_skill(ch, gsn_camouflage) == 0
+        || IS_NPC(ch)
+        || ch->level < skill_table[gsn_camouflage]->skill_level[ch->class])
+    {
+        send_to_char("You don't know how to camouflage yourself.\r\n", ch);
+        return;
+    }
+
+    if (ch->in_room->sector_type != SECT_FOREST &&
+        ch->in_room->sector_type != SECT_FIELD &&
+        ch->in_room->sector_type != SECT_DESERT &&
+        ch->in_room->sector_type != SECT_HILLS &&
+        ch->in_room->sector_type != SECT_MOUNTAIN)
+    {
+        send_to_char("You cannot camoflage yourself here.\r\n", ch);
+        return;
+    }
+
+    // Remove the affect if it exists
+    affect_strip(ch, gsn_camouflage);
+
+    // Calculate the chance, start with the base.
+    chance = get_skill(ch, gsn_camouflage);
+
+    // Faerie fire or blind cuts it in third
+    if (IS_AFFECTED(ch, AFF_FAERIE_FIRE)
+        || IS_AFFECTED(ch, AFF_BLIND))
+    {
+        chance /= 3;
+    }
+
+    // Dexterity, intelligence and wisdom increases chance
+    chance += get_curr_stat(ch, STAT_DEX);
+    chance += get_curr_stat(ch, STAT_INT) / 3;
+    chance += get_curr_stat(ch, STAT_WIS) / 3;
+
+    // There will always be some chance of success or failure.
+    chance = URANGE(5, chance, 95);
+
+    // The ranger will only know they attempted it.
+    send_to_char("You attempt to camouflage yourself.\r\n", ch);
+
+    if (CHANCE(chance))
+    {
+        // Success.
+        af.where = TO_AFFECTS;
+        af.type = gsn_camouflage;
+        af.level = ch->level;
+        af.duration = 2;
+        af.location = APPLY_NONE;
+        af.modifier = 0;
+        af.bitvector = 0;
+        affect_to_char(ch, &af);
+
+        check_improve(ch, gsn_camouflage, TRUE, 3);
+    }
+    else
+    {
+        // Failure, the people in the room will hear something if the ranger fails
+        // to camouflage themselves.
+        act("You hear something rustling near.", ch, NULL, NULL, TO_ROOM);
+        check_improve(ch, gsn_camouflage, FALSE, 3);
+    }
+
+    return;
+
+} // end do_camouflage

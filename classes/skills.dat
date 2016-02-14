@@ -2050,4 +2050,15 @@ MsgOff      You break camp.~
 Race        0
 End
 
+#SKILL
+Name        camouflage~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       0
+MsgOff      You are no longer camouflaged.~
+Race        0
+End
+
 #END

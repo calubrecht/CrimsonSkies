@@ -3956,6 +3956,15 @@ Regeneration benefits from camping are greater when camping at night than
 during the day.
 ~
 
+0 CAMOUFLAGE~
+Syntax: camouflage
+
+Camouflaging allows a ranger to hide in various wilderness settings.
+Camouflage is similiar to hide although it will not break if other commands
+are performed EXCEPT movement.  A ranger must be camouflaged in order to
+ambush other people.
+~
+
 57 CRYPT~
 Syntax: Syntax: crypt <player name> <password>
 

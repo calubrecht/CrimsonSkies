@@ -347,4 +347,5 @@ DECLARE_DO_FUN(do_butcher);
 DECLARE_DO_FUN(do_bandage);
 DECLARE_DO_FUN(do_quiet_movement);
 DECLARE_DO_FUN(do_camp);
+DECLARE_DO_FUN(do_camouflage);
 DECLARE_DO_FUN(do_crypt);

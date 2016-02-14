@@ -2695,6 +2695,7 @@ void spell_faerie_fog(int sn, int level, CHAR_DATA * ch, void *vo,
         affect_strip(ich, gsn_mass_invis);
         affect_strip(ich, gsn_sneak);
         affect_strip(ich, gsn_quiet_movement);
+        affect_strip(ich, gsn_camouflage);
         REMOVE_BIT(ich->affected_by, AFF_HIDE);
         REMOVE_BIT(ich->affected_by, AFF_INVISIBLE);
         REMOVE_BIT(ich->affected_by, AFF_SNEAK);
