@@ -34,6 +34,7 @@ Sk 'recall' 1 2
 Sk 'swim' 1 1
 Sk 'acute vision' 1 1
 Sk 'track' 1 1
+Sk 'butcher' 1 -1
 Sk 'bandage' 1 2
 Sk 'quiet movement' 1 1
 Sk 'camping' 1 1
@@ -162,7 +163,6 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
-Sk 'butcher' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2
@@ -218,24 +218,24 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 40
 Gr 'weaponsmaster' 20
-Gr 'attack' 8
+Gr 'attack' 0
 Gr 'beguiling' 0
 Gr 'benedictions' 0
-Gr 'combat' 9
+Gr 'combat' 0
 Gr 'creation' 8
-Gr 'curative' 8
+Gr 'curative' 0
 Gr 'detection' 0
 Gr 'draconian' 0
 Gr 'enchantment' 0
 Gr 'enhancement' 9
-Gr 'harmful' 6
-Gr 'healing' 6
+Gr 'harmful' 0
+Gr 'healing' 0
 Gr 'advanced healing' 0
 Gr 'advanced curative' 0
 Gr 'illusion' 0
 Gr 'maladictions' 9
 Gr 'protective' 8
-Gr 'transportation' 9
+Gr 'transportation' 8
 Gr 'weather' 8
 Gr 'bladesongs' 0
 Gr 'nature' 4
