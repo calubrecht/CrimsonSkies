@@ -26,6 +26,7 @@
 
     Modifications by Rip in attempt to port to merc 2.1
     Modified by Turtle for Merc22 (07-Nov-94)
+    Modified for CS-Mud by Rhien (Feb-2016)
 
     I got this one from ftp.atinc.com:/pub/mud/outgoing/track.merc21.tar.gz.
     It cointained 5 files: README, hash.c, hash.h, skills.c, and skills.h.
@@ -51,8 +52,7 @@ struct hash_header
 {
     int			rec_size;
     int			table_size;
-    int			*keylist, klistsize, klistlen; /* this is really lame,
-                                               AMAZINGLY lame */
+    int			*keylist, klistsize, klistlen; /* this is really lame, AMAZINGLY lame */
     struct hash_link	**buckets;
 };
 
@@ -316,8 +316,7 @@ void donothing()
     return;
 }
 
-int find_path(int in_room_vnum, int out_room_vnum, CHAR_DATA *ch,
-    int depth, int in_zone)
+int find_path(int in_room_vnum, int out_room_vnum, CHAR_DATA *ch, int depth, int in_zone)
 {
     struct room_q		*tmp_q, *q_head, *q_tail;
     struct hash_header	x_room;
@@ -451,7 +450,7 @@ void do_track(CHAR_DATA *ch, char *argument)
 
     if (!IS_NPC(ch) && ch->level < skill_table[gsn_track]->skill_level[ch->class])
     {
-        send_to_char("Huh?\r\n", ch);
+        send_to_char("You are not skilled in tracking.\r\n", ch);
         return;
     }
 
@@ -471,13 +470,13 @@ void do_track(CHAR_DATA *ch, char *argument)
     fArea = (get_trust(ch) < MAX_LEVEL);
 
     if (IS_NPC(ch) || fArea)
-        victim = get_char_area(ch, arg); 
+        victim = get_char_area(ch, arg);
     else
         victim = get_char_world(ch, arg);
 
     if (victim == NULL || IS_IMMORTAL(victim))
     {
-        act("No-one around by that name.", ch, NULL, NULL, TO_CHAR);
+        act("There is no one around by that name.", ch, NULL, NULL, TO_CHAR);
         return;
     }
 
@@ -514,6 +513,7 @@ void do_track(CHAR_DATA *ch, char *argument)
             act("$n studies the rocks.", ch, NULL, NULL, TO_ROOM);
             break;
         case SECT_DESERT:
+        case SECT_BEACH:
             act("You glance at the sands to look for footprints.", ch, NULL, NULL, TO_CHAR);
             act("$n looks down.", ch, NULL, NULL, TO_ROOM);
             break;
@@ -526,6 +526,7 @@ void do_track(CHAR_DATA *ch, char *argument)
             act("$n peers all about.", ch, NULL, NULL, TO_ROOM);
             break;
         case SECT_UNDERWATER:
+        case SECT_OCEAN:
             act("You look around the water for signs of disturbance.", ch, NULL, NULL, TO_CHAR);
             act("$n quickly looks around.", ch, NULL, NULL, TO_ROOM);
             break;
@@ -562,6 +563,7 @@ void do_track(CHAR_DATA *ch, char *argument)
 
     if (direction < 0 || direction > MAX_DIR)
     {
+        bugf("Bad direction in do_hunt: %d", direction);
         send_to_char("Hmm... Something seems to be wrong.\r\n", ch);
         return;
     }
