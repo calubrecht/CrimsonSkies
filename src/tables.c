@@ -92,6 +92,7 @@ const struct flag_type act_flags[] = {
     {"sentinel",       B, TRUE},
     {"scavenger",      C, TRUE},
     {"portalmerchant", D, TRUE},
+    {"tracker",        E, TRUE},
     {"aggressive",     F, TRUE},
     {"stay_area",      G, TRUE},
     {"wimpy",          H, TRUE},

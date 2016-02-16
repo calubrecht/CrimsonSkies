@@ -6073,6 +6073,13 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    if (IS_SWITCHED(ch))
+        send_to_char("switched", ch);
+    else
+        send_to_char("not switched", ch);
+
+    return;
+
     char buf[MAX_STRING_LENGTH];
     char display_buf[MAX_STRING_LENGTH];
     char *tokenPtr;

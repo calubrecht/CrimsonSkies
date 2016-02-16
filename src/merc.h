@@ -682,7 +682,7 @@ typedef enum
 #define ACT_SENTINEL           (B)   /* Stays in one room  */
 #define ACT_SCAVENGER          (C)   /* Picks up objects   */
 #define ACT_IS_PORTAL_MERCHANT (D)   /* Mob that sells portals to places */
-//                             (E)
+#define ACT_TRACKER            (E)   /* A mob that can track other mobs or players */
 #define ACT_AGGRESSIVE         (F)   /* Attacks PC's       */
 #define ACT_STAY_AREA          (G)   /* Won't leave area   */
 #define ACT_WIMPY              (H)   /* Mob will flee when it has little life left */

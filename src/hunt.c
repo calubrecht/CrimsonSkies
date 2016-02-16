@@ -24,15 +24,27 @@
     SillyMUD Distribution V1.1b             (c) 1993 SillyMUD Developement
     See license.doc for distribution terms.   SillyMUD is based on DIKUMUD
 
-    Modifications by Rip in attempt to port to merc 2.1
-    Modified by Turtle for Merc22 (07-Nov-94)
-    Modified for CS-Mud by Rhien (Feb-2016)
-
     I got this one from ftp.atinc.com:/pub/mud/outgoing/track.merc21.tar.gz.
     It cointained 5 files: README, hash.c, hash.h, skills.c, and skills.h.
     I combined the *.c and *.h files in this hunt.c, which should compile
     without any warnings or errors.
-*/
+
+    Modified by Rip in attempt to port to merc 2.1
+    Modified by Turtle for Merc22 (07-Nov-94)
+    Modified by Baxter for Rom24bx (20-Feb-97)
+    Modified by Rhien for CS-Mud (Feb-2016)
+
+    Some systems don't have bcopy and bzero functions in their linked
+    libraries. If compilation fails due to missing of either of these functions,
+    define NO_BCOPY or NO_BZERO accordingly. -- Turtle 31-Jan-95
+
+    To ease portable usage and ensure consistency I renamed bcopy and bzero to
+    b_copy and b_zero and have this code use those implementations which makes
+    this file self containing.  I also fixed the cast of pointer to integer
+    errors by instead casting to intptr_t which is working out as
+    intended.  - Rhien.  2/15/2016
+
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -454,11 +466,11 @@ void do_track(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    // TODO - Add tracker mobs
-    //if (IS_NPC(ch) && !IS_SET(ch->act, ACT_TRACKER))
-    //{
-    //    return;
-    //}
+    // No NPC's who aren't set as a tracker.
+    if (IS_NPC(ch) && !IS_SET(ch->act, ACT_TRACKER))
+    {
+        return;
+    }
 
     if (arg[0] == '\0')
     {
@@ -484,11 +496,11 @@ void do_track(CHAR_DATA *ch, char *argument)
     {
         act("$N is here!", ch, NULL, victim, TO_CHAR);
 
-        //if (IS_NPC(ch) && IS_SET(ch->act, ACT_TRACKER))
-        //{
-        //    sprintf(buf, "looks at %s.", IS_NPC(victim) ? victim->short_descr : victim->name);
-        //    do_function(ch, &do_emote, buf);
-        //}
+        if (IS_NPC(ch) && IS_SET(ch->act, ACT_TRACKER))
+        {
+            sprintf(buf, "looks at %s.", IS_NPC(victim) ? victim->short_descr : victim->name);
+            do_function(ch, &do_emote, buf);
+        }
 
         return;
     }
@@ -518,17 +530,14 @@ void do_track(CHAR_DATA *ch, char *argument)
             act("$n looks down.", ch, NULL, NULL, TO_ROOM);
             break;
         case SECT_WATER_SWIM:
-            act("You look at the water for ripples.", ch, NULL, NULL, TO_CHAR);
+        case SECT_UNDERWATER:
+        case SECT_OCEAN:
+            act("You look at the water for ripples or signs of disturbance.", ch, NULL, NULL, TO_CHAR);
             act("$n glances down at the water.", ch, NULL, NULL, TO_ROOM);
             break;
         case SECT_WATER_NOSWIM:
             act("You glance down.", ch, NULL, NULL, TO_CHAR);
             act("$n peers all about.", ch, NULL, NULL, TO_ROOM);
-            break;
-        case SECT_UNDERWATER:
-        case SECT_OCEAN:
-            act("You look around the water for signs of disturbance.", ch, NULL, NULL, TO_CHAR);
-            act("$n quickly looks around.", ch, NULL, NULL, TO_ROOM);
             break;
         case SECT_UNUSED:
             act("You look for signs in the nothingness.", ch, NULL, NULL, TO_CHAR);
@@ -544,9 +553,11 @@ void do_track(CHAR_DATA *ch, char *argument)
             break;
     }
 
+    // Wait lag if they're not an immortal, we shouldn't make this too much.
     if (!IS_IMMORTAL(ch))
         WAIT_STATE(ch, skill_table[gsn_track]->beats);
 
+    // The moment of truth...
     direction = find_path(ch->in_room->vnum, victim->in_room->vnum, ch, -40000, fArea);
 
     if (direction == -1)
@@ -554,10 +565,11 @@ void do_track(CHAR_DATA *ch, char *argument)
         act("You couldn't find a path to $N from here.", ch, NULL, victim, TO_CHAR);
         check_improve(ch, gsn_track, TRUE, 4);
 
-        //if (IS_NPC(ch)
-        //    && IS_SET(ch->act, ACT_TRACKER)
-        //    && IS_AFFECTED(ch, AFF_CHARM))
-        //    act("$n can't seem to find a path to $N from here.", ch, NULL, victim, TO_ROOM);
+        if (IS_NPC(ch) && IS_SET(ch->act, ACT_TRACKER) && IS_AFFECTED(ch, AFF_CHARM))
+        {
+            act("$n can't seem to find a path to $N from here.", ch, NULL, victim, TO_ROOM);
+        }
+
         return;
     }
 
@@ -576,8 +588,7 @@ void do_track(CHAR_DATA *ch, char *argument)
         do
         {
             direction = number_door();
-        } while ((ch->in_room->exit[direction] == NULL)
-            || (ch->in_room->exit[direction]->u1.to_room == NULL));
+        } while ((ch->in_room->exit[direction] == NULL) || (ch->in_room->exit[direction]->u1.to_room == NULL));
     }
 
     /*
@@ -586,19 +597,15 @@ void do_track(CHAR_DATA *ch, char *argument)
     sprintf(buf, "The tracks seem to show that $N is %s from here.", dir_name[direction]);
     act(buf, ch, NULL, victim, TO_CHAR);
 
-    //if (IS_NPC(ch) && IS_SET(ch->act, ACT_TRACKER))
-    //{
-    //    if (IS_HUMANOID(ch) && IS_AFFECTED(ch, AFF_CHARM))
-    //    {
-    //        sprintf(buf, "The tracks seem to lead %s from here.", dir_name[direction]);
-    //        do_say(ch, buf);
-    //    }
-    //    else if (IS_AFFECTED(ch, AFF_CHARM))
-    //    {
-    //        sprintf(buf, "pulls %s.", dir_name[direction]);
-    //        do_function(ch, &do_emote, buf);
-    //    }
-    //}
+    if (IS_NPC(ch) && IS_SET(ch->act, ACT_TRACKER))
+    {
+        if (IS_AFFECTED(ch, AFF_CHARM))
+        {
+            sprintf(buf, "The tracks seem to lead %s from here.", dir_name[direction]);
+            do_say(ch, buf);
+        }
+    }
+
     check_improve(ch, gsn_track, TRUE, 4);
     return;
 }
