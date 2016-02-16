@@ -498,7 +498,7 @@ void do_camp(CHAR_DATA *ch, char *argument)
     af.where = TO_AFFECTS;
     af.type = gsn_camping;
     af.level = ch->level;
-    af.duration = ch->level / 3;
+    af.duration = UMAX(3, ch->level / 3);
     af.modifier = 0;
     af.location = APPLY_NONE;
     af.bitvector = 0;
