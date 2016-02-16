@@ -4898,6 +4898,11 @@ int copyover_timer = 0;
  */
 void do_copyover(CHAR_DATA * ch, char *argument)
 {
+#if defined(_WIN32)
+    send_to_char("Copyover does not currently work in native Windows, use reboot.\r\n", ch);
+    return;
+#endif
+
     FILE *fp;
     DESCRIPTOR_DATA *d, *d_next;
     char buf[500], buf2[100], buf3[100];
