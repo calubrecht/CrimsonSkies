@@ -171,13 +171,13 @@ AFN ABCD 0 0
 stand stand female 4500
 AHMV ABCDEFGHIJK medium unknown
 #3011
-Drake~
-Drake~
-Drake is here, waiting to dispense some justice.
+Grundfaust~
+Grundfaust~
+Grundfaust is here, waiting to dispense some justice.
 ~
-Drake, the guardian of the temple and of Midgaard, towers over you.  He's over 12 
-feet tall, every inch of it muscle. It would be a Bad Thing to commit a crime
-in his presence.
+Grundfaust, the guardian of the temple and of Midgaard, towers over you. 
+He's over 12 feet tall, every inch of it muscle.  It would be a Bad Thing to
+commit a crime in his presence.  
 ~
 unique~
 ABTV CDFJVZ 3 3000
@@ -1032,8 +1032,8 @@ drink 0 A
 0 10 11 P
 #3005
 scimitar blade~
-Drake's scimitar~
-Drake's scimitar lies upon the ground, waiting for its owner.~
+Grundfaust's scimitar~
+Grundfaust's scimitar lies upon the ground, waiting for its owner.~
 adamantite~
 weapon BI AN
 sword 4 10 cleave EF
@@ -6259,8 +6259,8 @@ M 0 3162 1 3334 1 Load Otho the Changer
 O 0 3200 0 3352 A large wooden table loaded to Grebe's Tavern
 O 0 3200 0 3355 A large wooden table loaded to Andy's Pub
 O 0 3200 0 3356 A large wooden table loaded to A Room in the Pub
-M 0 3011 1 3001 1 Load Drake
-E 0 3005 0 16 Drake's scimitar is loaded wielded of Drake
+M 0 3011 1 3001 1 Load Grundfaust
+E 0 3005 0 16 Grundfaust's scimitar is loaded wielded of Grundfaust
 M 0 3021 1 3002 1 Load the guildmaster
 M 0 3043 1 3003 1 Load the waiter
 G 0 3002 0 A bottle of ale is given to the waiter
