@@ -775,6 +775,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 ch->move = ch->max_move;
                 ch->train = 3;
                 ch->practice = 5;
+                ch->gold = 20;
 
                 sprintf(buf, "%s", "the Neophyte");
                 set_title(ch, buf);
