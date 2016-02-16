@@ -150,6 +150,9 @@
     <ClCompile Include="src\sha256.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hunt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">

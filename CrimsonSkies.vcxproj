@@ -90,6 +90,7 @@
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\healer.c" />
+    <ClCompile Include="src\hunt.c" />
     <ClCompile Include="src\ini.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\log.c" />
