@@ -3965,6 +3965,13 @@ are performed EXCEPT movement.  A ranger must be camouflaged in order to
 ambush other people.
 ~
 
+0 TRACK~
+Syntax: track <target name>
+
+The track skill allows a ranger to locate the general direction of a target
+whether that be a player or a creature in the game.  
+~
+
 57 CRYPT~
 Syntax: Syntax: crypt <player name> <password>
 
