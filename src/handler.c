@@ -2159,8 +2159,10 @@ CHAR_DATA *get_char_room(CHAR_DATA * ch, char *argument)
 
     number = number_argument(argument, arg);
     count = 0;
+
     if (!str_cmp(arg, "self"))
         return ch;
+
     for (rch = ch->in_room->people; rch != NULL; rch = rch->next_in_room)
     {
         if (!can_see(ch, rch) || !is_name(arg, rch->name))
@@ -2171,6 +2173,40 @@ CHAR_DATA *get_char_room(CHAR_DATA * ch, char *argument)
 
     return NULL;
 }
+
+/*
+ * Find a char in the area
+ */
+CHAR_DATA *get_char_area(CHAR_DATA * ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *wch;
+    int number;
+    int count;
+
+    if (!str_cmp(argument, "self"))
+        return ch;
+
+    if ((wch = get_char_room(ch, argument)) != NULL)
+        return wch;
+
+    number = number_argument(argument, arg);
+    count = 0;
+
+    for (wch = char_list; wch != NULL; wch = wch->next)
+    {
+        if (wch->in_room == NULL || !can_see (ch, wch)
+            || !is_name (arg, wch->name)
+            || (ch->in_room->area != wch->in_room->area))
+            continue;
+
+        if (++count == number)
+            return wch;
+    }
+
+    return NULL;
+
+} // end get_char_area
 
 /*
  * Find a char in the world.

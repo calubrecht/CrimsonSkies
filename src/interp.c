@@ -279,6 +279,8 @@ const struct cmd_type cmd_table[] = {
     {"qmove",           do_quiet_movement,POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"camp",            do_camp,          POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"camouflage",      do_camouflage,    POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"ambush",          do_ambush,        POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"track",           do_track,         POS_STANDING, 0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)

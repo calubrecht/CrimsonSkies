@@ -2415,6 +2415,7 @@ void   separate_obj       (OBJ_DATA *obj);
 void   split_obj          (OBJ_DATA *obj, int num);
 void   empty_pits         (void);
 CD *   get_char_room      (CHAR_DATA *ch, char *argument);
+CD *   get_char_area      (CHAR_DATA *ch, char *argument);
 CD *   get_char_world     (CHAR_DATA *ch, char *argument);
 OD *   get_obj_type       (OBJ_INDEX_DATA *pObjIndexData);
 OD *   get_obj_list       (CHAR_DATA *ch, char *argument, OBJ_DATA *list);

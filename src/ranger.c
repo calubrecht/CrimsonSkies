@@ -40,7 +40,7 @@
  *    - Quiet Movement                                                     *
  *    - Camp                                                               *
  *    - Camouflage                                                         *
- *    - Track (hunt.c)                                                     *
+ *    - Hunt (hunt.c)                                                      *
  *                                                                         *
  ***************************************************************************/
 
@@ -573,7 +573,7 @@ void do_camouflage(CHAR_DATA *ch, char *argument)
     chance += get_curr_stat(ch, STAT_WIS) / 3;
 
     // There will always be some chance of success or failure.
-    chance = URANGE(5, chance, 95);
+    chance = URANGE(5, chance, 90);
 
     // The ranger will only know they attempted it.
     send_to_char("You attempt to camouflage yourself.\r\n", ch);
@@ -603,3 +603,128 @@ void do_camouflage(CHAR_DATA *ch, char *argument)
     return;
 
 } // end do_camouflage
+
+/*
+ * Ranger's ambush skill.  This will allow a camouflaged ranger to ambush a victim
+ * for a good one hit damage plus a chance at an additional init round.
+ */
+void do_ambush(CHAR_DATA *ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_DATA *victim;
+    OBJ_DATA *weapon;
+
+    // If they don't have ambush, not the level yet or they're an NPC exit out.
+    if (get_skill(ch, gsn_ambush) == 0
+        || IS_NPC(ch)
+        || ch->level < skill_table[gsn_ambush]->skill_level[ch->class])
+    {
+        send_to_char("You don't have the skill to properly ambush someone.\r\n",ch);
+        return;
+    }
+
+    // Can't be fighting someone and ambush.
+    if( ch->position == POS_FIGHTING || ch->fighting != NULL)
+    {
+        send_to_char("You cannot ambush someone while you're fighting.\r\n", ch);
+        return;
+    }
+
+    one_argument(argument,arg);
+
+    // Figure out how it is they want to ambush, if it's no one of they can't see them
+    // then get out.
+    if (arg[0] == '\0')
+    {
+        send_to_char("Ambush who?\r\n", ch);
+        return;
+    }
+    else if ((victim = get_char_room(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\n\r",ch);
+        return;
+    }
+
+    // Can't ambush yourself
+    if (victim == ch)
+    {
+        send_to_char("You can't ambush yourself.\r\n",ch);
+        return;
+    }
+
+    // Check if the victim is safe from the attacker
+    if (is_safe(ch, victim))
+        return;
+
+    if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
+    {
+        act("But $N is your friend!",ch,NULL,victim,TO_CHAR);
+        return;
+    }
+
+    if (IS_NPC(victim) && victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+    {
+        send_to_char("Kill stealing is not permitted.\r\n", ch);
+        return;
+    }
+
+    if (!is_affected(ch, gsn_camouflage))
+    {
+        send_to_char("You must be camouflaged in order to ambush someone.\r\n",ch);
+        return;
+    }
+
+    // Straight up skill check
+    if (!CHANCE_SKILL(ch, gsn_ambush))
+    {
+        send_to_char("You fail your ambush attempt.\r\n", ch);
+        act("You hear something rustling near.", ch, NULL, NULL, TO_ROOM);
+        check_improve(ch, gsn_ambush, FALSE, 2);
+        WAIT_STATE(ch,skill_table[gsn_ambush]->beats);
+        return;
+    }
+
+    // Get their weapon
+    weapon = get_eq_char(ch, WEAR_WIELD);
+
+    // See if they are wanted or need a wanted flag.
+    check_wanted(ch, victim);
+
+    // Show the event
+    act("You AMBUSH $N!", ch, NULL, victim, TO_CHAR);
+    act("$n AMBUSHES you!!!", ch, NULL, victim, TO_VICT);
+    act("$n AMBUSHES $N!!!", ch, NULL, victim, TO_NOTVICT);
+
+    // Do the damage
+    if (weapon == NULL)
+    {
+        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch)), gsn_ambush, DAM_BASH, TRUE);
+    }
+    else
+    {
+        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch)), gsn_ambush, weapon->value[3], TRUE);
+    }
+
+    // Check improve
+    check_improve(ch, gsn_ambush, TRUE, 1);
+
+    // Remove camouflage
+    affect_strip(ch, gsn_camouflage);
+
+    // Calculate whether they get a bonus init round
+    // Dexterity, strength and a little luck
+    int chance = get_curr_stat(ch, STAT_DEX) + get_curr_stat(ch, STAT_STR) + number_range(10, 25);
+    chance += (get_skill(ch, gsn_ambush) / 4);
+
+    // Give the victim a slight bonus if they have detect hidden
+    if (IS_AFFECTED(victim, AFF_DETECT_HIDDEN))
+        chance -= 10;
+
+    // See if they get a bonus init round of damage.
+    if (CHANCE(chance))
+        multi_hit(ch, victim, TYPE_UNDEFINED);
+
+    // Final lag for skill
+    WAIT_STATE(ch,skill_table[gsn_ambush]->beats);
+
+} // end do_ambush

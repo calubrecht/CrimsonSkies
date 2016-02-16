@@ -25,9 +25,6 @@
     See license.doc for distribution terms.   SillyMUD is based on DIKUMUD
 
     Modifications by Rip in attempt to port to merc 2.1
-*/
-
-/*
     Modified by Turtle for Merc22 (07-Nov-94)
 
     I got this one from ftp.atinc.com:/pub/mud/outgoing/track.merc21.tar.gz.
@@ -39,11 +36,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdint.h>
 #include "merc.h"
 #include "interp.h"
-
-void bcopy(register char *s1, register char *s2, int len);
-void bzero(register char *sp, int len);
 
 struct hash_link
 {
@@ -86,17 +81,18 @@ struct nodes
 #define GO_OK		(!IS_SET( IS_DIR->exit_info, EX_CLOSED ))
 #define GO_OK_SMARTER	1
 
-#if defined(_WIN32)
-void bcopy(register char *s1, register char *s2, int len)
+void b_copy(register char *s1, register char *s2, int len);
+void b_zero(register char *sp, int len);
+
+void b_copy(register char *s1, register char *s2, int len)
 {
     while (len--) *(s2++) = *(s1++);
 }
 
-void bzero(register char *sp, int len)
+void b_zero(register char *sp, int len)
 {
     while (len--) *(sp++) = '\0';
 }
-#endif
 
 void init_hash_table(struct hash_header	*ht, int rec_size, int table_size)
 {
@@ -110,7 +106,7 @@ void init_hash_table(struct hash_header	*ht, int rec_size, int table_size)
 void init_world(ROOM_INDEX_DATA *room_db[])
 {
     /* zero out the world */
-    bzero((char *)room_db, sizeof(ROOM_INDEX_DATA *)*WORLD_SIZE);
+    b_zero((char *)room_db, sizeof(ROOM_INDEX_DATA *)*WORLD_SIZE);
 }
 
 void destroy_hash_table(struct hash_header *ht, void(*gman)())
@@ -261,7 +257,7 @@ void *hash_remove(struct hash_header *ht, int key)
 
         if (i < ht->klistlen)
         {
-            bcopy((char *)ht->keylist + i + 1, (char *)ht->keylist + i, (ht->klistlen - i)
+            b_copy((char *)ht->keylist + i + 1, (char *)ht->keylist + i, (ht->klistlen - i)
                 *sizeof(*ht->keylist));
             ht->klistlen--;
         }
@@ -386,11 +382,9 @@ int find_path(int in_room_vnum, int out_room_vnum, CHAR_DATA *ch,
 
                             /* ancestor for first layer is the direction */
                             hash_enter(&x_room, tmp_room,
-
-                                ((int)hash_find(&x_room, q_head->room_nr)
-                                    == -1) ? (void*)(i + 1)
-                                :
-                                hash_find(&x_room, q_head->room_nr));
+                                ((intptr_t)hash_find(&x_room, q_head->room_nr) == -1)
+                                    ? (void*)(intptr_t)(i + 1)
+                                    : hash_find(&x_room, q_head->room_nr));
                         }
                     }
                     else
@@ -403,7 +397,7 @@ int find_path(int in_room_vnum, int out_room_vnum, CHAR_DATA *ch,
                             free(q_head);
                         }
                         /* return direction if first layer */
-                        if ((int)hash_find(&x_room, tmp_room) == -1)
+                        if ((intptr_t)hash_find(&x_room, tmp_room) == -1)
                         {
                             if (x_room.buckets)
                             {
@@ -417,7 +411,7 @@ int find_path(int in_room_vnum, int out_room_vnum, CHAR_DATA *ch,
                             /* else return the ancestor */
                             int i;
 
-                            i = (int)hash_find(&x_room, tmp_room);
+                            i = (intptr_t)hash_find(&x_room, tmp_room);
                             if (x_room.buckets)
                             {
                                 /* junk left over from a previous track */

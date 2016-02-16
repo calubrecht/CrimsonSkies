@@ -7143,17 +7143,12 @@ SEDIT(sedit_damage)
 
     if (argument[0] == '\0')
     {
-        send_to_char("Syntax:  name [string]\r\n", ch);
+        send_to_char("Syntax:  damage [string]\r\n", ch);
         return FALSE;
     }
 
-    if (skill->noun_damage)
-    {
-        free_string(skill->noun_damage);
-        skill->noun_damage = '\0';
-    }
-    if (str_cmp(argument, "clear"))
-        skill->noun_damage = str_dup(argument);
+    free_string(skill->noun_damage);
+    skill->noun_damage = str_dup(argument);
 
     send_to_char("Damage Noun set.\r\n", ch);
     return TRUE;

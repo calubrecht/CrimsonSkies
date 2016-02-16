@@ -316,6 +316,7 @@ DECLARE_OLC_FUN(sedit_show);
 DECLARE_OLC_FUN(sedit_level);
 DECLARE_OLC_FUN(sedit_rating);
 DECLARE_OLC_FUN(sedit_race);
+DECLARE_OLC_FUN(sedit_damage);
 
 /* Class Editor */
 DECLARE_OLC_FUN(cedit_name);
