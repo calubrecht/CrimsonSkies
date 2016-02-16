@@ -109,7 +109,7 @@ Sk 'enhanced damage' 30 9
 Sk 'pass door' 32 1
 Sk 'acid breath' 32 1
 Sk 'demonfire' 34 1
-Sk 'bandage' 34 1
+Sk 'bandage' 34 2
 Sk 'nexus' 35 2
 Sk 'ray of truth' 35 1
 Sk 'shield' 35 1
@@ -148,12 +148,12 @@ Sk 'ghost' 52 -1
 Sk 'acute vision' 52 -1
 Sk 'track' 52 -1
 Sk 'butcher' 52 -1
-Sk 'bark skin' 52 1
-Sk 'self growth' 52 1
-Sk 'quiet movement' 52 1
-Sk 'camping' 52 1
-Sk 'camouflage' 52 1
-Sk 'ambush' 52 1
+Sk 'bark skin' 52 -1
+Sk 'self growth' 52 -1
+Sk 'quiet movement' 52 -1
+Sk 'camping' 52 -1
+Sk 'camouflage' 52 -1
+Sk 'ambush' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
