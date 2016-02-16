@@ -6967,9 +6967,14 @@ CEDIT(cedit_groups)
         return FALSE;
     }
 
-    if (group_table[gn]->rating[class_no] < 0) gn = -1;
+    if (group_table[gn]->rating[class_no] < 0)
     {
-        send_to_char("That roup doesn't exist for this class.\r\n", ch);
+        gn = -1;
+    }
+
+    if (gn == -1)
+    {
+        send_to_char("That group doesn't exist for this class.\r\n", ch);
         return FALSE;
     }
 
@@ -7036,7 +7041,7 @@ SEDIT(sedit_create)
     for (x = 0; x < top_class; x++)
     {
         skill->skill_level[x] = LEVEL_IMMORTAL;
-        skill->rating[x] = 1;
+        skill->rating[x] = -1;
     }
 
     // Put the n ew skill in the table then incriment the top_sn
