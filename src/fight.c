@@ -2040,8 +2040,14 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
             break;
     }
 
+    // If level range is greater than 4 between player and victim then
+    // give them a sliding bonus
     if (level_range > 4)
         base_exp = 160 + 20 * (level_range - 4);
+
+    // Instead adding up the base, going to create slight increase here
+    // that can be tweaked as needed.
+    base_exp = base_exp * 4 / 3;
 
     /* do alignment computations */
     // XP was getting wiped out for certain setups here, put cases in for
