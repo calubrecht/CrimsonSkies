@@ -99,12 +99,11 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update the interp table with a flag to indicate whether a command is a skill.
     Then, update the commands command to group regular commands and then skills (then don't show skills if a user doesn't have them).
   - Research why all items have 0 condition.
-  - Replace crypt with cross platform solution.
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
-  - Have delete require password to confirm delete
   - Create command to reset a users password while they maybe offline
   - Notes aren't line breaking correctly anymore.
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
-  - Camping addition - other players will see that someone is camping on coming into the room.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
   - Copyover to display reason on all ticks and not just the first one, but the reason in the globals.
+  - Make sha256_crypt cross platform compatible (endian stuff)
+  - Prune note spools, currently old notes don't load but they are kept in the file.
