@@ -7,12 +7,10 @@
 * Reclass system is in (help reclass), there are two reclasses currently 
   which are enchantors for mages and healers for clerics.  2 more reclasses
   and the oceans are all that stand between now and version 1.
-* Any 'rules' are on hold until the game is out of it's beta testing
-  phase.  Feel free to do what you please, just respect others.
 * Important commands: help, commands, notes, score, look, who, scan
 * To see the current game settings, type settings.
-* You may notice bots walking around, these are temporary in order
-  simulate and test game mechanics.
+* You may notice bots walking around, these help me simulate and test 
+  game mechanics that I cannot otherwise test by myself.
 * See 'help credits' for code contributions from others.
 
 {R[{WHit Return to continue{R]{x
@@ -592,6 +590,7 @@ to the mud implementors.
           - {R[{WVarious Code Contributions{R]{w -------
           --------------------------------------{x
                             [Erwin S. Andreasen]
+                               [Fusion of Mud++]
                                      [Quixadhal]
                                   [Jason Dinkel]
                                           [Lope]
