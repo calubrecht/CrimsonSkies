@@ -170,6 +170,8 @@ void save_char_obj(CHAR_DATA * ch)
 }
 
 
+// marker
+
 /*
  * Write the char.
  */
@@ -183,28 +185,28 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
 
     fprintf(fp, "Name %s~\n", ch->name);
     fprintf(fp, "Id   %ld\n", ch->id);
-    fprintf(fp, "LogO %ld\n", current_time);
-    fprintf(fp, "Vers %d\n", 1);
+    fprintf(fp, "LogOffTime %ld\n", current_time);
+    fprintf(fp, "Version %d\n", 1);
 
     if (ch->short_descr[0] != '\0')
-        fprintf(fp, "ShD  %s~\n", ch->short_descr);
+        fprintf(fp, "ShortDescription %s~\n", ch->short_descr);
     if (ch->long_descr[0] != '\0')
-        fprintf(fp, "LnD  %s~\n", ch->long_descr);
+        fprintf(fp, "LongDescription %s~\n", ch->long_descr);
     if (ch->description[0] != '\0')
-        fprintf(fp, "Desc %s~\n", ch->description);
+        fprintf(fp, "Description %s~\n", ch->description);
     if (ch->prompt != NULL)
-        fprintf(fp, "Prom %s~\n", ch->prompt);
+        fprintf(fp, "Prompt %s~\n", ch->prompt);
     fprintf(fp, "Race %s~\n", pc_race_table[ch->race].name);
     if (ch->clan)
         fprintf(fp, "Clan %s~\n", clan_table[ch->clan].name);
     fprintf(fp, "Sex  %d\n", ch->sex);
-    fprintf(fp, "Cla  %d\n", ch->class);
-    fprintf(fp, "Levl %d\n", ch->level);
+    fprintf(fp, "Class %d\n", ch->class);
+    fprintf(fp, "Level %d\n", ch->level);
     if (ch->trust != 0)
-        fprintf(fp, "Tru  %d\n", ch->trust);
-    fprintf(fp, "Sec  %d\n", ch->pcdata->security);    /* OLC */
-    fprintf(fp, "Plyd %d\n", ch->played + (int)(current_time - ch->logon));
-    fprintf(fp, "Scro %d\n", ch->lines);
+        fprintf(fp, "TrustLevel %d\n", ch->trust);
+    fprintf(fp, "Security %d\n", ch->pcdata->security);    /* OLC */
+    fprintf(fp, "Played %d\n", ch->played + (int)(current_time - ch->logon));
+    fprintf(fp, "Scroll %d\n", ch->lines);
     fprintf(fp, "Room %d\n", (ch->in_room == get_room_index(ROOM_VNUM_LIMBO)
         && ch->was_in_room != NULL)
         ? ch->was_in_room->vnum
@@ -218,49 +220,51 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     else
         fprintf(fp, "Gold %d\n", 0);
     if (ch->silver > 0)
-        fprintf(fp, "Silv %ld\n", ch->silver);
+        fprintf(fp, "Silver %ld\n", ch->silver);
     else
-        fprintf(fp, "Silv %d\n", 0);
-    fprintf(fp, "Exp  %d\n", ch->exp);
+        fprintf(fp, "Silver %d\n", 0);
+    fprintf(fp, "Experience  %d\n", ch->exp);
     if (ch->act != 0)
         fprintf(fp, "Act  %s\n", print_flags(ch->act));
     if (ch->affected_by != 0)
         fprintf(fp, "AfBy %s\n", print_flags(ch->affected_by));
     fprintf(fp, "Comm %s\n", print_flags(ch->comm));
     if (ch->wiznet)
-        fprintf(fp, "Wizn %s\n", print_flags(ch->wiznet));
+        fprintf(fp, "Wiznet %s\n", print_flags(ch->wiznet));
     if (ch->invis_level)
-        fprintf(fp, "Invi %d\n", ch->invis_level);
+        fprintf(fp, "InvisLevel %d\n", ch->invis_level);
     if (ch->incog_level)
-        fprintf(fp, "Inco %d\n", ch->incog_level);
-    fprintf(fp, "Pos  %d\n",
+        fprintf(fp, "IncognitoLevel %d\n", ch->incog_level);
+    fprintf(fp, "Position %d\n",
         ch->position == POS_FIGHTING ? POS_STANDING : ch->position);
     if (ch->practice != 0)
-        fprintf(fp, "Prac %d\n", ch->practice);
+        fprintf(fp, "Practice %d\n", ch->practice);
     if (ch->train != 0)
-        fprintf(fp, "Trai %d\n", ch->train);
+        fprintf(fp, "Train %d\n", ch->train);
     if (ch->saving_throw != 0)
         fprintf(fp, "Save  %d\n", ch->saving_throw);
-    fprintf(fp, "Alig  %d\n", ch->alignment);
+    fprintf(fp, "Alignment %d\n", ch->alignment);
     if (ch->hitroll != 0)
-        fprintf(fp, "Hit   %d\n", ch->hitroll);
+        fprintf(fp, "Hitroll %d\n", ch->hitroll);
     if (ch->damroll != 0)
-        fprintf(fp, "Dam   %d\n", ch->damroll);
+        fprintf(fp, "Damroll %d\n", ch->damroll);
     fprintf(fp, "ACs %d %d %d %d\n",
         ch->armor[0], ch->armor[1], ch->armor[2], ch->armor[3]);
     if (ch->wimpy != 0)
-        fprintf(fp, "Wimp  %d\n", ch->wimpy);
-    fprintf(fp, "Attr %d %d %d %d %d\n",
+        fprintf(fp, "Wimpy %d\n", ch->wimpy);
+    fprintf(fp, "Attributes %d %d %d %d %d\n",
         ch->perm_stat[STAT_STR],
         ch->perm_stat[STAT_INT],
         ch->perm_stat[STAT_WIS],
-        ch->perm_stat[STAT_DEX], ch->perm_stat[STAT_CON]);
+        ch->perm_stat[STAT_DEX],
+        ch->perm_stat[STAT_CON]);
 
-    fprintf(fp, "AMod %d %d %d %d %d\n",
+    fprintf(fp, "AttributeModifier %d %d %d %d %d\n",
         ch->mod_stat[STAT_STR],
         ch->mod_stat[STAT_INT],
         ch->mod_stat[STAT_WIS],
-        ch->mod_stat[STAT_DEX], ch->mod_stat[STAT_CON]);
+        ch->mod_stat[STAT_DEX],
+        ch->mod_stat[STAT_CON]);
 
     if (IS_NPC(ch))
     {
@@ -268,7 +272,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     }
     else
     {
-        fprintf(fp, "Pass %s~\n", ch->pcdata->pwd);
+        fprintf(fp, "Password %s~\n", ch->pcdata->pwd);
 
         // Update the last available IP address
         if (ch->desc != NULL
@@ -297,26 +301,27 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         }
 
         if (ch->pcdata->bamfin[0] != '\0')
-            fprintf(fp, "Bin  %s~\n", ch->pcdata->bamfin);
+            fprintf(fp, "Bamfin %s~\n", ch->pcdata->bamfin);
 
         if (ch->pcdata->bamfout[0] != '\0')
-            fprintf(fp, "Bout %s~\n", ch->pcdata->bamfout);
+            fprintf(fp, "Bamfout %s~\n", ch->pcdata->bamfout);
 
         if (ch->pcdata->email[0] != '\0')
             fprintf(fp, "Email %s~\n", ch->pcdata->email);
 
-        fprintf(fp, "Titl %s~\n", ch->pcdata->title);
-        fprintf(fp, "Pnts %d\n", ch->pcdata->points);
-        fprintf(fp, "TSex %d\n", ch->pcdata->true_sex);
-        fprintf(fp, "LLev %d\n", ch->pcdata->last_level);
+        fprintf(fp, "Title %s~\n", ch->pcdata->title);
+        fprintf(fp, "Points %d\n", ch->pcdata->points);
+        fprintf(fp, "TrueSex %d\n", ch->pcdata->true_sex);
+        fprintf(fp, "LastLevel %d\n", ch->pcdata->last_level);
         fprintf(fp, "HMVP %d %d %d\n", ch->pcdata->perm_hit,
             ch->pcdata->perm_mana, ch->pcdata->perm_move);
-        fprintf(fp, "Cnd  %d %d %d %d\n",
+        fprintf(fp, "Condition %d %d %d %d\n",
             ch->pcdata->condition[0],
             ch->pcdata->condition[1],
-            ch->pcdata->condition[2], ch->pcdata->condition[3]);
+            ch->pcdata->condition[2],
+            ch->pcdata->condition[3]);
 
-   // Notes
+        // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
         fprintf(fp, "LastPenalty %ld\n", ch->pcdata->last_penalty);
         fprintf(fp, "LastNews %ld\n", ch->pcdata->last_news);
@@ -341,7 +346,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         {
             if (skill_table[sn]->name != NULL && ch->pcdata->learned[sn] > 0)
             {
-                fprintf(fp, "Sk %d '%s'\n",
+                fprintf(fp, "Skill %d '%s'\n",
                     ch->pcdata->learned[sn], skill_table[sn]->name);
             }
         }
@@ -350,7 +355,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         {
             if (group_table[gn]->name != NULL && ch->pcdata->group_known[gn])
             {
-                fprintf(fp, "Gr '%s'\n", group_table[gn]->name);
+                fprintf(fp, "Group '%s'\n", group_table[gn]->name);
             }
         }
     }
@@ -360,7 +365,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         if (paf->type < 0 || paf->type >= top_sn)
             continue;
 
-        fprintf(fp, "Affc '%s' %3d %3d %3d %3d %3d %10d\n",
+        fprintf(fp, "Affect '%s' %3d %3d %3d %3d %3d %10d\n",
             skill_table[paf->type]->name,
             paf->where,
             paf->level,
@@ -380,52 +385,52 @@ void fwrite_pet(CHAR_DATA * pet, FILE * fp)
     fprintf(fp, "Vnum %d\n", pet->pIndexData->vnum);
 
     fprintf(fp, "Name %s~\n", pet->name);
-    fprintf(fp, "LogO %ld\n", current_time);
+    fprintf(fp, "LogOffTime %ld\n", current_time);
     if (pet->short_descr != pet->pIndexData->short_descr)
-        fprintf(fp, "ShD  %s~\n", pet->short_descr);
+        fprintf(fp, "ShortDescription %s~\n", pet->short_descr);
     if (pet->long_descr != pet->pIndexData->long_descr)
-        fprintf(fp, "LnD  %s~\n", pet->long_descr);
+        fprintf(fp, "LongDescription %s~\n", pet->long_descr);
     if (pet->description != pet->pIndexData->description)
-        fprintf(fp, "Desc %s~\n", pet->description);
+        fprintf(fp, "Description %s~\n", pet->description);
     if (pet->race != pet->pIndexData->race)
         fprintf(fp, "Race %s~\n", race_table[pet->race].name);
     if (pet->clan)
         fprintf(fp, "Clan %s~\n", clan_table[pet->clan].name);
     fprintf(fp, "Sex  %d\n", pet->sex);
     if (pet->level != pet->pIndexData->level)
-        fprintf(fp, "Levl %d\n", pet->level);
+        fprintf(fp, "Level %d\n", pet->level);
     fprintf(fp, "HMV  %d %d %d %d %d %d\n",
         pet->hit, pet->max_hit, pet->mana, pet->max_mana, pet->move,
         pet->max_move);
     if (pet->gold > 0)
         fprintf(fp, "Gold %ld\n", pet->gold);
     if (pet->silver > 0)
-        fprintf(fp, "Silv %ld\n", pet->silver);
+        fprintf(fp, "Silver %ld\n", pet->silver);
     if (pet->exp > 0)
-        fprintf(fp, "Exp  %d\n", pet->exp);
+        fprintf(fp, "Experience %d\n", pet->exp);
     if (pet->act != pet->pIndexData->act)
         fprintf(fp, "Act  %s\n", print_flags(pet->act));
     if (pet->affected_by != pet->pIndexData->affected_by)
         fprintf(fp, "AfBy %s\n", print_flags(pet->affected_by));
     if (pet->comm != 0)
         fprintf(fp, "Comm %s\n", print_flags(pet->comm));
-    fprintf(fp, "Pos  %d\n", pet->position =
+    fprintf(fp, "Position %d\n", pet->position =
         POS_FIGHTING ? POS_STANDING : pet->position);
     if (pet->saving_throw != 0)
         fprintf(fp, "Save %d\n", pet->saving_throw);
     if (pet->alignment != pet->pIndexData->alignment)
-        fprintf(fp, "Alig %d\n", pet->alignment);
+        fprintf(fp, "Alignment %d\n", pet->alignment);
     if (pet->hitroll != pet->pIndexData->hitroll)
-        fprintf(fp, "Hit  %d\n", pet->hitroll);
+        fprintf(fp, "Hitroll %d\n", pet->hitroll);
     if (pet->damroll != pet->pIndexData->damage[DICE_BONUS])
-        fprintf(fp, "Dam  %d\n", pet->damroll);
+        fprintf(fp, "Damroll %d\n", pet->damroll);
     fprintf(fp, "ACs  %d %d %d %d\n",
         pet->armor[0], pet->armor[1], pet->armor[2], pet->armor[3]);
-    fprintf(fp, "Attr %d %d %d %d %d\n",
+    fprintf(fp, "Attributes %d %d %d %d %d\n",
         pet->perm_stat[STAT_STR], pet->perm_stat[STAT_INT],
         pet->perm_stat[STAT_WIS], pet->perm_stat[STAT_DEX],
         pet->perm_stat[STAT_CON]);
-    fprintf(fp, "AMod %d %d %d %d %d\n",
+    fprintf(fp, "AttributeModifier %d %d %d %d %d\n",
         pet->mod_stat[STAT_STR], pet->mod_stat[STAT_INT],
         pet->mod_stat[STAT_WIS], pet->mod_stat[STAT_DEX],
         pet->mod_stat[STAT_CON]);
@@ -435,7 +440,7 @@ void fwrite_pet(CHAR_DATA * pet, FILE * fp)
         if (paf->type < 0 || paf->type >= top_sn)
             continue;
 
-        fprintf(fp, "Affc '%s' %3d %3d %3d %3d %3d %10d\n",
+        fprintf(fp, "Affect '%s' %3d %3d %3d %3d %3d %10d\n",
             skill_table[paf->type]->name,
             paf->where, paf->level, paf->duration, paf->modifier,
             paf->location, paf->bitvector);
@@ -808,6 +813,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Act", ch->act, fread_flag(fp));
                 KEY("AffectedBy", ch->affected_by, fread_flag(fp));
                 KEY("AfBy", ch->affected_by, fread_flag(fp));
+
                 KEY("Alignment", ch->alignment, fread_number(fp));
                 KEY("Alig", ch->alignment, fread_number(fp));
 
@@ -868,7 +874,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "Affc"))
+                if (!str_cmp(word, "Affc") || !str_cmp(word, "Affect"))
                 {
                     AFFECT_DATA *paf;
                     int sn;
@@ -893,7 +899,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "AttrMod") || !str_cmp(word, "AMod"))
+                if (!str_cmp(word, "AttrMod") || !str_cmp(word, "AMod") || !str_cmp(word, "AttributeModifier"))
                 {
                     int stat;
                     for (stat = 0; stat < MAX_STATS; stat++)
@@ -902,7 +908,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "AttrPerm") || !str_cmp(word, "Attr"))
+                if (!str_cmp(word, "AttrPerm") || !str_cmp(word, "Attr") || !str_cmp(word, "Attributes"))
                 {
                     int stat;
 
@@ -923,18 +929,11 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'C':
                 KEY("Class", ch->class, fread_number(fp));
                 KEY("Cla", ch->class, fread_number(fp));
+
                 KEY("Clan", ch->clan, clan_lookup(fread_string(fp)));
                 KEY("Comm", ch->comm, fread_flag(fp));
 
-                if (!str_cmp(word, "Condition") || !str_cmp(word, "Cond"))
-                {
-                    ch->pcdata->condition[0] = fread_number(fp);
-                    ch->pcdata->condition[1] = fread_number(fp);
-                    ch->pcdata->condition[2] = fread_number(fp);
-                    fMatch = TRUE;
-                    break;
-                }
-                if (!str_cmp(word, "Cnd"))
+                if (!str_cmp(word, "Condition") || !str_cmp(word, "Cond") || !str_cmp(word, "Cnd"))
                 {
                     ch->pcdata->condition[0] = fread_number(fp);
                     ch->pcdata->condition[1] = fread_number(fp);
@@ -949,10 +948,11 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'D':
                 KEY("Damroll", ch->damroll, fread_number(fp));
                 KEY("Dam", ch->damroll, fread_number(fp));
+
                 KEY("Description", ch->description, fread_string(fp));
                 KEY("Desc", ch->description, fread_string(fp));
-                break;
 
+                break;
             case 'E':
                 if (!str_cmp(word, "End"))
                 {
@@ -997,7 +997,10 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                     return;
                 }
+
+                KEY("Experience", ch->exp, fread_number(fp));
                 KEY("Exp", ch->exp, fread_number(fp));
+
                 KEY("Email", ch->pcdata->email, fread_string(fp));
                 break;
 
@@ -1052,20 +1055,30 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
             case 'I':
                 KEY("Id", ch->id, fread_number(fp));
+
                 KEY("InvisLevel", ch->invis_level, fread_number(fp));
-                KEY("Inco", ch->incog_level, fread_number(fp));
                 KEY("Invi", ch->invis_level, fread_number(fp));
+
+                KEY("IncognitoLevel", ch->incog_level, fread_number(fp));
+                KEY("Inco", ch->incog_level, fread_number(fp));
+
                 break;
 
             case 'L':
                 KEY("LastLevel", ch->pcdata->last_level, fread_number(fp));
                 KEY("LLev", ch->pcdata->last_level, fread_number(fp));
+
                 KEY("Level", ch->level, fread_number(fp));
                 KEY("Lev", ch->level, fread_number(fp));
                 KEY("Levl", ch->level, fread_number(fp));
+
                 KEY("LogO", lastlogoff, fread_number(fp));
+                KEY("LogOffTime", lastlogoff, fread_number(fp));
+
+                KEY("LongDescription", ch->long_descr, fread_string(fp));
                 KEY("LongDescr", ch->long_descr, fread_string(fp));
                 KEY("LnD", ch->long_descr, fread_string(fp));
+
                 KEY("LastNote", ch->pcdata->last_note, fread_number(fp));
                 KEY("LastPenalty", ch->pcdata->last_penalty, fread_number(fp));
                 KEY("LastNews", ch->pcdata->last_news, fread_number(fp));
@@ -1085,14 +1098,19 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'P':
                 KEY("Password", ch->pcdata->pwd, fread_string(fp));
                 KEY("Pass", ch->pcdata->pwd, fread_string(fp));
+
                 KEY("Played", ch->played, fread_number(fp));
                 KEY("Plyd", ch->played, fread_number(fp));
+
                 KEY("Points", ch->pcdata->points, fread_number(fp));
                 KEY("Pnts", ch->pcdata->points, fread_number(fp));
+
                 KEY("Position", ch->position, fread_number(fp));
                 KEY("Pos", ch->position, fread_number(fp));
+
                 KEY("Practice", ch->practice, fread_number(fp));
                 KEY("Prac", ch->practice, fread_number(fp));
+
                 KEYS("Prompt", ch->prompt, fread_string(fp));
                 KEY("Prom", ch->prompt, fread_string(fp));
                 break;
@@ -1114,11 +1132,20 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'S':
                 KEY("SavingThrow", ch->saving_throw, fread_number(fp));
                 KEY("Save", ch->saving_throw, fread_number(fp));
+
+                KEY("Scroll", ch->lines, fread_number(fp));
                 KEY("Scro", ch->lines, fread_number(fp));
+
                 KEY("Sex", ch->sex, fread_number(fp));
+
+                KEY("ShortDescription", ch->short_descr, fread_string(fp));
                 KEY("ShortDescr", ch->short_descr, fread_string(fp));
                 KEY("ShD", ch->short_descr, fread_string(fp));
+
                 KEY("Sec", ch->pcdata->security, fread_number(fp));    /* OLC */
+                KEY("Security", ch->pcdata->security, fread_number(fp));
+
+                KEY("Silver", ch->silver, fread_number(fp));
                 KEY("Silv", ch->silver, fread_number(fp));
 
 
@@ -1147,7 +1174,10 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'T':
                 KEY("TrueSex", ch->pcdata->true_sex, fread_number(fp));
                 KEY("TSex", ch->pcdata->true_sex, fread_number(fp));
+
+                KEY("Train", ch->train, fread_number(fp));
                 KEY("Trai", ch->train, fread_number(fp));
+
                 KEY("Trust", ch->trust, fread_number(fp));
                 KEY("Tru", ch->trust, fread_number(fp));
 
@@ -1172,6 +1202,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'V':
                 KEY("Version", ch->version, fread_number(fp));
                 KEY("Vers", ch->version, fread_number(fp));
+
                 if (!str_cmp(word, "Vnum"))
                 {
                     ch->pIndexData = get_mob_index(fread_number(fp));
@@ -1183,7 +1214,10 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'W':
                 KEY("Wimpy", ch->wimpy, fread_number(fp));
                 KEY("Wimp", ch->wimpy, fread_number(fp));
+
+                KEY("Wiznet", ch->wiznet, fread_flag(fp));
                 KEY("Wizn", ch->wiznet, fread_flag(fp));
+
                 break;
         }
 
@@ -1242,6 +1276,8 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
             case 'A':
                 KEY("Act", pet->act, fread_flag(fp));
                 KEY("AfBy", pet->affected_by, fread_flag(fp));
+
+                KEY("Alignment", pet->alignment, fread_number(fp));
                 KEY("Alig", pet->alignment, fread_number(fp));
 
                 if (!str_cmp(word, "ACs"))
@@ -1278,7 +1314,7 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "Affc"))
+                if (!str_cmp(word, "Affc") || !str_cmp(word, "Affect"))
                 {
                     AFFECT_DATA *paf;
                     int sn;
@@ -1313,7 +1349,7 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "AMod"))
+                if (!str_cmp(word, "AMod") || !str_cmp(word, "AttributeModifier"))
                 {
                     int stat;
 
@@ -1323,7 +1359,7 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                     break;
                 }
 
-                if (!str_cmp(word, "Attr"))
+                if (!str_cmp(word, "Attr") || !str_cmp(word, "Attributes"))
                 {
                     int stat;
 
@@ -1340,10 +1376,13 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                 break;
 
             case 'D':
+                KEY("Damroll", pet->damroll, fread_number(fp));
                 KEY("Dam", pet->damroll, fread_number(fp));
-                KEY("Desc", pet->description, fread_string(fp));
-                break;
 
+                KEY("Description", pet->description, fread_string(fp));
+                KEY("Desc", pet->description, fread_string(fp));
+
+                break;
             case 'E':
                 if (!str_cmp(word, "End"))
                 {
@@ -1366,7 +1405,10 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                     }
                     return;
                 }
+
+                KEY("Experience", pet->exp, fread_number(fp));
                 KEY("Exp", pet->exp, fread_number(fp));
+
                 break;
 
             case 'G':
@@ -1375,6 +1417,7 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
 
             case 'H':
                 KEY("Hit", pet->hitroll, fread_number(fp));
+                KEY("Hitroll", pet->hitroll, fread_number(fp));
 
                 if (!str_cmp(word, "HMV"))
                 {
@@ -1391,8 +1434,13 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
 
             case 'L':
                 KEY("Levl", pet->level, fread_number(fp));
+                KEY("Level", pet->level, fread_number(fp));
+
+                KEY("LongDescription", pet->long_descr, fread_string(fp));
                 KEY("LnD", pet->long_descr, fread_string(fp));
+
                 KEY("LogO", lastlogoff, fread_number(fp));
+                KEY("LogOffTime", lastlogoff, fread_number(fp));
                 break;
 
             case 'N':
@@ -1400,6 +1448,7 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
                 break;
 
             case 'P':
+                KEY("Position", pet->position, fread_number(fp));
                 KEY("Pos", pet->position, fread_number(fp));
                 break;
 
@@ -1410,7 +1459,11 @@ void fread_pet(CHAR_DATA * ch, FILE * fp)
             case 'S':
                 KEY("Save", pet->saving_throw, fread_number(fp));
                 KEY("Sex", pet->sex, fread_number(fp));
+
                 KEY("ShD", pet->short_descr, fread_string(fp));
+                KEY("ShortDescription", pet->short_descr, fread_string(fp));
+
+                KEY("Silver", pet->silver, fread_number(fp));
                 KEY("Silv", pet->silver, fread_number(fp));
                 break;
 
