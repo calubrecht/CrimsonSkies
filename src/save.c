@@ -40,7 +40,6 @@
 #include "tables.h"
 #include "lookup.h"
 
-/* int rename(const char *oldfname, const char *newfname); viene en stdio.h */
 char *print_flags(int flag)
 {
     int count, pos = 0;
@@ -70,13 +69,11 @@ char *print_flags(int flag)
     return buf;
 }
 
-
 /*
  * Array of containers read for proper re-nesting of objects.
  */
 #define MAX_NEST    100
 static OBJ_DATA *rgObjNest[MAX_NEST];
-
 
 /*
  * Local functions.
@@ -763,12 +760,12 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 #undef KEY
 #endif
 
-#define KEY( literal, field, value )                    \
-                if ( !str_cmp( word, literal ) )    \
-                {                    \
-                    field  = value;            \
-                    fMatch = TRUE;            \
-                    break;                \
+#define KEY( literal, field, value )                 \
+                if ( !str_cmp( word, literal ) )     \
+                {                                    \
+                    field  = value;                  \
+                    fMatch = TRUE;                   \
+                    break;                           \
                 }
 
 /* provided to free strings */
@@ -776,13 +773,13 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 #undef KEYS
 #endif
 
-#define KEYS( literal, field, value )                    \
-                if ( !str_cmp( word, literal ) )    \
-                {                    \
-                    free_string(field);            \
-                    field  = value;            \
-                    fMatch = TRUE;            \
-                    break;                \
+#define KEYS( literal, field, value )                \
+                if ( !str_cmp( word, literal ) )     \
+                {                                    \
+                    free_string(field);              \
+                    field  = value;                  \
+                    fMatch = TRUE;                   \
+                    break;                           \
                 }
 
 void fread_char(CHAR_DATA * ch, FILE * fp)
