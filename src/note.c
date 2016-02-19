@@ -280,7 +280,9 @@ void save_notes(int type)
  */
 void load_notes(void)
 {
-    load_thread(NOTE_FILE, &note_list, NOTE_NOTE, 14 * 24 * 60 * 60);
+    // 0 for the first number to keep forever, otherwise it's the amount of days
+    // you want to keep entries in the spool
+    load_thread(NOTE_FILE, &note_list, NOTE_NOTE, 28 * 24 * 60 * 60);
     load_thread(PENALTY_FILE, &penalty_list, NOTE_PENALTY, 365 * 24 * 60 * 60);
     load_thread(NEWS_FILE, &news_list, NOTE_NEWS, 0);
     load_thread(CHANGES_FILE, &changes_list, NOTE_CHANGES, 0);
