@@ -107,3 +107,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Copyover to display reason on all ticks and not just the first one, but the reason in the globals.
   - Make sha256_crypt cross platform compatible (endian stuff)
   - Prune note spools, currently old notes don't load but they are kept in the file.
+  - Task scheduler in game, to schedule any number of commands by minute, hour, day, time, etc.
