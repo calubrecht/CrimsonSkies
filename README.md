@@ -26,7 +26,7 @@ Currently Crimson Skies compiles and runs out of the box on:
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
     they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
-Crimson Skies will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
+CS-Mud will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
 If there are any coders and/or builders (esp builders) who are interested in contributing to an open source mud feel
 free to send me a message and get on board.  I am standing up a building port for this reason.  Great muds are a 
@@ -79,6 +79,7 @@ Here are some related resources that are thanksfully still active.
 
   - Mud Bytes - http://www.mudbytes.net/
   - Gammon Forums (Smaug & ROM) - http://www.gammon.com.au/forum/
+  - The Mud Connector - http://www.mudconnect.com/
   - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): http://www.andreasen.org/mud.shtml
 
 ## License 
