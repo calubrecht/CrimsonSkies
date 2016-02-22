@@ -1944,10 +1944,6 @@ void group_gain(CHAR_DATA * ch, CHAR_DATA * victim)
 
         xp = xp_compute(gch, victim, group_levels);
 
-        // Double experience bonus
-        if (settings.double_exp)
-            xp *= 2;
-
         sprintf(buf, "You receive %d experience points.\r\n", xp);
         send_to_char(buf, gch);
         gain_exp(gch, xp);
@@ -2113,6 +2109,11 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
 
     /* bonus for intelligence */
     xp = (xp * (100 + (get_curr_stat(gch, STAT_INT) * 4))) / 100;
+
+    // Double experience bonus (this must be the last check to truly double
+    // the calculation.
+    if (settings.double_exp)
+        xp *= 2;
 
     return xp;
 } // end int xp_compute
