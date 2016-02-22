@@ -175,7 +175,7 @@ bool spec_troll_member(CHAR_DATA * ch)
             message = NULL;
             break;
         case 0:
-            message = "$n yells 'I've been looking for you, punk!'";
+            message = "$n yells '{YI've been looking for you, punk!{x'";
             break;
         case 1:
             message = "With a scream of rage, $n attacks $N.";
@@ -243,7 +243,7 @@ bool spec_ogre_member(CHAR_DATA * ch)
             message = NULL;
             break;
         case 0:
-            message = "$n yells 'I've been looking for you, punk!'";
+            message = "$n yells '{YI've been looking for you, punk!{x'";
             break;
         case 1:
             message = "With a scream of rage, $n attacks $N.'";
@@ -327,7 +327,7 @@ bool spec_patrolman(CHAR_DATA * ch)
             message = NULL;
             break;
         case 0:
-            message = "$n yells 'All roit! All roit! break it up!'";
+            message = "$n yells '{YAll roit! All roit! break it up!{x'";
             break;
         case 1:
             message =
@@ -1023,7 +1023,7 @@ bool spec_guard(CHAR_DATA * ch)
 
     if (ech != NULL)
     {
-        act("$n screams 'PROTECT THE INNOCENT!!",
+        act("$n screams '{YPROTECT THE INNOCENT!!{x'",
             ch, NULL, NULL, TO_ROOM);
         multi_hit(ch, ech, TYPE_UNDEFINED);
         return TRUE;
