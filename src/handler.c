@@ -2986,6 +2986,8 @@ char *act_bit_name(int act_flags)
             strcat(buf, " frozen");
         if (act_flags & PLR_WANTED)
             strcat(buf, " wanted");
+        if (act_flags & PLR_NOCANCEL)
+            strcat(buf, " no_cancel");
     }
     return (buf[0] != '\0') ? buf + 1 : "none";
 }

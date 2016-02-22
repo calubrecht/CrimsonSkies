@@ -1092,17 +1092,17 @@ void spell_calm(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 }
 
-void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     bool found = FALSE;
 
     level += 2;
 
-    if ((!IS_NPC(ch) && IS_NPC(victim) &&
-        !(IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)) ||
-        (IS_NPC(ch) && !IS_NPC(victim)))
+    if ((!IS_NPC(ch) && IS_NPC(victim)
+         && !(IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim))
+         || (IS_NPC(ch) && !IS_NPC(victim) && !IS_SET(ch->act, ACT_IS_HEALER))
+         || (!IS_NPC(victim) && ch != victim && IS_SET(victim->act, PLR_NOCANCEL)))
     {
         send_to_char("You failed, try dispel magic.\r\n", ch);
         return;

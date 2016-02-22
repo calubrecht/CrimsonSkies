@@ -843,6 +843,12 @@ void do_autolist(CHAR_DATA * ch, char *argument)
         send_to_char("You do not welcome followers.\r\n", ch);
     else
         send_to_char("You accept followers.\r\n", ch);
+
+    if (IS_SET(ch->act, PLR_NOCANCEL))
+        send_to_char("You cannot have the cancel spell cast on you by other players.\r\n", ch);
+    else
+        send_to_char("You can now have the cancel spell cast on you by other players.\r\n", ch);
+
 }
 
 void do_autoassist(CHAR_DATA * ch, char *argument)
@@ -1133,6 +1139,23 @@ void do_nofollow(CHAR_DATA * ch, char *argument)
         send_to_char("You no longer accept followers.\r\n", ch);
         SET_BIT(ch->act, PLR_NOFOLLOW);
         die_follower(ch);
+    }
+}
+
+void do_nocancel(CHAR_DATA *ch, char *argument)
+{
+    if (IS_NPC(ch))
+        return;
+
+    if (IS_SET(ch->act,PLR_NOCANCEL))
+    {
+        send_to_char("You can now be cancelled by others.\n\r", ch);
+        REMOVE_BIT(ch->act,PLR_NOCANCEL);
+    }
+    else
+    {
+        send_to_char("You are now immune to cancel by others.\n\r", ch);
+        SET_BIT(ch->act, PLR_NOCANCEL);
     }
 }
 
@@ -1908,6 +1931,8 @@ void do_score(CHAR_DATA * ch, char *argument)
         IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
         IS_SET(ch->act, PLR_COLOR) ? 'X' : ' ');
 
+    printf_to_char(ch, "                                            {gNoCancel  [{R%c{g]\r\n",
+        IS_SET(ch->act, PLR_NOCANCEL) ? 'X' : ' ');
 
     send_to_char("{g----------------------------------------------------------------------------{x\r\n", ch);
     // position, condition (hunger, thirst, drunk),

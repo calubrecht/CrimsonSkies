@@ -351,3 +351,4 @@ DECLARE_DO_FUN(do_camouflage);
 DECLARE_DO_FUN(do_ambush);
 DECLARE_DO_FUN(do_track);
 DECLARE_DO_FUN(do_crypt);
+DECLARE_DO_FUN(do_nocancel);

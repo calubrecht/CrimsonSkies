@@ -1365,6 +1365,7 @@ typedef enum
 #define PLR_CANLOOT         (P)
 #define PLR_NOSUMMON        (Q)
 #define PLR_NOFOLLOW        (R)
+#define PLR_NOCANCEL        (S)
 #define PLR_COLOR           (T)
 /* 1 bit reserved, S */
 
