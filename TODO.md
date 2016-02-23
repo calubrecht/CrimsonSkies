@@ -109,3 +109,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Prune note spools, currently old notes don't load but they are kept in the file.
   - Task scheduler in game, to schedule any number of commands by minute, hour, day, time, etc.
   - Auto quit option to try to auto quit when a player goes link dead.
+  - Current online time
