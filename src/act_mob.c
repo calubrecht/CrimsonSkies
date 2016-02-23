@@ -81,6 +81,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
         send_to_char("  blind: cure blindness         20 gold\r\n", ch);
         send_to_char("  disease: cure disease         15 gold\r\n", ch);
         send_to_char("  poison:  cure poison          25 gold\r\n", ch);
+        send_to_char("  cancel:  cancellation         50 gold\r\n", ch);
         send_to_char("  uncurse: remove curse         50 gold\r\n", ch);
         send_to_char("  refresh: restore movement      5 gold\r\n", ch);
         send_to_char("  mana:  restore mana           10 gold\r\n", ch);
@@ -95,7 +96,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus dies";
         cost = 1000;
     }
-
     else if (!str_prefix(arg, "serious"))
     {
         spell = spell_cure_serious;
@@ -103,7 +103,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus gzfuajg";
         cost = 1500;
     }
-
     else if (!str_prefix(arg, "critical"))
     {
         spell = spell_cure_critical;
@@ -111,7 +110,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus qfuhuqar";
         cost = 2500;
     }
-
     else if (!str_prefix(arg, "heal"))
     {
         spell = spell_heal;
@@ -119,7 +117,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "pzar";
         cost = 5000;
     }
-
     else if (!str_prefix(arg, "blindness"))
     {
         spell = spell_cure_blindness;
@@ -127,7 +124,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus noselacri";
         cost = 2000;
     }
-
     else if (!str_prefix(arg, "disease"))
     {
         spell = spell_cure_disease;
@@ -135,7 +131,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus eugzagz";
         cost = 1500;
     }
-
     else if (!str_prefix(arg, "poison"))
     {
         spell = spell_cure_poison;
@@ -143,7 +138,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "judicandus sausabru";
         cost = 2500;
     }
-
     else if (!str_prefix(arg, "uncurse") || !str_prefix(arg, "curse"))
     {
         spell = spell_remove_curse;
@@ -151,7 +145,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "candussido judifgz";
         cost = 5000;
     }
-
     else if (!str_prefix(arg, "mana") || !str_prefix(arg, "energize"))
     {
         spell = NULL;
@@ -159,8 +152,6 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "energizer";
         cost = 1000;
     }
-
-
     else if (!str_prefix(arg, "refresh") || !str_prefix(arg, "moves"))
     {
         spell = spell_refresh;
@@ -168,7 +159,13 @@ void do_heal(CHAR_DATA * ch, char *argument)
         words = "candusima";
         cost = 500;
     }
-
+    else if (!str_prefix(arg, "cancel"))
+    {
+        spell = spell_cancellation;
+        sn = skill_lookup("cancellation");
+        words = "clarivoix";
+        cost = 5000;
+    }
     else
     {
         act("$N says 'Type 'heal' for a list of spells.'", ch, NULL, mob, TO_CHAR);
