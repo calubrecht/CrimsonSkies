@@ -81,7 +81,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
         send_to_char("  blind: cure blindness         20 gold\r\n", ch);
         send_to_char("  disease: cure disease         15 gold\r\n", ch);
         send_to_char("  poison:  cure poison          25 gold\r\n", ch);
-        send_to_char("  cancel:  cancellation         50 gold\r\n", ch);
+        send_to_char("  cancel:  cancellation         40 gold\r\n", ch);
         send_to_char("  uncurse: remove curse         50 gold\r\n", ch);
         send_to_char("  refresh: restore movement      5 gold\r\n", ch);
         send_to_char("  mana:  restore mana           10 gold\r\n", ch);
@@ -164,7 +164,7 @@ void do_heal(CHAR_DATA * ch, char *argument)
         spell = spell_cancellation;
         sn = skill_lookup("cancellation");
         words = "clarivoix";
-        cost = 5000;
+        cost = 4000;
     }
     else
     {
