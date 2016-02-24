@@ -60,6 +60,9 @@ DISABLED_DATA *disabled_first;
 
 /*
  * Command table.
+ *
+ * Command Name, Function, Minimum Position, Level, Logging, Show in command listing
+ *
  */
 const struct cmd_type cmd_table[] = {
     /*
