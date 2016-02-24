@@ -4961,6 +4961,9 @@ void do_copyover(CHAR_DATA * ch, char *argument)
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n{WReason{x: %s\r\n",
                     ch->name, copyover_timer, copyover_timer > 1 ? "s" : "", argument);
+
+                // Save the reason for use later
+                sprintf(global.copyover_reason, "%s", argument);
             }
 
             // Set the pointer back to the person calling it so we can reference them
@@ -4984,6 +4987,7 @@ void do_copyover(CHAR_DATA * ch, char *argument)
         sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x cancelled by {B%s{x.\r\n", ch->name);
 
         global.copyover_ch = NULL;
+        global.copyover_reason[0] = '\0';
 
         send_to_all_char(buf);
     }

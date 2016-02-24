@@ -595,12 +595,13 @@ typedef enum {UNKNOWN, SUCCESS, FAILURE, WARNING, DISABLE, DEFAULT, MISSING} boo
  */
 struct global_data
 {
-    bool copyover;                    // Whether this boot is a copyover or not
-    CHAR_DATA *copyover_ch;           // Link back to the person who executed the copyover
-    bool shutdown;                    // Whether a shutdown is in progress (formerly merc_down)
-    bool game_loaded;                 // Whether the game has been fully booted.
-    char boot_time[MAX_INPUT_LENGTH]; // String of when the mud booted, formerly str_boot_time
-    boot_result last_boot_result;     // The status of the last boot function.
+    bool copyover;                          // Whether this boot is a copyover or not
+    CHAR_DATA *copyover_ch;                 // Link back to the person who executed the copyover
+    char copyover_reason[MAX_INPUT_LENGTH]; // The reason for the copyover so we can show it on each tick.
+    bool shutdown;                          // Whether a shutdown is in progress (formerly merc_down)
+    bool game_loaded;                       // Whether the game has been fully booted.
+    char boot_time[MAX_INPUT_LENGTH];       // String of when the mud booted, formerly str_boot_time
+    boot_result last_boot_result;           // The status of the last boot function.
 };
 
 /*

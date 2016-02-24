@@ -1380,16 +1380,28 @@ void tick_update()
         }
         else
         {
-            // Show the current countdown to the game.
-            if (global.copyover_ch != NULL)
+            // If a reason was specified then show it with each tick.
+            char reason[MAX_STRING_LENGTH];
+
+            if (!IS_NULLSTR(global.copyover_reason))
             {
-                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n",
-                    global.copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
+                sprintf(reason, "\r\n{WReason{x: %s\r\n", global.copyover_reason);
             }
             else
             {
-                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick%s.\r\n",
-                    copyover_timer, copyover_timer > 1 ? "s" : "");
+                sprintf(reason, "\r\n");
+            }
+
+            // Show the current countdown to the game.
+            if (global.copyover_ch != NULL)
+            {
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.%s",
+                    global.copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "", reason);
+            }
+            else
+            {
+                sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick%s.%s",
+                    copyover_timer, copyover_timer > 1 ? "s" : "", reason);
             }
 
             send_to_all_char(buf);
