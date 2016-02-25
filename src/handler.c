@@ -3683,3 +3683,16 @@ bool same_continent(int vnum_one, int vnum_two)
     }
 
 } // end bool same_continent
+
+/*
+ * The number of hours that a player has played.  For a mob, this will return
+ * the number of hours in existence (which would be since boot or the last
+ * time that they re-spawned).
+ */
+int hours_played(CHAR_DATA *ch)
+{
+    if (ch == NULL)
+        return 0;
+
+    return (ch->played + (int) (current_time - ch->logon)) / 3600;
+}
