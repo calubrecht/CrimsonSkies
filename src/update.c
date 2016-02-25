@@ -69,8 +69,7 @@ void advance_level(CHAR_DATA * ch, bool hide)
     int add_prac;
     int add_train;
 
-    ch->pcdata->last_level =
-        (ch->played + (int)(current_time - ch->logon)) / 3600;
+    ch->pcdata->last_level = hours_played(ch);
 
     add_hp =
         con_app[get_curr_stat(ch, STAT_CON)].hitp +

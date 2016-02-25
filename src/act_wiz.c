@@ -1576,7 +1576,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         sprintf(buf,
             "Age: %d  Played: %d  Last Level: %d  Timer: %d\r\n",
             get_age(victim),
-            (int)(victim->played + current_time - victim->logon) / 3600,
+            hours_played(victim),
             victim->pcdata->last_level, victim->timer);
         send_to_char(buf, ch);
     }

@@ -1847,7 +1847,7 @@ void do_score(CHAR_DATA * ch, char *argument)
     send_to_char("----------------------------------------------------------------------------\r\n", ch);
 
     printf_to_char(ch, "{gLEVEL: {w%-3d          {gRace: {w%-10.10s        {gPlayed: {w%ld hours{x\r\n",
-        ch->level, capitalize(race_table[ch->race].name), (ch->played + (int)(current_time - ch->logon)) / 3600);
+        ch->level, capitalize(race_table[ch->race].name), hours_played(ch));
 
     printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
         get_age(ch), capitalize(class_table[ch->class]->name), ctime(&(ch->logon)));
@@ -1950,7 +1950,7 @@ void do_oldscore(CHAR_DATA * ch, char *argument)
         ch->name,
         IS_NPC(ch) ? "" : ch->pcdata->title,
         ch->level, get_age(ch),
-        (ch->played + (int)(current_time - ch->logon)) / 3600);
+        hours_played(ch));
     send_to_char(buf, ch);
 
     if (get_trust(ch) != ch->level)
