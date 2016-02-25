@@ -475,7 +475,10 @@ const struct int_app_type int_app[26] = {
 };
 
 
-
+/*
+ * Modifiers for Wisdom based items.
+ * Field 1: Number of practices gained for player wisdom
+ */
 const struct wis_app_type wis_app[26] = {
     {0},                        /*  0 */
     {0},                        /*  1 */
