@@ -412,7 +412,11 @@ struct pc_race_type pc_race_table[] = {
 };
 
 /*
- * Attribute bonus tables.
+ * Modifiers for Strength based items.
+ * Field 1: tohit - Hit roll bonus
+ * Field 2: todam - Dam roll bonus
+ * Field 3: carry - Carry modifier
+ * Field 4: wield - Wield modifier (factors into dropping weapon when weak)
  */
 const struct str_app_type str_app[26] = {
     {-5, -4, 0, 0},                /* 0  */
@@ -444,7 +448,10 @@ const struct str_app_type str_app[26] = {
 };
 
 
-
+/*
+ * Modifiers for Intelligence based items.
+ * Field 1:  Learning modifier (higher the better)
+ */
 const struct int_app_type int_app[26] = {
     {3},                        /*  0 */
     {5},                        /*  1 */
@@ -508,8 +515,10 @@ const struct wis_app_type wis_app[26] = {
     {6}                         /* 25 */
 };
 
-
-
+/*
+ * Modifiers for Dexterity based items.
+ * Field 1:  Does not appear to be in use anymore, repurpose later.
+ */
 const struct dex_app_type dex_app[26] = {
     {60},                        /* 0 */
     {50},                        /* 1 */
@@ -542,7 +551,8 @@ const struct dex_app_type dex_app[26] = {
 
 /*
  * Constitution modifiers.
- * In order: HP bonus on level, Shock
+ * Field 1: HP bonus on level
+ * Field 2: Shock
  */
 const struct con_app_type con_app[26] = {
     {-4, 20},   /*  0 */
