@@ -581,6 +581,18 @@ struct statistics_data
 };
 
 /*
+ * Structure for holding first and last parts of names for use in the
+ * random name generator.
+ */
+struct name_part_type
+{
+    char *first_part;
+    char *last_part;
+};
+
+extern const struct name_part_type name_part_table[];
+
+/*
  * Results for a load_* function when the mud is booting.  This will allow us to show
  * the last status in copyover (whether it failed, etc.).  We'll store the last status
  * in the global data so we don't have to pass it around.
