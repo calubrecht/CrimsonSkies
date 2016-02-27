@@ -99,6 +99,7 @@
     <ClCompile Include="src\misc.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />
+    <ClCompile Include="src\name_generator.c" />
     <ClCompile Include="src\nanny.c" />
     <ClCompile Include="src\note.c" />
     <ClCompile Include="src\olc.c" />
