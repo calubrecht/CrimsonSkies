@@ -1273,7 +1273,7 @@ void parse_note(CHAR_DATA *ch, char *argument, int type)
         return;
     }
 
-    if (!str_prefix(arg, "ulist"))
+    if (!str_prefix(arg, "ulist") || !str_prefix(arg, "unread"))
     {
         output = new_buf();
         vnum = 0;
