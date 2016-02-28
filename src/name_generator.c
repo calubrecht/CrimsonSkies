@@ -53,7 +53,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "merc.h"
-
+#include "interp.h"
 
 int max_name_part;  // So we only count them once per go around.
 
@@ -125,6 +125,31 @@ void init_name_parts()
     // This would need to be be commented out or removed if moving this code to another mud.
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;
+
+    return;
+}
+
+/*
+ * Shows the player random names, 5 rows of 4 columns.
+ */
+void do_random_names(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    int row = 0;
+    int col = 0;
+
+    for (row = 0; row < 5; row++)
+    {
+        // Since the random function returns a static char we have to use it in
+        // separate calls.
+        for (col = 0; col < 4; col++)
+        {
+            sprintf(buf, "%-18s", generate_random_name());
+            send_to_char(buf, ch);
+        }
+
+        send_to_char("\r\n", ch);
+    }
 
     return;
 }
