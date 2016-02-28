@@ -54,6 +54,77 @@
 #include <string.h>
 #include "merc.h"
 
+
+int max_name_part;  // So we only count them once per go around.
+
+/*
+ * Generates a random name and checks to make sure that a player doesn't already
+ * exist with that name.
+ */
+char *generate_random_name()
+{
+    static char buf[64];
+    int first_index = 0;
+    int last_index = 0;
+    int counter = 0;
+    bool found = FALSE;
+
+    // If the name parts haven't been initiatlized do that so we know the upper
+    // bound for our random number generating.
+    if (max_name_part == 0)
+    {
+        init_name_parts();
+    }
+
+    do
+    {
+        counter++;
+        first_index = number_range(0, max_name_part);
+        last_index = number_range(0, max_name_part);
+
+        // Checks to try to ensure a good name
+        if (name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)]
+            != name_part_table[last_index].last_part[0]
+            && first_index != last_index)
+        {
+            found = TRUE;
+        }
+
+    } while (found == FALSE && counter < 1000);
+
+    sprintf(buf, "%s%s",
+        name_part_table[first_index].first_part,
+        name_part_table[last_index].last_part);
+
+    return buf;
+}
+
+/*
+ * Returns the number of elements in the name_part_table.  This will be stored in a global
+ * variable for re-use so it doesn't have to be counted again.  The count part table must
+ * end with a NULL set.
+ */
+void init_name_parts()
+{
+    // It's already been counted, no need to count them again.
+    if (max_name_part > 0)
+    {
+        return;
+    }
+
+    do
+    {
+        max_name_part++;
+    } while (!IS_NULLSTR(name_part_table[max_name_part].first_part));
+
+    // The last element is NULL, so we'll subtract 1 from the total count.
+    max_name_part = max_name_part - 1;
+
+    log_f("STATUS: Initializing Random Name Table Count - %d", max_name_part);
+
+    return;
+}
+
 /*
  *  The name part list, the first and last parts aren't necessarily related, they
  *  kept in separate columns (instead of separate tables) to make this a little more
@@ -661,5 +732,6 @@ const struct name_part_type name_part_table[] = {
         {"Xan", "alis"},
         {"Kane", "s"},
         {"Kain", "aux"},
-        {"Fau", "aix"}
+        {"Fau", "aix"},
+        {NULL, NULL},
 };

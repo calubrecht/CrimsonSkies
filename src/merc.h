@@ -2568,6 +2568,10 @@ void   log_obj              (OBJ_DATA * obj);
 void   log_f                (char * fmt, ...);
 void   bugf                 (char *, ...);
 
+/* name_generator.c */
+char   *generate_random_name();
+void    init_name_parts();
+
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
 CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);

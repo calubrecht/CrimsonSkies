@@ -6082,10 +6082,10 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    if (IS_SWITCHED(ch))
-        send_to_char("switched", ch);
-    else
-        send_to_char("not switched", ch);
+    char info[MSL];
+
+    sprintf(info, "random name = %s\r\n", generate_random_name());
+    send_to_char(info, ch);
 
     return;
 
