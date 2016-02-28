@@ -3973,12 +3973,20 @@ whether that be a player or a creature in the game.
 ~
 
 57 CRYPT~
-Syntax: Syntax: crypt <player name> <password>
+Syntax: crypt <player name> <password>
 
 Creates a encrypted hash based off of a player's name and a password.  This
 can be placed into a players pfile to reset a password (require's access to
 the player files on the server).  Name is case insenstive, password is case
 sensitive.
+~
+
+0 RANDOMNAMES~
+Syntax: randomnames
+
+The random names command will show a set of random names that you can use
+for character names.  These names will be checked against existing player
+files to make sure they are all available for use.
 ~
 
 0 $~
