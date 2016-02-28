@@ -91,6 +91,7 @@ note reading:
 
 note list       : show all notes (unread notes are marked with an N)
 note ulist      : shows all notes unread to you
+note unread     : shows all notes unread to you
 note read       : either by number, or read next to read unread notes
 note remove     : removes a note that you wrote or are the target of
 note catchup    : markes all notes as read
