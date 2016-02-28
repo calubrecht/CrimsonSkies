@@ -245,6 +245,9 @@ void boot_db()
     if (global.copyover) copyover_broadcast("STATUS: Assigning GSNs (Global Skill Numbers).", TRUE);
     assign_gsn();
 
+    if (global.copyover) copyover_broadcast("STATUS: Initializing Random Name Generator.", TRUE);
+    init_name_parts();
+
     /*
      * Read in all the area files.
      */
