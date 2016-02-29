@@ -2572,6 +2572,9 @@ void   bugf                 (char *, ...);
 char   *generate_random_name();
 void    init_name_parts();
 
+/* misc.c */
+bool file_exists(const char *fname);
+
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
 CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);

@@ -212,3 +212,17 @@ EXT_BV multimeb(int bit, ...)
 
     return bits;
 }
+
+/*
+ * Returns whether a file exists or not.
+ */
+bool file_exists(const char *fname)
+{
+    FILE *file;
+    if ((file = fopen(fname, "r")))
+    {
+        fclose(file);
+        return TRUE;
+    }
+    return FALSE;
+}
