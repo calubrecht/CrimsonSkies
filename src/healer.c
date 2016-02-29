@@ -153,7 +153,7 @@ void spell_vitalizing_presence(int sn, int level, CHAR_DATA *ch, void *vo, int t
     // Lasts longer on yourself
     if (ch == victim)
     {
-        af.duration = 15;
+        af.duration = 10;
     }
     else
     {
