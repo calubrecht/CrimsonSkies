@@ -433,10 +433,10 @@ void do_camp(CHAR_DATA *ch, char *argument)
     switch (ch->in_room->sector_type)
     {
         default:
-            // Fail
-            send_to_char("You are unable to setup camp in this terrain type.\r\n", ch);
-            act("$n is unable to setup camp in this terrain type.", ch, NULL, NULL, TO_ROOM);
-            return;
+            // Success
+            send_to_char("You setup camp.\r\n", ch);
+            act("$n is sets up camp.", ch, NULL, NULL, TO_ROOM);
+            break;
         case SECT_INSIDE:
             // Fail
             act("You are unable to setup camp inside.", ch, NULL, NULL, TO_CHAR);
