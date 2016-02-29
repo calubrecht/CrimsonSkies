@@ -68,6 +68,7 @@ char *generate_random_name()
     int last_index = 0;
     int counter = 0;
     bool found = FALSE;
+    char filename[MAX_STRING_LENGTH];
 
     // If the name parts haven't been initiatlized do that so we know the upper
     // bound for our random number generating.
@@ -76,16 +77,25 @@ char *generate_random_name()
         init_name_parts();
     }
 
+    // Loop until a valid unused name is found, as a precaution we'll ditch out after
+    // 1,000 guesses, highly unlikely this will ever be the case.
     do
     {
         counter++;
         first_index = number_range(0, max_name_part);
         last_index = number_range(0, max_name_part);
 
+        // Construct where this pfile would live so we can check for its existence.
+        sprintf(filename, "%s%s%s",
+            PLAYER_DIR,
+            capitalize(name_part_table[first_index].first_part),
+            name_part_table[last_index].last_part);
+
         // Checks to try to ensure a good name
         if (name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)]
             != name_part_table[last_index].last_part[0]
-            && first_index != last_index)
+            && first_index != last_index
+            && file_exists(filename) == FALSE)
         {
             found = TRUE;
         }
