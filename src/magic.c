@@ -234,7 +234,9 @@ int casting_level(CHAR_DATA *ch)
 
 /*
  * Compute a saving throw.
- * Negative apply's make saving throw better.
+ * Negative apply's to saving_throw make saving throw better (subtracting a negative raises
+ * the chance of saving), adding to the save variable here for certain cases also helps the
+ * victim.
  */
 bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
 {
@@ -242,7 +244,7 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
 
     save = 50 + (victim->level - level) * 5 - victim->saving_throw * 2;
 
-    // Worse saves if berserked
+    // Beserk offers some magic resistance
     if (IS_AFFECTED(victim, AFF_BERSERK))
         save += victim->level / 2;
 
