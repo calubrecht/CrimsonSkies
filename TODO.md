@@ -110,4 +110,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Task scheduler in game, to schedule any number of commands by minute, hour, day, time, etc.
   - Auto quit option to try to auto quit when a player goes link dead.
   - Current online time
-  - Make randomnames make sure that a pfile with the produced name doesn't exist.
+  - When you follow someone indicate what direction you are following them.
