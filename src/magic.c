@@ -241,9 +241,12 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
     int save;
 
     save = 50 + (victim->level - level) * 5 - victim->saving_throw * 2;
+
+    // Worse saves if berserked
     if (IS_AFFECTED(victim, AFF_BERSERK))
         save += victim->level / 2;
 
+    // Check immunity, resistance and vulnerabilty
     switch (check_immune(victim, dam_type))
     {
         case IS_IMMUNE:
@@ -256,8 +259,21 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
             break;
     }
 
+    // Modifications for class and criteria
+    switch (victim->class)
+    {
+        case RANGER_CLASS_LOOKUP:
+            // Rangers get bonus in the forest.
+            if (victim->in_room != NULL && victim->in_room->sector_type == SECT_FOREST)
+            {
+                save += 1;
+            }
+        break;
+    }
+
     if (!IS_NPC(victim) && class_table[victim->class]->fMana)
         save = 9 * save / 10;
+
     save = URANGE(5, save, 95);
     return number_percent() < save;
 }
