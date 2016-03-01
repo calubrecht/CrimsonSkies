@@ -2466,6 +2466,7 @@ char * get_room_name      (int vnum);
 char * get_area_name      (int vnum);
 bool   same_continent     (int vnum_one, int vnum_two);
 int    hours_played       (CHAR_DATA *ch);
+bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 
 /* recycle.c */
 TIMER *new_timer          (void);

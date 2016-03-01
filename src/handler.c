@@ -3696,3 +3696,22 @@ int hours_played(CHAR_DATA *ch)
 
     return (ch->played + (int) (current_time - ch->logon)) / 3600;
 }
+
+/*
+ * Returns whether or not an instance of a specific vnum exists in the room
+ * a character is in.
+ */
+bool obj_in_room(CHAR_DATA *ch, int vnum)
+{
+    OBJ_DATA *obj;
+
+    for (obj = ch->in_room->contents; obj; obj = obj->next_content)
+    {
+        if (obj->pIndexData->vnum == vnum)
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
