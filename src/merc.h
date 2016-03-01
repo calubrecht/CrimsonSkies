@@ -1016,7 +1016,7 @@ typedef enum
 #define OBJ_VNUM_HEALERS_BIND      26
 #define OBJ_VNUM_STEAK             27
 #define OBJ_VNUM_CAMPFIRE          28
-
+#define OBJ_VNUM_SPRING_2          29
 #define OBJ_VNUM_ROSE              1001
 
 #define OBJ_VNUM_PIT               3010
