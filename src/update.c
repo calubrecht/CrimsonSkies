@@ -125,30 +125,6 @@ void advance_level(CHAR_DATA * ch, bool hide)
     return;
 }
 
-void gain_exp(CHAR_DATA * ch, int gain)
-{
-    char buf[MAX_STRING_LENGTH];
-
-    if (IS_NPC(ch) || ch->level >= LEVEL_HERO)
-        return;
-
-    ch->exp = UMAX(exp_per_level(ch, ch->pcdata->points), ch->exp + gain);
-    while (ch->level < LEVEL_HERO && ch->exp >=
-        exp_per_level(ch, ch->pcdata->points) * (ch->level + 1))
-    {
-        send_to_char("{GYou raise a level!!{x\r\n", ch);
-        ch->level += 1;
-        sprintf(buf, "%s gained level %d", ch->name, ch->level);
-        log_string(buf);
-        sprintf(buf, "$N has attained level %d!", ch->level);
-        wiznet(buf, ch, NULL, WIZ_LEVELS, 0, 0);
-        advance_level(ch, FALSE);
-        save_char_obj(ch);
-    }
-
-    return;
-}
-
 /*
  * Health Regeneration stuff.
  */
