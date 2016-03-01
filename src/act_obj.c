@@ -4118,15 +4118,23 @@ void do_use(CHAR_DATA * ch, char *argument)
     return;
 } // end do_use
 
+/*
+ * Shows a player additional information about an item.
+ */
 void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
 {
     // If we're working we nothing then we're doing nothing.
     if (obj == NULL || ch == NULL)
         return;
 
+    // Player doesn't have the skill at all yet (or will never have it)
+    if (ch->level < skill_table[gsn_lore]->skill_level[ch->class])
+        return;
+
     if (ch->position == POS_FIGHTING)
         return;
 
+    // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))
     {
         send_to_char("\r\nYour knowledge of this objects lore has garnered you this additional information:\r\n", ch);
