@@ -20,6 +20,15 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
+/***************************************************************************
+ * Update                                                                  *
+ ***************************************************************************
+ *                                                                         *
+ * This module is intended to update various in game mechanics and         *
+ * structures on a schedule or assist in those updates.                    *
+ *                                                                         *
+ ***************************************************************************/
+
 // System Specific Includes
 #if defined(_WIN32)
     #include <sys/types.h>
@@ -88,8 +97,6 @@ int hit_gain(CHAR_DATA * ch)
                 gain /= 3;
                 break;
         }
-
-
     }
     else
     {
