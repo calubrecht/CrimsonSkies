@@ -130,7 +130,8 @@ void init_name_parts()
     // The last element is NULL, so we'll subtract 1 from the total count.
     max_name_part = max_name_part - 1;
 
-    log_f("STATUS: Initializing Random Name Table Count - %d entries, %d maximum possibilities", max_name_part, max_name_part * max_name_part);
+    log_f("STATUS: Initializing Random Name Table Count - %d entries (%s maximum possibilities)",
+        max_name_part, num_punct(max_name_part * max_name_part));
 
     // This would need to be be commented out or removed if moving this code to another mud.
     if (global.last_boot_result == UNKNOWN)
