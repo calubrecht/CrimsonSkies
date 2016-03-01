@@ -87,6 +87,7 @@
     <ClCompile Include="src\disable.c" />
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\enchantor.c" />
+    <ClCompile Include="src\experience.c" />
     <ClCompile Include="src\fight.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\healer.c" />
