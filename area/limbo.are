@@ -200,6 +200,22 @@ food~
 food 0 A
 BD BD 0 0 0
 0 10 0 P
+#28
+campfire fire~
+a campfire~
+A campfire burns here.~
+wood~
+trash 0 0
+0 0 0 0 0
+0 0 0 P
+#29
+spring~
+a small spring~
+A small spring flows from the ground here.~
+water~
+fountain G 0
+100000 100000 'water' 0 0
+0 0 0 P
 #30
 dummy object~
 a dummy object~
