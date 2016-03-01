@@ -22,7 +22,7 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 02/27/2016            *
+ *  Name Generator (Written 12/16/1999, Last Updated 03/01/2016            *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
@@ -776,5 +776,18 @@ const struct name_part_type name_part_table[] = {
         {"Tig", "emas"},
         {"Elle", "eshar"},
         {"Ell", "lian"},
+        {"Para", "ier"},
+        {"Svo", "iar"},
+        {"Grun", "gris"},
+        {"Gran", "oti"},
+        {"Cre", "lius"},
+        {"Cra", "lies"},
+        {"Cru", "thal"},
+        {"Math", "ide"},
+        {"Slo", "mis"},
+        {"Kae", "aed"},
+        {"Zyph", "ark"},
+        {"Mus", "mus"},
+        {"Mes", "mes"},
         {NULL, NULL},
 };
