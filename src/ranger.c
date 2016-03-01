@@ -768,6 +768,10 @@ void do_find_water(CHAR_DATA *ch, char *argument)
             // Fail
             send_to_char("There is no water to be found here.\r\n", ch);
             return;
+        case SECT_DESERT:
+            // Fail
+            send_to_char("The desert is arid, there is no water to be found here.\r\n", ch);
+            return;
         case SECT_WATER_SWIM:
         case SECT_WATER_NOSWIM:
         case SECT_UNDERWATER:
