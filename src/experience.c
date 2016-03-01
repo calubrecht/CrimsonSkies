@@ -181,6 +181,13 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         xp = xp * time_per_level / 12;
     }
 
+    // Any class or race specific bonuses, we'll put these together so they don't stack and
+    // give a common small bonus
+    if ((gch->class == RANGER_CLASS_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
+        || (gch->race == ELF_RACE_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
+        || (gch->race == DWARF_RACE_LOOKUP && gch->in_room->sector_type == SECT_MOUNTAIN))
+        xp = xp * 20 / 19;
+
     /* randomize the rewards */
     xp = number_range(xp * 3 / 4, xp * 5 / 4);
 
