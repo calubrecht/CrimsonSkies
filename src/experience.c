@@ -61,7 +61,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     int level_range;
     int time_per_level;
 
-    if (IS_SET(gch->affected_by, AFF_CHARM))
+    // No experience if the person is charmed or they are in the arena.
+    if (IS_SET(gch->affected_by, AFF_CHARM)
+        || IS_SET(gch->in_room->room_flags, ROOM_ARENA))
         return 0;
 
     xp = 0;
