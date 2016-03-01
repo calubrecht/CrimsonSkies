@@ -35,7 +35,7 @@
  *                                                                         *
  *    - Acute Vision                                                       *
  *    - Butcher                                                            *
- *    - Find Water (TODO)                                                  *
+ *    - Find Water                                                         *
  *    - Prepare Herb (TODO)                                                *
  *    - Bark Skin                                                          *
  *    - Self Growth                                                        *
@@ -730,3 +730,80 @@ void do_ambush(CHAR_DATA *ch, char *argument)
     WAIT_STATE(ch,skill_table[gsn_ambush]->beats);
 
 } // end do_ambush
+
+/*
+ * Find water skill that allows rangers to find a source of water while
+ * in most outside areas (other than say, the desert).
+ */
+void do_find_water(CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *spring;
+
+    // Check if they have the skill
+    if (get_skill(ch,gsn_find_water) == 0
+        ||(!IS_NPC(ch)
+        && ch->level < skill_table[gsn_find_water]->skill_level[ch->class]))
+    {
+        send_to_char("You search the area for water but find nothing.\r\n", ch);
+        return;
+    }
+
+    // See if a spring already exists in the room.
+    if (obj_in_room(ch, OBJ_VNUM_SPRING_2))
+    {
+        send_to_char("There is already a water source here.\r\n", ch);
+        return;
+    }
+
+    // We'll check the failure cases and ditch out if one is found.
+    switch (ch->in_room->sector_type)
+    {
+        default:
+            break;
+        case SECT_INSIDE:
+            // Fail
+            send_to_char("There is no water to be found inside.\r\n", ch);
+            return;
+        case SECT_CITY:
+            // Fail
+            send_to_char("There is no water to be found here.\r\n", ch);
+            return;
+        case SECT_WATER_SWIM:
+        case SECT_WATER_NOSWIM:
+        case SECT_UNDERWATER:
+        case SECT_OCEAN:
+            // Fail
+            send_to_char("All the water around you and none to drink!\r\n", ch);
+            return;
+        case SECT_AIR:
+            // Fail
+            act("In the air?!", ch, NULL, NULL, TO_CHAR);
+            return;
+    }
+
+    if (!CHANCE_SKILL(ch, gsn_find_water))
+    {
+        act("You search the area for water but find nothing.", ch, NULL, NULL, TO_CHAR);
+        act("$n searches the area for water and finds nothing.", ch, NULL, NULL, TO_ROOM);
+
+        check_improve(ch, gsn_find_water, FALSE, 5);
+        return;
+    }
+
+    // Create the spring, set it to dry up after 5 ticks.
+    spring = create_object(get_obj_index(OBJ_VNUM_SPRING_2), 0);
+    spring->timer = 5;
+    obj_to_room(spring, ch->in_room);
+
+    // Show the room
+    act("You search the area and find $p!", ch, spring, NULL, TO_CHAR);
+    act("$n searches the area and finds $p!", ch, spring, NULL, TO_ROOM);
+
+    // Skill check to see if player improves
+    check_improve(ch, gsn_find_water, TRUE, 3);
+
+    // Short lag
+    WAIT_STATE(ch, skill_table[gsn_find_water]->beats);
+
+    return;
+}

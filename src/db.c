@@ -4693,6 +4693,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_camping, "camping");
     ASSIGN_GSN(gsn_camouflage, "camouflage");
     ASSIGN_GSN(gsn_ambush, "ambush");
+    ASSIGN_GSN(gsn_find_water, "find water");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

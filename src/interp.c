@@ -285,6 +285,7 @@ const struct cmd_type cmd_table[] = {
     {"camouflage",      do_camouflage,    POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"ambush",          do_ambush,        POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"track",           do_track,         POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"findwater",       do_find_water,    POS_STANDING, 0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)

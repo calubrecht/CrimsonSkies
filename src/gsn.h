@@ -137,4 +137,4 @@ DECLARE_GSN(gsn_quiet_movement)
 DECLARE_GSN(gsn_camping)
 DECLARE_GSN(gsn_camouflage)
 DECLARE_GSN(gsn_ambush)
-
+DECLARE_GSN(gsn_find_water)
