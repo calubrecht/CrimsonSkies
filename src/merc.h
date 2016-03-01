@@ -2573,6 +2573,10 @@ void   bugf                 (char *, ...);
 char   *generate_random_name();
 void    init_name_parts();
 
+/* experience.c */
+int     xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels);
+void    group_gain(CHAR_DATA * ch, CHAR_DATA * victim);
+
 /* misc.c */
 bool file_exists(const char *fname);
 
