@@ -3990,6 +3990,14 @@ for character names.  These names will be checked against existing player
 files to make sure they are all available for use.
 ~
 
+0 FIND WATER~
+Syntax: findwater
+
+Find water is a skill that allows rangers to search for water in most
+outdoor and wilderness areas.  It will not work inside, in cities or
+in deserts.
+~
+
 0 $~
 
 #$
