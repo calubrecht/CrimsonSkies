@@ -111,3 +111,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Auto quit option to try to auto quit when a player goes link dead.
   - Current online time
   - When you follow someone indicate what direction you are following them.
+  - Prepare herb skill for rangers.
