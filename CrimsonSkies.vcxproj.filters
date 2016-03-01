@@ -156,6 +156,9 @@
     <ClCompile Include="src\name_generator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\experience.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
