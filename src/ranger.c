@@ -36,7 +36,6 @@
  *    - Acute Vision                                                       *
  *    - Butcher                                                            *
  *    - Find Water                                                         *
- *    - Prepare Herb (TODO)                                                *
  *    - Bark Skin                                                          *
  *    - Self Growth                                                        *
  *    - Quiet Movement                                                     *
