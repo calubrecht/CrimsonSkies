@@ -2535,7 +2535,6 @@ void    extract_timer      (CHAR_DATA *ch, TIMER *timer);
 void    remove_timer       (CHAR_DATA *ch, int type);
 
 /* update.c */
-void    advance_level    (CHAR_DATA *ch, bool hide);
 void    gain_condition   (CHAR_DATA *ch, int iCond, int value);
 void    update_handler   (bool forced);
 void    timer_update     (CHAR_DATA *ch);
@@ -2573,9 +2572,10 @@ char   *generate_random_name();
 void    init_name_parts();
 
 /* experience.c */
-int     xp_compute (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels);
-void    group_gain (CHAR_DATA * ch, CHAR_DATA * victim);
-void    gain_exp   (CHAR_DATA *ch, int gain);
+int     xp_compute    (CHAR_DATA * gch, CHAR_DATA * victim, int total_levels);
+void    group_gain    (CHAR_DATA * ch, CHAR_DATA * victim);
+void    gain_exp      (CHAR_DATA *ch, int gain);
+void    advance_level (CHAR_DATA *ch, bool hide);
 
 /* misc.c */
 bool file_exists(const char *fname);

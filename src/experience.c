@@ -25,10 +25,11 @@
  ***************************************************************************
  *                                                                         *
  *  This will house code related to calculating and distributing           *
- *  experience to players in order to gain levels.  Initially this will    *
- *  include the traditional Diku/Rom style experience but will and should  *
- *  also in the future include other ways to gain experience or different  *
- *  types of experience.                                                   *
+ *  experience to players in order to gain levels.  This will also include *
+ *  the logic to actually gain the levels.  Initially this will include    *
+ *  the traditional Diku/Rom style experience but will and should also     *
+ *  in the future include other ways to gain experience or different types *
+ *  of experience.                                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -314,6 +315,76 @@ void gain_exp(CHAR_DATA * ch, int gain)
         wiznet(buf, ch, NULL, WIZ_LEVELS, 0, 0);
         advance_level(ch, FALSE);
         save_char_obj(ch);
+    }
+
+    return;
+}
+
+/*
+ * Advancement stuff.
+ */
+void advance_level(CHAR_DATA * ch, bool hide)
+{
+    char buf[MAX_STRING_LENGTH];
+    int add_hp;
+    int add_mana;
+    int add_move;
+    int add_prac;
+    int add_train;
+
+    ch->pcdata->last_level = hours_played(ch);
+
+    add_hp = con_app[get_curr_stat(ch, STAT_CON)].hitp +
+        number_range(class_table[ch->class]->hp_min, class_table[ch->class]->hp_max);
+
+    add_mana = number_range(2, (2 * get_curr_stat(ch, STAT_INT)
+        + get_curr_stat(ch, STAT_WIS)) / 5);
+
+    // Not a magic type class (e.g. mage or cleric or their tree of reclasses)
+    if (!class_table[ch->class]->fMana)
+        add_mana /= 2;
+
+    add_move = number_range(1, (get_curr_stat(ch, STAT_CON) + get_curr_stat(ch, STAT_DEX)) / 6);
+    add_prac = wis_app[get_curr_stat(ch, STAT_WIS)].practice;
+
+    add_hp = add_hp * 9 / 10;
+    add_mana = add_mana * 9 / 10;
+    add_move = add_move * 9 / 10;
+
+    add_hp = UMAX(2, add_hp);
+    add_mana = UMAX(2, add_mana);
+    add_move = UMAX(6, add_move);
+
+    // Bonuses by class
+    switch (ch->class)
+    {
+        case HEALER_CLASS_LOOKUP:
+        case ENCHANTOR_CLASS_LOOKUP:
+            // These classes are heavy on the mana usage, they'll get a slight bonus per level.
+            add_mana += 2;
+            break;
+    }
+
+    add_train = 1;
+
+    ch->max_hit += add_hp;
+    ch->max_mana += add_mana;
+    ch->max_move += add_move;
+    ch->practice += add_prac;
+    ch->train += add_train;
+
+    ch->pcdata->perm_hit += add_hp;
+    ch->pcdata->perm_mana += add_mana;
+    ch->pcdata->perm_move += add_move;
+
+    if (!hide)
+    {
+        sprintf(buf,
+            "You gain %d hit point%s, %d mana, %d move, %d practice%s and %d train%s.\r\n",
+            add_hp, add_hp == 1 ? "" : "s", add_mana, add_move,
+            add_prac, add_prac == 1 ? "" : "s",
+            add_train, add_train == 1 ? "" : "s");
+        send_to_char(buf, ch);
     }
 
     return;
