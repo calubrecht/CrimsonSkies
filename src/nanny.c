@@ -454,7 +454,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (race == 0 || !race_table[race].pc_race)
             {
-                send_to_desc("\r\n{RThat is not a valid race.{x\r\n\r\n", d);
+                send_to_desc("\r\n{RThat is not a valid race.{x\r\n", d);
                 send_to_desc("The following races are available:\r\n", d);
                 for (race = 1; race_table[race].name != NULL; race++)
                 {
@@ -517,11 +517,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             // reclass
-            send_to_char("\r\nCrimson Skies has many specialized reclasses although each character\r\n", ch);
+            send_to_char("\r\n{RCrimson {rSkies{x has many specialized reclasses although each character\r\n", ch);
             send_to_char("must start off as one of four base classes (you can reclass as early\r\n", ch);
             send_to_char("level 10.  You will now select your initial base class.\r\n\r\n", ch);
 
-            strcpy(buf, "Select an initial class [");
+            send_to_char("The following initial classes are available:\r\n", ch);
             for (iClass = 0; iClass < top_class; iClass++)
             {
                 if (class_table[iClass]->name == NULL)
@@ -529,18 +529,17 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     log_string("BUG: null class");
                     continue;
                 }
+
                 // Show only base classes, not reclasses.
                 if (class_table[iClass]->is_reclass == FALSE)
                 {
-                    if (iClass > 0)
-                        strcat(buf, " ");
-
-                    strcat(buf, class_table[iClass]->name);
+                    send_to_char("  {G*{x ", ch);
+                    send_to_char(class_table[iClass]->name, ch);
+                    send_to_char("\r\n", ch);
                 }
 
             }
-            strcat(buf, "]: ");
-            write_to_buffer(d, buf, 0);
+            send_to_char("Select an initial class: ", ch);
             d->connected = CON_GET_NEW_CLASS;
             break;
 
@@ -550,12 +549,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (iClass == -1)
             {
-                send_to_desc("That's not a class.\r\nWhat IS your class? ", d);
+                send_to_desc("\r\n{RThat's not a valid class.{x\r\nWhat IS your class? ", d);
                 return;
             }
             else if (class_table[iClass]->is_reclass == TRUE)
             {
-                send_to_desc("You must choose a base class.\r\nWhat IS your class? ", d);
+                send_to_desc("\r\n{RYou must choose a base class.{x\r\nWhat IS your class? ", d);
                 return;
             }
 
