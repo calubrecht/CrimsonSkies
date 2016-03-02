@@ -789,5 +789,10 @@ const struct name_part_type name_part_table[] = {
         {"Zyph", "ark"},
         {"Mus", "mus"},
         {"Mes", "mes"},
+        {"Daw", "rok"},
+        {"Dew", "raek"},
+        {"Merc", "erion"},
+        {"Noa", "iana"},
+        {"Blai", "iena"},
         {NULL, NULL},
 };
