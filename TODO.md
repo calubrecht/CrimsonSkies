@@ -113,3 +113,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - When you follow someone indicate what direction you are following them.
   - Prepare herb skill for rangers.
   - Move final copyover variables into the global structure.
+  - Signals to catch and gracefully shutdown
+  - Remove camo after battle starts.
