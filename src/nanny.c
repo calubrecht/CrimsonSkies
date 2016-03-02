@@ -420,17 +420,19 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 ch->pcdata->email = str_dup(argument);
             }
 
-            send_to_desc("The following races are available:\r\n  ", d);
+            send_to_desc("The following races are available:\r\n", d);
             for (race = 1; race_table[race].name != NULL; race++)
             {
                 if (!race_table[race].pc_race)
                     break;
+
+                write_to_buffer(d, "  {G*{x ", 0);
                 write_to_buffer(d, race_table[race].name, 0);
-                write_to_buffer(d, " ", 1);
+                write_to_buffer(d, "\r\n", 0);
             }
+
             write_to_buffer(d, "\r\n", 0);
-            send_to_desc("What is your race (help for more information)? ",
-                d);
+            send_to_desc("What is your race (help for more information)? ", d);
             d->connected = CON_GET_NEW_RACE;
 
             break;
@@ -444,8 +446,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     do_function(ch, &do_help, "race help");
                 else
                     do_function(ch, &do_help, argument);
-                send_to_desc
-                    ("What is your race (help for more information)? ", d);
+                send_to_desc("What is your race (help for more information)? ", d);
                 break;
             }
 
@@ -453,18 +454,19 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (race == 0 || !race_table[race].pc_race)
             {
-                send_to_desc("That is not a valid race.\r\n", d);
-                send_to_desc("The following races are available:\r\n  ", d);
+                send_to_desc("\r\n{RThat is not a valid race.{x\r\n\r\n", d);
+                send_to_desc("The following races are available:\r\n", d);
                 for (race = 1; race_table[race].name != NULL; race++)
                 {
                     if (!race_table[race].pc_race)
                         break;
+
+                    write_to_buffer(d, "  {G*{x ", 0);
                     write_to_buffer(d, race_table[race].name, 0);
-                    write_to_buffer(d, " ", 1);
+                    write_to_buffer(d, "\r\n", 0);
                 }
                 write_to_buffer(d, "\r\n", 0);
-                send_to_desc
-                    ("What is your race? (help for more information) ", d);
+                send_to_desc("What is your race? (help for more information) ", d);
                 break;
             }
 
