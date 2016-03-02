@@ -65,7 +65,7 @@ Syntax: color
         {B{{B     bright blue    {W{{W     bright white
         {m{{m     magenta        {D{{D     gray
         {M{{M     bright magenta {x{{x     clear (reset color)
-        {{{{     {{ char         {x{{&{x   {&reverse text{x
+        {{{{     {{ char         {x{{&{x     {&reverse text{x
         {{/     newline        {{*     beep
         {{_{x     {_underline{x
 
