@@ -792,13 +792,20 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         act("$n fades into existence.", ch, NULL, NULL, TO_ROOM);
     }
 
-    // Remove quiet movement & camping if fighting
+    // Remove player affects, some with messages, some without (consider moving
+    // these into their own function to keep this flow compact.
     if (!IS_NPC(ch))
     {
-        // No need to loop over these if they're mobs and can never use
-        // these class specific skills.
+        // Mobs should have any of these class specific skills on.
         affect_strip(ch, gsn_quiet_movement);
         affect_strip(ch, gsn_camping);
+
+        // Remove camouflage if they're fighting and it's still on.
+        if (is_affected(ch, gsn_camouflage))
+        {
+            send_to_char("You are no longer camouflaged.\r\n", ch);
+            affect_strip(ch, gsn_camouflage);
+        }
     }
 
     /*
