@@ -4128,7 +4128,8 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
         return;
 
     // Player doesn't have the skill at all yet (or will never have it)
-    if (ch->level < skill_table[gsn_lore]->skill_level[ch->class])
+    if (ch->level < skill_table[gsn_lore]->skill_level[ch->class]
+        || get_skill(ch, gsn_lore) == 0)
         return;
 
     if (ch->position == POS_FIGHTING)

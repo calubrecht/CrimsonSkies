@@ -1366,6 +1366,7 @@ void do_look(CHAR_DATA * ch, char *argument)
                 if (++count == number)
                 {
                     send_to_char(obj->description, ch);
+                    send_to_char("\r\n", ch);
                     show_lore(ch, obj);
                     return;
                 }
