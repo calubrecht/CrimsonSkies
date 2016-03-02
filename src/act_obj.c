@@ -4224,7 +4224,7 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
                 send_to_char("'", ch);
             }
 
-            send_to_char(".\n\r", ch);
+            send_to_char(".\r\n", ch);
             break;
         case ITEM_WAND:
         case ITEM_STAFF:
@@ -4238,7 +4238,7 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
                 send_to_char("'", ch);
             }
 
-            send_to_char(".\n\r", ch);
+            send_to_char(".\r\n", ch);
             break;
         case ITEM_CONTAINER:
             sprintf(buf, "Capacity: %d#  Maximum weight: %d#  flags: %s\r\n",

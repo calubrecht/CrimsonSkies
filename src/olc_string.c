@@ -540,7 +540,7 @@ char *format_string(char *oldstring)
             {
                 *(rdesc + i) = 0;
                 strcat(xbuf, rdesc);
-                strcat(xbuf, "\n\r");
+                strcat(xbuf, "\r\n");
                 rdesc += i + 1;
                 while (*rdesc == ' ')
                     rdesc++;
@@ -550,7 +550,7 @@ char *format_string(char *oldstring)
                 bug("Wrap_string: No spaces", 0);
                 *(rdesc + (end_of_line - 2)) = 0;
                 strcat(xbuf, rdesc);
-                strcat(xbuf, "-\n\r");
+                strcat(xbuf, "-\r\n");
                 rdesc += end_of_line - 1;
             }
         }
@@ -571,7 +571,7 @@ char *format_string(char *oldstring)
     *(rdesc + i + 1) = 0;
     strcat(xbuf, rdesc);
     if (xbuf[strlen(xbuf) - 2] != '\n')
-        strcat(xbuf, "\n\r");
+        strcat(xbuf, "\r\n");
 
     free_string(oldstring);
     return (str_dup(xbuf));

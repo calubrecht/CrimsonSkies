@@ -229,21 +229,21 @@ void do_bandage(CHAR_DATA *ch, char *argument)
 
     if(change < 0)
     {
-        send_to_char("You just made the problem worse!\n\r", ch);
+        send_to_char("You just made the problem worse!\r\n", ch);
         act("$n tries bandage you but your condition only worsens.", ch, NULL, victim, TO_VICT);
         act("$n tries bandage $N but $S condition only worsens.", ch, NULL, victim, TO_NOTVICT);
         check_improve(ch, gsn_bandage, FALSE, 1);
     }
     else if(change > 0)
     {
-        send_to_char("You manage to fix them up a bit.\n\r", ch);
+        send_to_char("You manage to fix them up a bit.\r\n", ch);
         act("$n bandages you.", ch, NULL, victim, TO_VICT);
         act("$n bandages $N.", ch, NULL, victim, TO_NOTVICT);
         check_improve(ch, gsn_bandage, TRUE, 1);
     }
     else
     {
-        send_to_char("Your bandaging attempt had no effect.\n\r", ch);
+        send_to_char("Your bandaging attempt had no effect.\r\n", ch);
         act("$n tries to bandage you but the wounds are too great.", ch, NULL, victim, TO_VICT);
         act("$n tries to bandage $N but is unable to have any effect.", ch, NULL, victim, TO_NOTVICT);
     }
@@ -343,7 +343,7 @@ void do_quiet_movement(CHAR_DATA *ch, char *argument)
 {
     AFFECT_DATA af;
 
-    send_to_char("You attempt to move quietly.\n\r", ch );
+    send_to_char("You attempt to move quietly.\r\n", ch );
     affect_strip(ch, gsn_quiet_movement);
 
     if (is_affected(ch, gsn_quiet_movement))
@@ -642,7 +642,7 @@ void do_ambush(CHAR_DATA *ch, char *argument)
     }
     else if ((victim = get_char_room(ch, arg)) == NULL)
     {
-        send_to_char("They aren't here.\n\r",ch);
+        send_to_char("They aren't here.\r\n",ch);
         return;
     }
 
