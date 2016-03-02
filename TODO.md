@@ -20,7 +20,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - have do_dump put files in the log directory.
   - No recall or word of recall for a tick or two after pkill battle.  
   - No recall or word of recall from battle at all.
-  - WIN32 doesn't save after the first session, the rename command is failing in the save_char_obj
   - Helper methods to do common tasks, remove all items from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
   - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
@@ -29,24 +28,22 @@ This is my to do list, mostly will be things big and small as I think about them
     if looted can't be used by others if they so choose).  (maybe overpowered)
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
-  - Note cleanup, note forward bug, note mem leak testing
-  - gain_exp tweaks
+  - Note cleanup, note forward bug
   - main menu
-  - questing
-  - Add red oak village at the base of the mountains for the dwarves.
+  - questing (Vasigo's questing code)
+  - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Assassin class
-  - Ranger class
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
-  - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area).
+  - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area so they save).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
   - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
   - Save pc_race_table out to disk and load it in, add OLC for it.
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
-  - Retrain command to restart as a base class
+  - Retrain command to restart as a base class (consider allowing to reclass back to base class).
   - Set autogold by default on creation
   - Allow any player to change their recall to any number of custom bind stones for recall.
   - Crafting system, intertwine it with my nature code (that I need to dig up and add)
@@ -67,7 +64,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Barbarian class - 4th attack, warcry, acute vision, bash bonus, no magic, spell vulnerable
   - Bladesinger reposition skill.
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
-  - Make lore do something (like give info about the item when looked at)
   - rwhere command to find room by keyword and return room name/vnum.
   - Look at the auto saving code and make sure it's working right.
   - Check looting
@@ -80,7 +76,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add a field to type item type field of whether it can be set via OLC, then add OLC support
     to check that field before setting it.  This will allow for the creation of items with a
     type via code that you may not want people creating via OLC (like a healer's bind).
-  - auto name generator methods
   - Move base string functions into a new strings.c file (separate from the olc strings in olc_string).
   - Update get_random_room in some manner to allow for getting a random room in an area, a continent or the world.
   - different versions of teleport, area, continent, world
@@ -101,10 +96,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Research why all items have 0 condition.
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Create command to reset a users password while they maybe offline
-  - Notes aren't line breaking correctly anymore.
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
-  - Copyover to display reason on all ticks and not just the first one, but the reason in the globals.
   - Make sha256_crypt cross platform compatible (endian stuff)
   - Prune note spools, currently old notes don't load but they are kept in the file.
   - Task scheduler in game, to schedule any number of commands by minute, hour, day, time, etc.
@@ -114,4 +107,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Prepare herb skill for rangers.
   - Move final copyover variables into the global structure.
   - Signals to catch and gracefully shutdown
-  - Remove camo after battle starts.
