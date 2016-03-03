@@ -1353,13 +1353,13 @@ void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
     if (length <= 0)
         length = strlen(txt);
 
-        // can't update null descriptor
+    // can't update null descriptor
     if (d == NULL)
         return;
 
-        /*
-         * Initial \r\n if needed.
-         */
+    /*
+     * Initial \r\n if needed.
+     */
     if (d->outtop == 0 && !d->fcommand)
     {
         d->outbuf[0] = '\r';
