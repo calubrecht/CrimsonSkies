@@ -76,7 +76,6 @@ Sk 'haggle' 14 6
 Sk 'peek' 14 6
 Sk 'blindness' 15 2
 Sk 'trip' 15 8
-Sk 'meditation' 19 8
 Sk 'cure poison' 16 2
 Sk 'floating disc' 16 2
 Sk 'infravision' 16 2
@@ -86,12 +85,13 @@ Sk 'fireproof' 18 2
 Sk 'berserk' 18 5
 Sk 'cause critical' 19 2
 Sk 'cure critical' 19 2
+Sk 'meditation' 19 8
 Sk 'blind fighting' 19 2
 Sk 'water breathing' 20 2
 Sk 'color spray' 20 2
 Sk 'create spring' 20 2
 Sk 'giant strength' 20 2
-Sk 'lore' 20 8
+Sk 'lore' 20 5
 Sk 'dispel evil' 21 2
 Sk 'dispel good' 21 2
 Sk 'poison' 21 2
@@ -105,7 +105,6 @@ Sk 'heat metal' 23 2
 Sk 'create rose' 24 2
 Sk 'faerie fog' 24 2
 Sk 'pick lock' 25 8
-Sk 'dual wield' 32 6
 Sk 'fireball' 26 2
 Sk 'plague' 26 2
 Sk 'flamestrike' 27 2
@@ -118,6 +117,7 @@ Sk 'sanctuary' 30 2
 Sk 'word of recall' 30 2
 Sk 'acid blast' 32 2
 Sk 'slow' 32 2
+Sk 'dual wield' 32 6
 Sk 'cancellation' 34 2
 Sk 'acid breath' 34 2
 Sk 'bark skin' 34 1
@@ -237,7 +237,7 @@ Gr 'illusion' 0
 Gr 'maladictions' 9
 Gr 'protective' 8
 Gr 'transportation' 8
-Gr 'weather' 8
+Gr 'weather' 6
 Gr 'bladesongs' 0
 Gr 'nature' 4
 Mult 0 100
