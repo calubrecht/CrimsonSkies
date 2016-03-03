@@ -4889,9 +4889,6 @@ void do_prefix(CHAR_DATA * ch, char *argument)
 /* This is the executable file */
 #define EXE_FILE      "../area/cs-mud"
 
-bool is_copyover = FALSE;
-int copyover_timer = 0;
-
 /*  Copyover - Original idea: Fusion of MUD++
  *  Adapted to Diku by Erwin S. Andreasen, <erwin@andreasen.org> (http://www.andreasen.org)
  *  Modifications made by Rhien.
@@ -4948,19 +4945,19 @@ void do_copyover(CHAR_DATA * ch, char *argument)
         {
             // Set how many ticks the copyover should occur in and send a message to all
             // connected sockets.
-            copyover_timer = atoi(arg2);
-            is_copyover = TRUE;
+            global.copyover_timer = atoi(arg2);
+            global.is_copyover = TRUE;
 
             // With or without a reason
             if (argument[0] == '\0')
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n",
-                    ch->name, copyover_timer, copyover_timer > 1 ? "s" : "");
+                    ch->name, global.copyover_timer, global.copyover_timer > 1 ? "s" : "");
             }
             else
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.\r\n{WReason{x: %s\r\n",
-                    ch->name, copyover_timer, copyover_timer > 1 ? "s" : "", argument);
+                    ch->name, global.copyover_timer, global.copyover_timer > 1 ? "s" : "", argument);
 
                 // Save the reason for use later
                 sprintf(global.copyover_reason, "%s", argument);
@@ -4981,8 +4978,8 @@ void do_copyover(CHAR_DATA * ch, char *argument)
     }
     else if (!str_cmp(arg1, "cancel"))
     {
-        is_copyover = FALSE;
-        copyover_timer = 0;
+        global.is_copyover = FALSE;
+        global.copyover_timer = 0;
 
         sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x cancelled by {B%s{x.\r\n", ch->name);
 

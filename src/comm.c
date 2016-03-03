@@ -191,6 +191,8 @@ int main(int argc, char **argv)
     strcpy(global.boot_time, ctime(&current_time));
     global.copyover = FALSE;    // This will be set later if true
     global.game_loaded = FALSE;
+    global.is_copyover = FALSE;
+    global.copyover_timer = 0;
 
     log_string("-------------------------------------------------");
     log_string("STATUS: Initializing Game");

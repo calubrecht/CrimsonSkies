@@ -1271,13 +1271,13 @@ void tick_update()
     char buf[MSL];
 
     // If a copyover is happening make the countdown and execute it when it hits 0.
-    if (is_copyover == TRUE)
+    if (global.is_copyover == TRUE)
     {
-        copyover_timer = copyover_timer - 1;
+        global.copyover_timer = global.copyover_timer - 1;
 
-        if (copyover_timer <= 0)
+        if (global.copyover_timer <= 0)
         {
-            is_copyover = FALSE;
+            global.is_copyover = FALSE;
 
             // If the copyover person is still active and not null execute the copyover,
             // otherwise cancel it.
@@ -1310,12 +1310,12 @@ void tick_update()
             if (global.copyover_ch != NULL)
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x by {B%s{x will occur in {B%d{x tick%s.%s",
-                    global.copyover_ch->name, copyover_timer, copyover_timer > 1 ? "s" : "", reason);
+                    global.copyover_ch->name, global.copyover_timer, global.copyover_timer > 1 ? "s" : "", reason);
             }
             else
             {
                 sprintf(buf, "\r\n{RWARNING{x: auto-{R{*copyover{x will occur in {B%d{x tick%s.%s",
-                    copyover_timer, copyover_timer > 1 ? "s" : "", reason);
+                    global.copyover_timer, global.copyover_timer > 1 ? "s" : "", reason);
             }
 
             send_to_all_char(buf);
