@@ -34,9 +34,9 @@ Sk 'recall' 1 2
 Sk 'swim' 1 1
 Sk 'acute vision' 10 2
 Sk 'track' 25 4
-Sk 'butcher' 1 -1
+Sk 'butcher' 1 1
 Sk 'bandage' 19 2
-Sk 'quiet movement' 1 1
+Sk 'quiet movement' 43 1
 Sk 'camping' 1 1
 Sk 'camouflage' 8 2
 Sk 'ambush' 8 2
