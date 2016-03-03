@@ -32,14 +32,14 @@ Sk 'staves' 1 8
 Sk 'wands' 1 8
 Sk 'recall' 1 2
 Sk 'swim' 1 1
-Sk 'acute vision' 1 1
-Sk 'track' 1 1
+Sk 'acute vision' 10 2
+Sk 'track' 25 4
 Sk 'butcher' 1 -1
-Sk 'bandage' 1 2
+Sk 'bandage' 19 2
 Sk 'quiet movement' 1 1
 Sk 'camping' 1 1
-Sk 'camouflage' 1 1
-Sk 'ambush' 1 1
+Sk 'camouflage' 8 2
+Sk 'ambush' 8 2
 Sk 'find water' 1 1
 Sk 'magic missile' 2 2
 Sk 'cause light' 3 2
