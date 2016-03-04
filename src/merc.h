@@ -2605,10 +2605,10 @@ CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);
 /*
  * Area flags.
  */
-#define         AREA_NONE       0
-#define         AREA_CHANGED    1    /* Area has been modified. */
-#define         AREA_ADDED      2    /* Area has been added to. */
-#define         AREA_LOADING    4    /* Used for counting in db.c */
+#define         AREA_NONE        0
+#define         AREA_CHANGED    (A)    /* Area has been modified. */
+#define         AREA_ADDED      (B)    /* Area has been added to. */
+#define         AREA_LOADING    (C)    /* Used for counting in db.c */
 
 #define         MAX_DIR        10    /* Maximum direction (0-9 are used making 10) */
 #define         NO_FLAG       -99    /* Must not be used in flags or stats. */
