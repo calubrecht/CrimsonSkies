@@ -1809,8 +1809,8 @@ Race        0
 End
 
 #SKILL
-Name        nurishment~
-SpellFun    spell_nurishment~
+Name        nourishment~
+SpellFun    spell_nourishment~
 Target      2
 MinPos      0
 MinMana     5

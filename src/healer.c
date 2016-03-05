@@ -509,18 +509,18 @@ void spell_healers_bind(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 } // end spell_create_healers_bind
 
 /*
- * The nurishment spell will allow the healer to nurish a person and alleviate any
+ * The nourishment spell will allow the healer to nourish a person and alleviate any
  * hunger and thirst they might have without food and water.  I originally wrote this
  * spell (on 1/4/2000) for another class but it seems to fit here better.
  */
-void spell_nurishment(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+void spell_nourishment(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     // Rhien 1-4-00
     CHAR_DATA *victim = (CHAR_DATA *)vo;
 
     if (IS_NPC(victim))
     {
-        send_to_char("You cannot provide them with nurishment.\r\n", ch);
+        send_to_char("You cannot provide them with nourishment.\r\n", ch);
         return;
     }
 
@@ -529,10 +529,10 @@ void spell_nurishment(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     victim->pcdata->condition[COND_FULL] = 48;
     victim->pcdata->condition[COND_HUNGER] = 48;
 
-    act("$N has been filled with nurishment.", victim, NULL, victim, TO_ROOM);
-    send_to_char("You feel nurishment filling your body.\r\n", victim);
+    act("$N has been filled with nourishment.", victim, NULL, victim, TO_ROOM);
+    send_to_char("You feel nourishment filling your body.\r\n", victim);
 
-} // end nurishment
+} // end nourishment
 
 /*
  * Enhanced recovery will allow the recipient to heal more on every tick.  Originally this
