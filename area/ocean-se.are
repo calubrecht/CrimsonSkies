@@ -62,8 +62,8 @@ AGHMVb ABCDEFHJKNO small unknown
 F for W
 #11803
 sea dragon~
-a {Csea{x dragon~
-A {Csea{x dragon is here.
+a {mmagenta{x dragon~
+A {mmagenda{x sores dragon is here.
 ~
 A giant sea dragon is flying here.  It's multicolored scales are
 glistening in the sunlight as it's wings create giant ripples in the sea
@@ -154,6 +154,7 @@ stand stand none 0
 AGHMV ADEFJKNO medium unknown
 F for W
 #0
+
 
 
 #OBJECTS
