@@ -62,12 +62,12 @@ AGHMVb ABCDEFHJKNO small unknown
 F for W
 #11003
 sea dragon~
-a {Csea{x dragon~
-A {Csea{x dragon is here.
+a {Ygold{x sea dragon~
+A {Ygold{x sea dragon is soaring overhead.
 ~
-A giant sea dragon is flying here.  It's multicolored scales are
-glistening in the sunlight as it's wings create giant ripples in the sea
-water.  
+A giant gold sea dragon is soaring overhead here.  It's scales glisten in
+the sun as it's wings create a ripple on the sea below.  It's majestic,
+inspiring a feeling of awe and caution.  
 ~
 dragon~
 A DFJTV 1 0
@@ -4176,33 +4176,33 @@ S
 
 #RESETS
 M 0 11000 6 11000 1 Load a tuna fish
+M 0 11003 6 11010 1 Load a {Ygold{x sea dragon
 M 0 11000 6 11011 1 Load a tuna fish
+M 0 11003 6 11019 1 Load a {Ygold{x sea dragon
+M 0 11001 6 11020 1 Load a octopus
+M 0 11002 6 11021 1 Load a man o'war
 M 0 11000 6 11022 1 Load a tuna fish
+M 0 11006 6 11027 1 Load a dolphin
+M 0 11001 6 11028 1 Load a octopus
+M 0 11002 6 11028 1 Load a man o'war
 M 0 11000 6 11030 1 Load a tuna fish
 M 0 11000 6 11032 1 Load a tuna fish
-M 0 11000 6 11075 1 Load a tuna fish
-M 0 11003 6 11010 1 Load a {Csea{x dragon
-M 0 11003 6 11019 1 Load a {Csea{x dragon
-M 0 11003 6 11088 1 Load a {Csea{x dragon
-M 0 11003 6 11050 1 Load a {Csea{x dragon
-M 0 11003 6 11081 1 Load a {Csea{x dragon
-M 0 11003 6 11095 1 Load a {Csea{x dragon
+M 0 11005 6 11034 1 Load an aboleth
+M 0 11002 6 11035 1 Load a man o'war
 M 0 11006 6 11042 1 Load a dolphin
 M 0 11006 6 11049 1 Load a dolphin
-M 0 11006 6 11027 1 Load a dolphin
-M 0 11006 6 11097 1 Load a dolphin
-M 0 11006 6 11066 1 Load a dolphin
-M 0 11001 6 11020 1 Load a octopus
-M 0 11001 6 11028 1 Load a octopus
-M 0 11001 6 11069 1 Load a octopus
-M 0 11001 6 11090 1 Load a octopus
-M 0 11002 6 11021 1 Load a man o'war
-M 0 11002 6 11028 1 Load a man o'war
-M 0 11002 6 11035 1 Load a man o'war
+M 0 11003 6 11050 1 Load a {Ygold{x sea dragon
 M 0 11002 6 11057 1 Load a man o'war
-M 0 11002 6 11082 1 Load a man o'war
-M 0 11005 6 11034 1 Load an aboleth
 M 0 11005 6 11064 1 Load an aboleth
+M 0 11006 6 11066 1 Load a dolphin
+M 0 11001 6 11069 1 Load a octopus
+M 0 11000 6 11075 1 Load a tuna fish
+M 0 11003 6 11081 1 Load a {Ygold{x sea dragon
+M 0 11002 6 11082 1 Load a man o'war
+M 0 11003 6 11088 1 Load a {Ygold{x sea dragon
+M 0 11001 6 11090 1 Load a octopus
+M 0 11003 6 11095 1 Load a {Ygold{x sea dragon
+M 0 11006 6 11097 1 Load a dolphin
 S
 
 

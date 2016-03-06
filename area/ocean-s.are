@@ -62,8 +62,8 @@ AGHMVb ABCDEFHJKNO small unknown
 F for W
 #11703
 sea dragon~
-a {Csea{x dragon~
-A {Csea{x dragon is here.
+A {ybronze{x sea dragon~
+A {ybronze{x sea dragon soars overhead.
 ~
 A giant sea dragon is flying here.  It's multicolored scales are
 glistening in the sunlight as it's wings create giant ripples in the sea
@@ -73,7 +73,7 @@ dragon~
 A DFJTV 1 0
 52 0 50d10+5500 26d9+100 6d7+20 none
 -22 -22 -22 2
-FNU 0 BEH F
+FNU J BEH F
 stand stand none 5000
 AHMVZ ABCDEFGHIJKPQUVX giant unknown
 F vul I
@@ -154,6 +154,7 @@ stand stand none 0
 AGHMV ADEFJKNO medium unknown
 F for W
 #0
+
 
 
 #OBJECTS
