@@ -2711,8 +2711,12 @@ void twiddle()
 } // end twiddle
 
 /*
- * Signal handler for game shutdown.
- * Might want to call do_shutdown() or a subset of it.
+ * Signal handler for game shutdown.  This will be executed when SIGINT and/or SIGTERM
+ * are signaled (typically from something killing the process).  It will attempt to safely
+ * shutdown the game and save characters and other objects that are persisted across boots.
+ * This does not handle other crashing scenarios currently as it would interrupt the process
+ * that makes a core file (which is needed to debug crashes).  This will go through the
+ * a similiar type process as do_shutdown.
  */
 void shutdown_request(int a)
 {
