@@ -2634,7 +2634,7 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
     // Hiding
     if ((IS_AFFECTED(victim, AFF_HIDE) || is_affected(victim, gsn_camouflage))
        && victim->fighting == NULL
-       && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+       && !check_skill_improve(ch, gsn_acute_vision, 4, 9)
        && ( !IS_NPC(victim)
        || (IS_NPC(victim)
        && !IS_AFFECTED(ch,AFF_DETECT_HIDDEN))))
@@ -2643,7 +2643,7 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
     // Sneaking
     if ( IS_AFFECTED(victim, AFF_SNEAK)
         && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN)
-        && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+        && !check_skill_improve(ch, gsn_acute_vision, 4, 9)
         && victim->fighting == NULL)
     {
         int chance;
@@ -2659,7 +2659,7 @@ bool can_see(CHAR_DATA * ch, CHAR_DATA * victim)
     // Rangers quiet movement, they can see each other with acute vision but
     // non-detectable to others in certain nature like room types.
     if (is_affected(victim, gsn_quiet_movement)
-        && !check_skill_improve(ch, gsn_acute_vision, 9, 9)
+        && !check_skill_improve(ch, gsn_acute_vision, 4, 9)
         && victim->fighting == NULL
         && (victim->in_room->sector_type == SECT_FIELD
         || victim->in_room->sector_type == SECT_FOREST
