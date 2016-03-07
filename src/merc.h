@@ -2221,6 +2221,10 @@ extern  GLOBAL_DATA             global;
 #define STATISTICS_FILE     "../system/statistics.dat"
 #define DISABLED_FILE       "../system/disabled.dat"
 
+// Exit codes
+#define MUD_EXIT_REBOOT          0                        /* Normal exit */
+#define MUD_EXIT_HALT            1                        /* Exit due to error or signal */
+
 /*
  * Our function prototypes.
  * One big lump ... this is every function in Merc.
@@ -2242,6 +2246,7 @@ void     nuke_pets           (CHAR_DATA *ch);
 void     die_follower        (CHAR_DATA *ch);
 bool     is_same_group       (CHAR_DATA *ach, CHAR_DATA *bch);
 char     *obj_short          (OBJ_DATA *obj);
+void     shutdown_request    (int a);
 
 /* act_enter.c */
 RID      *get_random_room    (CHAR_DATA *ch);
@@ -2330,6 +2335,7 @@ void     append_file         (CHAR_DATA *ch, char *file, char *str);
 void     tail_chain          (void);
 bool     check_pet_affected  (int vnum, AFFECT_DATA *paf);
 void     save_statistics     (void);
+void     save_game_objects   (void);
 
 /*  Color stuff by Lope */
 int   color           (char type, CHAR_DATA *ch, char *string);

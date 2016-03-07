@@ -401,7 +401,15 @@ void game_loop(int control)
     struct timeval last_time;
 
 #if !defined(_WIN32)
+    log_string("STATUS: Setting up signal handling");
+
+    // Route SIGPIPE to SIG_IGN
     signal(SIGPIPE, SIG_IGN);
+
+    // SIGINT and SIGTERM caught and handled gracefully, these are typically
+    // shutdown requests from outside the program.
+    signal(SIGINT, shutdown_request);
+    signal(SIGTERM, shutdown_request);
 #endif
 
     gettimeofday(&last_time, NULL);
@@ -2701,6 +2709,50 @@ void twiddle()
     return;
 
 } // end twiddle
+
+/*
+ * Signal handler for game shutdown.
+ * Might want to call do_shutdown() or a subset of it.
+ */
+void shutdown_request(int a)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d, *d_next;
+    CHAR_DATA *vch;
+
+    // Log the message as a bug for review
+    bugf("Emergency System Shutdown - Signal Received %d", a);
+
+    // Send a message to the players
+    sprintf(buf, "\r\n{RWARNING{x: emergency-{R{*shutdown{x by {BSystem{x.\r\n{WReason{x: System received signal SIGINT or SIGTERM (%d)\r\n\r\n", a);
+    send_to_all_char(buf);
+
+    // Save the characters gear, close their sockets
+    global.shutdown = TRUE;
+    for (d = descriptor_list; d != NULL; d = d_next)
+    {
+        d_next = d->next;
+        vch = d->original ? d->original : d->character;
+
+        if (vch != NULL)
+        {
+            save_char_obj(vch);
+        }
+
+        close_socket(d);
+    }
+
+    // Save special items like donation pits and corpses
+    save_game_objects();
+
+    // Save the current statistics to file
+    save_statistics();
+
+    // Alas, all good things must come to and end.
+    exit(MUD_EXIT_HALT);
+
+    return;
+}
 
 /*
  * Windows support functions

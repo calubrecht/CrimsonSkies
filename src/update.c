@@ -61,7 +61,6 @@ void tick_update        (void);
 void half_tick_update   (void);
 void shore_update       (void);
 void environment_update (void);
-void save_game_objects  (void);
 
 /* used for saving */
 int save_number = 0;
