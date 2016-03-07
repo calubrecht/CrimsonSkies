@@ -1155,12 +1155,12 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                     value = fread_number(fp);
                     temp = fread_word(fp);
                     sn = skill_lookup(temp);
-                    /* sn    = skill_lookup( fread_word( fp ) ); */
+
                     if (sn < 0)
                     {
-                        bug("Fread_char: unknown skill. ", 0);
-                        fprintf(stderr, "%s", temp);
+                        bugf("Fread_char: unknown skill '%s' ", temp);
                     }
+
                     else
                         ch->pcdata->learned[sn] = value;
                     fMatch = TRUE;
