@@ -105,5 +105,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Current online time
   - When you follow someone indicate what direction you are following them.
   - Prepare herb skill for rangers.
-  - Signals to catch and gracefully shutdown
   - noob command to toggle on and off noob tips or additional info prompts (which can be created).
