@@ -407,7 +407,11 @@ void game_loop(int control)
     signal(SIGPIPE, SIG_IGN);
 
     // SIGINT and SIGTERM caught and handled gracefully, these are typically
-    // shutdown requests from outside the program.
+    // shutdown requests from outside the program.  This occurs in the game
+    // loop after the game has loaded (or in the case of a copyover after the
+    // players have loaded, it's main purpose is to shutdown gracefully and
+    // save state, if it doesn't make it that far there's really nothing to
+    // save or process).
     signal(SIGINT, shutdown_request);
     signal(SIGTERM, shutdown_request);
 #endif
