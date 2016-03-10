@@ -5072,7 +5072,7 @@ void do_copyover(CHAR_DATA * ch, char *argument)
 
         /* Failed - sucessful exec will not return */
         perror("do_copyover: execl");
-        send_to_char("Copyover FAILED!\r\n", ch);
+        send_to_char("Copyover {RFAILED{x!\r\n", ch);
 
         /* Here you might want to reopen fpReserve */
         fpReserve = fopen(NULL_FILE, "r");
@@ -6077,9 +6077,12 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    int x = 5;
+    int y = 0;
     char info[MSL];
 
-    sprintf(info, "random name = %s\r\n", generate_random_name());
+    // and crash!
+    sprintf(info, "%d / %d = %d\r\n", x, y, x / y);
     send_to_char(info, ch);
 
     return;
