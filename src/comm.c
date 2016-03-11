@@ -172,6 +172,9 @@ int port, control;
 /* paranoid types who don't want the 'net at large peeking at their MUD)      */
 char *mud_ipaddress = "0.0.0.0";
 
+/*
+ * Entry function - Every new beginning comes from some other beginning's end
+ */
 int main(int argc, char **argv)
 {
     struct timeval now_time;
@@ -268,9 +271,7 @@ int main(int argc, char **argv)
 
 #endif
 
-    /*
-     * That's all, folks.
-     */
+    // Alas, all good things must come to and end.
     log_string("Normal termination of game.");
     exit(0);
     return 0;
@@ -406,6 +407,10 @@ void game_loop(int control)
     // Route SIGPIPE to SIG_IGN
     signal(SIGPIPE, SIG_IGN);
 
+    // This will keep the game running even when someone logs out of
+    // the shell that might have started it.
+    signal(SIGHUP, SIG_IGN);
+
     // SIGINT and SIGTERM caught and handled gracefully, these are typically
     // shutdown requests from outside the program.  This occurs in the game
     // loop after the game has loaded (or in the case of a copyover after the
@@ -414,6 +419,11 @@ void game_loop(int control)
     // save or process).
     signal(SIGINT, shutdown_request);
     signal(SIGTERM, shutdown_request);
+
+    // Crashes
+    signal(SIGSEGV, shutdown_request);
+    signal(SIGFPE, shutdown_request);
+    signal(SIGILL, shutdown_request);
 #endif
 
     gettimeofday(&last_time, NULL);
@@ -2732,7 +2742,7 @@ void shutdown_request(int a)
     bugf("Emergency System Shutdown - Signal Received %d", a);
 
     // Send a message to the players
-    sprintf(buf, "\r\n{RWARNING{x: emergency-{R{*shutdown{x by {BSystem{x.\r\n{WReason{x: System received signal SIGINT or SIGTERM (%d)\r\n\r\n", a);
+    sprintf(buf, "\r\n{RWARNING{x: emergency-{R{*shutdown{x by {BSystem{x.\r\n{WReason{x: System received shutdown request or crash signal (%d)\r\n\r\n", a);
     send_to_all_char(buf);
 
     // Save the characters gear, close their sockets
@@ -2756,8 +2766,10 @@ void shutdown_request(int a)
     // Save the current statistics to file
     save_statistics();
 
-    // Alas, all good things must come to and end.
-    exit(MUD_EXIT_HALT);
+    // This trick will allow the core to still be dumped even after we've handled the signal.
+    // Alas, all good things must come to an end.
+    signal(a, SIG_DFL);
+    kill(getpid(), a);
 
     return;
 }

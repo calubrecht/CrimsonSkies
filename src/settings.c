@@ -94,6 +94,16 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Gain Convert", settings.gain_convert ? "{GON{x" : "{ROFF{x",
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
+
+        send_to_char("\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+        send_to_char("{WSystem Settings{x\r\n", ch);
+        send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
+        sprintf(buf, "%-25s %-7s\r\n",
+            "Copyover on Crash", settings.copyover_on_crash ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+
     }
 
     send_to_char("\r\n", ch);
@@ -200,10 +210,29 @@ void do_settings(CHAR_DATA *ch, char *argument)
         save_settings();
 
     }
+    else if (!str_prefix(arg1, "copyoveroncrash"))
+    {
+        settings.copyover_on_crash = !settings.copyover_on_crash;
+
+        if (settings.copyover_on_crash)
+        {
+            wiznet("$N has enabled copyover on crash.", ch, NULL, 0, 0, 0);
+            send_to_char("Copyover on crash enabled.\r\n", ch);
+        }
+        else
+        {
+            wiznet("$N has disabled copyover on crash.", ch, NULL, 0, 0, 0);
+            send_to_char("Copyover on crash disabled.\r\n", ch);
+        }
+
+        // Save the settings out to file.
+        save_settings();
+
+    }
     else
     {
-        send_to_char("settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
-        send_to_char("          gainconvert|shockspread\r\n", ch);
+        send_to_char("settings <wizlock | newlock | doublegold | doubleexperience|\r\n", ch);
+        send_to_char("          gainconvert | shockspread | copyoveroncrash\r\n", ch);
     }
 
 } // end do_settings
@@ -233,6 +262,7 @@ void load_settings()
     settings.double_gold = iniparser_getboolean(ini, "Settings:DoubleGold", FALSE);
     settings.shock_spread = iniparser_getboolean(ini, "Settings:ShockSpread", FALSE);
     settings.gain_convert = iniparser_getboolean(ini, "Settings:GainConvert", FALSE);
+    settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
 
     iniparser_freedict(ini);
 
@@ -269,6 +299,9 @@ void save_settings(void)
     // Game Mechanics Settings
     fprintf(fp, "ShockSpread = %s\n", settings.shock_spread ? "True" : "False");
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
+
+    // System Settings
+    fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
 
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");

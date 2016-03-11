@@ -554,11 +554,12 @@ struct affect_data
 struct settings_data
 {
     // Game Bonuses
-    bool double_exp;   // Double Experience
-    bool double_gold;  // Double Gold
-    // Game Locks
-    bool newlock;      // New lock, no new characters can create
-    bool wizlock;      // Only immortals can login
+    bool double_exp;        // Double Experience
+    bool double_gold;       // Double Gold
+    // Game Locks / System Behavior
+    bool newlock;           // New lock, no new characters can create
+    bool wizlock;           // Only immortals can login
+    bool copyover_on_crash; // Whether or not the game attempts to copyover on a crash.
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
