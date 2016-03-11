@@ -800,5 +800,6 @@ const struct name_part_type name_part_table[] = {
         {"Ari", "esa"},
         {"Dri", "esea"},
         {"Kyi", "aka"},
+        {"Pix", "urik"},
         {NULL, NULL},
 };
