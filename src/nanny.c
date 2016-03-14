@@ -207,9 +207,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 if (check_ban(d->host, BAN_NEWBIES))
                 {
-                    send_to_desc
-                        ("New players are not allowed from your site.\r\n",
-                            0);
+                    send_to_desc("New players are not allowed from your site.\r\n", d);
                     close_socket(d);
                     return;
                 }
