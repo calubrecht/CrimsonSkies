@@ -320,8 +320,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'y':
                 case 'Y':
-                    sprintf(buf,
-                        "New character.\r\nGive me a password for %s: %s",
+                    sprintf(buf, "New character.\r\nGive me a password for %s: %s",
                         ch->name, echo_off_str);
                     send_to_desc(buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
@@ -469,9 +468,13 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             ch->race = race;
+
             /* initialize stats */
             for (i = 0; i < MAX_STATS; i++)
+            {
                 ch->perm_stat[i] = pc_race_table[race].stats[i];
+            }
+
             ch->affected_by = ch->affected_by | race_table[race].aff;
             ch->imm_flags = ch->imm_flags | race_table[race].imm;
             ch->res_flags = ch->res_flags | race_table[race].res;
@@ -615,9 +618,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->gen_data->points_chosen = ch->pcdata->points;
                     do_function(ch, &do_help, "group header");
                     list_group_costs(ch);
-                    write_to_buffer(d,
-                        "You already have the following skills:\r\n",
-                        0);
+                    write_to_buffer(d, "You already have the following skills:\r\n", 0);
                     do_function(ch, &do_skills, "");
                     do_function(ch, &do_help, "menu choice");
                     d->connected = CON_GEN_GROUPS;
@@ -627,16 +628,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     group_add(ch, class_table[ch->class]->default_group,
                         TRUE);
                     write_to_buffer(d, "\r\n", 2);
-                    write_to_buffer(d,
-                        "Please pick a weapon from the following choices:\r\n",
-                        0);
+                    write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
                     buf[0] = '\0';
+
                     for (i = 0; weapon_table[i].name != NULL; i++)
+                    {
                         if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
                         {
                             strcat(buf, weapon_table[i].name);
                             strcat(buf, " ");
                         }
+                    }
+
                     strcat(buf, "\r\nYour choice? ");
                     write_to_buffer(d, buf, 0);
                     d->connected = CON_PICK_WEAPON;
@@ -653,16 +656,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (weapon == -1
                 || ch->pcdata->learned[*weapon_table[weapon].gsn] <= 0)
             {
-                write_to_buffer(d,
-                    "That's not a valid selection. Choices are:\r\n",
-                    0);
+                write_to_buffer(d, "That's not a valid selection. Choices are:\r\n", 0);
                 buf[0] = '\0';
+
                 for (i = 0; weapon_table[i].name != NULL; i++)
+                {
                     if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
                     {
                         strcat(buf, weapon_table[i].name);
                         strcat(buf, " ");
                     }
+                }
+
                 strcat(buf, "\r\nYour choice? ");
                 write_to_buffer(d, buf, 0);
                 return;
@@ -706,10 +711,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 free_gen_data(ch->gen_data);
                 ch->gen_data = NULL;
                 write_to_buffer(d, "\r\n", 2);
-                write_to_buffer(d,
-                    "Please pick a weapon from the following choices:\r\n",
-                    0);
+                write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
                 buf[0] = '\0';
+
                 for (i = 0; weapon_table[i].name != NULL; i++)
                 {
                     if (ch->pcdata->learned[*weapon_table[i].gsn] > 0)
@@ -726,9 +730,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             if (!parse_gen_groups(ch, argument))
-                send_to_char
-                ("Choices are: list,learned,premise,add,drop,info,help, and done.\r\n",
-                    ch);
+            {
+                send_to_char("Choices are: list,learned,premise,add,drop,info,help, and done.\r\n", ch);
+            }
 
             do_function(ch, &do_help, "menu choice");
             break;
