@@ -1104,8 +1104,7 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
                 else if (percent >= 50)
                     sprintf(wound, "has quite a few wounds.");
                 else if (percent >= 30)
-                    sprintf(wound,
-                        "has some big nasty wounds and scratches.");
+                    sprintf(wound, "has some big nasty wounds and scratches.");
                 else if (percent >= 15)
                     sprintf(wound, "looks pretty hurt.");
                 else if (percent >= 0)
@@ -1114,8 +1113,7 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
                     sprintf(wound, "is {rbleeding{x to death.");
 
                 sprintf(buf, "%s %s \r\n",
-                    IS_NPC(victim) ? victim->short_descr : victim->name,
-                    wound);
+                    IS_NPC(victim) ? victim->short_descr : victim->name, wound);
                 buf[0] = UPPER(buf[0]);
                 pbuff = buffer;
                 colorconv(pbuff, buf, CH(d));
@@ -1146,7 +1144,9 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     if (d->snoop_by != NULL)
     {
         if (d->character != NULL)
+        {
             write_to_buffer(d->snoop_by, d->character->name, 0);
+        }
         write_to_buffer(d->snoop_by, "> ", 2);
         write_to_buffer(d->snoop_by, d->outbuf, d->outtop);
     }
@@ -1235,7 +1235,9 @@ void bust_a_prompt(CHAR_DATA * ch)
                     }
                 }
                 if (!found)
+                {
                     strcat(doors, "none");
+                }
                 sprintf(buf2, "%s", doors);
                 i = buf2;
                 break;
@@ -1327,17 +1329,23 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             case 'R':
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
+                {
                     sprintf(buf2, "%d", ch->in_room->vnum);
+                }
                 else
+                {
                     sprintf(buf2, " ");
+                }
                 i = buf2;
                 break;
             case 'w':
                 // The level an immortal is wizi (hidden) at
-                if (IS_IMMORTAL(ch) && ch->invis_level > 0) {
+                if (IS_IMMORTAL(ch) && ch->invis_level > 0)
+                {
                     sprintf(buf2, "(Wizi@%d)", ch->invis_level);
                 }
-                else {
+                else
+                {
                     buf2[0] = '\0';
                 }
 
@@ -1345,19 +1353,25 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             case 'i':
                 // The level an immortal is incog (hidden except to in room) at
-                if (IS_IMMORTAL(ch) && ch->incog_level > 0) {
+                if (IS_IMMORTAL(ch) && ch->incog_level > 0)
+                {
                     sprintf(buf2, "(Incog@%d)", ch->incog_level);
                 }
-                else {
+                else
+                {
                     buf2[0] = '\0';
                 }
                 i = buf2;
                 break;
             case 'z':
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
+                {
                     sprintf(buf2, "%s", ch->in_room->area->name);
+                }
                 else
+                {
                     sprintf(buf2, " ");
+                }
                 i = buf2;
                 break;
             case '%':
@@ -1375,16 +1389,23 @@ void bust_a_prompt(CHAR_DATA * ch)
         }
         ++str;
         while ((*point = *i) != '\0')
+        {
             ++point, ++i;
+        }
     }
+
     *point = '\0';
     pbuff = buffer;
     colorconv(pbuff, buf, ch);
     write_to_buffer(ch->desc, buffer, 0);
     send_to_char("{x", ch);
 
+    // Do we send the prefix to the line also?
     if (ch->prefix[0] != '\0')
+    {
         write_to_buffer(ch->desc, ch->prefix, 0);
+    }
+
     return;
 }
 
@@ -1732,15 +1753,21 @@ bool check_parse_name(char *name)
             if (isupper(*pc))
             {                    /* ugly anti-caps hack */
                 if (adjcaps)
+                {
                     cleancaps = TRUE;
+                }
                 total_caps++;
                 adjcaps = TRUE;
             }
             else
+            {
                 adjcaps = FALSE;
+            }
 
             if (LOWER(*pc) != 'i' && LOWER(*pc) != 'l')
+            {
                 fIll = FALSE;
+            }
         }
 
         if (fIll)
@@ -1970,15 +1997,16 @@ void page_to_char(const char *txt, CHAR_DATA *ch)
         char *temp = alloc_mem(strlen(txt) + strlen(ch->desc->showstr_head) + 1);
         strcpy(temp, ch->desc->showstr_head);
         strcat(temp, txt);
-        ch->desc->showstr_point = temp +
-            (ch->desc->showstr_point - ch->desc->showstr_head);
+        ch->desc->showstr_point = temp + (ch->desc->showstr_point - ch->desc->showstr_head);
         free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head) + 1);
         ch->desc->showstr_head = temp;
     }
     else
     {
         if (ch->desc->showstr_head)
+        {
             free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head) + 1);
+        }
         ch->desc->showstr_head = alloc_mem(strlen(txt) + 1);
         strcpy(ch->desc->showstr_head, txt);
         ch->desc->showstr_point = ch->desc->showstr_head;
