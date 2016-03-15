@@ -376,7 +376,6 @@ int init_socket(int port)
         exit(1);
     }
 
-
     if (listen(fd, 3) < 0)
     {
         perror("Init socket: listen");
@@ -451,6 +450,7 @@ void game_loop(int control)
         FD_ZERO(&exc_set);
         FD_SET(control, &in_set);
         maxdesc = control;
+
         for (d = descriptor_list; d; d = d->next)
         {
             maxdesc = UMAX(maxdesc, d->descriptor);
@@ -534,10 +534,15 @@ void game_loop(int control)
 
                 /* OLC */
                 if (d->showstr_point)
+                {
                     show_string(d, d->incomm);
+                }
                 else if (d->pString)
+                {
                     string_add(d->character, d->incomm);
+                }
                 else
+                {
                     switch (d->connected)
                     {
                         case CON_PLAYING:
@@ -548,6 +553,7 @@ void game_loop(int control)
                             nanny(d, d->incomm);
                             break;
                     }
+                }
 
                 d->incomm[0] = '\0';
             }
@@ -590,9 +596,9 @@ void game_loop(int control)
             long usecDelta;
 
             gettimeofday(&now_time, NULL);
-            usecDelta = ((int)last_time.tv_usec) - ((int)now_time.tv_usec)
-                + 1000000 / PULSE_PER_SECOND;
+            usecDelta = ((int)last_time.tv_usec) - ((int)now_time.tv_usec) + 1000000 / PULSE_PER_SECOND;
             secDelta = ((int)last_time.tv_sec) - ((int)now_time.tv_sec);
+
             while (usecDelta < 0)
             {
                 usecDelta += 1000000;
@@ -637,7 +643,9 @@ void game_loop(int control)
                                 start_time.millitm) /
                                 1000.0)))) >=
                     (double)(1000 / PULSE_PER_SECOND))
+                {
                     times_up = 1;
+                }
                 else
                 {
                     Sleep((int)((double)(1000 / PULSE_PER_SECOND) -
@@ -655,8 +663,6 @@ void game_loop(int control)
     return;
 }
 #endif
-
-
 
 #if defined(unix) || defined(_WIN32)
 
@@ -732,13 +738,10 @@ void init_descriptor(int control)
         log_f("Sock.sinaddr:  %s", buf);
 
 #if !defined(_WIN32)
-        from = gethostbyaddr((char *)&sock.sin_addr,
-            sizeof(sock.sin_addr), AF_INET);
+        from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), AF_INET);
 #else
-        from = gethostbyaddr((char *)&sock.sin_addr,
-            sizeof(sock.sin_addr), PF_INET);
+        from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), PF_INET);
 #endif
-
         dnew->host = str_dup(from ? from->h_name : buf);
     }
 
@@ -752,9 +755,7 @@ void init_descriptor(int control)
      */
     if (check_ban(dnew->host, BAN_ALL))
     {
-        write_to_descriptor(desc,
-            "Your site has been banned from this mud.\r\n",
-            0, dnew);
+        write_to_descriptor(desc, "Your site has been banned from this mud.\r\n", 0, dnew);
 
 #if defined(_WIN32)
         closesocket(desc);
@@ -855,10 +856,16 @@ void close_socket(DESCRIPTOR_DATA * dclose)
         DESCRIPTOR_DATA *d;
 
         for (d = descriptor_list; d && d->next != dclose; d = d->next);
-        if (d != NULL)
-            d->next = dclose->next;
-        else
-            bug("Close_socket: dclose not found.", 0);
+        {
+            if (d != NULL)
+            {
+                d->next = dclose->next;
+            }
+            else
+            {
+                bug("Close_socket: dclose not found.", 0);
+            }
+        }
     }
 
 #if defined(_WIN32)
@@ -913,10 +920,14 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
         }
 #if defined( WIN32 )
         else if (WSAGetLastError() == WSAEWOULDBLOCK || errno == EAGAIN)
+        {
             break;
+        }
 #endif
         else if (errno == EWOULDBLOCK)
+        {
             break;
+        }
         else
         {
             perror("Read_from_descriptor");
@@ -972,22 +983,28 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
         }
 
         if (d->inbuf[i] == '\b' && k > 0)
+        {
             --k;
+        }
         else if (isascii(d->inbuf[i]) && isprint(d->inbuf[i]))
+        {
             d->incomm[k++] = d->inbuf[i];
+        }
     }
 
     /*
      * Finish off the line.
      */
     if (k == 0)
+    {
         d->incomm[k++] = ' ';
+    }
+
     d->incomm[k] = '\0';
 
     /*
      * Deal with bozos with #repeat 1000 ...
      */
-
     if (k > 1 || d->incomm[0] == '!')
     {
         if (d->incomm[0] != '!' && strcmp(d->incomm, d->inlast))
@@ -1004,11 +1021,13 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
                     d->character, NULL, WIZ_SPAM, 0,
                     get_trust(d->character));
                 if (d->incomm[0] == '!')
-                    wiznet(d->inlast, d->character, NULL, WIZ_SPAM, 0,
-                        get_trust(d->character));
+                {
+                    wiznet(d->inlast, d->character, NULL, WIZ_SPAM, 0, get_trust(d->character));
+                }
                 else
-                    wiznet(d->incomm, d->character, NULL, WIZ_SPAM, 0,
-                        get_trust(d->character));
+                {
+                    wiznet(d->incomm, d->character, NULL, WIZ_SPAM, 0, get_trust(d->character));
+                }
 
                 d->repeat = 0;
 /*
@@ -1020,14 +1039,17 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
         }
     }
 
-
     /*
      * Do '!' substitution.
      */
     if (d->incomm[0] == '!')
+    {
         strcpy(d->incomm, d->inlast);
+    }
     else
+    {
         strcpy(d->inlast, d->incomm);
+    }
 
     /*
      * Shift the input buffer.
