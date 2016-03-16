@@ -3203,7 +3203,8 @@ void do_description(CHAR_DATA * ch, char *argument)
                 if (buf[len] == '\r')
                 {
                     if (!found)
-                    {            /* back it up */
+                    {
+                        /* back it up */
                         if (len > 0)
                             len--;
                         found = TRUE;
@@ -3227,13 +3228,33 @@ void do_description(CHAR_DATA * ch, char *argument)
             send_to_char("Description cleared.\r\n", ch);
             return;
         }
-        if (argument[0] == '+')
+
+        if (!str_cmp(argument, "++"))
+        {
+            string_append( ch, &ch->description);
+            send_to_char( "Your description is:\r\n", ch );
+            send_to_char( ch->description ? ch->description : "(None).\r\n", ch );
+            return;
+        }
+        else if (!str_cmp(argument, "format"))
+        {
+            ch->description = format_string(ch->description);
+            send_to_char("Your description has been formatted.\r\n", ch);
+            return;
+        }
+        else if (argument[0] == '+')
         {
             if (ch->description != NULL)
+            {
                 strcat(buf, ch->description);
+            }
+
             argument++;
+
             while (isspace(*argument))
+            {
                 argument++;
+            }
         }
 
         if (strlen(buf) >= 1024)
