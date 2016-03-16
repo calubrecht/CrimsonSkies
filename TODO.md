@@ -107,4 +107,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Prepare herb skill for rangers.
   - noob command to toggle on and off noob tips or additional info prompts (which can be created).
   - Show lines in string editor
-  - Use string editor for description editing.
+  - Keep last command and argument in global, log it on crash.
