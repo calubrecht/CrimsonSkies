@@ -6077,6 +6077,18 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+
+    if (IS_NULLSTR(global.last_command))
+    {
+        send_to_char("The last command is null.  Uh oh.\r\n", ch);
+    }
+    else
+    {
+        printf_to_char(ch, "Last Command: %s\r\n", global.last_command);
+    }
+
+    return;
+
     int x = 5;
     int y = 0;
     char info[MSL];

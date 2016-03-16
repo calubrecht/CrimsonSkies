@@ -447,8 +447,22 @@ void interpret(CHAR_DATA * ch, char *argument)
     while (isspace(*argument))
         argument++;
 
+    // There was no argument to process, exit out.
     if (argument[0] == '\0')
         return;
+
+    // Save the last command requested so we can log it in case of a crash via the crash signal
+    // handler.  We're placing this after a blank command so we don't get people with tick timers that
+    // are never going to cause a crash.  This also is logging the exact input from the user, not the
+    // looked up command so you may see 'i' for 'inventory'.
+    if (ch != NULL && ch->in_room != NULL)
+    {
+        sprintf(global.last_command, "[%s] by %s in room %d", argument, ch->name, ch->in_room->vnum);
+    }
+    else
+    {
+        sprintf(global.last_command, "[%s] by (null)", argument);
+    }
 
     timer = get_timerptr(ch, TIMER_DO_FUN);
 

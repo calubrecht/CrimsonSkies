@@ -2729,6 +2729,16 @@ void shutdown_request(int a)
     // Log the message as a bug for review
     bugf("Emergency System Shutdown - Signal Received %d", a);
 
+    // If the last command exists, which it should, log it out so we have an idea of what
+    // crashed us if it was a crash.
+    if (!IS_NULLSTR(global.last_command))
+    {
+        log_f("Last Command: %s", global.last_command);
+    }
+    else
+    {
+        log_string("Last Command: (null)");
+    }
     // Send a message to the players
     sprintf(buf, "\r\n{RWARNING{x: emergency-{R{*shutdown{x by {BSystem{x.\r\n{WReason{x: System received shutdown request or crash signal (%d)\r\n\r\n", a);
     send_to_all_char(buf);
