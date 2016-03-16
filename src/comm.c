@@ -2016,72 +2016,7 @@ void page_to_char(const char *txt, CHAR_DATA *ch)
 } // end void page_to_char
 
 /*
- * Old String Pager
- */
-void show_string_old(struct descriptor_data *d, char *input)
-{
-    char buffer[4 * MAX_STRING_LENGTH];
-    char buf[MAX_INPUT_LENGTH];
-    register char *scan, *chk;
-    int lines = 0, toggle = 1;
-    int show_lines;
-
-    one_argument(input, buf);
-    if (buf[0] != '\0')
-    {
-        if (d->showstr_head)
-        {
-            free_mem(d->showstr_head, strlen(d->showstr_head));
-            d->showstr_head = 0;
-        }
-        d->showstr_point = 0;
-        return;
-    }
-
-    if (d->character)
-    {
-        show_lines = d->character->lines;
-    }
-    else
-    {
-        show_lines = 0;
-    }
-
-    if (strlen(d->showstr_point) >= 16384)
-    {
-        show_lines = PAGELEN;
-    }
-
-    for (scan = buffer; ; scan++, d->showstr_point++)
-    {
-        if (((*scan = *d->showstr_point) == '\n' || *scan == '\r') && (toggle = -toggle) < 0)
-        {
-            lines++;
-        }
-        else if (!*scan || (show_lines > 0 && lines >= show_lines))
-        {
-            *scan = '\0';
-            write_to_buffer(d, buffer, strlen(buffer));
-            for (chk = d->showstr_point; isspace(*chk); chk++);
-            {
-                if (!*chk)
-                {
-                    if (d->showstr_head)
-                    {
-                        free_mem(d->showstr_head, strlen(d->showstr_head));
-                        d->showstr_head = 0;
-                    }
-                    d->showstr_point = 0;
-                }
-            }
-            return;
-        }
-    }
-    return;
-} // end old_show_string
-
-/*
- * New String Pager
+ * String Pager
  */
 void show_string(struct descriptor_data *d, char *input)
 {
@@ -2109,7 +2044,10 @@ void show_string(struct descriptor_data *d, char *input)
 
     if (show_lines == 0)
     {
-        show_string_old(d, input);
+        // This bug line can be removed later if it's not ever hit which it appears
+        // it's not.  It called the old implementation of the string pager.
+        // marker
+        bugf("show_string - show_lines == 0, returning without processing further");
         return;
     }
 
