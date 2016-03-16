@@ -704,11 +704,15 @@ all the commands, spells, and skills listed in the game.
 Syntax: description <string>
 Syntax: description + <string>
 Syntax: description - 
+Syntax: description format
+Syntax: description ++
 
 Sets your long description to the given string.  If the description string
 starts with a '+', the part after the '+' is appended to your current
 description, so that you can make multi-line descriptions. You can delete
-lines by uses description -.
+lines by uses description -.  To format the string use the format argument.
+To enter the multi line editor use description ++.  When in the editor you
+can exit with the @ command on an empty line or enter .h for help options.
 ~
 
 0 PASSWORD~
