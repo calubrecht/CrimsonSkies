@@ -2767,7 +2767,12 @@ void shutdown_request(int a)
     // This trick will allow the core to still be dumped even after we've handled the signal.
     // Alas, all good things must come to an end.
     signal(a, SIG_DFL);
+
+#if defined( _WIN32 )
+    global.shutdown = TRUE;
+#else
     kill(getpid(), a);
+#endif
 
     return;
 }
