@@ -167,8 +167,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (check_ban(d->host, BAN_PERMIT)
                 && !IS_SET(ch->act, PLR_PERMIT))
             {
-                send_to_desc("Your site has been banned from this mud.\r\n",
-                    d);
+                send_to_desc("Your site has been banned from this mud.\r\n", d);
                 close_socket(d);
                 return;
             }
@@ -320,8 +319,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'y':
                 case 'Y':
-                    sprintf(buf, "New character.\r\nGive me a password for %s: %s",
-                        ch->name, echo_off_str);
+                    sprintf(buf, "New character.\r\nGive me a password for %s: %s", ch->name, echo_off_str);
                     send_to_desc(buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
                     if (ch->desc->ansi)
@@ -381,8 +379,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
             {
-                send_to_desc("Passwords don't match.\r\nRetype password: ",
-                    d);
+                send_to_desc("Passwords don't match.\r\nRetype password: ", d);
                 d->connected = CON_GET_NEW_PASSWORD;
                 return;
             }
