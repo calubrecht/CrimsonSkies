@@ -108,3 +108,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - noob command to toggle on and off noob tips or additional info prompts (which can be created).
   - Show lines in string editor
   - Auto copyover setting on crash (option)
+  - Setting to turn on/off player looting
