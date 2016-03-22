@@ -277,6 +277,7 @@ void string_add(CHAR_DATA * ch, char *argument)
     if (strlen(*ch->desc->pString) + strlen(argument) >= (MAX_STRING_LENGTH - 4))
     {
         send_to_char("String too long, last line skipped.\r\n", ch);
+        log_f("%s has a string in the editor that exceeds the current limit.", ch->name);
 
         /* Force character out of editing mode. */
         ch->desc->pString = NULL;
@@ -794,10 +795,42 @@ char *merc_getline(char *str, char *buf)
     return str;
 }
 
+/*
+ * This will return a string with the each line of the string prepended with
+ * the line number.  This modified version originated from the Ice project on
+ * mudbytes and replaces the stock OLC version which had a buffer overflow
+ * vulnerability.  Slight modifications for formatting have been made.
+ */
 char *numlines(char *string)
 {
     int cnt = 1;
-    static char buf[MAX_STRING_LENGTH * 2];
+    static char buf[MAX_STRING_LENGTH * 2] = "\0\0\0\0\0\0\0";
+    char tmp_line[MAX_STRING_LENGTH] = "\0\0\0\0\0\0\0";
+
+    buf[0] = '\0'; /* keep me, static */
+
+    while (*string)
+    {
+        int buf_left = 0;
+        int size_wanted = 0;
+
+        string = merc_getline(string, tmp_line);
+        buf_left = (MAX_STRING_LENGTH * 2) - strlen(buf) - 12; /* See format string below */
+        size_wanted = snprintf(buf + strlen(buf), buf_left, "{C%3.3d{x> %s\r\n", cnt++, tmp_line);
+
+        if (size_wanted >= buf_left)
+        {
+            log_f("STRING OVERFLOW in char *numlines - wanted %d, had %d", size_wanted, buf_left);
+        }
+    }
+
+    return buf;
+}
+
+/*char *numlines(char *string)
+{
+    int cnt = 1;
+    static char buf[MAX_STRING_LENGTH * 15];
     char buf2[MAX_STRING_LENGTH], tmpb[MAX_STRING_LENGTH];
 
     buf[0] = '\0';
@@ -805,12 +838,12 @@ char *numlines(char *string)
     while (*string)
     {
         string = merc_getline(string, tmpb);
-        sprintf(buf2, "%2d. %s\r\n", cnt++, tmpb);
+        sprintf(buf2, "{C%3.3d{x> %s\r\n", cnt++, tmpb);
         strcat(buf, buf2);
     }
 
     return buf;
-}
+}*/
 
 /*
    This is the punct snippet from Desden el Chaman Tibetano - Nov 1998

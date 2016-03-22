@@ -1071,9 +1071,15 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     if (!global.shutdown)
     {
         if (d->showstr_point)
+        {
             write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
+        }
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
-            write_to_buffer(d, "> ", 2);
+        {
+            char buf[32];
+            sprintf(buf,"{C%3.3d{x> ", line_count(*d->pString));
+            write_to_buffer(d, buf, 0);
+        }
         else if (fPrompt && d->connected == CON_PLAYING)
         {
             CHAR_DATA *ch;

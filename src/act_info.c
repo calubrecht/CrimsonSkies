@@ -3232,8 +3232,6 @@ void do_description(CHAR_DATA * ch, char *argument)
         if (!str_cmp(argument, "++"))
         {
             string_append( ch, &ch->description);
-            send_to_char( "Your description is:\r\n", ch );
-            send_to_char( ch->description ? ch->description : "(None).\r\n", ch );
             return;
         }
         else if (!str_cmp(argument, "format"))
