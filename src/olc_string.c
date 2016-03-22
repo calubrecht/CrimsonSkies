@@ -827,24 +827,6 @@ char *numlines(char *string)
     return buf;
 }
 
-/*char *numlines(char *string)
-{
-    int cnt = 1;
-    static char buf[MAX_STRING_LENGTH * 15];
-    char buf2[MAX_STRING_LENGTH], tmpb[MAX_STRING_LENGTH];
-
-    buf[0] = '\0';
-
-    while (*string)
-    {
-        string = merc_getline(string, tmpb);
-        sprintf(buf2, "{C%3.3d{x> %s\r\n", cnt++, tmpb);
-        strcat(buf, buf2);
-    }
-
-    return buf;
-}*/
-
 /*
    This is the punct snippet from Desden el Chaman Tibetano - Nov 1998
    Email: jlalbatros@mx2.redestb.es
