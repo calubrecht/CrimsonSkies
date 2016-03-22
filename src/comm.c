@@ -404,11 +404,11 @@ void game_loop(int control)
     log_string("STATUS: Setting up signal handling");
 
     // Route SIGPIPE to SIG_IGN
-    signal(SIGPIPE, SIG_IGN);
+    signal(SIGPIPE, SIG_IGN);          // Broken pipe: write to pipe with no readers
 
     // This will keep the game running even when someone logs out of
     // the shell that might have started it.
-    signal(SIGHUP, SIG_IGN);
+    signal(SIGHUP, SIG_IGN);           // Hangup detected on controlling terminal or death of controlling process
 
     // SIGINT and SIGTERM caught and handled gracefully, these are typically
     // shutdown requests from outside the program.  This occurs in the game
@@ -416,13 +416,21 @@ void game_loop(int control)
     // players have loaded, it's main purpose is to shutdown gracefully and
     // save state, if it doesn't make it that far there's really nothing to
     // save or process).
-    signal(SIGINT, shutdown_request);
-    signal(SIGTERM, shutdown_request);
+    signal(SIGINT, shutdown_request);   // Interrupt from keyboard
+    signal(SIGTERM, shutdown_request);  // Termination signal
+    signal(SIGQUIT, shutdown_request);  // Quit from keyboard
+    signal(SIGTSTP, shutdown_request);  // Stop typed at terminal
+    signal(SIGPWR, shutdown_request);   // Power Failure
 
     // Crashes
-    signal(SIGSEGV, shutdown_request);
-    signal(SIGFPE, shutdown_request);
-    signal(SIGILL, shutdown_request);
+    signal(SIGSEGV, shutdown_request);  // Invalid memory reference
+    signal(SIGFPE, shutdown_request);   // Floating point exception
+    signal(SIGILL, shutdown_request);   // Illegal Instruction
+    signal(SIGBUS, shutdown_request);   // Bus error (bad memory access)
+    signal(SIGABRT, shutdown_request);  // Abort signal from abort(3)
+    signal(SIGXCPU, shutdown_request);  // CPU time limit exceeded
+    signal(SIGXFSZ, shutdown_request);  // File size limit exceeded
+
 #endif
 
     gettimeofday(&last_time, NULL);
