@@ -109,4 +109,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Auto copyover setting on crash (option)
   - Setting to turn on/off player looting
   - Max character length for note as const or setting.
-  - Have detect magic show how much magic someone else has left.
+  - Consider moving condition into it's own function.
