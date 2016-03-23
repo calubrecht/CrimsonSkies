@@ -1053,8 +1053,8 @@ void do_prompt(CHAR_DATA * ch, char *argument)
     }
 
     // Rhien, 04/10/2015, added advanced prompt as the start prompt, can default
-    // back to the basic one if desired.
-    if (!strcmp(argument, "all") || !strcmp(argument, "reset")) {
+    // back to the basic one if desired.  Added default also because I keep typing it. :p
+    if (!strcmp(argument, "all") || !strcmp(argument, "reset") || !strcmp(argument, "default")) {
         strcpy(buf, "<%hhp %mm %vmv {g%r {x({C%e{x)>{x ");
     }
     else if (!strcmp(argument, "basic")) {
