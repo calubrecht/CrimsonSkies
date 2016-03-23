@@ -523,6 +523,46 @@ void show_char_to_char_1(CHAR_DATA * victim, CHAR_DATA * ch)
     buf[0] = UPPER(buf[0]);
     send_to_char(buf, ch);
 
+    // Detect magic will show you how much mana a person has left
+    if (IS_AFFECTED(ch, AFF_DETECT_MAGIC))
+    {
+        if (victim->max_mana > 0)
+        {
+            percent = (100 * victim->mana) / victim->max_mana;
+        }
+        else
+        {
+            percent = 0;
+        }
+
+        if (percent >= 100)
+        {
+            sprintf(buf, "%s has full magically ability.\r\n", PERS(victim, ch));
+        }
+        else if (percent >= 75)
+        {
+            sprintf(buf, "%s has a good amount of magical ability left.\r\n", PERS(victim, ch));
+        }
+        else if (percent >= 40)
+        {
+            sprintf(buf, "%s has a fair amount of magical ability left.\r\n", PERS(victim, ch));
+        }
+        else if (percent >= 25)
+        {
+            sprintf(buf, "%s has a low amount of magical ability left.\r\n", PERS(victim, ch));
+        }
+        else if (percent >= 1)
+        {
+            sprintf(buf, "%s has an almost depleted amount of magical ability left.\r\n", PERS(victim, ch));
+        }
+        else
+        {
+            sprintf(buf, "%s has an no magical ability left.\r\n", PERS(victim, ch));
+        }
+
+        send_to_char(buf, ch);
+    }
+
     // Healers sense affliction
     if (is_affected(ch, gsn_sense_affliction))
     {
