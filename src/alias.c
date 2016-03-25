@@ -134,15 +134,14 @@ void do_alias(CHAR_DATA * ch, char *argument)
 
     argument = one_argument(argument, arg);
 
-
     if (arg[0] == '\0')
     {
-
         if (rch->pcdata->alias[0] == NULL)
         {
             send_to_char("You have no aliases defined.\r\n", ch);
             return;
         }
+
         send_to_char("Your current aliases are:\r\n", ch);
 
         for (pos = 0; pos < MAX_ALIAS; pos++)
@@ -151,7 +150,7 @@ void do_alias(CHAR_DATA * ch, char *argument)
                 || rch->pcdata->alias_sub[pos] == NULL)
                 break;
 
-            sprintf(buf, "    %s:  %s\r\n", rch->pcdata->alias[pos],
+            sprintf(buf, "  %-15s:  %s\r\n", rch->pcdata->alias[pos],
                 rch->pcdata->alias_sub[pos]);
             send_to_char(buf, ch);
         }
@@ -171,8 +170,13 @@ void do_alias(CHAR_DATA * ch, char *argument)
     /* More Edwin-inspired fixes. JR -- 10/15/00 */
     if (strchr(arg, ' ') || strchr(arg, '"') || strchr(arg, '\''))
     {
-        send_to_char("The word to be aliased should not contain a space, "
-            "a tick or a double-quote.\r\n", ch);
+        send_to_char("The word to be aliased should not contain a space, a tick or a double-quote\r\n", ch);
+        return;
+    }
+
+    if (strlen(arg) > 15)
+    {
+        send_to_char("The alias name can be no longer than 15 characters.\r\n", ch);
         return;
     }
 
