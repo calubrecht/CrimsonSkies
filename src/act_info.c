@@ -3783,7 +3783,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     sprintf(buf, "%-30s [%2d]\r\n", "{WHP Minimum Per Level{x:", class_table[i]->hp_min);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%2d]\r\n", "{wHP Maximum Per Level{x:", class_table[i]->hp_max);
+    sprintf(buf, "%-30s [%2d]\r\n", "{WHP Maximum Per Level{x:", class_table[i]->hp_max);
     send_to_char(buf, ch);
 
     sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
