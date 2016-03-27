@@ -106,7 +106,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - When you follow someone indicate what direction you are following them.
   - Prepare herb skill for rangers.
   - noob command to toggle on and off noob tips or additional info prompts (which can be created).
-  - Auto copyover setting on crash (option)
   - Setting to turn on/off player looting
   - Max character length for note as const or setting.
   - Consider moving condition into it's own function.
+  - Remove the auto copyover code, stick with the auto-reboot.
