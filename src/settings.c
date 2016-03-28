@@ -95,14 +95,14 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        send_to_char("\r\n", ch);
+        /*send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WSystem Settings{x\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         sprintf(buf, "%-25s %-7s\r\n",
             "Copyover on Crash", settings.copyover_on_crash ? "{GON{x" : "{ROFF{x");
-        send_to_char(buf, ch);
+        send_to_char(buf, ch);*/
 
     }
 
@@ -210,7 +210,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         save_settings();
 
     }
-    else if (!str_prefix(arg1, "copyoveroncrash"))
+    /*else if (!str_prefix(arg1, "copyoveroncrash"))
     {
         settings.copyover_on_crash = !settings.copyover_on_crash;
 
@@ -228,7 +228,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         // Save the settings out to file.
         save_settings();
 
-    }
+    }*/
     else
     {
         send_to_char("settings <wizlock | newlock | doublegold | doubleexperience|\r\n", ch);
@@ -262,7 +262,7 @@ void load_settings()
     settings.double_gold = iniparser_getboolean(ini, "Settings:DoubleGold", FALSE);
     settings.shock_spread = iniparser_getboolean(ini, "Settings:ShockSpread", FALSE);
     settings.gain_convert = iniparser_getboolean(ini, "Settings:GainConvert", FALSE);
-    settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
+    //settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
 
     iniparser_freedict(ini);
 
@@ -301,7 +301,7 @@ void save_settings(void)
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
 
     // System Settings
-    fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
+    //fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
 
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");

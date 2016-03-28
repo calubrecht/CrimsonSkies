@@ -559,7 +559,6 @@ struct settings_data
     // Game Locks / System Behavior
     bool newlock;           // New lock, no new characters can create
     bool wizlock;           // Only immortals can login
-    bool copyover_on_crash; // Whether or not the game attempts to copyover on a crash.
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
