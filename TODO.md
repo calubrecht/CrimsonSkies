@@ -110,3 +110,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Max character length for note as const or setting.
   - Consider moving condition into it's own function.
   - Remove the auto copyover code, stick with the auto-reboot.
+  - Add stance code to allow for offensive/defensive positioning, show hitroll on bonus in score on calc.
