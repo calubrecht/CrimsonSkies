@@ -812,5 +812,8 @@ const struct name_part_type name_part_table[] = {
         {"Luc", "ent"},
         {"Lyc", "int"},
         {"Cof", "nix"},
+        {"Ham", "ham"},
+        {"Hyl", "cort"},
+        {"Hal", "gard"},
         {NULL, NULL},
 };
