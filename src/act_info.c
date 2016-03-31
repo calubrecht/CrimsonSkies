@@ -66,9 +66,6 @@ char *const where_name[] = {
     "<secondary weapon>  ",
 };
 
-/* for  keeping track of the player count */
-int max_on = 0;
-
 /*
  * Local functions.
  */
@@ -2826,15 +2823,15 @@ void do_count(CHAR_DATA * ch, char *argument)
             count++;
     }
 
-    max_on = UMAX(count, max_on);
+    global.max_on_boot = UMAX(count, global.max_on_boot);
 
-    if (max_on == count)
+    if (global.max_on_boot == count)
     {
         sprintf(buf, "There are %d characters on, the most so far today.\r\n", count);
     }
     else
     {
-        sprintf(buf, "There are %d characters on, the most on today was %d.\r\n", count, max_on);
+        sprintf(buf, "There are %d characters on, the most on today was %d.\r\n", count, global.max_on_boot);
     }
 
     send_to_char(buf, ch);
@@ -2876,8 +2873,6 @@ void do_inventory(CHAR_DATA * ch, char *argument)
     show_list_to_char(ch->carrying, ch, TRUE, TRUE);
     return;
 }
-
-
 
 void do_equipment(CHAR_DATA * ch, char *argument)
 {

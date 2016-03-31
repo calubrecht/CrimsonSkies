@@ -196,6 +196,7 @@ int main(int argc, char **argv)
     global.game_loaded = FALSE;
     global.is_copyover = FALSE;
     global.copyover_timer = 0;
+    global.max_on_boot = 0;
 
     log_string("-------------------------------------------------");
     log_string("STATUS: Initializing Game");

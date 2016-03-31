@@ -617,6 +617,7 @@ struct global_data
     char boot_time[MAX_INPUT_LENGTH];       // String of when the mud booted, formerly str_boot_time
     boot_result last_boot_result;           // The status of the last boot function.
     char last_command[MAX_STRING_LENGTH];   // The last command and argument that was run.
+    int max_on_boot;                        // The max people online for this boot.
 };
 
 /*
