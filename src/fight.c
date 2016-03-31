@@ -211,24 +211,32 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
 
     // Attack 2 (Haste)
     if (IS_AFFECTED(ch, AFF_HASTE))
+    {
         one_hit(ch, victim, dt, FALSE);
+    }
 
     // Death check
     if (ch->fighting != victim || dt == gsn_backstab)
         return;
 
     // Attack 3 (2nd attack skill)
-    chance = get_skill(ch, gsn_second_attack) / 2;
-
-    if (IS_AFFECTED(ch, AFF_SLOW))
-        chance /= 2;
-
-    if (number_percent() < chance)
+    // If in stance defensive there's a 20% chance this won't happen, most every class
+    // will have 2nd attack, we won't want to take away the first guaranteed one.
+    if (( ch->stance == STANCE_DEFENSIVE && CHANCE(80)) || ch->stance != STANCE_DEFENSIVE)
     {
-        one_hit(ch, victim, dt, FALSE);
-        check_improve(ch, gsn_second_attack, TRUE, 5);
-        if (ch->fighting != victim)
-            return;
+        chance = get_skill(ch, gsn_second_attack) / 2;
+
+        if (IS_AFFECTED(ch, AFF_SLOW))
+            chance /= 2;
+
+        if (number_percent() < chance)
+        {
+            one_hit(ch, victim, dt, FALSE);
+            check_improve(ch, gsn_second_attack, TRUE, 5);
+
+            if (ch->fighting != victim)
+                return;
+        }
     }
 
     // Attack 4 (3rd attack skill)
@@ -241,6 +249,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     {
         one_hit(ch, victim, dt, FALSE);
         check_improve(ch, gsn_third_attack, TRUE, 6);
+
         if (ch->fighting != victim)
             return;
     }
@@ -249,26 +258,38 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     if (number_percent() < get_skill(ch, gsn_dual_wield))
     {
         one_hit(ch, victim, dt, TRUE);
-    }
 
-    if (ch->fighting != victim || dt == gsn_backstab)
-        return;
+        if (ch->fighting != victim)
+            return;
+    }
 
     // Attack 6 (Dual Wield #2  + Haste)
     if (IS_AFFECTED(ch, AFF_HASTE) &&
         number_percent() < get_skill(ch, gsn_dual_wield))
     {
         one_hit(ch, victim, dt, TRUE);
+
+        if (ch->fighting != victim)
+            return;
     }
 
     // Attack 7 (Bladesong)
     if (is_affected(ch, gsn_bladesong))
     {
         one_hit(ch, victim, dt, FALSE);
+
+        if (ch->fighting != victim)
+            return;
     }
 
-    if (ch->fighting != victim || dt == gsn_backstab)
-        return;
+    // Attack 8 (Stance Offensive), 60% chance of bonus attack
+    if (ch->stance == STANCE_OFFENSIVE && CHANCE(60))
+    {
+        one_hit(ch, victim, dt, FALSE);
+
+        if (ch->fighting != victim)
+            return;
+    }
 
     return;
 } // end void multi_hit
@@ -1413,11 +1434,14 @@ bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     int chance;
 
+    // Can't parry if you're asleep
     if (!IS_AWAKE(victim))
         return FALSE;
 
+    // Base chance, starts at 50% of the skill value
     chance = get_skill(victim, gsn_parry) / 2;
 
+    // Can't parry without a weapon (unless you're a mob)
     if (get_eq_char(victim, WEAR_WIELD) == NULL)
     {
         if (IS_NPC(victim))
@@ -1426,6 +1450,7 @@ bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim)
             return FALSE;
     }
 
+    // Can't see, cut in half
     if (!can_see(ch, victim))
         chance /= 2;
 
@@ -1434,6 +1459,9 @@ bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim)
     {
         chance += 10;
     }
+
+    // Stance modifier, bonus for defensive stance, penalty for offense.
+    chance += stance_defensive_modifier(victim);
 
     if (number_percent() >= chance + victim->level - ch->level)
         return FALSE;
@@ -1456,8 +1484,12 @@ bool check_shield_block(CHAR_DATA * ch, CHAR_DATA * victim)
 
     chance = get_skill(victim, gsn_shield_block) / 5 + 3;
 
+    // Must have a shield on
     if (get_eq_char(victim, WEAR_SHIELD) == NULL)
         return FALSE;
+
+    // Stance modifier, bonus for defensive stance, penalty for offense.
+    chance += stance_defensive_modifier(victim);
 
     if (number_percent() >= chance + victim->level - ch->level)
         return FALSE;
@@ -1475,11 +1507,14 @@ bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     int chance;
 
+    // Can't dodge if asleep
     if (!IS_AWAKE(victim))
         return FALSE;
 
+    // Chance starts out at 50% of the skill
     chance = get_skill(victim, gsn_dodge) / 2;
 
+    // Cut if half if victim can't see
     if (!can_see(victim, ch))
         chance /= 2;
 
@@ -1488,6 +1523,9 @@ bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim)
     {
         chance += 10;
     }
+
+    // Stance modifier, bonus for defensive stance, penalty for offense.
+    chance += stance_defensive_modifier(victim);
 
     if (number_percent() >= chance + victim->level - ch->level)
         return FALSE;
@@ -3366,3 +3404,114 @@ void do_gore(CHAR_DATA *ch, char *argument)
     }
 
 } // end do_gore
+
+/*
+ * Stance - allows a player to take a normal, defensive or offensive approach
+ * to battle which will give either give them better hitting potential, better dodging
+ * potential or neither.
+ */
+void do_stance(CHAR_DATA *ch, char *argument)
+{
+    if (ch == NULL)
+    {
+        return;
+    }
+
+    if (IS_NULLSTR(argument))
+    {
+        char buf[MAX_STRING_LENGTH];
+        sprintf(buf, "Your stance is currently %s.\r\n", get_stance_name(ch));
+        send_to_char(buf, ch);
+        return;
+    }
+
+    if (!str_prefix(argument, "defensive"))
+    {
+        ch->stance = STANCE_DEFENSIVE;
+        send_to_char("You will take a defensive battle stance.\r\n", ch);
+    }
+    else if (!str_prefix(argument, "offensive"))
+    {
+        ch->stance = STANCE_OFFENSIVE;
+        send_to_char("You will take a offensive battle stance.\r\n", ch);
+    }
+    else if (!str_prefix(argument, "normal"))
+    {
+        ch->stance = STANCE_NORMAL;
+        send_to_char("You will take an average combat stance.\r\n", ch);
+    }
+    else
+    {
+        send_to_char("That is not a valid stance.  Please choose offensive, defensive or normal.\r\n", ch);
+    }
+}
+
+/*
+ * Returns a percent modifier as integer that a characters stance modifies a chance
+ * to dodge, parry, shield block, etc.  Positive is better.
+ */
+int stance_defensive_modifier(CHAR_DATA *ch)
+{
+    switch (ch->stance)
+    {
+        case STANCE_NORMAL:
+            return 0;
+        case STANCE_DEFENSIVE:
+            return 10;
+        case STANCE_OFFENSIVE:
+            return -10;
+    }
+
+    return 0;
+}
+
+/*
+ * A modifier for hit roll based on the character's stance.  Positive is better.
+ */
+int stance_offensive_modifier(CHAR_DATA *ch)
+{
+    switch (ch->stance)
+    {
+        case STANCE_NORMAL:
+            return 0;
+        case STANCE_DEFENSIVE:
+            return -5;
+        case STANCE_OFFENSIVE:
+            return 5;
+    }
+
+    return 0;
+}
+
+/*
+ * Returns the name of the fighting stance that a player is in.
+ */
+char *get_stance_name(CHAR_DATA *ch)
+{
+    static char buf[16];
+
+    if (ch == NULL)
+    {
+        sprintf(buf, "(null)");
+        return buf;
+    }
+
+    switch (ch->stance)
+    {
+        case(STANCE_DEFENSIVE):
+            sprintf(buf, "defensive");
+            break;
+        case(STANCE_OFFENSIVE):
+            sprintf(buf, "offensive");
+            break;
+        case(STANCE_NORMAL):
+            sprintf(buf, "normal");
+            break;
+        default:
+            bugf("%s has an invalid stance: %d", ch->name, ch->stance);
+            sprintf(buf, "error");
+            break;
+    }
+
+    return buf;
+}

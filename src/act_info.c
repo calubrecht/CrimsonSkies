@@ -1728,7 +1728,7 @@ void do_exits(CHAR_DATA * ch, char *argument)
             found = TRUE;
             if (fAuto)
             {
-                // Open for the door indicator (marker)
+                // Open for the door indicator
                 if (IS_SET(pexit->exit_info, EX_CLOSED))
                 {
                     strcat(buf, " (");
@@ -1880,7 +1880,7 @@ void do_score(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
-    printf_to_char(ch, "\r\n{gScore for %s%s.\r\n", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+    printf_to_char(ch, "\r\n{gScore for %s%s\r\n", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
 
     if (get_trust(ch) != ch->level)
         printf_to_char(ch, "You are trusted at level %d.\r\n", get_trust(ch));
@@ -1968,7 +1968,8 @@ void do_score(CHAR_DATA * ch, char *argument)
         IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
         IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
 
-    printf_to_char(ch, "                                            {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+    printf_to_char(ch, "                  {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+        capitalize(get_stance_name(ch)),
         IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
         IS_SET(ch->act, PLR_COLOR) ? 'X' : ' ');
 

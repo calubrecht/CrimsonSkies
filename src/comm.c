@@ -1319,6 +1319,10 @@ void bust_a_prompt(CHAR_DATA * ch)
                 sprintf(buf2, "%ld", ch->silver);
                 i = buf2;
                 break;
+            case 'S':
+                sprintf(buf2, "%s", capitalize(get_stance_name(ch)));
+                i = buf2;
+                break;
             case 'a':
                 if (ch->level > 9)
                     sprintf(buf2, "%d", ch->alignment);

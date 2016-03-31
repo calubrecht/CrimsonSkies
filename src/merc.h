@@ -1357,6 +1357,11 @@ typedef enum
 #define POS_FIGHTING  7
 #define POS_STANDING  8
 
+// Battle Stances
+#define STANCE_NORMAL       0
+#define STANCE_DEFENSIVE    1
+#define STANCE_OFFENSIVE    2
+
 /*
  * ACT bits for players.
  */
@@ -1581,6 +1586,7 @@ struct    char_data
     int                damroll;
     int                armor[4];
     int                wimpy;
+    int                stance;
     /* stats */
     int                perm_stat[MAX_STATS];
     int                mod_stat[MAX_STATS];
@@ -2050,11 +2056,11 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
 #define IS_AWAKE(ch)         (ch->position > POS_SLEEPING)
 #define GET_AC(ch,type)        ((ch)->armor[type]                \
                 + ( IS_AWAKE(ch)                \
-            ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))  
+            ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))
 #define GET_HITROLL(ch)    \
-        ((ch)->hitroll+str_app[get_curr_stat(ch,STAT_STR)].tohit)
+        ((ch)->hitroll + str_app[get_curr_stat(ch,STAT_STR)].tohit + stance_offensive_modifier(ch))
 #define GET_DAMROLL(ch) \
-        ((ch)->damroll+str_app[get_curr_stat(ch,STAT_STR)].todam)
+        ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam)
 
 #define IS_OUTSIDE(ch)        (!IS_SET(                    \
                     (ch)->in_room->room_flags,            \
@@ -2379,6 +2385,9 @@ void    update_pos      (CHAR_DATA *victim);
 void    stop_fighting   (CHAR_DATA *ch, bool fBoth);
 void    check_wanted    (CHAR_DATA *ch, CHAR_DATA *victim);
 void    check_death     (CHAR_DATA *victim, int dt);
+char    *get_stance_name(CHAR_DATA *ch);
+int     stance_defensive_modifier (CHAR_DATA *ch);
+int     stance_offensive_modifier (CHAR_DATA *ch);
 
 /* handler.c */
 AD    *affect_find        (AFFECT_DATA *paf, int sn);

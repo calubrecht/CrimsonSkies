@@ -310,13 +310,17 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "Points %d\n", ch->pcdata->points);
         fprintf(fp, "TrueSex %d\n", ch->pcdata->true_sex);
         fprintf(fp, "LastLevel %d\n", ch->pcdata->last_level);
+
         fprintf(fp, "HMVP %d %d %d\n", ch->pcdata->perm_hit,
             ch->pcdata->perm_mana, ch->pcdata->perm_move);
+
         fprintf(fp, "Condition %d %d %d %d\n",
             ch->pcdata->condition[0],
             ch->pcdata->condition[1],
             ch->pcdata->condition[2],
             ch->pcdata->condition[3]);
+
+        fprintf(fp, "Stance %d\n", ch->stance);
 
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
@@ -647,6 +651,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->security = 0;    /* OLC */
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
+    ch->stance = STANCE_NORMAL;
 
     found = FALSE;
     fclose(fpReserve);
@@ -1145,6 +1150,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Silver", ch->silver, fread_number(fp));
                 KEY("Silv", ch->silver, fread_number(fp));
 
+                KEY("Stance", ch->stance, fread_number(fp));
 
                 if (!str_cmp(word, "Skill") || !str_cmp(word, "Sk"))
                 {
