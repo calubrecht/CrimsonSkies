@@ -183,6 +183,7 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
         %X :  Display experience to level
         %g :  Display your gold held
         %s :  Display silver carried
+        %S :  Display battle stance
         %a :  Display your alignment
         %r :  Display the room name you are in
         %e :  Display the exits from the room in NESWDU style
@@ -4000,6 +4001,22 @@ Syntax: findwater
 Find water is a skill that allows rangers to search for water in most
 outdoor and wilderness areas.  It will not work inside, in cities or
 in deserts.
+~
+
+0 STANCE~
+Syntax: stance <offensive|defensive|normal>
+
+The stance command allows you to take a strategic battle stance in
+combat.  The following are the specific advantages and
+disadvantages:
+
+Normal:     No bonus or penalty.
+Offensive:  Chance for an extra attack every round of combat and a
+            higher chance of hitting.  The penalty is a slightly lower
+            chance of dodging, parrying or shield blocking.
+Defensive:  Chance to lose an attack every round and a slightly lower
+            chance of hitting.  The bonus is a greater chance of
+            dodging, parrying or shield blocking.
 ~
 
 0 $~
