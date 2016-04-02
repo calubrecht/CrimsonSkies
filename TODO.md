@@ -18,8 +18,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Number of connections per boot saved on count as well as most online ever.
   - Add profile command and/or way for user to store some OOC data like email.
   - have do_dump put files in the log directory.
-  - No recall or word of recall for a tick or two after pkill battle.  
-  - No recall or word of recall from battle at all.
   - Helper methods to do common tasks, remove all items from a player, remove all pets from a player, etc.
   - bool char_in_room to determine if a character is already in a room.
   - Enchantor spell - 'bind object', makes it so the object can only be used by the enchantor, this
