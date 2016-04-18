@@ -258,6 +258,7 @@ const struct cmd_type cmd_table[] = {
     {"dig",             do_dig,         POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"flipcoin",        do_flipcoin,    POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"butcher",         do_butcher,     POS_STANDING, 0, LOG_NORMAL, TRUE},
+	{"ban",             do_ban,         POS_DEAD,    L2, LOG_ALWAYS, TRUE},
     {"bandage",         do_bandage,     POS_STANDING, 0, LOG_NORMAL, TRUE},
 
     /*
@@ -321,17 +322,12 @@ const struct cmd_type cmd_table[] = {
     {"terrain",         do_terrain,     POS_SITTING,  0, LOG_NORMAL, TRUE},
     {"version",         do_version,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"randomnames",     do_random_names,POS_DEAD,     0, LOG_NORMAL, TRUE},
-
-    /*
-     * Immortal commands.
-     */
     {"advance",         do_advance,     POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"copyover",        do_copyover,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"dump",            do_dump,        POS_DEAD, ML, LOG_ALWAYS, FALSE},
     {"trust",           do_trust,       POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"violate",         do_violate,     POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"allow",           do_allow,       POS_DEAD, L2, LOG_ALWAYS, TRUE},
-    {"ban",             do_ban,         POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"deny",            do_deny,        POS_DEAD, L1, LOG_ALWAYS, TRUE},
     {"disconnect",      do_disconnect,  POS_DEAD, L3, LOG_ALWAYS, TRUE},
     {"flag",            do_flag,        POS_DEAD, L4, LOG_ALWAYS, TRUE},
