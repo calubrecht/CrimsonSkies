@@ -2520,6 +2520,9 @@ void    mp_hprct_trigger   (CHAR_DATA *mob, CHAR_DATA *ch);
 /* mob_cmds.c */
 void    mob_interpret      (CHAR_DATA *ch, char *argument);
 
+/* settings.c */
+void    save_settings      (void);
+
 /* save.c */
 void    save_char_obj      (CHAR_DATA *ch);
 bool    load_char_obj      (DESCRIPTOR_DATA *d, char *name);

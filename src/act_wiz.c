@@ -3194,7 +3194,7 @@ void do_wizlock(CHAR_DATA * ch, char *argument)
     }
 
     // Save the settings out to file.
-    do_asave(ch, "settings");
+    save_settings();
 
     return;
 }
@@ -3218,7 +3218,7 @@ void do_newlock(CHAR_DATA * ch, char *argument)
     }
 
     // Save the settings out to file.
-    do_asave(ch, "settings");
+    save_settings();
 
     return;
 }
