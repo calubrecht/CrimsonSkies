@@ -2364,6 +2364,9 @@ void    fire_effect    (void *vo, int level, int dam, int target);
 void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
 
+/* nanny.c */
+void     show_login_menu     (DESCRIPTOR_DATA *d);
+
 /* random.c */
 void     init_random         (void);
 int      number_fuzzy        (int number);

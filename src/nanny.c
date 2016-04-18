@@ -852,3 +852,99 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
     return;
 }
 
+/*
+ * Renders the current login menu to the player.
+ */
+void show_login_menu(DESCRIPTOR_DATA *d)
+{
+    // This probably shouldn't happen but better safe than sorry on a high run method.
+    if (d == NULL)
+    {
+        return;
+    }
+
+    char buf[MAX_STRING_LENGTH];
+    bool ban_permit = check_ban(d->host, BAN_PERMIT);
+    bool ban_newbie = check_ban(d->host, BAN_NEWBIES);
+    bool ban_all = check_ban(d->host, BAN_ALL);
+
+    // The login menu header
+    send_to_desc("\r\r\n\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
+
+    // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
+    // newlocked, if their host is banned all together or if they are newbie banned.
+    if (settings.wizlock || settings.newlock || ban_permit || ban_newbie)
+    {
+        sprintf(buf, "    {x({DC{x){Dreate a New Character{x");
+    }
+    else
+    {
+        sprintf(buf, "    {x({GC{x){greate a New Character{x");
+    }
+
+    // Column 1.2 - Game Status
+    strcat(buf, "           {WGame Status: ");
+
+    if (global.is_copyover == TRUE)
+    {
+        strcat(buf, "{RReboot in Progress{x\r\n");
+    }
+    else if (settings.wizlock)
+    {
+        strcat(buf, "{RLocked{x\r\n");
+    }
+    else if (settings.newlock)
+    {
+        strcat(buf, "{RNew Locked{x\r\n");
+    }
+    else
+    {
+        strcat(buf, "{gOpen for Play{x\r\n");
+    }
+
+    send_to_desc(buf, d);
+
+    // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
+    if (ban_permit || settings.wizlock)
+    {
+        sprintf(buf, "    {x({DP{x){Dlay Existing Character{x");
+    }
+    else
+    {
+        sprintf(buf, "    {x({GP{x){glay Existing Character{x");
+    }
+
+    // Column 2.2 - Site status
+    strcat(buf, "          {W  Your Site: ");
+    if (ban_permit || ban_all)
+    {
+        strcat(buf, "{rBanned{x\r\n");
+    }
+    else
+    {
+        if (ban_newbie)
+        {
+            strcat(buf, "{rNew Player Banned{x\r\n");
+        }
+        else
+        {
+            strcat(buf, "{gWelcome to Play{x\r\n");
+        }
+    }
+
+    send_to_desc(buf, d);
+
+    // Column 3.1 - Who is currently online
+    sprintf(buf, "    {x({GW{x){gho is on now?\r\n");
+    send_to_desc(buf, d);
+
+    // Column 4.1 & 4.2 - Quit and System Time
+    sprintf(buf, "    {x({GQ{x){guit                             {WSystem Time: {W%s{x\r\n", (char*)ctime(&current_time));
+    send_to_desc(buf, d);
+
+    // Column 5.1 - Prompt
+    sprintf(buf, "     {WYour selection? {x->");
+    send_to_desc(buf, d);
+
+    return;
+}
