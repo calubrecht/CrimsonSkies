@@ -938,11 +938,15 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     sprintf(buf, "    {x({GW{x){gho is on now?\r\n");
     send_to_desc(buf, d);
 
-    // Column 4.1 & 4.2 - Quit and System Time
+    // Column 4.1 - Random name generator
+    sprintf(buf, "    {x({GR{x){gandom Name Generator\r\n");
+    send_to_desc(buf, d);
+
+    // Column 5.1 & 5.2 - Quit and System Time
     sprintf(buf, "    {x({GQ{x){guit                             {WSystem Time: {W%s{x\r\n", (char*)ctime(&current_time));
     send_to_desc(buf, d);
 
-    // Column 5.1 - Prompt
+    // Column 6.1 - Prompt
     sprintf(buf, "     {WYour selection? {x->");
     send_to_desc(buf, d);
 
