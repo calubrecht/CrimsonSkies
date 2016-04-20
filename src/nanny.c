@@ -108,28 +108,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (argument[0] == '\0' || UPPER(argument[0]) == 'Y' || argument[0] == '\'')
             {
                 d->ansi = TRUE;
-                d->connected = CON_GET_NAME;
-                {
-                    extern char *help_greeting;
-                    if (help_greeting[0] == '.')
-                        send_to_desc(help_greeting + 1, d);
-                    else
-                        send_to_desc(help_greeting, d);
-                }
+                d->connected = CON_LOGIN_MENU;
+                show_greeting(d);
+                show_login_menu(d);
                 break;
             }
 
             if (UPPER(argument[0]) == 'N')
             {
                 d->ansi = FALSE;
-                d->connected = CON_GET_NAME;
-                {
-                    extern char *help_greeting;
-                    if (help_greeting[0] == '.')
-                        send_to_desc(help_greeting + 1, d);
-                    else
-                        send_to_desc(help_greeting, d);
-                }
+                d->connected = CON_LOGIN_MENU;
+                show_greeting(d);
+                show_login_menu(d);
                 break;
             }
             else
@@ -137,12 +127,38 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 send_to_desc("Do you want color? (Y/N) ->  ", d);
                 return;
             }
+        case CON_LOGIN_MENU:
+            switch( argument[0] )
+            {
+                case 'c' : case 'C' :
+                case 'n' : case 'N' :
+                    send_to_desc("NEW CHAR\r\n", d);
+                    d->connected = CON_GET_NAME;
+                    break;
+                case 'p' : case 'P' :
+                    send_to_desc("What is your character's name? ", d);
+                    d->connected = CON_GET_NAME;
+                    return;
+                case 'q' : case 'Q' :
+                    send_to_desc("Alas, all good things must come to and end.\r\n", d);
+                    log_f("marker - quit");
+                    close_socket(d);
+                    return;
+                case 'w' : case 'W' :
+                    send_to_desc("Who is online is not yet implemented.\r\n", d);
+                    show_login_menu(d);
+                    break;
+            }
 
-
+            show_login_menu(d);
+            return;
         case CON_GET_NAME:
+            // We no longer disconnected someone who enters a blank, we will route
+            // them back to the menu.
             if (argument[0] == '\0')
             {
-                close_socket(d);
+                d->connected = CON_LOGIN_MENU;
+                show_login_menu(d);
                 return;
             }
 
@@ -168,6 +184,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 && !IS_SET(ch->act, PLR_PERMIT))
             {
                 send_to_desc("Your site has been banned from this mud.\r\n", d);
+                log_f("marker - site ban");
                 close_socket(d);
                 return;
             }
@@ -180,6 +197,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 if (settings.wizlock && !IS_IMMORTAL(ch))
                 {
+                    log_f("marker - wizlock");
                     send_to_desc("\r\nThe game is currently locked to all except immortals.\r\n Please try again later.\r\n", d);
                     close_socket(d);
                     return;
@@ -199,6 +217,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 /* New player */
                 if (settings.newlock)
                 {
+                    log_f("marker - new lock");
                     send_to_desc("\r\nThe game is new locked.\r\nPlease try again later.\r\n", d);
                     close_socket(d);
                     return;
@@ -206,6 +225,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 if (check_ban(d->host, BAN_NEWBIES))
                 {
+                    log_f("marker - ban newbie");
                     send_to_desc("New players are not allowed from your site.\r\n", d);
                     close_socket(d);
                     return;
@@ -223,6 +243,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             write_to_buffer(d, "\r\n", 2);
 #endif
 
+            // We no longer disconnect for a bad password, send them back to the login
+            // menu.  If any brute force attacks happen, consider a lag and also a disconnect
+            // after so many attempts.
             if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
             {
                 send_to_desc("Wrong password.\r\n", d);
@@ -232,7 +255,17 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 log_string(buf);
                 wiznet(buf, NULL, NULL, WIZ_SITES, 0, get_trust(ch));
 
-                close_socket(d);
+                // Bad password, reset the char
+                if (d->character != NULL)
+                {
+                    free_char(d->character);
+                }
+
+                // Turn string echoing back on and send them back to the login menu.
+                write_to_buffer(d, echo_on_str, 0);
+                d->connected = CON_LOGIN_MENU;
+                show_login_menu(d);
+
                 return;
             }
 
@@ -284,6 +317,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                             character->name))
                             continue;
 
+                        log_f("marker - break connect");
                         close_socket(d_old);
                     }
                     if (check_reconnect(d, ch->name, TRUE))
@@ -850,6 +884,23 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
     }
 
     return;
+}
+
+/*
+ * Sends the greeting on login.
+ */
+void show_greeting(DESCRIPTOR_DATA *d)
+{
+    extern char *help_greeting;
+
+    if (help_greeting[0] == '.')
+    {
+        send_to_desc(help_greeting + 1, d);
+    }
+    else
+    {
+        send_to_desc(help_greeting, d);
+    }
 }
 
 /*
