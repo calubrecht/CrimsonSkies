@@ -141,7 +141,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
                 case 'q' : case 'Q' :
                     send_to_desc("Alas, all good things must come to and end.\r\n", d);
-                    log_f("marker - quit");
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
@@ -184,7 +183,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 && !IS_SET(ch->act, PLR_PERMIT))
             {
                 send_to_desc("Your site has been banned from this mud.\r\n", d);
-                log_f("marker - site ban");
                 close_socket(d);
                 return;
             }
@@ -197,7 +195,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 if (settings.wizlock && !IS_IMMORTAL(ch))
                 {
-                    log_f("marker - wizlock");
                     send_to_desc("\r\nThe game is currently locked to all except immortals.\r\n Please try again later.\r\n", d);
                     close_socket(d);
                     return;
@@ -217,7 +214,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 /* New player */
                 if (settings.newlock)
                 {
-                    log_f("marker - new lock");
                     send_to_desc("\r\nThe game is new locked.\r\nPlease try again later.\r\n", d);
                     close_socket(d);
                     return;
@@ -225,7 +221,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 if (check_ban(d->host, BAN_NEWBIES))
                 {
-                    log_f("marker - ban newbie");
                     send_to_desc("New players are not allowed from your site.\r\n", d);
                     close_socket(d);
                     return;
@@ -259,6 +254,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 if (d->character != NULL)
                 {
                     free_char(d->character);
+                    d->character = NULL;
                 }
 
                 // Turn string echoing back on and send them back to the login menu.
@@ -317,17 +313,20 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                             character->name))
                             continue;
 
-                        log_f("marker - break connect");
                         close_socket(d_old);
                     }
+
                     if (check_reconnect(d, ch->name, TRUE))
                         return;
+
                     send_to_desc("Reconnect attempt failed.\r\nName: ", d);
+
                     if (d->character != NULL)
                     {
                         free_char(d->character);
                         d->character = NULL;
                     }
+
                     d->connected = CON_GET_NAME;
                     break;
 
