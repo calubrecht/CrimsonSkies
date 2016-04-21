@@ -145,11 +145,24 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
                 case 'w' : case 'W' :
                     send_to_desc("Who is online is not yet implemented.\r\n", d);
-                    show_login_menu(d);
-                    break;
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
+                case 'r': case 'R':
+                    send_to_desc("Random name generator is not yet implemented.\r\n", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
             }
 
             show_login_menu(d);
+            return;
+        case CON_LOGIN_RETURN:
+            // This will show the login menu and set that state after a previous step has shown the [Press Enter to Continue] prompt.
+            // It will allow us to pause before showing the menu after an informative screen off of the menu has been show (like who is
+            // currently online.
+            show_login_menu(d);
+            d->connected = CON_LOGIN_MENU;
             return;
         case CON_GET_NAME:
             // We no longer disconnected someone who enters a blank, we will route
@@ -997,7 +1010,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 6.1 - Prompt
-    sprintf(buf, "     {WYour selection? {x->");
+    sprintf(buf, "     {WYour selection? {x-> ");
     send_to_desc(buf, d);
 
     return;
