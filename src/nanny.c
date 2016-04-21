@@ -149,7 +149,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'r': case 'R':
-                    send_to_desc("Random name generator is not yet implemented.\r\n", d);
+                    show_random_names(d);
                     send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
@@ -913,6 +913,36 @@ void show_greeting(DESCRIPTOR_DATA *d)
     {
         send_to_desc(help_greeting, d);
     }
+}
+
+/*
+ * Shows random names simialiar to the do_randomnames command but formatted for
+ * the login screen.
+ */
+void show_random_names(DESCRIPTOR_DATA *d)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *d_list;
+    int row = 0;
+    int col = 0;
+
+    send_to_desc("\r\n\r\n", d);
+    send_to_desc("{D-{x*{D+{W<{x={W( Random Names ){x={W>{D+{x*{D-{x\r\n", d);
+
+    for (row = 0; row < 5; row++)
+    {
+        // Since the random function returns a static char we have to use it in
+        // separate calls.
+        for (col = 0; col < 4; col++)
+        {
+            sprintf(buf, "%-18s", generate_random_name());
+            send_to_desc(buf, d);
+        }
+
+        send_to_desc("\r\n", d);
+    }
+
+    return;
 }
 
 /*
