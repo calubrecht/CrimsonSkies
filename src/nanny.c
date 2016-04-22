@@ -130,7 +130,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
         case CON_LOGIN_MENU:
             switch( argument[0] )
             {
-                case 'c' : case 'C' :
                 case 'n' : case 'N' :
                     send_to_desc("What is your character's name? ", d);
                     d->connected = CON_GET_NAME;
@@ -145,6 +144,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
                 case 'w' : case 'W' :
                     show_login_who(d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
+                case 'c' : case 'C' :
+                    send_to_desc("Credits coming soon, see help credit in game.\r\n", d);
                     send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
@@ -1057,11 +1061,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // newlocked, if their host is banned all together or if they are newbie banned.
     if (settings.wizlock || settings.newlock || ban_permit || ban_newbie)
     {
-        sprintf(buf, "    {x({DC{x){Dreate a New Character{x");
+        sprintf(buf, "    {x({DN{x){Dew Character{x         ");
     }
     else
     {
-        sprintf(buf, "    {x({GC{x){greate a New Character{x");
+        sprintf(buf, "    {x({GN{x){gew Character{x         ");
     }
 
     // Column 1.2 - Game Status
@@ -1124,11 +1128,15 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     sprintf(buf, "    {x({GR{x){gandom Name Generator\r\n");
     send_to_desc(buf, d);
 
-    // Column 5.1 & 5.2 - Quit and System Time
-    sprintf(buf, "    {x({GQ{x){guit                             {WSystem Time: {W%s{x\r\n", (char*)ctime(&current_time));
+    // Column 5.1 - Credits
+    sprintf(buf, "    {x({GC{x){gredits\r\n");
     send_to_desc(buf, d);
 
-    // Column 6.1 - Prompt
+    // Column 6.1 & 6.2 - Quit and System Time
+    sprintf(buf, "    {x({GQ{x){guit{x\r\n\r\n");
+    send_to_desc(buf, d);
+
+    // Column 7.1 - Prompt
     sprintf(buf, "     {WYour selection? {x-> ");
     send_to_desc(buf, d);
 
