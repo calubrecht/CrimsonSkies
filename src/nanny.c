@@ -925,14 +925,12 @@ void show_random_names(DESCRIPTOR_DATA *d)
     int row = 0;
     int col = 0;
 
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WRandom Names {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WRandom Names {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     for (row = 0; row < 6; row++)
     {
         // Since the random function returns a static char we have to use it in
         // separate calls.
-        send_to_desc("   ", d);
-
         for (col = 0; col < 4; col++)
         {
             sprintf(buf, "%-18s", generate_random_name());
@@ -956,7 +954,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     int count = 0;
 
     // Top of the play bill, the immortals
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WImmortals {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WImmortals {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -975,6 +973,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
         }
 
         count++;
+
         sprintf(buf, "{C%-16s", ch->name);
         send_to_desc(buf, d);
 
@@ -995,7 +994,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     // The characters playing
     count = 0;
     col = 0;
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R(  {WMortals  {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R(  {WMortals  {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -1014,6 +1013,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
         }
 
         count++;
+
         sprintf(buf, "{x%-16s", ch->name);
         send_to_desc(buf, d);
 
