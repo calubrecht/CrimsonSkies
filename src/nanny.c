@@ -132,9 +132,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'c' : case 'C' :
                 case 'n' : case 'N' :
-                    send_to_desc("NEW CHAR\r\n", d);
+                    send_to_desc("What is your character's name? ", d);
                     d->connected = CON_GET_NAME;
-                    break;
+                    return;
                 case 'p' : case 'P' :
                     send_to_desc("What is your character's name? ", d);
                     d->connected = CON_GET_NAME;
