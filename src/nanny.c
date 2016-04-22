@@ -144,7 +144,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
-                    send_to_desc("Who is online is not yet implemented.\r\n", d);
+                    show_login_who(d);
                     send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
@@ -922,17 +922,17 @@ void show_greeting(DESCRIPTOR_DATA *d)
 void show_random_names(DESCRIPTOR_DATA *d)
 {
     char buf[MAX_STRING_LENGTH];
-    DESCRIPTOR_DATA *d_list;
     int row = 0;
     int col = 0;
 
-    send_to_desc("\r\n\r\n", d);
-    send_to_desc("{D-{x*{D+{W<{x={W( Random Names ){x={W>{D+{x*{D-{x\r\n", d);
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WRandom Names {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
-    for (row = 0; row < 5; row++)
+    for (row = 0; row < 6; row++)
     {
         // Since the random function returns a static char we have to use it in
         // separate calls.
+        send_to_desc("   ", d);
+
         for (col = 0; col < 4; col++)
         {
             sprintf(buf, "%-18s", generate_random_name());
@@ -942,6 +942,95 @@ void show_random_names(DESCRIPTOR_DATA *d)
         send_to_desc("\r\n", d);
     }
 
+    return;
+}
+
+/*
+ * Shows who is logged into the mud from the login menu.
+ */
+void show_login_who(DESCRIPTOR_DATA *d)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *dl;
+    int col = 0;
+    int count = 0;
+
+    // Top of the play bill, the immortals
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WImmortals {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+
+    for (dl = descriptor_list; dl != NULL; dl = dl->next)
+    {
+        CHAR_DATA *ch;
+
+        if (dl->connected != CON_PLAYING)
+        {
+            continue;
+        }
+
+        ch = (dl->original != NULL) ? dl->original : dl->character;
+
+        if (!IS_IMMORTAL(ch))
+        {
+            continue;
+        }
+
+        count++;
+        sprintf(buf, "{C%-16s", ch->name);
+        send_to_desc(buf, d);
+
+        col++;
+
+        if (col % 5 == 0)
+        {
+            send_to_desc("\r\n", d);
+        }
+    }
+
+    // Display if there are no immortals online.
+    if (count == 0)
+    {
+        send_to_desc("\r\n * {CThere are no immortals currently online.{x\r\n", d);
+    }
+
+    // The characters playing
+    count = 0;
+    col = 0;
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R(  {WMortals  {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+
+    for (dl = descriptor_list; dl != NULL; dl = dl->next)
+    {
+        CHAR_DATA *ch;
+
+        if (dl->connected != CON_PLAYING)
+        {
+            continue;
+        }
+
+        ch = (dl->original != NULL) ? dl->original : dl->character;
+
+        if (IS_IMMORTAL(ch))
+        {
+            continue;
+        }
+
+        count++;
+        sprintf(buf, "{x%-16s", ch->name);
+        send_to_desc(buf, d);
+
+        col++;
+
+        if (col % 5 == 0)
+        {
+            send_to_desc("\r\n", d);
+        }
+    }
+
+    if (count == 0)
+    {
+        send_to_desc("\r\n * {CThere are no mortals currently online.{x", d);
+    }
+
+    send_to_desc("\r\n", d);
     return;
 }
 
@@ -962,7 +1051,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\r\n\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
+    send_to_desc("\r\n\r\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
