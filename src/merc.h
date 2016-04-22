@@ -252,6 +252,8 @@ struct weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_LOGIN_RETURN            -17
+#define CON_LOGIN_MENU              -16
 #define CON_GET_EMAIL               -15
 #define CON_GET_NAME			    -14
 #define CON_GET_OLD_PASSWORD		-13
@@ -2365,7 +2367,10 @@ void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
 
 /* nanny.c */
+void     show_greeting       (DESCRIPTOR_DATA *d);
 void     show_login_menu     (DESCRIPTOR_DATA *d);
+void     show_random_names   (DESCRIPTOR_DATA *d);
+void     show_login_who      (DESCRIPTOR_DATA *d);
 
 /* random.c */
 void     init_random         (void);

@@ -108,28 +108,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (argument[0] == '\0' || UPPER(argument[0]) == 'Y' || argument[0] == '\'')
             {
                 d->ansi = TRUE;
-                d->connected = CON_GET_NAME;
-                {
-                    extern char *help_greeting;
-                    if (help_greeting[0] == '.')
-                        send_to_desc(help_greeting + 1, d);
-                    else
-                        send_to_desc(help_greeting, d);
-                }
+                d->connected = CON_LOGIN_MENU;
+                show_greeting(d);
+                show_login_menu(d);
                 break;
             }
 
             if (UPPER(argument[0]) == 'N')
             {
                 d->ansi = FALSE;
-                d->connected = CON_GET_NAME;
-                {
-                    extern char *help_greeting;
-                    if (help_greeting[0] == '.')
-                        send_to_desc(help_greeting + 1, d);
-                    else
-                        send_to_desc(help_greeting, d);
-                }
+                d->connected = CON_LOGIN_MENU;
+                show_greeting(d);
+                show_login_menu(d);
                 break;
             }
             else
@@ -137,12 +127,50 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 send_to_desc("Do you want color? (Y/N) ->  ", d);
                 return;
             }
+        case CON_LOGIN_MENU:
+            switch( argument[0] )
+            {
+                case 'c' : case 'C' :
+                case 'n' : case 'N' :
+                    send_to_desc("What is your character's name? ", d);
+                    d->connected = CON_GET_NAME;
+                    return;
+                case 'p' : case 'P' :
+                    send_to_desc("What is your character's name? ", d);
+                    d->connected = CON_GET_NAME;
+                    return;
+                case 'q' : case 'Q' :
+                    send_to_desc("Alas, all good things must come to and end.\r\n", d);
+                    close_socket(d);
+                    return;
+                case 'w' : case 'W' :
+                    show_login_who(d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
+                case 'r': case 'R':
+                    show_random_names(d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
+            }
 
-
+            show_login_menu(d);
+            return;
+        case CON_LOGIN_RETURN:
+            // This will show the login menu and set that state after a previous step has shown the [Press Enter to Continue] prompt.
+            // It will allow us to pause before showing the menu after an informative screen off of the menu has been show (like who is
+            // currently online.
+            show_login_menu(d);
+            d->connected = CON_LOGIN_MENU;
+            return;
         case CON_GET_NAME:
+            // We no longer disconnected someone who enters a blank, we will route
+            // them back to the menu.
             if (argument[0] == '\0')
             {
-                close_socket(d);
+                d->connected = CON_LOGIN_MENU;
+                show_login_menu(d);
                 return;
             }
 
@@ -223,6 +251,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             write_to_buffer(d, "\r\n", 2);
 #endif
 
+            // We no longer disconnect for a bad password, send them back to the login
+            // menu.  If any brute force attacks happen, consider a lag and also a disconnect
+            // after so many attempts.
             if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
             {
                 send_to_desc("Wrong password.\r\n", d);
@@ -232,7 +263,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 log_string(buf);
                 wiznet(buf, NULL, NULL, WIZ_SITES, 0, get_trust(ch));
 
-                close_socket(d);
+                // Bad password, reset the char
+                if (d->character != NULL)
+                {
+                    free_char(d->character);
+                    d->character = NULL;
+                }
+
+                // Turn string echoing back on and send them back to the login menu.
+                write_to_buffer(d, echo_on_str, 0);
+                d->connected = CON_LOGIN_MENU;
+                show_login_menu(d);
+
                 return;
             }
 
@@ -286,14 +328,18 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                         close_socket(d_old);
                     }
+
                     if (check_reconnect(d, ch->name, TRUE))
                         return;
+
                     send_to_desc("Reconnect attempt failed.\r\nName: ", d);
+
                     if (d->character != NULL)
                     {
                         free_char(d->character);
                         d->character = NULL;
                     }
+
                     d->connected = CON_GET_NAME;
                     break;
 
@@ -853,6 +899,142 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 }
 
 /*
+ * Sends the greeting on login.
+ */
+void show_greeting(DESCRIPTOR_DATA *d)
+{
+    extern char *help_greeting;
+
+    if (help_greeting[0] == '.')
+    {
+        send_to_desc(help_greeting + 1, d);
+    }
+    else
+    {
+        send_to_desc(help_greeting, d);
+    }
+}
+
+/*
+ * Shows random names simialiar to the do_randomnames command but formatted for
+ * the login screen.
+ */
+void show_random_names(DESCRIPTOR_DATA *d)
+{
+    char buf[MAX_STRING_LENGTH];
+    int row = 0;
+    int col = 0;
+
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WRandom Names {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+
+    for (row = 0; row < 6; row++)
+    {
+        // Since the random function returns a static char we have to use it in
+        // separate calls.
+        send_to_desc("   ", d);
+
+        for (col = 0; col < 4; col++)
+        {
+            sprintf(buf, "%-18s", generate_random_name());
+            send_to_desc(buf, d);
+        }
+
+        send_to_desc("\r\n", d);
+    }
+
+    return;
+}
+
+/*
+ * Shows who is logged into the mud from the login menu.
+ */
+void show_login_who(DESCRIPTOR_DATA *d)
+{
+    char buf[MAX_STRING_LENGTH];
+    DESCRIPTOR_DATA *dl;
+    int col = 0;
+    int count = 0;
+
+    // Top of the play bill, the immortals
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R( {WImmortals {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+
+    for (dl = descriptor_list; dl != NULL; dl = dl->next)
+    {
+        CHAR_DATA *ch;
+
+        if (dl->connected != CON_PLAYING)
+        {
+            continue;
+        }
+
+        ch = (dl->original != NULL) ? dl->original : dl->character;
+
+        if (!IS_IMMORTAL(ch))
+        {
+            continue;
+        }
+
+        count++;
+        sprintf(buf, "{C%-16s", ch->name);
+        send_to_desc(buf, d);
+
+        col++;
+
+        if (col % 5 == 0)
+        {
+            send_to_desc("\r\n", d);
+        }
+    }
+
+    // Display if there are no immortals online.
+    if (count == 0)
+    {
+        send_to_desc("\r\n * {CThere are no immortals currently online.{x\r\n", d);
+    }
+
+    // The characters playing
+    count = 0;
+    col = 0;
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-= {R(  {WMortals  {R){w =-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+
+    for (dl = descriptor_list; dl != NULL; dl = dl->next)
+    {
+        CHAR_DATA *ch;
+
+        if (dl->connected != CON_PLAYING)
+        {
+            continue;
+        }
+
+        ch = (dl->original != NULL) ? dl->original : dl->character;
+
+        if (IS_IMMORTAL(ch))
+        {
+            continue;
+        }
+
+        count++;
+        sprintf(buf, "{x%-16s", ch->name);
+        send_to_desc(buf, d);
+
+        col++;
+
+        if (col % 5 == 0)
+        {
+            send_to_desc("\r\n", d);
+        }
+    }
+
+    if (count == 0)
+    {
+        send_to_desc("\r\n * {CThere are no mortals currently online.{x", d);
+    }
+
+    send_to_desc("\r\n", d);
+    return;
+}
+
+/*
  * Renders the current login menu to the player.
  */
 void show_login_menu(DESCRIPTOR_DATA *d)
@@ -869,7 +1051,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\r\n\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
+    send_to_desc("\r\n\r\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
@@ -947,7 +1129,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 6.1 - Prompt
-    sprintf(buf, "     {WYour selection? {x->");
+    sprintf(buf, "     {WYour selection? {x-> ");
     send_to_desc(buf, d);
 
     return;
