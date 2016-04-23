@@ -2347,6 +2347,10 @@ void do_weather(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Help command to access the games help files that are loaded into memory
+ * at startup (helps are storedin in area files).
+ */
 void do_help(CHAR_DATA * ch, char *argument)
 {
     HELP_DATA *pHelp;
