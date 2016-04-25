@@ -966,9 +966,9 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     send_to_desc("        Michael Seifert, Sebastian Hammer\r\n", d);
     send_to_desc("\r\n", d);
     send_to_desc("  {G*{x Detailed additional credits can be viewed in game via the credits\r\n", d);
-    send_to_desc("        command.  These additional credits include the names of many who\r\n", d);
-    send_to_desc("        have contributed through the mud community over the years where\r\n", d);
-    send_to_desc("        those contributions have been used here.\r\n", d);
+    send_to_desc("    command.  These additional credits include the names of many who\r\n", d);
+    send_to_desc("    have contributed through the mud community over the years where\r\n", d);
+    send_to_desc("    those contributions have been used here.\r\n", d);
     return;
 }
 
