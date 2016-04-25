@@ -1080,7 +1080,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\n\r\n{W<{D-----------============{W(  {RCrimson {rSkies{D: {WLogin Menu  {W){D============-----------{W>{x\r\n", d);
+    send_to_desc("\r\n\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=- {W( {RCrimson {rSkies{D: {WLogin Menu {W){w -=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
