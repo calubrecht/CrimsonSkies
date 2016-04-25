@@ -148,7 +148,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'c' : case 'C' :
-                    send_to_desc("Credits coming soon, see help credit in game.\r\n", d);
+                    show_login_credits(d);
                     send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
@@ -944,6 +944,31 @@ void show_random_names(DESCRIPTOR_DATA *d)
         send_to_desc("\r\n", d);
     }
 
+    return;
+}
+
+/*
+ * Show the credits to the login screen, this is a little hacky.  I would prefer to use the
+ * help system but it's tooled for CH's and down the line (in the string pager) has issues
+ * with descriptors on a a straight conversion of page_to_char.
+ */
+void show_login_credits(DESCRIPTOR_DATA *d)
+{
+    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WCredits {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n\r\n", d);
+    send_to_desc("  {G*{x {WCrimson Skies{x 0.9 (1998-2016)\r\n", d);
+    send_to_desc("        Blake Pell (Rhien)\r\n", d);
+    send_to_desc("  {G*{x {WROM 2.4{x (1993-1998)\r\n", d);
+    send_to_desc("        Russ Taylor, Gabrielle Taylor, Brian Moore\r\n", d);
+    send_to_desc("  {G*{x {WMerc DikuMUD{x (1991-1993)\r\n", d);
+    send_to_desc("        Michael Chastain, Michael Quan, Mitchel Tse\r\n", d);
+    send_to_desc("  {G*{x {WDikuMud{x (1990-1991)\r\n", d);
+    send_to_desc("        Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,\r\n", d);
+    send_to_desc("        Michael Seifert, Sebastian Hammer\r\n", d);
+    send_to_desc("\r\n", d);
+    send_to_desc("  {G*{x Detailed additional credits can be viewed in game via the credits\r\n", d);
+    send_to_desc("        command.  These additional credits include the names of many who\r\n", d);
+    send_to_desc("        have contributed through the mud community over the years where\r\n", d);
+    send_to_desc("        those contributions have been used here.\r\n", d);
     return;
 }
 
