@@ -139,7 +139,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     d->connected = CON_GET_NAME;
                     return;
                 case 'q' : case 'Q' :
-                    send_to_desc("Alas, all good things must come to and end.\r\n", d);
+                    send_to_desc("Alas, all good things must come to an end.\r\n", d);
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
@@ -954,8 +954,12 @@ void show_random_names(DESCRIPTOR_DATA *d)
  */
 void show_login_credits(DESCRIPTOR_DATA *d)
 {
+    char buf[MAX_STRING_LENGTH];
+
     send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WCredits {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n\r\n", d);
-    send_to_desc("  {G*{x {WCrimson Skies{x 0.9 (1998-2016)\r\n", d);
+
+    sprintf(buf, "  {G*{x {WCrimson Skies{x %s (1998-2016)\r\n", VERSION);
+    send_to_desc(buf , d);
     send_to_desc("        Blake Pell (Rhien)\r\n", d);
     send_to_desc("  {G*{x {WROM 2.4{x (1993-1998)\r\n", d);
     send_to_desc("        Russ Taylor, Gabrielle Taylor, Brian Moore\r\n", d);
