@@ -246,9 +246,7 @@
     <None Include="doc\Makefile.normal" />
     <None Include="doc\Makefile.solaris" />
     <None Include="system\ban.dat" />
-    <None Include="system\saved_objects.dat" />
     <None Include="system\settings.dat" />
-    <None Include="system\statistics.dat" />
     <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>

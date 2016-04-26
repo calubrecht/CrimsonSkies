@@ -312,9 +312,7 @@
     <None Include="classes\mage.class" />
     <None Include="classes\skills.dat" />
     <None Include="classes\thief.class" />
-    <None Include="system\statistics.dat" />
     <None Include="system\ban.dat" />
-    <None Include="system\saved_objects.dat" />
     <None Include="system\settings.dat" />
     <None Include="classes\ranger.class" />
   </ItemGroup>
