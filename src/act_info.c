@@ -2816,16 +2816,9 @@ void do_who(CHAR_DATA * ch, char *argument)
 void do_count(CHAR_DATA * ch, char *argument)
 {
     int count;
-    DESCRIPTOR_DATA *d;
     char buf[MAX_STRING_LENGTH];
 
-    count = 0;
-
-    for (d = descriptor_list; d != NULL; d = d->next)
-    {
-        if (d->connected == CON_PLAYING)
-            count++;
-    }
+    count = player_online_count();
 
     global.max_on_boot = UMAX(count, global.max_on_boot);
 
@@ -2844,6 +2837,23 @@ void do_count(CHAR_DATA * ch, char *argument)
     send_to_char(buf, ch);
 
 } // end do_count
+
+/*
+ * Returns the current number of players online (connected == CON_PLAYING)
+ */
+int player_online_count()
+{
+    int count = 0;
+    DESCRIPTOR_DATA *d;
+
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->connected == CON_PLAYING)
+            count++;
+    }
+
+    return count;
+}
 
 /*
  * This procedure will check the number of players online and if it's greater than the

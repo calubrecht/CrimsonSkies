@@ -2265,6 +2265,7 @@ RID      *get_random_room    (CHAR_DATA *ch);
 void     set_title           (CHAR_DATA *ch, char *title);
 bool     char_in_list        (CHAR_DATA *ch);
 char     *pers               (CHAR_DATA *ch, CHAR_DATA *looker);
+int      player_online_count (void);
 
 /* act_move.c */
 void     move_char           (CHAR_DATA *ch, int door, bool follow);
@@ -2371,6 +2372,7 @@ void     show_greeting       (DESCRIPTOR_DATA *d);
 void     show_login_menu     (DESCRIPTOR_DATA *d);
 void     show_random_names   (DESCRIPTOR_DATA *d);
 void     show_login_who      (DESCRIPTOR_DATA *d);
+void     show_login_credits  (DESCRIPTOR_DATA *d);
 
 /* random.c */
 void     init_random         (void);
