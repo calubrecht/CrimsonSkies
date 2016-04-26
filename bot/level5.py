@@ -6,7 +6,9 @@ import sys
 triggers = {
     # Login/Connecting
     "Do you want color? (Y/N) ->" : "N",
+    "Your selection?" : "p",
     "By what name do you wish to be known?" : sys.argv[1],
+    "What is your character's name?" : sys.argv[1],
     "Password:" : sys.argv[2],
     "Do you wish to connect anyway (Y/N)" : "Y",
     "[Hit Return to continue]" : "",
