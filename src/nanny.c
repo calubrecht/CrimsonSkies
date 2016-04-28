@@ -985,6 +985,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     DESCRIPTOR_DATA *dl;
     int col = 0;
     int count = 0;
+    int total_count = 0;
 
     // Top of the play bill, the immortals
     send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WImmortals {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
@@ -1017,6 +1018,8 @@ void show_login_who(DESCRIPTOR_DATA *d)
             send_to_desc("\r\n", d);
         }
     }
+
+    total_count += count;
 
     // Display if there are no immortals online.
     if (count == 0)
@@ -1058,12 +1061,21 @@ void show_login_who(DESCRIPTOR_DATA *d)
         }
     }
 
+    total_count += count;
+
     if (count == 0)
     {
         send_to_desc("\r\n * {CThere are no mortals currently online.{x", d);
     }
 
     send_to_desc("\r\n", d);
+
+    if (total_count > 0)
+    {
+        sprintf(buf, "\r\nTotal Players Online: %d\r\n", total_count);
+        send_to_desc(buf, d);
+    }
+
     return;
 }
 
