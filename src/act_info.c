@@ -2309,12 +2309,11 @@ void do_time(CHAR_DATA * ch, char *argument)
         day_name[day % 7], day, suf, month_name[time_info.month]);
     send_to_char(buf, ch);
 
-    sprintf(buf, "{RCrimson {rSkies{x started up on %s", global.boot_time);
+    sprintf(buf, "{RCrimson {rSkies{x started up on %s.\r\n", global.boot_time);
     send_to_char(buf, ch);
 
     sprintf(buf, "The system time is %s", (char *)ctime(&current_time));
     send_to_char(buf, ch);
-
 
     return;
 }

@@ -192,6 +192,10 @@ int main(int argc, char **argv)
     gettimeofday(&now_time, NULL);
     current_time = (time_t)now_time.tv_sec;
     strcpy(global.boot_time, ctime(&current_time));
+
+    // Remove the new line that's put onto the end of current_time
+    global.boot_time[strlen(global.boot_time) - 1] = '\0';
+
     global.copyover = FALSE;    // This will be set later if true
     global.game_loaded = FALSE;
     global.is_copyover = FALSE;
