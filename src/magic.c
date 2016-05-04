@@ -2662,8 +2662,7 @@ void spell_flamestrike(int sn, int level, CHAR_DATA * ch, void *vo,
 /*
  * Faerie fire spell - This will make the surround the user by a pink outline affecting their AC.
  */
-void spell_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -2677,7 +2676,7 @@ void spell_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo,
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
-    af.duration = level;
+    af.duration = level / 2;
     af.location = APPLY_AC;
     af.modifier = 2 * level;
     af.bitvector = AFF_FAERIE_FIRE;
@@ -2692,8 +2691,7 @@ void spell_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo,
  * hiding.  There is also a chance that if successful that it will also cast a slightly
  * weaker and shorter duration version of faerie fire on the victim.
  */
-void spell_faerie_fog(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_faerie_fog(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *ich;
     AFFECT_DATA af;
