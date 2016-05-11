@@ -111,4 +111,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Move all login menu functions into login-menu.c
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - Reformat random names on the main screen to be the same length and columns as whose online.
-  - Make fog available in OLC to set density so a builder can create room fog. 
