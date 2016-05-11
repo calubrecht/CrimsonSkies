@@ -2365,11 +2365,13 @@ These spells allow the caster to manipulate local weather conditions, as well
 as summon fog clouds, lightning, or even electrical glows.  This group is
 usable by all classes.
 
-call lightning	summons a huge bolt from the heavens, if the weather is right
-control weather	changes the weather in the manner desired by the caster
-faerie fire	surrounds the target in a glowing aura
-faerie fog	reveals all hidden creatures in the room
-lightning bolt	sends a bolt of electricity into the target
+call lightning - summons a huge bolt from the heavens, if the weather is right
+control weather - changes the weather in the manner desired by the caster
+faerie fire - surrounds the target in a glowing aura
+faerie fog - reveals all hidden creatures in the room
+lightning bolt - sends a bolt of electricity into the target
+fog - creates a fog in the room which can be difficult to see through
+dispel fog - helps to lift any fog that might be in a room
 
 (the weather command, unrelated to this group, shows local weather conditions)
 ~
