@@ -2346,7 +2346,10 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
                 flag_string(weapon_type2, obj->value[4]));
             send_to_char(buf, ch);
             break;
-
+        case ITEM_FOG:
+            sprintf(buf, "[v0] Fog Density:    [%d]\r\n", obj->value[0]);
+            send_to_char(buf, ch);
+            break;
         case ITEM_CONTAINER:
             sprintf(buf,
                 "[v0] Weight:     [%d kg]\r\n"
@@ -2406,8 +2409,7 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
     return;
 }
 
-bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
-    char *argument)
+bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num, char *argument)
 {
     switch (pObj->item_type)
     {
@@ -2544,7 +2546,24 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num,
                     break;
             }
             break;
+        case ITEM_FOG:
+            if (atoi(argument) < 0 || atoi(argument) > 100)
+            {
+                send_to_char("Fog density should be 0 to 100.\r\n\r\n", ch);
+                return FALSE;
+            }
 
+            switch (value_num)
+            {
+                default:
+                    send_to_char("Fog Density (v0) should be 0 to 100.\r\n\r\n", ch);
+                    return FALSE;
+                case 0:
+                    send_to_char("Fog density set.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+            }
+            break;
         case ITEM_PORTAL:
             switch (value_num)
             {
