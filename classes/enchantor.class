@@ -86,6 +86,8 @@ Sk 'know alignment' 19 1
 Sk 'water breathing' 20 1
 Sk 'dodge' 20 8
 Sk 'haste' 21 1
+Sk 'fog' 21 1
+Sk 'dispel fog' 21 1
 Sk 'fireball' 22 1
 Sk 'mass invis' 22 1
 Sk 'parry' 22 8

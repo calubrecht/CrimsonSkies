@@ -1013,6 +1013,8 @@ typedef enum
 #define OBJ_VNUM_GUTS              16
 #define OBJ_VNUM_BRAINS            17
 
+#define OBJ_VNUM_FOG               18
+
 #define OBJ_VNUM_WAYBREAD          20
 #define OBJ_VNUM_LIGHT_BALL        21
 #define OBJ_VNUM_SPRING            22
@@ -1077,6 +1079,7 @@ typedef enum
 #define ITEM_GEM         32
 #define ITEM_JEWELRY     33
 #define ITEM_SHOVEL      34
+#define ITEM_FOG         35
 
 /*
  * Extra flags.
@@ -2266,6 +2269,7 @@ void     set_title           (CHAR_DATA *ch, char *title);
 bool     char_in_list        (CHAR_DATA *ch);
 char     *pers               (CHAR_DATA *ch, CHAR_DATA *looker);
 int      player_online_count (void);
+bool     check_fog           (CHAR_DATA * ch);
 
 /* act_move.c */
 void     move_char           (CHAR_DATA *ch, int door, bool follow);

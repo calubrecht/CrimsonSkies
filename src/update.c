@@ -1003,6 +1003,9 @@ void obj_update(void)
             case ITEM_PORTAL:
                 message = "$p fades out of existence.";
                 break;
+            case ITEM_FOG:
+                message = "$p begins to dissipate.";
+                break;
             case ITEM_CONTAINER:
                 if (CAN_WEAR(obj, ITEM_WEAR_FLOAT))
                 {

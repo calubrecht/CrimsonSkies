@@ -5110,6 +5110,109 @@ void spell_water_breathing(int sn, int level, CHAR_DATA *ch, void *vo, int targe
 } // end spell_water_breathing
 
 /*
+ * Summons a fog into the room that will lower the chances that a player
+ * can see. - Rhien (9/24/2000, updated 5/11/2016)
+ */
+void spell_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    OBJ_DATA *fog;
+    OBJ_DATA *obj;
+    int density = 0;
+    int duration = 0;
+
+    for (obj = ch->in_room->contents; obj; obj = obj->next_content)
+    {
+        if (obj->item_type == ITEM_FOG)
+        {
+            send_to_char("There is already fog in the room, you cannot conjure anymore.\r\n", ch);
+            return;
+        }
+    }
+
+    // Quality of the fog
+    density = number_range(level / 2, 100);
+    duration = number_range(1, 3);
+
+    // Bonus for those who cast at level or above
+    if (level >= 51)
+    {
+        duration += 1;
+        density += 10;
+    }
+
+    // Much lower density in the city
+    if (ch->in_room->sector_type == SECT_CITY)
+    {
+        density -= 30;
+    }
+
+    // Slightly higher density in the forests
+    if (ch->in_room->sector_type == SECT_FOREST)
+    {
+        density += 5;
+    }
+
+    density = URANGE(5, density, 100);
+
+    // Immortals cast impenetrable fog
+    if (IS_IMMORTAL(ch))
+    {
+        density = 100;
+    }
+
+    fog = create_object(get_obj_index(OBJ_VNUM_FOG), 0);
+    fog->value[0] = density; // thickness of the fog
+    fog->timer = duration; // duration of the fog
+    obj_to_room(fog, ch->in_room);
+
+    if (density <= 50)
+    {
+        act("$n summons a thin fog that surrounds the area.", ch, NULL, NULL, TO_ROOM);
+        act("You summon a thin fog that surrounds the area.", ch, NULL, NULL, TO_CHAR);
+    }
+    else if (density > 50 && density < 80)
+    {
+        act("$n summons a fog that surrounds the area.", ch, NULL, NULL, TO_ROOM);
+        act("You summon a fog that surrounds the area.", ch, NULL, NULL, TO_CHAR);
+    }
+    else
+    {
+        act("$n summons a thick fog that surrounds the area.", ch, NULL, NULL, TO_ROOM);
+        act("You summon a thick fog that surrounds the area.", ch, NULL, NULL, TO_CHAR);
+    }
+
+    return;
+
+} // end fog
+
+/*
+ * Dissipate's any fog that is in the room. - Rhien (9/24/2000, updated 5/11/2016)
+ */
+void spell_dispel_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    OBJ_DATA *obj;
+    bool found = FALSE;
+
+    for (obj = ch->in_room->contents; obj; obj = obj->next_content)
+    {
+        if (obj->item_type == ITEM_FOG)
+        {
+            act("$n dispels the fog from the area!", ch, NULL, NULL, TO_ROOM);
+            send_to_char("You dispel the fog from the area!\r\n", ch);
+            found = TRUE;
+            extract_obj(obj);
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("There is no fog to banish here.\r\n", ch);
+    }
+
+    return;
+}
+
+/*
  * Returns the spell function for the specified name.  This will allow loading from
  * a file (although this has to be updated which isn't ideal but is necessary).  By
  * switching for the 7th character we can cut down the number of checks run.  All
@@ -5172,6 +5275,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_dispel_good")) return spell_dispel_good;
             if (!str_cmp(name, "spell_disenchant")) return spell_disenchant;
             if (!str_cmp(name, "spell_demonfire")) return spell_demonfire;
+            if (!str_cmp(name, "spell_dispel_fog")) return spell_dispel_fog;
             break;
         case 'e':
             if (!str_cmp(name, "spell_earthquake")) return spell_earthquake;
@@ -5194,6 +5298,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_floating_disc")) return spell_floating_disc;
             if (!str_cmp(name, "spell_fire_breath")) return spell_fire_breath;
             if (!str_cmp(name, "spell_frost_breath")) return spell_frost_breath;
+            if (!str_cmp(name, "spell_fog")) return spell_fog;
             break;
         case 'g':
             if (!str_cmp(name, "spell_gate")) return spell_gate;
@@ -5429,6 +5534,8 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_remove_faerie_fire) return "spell_remove_faerie_fire";
     if (spell == spell_bark_skin) return "spell_bark_skin";
     if (spell == spell_self_growth) return "spell_self_growth";
+    if (spell == spell_fog) return "spell_fog";
+    if (spell == spell_dispel_fog) return "spell_dispel_fog";
 
     return "reserved";
 

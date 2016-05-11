@@ -104,6 +104,8 @@ Sk 'fireball' 30 2
 Sk 'call lightning' 31 2
 Sk 'mass invis' 31 2
 Sk 'gate' 32 2
+Sk 'fog' 32 2
+Sk 'dispel fog' 32 2
 Sk 'heal' 33 2
 Sk 'acid breath' 33 2
 Sk 'cancellation' 34 2

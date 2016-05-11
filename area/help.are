@@ -4011,6 +4011,26 @@ Defensive:  Chance to lose an attack every round and a slightly lower
             dodging, parrying or shield blocking.
 ~
 
+0 FOG~
+Syntax: cast 'fog'
+
+The fog spell allows a caster to create a fog in a room.  Other people
+traveling through the room may not be able to see well in that room
+until the fog lifts.  The fog spell typically does not take as well
+in city areas.  The fog created only last for a few moments.
+
+SEE ALSO: dispel fog
+~
+
+0 DISPEL FOG~
+Syntax: cast 'dispel fog'
+
+The dispel fog spell will allow a caster to dispel a fog in a room
+restoring visibility to all who pass through it.
+
+SEE ALSO: fog
+~
+
 0 $~
 
 #$

@@ -2001,6 +2001,7 @@ OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex, int level)
         case ITEM_PILL:
         case ITEM_MONEY:
         case ITEM_SHOVEL:
+        case ITEM_FOG:
             break;
     }
 

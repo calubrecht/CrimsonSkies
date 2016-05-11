@@ -123,6 +123,8 @@ Sk 'bark skin' 34 1
 Sk 'chain lightning' 36 2
 Sk 'teleport' 36 2
 Sk 'pass door' 37 2
+Sk 'fog' 38 2
+Sk 'dispel fog' 38 2
 Sk 'portal' 40 4
 Sk 'shield' 40 2
 Sk 'frost breath' 40 2

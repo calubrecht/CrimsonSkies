@@ -136,6 +136,14 @@ meat~
 food 0 A
 BD BD 0 0 0
 0 20 0 D
+#18
+fog~
+a wall of fog~
+A wall of fog looms here.~
+fog~
+fog 0 P
+0 0 0 0 0
+0 0 0 P
 #20
 mushroom~
 a mushroom~

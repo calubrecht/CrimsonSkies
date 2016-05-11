@@ -2082,4 +2082,24 @@ Beats       6
 Race        0
 End
 
+#SKILL
+Name        fog~
+SpellFun    spell_fog~
+Target      0
+MinPos      8
+MinMana     20
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        dispel fog~
+SpellFun    spell_dispel_fog~
+Target      0
+MinPos      8
+MinMana     10
+Beats       12
+Race        0
+End
+
 #END

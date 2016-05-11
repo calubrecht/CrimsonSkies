@@ -683,11 +683,15 @@ bool char_in_list(CHAR_DATA *ch)
     return found;
 }
 
+/*
+ * Checks whether a player is currently blind or not.
+ */
 bool check_blind(CHAR_DATA * ch)
 {
-
     if (!IS_NPC(ch) && IS_SET(ch->act, PLR_HOLYLIGHT))
+    {
         return TRUE;
+    }
 
     if (IS_AFFECTED(ch, AFF_BLIND))
     {
@@ -696,6 +700,41 @@ bool check_blind(CHAR_DATA * ch)
     }
 
     return TRUE;
+}
+
+/*
+ * Checks whether or not fog exists in the room and whether a player can currently
+ * see through it.
+ */
+bool check_fog(CHAR_DATA *ch)
+{
+    if (ch == NULL)
+    {
+        return FALSE;
+    }
+
+    int fog_density = 0;
+    OBJ_DATA *fog_obj;
+
+    for (fog_obj = ch->in_room->contents; fog_obj; fog_obj = fog_obj->next_content)
+    {
+        if (fog_obj->item_type == ITEM_FOG)
+        {
+            fog_density = fog_obj->value[0];
+            break;
+        }
+    }
+
+    // We have fog
+    if (fog_density > 0)
+    {
+        if (number_range(1, 100) < fog_density)
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 /* changes your scroll */
@@ -1257,11 +1296,21 @@ void do_look(CHAR_DATA * ch, char *argument)
     if (!check_blind(ch))
         return;
 
-    if (!IS_NPC(ch)
-        && !IS_SET(ch->act, PLR_HOLYLIGHT) && room_is_dark(ch->in_room))
+    if (!IS_NPC(ch) && !IS_SET(ch->act, PLR_HOLYLIGHT) && room_is_dark(ch->in_room))
     {
         send_to_char("It is pitch black ... \r\n", ch);
         show_char_to_char(ch->in_room->people, ch);
+        return;
+    }
+
+    // Check for whether fog exists in the room and whether the player can see through
+    // it via the check_fog function.
+    if (check_fog(ch))
+    {
+        // We have fog
+        sprintf(buf, "{c%s [%s]{x\r\n", ch->in_room->name, ch->in_room->area->name);
+        send_to_char(buf, ch);
+        send_to_char("  The fog here is too thick to see through.\r\n", ch);
         return;
     }
 
@@ -1273,10 +1322,8 @@ void do_look(CHAR_DATA * ch, char *argument)
     if (arg1[0] == '\0' || !str_cmp(arg1, "auto"))
     {
         /* 'look' or 'look auto' */
-        send_to_char("{s", ch);
         sprintf(buf, "{c%s [%s]{x", ch->in_room->name, ch->in_room->area->name);
         send_to_char(buf, ch);
-        send_to_char("{x", ch);
 
         if ((IS_IMMORTAL(ch)
             && (IS_NPC(ch) || IS_SET(ch->act, PLR_HOLYLIGHT)))
@@ -1288,11 +1335,9 @@ void do_look(CHAR_DATA * ch, char *argument)
 
         send_to_char("\r\n", ch);
 
-        if (arg1[0] == '\0'
-            || (!IS_NPC(ch) && !IS_SET(ch->comm, COMM_BRIEF)))
+        if (arg1[0] == '\0' || (!IS_NPC(ch) && !IS_SET(ch->comm, COMM_BRIEF)))
         {
             send_to_char("  ", ch);
-            send_to_char("{S", ch);
             send_to_char(ch->in_room->description, ch);
             send_to_char("{x", ch);
         }

@@ -100,6 +100,8 @@ Sk 'pick lock' 25 8
 Sk 'call lightning' 26 1
 Sk 'gate' 27 1
 Sk 'acid blast' 28 1
+Sk 'fog' 28 1
+Sk 'dispel fog' 28 1
 Sk 'second attack' 30 10
 Sk 'acid breath' 31 1
 Sk 'word of recall' 32 1

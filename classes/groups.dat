@@ -380,6 +380,8 @@ Sk 'control weather'
 Sk 'faerie fire'
 Sk 'faerie fog'
 Sk 'lightning bolt'
+Sk 'fog'
+Sk 'dispel fog'
 End
 
 #GROUP
