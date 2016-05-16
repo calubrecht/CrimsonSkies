@@ -66,6 +66,101 @@ void environment_update (void);
 int save_number = 0;
 
 /*
+ * Handle all kinds of updates, called once per pulse from the game loop.
+ * This will call the various update handlers that occur at different intervals.
+ */
+void update_handler(bool forced)
+{
+    static int pulse_area;      // 120 seconds
+    static int pulse_mobile;    //   4 seconds
+    static int pulse_violence;  //   3 seconds
+    static int pulse_tick;      //  40 seconds
+    static int pulse_half_tick; //  20 seconds
+    static int pulse_minute;    //  60 seconds
+
+    if (--pulse_area <= 0)
+    {
+        pulse_area = PULSE_AREA;
+        area_update();
+    }
+
+    if (--pulse_mobile <= 0)
+    {
+        pulse_mobile = PULSE_MOBILE;
+        mobile_update();
+    }
+
+    /*
+     * We're going to put the environment after the violence update to seperate them but
+     * they will run on the same schedule for now (which is about every 3 seconds).  The
+     * environment update will be used for light-weight but quick happening checks like
+     * losing movement while treading water in the ocean.  The violence_update handles the
+     * rounds of battle.
+     */
+    if (--pulse_violence <= 0)
+    {
+        pulse_violence = PULSE_VIOLENCE;
+        violence_update();
+        environment_update();
+    }
+
+    /*
+     * This happens every half tick which is currently about 20 seconds.  The shore update
+     * to show the waves hitting the beaches for characters next to the ocean are all that's
+     * currently happening here.
+     */
+    if (--pulse_half_tick <= 0)
+    {
+        pulse_half_tick = PULSE_HALF_TICK;
+        half_tick_update();
+        shore_update();
+    }
+
+    /*
+     * Every minute...
+     */
+    if (--pulse_minute <= 0)
+    {
+        pulse_minute = PULSE_MINUTE;
+
+        // Save pits and player corpses that might be laying around, consider saving
+        // player corposes very frequently but pits on a lesser schedule.
+        save_game_objects();
+
+        // Save the game statistics.  This can probably be done on a lesser schedule.  Consider
+        // making a longer term method, something that occurs every 10 minutes or so.  We'll start
+        // here though as it's writing out very litte.
+        save_statistics();
+    }
+
+    // Just firing the tick, not messing with violence, mobiles or areas.
+    if (forced)
+    {
+        pulse_tick = 0;
+    }
+
+    /*
+     * The tick update is the big event where lots of updates occur.  ROM traditionally runs
+     * ticks at random times around a minute, we're going to do one ever 40 seconds (as defined
+     * in merc.h).
+     */
+    if (--pulse_tick <= 0)
+    {
+        wiznet("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
+        pulse_tick = PULSE_TICK;
+        weather_update();
+        char_update();
+        obj_update();
+        tick_update();
+    }
+
+    aggr_update();
+    tail_chain();
+    return;
+}
+
+
+/*
  * Health Regeneration stuff.
  */
 int hit_gain(CHAR_DATA * ch)
@@ -1167,100 +1262,6 @@ void aggr_update(void)
         }
     }
 
-    return;
-}
-
-/*
- * Handle all kinds of updates.
- * Called once per pulse from game loop.
- */
-void update_handler(bool forced)
-{
-    static int pulse_area;      // 120 seconds
-    static int pulse_mobile;    //   4 seconds
-    static int pulse_violence;  //   3 seconds
-    static int pulse_tick;      //  40 seconds
-    static int pulse_half_tick; //  20 seconds
-    static int pulse_minute;    //  60 seconds
-
-    if (--pulse_area <= 0)
-    {
-        pulse_area = PULSE_AREA;
-        area_update();
-    }
-
-    if (--pulse_mobile <= 0)
-    {
-        pulse_mobile = PULSE_MOBILE;
-        mobile_update();
-    }
-
-    /*
-     * We're going to put the environment after the violence update to seperate them but
-     * they will run on the same schedule for now (which is about every 3 seconds).  The
-     * environment update will be used for light-weight but quick happening checks like
-     * losing movement while treading water in the ocean.  The violence_update handles the
-     * rounds of battle.
-     */
-    if (--pulse_violence <= 0)
-    {
-        pulse_violence = PULSE_VIOLENCE;
-        violence_update();
-        environment_update();
-    }
-
-    /*
-     * This happens every half tick which is currently about 20 seconds.  The shore update
-     * to show the waves hitting the beaches for characters next to the ocean are all that's
-     * currently happening here.
-     */
-    if (--pulse_half_tick <= 0)
-    {
-        pulse_half_tick = PULSE_HALF_TICK;
-        half_tick_update();
-        shore_update();
-    }
-
-    /*
-     * Every minute...
-     */
-    if (--pulse_minute <= 0)
-    {
-        pulse_minute = PULSE_MINUTE;
-
-        // Save pits and player corpses that might be laying around, consider saving
-        // player corposes very frequently but pits on a lesser schedule.
-        save_game_objects();
-
-        // Save the game statistics.  This can probably be done on a lesser schedule.  Consider
-        // making a longer term method, something that occurs every 10 minutes or so.  We'll start
-        // here though as it's writing out very litte.
-        save_statistics();
-    }
-
-    // Just firing the tick, not messing with violence, mobiles or areas.
-    if (forced)
-    {
-        pulse_tick = 0;
-    }
-
-    /*
-     * The tick update is the big event where lots of updates occur.  ROM traditionally runs
-     * ticks at random times around a minute, we're going to do one ever 40 seconds (as defined
-     * in merc.h).
-     */
-    if (--pulse_tick <= 0)
-    {
-        wiznet("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
-        pulse_tick = PULSE_TICK;
-        weather_update();
-        char_update();
-        obj_update();
-        tick_update();
-    }
-
-    aggr_update();
-    tail_chain();
     return;
 }
 
