@@ -210,7 +210,7 @@ An odd pair of glasses has been left here.~
 steel~
 armor 1 AE
 1 1 1 1 1
-2 500 250 P
+2 10 250 P
 #102
 smurf hat~
 a smurf hat~
@@ -218,7 +218,7 @@ A smurf hat has been left here.~
 cloth~
 armor 0 AE
 3 3 3 3 3
-2 50 25 P
+2 10 25 P
 #103
 axe small~
 a small axe~
@@ -226,7 +226,7 @@ A small axe has been dropped here.~
 steel~
 weapon 0 AN
 axe 1 5 chop 0
-2 2000 1000 P
+2 20 1000 P
 #104
 necklace~
 a small necklace~
@@ -234,7 +234,7 @@ A small necklace is lying on the ground.~
 silver~
 armor 1 AC
 1 1 1 1 1
-2 500 250 P
+2 10 250 P
 A
 3 1
 #105
@@ -244,7 +244,7 @@ A pink potion is barely visible on the ground.~
 potion~
 potion 0 A
 6 'armor' 'cure light' '' '' 
-2 500 250 P
+2 10 250 P
 E
 pink potion~
 The potion gives you a toothache just looking at it
@@ -256,7 +256,7 @@ A small wand lies on the ground.~
 wood~
 wand 0 AO
 5 1 1 'burning hands' 0
-2 500 250 P
+2 10 250 P
 #107
 key~
 a tiny key~
@@ -264,7 +264,7 @@ A tiny key is lying on the ground.~
 steel~
 key 0 A
 0 0 0 0 0
-2 50 25 P
+2 10 25 P
 #108
 well~
 a smurf well~
@@ -284,7 +284,7 @@ A key to Gargamel's door lies here.~
 steel~
 key 0 A
 0 0 0 0 0
-2 50 25 P
+2 10 25 P
 #110
 hammer handy~
 Handy Smurf's hammer~
@@ -292,7 +292,7 @@ A small hammer has been dropped here.~
 steel~
 weapon 0 AN
 mace 1 8 crush 0
-3 2000 1000 P
+3 50 1000 P
 #111
 tail Azrael cat~
 Azrael's tail~
@@ -300,7 +300,7 @@ Azrael's tail lies in the dust~
 unknown~
 weapon 0 AN
 whip 2 6 whip 0
-5 2000 1000 P
+5 20 1000 P
 #112
 tail Azrael cat~
 Azrael's tail o'smurfs~
@@ -308,7 +308,7 @@ Azrael's tail has been tied up with dead smurfs~
 unknown~
 weapon 0 AN
 flail 3 4 whip 0
-5 2000 1000 P
+5 20 1000 P
 #0
 
 
