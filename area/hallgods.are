@@ -1,0 +1,140 @@
+#AREADATA
+Name Hall of the Gods~
+Builders Puissance~
+VNUMs 21000 21099
+LevelRange 52 60
+Credits 52 60 Puissance   Hall of the Gods~
+Security 9
+Continent 0
+End
+
+
+#MOBILES
+#0
+
+#OBJECTS
+#21001
+wand Avarice~
+The Wand of Avarice~
+The Wand of Avarice hovers here, filling you with desire.~
+ivory~
+wand AGU AO
+50 50 50 'acid blast' 0
+51 2 2 P
+A
+3 20
+#21002
+axe puissance~
+The Axe of Puissance~
+The Axe of Puissance looks sharp enough to cut you just by looking at it~
+mithril~
+weapon AGU AN
+axe 50 20 chop AG
+51 2 2 P
+A
+1 20
+#0
+
+#ROOMS
+#21000
+The Grand Hall~
+Marble pillars rise 50 feet to a vaulted ceiling over pure white marble
+floors. The room is impossibly quiet, all extraneous sounds seem absorbed
+by the pillars, which give off a faint light. Arched doorways lead in all
+directions
+~
+0 DP 0
+H 100
+M 100
+D0
+An archway leads to a room in the north.
+~
+~
+0 -1 21001
+D1
+An archway leads to a room in the east.
+~
+~
+0 -1 21002
+D2
+An archway leads to a room in the south.
+~
+~
+0 -1 21003
+D3
+An archway leads to a room in the west..
+~
+~
+0 -1 21004
+S
+#21001
+Avarice's Room~
+This room, built of red marble, is dominated by a 10 foot tall statue
+of the goddess. A wand extends from the arm of her elaborate flowing robes.
+~
+0 DP 0
+D2
+An archway leads to a room in the south.
+~
+~
+0 -1 21000
+S
+#21002
+Puissance's Room~
+This room, build of grey marble, is dominated by a 10 foot tall statue
+of the god Puissance, clad in plate armor and clutching his mighty axe.
+~
+0 DP 0
+D3
+An archway leads to a room in the west.
+~
+~
+0 -1 21000
+S
+#21003
+South Room~
+This room of white marble lies empty. Perhaps waiting for another god to
+ascend.
+~
+0 DP 0
+D0
+An archway leads to a room in the north.
+~
+~
+0 -1 21000
+S
+#21004
+West Room~
+This room of white marble lies empty. Perhaps waiting for another god to
+ascend.
+~
+0 DP 0
+D1
+An archway leads to a room in the east.
+~
+~
+0 -1 21000
+S
+#0
+
+#SPECIALS
+S
+
+
+
+#RESETS
+O 0 21001 1 21001
+O 0 21002 1 21002
+S
+
+
+
+#SHOPS
+0
+
+
+
+#MOBPROGS
+#0
+
+#$
