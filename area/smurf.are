@@ -177,8 +177,8 @@ stand stand male 50
 MV ABCDEFGHIJK medium unknown
 #112
 azreal cat~
-Azreal~
-Azreal is here, licking himself.
+Azrael~
+Azrael is here, licking himself.
 ~
 Gargamel's worthless cat.  He is just about as dumb as Gargamel.  He should
 just grab a smurf in his teeth and chew away.
@@ -190,6 +190,7 @@ AGH 0 2 0
 0 0 0 0
 stand stand male 50
 MV 0 medium unknown
+M DEATH 101 50~
 #0
 
 
@@ -825,7 +826,7 @@ S
 #127
 Outside Gargamel's Castle~
 You are standing outside Gargamel's Castle.  You can hear him screaming at
-Azreal from inside.  You can also him cursing out those wretched smurfs.
+Azrael from inside.  You can also him cursing out those wretched smurfs.
 His Castle is to the north while Smurfy Road is to the south.
 ~
 1 0 1
@@ -908,11 +909,17 @@ G 1 105 10
 G 1 109 8
 M 0 111 1 128 1 Gargamel
 E 1 106 8 17
-M 0 112 1 128 1 Azreal
+M 0 112 1 128 1 Azrael
 E 1 111 8 16
 S
 
 
+#MOBPROGS
+#101
+mob junk tail
+mob oload 112
+~
+#0
 
 #SPECIALS
 M   101 spec_thief
