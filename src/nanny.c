@@ -798,7 +798,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n", 0);
             }
 
-            send_to_desc("\r\nWelcome to {RCrimson {rSkies{x.\r\n\r\n", d);
+            send_to_desc("\r\nWelcome to {RHidden {rLands{x.\r\n\r\n", d);
 
             // If the user is reclassing they will already be in the list, if not, add them.
             if (ch->pcdata->is_reclassing == FALSE)
@@ -1096,7 +1096,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\n\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=- {W( {RCrimson {rSkies{D: {WLogin Menu {W){w -=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("\r\n\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=- {W( {RHidden {rLands{D: {WLogin Menu {W){w -=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
