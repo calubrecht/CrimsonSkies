@@ -135,6 +135,10 @@ D5
 ~
 ~
 0 0 22003
+D7
+~
+~
+0 0 22025
 S
 #22002
 Gatehouse~
@@ -286,10 +290,14 @@ D3
 ~
 ~
 0 0 22012
+D7
+~
+~
+0 0 22023
 S
 #22011
 Stables~
-~
+A pungent aroma fills this wooden structure, stray scattered over hard-packed dirt. Individual stalls for horses line the north and east walls of the building. Farrier's tools and horshoes hang on the south wall.~
 0 0 0
 D3
 ~
@@ -297,8 +305,8 @@ D3
 0 0 22010
 S
 #22012
-Blacksmith~
-~
+Blacksmith's Workshp~
+The heat in this building is sweltering and oppressive, coming from the furnace where the blacksmith plies his trade.~
 0 0 0
 D1
 ~
@@ -440,6 +448,276 @@ D5
 ~
 ~
 0 0 22003
+S
+#22023
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the east.~
+0 0 0
+D1
+~
+~
+0 0 22024
+D8
+~
+~
+0 0 22010
+S
+#22024
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the west.~
+0 0 0
+D3
+~
+~
+0 0 22023
+S
+#22025
+Outside the wall~
+The keep wall and the moat lie to the west. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22030
+D1
+~
+~
+0 0 22028
+D6
+~
+~
+0 0 22026
+D8
+~
+~
+0 0 22001
+S
+#22026
+Outside the wall~
+The keep wall and the moat lie to the south. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22031
+D1
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22032
+D8
+~
+~
+0 0 22027
+D9
+~
+~
+0 0 22025
+S
+#22027
+Outside the wall~
+The keep wall and the moat lie to the east. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22033
+D9
+~
+~
+0 0 22001
+S
+#22028
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22025
+S
+#22029
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22028
+D3
+~
+~
+0 0 22030
+S
+#22030
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22035
+D1
+~
+~
+0 0 22029
+D2
+~
+~
+0 0 22025
+D3
+~
+~
+0 0 22026
+S
+#22031
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22035
+D2
+~
+~
+0 0 22026
+D3
+~
+~
+0 0 22036
+S
+#22032
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22036
+D1
+~
+~
+0 0 22026
+D2
+~
+~
+0 0 22027
+D3
+~
+~
+0 0 22038
+S
+#22033
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22038
+D1
+~
+~
+0 0 22027
+S
+#22034
+Craggy Hills~
+~
+0 0 4
+D2
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22035
+S
+#22035
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22031
+S
+#22036
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22031
+D2
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22037
+S
+#22037
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22036
+D2
+~
+~
+0 0 22038
+S
+#22038
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22037
+D1
+~
+~
+0 0 22032
+D2
+~
+~
+0 0 22033
 S
 #0
 
