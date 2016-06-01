@@ -1,0 +1,416 @@
+#AREADATA
+Name Red Duke's Keep~
+Builders Puissance~
+VNUMs 22000 22100
+LevelRange 20 35
+Credits [20 35] Red Duke's Keep -- Hidden Lands~
+Security 1
+Continent 0
+End
+
+
+
+#MOBILES
+#22000
+Keep Guard~
+a keep guard~
+A keep guard stands in the guardhouse.
+~
+The guard diligently keeps an eye on the guardhouse. The Red Duke does not tolerate sleeping on the job.
+~
+human~
+AB O 2 0
+20 2 10d30+245 20d10+100 4d5+10 slash
+0 0 0 0
+EKT 0 0 0
+stand stand male 450
+0 0 medium unknown
+F for AHMV
+F par ABCDEFGHIJK
+#0
+
+
+
+#OBJECTS
+#22000
+keep key~
+a large black iron key~
+A large black iron key sits here~
+unknown~
+key 0 A
+0 0 0 0 0
+0 10 1 P
+#22001
+Prison Key~
+a prison key~
+The key to the tower prison lays here.~
+unknown~
+key 0 0
+0 0 0 0 0
+0 1 1 P
+#22003
+banner red duke~
+red Duke's Banner~
+The banner of the Red Duke stands on a pole here.~
+cloth~
+light A A
+0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
+25 1 120 P
+A
+3 2
+A
+18 2
+A
+2 1
+#0
+
+
+
+#ROOMS
+#22000
+Path to the Keep~
+A path runs from north to south here, dirt hardened by the constant
+passage of hoofprints.  To the north, a red-stoned keep rises out of the
+forest.  The is lined with posts holding red and black banners.  Underneath
+one banner is a wooden sign.
+~
+0 0 3
+E
+sign~
+The sign is dark wood with writing in red:
+  North - Red Duke's Keep
+  South - Nowhere of interest
+~
+D0
+~
+~
+0 0 22001
+S
+#22001
+Before the Drawbridge~
+The path ends at a moat surrounding a red stone keep.  Red and black
+banners adorn the keep walls.  Entry to the keep is over the drawbridge.  
+~
+0 0 3
+D0
+~
+drawbridge~
+2 0 22002
+D2
+~
+~
+0 0 22000
+D5
+~
+~
+0 0 22003
+S
+#22002
+Gatehouse~
+This is the keep's gatehouse.  Thick stone walls keep any invaders safely
+out of the keep.  A drawbridge leads to the south, a portcullis to the
+north.  Stairs lead upward to the upper gatehouse.  
+~
+0 8 0
+D0
+~
+portcullis~
+2 22000 22010
+D2
+~
+drawbridge~
+2 22000 22001
+D4
+~
+wooden door~
+1 22000 22005
+S
+#22003
+The Moat~
+The water here is dank and stagnant.  There's probably something living
+in here.  
+~
+0 0 6
+D4
+~
+~
+0 0 22001
+D5
+~
+~
+0 0 22004
+S
+#22004
+Under The Moat~
+Deep in the dark under the moat.  There's definitely something living
+down here.  
+~
+0 0 13
+D0
+~
+~
+0 0 22021
+D4
+~
+~
+0 0 22003
+S
+#22005
+Upper Gatehouse~
+This room lets the guards keep an eye on the lower gatehouse and the
+drawbridge.  Doors to the east and west lead around the keep's walls.  
+~
+0 8 0
+D1
+~
+~
+0 0 22009
+D3
+~
+~
+0 0 22006
+D5
+~
+~
+1 0 22002
+S
+#22006
+Southwest Corner of the Keep Wall~
+A walkway extends around the top of the keep wall allowing guards to keep
+an eye inside and out.  
+~
+0 0 0
+D0
+~
+~
+0 0 22007
+D1
+~
+~
+0 0 22005
+S
+#22007
+Northwest Corner of the Keep Wall~
+A walkway extends around the top of the keep wall allowing guards to keep
+an eye inside and out.  
+~
+0 0 0
+D1
+~
+~
+0 0 22008
+D2
+~
+~
+0 0 22006
+S
+#22008
+Northeast Corner of the Keep Wall~
+desc A walkway extends around the top of the keep wall allowing guards to keep
+an eye inside and out
+~
+0 0 0
+D2
+~
+~
+0 0 22009
+D3
+~
+~
+0 0 22007
+S
+#22009
+Southeast Corner of the Keep Wall~
+A walkway extends around the top of the keep wall allowing guards to keep
+an eye inside and out
+~
+0 0 0
+D0
+~
+~
+0 0 22008
+D3
+~
+~
+0 0 22005
+S
+#22010
+Courtyard~
+The courtyard of the keep is open to the sky, scattered with a layer of straw. To the north, the central tower rises toward the sky. To the east is a small stable, and a blacksmith lies to the west.
+~
+0 0 0
+D0
+~
+~
+0 0 22013
+D1
+~
+~
+0 0 22011
+D2
+~
+portcullis~
+2 0 22002
+D3
+~
+~
+0 0 22012
+S
+#22011
+Stables~
+~
+0 0 0
+D3
+~
+~
+0 0 22010
+S
+#22012
+Blacksmith~
+~
+0 0 0
+D1
+~
+~
+0 0 22010
+S
+#22013
+Tower Entrance~
+~
+0 0 0
+D2
+~
+~
+0 0 22010
+D4
+~
+~
+0 0 22014
+S
+#22014
+Tower Ballroom~
+~
+0 0 0
+D4
+~
+~
+0 0 22015
+D5
+~
+~
+0 0 22013
+S
+#22015
+Tower Barracks~
+~
+0 0 0
+D4
+~
+~
+0 0 22016
+D5
+~
+~
+0 0 22014
+S
+#22016
+Tower Pantry~
+~
+0 0 0
+D4
+~
+~
+0 0 22017
+D5
+~
+~
+0 0 22015
+S
+#22017
+Throne Room~
+~
+0 0 0
+D1
+~
+~
+0 0 22019
+D4
+~
+~
+0 0 22018
+D5
+~
+~
+0 0 22016
+S
+#22018
+Tower Parapet~
+~
+0 0 0
+D5
+~
+~
+0 0 22017
+S
+#22019
+East Tower~
+~
+0 0 0
+D3
+~
+~
+0 0 22017
+D4
+~
+~
+1 0 22020
+S
+#22020
+The Tower Prison~
+~
+0 0 0
+D5
+~
+~
+1 22001 22019
+S
+#22021
+Lair~
+~
+0 9 13
+D2
+~
+~
+0 0 22004
+S
+#0
+
+
+
+#SPECIALS
+M 22000 spec_guard
+S
+
+
+
+#RESETS
+D 0 22002 4 2
+D 0 22005 5 2
+D 0 22019 4 2
+D 0 22020 5 2
+M 0 22000 1 22005 1 Load a keep guard
+G 0 22000 0 A large black iron key is given to a keep guard
+O 0 22003 0 22008 Red duke's banner loaded to Northeast Corner of the Keep Wall
+S
+
+
+
+#SHOPS
+0
+
+
+
+#MOBPROGS
+#0
+
+#$
