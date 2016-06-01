@@ -27,6 +27,21 @@ stand stand male 450
 0 0 medium unknown
 F for AHMV
 F par ABCDEFGHIJK
+#22001
+blacksmith~
+a blacksmith~
+A blacksmith pounds away at a piece of red hot iron.
+~
+~
+human~
+ART 0 2 0
+40 2 1d1+999 1d1+999 2d4+30 none
+-1 -1 -1 -1
+CDFH 0 0 0
+stand stand male 0
+GMV 0 medium unknown
+F for AH
+F par ABCDEFGHIJK
 #0
 
 
@@ -48,6 +63,14 @@ unknown~
 key 0 0
 0 0 0 0 0
 0 1 1 P
+#22002
+rib deep water monster creature~
+rib of a deep water monster~
+The rib of some large creature lies in a puddle.~
+bone~
+key 0 A
+0 0 0 0 0
+0 25 10 P
 #22003
 banner red duke~
 Red Duke's Banner~
@@ -57,11 +80,19 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-3 2
+2 1
 A
 18 2
 A
-2 1
+3 2
+#22004
+hammer blacksmith~
+blacksmith's hammer~
+A blacksmith's hammer is still hot from the forge.~
+iron~
+weapon G AN
+mace 5 6 pound 0
+25 30 2000 P
 #0
 
 
@@ -104,6 +135,10 @@ D5
 ~
 ~
 0 0 22003
+D7
+~
+~
+0 0 22025
 S
 #22002
 Gatehouse~
@@ -206,7 +241,7 @@ D2
 S
 #22008
 Northeast Corner of the Keep Wall~
-desc A walkway extends around the top of the keep wall allowing guards to keep
+A walkway extends around the top of the keep wall allowing guards to keep
 an eye inside and out
 ~
 0 0 0
@@ -255,10 +290,14 @@ D3
 ~
 ~
 0 0 22012
+D7
+~
+~
+0 0 22023
 S
 #22011
 Stables~
-~
+A pungent aroma fills this wooden structure, stray scattered over hard-packed dirt. Individual stalls for horses line the north and east walls of the building. Farrier's tools and horshoes hang on the south wall.~
 0 0 0
 D3
 ~
@@ -266,8 +305,8 @@ D3
 0 0 22010
 S
 #22012
-Blacksmith~
-~
+Blacksmith's Workshp~
+The heat in this building is sweltering and oppressive, coming from the furnace where the blacksmith plies his trade.~
 0 0 0
 D1
 ~
@@ -277,7 +316,7 @@ S
 #22013
 Tower Entrance~
 ~
-0 0 0
+0 8 0
 D2
 ~
 ~
@@ -290,7 +329,7 @@ S
 #22014
 Tower Ballroom~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -303,7 +342,7 @@ S
 #22015
 Tower Barracks~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -316,7 +355,7 @@ S
 #22016
 Tower Pantry~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -328,8 +367,12 @@ D5
 S
 #22017
 Throne Room~
+This is the Duke's throne room.  Elaborate tapestries hang on the wall, a
+crystal chandelier hangs from the ceiling and on a raised dais sits an
+elaborate mahogony chair with red velvet cushions.  A doorway to the east
+leads to a side tower.  
 ~
-0 0 0
+0 8 0
 D1
 ~
 ~
@@ -354,21 +397,33 @@ D5
 S
 #22019
 East Tower~
+This small room juts off the side of the main tower.  It is windowless,
+but a flight of stairs leads up to an iron door.  Light peeks through a
+crack in the wall near the floor.  
 ~
-0 0 0
+0 8 0
+E
+crack~
+If you could find someting to pry this open, maybe someone could fit out.
+~
 D3
 ~
 ~
 0 0 22017
 D4
 ~
+iron~
+1 22001 22020
+D5
+If you could find someting to pry this open, maybe someone could fit out.
 ~
-1 0 22020
+crack~
+2 22002 22022
 S
 #22020
 The Tower Prison~
 ~
-0 0 0
+0 8 0
 D5
 ~
 ~
@@ -382,6 +437,287 @@ D2
 ~
 ~
 0 0 22004
+S
+#22022
+Falling~
+You are falling. Maybe crawling through that crack wasn't a good idea.
+You appear to be headed for the moat.
+~
+0 0 3
+D5
+~
+~
+0 0 22003
+S
+#22023
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the east.~
+0 0 0
+D1
+~
+~
+0 0 22024
+D8
+~
+~
+0 0 22010
+S
+#22024
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the west.~
+0 0 0
+D3
+~
+~
+0 0 22023
+S
+#22025
+Outside the wall~
+The keep wall and the moat lie to the west. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22030
+D1
+~
+~
+0 0 22028
+D6
+~
+~
+0 0 22026
+D8
+~
+~
+0 0 22001
+S
+#22026
+Outside the wall~
+The keep wall and the moat lie to the south. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22031
+D1
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22032
+D8
+~
+~
+0 0 22027
+D9
+~
+~
+0 0 22025
+S
+#22027
+Outside the wall~
+The keep wall and the moat lie to the east. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22033
+D9
+~
+~
+0 0 22001
+S
+#22028
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22025
+S
+#22029
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22028
+D3
+~
+~
+0 0 22030
+S
+#22030
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22035
+D1
+~
+~
+0 0 22029
+D2
+~
+~
+0 0 22025
+D3
+~
+~
+0 0 22026
+S
+#22031
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22035
+D2
+~
+~
+0 0 22026
+D3
+~
+~
+0 0 22036
+S
+#22032
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22036
+D1
+~
+~
+0 0 22026
+D2
+~
+~
+0 0 22027
+D3
+~
+~
+0 0 22038
+S
+#22033
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22038
+D1
+~
+~
+0 0 22027
+S
+#22034
+Craggy Hills~
+~
+0 0 4
+D2
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22035
+S
+#22035
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22031
+S
+#22036
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22031
+D2
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22037
+S
+#22037
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22036
+D2
+~
+~
+0 0 22038
+S
+#22038
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22037
+D1
+~
+~
+0 0 22032
+D2
+~
+~
+0 0 22033
 S
 #0
 
@@ -397,10 +733,15 @@ S
 D 0 22002 4 2
 D 0 22005 5 2
 D 0 22019 4 2
+D 0 22019 5 2
 D 0 22020 5 2
 M 0 22000 1 22005 1 Load a keep guard
 G 0 22000 0 A large black iron key is given to a keep guard
 O 0 22003 0 22008 Red duke's banner loaded to Northeast Corner of the Keep Wall
+M 0 22001 1 22012 1 Load a blacksmith
+E 0 22004 0 16 Blacksmith's hammer is loaded wielded of a blacksmith
+O 0 22001 0 22017 A prison key loaded to Throne Room
+O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
 S
 
 
