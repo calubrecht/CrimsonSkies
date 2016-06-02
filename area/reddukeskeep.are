@@ -5,7 +5,7 @@ VNUMs 22000 22100
 LevelRange 20 35
 Credits [20 35] Red Duke's Keep -- Hidden Lands~
 Security 1
-Continent 0
+Continent 1
 End
 
 
@@ -27,6 +27,50 @@ stand stand male 450
 0 0 medium unknown
 F for AHMV
 F par ABCDEFGHIJK
+#22001
+blacksmith~
+a blacksmith~
+A blacksmith pounds away at a piece of red hot iron.
+~
+~
+human~
+ABRT 0 2 0
+40 2 1d1+999 1d1+999 2d4+30 none
+-1 -1 -1 -1
+CDFH 0 0 0
+stand stand male 0
+GMV 0 medium unknown
+F for AH
+F par ABCDEFGHIJK
+#22002
+Keep Guard~
+a keep guard~
+A keep guard watches over the keep.
+~
+The guard diligently patrols the keep. The Red Duke does not tolerate sleeping on the job.
+~
+human~
+A O 2 0
+20 2 10d30+245 20d10+100 4d5+10 slash
+0 0 0 0
+EKT 0 0 0
+stand stand male 450
+0 0 medium unknown
+F for AHMV
+F par ABCDEFGHIJK
+#22003
+piranha toothy fish~
+a piranha~
+A toothy fish swims here.
+~
+~
+fish~
+ABF Zb 2 0
+18 0 10d30+179 10d30+200 3d5+10 bite
+0 0 0 0
+0 0 R 0
+stand stand none 0
+AGHMVWb ADEFKO small unknown
 #0
 
 
@@ -48,20 +92,128 @@ unknown~
 key 0 0
 0 0 0 0 0
 0 1 1 P
+#22002
+rib deep water monster creature~
+rib of a deep water monster~
+The rib of some large creature lies in a puddle.~
+bone~
+key 0 A
+0 0 0 0 0
+0 25 10 P
 #22003
 banner red duke~
-red Duke's Banner~
+Red Duke's Banner~
 The banner of the Red Duke stands on a pole here.~
 cloth~
 light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-3 2
+2 1
 A
 18 2
 A
-2 1
+3 2
+#22004
+hammer blacksmith~
+blacksmith's hammer~
+A blacksmith's hammer is still hot from the forge.~
+iron~
+weapon G AN
+mace 5 6 pound 0
+25 30 2000 P
+#22005
+rapier thin steel~
+thin steel rapier~
+You could shave with this rapier.~
+steel~
+weapon 0 AN
+sword 4 6 stab 0
+16 10 5000 P
+#22006
+stiletto black steel~
+black steel stiletto~
+A black stiletto lies here.~
+steel~
+weapon 0 AN
+dagger 3 8 pierce 0
+16 5 5000 P
+#22007
+spear barbed~
+barbed spear~
+A spear has nasty sharp barbs.~
+steel~
+weapon 0 AN
+exotic 4 9 pierce F
+16 5 5000 P
+#22008
+bronze mace flanged~
+flanged bronze mace~
+A heavy piece of flanged bronze sits here~
+bronze~
+weapon 0 AN
+exotic 6 3 pierce 0
+16 5 5000 P
+#22009
+axe headhunter two handed~
+headhunter's axe~
+A large two handed axe could take our head clean off~
+steel~
+weapon 0 AN
+axe 4 8 chop F
+16 5 5000 P
+#22010
+spiked chain weighted~
+heavy spiked chain~
+This weighted chain is covered in sharp spikes~
+steel~
+weapon 0 AN
+flail 4 8 crush F
+16 5 5000 P
+#22011
+dragontail whip~
+dragontail whip~
+A whip crafted from dragontail is here~
+scale~
+weapon 0 AN
+whip 6 3 whip 0
+16 5 5000 P
+#22012
+mail vest black chain iron~
+black mail vest~
+This mail vest is made of black iron chain links~
+iron~
+armor 0 AD
+AC BC ABC AC 0
+15 40 3000 P
+#22013
+copper gauntlets~
+copper gauntlets~
+Armored gloves made of copper rest here~
+copper~
+armor 0 AH
+BC C BC BC 0
+15 15 3000 P
+#22014
+heavy longsword~
+heavy longsword~
+A guard's heavy longsword is here.~
+steel~
+weapon 0 AN
+sword 4 6 slash 0
+18 15 2000 P
+A
+19 2
+#22015
+guard cape red~
+guard's cape~
+This cape bears the colors of the Red Duke's guard.~
+cloth~
+armor 0 AC
+B B B B 0
+20 5 5 P
+A
+18 2
 #0
 
 
@@ -85,6 +237,10 @@ D0
 ~
 ~
 0 0 22001
+D2
+~
+~
+0 0 9793
 S
 #22001
 Before the Drawbridge~
@@ -104,6 +260,10 @@ D5
 ~
 ~
 0 0 22003
+D7
+~
+~
+0 0 22025
 S
 #22002
 Gatehouse~
@@ -206,7 +366,7 @@ D2
 S
 #22008
 Northeast Corner of the Keep Wall~
-desc A walkway extends around the top of the keep wall allowing guards to keep
+A walkway extends around the top of the keep wall allowing guards to keep
 an eye inside and out
 ~
 0 0 0
@@ -255,10 +415,14 @@ D3
 ~
 ~
 0 0 22012
+D7
+~
+~
+0 0 22023
 S
 #22011
 Stables~
-~
+A pungent aroma fills this wooden structure, stray scattered over hard-packed dirt. Individual stalls for horses line the north and east walls of the building. Farrier's tools and horshoes hang on the south wall.~
 0 0 0
 D3
 ~
@@ -266,8 +430,8 @@ D3
 0 0 22010
 S
 #22012
-Blacksmith~
-~
+Blacksmith's Workshp~
+The heat in this building is sweltering and oppressive, coming from the furnace where the blacksmith plies his trade.~
 0 0 0
 D1
 ~
@@ -277,7 +441,7 @@ S
 #22013
 Tower Entrance~
 ~
-0 0 0
+0 8 0
 D2
 ~
 ~
@@ -290,7 +454,7 @@ S
 #22014
 Tower Ballroom~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -303,7 +467,7 @@ S
 #22015
 Tower Barracks~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -316,7 +480,7 @@ S
 #22016
 Tower Pantry~
 ~
-0 0 0
+0 8 0
 D4
 ~
 ~
@@ -328,8 +492,12 @@ D5
 S
 #22017
 Throne Room~
+This is the Duke's throne room.  Elaborate tapestries hang on the wall, a
+crystal chandelier hangs from the ceiling and on a raised dais sits an
+elaborate mahogony chair with red velvet cushions.  A doorway to the east
+leads to a side tower.  
 ~
-0 0 0
+0 8 0
 D1
 ~
 ~
@@ -354,21 +522,33 @@ D5
 S
 #22019
 East Tower~
+This small room juts off the side of the main tower.  It is windowless,
+but a flight of stairs leads up to an iron door.  Light peeks through a
+crack in the wall near the floor.  
 ~
-0 0 0
+0 8 0
+E
+crack~
+If you could find someting to pry this open, maybe someone could fit out.
+~
 D3
 ~
 ~
 0 0 22017
 D4
 ~
+iron~
+1 22001 22020
+D5
+If you could find someting to pry this open, maybe someone could fit out.
 ~
-1 0 22020
+crack~
+2 22002 22022
 S
 #22020
 The Tower Prison~
 ~
-0 0 0
+0 8 0
 D5
 ~
 ~
@@ -383,12 +563,294 @@ D2
 ~
 0 0 22004
 S
+#22022
+Falling~
+You are falling. Maybe crawling through that crack wasn't a good idea.
+You appear to be headed for the moat.
+~
+0 0 3
+D5
+~
+~
+0 0 22003
+S
+#22023
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the east.~
+0 0 0
+D1
+~
+~
+0 0 22024
+D8
+~
+~
+0 0 22010
+S
+#22024
+Training Yard~
+An open yard where the keep's guard can practice their swordplay. Continues to the west.~
+0 0 0
+D3
+~
+~
+0 0 22023
+S
+#22025
+Outside the wall~
+The keep wall and the moat lie to the west. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22030
+D1
+~
+~
+0 0 22028
+D6
+~
+~
+0 0 22026
+D8
+~
+~
+0 0 22001
+S
+#22026
+Outside the wall~
+The keep wall and the moat lie to the south. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22031
+D1
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22032
+D8
+~
+~
+0 0 22027
+D9
+~
+~
+0 0 22025
+S
+#22027
+Outside the wall~
+The keep wall and the moat lie to the east. Beyond lies craggy hills
+and circling dragons.
+~
+0 0 3
+D0
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22033
+D9
+~
+~
+0 0 22001
+S
+#22028
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22025
+S
+#22029
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22028
+D3
+~
+~
+0 0 22030
+S
+#22030
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22035
+D1
+~
+~
+0 0 22029
+D2
+~
+~
+0 0 22025
+D3
+~
+~
+0 0 22026
+S
+#22031
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22035
+D2
+~
+~
+0 0 22026
+D3
+~
+~
+0 0 22036
+S
+#22032
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22036
+D1
+~
+~
+0 0 22026
+D2
+~
+~
+0 0 22027
+D3
+~
+~
+0 0 22038
+S
+#22033
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22038
+D1
+~
+~
+0 0 22027
+S
+#22034
+Craggy Hills~
+~
+0 0 4
+D2
+~
+~
+0 0 22029
+D3
+~
+~
+0 0 22035
+S
+#22035
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22034
+D2
+~
+~
+0 0 22030
+D3
+~
+~
+0 0 22031
+S
+#22036
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22031
+D2
+~
+~
+0 0 22032
+D3
+~
+~
+0 0 22037
+S
+#22037
+Craggy Hills~
+~
+0 0 4
+D1
+~
+~
+0 0 22036
+D2
+~
+~
+0 0 22038
+S
+#22038
+Craggy Hills~
+~
+0 0 4
+D0
+~
+~
+0 0 22037
+D1
+~
+~
+0 0 22032
+D2
+~
+~
+0 0 22033
+S
 #0
 
 
 
 #SPECIALS
 M 22000 spec_guard
+M 22003 spec_fido
 S
 
 
@@ -397,15 +859,52 @@ S
 D 0 22002 4 2
 D 0 22005 5 2
 D 0 22019 4 2
+D 0 22019 5 2
 D 0 22020 5 2
+M 0 22003 8 22003 2 Load a piranha
+M 0 22003 8 22004 6 Load a piranha
 M 0 22000 1 22005 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 G 0 22000 0 A large black iron key is given to a keep guard
+M 0 22002 6 22007 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 O 0 22003 0 22008 Red duke's banner loaded to Northeast Corner of the Keep Wall
+M 0 22002 6 22008 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22002 6 22010 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22001 6 22012 1 Load a blacksmith
+E 0 22004 0 16 Blacksmith's hammer is loaded wielded of a blacksmith
+G 0 22013 0 Copper gauntlets is given to a blacksmith
+G 0 22012 0 Black mail vest is given to a blacksmith
+G 0 22011 0 Dragontail whip is given to a blacksmith
+G 0 22006 0 Black steel stiletto is given to a blacksmith
+G 0 22007 0 Barbed spear is given to a blacksmith
+G 0 22010 0 Heavy spiked chain is given to a blacksmith
+G 0 22008 0 Flanged bronze mace is given to a blacksmith
+G 0 22009 0 Headhunter's axe is given to a blacksmith
+G 0 22005 0 Thin steel rapier is given to a blacksmith
+M 0 22002 6 22013 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+O 0 22001 0 22017 A prison key loaded to Throne Room
+M 0 22002 6 22017 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
+M 0 22002 6 22023 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 S
 
 
 
 #SHOPS
+22001 5 9 0 0 0 110 70 0 23
 0
 
 
