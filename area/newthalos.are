@@ -6813,9 +6813,13 @@ On a road~
 This is the main land route through the land. Merchants can bring their goods
 to the coastline and have them ferried onto ships for export. Travel
 by foot west will take you through New Thalos up and over the Eastern
-Mountains and down into Midgaard.
+Mountains and down into Midgaard. A path leads up to toward hills in the north.
 ~
 0 0 1
+D0
+~
+~
+0 0 22000
 D1
 ~
 ~
