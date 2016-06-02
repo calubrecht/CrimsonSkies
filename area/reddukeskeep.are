@@ -34,13 +34,29 @@ A blacksmith pounds away at a piece of red hot iron.
 ~
 ~
 human~
-ART 0 2 0
+ABRT 0 2 0
 40 2 1d1+999 1d1+999 2d4+30 none
 -1 -1 -1 -1
 CDFH 0 0 0
 stand stand male 0
 GMV 0 medium unknown
 F for AH
+F par ABCDEFGHIJK
+#22002
+Keep Guard~
+a keep guard~
+A keep guard watches over the keep.
+~
+The guard diligently patrols the keep. The Red Duke does not tolerate sleeping on the job.
+~
+human~
+A O 2 0
+20 2 10d30+245 20d10+100 4d5+10 slash
+0 0 0 0
+EKT 0 0 0
+stand stand male 450
+0 0 medium unknown
+F for AHMV
 F par ABCDEFGHIJK
 #0
 
@@ -80,11 +96,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -93,6 +109,98 @@ iron~
 weapon G AN
 mace 5 6 pound 0
 25 30 2000 P
+#22005
+rapier thin steel~
+thin steel rapier~
+You could shave with this rapier.~
+steel~
+weapon 0 AN
+sword 4 6 stab 0
+16 10 5000 P
+#22006
+stiletto black steel~
+black steel stiletto~
+A black stiletto lies here.~
+steel~
+weapon 0 AN
+dagger 3 8 pierce 0
+16 5 5000 P
+#22007
+spear barbed~
+barbed spear~
+A spear has nasty sharp barbs.~
+steel~
+weapon 0 AN
+exotic 4 9 pierce F
+16 5 5000 P
+#22008
+bronze mace flanged~
+flanged bronze mace~
+A heavy piece of flanged bronze sits here~
+bronze~
+weapon 0 AN
+exotic 6 3 pierce 0
+16 5 5000 P
+#22009
+axe headhunter two handed~
+headhunter's axe~
+A large two handed axe could take our head clean off~
+steel~
+weapon 0 AN
+axe 4 8 chop F
+16 5 5000 P
+#22010
+spiked chain weighted~
+heavy spiked chain~
+This weighted chain is covered in sharp spikes~
+steel~
+weapon 0 AN
+flail 4 8 crush F
+16 5 5000 P
+#22011
+dragontail whip~
+dragontail whip~
+A whip crafted from dragontail is here~
+scale~
+weapon 0 AN
+whip 6 3 whip 0
+16 5 5000 P
+#22012
+mail vest black chain iron~
+black mail vest~
+This mail vest is made of black iron chain links~
+iron~
+armor 0 AD
+AC BC ABC AC 0
+15 40 3000 P
+#22013
+copper gauntlets~
+copper gauntlets~
+Armored gloves made of copper rest here~
+copper~
+armor 0 AH
+BC C BC BC 0
+15 15 3000 P
+#22014
+heavy longsword~
+heavy longsword~
+A guard's heavy longsword is here.~
+steel~
+weapon 0 AN
+sword 4 6 slash 0
+18 15 2000 P
+A
+19 2
+#22015
+guard cape red~
+guard's cape~
+This cape bears the colors of the Red Duke's guard.~
+cloth~
+armor 0 AC
+B B B B 0
+20 5 5 P
+A
+18 2
 #0
 
 
@@ -736,17 +844,47 @@ D 0 22019 4 2
 D 0 22019 5 2
 D 0 22020 5 2
 M 0 22000 1 22005 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 G 0 22000 0 A large black iron key is given to a keep guard
+M 0 22002 6 22007 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 O 0 22003 0 22008 Red duke's banner loaded to Northeast Corner of the Keep Wall
-M 0 22001 1 22012 1 Load a blacksmith
+M 0 22002 6 22008 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22001 6 22012 1 Load a blacksmith
 E 0 22004 0 16 Blacksmith's hammer is loaded wielded of a blacksmith
+G 0 22013 0 Copper gauntlets is given to a blacksmith
+G 0 22012 0 Black mail vest is given to a blacksmith
+G 0 22011 0 Dragontail whip is given to a blacksmith
+G 0 22006 0 Black steel stiletto is given to a blacksmith
+G 0 22007 0 Barbed spear is given to a blacksmith
+G 0 22010 0 Heavy spiked chain is given to a blacksmith
+G 0 22008 0 Flanged bronze mace is given to a blacksmith
+G 0 22009 0 Headhunter's axe is given to a blacksmith
+G 0 22005 0 Thin steel rapier is given to a blacksmith
 O 0 22001 0 22017 A prison key loaded to Throne Room
 O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
+M 0 22002 6 22010 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22002 6 22023 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22002 6 22013 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22002 6 22017 1 Load a keep guard
+E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
+E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 S
 
 
 
 #SHOPS
+22001 5 9 0 0 0 110 70 0 23
 0
 
 
