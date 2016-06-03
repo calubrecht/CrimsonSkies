@@ -1,4 +1,6 @@
-/***************************************************************************
+/
+
+`***************************************************************************
  *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
@@ -86,6 +88,14 @@ struct olc_help_type {
     char *desc;
 };
 
+struct olc_lvl_benchmark_type {
+    int lvl;
+    int v0;
+    int v1;
+    int v2;
+    int v3;
+};
+
 bool show_version(CHAR_DATA * ch, char *argument)
 {
     send_to_char(OLC_VERSION, ch);
@@ -144,6 +154,18 @@ const struct olc_help_type help_table[] = {
     { "weapon", attack_table, "Weapon types." },
     { "mprog", mprog_flags, "MobProgram flags." },
     { NULL, NULL, NULL }
+};
+
+const struct olc_lvl_benchmark_type hitdice_table[] = {
+  {1, 8,  1, 2, 6},  // lvl 1 mean 8,    1d2+6
+  {2, 17, 1, 3, 15}, // lvl 2 mean 17,   1d3+15
+  {3, 27, 1, 6, 24},
+  {5, 61, 1, 17, 42},
+  {10, 131, 3, 22, 96},
+  {15, 239, 5, 30, 161},
+  {30, 726, 10, 61, 416},
+  {50, 1770, 10, 169, 920},
+  {-1, 0, 0, 0, 0}
 };
 
 /*****************************************************************************
@@ -4475,6 +4497,69 @@ MEDIT(medit_size)
     return FALSE;
 }
 
+bool setDefaultHitDice(MOB_INDEX_DATA* pMob)
+{ 
+  int level = pMob->level;
+  char buf[MAX_STRING_LENGTH];
+  for (int i = 0; hitdice_table[i].lvl != -1; i++)
+  {
+     if (level == hitdice_table[i].lvl)
+     {
+	pMob->hit[DICE_NUMBER] = hitdice_table[i].v1;
+        pMob->hit[DICE_TYPE] = hitdice_table[i].v2;
+	pMob->hit[DICE_BONUS] = hitdice_table[i].v3;
+	sprintf(
+	  buf,
+	  "Hitdice set. %dd%d+%d\r\n",
+	  hitdice_table[i].v1,
+	  hitdice_table[i].v2,
+	  hitdice_table[i].v3);
+	send_to_char(buf, ch);
+	return true;
+     }
+     if (level > hitdice_table[i].lvl)
+     {
+       break;
+     }
+  }
+  if (-1 == hitdice_table[i].lvl)
+  {
+     int maxLevel = hitdice_table[i-1].lvl;
+     sprintf(buf, "Cannot default for levels above %d", maxLevel);
+     send_to_char(buf, ch);
+     return FALSE;
+  }
+  // Not on the table. Use a rough quadratic fit to get target mean
+  int targetMean = .55 * level * level + 8 * level + 2;
+
+  // Linear fit between pillars for num dice and dice size
+  int dLevel = hitdice_table[i].lvl - hitdice_table[i-1].lvl
+  int numDice = ((float)(hitdice_table[i].v1 - hitdice_table[i-1].v1))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v1; 
+  int diceSize = ((float)(hitdice_table[i].v2 - hitdice_table[i-1].v2))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v2; 
+
+  // Calculate mean price of just the dice
+  int diceMean = numDice * ((diceSize+1)/2.0);
+  // Make up the difference with the bonus
+  int bonus = targetMean - diceMean;
+  pMob->hit[DICE_NUMBER] = numDice;
+  pMob->hit[DICE_TYPE] = diceSize;
+  pMob->hit[DICE_BONUS] = bonus;
+  // just for testing
+  int min = bonus + numDice;
+  int max = bonus + numDice * diceSize;
+  sprintf(
+    buf,
+    "Hitdice set. %dd%d+%d\r\nmin=%d max=%d mean=%d",
+    hitdice_table[i].v1,
+    hitdice_table[i].v2,
+    hitdice_table[i].v3,
+    min,
+    max,
+    targetMean);
+    send_to_char(buf, ch);
+  return true;
+}
+
 MEDIT(medit_hitdice)
 {
     static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\n";
@@ -4487,6 +4572,11 @@ MEDIT(medit_hitdice)
     {
         send_to_char(syntax, ch);
         return FALSE;
+    }
+
+    if (strcmp(argment[0], "default") == 0)
+    {
+      return setDefaultHitDice(pMob);
     }
 
     num = cp = argument;
