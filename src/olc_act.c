@@ -1,6 +1,4 @@
-/
-
-`***************************************************************************
+/***************************************************************************
  *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
@@ -4497,27 +4495,33 @@ MEDIT(medit_size)
     return FALSE;
 }
 
-bool setDefaultHitDice(MOB_INDEX_DATA* pMob)
+bool setDefaultHitDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 { 
   int level = pMob->level;
   char buf[MAX_STRING_LENGTH];
-  for (int i = 0; hitdice_table[i].lvl != -1; i++)
+  int i;
+  if (level == 0)
+  {
+	send_to_char("Cannot set default for level 0", ch);
+    return FALSE;
+  }
+  for (i = 0; hitdice_table[i].lvl != -1; i++)
   {
      if (level == hitdice_table[i].lvl)
      {
-	pMob->hit[DICE_NUMBER] = hitdice_table[i].v1;
+        pMob->hit[DICE_NUMBER] = hitdice_table[i].v1;
         pMob->hit[DICE_TYPE] = hitdice_table[i].v2;
-	pMob->hit[DICE_BONUS] = hitdice_table[i].v3;
-	sprintf(
-	  buf,
-	  "Hitdice set. %dd%d+%d\r\n",
-	  hitdice_table[i].v1,
-	  hitdice_table[i].v2,
-	  hitdice_table[i].v3);
-	send_to_char(buf, ch);
-	return true;
+        pMob->hit[DICE_BONUS] = hitdice_table[i].v3;
+        sprintf(
+	      buf,
+	      "Hitdice set. %dd%d+%d\r\n",
+	      hitdice_table[i].v1,
+	      hitdice_table[i].v2,
+	      hitdice_table[i].v3);
+	    send_to_char(buf, ch);
+		return TRUE;
      }
-     if (level > hitdice_table[i].lvl)
+     if (hitdice_table[i].lvl > level)
      {
        break;
      }
@@ -4533,7 +4537,7 @@ bool setDefaultHitDice(MOB_INDEX_DATA* pMob)
   int targetMean = .55 * level * level + 8 * level + 2;
 
   // Linear fit between pillars for num dice and dice size
-  int dLevel = hitdice_table[i].lvl - hitdice_table[i-1].lvl
+  int dLevel = hitdice_table[i].lvl - hitdice_table[i - 1].lvl;
   int numDice = ((float)(hitdice_table[i].v1 - hitdice_table[i-1].v1))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v1; 
   int diceSize = ((float)(hitdice_table[i].v2 - hitdice_table[i-1].v2))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v2; 
 
@@ -4550,14 +4554,14 @@ bool setDefaultHitDice(MOB_INDEX_DATA* pMob)
   sprintf(
     buf,
     "Hitdice set. %dd%d+%d\r\nmin=%d max=%d mean=%d",
-    hitdice_table[i].v1,
-    hitdice_table[i].v2,
-    hitdice_table[i].v3,
+	numDice,
+	diceSize,
+	bonus,
     min,
     max,
     targetMean);
     send_to_char(buf, ch);
-  return true;
+  return TRUE;
 }
 
 MEDIT(medit_hitdice)
@@ -4574,9 +4578,9 @@ MEDIT(medit_hitdice)
         return FALSE;
     }
 
-    if (strcmp(argment[0], "default") == 0)
+    if (strcmp(argument, "default") == 0)
     {
-      return setDefaultHitDice(pMob);
+      return setDefaultHitDice(ch, pMob);
     }
 
     num = cp = argument;
