@@ -4495,73 +4495,81 @@ MEDIT(medit_size)
     return FALSE;
 }
 
+bool setDefaultDice(CHAR_DATA* ch, int* diceSet, int level, char* description, struct olc_lvl_benchmark_type* table, int targetMean)
+{
+	char buf[MAX_STRING_LENGTH];
+	int i;
+	if (level == 0)
+	{
+		send_to_char("Cannot set default for level 0", ch);
+		return FALSE;
+	}
+	for (i = 0; table[i].lvl != -1; i++)
+	{
+		if (level == table[i].lvl)
+		{
+			diceSet[DICE_NUMBER] = table[i].v1;
+			diceSet[DICE_TYPE] = table[i].v2;
+			diceSet[DICE_BONUS] = table[i].v3;
+			sprintf(
+				buf,
+				"%s set. %dd%d+%d\r\n",
+				description,
+				table[i].v1,
+				table[i].v2,
+				table[i].v3);
+			send_to_char(buf, ch);
+			return TRUE;
+		}
+		if (table[i].lvl > level)
+		{
+			break;
+		}
+	}
+	if (-1 == table[i].lvl)
+	{
+		int maxLevel = table[i - 1].lvl;
+		sprintf(buf, "Cannot default for levels above %d", maxLevel);
+		send_to_char(buf, ch);
+		return FALSE;
+	}
+
+	// Linear fit between pillars for num dice and dice size
+	int dLevel = table[i].lvl - table[i - 1].lvl;
+	int numDice = ((float)(table[i].v1 - table[i - 1].v1)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v1;
+	int diceSize = ((float)(table[i].v2 - table[i - 1].v2)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v2;
+
+	// Calculate mean price of just the dice
+	int diceMean = numDice * ((diceSize + 1) / 2.0);
+	// Make up the difference with the bonus
+	int bonus = targetMean - diceMean;
+	diceSet[DICE_NUMBER] = numDice;
+	diceSet[DICE_TYPE] = diceSize;
+	diceSet[DICE_BONUS] = bonus;
+	// just for testing
+	int min = bonus + numDice;
+	int max = bonus + numDice * diceSize;
+	sprintf(
+		buf,
+		"%s set. %dd%d+%d\r\nmin=%d max=%d mean=%d",
+		description,
+		numDice,
+		diceSize,
+		bonus,
+		min,
+		max,
+		targetMean);
+	send_to_char(buf, ch);
+	return TRUE;
+
+}
+
 bool setDefaultHitDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 { 
   int level = pMob->level;
-  char buf[MAX_STRING_LENGTH];
-  int i;
-  if (level == 0)
-  {
-	send_to_char("Cannot set default for level 0", ch);
-    return FALSE;
-  }
-  for (i = 0; hitdice_table[i].lvl != -1; i++)
-  {
-     if (level == hitdice_table[i].lvl)
-     {
-        pMob->hit[DICE_NUMBER] = hitdice_table[i].v1;
-        pMob->hit[DICE_TYPE] = hitdice_table[i].v2;
-        pMob->hit[DICE_BONUS] = hitdice_table[i].v3;
-        sprintf(
-	      buf,
-	      "Hitdice set. %dd%d+%d\r\n",
-	      hitdice_table[i].v1,
-	      hitdice_table[i].v2,
-	      hitdice_table[i].v3);
-	    send_to_char(buf, ch);
-		return TRUE;
-     }
-     if (hitdice_table[i].lvl > level)
-     {
-       break;
-     }
-  }
-  if (-1 == hitdice_table[i].lvl)
-  {
-     int maxLevel = hitdice_table[i-1].lvl;
-     sprintf(buf, "Cannot default for levels above %d", maxLevel);
-     send_to_char(buf, ch);
-     return FALSE;
-  }
-  // Not on the table. Use a rough quadratic fit to get target mean
+  // If the level is not on the table, use a rough quadratic fit to get target mean
   int targetMean = .55 * level * level + 8 * level + 2;
-
-  // Linear fit between pillars for num dice and dice size
-  int dLevel = hitdice_table[i].lvl - hitdice_table[i - 1].lvl;
-  int numDice = ((float)(hitdice_table[i].v1 - hitdice_table[i-1].v1))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v1; 
-  int diceSize = ((float)(hitdice_table[i].v2 - hitdice_table[i-1].v2))/dLevel *(level - hitdice_table[i-1].lvl) + hitdice_table[i-1].v2; 
-
-  // Calculate mean price of just the dice
-  int diceMean = numDice * ((diceSize+1)/2.0);
-  // Make up the difference with the bonus
-  int bonus = targetMean - diceMean;
-  pMob->hit[DICE_NUMBER] = numDice;
-  pMob->hit[DICE_TYPE] = diceSize;
-  pMob->hit[DICE_BONUS] = bonus;
-  // just for testing
-  int min = bonus + numDice;
-  int max = bonus + numDice * diceSize;
-  sprintf(
-    buf,
-    "Hitdice set. %dd%d+%d\r\nmin=%d max=%d mean=%d",
-	numDice,
-	diceSize,
-	bonus,
-    min,
-    max,
-    targetMean);
-    send_to_char(buf, ch);
-  return TRUE;
+  return setDefaultDice(ch, pMob->hit, level, "Hitdice", hitdice_table, targetMean);
 }
 
 MEDIT(medit_hitdice)
