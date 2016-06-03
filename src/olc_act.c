@@ -166,6 +166,20 @@ const struct olc_lvl_benchmark_type hitdice_table[] = {
   {-1, 0, 0, 0, 0}
 };
 
+const struct olc_lvl_benchmark_type damdice_table[] = {
+	{ 1, 2,  1, 2, 0 },  // lvl 1 mean 2,    1d2+0
+	{ 2, 3, 1, 2, 1 }, // lvl 2 mean 3,   1d2+1
+	{ 3, 4, 1, 3, 2 },
+	{ 5, 6, 2, 3, 2 },
+	{ 10, 11, 2, 5, 5 },
+	{ 15, 17, 3, 5, 8 },
+	{ 20, 22, 4, 5, 10},
+	{ 30, 33, 5, 6, 15 },
+	{ 50, 53, 5, 10, 25 },
+	{ -1, 0, 0, 0, 0 }
+};
+
+
 /*****************************************************************************
 Name:       show_flag_cmds
 Purpose:    Displays settable flags and stats.
@@ -4628,6 +4642,19 @@ MEDIT(medit_hitdice)
     return TRUE;
 }
 
+bool setDefaultManaDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
+{
+	int level = pMob->level;
+	// Much simpler derivation.
+	// <level>d10 + 100
+	pMob->mana[DICE_NUMBER] = level;
+	pMob->mana[DICE_TYPE] = 10;
+	pMob->mana[DICE_BONUS] = 100;
+
+	send_to_char("Manadice set.\r\n", ch);
+	return TRUE;
+}
+
 MEDIT(medit_manadice)
 {
     static char syntax[] =
@@ -4642,6 +4669,11 @@ MEDIT(medit_manadice)
         send_to_char(syntax, ch);
         return FALSE;
     }
+
+	if (strcmp(argument, "default") == 0)
+	{
+		return setDefaultManaDice(ch, pMob);
+	}
 
     num = cp = argument;
 
@@ -4686,6 +4718,14 @@ MEDIT(medit_manadice)
     return TRUE;
 }
 
+bool setDefaultDamDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
+{
+	int level = pMob->level;
+	// If the level is not on the table, use the linear fit for targetMean
+	int targetMean =  level + 2;
+	return setDefaultDice(ch, pMob->damage, level, "Damdice", damdice_table, targetMean);
+}
+
 MEDIT(medit_damdice)
 {
     static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\n";
@@ -4699,6 +4739,11 @@ MEDIT(medit_damdice)
         send_to_char(syntax, ch);
         return FALSE;
     }
+
+	if (strcmp(argument, "default") == 0)
+	{
+		return setDefaultDamDice(ch, pMob);
+	}
 
     num = cp = argument;
 
