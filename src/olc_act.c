@@ -179,6 +179,21 @@ const struct olc_lvl_benchmark_type damdice_table[] = {
 	{ -1, 0, 0, 0, 0 }
 };
 
+const struct olc_lvl_benchmark_type ac_table[] = {
+	{ 1, 95,  95, 0, 0 },
+	{ 5, 70, 85, 0, 0 },
+	{ 10, 40, 70, 0, 0 },
+	{ 15, 5, 55, 0, 0 },
+	{ 20, -25, 40, 0, 0 },
+	{ 25, -55, 20, 0, 0 },
+	{ 30, -90, 5, 0, 0 },
+	{ 35, -120, -10, 0, 0 },
+	{ 40, -150, -25, 0, 0 },
+	{ 45, -180, -40, 0, 0 },
+	{ 50, -215, -55, 0, 0 },
+	{ -1, 0, 0, 0, 0 }
+};
+
 
 /*****************************************************************************
 Name:       show_flag_cmds
@@ -4271,6 +4286,65 @@ MEDIT(medit_affect)
     return FALSE;
 }
 
+bool setDefaultAC(CHAR_DATA* ch, int ac[], int level)
+{
+	char buf[MAX_STRING_LENGTH];
+	int i;
+	if (level == 0)
+	{
+		send_to_char("Cannot set default for level 0", ch);
+		return FALSE;
+	}
+	for (i = 0; ac_table[i].lvl != -1; i++)
+	{
+		if (level == ac_table[i].lvl)
+		{
+			ac[AC_PIERCE] = ac_table[i].v0;
+			ac[AC_BASH] = ac_table[i].v0;
+			ac[AC_SLASH] = ac_table[i].v0;
+			ac[AC_EXOTIC] = ac_table[i].v1;
+			sprintf(
+				buf,
+				"Armor set. %d %d %d %d\r\n",
+				ac_table[i].v0,
+				ac_table[i].v0,
+				ac_table[i].v0,
+				ac_table[i].v1);
+			send_to_char(buf, ch);
+			return TRUE;
+		}
+		if (ac_table[i].lvl > level)
+		{
+			break;
+		}
+	}
+	if (-1 == ac_table[i].lvl)
+	{
+		int maxLevel = ac_table[i - 1].lvl;
+		sprintf(buf, "Cannot default for levels above %d", maxLevel);
+		send_to_char(buf, ch);
+		return FALSE;
+	}
+
+	// Linear fit between pillars
+	int dLevel = ac_table[i].lvl - ac_table[i - 1].lvl;
+	int regularAC = (int)((double)(ac_table[i].v0 - ac_table[i - 1].v0)) / dLevel *(level - ac_table[i - 1].lvl) + ac_table[i - 1].v0;
+	int exoticAC = (int)((double)(ac_table[i].v1 - ac_table[i - 1].v1)) / dLevel *(level - ac_table[i - 1].lvl) + ac_table[i - 1].v1;
+	ac[AC_PIERCE] = regularAC;
+	ac[AC_BASH] = regularAC;
+	ac[AC_SLASH] = regularAC;
+	ac[AC_EXOTIC] = exoticAC;
+	sprintf(
+		buf,
+		"Armor set. %d %d %d %d\r\n",
+		regularAC,
+		regularAC,
+		regularAC,
+		exoticAC);
+	send_to_char(buf, ch);
+	return TRUE;
+
+}
 
 
 MEDIT(medit_ac)
@@ -4286,6 +4360,11 @@ MEDIT(medit_ac)
 
         EDIT_MOB(ch, pMob);
         argument = one_argument(argument, arg);
+
+		if (strcmp(arg, "default") == 0)
+		{
+          return setDefaultAC(ch, pMob->ac, pMob->level);
+		}
 
         if (!is_number(arg))
             break;
@@ -4331,7 +4410,8 @@ MEDIT(medit_ac)
     } while (FALSE);                /* Just do it once.. */
 
     send_to_char
-        ("Syntax:  ac [ac-pierce [ac-bash [ac-slash [ac-exotic]]]]\r\n"
+        ("Syntax:  armor [ac-pierce [ac-bash [ac-slash [ac-exotic]]]]\r\n"
+		 "Syntax:  armor default\r\n"
             "help MOB_AC  gives a list of reasonable ac-values.\r\n", ch);
     return FALSE;
 }
