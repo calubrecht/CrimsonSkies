@@ -86,6 +86,14 @@ struct olc_help_type {
     char *desc;
 };
 
+struct olc_lvl_benchmark_type {
+    int lvl;
+    int v0;
+    int v1;
+    int v2;
+    int v3;
+};
+
 bool show_version(CHAR_DATA * ch, char *argument)
 {
     send_to_char(OLC_VERSION, ch);
@@ -145,6 +153,32 @@ const struct olc_help_type help_table[] = {
     { "mprog", mprog_flags, "MobProgram flags." },
     { NULL, NULL, NULL }
 };
+
+const struct olc_lvl_benchmark_type hitdice_table[] = {
+  {1, 8,  1, 2, 6},  // lvl 1 mean 8,    1d2+6
+  {2, 17, 1, 3, 15}, // lvl 2 mean 17,   1d3+15
+  {3, 27, 1, 6, 24},
+  {5, 61, 1, 17, 42},
+  {10, 131, 3, 22, 96},
+  {15, 239, 5, 30, 161},
+  {30, 726, 10, 61, 416},
+  {50, 1770, 10, 169, 920},
+  {-1, 0, 0, 0, 0}
+};
+
+const struct olc_lvl_benchmark_type damdice_table[] = {
+	{ 1, 2,  1, 2, 0 },  // lvl 1 mean 2,    1d2+0
+	{ 2, 3, 1, 2, 1 }, // lvl 2 mean 3,   1d2+1
+	{ 3, 4, 1, 3, 2 },
+	{ 5, 6, 2, 3, 2 },
+	{ 10, 11, 2, 5, 5 },
+	{ 15, 17, 3, 5, 8 },
+	{ 20, 22, 4, 5, 10},
+	{ 30, 33, 5, 6, 15 },
+	{ 50, 53, 5, 10, 25 },
+	{ -1, 0, 0, 0, 0 }
+};
+
 
 /*****************************************************************************
 Name:       show_flag_cmds
@@ -4475,9 +4509,86 @@ MEDIT(medit_size)
     return FALSE;
 }
 
+bool setDefaultDice(CHAR_DATA* ch, int* diceSet, int level, char* description, const struct olc_lvl_benchmark_type* table, int targetMean)
+{
+	char buf[MAX_STRING_LENGTH];
+	int i;
+	if (level == 0)
+	{
+		send_to_char("Cannot set default for level 0", ch);
+		return FALSE;
+	}
+	for (i = 0; table[i].lvl != -1; i++)
+	{
+		if (level == table[i].lvl)
+		{
+			diceSet[DICE_NUMBER] = table[i].v1;
+			diceSet[DICE_TYPE] = table[i].v2;
+			diceSet[DICE_BONUS] = table[i].v3;
+			sprintf(
+				buf,
+				"%s set. %dd%d+%d\r\n",
+				description,
+				table[i].v1,
+				table[i].v2,
+				table[i].v3);
+			send_to_char(buf, ch);
+			return TRUE;
+		}
+		if (table[i].lvl > level)
+		{
+			break;
+		}
+	}
+	if (-1 == table[i].lvl)
+	{
+		int maxLevel = table[i - 1].lvl;
+		sprintf(buf, "Cannot default for levels above %d", maxLevel);
+		send_to_char(buf, ch);
+		return FALSE;
+	}
+
+	// Linear fit between pillars for num dice and dice size
+	int dLevel = table[i].lvl - table[i - 1].lvl;
+	int numDice = (int)((double)(table[i].v1 - table[i - 1].v1)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v1;
+	int diceSize = (int)((double)(table[i].v2 - table[i - 1].v2)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v2;
+
+	// Calculate mean price of just the dice
+	int diceMean = (int)(numDice * (diceSize + 1) / 2.0);
+	// Make up the difference with the bonus
+	int bonus = targetMean - diceMean;
+	diceSet[DICE_NUMBER] = numDice;
+	diceSet[DICE_TYPE] = diceSize;
+	diceSet[DICE_BONUS] = bonus;
+	// just for testing
+	int min = bonus + numDice;
+	int max = bonus + numDice * diceSize;
+	sprintf(
+		buf,
+		"%s set. %dd%d+%d\r\nmin=%d max=%d mean=%d",
+		description,
+		numDice,
+		diceSize,
+		bonus,
+		min,
+		max,
+		targetMean);
+	send_to_char(buf, ch);
+	return TRUE;
+
+}
+
+bool setDefaultHitDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
+{ 
+  int level = pMob->level;
+  // If the level is not on the table, use a rough quadratic fit to get target mean
+  int targetMean = (int)(.55 * level * level + 8 * level + 2);
+  return setDefaultDice(ch, pMob->hit, level, "Hitdice", hitdice_table, targetMean);
+}
+
 MEDIT(medit_hitdice)
 {
-    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\n";
+    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\nSyntax:  hitdice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4487,6 +4598,11 @@ MEDIT(medit_hitdice)
     {
         send_to_char(syntax, ch);
         return FALSE;
+    }
+
+    if (strcmp(argument, "default") == 0)
+    {
+      return setDefaultHitDice(ch, pMob);
     }
 
     num = cp = argument;
@@ -4526,10 +4642,23 @@ MEDIT(medit_hitdice)
     return TRUE;
 }
 
+bool setDefaultManaDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
+{
+	int level = pMob->level;
+	// Much simpler derivation.
+	// <level>d10 + 100
+	pMob->mana[DICE_NUMBER] = level;
+	pMob->mana[DICE_TYPE] = 10;
+	pMob->mana[DICE_BONUS] = 100;
+
+	send_to_char("Manadice set.\r\n", ch);
+	return TRUE;
+}
+
 MEDIT(medit_manadice)
 {
     static char syntax[] =
-        "Syntax:  manadice <number> d <type> + <bonus>\r\n";
+        "Syntax:  manadice <number> d <type> + <bonus>\r\nSyntax:  manadice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4540,6 +4669,11 @@ MEDIT(medit_manadice)
         send_to_char(syntax, ch);
         return FALSE;
     }
+
+	if (strcmp(argument, "default") == 0)
+	{
+		return setDefaultManaDice(ch, pMob);
+	}
 
     num = cp = argument;
 
@@ -4584,9 +4718,17 @@ MEDIT(medit_manadice)
     return TRUE;
 }
 
+bool setDefaultDamDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
+{
+	int level = pMob->level;
+	// If the level is not on the table, use the linear fit for targetMean
+	int targetMean =  level + 2;
+	return setDefaultDice(ch, pMob->damage, level, "Damdice", damdice_table, targetMean);
+}
+
 MEDIT(medit_damdice)
 {
-    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\n";
+    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\nSyntax:  damdice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4597,6 +4739,11 @@ MEDIT(medit_damdice)
         send_to_char(syntax, ch);
         return FALSE;
     }
+
+	if (strcmp(argument, "default") == 0)
+	{
+		return setDefaultDamDice(ch, pMob);
+	}
 
     num = cp = argument;
 
