@@ -21,7 +21,7 @@ The guard diligently keeps an eye on the guardhouse. The Red Duke does not toler
 human~
 AB O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
-0 0 0 0
+-2 -2 -2 4
 EKT 0 0 0
 stand stand male 450
 0 0 medium unknown
@@ -36,7 +36,7 @@ A blacksmith pounds away at a piece of red hot iron.
 human~
 ABRT 0 2 0
 40 2 1d1+999 1d1+999 2d4+30 none
--1 -1 -1 -1
+-15 -15 -15 -2
 CDFH 0 0 0
 stand stand male 0
 GMV 0 medium unknown
@@ -52,7 +52,7 @@ The guard diligently patrols the keep. The Red Duke does not tolerate sleeping o
 human~
 A O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
-0 0 0 0
+-2 -2 -2 4
 EKT 0 0 0
 stand stand male 450
 0 0 medium unknown
@@ -81,7 +81,7 @@ This giant fish monster has large slimy teeth, hardened scales and a long muscul
 fish~
 ABF MZb 2 0
 26 1 5d52+449 26d10+100 4d5+16 bite
-0 0 0 0
+-3 -3 -3 -1
 M H R 0
 stand stand none 0
 AGHMVWb ADEFKO large unknown
@@ -123,11 +123,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-3 2
+2 1
 A
 18 2
 A
-2 1
+3 2
 #22004
 hammer blacksmith~
 blacksmith's hammer~
