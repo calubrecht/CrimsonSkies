@@ -24,8 +24,8 @@ AB O 2 0
 -2 -2 -2 4
 EKT 0 0 0
 stand stand male 450
-0 0 medium unknown
-F for AHMV
+M 0 medium unknown
+F for AHV
 F par ABCDEFGHIJK
 #22001
 blacksmith~
@@ -55,8 +55,8 @@ A O 2 0
 -2 -2 -2 4
 EKT 0 0 0
 stand stand male 450
-0 0 medium unknown
-F for AHMV
+M 0 medium unknown
+F for AHV
 F par ABCDEFGHIJK
 #22003
 piranha toothy fish~
@@ -70,7 +70,8 @@ ABF Zb 2 0
 0 0 0 0
 0 0 R 0
 stand stand none 0
-AGHMVWb ADEFKO small unknown
+Ab ADEFKO small unknown
+F for GHMVW
 #22004
 monster sea underwater fish beast~
 a large underwater beast.~
@@ -84,7 +85,8 @@ ABF MZb 2 0
 -3 -3 -3 -1
 M H R 0
 stand stand none 0
-AGHMVWb ADEFKO large unknown
+Ab ADEFKO large unknown
+F for GHMVW
 #0
 
 
