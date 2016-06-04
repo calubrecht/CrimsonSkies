@@ -71,6 +71,20 @@ ABF Zb 2 0
 0 0 R 0
 stand stand none 0
 AGHMVWb ADEFKO small unknown
+#22004
+monster sea underwater fish beast~
+a large underwater beast.~
+A large underwater beast swims here.
+~
+This giant fish monster has large slimy teeth, hardened scales and a long muscular tail.
+~
+fish~
+ABF MZb 2 0
+26 1 5d52+449 26d10+100 4d5+16 bite
+0 0 0 0
+M H R 0
+stand stand none 0
+AGHMVWb ADEFKO large unknown
 #0
 
 
@@ -109,11 +123,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -895,7 +909,9 @@ O 0 22001 0 22017 A prison key loaded to Throne Room
 M 0 22002 6 22017 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
 E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22004 1 22021 1 Load a large underwater beast.
 O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
+G 0 22002 0 Rib of a deep water monster is given to a large underwater beast.
 M 0 22002 6 22023 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
 E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
