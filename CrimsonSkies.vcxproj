@@ -97,6 +97,7 @@
     <ClCompile Include="src\log.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
+    <ClCompile Include="src\map.c" />
     <ClCompile Include="src\misc.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />

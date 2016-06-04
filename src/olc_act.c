@@ -4588,7 +4588,7 @@ bool setDefaultHitDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 
 MEDIT(medit_hitdice)
 {
-    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\n";
+    static char syntax[] = "Syntax:  hitdice <number> d <type> + <bonus>\r\nSyntax:  hitdice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4658,7 +4658,7 @@ bool setDefaultManaDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 MEDIT(medit_manadice)
 {
     static char syntax[] =
-        "Syntax:  manadice <number> d <type> + <bonus>\r\n";
+        "Syntax:  manadice <number> d <type> + <bonus>\r\nSyntax:  manadice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 
@@ -4728,7 +4728,7 @@ bool setDefaultDamDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 
 MEDIT(medit_damdice)
 {
-    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\n";
+    static char syntax[] = "Syntax:  damdice <number> d <type> + <bonus>\r\nSyntax:  damdice default\r\n";
     char *num, *type, *bonus, *cp;
     MOB_INDEX_DATA *pMob;
 

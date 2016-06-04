@@ -355,3 +355,4 @@ DECLARE_DO_FUN(do_crypt);
 DECLARE_DO_FUN(do_nocancel);
 DECLARE_DO_FUN(do_random_names);
 DECLARE_DO_FUN(do_stance);
+DECLARE_DO_FUN(do_map);

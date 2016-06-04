@@ -10,7 +10,7 @@
   and the oceans are all that stand between now and version 1.
 * Important commands: help, commands, notes, score, look, who, scan
 * To see the current game settings, type settings.
-* You may notice bots walking around, these help me simulate and test 
+* {YYou may notice bots walking around{x, these help me simulate and test 
   game mechanics that I cannot otherwise test by myself.
 * See 'help credits' for code contributions from others.
 
@@ -608,6 +608,7 @@ to the mud implementors.
            [Nicolas Devilla (iniparser project)]
                        [Colin Percival (sha256)]
                   [Rip, Turtle, Baxter (hunt.c)]
+           [mlkesl@stthomas.edu (ASCII Mapping)]
           {w--------------------------------------
           - {R[{WArea Contributions{R]{w ---------------
           --------------------------------------{x
@@ -2935,7 +2936,14 @@ Thanks to ...
 Also see "help ROM" for information about the Rivers of Mud code base.
 ~
 -1 MAP MAPS~
-Thanks to Ezra for drawing the originals of several maps on ROM.
+Syntax: map
+        map <map width up to 100>
+
+The map command will allow how to see a text representation of the current
+map around you in order to help visualize the layout of the terrain that
+you're standing in.  It can be very handy when learning new areas and the
+world.
+
 ~
 
 -1 GREETING~

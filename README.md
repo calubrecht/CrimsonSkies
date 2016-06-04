@@ -6,6 +6,10 @@ Crimson Skies is an open source MUD starting from ROM 2.4b6.  Useful features fr
 completion.  Classes, groups, skills and spells are loading from files and all have OLC built in so you can maintain
 all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).  
 
+If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
+contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is
+the other continent and I have left it with the familiar areas and geographic linking).
+
 The current development server which is stable and playable and will reflect the latest commits here is at (you can 
 telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
 
