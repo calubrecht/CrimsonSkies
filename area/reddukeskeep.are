@@ -87,6 +87,52 @@ M H R 0
 stand stand none 0
 Ab ADEFKO large unknown
 F for GHMVW
+#22005
+trainer weapon~
+weapon trainer~
+A trainer leads practice here.
+~
+This is a seasoned veteran warrior, passing his knowledge on to new recruits.
+~
+human~
+AB 0 2 0
+22 4 5d44+332 22d10+100 2d6+12 crush
+-4 -4 -4 -2
+C 0 0 0
+stand stand male 550
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22006
+trainee guard~
+trainee guard~
+A trainee practices with his sword
+~
+~
+human~
+AB 0 2 0
+18 0 5d36+232 18d10+100 3d5+11 punch
+-1 -1 -1 4
+0 0 0 0
+stand stand male 150
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22007
+trainee guard~
+trainee guard~
+A trainee practices with her sword
+~
+~
+human~
+AB 0 2 0
+18 0 5d36+232 18d10+100 3d5+11 punch
+-1 -1 -1 4
+0 0 0 0
+stand stand female 150
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
 #0
 
 
@@ -125,11 +171,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -230,6 +276,26 @@ B B B B 0
 20 5 5 P
 A
 18 2
+#22016
+wooden sword training~
+wooden sword~
+This sword is meant for training~
+wood~
+weapon 0 AN
+sword 4 5 thwack 0
+12 10 500 P
+A
+18 2
+#22017
+boots fancy red leather~
+fancy red boots~
+These boots are made of fancy red leather~
+leather~
+armor 0 AG
+ABC ABC ABC B 0
+22 150 1100 P
+A
+18 1
 #0
 
 
@@ -866,7 +932,11 @@ S
 
 #SPECIALS
 M 22000 spec_guard
+M 22002 spec_guard
 M 22003 spec_fido
+M 22005 spec_guard
+M 22006 spec_guard
+M 22007 spec_guard
 S
 
 
@@ -914,9 +984,20 @@ E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
 M 0 22004 1 22021 1 Load a large underwater beast.
 O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
 G 0 22002 0 Rib of a deep water monster is given to a large underwater beast.
+M 0 22005 1 22023 1 Load weapon trainer
+E 0 22016 0 16 Wooden sword is loaded wielded of weapon trainer
+E 0 22017 0 8 Fancy red boots is loaded on the feet of weapon trainer
 M 0 22002 6 22023 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
 E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22006 4 22023 2 Load trainee guard
+E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
+M 0 22007 3 22023 1 Load trainee guard
+E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
+M 0 22007 3 22024 1 Load trainee guard
+E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
+M 0 22006 4 22024 1 Load trainee guard
+E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
 S
 
 
