@@ -4509,7 +4509,7 @@ MEDIT(medit_size)
     return FALSE;
 }
 
-bool setDefaultDice(CHAR_DATA* ch, int* diceSet, int level, char* description, struct olc_lvl_benchmark_type* table, int targetMean)
+bool setDefaultDice(CHAR_DATA* ch, int* diceSet, int level, char* description, const struct olc_lvl_benchmark_type* table, int targetMean)
 {
 	char buf[MAX_STRING_LENGTH];
 	int i;
@@ -4550,11 +4550,11 @@ bool setDefaultDice(CHAR_DATA* ch, int* diceSet, int level, char* description, s
 
 	// Linear fit between pillars for num dice and dice size
 	int dLevel = table[i].lvl - table[i - 1].lvl;
-	int numDice = ((float)(table[i].v1 - table[i - 1].v1)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v1;
-	int diceSize = ((float)(table[i].v2 - table[i - 1].v2)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v2;
+	int numDice = (int)((double)(table[i].v1 - table[i - 1].v1)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v1;
+	int diceSize = (int)((double)(table[i].v2 - table[i - 1].v2)) / dLevel *(level - table[i - 1].lvl) + table[i - 1].v2;
 
 	// Calculate mean price of just the dice
-	int diceMean = numDice * ((diceSize + 1) / 2.0);
+	int diceMean = (int)(numDice * (diceSize + 1) / 2.0);
 	// Make up the difference with the bonus
 	int bonus = targetMean - diceMean;
 	diceSet[DICE_NUMBER] = numDice;
@@ -4582,7 +4582,7 @@ bool setDefaultHitDice(CHAR_DATA *ch, MOB_INDEX_DATA* pMob)
 { 
   int level = pMob->level;
   // If the level is not on the table, use a rough quadratic fit to get target mean
-  int targetMean = .55 * level * level + 8 * level + 2;
+  int targetMean = (int)(.55 * level * level + 8 * level + 2);
   return setDefaultDice(ch, pMob->hit, level, "Hitdice", hitdice_table, targetMean);
 }
 
