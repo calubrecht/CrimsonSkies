@@ -157,7 +157,7 @@ One of the duke's horses paws the ground.
 ~
 ~
 human~
-A 0 2 0
+AB 0 2 0
 22 1 5d44+332 0d0+0 4d5+12 smash
 0 0 0 0
 0 0 0 0
@@ -203,11 +203,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -390,6 +390,10 @@ D5
 ~
 ~
 0 0 22003
+D6
+~
+~
+0 0 22027
 D7
 ~
 ~
@@ -798,6 +802,10 @@ D3
 ~
 ~
 0 0 22033
+D7
+~
+~
+0 0 22026
 D9
 ~
 ~
