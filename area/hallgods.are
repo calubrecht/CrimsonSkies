@@ -9,10 +9,21 @@ Continent 0
 End
 
 
+
 #MOBILES
 #0
 
+
+
 #OBJECTS
+#21000
+fountain mead~
+fountain of mead~
+A fountain gushes with divine mead~
+unknown~
+fountain 0 0
+0 0 'mead' 0 0
+0 0 0 P
 #21001
 wand Avarice~
 The Wand of Avarice~
@@ -35,6 +46,8 @@ A
 1 20
 #0
 
+
+
 #ROOMS
 #21000
 The Grand Hall~
@@ -43,9 +56,7 @@ floors. The room is impossibly quiet, all extraneous sounds seem absorbed
 by the pillars, which give off a faint light. Arched doorways lead in all
 directions
 ~
-0 DP 0
-H 100
-M 100
+0 32776 0
 D0
 An archway leads to a room in the north.
 ~
@@ -72,7 +83,7 @@ Avarice's Room~
 This room, built of red marble, is dominated by a 10 foot tall statue
 of the goddess. A wand extends from the arm of her elaborate flowing robes.
 ~
-0 DP 0
+0 32776 0
 D2
 An archway leads to a room in the south.
 ~
@@ -84,7 +95,7 @@ Puissance's Room~
 This room, build of grey marble, is dominated by a 10 foot tall statue
 of the god Puissance, clad in plate armor and clutching his mighty axe.
 ~
-0 DP 0
+0 32776 0
 D3
 An archway leads to a room in the west.
 ~
@@ -96,7 +107,7 @@ South Room~
 This room of white marble lies empty. Perhaps waiting for another god to
 ascend.
 ~
-0 DP 0
+0 32776 0
 D0
 An archway leads to a room in the north.
 ~
@@ -108,7 +119,7 @@ West Room~
 This room of white marble lies empty. Perhaps waiting for another god to
 ascend.
 ~
-0 DP 0
+0 32776 0
 D1
 An archway leads to a room in the east.
 ~
@@ -117,14 +128,17 @@ An archway leads to a room in the east.
 S
 #0
 
+
+
 #SPECIALS
 S
 
 
 
 #RESETS
-O 0 21001 1 21001
-O 0 21002 1 21002
+O 0 21000 0 21000 Fountain of mead loaded to The Grand Hall
+O 0 21001 0 21001 The wand of avarice loaded to Avarice's Room
+O 0 21002 0 21002 The axe of puissance loaded to Puissance's Room
 S
 
 
