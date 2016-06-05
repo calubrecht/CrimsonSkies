@@ -606,18 +606,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     fail = URANGE(5, fail, 95);
     result = number_percent();
 
-    // Enchanting cap at 14 hit or 14 damage (which should be impossibly rare)
+    // Enchanting cap at 12 hit or 12 damage (which should be very rare)
     for (paf = obj->affected; paf != NULL; paf = paf->next)
     {
         if (paf->location == APPLY_HITROLL)
         {
             hit_bonus = paf->modifier;
-            if (hit_bonus >= 14) { result = 0; }
+            if (hit_bonus >= 12) { result = 0; }
         }
         else if (paf->location == APPLY_DAMROLL)
         {
             dam_bonus = paf->modifier;
-            if (dam_bonus >= 14) { result = 0; }
+            if (dam_bonus >= 12) { result = 0; }
         }
     }
 
