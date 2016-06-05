@@ -2,8 +2,8 @@
 Name Red Duke's Keep~
 Builders Puissance~
 VNUMs 22000 22100
-LevelRange 20 35
-Credits [20 35] Red Duke's Keep -- Hidden Lands~
+LevelRange 20 30
+Credits [20 30] Red Duke's Keep -- Hidden Lands~
 Security 1
 Continent 1
 End
@@ -157,7 +157,7 @@ One of the duke's horses paws the ground.
 ~
 ~
 human~
-A 0 2 0
+AB 0 2 0
 22 1 5d44+332 0d0+0 4d5+12 smash
 0 0 0 0
 0 0 0 0
@@ -165,6 +165,72 @@ stand stand none 0
 GV ACDEFJQ large unknown
 F for AHM
 F par BGHIK
+#22010
+keep guard sleepy~
+a sleepy keep guard~
+A keep guard tries to catch some sleep.
+~
+The guard is off duty. The Red Duke expects is men to keep up on their rest.
+~
+human~
+AB O 2 0
+20 2 10d30+245 20d10+100 4d5+10 slash
+-2 -2 -2 4
+EKT 0 0 0
+sleep sleep male 450
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22011
+knight sir Pavel~
+Sir Pavel~
+Sir Pavel prepares to defend the keep.
+~
+The Red Duke's knights are the greatest warriors around, excelling at sword and shield.
+~
+human~
+AB O 1 0
+26 2 5d52+449 20d10+100 4d5+16 slash
+-6 -6 -6 1
+EKT 0 0 0
+stand stand male 600
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22012
+knight dame Alia~
+Dame Alia~
+Dame Alia prepares to defend the keep
+~
+The Red Duke's knights are the greatest warriors around, excelling at sword and shield.
+~
+human~
+AB O 1 0
+26 2 5d52+449 20d10+100 4d5+16 slash
+-6 -6 -6 1
+EKT 0 0 0
+stand stand male 600
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22013
+red duke Lerod~
+Lerod, the Red Duke~
+The Red Duke, Lerod, rules with an iron-clad fist.
+~
+The Red Duke, Lerod, rules these lands with an iron fist.
+He sits here with shining metal armor under a tunic of black and red, an 
+iron circlet around his brow.
+~
+human~
+AB O 1 0
+30 5 10d61+416 30d10+100 5d6+15 none
+-9 -9 -9 0
+D 0 0 0
+stand stand male 800
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
 #0
 
 
@@ -344,6 +410,144 @@ unknown~
 food 0 0
 C C 0 0 0
 1 10 10 P
+#22020
+bunk~
+bunk~
+A guard's bunk looks inviting~
+unknown~
+furniture 0 0
+A DHIJM EHK CE CE
+0 0 0 P
+#22021
+footlocker locker chest~
+footlocker~
+A footlocker holds all a guard's wordly belongings.~
+unknown~
+container 0 0
+0 ACD 0 30000 0
+0 0 0 P
+#22022
+bear stuffed~
+stuffed bear~
+Someone left a stuffed bear here~
+cloth~
+trash 0 A
+0 0 0 0 0
+0 10 120 P
+#22023
+scarf silk~
+red silk scarf~
+A delicate silk scarf was left here~
+silk~
+armor 0 AC
+A A A AC 0
+12 5 300 P
+A
+12 20
+#22024
+cash loose change~
+loose change~
+Somse loose change was left here~
+unknown~
+money 0 A
+BCDE A 0 0 0
+0 0 0 P
+#22025
+shield guard~
+guard's shield~
+A kite shaped shield bears the colors of the Red Duke.~
+unknown~
+armor 0 AJ
+ABC ABC ABC AC 0
+20 35 500 P
+#22026
+poleaxe wicked~
+wicked poleaxe~
+A poleaxe with a wicked edge stands here.~
+steel~
+weapon 0 AN
+polearm 5 8 chop F
+20 5 5000 P
+#22027
+pantry shelves~
+shelves~
+The pantry shelves are stocked with food~
+unknown~
+container 0 0
+0 0 0 2000 0
+0 0 0 P
+#22028
+flask mead~
+flask of mead~
+A flask of mead sits here~
+glass~
+drink 0 A
+1 1 'mead' 0 0
+0 10 10 P
+#22029
+beef dried~
+strips of dried beef~
+Strips of well-preserved dried beef lay here~
+unknown~
+food 0 A
+AC AC 0 0 0
+0 10 10 P
+#22030
+roast beast~
+roast beast~
+A side of roast beast smells delicious~
+unknown~
+food 0 A
+D D 0 0 0
+0 10 300 P
+#22031
+skin water red~
+a red water skin~
+A red leather water skin is on the floor.~
+leather~
+drink 0 A
+64 64 'water' 0 0
+0 40 24 G
+#22032
+iron red throne rusty~
+red iron throne~
+A throne made of rusty iron sits on a raised dais.~
+iron~
+furniture 0 0
+A DFGHIJ E AC BEF
+0 0 0 P
+#22033
+breastplate breast plate black iron~
+Red Duke's breastplate~
+This breastplate is made from black iron.~
+iron~
+armor 0 AD
+D D D AC 0
+28 40 3000 P
+A
+19 2
+A
+1 2
+#22034
+circlet iron~
+Red Duke's circlet~
+A circlet of iron would fit on your head.~
+iron~
+armor 0 AE
+0 A A AB 0
+25 10 100 P
+A
+20 3
+A
+3 2
+#22035
+mace office frost~
+mace of office~
+The Red Duke's mace of office is glazed with frost~
+iron~
+weapon AG AN
+mace 5 6 pound B
+28 45 5000 P
 #0
 
 
@@ -390,6 +594,10 @@ D5
 ~
 ~
 0 0 22003
+D6
+~
+~
+0 0 22027
 D7
 ~
 ~
@@ -578,6 +786,9 @@ D1
 S
 #22013
 Tower Entrance~
+The entrance to the keep's central tower.  A spiral staircase leads up. 
+A number of chairs and tables, are scattered around here, giving that guard
+a place to rest on their off time.  
 ~
 0 8 0
 D2
@@ -591,6 +802,8 @@ D4
 S
 #22014
 Tower Ballroom~
+This floor is mostly a large dancefloor. A raised dais sits to one side for
+a band to play, while a large dining table sits on the other.
 ~
 0 8 0
 D4
@@ -604,6 +817,8 @@ D5
 S
 #22015
 Tower Barracks~
+A room for the keep's guards to sleep. The room is lined with bunks and footlockers,
+along with a small mess area.
 ~
 0 8 0
 D4
@@ -631,9 +846,8 @@ S
 #22017
 Throne Room~
 This is the Duke's throne room.  Elaborate tapestries hang on the wall, a
-crystal chandelier hangs from the ceiling and on a raised dais sits an
-elaborate mahogony chair with red velvet cushions.  A doorway to the east
-leads to a side tower.  
+crystal chandelier hangs from the ceiling.  From here the duke holds court
+and rules over his holdings.  A doorway to the east leads to a side tower.  
 ~
 0 8 0
 D1
@@ -798,6 +1012,10 @@ D3
 ~
 ~
 0 0 22033
+D7
+~
+~
+0 0 22026
 D9
 ~
 ~
@@ -1013,6 +1231,9 @@ M 22003 spec_fido
 M 22005 spec_guard
 M 22006 spec_guard
 M 22007 spec_guard
+M 22010 spec_guard
+M 22011 spec_guard
+M 22012 spec_guard
 S
 
 
@@ -1057,10 +1278,33 @@ G 0 22005 0 Thin steel rapier is given to a blacksmith
 M 0 22002 6 22013 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
 E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
-O 0 22001 0 22017 A prison key loaded to Throne Room
+O 0 22020 0 22015 Bunk loaded to Tower Barracks
+O 0 22021 0 22015 Footlocker loaded to Tower Barracks
+P 0 22019 1 22021 1 A hunk of hard bread put inside a hunk of hard bread
+P 0 22022 1 22021 1 Stuffed bear put inside stuffed bear
+P 0 22023 1 22021 1 Red silk scarf put inside red silk scarf
+P 0 22024 1 22021 1 Loose change put inside loose change
+M 0 22010 2 22015 2 Load a sleepy keep guard
+M 0 22011 1 22015 1 Load Sir Pavel
+E 0 22014 0 16 Heavy longsword is loaded wielded of Sir Pavel
+E 0 22025 0 11 Guard's shield is loaded as a shield of Sir Pavel
+M 0 22012 1 22015 1 Load Dame Alia
+E 0 22026 0 16 Wicked poleaxe is loaded wielded of Dame Alia
+O 0 22027 0 22016 Shelves loaded to Tower Pantry
+P 0 22031 1 22027 1 A red water skin put inside a red water skin
+P 0 22028 1 22027 1 Flask of mead put inside flask of mead
+P 0 22030 1 22027 1 Roast beast put inside roast beast
+P 0 22029 1 22027 1 Strips of dried beef put inside strips of dried beef
+P 0 22019 1 22027 1 A hunk of hard bread put inside a hunk of hard bread
+O 0 22032 0 22017 Red iron throne loaded to Throne Room
 M 0 22002 6 22017 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
 E 0 22014 0 16 Heavy longsword is loaded wielded of a keep guard
+M 0 22013 1 22017 1 Load Lerod, the Red Duke
+E 0 22033 0 5 Red duke's breastplate is loaded on the body of Lerod, the Red Duke
+E 0 22034 0 6 Red duke's circlet is loaded over the head of Lerod, the Red Duke
+E 0 22035 0 16 Mace of office is loaded wielded of Lerod, the Red Duke
+G 0 22001 0 A prison key is given to Lerod, the Red Duke
 M 0 22004 1 22021 1 Load a large underwater beast.
 O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
 G 0 22002 0 Rib of a deep water monster is given to a large underwater beast.
