@@ -22,11 +22,12 @@ human~
 AB O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
 -2 -2 -2 4
-EKT 0 0 0
+EKP 0 0 0
 stand stand male 450
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
 #22001
 blacksmith~
 a blacksmith~
@@ -53,11 +54,12 @@ human~
 AG O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
 -2 -2 -2 4
-EKT 0 0 0
+EKP 0 0 0
 stand stand male 450
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
 #22003
 piranha toothy fish~
 a piranha~
@@ -98,11 +100,12 @@ human~
 AB 0 2 0
 22 4 5d44+332 22d10+100 2d6+12 crush
 -4 -4 -4 -2
-C 0 0 0
+CP 0 0 0
 stand stand male 550
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
 #22006
 trainee guard~
 trainee guard~
@@ -113,7 +116,7 @@ human~
 AB 0 2 0
 18 0 5d36+232 18d10+100 3d5+11 punch
 -1 -1 -1 4
-0 0 0 0
+U 0 0 0
 stand stand male 150
 M 0 medium unknown
 F for AHV
@@ -128,7 +131,7 @@ human~
 AB 0 2 0
 18 0 5d36+232 18d10+100 3d5+11 punch
 -1 -1 -1 4
-0 0 0 0
+U 0 0 0
 stand stand female 150
 M 0 medium unknown
 F for AHV
@@ -160,7 +163,7 @@ human~
 AB 0 2 0
 22 1 5d44+332 0d0+0 4d5+12 smash
 0 0 0 0
-0 0 0 0
+T 0 0 0
 stand stand none 0
 GV ACDEFJQ large unknown
 F for AHM
@@ -192,11 +195,12 @@ human~
 AB O 1 0
 26 2 5d52+449 20d10+100 4d5+16 slash
 -6 -6 -6 1
-EKT 0 0 0
+EKP 0 0 0
 stand stand male 600
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
 #22012
 knight dame Alia~
 Dame Alia~
@@ -208,11 +212,12 @@ human~
 AB O 1 0
 26 2 5d52+449 20d10+100 4d5+16 slash
 -6 -6 -6 1
-EKT 0 0 0
+EKP 0 0 0
 stand stand male 600
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
 #22013
 red duke Lerod~
 Lerod, the Red Duke~
@@ -231,6 +236,27 @@ stand stand male 800
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M GREET 22000 100~
+#22014
+prisoner witch~
+the prisoner~
+A prisoner waits quietly with her head down.
+~
+The prisoner is an old woman dressed in simple black dress, murmuring
+strange words under her breath.
+~
+human~
+A J 2 0
+22 0 5d44+332 22d10+100 4d5+12 punch
+0 0 0 0
+0 0 0 0
+stand stand female 0
+0 0 medium unknown
+F for AHMV
+F par ABCDEFGHIJK
+M RANDOM 22003 10~
+M SPEECH 22002 done~
+M SPEECH 22001 follow~
 #0
 
 
@@ -249,7 +275,7 @@ Prison Key~
 a prison key~
 The key to the tower prison lays here.~
 unknown~
-key 0 0
+key 0 A
 0 0 0 0 0
 0 1 1 P
 #22002
@@ -269,11 +295,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -518,28 +544,28 @@ A DFGHIJ E AC BEF
 0 0 0 P
 #22033
 breastplate breast plate black iron~
-Red Duke's breastplate~
+red Duke's breastplate~
 This breastplate is made from black iron.~
 iron~
 armor 0 AD
 D D D AC 0
 28 40 3000 P
 A
-19 2
-A
 1 2
+A
+19 2
 #22034
 circlet iron~
-Red Duke's circlet~
+red Duke's circlet~
 A circlet of iron would fit on your head.~
 iron~
 armor 0 AE
 0 A A AB 0
 25 10 100 P
 A
-20 3
-A
 3 2
+A
+20 3
 #22035
 mace office frost~
 mace of office~
@@ -1225,15 +1251,8 @@ S
 
 
 #SPECIALS
-M 22000 spec_guard
-M 22002 spec_guard
 M 22003 spec_fido
-M 22005 spec_guard
-M 22006 spec_guard
-M 22007 spec_guard
-M 22010 spec_guard
-M 22011 spec_guard
-M 22012 spec_guard
+M 22014 spec_cast_mage
 S
 
 
@@ -1305,6 +1324,7 @@ E 0 22033 0 5 Red duke's breastplate is loaded on the body of Lerod, the Red Duk
 E 0 22034 0 6 Red duke's circlet is loaded over the head of Lerod, the Red Duke
 E 0 22035 0 16 Mace of office is loaded wielded of Lerod, the Red Duke
 G 0 22001 0 A prison key is given to Lerod, the Red Duke
+M 0 22014 1 22020 1 Load the prisoner
 M 0 22004 1 22021 1 Load a large underwater beast.
 O 0 22002 0 22021 Rib of a deep water monster loaded to Lair
 G 0 22002 0 Rib of a deep water monster is given to a large underwater beast.
@@ -1335,6 +1355,31 @@ S
 
 
 #MOBPROGS
+#22000
+if mobhere 22014
+say The prisoner escaped!
+kill prisoner
+endif
+~
+#22001
+say Please take me to safety.
+if isfollow $i
+else
+follow $n
+endif
+~
+#22002
+if isfollow $i
+say Thank you for your help, $n.
+follow $i
+endif
+~
+#22003
+if isfollow $i
+else
+mob echo {x$i lifts her head and asks '{gCan I follow you to safety? Just say the word.{x'
+endif
+~
 #0
 
 #$
