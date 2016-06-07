@@ -51,7 +51,7 @@ A keep guard watches over the keep.
 The guard diligently patrols the keep. The Red Duke does not tolerate sleeping on the job.
 ~
 human~
-AG O 2 0
+AGY O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
 -2 -2 -2 4
 EKP 0 0 0
@@ -236,6 +236,7 @@ stand stand male 800
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M ACT 22004 sits on red iron throne~
 M GREET 22000 100~
 #22014
 prisoner witch~
@@ -246,7 +247,7 @@ The prisoner is an old woman dressed in simple black dress, murmuring
 strange words under her breath.
 ~
 human~
-A J 2 0
+AG J 2 0
 22 0 5d44+332 22d10+100 4d5+12 punch
 0 0 0 0
 0 0 0 0
@@ -254,9 +255,45 @@ stand stand female 0
 0 0 medium unknown
 F for AHMV
 F par ABCDEFGHIJK
-M RANDOM 22003 10~
-M SPEECH 22002 done~
+M ENTRY 22005 100~
 M SPEECH 22001 follow~
+M SPEECH 22002 done~
+M RANDOM 22003 10~
+#22015
+cook troll green chef~
+the cook~
+A green skinned troll wears an apron and a chef's hat
+~
+This troll hobbles about the pantry wearing an apron and a chef's hat. 
+His sharp claws don't get in the way of preparing the duke's meal,
+but combined with his tough green skin and fangs, the cook will easily
+handle anyone who causes trouble in his kitchen.
+~
+human~
+AB c 2 0
+26 4 4d50+350 26d10+100 4d5+16 claw
+-5 -5 -5 1
+0 0 0 H
+stand stand male 150
+M 0 medium unknown
+F for AHV
+F par ABCDEFGHIJK
+#22016
+dragon brown~
+a brown dragon~
+A brown-scaled dragon has come down to feed.
+~
+This dragon's brown scales cover a thin muscular form, 8 feet from head to tail.
+Its teeth and claws are ready to tear open whatever looks like dinner, which
+could be anything.
+~
+dragon~
+AFGW JT 2 0
+22 0 5d44+332 22d10+100 4d5+12 none
+0 0 0 0
+M 0 BEHK FI
+stand stand none 0
+AHZ ACDEFGHIJKPQUVX medium unknown
 #0
 
 
@@ -295,11 +332,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-3 2
+2 1
 A
 18 2
 A
-2 1
+3 2
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -551,9 +588,9 @@ armor 0 AD
 D D D AC 0
 28 40 3000 P
 A
-1 2
-A
 19 2
+A
+1 2
 #22034
 circlet iron~
 red Duke's circlet~
@@ -563,9 +600,9 @@ armor 0 AE
 0 A A AB 0
 25 10 100 P
 A
-3 2
-A
 20 3
+A
+3 2
 #22035
 mace office frost~
 mace of office~
@@ -858,6 +895,9 @@ D5
 S
 #22016
 Tower Pantry~
+The Keep's food and supplies are stored here.  Lines of shelves, crates
+and barrels fill the room.  Spiral staircases lead up to the throne room or
+down to the barracks.  
 ~
 0 8 0
 D4
@@ -891,6 +931,9 @@ D5
 S
 #22018
 Tower Parapet~
+The top of the tower is open to the sky, giving a clear view of the
+surrounding hills and the dragon flighys above them.  The flag stone floor
+of the parapet is covered with bird droppings.  
 ~
 0 0 0
 D5
@@ -925,6 +968,9 @@ crack~
 S
 #22020
 The Tower Prison~
+The room at the top of the east tower is used as a prison.  The windows
+are tightly barred.  The stone walls have hatches scratched on them, marking
+off what must have been months of imprisonment.  
 ~
 0 8 0
 D5
@@ -1049,6 +1095,9 @@ D9
 S
 #22028
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1062,6 +1111,9 @@ D3
 S
 #22029
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1079,6 +1131,9 @@ D3
 S
 #22030
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1100,6 +1155,9 @@ D3
 S
 #22031
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D1
@@ -1117,6 +1175,9 @@ D3
 S
 #22032
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1138,6 +1199,9 @@ D3
 S
 #22033
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1151,6 +1215,9 @@ D1
 S
 #22034
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D2
@@ -1164,6 +1231,9 @@ D3
 S
 #22035
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D1
@@ -1181,6 +1251,9 @@ D3
 S
 #22036
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D1
@@ -1198,6 +1271,9 @@ D3
 S
 #22037
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D1
@@ -1211,6 +1287,9 @@ D2
 S
 #22038
 Craggy Hills~
+The hills around the Red Duke's keep are rocky and barren, marked by cliffs
+and narrow crevices. Only sparse brown shrubs grow here, while an occasional
+dragon soars high in the sky.
 ~
 0 0 4
 D0
@@ -1253,6 +1332,7 @@ S
 #SPECIALS
 M 22003 spec_fido
 M 22014 spec_cast_mage
+M 22016 spec_breath_acid
 S
 
 
@@ -1315,6 +1395,7 @@ P 0 22028 1 22027 1 Flask of mead put inside flask of mead
 P 0 22030 1 22027 1 Roast beast put inside roast beast
 P 0 22029 1 22027 1 Strips of dried beef put inside strips of dried beef
 P 0 22019 1 22027 1 A hunk of hard bread put inside a hunk of hard bread
+M 0 22015 1 22016 1 Load the cook
 O 0 22032 0 22017 Red iron throne loaded to Throne Room
 M 0 22002 6 22017 1 Load a keep guard
 E 0 22015 0 3 Guard's cape is loaded around the neck (1) of a keep guard
@@ -1342,6 +1423,10 @@ M 0 22007 3 22024 1 Load trainee guard
 E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
 M 0 22006 4 22024 1 Load trainee guard
 E 0 22016 0 16 Wooden sword is loaded wielded of trainee guard
+M 0 22016 4 22028 1 Load a brown dragon
+M 0 22016 4 22031 1 Load a brown dragon
+M 0 22016 4 22034 1 Load a brown dragon
+M 0 22016 4 22037 1 Load a brown dragon
 M 0 22009 3 22039 1 Load horse
 M 0 22009 3 22040 1 Load horse
 S
@@ -1378,6 +1463,19 @@ endif
 if isfollow $i
 else
 mob echo {x$i lifts her head and asks '{gCan I follow you to safety? Just say the word.{x'
+endif
+~
+#22004
+say "Get out of my throne!"
+mob kill $n
+~
+#22005
+if room $i == 22000
+or room $i == 22034
+if isfollow $i
+say Thank you for taking me to safety.
+follow $i
+endif
 endif
 ~
 #0
