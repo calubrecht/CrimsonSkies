@@ -236,8 +236,8 @@ stand stand male 800
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
-M ACT 22004 sits on red iron throne~
 M GREET 22000 100~
+M ACT 22004 sits on red iron throne~
 #22014
 prisoner witch~
 the prisoner~
@@ -255,10 +255,10 @@ stand stand female 0
 0 0 medium unknown
 F for AHMV
 F par ABCDEFGHIJK
-M ENTRY 22005 100~
-M SPEECH 22001 follow~
-M SPEECH 22002 done~
 M RANDOM 22003 10~
+M SPEECH 22002 done~
+M SPEECH 22001 follow~
+M ENTRY 22005 100~
 #22015
 cook troll green chef~
 the cook~
@@ -332,11 +332,11 @@ light A A
 0 0 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef 0 0
 25 1 120 P
 A
-2 1
+3 2
 A
 18 2
 A
-3 2
+2 1
 #22004
 hammer blacksmith~
 blacksmith's hammer~
@@ -588,9 +588,9 @@ armor 0 AD
 D D D AC 0
 28 40 3000 P
 A
-19 2
-A
 1 2
+A
+19 2
 #22034
 circlet iron~
 red Duke's circlet~
@@ -600,9 +600,9 @@ armor 0 AE
 0 A A AB 0
 25 10 100 P
 A
-20 3
-A
 3 2
+A
+20 3
 #22035
 mace office frost~
 mace of office~
@@ -1218,6 +1218,8 @@ Craggy Hills~
 The hills around the Red Duke's keep are rocky and barren, marked by cliffs
 and narrow crevices. Only sparse brown shrubs grow here, while an occasional
 dragon soars high in the sky.
+A dozen bounders have been arranged in a circle here, the strange black rock
+resembles no stone in the area.
 ~
 0 0 4
 D2
