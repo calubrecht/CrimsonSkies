@@ -51,7 +51,7 @@ A keep guard watches over the keep.
 The guard diligently patrols the keep. The Red Duke does not tolerate sleeping on the job.
 ~
 human~
-AG O 2 0
+AGY O 2 0
 20 2 10d30+245 20d10+100 4d5+10 slash
 -2 -2 -2 4
 EKP 0 0 0
@@ -236,6 +236,7 @@ stand stand male 800
 M 0 medium unknown
 F for AHV
 F par ABCDEFGHIJK
+M ACT 22004 sits on red iron throne~
 M GREET 22000 100~
 #22014
 prisoner witch~
@@ -246,7 +247,7 @@ The prisoner is an old woman dressed in simple black dress, murmuring
 strange words under her breath.
 ~
 human~
-A J 2 0
+AG J 2 0
 22 0 5d44+332 22d10+100 4d5+12 punch
 0 0 0 0
 0 0 0 0
@@ -254,6 +255,7 @@ stand stand female 0
 0 0 medium unknown
 F for AHMV
 F par ABCDEFGHIJK
+M ENTRY 22005 100~
 M SPEECH 22001 follow~
 M SPEECH 22002 done~
 M RANDOM 22003 10~
@@ -1461,6 +1463,19 @@ endif
 if isfollow $i
 else
 mob echo {x$i lifts her head and asks '{gCan I follow you to safety? Just say the word.{x'
+endif
+~
+#22004
+say "Get out of my throne!"
+mob kill $n
+~
+#22005
+if room $i == 22000
+or room $i == 22034
+if isfollow $i
+say Thank you for taking me to safety.
+follow $i
+endif
 endif
 ~
 #0
