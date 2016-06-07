@@ -25,8 +25,6 @@ AB O 2 0
 EKP 0 0 0
 stand stand male 450
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 #22001
 blacksmith~
@@ -41,8 +39,6 @@ ABRT 0 2 0
 CDFH 0 0 0
 stand stand male 0
 GMV 0 medium unknown
-F for AH
-F par ABCDEFGHIJK
 #22002
 Keep Guard~
 a keep guard~
@@ -57,8 +53,6 @@ AGY O 2 0
 EKP 0 0 0
 stand stand male 450
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 #22003
 piranha toothy fish~
@@ -103,8 +97,6 @@ AB 0 2 0
 CP 0 0 0
 stand stand male 550
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 #22006
 trainee guard~
@@ -119,8 +111,6 @@ AB 0 2 0
 U 0 0 0
 stand stand male 150
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 #22007
 trainee guard~
 trainee guard~
@@ -134,8 +124,6 @@ AB 0 2 0
 U 0 0 0
 stand stand female 150
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 #22008
 stableboy boy stable~
 a stableboy~
@@ -151,8 +139,6 @@ ABC 0 2 0
 0 0 0 0
 stand stand male 0
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 #22009
 horse~
 horse~
@@ -166,8 +152,6 @@ AB 0 2 0
 T 0 0 0
 stand stand none 0
 GV ACDEFJQ large unknown
-F for AHM
-F par BGHIK
 #22010
 keep guard sleepy~
 a sleepy keep guard~
@@ -198,8 +182,6 @@ AB O 1 0
 EKP 0 0 0
 stand stand male 600
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 #22012
 knight dame Alia~
@@ -215,8 +197,6 @@ AB O 1 0
 EKP 0 0 0
 stand stand male 600
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 #22013
 red duke Lerod~
@@ -234,8 +214,6 @@ AB O 1 0
 D 0 0 0
 stand stand male 800
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 M GREET 22000 100~
 M ACT 22004 sits on red iron throne~
 #22014
@@ -253,8 +231,6 @@ AG J 2 0
 0 0 0 0
 stand stand female 0
 0 0 medium unknown
-F for AHMV
-F par ABCDEFGHIJK
 M RANDOM 22003 10~
 M SPEECH 22002 done~
 M SPEECH 22001 follow~
@@ -276,8 +252,6 @@ AB c 2 0
 0 0 0 H
 stand stand male 150
 M 0 medium unknown
-F for AHV
-F par ABCDEFGHIJK
 #22016
 dragon brown~
 a brown dragon~
