@@ -44,6 +44,38 @@ axe 50 20 chop AG
 51 2 2 P
 A
 1 20
+#21003
+ring puce ugly red~
+a puce ring~
+Someone discarded this ring with an ugly red stone.~
+unknown~
+jewelry G AB
+0 0 0 0 0
+18 10 0 P
+A
+18 1
+#21004
+cloak invisible~
+invisible cloak~
+Something invisible glows hear.~
+unknown~
+armor A AC
+AB AB AB AB 0
+18 80 0 P
+A
+20 -2
+#21005
+breastplate steel blue~
+blue steel breastplate~
+A shining breastplate of blue enabled steel sits here.~
+unknown~
+armor 0 A
+BC BC BC AB 0
+0 150 0 P
+A
+18 1
+A
+20 1
 #0
 
 
@@ -77,6 +109,10 @@ An archway leads to a room in the west..
 ~
 ~
 0 -1 21004
+D5
+~
+~
+0 0 21005
 S
 #21001
 Avarice's Room~
@@ -126,6 +162,36 @@ An archway leads to a room in the east.
 ~
 0 -1 21000
 S
+#21005
+~
+The Hall of Mortals is where Immortals bring mortals to provide them with
+appropriate gear.  
+Marble pillars rise 50 feet to a vaulted ceiling over pure {Bblue{x marble
+floors. The room is impossibly quiet, all extraneous sounds seem absorbed
+by the pillars, which give off a faint light. Arched doorways lead in all
+direcitions.
+~
+0 8 0
+D0
+~
+~
+0 0 21006
+D4
+~
+~
+0 0 21000
+S
+#21006
+The Hall of 18~
+This marble room is dominated by huge letters X V I I I
+It is also filled with assorted gear
+~
+0 8 0
+D2
+~
+~
+0 0 21005
+S
 #0
 
 
@@ -139,6 +205,11 @@ S
 O 0 21000 0 21000 Fountain of mead loaded to The Grand Hall
 O 0 21001 0 21001 The wand of avarice loaded to Avarice's Room
 O 0 21002 0 21002 The axe of puissance loaded to Puissance's Room
+O 0 21000 0 21005 Fountain of mead loaded to 
+O 0 3031 0 21006 A hooded brass lantern loaded to The Hall of 18
+O 0 21003 0 21006 A puce ring loaded to The Hall of 18
+O 0 21004 0 21006 Invisible cloak loaded to The Hall of 18
+O 0 21005 0 21006 Blue steel breastplate loaded to The Hall of 18
 S
 
 
