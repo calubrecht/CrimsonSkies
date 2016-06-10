@@ -727,13 +727,13 @@ AEDIT(aedit_reset)
 
     EDIT_AREA(ch, pArea);
 
-	// reset_area won't reset objects if there are any players
-	// in area. Defeat this temporarily for a forced reset.
-	int nPlayers = pArea->nplayer;
-	pArea->nplayer = 0;
+    // reset_area won't reset objects if there are any players
+    // in area. Defeat this temporarily for a forced reset.
+    int nPlayers = pArea->nplayer;
+    pArea->nplayer = 0;
 
     reset_area(pArea);
-	pArea->nplayer = nPlayers;
+    pArea->nplayer = nPlayers;
     send_to_char("Area reset.\r\n", ch);
 
     return FALSE;
@@ -3605,10 +3605,6 @@ OEDIT(oedit_condition)
         ch);
     return FALSE;
 }
-
-
-
-
 
 /*
 * Mobile Editor Functions.

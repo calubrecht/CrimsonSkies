@@ -415,6 +415,8 @@ const struct cmd_type cmd_table[] = {
     {"oedit",           do_oedit,       POS_DEAD, IM, LOG_NORMAL, FALSE},
     {"mpedit",          do_mpedit,      POS_DEAD, IM, LOG_NORMAL, FALSE},
     {"hedit",           do_hedit,       POS_DEAD, IM, LOG_NORMAL, FALSE},
+    
+    {"areset",          do_areset,     POS_DEAD, IM, LOG_NORMAL, FALSE},
 
     /*
      * End of list.

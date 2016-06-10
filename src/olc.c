@@ -412,6 +412,9 @@ const struct olc_cmd_type oedit_table[] = {
     { "material", oedit_material },    /* ROM */
     { "level", oedit_level },        /* ROM */
     { "condition", oedit_condition },    /* ROM */
+    { "mlist", redit_mlist },
+    { "rlist", redit_rlist },
+    { "olist", redit_olist },
 
     { "?", show_help },
     { "version", show_version },
@@ -458,6 +461,9 @@ const struct olc_cmd_type medit_table[] = {
     { "group", medit_group },        /* ROM */
     { "addmprog", medit_addmprog },    /* ROM */
     { "delmprog", medit_delmprog },    /* ROM */
+    { "mlist", redit_mlist },
+    { "rlist", redit_rlist },
+    { "olist", redit_olist },
 
     { "?", show_help },
     { "version", show_version },
@@ -1896,3 +1902,44 @@ void sedit(CHAR_DATA *ch, char *argument)
 
 } // end void sedit
 
+/* Force reset an area */
+void do_areset(CHAR_DATA * ch, char *argument)
+{
+    AREA_DATA *pArea;
+    int value;
+    char arg[MAX_STRING_LENGTH];
+
+    if (IS_NPC(ch))
+        return;
+
+    pArea = ch->in_room->area;
+
+    argument = one_argument(argument, arg);
+
+    if (is_number(arg))
+    {
+        value = atoi(arg);
+        if (!(pArea = get_area_data(value)))
+        {
+            send_to_char("That area vnum does not exist.\r\n", ch);
+            return;
+        }
+    }
+
+    if (!IS_BUILDER(ch, pArea))
+    {
+        send_to_char("Insufficient security to edit areas.\r\n", ch);
+        return;
+    }
+    
+    if (pArea)
+    {
+      int nPlayers = pArea->nplayer;
+      pArea->nplayer = 0;
+
+      reset_area(pArea);
+      pArea->nplayer = nPlayers;
+      send_to_char("Area reset.\r\n", ch);
+    }
+    return;
+}
