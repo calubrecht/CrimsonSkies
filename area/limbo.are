@@ -234,7 +234,7 @@ trash 0 0
 0 0 0 P
 #31
 bind stone bindstone~
-a bind stone.~
+a bind stone~
 A very large bind stone is here.~
 stone~
 treasure AO P
