@@ -73,6 +73,7 @@ Sk 'detect hidden' 15 1
 Sk 'detect poison' 15 1
 Sk 'identify' 15 1
 Sk 'fast healing' 15 8
+Sk 'locate bind' 15 1
 Sk 'color spray' 16 1
 Sk 'create rose' 16 1
 Sk 'dispel magic' 16 1

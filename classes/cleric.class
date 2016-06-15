@@ -71,6 +71,7 @@ Sk 'weaken' 14 1
 Sk 'dispel evil' 15 1
 Sk 'dispel good' 15 1
 Sk 'locate object' 15 1
+Sk 'locate bind' 15 1
 Sk 'calm' 16 1
 Sk 'farsight' 16 1
 Sk 'heat metal' 16 1
