@@ -2102,4 +2102,15 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        locate bind~
+SpellFun    spell_locate_bind~
+Target      0
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      !Locate Bind!~
+Race        0
+End
+
 #END

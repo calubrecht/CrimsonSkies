@@ -2222,6 +2222,7 @@ farsight	   searches for living beings near the caster
 identify	   gives information about the nature of an object
 know alignment	   determines the moral character of a monster or person
 locate object	   finds a specific item
+locate bind        locates bind stones throughout the world
 locate wizard mark locates items that have been wizard marked by an
                    enchantor. This spell is only available to
                    enchantors.
@@ -3306,7 +3307,10 @@ well as (and most importantly) cast one level higher.
 This spell is a specialized locate object spell.  It allows the 
 enchantor with high detail and a high success rate to locate items 
 that they have wizard marked by their hand.
-
+~
+0 LOCATE BIND~
+The locate bind spell will allow the caster to locate the room and
+area that bind stones are in throughout the entire world.
 ~
 0 CLEAR~
 

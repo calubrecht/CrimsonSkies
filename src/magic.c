@@ -3726,6 +3726,59 @@ void spell_locate_object(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 } // end spell_locate_object
 
+/*
+ * Spell that locate the position of bind stones throughout the land.
+ */
+void spell_locate_bind(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    char buf[MAX_INPUT_LENGTH];
+    BUFFER *buffer;
+    OBJ_DATA *obj;
+    bool found;
+
+    found = FALSE;
+
+    buffer = new_buf();
+
+    for (obj = object_list; obj != NULL; obj = obj->next)
+    {
+        if (obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
+        {
+            continue;
+        }
+
+        found = TRUE;
+
+        if (IS_IMMORTAL(ch) && obj->in_room != NULL)
+        {
+            sprintf(buf, "One is at {c%s{x in {c%s{x [Room %d]\r\n",
+                obj->in_room->name,
+                obj->in_room->area->name,
+                obj->in_room->vnum);
+        }
+        else
+        {
+            sprintf(buf, "One is in {c%s{x in {c%s{x\r\n",
+                obj->in_room->name,
+                obj->in_room->area->name);
+        }
+
+        add_buf(buffer, buf);
+    }
+
+    if (!found)
+    {
+        send_to_char("Nothing like that in heaven or earth.\r\n", ch);
+    }
+    else
+    {
+        page_to_char(buf_string(buffer), ch);
+    }
+
+    free_buf(buffer);
+    return;
+}
+
 void spell_magic_missile(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
@@ -5341,6 +5394,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_lightning_breath")) return spell_lightning_breath;
             if (!str_cmp(name, "spell_locate_wizard_mark")) return spell_locate_wizard_mark;
             if (!str_cmp(name, "spell_life_boost")) return spell_life_boost;
+            if (!str_cmp(name, "spell_locate_bind")) return spell_locate_bind;
             break;
         case 'm':
             if (!str_cmp(name, "spell_magic_missile")) return spell_magic_missile;
@@ -5490,6 +5544,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_infravision) return "spell_infravision";
     if (spell == spell_know_alignment) return "spell_know_alignment";
     if (spell == spell_locate_object) return "spell_locate_object";
+    if (spell == spell_locate_bind) return "spell_locate_bind";
     if (spell == spell_lightning_bolt) return "spell_lightning_bolt";
     if (spell == spell_lightning_breath) return "spell_lightning_breath";
     if (spell == spell_locate_wizard_mark) return "spell_locate_wizard_mark";
