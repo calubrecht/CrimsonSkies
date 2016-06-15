@@ -271,6 +271,9 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     {
         fprintf(fp, "Password %s~\n", ch->pcdata->pwd);
 
+        // Recall vnum (if recall vnum is 0 then the default will be used)
+        fprintf(fp, "RecallVnum %d\n", ch->pcdata->recall_vnum);
+
         // Update the last available IP address
         if (ch->desc != NULL
             && !IS_NULLSTR(ch->desc->host)
@@ -651,6 +654,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->security = 0;    /* OLC */
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
+    ch->pcdata->recall_vnum = 0;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -1119,6 +1123,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
             case 'R':
                 KEY("Race", ch->race, race_lookup(fread_string(fp)));
+                KEY("RecallVnum", ch->pcdata->recall_vnum, (fread_number(fp)));
 
                 if (!str_cmp(word, "Room"))
                 {

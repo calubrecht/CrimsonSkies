@@ -4626,16 +4626,27 @@ void spell_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  * enhanced recall skill and the check passes it will only half the movement
  * by 25%.
  */
-void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     ROOM_INDEX_DATA *location;
+    int recall_vnum = 0;
 
     if (IS_NPC(victim))
         return;
 
-    if ((location = get_room_index(ROOM_VNUM_TEMPLE)) == NULL)
+    // If this is a player and they have a custom recall set to a bind stone
+    // then use that, otherwise use the temple.
+    if (!IS_NPC(ch) && ch->pcdata->recall_vnum > 0)
+    {
+        recall_vnum = ch->pcdata->recall_vnum;
+    }
+    else
+    {
+        recall_vnum = ROOM_VNUM_TEMPLE;
+    }
+
+    if ((location = get_room_index(recall_vnum)) == NULL)
     {
         send_to_char("You are completely lost.\r\n", victim);
         return;

@@ -904,7 +904,9 @@ There is no RENT in this mud.  Just QUIT whenever you want to leave.
 Syntax: RECALL
 
 RECALL prays to the gods for miraculous transportation from where you are
-back to the Temple of Midgaard.
+back to your recall point.  By default this is in the Temple of Midgaard
+however you can set your recall point to be various locations around the
+world if you come across a bind stone and use the bind command (help bind).  
 
 If you RECALL during combat, you will lose experience (more than for fleeing),
 and you will have a chance of failing (again, more than for fleeing).  This
@@ -921,6 +923,21 @@ time after a battle with another player (the spell word of recall however
 will).
 
 ENHANCED RECALL is available to all classes.
+~
+
+0 BIND BINDSTONE~
+Syntax:  bind
+         bind reset
+
+The bind command will allow you to set your recall point to the current room
+if an ancient bind stone is in the room.  Bind stones exist in various
+locations around the world (many towns will have them just outside their
+borders for instance).
+
+If you wish to return to the default recall point at the Temple in Midgaard
+you can use the "bind reset" command and your recall point will be reset.
+
+You may reset your bind without a bind stone being present.
 ~
 
 -1 SPLIT~

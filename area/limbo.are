@@ -232,6 +232,20 @@ Dummy object is used for loading non-existent objects~
 trash 0 0
 0 0 0 0 0
 0 0 0 P
+#31
+bind stone bindstone~
+a bind stone.~
+A very large bind stone is here.~
+stone~
+treasure AO P
+0 0 0 0 0
+0 0 0 P
+E
+bind~
+A very large boulder is here with ancient runes on it.  The inscription
+reads: This bind stone holds the power to allow an individual to recall to
+it forever after. (see: help recall, help bind stone)
+~
 #0
 
 

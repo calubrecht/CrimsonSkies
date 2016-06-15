@@ -6084,17 +6084,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
 
     return;
 
-    int x = 5;
-    int y = 0;
-    char info[MSL];
-
-    // and crash!
-    sprintf(info, "%d / %d = %d\r\n", x, y, x / y);
-    send_to_char(info, ch);
-
-    return;
-
-    char buf[MAX_STRING_LENGTH];
+    char buf[MSL];
     char display_buf[MAX_STRING_LENGTH];
     char *tokenPtr;
 
@@ -6116,46 +6106,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
     send_to_char(buf, ch);
 
     return;
-    ROOM_INDEX_DATA *pRoomIndex;
-    AREA_DATA *pArea;
-    //char buf[MAX_STRING_LENGTH];
-    bool found;
-    int vnum;
-    int col = 0;
 
-
-    pArea = ch->in_room->area;
-    found = FALSE;
-
-    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
-    {
-        if ((pRoomIndex = get_room_index(vnum)))
-        {
-            if (IS_SET(pRoomIndex->room_flags, ROOM_ARENA))
-            {
-                found = TRUE;
-                sprintf(buf, "[%5d] %-17.16s",
-                    vnum, capitalize(pRoomIndex->name));
-
-                send_to_char(buf, ch);
-
-                if (++col % 3 == 0)
-                    send_to_char("\r\n", ch);
-            }
-
-        }
-    }
-
-    if (!found)
-    {
-        send_to_char("Room(s) not found in this area.\r\n", ch);
-        return;
-    }
-
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-
-    return;
 } // end do_debug
 
 /*

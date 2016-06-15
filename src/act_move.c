@@ -1695,6 +1695,7 @@ void do_recall(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *location;
+    int recall_vnum = 0;
 
     if (IS_NPC(ch) && !IS_SET(ch->act, ACT_PET))
     {
@@ -1702,16 +1703,27 @@ void do_recall(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // Cannot recall until a few ticks after battle.
+    // Cannot recall until a few ticks after battle with another player.
     if (!IS_NPC(ch) && ch->pcdata->pk_timer > 0)
     {
         send_to_char("You failed!\r\n", ch);
         return;
     }
 
+    // If this is a player and they have a custom recall set to a bind stone
+    // then use that, otherwise use the temple.
+    if (!IS_NPC(ch) && ch->pcdata->recall_vnum > 0)
+    {
+        recall_vnum = ch->pcdata->recall_vnum;
+    }
+    else
+    {
+        recall_vnum = ROOM_VNUM_TEMPLE;
+    }
+
     act("$n prays for transportation!", ch, 0, 0, TO_ROOM);
 
-    if ((location = get_room_index(ROOM_VNUM_TEMPLE)) == NULL)
+    if ((location = get_room_index(recall_vnum)) == NULL)
     {
         send_to_char("You are completely lost.\r\n", ch);
         return;
@@ -1720,8 +1732,7 @@ void do_recall(CHAR_DATA * ch, char *argument)
     if (ch->in_room == location)
         return;
 
-    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
-        || IS_AFFECTED(ch, AFF_CURSE))
+    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL) || IS_AFFECTED(ch, AFF_CURSE))
     {
         send_to_char("The gods have forsaken you.\r\n", ch);
         return;
@@ -1777,6 +1788,59 @@ void do_recall(CHAR_DATA * ch, char *argument)
     if (ch->pet != NULL)
         do_function(ch->pet, &do_recall, "");
 
+    return;
+}
+
+/*
+ * Command that will allow a player to set their recall point to the current
+ * room they are in if a bind stone is in the room.
+ */
+void do_bind(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA * obj;
+    ROOM_INDEX_DATA *location;
+
+    if (ch == NULL || IS_NPC(ch))
+    {
+        return;
+    }
+
+    // Reset the recall vnum to the temple of the reset argument is issued, this can
+    // be done without a bind stone in the room.
+    if (!IS_NULLSTR(argument) && (!str_cmp(argument, "reset")))
+    {
+        ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
+        send_to_char("Your recall point has been reset.\r\n", ch);
+        return;
+    }
+    else if ((location = get_room_index(ch->pcdata->recall_vnum)) == NULL)
+    {
+        // The recall vnum is null... reset it
+        ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
+        send_to_char("Your recall point has been reset.\r\n", ch);
+        return;
+    }
+
+    if (ch->in_room == NULL)
+    {
+        send_to_char("Failed!\r\n", ch);
+        return;
+    }
+
+    obj = get_obj_list(ch, "bindstone", ch->in_room->contents);
+
+    if (obj == NULL || obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
+    {
+        send_to_char("There is no bind stone here.\r\n", ch);
+        sprintf(buf, "Your current bind stone is set to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+        send_to_char(buf, ch);
+        return;
+    }
+
+    sprintf(buf, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", ch->in_room->name, ch->in_room->area->name);
+    send_to_char(buf, ch);
+    ch->pcdata->recall_vnum = ch->in_room->vnum;
     return;
 }
 

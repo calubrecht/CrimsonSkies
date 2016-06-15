@@ -323,6 +323,7 @@ const struct cmd_type cmd_table[] = {
     {"terrain",         do_terrain,     POS_SITTING,  0, LOG_NORMAL, TRUE},
     {"version",         do_version,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"randomnames",     do_random_names,POS_DEAD,     0, LOG_NORMAL, TRUE},
+    {"bind",            do_bind,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"advance",         do_advance,     POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"copyover",        do_copyover,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"dump",            do_dump,        POS_DEAD, ML, LOG_ALWAYS, FALSE},
