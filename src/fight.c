@@ -3124,6 +3124,8 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
 {
     char buf[MAX_STRING_LENGTH];
     char verb[25];
+    char ch_display[128];
+    char victim_display[128];
 
     // Both have to be players
     if (IS_NPC(victim) || IS_NPC(ch))
@@ -3157,11 +3159,31 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
         sprintf(verb, "***{RDESTROYED{x***");
     }
 
+    // Clan's will on the outer side of the name, in case anyone wonders
+    // whhy they're flip flopped.
+    if (is_clan(ch))
+    {
+        sprintf(ch_display, "%s %s", ch->name, clan_table[ch->clan].who_name);
+    }
+    else
+    {
+        sprintf(ch_display, "%s ", ch->name);
+    }
+
+    if (is_clan(victim))
+    {
+        sprintf(victim_display, "%s%s", clan_table[victim->clan].who_name, victim->name);
+    }
+    else
+    {
+        sprintf(victim_display, "%s", victim->name);
+    }
+
     // The final message
-    sprintf(buf, "%s%s got %s by %s.%s\r\n",
+    sprintf(buf, "%s%s got %s by %s%s\r\n",
         (victim->desc == NULL) ? "({YLink Dead{x) " : "",
-        victim->name, verb, ch->name,
-        (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? " {W({cArena{W){x" : "");
+        victim_display, verb, ch_display,
+        (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? "{W({cArena{W){x" : "");
 
     // Log it
     log_string(buf);
