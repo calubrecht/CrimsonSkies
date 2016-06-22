@@ -222,7 +222,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         // want to over do it here, so the ocean is the only sector type we
         // are really going to slow down since we don't want people swimming
         // the worlds length in the ocean.  - Rhien.
-        if (in_room->sector_type == SECT_OCEAN)
+        if (in_room->sector_type == SECT_OCEAN && !IS_IMMORTAL(ch))
         {
             // Ocean Lag, Phew
             WAIT_STATE(ch, 6);
