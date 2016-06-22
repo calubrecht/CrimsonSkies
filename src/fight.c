@@ -3186,7 +3186,7 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
         (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? "{W({cArena{W){x" : "");
 
     // Log it
-    log_string(buf);
+    log_string(strip_color(buf));
 
     // Send it to all the players
     send_to_all_char(buf);
