@@ -61,7 +61,7 @@ void do_wiznet(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "on"))
     {
-        send_to_char("Welcome to Wiznet!", ch);
+        send_to_char("Welcome to Wiznet!\r\n", ch);
         send_to_char("Syntax:  wiznet [on|off]\r\n", ch);
         SET_BIT(ch->wiznet, WIZ_ON);
         return;
@@ -69,7 +69,7 @@ void do_wiznet(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "off"))
     {
-        send_to_char("Signing off of Wiznet!", ch);
+        send_to_char("Signing off of Wiznet!\r\n", ch);
         send_to_char("Syntax:  wiznet [on|off]\r\n", ch);
         REMOVE_BIT(ch->wiznet, WIZ_ON);
         return;
