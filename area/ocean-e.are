@@ -2515,6 +2515,33 @@ S
 
 
 #RESETS
+M 0 11000 10 11200 10 Load a tuna fish
+M 0 11003 6 11210 1 Load a {Csea{x dragon
+M 0 11000 10 11211 10 Load a tuna fish
+M 0 11008 6 11219 6 Load a seagull
+M 0 11003 6 11219 1 Load a {Csea{x dragon
+M 0 11001 6 11220 1 Load a octopus
+M 0 11002 6 11221 1 Load a man o'war
+M 0 11000 10 11222 10 Load a tuna fish
+M 0 11005 8 11222 8 Load an aboleth
+M 0 11001 6 11228 1 Load a octopus
+M 0 11002 6 11228 1 Load a man o'war
+M 0 11000 10 11230 10 Load a tuna fish
+M 0 11008 6 11238 6 Load a seagull
+M 0 11006 6 11249 1 Load a dolphin
+M 0 11003 6 11250 1 Load a {Csea{x dragon
+M 0 11001 6 11269 1 Load a octopus
+M 0 11005 8 11271 8 Load an aboleth
+M 0 11003 6 11281 1 Load a {Csea{x dragon
+M 0 11002 6 11282 1 Load a man o'war
+M 0 11003 6 11288 1 Load a {Csea{x dragon
+M 0 11001 6 11290 1 Load a octopus
+M 0 11000 10 11291 10 Load a tuna fish
+M 0 11000 10 11291 10 Load a tuna fish
+M 0 11005 8 11292 8 Load an aboleth
+M 0 11003 6 11295 1 Load a {Csea{x dragon
+M 0 11006 6 11297 1 Load a dolphin
+M 0 11006 10 11299 10 Load a dolphin
 S
 
 
