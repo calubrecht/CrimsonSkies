@@ -27,7 +27,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug
-  - main menu
   - questing (Vasigo's questing code)
   - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
@@ -43,7 +42,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make the game not crash if a player with an invalid class logs in.
   - Retrain command to restart as a base class (consider allowing to reclass back to base class).
   - Set autogold by default on creation
-  - Allow any player to change their recall to any number of custom bind stones for recall.
   - Crafting system, intertwine it with my nature code (that I need to dig up and add)
   - Make a web site (ASP.Net), make the API for it generic so game data can easily be hooked into.
   - Make the guild command a one stop command for all guild actions (putting people in clans, listing
