@@ -561,6 +561,7 @@ struct settings_data
     // Game Locks / System Behavior
     bool newlock;           // New lock, no new characters can create
     bool wizlock;           // Only immortals can login
+    bool test_mode;         // Whether the entire game is put into test mode
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
@@ -2090,7 +2091,7 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
                 || strstr( Area->builders, ch->name )      \
                 || strstr( Area->builders, "All" ) ) )
 #define IS_WANTED(ch) (IS_SET(ch->act, PLR_WANTED))
-#define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER))
+#define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER) || settings.test_mode)
 #define IS_GHOST(ch)  (is_affected(ch,gsn_ghost))
 #define IS_DAY()      (time_info.hour > 5 && time_info.hour < 20)
 #define IS_NIGHT()    (!IS_DAY())

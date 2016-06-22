@@ -1124,6 +1124,10 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     {
         strcat(buf, "{RNew Locked{x\r\n");
     }
+    else if (settings.test_mode)
+    {
+        strcat(buf, "{YTest Mode{x\r\n");
+    }
     else
     {
         strcat(buf, "{gOpen for Play{x\r\n");
