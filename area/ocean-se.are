@@ -4022,56 +4022,56 @@ S
 
 
 #RESETS
-M 0 11000 10 11800 10 Load a tuna fish
-M 0 11005 8 11802 8 Load an aboleth
-M 0 11005 8 11806 8 Load an aboleth
-M 0 11003 6 11810 1 Load a {Csea{x dragon
-M 0 11000 10 11811 10 Load a tuna fish
-M 0 11008 6 11813 1 Load a jellyfish
-M 0 11008 6 11813 1 Load a jellyfish
-M 0 11008 6 11815 6 Load a seagull
-M 0 11008 6 11816 6 Load a seagull
-M 0 11000 10 11817 10 Load a tuna fish
-M 0 11000 10 11817 10 Load a tuna fish
-M 0 11008 6 11819 6 Load a seagull
-M 0 11003 6 11819 1 Load a {Csea{x dragon
-M 0 11001 6 11820 1 Load a octopus
-M 0 11002 6 11821 1 Load a man o'war
-M 0 11000 10 11822 10 Load a tuna fish
-M 0 11005 8 11822 8 Load an aboleth
-M 0 11006 6 11827 1 Load a dolphin
-M 0 11001 6 11828 1 Load a octopus
-M 0 11002 6 11828 1 Load a man o'war
-M 0 11000 10 11830 10 Load a tuna fish
-M 0 11000 10 11832 10 Load a tuna fish
-M 0 11005 8 11834 8 Load an aboleth
-M 0 11002 6 11835 1 Load a man o'war
-M 0 11008 6 11836 6 Load a seagull
-M 0 11005 8 11837 8 Load an aboleth
-M 0 11008 6 11838 6 Load a seagull
-M 0 11006 6 11842 1 Load a dolphin
-M 0 11006 6 11849 1 Load a dolphin
-M 0 11003 6 11850 1 Load a {Csea{x dragon
-M 0 11005 8 11852 8 Load an aboleth
-M 0 11005 8 11853 8 Load an aboleth
-M 0 11002 6 11857 1 Load a man o'war
-M 0 11005 8 11864 8 Load an aboleth
-M 0 11006 6 11866 1 Load a dolphin
-M 0 11008 6 11867 6 Load a seagull
-M 0 11001 6 11869 1 Load a octopus
-M 0 11005 8 11871 8 Load an aboleth
-M 0 11007 1 11873 1 Load a sea hag
-M 0 11000 10 11875 10 Load a tuna fish
-M 0 11003 6 11881 1 Load a {Csea{x dragon
-M 0 11002 6 11882 1 Load a man o'war
-M 0 11003 6 11888 1 Load a {Csea{x dragon
-M 0 11001 6 11890 1 Load a octopus
-M 0 11000 10 11891 10 Load a tuna fish
-M 0 11000 10 11891 10 Load a tuna fish
-M 0 11005 8 11892 8 Load an aboleth
-M 0 11003 6 11895 1 Load a {Csea{x dragon
-M 0 11006 6 11897 1 Load a dolphin
-M 0 11006 10 11899 10 Load a dolphin
+M 0 11000 100 11800 2 Load a tuna fish
+M 0 11005 100 11802 2 Load an aboleth
+M 0 11005 100 11806 2 Load an aboleth
+M 0 11003 100 11810 2 Load a {Csea{x dragon
+M 0 11000 100 11811 2 Load a tuna fish
+M 0 11008 100 11813 2 Load a jellyfish
+M 0 11008 100 11813 2 Load a jellyfish
+M 0 11008 100 11815 2 Load a seagull
+M 0 11008 100 11816 2 Load a seagull
+M 0 11000 100 11817 2 Load a tuna fish
+M 0 11000 100 11817 2 Load a tuna fish
+M 0 11008 100 11819 2 Load a seagull
+M 0 11003 100 11819 2 Load a {Csea{x dragon
+M 0 11001 100 11820 2 Load a octopus
+M 0 11002 100 11821 2 Load a man o'war
+M 0 11000 100 11822 2 Load a tuna fish
+M 0 11005 100 11822 2 Load an aboleth
+M 0 11006 100 11827 2 Load a dolphin
+M 0 11001 100 11828 2 Load a octopus
+M 0 11002 100 11828 2 Load a man o'war
+M 0 11000 100 11830 2 Load a tuna fish
+M 0 11000 100 11832 2 Load a tuna fish
+M 0 11005 100 11834 2 Load an aboleth
+M 0 11002 100 11835 2 Load a man o'war
+M 0 11008 100 11836 2 Load a seagull
+M 0 11005 100 11837 2 Load an aboleth
+M 0 11008 100 11838 2 Load a seagull
+M 0 11006 100 11842 2 Load a dolphin
+M 0 11006 100 11849 2 Load a dolphin
+M 0 11003 100 11850 2 Load a {Csea{x dragon
+M 0 11005 100 11852 2 Load an aboleth
+M 0 11005 100 11853 2 Load an aboleth
+M 0 11002 100 11857 2 Load a man o'war
+M 0 11005 100 11864 2 Load an aboleth
+M 0 11006 100 11866 2 Load a dolphin
+M 0 11008 100 11867 2 Load a seagull
+M 0 11001 100 11869 2 Load a octopus
+M 0 11005 100 11871 2 Load an aboleth
+M 0 11007 100 11873 2 Load a sea hag
+M 0 11000 100 11875 2 Load a tuna fish
+M 0 11003 100 11881 2 Load a {Csea{x dragon
+M 0 11002 100 11882 2 Load a man o'war
+M 0 11003 100 11888 2 Load a {Csea{x dragon
+M 0 11001 100 11890 2 Load a octopus
+M 0 11000 100 11891 2 Load a tuna fish
+M 0 11000 100 11891 2 Load a tuna fish
+M 0 11005 100 11892 2 Load an aboleth
+M 0 11003 100 11895 2 Load a {Csea{x dragon
+M 0 11006 100 11897 2 Load a dolphin
+M 0 11006 100 11899 2 Load a dolphin
 S
 
 
