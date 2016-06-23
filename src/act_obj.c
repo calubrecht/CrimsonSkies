@@ -3465,8 +3465,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
     // This is going to use stock gear in the game, if the vnums change or are
     // removed then this will *crash*.  We will set this gear to rot death in the off
     // chance that anyone tries to proliferate it.  Not as good as the real deal.
-    if ((IS_SET(ch->act, PLR_TESTER) && ch->level == 51)
-        || IS_IMMORTAL(ch))
+    if ((IS_TESTER(ch) && ch->level == 51) || IS_IMMORTAL(ch))
     {
         outfit(ch, WEAR_LIGHT, 9321);  // sceptre of might
         outfit(ch, WEAR_WIELD, 9401);  // sea sword
