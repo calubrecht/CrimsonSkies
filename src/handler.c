@@ -573,18 +573,6 @@ void reset_char(CHAR_DATA * ch)
                     case APPLY_SAVES:
                         ch->saving_throw += mod;
                         break;
-                    case APPLY_SAVING_ROD:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_PETRI:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_BREATH:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_SPELL:
-                        ch->saving_throw += mod;
-                        break;
                 }
             }
 
@@ -634,18 +622,6 @@ void reset_char(CHAR_DATA * ch)
                     break;
 
                 case APPLY_SAVES:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_ROD:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_PETRI:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_BREATH:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_SPELL:
                     ch->saving_throw += mod;
                     break;
             }
@@ -699,18 +675,6 @@ void reset_char(CHAR_DATA * ch)
                 break;
 
             case APPLY_SAVES:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_ROD:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_PETRI:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_BREATH:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_SPELL:
                 ch->saving_throw += mod;
                 break;
         }
@@ -1030,18 +994,6 @@ void affect_modify(CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd)
             ch->damroll += mod;
             break;
         case APPLY_SAVES:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_ROD:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_PETRI:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_BREATH:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_SPELL:
             ch->saving_throw += mod;
             break;
         case APPLY_SPELL_AFFECT:
@@ -2774,14 +2726,6 @@ char *affect_loc_name(int location)
             return "damage roll";
         case APPLY_SAVES:
             return "saves";
-        case APPLY_SAVING_ROD:
-            return "save vs rod";
-        case APPLY_SAVING_PETRI:
-            return "save vs petrification";
-        case APPLY_SAVING_BREATH:
-            return "save vs breath";
-        case APPLY_SAVING_SPELL:
-            return "save vs spell";
         case APPLY_SPELL_AFFECT:
             return "none";
     }

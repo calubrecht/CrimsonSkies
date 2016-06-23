@@ -5871,7 +5871,7 @@ void wizbless(CHAR_DATA * victim)
     af.modifier = 4;
     affect_to_char(victim, &af);
 
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = -5;
     affect_to_char(victim, &af);
 
@@ -6077,14 +6077,55 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-	if (ch->desc != NULL)
-	{
-		show_login_menu(ch->desc);
-	}
+    bool found;
+    int vnum = 0;
+    int nMatch = 0;
+    bool showHeader = FALSE;
+    AFFECT_DATA *af;
+    OBJ_INDEX_DATA *pObjIndex;
+    char buf[MSL];
+    int mod = 0;
+
+    for (vnum = 0; nMatch < top_obj_index; vnum++)
+    {
+         nMatch++;
+
+        if ((pObjIndex = get_obj_index(vnum)) != NULL)
+        {
+                if (!showHeader)
+                {
+                    send_to_char("[Lv  Vnum] [Object]\r\n", ch);
+                    showHeader = TRUE;
+                }
+
+            for (af = pObjIndex->affected; af != NULL; af = af->next)
+            {
+                mod = af->modifier;
+                switch (af->location)
+                {
+                    case APPLY_SAVES:
+                        found = TRUE;
+                        break;
+                }
+            }
+
+                if (found)
+                {
+                sprintf(buf, "[%2d %5d] %s\r\n",
+                    pObjIndex->level, pObjIndex->vnum, pObjIndex->short_descr);
+                send_to_char(buf, ch);
+                }
+                
+                found = FALSE;
+
+        }
+    }
+
+    if (!found)
+        send_to_char("No objects by that name.\r\n", ch);
 
     return;
 
-    char buf[MSL];
     char display_buf[MAX_STRING_LENGTH];
     char *tokenPtr;
 

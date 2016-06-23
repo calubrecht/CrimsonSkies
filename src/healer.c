@@ -256,7 +256,7 @@ void spell_magic_resistance(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     af.level = level;
     af.duration = level;
     af.modifier = (ch->level / 10) * -1;
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 

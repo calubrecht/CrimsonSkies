@@ -1207,11 +1207,6 @@ typedef enum
 #define APPLY_HITROLL        18
 #define APPLY_DAMROLL        19
 #define APPLY_SAVES          20
-#define APPLY_SAVING_PARA    20
-#define APPLY_SAVING_ROD     21
-#define APPLY_SAVING_PETRI   22
-#define APPLY_SAVING_BREATH  23
-#define APPLY_SAVING_SPELL   24
 #define APPLY_SPELL_AFFECT   25
 
 /*

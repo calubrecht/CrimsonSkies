@@ -519,11 +519,6 @@ const struct flag_type apply_flags[] = {
     {"hitroll", APPLY_HITROLL, TRUE},
     {"damroll", APPLY_DAMROLL, TRUE},
     {"saves", APPLY_SAVES, TRUE},
-    {"savingpara", APPLY_SAVING_PARA, TRUE},
-    {"savingrod", APPLY_SAVING_ROD, TRUE},
-    {"savingpetri", APPLY_SAVING_PETRI, TRUE},
-    {"savingbreath", APPLY_SAVING_BREATH, TRUE},
-    {"savingspell", APPLY_SAVING_SPELL, TRUE},
     {"spellaffect", APPLY_SPELL_AFFECT, FALSE},
     {NULL, 0, 0}
 };
