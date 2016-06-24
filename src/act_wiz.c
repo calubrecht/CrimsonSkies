@@ -3623,7 +3623,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k\r\n", ch);
+        send_to_char("    1k questpoints\r\n", ch);
         return;
     }
 
@@ -4059,6 +4059,24 @@ void do_mset(CHAR_DATA * ch, char *argument)
             }
         }
 
+        return;
+    }
+
+    if (!str_cmp(arg2, "questpoints"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("NPC's do not have quest points.\r\n", ch);
+            return;
+        }
+
+        if (value < 0 || value > 10000)
+        {
+            send_to_char("Valid range is 0 to 10,000\r\n", ch);
+            return;
+        }
+
+        victim->pcdata->quest_points = value;
         return;
     }
 
@@ -5925,10 +5943,10 @@ void do_portal(CHAR_DATA *ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char("Syntax: portal <vnum>", ch);
-        send_to_char("        portal <vnum> <optional tick duration>", ch);
-        send_to_char("        portal <player name/mob name>", ch);
-        send_to_char("        portal <player name/mob name> <optional tick duration>", ch);
+        send_to_char("Syntax: portal <vnum>\r\n", ch);
+        send_to_char("        portal <vnum> <optional tick duration>\r\n", ch);
+        send_to_char("        portal <player name/mob name>\r\n", ch);
+        send_to_char("        portal <player name/mob name> <optional tick duration>\r\n", ch);
         return;
     }
 
@@ -6077,77 +6095,9 @@ void do_crypt(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    bool found;
-    int vnum = 0;
-    int nMatch = 0;
-    bool showHeader = FALSE;
-    AFFECT_DATA *af;
-    OBJ_INDEX_DATA *pObjIndex;
-    char buf[MSL];
-    int mod = 0;
-
-    for (vnum = 0; nMatch < top_obj_index; vnum++)
-    {
-         nMatch++;
-
-        if ((pObjIndex = get_obj_index(vnum)) != NULL)
-        {
-                if (!showHeader)
-                {
-                    send_to_char("[Lv  Vnum] [Object]\r\n", ch);
-                    showHeader = TRUE;
-                }
-
-            for (af = pObjIndex->affected; af != NULL; af = af->next)
-            {
-                mod = af->modifier;
-                switch (af->location)
-                {
-                    case APPLY_SAVES:
-                        found = TRUE;
-                        break;
-                }
-            }
-
-                if (found)
-                {
-                sprintf(buf, "[%2d %5d] %s\r\n",
-                    pObjIndex->level, pObjIndex->vnum, pObjIndex->short_descr);
-                send_to_char(buf, ch);
-                }
-                
-                found = FALSE;
-
-        }
-    }
-
-    if (!found)
-        send_to_char("No objects by that name.\r\n", ch);
-
+    send_to_char("Quest time reset.\r\n", ch);
+    ch->pcdata->next_quest = 0;
     return;
-
-    char display_buf[MAX_STRING_LENGTH];
-    char *tokenPtr;
-
-    sprintf(buf, "One,Two,Three,Four,Five,Six");
-
-    // initialize the string tokenizer and receive pointer to first token
-    tokenPtr = strtok(buf, ",");
-
-    while (tokenPtr != NULL)
-    {
-        sprintf(display_buf, "token - %s\r\n", tokenPtr);
-        send_to_char(display_buf, ch);
-        send_to_char("original buf: ", ch);
-        send_to_char(buf, ch);
-        tokenPtr = strtok(NULL, " ,.\n");
-    }
-
-    send_to_char("original buf: ", ch);
-    send_to_char(buf, ch);
-
-    return;
-
 } // end do_debug
 
 /*
