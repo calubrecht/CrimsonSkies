@@ -109,3 +109,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Move all login menu functions into login-menu.c
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - Reformat random names on the main screen to be the same length and columns as whose online.
+  - Quest check, to make sure that all quest items that need to exist do exist (or put null checks on those items
+    when their loaded and report them if they fail / don't crash).
+  - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
+  - look in portal
+  - snoopinfo command or imm who that shows more detail on the who list.
+
