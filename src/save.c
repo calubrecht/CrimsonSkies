@@ -335,6 +335,41 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "LastHistory %ld\n", ch->pcdata->last_history);
         fprintf(fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
 
+        // Questing
+        if (ch->pcdata->quest_points != 0)
+        {
+            fprintf(fp, "QuestPoints %d\n", ch->pcdata->quest_points);
+        }
+
+        if (ch->pcdata->countdown != 0)
+        {
+            fprintf(fp, "QuestCount %d\n", ch->pcdata->countdown);
+        }
+
+        if (ch->pcdata->next_quest != 0)
+        {
+            fprintf(fp, "QuestNext %d\n", ch->pcdata->next_quest);
+        }
+        else if (ch->pcdata->countdown != 0)
+        {
+            fprintf(fp, "QuestNext %d\n", 10);
+        }
+
+        if (ch->pcdata->quest_obj != 0)
+        {
+            fprintf( fp, "QuestObj %d\n",  ch->pcdata->quest_obj);
+        }
+
+        if (ch->pcdata->quest_mob != 0)
+        {
+            fprintf( fp, "QuestMob %d\n",  ch->pcdata->quest_mob);
+        }
+
+        if (ch->pcdata->quest_giver != NULL)
+        {
+            fprintf( fp, "QuestGiver %d\n",  ch->pcdata->quest_giver->pIndexData->vnum);
+        }
+
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
         {
@@ -1120,7 +1155,21 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEYS("Prompt", ch->prompt, fread_string(fp));
                 KEY("Prom", ch->prompt, fread_string(fp));
                 break;
+            case 'Q':
+                KEY("QuestPoints", ch->pcdata->quest_points, fread_number(fp));
+                KEY("QuestNext", ch->pcdata->next_quest, fread_number(fp));
+                KEY("QuestCount", ch->pcdata->countdown, fread_number(fp));
+                KEY("QuestObj", ch->pcdata->quest_obj, fread_number(fp));
+                KEY("QuestMob", ch->pcdata->quest_mob, fread_number(fp));
 
+                if (!str_cmp(word, "QuestGiver"))
+                {
+                    ch->pcdata->quest_giver = get_quest_giver(fread_number(fp));
+                    fMatch = TRUE;
+                    break;
+                }
+
+                break;
             case 'R':
                 KEY("Race", ch->race, race_lookup(fread_string(fp)));
                 KEY("RecallVnum", ch->pcdata->recall_vnum, (fread_number(fp)));

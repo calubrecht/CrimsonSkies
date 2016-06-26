@@ -298,6 +298,13 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     if (is_affected(victim, gsn_camouflage))
         strcat(buf, "({gCamouflage{x) ");
 
+    // Questing
+    if (!IS_NPC(ch))
+    {
+        if (IS_NPC(victim) && ch->pcdata->quest_mob > 0 && victim->pIndexData->vnum == ch->pcdata->quest_mob)
+            strcat( buf, "[{RTARGET{x] ");
+    }
+
     // Healers sense affliction
     if (is_affected(ch, gsn_sense_affliction))
     {
@@ -1908,10 +1915,9 @@ void do_worth(CHAR_DATA * ch, char *argument)
     }
 
     sprintf(buf,
-        "You have %ld gold, %ld silver, and %d experience (%d exp to level).\r\n",
-        ch->gold, ch->silver, ch->exp,
-        (ch->level + 1) * exp_per_level(ch,
-            ch->pcdata->points) - ch->exp);
+        "You have %ld gold, %ld silver, %d quest points and %d experience (%d exp to level).\r\n",
+        ch->gold, ch->silver, ch->pcdata->quest_points, ch->exp,
+        (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
 
     send_to_char(buf, ch);
 

@@ -253,6 +253,17 @@ void group_gain(CHAR_DATA * ch, CHAR_DATA * victim)
         OBJ_DATA *obj;
         OBJ_DATA *obj_next;
 
+        // Questing
+        if (!IS_NPC(ch) && IS_SET(ch->act, PLR_QUESTOR) && IS_NPC(victim))
+        {
+            if (ch->pcdata->quest_mob == victim->pIndexData->vnum)
+            {
+                send_to_char("{GCongratulations.{x You have almost completed your QUEST!\r\n", ch);
+                send_to_char("Return to the questmaster before your time runs out!\r\n", ch);
+                ch->pcdata->quest_mob = -1;
+            }
+        }
+
         if (!is_same_group(gch, ch) || IS_NPC(gch))
             continue;
 

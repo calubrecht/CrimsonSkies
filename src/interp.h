@@ -357,3 +357,4 @@ DECLARE_DO_FUN(do_random_names);
 DECLARE_DO_FUN(do_stance);
 DECLARE_DO_FUN(do_map);
 DECLARE_DO_FUN(do_bind);
+DECLARE_DO_FUN(do_pquest);

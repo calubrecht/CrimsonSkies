@@ -297,6 +297,7 @@ const struct cmd_type cmd_table[] = {
     /*
      * Miscellaneous commands.
      */
+    {"pquest",          do_pquest,      POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"map",             do_map,         POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"enter",           do_enter,       POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"follow",          do_follow,      POS_RESTING,  0, LOG_NORMAL, TRUE},

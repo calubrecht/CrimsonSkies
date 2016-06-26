@@ -1381,6 +1381,7 @@ typedef enum
 #define PLR_AUTOSAC         (F)
 #define PLR_AUTOGOLD        (G)
 #define PLR_AUTOSPLIT       (H)
+#define PLR_QUESTOR         (J)
 
 /* Special Flags */
 #define PLR_TESTER          (M)
@@ -1651,6 +1652,12 @@ struct pc_data
     int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
     char *          last_ip;         // Saves the last IP address used, see save.c for notes.
     int             recall_vnum;     // Custom recall point that can be set by the user to any bind stone
+    CHAR_DATA *     quest_giver;     // Vassago - Questing
+    int             quest_points;    // Vassago - Questing
+    int             next_quest;      // Vassago - Questing
+    int             countdown;       // Vassago - Questing
+    int             quest_obj;       // Vassago - Questing
+    int             quest_mob;       // Vassago - Questing
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2529,6 +2536,10 @@ void    mp_hprct_trigger   (CHAR_DATA *mob, CHAR_DATA *ch);
 
 /* mob_cmds.c */
 void    mob_interpret      (CHAR_DATA *ch, char *argument);
+
+/* quest.c */
+CHAR_DATA *get_quest_giver (int vnum);
+void       quest_update    (void);
 
 /* settings.c */
 void    save_settings      (void);

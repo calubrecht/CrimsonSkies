@@ -4058,6 +4058,36 @@ restoring visibility to all who pass through it.
 SEE ALSO: fog
 ~
 
+0 QUEST PQUEST~
+QUEST PQUEST
+
+syntax:  pquest request
+         pquest info
+         pquest complete
+         pquest clear
+         pquest reset (Immortal only)
+
+There are quest masters in most cities who are able to assign personal       
+quests for characters.  When in the presence of this person, you can
+request a personal quest using the syntax shown above.  The quest master
+in Midgaard (the most popular spot) is two north of recall.
+
+While on a quest, you may use the "info" syntax to get a reminder of what
+the goal of your quest is.  
+
+When you have completed the assigned quest, you must return to the mob that
+assigned the quest and use the "complete" syntax to obtain your reward.  
+There is a short time delay between quests.
+
+If you feel that you are unable to complete a quest in the time allocated or
+feel that it is beyond your ability to complete use the "clear" syntax to
+clear the quest.  Of course, the questor will not be to pleased with you.  
+
+Personal quest rewards come in the form of gold and quest points.  Quest
+points are shown in your score and may be saved up and used to purchase
+special items from the quest mob.  
+~
+
 0 $~
 
 #$
