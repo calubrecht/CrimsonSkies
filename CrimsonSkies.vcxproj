@@ -110,6 +110,7 @@
     <ClCompile Include="src\olc_mem.c" />
     <ClCompile Include="src\olc_save.c" />
     <ClCompile Include="src\olc_string.c" />
+    <ClCompile Include="src\quest.c" />
     <ClCompile Include="src\random.c" />
     <ClCompile Include="src\ranger.c" />
     <ClCompile Include="src\recycle.c" />

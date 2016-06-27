@@ -52,11 +52,11 @@ DECLARE_DO_FUN(do_direct);
 
 /* Local functions */
 
-void generate_quest     (CHAR_DATA *ch, CHAR_DATA *questman);
-void quest_update       (void);
-bool quest_level_diff   (int clevel, int mlevel);
+void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman);
+void quest_update(void);
+bool quest_level_diff(int clevel, int mlevel);
 ROOM_INDEX_DATA         *find_location(CHAR_DATA *ch, char *arg);
-bool is_safe_quest	    (CHAR_DATA *ch, CHAR_DATA *victim);
+bool is_safe_quest(CHAR_DATA *ch, CHAR_DATA *victim);
 
 /*
  * The main quest function that a player will interact with.
@@ -82,14 +82,14 @@ void do_pquest(CHAR_DATA *ch, char *argument)
 
     if (arg1[0] == '\0')
     {
-        send_to_char("QUEST commands: POINTS INFO TIME REQUEST COMPLETE CLEAR LIST BUY.\r\n",ch);
+        send_to_char("QUEST commands: POINTS INFO TIME REQUEST COMPLETE CLEAR LIST BUY.\r\n", ch);
 
         if (IS_IMMORTAL(ch))
         {
             send_to_char("QUEST commands for immortals: RESET.\r\n", ch);
         }
 
-        send_to_char("For more information, type 'HELP QUEST'.\r\n",ch);
+        send_to_char("For more information, type 'HELP QUEST'.\r\n", ch);
         return;
     }
 
@@ -112,7 +112,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
                 }
                 else
                 {
-                    send_to_char("You aren't currently on a quest.\r\n",ch);
+                    send_to_char("You aren't currently on a quest.\r\n", ch);
                 }
                 return;
             }
@@ -140,7 +140,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
 
     if (!strcmp(arg1, "points"))
     {
-        sprintf(buf, "You have %d quest points.\r\n",ch->pcdata->quest_points);
+        sprintf(buf, "You have %d quest points.\r\n", ch->pcdata->quest_points);
         send_to_char(buf, ch);
         return;
     }
@@ -154,7 +154,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
     {
         if (!IS_SET(ch->act, PLR_QUESTOR))
         {
-            send_to_char("You aren't currently on a quest.\r\n",ch);
+            send_to_char("You aren't currently on a quest.\r\n", ch);
 
             if (ch->pcdata->next_quest > 1)
             {
@@ -212,7 +212,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
     if (!strcmp(arg1, "list"))
     {
         act("$n asks $N for a list of quest items.", ch, NULL, questman, TO_ROOM);
-        act("You ask $N for a list of quest items.",ch, NULL, questman, TO_CHAR);
+        act("You ask $N for a list of quest items.", ch, NULL, questman, TO_CHAR);
         sprintf(buf, "Current Quest Items available for Purchase:\r\n\
 1200qp.........The sword of the {WGODS{x\r\n\
 750qp..........Decanter of endless water\r\n\
@@ -227,7 +227,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
     {
         if (arg2[0] == '\0')
         {
-            send_to_char("To buy an item, type 'QUEST BUY <item>'.\r\n",ch);
+            send_to_char("To buy an item, type 'QUEST BUY <item>'.\r\n", ch);
             return;
         }
 
@@ -311,7 +311,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
     else if (!strcmp(arg1, "request"))
     {
         act("$n asks $N for a quest.", ch, NULL, questman, TO_ROOM);
-        act("You ask $N for a quest.",ch, NULL, questman, TO_CHAR);
+        act("You ask $N for a quest.", ch, NULL, questman, TO_CHAR);
 
         if (IS_SET(ch->act, PLR_QUESTOR))
         {
@@ -357,7 +357,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
         if (IS_SET(ch->act, PLR_QUESTOR))
         {
             act("$n informs $N $e can not complete $s quest.", ch, NULL, questman, TO_ROOM);
-            act("You inform $N you can not complete $s quest.",ch, NULL, questman, TO_CHAR);
+            act("You inform $N you can not complete $s quest.", ch, NULL, questman, TO_CHAR);
             REMOVE_BIT(ch->act, PLR_QUESTOR);
             sprintf(buf, "%s I see my faith was misplaced with you.", ch->name);
             do_direct(questman, buf);
@@ -370,7 +370,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
             // Deduct quest points for clearing
             if (ch->pcdata->quest_points >= 20)
             {
-                sprintf(buf, "%s I have deducted a small amount of credit for this courtesy.",ch->name);
+                sprintf(buf, "%s I have deducted a small amount of credit for this courtesy.", ch->name);
                 do_direct(questman, buf);
                 ch->pcdata->quest_points -= 20;
             }
@@ -378,7 +378,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
             {
                 if (ch->pcdata->quest_points > 0 && ch->pcdata->quest_points < 20)
                 {
-                    sprintf(buf, "%s I have deducted a small amount of credit for this courtesy.",ch->name);
+                    sprintf(buf, "%s I have deducted a small amount of credit for this courtesy.", ch->name);
                     do_direct(questman, buf);
                 }
 
@@ -418,7 +418,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
 
                 sprintf(buf, "Congratulations on completing your quest!");
                 do_say(questman, buf);
-                sprintf(buf,"As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
+                sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
                 do_say(questman, buf);
 
                 REMOVE_BIT(ch->act, PLR_QUESTOR);
@@ -436,7 +436,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
             {
                 bool obj_found = FALSE;
 
-                for (obj = ch->carrying; obj != NULL; obj= obj_next)
+                for (obj = ch->carrying; obj != NULL; obj = obj_next)
                 {
                     obj_next = obj->next_content;
 
@@ -453,12 +453,12 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
                     reward = number_range(50, 100);
                     pointreward = number_range(25, 75);
 
-                    act("You hand $p to $N.",ch, obj, questman, TO_CHAR);
-                    act("$n hands $p to $N.",ch, obj, questman, TO_ROOM);
+                    act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
+                    act("$n hands $p to $N.", ch, obj, questman, TO_ROOM);
 
                     sprintf(buf, "Congratulations on completing your quest!");
                     do_say(questman, buf);
-                    sprintf(buf,"As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
+                    sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
                     do_say(questman, buf);
 
                     REMOVE_BIT(ch->act, PLR_QUESTOR);
@@ -469,7 +469,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
                     ch->pcdata->next_quest = 5;
                     ch->gold += reward;
                     ch->pcdata->quest_points += pointreward;
-        		    separate_obj(obj);
+                    separate_obj(obj);
                     extract_obj(obj);
                     return;
                 }
@@ -491,7 +491,7 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
 
         if (ch->pcdata->next_quest > 0)
         {
-            sprintf(buf,"But you didn't complete your quest in time!");
+            sprintf(buf, "But you didn't complete your quest in time!");
         }
         else
         {
@@ -515,7 +515,7 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *room;
     OBJ_DATA *questitem;
-    char buf [MAX_STRING_LENGTH];
+    char buf[MAX_STRING_LENGTH];
 
     /*  Randomly selects a mob from the world mob list. If you don't
         want a mob to be selected, make sure it is immune to summon.
@@ -525,7 +525,7 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
         of difficulty for the area isn't too great for the player. */
     for (victim = char_list; victim != NULL; victim = victim->next)
     {
-	    if (!IS_NPC(victim)
+        if (!IS_NPC(victim)
             || victim->in_room == NULL
             || victim->desc)
         {
@@ -574,21 +574,21 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
     {
         int objvnum = 0;
 
-        switch(number_range(0, 1))
+        switch (number_range(0, 1))
         {
             case 0:
-            objvnum = QUEST_OBJ1;
-            break;
+                objvnum = QUEST_OBJ1;
+                break;
 
             case 1:
-            objvnum = QUEST_OBJ2;
-            break;
+                objvnum = QUEST_OBJ2;
+                break;
 
         }
 
         questitem = create_object(get_obj_index(objvnum), ch->level);
         questitem->timer = 130;
-    	obj_to_room(questitem, room);
+        obj_to_room(questitem, room);
         ch->pcdata->quest_obj = questitem->pIndexData->vnum;
 
         sprintf(buf, "Vile pilferers have stolen %s from the royal treasury!", questitem->short_descr);
@@ -608,33 +608,33 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
 
     else
     {
-    switch(number_range(0, 1))
-    {
-        case 0:
-            sprintf(buf, "An enemy of mine, %s, is making vile threats against the crown.",victim->short_descr);
-            do_say(questman, buf);
-            sprintf(buf, "This threat must be eliminated!");
-            do_say(questman, buf);
-            break;
-        case 1:
-            sprintf(buf, "A heinous criminal, %s, has escaped from the dungeon!", victim->short_descr);
-            do_say(questman, buf);
-            sprintf(buf, "Since the escape, %s has murdered %d civillians!",victim->short_descr, number_range(2,20));
-            do_say(questman, buf);
-            do_say(questman, "The penalty for this crime is death, and you are to deliver the sentence!");
-        break;
-    }
+        switch (number_range(0, 1))
+        {
+            case 0:
+                sprintf(buf, "An enemy of mine, %s, is making vile threats against the crown.", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "This threat must be eliminated!");
+                do_say(questman, buf);
+                break;
+            case 1:
+                sprintf(buf, "A heinous criminal, %s, has escaped from the dungeon!", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "Since the escape, %s has murdered %d civillians!", victim->short_descr, number_range(2, 20));
+                do_say(questman, buf);
+                do_say(questman, "The penalty for this crime is death, and you are to deliver the sentence!");
+                break;
+        }
 
-    if (room->name != NULL)
-    {
-        sprintf(buf, "Seek %s out somewhere in the vicinity of %s!", victim->short_descr, room->name);
-        do_say(questman, buf);
+        if (room->name != NULL)
+        {
+            sprintf(buf, "Seek %s out somewhere in the vicinity of %s!", victim->short_descr, room->name);
+            do_say(questman, buf);
 
-        sprintf(buf, "That location is in the general area of %s.", room->area->name);
-        do_say(questman, buf);
-    }
+            sprintf(buf, "That location is in the general area of %s.", room->area->name);
+            do_say(questman, buf);
+        }
 
-    ch->pcdata->quest_mob = victim->pIndexData->vnum;
+        ch->pcdata->quest_mob = victim->pIndexData->vnum;
     }
     return;
 }
@@ -647,11 +647,11 @@ bool quest_level_diff(int clevel, int mlevel)
 {
     if ((clevel - 3 < mlevel) && (clevel + 5 > mlevel))
     {
-	    return TRUE;
+        return TRUE;
     }
     else
     {
-	    return FALSE;
+        return FALSE;
     }
 }
 
@@ -660,14 +660,14 @@ bool quest_level_diff(int clevel, int mlevel)
  */
 void quest_update(void)
 {
-	DESCRIPTOR_DATA *d;
-	CHAR_DATA *ch;
+    DESCRIPTOR_DATA *d;
+    CHAR_DATA *ch;
 
-	for (d = descriptor_list; d != NULL; d = d->next)
-	{
-		if (d->character != NULL && d->connected == CON_PLAYING)
-		{
-			ch = d->character;
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->character != NULL && d->connected == CON_PLAYING)
+        {
+            ch = d->character;
 
             // Probably not needed but since we're accessing pcdata we'll check anyway.
             if (IS_NPC(ch))
@@ -675,44 +675,44 @@ void quest_update(void)
                 continue;
             }
 
-			if (ch->pcdata->next_quest > 0)
-			{
-				ch->pcdata->next_quest--;
+            if (ch->pcdata->next_quest > 0)
+            {
+                ch->pcdata->next_quest--;
 
-				if (ch->pcdata->next_quest <= 0)
-				{
-					ch->pcdata->next_quest = 0;
-			 		send_to_char("You may now quest again.\r\n",ch);
-			 		return;
-				}
-			}
-			else if (IS_SET(ch->act, PLR_QUESTOR) && !IS_NPC(ch))
-			{
-				ch->pcdata->countdown--;
-				if (ch->pcdata->countdown <= 0)
-				{
-			 		char buf [MAX_STRING_LENGTH];
+                if (ch->pcdata->next_quest <= 0)
+                {
+                    ch->pcdata->next_quest = 0;
+                    send_to_char("You may now quest again.\r\n", ch);
+                    return;
+                }
+            }
+            else if (IS_SET(ch->act, PLR_QUESTOR) && !IS_NPC(ch))
+            {
+                ch->pcdata->countdown--;
+                if (ch->pcdata->countdown <= 0)
+                {
+                    char buf[MAX_STRING_LENGTH];
 
-			 		ch->pcdata->next_quest = 5;
-			 		sprintf(buf, "You have run out of time for your quest!\r\nYou may quest again in %d ticks.\r\n",
-			         		ch->pcdata->next_quest);
+                    ch->pcdata->next_quest = 5;
+                    sprintf(buf, "You have run out of time for your quest!\r\nYou may quest again in %d ticks.\r\n",
+                        ch->pcdata->next_quest);
 
-			 		send_to_char(buf, ch);
-			 		REMOVE_BIT(ch->act, PLR_QUESTOR);
-			 		ch->pcdata->quest_giver = NULL;
-			 		ch->pcdata->countdown = 0;
-			 		ch->pcdata->quest_mob = 0;
-				}
+                    send_to_char(buf, ch);
+                    REMOVE_BIT(ch->act, PLR_QUESTOR);
+                    ch->pcdata->quest_giver = NULL;
+                    ch->pcdata->countdown = 0;
+                    ch->pcdata->quest_mob = 0;
+                }
 
-				if (ch->pcdata->countdown > 0 && ch->pcdata->countdown < 6)
-				{
-			 		send_to_char("Better hurry, you're almost out of time for your quest!\r\n", ch);
-				}
-			}
-		}
-	}
+                if (ch->pcdata->countdown > 0 && ch->pcdata->countdown < 6)
+                {
+                    send_to_char("Better hurry, you're almost out of time for your quest!\r\n", ch);
+                }
+            }
+        }
+    }
 
-	return;
+    return;
 }
 
 /*
@@ -766,17 +766,17 @@ bool is_safe_quest(CHAR_DATA *ch, CHAR_DATA *victim)
     if (IS_NPC(victim))
     {
         /* safe room? */
-        if (IS_SET(victim->in_room->room_flags,ROOM_SAFE))
+        if (IS_SET(victim->in_room->room_flags, ROOM_SAFE))
             return TRUE;
 
         if (victim->pIndexData->pShop != NULL)
             return TRUE;
 
         /* no killing healers, trainers, etc */
-        if (IS_SET(victim->act,ACT_TRAIN)
-            || IS_SET(victim->act,ACT_PRACTICE)
-            || IS_SET(victim->act,ACT_IS_HEALER)
-            || IS_SET(victim->act,ACT_IS_CHANGER))
+        if (IS_SET(victim->act, ACT_TRAIN)
+            || IS_SET(victim->act, ACT_PRACTICE)
+            || IS_SET(victim->act, ACT_IS_HEALER)
+            || IS_SET(victim->act, ACT_IS_CHANGER))
         {
             return TRUE;
         }
@@ -808,7 +808,7 @@ CHAR_DATA *get_quest_giver(int vnum)
 {
     CHAR_DATA *wch;
 
-    for (wch = char_list; wch != NULL ; wch = wch->next)
+    for (wch = char_list; wch != NULL; wch = wch->next)
     {
         if (!IS_NPC(wch) || wch->pIndexData->vnum != vnum)
         {
