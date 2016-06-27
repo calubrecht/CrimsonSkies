@@ -876,8 +876,9 @@ making you visible again.
 ~
 
 0 QUIT RENT LOGOUT SAVE~
-Syntax: QUIT
-Syntax: SAVE
+Syntax: quit
+Syntax: quit menu
+Syntax: save
 
 SAVE saves your character and object.  The game saves your character every
 15 minutes regardless, and is the preferred method of saving.  Typing save
@@ -892,6 +893,9 @@ QUIT.
 
 QUIT automatically does a SAVE, so you can safely leave the game with just one
 command.
+
+You can use the "quit menu" command to logout of your current character
+and be returned to the login menu without fully disconnecting.
 
 There is no RENT in this mud.  Just QUIT whenever you want to leave.
 ~

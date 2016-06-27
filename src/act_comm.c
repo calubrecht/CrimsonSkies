@@ -1311,6 +1311,7 @@ void do_quit(CHAR_DATA * ch, char *argument)
 {
     DESCRIPTOR_DATA *d, *d_next;
     int id;
+    bool main_menu = FALSE;
 
     if (IS_NPC(ch))
         return;
@@ -1340,6 +1341,14 @@ void do_quit(CHAR_DATA * ch, char *argument)
     log_f("%s has quit.", ch->name);
     wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0, get_trust(ch));
 
+    // If they specify that they want to go back to the main menu leave them connnected, log
+    // them out properly and then shuttle them there without disconnecting them.
+    if (!str_cmp(argument, "menu") )
+    {
+        send_to_char("\r\n{R[{WPush Enter to Continue{R]{x\r\n", ch);
+        main_menu = TRUE;
+    }
+
     /*
      * After extract_char the ch is no longer valid!
      */
@@ -1348,8 +1357,20 @@ void do_quit(CHAR_DATA * ch, char *argument)
     id = ch->id;
     d = ch->desc;
     extract_char(ch, TRUE);
-    if (d != NULL)
-        close_socket(d);
+
+    // If they're going to the main menu set the connected state for it
+    // otherwise we need to close the socket to disconnect them.
+    if (main_menu && d != NULL)
+    {
+        d->connected = CON_LOGIN_MENU;
+    }
+    else
+    {
+        if (d != NULL)
+        {
+            close_socket(d);
+        }
+    }
 
     /* toast evil cheating bastards */
     for (d = descriptor_list; d != NULL; d = d_next)
