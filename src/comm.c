@@ -1105,9 +1105,7 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
             {
                 int percent;
                 char wound[100];
-                char *pbuff;
                 char buf[MSL];
-                char buffer[MSL * 2];
 
                 if (victim->max_hit > 0)
                     percent = victim->hit * 100 / victim->max_hit;
@@ -1133,10 +1131,9 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
 
                 sprintf(buf, "%s %s \r\n",
                     IS_NPC(victim) ? victim->short_descr : victim->name, wound);
+
                 buf[0] = UPPER(buf[0]);
-                pbuff = buffer;
-                colorconv(pbuff, buf, CH(d));
-                write_to_buffer(d, buffer, 0);
+                write_to_buffer(d, buf, 0);
             }
 
             ch = d->original ? d->original : d->character;
@@ -1196,8 +1193,6 @@ void bust_a_prompt(CHAR_DATA * ch)
     const char *str;
     const char *i;
     char *point;
-    char *pbuff;
-    char buffer[MAX_STRING_LENGTH * 2];
     char doors[MAX_INPUT_LENGTH];
     EXIT_DATA *pexit;
     bool found;
@@ -1418,10 +1413,8 @@ void bust_a_prompt(CHAR_DATA * ch)
     }
 
     *point = '\0';
-    pbuff = buffer;
-    colorconv(pbuff, buf, ch);
-    write_to_buffer(ch->desc, buffer, 0);
-    send_to_char("{x", ch);
+    write_to_buffer(ch->desc, buf, 0);
+    write_to_buffer(ch->desc, "{x", 0);
 
     // Do we send the prefix to the line also?
     if (ch->prefix[0] != '\0')
@@ -2235,8 +2228,6 @@ void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *a
     const char *str;
     const char *i;
     char *point;
-    char *pbuff;
-    char buffer[MSL * 2];
 
     /*
      * Discard null and zero-length messages.
@@ -2416,20 +2407,21 @@ void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *a
                 ++point, ++i;
         }
 
-        *point++ = '\n';
         *point++ = '\r';
+        *point++ = '\n';
         *point = '\0';
-        /* Kludge to capitalize first letter of buffer, trying
+
+        /*
+         * Kludge to capitalize first letter of buffer, trying
          * to account for { color codes. -- JR 09/09/00
          */
         if (buf[0] == 123)
             buf[2] = UPPER(buf[2]);
         else
             buf[0] = UPPER(buf[0]);
-        pbuff = buffer;
-        colorconv(pbuff, buf, to);
+
         if (to->desc && (to->desc->connected == CON_PLAYING))
-            write_to_buffer(to->desc, buffer, 0); /* changed to buffer to reflect prev. fix */
+            write_to_buffer(to->desc, buf, 0); /* changed to buffer to reflect prev. fix */
         else if (MOBtrigger)
             mp_act_trigger(buf, to, ch, arg1, arg2, TRIG_ACT);
     }
@@ -2574,6 +2566,9 @@ int color(char type, CHAR_DATA *ch, char *string)
     return(strlen(code));
 }
 
+/*
+ * OBSOLETE - Consider removing
+ */
 void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
 {
     const char *point;
