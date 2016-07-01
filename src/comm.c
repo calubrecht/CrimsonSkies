@@ -328,33 +328,6 @@ int init_socket(int port)
         exit(1);
     }
 
-// SO_DONTLINGER isn't defined and I don't know why we would ever
-// want to use it in our setup, if the below runs the connection would
-// linger for 1000 seconds at which it would block the rest of mud at
-// that time if it did.. if anything something shorter would be reasonable.
-#if defined(SO_DONTLINGER) && !defined(SYSV)
-    {
-        struct linger ld;
-
-        ld.l_onoff = 1;
-        ld.l_linger = 1000;
-
-        if (setsockopt(fd, SOL_SOCKET, SO_DONTLINGER,
-            (char *)&ld, sizeof(ld)) < 0)
-        {
-            perror("Init_socket: SO_DONTLINGER");
-
-#if defined(_WIN32)
-            closesocket(fd);
-#else
-            close(fd);
-#endif
-
-            exit(1);
-        }
-    }
-#endif
-
     sa = sa_zero;
 
 #if !defined(_WIN32)
