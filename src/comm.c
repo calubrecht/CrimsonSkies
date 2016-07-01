@@ -1708,12 +1708,14 @@ bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
         // POSIX
         if ((nWrite = write(desc, buf_string(txt) + iStart, nBlock)) < 0)
         {
+            free_buf(txt); // Add this here, seemed like it needed to be free'd success or fail
             return FALSE;
         }
 #else
         // Windows
         if ((nWrite = send(desc, buf_string(txt) + iStart, nBlock, 0)) < 0)
         {
+            free_buf(txt);
             return FALSE;
         }
 #endif
