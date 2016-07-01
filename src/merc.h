@@ -2301,7 +2301,7 @@ bool     check_ban           (char *site, int type);
 /* comm.c */
 void     show_string         (struct descriptor_data *d, char *input);
 void     close_socket        (DESCRIPTOR_DATA *dclose);
-void     write_to_buffer     (DESCRIPTOR_DATA *d, const char *txt, int length);
+void     write_to_buffer     (DESCRIPTOR_DATA *d, const char *txt);
 void     send_to_desc        (const char *txt, DESCRIPTOR_DATA *d);
 void     send_to_char        (const char *txt, CHAR_DATA *ch);
 void     page_to_char        (const char *txt, CHAR_DATA *ch);
@@ -2309,7 +2309,7 @@ void     page_to_char        (const char *txt, CHAR_DATA *ch);
 void     act_new             (const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type, int min_pos);
 void     printf_to_char      (CHAR_DATA *, char *, ...);
 void     printf_to_desc      (DESCRIPTOR_DATA *, char *, ...);
-bool     write_to_descriptor (int desc, char *txt, int length, DESCRIPTOR_DATA *d);
+bool     write_to_descriptor (int desc, char *txt, DESCRIPTOR_DATA *d);
 void     write_to_all_desc   (char *txt);
 void     send_to_all_char    (char *txt);
 void     copyover_broadcast  (char *txt, bool show_last_result);

@@ -148,7 +148,6 @@ bool MOBtrigger = TRUE;              /* act() switch                 */
     int init_socket(int port);
     void init_descriptor(int control);
     bool read_from_descriptor(DESCRIPTOR_DATA * d);
-    bool write_to_descriptor(int desc, char *txt, int length, DESCRIPTOR_DATA *d);
 #endif
 
 /*
@@ -768,7 +767,7 @@ void init_descriptor(int control)
      */
     if (check_ban(dnew->host, BAN_ALL))
     {
-        write_to_descriptor(desc, "Your site has been banned from this mud.\r\n", 0, dnew);
+        write_to_descriptor(desc, "Your site has been banned from this mud.\r\n", dnew);
 
 #if defined(_WIN32)
         closesocket(desc);
@@ -789,7 +788,7 @@ void init_descriptor(int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", 0, dnew);
+    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
 
     return;
 }
@@ -811,7 +810,7 @@ void close_socket(DESCRIPTOR_DATA * dclose)
 
     if (dclose->snoop_by != NULL)
     {
-        write_to_buffer(dclose->snoop_by, "Your victim has left the game.\r\n", 0);
+        write_to_buffer(dclose->snoop_by, "Your victim has left the game.\r\n");
     }
 
     {
@@ -904,7 +903,7 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
     if (iStart >= sizeof(d->inbuf) - 10)
     {
         log_f("%s input overflow!", d->host);
-        write_to_descriptor(d->descriptor, "\r\n*** PUT A LID ON IT!!! ***\r\n", 0, d);
+        write_to_descriptor(d->descriptor, "\r\n*** PUT A LID ON IT!!! ***\r\n", d);
         return FALSE;
     }
 
@@ -982,7 +981,7 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
     {
         if (k >= MAX_INPUT_LENGTH - 2)
         {
-            write_to_descriptor(d->descriptor, "Line too long.\r\n", 0, d);
+            write_to_descriptor(d->descriptor, "Line too long.\r\n", d);
 
             /* skip the rest of the line */
             for (; d->inbuf[i] != '\0'; i++)
@@ -1085,21 +1084,21 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     {
         if (d->showstr_point)
         {
-            write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
+            write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ");
 
             // The paging prompt was not showing on mudlet without the telnet go ahead being sent, the
             // issue arrising because there is no line terminator on the line above as a design choice,
             // without that, mudlet waits for an extended period before rendering the line.
             if (d->character && IS_SET(d->character->comm, COMM_TELNET_GA))
             {
-                write_to_buffer(d, go_ahead_str, 0);
+                write_to_buffer(d, go_ahead_str);
             }
         }
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
         {
             char buf[32];
             sprintf(buf,"{C%3.3d{x> ", line_count(*d->pString));
-            write_to_buffer(d, buf, 0);
+            write_to_buffer(d, buf);
         }
         else if (fPrompt && d->connected == CON_PLAYING)
         {
@@ -1141,18 +1140,18 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
                     IS_NPC(victim) ? victim->short_descr : victim->name, wound);
 
                 buf[0] = UPPER(buf[0]);
-                write_to_buffer(d, buf, 0);
+                write_to_buffer(d, buf);
             }
 
             ch = d->original ? d->original : d->character;
             if (!IS_SET(ch->comm, COMM_COMPACT))
-                write_to_buffer(d, "\r\n", 2);
+                write_to_buffer(d, "\r\n");
 
             if (IS_SET(ch->comm, COMM_PROMPT))
                 bust_a_prompt(d->character);
 
             if (IS_SET(ch->comm, COMM_TELNET_GA))
-                write_to_buffer(d, go_ahead_str, 0);
+                write_to_buffer(d, go_ahead_str);
         }
     }
 
@@ -1169,16 +1168,16 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     {
         if (d->character != NULL)
         {
-            write_to_buffer(d->snoop_by, d->character->name, 0);
+            write_to_buffer(d->snoop_by, d->character->name);
         }
-        write_to_buffer(d->snoop_by, "> ", 2);
-        write_to_buffer(d->snoop_by, d->outbuf, d->outtop);
+        write_to_buffer(d->snoop_by, "> ");
+        write_to_buffer(d->snoop_by, d->outbuf);
     }
 
     /*
      * OS-dependent output.
      */
-    if (!write_to_descriptor(d->descriptor, d->outbuf, d->outtop, d))
+    if (!write_to_descriptor(d->descriptor, d->outbuf, d))
     {
         d->outtop = 0;
         return FALSE;
@@ -1421,13 +1420,13 @@ void bust_a_prompt(CHAR_DATA * ch)
     }
 
     *point = '\0';
-    write_to_buffer(ch->desc, buf, 0);
-    write_to_buffer(ch->desc, "{x", 0);
+    write_to_buffer(ch->desc, buf);
+    write_to_buffer(ch->desc, "{x");
 
     // Do we send the prefix to the line also?
     if (ch->prefix[0] != '\0')
     {
-        write_to_buffer(ch->desc, ch->prefix, 0);
+        write_to_buffer(ch->desc, ch->prefix);
     }
 
     return;
@@ -1436,20 +1435,12 @@ void bust_a_prompt(CHAR_DATA * ch)
 /*
  * Append onto an output buffer.
  */
-void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
+void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt)
 {
-    /*
-     * Find length in case caller didn't.
-     */
-    if (length <= 0)
-        length = strlen(txt);
+    int length = 0;
 
-    // Uncomment if debugging or something
-    if (length != strlen(txt))
-    {
-        bugf( "Write_to_buffer: length(%d) != strlen(txt)!", length);
-        length = strlen(txt);
-    }
+    // Find the length
+    length = strlen(txt);
 
     // can't update null descriptor
     if (d == NULL)
@@ -1524,7 +1515,7 @@ void write_to_all_desc(char *txt)
 
     for (d = descriptor_list; d != NULL; d = d->next)
     {
-        write_to_descriptor(d->descriptor, txt, 0, d);
+        write_to_descriptor(d->descriptor, txt, d);
     }
 }
 
@@ -1594,8 +1585,9 @@ void send_to_all_char(char *txt)
  *   try lowering the max block size.
  * - Lope's color code moved into here so color can be used from the lowest level
  */
-bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
+bool write_to_descriptor(int desc, char *str, DESCRIPTOR_DATA *d)
 {
+    int length;
     register int iStart;
     register int nWrite;
     int nBlock;
@@ -1907,8 +1899,8 @@ bool check_playing(DESCRIPTOR_DATA * d, char *name)
             && !str_cmp(name, dold->original
                 ? dold->original->name : dold->character->name))
         {
-            write_to_buffer(d, "That character is already playing.\r\n", 0);
-            write_to_buffer(d, "Do you wish to connect anyway (Y/N)?", 0);
+            write_to_buffer(d, "That character is already playing.\r\n");
+            write_to_buffer(d, "Do you wish to connect anyway (Y/N)?");
             d->connected = CON_BREAK_CONNECT;
             return TRUE;
         }
@@ -1942,7 +1934,7 @@ void send_to_char(const char *txt, CHAR_DATA *ch)
     {
         if (ch->desc != NULL)
         {
-            write_to_buffer(ch->desc, txt, strlen(txt));
+            write_to_buffer(ch->desc, txt);
         }
     }
 
@@ -1954,7 +1946,7 @@ void send_to_char(const char *txt, CHAR_DATA *ch)
  */
 void send_to_desc(const char *txt, DESCRIPTOR_DATA * d)
 {
-    write_to_buffer(d, txt, 0);
+    write_to_buffer(d, txt);
     return;
 }
 
@@ -2079,8 +2071,8 @@ void show_string(struct descriptor_data *d, char *input)
             d->showstr_point = d->showstr_head;
             break;
         case 'H': /* Show some help */
-            write_to_buffer(d, "\r\nC, or Return = continue, R = redraw this page, B = back one page\r\n", 0);
-            write_to_buffer(d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\r\n", 0);
+            write_to_buffer(d, "\r\nC, or Return = continue, R = redraw this page, B = back one page\r\n");
+            write_to_buffer(d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\r\n");
             return;
             break;
         case 'Q': /*otherwise, stop the text viewing */
@@ -2109,7 +2101,7 @@ void show_string(struct descriptor_data *d, char *input)
 
     if (max_linecount > d->character->lines)
     {
-        write_to_buffer(d, "\r\n", 0);
+        write_to_buffer(d, "\r\n");
     }
 
     /* do any backing up necessary */
@@ -2161,7 +2153,7 @@ void show_string(struct descriptor_data *d, char *input)
         else if (!*scan || (d->character && !IS_NPC(d->character) && lines >= d->character->lines) || space <= 0)
         {
             *scan = '\0';
-            write_to_buffer(d, buffer, strlen(buffer));
+            write_to_buffer(d, buffer);
 
            /* See if this is the end (or near the end) of the string */
             for (chk = d->showstr_point; isspace(*chk); chk++);
@@ -2391,7 +2383,7 @@ void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *a
             buf[0] = UPPER(buf[0]);
 
         if (to->desc && (to->desc->connected == CON_PLAYING))
-            write_to_buffer(to->desc, buf, 0); /* changed to buffer to reflect prev. fix */
+            write_to_buffer(to->desc, buf); /* changed to buffer to reflect prev. fix */
         else if (MOBtrigger)
             mp_act_trigger(buf, to, ch, arg1, arg2, TRIG_ACT);
     }
@@ -2592,13 +2584,13 @@ void twiddle()
     {
         if (d->ansi)
         {
-            write_to_descriptor(d->descriptor, buf, 0, d);
+            write_to_descriptor(d->descriptor, buf, d);
         }
         else
         {
             if (buf2[0] != '\0')
             {
-                write_to_descriptor(d->descriptor, buf2, 0, d);
+                write_to_descriptor(d->descriptor, buf2, d);
             }
         }
     }

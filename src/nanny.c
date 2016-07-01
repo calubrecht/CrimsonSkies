@@ -222,7 +222,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 /* Old player */
                 send_to_desc("Password: ", d);
-                write_to_buffer(d, echo_off_str, 0);
+                write_to_buffer(d, echo_off_str);
                 d->connected = CON_GET_OLD_PASSWORD;
                 return;
             }
@@ -252,7 +252,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_GET_OLD_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             // We no longer disconnect for a bad password, send them back to the login
@@ -275,14 +275,14 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 // Turn string echoing back on and send them back to the login menu.
-                write_to_buffer(d, echo_on_str, 0);
+                write_to_buffer(d, echo_on_str);
                 d->connected = CON_LOGIN_MENU;
                 show_login_menu(d);
 
                 return;
             }
 
-            write_to_buffer(d, echo_on_str, 0);
+            write_to_buffer(d, echo_on_str);
 
             if (check_playing(d, ch->name))
                 return;
@@ -392,7 +392,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_GET_NEW_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             if (strlen(argument) < 5)
@@ -424,7 +424,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_CONFIRM_NEW_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
@@ -435,7 +435,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             // Turn echo'ing back on for asking for the email.
-            write_to_buffer(d, echo_on_str, 0);
+            write_to_buffer(d, echo_on_str);
             d->connected = CON_GET_EMAIL;
             send_to_desc("\r\nWe ask for an optional email address in case the game admin\r\n", d);
             send_to_desc("need to verify your identity to reset your password.  If you do\r\n", d);
@@ -470,12 +470,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 if (!race_table[race].pc_race)
                     break;
 
-                write_to_buffer(d, "  {G*{x ", 0);
-                write_to_buffer(d, race_table[race].name, 0);
-                write_to_buffer(d, "\r\n", 0);
+                write_to_buffer(d, "  {G*{x ");
+                write_to_buffer(d, race_table[race].name);
+                write_to_buffer(d, "\r\n");
             }
 
-            write_to_buffer(d, "\r\n", 0);
+            write_to_buffer(d, "\r\n");
             send_to_desc("What is your race (help for more information)? ", d);
             d->connected = CON_GET_NEW_RACE;
 
@@ -505,11 +505,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     if (!race_table[race].pc_race)
                         break;
 
-                    write_to_buffer(d, "  {G*{x ", 0);
-                    write_to_buffer(d, race_table[race].name, 0);
-                    write_to_buffer(d, "\r\n", 0);
+                    write_to_buffer(d, "  {G*{x ");
+                    write_to_buffer(d, race_table[race].name);
+                    write_to_buffer(d, "\r\n");
                 }
-                write_to_buffer(d, "\r\n", 0);
+                write_to_buffer(d, "\r\n");
                 send_to_desc("What is your race? (help for more information) ", d);
                 break;
             }
@@ -617,7 +617,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             wiznet("Newbie alert!  $N sighted.", ch, NULL, WIZ_NEWBIE, 0, 0);
             wiznet(buf, NULL, NULL, WIZ_SITES, 0, get_trust(ch));
 
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             send_to_desc("You may be good, neutral, or evil.\r\n", d);
             send_to_desc("Which alignment (G/N/E)? ", d);
             d->connected = CON_GET_ALIGNMENT;
@@ -644,7 +644,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
-            write_to_buffer(d, "\r\n", 0);
+            write_to_buffer(d, "\r\n");
 
             group_add(ch, "rom basics", FALSE);
             group_add(ch, class_table[ch->class]->base_group, FALSE);
@@ -656,7 +656,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_DEFAULT_CHOICE:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             switch (argument[0])
             {
                 case 'y':
@@ -665,7 +665,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->gen_data->points_chosen = ch->pcdata->points;
                     do_function(ch, &do_help, "group header");
                     list_group_costs(ch);
-                    write_to_buffer(d, "You already have the following skills:\r\n", 0);
+                    write_to_buffer(d, "You already have the following skills:\r\n");
                     do_function(ch, &do_skills, "");
                     do_function(ch, &do_help, "menu choice");
                     d->connected = CON_GEN_GROUPS;
@@ -674,8 +674,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 case 'N':
                     group_add(ch, class_table[ch->class]->default_group,
                         TRUE);
-                    write_to_buffer(d, "\r\n", 2);
-                    write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
+                    write_to_buffer(d, "\r\n");
+                    write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                     buf[0] = '\0';
 
                     for (i = 0; weapon_table[i].name != NULL; i++)
@@ -688,22 +688,22 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     }
 
                     strcat(buf, "\r\nYour choice? ");
-                    write_to_buffer(d, buf, 0);
+                    write_to_buffer(d, buf);
                     d->connected = CON_PICK_WEAPON;
                     break;
                 default:
-                    write_to_buffer(d, "Please answer (Y/N)? ", 0);
+                    write_to_buffer(d, "Please answer (Y/N)? ");
                     return;
             }
             break;
 
         case CON_PICK_WEAPON:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             weapon = weapon_lookup(argument);
             if (weapon == -1
                 || ch->pcdata->learned[*weapon_table[weapon].gsn] <= 0)
             {
-                write_to_buffer(d, "That's not a valid selection. Choices are:\r\n", 0);
+                write_to_buffer(d, "That's not a valid selection. Choices are:\r\n");
                 buf[0] = '\0';
 
                 for (i = 0; weapon_table[i].name != NULL; i++)
@@ -716,12 +716,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 strcat(buf, "\r\nYour choice? ");
-                write_to_buffer(d, buf, 0);
+                write_to_buffer(d, buf);
                 return;
             }
 
             ch->pcdata->learned[*weapon_table[weapon].gsn] = 40;
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             do_function(ch, &do_help, "motd");
             d->connected = CON_READ_MOTD;
             break;
@@ -757,8 +757,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 free_gen_data(ch->gen_data);
                 ch->gen_data = NULL;
-                write_to_buffer(d, "\r\n", 2);
-                write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
+                write_to_buffer(d, "\r\n");
+                write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                 buf[0] = '\0';
 
                 for (i = 0; weapon_table[i].name != NULL; i++)
@@ -771,7 +771,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 strcat(buf, "\r\nYour choice? ");
-                write_to_buffer(d, buf, 0);
+                write_to_buffer(d, buf);
                 d->connected = CON_PICK_WEAPON;
                 break;
             }
@@ -785,7 +785,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_READ_IMOTD:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             do_function(ch, &do_help, "motd");
             d->connected = CON_READ_MOTD;
             break;
@@ -793,9 +793,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
         case CON_READ_MOTD:
             if (ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
             {
-                write_to_buffer(d, "Warning! Null password!\r\n", 0);
-                write_to_buffer(d, "Please report old password with bug.\r\n", 0);
-                write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n", 0);
+                write_to_buffer(d, "Warning! Null password!\r\n");
+                write_to_buffer(d, "Please report old password with bug.\r\n");
+                write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n");
             }
 
             send_to_desc("\r\nWelcome to {RCrimson {rSkies{x.\r\n\r\n", d);
