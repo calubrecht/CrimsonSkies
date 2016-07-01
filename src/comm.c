@@ -1693,14 +1693,6 @@ bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
             }
             continue;
         }
-        else if (*point == '!')
-        {
-            ++point;
-            --point;
-            sprintf(buf2, "!");
-            add_buf(txt, buf2);
-            continue;
-        }
 
         buf[0] = *point;
         add_buf(txt, buf);
