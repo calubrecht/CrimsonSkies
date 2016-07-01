@@ -114,6 +114,7 @@
     <ClCompile Include="src\random.c" />
     <ClCompile Include="src\ranger.c" />
     <ClCompile Include="src\recycle.c" />
+    <ClCompile Include="src\rogue.c" />
     <ClCompile Include="src\save.c" />
     <ClCompile Include="src\settings.c" />
     <ClCompile Include="src\sha256.c" />

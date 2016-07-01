@@ -165,6 +165,9 @@
     <ClCompile Include="src\quest.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rogue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
