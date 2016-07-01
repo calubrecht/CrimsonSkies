@@ -1086,6 +1086,11 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
         if (d->showstr_point)
         {
             write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
+
+            if (d->character && IS_SET(d->character->comm, COMM_TELNET_GA))
+            {
+                write_to_buffer(d, go_ahead_str, 0);
+            }
         }
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
         {
@@ -1435,6 +1440,13 @@ void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
      */
     if (length <= 0)
         length = strlen(txt);
+
+    // Uncomment if debugging or something
+    if (length != strlen(txt))
+    {
+        bugf( "Write_to_buffer: length(%d) != strlen(txt)!", length);
+        length = strlen(txt);
+    }
 
     // can't update null descriptor
     if (d == NULL)
@@ -2062,7 +2074,6 @@ void show_string(struct descriptor_data *d, char *input)
     {
         // This bug line can be removed later if it's not ever hit which it appears
         // it's not.  It called the old implementation of the string pager.
-        // marker
         bugf("show_string - show_lines == 0, returning without processing further");
         return;
     }
@@ -2142,7 +2153,9 @@ void show_string(struct descriptor_data *d, char *input)
     }
 
     if (max_linecount > d->character->lines)
+    {
         write_to_buffer(d, "\r\n", 0);
+    }
 
     /* do any backing up necessary */
     if (lines < 0)
@@ -2475,6 +2488,7 @@ char *obj_short(OBJ_DATA *obj)
     return obj->short_descr;
 } // end obj_short
 
+
 int color(char type, CHAR_DATA *ch, char *string)
 {
     char	code[20];
@@ -2567,8 +2581,6 @@ int color(char type, CHAR_DATA *ch, char *string)
 }
 
 /*
- * OBSOLETE - Consider removing
- */
 void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
 {
     const char *point;
@@ -2611,7 +2623,7 @@ void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
         }
     }
     return;
-}
+} */
 
 /*
  * Function to remove color codes from a string.  Added to help remove color codes
