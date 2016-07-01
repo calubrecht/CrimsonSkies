@@ -1,6 +1,6 @@
-Name        thief~
-Class       2
-WhoName     Thi~
+Name        rogue~
+Class       8
+WhoName     Rog~
 Attrprime   dex
 Weapon      3701
 Guild       3028
@@ -11,9 +11,9 @@ Thac0_32    -4
 Hpmin       8
 Hpmax       13
 Mana        0
-BaseGroup   'thief basics'
-DefGroup    'thief default'
-IsReclass   0
+BaseGroup   'rogue basics'
+DefGroup    'rogue default'
+IsReclass   1
 Sk 'axe' 1 5
 Sk 'dagger' 1 2
 Sk 'flail' 1 6
@@ -42,6 +42,7 @@ Sk 'detect magic' 5 2
 Sk 'faerie fire' 5 2
 Sk 'steal' 5 4
 Sk 'enhanced recall' 5 2
+Sk 'poison prick' 5 2
 Sk 'chill touch' 6 2
 Sk 'continual light' 6 2
 Sk 'detect invis' 6 2
@@ -69,6 +70,7 @@ Sk 'second attack' 12 5
 Sk 'parry' 13 6
 Sk 'shocking grasp' 14 2
 Sk 'kick' 14 6
+Sk 'shiv' 14 2
 Sk 'poison' 15 2
 Sk 'hand to hand' 15 6
 Sk 'meditation' 15 8
@@ -159,8 +161,6 @@ Sk 'camping' 52 -1
 Sk 'camouflage' 52 -1
 Sk 'ambush' 52 -1
 Sk 'find water' 52 -1
-Sk 'poison prick' 52 -1
-Sk 'shiv' 52 -1
 Sk 'bless' 53 2
 Sk 'cause critical' 53 2
 Sk 'cause light' 53 2

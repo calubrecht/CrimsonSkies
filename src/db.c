@@ -4697,6 +4697,8 @@ void assign_gsn()
     ASSIGN_GSN(gsn_camouflage, "camouflage");
     ASSIGN_GSN(gsn_ambush, "ambush");
     ASSIGN_GSN(gsn_find_water, "find water");
+    ASSIGN_GSN(gsn_poison_prick, "poison prick");
+    ASSIGN_GSN(gsn_shiv, "shiv");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

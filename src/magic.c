@@ -1857,12 +1857,12 @@ void spell_cure_light(int sn, int level, CHAR_DATA * ch, void *vo,
 /*
  * Spell to cure poison.  Healers will get a bonus on this spell.
  */
-void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
+    bool success = FALSE;
 
-    if (!is_affected(victim, gsn_poison))
+    if (!is_affected(victim, gsn_poison) && !is_affected(victim, gsn_poison_prick))
     {
         if (victim == ch)
         {
@@ -1883,10 +1883,24 @@ void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (check_dispel(level, victim, gsn_poison))
     {
+        success = TRUE;
         send_to_char("A warm feeling runs through your body.\r\n", victim);
         act("$n looks much better.", victim, NULL, NULL, TO_ROOM);
     }
-    else
+
+    if (check_dispel(level, victim, gsn_poison_prick))
+    {
+        // Show them the message if they haven't already seen it.
+        if (success == FALSE)
+        {
+            send_to_char("A warm feeling runs through your body.\r\n", victim);
+            act("$n looks much better.", victim, NULL, NULL, TO_ROOM);
+        }
+
+        success = TRUE;
+    }
+
+    if (success == FALSE)
     {
         send_to_char("Spell failed.\r\n", ch);
     }

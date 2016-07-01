@@ -52,6 +52,12 @@ Sk 'second attack'
 End
 
 #GROUP
+Name 'rogue basics'
+Sk 'dagger'
+Sk 'steal'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -163,6 +169,19 @@ Sk 'camouflage'
 Sk 'acute vision'
 Sk 'track'
 Sk 'ambush'
+End
+
+#GROUP
+Name 'rogue default'
+Sk 'sword'
+Sk 'backstab'
+Sk 'dodge'
+Sk 'second attack'
+Sk 'trip'
+Sk 'hide'
+Sk 'peek'
+Sk 'pick lock'
+Sk 'sneak'
 End
 
 #GROUP

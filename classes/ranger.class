@@ -175,6 +175,8 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
+Sk 'poison prick' 52 -1
+Sk 'shiv' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'enchant armor' 53 4
@@ -213,6 +215,7 @@ Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
+Gr 'rogue basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -221,6 +224,7 @@ Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 40
+Gr 'rogue default' 0
 Gr 'weaponsmaster' 20
 Gr 'attack' 0
 Gr 'beguiling' 0

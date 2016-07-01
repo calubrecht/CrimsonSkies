@@ -2113,4 +2113,26 @@ MsgOff      !Locate Bind!~
 Race        0
 End
 
+#SKILL
+Name        poison prick~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+MsgOff      The rogue's poison leaves your body.~
+Race        0
+End
+
+#SKILL
+Name        shiv~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Damage      shiv~
+Race        0
+End
+
 #END

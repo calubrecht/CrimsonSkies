@@ -2275,13 +2275,17 @@ Enchantors are masters of imbueing weapons and armor with magical
 enchancements.  They also have been rumored to be able to enchant
 people's souls.
 
-Who can be an enchantor?
-
-CLASS:      Mages only
-RACE:       All
-ALIGNMENT:  Any
-CLAN:       Any
+See also:  reclass
 ~
+
+-1 ROGUE~
+Rogue's are sly individuals who prey on their victims vulnerabilities
+and borrow skills from various devious professions relating to the
+thieving trade.
+
+See also:  reclass
+~
+
 -1 ENHANCEMENT~
 The enhancement spells improve upon the body's pontential, allowing feats of
 superhuman strength and speed.  However, these spells may often have harmful
@@ -3359,9 +3363,11 @@ After reclass you will be level 1 again as the reclass.
 
 Current classes available for reclass:
 
-   * Enchantor (Mage)
-   * Healer (Cleric)
-   * Bladesinger (Any class, elves only)
+   {G*{x Enchantor (Mage)
+   {G*{x Healer (Cleric)
+   {G*{x Bladesinger (Any class, elves only)
+   {G*{x Ranger (Warrior & Thieves)
+   {G*{x Rogue (Thieves)
 ~
 
 0 WAVES OF WEARINESS~
@@ -3374,12 +3380,7 @@ Healers are masters of healing ailments, health and other aspects
 of individuals.  Many of their spells and skills focus on supporting
 other individuals.
 
-Who can be a healer?
-
-CLASS:      Clerics only
-RACE:       All
-ALIGNMENT:  Any
-CLAN:       Any
+See also:  reclass
 ~
 
 0 SACRIFICIAL HEAL~
@@ -3538,6 +3539,8 @@ rarely multi-classed mixture of Mage and Warrior, effective using his spells
 to augment his swordarm.  Bladesingers are most effective in combat when
 dancing the bladesong an art that has been passed down through the elven
 generations.
+
+See also:  reclass
 ~
 
 0 BLADESONG~
@@ -3935,6 +3938,8 @@ skilled woodsmen. Many are skilled in stealth, wilderness survival,
 beast-mastery, herbalism, and tracking.  They are adept at swordplay
 and fight much better in a wilderness setting.  Rangers typically have 
 keen eye sight and are excellent at hiding in forest areas.  
+
+See also:  reclass
 ~
 
 0 BUTCHER~
@@ -4060,6 +4065,17 @@ The dispel fog spell will allow a caster to dispel a fog in a room
 restoring visibility to all who pass through it.
 
 SEE ALSO: fog
+~
+
+0 POISON PRICK~
+Syntax: poisonprick <victim>
+
+Poison prick is a skill unique to the Rogue class where the rogue
+with a high chance of success attempts to prick a victim with a
+poisoned needle.  The poison causes less severe effects than a
+poison spell but can be stacked on top of it.
+
+Healer's can cure this poison via the cure poison spell.
 ~
 
 0 QUEST PQUEST~
