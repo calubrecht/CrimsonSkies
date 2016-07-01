@@ -1087,6 +1087,9 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
         {
             write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
 
+            // The paging prompt was not showing on mudlet without the telnet go ahead being sent, the
+            // issue arrising because there is no line terminator on the line above as a design choice,
+            // without that, mudlet waits for an extended period before rendering the line.
             if (d->character && IS_SET(d->character->comm, COMM_TELNET_GA))
             {
                 write_to_buffer(d, go_ahead_str, 0);
