@@ -2163,6 +2163,7 @@ void show_string(struct descriptor_data *d, char *input)
     /* do any backing up necessary */
     if (lines < 0)
     {
+        // Back option which takes you back one page
         for (scan = d->showstr_point; scan > d->showstr_head; scan--)
         {
             if ((*scan == '\n') || (*scan == '\r'))
@@ -2179,6 +2180,7 @@ void show_string(struct descriptor_data *d, char *input)
     }
     else if (lines > 0)
     {
+        // End option that takes you to the last page
         for (scan = d->showstr_head; *scan; scan++)
         {
             if ((*scan == '\n') || (*scan == '\r'))
