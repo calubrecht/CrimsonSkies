@@ -1950,53 +1950,11 @@ void send_to_char(const char *txt, CHAR_DATA *ch)
 } // end send_to_char
 
 /*
- * Page to one descriptor using Lope's color.
+ * Page to one descriptor using Lope's color (wraps write_to_buffer)
  */
 void send_to_desc(const char *txt, DESCRIPTOR_DATA * d)
 {
-    const char *point;
-    char *point2;
-    char buf[MAX_STRING_LENGTH * 4];
-    int skip = 0;
-
-    buf[0] = '\0';
-    point2 = buf;
-    if (txt && d)
-    {
-        if (d->ansi == TRUE)
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    skip = color(*point, NULL, point2);
-                    while (skip-- > 0)
-                        ++point2;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer(d, buf, point2 - buf);
-        }
-        else
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer(d, buf, point2 - buf);
-        }
-    }
+    write_to_buffer(d, txt, 0);
     return;
 }
 
@@ -2486,98 +2444,6 @@ char *obj_short(OBJ_DATA *obj)
     }
     return obj->short_descr;
 } // end obj_short
-
-
-int color(char type, CHAR_DATA *ch, char *string)
-{
-    char	code[20];
-    char	*p = '\0';
-
-    if (ch && IS_NPC(ch))
-        return(0);
-
-    switch (type)
-    {
-        default:
-            sprintf(code, CLEAR);
-            break;
-        case 'x':
-            sprintf(code, CLEAR);
-            break;
-        case 'b':
-            sprintf(code, C_BLUE);
-            break;
-        case 'c':
-            sprintf(code, C_CYAN);
-            break;
-        case 'g':
-            sprintf(code, C_GREEN);
-            break;
-        case 'm':
-            sprintf(code, C_MAGENTA);
-            break;
-        case 'r':
-            sprintf(code, C_RED);
-            break;
-        case 'w':
-            sprintf(code, C_WHITE);
-            break;
-        case 'y':
-            sprintf(code, C_YELLOW);
-            break;
-        case 'B':
-            sprintf(code, C_B_BLUE);
-            break;
-        case 'C':
-            sprintf(code, C_B_CYAN);
-            break;
-        case 'G':
-            sprintf(code, C_B_GREEN);
-            break;
-        case 'M':
-            sprintf(code, C_B_MAGENTA);
-            break;
-        case 'R':
-            sprintf(code, C_B_RED);
-            break;
-        case 'W':
-            sprintf(code, C_B_WHITE);
-            break;
-        case 'Y':
-            sprintf(code, C_B_YELLOW);
-            break;
-        case 'D':
-            sprintf(code, C_D_GREY);
-            break;
-        case '*':
-            sprintf(code, BLINK);
-            break;
-        case '/':
-            sprintf(code, "\r\n");
-            break;
-        case '_':
-            sprintf(code, UNDERLINE);  // Underline
-            break;
-        case '&':
-            sprintf(code, REVERSE);  // Reverse
-            break;
-        case '-':
-            sprintf(code, "~");
-            break;
-        case '{':
-            sprintf(code, "%c", '{');
-            break;
-    }
-
-    p = code;
-    while (*p != '\0')
-    {
-        *string = *p++;
-        *++string = '\0';
-    }
-
-    return(strlen(code));
-}
 
 /*
 void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
