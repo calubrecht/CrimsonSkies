@@ -154,9 +154,9 @@ void do_random_names(CHAR_DATA * ch, char *argument)
     {
         // Since the random function returns a static char we have to use it in
         // separate calls.
-        for (col = 0; col < 4; col++)
+        for (col = 0; col < 5; col++)
         {
-            sprintf(buf, "%-18s", generate_random_name());
+            sprintf(buf, "%-16s", generate_random_name());
             send_to_char(buf, ch);
         }
 
