@@ -1965,6 +1965,8 @@ void page_to_char(const char *txt, CHAR_DATA *ch)
 
 /*
  * String Pager
+ *
+ * Some logic updated from ACK mud and the ROM ICE project.
  */
 void show_string(struct descriptor_data *d, char *input)
 {
@@ -1975,6 +1977,7 @@ void show_string(struct descriptor_data *d, char *input)
     int space;
     int show_lines;
     int max_linecount;
+    bool newline = FALSE;
 
     if (d->character)
     {
@@ -1992,8 +1995,6 @@ void show_string(struct descriptor_data *d, char *input)
 
     if (show_lines == 0)
     {
-        // This bug line can be removed later if it's not ever hit which it appears
-        // it's not.  It called the old implementation of the string pager.
         bugf("show_string - show_lines == 0, returning without processing further");
         return;
     }
@@ -2115,27 +2116,35 @@ void show_string(struct descriptor_data *d, char *input)
 
     /* show a chunk */
     lines = 0;
-    toggle = 1;
+    space = (MAX_STRING_LENGTH * 4) - 100;
 
-    space = MAX_STRING_LENGTH * 2 - 100;
-    for (scan = buffer; ; scan++, d->showstr_point++)
+    for (scan = buffer;; scan++, d->showstr_point++)
     {
         space--;
-        if (((*scan = *d->showstr_point) == '\n' || *scan == '\r') && (toggle = -toggle) < 0 && space > 0)
-            lines++;
-        else if (!*scan || (d->character && !IS_NPC(d->character) && lines >= d->character->lines) || space <= 0)
+
+        if (((*scan = *d->showstr_point) == '\r' || *scan == '\n') && space > 0)
+        {
+            if (newline == FALSE)
+            {
+                newline = TRUE;
+                lines++;
+            }
+            else
+            {
+                newline = FALSE;
+            }
+        }
+        else if (!*scan || ( show_lines > 0 && lines >= show_lines) || space <= 0)
         {
             *scan = '\0';
             write_to_buffer(d, buffer);
-
-           /* See if this is the end (or near the end) of the string */
             for (chk = d->showstr_point; isspace(*chk); chk++);
             {
                 if (!*chk)
                 {
                     if (d->showstr_head)
                     {
-                        free_mem(d->showstr_head, strlen(d->showstr_head) + 1);
+                        free_mem(d->showstr_head, strlen( d->showstr_head ) + 1);
                         d->showstr_head = 0;
                     }
                     d->showstr_point = 0;
@@ -2143,9 +2152,13 @@ void show_string(struct descriptor_data *d, char *input)
             }
             return;
         }
+        else
+        {
+            newline = FALSE;
+        }
     }
-
     return;
+
 } // end void show_string
 
 void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *arg2, int type, int min_pos)
