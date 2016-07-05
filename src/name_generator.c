@@ -92,8 +92,9 @@ char *generate_random_name()
             name_part_table[last_index].last_part);
 
         // Checks to try to ensure a good name
-        if (name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)]
-            != name_part_table[last_index].last_part[0]
+        if (!IS_NULLSTR(name_part_table[first_index].first_part)
+            && !IS_NULLSTR(name_part_table[first_index].last_part)
+            && name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)] != name_part_table[last_index].last_part[0]
             && first_index != last_index
             && file_exists(filename) == FALSE)
         {
