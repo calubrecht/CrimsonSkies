@@ -1640,7 +1640,7 @@ dangerous for casters who are not pure of heart.
 ~
 0 'DISPEL MAGIC' CANCELLATION~
 Syntax: cast 'dispel magic' <character>
-        cast 'cancellation' <characte>
+        cast 'cancellation' <character>
  
 Both of these spells remove magical effects from the target.  Dispel magic
 has a reduced chance of working, and is considering an attack spell.
