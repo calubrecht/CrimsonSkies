@@ -168,7 +168,7 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
         xp = 10 * xp / (gch->level + 4);
 
     /* less at high */
-    if (gch->level > 35)
+    if (gch->level > 43)
         xp = 15 * xp / (gch->level - 25);
 
     /* reduce for playing time */
