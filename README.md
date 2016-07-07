@@ -43,6 +43,7 @@ open source/GitHub it has been under private development since 1998 (as my hobby
     have stopped or don't share their code).
   - To provide a ROM code base that includes a world that is setup for pkill or roleplaying (e.g. the things like the
     smurf village have been changed or removed).
+  - To provide help files for all game functions.
   - Server side LUA to suppliment and/or replace standard mob progs (safe, feature rich and little
     chance of memory leaks, yes, yes and yes).
   - To document the old functions with descriptions and hopefully well document new functions.
