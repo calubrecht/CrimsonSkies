@@ -841,9 +841,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         dam /= 2;
 
     if (dam > 1 &&
-         (( IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch)) ||
-           (is_affected(victim, gsn_protection_neutral) && IS_NEUTRAL(ch)) ||
-           (IS_AFFECTED(victim, AFF_PROTECT_GOOD) && IS_GOOD(ch))))
+         ((IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch))
+           || (is_affected(victim, gsn_protection_neutral) && IS_NEUTRAL(ch))
+           || (IS_AFFECTED(victim, AFF_PROTECT_GOOD) && IS_GOOD(ch))))
         dam -= dam / 4;
 
     immune = FALSE;
