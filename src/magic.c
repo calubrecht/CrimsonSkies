@@ -1237,10 +1237,13 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, skill_lookup("pass door")))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection evil")))
+    if (check_dispel(level, victim, gsn_protection_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection good")))
+    if (check_dispel(level, victim, gsn_protection_good))
+        found = TRUE;
+
+    if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
     if (check_dispel(level, victim, skill_lookup("sanctuary")))
@@ -2304,10 +2307,7 @@ void spell_dispel_good(int sn, int level, CHAR_DATA * ch, void *vo,
 }
 
 
-/* modified for enhanced use */
-
-void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     bool found = FALSE;
@@ -2426,10 +2426,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
         found = TRUE;
 
 
-    if (check_dispel(level, victim, skill_lookup("protection evil")))
+    if (check_dispel(level, victim, gsn_protection_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection good")))
+    if (check_dispel(level, victim, gsn_protection_good))
+        found = TRUE;
+
+    if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
     if (check_dispel(level, victim, skill_lookup("sanctuary")))
@@ -4036,25 +4039,31 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  *
  * The caster can refresh the spell on their self but not on others.
  */
-void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
     if (IS_AFFECTED(victim, AFF_PROTECT_EVIL)
-        || IS_AFFECTED(victim, AFF_PROTECT_GOOD))
+        || IS_AFFECTED(victim, AFF_PROTECT_GOOD)
+        || is_affected(victim, gsn_protection_neutral))
     {
         if (victim == ch)
         {
-            // Remove the affect so it can be re-added to yourself
-            affect_strip(victim, sn);
+            send_to_char("You are already protected.\r\n", ch);
         }
         else
         {
             act("$N is already protected.", ch, NULL, victim, TO_CHAR);
-            return;
         }
+
+        return;
     }
 
     af.where = TO_AFFECTS;
@@ -4065,9 +4074,14 @@ void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo,
     af.modifier = -1;
     af.bitvector = AFF_PROTECT_EVIL;
     affect_to_char(victim, &af);
+
     send_to_char("You feel holy and pure.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected from evil.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
@@ -4076,24 +4090,31 @@ void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo,
  *
  * The caster can refresh the spell on their self but not on others.
  */
-void spell_protection_good(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_protection_good(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
     if (IS_AFFECTED(victim, AFF_PROTECT_GOOD)
-        || IS_AFFECTED(victim, AFF_PROTECT_EVIL))
+        || IS_AFFECTED(victim, AFF_PROTECT_EVIL)
+        || is_affected(victim, gsn_protection_neutral))
     {
         if (victim == ch)
         {
-            affect_strip(victim, sn);
+            send_to_char("You are already protected.\r\n", ch);
         }
         else
         {
             act("$N is already protected.", ch, NULL, victim, TO_CHAR);
-            return;
         }
+
+        return;
     }
 
     af.where = TO_AFFECTS;
@@ -4104,12 +4125,62 @@ void spell_protection_good(int sn, int level, CHAR_DATA * ch, void *vo,
     af.modifier = -1;
     af.bitvector = AFF_PROTECT_GOOD;
     affect_to_char(victim, &af);
+
     send_to_char("You feel aligned with darkness.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected from good.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
+void spell_protection_neutral(int sn,int level,CHAR_DATA *ch,void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
+    if (IS_AFFECTED(victim, AFF_PROTECT_GOOD)
+        || IS_AFFECTED(victim, AFF_PROTECT_EVIL)
+        || is_affected(victim, gsn_protection_neutral))
+    {
+        if (victim == ch)
+        {
+            send_to_char("You are already protected.\r\n", ch);
+        }
+        else
+        {
+            act("$N is already protected.", ch, NULL, victim, TO_CHAR);
+        }
+
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 24;
+    af.location = APPLY_SAVES;
+    af.modifier = -1;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("You are protected from neutral people.\r\n", victim);
+
+    if (ch != victim)
+    {
+        act("$N is protected from neutral.",ch,NULL,victim,TO_CHAR);
+    }
+
+    return;
+}
 
 void spell_ray_of_truth(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
@@ -5430,6 +5501,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_portal")) return spell_portal;
             if (!str_cmp(name, "spell_protection_evil")) return spell_protection_evil;
             if (!str_cmp(name, "spell_protection_good")) return spell_protection_good;
+            if (!str_cmp(name, "spell_protection_neutral")) return spell_protection_neutral;
             break;
         case 'r':
             if (!str_cmp(name, "spell_refresh")) return spell_refresh;
@@ -5573,6 +5645,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_portal) return "spell_portal";
     if (spell == spell_protection_evil) return "spell_protection_evil";
     if (spell == spell_protection_good) return "spell_protection_good";
+    if (spell == spell_protection_neutral) return "spell_protection_neutral";
     if (spell == spell_refresh) return "spell_refresh";
     if (spell == spell_restore_weapon) return "spell_restore_weapon";
     if (spell == spell_restore_armor) return "spell_restore_armor";

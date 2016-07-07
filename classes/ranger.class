@@ -62,6 +62,7 @@ Sk 'create water' 11 2
 Sk 'protection evil' 11 2
 Sk 'protection good' 11 2
 Sk 'disarm' 11 4
+Sk 'protection neutral' 11 2
 Sk 'create food' 12 2
 Sk 'third attack' 12 4
 Sk 'hide' 12 6

@@ -2135,4 +2135,15 @@ Damage      shiv~
 Race        0
 End
 
+#SKILL
+Name        protection neutral~
+SpellFun    spell_protection_neutral~
+Target      3
+MinPos      8
+MinMana     5
+Beats       12
+MsgOff      You feel less protected.~
+Race        0
+End
+
 #END

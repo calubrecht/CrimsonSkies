@@ -114,4 +114,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
   - look in portal
   - snoopinfo command or imm who that shows more detail on the who list.
-
+  - Consider adding protection neutral affect *or* removing prot good affect and evil affect and using gsn.

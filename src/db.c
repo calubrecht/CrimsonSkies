@@ -4699,6 +4699,9 @@ void assign_gsn()
     ASSIGN_GSN(gsn_find_water, "find water");
     ASSIGN_GSN(gsn_poison_prick, "poison prick");
     ASSIGN_GSN(gsn_shiv, "shiv");
+    ASSIGN_GSN(gsn_protection_good, "protection good");
+    ASSIGN_GSN(gsn_protection_evil, "protection evil");
+    ASSIGN_GSN(gsn_protection_neutral, "protection neutral");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

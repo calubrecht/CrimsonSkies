@@ -2364,6 +2364,7 @@ dispel magic	removes spells from enemies, not as effective as cancel
 fireproof	shields items from the harmful effects of fire and acid
 protection evil	provides defense from the attacks of evil creatures
 protection good protects from the attacks of good beings
+protection neutral protects from the attacks of neutral people.
 sanctuary	reduces all damage taken by the recipient by half
 shield		puts a shimmering shield between you and your enemies
 stoneskin	turns skin hard as stone, providing a huge armor boost
@@ -2726,9 +2727,10 @@ A romantic spell that creates a fragrant red rose, with utterly no game
 use whatsoever.
 ~
 
--1 'PROTECTION GOOD' 'PROTECTION EVIL'~
+-1 'PROTECTION GOOD' 'PROTECTION EVIL' 'PROTECTION NEUTRAL'~
 Syntax: cast 'protection evil' <target>
-	cast 'protection good' <target>
+        cast 'protection good' <target>
+        cast 'protection neutral' <target>
 
 The protection spells reduce damage taken from attackers of the appropriate
 ethos, and improve saving throws against all forms of magic. They may not
