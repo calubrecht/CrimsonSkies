@@ -174,18 +174,13 @@ void do_poisonprick(CHAR_DATA *ch, char *argument)
 }
 
 /*
- * Shiv skill.  This stabbing/slashing skill will allow a Rogue multiple avenues of attack.  They
- * can stab for extra damage as an attack or they can slash for smaller damage but a chance to blind
- * also.  This will likely do less damage than backstab but will not have the damage % requirement.
+ * Shiv skill.  This is a stabblinb skill for Rogues.  This will be similiar to backstab but with
+ * less damage but can be used beyond the % requirement for hp on the victim.
  */
 void do_shiv(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Currently disabled.\r\n", ch);
-    return;
-
     char buf[MAX_STRING_LENGTH];
-    char arg[MAX_INPUT_LENGTH];
-    CHAR_DATA *victim;
+    CHAR_DATA *victim = NULL;
     OBJ_DATA *obj;
     int chance = 0;
     int dam = 0;
@@ -197,18 +192,24 @@ void do_shiv(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    argument = one_argument(argument, arg);
-
-    if (arg[0] == '\0')
+    if (IS_NULLSTR(argument))
     {
-        send_to_char("Shiv whom?\r\n", ch);
-        return;
+        victim = ch->fighting;
+
+        if (victim == NULL)
+        {
+            send_to_char("But you aren't fighting anyone!\r\n", ch);
+            return;
+        }
     }
 
-    else if ((victim = get_char_room(ch, arg)) == NULL)
+    if (victim == NULL)
     {
-        send_to_char("They aren't here.\r\n", ch);
-        return;
+        if ((victim = get_char_room(ch, argument)) == NULL)
+        {
+            send_to_char("They aren't here.\r\n", ch);
+            return;
+        }
     }
 
     if (victim == ch)
@@ -237,40 +238,82 @@ void do_shiv(CHAR_DATA * ch, char *argument)
 
     check_wanted(ch, victim);
 
-    // If they specified a slash, do that then get out
-    if (!str_prefix("slash", argument))
+    chance = (chance * 2) / 3; // Base starting point
+    chance += ((get_curr_stat(ch, STAT_DEX) * 4) - (get_curr_stat(victim, STAT_DEX) * 4)); // Dex vs. Dex
+
+    // Haste vs. Haste vs. Slow (dex is already factor'd but the spells will add or subtract more)
+    if (IS_AFFECTED(ch, AFF_HASTE))
     {
-        send_to_char("TODO: slash\r\n", ch);
-        WAIT_STATE(ch, skill_table[gsn_shiv]->beats);
-        return;
+        chance += 10;
     }
-    else
+
+    if (IS_AFFECTED(victim, AFF_HASTE))
     {
-        sprintf(buf, "Not Slash: %s\r\n", argument);
+        chance -= 10;
+    }
+
+    if (IS_AFFECTED(ch, AFF_SLOW))
+    {
+        chance -= 20;
+    }
+
+    if (IS_AFFECTED(victim, AFF_SLOW))
+    {
+        chance += 20;
+    }
+
+    chance += ((ch->level - victim->level) * 2); // Level difference factors greatly
+    chance += number_range(0, 10); // Randomness
+
+    // Great chance against mobs
+    if (IS_NPC(victim))
+    {
+        chance += 10;
+    }
+
+    // Reduce for AC vs. Pierce
+    chance += GET_AC(victim, AC_PIERCE) / 25;
+
+    // Lag for the command
+    WAIT_STATE(ch, skill_table[gsn_shiv]->beats);
+
+    // Show the percent to testers here
+    if (IS_TESTER(ch))
+    {
+        sprintf(buf, "[Shiv Chance {W%d%%{x]\r\n", chance);
         send_to_char(buf, ch);
     }
 
-    // The default is the stab which does damage
-    if (CHANCE(chance))
+    // Moment of truth
+    if (!CHANCE(chance))
     {
-        dam = dice(obj->value[1], obj->value[2]) * (obj->level / 10);
-
-        if (IS_NPC(victim))
-        {
-            dam += 20;
-        }
-
-        damage(ch, victim, dam, gsn_shiv, DAM_PIERCE, TRUE);
-        check_improve(ch, gsn_shiv, TRUE, 1);
-    }
-    else
-    {
-        check_improve(ch, gsn_shiv, FALSE, 1);
-        damage(ch, victim, 0, gsn_shiv, DAM_NONE, TRUE);
+        // Fail!  *sad trombone*
+        act("$n attempts to shiv you but misses.", ch, NULL, victim, TO_VICT);
+        act("You attempt to shiv $N but miss.", ch, NULL, victim, TO_CHAR);
+        act("$n attempts to shiv $N and misses.", ch, NULL, victim, TO_NOTVICT);
+        damage(ch, victim, 0, gsn_shiv, DAM_PIERCE, TRUE);
+        check_improve(ch, gsn_shiv, FALSE, 2);
+        return;
     }
 
-    WAIT_STATE(ch, skill_table[gsn_shiv]->beats);
+    // Stab, calculate the damage
+    dam = dice(obj->value[1], obj->value[2]) * (obj->level / 10);
+
+    // More against NPC's or if the attacker is of a much greater level
+    if (IS_NPC(victim) || (ch->level - victim->level) > 6)
+    {
+        dam += 30;
+    }
+
+    // Slight boost based on luck
+    if (number_range(1, 3) == 3)
+    {
+        dam += 20;
+    }
+
+    // Do the damage
+    damage(ch, victim, dam, gsn_shiv, DAM_PIERCE, TRUE);
+    check_improve(ch, gsn_shiv, TRUE, 1);
 
     return;
-
 }
