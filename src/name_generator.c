@@ -27,7 +27,7 @@
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
  *  list of name parts that can be pieced together with a high rate of     *
- *  returning a decent name.  There are two large tables of these parts    *
+ *  returning a decent name.  There is one large tables with these parts   *
  *  but in the grand scheme these take up minimial memory.  This was       *
  *  orignally written as a Java class for use in an applet back in the     *
  *  day, then converted to C# for use in a Windows Phone app (hold the     *
