@@ -2855,13 +2855,13 @@ void do_flee(CHAR_DATA * ch, char *argument)
             || pexit->u1.to_room == NULL
             || IS_SET(pexit->exit_info, EX_CLOSED)
             || number_range(0, ch->daze) != 0 || (IS_NPC(ch)
-                && IS_SET(pexit->u1.
-                    to_room->
-                    room_flags,
-                    ROOM_NO_MOB)))
+            && IS_SET(pexit->u1.to_room->room_flags, ROOM_NO_MOB)))
+        {
             continue;
+        }
 
         move_char(ch, door, FALSE);
+
         if ((now_in = ch->in_room) == was_in)
             continue;
 
@@ -2872,8 +2872,11 @@ void do_flee(CHAR_DATA * ch, char *argument)
         if (!IS_NPC(ch))
         {
             send_to_char("You flee from combat!\r\n", ch);
+
             if ((ch->class == 2) && (number_percent() < 3 * (ch->level / 2)))
+            {
                 send_to_char("You snuck away safely.\r\n", ch);
+            }
             else
             {
                 send_to_char("You lost 10 exp.\r\n", ch);
