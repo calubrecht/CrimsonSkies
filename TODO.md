@@ -114,4 +114,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
   - look in portal
   - snoopinfo command or imm who that shows more detail on the who list.
-  - Consider adding protection neutral affect *or* removing prot good affect and evil affect and using gsn.
+  - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
+  - Escape skill that will allow Rogue's one no fail flee (but can't be used again for a few ticks).  
