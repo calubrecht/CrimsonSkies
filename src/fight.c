@@ -2873,7 +2873,8 @@ void do_flee(CHAR_DATA * ch, char *argument)
         {
             send_to_char("You flee from combat!\r\n", ch);
 
-            if ((ch->class == 2) && (number_percent() < 3 * (ch->level / 2)))
+            if ((ch->class == THIEF_CLASS_LOOKUP || ch->class == ROGUE_CLASS_LOOKUP)
+                    && (number_percent() < 3 * (ch->level / 2)))
             {
                 send_to_char("You snuck away safely.\r\n", ch);
             }
