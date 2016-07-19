@@ -2845,7 +2845,7 @@ void do_flee(CHAR_DATA * ch, char *argument)
     }
 
     was_in = ch->in_room;
-    for (attempt = 0; attempt < 6; attempt++)
+    for (attempt = 0; attempt < MAX_DIR; attempt++)
     {
         EXIT_DATA *pexit;
         int door;
