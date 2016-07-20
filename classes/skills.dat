@@ -2146,4 +2146,14 @@ MsgOff      You feel less protected.~
 Race        0
 End
 
+#SKILL
+Name        escape~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
 #END

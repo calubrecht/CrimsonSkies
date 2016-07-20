@@ -317,3 +317,88 @@ void do_shiv(CHAR_DATA * ch, char *argument)
 
     return;
 }
+
+/*
+ * Escape command to get yourself out of battle with a high chance of
+ * success.  This can only be used once every few ticks, it will require
+ * a cool down period.  This will be similiar to flee except will work at
+ * least once ignoring daze state (which is not something we will do for
+ * other skills, this is unique and is likely a one time thing for a fight, if
+ * a rogue flees and then is re-attacked it will no longer work until the cool
+ * down period is over (if the cooldown is in effect, this will default to flee).
+ * Closed doors will also be fleeable exits *IF* the character has pass door up.
+ */
+void do_escape(CHAR_DATA * ch, char *argument)
+{
+    ROOM_INDEX_DATA *was_in;
+    ROOM_INDEX_DATA *now_in;
+    CHAR_DATA *victim;
+    int attempt;
+    AFFECT_DATA af;
+
+    if (IS_NPC(ch))
+    {
+        send_to_char("Huh?\r\n", ch);
+        return;
+    }
+
+    if (is_affected(ch, gsn_escape))
+    {
+        send_to_char("You cannot escape again so quickly.\r\n", ch);
+        return;
+    }
+
+    if ((victim = ch->fighting) == NULL)
+    {
+        if (ch->position == POS_FIGHTING)
+        {
+            ch->position = POS_STANDING;
+        }
+
+        send_to_char("You aren't fighting anyone.\r\n", ch);
+        return;
+    }
+
+    was_in = ch->in_room;
+    for (attempt = 0; attempt < MAX_DIR; attempt++)
+    {
+        EXIT_DATA *pexit;
+        int door;
+
+        door = number_door();
+        if ((pexit = was_in->exit[door]) == 0
+            || pexit->u1.to_room == NULL
+            || (IS_SET(pexit->exit_info, EX_CLOSED) && !IS_AFFECTED(ch, AFF_PASS_DOOR)))
+        {
+            continue;
+        }
+
+        move_char(ch, door, FALSE);
+
+        if ((now_in = ch->in_room) == was_in)
+            continue;
+
+        ch->in_room = was_in;
+        act("$n has escaped!", ch, NULL, NULL, TO_ROOM);
+        ch->in_room = now_in;
+
+        send_to_char("You have escaped from combat!\r\n", ch);
+
+        stop_fighting(ch, TRUE);
+
+        af.where = TO_AFFECTS;
+        af.type = gsn_escape;
+        af.level = 0;
+        af.duration = 5;
+        af.location = APPLY_NONE;
+        af.modifier = 0;
+        af.bitvector = 0;
+        affect_join(ch, &af);
+
+        return;
+    }
+
+    send_to_char("PANIC! You couldn't escape!\r\n", ch);
+    return;
+} // end do_flee
+

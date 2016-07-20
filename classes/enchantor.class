@@ -163,6 +163,7 @@ Sk 'find water' 52 -1
 Sk 'poison prick' 52 -1
 Sk 'shiv' 52 -1
 Sk 'protection neutral' 52 1
+Sk 'escape' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
