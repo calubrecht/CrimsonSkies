@@ -335,6 +335,7 @@ void do_escape(CHAR_DATA * ch, char *argument)
     CHAR_DATA *victim;
     int attempt;
     AFFECT_DATA af;
+    int skill = 0;
 
     if (IS_NPC(ch))
     {
@@ -356,6 +357,27 @@ void do_escape(CHAR_DATA * ch, char *argument)
         }
 
         send_to_char("You aren't fighting anyone.\r\n", ch);
+        return;
+    }
+
+    // We're going to check the skill this way here so it skips the daze
+    // state.. this is a rare specialized skill that will avoid failing
+    // because of stun... although it can still fail because you're not
+    // good at it yet.
+    if (ch->level < skill_table[gsn_escape]->skill_level[ch->class])
+    {
+        skill = 0;
+    }
+    else
+    {
+        skill = ch->pcdata->learned[gsn_escape];
+    }
+
+
+    if (!CHANCE(skill))
+    {
+        send_to_char("You stumble trying to make your escape!\r\n", ch);
+        check_improve(ch, gsn_escape, FALSE, 8);
         return;
     }
 
@@ -394,6 +416,8 @@ void do_escape(CHAR_DATA * ch, char *argument)
         af.modifier = 0;
         af.bitvector = 0;
         affect_join(ch, &af);
+
+        check_improve(ch, gsn_escape, TRUE, 9);
 
         return;
     }
