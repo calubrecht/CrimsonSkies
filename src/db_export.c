@@ -66,6 +66,7 @@ void export_areas(void);
 void export_objects(void);
 void export_item_type(void);
 void export_sector_type(void);
+void export_clans(void);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -99,6 +100,11 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 	printf_to_char(ch, "%-55s", "Exporting Objects");
 	export_objects();
 	send_to_char("[ {GComplete{x ]\r\n", ch);
+
+	printf_to_char(ch, "%-55s", "Exporting Clans");
+	export_clans();
+	send_to_char("[ {GComplete{x ]\r\n", ch);
+
 
 	send_to_char("\r\nExport of game data complete!\r\n", ch);
 }
@@ -423,6 +429,70 @@ void export_sector_type(void)
 	{
 		sqlite3_bind_int(stmt, 1, sector_flags[x].bit);
 		sqlite3_bind_text(stmt, 2, sector_flags[x].name, -1, SQLITE_STATIC);
+
+		rc = sqlite3_step(stmt);
+
+		if (rc != SQLITE_DONE)
+		{
+			bugf("ERROR inserting data for %d: %s\n", sector_flags[x].bit, sqlite3_errmsg(db));
+		}
+
+		sqlite3_reset(stmt);
+	}
+
+	sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL);
+	sqlite3_finalize(stmt);
+
+out:
+	// Cleanup
+	sqlite3_close(db);
+	return;
+}
+
+void export_clans(void)
+{
+	sqlite3 *db;
+	int rc;
+	sqlite3_stmt *stmt;
+	AREA_DATA *pArea;
+	int x;
+
+	rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+	if (rc != SQLITE_OK)
+	{
+		bugf("export_clans -> Failed to open %s", EXPORT_DATABASE_FILE);
+		goto out;
+	}
+
+
+	// Total reload everytime, drop the table if it exists.
+	if ((sqlite3_exec(db, "DROP TABLE IF EXISTS clans;", 0, 0, 0)))
+	{
+		bugf("clans -> Failed to drop table: clans");
+		goto out;
+	}
+
+	// Create the tables they do not exist
+	if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS clans(name TEXT PRIMARY KEY, who_name TEXT, hall_vnum INTEGER, independent BOOLEAN);", 0, 0, 0)))
+	{
+		bugf("export_clans -> Failed to create table: clans");
+		goto out;
+	}
+
+	// Begin a transaction
+	sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+	// Prepare the insert statement that we'll re-use in the loop
+	sqlite3_prepare(db, "INSERT INTO clans (name, who_name, hall_vnum, independent) VALUES (?1, ?2, ?3, ?4);", -1, &stmt, NULL);
+
+	// Loop over all continents
+	for (x = 0; x < MAX_CLAN; x++)
+	{
+		sqlite3_bind_text(stmt, 1, clan_table[x].name, -1, SQLITE_STATIC);
+		sqlite3_bind_text(stmt, 2, clan_table[x].who_name, -1, SQLITE_STATIC);
+		sqlite3_bind_int(stmt, 3, clan_table[x].hall);
+		sqlite3_bind_int(stmt, 4, clan_table[x].independent);
 
 		rc = sqlite3_step(stmt);
 
