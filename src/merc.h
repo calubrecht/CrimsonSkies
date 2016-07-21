@@ -2204,42 +2204,43 @@ extern  GLOBAL_DATA             global;
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
 #if defined(_WIN32)
-    #define PLAYER_DIR	    "../player/"        /* Player files */
-    #define TEMP_FILE	    "../player/romtmp"
-    #define NULL_FILE       "nul"               /* To reserve one stream  */
+    #define PLAYER_DIR	     "../player/"        /* Player files */
+    #define TEMP_FILE	     "../player/romtmp"
+    #define NULL_FILE        "nul"               /* To reserve one stream  */
 #endif
 
 #if defined(unix)
-    #define PLAYER_DIR      "../player/"         /* Player files           */
-    #define GOD_DIR         "../gods/"           /* list of gods           */
-    #define TEMP_FILE       "../player/romtmp"
-    #define NULL_FILE       "/dev/null"          /* To reserve one stream  */
+    #define PLAYER_DIR       "../player/"         /* Player files           */
+    #define GOD_DIR          "../gods/"           /* list of gods           */
+    #define TEMP_FILE        "../player/romtmp"
+    #define NULL_FILE        "/dev/null"          /* To reserve one stream  */
 #endif
 
-#define AREA_LIST           "area.lst"                   /* List of areas */
-#define BUG_FILE            "../log/bugs.txt"            /* For 'bug' and bug() */
-#define TYPO_FILE           "../log/typos.txt"           /* For 'typo' */
-#define OHELPS_FILE	        "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+#define AREA_LIST            "area.lst"                   /* List of areas */
+#define BUG_FILE             "../log/bugs.txt"            /* For 'bug' and bug() */
+#define TYPO_FILE            "../log/typos.txt"           /* For 'typo' */
+#define OHELPS_FILE	         "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
 
-#define GROUP_FILE          "../classes/groups.dat"      /* groups file */
-#define CLASS_DIR           "../classes/"                /* classes directory */
-#define CLASS_FILE          "class.lst"                  /* classes file */
-#define SKILLS_FILE         "../classes/skills.dat"      /* skills and spells file */
+#define GROUP_FILE           "../classes/groups.dat"      /* groups file */
+#define CLASS_DIR            "../classes/"                /* classes directory */
+#define CLASS_FILE           "class.lst"                  /* classes file */
+#define SKILLS_FILE          "../classes/skills.dat"      /* skills and spells file */
 
-#define NOTE_FILE           "../notes/note.note"
-#define PENALTY_FILE        "../notes/penalty.note"
-#define NEWS_FILE           "../notes/news.note"
-#define CHANGES_FILE        "../notes/change.note"
-#define OOC_FILE            "../notes/ooc.note"
-#define STORY_FILE          "../notes/story.note"
-#define HISTORY_FILE        "../notes/history.note"
-#define IMMNOTE_FILE	    "../notes/imm.note"
+#define NOTE_FILE            "../notes/note.note"
+#define PENALTY_FILE         "../notes/penalty.note"
+#define NEWS_FILE            "../notes/news.note"
+#define CHANGES_FILE         "../notes/change.note"
+#define OOC_FILE             "../notes/ooc.note"
+#define STORY_FILE           "../notes/story.note"
+#define HISTORY_FILE         "../notes/history.note"
+#define IMMNOTE_FILE	     "../notes/imm.note"
 
-#define BAN_FILE            "../system/ban.dat"
-#define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
-#define SETTINGS_FILE       "../system/settings.ini"
-#define STATISTICS_FILE     "../system/statistics.dat"
-#define DISABLED_FILE       "../system/disabled.dat"
+#define BAN_FILE             "../system/ban.dat"
+#define SAVED_OBJECT_FILE    "../system/saved_objects.dat"
+#define SETTINGS_FILE        "../system/settings.ini"
+#define STATISTICS_FILE      "../system/statistics.dat"
+#define DISABLED_FILE        "../system/disabled.dat"
+#define EXPORT_DATABASE_FILE "../system/cs-mud.db"
 
 // Exit codes
 #define MUD_EXIT_REBOOT          0                        /* Normal exit */

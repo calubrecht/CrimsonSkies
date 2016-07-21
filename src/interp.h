@@ -361,3 +361,4 @@ DECLARE_DO_FUN(do_pquest);
 DECLARE_DO_FUN(do_poisonprick);
 DECLARE_DO_FUN(do_shiv);
 DECLARE_DO_FUN(do_escape);
+DECLARE_DO_FUN(do_dbexport);

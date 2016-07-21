@@ -406,6 +406,7 @@ const struct cmd_type cmd_table[] = {
     {"confiscate",      do_confiscate,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"disable",         do_disable,     POS_DEAD, L3, LOG_ALWAYS, TRUE},
     {"crypt",           do_crypt,       POS_DEAD, L3, LOG_ALWAYS, TRUE},
+	{"dbexport",        do_dbexport,    POS_DEAD, L3, LOG_ALWAYS, TRUE},
 
     /*
      * OLC

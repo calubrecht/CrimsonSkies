@@ -84,6 +84,7 @@
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
+    <ClCompile Include="src\db_export.c" />
     <ClCompile Include="src\disable.c" />
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\enchantor.c" />
@@ -120,6 +121,7 @@
     <ClCompile Include="src\sha256.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
+    <ClCompile Include="src\sqlite3\sqlite3.c" />
     <ClCompile Include="src\tables.c" />
     <ClCompile Include="src\timer.c" />
     <ClCompile Include="src\update.c" />
@@ -137,6 +139,7 @@
     <ClInclude Include="src\olc.h" />
     <ClInclude Include="src\recycle.h" />
     <ClInclude Include="src\sha256.h" />
+    <ClInclude Include="src\sqlite3\sqlite3.h" />
     <ClInclude Include="src\tables.h" />
     <ClInclude Include="src\telnet.h" />
   </ItemGroup>
