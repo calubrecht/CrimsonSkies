@@ -514,7 +514,7 @@ void export_clans(void)
     }
 
     // Create the tables they do not exist
-    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS clan(name TEXT PRIMARY KEY, who_name TEXT, hall_vnum INTEGER, independent BOOLEAN);", 0, 0, 0)))
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS clan(name TEXT PRIMARY KEY, who_name TEXT, friendly_name TEXT, hall_vnum INTEGER, independent BOOLEAN);", 0, 0, 0)))
     {
         bugf("export_clans -> Failed to create table: clan");
         goto out;
@@ -524,7 +524,7 @@ void export_clans(void)
     sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
 
     // Prepare the insert statement that we'll re-use in the loop
-    if (sqlite3_prepare(db, "INSERT INTO clan (name, who_name, hall_vnum, independent) VALUES (?1, ?2, ?3, ?4);", -1, &stmt, NULL) != SQLITE_OK)
+    if (sqlite3_prepare(db, "INSERT INTO clan (name, who_name, friendly_name, hall_vnum, independent) VALUES (?1, ?2, ?3, ?4, ?5);", -1, &stmt, NULL) != SQLITE_OK)
     {
         bugf("export_clan -> Failed to prepare insert statement.");
         goto out;
@@ -535,8 +535,9 @@ void export_clans(void)
     {
         sqlite3_bind_text(stmt, 1, clan_table[x].name, -1, SQLITE_STATIC);
         sqlite3_bind_text(stmt, 2, clan_table[x].who_name, -1, SQLITE_STATIC);
-        sqlite3_bind_int(stmt, 3, clan_table[x].hall);
-        sqlite3_bind_int(stmt, 4, clan_table[x].independent);
+        sqlite3_bind_text(stmt, 3, clan_table[x].friendly_name, -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 4, clan_table[x].hall);
+        sqlite3_bind_int(stmt, 5, clan_table[x].independent);
 
         rc = sqlite3_step(stmt);
 
