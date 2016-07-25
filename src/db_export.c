@@ -67,6 +67,8 @@ void export_objects(void);
 void export_item_type(void);
 void export_sector_type(void);
 void export_clans(void);
+void export_extra_flags(void);
+void export_bits(void);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -80,6 +82,10 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 
     printf_to_char(ch, "%-55sStatus\r\n", "Action");
     send_to_char(HEADER, ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Bits");
+    export_bits();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
 
     printf_to_char(ch, "%-55s", "Exporting Continents");
     export_continents();
@@ -99,6 +105,10 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 
     printf_to_char(ch, "%-55s", "Exporting Objects");
     export_objects();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Extra Flags");
+    export_extra_flags();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
     printf_to_char(ch, "%-55s", "Exporting Clans");
@@ -555,6 +565,155 @@ void export_clans(void)
     }
 
     sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_extra_flags(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    AREA_DATA *pArea;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_extra_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS extra_flags;", 0, 0, 0)))
+    {
+        bugf("export_extra_flags -> Failed to drop table: extra_flags");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS extra_flags(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_extra_flags -> Failed to create table: extra_flags");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO extra_flags (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_extra_flags -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all extra flags
+    for (x = 0; extra_flags[x].name != NULL; x++)
+    {
+        sqlite3_bind_int(stmt, 1, extra_flags[x].bit);
+        sqlite3_bind_text(stmt, 2, extra_flags[x].name, -1, SQLITE_STATIC);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_extra_flags -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_bits(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    AREA_DATA *pArea;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_bits -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS bit;", 0, 0, 0)))
+    {
+        bugf("export_bits -> Failed to drop table: bit");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS bit(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_bits -> Failed to create table: bit");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (1, 'A')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (2, 'B')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (4, 'C')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (8, 'D')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (16, 'E')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (32, 'F')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (64, 'G')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (128, 'H')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (256, 'I')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (512, 'J')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (1024, 'K')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (2048, 'L')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (4096, 'M')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (8192, 'N')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (16384, 'O')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (32768, 'P')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (65536, 'Q')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (131072, 'R')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (262144, 'S')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (524288, 'T')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (1048576, 'U')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (2097152, 'V')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (4194304, 'W')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (8388608, 'X')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (16777216, 'Y')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (33554432, 'Z')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (67108864, 'aa')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (134217728, 'bb')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (268435456, 'cc')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (536870912, 'dd')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (1073741824, 'ee')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (2147483648, 'ff')", 0, 0, 0);
+    sqlite3_exec(db, "INSERT INTO bit(id, name) VALUES (4294967296, 'gg')", 0, 0, 0);
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_bits -> Failed to commit transaction.");
+    }
 
 out:
     // Cleanup
