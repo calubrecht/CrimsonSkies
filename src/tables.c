@@ -39,17 +39,21 @@ SKILLTYPE *             skill_table[MAX_SKILL];
 GROUPTYPE *             group_table[MAX_GROUP];
 CLASSTYPE *             class_table[MAX_CLASS];
 
-/* for clans */
+/*
+ * Clan Table
+ *
+ * Name, Who Name, Friendly Name, Death Transfer Room, Independent
+ *
+ * Independent should be FALSE if it is a real clan
+ */
 const struct clan_type clan_table[MAX_CLAN] = {
-    /*  name, who entry, death-transfer room, independent */
-    /* independent should be FALSE if is a real clan */
-    { "",           "",                      ROOM_VNUM_ALTAR, TRUE },
-    { "loner",      "[ {WLoner{x ] ",        ROOM_VNUM_ALTAR, TRUE },
-    { "renegade",   "[ {WRenegade{x ] ",     ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard",   "[ {BMidgaard{x ] ",     ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   ROOM_VNUM_ALTAR, FALSE },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "cult",       "[ {DCult{x ] ",         ROOM_VNUM_ALTAR, FALSE }
+    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE },
+    { "cult",       "[ {DCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE }
 };
 
 /* for position */
