@@ -134,11 +134,14 @@ void export_objects(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
+    sqlite3_stmt *stmt_affect;
     AREA_DATA *pArea;
     OBJ_INDEX_DATA *obj;
     int vnum = 0;
     int nMatch = 0;
+    int x = 0;
     OBJ_INDEX_DATA *pObjIndex;
+    AFFECT_DATA *paf;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
 
@@ -156,8 +159,21 @@ void export_objects(void)
         goto out;
     }
 
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS object_affect;", 0, 0, 0)))
+    {
+        bugf("export_object -> Failed to drop table: object_affect");
+        goto out;
+    }
+
+
     // Create the tables they do not exist
     if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS object(vnum INTEGER PRIMARY KEY, name TEXT, short_description TEXT, long_description TEXT, material TEXT, item_type INTEGER, extra_flags INTEGER, wear_flags INTEGER, level INTEGER, condition INTEGER, weight INTEGER, cost INTEGER, value1 INTEGER, value2 INTEGER, value3 INTEGER, value4 INTEGER, value5 INTEGER, area_name TEXT, area_vnum INTEGER);", 0, 0, 0)))
+    {
+        bugf("export_object -> Failed to create table: object");
+        goto out;
+    }
+
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS object_affect(vnum INTEGER, apply_id INTEGER, name TEXT, modifier INTEGER);", 0, 0, 0)))
     {
         bugf("export_object -> Failed to create table: object");
         goto out;
@@ -169,7 +185,13 @@ void export_objects(void)
     // Prepare the insert statement that we'll re-use in the loop
     if (sqlite3_prepare(db, "INSERT INTO object (vnum, name, short_description, long_description, material, item_type, extra_flags, wear_flags, level, condition, weight, cost, value1, value2, value3, value4, value5, area_name, area_vnum) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19);", -1, &stmt, NULL) != SQLITE_OK)
     {
-        bugf("export_object -> Failed to prepare insert statement.");
+        bugf("export_object -> Failed to prepare insert statement for object.");
+        goto out;
+    }
+
+    if (sqlite3_prepare(db, "INSERT INTO object_affect (vnum, apply_id, name, modifier) VALUES (?1, ?2, ?3, ?4);", -1, &stmt_affect, NULL) != SQLITE_OK)
+    {
+        bugf("export_object -> Failed to prepare insert statement object_affect.");
         goto out;
     }
 
@@ -180,6 +202,7 @@ void export_objects(void)
         {
             nMatch++;
 
+            // The basic object index data
             sqlite3_bind_int(stmt, 1, pObjIndex->vnum);
             sqlite3_bind_text(stmt, 2, pObjIndex->name, -1, SQLITE_STATIC);
             sqlite3_bind_text(stmt, 3, pObjIndex->short_descr, -1, SQLITE_STATIC);
@@ -209,6 +232,24 @@ void export_objects(void)
 
             sqlite3_reset(stmt);
 
+            // Object affects for this item
+            for (paf = pObjIndex->affected; paf; paf = paf->next)
+            {
+                sqlite3_bind_int(stmt_affect, 1, pObjIndex->vnum);
+                sqlite3_bind_int(stmt_affect, 2, paf->location);
+                sqlite3_bind_text(stmt_affect, 3, flag_string(apply_flags, paf->location), -1, SQLITE_STATIC);
+                sqlite3_bind_int(stmt_affect, 4, paf->modifier);
+
+                rc = sqlite3_step(stmt_affect);
+
+                if (rc != SQLITE_DONE)
+                {
+                    bugf("ERROR inserting data for %d: %s\n", pObjIndex->vnum, sqlite3_errmsg(db));
+                }
+
+                sqlite3_reset(stmt_affect);
+            }
+
         }
     }
 
@@ -218,6 +259,7 @@ void export_objects(void)
     }
 
     sqlite3_finalize(stmt);
+    sqlite3_finalize(stmt_affect);
 
 out:
     // Cleanup
