@@ -33,13 +33,6 @@
  *                                                                         *
  ***************************************************************************/
 
-/*
-    TODO
-    ----
-    Object Affects pObjData->affects
-
-*/
-
 // System Specific Includes
 #if defined(_WIN32)
 #include <sys/types.h>
@@ -71,6 +64,7 @@ void export_extra_flags(void);
 void export_bits(void);
 void export_wear_flags(void);
 void export_apply_flags(void);
+void export_help(void);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -123,6 +117,10 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 
     printf_to_char(ch, "%-55s", "Exporting Clans");
     export_clans();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Help Files");
+    export_help();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
 
@@ -906,6 +904,76 @@ void export_bits(void)
     {
         bugf("export_bits -> Failed to commit transaction.");
     }
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_help(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    HELP_DATA *pHelp;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_help -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS help;", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to drop table: help");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS help(id INTEGER PRIMARY KEY, level INTEGER, keyword TEXT, help_text TEXT);", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to create table: help");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO help (level, keyword, help_text) VALUES (?1, ?2, ?3);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_help -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all areas and save the area data for each entry.
+    for (pHelp = help_first; pHelp != NULL; pHelp = pHelp->next)
+    {
+        sqlite3_bind_int(stmt, 1, pHelp->level);
+        sqlite3_bind_text(stmt, 2, pHelp->keyword, -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 3, pHelp->text, -1, SQLITE_STATIC);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %s: %s\n", pHelp->keyword, sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_help -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
 
 out:
     // Cleanup
