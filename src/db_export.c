@@ -69,6 +69,8 @@ void export_sector_type(void);
 void export_clans(void);
 void export_extra_flags(void);
 void export_bits(void);
+void export_wear_flags(void);
+void export_apply_flags(void);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -111,6 +113,14 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     export_extra_flags();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
+    printf_to_char(ch, "%-55s", "Exporting Wear Flags");
+    export_wear_flags();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Apply Flags");
+    export_apply_flags();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
     printf_to_char(ch, "%-55s", "Exporting Clans");
     export_clans();
     send_to_char("[ {GComplete{x ]\r\n", ch);
@@ -147,7 +157,7 @@ void export_objects(void)
     }
 
     // Create the tables they do not exist
-    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS object(vnum INTEGER PRIMARY KEY, name TEXT, short_description TEXT, description TEXT, material TEXT, item_type INTEGER, extra_flags INTEGER, wear_flags INTEGER, level INTEGER, condition INTEGER, weight INTEGER, cost INTEGER, value1 INTEGER, value2 INTEGER, value3 INTEGER, value4 INTEGER, value5 INTEGER, area_name TEXT, area_vnum INTEGER);", 0, 0, 0)))
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS object(vnum INTEGER PRIMARY KEY, name TEXT, short_description TEXT, long_description TEXT, material TEXT, item_type INTEGER, extra_flags INTEGER, wear_flags INTEGER, level INTEGER, condition INTEGER, weight INTEGER, cost INTEGER, value1 INTEGER, value2 INTEGER, value3 INTEGER, value4 INTEGER, value5 INTEGER, area_name TEXT, area_vnum INTEGER);", 0, 0, 0)))
     {
         bugf("export_object -> Failed to create table: object");
         goto out;
@@ -157,7 +167,7 @@ void export_objects(void)
     sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
 
     // Prepare the insert statement that we'll re-use in the loop
-    if (sqlite3_prepare(db, "INSERT INTO object (vnum, name, short_description, description, material, item_type, extra_flags, wear_flags, level, condition, weight, cost, value1, value2, value3, value4, value5, area_name, area_vnum) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19);", -1, &stmt, NULL) != SQLITE_OK)
+    if (sqlite3_prepare(db, "INSERT INTO object (vnum, name, short_description, long_description, material, item_type, extra_flags, wear_flags, level, condition, weight, cost, value1, value2, value3, value4, value5, area_name, area_vnum) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19);", -1, &stmt, NULL) != SQLITE_OK)
     {
         bugf("export_object -> Failed to prepare insert statement.");
         goto out;
@@ -632,6 +642,146 @@ void export_extra_flags(void)
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
         bugf("export_extra_flags -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_wear_flags(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    AREA_DATA *pArea;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_wear_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS wear_flags;", 0, 0, 0)))
+    {
+        bugf("export_wear_flags -> Failed to drop table: wear_flags");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS wear_flags(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_wear_flags -> Failed to create table: wear_flags");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO wear_flags (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_wear_flags -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all extra flags
+    for (x = 0; wear_flags[x].name != NULL; x++)
+    {
+        sqlite3_bind_int(stmt, 1, wear_flags[x].bit);
+        sqlite3_bind_text(stmt, 2, wear_flags[x].name, -1, SQLITE_STATIC);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_wear_flags -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_apply_flags(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    AREA_DATA *pArea;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_apply_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS apply_flags;", 0, 0, 0)))
+    {
+        bugf("export_apply_flags -> Failed to drop table: apply_flags");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS apply_flags(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_apply_flags -> Failed to create table: apply_flags");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO apply_flags (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_apply_flags -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all extra flags
+    for (x = 0; apply_flags[x].name != NULL; x++)
+    {
+        sqlite3_bind_int(stmt, 1, apply_flags[x].bit);
+        sqlite3_bind_text(stmt, 2, apply_flags[x].name, -1, SQLITE_STATIC);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_apply_flags -> Failed to commit transaction.");
     }
 
     sqlite3_finalize(stmt);
