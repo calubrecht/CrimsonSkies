@@ -29,7 +29,7 @@
  * players and game admins. Some of the data maybe redudant to to allow    *
  * for less joins when querying (e.g. the object row will include the area *
  * name as well as the area_vnum.  I don't expect that this will be an     *
- * issue.
+ * issue.                                                                  *
  *                                                                         *
  ***************************************************************************/
 
@@ -65,6 +65,7 @@ void export_bits(void);
 void export_wear_flags(void);
 void export_apply_flags(void);
 void export_help(void);
+void export_rooms(void);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -118,6 +119,11 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     printf_to_char(ch, "%-55s", "Exporting Clans");
     export_clans();
     send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Rooms");
+    export_rooms();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
 
     printf_to_char(ch, "%-55s", "Exporting Help Files");
     export_help();
@@ -971,6 +977,92 @@ void export_help(void)
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
         bugf("export_help -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+/*
+ * TODO - Resets, exits, extra descriptions.
+ */
+void export_rooms(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    ROOM_INDEX_DATA *room;
+    int x = 0;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS room;", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to drop table: room");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room(vnum INTEGER PRIMARY KEY, room_name TEXT, room_description TEXT, owner TEXT, room_flags INTEGER, light INTEGER, sector_type INTEGER, heal_rate INTEGER, mana_rate INTEGER, clan INTEGER, area_vnum INTEGER, area_name TEXT);", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to create table: room");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO room(vnum, room_name, room_description, owner, room_flags, light, sector_type, heal_rate, mana_rate, clan, area_vnum, area_name) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    for (x = 0; x < MAX_KEY_HASH; x++) /* room index hash table */
+    {
+        for (room = room_index_hash[x]; room != NULL; room = room->next)
+        {
+            sqlite3_bind_int(stmt, 1, room->vnum);
+            sqlite3_bind_text(stmt, 2, room->name, -1, SQLITE_STATIC);
+            sqlite3_bind_text(stmt, 3, room->description, -1, SQLITE_STATIC);
+            sqlite3_bind_text(stmt, 4, room->owner, -1, SQLITE_STATIC);
+            sqlite3_bind_int(stmt, 5, room->room_flags);
+            sqlite3_bind_int(stmt, 6, room->light);
+            sqlite3_bind_int(stmt, 7, room->sector_type);
+            sqlite3_bind_int(stmt, 8, room->heal_rate);
+            sqlite3_bind_int(stmt, 9, room->mana_rate);
+            sqlite3_bind_int(stmt, 10, room->clan);
+            sqlite3_bind_int(stmt, 11, room->area->vnum);
+            sqlite3_bind_text(stmt, 12, room->area->name, -1, SQLITE_STATIC);
+
+            rc = sqlite3_step(stmt);
+
+            if (rc != SQLITE_DONE)
+            {
+                bugf("ERROR inserting data for %s (%d): %s\n", room->name, room->vnum, sqlite3_errmsg(db));
+            }
+
+            sqlite3_reset(stmt);
+
+        }
+    }
+    
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to commit transaction.");
     }
 
     sqlite3_finalize(stmt);
