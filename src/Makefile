@@ -10,7 +10,7 @@ PROF = -O -g3
 # that appear to be unused but are in fact used.
 #C_FLAGS = $(PROF) -Wall -Wno-unused-but-set-variable
 C_FLAGS = $(PROF) -Wall
-L_FLAGS = $(PROF) -lcrypt
+L_FLAGS = $(PROF) -lcrypt -pthread -ldl
 
 # Source Files
 SRC_FILES := $(wildcard *.c)

@@ -44,7 +44,7 @@
 #include <time.h>
 #endif
 
-#include "sqlite3\sqlite3.h"
+#include "sqlite3/sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,6 +66,7 @@ void export_wear_flags(void);
 void export_apply_flags(void);
 void export_help(void);
 void export_rooms(void);
+char *flag_string(const struct flag_type *flag_table, int bits);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
 
@@ -75,8 +76,6 @@ void export_rooms(void);
  */
 void do_dbexport(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-
     printf_to_char(ch, "%-55sStatus\r\n", "Action");
     send_to_char(HEADER, ch);
 
@@ -139,11 +138,8 @@ void export_objects(void)
     int rc;
     sqlite3_stmt *stmt;
     sqlite3_stmt *stmt_affect;
-    AREA_DATA *pArea;
-    OBJ_INDEX_DATA *obj;
     int vnum = 0;
     int nMatch = 0;
-    int x = 0;
     OBJ_INDEX_DATA *pObjIndex;
     AFFECT_DATA *paf;
 
@@ -276,7 +272,6 @@ void export_continents(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int continent;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -346,7 +341,6 @@ void export_item_type(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -490,7 +484,6 @@ void export_sector_type(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -560,7 +553,6 @@ void export_clans(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -633,7 +625,6 @@ void export_extra_flags(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -703,7 +694,6 @@ void export_wear_flags(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -773,7 +763,6 @@ void export_apply_flags(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
     int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
@@ -842,9 +831,6 @@ void export_bits(void)
 {
     sqlite3 *db;
     int rc;
-    sqlite3_stmt *stmt;
-    AREA_DATA *pArea;
-    int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
 
