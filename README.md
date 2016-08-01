@@ -8,10 +8,11 @@ all of this from the game (adding skills and spells to classes is far easier tha
 
 If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
 contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is
-the other continent and I have left it with the familiar areas and geographic linking).
+the other continent and I have left it with the familiar areas and geographic linking).  I invite and welcome
+any contributions.
 
 The current development server which is stable and playable and will reflect the latest commits here is at (you can 
-telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
+telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1997 on Windows 10):
 
   - 66.244.102.112 port 4000
 
