@@ -44,7 +44,7 @@
 #include <time.h>
 #endif
 
-#include "sqlite3.h"
+#include "sqlite/sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

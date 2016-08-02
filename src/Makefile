@@ -13,8 +13,11 @@ PROF = -O -g3
 C_FLAGS = $(PROF) -Wall
 L_FLAGS = $(PROF) -lcrypt -pthread -ldl
 
+# SQLite files
+SQLITE_SRC = sqlite/sqlite3.c
+
 # Source Files
-SRC_FILES := $(wildcard *.c)
+SRC_FILES := $(wildcard *.c) $(SQLITE_SRC)
 
 # Object Files
 OBJ_DIR = obj
@@ -22,6 +25,7 @@ OBJ_FILES := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Make the Object directory if it doesn't exist
 $(shell   mkdir -p $(OBJ_DIR))
+$(shell   mkdir -p $(OBJ_DIR)/sqlite)
 
 cs-mud: $(OBJ_FILES)
 	$(RM) -f $(EXE)
