@@ -121,7 +121,7 @@
     <ClCompile Include="src\sha256.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
-    <ClCompile Include="src\sqlite3.c" />
+    <ClCompile Include="src\sqlite\sqlite3.c" />
     <ClCompile Include="src\tables.c" />
     <ClCompile Include="src\timer.c" />
     <ClCompile Include="src\update.c" />
@@ -139,7 +139,7 @@
     <ClInclude Include="src\olc.h" />
     <ClInclude Include="src\recycle.h" />
     <ClInclude Include="src\sha256.h" />
-    <ClInclude Include="src\sqlite3.h" />
+    <ClInclude Include="src\sqlite\sqlite3.h" />
     <ClInclude Include="src\tables.h" />
     <ClInclude Include="src\telnet.h" />
   </ItemGroup>
