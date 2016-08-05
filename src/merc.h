@@ -142,16 +142,16 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 /*
  * Color stuff by Lope.
  */
-#define CLEAR       "\x1B[0m"        /* Resets Color    */
+#define CLEAR       "\x1B[0m"       /* Resets Color */
 #define C_BLACK	    "\x1B[0;30m"
-#define C_RED       "\x1B[0;31m"    /* Normal Colors    */
+#define C_RED       "\x1B[0;31m"    /* Normal Colors */
 #define C_GREEN     "\x1B[0;32m"
 #define C_YELLOW    "\x1B[0;33m"
 #define C_BLUE      "\x1B[0;34m"
 #define C_MAGENTA   "\x1B[0;35m"
 #define C_CYAN      "\x1B[0;36m"
 #define C_WHITE     "\x1B[0;37m"
-#define C_D_GREY    "\x1B[1;30m"      /* Light Colors        */
+#define C_D_GREY    "\x1B[1;30m"    /* Light Colors */
 #define C_B_RED     "\x1B[1;31m"
 #define C_B_GREEN   "\x1B[1;32m"
 #define C_B_YELLOW  "\x1B[1;33m"
@@ -159,10 +159,14 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define C_B_MAGENTA "\x1B[1;35m"
 #define C_B_CYAN    "\x1B[1;36m"
 #define C_B_WHITE   "\x1B[1;37m"
-#define BLINK       "\x1B[5m"
+#define BLINK       "\x1B[5m"      /* Special Codes */
 #define BACK        "\x1B[1D"
 #define UNDERLINE   "\x1B[4m"
 #define REVERSE     "\x1B[7m"
+#define UP          "\x1B[1A"      /* Cursor Movement */
+#define DOWN	    "\x1B[1B"
+#define RIGHT	    "\x1B[1C"
+#define LEFT        "\x1B[1D"
 
 /*
  * Class lookup values that correspond to the class table.
