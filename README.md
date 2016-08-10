@@ -25,7 +25,7 @@ coding on this is a labor of love, I'm glad to be back to it).
 
 Currently Crimson Skies compiles and runs out of the box on:
 
-  - Ubuntu 14.04
+  - Ubuntu 15.05
   - Rasbian for use with the RaspberryPi
   - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2015 Community, for your initial 
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
