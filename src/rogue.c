@@ -35,7 +35,6 @@
     Smoke Bomb
     Shiv - Stab for damage with possible blind
     Set Trap
-    Peer - see if someone is hiding in the room
     Bludgeon - Lower int/wis
  */
 
@@ -426,3 +425,77 @@ void do_escape(CHAR_DATA * ch, char *argument)
     return;
 } // end do_flee
 
+/*
+ * Skill that will allow the Rogue to peer around the room with high
+ * accuracy the number of other people in the room.  Even if they can't
+ * see who is there they can determine if someone might be hiding.
+ */
+void do_peer(CHAR_DATA * ch, char *argument)
+{
+    int chance = 0;
+    int count = 0;
+    CHAR_DATA *victim;
+
+    if (IS_NPC(ch))
+    {
+        send_to_char("Huh?\r\n", ch);
+        return;
+    }
+
+    if (ch->fighting != NULL)
+    {
+        send_to_char("You're too busy fighting\r\n", ch);
+        return;
+    }
+
+    // Must be over the level to use this skill.
+    if (ch->level < skill_table[gsn_peer]->skill_level[ch->class]
+        || (chance = get_skill(ch, gsn_peer)) == 0)
+    {
+        send_to_char("That is not something you are skilled at.\r\n", ch);
+        return;
+    }
+
+    // There is always some chance to succeed or fail (this will almost always be a
+    // high chance skill).
+    chance = URANGE( 5, chance, 95 );
+
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Peer Chance {W%d%%{x]\r\n", chance);
+    }
+
+    act("$N peers around the immediate area.", ch, NULL, NULL, TO_ROOM);
+
+    // The time that must be waited after this command
+    WAIT_STATE(ch, skill_table[gsn_peer]->beats);
+
+    if (!CHANCE(chance))
+    {
+        check_improve(ch, gsn_peer, FALSE, 3);
+        send_to_char("You do not see traces of anyone as you peer around the area.\r\n", ch);
+        return;
+    }
+
+    // Get the count of eligble people in the room, which is everyone but immortals.
+    for (victim = ch->in_room->people; victim != NULL; victim = victim->next_in_room)
+    {
+        if (!IS_IMMORTAL(victim) && victim != ch)
+        {
+            count++;
+        }
+    }
+
+    if (count > 0)
+    {
+        printf_to_char(ch, "You see signs of %d other individual%s here.\r\n", count, count > 1 ? "s" : "");
+        check_improve(ch, gsn_peer, TRUE, 3);
+    }
+    else
+    {
+        check_improve(ch, gsn_peer, TRUE, 3);
+        send_to_char("You do not see traces of anyone as you peer around the area.\r\n", ch);
+    }
+
+    return;
+}

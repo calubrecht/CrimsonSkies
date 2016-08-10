@@ -4703,6 +4703,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_protection_evil, "protection evil");
     ASSIGN_GSN(gsn_protection_neutral, "protection neutral");
     ASSIGN_GSN(gsn_escape, "escape");
+    ASSIGN_GSN(gsn_peer, "peer");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;
