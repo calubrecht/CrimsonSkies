@@ -456,6 +456,16 @@ void do_peer(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Move have some movement left
+    if (ch->move < 5)
+    {
+        send_to_char("You are too exhausted to peer.\r\n", ch);
+        return;
+    }
+
+    // Slight movement cost
+    ch->move -= 5;
+
     // There is always some chance to succeed or fail (this will almost always be a
     // high chance skill).
     chance = URANGE( 5, chance, 95 );
