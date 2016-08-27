@@ -478,9 +478,15 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
         act("You circle and stab at $N!", ch, NULL, victim, TO_CHAR);
         act("$n circles and stabs at $N!", ch, NULL, victim, TO_NOTVICT);
 
-        // Chance for two additional hits
+        // Chance for hits
         one_hit(ch, victim, TYPE_UNDEFINED, FALSE);
         one_hit(ch, victim, TYPE_UNDEFINED, FALSE);
+
+        // Lower chance for a third
+        if (CHANCE(33))
+        {
+            one_hit(ch, victim, TYPE_UNDEFINED, FALSE);
+        }
 
         // Chance for stun (50% base at 51 if the player isn't stunned)
         int chance = ch->level / 2;
@@ -525,6 +531,11 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
         else
         {
             chance -= 5;
+        }
+
+        if (IS_TESTER(ch))
+        {
+            printf_to_char(ch, "[Circlestab Stun Chance {W%d%%{x]\r\n", chance);
         }
 
         if (CHANCE(chance))
