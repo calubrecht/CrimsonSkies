@@ -2354,14 +2354,14 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             sprintf(buf,
                 "[v0] Weight:     [%d kg]\r\n"
                 "[v1] Flags:      [%s]\r\n"
-                "[v2] Key:     %s [%d]\r\n"
+                "[v2] Key:        [%d] %s\r\n"
                 "[v3] Capacity    [%d]\r\n"
                 "[v4] Weight Mult [%d]\r\n",
                 obj->value[0],
                 flag_string(container_flags, obj->value[1]),
-                get_obj_index(obj->value[2])
-                ? get_obj_index(obj->value[2])->short_descr
-                : "none", obj->value[2], obj->value[3], obj->value[4]);
+                obj->value[2],
+                get_obj_index(obj->value[2]) ? get_obj_index(obj->value[2])->short_descr : "none",
+                obj->value[3], obj->value[4]);
             send_to_char(buf, ch);
             break;
 
