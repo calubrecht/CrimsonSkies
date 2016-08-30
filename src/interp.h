@@ -40,14 +40,14 @@ void do_function(CHAR_DATA *ch, DO_FUN *do_fun, char *argument);
 /*
  * Structure for a command in the command lookup table.
  */
-struct	cmd_type
+struct cmd_type
 {
-    char * const    name;
-    DO_FUN *        do_fun;
-    int          position;
-    int          level;
-    int          log;
-    int          show;
+    char * const name;
+    DO_FUN * do_fun;
+    int position;
+    int level;
+    int log;
+    int show;
 };
 
 /* the command table itself */
