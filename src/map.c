@@ -176,7 +176,7 @@ void do_map(CHAR_DATA *ch, char *argument)
     map_area(ch->in_room, ch, center, center, min, max);
 
     /* marks the center, where ch is */
-    map[center][center] = "{R*";
+    map[center][center] = "{R*{x";
     show_map(ch, min, max);
 
     return;
