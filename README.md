@@ -7,9 +7,9 @@ completion.  Classes, groups, skills and spells are loading from files and all h
 all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).  
 
 If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
-contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is
-the other continent and I have left it with the familiar areas and geographic linking).  I invite and welcome
-any contributions.
+contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is 
+the other continent and I have left it with the familiar areas and geographic linking).  I invite and welcome any 
+contributions.
 
 The current development server which is stable and playable and will reflect the latest commits here is at (you can 
 telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1997 on Windows 10):
@@ -17,11 +17,10 @@ telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from
   - 66.244.102.112 port 4000
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
-official go to version 1.0 (version 1 will be official when I finish 2 more reclasses so each base class has a reclass
-and when I finish resets of ocean life in the oceans).  The next version on the roadmap will include 4 more reclasses 
-and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.  You can check my TODO
-file for short and long term things I'm going to work on (and the list is way larger, I just haven't added it all, 
-coding on this is a labor of love, I'm glad to be back to it).
+official go to version 1.0 (version 1 will be official when I finish 1 more reclass so each base class has a reclass).  
+The next version on the roadmap will include 4 more reclasses and new continent that will begin to build new areas that 
+aren't from the stock Diku/Merc/Rom.  You can check my TODO file for short and long term things I'm going to work 
+on (and the list is way larger, I just haven't added it all, coding on this is a labor of love, I'm glad to be back to it).
 
 Currently Crimson Skies compiles and runs out of the box on:
 
