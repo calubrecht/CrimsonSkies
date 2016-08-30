@@ -4080,6 +4080,16 @@ poison spell but can be stacked on top of it.
 
 Healer's can cure this poison via the cure poison spell.
 ~
+0 SHOCK SPREAD~
+
+While underwater, weapons of a shocking or lightning nature will
+cause additional damage to creatures and players you may fight.
+
+Shock spread is a game wide setting that will allow the immortals
+to change the behavior of the shock so that it can spread to other
+mobs and cause damage.  You can see if it's toggled on in the
+settings command.
+~
 
 0 QUEST PQUEST~
 QUEST PQUEST
