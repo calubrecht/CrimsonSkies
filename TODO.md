@@ -118,3 +118,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Escape skill that will allow Rogue's one no fail flee (but can't be used again for a few ticks).  
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
+  - Delete expired notes by calling the save function, either on load or reboot.
