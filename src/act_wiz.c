@@ -1651,6 +1651,26 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     for (paf = victim->affected; paf != NULL; paf = paf->next)
     {
+        if (paf->type < 0)
+        {
+            // There won't be negagive index entries in the skills table, something has
+            // gone wrong here, like eq trying to add an affect that doesn't exist.  Log
+            // the error and go on.
+            sprintf(buf, "%s had a bad affect type that does not map to a skill number (%d).", victim->name, paf->type);
+            bug(buf, 0);
+            wiznet(buf, NULL, NULL, WIZ_GENERAL, 0, 0);
+
+            sprintf(buf,
+                "Affect: 'unknown' modifies %s (%d) by %d for %d hours with bits %s, level %d.\r\n",
+                affect_loc_name(paf->location),
+                paf->location,
+                paf->modifier,
+                paf->duration, affect_bit_name(paf->bitvector), paf->level);
+            send_to_char(buf, ch);
+
+            continue;
+        }
+
         sprintf(buf,
             "Spell: '%s' modifies %s by %d for %d hours with bits %s, level %d.\r\n",
             skill_table[(int)paf->type]->name,
