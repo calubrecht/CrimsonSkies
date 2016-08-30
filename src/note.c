@@ -383,6 +383,10 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
     return;
 } // end void load_thread
 
+/*
+ * Writes a note out to the note file.  All notes are not saved over and over with each post, this file
+ * is appended to and then it's only totally saved when a note is removed.
+ */
 void append_note(NOTE_DATA *pnote)
 {
     FILE *fp;
