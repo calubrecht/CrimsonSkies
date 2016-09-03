@@ -6109,6 +6109,70 @@ void do_crypt(CHAR_DATA * ch, char *argument)
 } // end do_crypt
 
 /*
+ * Immortal command to show who is being snooped by who, Rhien 8/11/99
+ */
+void do_snoopinfo( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char bufsnoop [100];
+    BUFFER *buffer;
+    CHAR_DATA *victim;
+
+    buffer = new_buf();
+
+    sprintf(buf, "\n\r[{WPlayer Name{x]    [{WSnooped by{x]\n\r");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "-------------    ------------\n\r");
+    send_to_char(buf, ch);
+
+    for (victim = char_list; victim != NULL; victim = victim->next)
+    {
+        if ( victim->desc == NULL )
+        {
+            continue;
+        }
+
+        if (IS_NPC(victim)
+            || victim->desc->connected != CON_PLAYING
+            || !can_see(ch,victim)
+            || get_trust(victim) > get_trust(ch))
+        {
+             continue;
+        }
+
+        if (victim->desc->snoop_by != NULL)
+        {
+            sprintf(bufsnoop," %s", victim->desc->snoop_by->character->name);
+        }
+        else
+        {
+            continue;
+        }
+
+        if (ch->name == victim->name)
+        {
+            continue;
+        }
+
+        if (victim->desc->snoop_by->character->invis_level > ch->level)
+        {
+            sprintf(bufsnoop,"(An Imm)" );
+        }
+
+        sprintf(buf,"%-15s %-15s\n\r", victim->name, bufsnoop);
+        add_buf(buffer, buf);
+    }
+
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
+
+    return;
+
+}
+
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)

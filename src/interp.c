@@ -380,6 +380,7 @@ const struct cmd_type cmd_table[] = {
     {"echo",            do_recho,       POS_DEAD, L6, LOG_ALWAYS, TRUE},
     {"return",          do_return,      POS_DEAD, L6, LOG_NORMAL, TRUE},
     {"snoop",           do_snoop,       POS_DEAD, L5, LOG_ALWAYS, TRUE},
+    {"snoopinfo",       do_snoopinfo,   POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"stat",            do_stat,        POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"stats",           do_stats,       POS_DEAD,  0, LOG_NORMAL, TRUE},
     {"string",          do_string,      POS_DEAD, L7, LOG_ALWAYS, TRUE},

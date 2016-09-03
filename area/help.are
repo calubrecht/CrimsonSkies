@@ -722,7 +722,12 @@ your old password.  The second argument is your new password.
 
 The PASSWORD command is protected against being snooped or logged.
 ~
+58 SNOOPINFO~
+Syntax: snoopinfo
 
+Shows a list of all immortals who are currently snooping another player
+and who is being snooped.
+~
 0 TITLE~
 Syntax: title <string>
 
