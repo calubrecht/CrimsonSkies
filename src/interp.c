@@ -385,6 +385,7 @@ const struct cmd_type cmd_table[] = {
     {"stats",           do_stats,       POS_DEAD,  0, LOG_NORMAL, TRUE},
     {"string",          do_string,      POS_DEAD, L7, LOG_ALWAYS, TRUE},
     {"switch",          do_switch,      POS_DEAD, L6, LOG_ALWAYS, TRUE},
+    {"switchinfo",      do_switchinfo,  POS_DEAD, L6, LOG_ALWAYS, TRUE},
     {"wizinvis",        do_invis,       POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"vnum",            do_vnum,        POS_DEAD, L7, LOG_NORMAL, TRUE},
     {"zecho",           do_zecho,       POS_DEAD, L4, LOG_ALWAYS, TRUE},

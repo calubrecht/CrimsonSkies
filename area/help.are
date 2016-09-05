@@ -1432,6 +1432,13 @@ switch into link-dead PCs.
 Return returns you to your original body.
 ~
 
+54 SWITCHINFO~
+Syntax: switchinfo
+
+Shows an immortal all characters who are switched into other characters.  If
+an immortal is invisible above your level then you will see (An Imm).
+~
+
 51 IMMTALK :~
 Syntax: immtalk <message>
 	immtalk

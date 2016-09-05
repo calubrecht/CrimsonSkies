@@ -6120,10 +6120,10 @@ void do_snoopinfo( CHAR_DATA *ch, char *argument )
 
     buffer = new_buf();
 
-    sprintf(buf, "\n\r[{WPlayer Name{x]    [{WSnooped by{x]\n\r");
+    sprintf(buf, "\r\n[{WPlayer Name{x]    [{WSnooped by{x]\r\n");
     send_to_char(buf, ch);
 
-    sprintf(buf, "-------------    ------------\n\r");
+    sprintf(buf, "-------------    ------------\r\n");
     send_to_char(buf, ch);
 
     for (victim = char_list; victim != NULL; victim = victim->next)
@@ -6160,7 +6160,7 @@ void do_snoopinfo( CHAR_DATA *ch, char *argument )
             sprintf(bufsnoop,"(An Imm)" );
         }
 
-        sprintf(buf,"%-15s %-15s\n\r", victim->name, bufsnoop);
+        sprintf(buf,"%-15s %-15s\r\n", victim->name, bufsnoop);
         add_buf(buffer, buf);
     }
 
@@ -6170,6 +6170,46 @@ void do_snoopinfo( CHAR_DATA *ch, char *argument )
     return;
 
 }
+
+/*
+ * Shows which characters are currently switched into other characters.
+ *    - Rhien, 3-23-00
+ */
+void do_switchinfo(CHAR_DATA *ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    CHAR_DATA *victim;
+    bool found=FALSE;
+
+    send_to_char("\r\n[{WSwitch Information{x]\r\n", ch);
+    send_to_char("--------------------\r\n", ch);
+
+    for (victim = char_list; victim != NULL; victim = victim->next)
+    {
+        if (IS_NPC(victim) && victim->desc != NULL && victim->desc->original != NULL)
+        {
+            if (victim->desc->original->invis_level > ch->level)
+            {
+                sprintf(buf, "(An Imm) is switched into %s\r\n", victim->short_descr);
+            }
+            else
+            {
+                sprintf(buf, "%s is switched into %s\r\n", victim->desc->original->name, victim->short_descr);
+            }
+
+            send_to_char(buf, ch);
+            found=TRUE;
+        }
+
+    } // end for
+
+    if (!found)
+    {
+        send_to_char("There are no switched characters at the moment.\r\n", ch);
+        return;
+    }
+
+} // end switchinfo
 
 
 /*
