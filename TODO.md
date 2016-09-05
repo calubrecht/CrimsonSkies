@@ -118,3 +118,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
   - Delete expired notes by calling the save function, either on load or reboot.
+  - Update locate object to additionally show the area the object is in.
