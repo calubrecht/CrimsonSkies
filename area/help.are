@@ -4103,6 +4103,15 @@ mobs and cause damage.  You can see if it's toggled on in the
 settings command.
 ~
 
+0 KNOCK~
+Syntax: knock <direction>
+        knock <door name>
+
+Knocking on a closed door allows any characters on the other side of
+the door to hear the knocking (letting them know that someone is there
+and wants in).
+~
+
 0 QUEST PQUEST~
 QUEST PQUEST
 

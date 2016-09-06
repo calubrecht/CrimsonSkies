@@ -2611,3 +2611,55 @@ void do_pathfind(CHAR_DATA *ch, char *argument)
 }
 
 /* End Path Find Code */
+
+/*
+ * Command to allow a player to knock on a door if it's closed, if
+ * players are on the other side of the door they will hear the knocking.
+ */
+void do_knock(CHAR_DATA * ch, char *argument)
+{
+    int door;
+    char arg[MAX_INPUT_LENGTH];
+
+    one_argument(argument, arg);
+
+    if (IS_NULLSTR(arg))
+    {
+        send_to_char ("Knock on what?\r\n", ch);
+        return;
+    }
+
+    if ((door = find_door(ch, arg)) >= 0)
+    {
+        ROOM_INDEX_DATA *to_room;
+        EXIT_DATA *pexit;
+        EXIT_DATA *pexit_rev;
+
+        pexit = ch->in_room->exit[door];
+
+        // See if the door in question is open, if it is you can't knock on it.
+        if (!IS_SET( pexit->exit_info, EX_CLOSED))
+        {
+            send_to_char("Why knock?  It's open.\r\n", ch);
+            return;
+        }
+
+        act("$n knocks on the $d.", ch, NULL, pexit->keyword, TO_ROOM);
+        act("You knock on the $d.", ch, NULL, pexit->keyword, TO_CHAR);
+
+        // The knock, from the other side of the door
+        if ((to_room = pexit->u1.to_room) != NULL
+            && (pexit_rev = to_room->exit[rev_dir[door]]) != NULL
+            && pexit_rev->u1.to_room == ch->in_room)
+        {
+            CHAR_DATA *rch;
+
+            for (rch = to_room->people; rch != NULL; rch = rch->next_in_room)
+            {
+                act("You hear someone knocking.", rch, NULL, pexit_rev->keyword, TO_CHAR);
+            }
+        }
+    }
+
+    return;
+}
