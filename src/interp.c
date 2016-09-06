@@ -947,9 +947,9 @@ void do_wizhelp(CHAR_DATA * ch, char *argument)
         if (cmd_table[cmd].level > LEVEL_HERO
             && cmd_table[cmd].level <= get_trust(ch) && cmd_table[cmd].show)
         {
-            sprintf(buf, "%-12s", cmd_table[cmd].name);
+            sprintf(buf, "[%d] %-12s", cmd_table[cmd].level, cmd_table[cmd].name);
             send_to_char(buf, ch);
-            if (++col % 6 == 0)
+            if (++col % 4 == 0)
                 send_to_char("\r\n", ch);
         }
     }
