@@ -1352,15 +1352,19 @@ the slot number (for making new zones) of a skill name.
 
 53 STAT~
 Syntax: stat <name>
-	stat mob  <name>
-	stat obj  <name>
-	stat room <number>
+        stat mob  <name>
+        stat obj  <name>
+        stat room <number>
+        stat char <player name>
+        stat skill <player name>
 
 The stat command gives you detailed information on an object, mobile, or room
 within the game.  Without a class argument, the command will return a object
 (if found), a mobile (if no object exists, but a mobile does), or a room 
 (if a number is  given).  Stat room with no argument stats the room you are
-standing in.  Stat can be used to find room vnums for goto.
+standing in.  Stat can be used to find room vnums for goto.  The stat skill 
+can also be used to stat a player's skills.
+
 (see also goto, transfer)
 ~
 
