@@ -524,7 +524,20 @@ void do_spells(CHAR_DATA * ch, char *argument)
     free_buf(buffer);
 }
 
+/*
+ * Command to show a player their skills.  This passes the criteria
+ * through to the show_skill_list function.
+ */
 void do_skills(CHAR_DATA * ch, char *argument)
+{
+    show_skill_list(ch, ch, argument);
+}
+
+/*
+ * Displays a characters skill to the character listed in ch_show.  This could
+ * be the same character, or it could be an immortal from the stat command.
+ */
+void show_skill_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -546,16 +559,15 @@ void do_skills(CHAR_DATA * ch, char *argument)
             argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n", ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                 return;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf, "Levels must be between 1 and %d.\r\n",
-                    LEVEL_HERO);
-                send_to_char(buf, ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch_show);
                 return;
             }
 
@@ -564,8 +576,7 @@ void do_skills(CHAR_DATA * ch, char *argument)
                 argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",
-                        ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                     return;
                 }
                 min_lev = max_lev;
@@ -573,16 +584,14 @@ void do_skills(CHAR_DATA * ch, char *argument)
 
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
-                    sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",
-                        LEVEL_HERO);
-                    send_to_char(buf, ch);
+                    sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch_show);
                     return;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n", ch);
+                    send_to_char("That would be silly.\r\n", ch_show);
                     return;
                 }
             }
@@ -636,16 +645,22 @@ void do_skills(CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char("No skills found.\r\n", ch);
+        send_to_char("No skills found.\r\n", ch_show);
         return;
     }
 
     buffer = new_buf();
+
     for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
         if (skill_list[level][0] != '\0')
+        {
             add_buf(buffer, skill_list[level]);
+        }
+    }
+
     add_buf(buffer, "\r\n");
-    page_to_char(buf_string(buffer), ch);
+    page_to_char(buf_string(buffer), ch_show);
     free_buf(buffer);
 }
 

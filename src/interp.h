@@ -366,3 +366,4 @@ DECLARE_DO_FUN(do_peer);
 DECLARE_DO_FUN(do_snoopinfo);
 DECLARE_DO_FUN(do_switchinfo);
 DECLARE_DO_FUN(do_knock);
+DECLARE_DO_FUN(do_skillstat);
