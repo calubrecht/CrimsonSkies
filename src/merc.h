@@ -2567,6 +2567,7 @@ void    gn_remove        (CHAR_DATA *ch, int gn);
 void    group_add        (CHAR_DATA *ch, const char *name, bool deduct);
 void    group_remove     (CHAR_DATA *ch, const char *name);
 void    show_skill_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
+void    show_spell_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
 
 /* special.c */
 SF *    spec_lookup      (const char *name);

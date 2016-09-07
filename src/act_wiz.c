@@ -989,6 +989,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
         send_to_char("  stat mob <name>\r\n", ch);
         send_to_char("  stat room <number>\r\n", ch);
         send_to_char("  stat skill <player name>\r\n", ch);
+        send_to_char("  stat spell <player name>\r\n", ch);
         return;
     }
 
@@ -1013,6 +1014,12 @@ void do_stat(CHAR_DATA * ch, char *argument)
     if (!str_cmp(arg, "skill"))
     {
         do_function(ch, &do_skillstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "spell"))
+    {
+        do_function(ch, &do_spellstat, string);
         return;
     }
 
@@ -1069,6 +1076,36 @@ void do_skillstat(CHAR_DATA * ch, char *argument)
     }
 
     show_skill_list(victim, ch, "all");
+    return;
+}
+
+/*
+ * Immortal command to view another players spells.  This will be called
+ * from the stat command and not surfaced through the command list.
+ */
+void do_spellstat(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("Whose spells do you want to see?\r\n", ch);
+      return;
+    }
+
+    if ((victim = get_char_world(ch, argument)) == NULL)
+    {
+        send_to_char ("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (IS_NPC(victim))
+    {
+        send_to_char ("You can't do that on NPCs.\r\n", ch);
+        return;
+    }
+
+    show_spell_list(victim, ch, "all");
     return;
 }
 

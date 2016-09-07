@@ -398,8 +398,17 @@ void do_gain(CHAR_DATA * ch, char *argument)
     act("$N tells you 'I do not understand...'", ch, NULL, trainer, TO_CHAR);
 }
 
-/* RT spells and skills show the players spells (or skills) */
+/*
+ * Command to show a player all of their spells, this will pass through to
+ * the show_spell_list function.
+ */
 void do_spells(CHAR_DATA * ch, char *argument)
+{
+    show_spell_list(ch, ch, argument);
+}
+
+/* RT spells and skills show the players spells (or skills) */
+void show_spell_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -421,16 +430,15 @@ void do_spells(CHAR_DATA * ch, char *argument)
             argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n", ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                 return;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf, "Levels must be between 1 and %d.\r\n",
-                    LEVEL_HERO);
-                send_to_char(buf, ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch_show);
                 return;
             }
 
@@ -439,8 +447,7 @@ void do_spells(CHAR_DATA * ch, char *argument)
                 argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",
-                        ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                     return;
                 }
                 min_lev = max_lev;
@@ -448,16 +455,14 @@ void do_spells(CHAR_DATA * ch, char *argument)
 
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
-                    sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",
-                        LEVEL_HERO);
-                    send_to_char(buf, ch);
+                    sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch_show);
                     return;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n", ch);
+                    send_to_char("That would be silly.\r\n", ch_show);
                     return;
                 }
             }
@@ -511,16 +516,21 @@ void do_spells(CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char("No spells found.\r\n", ch);
+        send_to_char("No spells found.\r\n", ch_show);
         return;
     }
 
     buffer = new_buf();
     for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
         if (spell_list[level][0] != '\0')
+        {
             add_buf(buffer, spell_list[level]);
+        }
+    }
+
     add_buf(buffer, "\r\n");
-    page_to_char(buf_string(buffer), ch);
+    page_to_char(buf_string(buffer), ch_show);
     free_buf(buffer);
 }
 
