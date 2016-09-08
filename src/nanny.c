@@ -144,17 +144,17 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
                 case 'w' : case 'W' :
                     show_login_who(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'c' : case 'C' :
                     show_login_credits(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'r': case 'R':
                     show_random_names(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
             }
