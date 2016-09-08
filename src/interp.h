@@ -368,3 +368,4 @@ DECLARE_DO_FUN(do_switchinfo);
 DECLARE_DO_FUN(do_knock);
 DECLARE_DO_FUN(do_skillstat);
 DECLARE_DO_FUN(do_spellstat);
+DECLARE_DO_FUN(do_clearreply);

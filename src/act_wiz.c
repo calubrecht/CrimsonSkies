@@ -6285,6 +6285,36 @@ void do_switchinfo(CHAR_DATA *ch, char *argument)
 
 } // end switchinfo
 
+/*
+ * Removes the ability for a person to reply to the person they were last
+ * speaking with.  This is useful for when an immortal goes wizi or incog
+ * and wants to cut a conversation off.
+ */
+void do_clearreply(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("Syntax: clearreply <player name>\r\n", ch);
+        return;
+    }
+
+    victim = get_char_world(ch, argument);
+
+    if (!victim)
+    {
+        send_to_char("That player not found.\r\n", ch);
+        return;
+    }
+
+    // Unset the pointer to the previous character.
+    victim->reply = NULL;
+    printf_to_char(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
+
+    return;
+}
+
 
 /*
  * Debug function to quickly test code without having to wire something up.

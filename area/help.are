@@ -4087,6 +4087,15 @@ restoring visibility to all who pass through it.
 SEE ALSO: fog
 ~
 
+52 CLEARREPLY~
+Syntax: clearreply <player name>
+
+The clear reply command will clear the last person who sent you a
+message so they will no longer be able to reply.  This can useful
+if an immortal wants to go wizinvis or incognito and stop a player
+from being able to reply.
+~
+
 0 POISON PRICK~
 Syntax: poisonprick <victim>
 

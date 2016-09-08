@@ -115,6 +115,7 @@ const struct cmd_type cmd_table[] = {
     {"wield",     do_wear,      POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"wizhelp",   do_wizhelp,   POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"clear",     do_clear,     POS_DEAD,     0,  LOG_NORMAL, TRUE},
+    {"clearreply",do_clearreply,POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"second",    do_second,    POS_RESTING,  0,  LOG_NORMAL, FALSE},
     {"dual",      do_second,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
 
