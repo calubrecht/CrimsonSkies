@@ -96,6 +96,7 @@
     <ClCompile Include="src\ini.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\log.c" />
+    <ClCompile Include="src\login_menu.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
     <ClCompile Include="src\map.c" />
