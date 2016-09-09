@@ -663,7 +663,7 @@ AEDIT(aedit_show)
     sprintf(buf, "Credits :   [%s]\r\n", pArea->credits);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Flags:      [%s]\r\n", flag_string(area_flags, pArea->area_flags));
+    sprintf(buf, "Area Flags: [%s]\r\n", flag_string(area_flags, pArea->area_flags));
     send_to_char(buf, ch);
 
     sprintf(buf, "Continent:  [%s]\r\n", continent_table[pArea->continent].name);
