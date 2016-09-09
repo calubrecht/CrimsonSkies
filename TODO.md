@@ -119,3 +119,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Ability to search note body's like subjects.
   - Delete expired notes by calling the save function, either on load or reboot.
   - Update locate object to additionally show the area the object is in.
+  - Healer spell to create a healing crystal that can be given out, cool down on it
