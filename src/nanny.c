@@ -103,9 +103,16 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             return;
 
         case CON_COLOR:
-            // TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
-            // defaults them to an answer of "Y"
-            if (argument[0] == '\0' || UPPER(argument[0]) == 'Y' || argument[0] == '\'')
+            // There are cases where some clients like telnet try to negotiate, a ASCII 34 ends up getting sent
+            // which borks the Y/N check.  If the argument isn't null, it does have the quote and the length contains
+            // more than one character then lop off leftmost character with argument++
+            if (!IS_NULLSTR(argument) && argument[0] == '\'' && strlen(argument) > 1)
+            {
+                argument++;
+            }
+
+            // Yes or nothing defaults them to yes.
+            if (argument[0] == '\0' || UPPER(argument[0]) == 'Y')
             {
                 d->ansi = TRUE;
                 d->connected = CON_LOGIN_MENU;
