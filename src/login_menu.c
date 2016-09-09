@@ -251,7 +251,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\n\r\n", d);
+    send_to_desc("\r\n", d);
     send_to_desc("  _________________________________________________________________________\r\n", d);
     send_to_desc(" /`                                                                        \\\r\n", d);
     send_to_desc(" \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{x        |\r\n", d);
