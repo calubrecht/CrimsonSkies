@@ -237,6 +237,8 @@ void show_login_who(DESCRIPTOR_DATA *d)
 */
 void show_login_menu(DESCRIPTOR_DATA *d)
 {
+    int x = 0;
+
     // This probably shouldn't happen but better safe than sorry on a high run method.
     if (d == NULL)
     {
@@ -346,6 +348,21 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc("  _|                                                                        |\r\n", d);
     send_to_desc(" / |  -==================================================================-  |\r\n", d);
     send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+
+    // Since we've wrapped the menu in an ASCII graphic that looks like a parchment, we'll need to
+    // reposition the cursor to move up to "Your selection? ->".. then after the selection we'll
+    // need to move the cursor back down before displaying whatever we're going to display.
+
+    // Move up 4 rows, then to the right 28
+    sprintf(buf, "%s%s%s%s", UP, UP, UP, UP);
+
+    // Move to the right 28
+    for (x = 0; x < 28; x++)
+    {
+        strcat(buf, RIGHT);
+    }
+
+    send_to_desc(buf, d);
 
     return;
 }

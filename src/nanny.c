@@ -128,18 +128,24 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
         case CON_LOGIN_MENU:
+            // Since the login menu is now wrapped in an ASCII graphic that looks like a parchment, we need to
+            // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
+            // writing them over pieces of already rendered text.
+            sprintf(buf, "%s%s%s%s", DOWN, DOWN, DOWN, DOWN);
+            send_to_desc(buf, d);
+
             switch( argument[0] )
             {
                 case 'n' : case 'N' :
-                    send_to_desc("What is your character's name? ", d);
+                    send_to_desc("\r\nWhat is your character's name? ", d);
                     d->connected = CON_GET_NAME;
                     return;
                 case 'p' : case 'P' :
-                    send_to_desc("What is your character's name? ", d);
+                    send_to_desc("\r\nWhat is your character's name? ", d);
                     d->connected = CON_GET_NAME;
                     return;
                 case 'q' : case 'Q' :
-                    send_to_desc("Alas, all good things must come to an end.\r\n", d);
+                    send_to_desc("\r\nAlas, all good things must come to an end.\r\n", d);
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
