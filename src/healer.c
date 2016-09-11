@@ -395,10 +395,14 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
     // This is all the code needed, it will remove the stun state from the player.
     victim->daze = 0;
 
-    // Disorientation isn't a spell, we aren't going to make a saves check
-    if (is_affected(victim, gsn_disorientation))
+    // Disorientation isn't a spell, we aren't going to make a saves check but we will
+    // add some fate to it.
+    if (CHANCE(33))
     {
-        affect_strip(victim, gsn_disorientation);
+        if (is_affected(victim, gsn_disorientation))
+        {
+            affect_strip(victim, gsn_disorientation);
+        }
     }
 
     send_to_char("Your mental presence has been restored.\r\n", victim);
