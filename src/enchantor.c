@@ -814,7 +814,7 @@ void spell_restore_weapon(int sn, int level, CHAR_DATA *ch, void *vo, int target
     if (is_affected(ch, gsn_enchant_person))
         chance += 1;
 
-    if (chance >= 1 && chance <= 2)
+    if (chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
         separate_obj(obj);
@@ -880,7 +880,7 @@ void spell_restore_armor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     if (IS_OBJ_STAT(obj, ITEM_GLOW))
         chance += 1;
 
-    if (chance >= 1 && chance <= 2)
+    if (chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
         separate_obj(obj);
