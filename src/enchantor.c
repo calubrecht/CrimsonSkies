@@ -650,6 +650,25 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
         // clear all flags
         obj->extra_flags = 0;
+
+        if (IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC))
+            REMOVE_BIT(obj->value[4], WEAPON_VAMPIRIC);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_LEECH))
+            REMOVE_BIT(obj->value[4], WEAPON_LEECH);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_POISON))
+            REMOVE_BIT(obj->value[4], WEAPON_POISON);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_FLAMING))
+              REMOVE_BIT(obj->value[4], WEAPON_FLAMING);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_FROST))
+            REMOVE_BIT(obj->value[4], WEAPON_FROST);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_SHOCKING))
+            REMOVE_BIT(obj->value[4], WEAPON_SHOCKING);
+
         return;
     }
 
@@ -949,8 +968,15 @@ void spell_disenchant(int sn, int level, CHAR_DATA *ch, void *vo, int target) {
 
     /* clear all flags */
     obj->extra_flags = 0;
+
     if (IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC))
         REMOVE_BIT(obj->value[4], WEAPON_VAMPIRIC);
+
+    if (IS_WEAPON_STAT(obj, WEAPON_LEECH))
+        REMOVE_BIT(obj->value[4], WEAPON_LEECH);
+
+    if (IS_WEAPON_STAT(obj, WEAPON_POISON))
+        REMOVE_BIT(obj->value[4], WEAPON_POISON);
 
     if (IS_WEAPON_STAT(obj, WEAPON_FLAMING))
         REMOVE_BIT(obj->value[4], WEAPON_FLAMING);

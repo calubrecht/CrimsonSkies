@@ -1161,6 +1161,7 @@ typedef enum
 #define WEAPON_TWO_HANDS  (F)
 #define WEAPON_SHOCKING   (G)
 #define WEAPON_POISON     (H)
+#define WEAPON_LEECH      (I)
 
 /* gate flags */
 #define GATE_NORMAL_EXIT  (A)

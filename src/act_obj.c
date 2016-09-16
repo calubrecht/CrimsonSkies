@@ -1214,6 +1214,7 @@ void do_envenom(CHAR_DATA * ch, char *argument)
             || IS_WEAPON_STAT(obj, WEAPON_SHARP)
             || IS_WEAPON_STAT(obj, WEAPON_VORPAL)
             || IS_WEAPON_STAT(obj, WEAPON_SHOCKING)
+            || IS_WEAPON_STAT(obj, WEAPON_LEECH)
             || IS_OBJ_STAT(obj, ITEM_BLESS)
             || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
         {

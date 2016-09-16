@@ -3223,6 +3223,8 @@ char *weapon_bit_name(int weapon_flags)
         strcat(buf, " shocking");
     if (weapon_flags & WEAPON_POISON)
         strcat(buf, " poison");
+    if (weapon_flags & WEAPON_LEECH)
+        strcat(buf, " leech");
 
     return (buf[0] != '\0') ? buf + 1 : "none";
 }

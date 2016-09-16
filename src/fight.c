@@ -694,10 +694,20 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
         {
             dam = number_range(1, wield->level / 5 + 1);
             act("$p draws life from $n.", victim, wield, NULL, TO_ROOM);
-            act("You feel $p drawing your life away.",
-                victim, wield, NULL, TO_CHAR);
+            act("You feel $p drawing your life away.", victim, wield, NULL, TO_CHAR);
             damage(ch, victim, dam, 0, DAM_NEGATIVE, FALSE);
             ch->hit += dam / 2;
+        }
+
+        // Leech mana if they have > 2 mana.. otherwise ignore.  We will start at a small 1:1 draw.
+        if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_LEECH) && victim->mana >= 2)
+        {
+            dam = 1;
+            act("$p draws mana from $n.", victim, wield, NULL, TO_ROOM);
+            act("You feel $p drawing your mana away.", victim, wield, NULL, TO_CHAR);
+
+            victim->mana -= dam;
+            ch->mana += dam;
         }
 
         if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_FLAMING))

@@ -271,9 +271,9 @@ treasure 0 AO
 0 0 0 0 0
 1 10 0 P
 A
-3 3
-A
 4 3
+A
+3 3
 #35
 blue crystal shard~
 a {Bblue{x crystal shard~
@@ -290,6 +290,14 @@ crystal~
 treasure 0 A
 0 0 0 0 0
 0 1 0 P
+#37
+mystic dagger~
+a {wmystic{x dagger~
+A runed {wmystic{x dagger lies here.~
+energy~
+weapon B AN
+sword 5 6 pierce I
+51 80 0 P
 #0
 
 
