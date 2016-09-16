@@ -120,3 +120,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Delete expired notes by calling the save function, either on load or reboot.
   - Update locate object to additionally show the area the object is in.
   - Healer spell to create a healing crystal that can be given out, cool down on it
+  - Move the code to clear all flags on disenchant or fade into it's own helpler, have those spells call that common code for weapons.
