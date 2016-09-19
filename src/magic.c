@@ -1640,7 +1640,7 @@ void spell_continual_light(int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    light = create_object(get_obj_index(OBJ_VNUM_LIGHT_BALL), 0);
+    light = create_object(get_obj_index(OBJ_VNUM_LIGHT_BALL));
     obj_to_room(light, ch->in_room);
     act("$n twiddles $s thumbs and $p appears.", ch, light, NULL, TO_ROOM);
     act("You twiddle your thumbs and $p appears.", ch, light, NULL, TO_CHAR);
@@ -1670,7 +1670,7 @@ void spell_create_food(int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *waybread;
 
-    waybread = create_object(get_obj_index(OBJ_VNUM_WAYBREAD), 0);
+    waybread = create_object(get_obj_index(OBJ_VNUM_WAYBREAD));
     waybread->value[0] = level / 2;
     waybread->value[1] = level;
     obj_to_room(waybread, ch->in_room);
@@ -1683,7 +1683,7 @@ void spell_create_rose(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     OBJ_DATA *rose;
-    rose = create_object(get_obj_index(OBJ_VNUM_ROSE), 0);
+    rose = create_object(get_obj_index(OBJ_VNUM_ROSE));
     act("$n has created a beautiful red rose.", ch, rose, NULL, TO_ROOM);
     send_to_char("You create a beautiful red rose.\r\n", ch);
     obj_to_char(rose, ch);
@@ -1695,7 +1695,7 @@ void spell_create_spring(int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *spring;
 
-    spring = create_object(get_obj_index(OBJ_VNUM_SPRING), 0);
+    spring = create_object(get_obj_index(OBJ_VNUM_SPRING));
     spring->timer = level;
     obj_to_room(spring, ch->in_room);
     act("$p flows from the ground.", ch, spring, NULL, TO_ROOM);
@@ -2768,7 +2768,7 @@ void spell_floating_disc(int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    disc = create_object(get_obj_index(OBJ_VNUM_DISC), 0);
+    disc = create_object(get_obj_index(OBJ_VNUM_DISC));
     disc->value[0] = ch->level * 10;    /* 10 pounds per level capacity */
     disc->value[3] = ch->level * 5;    /* 5 pounds per level max per item */
     disc->timer = ch->level * 2 - number_range(0, level / 2);
@@ -5134,7 +5134,7 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         extract_obj(stone);
     }
 
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 2 + level / 25;
     portal->value[3] = victim->in_room->vnum;
 
@@ -5191,7 +5191,7 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     /* portal one */
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 1 + level / 10;
     portal->value[3] = to_room->vnum;
 
@@ -5205,7 +5205,7 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
 
     /* portal two */
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 1 + level / 10;
     portal->value[3] = from_room->vnum;
 
@@ -5310,7 +5310,7 @@ void spell_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
         density = 100;
     }
 
-    fog = create_object(get_obj_index(OBJ_VNUM_FOG), 0);
+    fog = create_object(get_obj_index(OBJ_VNUM_FOG));
     fog->value[0] = density; // thickness of the fog
     fog->timer = duration; // duration of the fog
     obj_to_room(fog, ch->in_room);

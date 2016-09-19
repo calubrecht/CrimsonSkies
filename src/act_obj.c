@@ -3132,7 +3132,7 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(obj->extra_flags, ITEM_INVENTORY))
         {
-            t_obj = create_object(obj->pIndexData, obj->level);
+            t_obj = create_object(obj->pIndexData);
             t_obj->count = number;
 
             if (t_obj->timer > 0 && !IS_OBJ_STAT(t_obj, ITEM_HAD_TIMER))
@@ -3532,7 +3532,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
             }
         }
 
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj_to_char(obj, ch);
         equip_char(ch, obj, WEAR_WIELD);
     }
@@ -3567,7 +3567,7 @@ void outfit(CHAR_DATA *ch, int wear_position, int vnum)
 
     if ((obj = get_eq_char(ch, wear_position)) == NULL)
     {
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj->cost = 0;
         obj_to_char(obj, ch);
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);

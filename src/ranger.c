@@ -131,7 +131,7 @@ void do_butcher(CHAR_DATA *ch, char *argument)
 
     for (x = 1; x <= count; x++)
     {
-        steak = create_object(get_obj_index(OBJ_VNUM_STEAK), 0);
+        steak = create_object(get_obj_index(OBJ_VNUM_STEAK));
         obj_to_char(steak, ch);
     }
 
@@ -492,7 +492,7 @@ void do_camp(CHAR_DATA *ch, char *argument)
     }
 
     // Create the campfire, put it on the ground, set the timer so it will burn out.
-    obj = create_object(get_obj_index(OBJ_VNUM_CAMPFIRE), 0);
+    obj = create_object(get_obj_index(OBJ_VNUM_CAMPFIRE));
     obj->timer = ch->level / 3;
     obj_to_room(obj, ch->in_room);
 
@@ -794,7 +794,7 @@ void do_find_water(CHAR_DATA *ch, char *argument)
     }
 
     // Create the spring, set it to dry up after 5 ticks.
-    spring = create_object(get_obj_index(OBJ_VNUM_SPRING_2), 0);
+    spring = create_object(get_obj_index(OBJ_VNUM_SPRING_2));
     spring->timer = 5;
     obj_to_room(spring, ch->in_room);
 

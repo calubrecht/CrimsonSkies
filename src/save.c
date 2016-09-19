@@ -1566,7 +1566,7 @@ void fread_obj(CHAR_DATA * ch, FILE * fp)
         }
         else
         {
-            obj = create_object(get_obj_index(vnum), -1);
+            obj = create_object(get_obj_index(vnum));
             new_format = TRUE;
         }
 
@@ -1703,9 +1703,7 @@ void fread_obj(CHAR_DATA * ch, FILE * fp)
                         if (!fVnum)
                         {
                             free_obj(obj);
-                            obj =
-                                create_object(get_obj_index(OBJ_VNUM_DUMMY),
-                                    0);
+                            obj = create_object(get_obj_index(OBJ_VNUM_DUMMY));
                         }
 
                         if (!new_format)

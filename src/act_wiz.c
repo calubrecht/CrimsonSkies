@@ -2381,7 +2381,7 @@ void recursive_clone(CHAR_DATA * ch, OBJ_DATA * obj, OBJ_DATA * clone)
     {
         if (obj_check(ch, c_obj))
         {
-            t_obj = create_object(c_obj->pIndexData, 0);
+            t_obj = create_object(c_obj->pIndexData);
             clone_object(c_obj, t_obj);
             obj_to_obj(t_obj, clone);
             recursive_clone(ch, c_obj, t_obj);
@@ -2449,7 +2449,7 @@ void do_clone(CHAR_DATA * ch, char *argument)
             return;
         }
 
-        clone = create_object(obj->pIndexData, 0);
+        clone = create_object(obj->pIndexData);
         clone_object(obj, clone);
         if (obj->carried_by != NULL)
             obj_to_char(clone, ch);
@@ -2482,7 +2482,7 @@ void do_clone(CHAR_DATA * ch, char *argument)
         {
             if (obj_check(ch, obj))
             {
-                new_obj = create_object(obj->pIndexData, 0);
+                new_obj = create_object(obj->pIndexData);
                 clone_object(obj, new_obj);
                 recursive_clone(ch, obj, new_obj);
                 obj_to_char(new_obj, clone);
@@ -2621,7 +2621,7 @@ void do_oload(CHAR_DATA *ch, char *argument, int number)
     do
     {
         n++;
-        obj = create_object(pObjIndex, 0);
+        obj = create_object(pObjIndex);
 
         if (CAN_WEAR(obj, ITEM_TAKE))
         {
@@ -6049,7 +6049,7 @@ void do_portal(CHAR_DATA *ch, char *argument)
     }
 
     // Create the portal object
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->value[3] = room->vnum;
 
     // Get the second argument which is the duration, if it's a number

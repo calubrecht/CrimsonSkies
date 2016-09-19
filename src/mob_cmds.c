@@ -600,7 +600,7 @@ void do_mpoload(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    obj = create_object(pObjIndex, level);
+    obj = create_object(pObjIndex);
     if ((fWear || !fToroom) && CAN_WEAR(obj, ITEM_TAKE))
     {
         obj_to_char(obj, ch);

@@ -502,7 +502,7 @@ void spell_healers_bind(int sn, int level, CHAR_DATA *ch, void *vo, int target)
         charges = charges / 2;
     }
 
-    obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND), 0);
+    obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND));
     obj->value[0] = charges;  // The number of charges
     obj->value[1] = 50;       // The amount it heals
 

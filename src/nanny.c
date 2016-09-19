@@ -847,7 +847,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 SET_BIT(ch->act, PLR_AUTOEXIT);
 
                 do_function(ch, &do_outfit, "");
-                obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP), 0), ch);
+                obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP)), ch);
 
                 char_to_room(ch, get_room_index(ROOM_VNUM_SCHOOL));
                 send_to_char("\r\n", ch);

@@ -1473,9 +1473,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                     break;
                 }
 
-                pObj = create_object(pObjIndex,    /* UMIN - ROM OLC */
-                    UMIN(number_fuzzy(level),
-                        LEVEL_HERO - 1));
+                pObj = create_object(pObjIndex);
                 pObj->cost = 0;
                 obj_to_room(pObj, pRoom);
                 last = TRUE;
@@ -1519,9 +1517,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                 while (count < pReset->arg4)
                 {
-                    pObj =
-                        create_object(pObjIndex,
-                            number_fuzzy(LastObj->level));
+                    pObj = create_object(pObjIndex);
                     obj_to_obj(pObj, LastObj);
                     count++;
                     if (pObjIndex->count >= limit)
@@ -1559,7 +1555,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                 {
                     /* Shop-keeper? */
                     int olevel = 0;
-                    pObj = create_object(pObjIndex, olevel);
+                    pObj = create_object(pObjIndex);
                     SET_BIT(pObj->extra_flags, ITEM_INVENTORY);    /* ROM OLC */
                 }
                 else
@@ -1575,10 +1571,8 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                     if (pObjIndex->count < limit || number_range(0, 4) == 0)
                     {
-                        pObj = create_object(pObjIndex,
-                            UMIN(number_fuzzy(level),
-                                LEVEL_HERO - 1));
-    /* error message if it is too high */
+                        pObj = create_object(pObjIndex);
+                        /* error message if it is too high */
                         if (pObj->level > LastMob->level + 3)
                         {
                             log_f("Check Levels:");
@@ -1926,7 +1920,7 @@ void clone_mobile(CHAR_DATA * parent, CHAR_DATA * clone)
 /*
  * Create an instance of an object.
  */
-OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex, int level)
+OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex)
 {
     AFFECT_DATA *paf;
     OBJ_DATA *obj;

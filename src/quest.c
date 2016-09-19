@@ -271,7 +271,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
                 if (ch->pcdata->quest_points >= quest_item_table[x].cost)
                 {
                     ch->pcdata->quest_points -= quest_item_table[x].cost;
-                    obj = create_object(get_obj_index(quest_item_table[x].vnum), 0);
+                    obj = create_object(get_obj_index(quest_item_table[x].vnum));
                     break;
                 }
                 else
@@ -583,7 +583,7 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
 
         }
 
-        questitem = create_object(get_obj_index(objvnum), ch->level);
+        questitem = create_object(get_obj_index(objvnum));
         questitem->timer = 130;
         obj_to_room(questitem, room);
         ch->pcdata->quest_obj = questitem->pIndexData->vnum;

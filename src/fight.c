@@ -1635,7 +1635,7 @@ void make_corpse(CHAR_DATA * ch)
     {
         // Mob
         name = ch->short_descr;
-        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_NPC), 0);
+        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_NPC));
         corpse->timer = number_range(3, 6);
         if (ch->gold > 0)
         {
@@ -1655,7 +1655,7 @@ void make_corpse(CHAR_DATA * ch)
     {
         // Player
         name = ch->name;
-        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_PC), 0);
+        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_PC));
         corpse->timer = number_range(25, 40);
         corpse->owner = str_dup(ch->name);
 
@@ -1818,7 +1818,7 @@ void death_cry(CHAR_DATA * ch)
         char *name;
 
         name = IS_NPC(ch) ? ch->short_descr : ch->name;
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj->timer = number_range(4, 7);
 
         sprintf(buf, obj->short_descr, name);

@@ -262,7 +262,7 @@ void spell_enchant_gem(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
     // Create the warpstone, create the message while both objects exist, then take the gem and give the
     // warpstone to the player
-    obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE), 0);
+    obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE));
     sprintf(buf, "%s glows a bright {Mmagenta{x and changes into %s.", obj->short_descr, obj_warpstone->short_descr);
 
     separate_obj(obj);
@@ -849,7 +849,7 @@ void spell_restore_weapon(int sn, int level, CHAR_DATA *ch, void *vo, int target
     }
     else
     {
-        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum));
         obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
@@ -915,7 +915,7 @@ void spell_restore_armor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     }
     else
     {
-        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum));
         obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);

@@ -2328,7 +2328,7 @@ void     boot_db             (void);
 void     area_update         (void);
 CD *     create_mobile       (MOB_INDEX_DATA *pMobIndex);
 void     clone_mobile        (CHAR_DATA *parent, CHAR_DATA *clone);
-OD *     create_object       (OBJ_INDEX_DATA *pObjIndex, int level);
+OD *     create_object       (OBJ_INDEX_DATA *pObjIndex);
 void     clone_object        (OBJ_DATA *parent, OBJ_DATA *clone);
 char *   get_extra_descr     (const char *name, EXTRA_DESCR_DATA *ed);
 MID *    get_mob_index       (int vnum);

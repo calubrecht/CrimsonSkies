@@ -2082,7 +2082,7 @@ REDIT(redit_oreset)
         pReset->arg4 = 0;
         add_reset(pRoom, pReset, 0 /* Last slot */);
 
-        newobj = create_object(pObjIndex, number_fuzzy(olevel));
+        newobj = create_object(pObjIndex);
         obj_to_room(newobj, pRoom);
 
         sprintf(output, "%s (%d) has been loaded and added to resets.\r\n",
@@ -2104,7 +2104,7 @@ REDIT(redit_oreset)
             pReset->arg4 = 1;
             add_reset(pRoom, pReset, 0 /* Last slot */);
 
-            newobj = create_object(pObjIndex, number_fuzzy(olevel));
+            newobj = create_object(pObjIndex);
             newobj->cost = 0;
             obj_to_obj(newobj, to_obj);
 
@@ -2167,7 +2167,7 @@ REDIT(redit_oreset)
                 add_reset(pRoom, pReset, 0 /* Last slot */);
 
                 olevel = URANGE(0, to_mob->level - 2, LEVEL_HERO);
-                newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                newobj = create_object(pObjIndex);
 
                 if (to_mob->pIndexData->pShop)
                 {                        /* Shop-keeper? */
@@ -2202,12 +2202,12 @@ REDIT(redit_oreset)
                             break;
                     }
 
-                    newobj = create_object(pObjIndex, olevel);
+                    newobj = create_object(pObjIndex);
                     if (pReset->arg2 == WEAR_NONE)
                         SET_BIT(newobj->extra_flags, ITEM_INVENTORY);
                 }
                 else
-                    newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                    newobj = create_object(pObjIndex);
 
                 obj_to_char(newobj, to_mob);
                 if (pReset->command == 'E')
