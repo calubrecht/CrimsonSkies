@@ -2417,6 +2417,10 @@ char    *get_stance_name(CHAR_DATA *ch);
 int     stance_defensive_modifier (CHAR_DATA *ch);
 int     stance_offensive_modifier (CHAR_DATA *ch);
 
+/* clan.c */
+bool   is_clan            (CHAR_DATA *ch);
+bool   is_same_clan       (CHAR_DATA *ch, CHAR_DATA *victim);
+
 /* handler.c */
 AD    *affect_find        (AFFECT_DATA *paf, int sn);
 void   affect_check       (CHAR_DATA *ch, int where, int vector);
@@ -2432,8 +2436,6 @@ char  *item_name          (int item_type);
 int    attack_lookup      (const char *name);
 long   wiznet_lookup      (const char *name);
 int    class_lookup       (const char *name);
-bool   is_clan            (CHAR_DATA *ch);
-bool   is_same_clan       (CHAR_DATA *ch, CHAR_DATA *victim);
 int    get_skill          (CHAR_DATA *ch, int sn);
 int    get_weapon_sn      (CHAR_DATA *ch, bool dual);
 int    get_weapon_skill   (CHAR_DATA *ch, int sn);

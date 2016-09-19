@@ -302,25 +302,6 @@ int check_immune(CHAR_DATA * ch, int dam_type)
 }
 
 /*
- * Whether or not the character is in a clan or not.
- */
-bool is_clan(CHAR_DATA * ch)
-{
-    return ch->clan;
-}
-
-/*
- * Whether or not two characters are in the same clan.
- */
-bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
-{
-    if (clan_table[ch->clan].independent)
-        return FALSE;
-    else
-        return (ch->clan == victim->clan);
-}
-
-/*
  * Returns the weapon sn (skill number) for the weapon that the character
  * is currently wearing (either for the primary weapon or a secondary (dual)
  * wielded weapon.  e.g. this will return gsn_sword, gsn_dagger, gsn_mace, etc.
