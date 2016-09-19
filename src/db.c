@@ -1338,7 +1338,6 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
     CHAR_DATA *LastMob = NULL;
     OBJ_DATA *LastObj = NULL;
     int iExit;
-    int level = 0;
     bool last;
 
     if (!pRoom)
@@ -1441,7 +1440,6 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                 char_to_room(pMob, pRoom);
 
                 LastMob = pMob;
-                level = URANGE(0, pMob->level - 2, LEVEL_HERO - 1);    /* -1 ROM */
                 last = TRUE;
                 break;
 
@@ -1554,7 +1552,6 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                 if (LastMob->pIndexData->pShop)
                 {
                     /* Shop-keeper? */
-                    int olevel = 0;
                     pObj = create_object(pObjIndex);
                     SET_BIT(pObj->extra_flags, ITEM_INVENTORY);    /* ROM OLC */
                 }
