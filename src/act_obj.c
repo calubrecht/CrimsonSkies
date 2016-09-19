@@ -2915,6 +2915,15 @@ void do_buy(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Check to see if a quest master in the room, if so, send off the buy
+    // parameter from here and send it there.
+    if (find_quest_master(ch) != NULL)
+    {
+        sprintf(buf, "buy %s", argument);
+        do_pquest(ch, buf);
+        return;
+    }
+
     if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         char arg[MAX_INPUT_LENGTH];
