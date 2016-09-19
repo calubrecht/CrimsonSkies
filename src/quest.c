@@ -288,19 +288,17 @@ void do_pquest(CHAR_DATA *ch, char *argument)
         {
             sprintf(buf, "I don't have that item, %s.", ch->name);
             do_say(questman, buf);
+
+            sprintf(buf, "%s attempted to buy a quest item that was listed but does not exist.", ch->name);
+            wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
+
             return;
         }
-
-        if (obj != NULL)
+        else
         {
             act("$N gives $p to $n.", ch, obj, questman, TO_ROOM);
             act("$N gives you $p.", ch, obj, questman, TO_CHAR);
             obj_to_char(obj, ch);
-        }
-        else
-        {
-            sprintf(buf, "%s attempted to buy a quest item that was listed but does not exist.", ch->name);
-            wiznet(buf, ch, NULL, WIZ_GENERAL, 0, 0);
         }
 
         return;
