@@ -3192,6 +3192,13 @@ void do_list(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Check to see if a quest master in the room.
+    if (find_quest_master(ch) != NULL)
+    {
+        do_pquest(ch, "list");
+        return;
+    }
+
     if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         ROOM_INDEX_DATA *pRoomIndexNext;
