@@ -236,7 +236,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
             send_to_char(buf, ch);
         }
 
-        send_to_char("\r\nType pquest buy <item name> to purchase that quest item.\r\n", ch);
+        send_to_char("\r\nType {Gpquest buy <item name>{x to purchase a quest item.\r\n", ch);
 
         return;
     }
