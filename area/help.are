@@ -4110,6 +4110,17 @@ the door to hear the knocking (letting them know that someone is there
 and wants in).
 ~
 
+0 LONER~
+Syntax: loner <your name>
+
+The loner command will allow any player to become a loner in the clanned
+system providing that they are between level 5 and 25 and are not already
+the member of a clan.
+
+In order to go loner after level 25 you must be guilded by an immortal
+who will require you to purchase a voucher.
+~
+
 0 QUEST PQUEST~
 QUEST PQUEST
 
