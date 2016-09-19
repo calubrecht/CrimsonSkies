@@ -214,6 +214,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
         act("$n asks $N for a list of quest items.", ch, NULL, questman, TO_ROOM);
         act("You ask $N for a list of quest items.", ch, NULL, questman, TO_CHAR);
         sprintf(buf, "Current Quest Items available for Purchase:\r\n\
+2000qp.........A {wmystic{x dagger\r\n\
 1200qp.........The sword of the {WGODS{x\r\n\
 750qp..........Decanter of endless water\r\n\
 700qp..........A jeweled egg\r\n\
@@ -265,6 +266,20 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
             {
                 ch->pcdata->quest_points -= 1200;
                 obj = create_object(get_obj_index(32), ch->level);
+            }
+            else
+            {
+                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
+                do_say(questman, buf);
+                return;
+            }
+        }
+        else if (is_name(arg2, "mystic dagger"))
+        {
+            if (ch->pcdata->quest_points >= 2000)
+            {
+                ch->pcdata->quest_points -= 2000;
+                obj = create_object(get_obj_index(37), ch->level);
             }
             else
             {
