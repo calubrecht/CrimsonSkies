@@ -210,6 +210,7 @@ const struct cmd_type cmd_table[] = {
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, TRUE},
     {"direct",          do_direct,      POS_RESTING,  0, LOG_NORMAL, TRUE},
     {">",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
+    {"@",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
 
     /*
      * Note commands.

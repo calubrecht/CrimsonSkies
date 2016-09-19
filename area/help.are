@@ -3720,8 +3720,9 @@ via a [Quiet] tag that you cannot hear channels.
 0 DIRECT~
 Syntax: direct <player> <what you want to say>
         > <player> <what you want to say>
+        @ <player> <what you want to say>
 
-Direct or '>' will allow you to say something directly to a player
+Direct, '>' or '@' will allow you to say something directly to a player
 who is in the same room.  All other players in the room will see that
 you have directect the say at that individual.  Example:
 
