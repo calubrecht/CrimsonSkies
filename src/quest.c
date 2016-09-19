@@ -50,12 +50,40 @@ DECLARE_DO_FUN(do_direct);
 #define QUEST_OBJ1 35 // Blue shard
 #define QUEST_OBJ2 36 // Crown jewels
 
-/* Local functions */
+/*
+ * The structure to hold information about the quest items.
+ */
+struct quest_item_type
+{
+    char *keyword;
+    char *desc;
+    int vnum;
+    int cost;
+};
 
+extern const struct quest_item_type quest_item_table[];
+
+/*
+ * These are the list of quest items offered, add new entries here but leave
+ * the last item as NULL always so the loop where it's used knows when to
+ * terminate without jumping out of bounds.
+ *
+ * Keywords, Description, Vnum, Quest Points Cost
+ */
+const struct quest_item_type quest_item_table[] = {
+    {"mystic dagger", "A mystic dagger", 37, 2000},
+    {"sword gods", "A sword of the Gods", 32, 1200},
+    {"decanter endless water", "Decanter of endless water", 33, 750},
+    {"book knowledge", "A book of knowledge", 34, 700},
+    {"jeweled egg", "A jeweled egg", OBJ_VNUM_EGG, 700},
+    {NULL, NULL, -1, -1}
+};
+
+/* Local functions */
 void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman);
 void quest_update(void);
 bool quest_level_diff(int clevel, int mlevel);
-ROOM_INDEX_DATA         *find_location(CHAR_DATA *ch, char *arg);
+ROOM_INDEX_DATA *find_location(CHAR_DATA *ch, char *arg);
 bool is_safe_quest(CHAR_DATA *ch, CHAR_DATA *victim);
 
 /*
@@ -70,6 +98,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
+    int x = 0;
 
     if (IS_NPC(ch))
     {
@@ -211,16 +240,19 @@ void do_pquest(CHAR_DATA *ch, char *argument)
 
     if (!strcmp(arg1, "list"))
     {
-        act("$n asks $N for a list of quest items.", ch, NULL, questman, TO_ROOM);
-        act("You ask $N for a list of quest items.", ch, NULL, questman, TO_CHAR);
-        sprintf(buf, "Current Quest Items available for Purchase:\r\n\
-2000qp.........A {wmystic{x dagger\r\n\
-1200qp.........The sword of the {WGODS{x\r\n\
-750qp..........Decanter of endless water\r\n\
-700qp..........A jeweled egg\r\n\
-700qp..........A book of knowledge\r\n\
-To buy an item, type 'QUEST BUY <item>'.\r\n");
-        send_to_char(buf, ch);
+        act("$n asks $N for a list of quest items.\r\n", ch, NULL, questman, TO_ROOM);
+        act("You ask $N for a list of quest items.\r\n", ch, NULL, questman, TO_CHAR);
+
+        for (x = 0; quest_item_table[x].keyword != NULL; x++)
+        {
+            sprintf(buf, "  {c%-30s{x %d Quest Points\r\n",
+                quest_item_table[x].desc,
+                quest_item_table[x].cost);
+            send_to_char(buf, ch);
+        }
+
+        send_to_char("\r\nType pquest buy <item name> to purchase that quest item.\r\n", ch);
+
         return;
     }
 
@@ -232,77 +264,27 @@ To buy an item, type 'QUEST BUY <item>'.\r\n");
             return;
         }
 
-        if (is_name(arg2, "book knowledge"))
+        for (x = 0; quest_item_table[x].keyword != NULL; x++)
         {
-            if (ch->pcdata->quest_points >= 700)
+            if (is_name(arg2, quest_item_table[x].keyword))
             {
-                ch->pcdata->quest_points -= 700;
-                obj = create_object(get_obj_index(34), ch->level);
+                if (ch->pcdata->quest_points >= quest_item_table[x].cost)
+                {
+                    ch->pcdata->quest_points -= quest_item_table[x].cost;
+                    obj = create_object(get_obj_index(quest_item_table[x].vnum), 0);
+                    break;
+                }
+                else
+                {
+                    sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
+                    do_say(questman, buf);
+                    return;
+                }
             }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
+
         }
-        else if (is_name(arg2, "decanter endless water"))
-        {
-            if (ch->pcdata->quest_points >= 750)
-            {
-                ch->pcdata->quest_points -= 750;
-                obj = create_object(get_obj_index(33), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "sword gods"))
-        {
-            if (ch->pcdata->quest_points >= 1200)
-            {
-                ch->pcdata->quest_points -= 1200;
-                obj = create_object(get_obj_index(32), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "mystic dagger"))
-        {
-            if (ch->pcdata->quest_points >= 2000)
-            {
-                ch->pcdata->quest_points -= 2000;
-                obj = create_object(get_obj_index(37), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "jeweled egg"))
-        {
-            if (ch->pcdata->quest_points >= 700)
-            {
-                ch->pcdata->quest_points -= 700;
-                obj = create_object(get_obj_index(OBJ_VNUM_EGG), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else
+
+        if (obj == NULL)
         {
             sprintf(buf, "I don't have that item, %s.", ch->name);
             do_say(questman, buf);
