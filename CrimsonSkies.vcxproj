@@ -81,6 +81,7 @@
     <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
     <ClCompile Include="src\bladesinger.c" />
+    <ClCompile Include="src\clan.c" />
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
