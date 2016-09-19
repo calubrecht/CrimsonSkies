@@ -245,9 +245,7 @@ void do_pquest(CHAR_DATA *ch, char *argument)
 
         for (x = 0; quest_item_table[x].keyword != NULL; x++)
         {
-            sprintf(buf, "  {c%-30s{x %d Quest Points\r\n",
-                quest_item_table[x].desc,
-                quest_item_table[x].cost);
+            sprintf(buf, "  {c%-30s{x %d Quest Points\r\n", quest_item_table[x].desc, quest_item_table[x].cost);
             send_to_char(buf, ch);
         }
 
