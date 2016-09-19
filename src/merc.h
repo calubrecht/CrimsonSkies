@@ -2546,6 +2546,7 @@ void    mob_interpret      (CHAR_DATA *ch, char *argument);
 
 /* quest.c */
 CHAR_DATA *get_quest_giver (int vnum);
+CHAR_DATA *find_quest_master(CHAR_DATA * ch);
 void       quest_update    (void);
 
 /* settings.c */

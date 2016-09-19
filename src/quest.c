@@ -203,21 +203,8 @@ void do_pquest(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    /* Checks for a character in the room with spec_questmaster set. This special
-       procedure must be defined in special.c. You could instead use an
-       ACT_QUESTMASTER flag instead of a special procedure. */
-    for (questman = ch->in_room->people; questman != NULL; questman = questman->next_in_room)
-    {
-        if (!IS_NPC(questman))
-        {
-            continue;
-        }
-
-        if (questman->spec_fun == spec_lookup("spec_questmaster"))
-        {
-            break;
-        }
-    }
+    // Try to find a quest master in the room
+    questman = find_quest_master(ch);
 
     if (questman == NULL || questman->spec_fun != spec_lookup("spec_questmaster"))
     {
@@ -811,3 +798,29 @@ CHAR_DATA *get_quest_giver(int vnum)
 
     return wch;
 }
+
+/*
+ * Finds a quest master in the current room if one exists.  This requires spec_questmaster
+ * to be defined in special.c.
+ */
+CHAR_DATA *find_quest_master(CHAR_DATA * ch)
+{
+    CHAR_DATA *mob;
+
+    if (ch == NULL)
+    {
+        return NULL;
+    }
+
+    // Check for a quest master
+    for (mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room)
+    {
+        if (IS_NPC(mob) && mob->spec_fun == spec_lookup("spec_questmaster"))
+        {
+            return mob;
+        }
+    }
+
+    return NULL;
+
+} // end find_quest_master
