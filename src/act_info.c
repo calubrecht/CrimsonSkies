@@ -3724,36 +3724,6 @@ void do_stats(CHAR_DATA *ch, char *argument)
 } // end do_stats
 
 /*
- * Lists all of the clans in the game.  Consider making the guild command that allows for getting
- * info as well as putting players in commands with both immortal and player based features so players
- * can manage their own clans without immortals (will need leader and recruiter flags).
- */
-void do_guildlist(CHAR_DATA *ch, char *argument)
-{
-    // Rhien, 06/21/1999
-    int clan;
-    char buf[MAX_STRING_LENGTH];
-
-    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    send_to_char("{WClan                  Independent{x\r\n", ch);
-    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-
-    for (clan = 0; clan < MAX_CLAN; clan++)
-    {
-        if (IS_NULLSTR(clan_table[clan].name))
-            continue;
-
-        sprintf(buf, "%-25s{x %-5s\r\n",
-            clan_table[clan].who_name,
-            clan_table[clan].independent == TRUE ? "True" : "False"
-            );
-
-        send_to_char(buf, ch);
-    }
-
-} // end guildlist
-
-/*
  * Displays information about all classes and reclasses.  This can be expanded in the future
  * to allow for more information and to be smarter in telling people what the qualifications are
  * for the class also.

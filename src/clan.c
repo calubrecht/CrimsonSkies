@@ -99,3 +99,32 @@ void do_loner(CHAR_DATA *ch, char *argument )
 
     log_f("%s guilds themselves to [ Loner ].", ch->name);
 }
+
+/*
+ * Lists all of the clans in the game.  Consider making the guild command that allows for getting
+ * info as well as putting players in commands with both immortal and player based features so players
+ * can manage their own clans without immortals (will need leader and recruiter flags).
+ */
+void do_guildlist(CHAR_DATA *ch, char *argument)
+{
+    int clan;
+    char buf[MAX_STRING_LENGTH];
+
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WClan                  Independent{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
+    for (clan = 0; clan < MAX_CLAN; clan++)
+    {
+        if (IS_NULLSTR(clan_table[clan].name))
+            continue;
+
+        sprintf(buf, "%-25s{x %-5s\r\n",
+            clan_table[clan].who_name,
+            clan_table[clan].independent == TRUE ? "True" : "False"
+            );
+
+        send_to_char(buf, ch);
+    }
+
+} // end guildlist
