@@ -3475,8 +3475,17 @@ hunger and thirst.
 0 GUILDLIST~
 Syntax: guildlist
 
-The guildlist command will show you basic information about the clans and kingdoms
-available to join and any additional information know about them.
+The guildlist command will show you basic information about the clans and 
+kingdoms available to join and any additional information know about them.
+~
+
+52 GUILD~
+Syntax: guild <character> <clan name>
+        guild <character> none
+
+The guild command allows an immortal to guild a player into a clan.  If
+the immortal wishes to remove the player from a clan they can use the
+word 'none' for the clan name and it will un-guild them.
 ~
 
 0 CLASS~
