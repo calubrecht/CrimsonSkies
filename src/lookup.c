@@ -50,20 +50,6 @@ int flag_lookup(const char *name, const struct flag_type *flag_table)
     return NO_FLAG;
 }
 
-int clan_lookup(const char *name)
-{
-    int clan;
-
-    for (clan = 0; clan < MAX_CLAN; clan++)
-    {
-        if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
-            && !str_prefix(name, clan_table[clan].name))
-            return clan;
-    }
-
-    return 0;
-}
-
 int position_lookup(const char *name)
 {
     int pos;

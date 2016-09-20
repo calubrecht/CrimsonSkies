@@ -71,6 +71,26 @@ bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
         return (ch->clan == victim->clan);
 }
 
+
+/*
+ * Gets the int for a clan based on it's name.
+ */
+int clan_lookup(const char *name)
+{
+    int clan;
+
+    for (clan = 0; clan < MAX_CLAN; clan++)
+    {
+        if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
+            && !str_prefix(name, clan_table[clan].name))
+        {
+            return clan;
+        }
+    }
+
+    return 0;
+}
+
 /*
  * A command to allow a player to become a loner without having to have an
  * immortal guild them.
