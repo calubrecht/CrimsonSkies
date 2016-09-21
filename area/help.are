@@ -1378,9 +1378,11 @@ Owhere shows you the location of all objects with a particular name.
 
 55 PEACE~
 Syntax: peace
+        peace all
 
 Peace causes all characters in a room to stop fighting. It also strips the
-AGGRESSIVE bit from mobiles.
+AGGRESSIVE bit from mobiles.  If the 'all' flag is included it will call
+peace to the entire world.
 ~
 
 52 POOFIN POOFOUT~
@@ -4128,6 +4130,13 @@ the member of a clan.
 
 In order to go loner after level 25 you must be guilded by an immortal
 who will require you to purchase a voucher.
+~
+
+0 BLUDGEON~
+Syntax: bludgeon <victim>
+
+Bludgeon is a skill rogue's have mastered that allow them to temporarly
+stun and lower the intelligence and wisdom of a victim.
 ~
 
 0 QUEST PQUEST~

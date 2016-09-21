@@ -3253,19 +3253,51 @@ void do_notell(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Stops all fighting in a room or in the world.
+ */
 void do_peace(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *rch;
 
-    for (rch = ch->in_room->people; rch != NULL; rch = rch->next_in_room)
+    if (!str_cmp(argument, "all") || !str_cmp(argument, "global"))
     {
-        if (rch->fighting != NULL)
-            stop_fighting(rch, TRUE);
-        if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
-            REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+        for (rch = char_list; rch != NULL; rch = rch->next)
+        {
+            if (rch->fighting != NULL)
+            {
+                stop_fighting(rch, TRUE);
+            }
+
+            if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
+            {
+                REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+            }
+
+            act("$n calls peace to the room.", ch, NULL, rch, TO_VICT);
+        }
+
+        send_to_char("You call peace to the entire world.\r\n", ch);
+    }
+    else
+    {
+        for (rch = ch->in_room->people; rch != NULL; rch = rch->next_in_room)
+        {
+            if (rch->fighting != NULL)
+            {
+                stop_fighting(rch, TRUE);
+            }
+
+            if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
+            {
+                REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+            }
+        }
+
+        act("$n calls peace to the room.", ch, NULL, rch, TO_ROOM);
+        send_to_char("You call peace to the room.\r\n", ch);
     }
 
-    send_to_char("Ok.\r\n", ch);
     return;
 }
 
