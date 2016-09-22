@@ -32,10 +32,8 @@
 
  /*
     TODO list
-    Smoke Bomb
-    Shiv - Stab for damage with possible blind
+    Smoke Bomb (leaves a fog/smoke in the area)
     Set Trap
-    Bludgeon - Lower int/wis
  */
 
 // General Includes
