@@ -2166,4 +2166,14 @@ Beats       6
 Race        0
 End
 
+#SKILL
+Name        bludgeon~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       12
+Race        0
+End
+
 #END
