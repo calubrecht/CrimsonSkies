@@ -4136,7 +4136,8 @@ who will require you to purchase a voucher.
 Syntax: bludgeon <victim>
 
 Bludgeon is a skill rogue's have mastered that allow them to temporarly
-stun and lower the intelligence and wisdom of a victim.
+stun and lower the intelligence and wisdom of a victim.  The bludgeon
+skill requires that the rogue be wearing a mace.
 ~
 
 0 QUEST PQUEST~

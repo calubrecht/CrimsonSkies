@@ -159,7 +159,7 @@ void do_poisonprick(CHAR_DATA *ch, char *argument)
     }
 
     af.bitvector = AFF_POISON;
-    affect_join(victim, &af);
+    affect_to_char(victim, &af);
 
     act("$n poisons you, you begin to feel very ill.", ch, NULL, victim, TO_VICT);
     act("You poison $N, then begin to look very ill.", ch, NULL, victim, TO_CHAR);
@@ -414,7 +414,7 @@ void do_escape(CHAR_DATA * ch, char *argument)
         af.location = APPLY_NONE;
         af.modifier = 0;
         af.bitvector = 0;
-        affect_join(ch, &af);
+        affect_to_char(ch, &af);
 
         check_improve(ch, gsn_escape, TRUE, 9);
 
@@ -508,4 +508,155 @@ void do_peer(CHAR_DATA * ch, char *argument)
     }
 
     return;
+}
+
+/*
+ * Skill that will allow a rogue to use a mace and bludgeon the head of a victim, this will
+ * cause a temporary lowering of int and/or wisdom for the victim and also a possible short
+ * stun (if the victim has already been bludgeoned we'll not allow a second).
+ */
+void do_bludgeon(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+    AFFECT_DATA af;
+    OBJ_DATA *weapon;
+    int chance = 0;
+
+    if (IS_NPC(ch))
+    {
+        send_to_char("Huh?\r\n", ch);
+        return;
+    }
+
+    if ((victim = ch->fighting) == NULL)
+    {
+        if (ch->position == POS_FIGHTING)
+        {
+            ch->position = POS_STANDING;
+        }
+
+        send_to_char("You aren't fighting anyone.\r\n", ch);
+        return;
+    }
+
+    // Must be over the level to use this skill.
+    if (ch->level < skill_table[gsn_bludgeon]->skill_level[ch->class] || (chance = get_skill(ch, gsn_bludgeon)) == 0)
+    {
+        send_to_char("That is not something you are skilled at.\r\n", ch);
+        return;
+    }
+
+    // The rogue must be wearing a mace in order to bludgeon someone effectively.
+    if ((weapon = get_eq_char(ch, WEAR_WIELD)) == NULL)
+    {
+        send_to_char("You must be wielding a mace in order to bludgeon someone else effectively.\r\n", ch);
+        return;
+    }
+
+    // They're wearing a weapon, now make sure that it is a mace specifically.
+    switch (weapon->value[0])
+    {
+        case(WEAPON_MACE) :
+            break;
+        default:
+            send_to_char("You must be wielding a mace in order to bludgeon someone else effectively.\r\n", ch);
+            return;
+    }
+
+    if (is_affected(victim, gsn_bludgeon))
+    {
+        send_to_char("They have already been bludgeoned.\r\n", ch);
+        return;
+    }
+
+    // Base, 75% of skill's %
+    chance = (chance * 3) / 4;
+
+    // Size difference will make it easier or smaller.
+    chance += (ch->size - victim->size) * 2;
+
+    // Take the characters dexterity into account on the hit, higher the dex, the less
+    // that will be removed from the chance.
+    if (get_curr_stat(ch, STAT_DEX) >= 0)
+    {
+        chance -= 25 - get_curr_stat(ch, STAT_DEX);
+    }
+    else
+    {
+        chance -= 25;
+    }
+
+    // Add or lower for level difference between the user and the victim
+    chance += (ch->level - victim->level);
+
+    // Higher success rate on mobs
+    if (IS_NPC(victim))
+    {
+        chance += 15;
+    }
+
+    // Haste vs. Haste vs. Slow (dex is already factor'd but the spells will add or subtract more)
+    if (IS_AFFECTED(ch, AFF_HASTE))
+    {
+        chance += 10;
+    }
+
+    if (IS_AFFECTED(victim, AFF_HASTE))
+    {
+        chance -= 10;
+    }
+
+    if (IS_AFFECTED(ch, AFF_SLOW))
+    {
+        chance -= 40;
+    }
+
+    if (IS_AFFECTED(victim, AFF_SLOW))
+    {
+        chance += 40;
+    }
+
+    // Always at least some chance for success or failure
+    chance = URANGE(5, chance, 90);
+
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Bludgeon Chance {W%d%%{x]\r\n", chance);
+    }
+
+    // The time that must be waited after this command
+    WAIT_STATE(ch, skill_table[gsn_bludgeon]->beats);
+
+    if (!CHANCE(chance))
+    {
+        act("$N evades your bludgeon!", ch, NULL, victim, TO_CHAR);
+        act("$n attempts to bludgeon $N but misses.", ch, NULL, victim, TO_NOTVICT);
+        act("You evade $n's attempt to bludgeon you.", ch, NULL, victim, TO_VICT);
+
+        check_improve(ch, gsn_bludgeon, FALSE, 5);
+
+        return;
+    }
+
+    // Success!
+    af.where = TO_AFFECTS;
+    af.type = gsn_bludgeon;
+    af.level = ch->level;
+    af.duration = 3;
+    af.location = APPLY_INT;
+    af.modifier = -1;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    af.location = APPLY_WIS;
+    affect_to_char(victim, &af);
+
+    act("You bludgeon $N across the head!", ch, NULL, victim, TO_CHAR);
+    act("$n bludgeons $N across the head!", ch, NULL, victim, TO_NOTVICT);
+    act("$n bludgeons you across the head!", ch, NULL, victim, TO_VICT);
+
+    // Small stunning affect
+    DAZE_STATE(victim, 3 * PULSE_VIOLENCE);
+
+    check_improve(ch, gsn_poison_prick, FALSE, 5);
 }
