@@ -53,6 +53,23 @@
 #include "lookup.h"
 
 /*
+ * Clan Table
+ *
+ * Name, Who Name, Friendly Name, Death Transfer Room, Independent
+ *
+ * Independent should be FALSE if it is a real clan
+ */
+const struct clan_type clan_table[MAX_CLAN] = {
+    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE },
+    { "cult",       "[ {DCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE }
+};
+
+/*
  * Whether or not the character is in a clan or not.
  */
 bool is_clan(CHAR_DATA * ch)
