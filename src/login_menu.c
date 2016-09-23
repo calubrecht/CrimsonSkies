@@ -109,23 +109,33 @@ void show_login_credits(DESCRIPTOR_DATA *d)
 {
     char buf[MAX_STRING_LENGTH];
 
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WCredits {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n\r\n", d);
+    send_to_desc("  _________________________________________________________________________\r\n", d);
+    send_to_desc(" /`                                                                        \\\r\n", d);
+    send_to_desc(" \\_|         {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WCredits {w(((=-=-=-=-=-=-{x         |\r\n", d);
+    send_to_desc("   |                                                                        |\r\n", d);
 
-    sprintf(buf, "  {G*{x {WCrimson Skies{x %s (1998-2016)\r\n", VERSION);
+    sprintf(buf, "   |    {G*{x {WCrimson Skies{x %s (1998-2016)                                     |\r\n", VERSION);
     send_to_desc(buf, d);
-    send_to_desc("        Blake Pell (Rhien)\r\n", d);
-    send_to_desc("  {G*{x {WROM 2.4{x (1993-1998)\r\n", d);
-    send_to_desc("        Russ Taylor, Gabrielle Taylor, Brian Moore\r\n", d);
-    send_to_desc("  {G*{x {WMerc DikuMUD{x (1991-1993)\r\n", d);
-    send_to_desc("        Michael Chastain, Michael Quan, Mitchel Tse\r\n", d);
-    send_to_desc("  {G*{x {WDikuMud{x (1990-1991)\r\n", d);
-    send_to_desc("        Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,\r\n", d);
-    send_to_desc("        Michael Seifert, Sebastian Hammer\r\n", d);
-    send_to_desc("\r\n", d);
-    send_to_desc("  {G*{x Detailed additional credits can be viewed in game via the credits\r\n", d);
-    send_to_desc("    command.  These additional credits include the names of many who\r\n", d);
-    send_to_desc("    have contributed through the mud community over the years where\r\n", d);
-    send_to_desc("    those contributions have been used here.\r\n", d);
+    send_to_desc("   |          Blake Pell (Rhien)                                            |\r\n", d);
+
+    send_to_desc("   |    {G*{x {WROM 2.4{x (1993-1998)                                               |\r\n", d);
+    send_to_desc("   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
+    send_to_desc("   |    {G*{x {WMerc DikuMud{x (1991-1993)                                          |\r\n", d);
+    send_to_desc("   |          Michael Chastain, Michael Quan, Mitchel Tse                   |\r\n", d);
+
+    send_to_desc("   |    {G*{x {WDikuMud{x (1993-1998)                                               |\r\n", d);
+    send_to_desc("   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
+    send_to_desc("   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
+
+    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("   |    {G*{x Detailed additional credits can be viewed in game via the         |\r\n", d);
+    send_to_desc("   |      credits command.  These additional credits include the names of   |\r\n", d);
+    send_to_desc("   |      many who have contributed through the mud community over the      |\r\n", d);
+    send_to_desc("   |      years where those contributions have been used here.              |\r\n", d);
+    send_to_desc("  _|                                                                        |\r\n", d);
+    send_to_desc(" / |  -==================================================================-  |\r\n", d);
+    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+
     return;
 }
 
@@ -267,7 +277,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     {
         sprintf(buf, "   |    {x({GN{x){gew Character{x                ");
     }
-    
+
     // Column 1.2 - Game Status
     strcat(buf, "{WGame Status: ");
 
