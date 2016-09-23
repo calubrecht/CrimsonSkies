@@ -138,7 +138,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             // Since the login menu is now wrapped in an ASCII graphic that looks like a parchment, we need to
             // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
             // writing them over pieces of already rendered text.
-            sprintf(buf, "%s%s%s%s", DOWN, DOWN, DOWN, DOWN);
+            sprintf(buf, "%s%s%s", DOWN, DOWN, DOWN);
             send_to_desc(buf, d);
 
             switch( argument[0] )
