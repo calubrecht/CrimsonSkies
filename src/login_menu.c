@@ -149,9 +149,14 @@ void show_login_who(DESCRIPTOR_DATA *d)
     int col = 0;
     int count = 0;
     int total_count = 0;
+    bool end_row = TRUE;
 
-    // Top of the play bill, the immortals
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WImmortals {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("  _________________________________________________________________________\r\n", d);
+    send_to_desc(" /`                                                                        \\\r\n", d);
+    send_to_desc(" \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WOnline Players {w(((=-=-=-=-=-=-{x      |\r\n", d);
+    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("   |                            {R( {WImmortals {R){x                               |\r\n", d);
+    send_to_desc("   |                                                                        |\r\n", d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -170,30 +175,60 @@ void show_login_who(DESCRIPTOR_DATA *d)
         }
 
         count++;
-
-        sprintf(buf, "{C%-16s", ch->name);
-        send_to_desc(buf, d);
-
         col++;
 
-        if (col % 5 == 0)
+        // Start a row?
+        if (end_row)
         {
-            send_to_desc("\r\n", d);
+            send_to_desc("   |    ", d);
+            end_row = FALSE;
+        }
+
+        sprintf(buf, "{C%-16s{x", ch->name);
+        send_to_desc(buf, d);
+
+        // End a row?
+        if (col % 4 == 0)
+        {
+            send_to_desc("|\r\n", d);
+            end_row = TRUE;
         }
     }
 
-    total_count += count;
+    // Fill out the rest of the last row if it wasn't a full row
+    while (col % 4 != 0)
+    {
+        send_to_desc("                ", d);
+        col++;
+    }
+
+    if (count > 0 && end_row == FALSE)
+    {
+        // End that row
+        send_to_desc("    {x|\r\n", d);
+        send_to_desc("   |                                                                        |\r\n", d);
+    }
+    else if (count > 0 && end_row == TRUE)
+    {
+        send_to_desc("   |                                                                        |\r\n", d);
+    }
 
     // Display if there are no immortals online.
     if (count == 0)
     {
-        send_to_desc("\r\n * {CThere are no immortals currently online.{x\r\n", d);
+        send_to_desc("   |   * {CThere are no immortals currently online.{x                           |\r\n", d);
+        send_to_desc("   |                                                                        |\r\n", d);
     }
 
+    send_to_desc("   |                             {R( {WMortals {R){x                                |\r\n", d);
+    send_to_desc("   |                                                                        |\r\n", d);
+
+    total_count += count;
+
     // The characters playing
+    end_row = TRUE;
     count = 0;
     col = 0;
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R(  {WMortals  {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -212,32 +247,63 @@ void show_login_who(DESCRIPTOR_DATA *d)
         }
 
         count++;
-
-        sprintf(buf, "{x%-16s", ch->name);
-        send_to_desc(buf, d);
-
         col++;
 
-        if (col % 5 == 0)
+        // Start a row?
+        if (end_row)
         {
-            send_to_desc("\r\n", d);
+            send_to_desc("   |    ", d);
+            end_row = FALSE;
         }
+
+        sprintf(buf, "{x%-16s{x", ch->name);
+        send_to_desc(buf, d);
+
+        // End a row?
+        if (col % 4 == 0)
+        {
+            send_to_desc("    |\r\n", d);
+            end_row = TRUE;
+        }
+
+    }
+
+    // Fill out the rest of the last row if it wasn't a full row
+    while (col % 4 != 0)
+    {
+        send_to_desc("                ", d);
+        col++;
+    }
+
+    if (count > 0 && end_row == FALSE)
+    {
+        // End that row
+        send_to_desc("    {x|\r\n", d);
+        send_to_desc("   |                                                                        |\r\n", d);
+    }
+    else if (count > 0 && end_row == TRUE)
+    {
+        send_to_desc("   |                                                                        |\r\n", d);
+    }
+
+    // Display if there are no mortals online.
+    if (count == 0)
+    {
+        send_to_desc("   |   * {CThere are no mortals currently online.{x                           |\r\n", d);
+        send_to_desc("   |                                                                        |\r\n", d);
     }
 
     total_count += count;
 
-    if (count == 0)
-    {
-        send_to_desc("\r\n * {CThere are no mortals currently online.{x", d);
-    }
-
-    send_to_desc("\r\n", d);
-
     if (total_count > 0)
     {
-        sprintf(buf, "\r\nTotal Players Online: %d\r\n", total_count);
+        sprintf(buf, "   |    Total Players Online: %-3d                                           |\r\n", total_count);
         send_to_desc(buf, d);
     }
+
+    send_to_desc("  _|                                                                        |\r\n", d);
+    send_to_desc(" / |  -==================================================================-  |\r\n", d);
+    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
 
     return;
 }
