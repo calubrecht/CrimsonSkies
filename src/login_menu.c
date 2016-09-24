@@ -289,7 +289,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     // Display if there are no mortals online.
     if (count == 0)
     {
-        send_to_desc("   |   * {CThere are no mortals currently online.{x                           |\r\n", d);
+        send_to_desc("   |   * {CThere are no mortals currently online.{x                             |\r\n", d);
         send_to_desc("   |                                                                        |\r\n", d);
     }
 
