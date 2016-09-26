@@ -82,20 +82,30 @@ void show_random_names(DESCRIPTOR_DATA *d)
     int row = 0;
     int col = 0;
 
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WRandom Names {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
+    send_to_desc("  _________________________________________________________________________\r\n", d);
+    send_to_desc(" /`                                                                        \\\r\n", d);
+    send_to_desc(" \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WRandom Names {w(((=-=-=-=-=-=-{x        |\r\n", d);
+    send_to_desc("   |                                                                        |\r\n", d);
 
-    for (row = 0; row < 6; row++)
+    for (row = 0; row < 8; row++)
     {
+        send_to_desc("   |    ", d);
+
         // Since the random function returns a static char we have to use it in
         // separate calls.
-        for (col = 0; col < 5; col++)
+
+        for (col = 0; col < 4; col++)
         {
             sprintf(buf, "%-16s", generate_random_name());
             send_to_desc(buf, d);
         }
 
-        send_to_desc("\r\n", d);
+        send_to_desc("    |\r\n", d);
     }
+
+    send_to_desc("  _|                                                                        |\r\n", d);
+    send_to_desc(" / |  -==================================================================-  |\r\n", d);
+    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
 
     return;
 }
