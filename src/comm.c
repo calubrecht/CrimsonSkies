@@ -900,7 +900,14 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
         }
         else if (nRead == 0)
         {
-            log_string("EOF encountered on read.");
+            if (d == NULL || d->host == NULL)
+            {
+                log_string("read_from_descriptor: EOF encountered on read.");
+            }
+            else
+            {
+                log_f("read_from_descriptor: EOF encountered on read for %s.", d->host);
+            }
             return FALSE;
         }
 #if defined( WIN32 )
