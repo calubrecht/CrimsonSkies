@@ -605,7 +605,7 @@ void export_clans(void)
 
         if (rc != SQLITE_DONE)
         {
-            bugf("ERROR inserting data for %d: %s\n", sector_flags[x].bit, sqlite3_errmsg(db));
+            bugf("ERROR inserting data for %d: %s\n", clan_table[x].name, sqlite3_errmsg(db));
         }
 
         sqlite3_reset(stmt);
@@ -674,7 +674,7 @@ void export_extra_flags(void)
 
         if (rc != SQLITE_DONE)
         {
-            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+            bugf("ERROR inserting data for %d: %s\n", extra_flags[x].name, sqlite3_errmsg(db));
         }
 
         sqlite3_reset(stmt);
@@ -743,7 +743,7 @@ void export_wear_flags(void)
 
         if (rc != SQLITE_DONE)
         {
-            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+            bugf("ERROR inserting data for %d: %s\n", wear_flags[x].name, sqlite3_errmsg(db));
         }
 
         sqlite3_reset(stmt);
@@ -812,7 +812,7 @@ void export_apply_flags(void)
 
         if (rc != SQLITE_DONE)
         {
-            bugf("ERROR inserting data for %d: %s\n", item_table[x].type, sqlite3_errmsg(db));
+            bugf("ERROR inserting data for %d: %s\n", apply_flags[x].name, sqlite3_errmsg(db));
         }
 
         sqlite3_reset(stmt);
@@ -1049,7 +1049,7 @@ void export_rooms(void)
 
         }
     }
-    
+
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
         bugf("export_rooms -> Failed to commit transaction.");
