@@ -58,7 +58,7 @@ void export_continents(void);
 void export_areas(void);
 void export_objects(void);
 void export_item_type(void);
-void export_sector_type(void);
+void export_sector_flags(void);
 void export_clans(void);
 void export_extra_flags(void);
 void export_bits(void);
@@ -67,6 +67,8 @@ void export_apply_flags(void);
 void export_help(void);
 void export_rooms(void);
 void export_weapon_flags(void);
+void export_room_flags(void);
+
 char *flag_string(const struct flag_type *flag_table, int bits);
 
 #define HEADER "--------------------------------------------------------------------------------\r\n"
@@ -97,7 +99,11 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
     printf_to_char(ch, "%-55s", "Exporting Sector Types");
-    export_sector_type();
+    export_sector_flags();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Room Flags");
+    export_room_flags();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
     printf_to_char(ch, "%-55s", "Exporting Areas");
@@ -483,7 +489,7 @@ out:
     return;
 }
 
-void export_sector_type(void)
+void export_sector_flags(void)
 {
     sqlite3 *db;
     int rc;
@@ -494,22 +500,22 @@ void export_sector_type(void)
 
     if (rc != SQLITE_OK)
     {
-        bugf("export_sector_type -> Failed to open %s", EXPORT_DATABASE_FILE);
+        bugf("export_sector_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
         goto out;
     }
 
 
     // Total reload everytime, drop the table if it exists.
-    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS sector_type;", 0, 0, 0)))
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS sector_flags;", 0, 0, 0)))
     {
-        bugf("export_sector_type -> Failed to drop table: sector_type");
+        bugf("export_sector_flags -> Failed to drop table: sector_flags");
         goto out;
     }
 
     // Create the tables they do not exist
-    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS sector_type(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS sector_flags(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
     {
-        bugf("export_sector_type -> Failed to create table: sector_type");
+        bugf("export_sector_flags -> Failed to create table: sector_flags");
         goto out;
     }
 
@@ -517,9 +523,9 @@ void export_sector_type(void)
     sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
 
     // Prepare the insert statement that we'll re-use in the loop
-    if (sqlite3_prepare(db, "INSERT INTO sector_type (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
+    if (sqlite3_prepare(db, "INSERT INTO sector_flags (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
     {
-        bugf("export_sector_type -> Failed to prepare insert statement");
+        bugf("export_sector_flags -> Failed to prepare insert statement");
         goto out;
     }
 
@@ -533,7 +539,7 @@ void export_sector_type(void)
 
         if (rc != SQLITE_DONE)
         {
-            bugf("ERROR inserting data for %d: %s\n", sector_flags[x].bit, sqlite3_errmsg(db));
+            bugf("ERROR inserting data for %d: %s\n", sector_flags[x].name, sqlite3_errmsg(db));
         }
 
         sqlite3_reset(stmt);
@@ -541,7 +547,76 @@ void export_sector_type(void)
 
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
-        bugf("export_sector_type -> Failed to commit transaction.");
+        bugf("export_sector_flags -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_room_flags(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_room_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS room_flags;", 0, 0, 0)))
+    {
+        bugf("export_room_flags -> Failed to drop table: room_flags");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room_flags(id INTEGER PRIMARY KEY, name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_room_flags -> Failed to create table: room_flags");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO room_flags (id, name) VALUES (?1, ?2);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_room_flags -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all continents
+    for (x = 0; room_flags[x].name != NULL; x++)
+    {
+        sqlite3_bind_int(stmt, 1, room_flags[x].bit);
+        sqlite3_bind_text(stmt, 2, room_flags[x].name, -1, SQLITE_STATIC);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %d: %s\n", room_flags[x].name, sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_room_flags -> Failed to commit transaction.");
     }
 
     sqlite3_finalize(stmt);
