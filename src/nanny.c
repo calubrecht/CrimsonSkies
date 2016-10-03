@@ -135,6 +135,14 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
         case CON_LOGIN_MENU:
+            // There are cases where some clients like telnet try to negotiate, a ASCII 34 ends up getting sent
+            // which borks initial input.  If the argument isn't null, it does have the quote and the length contains
+            // more than one character then lop off leftmost character with argument++
+            if (!IS_NULLSTR(argument) && argument[0] == '\'' && strlen(argument) > 1)
+            {
+                argument++;
+            }
+
             // Since the login menu is now wrapped in an ASCII graphic that looks like a parchment, we need to
             // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
             // writing them over pieces of already rendered text.
