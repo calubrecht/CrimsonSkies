@@ -1417,31 +1417,37 @@ void do_look(CHAR_DATA * ch, char *argument)
                 act( "$n peers into $o.", ch, obj, NULL, TO_ROOM);
                 act( "You peer into $o.", ch, obj, NULL, TO_CHAR);
 
-                if (IS_SET(obj->value[2],GATE_RANDOM) || obj->value[3] == -1)
+                if (IS_SET(obj->value[2], GATE_RANDOM) || obj->value[3] == -1)
                 {
+                    // If the portal has no destination or it's set to GATE_RANDOM
                     location = get_random_room(ch);
                     obj->value[3] = location->vnum; /* for record keeping :) */
                 }
-                else if (IS_SET(obj->value[2],GATE_BUGGY) && (number_percent() < 5))
+                else if (IS_SET(obj->value[2], GATE_BUGGY) && (number_percent() < 5))
                 {
+                    // If the portal is buggy... randomness
                     location = get_random_room(ch);
                 }
                 else
                 {
+                    // And, the case hit almost always
                     location = get_room_index(obj->value[3]);
                 }
 
+                // Make the check to see if they can see to the other side or not
                 if (location == NULL
                     || location == ch->in_room
                     || !can_see_room(ch, location)
                     || ch->fighting != NULL
                     || (room_is_private(location)
-                    && !is_room_owner(ch,location)))
+                    && !is_room_owner(ch, location)))
                 {
                     send_to_char("You see swirling chaos...\r\n", ch);
                     return;
                 }
 
+                // Show the other side to the player, this will move them, look and then
+                // move them back.
                 original = ch->in_room;
                 char_from_room(ch);
                 char_to_room(ch, location);
