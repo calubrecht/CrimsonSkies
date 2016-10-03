@@ -243,7 +243,7 @@ const struct flag_type continent_flags[] = {
 };
 
 /*
- * Target flags for spells, this will allow us to save friendtly names in the
+ * Target flags for spells, this will allow us to save friendly names in the
  * skills.dat file and then look them up.
  */
 const struct flag_type target_flags[] =
