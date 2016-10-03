@@ -1284,6 +1284,8 @@ void do_look(CHAR_DATA * ch, char *argument)
     char *pdesc;
     int door;
     int number, count;
+    ROOM_INDEX_DATA *location;
+    ROOM_INDEX_DATA *original;
 
     if (ch->desc == NULL)
         return;
@@ -1410,6 +1412,43 @@ void do_look(CHAR_DATA * ch, char *argument)
 
                 act("$p holds:", ch, obj, NULL, TO_CHAR);
                 show_list_to_char(obj->contains, ch, TRUE, TRUE);
+                break;
+            case ITEM_PORTAL:
+                act( "$n peers into $o.", ch, obj, NULL, TO_ROOM);
+                act( "You peer into $o.", ch, obj, NULL, TO_CHAR);
+
+                if (IS_SET(obj->value[2],GATE_RANDOM) || obj->value[3] == -1)
+                {
+                    location = get_random_room(ch);
+                    obj->value[3] = location->vnum; /* for record keeping :) */
+                }
+                else if (IS_SET(obj->value[2],GATE_BUGGY) && (number_percent() < 5))
+                {
+                    location = get_random_room(ch);
+                }
+                else
+                {
+                    location = get_room_index(obj->value[3]);
+                }
+
+                if (location == NULL
+                    || location == ch->in_room
+                    || !can_see_room(ch, location)
+                    || ch->fighting != NULL
+                    || (room_is_private(location)
+                    && !is_room_owner(ch,location)))
+                {
+                    send_to_char("You see swirling chaos...\r\n", ch);
+                    return;
+                }
+
+                original = ch->in_room;
+                char_from_room(ch);
+                char_to_room(ch, location);
+                do_look(ch, "auto");
+                char_from_room(ch);
+                char_to_room(ch, original);
+                return;
                 break;
         }
         return;
