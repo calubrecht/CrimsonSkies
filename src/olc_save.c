@@ -1335,7 +1335,7 @@ void do_asave(CHAR_DATA * ch, char *argument)
                 pArea = ((MOB_INDEX_DATA *)ch->desc->pEdit)->area;
                 break;
             case ED_HELP:
-                send_to_char("Grabando area : ", ch);
+                send_to_char("OLC Help -> Saving area : ", ch);
                 save_other_helps(ch);
                 return;
             default:
