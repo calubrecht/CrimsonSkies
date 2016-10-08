@@ -121,3 +121,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add help file for weapon flags and other olc things
   - Add stun weapons
   - Bug saving helps.. if a new help is created with OLC and saved it will wipe the current area out.
+  - Wiznet connections, connection drops
+  - Wiznet, option to log also (research this)
