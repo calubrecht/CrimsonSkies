@@ -728,6 +728,21 @@ void init_descriptor(int control)
         from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), PF_INET);
 #endif
         dnew->host = str_dup(from ? from->h_name : buf);
+
+        // Make a wiznet log message under sites when a new IP connects.
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        if (!str_cmp(buf, dnew->host))
+        {
+            sprintf(wiz_msg, "%s has opened a connection.", buf);
+            wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+        }
+        else
+        {
+            sprintf(wiz_msg, "%s (%s) has opened a connection.", dnew->host, buf);
+            wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+        }
+
     }
 
     /*
