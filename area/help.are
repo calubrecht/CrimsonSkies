@@ -1,9 +1,9 @@
 #HELPS
 -1 MOTD~
-* Reclass system is in (help reclass), there are two reclasses currently 
-  which are enchantors for mages and healers for clerics.  2 more reclasses
-  and the oceans are all that stand between now and version 1.
-* Important commands: help, commands, notes, score, look, who, scan
+* Reclass system is in (help reclass), there are five reclasses currently 
+  in the game.  Use the 'class' command to see information on all of the
+  classes.
+* Important commands: help, commands, notes, score, look, who, scan, use
 * To see the current game settings, type settings.
 * {YYou may notice bots walking around{x, these help me simulate and test 
   game mechanics that I cannot otherwise test by myself.
@@ -74,8 +74,8 @@ Syntax: color
 
         Color is written by Lope (ant@solace.mh.se)
 ~
--1 NOTES CHANGES NEWS OOCNOTES STORYNOTES HISTORY PENALTY IMMNOTE UNREAD CATCHUP~
 
+-1 NOTES CHANGES NEWS OOCNOTES STORYNOTES HISTORY PENALTY IMMNOTE UNREAD CATCHUP~
 Crimson Skies has various note spools that you can post to, each with
 a specified purpose (notes, changes, news, ooc notes, story notes, e.g.
 used with the commands note, change, news, oocn, storyn, history).
@@ -193,6 +193,7 @@ Example:  PROMPT <%hhp %mm %vmv>
         Will set your prompt to "<10hp 100m 100mv>"
  
 ~
+
 -1 SUMMARY~
 Basic game commands:
 
@@ -264,7 +265,6 @@ the old one dies you may purchase a replacement.
 New pets are planned for a shop in New Thalos.
 ~
 
-
 0 TICK~
 Many of the game actions are based upon interval timers, including combat,
 most autonomous monster actions, hp/mana/move regeneration, spell duration,
@@ -277,7 +277,6 @@ Area resetting happens roughly every 3 minutes if no one is in the area; less
 often (15 minutes) if some one is.  Also note that objects lying on the ground
 will not be regenerated if anyone is in the area when it resets.
 ~
-
 
 0 !~
 Syntax: !
@@ -447,6 +446,7 @@ REPLY sends a message to the last player who sent you a TELL.  REPLY will work
 even if you can't see the player, and without revealing their identity.  This
 is handy for talking to invisible or switched immortal players.
 ~
+
 0 GOSSIP CGOSSIP SHOUT YELL CLAN QUESTION ANSWER OOC AUCTION OCLAN GRATS IMM CHANNEL~
 Syntax: gossip   <message>
 Syntax: cgossip  <message>
@@ -516,7 +516,6 @@ REMOVE will take any object from your equipment and put it back into your
 inventory.
 ~
 
-
 0 BUG TYPO~
 Syntax: bug <message>
 Syntax: idea <message>
@@ -527,7 +526,6 @@ to the mud implementors.
 ~
 
 0 CREDITS DIKU MERC ROM CRIMSON SMAUG~
-          
 .
           {R[{WDiku Family Tree for Crimson Skies{R]{x
 
@@ -722,12 +720,14 @@ your old password.  The second argument is your new password.
 
 The PASSWORD command is protected against being snooped or logged.
 ~
+
 58 SNOOPINFO~
 Syntax: snoopinfo
 
 Shows a list of all immortals who are currently snooping another player
 and who is being snooped.
 ~
+
 0 TITLE~
 Syntax: title <string>
 
@@ -1053,7 +1053,6 @@ Shutdown shuts down the server and prevents the normal 'startup' script
 from restarting it.
 ~
 
-
 56 WIZLOCK NEWLOCK~
 Syntax: wizlock
 	    newlock
@@ -1295,6 +1294,7 @@ god level.
 
 Implementors can use the violate command to get into private rooms.
 ~
+
 52 EXLIST~
 Syntax: exlist
 
@@ -1321,7 +1321,7 @@ Toggling your incognito status will hide your presence from people outside the
 room you are in, but leave you visible to those who are with you.  It takes
 a level argument similar to wizinvis, people at that level or higher can see
 you regarless of location.
-~ 
+~
 
 52 MEMORY~
 Syntax: memory
@@ -1468,6 +1468,7 @@ wiznet status shows your current wiznet settings, and wiznet <field> toggles
 a field on and off.  The events should be self-explanatory, if they are not,
 fiddle with them a while.  More events are available at higher levels.
 ~
+
 51 WIZHELP~
 Syntax: wizhelp
 
@@ -1498,7 +1499,7 @@ This spell renders the target character blind.
 ~
 
 0 'ACID BLAST' 'BURNING HANDS' 'COLOR SPRAY' FIREBALL 'LIGHTNING BOLT'
-  'MAGIC MISSILE' 'SHOCKING GRASP'~
+  'MAGIC MISSILE' 'SHOCKING GRASP'~
 Syntax: cast 'acid blast'     <victim>
 Syntax: cast 'burning hands'  <victim>
 Syntax: cast 'color spray'    <victim>
@@ -1657,6 +1658,7 @@ Syntax: cast 'dispel evil' <victim>
 This spell invokes the wrath of the gods on an evil victim. It can be very
 dangerous for casters who are not pure of heart.
 ~
+
 0 'DISPEL MAGIC' CANCELLATION~
 Syntax: cast 'dispel magic' <character>
         cast 'cancellation' <character>
@@ -1696,7 +1698,6 @@ not nearly as reliable as enchant weapon, being far more prone to destructive
 effects.  Each succesful enchant increases the plus of the armor by 1 or 2
 points, and raises its level by one.
 ~
-
 
 0 'ENERGY DRAIN'~
 Syntax: cast 'energy drain' <victim>
@@ -1745,7 +1746,7 @@ This spell enables the target character to see warm-blooded creatures even
 while in the dark, and exits of a room as well.
 ~
 
-0 INVIS 'MASS INVIS' INVISIBLITY~ 
+0 INVIS 'MASS INVIS' INVISIBLITY~
 Syntax: cast 'invisibility' <character>
 Syntax: cast 'invisibility' <object>
 Syntax: cast 'mass invis'
@@ -1912,7 +1913,7 @@ mages or thieves.
 Dwarves are very resistant to poison and disease, but cannot swim, and so
 are very vulnerable to drowning.  They recieve the berserk skill for free
 (if warriors), and can see in the dark with infravision.
-~ 
+~
 
 -1 ELF ELVES~
 Elves are slightly taller than humans, but have a much lighter build.  They
@@ -1957,7 +1958,7 @@ scrolls		The reading of magical scrolls and books (see 'help recite')
 staves		The use of staves and similar devices (see 'help brandish')
 wands		The use of wands and similar items (see 'help zap') 
 ~
- 
+
 -1 'GROUP HEADER'~
 The following skills and groups are available to your chacter:
 (this list may be seen again by typing list)
@@ -2290,6 +2291,7 @@ interlace spirit*   makes an item only usable by people of the same
 
 * Indicates Enchantor only spell.
 ~
+
 -1 ENCHANTOR~
 Enchantors are masters of imbueing weapons and armor with magical
 enchancements.  They also have been rumored to be able to enchant
@@ -2316,7 +2318,6 @@ haste		doubles the speed of the target, but slows down healing
 infravision	allows monsters to be seen in the dark
 refresh		restores energy to tired adventurers
 ~
-
 
 -1 HARMFUL~
 This spell group is the opposite of healing.  The harmful spells are designed
@@ -2598,7 +2599,7 @@ It allows items to be stolen from the inventory of monsters and characters,
 and even from shops!  But beware, shop keepers gaurd their merchandise 
 carefully, and attempting to steal from a character earns you a THIEF flag
 if you are caught (making you free game for killing).
-~ 
+~
 
 -1 'DETECT GOOD'~
 Syntax: cast 'detect good'
@@ -2614,7 +2615,6 @@ Dispel good brings forth evil energies that inflict horrific torment on
 the pure of heart.  Good-aligned characters use this dark magic at their
 peril.
 ~
-
 
 -1 'RECHARGE'~
 Syntax: cast 'recharge' <item>
@@ -2756,6 +2756,7 @@ ethos, and improve saving throws against all forms of magic. They may not
 be cast on others, and one person cannot carry both defenses at the same
 time.
 ~
+
 0 'GIANT STRENGTH'~
 Syntax: cast 'giant strength' <character>
  
@@ -2848,6 +2849,7 @@ into a more specialized class.  Type '{ghelp reclass{x' to read more about that.
 
 Please type 'help rules' to see the game rules.
 ~
+
 -1 WIZLIST IMMORTALS~
 .
 Implementor (Level 60)
@@ -2859,6 +2861,7 @@ Admin       (Level 59)
 Daelan
 
 ~
+
 -1 ROM~
 ROM started in early February 1993, using Merc 1.0 code. In July of 1993,  
 ROM II was started, eventually replacing the original ROM.  ROM was up for
@@ -2889,6 +2892,7 @@ hair-pulling. Hope you enjoy it.
 
 (my apologies if anyone was forgotten in this list)
 ~
+
 -1 IMMORTAL IMMORT GOD WIZARD WIZ~
 'Immortal' (often, simply, 'immort') refers to players who have reached
 the highest attainable levels in the game.  Here, anyone of level 52
@@ -2913,7 +2917,6 @@ fraught with misconceptions, poor examples, and outrageous hypocrisies. :)
 ~
 
 -1 SOCIALS~
- 
 This is a complete list of socials for this MUD:
 Compiled originally by: Sara
 accuse       adjust      air          apologize     applaud     babble
@@ -2978,6 +2981,7 @@ Thanks to ...
 
 Also see "help ROM" for information about the Rivers of Mud code base.
 ~
+
 -1 MAP MAPS~
 Syntax: map
         map <map width up to 100>
@@ -2992,7 +2996,7 @@ world.
 -1 GREETING~
 .
                      Welcome to {RCrimson {rSkies{x Mud (CS-Mud)~
- 
+
 52 COMMANDMENTS LAWS 'GOD RULES' GODS~
 .
                      *************************
@@ -3067,13 +3071,12 @@ and you cannot be forced to delete.  Typing delete with an argument will
 return your character to 'safe' status if you change your mind after the
 first delete.
 ~
- 
+
 0 TEMPLE HEALER~
 The healer at the temple will provide spells for a donation of gold.  To
 see a full listing of the healer's services type 'heal' in his presence.
 To receive healing, bring plenty of money and type 'heal <spell>'.
-~ 
-
+~
 
 -1 GAIN~
 The gain command is used to learn new skills, once the proper trainer has 
@@ -3104,14 +3107,12 @@ mobile inventory, except for items which are too high for you to clone.
 Strung extended descriptions on objects are not kept, however.
 ~
 
-
 0 SKILLS SPELLS~
 The skills and spells commands are used to display your character's list
 of available skills (or spells, as the case may be).  They are listed in
 order of level, with mana cost (for spells) or percentage (for skills)
 listed where applicable.
 ~
-
 
 0 OUTFIT~
 The outfit command, usable by levels 5 and below, equips your character with
@@ -3134,9 +3135,10 @@ autoall   : turns all autos on or off at once
 
 Typing a command sets the action , typing it again removes it. Use
 autoall on|off to save yourself some keystrokes.
-~ 
+~
+
 -1 CLAN~
-   A Clan is a collection of players, united to  follow and further
+A Clan is a collection of players, united to  follow and further
 a common cause.   Each clan has rules and  regulations, to find out
 more about clans and their 'beliefs' type "help <clan name>".  Only
 Clan  members can kill or steal from other players.  To join a Clan
@@ -3152,6 +3154,7 @@ diamonds as payment.   To see room prices, type "help prices".  New
 Clans  may be formed by  petitioning the immortals.   Please  remember that 
 their word is final on all matters not covered by this help.
 ~
+
 -1 PRICES PRICE~
 New Clan Hall Rooms cost 50 diamonds.
 Boosting the mana or healing gains for a room costs 250 diamonds.
@@ -3163,8 +3166,8 @@ Making the Healer or Store prices lower costs 1,000 diamonds.
 The count command displays the number of people (that you can see) logged
 into the mud.  It also displays the highest number observed that day, if
 it is higher.
-~ 
- 
+~
+
 -1 GATE~
 The gate spell is a powerful transportation magic that opens up a portal 
 between your character and another person or creature somewhere else in the
@@ -3219,7 +3222,7 @@ Syntax: cast 'enchant person' <victim>
 
 Enchant person allows the enchantor to enchant a person's soul and imbue
 their combat abilities.  Its strength can vary depending on the enchantor.
-~ 
+~
 
 0 RESTORE WEAPON~
 RESTORE WEAPON
@@ -3272,14 +3275,15 @@ Syntax:  cast 'sequestor' <object>
 
 This spell allows an enchantor to make an item unable to be located.
 ~
+
 0 DUAL WIELD~
 DUAL WIELD
 
 Dual wield allows a fighter to wield two weapons at the same time
 giving them additional attacks per round.
 ~
-53 COPYOVER~
 
+53 COPYOVER~
 Syntax: copyover [now|delay <ticks>|cancel<reason>
 
 Sample Usage: copyover now
@@ -3293,6 +3297,7 @@ version of the mud to be put into play while keeping all of the
 players connected.
 
 ~
+
 52 IMMORTAL BLESSING WIZBLESS~
 Syntax:  wizbless <character|all>
 
@@ -3302,6 +3307,7 @@ stats and provide a few small bonuses for 120 ticks.
 
 This should be used as a way to thank players who are logged in.
 ~
+
 0 SPELLCRAFT~
 SPELLCRAFT
 
@@ -3312,19 +3318,20 @@ well as (and most importantly) cast one level higher.
 ~
 
 0 LOCATE WIZARD MARK~
-
 This spell is a specialized locate object spell.  It allows the 
 enchantor with high detail and a high success rate to locate items 
 that they have wizard marked by their hand.
 ~
+
 0 LOCATE BIND~
 The locate bind spell will allow the caster to locate the room and
 area that bind stones are in throughout the entire world.
 ~
-0 CLEAR~
 
+0 CLEAR~
 The clear command will clear the screen on mud clients that support it.
 ~
+
 0 STATS~
 Shows your current stats (strength, intelligence, wisdom, dexterity
 and constitution) along with adjustments from spells and equipment
@@ -3333,6 +3340,7 @@ that might raise it.
 The stats command will also show you the max stats your race/class
 combo can achieve.
 ~
+
 0 SWIM~
 The ability to swim will allow the person to move about in water
 that previously required a boat.  Crimson Skies has both ocean
@@ -3344,6 +3352,7 @@ in the ocean you will start to lose health even if you are an
 excellent swimmer.  All players have the ability to swim by
 default.
 ~
+
 0 WHOAMI~
 Syntax:  whoami
 
@@ -3351,8 +3360,8 @@ Syntax:  whoami
 currently logged in as.
 
 ~
-0 RECLASS~
 
+0 RECLASS~
 Syntax: reclass <reclass name>
 
 The reclass command will allow you to train as a specialized class.  Each
@@ -3379,8 +3388,8 @@ Current classes available for reclass:
 A spell where enchantors charm an individual to sleep causing them
 to release any weapons they maybe wearing.
 ~
-0 HEALER~
 
+0 HEALER~
 Healers are masters of healing ailments, health and other aspects
 of individuals.  Many of their spells and skills focus on supporting
 other individuals.
@@ -3397,8 +3406,6 @@ at great cost to their own health.
 Refreshes the movement of all individuals in the room unless they are
 hidden.
 ~
-
-
 
 0 VITALIZING PRESENCE~
 A healing spell that will heal small bits of health to the affected
@@ -3418,18 +3425,16 @@ all of it's energy it will fade out of existence.
 
 Only one bind stone is allowed to exist in an area at any given time.
 ~
+
 0 LIFE BOOST~
 A healing spell that allows a healer to increase the health (HP) of
 an individual for a period of time.
 ~
 
-
-
 0 MAGIC RESISTANCE~
 Magic resistance allows a healer to boost an individuals resistance
 to offensive magic spells.
 ~
-
 
 0 MANA TRANSFER~
 Mana transfer is a spell that allows healers to transfer some of
@@ -3636,7 +3641,6 @@ player given that the player is within 8 levels of you and is a clanner.
 ~
 
 0 SCAN~
-
 Syntax: scan
 Syntax: scan <direction>
 
@@ -3648,7 +3652,6 @@ creatures as far as 3 rooms away.
 ~
 
 0 TOUCH~
-
 Syntax: touch <object or player>
 
 The touch command simply allows you to touch another player or object.
@@ -4101,8 +4104,8 @@ poison spell but can be stacked on top of it.
 
 Healer's can cure this poison via the cure poison spell.
 ~
-0 SHOCK SPREAD~
 
+0 SHOCK SPREAD~
 While underwater, weapons of a shocking or lightning nature will
 cause additional damage to creatures and players you may fight.
 
@@ -4130,6 +4133,15 @@ the member of a clan.
 
 In order to go loner after level 25 you must be guilded by an immortal
 who will require you to purchase a voucher.
+~
+
+0 REVOLT~
+Syntax: revolt <victim>
+
+Revolt allows a rogue to incite a victim to turn on their master.  This
+might be a pet like a horse, a hired assassin, an elemental or it might
+be a player that is charmed.  The victim once inciting will intiate
+combat against their previous master.
 ~
 
 0 BLUDGEON~
@@ -4170,7 +4182,6 @@ points are shown in your score and may be saved up and used to purchase
 special items from the quest mob.  
 ~
 
-0 $~
+-1 $~
 
 #$
-

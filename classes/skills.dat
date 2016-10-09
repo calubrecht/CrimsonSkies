@@ -2176,4 +2176,14 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        revolt~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Race        0
+End
+
 #END

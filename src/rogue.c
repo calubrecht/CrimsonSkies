@@ -658,3 +658,117 @@ void do_bludgeon(CHAR_DATA * ch, char *argument)
 
     check_improve(ch, gsn_poison_prick, FALSE, 5);
 }
+
+/*
+ * Revolt will give the Rogue a chance to turn a charmy against it's master.
+ */
+void do_revolt(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+    CHAR_DATA *master;
+    int chance = 0;
+    int roll = 0;
+
+    if (IS_NPC(ch))
+    {
+        send_to_char("Huh?\r\n", ch);
+        return;
+    }
+
+    // Must be over the level to use this skill.
+    if (((chance = get_skill(ch, gsn_revolt)) == 0) || ch->level < skill_table[gsn_revolt]->skill_level[ch->class])
+    {
+        send_to_char("Creating a revolt is not a skill you are good at.\r\n", ch);
+        return;
+    }
+
+    // Get the victim from the room
+    if ((victim = get_char_room(ch, argument)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    // Not on immortal characters
+    if (IS_IMMORTAL(victim))
+    {
+        send_to_char("Their mind is too powerful conqueror.\r\n", ch);
+        return;
+    }
+
+    // Against yourself?  Na.
+    if (ch == victim)
+    {
+        send_to_char("You want to incite a revolt against yourself?  Ok.\r\n", ch);
+        return;
+    }
+
+    // Is the victim safe from the character in question
+    if (is_safe(ch, victim))
+    {
+        return;
+    }
+
+    // Does the victim follow a master?  If they do not, get out (and we won't lag).
+    if (victim->master == NULL)
+    {
+        send_to_char("They do not currently have a master.\r\n", ch);
+        return;
+    }
+    else
+    {
+        // Hold onto this for a second, we'll break they group first which will clear the victim->master, we
+        // will then use this to add a round of hit on failure to start a fight.
+        master = victim->master;
+    }
+
+    // Is the master safe?  We want to treat them like the victim.. we check at this point because we
+    // know master has a value.
+    if (is_safe(ch, master))
+    {
+        return;
+    }
+
+    // Let's calculate and then make a roll
+    roll = chance + ((ch->level - victim->level) * 2);
+    roll += (get_curr_stat(ch, STAT_INT) * 2) - (get_curr_stat(victim, STAT_INT) * 2);
+    roll += (get_curr_stat(ch, STAT_WIS) * 2) - (get_curr_stat(victim, STAT_WIS) * 2);
+
+    // Less of a chance on an actual player
+    if (!IS_NPC(victim))
+    {
+        roll = (roll * 9) / 10;
+    }
+
+    // Always at least some chance for success or failure
+    roll = URANGE(5, roll, 90);
+
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Revolt Chance {W%d%%{x]\r\n", roll);
+    }
+
+    if (CHANCE(roll))
+    {
+        act("You incite $N to turn against their master!", ch, NULL, victim, TO_CHAR);
+        act("$n incites $N to turn against their master!", ch, NULL, victim, TO_NOTVICT);
+        act("$n incites you to revolt against your master!", ch, NULL, victim, TO_VICT);
+        stop_follower(victim);
+        check_improve(ch, gsn_revolt, TRUE, 8);
+
+        // Let's start a fight!
+        if (master != NULL)
+        {
+            one_hit(victim, master, TYPE_UNDEFINED, FALSE);
+        }
+    }
+    else
+    {
+        act("You attempt to incite $N to turn against their master but fail.", ch, NULL, victim, TO_CHAR);
+        act("$n attempts to incite $N but fails.", ch, NULL, victim, TO_NOTVICT);
+        act("$n attempts to incite you to revolt against your master but fails.", ch, NULL, victim, TO_VICT);
+        check_improve(ch, gsn_revolt, FALSE, 8);
+    }
+
+    WAIT_STATE(ch, skill_table[gsn_revolt]->beats);
+}

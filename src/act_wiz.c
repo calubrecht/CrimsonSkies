@@ -210,18 +210,17 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (clan_table[clan].independent)
     {
-        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].name);
+        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, ch);
-        sprintf(buf, "You are now a %s.\r\n", clan_table[clan].name);
+        sprintf(buf, "You are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
     }
     else
     {
-        sprintf(buf, "They are now a member of clan %s.\r\n",
-            capitalize(clan_table[clan].name));
+        sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, ch);
-        sprintf(buf, "You are now a member of clan %s.\r\n",
-            capitalize(clan_table[clan].name));
+        sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
+        send_to_char(buf, ch);
     }
 
     victim->clan = clan;

@@ -153,7 +153,7 @@ void do_loner(CHAR_DATA *ch, char *argument )
     sprintf(buf, "\r\n%s walks alone %s\r\n", ch->name, clan_table[ch->clan].who_name);
     send_to_all_char(buf);
 
-    log_f("%s guilds themselves to [ Loner ].", ch->name);
+    log_f("%s guilds themselves to [ Loner ]", ch->name);
 }
 
 /*
