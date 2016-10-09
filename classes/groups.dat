@@ -182,6 +182,9 @@ Sk 'hide'
 Sk 'peek'
 Sk 'pick lock'
 Sk 'sneak'
+Sk 'revolt'
+Sk 'escape'
+Sk 'shiv'
 End
 
 #GROUP
