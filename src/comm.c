@@ -925,7 +925,7 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
             else
             {
                 char wiz_msg[MAX_STRING_LENGTH];
-                sprintf(wiz_msg, "Connection disconnected (EOF): %s", d->host);
+                sprintf(wiz_msg, "Disconnected: %s", d->host);
                 log_f(wiz_msg);
                 wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
             }
