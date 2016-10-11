@@ -720,7 +720,6 @@ void init_descriptor(int control)
         sprintf(buf, "%d.%d.%d.%d",
             (addr >> 24) & 0xFF, (addr >> 16) & 0xFF,
             (addr >> 8) & 0xFF, (addr)& 0xFF);
-        log_f("Sock.sinaddr:  %s", buf);
 
 #if !defined(_WIN32)
         from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), AF_INET);
@@ -734,15 +733,15 @@ void init_descriptor(int control)
 
         if (!str_cmp(buf, dnew->host))
         {
-            sprintf(wiz_msg, "%s has opened a connection.", buf);
-            wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+            sprintf(wiz_msg, "New connection: %s", buf);
         }
         else
         {
-            sprintf(wiz_msg, "%s (%s) has opened a connection.", dnew->host, buf);
-            wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+            sprintf(wiz_msg, "New connection: %s (%s)", dnew->host, buf);
         }
 
+        log_f(wiz_msg);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
     }
 
     /*
@@ -878,6 +877,10 @@ void close_socket(DESCRIPTOR_DATA * dclose)
     return;
 }
 
+/*
+ * Reads incoming data from the player's connection.  If the link has dropped an end of file (EOF)
+ * will be reported and false will be returned.
+ */
 bool read_from_descriptor(DESCRIPTOR_DATA * d)
 {
     int iStart;
@@ -917,14 +920,14 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
         {
             if (d == NULL || d->host == NULL)
             {
-                log_string("read_from_descriptor: EOF encountered on read.");
+                log_string("read_from_descriptor: EOF encountered on read (null descriptor or host).");
             }
             else
             {
                 char wiz_msg[MAX_STRING_LENGTH];
-                sprintf(wiz_msg, "%s disconnected.", d->host);
+                sprintf(wiz_msg, "Connection disconnected (EOF): %s", d->host);
+                log_f(wiz_msg);
                 wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
-                log_f("read_from_descriptor: EOF encountered on read for %s.", d->host);
             }
             return FALSE;
         }
