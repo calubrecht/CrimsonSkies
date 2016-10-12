@@ -1338,7 +1338,16 @@ void do_quit(CHAR_DATA * ch, char *argument)
 
     send_to_char("Alas, all good things must come to an end.\r\n", ch);
     act("$n has left the game.", ch, NULL, NULL, TO_ROOM);
-    log_f("%s has quit.", ch->name);
+
+    if (ch->desc != NULL && ch->desc->host != NULL)
+    {
+        log_f("%s@%s has quit.", ch->name, ch->desc->host);
+    }
+    else
+    {
+        log_f("%s has quit.", ch->name);
+    }
+
     wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0, get_trust(ch));
 
     // If they specify that they want to go back to the main menu leave them connnected, log
