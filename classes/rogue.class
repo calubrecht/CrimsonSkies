@@ -27,7 +27,7 @@ Sk 'backstab' 1 5
 Sk 'dodge' 1 4
 Sk 'trip' 1 4
 Sk 'haggle' 1 3
-Sk 'hide' 1 4
+Sk 'hide' 1 2
 Sk 'peek' 1 3
 Sk 'scrolls' 1 5
 Sk 'staves' 1 5
@@ -38,7 +38,7 @@ Sk 'magic missile' 2 2
 Sk 'ventriloquate' 2 2
 Sk 'dirt kicking' 3 4
 Sk 'escape' 3 2
-Sk 'sneak' 4 4
+Sk 'sneak' 4 2
 Sk 'detect magic' 5 2
 Sk 'faerie fire' 5 2
 Sk 'steal' 5 4
