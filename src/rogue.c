@@ -660,7 +660,8 @@ void do_bludgeon(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Revolt will give the Rogue a chance to turn a charmy against it's master.
+ * Revolt will give the Rogue a chance to turn a charmy against it's master.  This is more of a
+ * PVP skill.  Perhaps consider a different behavior against a NPC who isn't charmed.
  */
 void do_revolt(CHAR_DATA * ch, char *argument)
 {
