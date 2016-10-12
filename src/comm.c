@@ -840,6 +840,11 @@ void close_socket(DESCRIPTOR_DATA * dclose)
             free_char(dclose->original ? dclose->original : dclose->character);
         }
     }
+    else if (dclose != NULL && dclose->host != NULL)
+    {
+        // Log that we've closed the link.
+        log_f("Closing link to %s", dclose->host);
+    }
 
     if (d_next == dclose)
     {
