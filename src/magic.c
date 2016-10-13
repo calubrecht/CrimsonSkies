@@ -3901,8 +3901,9 @@ void spell_pass_door(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
-/* RT plague spell, very nasty */
-
+/*
+ * RT plague spell, very nasty
+ */
 void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
@@ -3918,9 +3919,13 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
     {
         if (ch == victim)
+        {
             send_to_char("You feel momentarily ill, but it passes.\r\n", ch);
+        }
         else
+        {
             act("$N seems to be unaffected.", ch, NULL, victim, TO_CHAR);
+        }
         return;
     }
 
@@ -3931,13 +3936,14 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.location = APPLY_STR;
     af.modifier = -5;
     af.bitvector = AFF_PLAGUE;
-    affect_join(victim, &af);
+    affect_to_char(victim, &af);
 
-    send_to_char
-        ("You scream in agony as plague sores erupt from your skin.\r\n",
-            victim);
-    act("$n screams in agony as plague sores erupt from $s skin.", victim,
-        NULL, NULL, TO_ROOM);
+    af.location = APPLY_CON;
+    af.modifier = -5;
+    affect_to_char(victim, &af);
+
+    send_to_char("You scream in agony as plague sores erupt from your skin.\r\n", victim);
+    act("$n screams in agony as plague sores erupt from $s skin.", victim, NULL, NULL, TO_ROOM);
 }
 
 void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
