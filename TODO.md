@@ -118,8 +118,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update locate object to additionally show the area the object is in.
   - Healer spell to create a healing crystal that can be given out, cool down on it
   - Move the code to clear all flags on disenchant or fade into it's own helpler, have those spells call that common code for weapons.
-  - Add help file for weapon flags and other olc things
-  - Add stun weapons
   - Bug saving helps.. if a new help is created with OLC and saved it will wipe the current area out.
   - Wiznet, option to log also (research this)
   - Revolt - Make it work against charmies but only if both the ch and master are clanned. (will need to look into is_safe).
