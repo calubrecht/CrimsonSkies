@@ -624,6 +624,7 @@ const struct flag_type weapon_type2[] = {
     {"shocking", WEAPON_SHOCKING, TRUE},
     {"poison", WEAPON_POISON, TRUE},
     {"leech", WEAPON_LEECH, TRUE},
+    {"stun", WEAPON_STUN, TRUE},
     {NULL, 0, 0}
 };
 

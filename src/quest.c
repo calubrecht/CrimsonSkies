@@ -72,7 +72,8 @@ extern const struct quest_item_type quest_item_table[];
  */
 const struct quest_item_type quest_item_table[] = {
     {"mystic dagger", "A mystic dagger", 37, 2000},
-    {"sword gods", "A sword of the Gods", 32, 1200},
+    {"sword truth", "A sword of truth", 38, 2000},
+    {"sword gods", "A sword of the Gods", 32, 1500},
     {"decanter endless water", "Decanter of endless water", 33, 750},
     {"book knowledge", "A book of knowledge", 34, 700},
     {"jeweled egg", "A jeweled egg", OBJ_VNUM_EGG, 700},
@@ -233,6 +234,12 @@ void do_pquest(CHAR_DATA *ch, char *argument)
         for (x = 0; quest_item_table[x].keyword != NULL; x++)
         {
             sprintf(buf, "  {c%-30s{x %d Quest Points\r\n", quest_item_table[x].desc, quest_item_table[x].cost);
+            send_to_char(buf, ch);
+        }
+
+        if (ch && ch->pcdata)
+        {
+            sprintf(buf, "\r\n  You currently have {W%d{x quest points to spend.\r\n", ch->pcdata->quest_points);
             send_to_char(buf, ch);
         }
 

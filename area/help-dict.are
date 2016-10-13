@@ -6,7 +6,7 @@ An NPC is a non player character.
 -1 MOBILE MOB~
 A mobile or "mob" is a non player creature in the game.
 ~
--1 WEAPON FLAGS FLAMING FROST VAMPIRIC SHARP VORPAL TWOHANDS SHOCKING POISON LEECH~
+-1 WEAPON FLAGS FLAMING FROST VAMPIRIC SHARP VORPAL TWOHANDS SHOCKING POISON LEECH STUN~
 
 A flag on certain weapons change the behavior of a weapon.  The
 following flags exist:
@@ -27,6 +27,7 @@ following flags exist:
  *   Poison: Poison weapons have a small chance to poison the victim.
  *    Leech: Extracts magic from a victim and transfers it to the
              person wielding the weapon.
+ *     Stun: Has a chance to stun the victim upon hit.
 ~
 
 0 $~

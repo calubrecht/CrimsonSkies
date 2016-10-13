@@ -737,7 +737,18 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
             shock_effect(victim, wield->level / 2, dam, TARGET_CHAR);
             damage(ch, victim, dam, 0, DAM_LIGHTNING, FALSE);
         }
+
+        if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_STUN))
+        {
+            if (stun_effect(ch, victim))
+            {
+                act("You are knocked to the ground by $p.", ch, wield, victim, TO_VICT);
+                act("$n is knocked to the ground by $p.", victim, wield, NULL, TO_ROOM);
+            }
+        }
+
     }
+
     tail_chain();
     return;
 } // end void one_hit

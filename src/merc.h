@@ -1162,6 +1162,7 @@ typedef enum
 #define WEAPON_SHOCKING   (G)
 #define WEAPON_POISON     (H)
 #define WEAPON_LEECH      (I)
+#define WEAPON_STUN       (J)
 
 /* gate flags */
 #define GATE_NORMAL_EXIT  (A)
@@ -2383,6 +2384,7 @@ void    cold_effect    (void *vo, int level, int dam, int target);
 void    fire_effect    (void *vo, int level, int dam, int target);
 void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
+bool    stun_effect    (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* nanny.c */
 void     show_greeting       (DESCRIPTOR_DATA *d);
