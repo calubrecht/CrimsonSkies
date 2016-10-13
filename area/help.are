@@ -83,17 +83,24 @@ used with the commands note, change, news, oocn, storyn, history).
 Syntax (replace 'note' below with the specified spool you want to 
 read):
 
-note reading:
+Note Reading:
 
 note list       : show all notes (unread notes are marked with an N)
 note ulist      : shows all notes unread to you
 note unread     : shows all notes unread to you
 note read       : either by number, or read next to read unread notes
 note remove     : removes a note that you wrote or are the target of
-note catchup    : markes all notes as read
-note search all from <player name> : shows notes from a specific player
+note catchup    : markes all notes as read in the specified spool
 
-writing new notes:
+Note Searching:
+
+note search all from <player name> : shows notes from a specific player
+note search all to <player name>   : shows notes to a specific player
+note search all subject <keyword>  : shows notes with a specific keyword
+                                     in the subject.
+
+Note Writing:
+
 note to         : who to send the note to (all, immortal, <player name>)
 note subject    : sets the subject for a new note
 note +          : adds a line to a new note (i.e. note + Greetings!)
@@ -104,7 +111,7 @@ note show       : shows the note you are working on
 note format     : formats the note
 note post       : posts a new note. This MUST be done to post a note.
 
-other note related commands:
+Other note related commands:
 
 catchup         : updates all note spools be all flagged as already read.
 unread          : shows you how many unread notes you have and from what spools
