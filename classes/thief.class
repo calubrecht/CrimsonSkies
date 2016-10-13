@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'thief basics'
 DefGroup    'thief default'
 IsReclass   0
+IsEnabled   1
 Sk 'axe' 1 5
 Sk 'dagger' 1 2
 Sk 'flail' 1 6

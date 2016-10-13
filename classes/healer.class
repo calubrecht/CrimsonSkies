@@ -14,6 +14,7 @@ Mana        1
 BaseGroup   'healer basics'
 DefGroup    'healer default'
 IsReclass   1
+IsEnabled   1
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
 Sk 'refresh' 1 1

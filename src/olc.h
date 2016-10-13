@@ -339,6 +339,7 @@ DECLARE_OLC_FUN(cedit_skills);
 DECLARE_OLC_FUN(cedit_spells);
 DECLARE_OLC_FUN(cedit_groups);
 DECLARE_OLC_FUN(cedit_isreclass);
+DECLARE_OLC_FUN(cedit_isenabled);
 
 /*
 * Macros

@@ -1035,6 +1035,7 @@ void save_class(int num)
     fprintf(fp, "BaseGroup   '%s'\n", class_table[num]->base_group);
     fprintf(fp, "DefGroup    '%s'\n", class_table[num]->default_group);
     fprintf(fp, "IsReclass   %d\n", class_table[num]->is_reclass);
+    fprintf(fp, "IsEnabled   %d\n", class_table[num]->is_enabled);
 
     for (lev = 0; lev < MAX_LEVEL; lev++)
     {

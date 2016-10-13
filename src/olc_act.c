@@ -6458,6 +6458,37 @@ CEDIT(cedit_isreclass)
 
 }
 
+CEDIT(cedit_isenabled)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument, "true"))
+    {
+        class->is_enabled = TRUE;
+    }
+    else if (!str_prefix(argument, "false"))
+    {
+        class->is_enabled = FALSE;
+    }
+    else
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    send_to_char("Enabled flag set.\r\n", ch);
+    return TRUE;
+
+}
+
 // We don't support moons yet but we will and it will look like this, just
 // like the mana flag
 /*CEDIT( cedit_moon )
@@ -6635,6 +6666,8 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
+    send_to_char(buf, ch);
+    sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);

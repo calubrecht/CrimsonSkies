@@ -2015,6 +2015,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char(reclass_list(), ch);
         return;
     }
+    else if (class_table[iClass]->is_enabled == FALSE)
+    {
+        send_to_char("That reclass is currently disabled.\r\n", ch);
+        return;
+    }
 
     if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
     {

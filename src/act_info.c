@@ -3782,7 +3782,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     if (IS_NULLSTR(argument))
     {
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-        send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\r\n", ch);
+        send_to_char("{WClass        Type         Who  Prime Stat   Casts @ Level  Adept  Enabled {x\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         for (i = 0; i < top_class; i++)
@@ -3797,13 +3797,14 @@ void do_class(CHAR_DATA *ch, char *argument)
             // of a static char.
             sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
 
-            sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\r\n",
+            sprintf(buf, "%-12s{x %-12s %-4s %-12s %-18s %-2d%%    %s\r\n",
                 capitalize(class_table[i]->name),
                 class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
                 class_table[i]->who_name,
                 prime_stat,
                 class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
-                class_table[i]->skill_adept
+                class_table[i]->skill_adept,
+                class_table[i]->is_enabled == TRUE  ? "{GTrue{x" : "{RFalse{x"
                 );
 
             send_to_char(buf, ch);

@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'rogue basics'
 DefGroup    'rogue default'
 IsReclass   1
+IsEnabled   1
 Sk 'axe' 1 5
 Sk 'dagger' 1 2
 Sk 'flail' 1 6

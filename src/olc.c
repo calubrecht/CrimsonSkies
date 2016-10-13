@@ -355,6 +355,7 @@ const struct olc_cmd_type cedit_table[] =
     {   "basegroup",    cedit_basegroup },
     {   "defgroup",     cedit_defgroup  },
     {   "isreclass",    cedit_isreclass },
+    {   "isenabled",    cedit_isenabled },
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},

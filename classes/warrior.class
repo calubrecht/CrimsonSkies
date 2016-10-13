@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'warrior basics'
 DefGroup    'warrior default'
 IsReclass   0
+IsEnabled   1
 Sk 'axe' 1 4
 Sk 'dagger' 1 2
 Sk 'flail' 1 4

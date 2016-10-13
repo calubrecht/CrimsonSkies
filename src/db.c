@@ -3896,6 +3896,7 @@ bool load_class(char *fname)
     }
 
     class = alloc_perm(sizeof(*class));
+    class->is_enabled = TRUE; // Default, will need to be set to false in the load file
 
     for (; ; )
     {
@@ -3982,6 +3983,8 @@ bool load_class(char *fname)
                 break;
             case 'I':
                 KEY("IsReclass", class->is_reclass, fread_number(fp));
+                KEY("IsEnabled", class->is_enabled, fread_number(fp));
+                break;
             case 'M':
                 if (!str_cmp(word, "Mult"))
                 {

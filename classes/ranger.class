@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'ranger basics'
 DefGroup    'ranger default'
 IsReclass   1
+IsEnabled   1
 Sk 'axe' 1 4
 Sk 'dagger' 1 2
 Sk 'flail' 1 4

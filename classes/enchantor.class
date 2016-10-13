@@ -14,6 +14,7 @@ Mana        1
 BaseGroup   'enchantor basics'
 DefGroup    'enchantor default'
 IsReclass   1
+IsEnabled   1
 Sk 'magic missile' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 2
