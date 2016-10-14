@@ -5,7 +5,7 @@ This is my to do list, mostly will be things big and small as I think about them
 
   - Add custom recall field for each clan in the tables struct.
   - Add command so anyone can go loner.
-  - Add Charisma stat (CHA)
+  - Add luck stat
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
   - Fighting Style (Offensive/Normal/Defensive)
