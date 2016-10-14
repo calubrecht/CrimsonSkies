@@ -368,13 +368,8 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
     if ((sn = find_spell(ch, arg1)) < 1
         || skill_table[sn]->spell_fun == spell_null || (!IS_NPC(ch)
-            && (ch->level <
-                skill_table
-                [sn]->skill_level
-                [ch->class]
-    || ch->
-        pcdata->learned[sn]
-        == 0)))
+        && (ch->level < skill_table[sn]->skill_level[ch->class]
+        || ch->pcdata->learned[sn] == 0)))
     {
         send_to_char("You don't know any spells of that name.\r\n", ch);
         return;
@@ -387,15 +382,17 @@ void do_cast(CHAR_DATA * ch, char *argument)
     }
 
     if (ch->level + 2 == skill_table[sn]->skill_level[ch->class])
+    {
         mana = 50;
+    }
     else
-        mana = UMAX(skill_table[sn]->min_mana,
-            100 / (2 + ch->level -
-                skill_table[sn]->skill_level[ch->class]));
+    {
+        mana = UMAX(skill_table[sn]->min_mana, 100 / (2 + ch->level - skill_table[sn]->skill_level[ch->class]));
+    }
 
-/*
- * Locate targets.
- */
+    /*
+     * Locate targets.
+     */
     victim = NULL;
     obj = NULL;
     vo = NULL;
@@ -430,7 +427,6 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
             if (!IS_NPC(ch))
             {
-
                 if (is_safe(ch, victim) && victim != ch)
                 {
                     send_to_char("Not on that target.\r\n", ch);
@@ -441,8 +437,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
             if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
             {
-                send_to_char("You can't do that on your own follower.\r\n",
-                    ch);
+                send_to_char("You can't do that on your own follower.\r\n", ch);
                 return;
             }
 
@@ -471,8 +466,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
         case TAR_CHAR_SELF:
             if (arg2[0] != '\0' && !is_name(target_name, ch->name))
             {
-                send_to_char("You cannot cast this spell on another.\r\n",
-                    ch);
+                send_to_char("You cannot cast this spell on another.\r\n", ch);
                 return;
             }
 
@@ -529,7 +523,9 @@ void do_cast(CHAR_DATA * ch, char *argument)
                 }
 
                 if (!IS_NPC(ch))
+                {
                     check_wanted(ch, victim);
+                }
 
                 vo = (void *)victim;
             }
@@ -576,7 +572,9 @@ void do_cast(CHAR_DATA * ch, char *argument)
     }
 
     if (str_cmp(skill_table[sn]->name, "ventriloquate"))
+    {
         say_spell(ch, sn);
+    }
 
     // How long does this spell take to complete?  The character will be lagged for
     // a specified amoutn of beats.  Immortals are excempt from waiting.
@@ -621,7 +619,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
     if ((skill_table[sn]->target == TAR_CHAR_OFFENSIVE
         || (skill_table[sn]->target == TAR_OBJ_CHAR_OFF
-            && target == TARGET_CHAR)) && victim != ch
+        && target == TARGET_CHAR)) && victim != ch
         && victim->master != ch)
     {
         CHAR_DATA *vch;
