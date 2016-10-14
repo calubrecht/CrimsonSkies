@@ -3161,8 +3161,11 @@ void do_where(CHAR_DATA * ch, char *argument)
                 send_to_char(buf, ch);
             }
         }
+
         if (!found)
+        {
             send_to_char("None\r\n", ch);
+        }
     }
     else if (IS_IMMORTAL(ch) && !str_cmp(arg, "all"))
     {
