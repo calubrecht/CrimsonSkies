@@ -11,11 +11,6 @@ contribution is complete.  There are now two continents and the Arcanis continen
 the other continent and I have left it with the familiar areas and geographic linking).  I invite and welcome any 
 contributions.
 
-The current development server which is stable and playable and will reflect the latest commits here is at (you can 
-telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1997 on Windows 10):
-
-  - 66.244.102.112 port 4000
-
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
 official go to version 1.0 (version 1 will be official when I finish 1 more reclass so each base class has a reclass).  
 The next version on the roadmap will include 4 more reclasses and new continent that will begin to build new areas that 
