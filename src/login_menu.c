@@ -179,7 +179,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
 
         ch = (dl->original != NULL) ? dl->original : dl->character;
 
-        if (!IS_IMMORTAL(ch))
+        if (!IS_IMMORTAL(ch) || ch->invis_level >= LEVEL_HERO || ch->incog_level >= LEVEL_HERO)
         {
             continue;
         }
