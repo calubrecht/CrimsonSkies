@@ -21,9 +21,9 @@ Currently Crimson Skies compiles and runs out of the box on:
 
   - Ubuntu 16.04.1 LTS
   - Rasbian for use with the RaspberryPi
-  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2015 Community, for your initial 
+  - Windows 7, Windows 8, Windows 8.1, Windows 10 - Compiles with Visual Studio 2015 Community, for your initial 
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
-    they are brief: [http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)](http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app))
+    they are brief: [http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)](http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
 CS-Mud will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
@@ -72,15 +72,14 @@ provide new documentation and archive old documentation as I can find it.  The b
 old resource was the rom mailing list but alas it does not exist at it's old locations
 which were at:
 
-  - http://www.the-infinite.org/lists/romlist
-  - rom-request@rom.org
+  - [http://www.the-infinite.org/lists/romlist](http://www.the-infinite.org/lists/romlist)
 
 Here are some related resources that are thanksfully still active.
 
-  - Mud Bytes - http://www.mudbytes.net/
-  - Gammon Forums (Smaug & ROM) - http://www.gammon.com.au/forum/
-  - The Mud Connector - http://www.mudconnect.com/
-  - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): http://www.andreasen.org/mud.shtml
+  - Mud Bytes - [http://www.mudbytes.net/](http://www.mudbytes.net)
+  - Gammon Forums (Smaug & ROM) - [http://www.gammon.com.au/forum/](http://www.gammon.com.au/forum/)
+  - The Mud Connector - [http://www.mudconnect.com/](http://www.mudconnect.com/)
+  - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): [http://www.andreasen.org/mud.shtml](http://www.andreasen.org/mud.shtml)
 
 ## License 
 
@@ -92,4 +91,4 @@ adhear to the licenses set before it from those code bases.
 If you wish to contact me you can contact me through my web-site and it will route it to
 my current preferred email:
 
- - http://www.blakepell.com/Contact.aspx
+ - [http://www.blakepell.com/Contact.aspx](http://www.blakepell.com/Contact.aspx)
