@@ -168,6 +168,8 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define RIGHT	    "\x1B[1C"
 #define LEFT        "\x1B[1D"
 
+#define HEADER "--------------------------------------------------------------------------------\r\n"
+
 /*
  * Class lookup values that correspond to the class table.
  */
@@ -204,8 +206,8 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define BAN_PREFIX     B
 #define BAN_NEWBIES    C
 #define BAN_ALL        D
-#define BAN_PERMIT     E
 #define BAN_PERMANENT  F
+#define BAN_WHITELIST  G
 
 struct ban_data
 {
@@ -567,6 +569,7 @@ struct settings_data
     // Game Locks / System Behavior
     bool newlock;           // New lock, no new characters can create
     bool wizlock;           // Only immortals can login
+    bool whitelist_lock;    // Whether a white list is active, see ban.c for info.
     bool test_mode;         // Whether the entire game is put into test mode
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.

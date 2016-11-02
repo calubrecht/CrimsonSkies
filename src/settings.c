@@ -85,8 +85,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Double Gold", settings.double_gold ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        sprintf(buf, "%-25s %-7s\r\n",
-            "Test Mode", settings.test_mode ? "{GON{x" : "{ROFF{x");
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\r\n",
+            "Test Mode", settings.test_mode ? "{GON{x" : "{ROFF{x",
+            "Whitelist Lock", settings.whitelist_lock ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
         send_to_char("\r\n", ch);
@@ -233,6 +234,25 @@ void do_settings(CHAR_DATA *ch, char *argument)
         save_settings();
 
     }
+    else if (!str_prefix(arg1, "whitelistlock"))
+    {
+        settings.whitelist_lock = !settings.whitelist_lock;
+
+        if (settings.whitelist_lock)
+        {
+            wiznet("$N has turned on the white list lock.", ch, NULL, 0, 0, 0);
+            send_to_char("White list lock has been turned on.\r\n", ch);
+        }
+        else
+        {
+            wiznet("$N has turned off the white list lock.", ch, NULL, 0, 0, 0);
+            send_to_char("White list lock has been turned off.\r\n", ch);
+        }
+
+        // Save the settings out to file.
+        save_settings();
+
+    }
     /*else if (!str_prefix(arg1, "copyoveroncrash"))
     {
         settings.copyover_on_crash = !settings.copyover_on_crash;
@@ -286,6 +306,7 @@ void load_settings()
     settings.shock_spread = iniparser_getboolean(ini, "Settings:ShockSpread", FALSE);
     settings.gain_convert = iniparser_getboolean(ini, "Settings:GainConvert", FALSE);
     settings.test_mode = iniparser_getboolean(ini, "Settings:TestMode", FALSE);
+    settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
     //settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
 
     iniparser_freedict(ini);
@@ -317,6 +338,7 @@ void save_settings(void)
     // Game Locks and Bonuses
     fprintf(fp, "WizLock = %s\n", settings.wizlock ? "True" : "False");
     fprintf(fp, "NewLock = %s\n", settings.newlock ? "True" : "False");
+    fprintf(fp, "WhiteListLock = %s\n", settings.whitelist_lock ? "True" : "False");
     fprintf(fp, "DoubleExp = %s\n", settings.double_exp ? "True" : "False");
     fprintf(fp, "DoubleGold = %s\n", settings.double_gold ? "True" : "False");
     fprintf(fp, "TestMode = %s\n", settings.test_mode ? "True" : "False");

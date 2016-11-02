@@ -332,7 +332,6 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
 
     char buf[MAX_STRING_LENGTH];
-    bool ban_permit = check_ban(d->host, BAN_PERMIT);
     bool ban_newbie = check_ban(d->host, BAN_NEWBIES);
     bool ban_all = check_ban(d->host, BAN_ALL);
 
@@ -345,7 +344,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
-    if (settings.wizlock || settings.newlock || ban_permit || ban_newbie)
+    if (settings.wizlock || settings.newlock || ban_newbie || ban_all)
     {
         sprintf(buf, "   |    {x({DN{x){Dew Character{x                ");
     }
@@ -360,6 +359,10 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     if (global.is_copyover == TRUE)
     {
         strcat(buf, "{RRebooting{x               |\r\n");
+    }
+    else if (settings.whitelist_lock)
+    {
+        strcat(buf, "{RWhitelist Locked{x        |\r\n");
     }
     else if (settings.wizlock)
     {
@@ -381,7 +384,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
-    if (ban_permit || settings.wizlock)
+    if (ban_all || settings.wizlock)
     {
         sprintf(buf, "   |    {x({DP{x){Dlay Existing Character{x        ");
     }
@@ -392,7 +395,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     // Column 2.2 - Site status
     strcat(buf, "{WYour Site: ");
-    if (ban_permit || ban_all)
+    if (ban_all)
     {
         strcat(buf, "{rBanned{x                  |\r\n");
     }

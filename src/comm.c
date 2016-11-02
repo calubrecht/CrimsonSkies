@@ -261,6 +261,15 @@ int main(int argc, char **argv)
     if (global.copyover)
         copyover_recover();
 
+    // Throw a log warning out if a whitelist is enabled.  This should be disabled by
+    // default but if for some reason it gets enabled we need to give the op a clue as
+    // to why people are being denied access.
+    if (settings.whitelist_lock)
+    {
+        log_f("WARNING: A whitelist lock is enabled in the game settings.  Only");
+        log_f("         hosts in the whitelist will be allowed to connect.");
+    }
+
     log_f("Crimson Skies is ready to rock on port %d.", port);
     global.game_loaded = TRUE;
 
@@ -744,6 +753,27 @@ void init_descriptor(int control)
         wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
     }
 
+    if (settings.whitelist_lock && check_ban(dnew->host, BAN_WHITELIST))
+    {
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        write_to_descriptor(desc, "\n\rThis service is not available to the public.\r\n", dnew);
+
+        sprintf(wiz_msg, "Banned Site: Denying access via whitelist to %s", dnew->host);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+        log_f(wiz_msg);
+
+#if defined(_WIN32)
+        closesocket(desc);
+#else
+        close(desc);
+#endif
+
+        free_descriptor(dnew);
+
+        return;
+    }
+
     /*
      * Swiftest: I added the following to ban sites.  I don't
      * endorse banning of sites, but Copper has few descriptors now
@@ -754,7 +784,13 @@ void init_descriptor(int control)
      */
     if (check_ban(dnew->host, BAN_ALL))
     {
-        write_to_descriptor(desc, "Your site has been banned from this mud.\r\n", dnew);
+        write_to_descriptor(desc, "\r\nYour site has been banned from this mud.\r\n", dnew);
+
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        sprintf(wiz_msg, "Banned Site: Denying access to %s.", dnew->host);
+        log_f(wiz_msg);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
 
 #if defined(_WIN32)
         closesocket(desc);

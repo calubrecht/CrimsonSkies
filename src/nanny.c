@@ -152,6 +152,15 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             switch( argument[0] )
             {
                 case 'n' : case 'N' :
+                    // Check the new lock first before letting the player through
+                    if (settings.newlock)
+                    {
+                        send_to_desc("\r\nThe game is new locked.  Please try again later.\r\n", d);
+                        send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                        d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                        return;
+                    }
+
                     send_to_desc("\r\nWhat is your character's name? ", d);
                     d->connected = CON_GET_NAME;
                     return;
@@ -212,15 +221,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (IS_SET(ch->act, PLR_DENY))
             {
                 log_f("Denying access to %s@%s.", argument, d->host);
-                send_to_desc("You are denied access.\r\n", d);
-                close_socket(d);
-                return;
-            }
-
-            if (check_ban(d->host, BAN_PERMIT)
-                && !IS_SET(ch->act, PLR_PERMIT))
-            {
-                send_to_desc("Your site has been banned from this mud.\r\n", d);
+                send_to_desc("\r\nYou are denied access.\r\n", d);
                 close_socket(d);
                 return;
             }
@@ -241,7 +242,14 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (fOld)
             {
-                /* Old player */
+                // Old Player
+                if (check_ban(d->host, BAN_ALL))
+                {
+                    send_to_desc("\r\nYour site is currently banned.\r\n", d);
+                    close_socket(d);
+                    return;
+                }
+
                 send_to_desc("Password: ", d);
                 write_to_buffer(d, echo_off_str);
                 d->connected = CON_GET_OLD_PASSWORD;
@@ -249,17 +257,13 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
             else
             {
-                /* New player */
-                if (settings.newlock)
-                {
-                    send_to_desc("\r\nThe game is new locked.\r\nPlease try again later.\r\n", d);
-                    close_socket(d);
-                    return;
-                }
+                // New Player
 
-                if (check_ban(d->host, BAN_NEWBIES))
+                // The new lock was checked on the menu option, no need to check it again, we will
+                // check the ban though.
+                if (check_ban(d->host, BAN_NEWBIES) || check_ban(d->host, BAN_ALL))
                 {
-                    send_to_desc("New players are not allowed from your site.\r\n", d);
+                    send_to_desc("\r\nNew players are not allowed from your site.\r\n", d);
                     close_socket(d);
                     return;
                 }

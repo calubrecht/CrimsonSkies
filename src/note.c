@@ -45,8 +45,6 @@ extern char strArea[MAX_INPUT_LENGTH];
 // Level to post a note
 #define NOTE_LEVEL 1
 
-#define HEADER "--------------------------------------------------------------------------------\r\n"
-
 /* local procedures */
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time);
 void parse_note(CHAR_DATA *ch, char *argument, int type);

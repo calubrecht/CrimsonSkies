@@ -71,8 +71,6 @@ void export_room_flags(void);
 
 char *flag_string(const struct flag_type *flag_table, int bits);
 
-#define HEADER "--------------------------------------------------------------------------------\r\n"
-
 /*
  * Command to initiate the exporting of all game data into a sqlite database that can then be used
  * elsewhere such as a web site.
