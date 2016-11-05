@@ -4633,6 +4633,9 @@ void do_sockets(CHAR_DATA * ch, char *argument)
             default:
                 sprintf(state, "Unknown");
                 break;
+            case CON_LOGIN_MENU:
+                sprintf(state, "Login Menu");
+                break;
             case -15:
                 sprintf(state, "Get Email");
                 break;
