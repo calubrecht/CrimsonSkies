@@ -4616,11 +4616,21 @@ void do_sockets(CHAR_DATA * ch, char *argument)
     char state[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
     int count;
+    bool use_ip = FALSE;
+    char ip_address[MAX_STRING_LENGTH];
 
     count = 0;
     buf[0] = '\0';
 
     one_argument(argument, arg);
+
+    // Whether we show all dotted IP's instead of the host entry, this overrides
+    // using socket for a person
+    if (!str_cmp(arg, "ip"))
+    {
+        use_ip = TRUE;
+        arg[0] = '\0';
+    }
 
     sprintf(buf + strlen(buf), "{c--------------------------------------------------------------------------------{x\r\n");
     sprintf(buf + strlen(buf), "{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\r\n");
@@ -4698,6 +4708,15 @@ void do_sockets(CHAR_DATA * ch, char *argument)
                 break;
         }
 
+        if (!use_ip)
+        {
+            sprintf(ip_address, "%s", d->host);
+        }
+        else
+        {
+            sprintf(ip_address, "%s", d->ip_address);
+        }
+
         if (d->character != NULL && can_see(ch, d->character)
             && (arg[0] == '\0' || is_name(arg, d->character->name)
                 || (d->original && is_name(arg, d->original->name))))
@@ -4708,14 +4727,14 @@ void do_sockets(CHAR_DATA * ch, char *argument)
                 state,
                 d->original ? d->original->name :
                 d->character ? d->character->name : "(none)",
-                d->host);
+                ip_address);
         }
         else if (d->character == NULL)
         {
             sprintf(buf + strlen(buf), "{c[{W%3d{c][{W%-25s{c][{Wnobody@%s{c]{x\r\n",
                 d->descriptor,
                 state,
-                d->host);
+                ip_address);
             count++;
         }
     }
@@ -5187,7 +5206,7 @@ void do_copyover(CHAR_DATA * ch, char *argument)
             }
             else
             {
-                fprintf(fp, "%d %s %s\n", d->descriptor, och->name, d->host);
+                fprintf(fp, "%d %s %s %s\n", d->descriptor, och->name, d->host, d->ip_address);
                 save_char_obj(och);
                 write_to_descriptor(d->descriptor, buf, d);
             }
@@ -5235,6 +5254,7 @@ void copyover_load_descriptors()
     FILE *fp;
     char name[100];
     char host[MSL];
+    char ip_address[MSL];
     int desc;
 
     log_f("Copyover recovery initiated", 0);
@@ -5257,7 +5277,7 @@ void copyover_load_descriptors()
 
     for (;;)
     {
-        int errorcheck = fscanf(fp, "%d %s %s\n", &desc, name, host);
+        int errorcheck = fscanf(fp, "%d %s %s %s\n", &desc, name, host, ip_address);
 
         if (errorcheck < 0)
         {
@@ -5284,6 +5304,7 @@ void copyover_load_descriptors()
         d->descriptor = desc;
 
         d->host = str_dup(host);
+        d->ip_address = str_dup(ip_address);
         d->next = descriptor_list;
         d->name = str_dup(name);
         descriptor_list = d;
