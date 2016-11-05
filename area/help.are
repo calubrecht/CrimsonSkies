@@ -1129,7 +1129,8 @@ This is typically used for 'force all save'.
 
 56 SOCKETS~
 Syntax: sockets
-	sockets <name> 
+	    sockets <name> 
+        sockets ip
 
 SOCKETS reports all of the visible users connected to the server, including 
 users in the process of logging in.  The numbers inside the first bracket is
@@ -1141,7 +1142,8 @@ character name yet).
 
 The optional name argument shows the site of a player, or optional can be used
 to identify switched gods (i.e. socket orc shows the name of anyone switched
-into an orc).
+into an orc).  Using "socket ip" will show all players connected with their
+dotted ip instead host names.
 ~
 
 56 LOAD~
