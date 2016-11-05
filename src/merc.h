@@ -293,7 +293,8 @@ struct descriptor_data
     CHAR_DATA       *  original;
     bool               valid;
     bool               ansi;
-    char            *  host;
+    char            *  host; // host or the dotted ip_address
+    char            *  ip_address; // always the dotted ip_address
     int                descriptor;
     int                connected;
     bool               fcommand;

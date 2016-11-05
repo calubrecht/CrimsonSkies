@@ -715,7 +715,12 @@ void init_descriptor(int control)
     if (getpeername(desc, (struct sockaddr *) &sock, &size) < 0)
     {
         perror("New_descriptor: getpeername");
+
+        free_string(dnew->host);
         dnew->host = str_dup("(unknown)");
+
+        free_string(dnew->ip_address);
+        dnew->ip_address = str_dup("(unknown)");
     }
     else
     {
@@ -735,7 +740,12 @@ void init_descriptor(int control)
 #else
         from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), PF_INET);
 #endif
+        // Keep both the resolved host (if it exists) and the dotted ip_address.  This
+        // will make banning easier since the bans are based off of string comparisons (e.g.
+        // we can ban the dotted IP always and not have to also ban the host string as exists
+        // today).
         dnew->host = str_dup(from ? from->h_name : buf);
+        dnew->ip_address = str_dup(buf);
 
         // Make a wiznet log message under sites when a new IP connects.
         char wiz_msg[MAX_STRING_LENGTH];
