@@ -280,23 +280,36 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
     {
         fch_next = fch->next_in_room;
 
-        if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM)
-            && fch->position < POS_STANDING)
+        // If the victim is charmed, make them stand up so they will follow.
+        if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM) && fch->position < POS_STANDING)
+        {
             do_function(fch, &do_stand, "");
+        }
 
-        if (fch->master == ch && fch->position == POS_STANDING
-            && can_see_room(fch, to_room))
+        if (fch->master == ch && fch->position == POS_STANDING && can_see_room(fch, to_room))
         {
 
-            if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
-                && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
+            if (IS_SET(ch->in_room->room_flags, ROOM_LAW) && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
             {
                 act("You can't bring $N into the city.", ch, NULL, fch, TO_CHAR);
                 act("You aren't allowed in the city.", fch, NULL, NULL, TO_CHAR);
                 continue;
             }
 
-            act("You follow $N.", fch, NULL, ch, TO_CHAR);
+            // If the players wisdom or intelligence is on the higher end then we're going to let
+            // them know the direction they followed, otherwise, they'll follow as they always did
+            // without the direction in the act message.
+            if (get_curr_stat(fch, STAT_INT) >= 18 || get_curr_stat(fch, STAT_WIS) >= 18)
+            {
+                char buf [MAX_STRING_LENGTH];
+                sprintf(buf, "You follow $N %s.", dir_name[door]);
+                act(buf, fch, NULL, ch, TO_CHAR);
+            }
+            else
+            {
+                act("You follow $N", fch, NULL, ch, TO_CHAR);
+            }
+
             move_char(fch, door, TRUE);
         }
     }
