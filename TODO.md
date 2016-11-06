@@ -8,7 +8,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add luck stat
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
-  - Fighting Style (Offensive/Normal/Defensive)
   - do_reset and aedit_reset collision
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
@@ -77,7 +76,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - pfile saving fixed on windows, now fix every other instance that uses rename when saving (OLC, pits, stats, all of them)
   - Try to port Nick Gammon's windows service code.  
   - Try to port Tyche's copyover code from Murk++ for a Windows copyover.
-  - Implement and debug Moosehead macro's
   - make blind fighting work in more skills.
   - Update butcher to show what is being butchered, don't let someone butcher something of the same race (it's creepy).
   - Update help file and make a level -1 entries 0 or 1 (this will ensure their keywords are displayed with the entry)
@@ -85,8 +83,6 @@ This is my to do list, mostly will be things big and small as I think about them
     them out of the room, the log was littered with null in_room from each take in obj_from_char (and spec_janitor).  Find and fix.
   - Make do_worth show global worth of all players logged in for immortals and/or make a world
     stats command that shows.
-  - Update the interp table with a flag to indicate whether a command is a skill.
-    Then, update the commands command to group regular commands and then skills (then don't show skills if a user doesn't have them).
   - Research why all items have 0 condition.
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Create command to reset a users password while they maybe offline
@@ -109,8 +105,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - Reformat random names on the main screen to be the same length and columns as whose online.
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
-  - look in portal
-  - snoopinfo command or imm who that shows more detail on the who list.
   - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
@@ -121,3 +115,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bug saving helps.. if a new help is created with OLC and saved it will wipe the current area out.
   - Wiznet, option to log also (research this)
   - Revolt - Make it work against charmies but only if both the ch and master are clanned. (will need to look into is_safe).
+  - Get rid of ban_permit, keep plr_permit.
+  - Bans to check both d->host and d->ip_address
