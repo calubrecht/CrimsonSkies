@@ -299,7 +299,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             // If the players wisdom or intelligence is on the higher end then we're going to let
             // them know the direction they followed, otherwise, they'll follow as they always did
             // without the direction in the act message.
-            if (get_curr_stat(fch, STAT_INT) >= 18 || get_curr_stat(fch, STAT_WIS) >= 18)
+            if (get_curr_stat(fch, STAT_INT) >= 20 || get_curr_stat(fch, STAT_WIS) >= 20)
             {
                 char buf[MAX_STRING_LENGTH];
                 sprintf(buf, "You follow $N %s.", dir_name[door]);
