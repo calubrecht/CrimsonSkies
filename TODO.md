@@ -93,7 +93,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Task scheduler in game, to schedule any number of commands by minute, hour, day, time, etc.
   - Auto quit option to try to auto quit when a player goes link dead.
   - Current online time
-  - When you follow someone indicate what direction you are following them.
   - Prepare herb skill for rangers.
   - noob command to toggle on and off noob tips or additional info prompts (which can be created).
   - Setting to turn on/off player looting
@@ -101,9 +100,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Consider moving condition into it's own function.
   - Move shared fight skills into a file (leave combat system in fight.c).
   - Clipboard command to allow a character to save notes.
-  - Move all login menu functions into login-menu.c
   - Update name generator to find the maximum size of a name that's available and log it on startup.
-  - Reformat random names on the main screen to be the same length and columns as whose online.
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
   - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
   - locate creature (similiar to locate object).
@@ -117,3 +114,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Revolt - Make it work against charmies but only if both the ch and master are clanned. (will need to look into is_safe).
   - Get rid of ban_permit, keep plr_permit.
   - Bans to check both d->host and d->ip_address
+  - Preserve group after copyover
+  - Int to assist casting and/or casting damage, wisdom to affect saves
