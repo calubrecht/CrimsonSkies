@@ -301,7 +301,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             // without the direction in the act message.
             if (get_curr_stat(fch, STAT_INT) >= 18 || get_curr_stat(fch, STAT_WIS) >= 18)
             {
-                char buf [MAX_STRING_LENGTH];
+                char buf[MAX_STRING_LENGTH];
                 sprintf(buf, "You follow $N %s.", dir_name[door]);
                 act(buf, fch, NULL, ch, TO_CHAR);
             }
