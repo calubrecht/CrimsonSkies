@@ -2614,9 +2614,10 @@ char *  string_proper  (char * argument);
 char *  num_punct      (int foo);
 
 /* olc.c */
-bool    run_olc_editor    (DESCRIPTOR_DATA *d);
-char    *olc_ed_name      (CHAR_DATA *ch);
-char    *olc_ed_vnum      (CHAR_DATA *ch);
+bool      run_olc_editor    (DESCRIPTOR_DATA *d);
+char      *olc_ed_name      (CHAR_DATA *ch);
+char      *olc_ed_vnum      (CHAR_DATA *ch);
+AREA_DATA *get_area_data    (int vnum);
 
 /* lookup.c */
 int    race_lookup          (const char *name);

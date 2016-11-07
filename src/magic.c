@@ -5084,15 +5084,129 @@ void spell_high_explosive(int sn, int level, CHAR_DATA * ch, void *vo,
 
 extern char *target_name;
 
+/*
+ * Farsight spell.  This spell will look at all areas connected to the current
+ * area and then show the player all visible players they can see from those
+ * areas.
+ */
 void spell_farsight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
+    EXIT_DATA *exit;
+    ROOM_INDEX_DATA *to_room;
+    ROOM_INDEX_DATA *room;
+    CHAR_DATA *victim;
+    DESCRIPTOR_DATA *d;
+    int vnum = 0;
+    int index = 0;
+    int i = 0;
+    bool found = FALSE;
+    char buf[MAX_STRING_LENGTH];
+    int area_list[128];
+
     if (IS_AFFECTED(ch, AFF_BLIND))
     {
         send_to_char("Maybe it would help if you could see?\r\n", ch);
         return;
     }
 
-    do_function(ch, &do_scan, target_name);
+    send_to_char("Your magic searches the the surrounding areas:\r\n", ch);
+
+    // Loop over all the rooms in this area, if any room links to an outside area
+    // we will then do a where style command on that area.
+    for (vnum = ch->in_room->area->min_vnum; vnum <= ch->in_room->area->max_vnum; vnum++)
+    {
+        if ((room = get_room_index(vnum)))
+        {
+            // Go over each direction in each room in this area and see if it links to an outside
+            // area.  One way links are fine for our purpose.. if they other area doesn't have all
+            // link back it won't work in that direction.  Multiple links to an area might be found
+            // and we only want to show players from the destination area once so we'll collect the
+            // areas we need, then process them.
+            for (i = 0; i < MAX_DIR; i++)
+            {
+                // We're not saving more than 128 connected areas.  Ditch out here since it will
+                // crash accessing the array outside of its bounds.
+                if (index > 127)
+                {
+                    continue;
+                }
+
+                exit = room->exit[i];
+
+                if (!exit)
+                {
+                    continue;
+                }
+                else
+                {
+                    to_room = exit->u1.to_room;
+                }
+
+                // If there is a non null room on the other side, see if it's in a different area.
+                if (to_room)
+                {
+                    if (room->area != to_room->area)
+                    {
+                        // Check first to make sure it's not already in our list so we don't track
+                        // duplicate areas that might be linked multiple times to multiple vnums (like
+                        // Midgaard, oceans, etc.).
+                        int x = 0;
+                        found = FALSE;
+
+                        for (x = 0; x < index; x++)
+                        {
+                            if (area_list[x] == to_room->area->vnum)
+                            {
+                                found = TRUE;
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            area_list[index] = to_room->area->vnum;
+                            index++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Did we find anything to process?
+    found = FALSE;
+
+    if (index > 0)
+    {
+        // Loop over the vnums we saved
+        for (i = 0; i < index; i++)
+        {
+            // This section was re-purposed from do_where
+            for (d = descriptor_list; d; d = d->next)
+            {
+                if (d->connected == CON_PLAYING
+                    && (victim = d->character) != NULL && !IS_NPC(victim)
+                    && victim->in_room != NULL
+                    && victim->in_room->area != NULL
+                    && victim->in_room->area->vnum == area_list[i]
+                    && !IS_SET(victim->in_room->room_flags, ROOM_NOWHERE)
+                    && (is_room_owner(ch, victim->in_room)
+                    || !room_is_private(victim->in_room))
+                    && can_see(ch, victim))
+                {
+                    found = TRUE;
+                    sprintf(buf, "%-20s %s\r\n", victim->name, victim->in_room->name);
+                    send_to_char(buf, ch);
+                }
+            }
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("None\r\n", ch);
+    }
+
 }
 
 
