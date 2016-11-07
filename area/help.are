@@ -2258,16 +2258,16 @@ can be used to see hidden objects, give information about treasure, or even
 scry out the true nature of your foe.  All classes except warriors can use 
 detection spells.
 
-detect evil	   reveals the aura of evil monsters
-detect good	   similar to above, only for good monsters
-detect hidden	   shows the whereabouts of hidden foes
-detect invis	   allows the caster to see the unseeable
-detect magic	   reveals magical auras to the caster
-detect poison	   determines if food is safe to eat
-farsight	   searches for living beings near the caster
-identify	   gives information about the nature of an object
-know alignment	   determines the moral character of a monster or person
-locate object	   finds a specific item
+detect evil	       reveals the aura of evil monsters
+detect good	       similar to above, only for good monsters
+detect hidden      shows the whereabouts of hidden foes
+detect invis       allows the caster to see the unseeable
+detect magic       reveals magical auras to the caster
+detect poison      determines if food is safe to eat
+farsight           searches for living beings in the areas near the caster.
+identify           gives information about the nature of an object
+know alignment     determines the moral character of a monster or person
+locate object      finds a specific item
 locate bind        locates bind stones throughout the world
 locate wizard mark locates items that have been wizard marked by an
                    enchantor. This spell is only available to
@@ -2803,14 +2803,11 @@ groups of creatures.
 
 0 FARSIGHT~
 Syntax: cast 'farsight'
-	cast 'farsight' <direction>
 
 The farsight spell expands the caster's consciousness, allowing him or her
-to see far away beings like they were in the same room.  It takes intense
-concentration, often leaving the caster helpless for several minutes.
-The spell may be used for a general scan that reaches a short distance in
-all directions, or with a directional component to see creatures much
-farther away.
+to see far away beings like they were in the same room.  The spell will
+assist the caster in seeing individuals in the areas surrounding the one
+that they are in.
 ~
 
 0 MASS HEALING~
