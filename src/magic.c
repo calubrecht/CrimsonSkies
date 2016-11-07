@@ -5109,7 +5109,7 @@ void spell_farsight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    send_to_char("Your magic searches the the surrounding areas:\r\n", ch);
+    send_to_char("Your magic searches the surrounding areas.\r\n", ch);
 
     // Loop over all the rooms in this area, if any room links to an outside area
     // we will then do a where style command on that area.
@@ -5204,7 +5204,7 @@ void spell_farsight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (!found)
     {
-        send_to_char("None\r\n", ch);
+        send_to_char("There are no souls that you can sense.\r\n", ch);
     }
 
 }
