@@ -638,7 +638,7 @@ Name        farsight~
 SpellFun    spell_farsight~
 Target      0
 MinPos      8
-MinMana     25
+MinMana     10
 Beats       20
 Damage      farsight~
 MsgOff      !Farsight!~
