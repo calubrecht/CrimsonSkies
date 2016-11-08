@@ -154,3 +154,4 @@ DECLARE_SPELL_FUN(spell_remove_faerie_fire);
 DECLARE_SPELL_FUN(spell_detect_door);
 DECLARE_SPELL_FUN(spell_bark_skin);
 DECLARE_SPELL_FUN(spell_self_growth);
+DECLARE_SPELL_FUN(spell_imbue);

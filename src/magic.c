@@ -228,6 +228,22 @@ int casting_level(CHAR_DATA *ch)
         level += 1;
     }
 
+    // Imbue raises the casting level, if the player is affected by it then get
+    // the modifier off that affect (e.g. lower level characters raise the level
+    // by less).
+    if (is_affected(ch, gsn_imbue))
+    {
+        AFFECT_DATA *paf;
+
+        for (paf = ch->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->type == gsn_imbue)
+            {
+                level += paf->modifier;
+            }
+        }
+    }
+
     return level;
 
 } // end casting_level
@@ -1318,6 +1334,12 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (check_dispel(level, victim, skill_lookup("sense affliction")))
     {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_imbue))
+    {
+        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2423,7 +2445,6 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, skill_lookup("pass door")))
         found = TRUE;
 
-
     if (check_dispel(level, victim, gsn_protection_evil))
         found = TRUE;
 
@@ -2445,15 +2466,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         && !is_affected(victim, skill_lookup("sanctuary")))
     {
         REMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
-        act("The white aura around $n's body vanishes.",
-            victim, NULL, NULL, TO_ROOM);
+        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
     if (check_dispel(level, victim, skill_lookup("shield")))
     {
-        act("The shield protecting $n vanishes.", victim, NULL, NULL,
-            TO_ROOM);
+        act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2462,15 +2481,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (check_dispel(level, victim, skill_lookup("slow")))
     {
-        act("$n is no longer moving so slowly.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
     if (check_dispel(level, victim, skill_lookup("stone skin")))
     {
-        act("$n's skin regains its normal texture.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2530,6 +2547,12 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     {
         found = TRUE;
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
+    }
+
+    if (check_dispel(level, victim, gsn_imbue))
+    {
+        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
     }
 
     if (found)
@@ -5481,6 +5504,48 @@ void spell_dispel_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 }
 
 /*
+ * A cleric spell which raise the casting level of the person it has been cast on.
+ * The modifier is the value of the levels that will rise, it is set here so that
+ * lower level clerics cast lower casting gains with imbue.
+ */
+void spell_imbue(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
+            act("$N is already imbued.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 10;
+    af.location = 0;
+    af.modifier = level / 15;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your magical aptitude has been augmented.\r\n", victim);
+    act("$n's magical aptitude has been augmented.", victim, NULL, NULL, TO_ROOM);
+
+    return;
+}
+
+
+/*
  * Returns the spell function for the specified name.  This will allow loading from
  * a file (although this has to be updated which isn't ideal but is necessary).  By
  * switching for the 7th character we can cut down the number of checks run.  All
@@ -5586,6 +5651,7 @@ SPELL_FUN *spell_function_lookup(char *name)
         case 'i':
             if (!str_cmp(name, "spell_invis")) return spell_invis;
             if (!str_cmp(name, "spell_identify")) return spell_identify;
+            if (!str_cmp(name, "spell_imbue")) return spell_imbue;
             if (!str_cmp(name, "spell_interlace_spirit")) return spell_interlace_spirit;
             if (!str_cmp(name, "spell_infravision")) return spell_infravision;
             break;
@@ -5808,6 +5874,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_self_growth) return "spell_self_growth";
     if (spell == spell_fog) return "spell_fog";
     if (spell == spell_dispel_fog) return "spell_dispel_fog";
+    if (spell == spell_imbue) return "spell_imbue";
 
     return "reserved";
 

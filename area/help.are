@@ -4153,6 +4153,15 @@ stun and lower the intelligence and wisdom of a victim.  The bludgeon
 skill requires that the rogue be wearing a mace.
 ~
 
+0 IMBUE~
+Syntax: c 'imbue'
+        c 'imbue' <target>
+
+Imbue is a clerical spell in the benedictions group that allows for a
+cleric to raise the casting level of themselves or another for a short
+period of time.
+~
+
 0 QUEST PQUEST~
 
 syntax:  pquest request
