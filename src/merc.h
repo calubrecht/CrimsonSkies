@@ -1670,6 +1670,8 @@ struct pc_data
     int             countdown;       // Vassago - Questing
     int             quest_obj;       // Vassago - Questing
     int             quest_mob;       // Vassago - Questing
+    int             pkills;          // The number of player kills a character has.
+    int             pkilled;         // The number of times a player has been killed.
 };
 
 /* Data for generating characters -- only used during generation */

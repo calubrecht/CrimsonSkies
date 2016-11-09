@@ -203,6 +203,9 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "TrustLevel %d\n", ch->trust);
     fprintf(fp, "Security %d\n", ch->pcdata->security);    /* OLC */
     fprintf(fp, "Played %d\n", ch->played + (int)(current_time - ch->logon));
+    fprintf(fp, "Pkilled %d\n", ch->pcdata->pkilled);
+    fprintf(fp, "Pkills %d\n", ch->pcdata->pkills);
+
     fprintf(fp, "Scroll %d\n", ch->lines);
     fprintf(fp, "Room %d\n", (ch->in_room == get_room_index(ROOM_VNUM_LIMBO)
         && ch->was_in_room != NULL)
@@ -689,6 +692,8 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->security = 0;    /* OLC */
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
+    ch->pcdata->pkills = 0;
+    ch->pcdata->pkilled = 0;
     ch->pcdata->recall_vnum = 0;
     ch->stance = STANCE_NORMAL;
 
@@ -1154,6 +1159,10 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEYS("Prompt", ch->prompt, fread_string(fp));
                 KEY("Prom", ch->prompt, fread_string(fp));
+
+                KEY("Pkilled", ch->pcdata->pkilled,fread_number(fp));
+                KEY("Pkills", ch->pcdata->pkills, fread_number(fp));
+
                 break;
             case 'Q':
                 KEY("QuestPoints", ch->pcdata->quest_points, fread_number(fp));

@@ -2061,7 +2061,8 @@ void do_score(CHAR_DATA * ch, char *argument)
         IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
         IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
 
-    printf_to_char(ch, "                  {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+    printf_to_char(ch, "{gPKILL: {w%-5d      {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+        IS_NPC(ch) ? 0 : ch->pcdata->pkills,
         capitalize(get_stance_name(ch)),
         IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
         IS_SET(ch->act, PLR_COLOR) ? 'X' : ' ');

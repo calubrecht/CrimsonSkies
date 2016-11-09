@@ -3213,6 +3213,17 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
     // Log it
     log_string(strip_color(buf));
 
+    // Tally the player kill (and killed) stat for the player and the victim.
+    // Must both be players, must not be in an arena, must not be in the same
+    // clan.
+    if (!IS_NPC(victim) && !IS_NPC(ch)
+        && !IS_SET(ch->in_room->room_flags, ROOM_ARENA)
+        && !is_same_clan(ch, victim))
+    {
+        victim->pcdata->pkilled++;
+        ch->pcdata->pkills++;
+    }
+
     // Send it to all the players
     send_to_all_char(buf);
 
