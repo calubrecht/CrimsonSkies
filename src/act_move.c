@@ -2057,11 +2057,12 @@ ROOM_INDEX_DATA *get_random_room(CHAR_DATA *ch)
         pRoomIndex != NULL; pRoomIndex = pRoomIndex->next)
         {
             /*
-             * Skip private/safe rooms, no hiding in there!
+             * Skip private/safe/arena rooms, no hiding in there!
              */
             if (IS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
                 || IS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
-                || IS_SET(pRoomIndex->room_flags, ROOM_SAFE))
+                || IS_SET(pRoomIndex->room_flags, ROOM_SAFE)
+                || IS_SET(pRoomIndex->room_flags, ROOM_ARENA))
                 continue;
 
             /*
