@@ -2036,7 +2036,33 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     return;
 }
 
-
+/*
+ * Removes all objects from a character.  This is silent and returns no
+ * message to the user, the caller will be responsible for that.
+ */
+void remove_all_obj(CHAR_DATA *ch)
+{
+    remove_obj(ch, WEAR_LIGHT, TRUE);
+    remove_obj(ch, WEAR_FINGER_L, TRUE);
+    remove_obj(ch, WEAR_FINGER_R, TRUE);
+    remove_obj(ch, WEAR_NECK_1, TRUE);
+    remove_obj(ch, WEAR_NECK_2, TRUE);
+    remove_obj(ch, WEAR_BODY, TRUE);
+    remove_obj(ch, WEAR_HEAD, TRUE);
+    remove_obj(ch, WEAR_LEGS, TRUE);
+    remove_obj(ch, WEAR_FEET, TRUE);
+    remove_obj(ch, WEAR_HANDS, TRUE);
+    remove_obj(ch, WEAR_ARMS, TRUE);
+    remove_obj(ch, WEAR_SHIELD, TRUE);
+    remove_obj(ch, WEAR_ABOUT, TRUE);
+    remove_obj(ch, WEAR_WAIST, TRUE);
+    remove_obj(ch, WEAR_WRIST_L, TRUE);
+    remove_obj(ch, WEAR_WRIST_R, TRUE);
+    remove_obj(ch, WEAR_WIELD, TRUE);
+    remove_obj(ch, WEAR_HOLD, TRUE);
+    remove_obj(ch, WEAR_FLOAT, TRUE);
+    remove_obj(ch, WEAR_SECONDARY_WIELD, TRUE);
+}
 
 void do_wear(CHAR_DATA * ch, char *argument)
 {
@@ -2089,6 +2115,13 @@ void do_remove(CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         send_to_char("Remove what?\r\n", ch);
+        return;
+    }
+
+    // Do they want to remove all their gear in one fell swoop?
+    if (!str_cmp(arg, "all"))
+    {
+        remove_all_obj(ch);
         return;
     }
 

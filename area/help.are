@@ -498,6 +498,7 @@ the string, and it will show that string to everyone in the room.
 0 HOLD REMOVE WEAR WIELD~
 Syntax: hold   <object>
 Syntax: remove <object>
+Syntax: remove all
 Syntax: wear   <object>
 Syntax: wear   all
 Syntax: wield  <object>
@@ -514,7 +515,7 @@ match yours, if it is too heavy for you, or if you are not experienced enough
 to use it properly.
 
 REMOVE will take any object from your equipment and put it back into your
-inventory.
+inventory.  REMOVE ALL will remove all items you're currently wearing.
 ~
 
 0 BUG TYPO~
@@ -2000,7 +2001,7 @@ help <name>  help on skills and groups, or other help topics
 done	     exit the character generation process
 ~
 
-0 'MENU CHOICE'~
+-1 'MENU CHOICE'~
 Choice (add,drop,list,help)?~
 
 0 'GROUPS' 'INFO'~
