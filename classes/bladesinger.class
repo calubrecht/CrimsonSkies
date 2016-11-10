@@ -16,15 +16,15 @@ DefGroup    'bladesinger default'
 IsReclass   1
 IsEnabled   1
 Sk 'ventriloquate' 1 1
-Sk 'axe' 1 6
+Sk 'axe' 52 -1
 Sk 'dagger' 1 2
-Sk 'flail' 1 6
-Sk 'mace' 1 5
-Sk 'polearm' 1 6
+Sk 'flail' 52 -1
+Sk 'mace' 52 -1
+Sk 'polearm' 52 -1
 Sk 'shield block' 1 4
-Sk 'spear' 1 4
+Sk 'spear' 52 -1
 Sk 'sword' 1 2
-Sk 'whip' 1 6
+Sk 'whip' 52 -1
 Sk 'parry' 1 4
 Sk 'scrolls' 1 2
 Sk 'staves' 1 2
@@ -232,7 +232,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 40
 Gr 'ranger default' 0
 Gr 'rogue default' 0
-Gr 'weaponsmaster' 40
+Gr 'weaponsmaster' 0
 Gr 'attack' 0
 Gr 'beguiling' 0
 Gr 'benedictions' 0
