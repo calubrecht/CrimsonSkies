@@ -45,8 +45,6 @@ extern char strArea[MAX_INPUT_LENGTH];
 // Level to post a note
 #define NOTE_LEVEL 1
 
-#define HEADER "--------------------------------------------------------------------------------\r\n"
-
 /* local procedures */
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time);
 void parse_note(CHAR_DATA *ch, char *argument, int type);
@@ -383,6 +381,10 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
     return;
 } // end void load_thread
 
+/*
+ * Writes a note out to the note file.  All notes are not saved over and over with each post, this file
+ * is appended to and then it's only totally saved when a note is removed.
+ */
 void append_note(NOTE_DATA *pnote)
 {
     FILE *fp;

@@ -325,7 +325,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     // Deduct the money.
     deduct_cost(ch, cost);
 
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 2;  // 2 ticks.
     portal->value[3] = portal_shop_table[x].to_vnum;
 

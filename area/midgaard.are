@@ -192,7 +192,9 @@ the healer~
 A healer is here, selling spells.
 ~
 Although retired from adventuring, the healer still lends a hand.
-Type 'heal' to see a listing of spells.
+
+Type '{Gheal{x' to see a listing of spells.
+
 ~
 human~
 ABQVa DFH 3 0
@@ -230,6 +232,24 @@ AGHUW Z 2 0
 FH 0 0 H
 stand stand either 0
 AGV ACDEFHJKQUV small unknown
+#3015
+quest master questmaster~
+the quest master~
+The quest master is here ready to assign quests.
+~
+The quest master stands here waiting for an eager adventurer to send on
+a quest.
+
+Type '{Gpquest{x' to see a list of questing options.
+
+~
+human~
+ABV DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD 0 0
+stand stand male 5000
+AHMV ABCDEFGHIJK medium unknown
 #3020
 guildmaster master~
 the guildmaster~
@@ -4648,6 +4668,26 @@ A dark alley is to the south.
 ~
 0 0 3026
 S
+#3353
+The Temple Questing Guild~
+You are standing in the questing guild of Midgaard.  The walls are
+covered with maps and paintings from all of the lands.  There are ornate
+statues covered with gems and gold and at the end of the hall stands a man
+old in age waiting to assign you a quest.  
+ 
+A sign hangs from the wall next to the quest master.
+~
+0 263176 0
+E
+sign~
+The see a list of questing options use the '{Gpquest{x' command.  It is here
+that you can request a quest and where you will come when it is complete.  
+~
+D2
+~
+~
+0 0 3054
+S
 #3355
 Andy's Pub~
 The busy pub is filled with patrons.  People are laughing and singing.
@@ -6058,6 +6098,10 @@ The statue represents the a great god, holding a staff.  He has long, grey
 hair and beard and a kindly look on his face.  His staff is topped by a painted
 cube, the 6 faces of which represent the 6 aspects of his power.
 ~
+D0
+~
+~
+0 0 3353
 D2
 You see the southern end of the temple.
 ~
@@ -6108,6 +6152,7 @@ M 3005 spec_thief
 M 3011 spec_executioner
 M 3012 spec_cast_adept
 M 3014 spec_cat
+M 3015 spec_questmaster
 M 3020 spec_cast_mage
 M 3021 spec_cast_cleric
 M 3024 spec_cast_mage
@@ -6257,6 +6302,7 @@ E 0 3353 0 5 A standard issue vest is loaded on the body of the cityguard
 E 0 3354 0 11 A standard issue shield is loaded as a shield of the cityguard
 M 0 3162 1 3334 1 Load Otho the Changer
 O 0 3200 0 3352 A large wooden table loaded to Grebe's Tavern
+M 0 3015 1 3353 1 Load the quest master
 O 0 3200 0 3355 A large wooden table loaded to Andy's Pub
 O 0 3200 0 3356 A large wooden table loaded to A Room in the Pub
 M 0 3011 1 3001 1 Load Grundfaust

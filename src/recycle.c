@@ -96,7 +96,9 @@ DESCRIPTOR_DATA *new_descriptor(void)
     d->showstr_point = NULL;
     d->outsize = 2000;
     d->outbuf = alloc_mem(d->outsize);
-    d->name = str_dup(""); // Copyover
+    d->name = str_dup("");
+    d->host = str_dup("");
+    d->ip_address = str_dup("");
     return d;
 }
 
@@ -105,7 +107,9 @@ void free_descriptor(DESCRIPTOR_DATA * d)
     if (!IS_VALID(d))
         return;
 
+    free_string(d->name);
     free_string(d->host);
+    free_string(d->ip_address);
     free_mem(d->outbuf, d->outsize);
     INVALIDATE(d);
     d->next = descriptor_free;

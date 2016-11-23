@@ -712,7 +712,7 @@ AEDIT(aedit_show)
     sprintf(buf, "Credits :   [%s]\r\n", pArea->credits);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Flags:      [%s]\r\n", flag_string(area_flags, pArea->area_flags));
+    sprintf(buf, "Area Flags: [%s]\r\n", flag_string(area_flags, pArea->area_flags));
     send_to_char(buf, ch);
 
     sprintf(buf, "Continent:  [%s]\r\n", continent_table[pArea->continent].name);
@@ -2137,7 +2137,7 @@ REDIT(redit_oreset)
         pReset->arg4 = 0;
         add_reset(pRoom, pReset, 0 /* Last slot */);
 
-        newobj = create_object(pObjIndex, number_fuzzy(olevel));
+        newobj = create_object(pObjIndex);
         obj_to_room(newobj, pRoom);
 
         sprintf(output, "%s (%d) has been loaded and added to resets.\r\n",
@@ -2159,7 +2159,7 @@ REDIT(redit_oreset)
             pReset->arg4 = 1;
             add_reset(pRoom, pReset, 0 /* Last slot */);
 
-            newobj = create_object(pObjIndex, number_fuzzy(olevel));
+            newobj = create_object(pObjIndex);
             newobj->cost = 0;
             obj_to_obj(newobj, to_obj);
 
@@ -2222,7 +2222,7 @@ REDIT(redit_oreset)
                 add_reset(pRoom, pReset, 0 /* Last slot */);
 
                 olevel = URANGE(0, to_mob->level - 2, LEVEL_HERO);
-                newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                newobj = create_object(pObjIndex);
 
                 if (to_mob->pIndexData->pShop)
                 {                        /* Shop-keeper? */
@@ -2257,12 +2257,12 @@ REDIT(redit_oreset)
                             break;
                     }
 
-                    newobj = create_object(pObjIndex, olevel);
+                    newobj = create_object(pObjIndex);
                     if (pReset->arg2 == WEAR_NONE)
                         SET_BIT(newobj->extra_flags, ITEM_INVENTORY);
                 }
                 else
-                    newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                    newobj = create_object(pObjIndex);
 
                 obj_to_char(newobj, to_mob);
                 if (pReset->command == 'E')
@@ -2409,14 +2409,14 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             sprintf(buf,
                 "[v0] Weight:     [%d kg]\r\n"
                 "[v1] Flags:      [%s]\r\n"
-                "[v2] Key:     %s [%d]\r\n"
+                "[v2] Key:        [%d] %s\r\n"
                 "[v3] Capacity    [%d]\r\n"
                 "[v4] Weight Mult [%d]\r\n",
                 obj->value[0],
                 flag_string(container_flags, obj->value[1]),
-                get_obj_index(obj->value[2])
-                ? get_obj_index(obj->value[2])->short_descr
-                : "none", obj->value[2], obj->value[3], obj->value[4]);
+                obj->value[2],
+                get_obj_index(obj->value[2]) ? get_obj_index(obj->value[2])->short_descr : "none",
+                obj->value[3], obj->value[4]);
             send_to_char(buf, ch);
             break;
 
@@ -6687,6 +6687,37 @@ CEDIT(cedit_isreclass)
 
 }
 
+CEDIT(cedit_isenabled)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument, "true"))
+    {
+        class->is_enabled = TRUE;
+    }
+    else if (!str_prefix(argument, "false"))
+    {
+        class->is_enabled = FALSE;
+    }
+    else
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    send_to_char("Enabled flag set.\r\n", ch);
+    return TRUE;
+
+}
+
 // We don't support moons yet but we will and it will look like this, just
 // like the mana flag
 /*CEDIT( cedit_moon )
@@ -6864,6 +6895,8 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
+    send_to_char(buf, ch);
+    sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);

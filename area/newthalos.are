@@ -1072,21 +1072,6 @@ EFNU 0 0 0
 stand stand male 3
 AHMV ABCDEF tiny unknown
 F par GHIJK
-#9569
-oldstyle shelbye~
-Shelbye~
-Shelbye stands here.
-~
-You see nothing special.
-~
-human~
-A 0 1 0
-30 0 6d12+853 15d9+100 4d6+8 none
--9 -9 -9 6
-EFNU 0 0 0
-stand stand male 1150
-AHMV ABCDEF tiny unknown
-F par GHIJK
 #9570
 oldstyle cryohydra~
 the cryohydra~
@@ -2027,7 +2012,7 @@ potion G AO
 10 'detect invis' '' '' ''
 0 10 200 P
 #9573
-white potion~
+off white potion~
 an off white potion~
 An off white potion lies here.~
 oldstyle~
@@ -2241,9 +2226,9 @@ armor G AG
 A A A 0 0
 7 10 770 P
 A
-14 10
-A
 2 1
+A
+14 10
 #9598
 daemon claw~
 the Daemon Claw~
@@ -2271,9 +2256,9 @@ weapon GI AN
 polearm 3 7 chop F
 22 160 1240 P
 A
-19 2
-A
 18 2
+A
+19 2
 #9601
 fountain water~
 a fountain~
@@ -2332,11 +2317,16 @@ The plush carpeting under your feet is a nice change from the rugged paths
 you are used to travelling. A chrome stairway spirals downstairs to the
 tavern of the Dancing Daemon Inn, and your future adventures in New Thalos.
 ~
-0 124 0
+0 92 0
 E
-1.1picture~
-You see a picture of Felix here, standing before the arena.
-He seems to be doing a body count.
+4.picture~
+You see a picture of Loki... at least you think it's Loki.
+He seems to be hiding from the camera.
+~
+E
+3.picture~
+You see a picture of Hammor on the front porch of the Danjerhaus,
+drinking a guinness stout and petting Big Guy the Cat.
 ~
 E
 2.picture~
@@ -2345,14 +2335,9 @@ Through a window in the back you see a large aquarium. The newbie seems to
 be cowering in fear.
 ~
 E
-3.picture~
-You see a picture of Hammor on the front porch of the Danjerhaus,
-drinking a guinness stout and petting Big Guy the Cat.
-~
-E
-4.picture~
-You see a picture of Loki... at least you think it's Loki.
-He seems to be hiding from the camera.
+1.1picture~
+You see a picture of Felix here, standing before the arena.
+He seems to be doing a body count.
 ~
 D5
 The stairs lead down to the Daemon.
@@ -3056,7 +3041,7 @@ Nothing in your life has prepared you for the odor which fills your lungs.
 Not wanting to offend the beautiful shopkeeper you hold your tongue and
 quietly look over her selection.
 ~
-0 56 0
+0 24 0
 D2
 ~
 ~
@@ -4182,118 +4167,6 @@ D3
 ~
 0 -1 9592
 S
-#9594
-Common Room of the Clan MacCleod~
-You have entered a large hall with passages leading off in all directions.
-A large table dominates the center of this hall with many chairs were
-the clan gathers for feasting, merriment, and meetings. On the walls
-hang large tapestries paying homage to their leader Conner MacCleod.
-~
-0 40 0
-D0
-~
-iron gate~
-0 -1 9599
-D1
-~
-door east~
-0 -1 9596
-D2
-~
-drawbridge draw bridge door~
-2 7901 6100
-D3
-~
-door west~
-0 -1 9597
-D4
-~
-door up~
-0 -1 9595
-D5
-~
-door down~
-0 -1 9598
-S
-#9595
-Zippoii's Room~
-Climbing up the staircase you enter the hovel of a curious mage. A small
-uncomfortable looking bed rests in the corner, surrounded by ancient
-tomes. On the worn desk next to the window candles burn low, casting
-strange shadows on the walls. The only noticeable decor is the mounted
-head of the Demi-Lich.
-~
-0 120 0
-D5
-~
-door~
-0 -1 9594
-S
-#9596
-Ice's Room~
-Brrrrrr, it's COLD in here. Must be 30 below. It would seem the cleric
-Ice lives up to his name. Healing herbs and other such things line
-the walls in racks, holy symbols and pictures cover the walls, and
-the smiley face button stuck on his bedpost tells you he'll probably
-help you out all he can. As you turn to leave the room the mounted head
-of Kalas stares past you into emptiness.
-~
-0 120 0
-D3
-~
-door~
-0 -1 9594
-S
-#9597
-Naazgul's Room~
-Three Rings for the Elven-kings under the sky,
-  Seven for the Dwarf-lords in their halls of stone,
-Nine for Mortal Men doomed to die,
-  One for the Dark Lord on his Dark Throne
-In the Land of Mordor where Shadows lie.
-  One ring to rule them all, One ring to find them,
-  One ring to bring them all and in the darkness bind them
-In the Land of Mordor where the Shadows lie.
-
-If I have to explain, you wouldn't understand.
-~
-0 120 0
-D0
-~
-~
-0 -1 9710
-D1
-~
-door~
-0 -1 9594
-S
-#9598
-Tank's Room~
-Now here's a room that is easy to understand. A bed, a dresser, and a
-rack for weapons and armor are all that occupy it. Some posters adorn
-the walls, to add color, proclaiming things such as Live fast, Die Young,
-and a homemade one in the corner with a picture of Ice and under it the
-inscription, "I LOVE the resurrection spell". The only thing out of
-place in this happy-go-lucky room is mounted head of Crimson Death.
-~
-0 120 0
-D4
-~
-door~
-0 -1 9594
-S
-#9599
-Inside the Castle of Clan MacCleod~
-You have entered the grand hall of the castle. A huge throne dominates a
-raised area in the northern part of then room. In front of this stands a
-drafting table.
-~
-0 120 0
-D2
-~
-iron gate~
-0 -1 9594
-S
 #9600
 Underground~
 The small passage continues west and east.
@@ -4690,6 +4563,10 @@ blood, there is a barely readable sign.
 ~
 0 120 0
 E
+vat~
+You think you hear noises from the vat....nah.
+~
+E
 note sign~
 LIST : gives you a list of items for sale.
 VALUE : tells you how much an item is worth
@@ -4697,10 +4574,6 @@ SELL : sells an item to Butch for a generous sum
 BUY : Butch's FAVORITE command lets you have an item for his low low price.
 
                                         NEWBEE INTRUCTOR COMMITEE
-~
-E
-vat~
-You think you hear noises from the vat....nah.
 ~
 D3
 ~
@@ -5616,13 +5489,13 @@ hallway.
 ~
 0 8 0
 E
-mirror~
-You see a the fighting image of some armor clad humanoid wielding a weapon.
-~
-E
 window~
 Looking out this window you can see the grounds of the palace that
 seperate the walls of the palace from the building itself.
+~
+E
+mirror~
+You see a the fighting image of some armor clad humanoid wielding a weapon.
 ~
 D0
 ~
@@ -6144,30 +6017,6 @@ D2
 ~
 ~
 0 0 9527
-S
-#9710
-Saska's Library~
-Fine, golden dust swirls and then settles as you enter Saska's
-library. Leatherbound volumes of Shakespeare rest next to paperbacks by
-Tom Robbins, and Toni Morrison's _Sula_ is open on the striking table: an
-antique birdbath of polished blond wood, with glass set over the waterwell
-to give the appearance of a perfectly still pool.  Trinkets, lightly
-lifted from the mantles of the wealthy whose chimneys she cleaned, line
-the windowsills and create space between the different sections of books.
-A crystal oil lamp seems to float on the table; a piece of paper on the
-wall, written in Saska's own lingering script, reads: "For what is your friend
-that you would seek him with hours to kill?  Seek him always with hours to
-live.  --Kahlil Gibran."
-    A cat purrs somewhere, though you cannot see the source, and you feel
-yourself tugged into the softened space. Have a seat in one of the enormous
-papasan chairs, and choose a title that strikes you.
-~
-0 12 0
-D2
-~
-~
-0 -1 9597
-O Saska~
 S
 #9719
 Headwaters of the River of Lost Souls~
@@ -6721,10 +6570,10 @@ S
 #9789
 Port of New Thalos~
 You are stnading on a long wooden pier that extends out from the port of
-New Thalos.  The pier looks out into the waters of the Arcanis Ocean and not
-far beyond are the waters of the Dragon Sea which engulf the center of the
-world and are home to many a sea creature.  To the north and south are the
-beaches on the Arcanis Ocean.  
+New Thalos.  The pier looks out into the waters of the Sea of Midgaard and
+not far beyond are the waters of the Dragon Sea which engulf the center of
+the world and are home to many a sea creature.  To the north and south are
+the beaches on the Sea of Midgaard.  
 ~
 0 0 0
 D0
@@ -6940,7 +6789,6 @@ D 0 9574 5 1
 D 0 9575 4 1
 D 0 9578 4 1
 D 0 9581 4 1
-D 0 9594 2 2
 D 0 9603 1 1
 D 0 9617 2 1
 D 0 9630 1 1
@@ -7096,7 +6944,6 @@ M 0 9535 3 9568 3 Load the skinny kid
 M 0 9535 3 9568 3 Load the skinny kid
 M 0 9543 13 9569 3 Load the alley cat
 M 0 9543 13 9573 3 Load the alley cat
-M 0 9569 1 9599 1 Load Shelbye
 M 0 9501 1 9603 1 Load the guildmaster
 M 0 9581 1 9604 1 Load the high priest
 M 0 9544 20 9607 2 Load the vulture
@@ -7290,6 +7137,7 @@ M 0 3096 1 9706 1 Load the lion
 M 0 3095 1 9706 1 Load the eagle
 M 0 9593 1 9707 1 Load a magician
 O 0 9598 0 9750 The daemon claw loaded to Igor's Secret Chamber
+O 0 31 0 9794 A bind stone loaded to Near the shore
 M 0 9591 1 9799 1 Load the Ixitxachitl
 G 0 9602 0 A beautiful white pearl is given to the Ixitxachitl
 S

@@ -298,6 +298,13 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     if (is_affected(victim, gsn_camouflage))
         strcat(buf, "({gCamouflage{x) ");
 
+    // Questing
+    if (!IS_NPC(ch))
+    {
+        if (IS_NPC(victim) && ch->pcdata->quest_mob > 0 && victim->pIndexData->vnum == ch->pcdata->quest_mob)
+            strcat( buf, "[{RTARGET{x] ");
+    }
+
     // Healers sense affliction
     if (is_affected(ch, gsn_sense_affliction))
     {
@@ -1277,6 +1284,8 @@ void do_look(CHAR_DATA * ch, char *argument)
     char *pdesc;
     int door;
     int number, count;
+    ROOM_INDEX_DATA *location;
+    ROOM_INDEX_DATA *original;
 
     if (ch->desc == NULL)
         return;
@@ -1403,6 +1412,49 @@ void do_look(CHAR_DATA * ch, char *argument)
 
                 act("$p holds:", ch, obj, NULL, TO_CHAR);
                 show_list_to_char(obj->contains, ch, TRUE, TRUE);
+                break;
+            case ITEM_PORTAL:
+                act( "$n peers into $o.", ch, obj, NULL, TO_ROOM);
+                act( "You peer into $o.", ch, obj, NULL, TO_CHAR);
+
+                if (IS_SET(obj->value[2], GATE_RANDOM) || obj->value[3] == -1)
+                {
+                    // If the portal has no destination or it's set to GATE_RANDOM
+                    location = get_random_room(ch);
+                    obj->value[3] = location->vnum; /* for record keeping :) */
+                }
+                else if (IS_SET(obj->value[2], GATE_BUGGY) && (number_percent() < 5))
+                {
+                    // If the portal is buggy... randomness
+                    location = get_random_room(ch);
+                }
+                else
+                {
+                    // And, the case hit almost always
+                    location = get_room_index(obj->value[3]);
+                }
+
+                // Make the check to see if they can see to the other side or not
+                if (location == NULL
+                    || location == ch->in_room
+                    || !can_see_room(ch, location)
+                    || ch->fighting != NULL
+                    || (room_is_private(location)
+                    && !is_room_owner(ch, location)))
+                {
+                    send_to_char("You see swirling chaos...\r\n", ch);
+                    return;
+                }
+
+                // Show the other side to the player, this will move them, look and then
+                // move them back.
+                original = ch->in_room;
+                char_from_room(ch);
+                char_to_room(ch, location);
+                do_look(ch, "auto");
+                char_from_room(ch);
+                char_to_room(ch, original);
+                return;
                 break;
         }
         return;
@@ -1908,10 +1960,9 @@ void do_worth(CHAR_DATA * ch, char *argument)
     }
 
     sprintf(buf,
-        "You have %ld gold, %ld silver, and %d experience (%d exp to level).\r\n",
-        ch->gold, ch->silver, ch->exp,
-        (ch->level + 1) * exp_per_level(ch,
-            ch->pcdata->points) - ch->exp);
+        "You have %ld gold, %ld silver, %d quest points and %d experience (%d exp to level).\r\n",
+        ch->gold, ch->silver, ch->pcdata->quest_points, ch->exp,
+        (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
 
     send_to_char(buf, ch);
 
@@ -2010,7 +2061,8 @@ void do_score(CHAR_DATA * ch, char *argument)
         IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
         IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
 
-    printf_to_char(ch, "                  {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+    printf_to_char(ch, "{gPKILL: {w%-5d      {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
+        IS_NPC(ch) ? 0 : ch->pcdata->pkills,
         capitalize(get_stance_name(ch)),
         IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
         IS_SET(ch->act, PLR_COLOR) ? 'X' : ' ');
@@ -2634,7 +2686,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     // This is a hack for Windows/Visual C++, the gcc compiler allows for variable length arrays so
     // top_class is the number of classes dynamically read in.  This is akin to the old
     // MAX_CLASS (which now defines the ceiling and not the actual max classes).
-    bool rgfClass[8];
+    bool rgfClass[9];
 #endif
 
     bool rgfRace[MAX_PC_RACE];
@@ -3110,8 +3162,11 @@ void do_where(CHAR_DATA * ch, char *argument)
                 send_to_char(buf, ch);
             }
         }
+
         if (!found)
+        {
             send_to_char("None\r\n", ch);
+        }
     }
     else if (IS_IMMORTAL(ch) && !str_cmp(arg, "all"))
     {
@@ -3718,36 +3773,6 @@ void do_stats(CHAR_DATA *ch, char *argument)
 } // end do_stats
 
 /*
- * Lists all of the clans in the game.  Consider making the guild command that allows for getting
- * info as well as putting players in commands with both immortal and player based features so players
- * can manage their own clans without immortals (will need leader and recruiter flags).
- */
-void do_guildlist(CHAR_DATA *ch, char *argument)
-{
-    // Rhien, 06/21/1999
-    int clan;
-    char buf[MAX_STRING_LENGTH];
-
-    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    send_to_char("{WClan                  Independent{x\r\n", ch);
-    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-
-    for (clan = 0; clan < MAX_CLAN; clan++)
-    {
-        if (IS_NULLSTR(clan_table[clan].name))
-            continue;
-
-        sprintf(buf, "%-25s{x %-5s\r\n",
-            clan_table[clan].who_name,
-            clan_table[clan].independent == TRUE ? "True" : "False"
-            );
-
-        send_to_char(buf, ch);
-    }
-
-} // end guildlist
-
-/*
  * Displays information about all classes and reclasses.  This can be expanded in the future
  * to allow for more information and to be smarter in telling people what the qualifications are
  * for the class also.
@@ -3761,7 +3786,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     if (IS_NULLSTR(argument))
     {
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-        send_to_char("{WClass        Type         Who Name   Prime Stat   Casts @ Level  Skill Adept {x\r\n", ch);
+        send_to_char("{WClass        Type         Who  Prime Stat   Casts @ Level  Adept  Enabled {x\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         for (i = 0; i < top_class; i++)
@@ -3776,13 +3801,14 @@ void do_class(CHAR_DATA *ch, char *argument)
             // of a static char.
             sprintf(prime_stat, "%s", capitalize(flag_string(stat_flags, class_table[i]->attr_prime)));
 
-            sprintf(buf, "%-12s{x %-12s %-10s %-12s %-18s %-2d%%\r\n",
+            sprintf(buf, "%-12s{x %-12s %-4s %-12s %-18s %-2d%%    %s\r\n",
                 capitalize(class_table[i]->name),
                 class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
                 class_table[i]->who_name,
                 prime_stat,
                 class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
-                class_table[i]->skill_adept
+                class_table[i]->skill_adept,
+                class_table[i]->is_enabled == TRUE  ? "{GTrue{x" : "{RFalse{x"
                 );
 
             send_to_char(buf, ch);

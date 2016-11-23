@@ -232,6 +232,80 @@ Dummy object is used for loading non-existent objects~
 trash 0 0
 0 0 0 0 0
 0 0 0 P
+#31
+bind stone bindstone~
+a bind stone~
+A very large bind stone is here.~
+stone~
+treasure AO P
+0 0 0 0 0
+0 0 0 P
+E
+bind~
+A very large boulder is here with ancient runes on it.  The inscription
+reads: This bind stone holds the power to allow an individual to recall to
+it forever after. (see: help recall, help bind stone)
+~
+#32
+sword gods~
+the sword of the {WGODS{x~
+The sword of the {WGODS{x lies here.~
+energy~
+weapon B AN
+sword 8 5 shock G
+51 80 0 P
+#33
+decanter endless water~
+a decanter of endless water~
+A magical decanter of endless water lies here.~
+steel~
+drink 0 A
+500000 500000 'water' 0 0
+0 20 0 P
+#34
+book knowledge~
+a book of knowledge~
+A book of knowledge lies here.~
+paper~
+treasure 0 AO
+0 0 0 0 0
+1 10 0 P
+A
+4 3
+A
+3 3
+#35
+blue crystal shard~
+a {Bblue{x crystal shard~
+A {Bblue{x crystal shard lies here.~
+crystal~
+treasure 0 A
+0 0 0 0 0
+0 1 0 P
+#36
+crown jewels~
+the {Gcrown{x jewels~
+The {Gcrown{x jewels lie here.~
+crystal~
+treasure 0 A
+0 0 0 0 0
+0 1 0 P
+#37
+mystic dagger~
+a {wmystic{x dagger~
+A runed {wmystic{x dagger lies here.~
+energy~
+weapon B AN
+sword 5 6 pierce I
+51 80 0 P
+#38
+sword truth~
+a sword of truth~
+A sword of truth lies here.~
+energy~
+weapon B AN
+sword 5 6 pierce J
+51 80 0 P
 #0
 
 

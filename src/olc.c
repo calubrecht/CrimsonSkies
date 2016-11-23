@@ -263,7 +263,6 @@ const struct olc_cmd_type aedit_table[] = {
     { "create", aedit_create },
     { "filename", aedit_file },
     { "name", aedit_name },
-    /*  {   "recall",    aedit_recall    },   ROM OLC */
     { "reset", aedit_reset },
     { "security", aedit_security },
     { "show", aedit_show },
@@ -356,6 +355,7 @@ const struct olc_cmd_type cedit_table[] =
     {   "basegroup",    cedit_basegroup },
     {   "defgroup",     cedit_defgroup  },
     {   "isreclass",    cedit_isreclass },
+    {   "isenabled",    cedit_isenabled },
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},

@@ -1035,6 +1035,7 @@ void save_class(int num)
     fprintf(fp, "BaseGroup   '%s'\n", class_table[num]->base_group);
     fprintf(fp, "DefGroup    '%s'\n", class_table[num]->default_group);
     fprintf(fp, "IsReclass   %d\n", class_table[num]->is_reclass);
+    fprintf(fp, "IsEnabled   %d\n", class_table[num]->is_enabled);
 
     for (lev = 0; lev < MAX_LEVEL; lev++)
     {
@@ -1335,7 +1336,7 @@ void do_asave(CHAR_DATA * ch, char *argument)
                 pArea = ((MOB_INDEX_DATA *)ch->desc->pEdit)->area;
                 break;
             case ED_HELP:
-                send_to_char("Grabando area : ", ch);
+                send_to_char("OLC Help -> Saving area : ", ch);
                 save_other_helps(ch);
                 return;
             default:

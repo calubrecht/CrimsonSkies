@@ -20,6 +20,15 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *  This file contains methods for dealing with various effects, mostly    *
+ *  coming from attacks (acid, cold, fire, poison, shocking, stun, etc.    *
+ *  where those effects have additional calculations and logic above a     *
+ *  simple vampiric or leech which always land                             *
+ *                                                                         *
+ **************************************************************************/
+
 // System Specific Includes
 #if defined(_WIN32)
     #include <sys/types.h>
@@ -612,5 +621,59 @@ void shock_effect(void *vo, int level, int dam, int target)
 
         extract_obj(obj);
         return;
+    }
+}
+
+bool stun_effect(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    int chance = 0;
+
+    // Attackers strength vs. the victim's constitution (get_curr_stat will cap out
+    // the lower end so the minimum will be >= 0, it's at 3 as of the writing of this).
+    chance += (get_curr_stat(ch, STAT_STR) - get_curr_stat(victim, STAT_CON));
+
+    // Factor in armor class, negative armor class is good so adding the
+    // negative on will lower the chance.
+    chance += GET_AC(victim, AC_BASH) / 100;
+
+    // Factor in the level difference between the attacker and the defender
+    chance += (ch->level - victim->level);
+
+    // Potential for a lucky chance
+    chance += number_range(0, 1);
+
+    // No lower than 1% chance, no higher than 10%
+    chance = URANGE(1, chance, 10);
+
+    // Testers can see the stun chance, this should help us trouble shoot issues and balance.
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Stun Chance {W%d%%{x]\r\n", chance);
+    }
+
+    // The moment of truth
+    if (CHANCE(chance))
+    {
+        // Knock them down
+        victim->position = POS_RESTING;
+
+        // If they are currently stunned, add a pulse of stun to it, if they are
+        // not stunned, give them 2 pulses of stun.
+        if (victim->daze > 0)
+        {
+            victim->daze += PULSE_VIOLENCE;
+        }
+        else
+        {
+            DAZE_STATE(victim, 2 * PULSE_VIOLENCE);
+        }
+
+        // Return true, they are stunned.
+        return TRUE;
+    }
+    else
+    {
+        // Return false, they are not stunned by this attack.
+        return FALSE;
     }
 }

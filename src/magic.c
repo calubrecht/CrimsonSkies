@@ -228,6 +228,22 @@ int casting_level(CHAR_DATA *ch)
         level += 1;
     }
 
+    // Imbue raises the casting level, if the player is affected by it then get
+    // the modifier off that affect (e.g. lower level characters raise the level
+    // by less).
+    if (is_affected(ch, gsn_imbue))
+    {
+        AFFECT_DATA *paf;
+
+        for (paf = ch->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->type == gsn_imbue)
+            {
+                level += paf->modifier;
+            }
+        }
+    }
+
     return level;
 
 } // end casting_level
@@ -368,13 +384,8 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
     if ((sn = find_spell(ch, arg1)) < 1
         || skill_table[sn]->spell_fun == spell_null || (!IS_NPC(ch)
-            && (ch->level <
-                skill_table
-                [sn]->skill_level
-                [ch->class]
-    || ch->
-        pcdata->learned[sn]
-        == 0)))
+        && (ch->level < skill_table[sn]->skill_level[ch->class]
+        || ch->pcdata->learned[sn] == 0)))
     {
         send_to_char("You don't know any spells of that name.\r\n", ch);
         return;
@@ -387,15 +398,17 @@ void do_cast(CHAR_DATA * ch, char *argument)
     }
 
     if (ch->level + 2 == skill_table[sn]->skill_level[ch->class])
+    {
         mana = 50;
+    }
     else
-        mana = UMAX(skill_table[sn]->min_mana,
-            100 / (2 + ch->level -
-                skill_table[sn]->skill_level[ch->class]));
+    {
+        mana = UMAX(skill_table[sn]->min_mana, 100 / (2 + ch->level - skill_table[sn]->skill_level[ch->class]));
+    }
 
-/*
- * Locate targets.
- */
+    /*
+     * Locate targets.
+     */
     victim = NULL;
     obj = NULL;
     vo = NULL;
@@ -430,7 +443,6 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
             if (!IS_NPC(ch))
             {
-
                 if (is_safe(ch, victim) && victim != ch)
                 {
                     send_to_char("Not on that target.\r\n", ch);
@@ -441,8 +453,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
             if (IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim)
             {
-                send_to_char("You can't do that on your own follower.\r\n",
-                    ch);
+                send_to_char("You can't do that on your own follower.\r\n", ch);
                 return;
             }
 
@@ -471,8 +482,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
         case TAR_CHAR_SELF:
             if (arg2[0] != '\0' && !is_name(target_name, ch->name))
             {
-                send_to_char("You cannot cast this spell on another.\r\n",
-                    ch);
+                send_to_char("You cannot cast this spell on another.\r\n", ch);
                 return;
             }
 
@@ -529,7 +539,9 @@ void do_cast(CHAR_DATA * ch, char *argument)
                 }
 
                 if (!IS_NPC(ch))
+                {
                     check_wanted(ch, victim);
+                }
 
                 vo = (void *)victim;
             }
@@ -576,7 +588,9 @@ void do_cast(CHAR_DATA * ch, char *argument)
     }
 
     if (str_cmp(skill_table[sn]->name, "ventriloquate"))
+    {
         say_spell(ch, sn);
+    }
 
     // How long does this spell take to complete?  The character will be lagged for
     // a specified amoutn of beats.  Immortals are excempt from waiting.
@@ -621,7 +635,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
 
     if ((skill_table[sn]->target == TAR_CHAR_OFFENSIVE
         || (skill_table[sn]->target == TAR_OBJ_CHAR_OFF
-            && target == TARGET_CHAR)) && victim != ch
+        && target == TARGET_CHAR)) && victim != ch
         && victim->master != ch)
     {
         CHAR_DATA *vch;
@@ -928,7 +942,7 @@ void spell_bless(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = 0 - level / 8;
     affect_to_char(victim, &af);
     send_to_char("You feel righteous.\r\n", victim);
@@ -1237,10 +1251,13 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, skill_lookup("pass door")))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection evil")))
+    if (check_dispel(level, victim, gsn_protection_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection good")))
+    if (check_dispel(level, victim, gsn_protection_good))
+        found = TRUE;
+
+    if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
     if (check_dispel(level, victim, skill_lookup("sanctuary")))
@@ -1317,6 +1334,12 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (check_dispel(level, victim, skill_lookup("sense affliction")))
     {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_imbue))
+    {
+        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -1637,7 +1660,7 @@ void spell_continual_light(int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    light = create_object(get_obj_index(OBJ_VNUM_LIGHT_BALL), 0);
+    light = create_object(get_obj_index(OBJ_VNUM_LIGHT_BALL));
     obj_to_room(light, ch->in_room);
     act("$n twiddles $s thumbs and $p appears.", ch, light, NULL, TO_ROOM);
     act("You twiddle your thumbs and $p appears.", ch, light, NULL, TO_CHAR);
@@ -1667,7 +1690,7 @@ void spell_create_food(int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *waybread;
 
-    waybread = create_object(get_obj_index(OBJ_VNUM_WAYBREAD), 0);
+    waybread = create_object(get_obj_index(OBJ_VNUM_WAYBREAD));
     waybread->value[0] = level / 2;
     waybread->value[1] = level;
     obj_to_room(waybread, ch->in_room);
@@ -1680,7 +1703,7 @@ void spell_create_rose(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     OBJ_DATA *rose;
-    rose = create_object(get_obj_index(OBJ_VNUM_ROSE), 0);
+    rose = create_object(get_obj_index(OBJ_VNUM_ROSE));
     act("$n has created a beautiful red rose.", ch, rose, NULL, TO_ROOM);
     send_to_char("You create a beautiful red rose.\r\n", ch);
     obj_to_char(rose, ch);
@@ -1692,7 +1715,7 @@ void spell_create_spring(int sn, int level, CHAR_DATA * ch, void *vo,
 {
     OBJ_DATA *spring;
 
-    spring = create_object(get_obj_index(OBJ_VNUM_SPRING), 0);
+    spring = create_object(get_obj_index(OBJ_VNUM_SPRING));
     spring->timer = level;
     obj_to_room(spring, ch->in_room);
     act("$p flows from the ground.", ch, spring, NULL, TO_ROOM);
@@ -1857,12 +1880,12 @@ void spell_cure_light(int sn, int level, CHAR_DATA * ch, void *vo,
 /*
  * Spell to cure poison.  Healers will get a bonus on this spell.
  */
-void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
+    bool success = FALSE;
 
-    if (!is_affected(victim, gsn_poison))
+    if (!is_affected(victim, gsn_poison) && !is_affected(victim, gsn_poison_prick))
     {
         if (victim == ch)
         {
@@ -1883,10 +1906,24 @@ void spell_cure_poison(int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (check_dispel(level, victim, gsn_poison))
     {
+        success = TRUE;
         send_to_char("A warm feeling runs through your body.\r\n", victim);
         act("$n looks much better.", victim, NULL, NULL, TO_ROOM);
     }
-    else
+
+    if (check_dispel(level, victim, gsn_poison_prick))
+    {
+        // Show them the message if they haven't already seen it.
+        if (success == FALSE)
+        {
+            send_to_char("A warm feeling runs through your body.\r\n", victim);
+            act("$n looks much better.", victim, NULL, NULL, TO_ROOM);
+        }
+
+        success = TRUE;
+    }
+
+    if (success == FALSE)
     {
         send_to_char("Spell failed.\r\n", ch);
     }
@@ -1991,7 +2028,7 @@ void spell_curse(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.bitvector = AFF_CURSE;
     affect_to_char(victim, &af);
 
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = level / 8;
     affect_to_char(victim, &af);
 
@@ -2290,10 +2327,7 @@ void spell_dispel_good(int sn, int level, CHAR_DATA * ch, void *vo,
 }
 
 
-/* modified for enhanced use */
-
-void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     bool found = FALSE;
@@ -2411,11 +2445,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
     if (check_dispel(level, victim, skill_lookup("pass door")))
         found = TRUE;
 
-
-    if (check_dispel(level, victim, skill_lookup("protection evil")))
+    if (check_dispel(level, victim, gsn_protection_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("protection good")))
+    if (check_dispel(level, victim, gsn_protection_good))
+        found = TRUE;
+
+    if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
     if (check_dispel(level, victim, skill_lookup("sanctuary")))
@@ -2430,15 +2466,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
         && !is_affected(victim, skill_lookup("sanctuary")))
     {
         REMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
-        act("The white aura around $n's body vanishes.",
-            victim, NULL, NULL, TO_ROOM);
+        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
     if (check_dispel(level, victim, skill_lookup("shield")))
     {
-        act("The shield protecting $n vanishes.", victim, NULL, NULL,
-            TO_ROOM);
+        act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2447,15 +2481,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
 
     if (check_dispel(level, victim, skill_lookup("slow")))
     {
-        act("$n is no longer moving so slowly.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
     if (check_dispel(level, victim, skill_lookup("stone skin")))
     {
-        act("$n's skin regains its normal texture.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -2515,6 +2547,12 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo,
     {
         found = TRUE;
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
+    }
+
+    if (check_dispel(level, victim, gsn_imbue))
+    {
+        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
     }
 
     if (found)
@@ -2751,7 +2789,7 @@ void spell_floating_disc(int sn, int level, CHAR_DATA * ch, void *vo,
         return;
     }
 
-    disc = create_object(get_obj_index(OBJ_VNUM_DISC), 0);
+    disc = create_object(get_obj_index(OBJ_VNUM_DISC));
     disc->value[0] = ch->level * 10;    /* 10 pounds per level capacity */
     disc->value[3] = ch->level * 5;    /* 5 pounds per level max per item */
     disc->timer = ch->level * 2 - number_range(0, level / 2);
@@ -3726,6 +3764,59 @@ void spell_locate_object(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 } // end spell_locate_object
 
+/*
+ * Spell that locate the position of bind stones throughout the land.
+ */
+void spell_locate_bind(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    char buf[MAX_INPUT_LENGTH];
+    BUFFER *buffer;
+    OBJ_DATA *obj;
+    bool found;
+
+    found = FALSE;
+
+    buffer = new_buf();
+
+    for (obj = object_list; obj != NULL; obj = obj->next)
+    {
+        if (obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
+        {
+            continue;
+        }
+
+        found = TRUE;
+
+        if (IS_IMMORTAL(ch) && obj->in_room != NULL)
+        {
+            sprintf(buf, "One is at {c%s{x in {c%s{x [Room %d]\r\n",
+                obj->in_room->name,
+                obj->in_room->area->name,
+                obj->in_room->vnum);
+        }
+        else
+        {
+            sprintf(buf, "One is in {c%s{x in {c%s{x\r\n",
+                obj->in_room->name,
+                obj->in_room->area->name);
+        }
+
+        add_buf(buffer, buf);
+    }
+
+    if (!found)
+    {
+        send_to_char("Nothing like that in heaven or earth.\r\n", ch);
+    }
+    else
+    {
+        page_to_char(buf_string(buffer), ch);
+    }
+
+    free_buf(buffer);
+    return;
+}
+
 void spell_magic_missile(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
@@ -3831,8 +3922,9 @@ void spell_pass_door(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
-/* RT plague spell, very nasty */
-
+/*
+ * RT plague spell, very nasty
+ */
 void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
@@ -3848,9 +3940,13 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
     {
         if (ch == victim)
+        {
             send_to_char("You feel momentarily ill, but it passes.\r\n", ch);
+        }
         else
+        {
             act("$N seems to be unaffected.", ch, NULL, victim, TO_CHAR);
+        }
         return;
     }
 
@@ -3861,13 +3957,14 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.location = APPLY_STR;
     af.modifier = -5;
     af.bitvector = AFF_PLAGUE;
-    affect_join(victim, &af);
+    affect_to_char(victim, &af);
 
-    send_to_char
-        ("You scream in agony as plague sores erupt from your skin.\r\n",
-            victim);
-    act("$n screams in agony as plague sores erupt from $s skin.", victim,
-        NULL, NULL, TO_ROOM);
+    af.location = APPLY_CON;
+    af.modifier = -5;
+    affect_to_char(victim, &af);
+
+    send_to_char("You scream in agony as plague sores erupt from your skin.\r\n", victim);
+    act("$n screams in agony as plague sores erupt from $s skin.", victim, NULL, NULL, TO_ROOM);
 }
 
 void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
@@ -3903,6 +4000,7 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
                 || IS_WEAPON_STAT(obj, WEAPON_FROST)
                 || IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC)
                 || IS_WEAPON_STAT(obj, WEAPON_SHARP)
+                || IS_WEAPON_STAT(obj, WEAPON_LEECH)
                 || IS_WEAPON_STAT(obj, WEAPON_VORPAL)
                 || IS_WEAPON_STAT(obj, WEAPON_SHOCKING)
                 || IS_OBJ_STAT(obj, ITEM_BLESS)
@@ -3969,38 +4067,49 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  *
  * The caster can refresh the spell on their self but not on others.
  */
-void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
     if (IS_AFFECTED(victim, AFF_PROTECT_EVIL)
-        || IS_AFFECTED(victim, AFF_PROTECT_GOOD))
+        || IS_AFFECTED(victim, AFF_PROTECT_GOOD)
+        || is_affected(victim, gsn_protection_neutral))
     {
         if (victim == ch)
         {
-            // Remove the affect so it can be re-added to yourself
-            affect_strip(victim, sn);
+            send_to_char("You are already protected.\r\n", ch);
         }
         else
         {
             act("$N is already protected.", ch, NULL, victim, TO_CHAR);
-            return;
         }
+
+        return;
     }
 
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
     af.duration = 24;
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = -1;
     af.bitvector = AFF_PROTECT_EVIL;
     affect_to_char(victim, &af);
+
     send_to_char("You feel holy and pure.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected from evil.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
@@ -4009,40 +4118,97 @@ void spell_protection_evil(int sn, int level, CHAR_DATA * ch, void *vo,
  *
  * The caster can refresh the spell on their self but not on others.
  */
-void spell_protection_good(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_protection_good(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
     if (IS_AFFECTED(victim, AFF_PROTECT_GOOD)
-        || IS_AFFECTED(victim, AFF_PROTECT_EVIL))
+        || IS_AFFECTED(victim, AFF_PROTECT_EVIL)
+        || is_affected(victim, gsn_protection_neutral))
     {
         if (victim == ch)
         {
-            affect_strip(victim, sn);
+            send_to_char("You are already protected.\r\n", ch);
         }
         else
         {
             act("$N is already protected.", ch, NULL, victim, TO_CHAR);
-            return;
         }
+
+        return;
     }
 
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
     af.duration = 24;
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = -1;
     af.bitvector = AFF_PROTECT_GOOD;
     affect_to_char(victim, &af);
+
     send_to_char("You feel aligned with darkness.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected from good.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
+void spell_protection_neutral(int sn,int level,CHAR_DATA *ch,void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    // Remove this specific effect from the caster if it's on themselves.
+    if (victim == ch)
+    {
+        affect_strip(victim, sn);
+    }
+
+    if (IS_AFFECTED(victim, AFF_PROTECT_GOOD)
+        || IS_AFFECTED(victim, AFF_PROTECT_EVIL)
+        || is_affected(victim, gsn_protection_neutral))
+    {
+        if (victim == ch)
+        {
+            send_to_char("You are already protected.\r\n", ch);
+        }
+        else
+        {
+            act("$N is already protected.", ch, NULL, victim, TO_CHAR);
+        }
+
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 24;
+    af.location = APPLY_SAVES;
+    af.modifier = -1;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("You are protected from neutral people.\r\n", victim);
+
+    if (ch != victim)
+    {
+        act("$N is protected from neutral.",ch,NULL,victim,TO_CHAR);
+    }
+
+    return;
+}
 
 void spell_ray_of_truth(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
@@ -4626,16 +4792,27 @@ void spell_weaken(int sn, int level, CHAR_DATA * ch, void *vo, int target)
  * enhanced recall skill and the check passes it will only half the movement
  * by 25%.
  */
-void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     ROOM_INDEX_DATA *location;
+    int recall_vnum = 0;
 
     if (IS_NPC(victim))
         return;
 
-    if ((location = get_room_index(ROOM_VNUM_TEMPLE)) == NULL)
+    // If this is a player and they have a custom recall set to a bind stone
+    // then use that, otherwise use the temple.
+    if (!IS_NPC(ch) && ch->pcdata->recall_vnum > 0)
+    {
+        recall_vnum = ch->pcdata->recall_vnum;
+    }
+    else
+    {
+        recall_vnum = ROOM_VNUM_TEMPLE;
+    }
+
+    if ((location = get_room_index(recall_vnum)) == NULL)
     {
         send_to_char("You are completely lost.\r\n", victim);
         return;
@@ -4930,15 +5107,129 @@ void spell_high_explosive(int sn, int level, CHAR_DATA * ch, void *vo,
 
 extern char *target_name;
 
+/*
+ * Farsight spell.  This spell will look at all areas connected to the current
+ * area and then show the player all visible players they can see from those
+ * areas.
+ */
 void spell_farsight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
+    EXIT_DATA *exit;
+    ROOM_INDEX_DATA *to_room;
+    ROOM_INDEX_DATA *room;
+    CHAR_DATA *victim;
+    DESCRIPTOR_DATA *d;
+    int vnum = 0;
+    int index = 0;
+    int i = 0;
+    bool found = FALSE;
+    char buf[MAX_STRING_LENGTH];
+    int area_list[128];
+
     if (IS_AFFECTED(ch, AFF_BLIND))
     {
         send_to_char("Maybe it would help if you could see?\r\n", ch);
         return;
     }
 
-    do_function(ch, &do_scan, target_name);
+    send_to_char("Your magic searches the surrounding areas.\r\n", ch);
+
+    // Loop over all the rooms in this area, if any room links to an outside area
+    // we will then do a where style command on that area.
+    for (vnum = ch->in_room->area->min_vnum; vnum <= ch->in_room->area->max_vnum; vnum++)
+    {
+        if ((room = get_room_index(vnum)))
+        {
+            // Go over each direction in each room in this area and see if it links to an outside
+            // area.  One way links are fine for our purpose.. if they other area doesn't have all
+            // link back it won't work in that direction.  Multiple links to an area might be found
+            // and we only want to show players from the destination area once so we'll collect the
+            // areas we need, then process them.
+            for (i = 0; i < MAX_DIR; i++)
+            {
+                // We're not saving more than 128 connected areas.  Ditch out here since it will
+                // crash accessing the array outside of its bounds.
+                if (index > 127)
+                {
+                    continue;
+                }
+
+                exit = room->exit[i];
+
+                if (!exit)
+                {
+                    continue;
+                }
+                else
+                {
+                    to_room = exit->u1.to_room;
+                }
+
+                // If there is a non null room on the other side, see if it's in a different area.
+                if (to_room)
+                {
+                    if (room->area != to_room->area)
+                    {
+                        // Check first to make sure it's not already in our list so we don't track
+                        // duplicate areas that might be linked multiple times to multiple vnums (like
+                        // Midgaard, oceans, etc.).
+                        int x = 0;
+                        found = FALSE;
+
+                        for (x = 0; x < index; x++)
+                        {
+                            if (area_list[x] == to_room->area->vnum)
+                            {
+                                found = TRUE;
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            area_list[index] = to_room->area->vnum;
+                            index++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Did we find anything to process?
+    found = FALSE;
+
+    if (index > 0)
+    {
+        // Loop over the vnums we saved
+        for (i = 0; i < index; i++)
+        {
+            // This section was re-purposed from do_where
+            for (d = descriptor_list; d; d = d->next)
+            {
+                if (d->connected == CON_PLAYING
+                    && (victim = d->character) != NULL && !IS_NPC(victim)
+                    && victim->in_room != NULL
+                    && victim->in_room->area != NULL
+                    && victim->in_room->area->vnum == area_list[i]
+                    && !IS_SET(victim->in_room->room_flags, ROOM_NOWHERE)
+                    && (is_room_owner(ch, victim->in_room)
+                    || !room_is_private(victim->in_room))
+                    && can_see(ch, victim))
+                {
+                    found = TRUE;
+                    sprintf(buf, "%-20s %s\r\n", victim->name, victim->in_room->name);
+                    send_to_char(buf, ch);
+                }
+            }
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("There are no souls that you can sense.\r\n", ch);
+    }
+
 }
 
 
@@ -4984,7 +5275,7 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         extract_obj(stone);
     }
 
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 2 + level / 25;
     portal->value[3] = victim->in_room->vnum;
 
@@ -5041,7 +5332,7 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     /* portal one */
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 1 + level / 10;
     portal->value[3] = to_room->vnum;
 
@@ -5055,7 +5346,7 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
 
     /* portal two */
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->timer = 1 + level / 10;
     portal->value[3] = from_room->vnum;
 
@@ -5160,7 +5451,7 @@ void spell_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
         density = 100;
     }
 
-    fog = create_object(get_obj_index(OBJ_VNUM_FOG), 0);
+    fog = create_object(get_obj_index(OBJ_VNUM_FOG));
     fog->value[0] = density; // thickness of the fog
     fog->timer = duration; // duration of the fog
     obj_to_room(fog, ch->in_room);
@@ -5211,6 +5502,48 @@ void spell_dispel_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
     return;
 }
+
+/*
+ * A cleric spell which raise the casting level of the person it has been cast on.
+ * The modifier is the value of the levels that will rise, it is set here so that
+ * lower level clerics cast lower casting gains with imbue.
+ */
+void spell_imbue(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
+            act("$N is already imbued.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 10;
+    af.location = 0;
+    af.modifier = level / 15;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your magical aptitude has been augmented.\r\n", victim);
+    act("$n's magical aptitude has been augmented.", victim, NULL, NULL, TO_ROOM);
+
+    return;
+}
+
 
 /*
  * Returns the spell function for the specified name.  This will allow loading from
@@ -5318,6 +5651,7 @@ SPELL_FUN *spell_function_lookup(char *name)
         case 'i':
             if (!str_cmp(name, "spell_invis")) return spell_invis;
             if (!str_cmp(name, "spell_identify")) return spell_identify;
+            if (!str_cmp(name, "spell_imbue")) return spell_imbue;
             if (!str_cmp(name, "spell_interlace_spirit")) return spell_interlace_spirit;
             if (!str_cmp(name, "spell_infravision")) return spell_infravision;
             break;
@@ -5330,6 +5664,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_lightning_breath")) return spell_lightning_breath;
             if (!str_cmp(name, "spell_locate_wizard_mark")) return spell_locate_wizard_mark;
             if (!str_cmp(name, "spell_life_boost")) return spell_life_boost;
+            if (!str_cmp(name, "spell_locate_bind")) return spell_locate_bind;
             break;
         case 'm':
             if (!str_cmp(name, "spell_magic_missile")) return spell_magic_missile;
@@ -5351,6 +5686,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_portal")) return spell_portal;
             if (!str_cmp(name, "spell_protection_evil")) return spell_protection_evil;
             if (!str_cmp(name, "spell_protection_good")) return spell_protection_good;
+            if (!str_cmp(name, "spell_protection_neutral")) return spell_protection_neutral;
             break;
         case 'r':
             if (!str_cmp(name, "spell_refresh")) return spell_refresh;
@@ -5479,6 +5815,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_infravision) return "spell_infravision";
     if (spell == spell_know_alignment) return "spell_know_alignment";
     if (spell == spell_locate_object) return "spell_locate_object";
+    if (spell == spell_locate_bind) return "spell_locate_bind";
     if (spell == spell_lightning_bolt) return "spell_lightning_bolt";
     if (spell == spell_lightning_breath) return "spell_lightning_breath";
     if (spell == spell_locate_wizard_mark) return "spell_locate_wizard_mark";
@@ -5493,6 +5830,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_portal) return "spell_portal";
     if (spell == spell_protection_evil) return "spell_protection_evil";
     if (spell == spell_protection_good) return "spell_protection_good";
+    if (spell == spell_protection_neutral) return "spell_protection_neutral";
     if (spell == spell_refresh) return "spell_refresh";
     if (spell == spell_restore_weapon) return "spell_restore_weapon";
     if (spell == spell_restore_armor) return "spell_restore_armor";
@@ -5536,6 +5874,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_self_growth) return "spell_self_growth";
     if (spell == spell_fog) return "spell_fog";
     if (spell == spell_dispel_fog) return "spell_dispel_fog";
+    if (spell == spell_imbue) return "spell_imbue";
 
     return "reserved";
 

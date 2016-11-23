@@ -39,19 +39,6 @@ SKILLTYPE *             skill_table[MAX_SKILL];
 GROUPTYPE *             group_table[MAX_GROUP];
 CLASSTYPE *             class_table[MAX_CLASS];
 
-/* for clans */
-const struct clan_type clan_table[MAX_CLAN] = {
-    /*  name, who entry, death-transfer room, independent */
-    /* independent should be FALSE if is a real clan */
-    { "",           "",                      ROOM_VNUM_ALTAR, TRUE },
-    { "loner",      "[ {WLoner{x ] ",        ROOM_VNUM_ALTAR, TRUE },
-    { "renegade",   "[ {WRenegade{x ] ",     ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard",   "[ {BMidgaard{x ] ",     ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   ROOM_VNUM_ALTAR, FALSE },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "cult",       "[ {DCult{x ] ",         ROOM_VNUM_ALTAR, FALSE }
-};
-
 /* for position */
 const struct position_type position_table[] = {
     {"dead",             "dead"},
@@ -519,11 +506,6 @@ const struct flag_type apply_flags[] = {
     {"hitroll", APPLY_HITROLL, TRUE},
     {"damroll", APPLY_DAMROLL, TRUE},
     {"saves", APPLY_SAVES, TRUE},
-    {"savingpara", APPLY_SAVING_PARA, TRUE},
-    {"savingrod", APPLY_SAVING_ROD, TRUE},
-    {"savingpetri", APPLY_SAVING_PETRI, TRUE},
-    {"savingbreath", APPLY_SAVING_BREATH, TRUE},
-    {"savingspell", APPLY_SAVING_SPELL, TRUE},
     {"spellaffect", APPLY_SPELL_AFFECT, FALSE},
     {NULL, 0, 0}
 };
@@ -641,6 +623,8 @@ const struct flag_type weapon_type2[] = {
     {"twohands", WEAPON_TWO_HANDS, TRUE},
     {"shocking", WEAPON_SHOCKING, TRUE},
     {"poison", WEAPON_POISON, TRUE},
+    {"leech", WEAPON_LEECH, TRUE},
+    {"stun", WEAPON_STUN, TRUE},
     {NULL, 0, 0}
 };
 

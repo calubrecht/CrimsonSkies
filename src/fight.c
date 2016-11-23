@@ -694,10 +694,20 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
         {
             dam = number_range(1, wield->level / 5 + 1);
             act("$p draws life from $n.", victim, wield, NULL, TO_ROOM);
-            act("You feel $p drawing your life away.",
-                victim, wield, NULL, TO_CHAR);
+            act("You feel $p drawing your life away.", victim, wield, NULL, TO_CHAR);
             damage(ch, victim, dam, 0, DAM_NEGATIVE, FALSE);
             ch->hit += dam / 2;
+        }
+
+        // Leech mana if they have > 2 mana.. otherwise ignore.  We will start at a small 1:1 draw.
+        if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_LEECH) && victim->mana >= 2)
+        {
+            dam = 1;
+            act("$p draws mana from $n.", victim, wield, NULL, TO_ROOM);
+            act("You feel $p drawing your mana away.", victim, wield, NULL, TO_CHAR);
+
+            victim->mana -= dam;
+            ch->mana += dam;
         }
 
         if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_FLAMING))
@@ -727,7 +737,18 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
             shock_effect(victim, wield->level / 2, dam, TARGET_CHAR);
             damage(ch, victim, dam, 0, DAM_LIGHTNING, FALSE);
         }
+
+        if (ch->fighting == victim && IS_WEAPON_STAT(wield, WEAPON_STUN))
+        {
+            if (stun_effect(ch, victim))
+            {
+                act("You are knocked to the ground by $p.", ch, wield, victim, TO_VICT);
+                act("$n is knocked to the ground by $p.", victim, wield, NULL, TO_ROOM);
+            }
+        }
+
     }
+
     tail_chain();
     return;
 } // end void one_hit
@@ -840,13 +861,13 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     if (dam > 1 && IS_AFFECTED(victim, AFF_SANCTUARY))
         dam /= 2;
 
-    if (dam > 1 && ((IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch))
-        || (IS_AFFECTED(victim, AFF_PROTECT_GOOD)
-            && IS_GOOD(ch))))
+    if (dam > 1 &&
+         ((IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch))
+           || (is_affected(victim, gsn_protection_neutral) && IS_NEUTRAL(ch))
+           || (IS_AFFECTED(victim, AFF_PROTECT_GOOD) && IS_GOOD(ch))))
         dam -= dam / 4;
 
     immune = FALSE;
-
 
     /*
      * Check for parry, and dodge.
@@ -1625,7 +1646,7 @@ void make_corpse(CHAR_DATA * ch)
     {
         // Mob
         name = ch->short_descr;
-        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_NPC), 0);
+        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_NPC));
         corpse->timer = number_range(3, 6);
         if (ch->gold > 0)
         {
@@ -1645,7 +1666,7 @@ void make_corpse(CHAR_DATA * ch)
     {
         // Player
         name = ch->name;
-        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_PC), 0);
+        corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_PC));
         corpse->timer = number_range(25, 40);
         corpse->owner = str_dup(ch->name);
 
@@ -1808,7 +1829,7 @@ void death_cry(CHAR_DATA * ch)
         char *name;
 
         name = IS_NPC(ch) ? ch->short_descr : ch->name;
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj->timer = number_range(4, 7);
 
         sprintf(buf, obj->short_descr, name);
@@ -2845,7 +2866,7 @@ void do_flee(CHAR_DATA * ch, char *argument)
     }
 
     was_in = ch->in_room;
-    for (attempt = 0; attempt < 6; attempt++)
+    for (attempt = 0; attempt < MAX_DIR; attempt++)
     {
         EXIT_DATA *pexit;
         int door;
@@ -2855,13 +2876,13 @@ void do_flee(CHAR_DATA * ch, char *argument)
             || pexit->u1.to_room == NULL
             || IS_SET(pexit->exit_info, EX_CLOSED)
             || number_range(0, ch->daze) != 0 || (IS_NPC(ch)
-                && IS_SET(pexit->u1.
-                    to_room->
-                    room_flags,
-                    ROOM_NO_MOB)))
+            && IS_SET(pexit->u1.to_room->room_flags, ROOM_NO_MOB)))
+        {
             continue;
+        }
 
         move_char(ch, door, FALSE);
+
         if ((now_in = ch->in_room) == was_in)
             continue;
 
@@ -2872,8 +2893,12 @@ void do_flee(CHAR_DATA * ch, char *argument)
         if (!IS_NPC(ch))
         {
             send_to_char("You flee from combat!\r\n", ch);
-            if ((ch->class == 2) && (number_percent() < 3 * (ch->level / 2)))
+
+            if ((ch->class == THIEF_CLASS_LOOKUP || ch->class == ROGUE_CLASS_LOOKUP)
+                    && (number_percent() < 3 * (ch->level / 2)))
+            {
                 send_to_char("You snuck away safely.\r\n", ch);
+            }
             else
             {
                 send_to_char("You lost 10 exp.\r\n", ch);
@@ -3124,6 +3149,8 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
 {
     char buf[MAX_STRING_LENGTH];
     char verb[25];
+    char ch_display[128];
+    char victim_display[128];
 
     // Both have to be players
     if (IS_NPC(victim) || IS_NPC(ch))
@@ -3157,14 +3184,45 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
         sprintf(verb, "***{RDESTROYED{x***");
     }
 
+    // Clan's will on the outer side of the name, in case anyone wonders
+    // whhy they're flip flopped.
+    if (is_clan(ch))
+    {
+        sprintf(ch_display, "%s %s", ch->name, clan_table[ch->clan].who_name);
+    }
+    else
+    {
+        sprintf(ch_display, "%s ", ch->name);
+    }
+
+    if (is_clan(victim))
+    {
+        sprintf(victim_display, "%s%s", clan_table[victim->clan].who_name, victim->name);
+    }
+    else
+    {
+        sprintf(victim_display, "%s", victim->name);
+    }
+
     // The final message
-    sprintf(buf, "%s%s got %s by %s.%s\r\n",
+    sprintf(buf, "%s%s got %s by %s%s\r\n",
         (victim->desc == NULL) ? "({YLink Dead{x) " : "",
-        victim->name, verb, ch->name,
-        (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? " {W({cArena{W){x" : "");
+        victim_display, verb, ch_display,
+        (IS_SET(ch->in_room->room_flags, ROOM_ARENA)) ? "{W({cArena{W){x" : "");
 
     // Log it
-    log_string(buf);
+    log_string(strip_color(buf));
+
+    // Tally the player kill (and killed) stat for the player and the victim.
+    // Must both be players, must not be in an arena, must not be in the same
+    // clan.
+    if (!IS_NPC(victim) && !IS_NPC(ch)
+        && !IS_SET(ch->in_room->room_flags, ROOM_ARENA)
+        && !is_same_clan(ch, victim))
+    {
+        victim->pcdata->pkilled++;
+        ch->pcdata->pkills++;
+    }
 
     // Send it to all the players
     send_to_all_char(buf);
