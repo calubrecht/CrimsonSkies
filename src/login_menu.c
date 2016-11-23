@@ -339,7 +339,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc("\r\n", d);
     send_to_desc("  _________________________________________________________________________\r\n", d);
     send_to_desc(" /`                                                                        \\\r\n", d);
-    send_to_desc(" \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{x        |\r\n", d);
+    send_to_desc(" \\_|       {W-=-=-=-=-=-=))) {RHidden {rLands: {WLogin Menu {w(((=-=-=-=-=-=-{x        |\r\n", d);
     send_to_desc("   |                                                                        |\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
