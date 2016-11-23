@@ -8,12 +8,16 @@ PROF = -O -g3
 
 # Use -Wno-unused-but-set-variable to filter out those warnings where macro's might be using variables
 # that appear to be unused but are in fact used.
+# -psthread and -ldl were added in order to get sqlite to compile under Ubuntu
 #C_FLAGS = $(PROF) -Wall -Wno-unused-but-set-variable
 C_FLAGS = $(PROF) -Wall
-L_FLAGS = $(PROF) -lcrypt
+L_FLAGS = $(PROF) -lcrypt -pthread -ldl
+
+# SQLite files
+SQLITE_SRC = sqlite/sqlite3.c
 
 # Source Files
-SRC_FILES := $(wildcard *.c)
+SRC_FILES := $(wildcard *.c) $(SQLITE_SRC)
 
 # Object Files
 OBJ_DIR = obj
@@ -21,6 +25,7 @@ OBJ_FILES := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Make the Object directory if it doesn't exist
 $(shell   mkdir -p $(OBJ_DIR))
+$(shell   mkdir -p $(OBJ_DIR)/sqlite)
 
 cs-mud: $(OBJ_FILES)
 	$(RM) -f $(EXE)

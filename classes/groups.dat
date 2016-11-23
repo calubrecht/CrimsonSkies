@@ -52,6 +52,12 @@ Sk 'second attack'
 End
 
 #GROUP
+Name 'rogue basics'
+Sk 'dagger'
+Sk 'steal'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -166,6 +172,22 @@ Sk 'ambush'
 End
 
 #GROUP
+Name 'rogue default'
+Sk 'sword'
+Sk 'backstab'
+Sk 'dodge'
+Sk 'second attack'
+Sk 'trip'
+Sk 'hide'
+Sk 'peek'
+Sk 'pick lock'
+Sk 'sneak'
+Sk 'revolt'
+Sk 'escape'
+Sk 'shiv'
+End
+
+#GROUP
 Name 'weaponsmaster'
 Sk 'axe'
 Sk 'dagger'
@@ -202,6 +224,7 @@ Sk 'calm'
 Sk 'frenzy'
 Sk 'holy word'
 Sk 'remove curse'
+Sk 'imbue'
 End
 
 #GROUP
@@ -247,7 +270,7 @@ Sk 'identify'
 Sk 'know alignment'
 Sk 'locate object'
 Sk 'locate wizard mark'
-Sk 'detect door'
+Sk 'locate bind'
 End
 
 #GROUP
@@ -359,6 +382,7 @@ Sk 'sanctuary'
 Sk 'shield'
 Sk 'stone skin'
 Sk 'water breathing'
+Sk 'protection neutral'
 End
 
 #GROUP

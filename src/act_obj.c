@@ -1214,6 +1214,7 @@ void do_envenom(CHAR_DATA * ch, char *argument)
             || IS_WEAPON_STAT(obj, WEAPON_SHARP)
             || IS_WEAPON_STAT(obj, WEAPON_VORPAL)
             || IS_WEAPON_STAT(obj, WEAPON_SHOCKING)
+            || IS_WEAPON_STAT(obj, WEAPON_LEECH)
             || IS_OBJ_STAT(obj, ITEM_BLESS)
             || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
         {
@@ -2035,7 +2036,33 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     return;
 }
 
-
+/*
+ * Removes all objects from a character.  This is silent and returns no
+ * message to the user, the caller will be responsible for that.
+ */
+void remove_all_obj(CHAR_DATA *ch)
+{
+    remove_obj(ch, WEAR_LIGHT, TRUE);
+    remove_obj(ch, WEAR_FINGER_L, TRUE);
+    remove_obj(ch, WEAR_FINGER_R, TRUE);
+    remove_obj(ch, WEAR_NECK_1, TRUE);
+    remove_obj(ch, WEAR_NECK_2, TRUE);
+    remove_obj(ch, WEAR_BODY, TRUE);
+    remove_obj(ch, WEAR_HEAD, TRUE);
+    remove_obj(ch, WEAR_LEGS, TRUE);
+    remove_obj(ch, WEAR_FEET, TRUE);
+    remove_obj(ch, WEAR_HANDS, TRUE);
+    remove_obj(ch, WEAR_ARMS, TRUE);
+    remove_obj(ch, WEAR_SHIELD, TRUE);
+    remove_obj(ch, WEAR_ABOUT, TRUE);
+    remove_obj(ch, WEAR_WAIST, TRUE);
+    remove_obj(ch, WEAR_WRIST_L, TRUE);
+    remove_obj(ch, WEAR_WRIST_R, TRUE);
+    remove_obj(ch, WEAR_WIELD, TRUE);
+    remove_obj(ch, WEAR_HOLD, TRUE);
+    remove_obj(ch, WEAR_FLOAT, TRUE);
+    remove_obj(ch, WEAR_SECONDARY_WIELD, TRUE);
+}
 
 void do_wear(CHAR_DATA * ch, char *argument)
 {
@@ -2088,6 +2115,13 @@ void do_remove(CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         send_to_char("Remove what?\r\n", ch);
+        return;
+    }
+
+    // Do they want to remove all their gear in one fell swoop?
+    if (!str_cmp(arg, "all"))
+    {
+        remove_all_obj(ch);
         return;
     }
 
@@ -2914,6 +2948,15 @@ void do_buy(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Check to see if a quest master in the room, if so, send off the buy
+    // parameter from here and send it there.
+    if (find_quest_master(ch) != NULL)
+    {
+        sprintf(buf, "buy %s", argument);
+        do_pquest(ch, buf);
+        return;
+    }
+
     if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         char arg[MAX_INPUT_LENGTH];
@@ -3131,7 +3174,7 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(obj->extra_flags, ITEM_INVENTORY))
         {
-            t_obj = create_object(obj->pIndexData, obj->level);
+            t_obj = create_object(obj->pIndexData);
             t_obj->count = number;
 
             if (t_obj->timer > 0 && !IS_OBJ_STAT(t_obj, ITEM_HAD_TIMER))
@@ -3188,6 +3231,13 @@ void do_list(CHAR_DATA * ch, char *argument)
     {
         // Make the call to act_mob.
         process_portal_merchant(ch, "");
+        return;
+    }
+
+    // Check to see if a quest master in the room.
+    if (find_quest_master(ch) != NULL)
+    {
+        do_pquest(ch, "list");
         return;
     }
 
@@ -3465,8 +3515,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
     // This is going to use stock gear in the game, if the vnums change or are
     // removed then this will *crash*.  We will set this gear to rot death in the off
     // chance that anyone tries to proliferate it.  Not as good as the real deal.
-    if ((IS_SET(ch->act, PLR_TESTER) && ch->level == 51)
-        || IS_IMMORTAL(ch))
+    if ((IS_TESTER(ch) && ch->level == 51) || IS_IMMORTAL(ch))
     {
         outfit(ch, WEAR_LIGHT, 9321);  // sceptre of might
         outfit(ch, WEAR_WIELD, 9401);  // sea sword
@@ -3532,7 +3581,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
             }
         }
 
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj_to_char(obj, ch);
         equip_char(ch, obj, WEAR_WIELD);
     }
@@ -3567,7 +3616,7 @@ void outfit(CHAR_DATA *ch, int wear_position, int vnum)
 
     if ((obj = get_eq_char(ch, wear_position)) == NULL)
     {
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj->cost = 0;
         obj_to_char(obj, ch);
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);

@@ -40,14 +40,14 @@ void do_function(CHAR_DATA *ch, DO_FUN *do_fun, char *argument);
 /*
  * Structure for a command in the command lookup table.
  */
-struct	cmd_type
+struct cmd_type
 {
-    char * const    name;
-    DO_FUN *        do_fun;
-    int          position;
-    int          level;
-    int          log;
-    int          show;
+    char * const name;
+    DO_FUN * do_fun;
+    int position;
+    int level;
+    int log;
+    int show;
 };
 
 /* the command table itself */
@@ -357,3 +357,19 @@ DECLARE_DO_FUN(do_nocancel);
 DECLARE_DO_FUN(do_random_names);
 DECLARE_DO_FUN(do_stance);
 DECLARE_DO_FUN(do_map);
+DECLARE_DO_FUN(do_bind);
+DECLARE_DO_FUN(do_pquest);
+DECLARE_DO_FUN(do_poisonprick);
+DECLARE_DO_FUN(do_shiv);
+DECLARE_DO_FUN(do_escape);
+DECLARE_DO_FUN(do_dbexport);
+DECLARE_DO_FUN(do_peer);
+DECLARE_DO_FUN(do_snoopinfo);
+DECLARE_DO_FUN(do_switchinfo);
+DECLARE_DO_FUN(do_knock);
+DECLARE_DO_FUN(do_skillstat);
+DECLARE_DO_FUN(do_spellstat);
+DECLARE_DO_FUN(do_clearreply);
+DECLARE_DO_FUN(do_loner);
+DECLARE_DO_FUN(do_bludgeon);
+DECLARE_DO_FUN(do_revolt);

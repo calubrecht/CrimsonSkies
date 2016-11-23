@@ -638,7 +638,7 @@ Name        farsight~
 SpellFun    spell_farsight~
 Target      0
 MinPos      8
-MinMana     36
+MinMana     10
 Beats       20
 Damage      farsight~
 MsgOff      !Farsight!~
@@ -2099,6 +2099,101 @@ Target      0
 MinPos      8
 MinMana     10
 Beats       12
+Race        0
+End
+
+#SKILL
+Name        locate bind~
+SpellFun    spell_locate_bind~
+Target      0
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      !Locate Bind!~
+Race        0
+End
+
+#SKILL
+Name        poison prick~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+MsgOff      The rogue's poison leaves your body.~
+Race        0
+End
+
+#SKILL
+Name        shiv~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Damage      shiv~
+Race        0
+End
+
+#SKILL
+Name        protection neutral~
+SpellFun    spell_protection_neutral~
+Target      3
+MinPos      8
+MinMana     5
+Beats       12
+MsgOff      You feel less protected.~
+Race        0
+End
+
+#SKILL
+Name        escape~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
+#SKILL
+Name        peer~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       6
+Race        0
+End
+
+#SKILL
+Name        bludgeon~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        revolt~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Race        0
+End
+
+#SKILL
+Name        imbue~
+SpellFun    spell_imbue~
+Target      2
+MinPos      8
+MinMana     50
+Beats       12
+MsgOff      Your magical ability is no longer augmented.~
 Race        0
 End
 

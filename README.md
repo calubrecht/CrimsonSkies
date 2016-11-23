@@ -7,28 +7,23 @@ completion.  Classes, groups, skills and spells are loading from files and all h
 all of this from the game (adding skills and spells to classes is far easier than in stock ROM code).  
 
 If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
-contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is
-the other continent and I have left it with the familiar areas and geographic linking).
-
-The current development server which is stable and playable and will reflect the latest commits here is at (you can 
-telnet or use a mud client like ZMud, CMud or Mudlet, I still use Zmud 4.62 from like 1996 on Windows 10):
-
-  - 66.244.102.112 port 4000
+contribution is complete.  There are now two continents and the Arcanis continent needs filling out (Midgaard is 
+the other continent and I have left it with the familiar areas and geographic linking).  I invite and welcome any 
+contributions.
 
 All new changes will be documented in the commit history and I will move all of those into a detailed change lot when I
-official go to version 1.0 (version 1 will be official when I finish 2 more reclasses so each base class has a reclass
-and when I finish resets of ocean life in the oceans).  The next version on the roadmap will include 4 more reclasses 
-and new continent that will begin to build new areas that aren't from the stock Diku/Merc/Rom.  You can check my TODO
-file for short and long term things I'm going to work on (and the list is way larger, I just haven't added it all, 
-coding on this is a labor of love, I'm glad to be back to it).
+official go to version 1.0 (version 1 will be official when I finish 1 more reclass so each base class has a reclass).  
+The next version on the roadmap will include 4 more reclasses and new continent that will begin to build new areas that 
+aren't from the stock Diku/Merc/Rom.  You can check my TODO file for short and long term things I'm going to work 
+on (and the list is way larger, I just haven't added it all, coding on this is a labor of love, I'm glad to be back to it).
 
 Currently Crimson Skies compiles and runs out of the box on:
 
-  - Ubuntu 14.04
+  - Ubuntu 16.04.1 LTS
   - Rasbian for use with the RaspberryPi
-  - Windows 7, Windows 8, Windows 8.1, Windows 10 (compiles with Visual Studio 2015 Community, for your initial 
+  - Windows 7, Windows 8, Windows 8.1, Windows 10 - Compiles with Visual Studio 2015 Community, for your initial 
     compile/run in Visual Studio you may need to follow the instructions in this blog post, 
-    they are brief: http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
+    they are brief: [http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)](http://www.blakepell.com/how-to-change-working-directory-in-visual-studio-for-a-cc-app)
 
 CS-Mud will likely also compile on Debian with little if any changes (as Raspbian is a deriative of Debian).
 
@@ -43,6 +38,7 @@ open source/GitHub it has been under private development since 1998 (as my hobby
     have stopped or don't share their code).
   - To provide a ROM code base that includes a world that is setup for pkill or roleplaying (e.g. the things like the
     smurf village have been changed or removed).
+  - To provide help files for all game functions.
   - Server side LUA to suppliment and/or replace standard mob progs (safe, feature rich and little
     chance of memory leaks, yes, yes and yes).
   - To document the old functions with descriptions and hopefully well document new functions.
@@ -76,15 +72,14 @@ provide new documentation and archive old documentation as I can find it.  The b
 old resource was the rom mailing list but alas it does not exist at it's old locations
 which were at:
 
-  - http://www.the-infinite.org/lists/romlist
-  - rom-request@rom.org
+  - [http://www.the-infinite.org/lists/romlist](http://www.the-infinite.org/lists/romlist)
 
 Here are some related resources that are thanksfully still active.
 
-  - Mud Bytes - http://www.mudbytes.net/
-  - Gammon Forums (Smaug & ROM) - http://www.gammon.com.au/forum/
-  - The Mud Connector - http://www.mudconnect.com/
-  - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): http://www.andreasen.org/mud.shtml
+  - Mud Bytes - [http://www.mudbytes.net/](http://www.mudbytes.net)
+  - Gammon Forums (Smaug & ROM) - [http://www.gammon.com.au/forum/](http://www.gammon.com.au/forum/)
+  - The Mud Connector - [http://www.mudconnect.com/](http://www.mudconnect.com/)
+  - Erwin Andreasen's page (though out dated is important, if only for his sharing of copyover): [http://www.andreasen.org/mud.shtml](http://www.andreasen.org/mud.shtml)
 
 ## License 
 
@@ -96,4 +91,4 @@ adhear to the licenses set before it from those code bases.
 If you wish to contact me you can contact me through my web-site and it will route it to
 my current preferred email:
 
- - http://www.blakepell.com/Contact.aspx
+ - [http://www.blakepell.com/Contact.aspx](http://www.blakepell.com/Contact.aspx)

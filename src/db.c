@@ -1338,7 +1338,6 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
     CHAR_DATA *LastMob = NULL;
     OBJ_DATA *LastObj = NULL;
     int iExit;
-    int level = 0;
     bool last;
 
     if (!pRoom)
@@ -1441,7 +1440,6 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                 char_to_room(pMob, pRoom);
 
                 LastMob = pMob;
-                level = URANGE(0, pMob->level - 2, LEVEL_HERO - 1);    /* -1 ROM */
                 last = TRUE;
                 break;
 
@@ -1473,9 +1471,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                     break;
                 }
 
-                pObj = create_object(pObjIndex,    /* UMIN - ROM OLC */
-                    UMIN(number_fuzzy(level),
-                        LEVEL_HERO - 1));
+                pObj = create_object(pObjIndex);
                 pObj->cost = 0;
                 obj_to_room(pObj, pRoom);
                 last = TRUE;
@@ -1519,9 +1515,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                 while (count < pReset->arg4)
                 {
-                    pObj =
-                        create_object(pObjIndex,
-                            number_fuzzy(LastObj->level));
+                    pObj = create_object(pObjIndex);
                     obj_to_obj(pObj, LastObj);
                     count++;
                     if (pObjIndex->count >= limit)
@@ -1558,8 +1552,7 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
                 if (LastMob->pIndexData->pShop)
                 {
                     /* Shop-keeper? */
-                    int olevel = 0;
-                    pObj = create_object(pObjIndex, olevel);
+                    pObj = create_object(pObjIndex);
                     SET_BIT(pObj->extra_flags, ITEM_INVENTORY);    /* ROM OLC */
                 }
                 else
@@ -1575,10 +1568,8 @@ void reset_room(ROOM_INDEX_DATA * pRoom)
 
                     if (pObjIndex->count < limit || number_range(0, 4) == 0)
                     {
-                        pObj = create_object(pObjIndex,
-                            UMIN(number_fuzzy(level),
-                                LEVEL_HERO - 1));
-    /* error message if it is too high */
+                        pObj = create_object(pObjIndex);
+                        /* error message if it is too high */
                         if (pObj->level > LastMob->level + 3)
                         {
                             log_f("Check Levels:");
@@ -1926,7 +1917,7 @@ void clone_mobile(CHAR_DATA * parent, CHAR_DATA * clone)
 /*
  * Create an instance of an object.
  */
-OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex, int level)
+OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex)
 {
     AFFECT_DATA *paf;
     OBJ_DATA *obj;
@@ -3905,6 +3896,7 @@ bool load_class(char *fname)
     }
 
     class = alloc_perm(sizeof(*class));
+    class->is_enabled = TRUE; // Default, will need to be set to false in the load file
 
     for (; ; )
     {
@@ -3991,6 +3983,8 @@ bool load_class(char *fname)
                 break;
             case 'I':
                 KEY("IsReclass", class->is_reclass, fread_number(fp));
+                KEY("IsEnabled", class->is_enabled, fread_number(fp));
+                break;
             case 'M':
                 if (!str_cmp(word, "Mult"))
                 {
@@ -4697,6 +4691,16 @@ void assign_gsn()
     ASSIGN_GSN(gsn_camouflage, "camouflage");
     ASSIGN_GSN(gsn_ambush, "ambush");
     ASSIGN_GSN(gsn_find_water, "find water");
+    ASSIGN_GSN(gsn_poison_prick, "poison prick");
+    ASSIGN_GSN(gsn_shiv, "shiv");
+    ASSIGN_GSN(gsn_protection_good, "protection good");
+    ASSIGN_GSN(gsn_protection_evil, "protection evil");
+    ASSIGN_GSN(gsn_protection_neutral, "protection neutral");
+    ASSIGN_GSN(gsn_escape, "escape");
+    ASSIGN_GSN(gsn_peer, "peer");
+    ASSIGN_GSN(gsn_bludgeon, "bludgeon");
+    ASSIGN_GSN(gsn_revolt, "revolt");
+    ASSIGN_GSN(gsn_imbue, "imbue");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

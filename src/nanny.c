@@ -103,9 +103,16 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             return;
 
         case CON_COLOR:
-            // TODO - fix the ASCII 34 issue. This is a hack to fix telnet clients that are actively trying to negotiate, it essentially
-            // defaults them to an answer of "Y"
-            if (argument[0] == '\0' || UPPER(argument[0]) == 'Y' || argument[0] == '\'')
+            // There are cases where some clients like telnet try to negotiate, a ASCII 34 ends up getting sent
+            // which borks the Y/N check.  If the argument isn't null, it does have the quote and the length contains
+            // more than one character then lop off leftmost character with argument++
+            if (!IS_NULLSTR(argument) && argument[0] == '\'' && strlen(argument) > 1)
+            {
+                argument++;
+            }
+
+            // Yes or nothing defaults them to yes.
+            if (argument[0] == '\0' || UPPER(argument[0]) == 'Y')
             {
                 d->ansi = TRUE;
                 d->connected = CON_LOGIN_MENU;
@@ -128,33 +135,56 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
         case CON_LOGIN_MENU:
+            // There are cases where some clients like telnet try to negotiate, a ASCII 34 ends up getting sent
+            // which borks initial input.  If the argument isn't null, it does have the quote and the length contains
+            // more than one character then lop off leftmost character with argument++
+            if (!IS_NULLSTR(argument) && argument[0] == '\'' && strlen(argument) > 1)
+            {
+                argument++;
+            }
+
+            // Since the login menu is now wrapped in an ASCII graphic that looks like a parchment, we need to
+            // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
+            // writing them over pieces of already rendered text.
+            sprintf(buf, "%s%s%s", DOWN, DOWN, DOWN);
+            send_to_desc(buf, d);
+
             switch( argument[0] )
             {
                 case 'n' : case 'N' :
-                    send_to_desc("What is your character's name? ", d);
+                    // Check the new lock first before letting the player through
+                    if (settings.newlock)
+                    {
+                        send_to_desc("\r\nThe game is new locked.  Please try again later.\r\n", d);
+                        send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                        d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                        return;
+                    }
+
+                    send_to_desc("\r\nWhat is your character's name? ", d);
                     d->connected = CON_GET_NAME;
                     return;
                 case 'p' : case 'P' :
-                    send_to_desc("What is your character's name? ", d);
+                    send_to_desc("\r\nWhat is your character's name? ", d);
                     d->connected = CON_GET_NAME;
                     return;
                 case 'q' : case 'Q' :
-                    send_to_desc("Alas, all good things must come to an end.\r\n", d);
+                    send_to_desc("\r\nAlas, all good things must come to an end.\r\n", d);
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
                     show_login_who(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'c' : case 'C' :
                     show_login_credits(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 case 'r': case 'R':
                     show_random_names(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R] ", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
                     d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
             }
@@ -191,15 +221,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             if (IS_SET(ch->act, PLR_DENY))
             {
                 log_f("Denying access to %s@%s.", argument, d->host);
-                send_to_desc("You are denied access.\r\n", d);
-                close_socket(d);
-                return;
-            }
-
-            if (check_ban(d->host, BAN_PERMIT)
-                && !IS_SET(ch->act, PLR_PERMIT))
-            {
-                send_to_desc("Your site has been banned from this mud.\r\n", d);
+                send_to_desc("\r\nYou are denied access.\r\n", d);
                 close_socket(d);
                 return;
             }
@@ -220,25 +242,28 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (fOld)
             {
-                /* Old player */
+                // Old Player
+                if (check_ban(d->host, BAN_ALL))
+                {
+                    send_to_desc("\r\nYour site is currently banned.\r\n", d);
+                    close_socket(d);
+                    return;
+                }
+
                 send_to_desc("Password: ", d);
-                write_to_buffer(d, echo_off_str, 0);
+                write_to_buffer(d, echo_off_str);
                 d->connected = CON_GET_OLD_PASSWORD;
                 return;
             }
             else
             {
-                /* New player */
-                if (settings.newlock)
-                {
-                    send_to_desc("\r\nThe game is new locked.\r\nPlease try again later.\r\n", d);
-                    close_socket(d);
-                    return;
-                }
+                // New Player
 
-                if (check_ban(d->host, BAN_NEWBIES))
+                // The new lock was checked on the menu option, no need to check it again, we will
+                // check the ban though.
+                if (check_ban(d->host, BAN_NEWBIES) || check_ban(d->host, BAN_ALL))
                 {
-                    send_to_desc("New players are not allowed from your site.\r\n", d);
+                    send_to_desc("\r\nNew players are not allowed from your site.\r\n", d);
                     close_socket(d);
                     return;
                 }
@@ -252,7 +277,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_GET_OLD_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             // We no longer disconnect for a bad password, send them back to the login
@@ -275,14 +300,14 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 // Turn string echoing back on and send them back to the login menu.
-                write_to_buffer(d, echo_on_str, 0);
+                write_to_buffer(d, echo_on_str);
                 d->connected = CON_LOGIN_MENU;
                 show_login_menu(d);
 
                 return;
             }
 
-            write_to_buffer(d, echo_on_str, 0);
+            write_to_buffer(d, echo_on_str);
 
             if (check_playing(d, ch->name))
                 return;
@@ -392,7 +417,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_GET_NEW_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             if (strlen(argument) < 5)
@@ -424,7 +449,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
         case CON_CONFIRM_NEW_PASSWORD:
 #if defined(unix)
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
 #endif
 
             if (strcmp(sha256_crypt_with_salt(argument, ch->name), ch->pcdata->pwd))
@@ -435,7 +460,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             // Turn echo'ing back on for asking for the email.
-            write_to_buffer(d, echo_on_str, 0);
+            write_to_buffer(d, echo_on_str);
             d->connected = CON_GET_EMAIL;
             send_to_desc("\r\nWe ask for an optional email address in case the game admin\r\n", d);
             send_to_desc("need to verify your identity to reset your password.  If you do\r\n", d);
@@ -470,12 +495,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 if (!race_table[race].pc_race)
                     break;
 
-                write_to_buffer(d, "  {G*{x ", 0);
-                write_to_buffer(d, race_table[race].name, 0);
-                write_to_buffer(d, "\r\n", 0);
+                write_to_buffer(d, "  {G*{x ");
+                write_to_buffer(d, race_table[race].name);
+                write_to_buffer(d, "\r\n");
             }
 
-            write_to_buffer(d, "\r\n", 0);
+            write_to_buffer(d, "\r\n");
             send_to_desc("What is your race (help for more information)? ", d);
             d->connected = CON_GET_NEW_RACE;
 
@@ -505,11 +530,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     if (!race_table[race].pc_race)
                         break;
 
-                    write_to_buffer(d, "  {G*{x ", 0);
-                    write_to_buffer(d, race_table[race].name, 0);
-                    write_to_buffer(d, "\r\n", 0);
+                    write_to_buffer(d, "  {G*{x ");
+                    write_to_buffer(d, race_table[race].name);
+                    write_to_buffer(d, "\r\n");
                 }
-                write_to_buffer(d, "\r\n", 0);
+                write_to_buffer(d, "\r\n");
                 send_to_desc("What is your race? (help for more information) ", d);
                 break;
             }
@@ -617,7 +642,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             wiznet("Newbie alert!  $N sighted.", ch, NULL, WIZ_NEWBIE, 0, 0);
             wiznet(buf, NULL, NULL, WIZ_SITES, 0, get_trust(ch));
 
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             send_to_desc("You may be good, neutral, or evil.\r\n", d);
             send_to_desc("Which alignment (G/N/E)? ", d);
             d->connected = CON_GET_ALIGNMENT;
@@ -644,7 +669,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
-            write_to_buffer(d, "\r\n", 0);
+            write_to_buffer(d, "\r\n");
 
             group_add(ch, "rom basics", FALSE);
             group_add(ch, class_table[ch->class]->base_group, FALSE);
@@ -656,7 +681,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_DEFAULT_CHOICE:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             switch (argument[0])
             {
                 case 'y':
@@ -665,7 +690,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->gen_data->points_chosen = ch->pcdata->points;
                     do_function(ch, &do_help, "group header");
                     list_group_costs(ch);
-                    write_to_buffer(d, "You already have the following skills:\r\n", 0);
+                    write_to_buffer(d, "You already have the following skills:\r\n");
                     do_function(ch, &do_skills, "");
                     do_function(ch, &do_help, "menu choice");
                     d->connected = CON_GEN_GROUPS;
@@ -674,8 +699,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 case 'N':
                     group_add(ch, class_table[ch->class]->default_group,
                         TRUE);
-                    write_to_buffer(d, "\r\n", 2);
-                    write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
+                    write_to_buffer(d, "\r\n");
+                    write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                     buf[0] = '\0';
 
                     for (i = 0; weapon_table[i].name != NULL; i++)
@@ -688,22 +713,22 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     }
 
                     strcat(buf, "\r\nYour choice? ");
-                    write_to_buffer(d, buf, 0);
+                    write_to_buffer(d, buf);
                     d->connected = CON_PICK_WEAPON;
                     break;
                 default:
-                    write_to_buffer(d, "Please answer (Y/N)? ", 0);
+                    write_to_buffer(d, "Please answer (Y/N)? ");
                     return;
             }
             break;
 
         case CON_PICK_WEAPON:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             weapon = weapon_lookup(argument);
             if (weapon == -1
                 || ch->pcdata->learned[*weapon_table[weapon].gsn] <= 0)
             {
-                write_to_buffer(d, "That's not a valid selection. Choices are:\r\n", 0);
+                write_to_buffer(d, "That's not a valid selection. Choices are:\r\n");
                 buf[0] = '\0';
 
                 for (i = 0; weapon_table[i].name != NULL; i++)
@@ -716,12 +741,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 strcat(buf, "\r\nYour choice? ");
-                write_to_buffer(d, buf, 0);
+                write_to_buffer(d, buf);
                 return;
             }
 
             ch->pcdata->learned[*weapon_table[weapon].gsn] = 40;
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             do_function(ch, &do_help, "motd");
             d->connected = CON_READ_MOTD;
             break;
@@ -757,8 +782,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 free_gen_data(ch->gen_data);
                 ch->gen_data = NULL;
-                write_to_buffer(d, "\r\n", 2);
-                write_to_buffer(d, "Please pick a weapon from the following choices:\r\n", 0);
+                write_to_buffer(d, "\r\n");
+                write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                 buf[0] = '\0';
 
                 for (i = 0; weapon_table[i].name != NULL; i++)
@@ -771,7 +796,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
                 strcat(buf, "\r\nYour choice? ");
-                write_to_buffer(d, buf, 0);
+                write_to_buffer(d, buf);
                 d->connected = CON_PICK_WEAPON;
                 break;
             }
@@ -785,7 +810,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             break;
 
         case CON_READ_IMOTD:
-            write_to_buffer(d, "\r\n", 2);
+            write_to_buffer(d, "\r\n");
             do_function(ch, &do_help, "motd");
             d->connected = CON_READ_MOTD;
             break;
@@ -793,9 +818,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
         case CON_READ_MOTD:
             if (ch->pcdata == NULL || ch->pcdata->pwd[0] == '\0')
             {
-                write_to_buffer(d, "Warning! Null password!\r\n", 0);
-                write_to_buffer(d, "Please report old password with bug.\r\n", 0);
-                write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n", 0);
+                write_to_buffer(d, "Warning! Null password!\r\n");
+                write_to_buffer(d, "Please report old password with bug.\r\n");
+                write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n");
             }
 
             send_to_desc("\r\nWelcome to {RHidden {rLands{x.\r\n\r\n", d);
@@ -834,7 +859,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 SET_BIT(ch->act, PLR_AUTOEXIT);
 
                 do_function(ch, &do_outfit, "");
-                obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP), 0), ch);
+                obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP)), ch);
 
                 char_to_room(ch, get_room_index(ROOM_VNUM_SCHOOL));
                 send_to_char("\r\n", ch);
@@ -898,288 +923,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             break;
     }
-
-    return;
-}
-
-/*
- * Sends the greeting on login.
- */
-void show_greeting(DESCRIPTOR_DATA *d)
-{
-    extern char *help_greeting;
-
-    if (help_greeting[0] == '.')
-    {
-        send_to_desc(help_greeting + 1, d);
-    }
-    else
-    {
-        send_to_desc(help_greeting, d);
-    }
-}
-
-/*
- * Shows random names simialiar to the do_randomnames command but formatted for
- * the login screen.
- */
-void show_random_names(DESCRIPTOR_DATA *d)
-{
-    char buf[MAX_STRING_LENGTH];
-    int row = 0;
-    int col = 0;
-
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WRandom Names {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
-
-    for (row = 0; row < 6; row++)
-    {
-        // Since the random function returns a static char we have to use it in
-        // separate calls.
-        for (col = 0; col < 4; col++)
-        {
-            sprintf(buf, "%-18s", generate_random_name());
-            send_to_desc(buf, d);
-        }
-
-        send_to_desc("\r\n", d);
-    }
-
-    return;
-}
-
-/*
- * Show the credits to the login screen, this is a little hacky.  I would prefer to use the
- * help system but it's tooled for CH's and down the line (in the string pager) has issues
- * with descriptors on a a straight conversion of page_to_char.
- */
-void show_login_credits(DESCRIPTOR_DATA *d)
-{
-    char buf[MAX_STRING_LENGTH];
-
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WCredits {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n\r\n", d);
-
-    sprintf(buf, "  {G*{x {WCrimson Skies{x %s (1998-2016)\r\n", VERSION);
-    send_to_desc(buf , d);
-    send_to_desc("        Blake Pell (Rhien)\r\n", d);
-    send_to_desc("  {G*{x {WROM 2.4{x (1993-1998)\r\n", d);
-    send_to_desc("        Russ Taylor, Gabrielle Taylor, Brian Moore\r\n", d);
-    send_to_desc("  {G*{x {WMerc DikuMUD{x (1991-1993)\r\n", d);
-    send_to_desc("        Michael Chastain, Michael Quan, Mitchel Tse\r\n", d);
-    send_to_desc("  {G*{x {WDikuMud{x (1990-1991)\r\n", d);
-    send_to_desc("        Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,\r\n", d);
-    send_to_desc("        Michael Seifert, Sebastian Hammer\r\n", d);
-    send_to_desc("\r\n", d);
-    send_to_desc("  {G*{x Detailed additional credits can be viewed in game via the credits\r\n", d);
-    send_to_desc("    command.  These additional credits include the names of many who\r\n", d);
-    send_to_desc("    have contributed through the mud community over the years where\r\n", d);
-    send_to_desc("    those contributions have been used here.\r\n", d);
-    return;
-}
-
-/*
- * Shows who is logged into the mud from the login menu.
- */
-void show_login_who(DESCRIPTOR_DATA *d)
-{
-    char buf[MAX_STRING_LENGTH];
-    DESCRIPTOR_DATA *dl;
-    int col = 0;
-    int count = 0;
-    int total_count = 0;
-
-    // Top of the play bill, the immortals
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R( {WImmortals {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
-
-    for (dl = descriptor_list; dl != NULL; dl = dl->next)
-    {
-        CHAR_DATA *ch;
-
-        if (dl->connected != CON_PLAYING)
-        {
-            continue;
-        }
-
-        ch = (dl->original != NULL) ? dl->original : dl->character;
-
-        if (!IS_IMMORTAL(ch))
-        {
-            continue;
-        }
-
-        count++;
-
-        sprintf(buf, "{C%-16s", ch->name);
-        send_to_desc(buf, d);
-
-        col++;
-
-        if (col % 5 == 0)
-        {
-            send_to_desc("\r\n", d);
-        }
-    }
-
-    total_count += count;
-
-    // Display if there are no immortals online.
-    if (count == 0)
-    {
-        send_to_desc("\r\n * {CThere are no immortals currently online.{x\r\n", d);
-    }
-
-    // The characters playing
-    count = 0;
-    col = 0;
-    send_to_desc("\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  {R(  {WMortals  {R){w  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
-
-    for (dl = descriptor_list; dl != NULL; dl = dl->next)
-    {
-        CHAR_DATA *ch;
-
-        if (dl->connected != CON_PLAYING)
-        {
-            continue;
-        }
-
-        ch = (dl->original != NULL) ? dl->original : dl->character;
-
-        if (IS_IMMORTAL(ch))
-        {
-            continue;
-        }
-
-        count++;
-
-        sprintf(buf, "{x%-16s", ch->name);
-        send_to_desc(buf, d);
-
-        col++;
-
-        if (col % 5 == 0)
-        {
-            send_to_desc("\r\n", d);
-        }
-    }
-
-    total_count += count;
-
-    if (count == 0)
-    {
-        send_to_desc("\r\n * {CThere are no mortals currently online.{x", d);
-    }
-
-    send_to_desc("\r\n", d);
-
-    if (total_count > 0)
-    {
-        sprintf(buf, "\r\nTotal Players Online: %d\r\n", total_count);
-        send_to_desc(buf, d);
-    }
-
-    return;
-}
-
-/*
- * Renders the current login menu to the player.
- */
-void show_login_menu(DESCRIPTOR_DATA *d)
-{
-    // This probably shouldn't happen but better safe than sorry on a high run method.
-    if (d == NULL)
-    {
-        return;
-    }
-
-    char buf[MAX_STRING_LENGTH];
-    bool ban_permit = check_ban(d->host, BAN_PERMIT);
-    bool ban_newbie = check_ban(d->host, BAN_NEWBIES);
-    bool ban_all = check_ban(d->host, BAN_ALL);
-
-    // The login menu header
-    send_to_desc("\r\n\r\n{W<{w-=-=-=-=-=-=-=-=-=-=-=- {W( {RHidden {rLands{D: {WLogin Menu {W){w -=-=-=-=-=-=-=-=-=-=-=-{W>{x\r\n", d);
-
-    // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
-    // newlocked, if their host is banned all together or if they are newbie banned.
-    if (settings.wizlock || settings.newlock || ban_permit || ban_newbie)
-    {
-        sprintf(buf, "    {x({DN{x){Dew Character{x         ");
-    }
-    else
-    {
-        sprintf(buf, "    {x({GN{x){gew Character{x         ");
-    }
-
-    // Column 1.2 - Game Status
-    strcat(buf, "           {WGame Status: ");
-
-    if (global.is_copyover == TRUE)
-    {
-        strcat(buf, "{RReboot in Progress{x\r\n");
-    }
-    else if (settings.wizlock)
-    {
-        strcat(buf, "{RLocked{x\r\n");
-    }
-    else if (settings.newlock)
-    {
-        strcat(buf, "{RNew Locked{x\r\n");
-    }
-    else
-    {
-        strcat(buf, "{gOpen for Play{x\r\n");
-    }
-
-    send_to_desc(buf, d);
-
-    // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
-    if (ban_permit || settings.wizlock)
-    {
-        sprintf(buf, "    {x({DP{x){Dlay Existing Character{x");
-    }
-    else
-    {
-        sprintf(buf, "    {x({GP{x){glay Existing Character{x");
-    }
-
-    // Column 2.2 - Site status
-    strcat(buf, "          {W  Your Site: ");
-    if (ban_permit || ban_all)
-    {
-        strcat(buf, "{rBanned{x\r\n");
-    }
-    else
-    {
-        if (ban_newbie)
-        {
-            strcat(buf, "{rNew Player Banned{x\r\n");
-        }
-        else
-        {
-            strcat(buf, "{gWelcome to Play{x\r\n");
-        }
-    }
-
-    send_to_desc(buf, d);
-
-    // Column 3.1 - Who is currently online
-    sprintf(buf, "    {x({GW{x){gho is on now?\r\n");
-    send_to_desc(buf, d);
-
-    // Column 4.1 - Random name generator
-    sprintf(buf, "    {x({GR{x){gandom Name Generator\r\n");
-    send_to_desc(buf, d);
-
-    // Column 5.1 - Credits
-    sprintf(buf, "    {x({GC{x){gredits\r\n");
-    send_to_desc(buf, d);
-
-    // Column 6.1 & 6.2 - Quit and System Time
-    sprintf(buf, "    {x({GQ{x){guit{x\r\n\r\n");
-    send_to_desc(buf, d);
-
-    // Column 7.1 - Prompt
-    sprintf(buf, "     {WYour selection? {x-> ");
-    send_to_desc(buf, d);
 
     return;
 }

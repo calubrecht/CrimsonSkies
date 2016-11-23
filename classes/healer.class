@@ -14,6 +14,7 @@ Mana        1
 BaseGroup   'healer basics'
 DefGroup    'healer default'
 IsReclass   1
+IsEnabled   1
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
 Sk 'refresh' 1 1
@@ -55,6 +56,7 @@ Sk 'know alignment' 9 1
 Sk 'protection evil' 9 1
 Sk 'protection good' 9 1
 Sk 'fast healing' 9 5
+Sk 'protection neutral' 9 1
 Sk 'earthquake' 10 1
 Sk 'floating disc' 10 1
 Sk 'hand to hand' 10 5
@@ -75,6 +77,7 @@ Sk 'dispel evil' 15 1
 Sk 'dispel good' 15 1
 Sk 'locate object' 15 1
 Sk 'sense affliction' 15 1
+Sk 'locate bind' 15 1
 Sk 'calm' 16 1
 Sk 'farsight' 16 1
 Sk 'heat metal' 16 1
@@ -109,6 +112,7 @@ Sk 'vitalizing presence' 24 1
 Sk 'mass healing' 25 2
 Sk 'mass invis' 25 1
 Sk 'pick lock' 25 8
+Sk 'imbue' 25 1
 Sk 'cancellation' 26 1
 Sk 'word of recall' 28 1
 Sk 'fog' 28 1
@@ -159,6 +163,12 @@ Sk 'camping' 52 -1
 Sk 'camouflage' 52 -1
 Sk 'ambush' 52 -1
 Sk 'find water' 52 -1
+Sk 'poison prick' 52 -1
+Sk 'shiv' 52 -1
+Sk 'escape' 52 -1
+Sk 'peer' 52 -1
+Sk 'bludgeon' 52 -1
+Sk 'revolt' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -212,6 +222,7 @@ Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
+Gr 'rogue basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -220,6 +231,7 @@ Gr 'enchantor default' 0
 Gr 'healer default' 40
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
+Gr 'rogue default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
 Gr 'beguiling' 0

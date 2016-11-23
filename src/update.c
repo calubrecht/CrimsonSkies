@@ -148,6 +148,7 @@ void update_handler(bool forced)
     {
         wiznet("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
         pulse_tick = PULSE_TICK;
+        quest_update();
         weather_update();
         char_update();
         obj_update();

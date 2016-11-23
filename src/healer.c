@@ -256,7 +256,7 @@ void spell_magic_resistance(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     af.level = level;
     af.duration = level;
     af.modifier = (ch->level / 10) * -1;
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
@@ -395,10 +395,14 @@ void spell_restore_mental_presence(int sn, int level, CHAR_DATA * ch, void *vo, 
     // This is all the code needed, it will remove the stun state from the player.
     victim->daze = 0;
 
-    // Disorientation isn't a spell, we aren't going to make a saves check
-    if (is_affected(victim, gsn_disorientation))
+    // Disorientation isn't a spell, we aren't going to make a saves check but we will
+    // add some fate to it.
+    if (CHANCE(33))
     {
-        affect_strip(victim, gsn_disorientation);
+        if (is_affected(victim, gsn_disorientation))
+        {
+            affect_strip(victim, gsn_disorientation);
+        }
     }
 
     send_to_char("Your mental presence has been restored.\r\n", victim);
@@ -498,7 +502,7 @@ void spell_healers_bind(int sn, int level, CHAR_DATA *ch, void *vo, int target)
         charges = charges / 2;
     }
 
-    obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND), 0);
+    obj = create_object(get_obj_index(OBJ_VNUM_HEALERS_BIND));
     obj->value[0] = charges;  // The number of charges
     obj->value[1] = 50;       // The amount it heals
 

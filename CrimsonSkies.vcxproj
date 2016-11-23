@@ -81,9 +81,11 @@
     <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
     <ClCompile Include="src\bladesinger.c" />
+    <ClCompile Include="src\clan.c" />
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
+    <ClCompile Include="src\db_export.c" />
     <ClCompile Include="src\disable.c" />
     <ClCompile Include="src\effects.c" />
     <ClCompile Include="src\enchantor.c" />
@@ -95,6 +97,7 @@
     <ClCompile Include="src\ini.c" />
     <ClCompile Include="src\interp.c" />
     <ClCompile Include="src\log.c" />
+    <ClCompile Include="src\login_menu.c" />
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
     <ClCompile Include="src\map.c" />
@@ -110,14 +113,17 @@
     <ClCompile Include="src\olc_mem.c" />
     <ClCompile Include="src\olc_save.c" />
     <ClCompile Include="src\olc_string.c" />
+    <ClCompile Include="src\quest.c" />
     <ClCompile Include="src\random.c" />
     <ClCompile Include="src\ranger.c" />
     <ClCompile Include="src\recycle.c" />
+    <ClCompile Include="src\rogue.c" />
     <ClCompile Include="src\save.c" />
     <ClCompile Include="src\settings.c" />
     <ClCompile Include="src\sha256.c" />
     <ClCompile Include="src\skills.c" />
     <ClCompile Include="src\special.c" />
+    <ClCompile Include="src\sqlite\sqlite3.c" />
     <ClCompile Include="src\tables.c" />
     <ClCompile Include="src\timer.c" />
     <ClCompile Include="src\update.c" />
@@ -135,6 +141,7 @@
     <ClInclude Include="src\olc.h" />
     <ClInclude Include="src\recycle.h" />
     <ClInclude Include="src\sha256.h" />
+    <ClInclude Include="src\sqlite\sqlite3.h" />
     <ClInclude Include="src\tables.h" />
     <ClInclude Include="src\telnet.h" />
   </ItemGroup>

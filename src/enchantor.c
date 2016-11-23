@@ -262,7 +262,7 @@ void spell_enchant_gem(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
     // Create the warpstone, create the message while both objects exist, then take the gem and give the
     // warpstone to the player
-    obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE), 0);
+    obj_warpstone = create_object(get_obj_index(OBJ_VNUM_WARPSTONE));
     sprintf(buf, "%s glows a bright {Mmagenta{x and changes into %s.", obj->short_descr, obj_warpstone->short_descr);
 
     separate_obj(obj);
@@ -606,18 +606,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     fail = URANGE(5, fail, 95);
     result = number_percent();
 
-    // Enchanting cap at 14 hit or 14 damage (which should be impossibly rare)
+    // Enchanting cap at 12 hit or 12 damage (which should be very rare)
     for (paf = obj->affected; paf != NULL; paf = paf->next)
     {
         if (paf->location == APPLY_HITROLL)
         {
             hit_bonus = paf->modifier;
-            if (hit_bonus >= 14) { result = 0; }
+            if (hit_bonus >= 12) { result = 0; }
         }
         else if (paf->location == APPLY_DAMROLL)
         {
             dam_bonus = paf->modifier;
-            if (dam_bonus >= 14) { result = 0; }
+            if (dam_bonus >= 12) { result = 0; }
         }
     }
 
@@ -650,6 +650,25 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
         // clear all flags
         obj->extra_flags = 0;
+
+        if (IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC))
+            REMOVE_BIT(obj->value[4], WEAPON_VAMPIRIC);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_LEECH))
+            REMOVE_BIT(obj->value[4], WEAPON_LEECH);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_POISON))
+            REMOVE_BIT(obj->value[4], WEAPON_POISON);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_FLAMING))
+              REMOVE_BIT(obj->value[4], WEAPON_FLAMING);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_FROST))
+            REMOVE_BIT(obj->value[4], WEAPON_FROST);
+
+        if (IS_WEAPON_STAT(obj, WEAPON_SHOCKING))
+            REMOVE_BIT(obj->value[4], WEAPON_SHOCKING);
+
         return;
     }
 
@@ -814,7 +833,7 @@ void spell_restore_weapon(int sn, int level, CHAR_DATA *ch, void *vo, int target
     if (is_affected(ch, gsn_enchant_person))
         chance += 1;
 
-    if (chance >= 1 && chance <= 2)
+    if (chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
         separate_obj(obj);
@@ -830,7 +849,7 @@ void spell_restore_weapon(int sn, int level, CHAR_DATA *ch, void *vo, int target
     }
     else
     {
-        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum));
         obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
@@ -880,7 +899,7 @@ void spell_restore_armor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     if (IS_OBJ_STAT(obj, ITEM_GLOW))
         chance += 1;
 
-    if (chance >= 1 && chance <= 2)
+    if (chance <= 2)
     {
         sprintf(buf, "%s crumbles into dust...", obj->short_descr);
         separate_obj(obj);
@@ -896,7 +915,7 @@ void spell_restore_armor(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     }
     else
     {
-        obj2 = create_object(get_obj_index(obj->pIndexData->vnum), obj->pIndexData->level);
+        obj2 = create_object(get_obj_index(obj->pIndexData->vnum));
         obj_to_char(obj2, ch);
         separate_obj(obj);
         extract_obj(obj);
@@ -949,8 +968,15 @@ void spell_disenchant(int sn, int level, CHAR_DATA *ch, void *vo, int target) {
 
     /* clear all flags */
     obj->extra_flags = 0;
+
     if (IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC))
         REMOVE_BIT(obj->value[4], WEAPON_VAMPIRIC);
+
+    if (IS_WEAPON_STAT(obj, WEAPON_LEECH))
+        REMOVE_BIT(obj->value[4], WEAPON_LEECH);
+
+    if (IS_WEAPON_STAT(obj, WEAPON_POISON))
+        REMOVE_BIT(obj->value[4], WEAPON_POISON);
 
     if (IS_WEAPON_STAT(obj, WEAPON_FLAMING))
         REMOVE_BIT(obj->value[4], WEAPON_FLAMING);

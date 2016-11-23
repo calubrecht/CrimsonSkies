@@ -142,16 +142,16 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 /*
  * Color stuff by Lope.
  */
-#define CLEAR       "\x1B[0m"        /* Resets Color    */
+#define CLEAR       "\x1B[0m"       /* Resets Color */
 #define C_BLACK	    "\x1B[0;30m"
-#define C_RED       "\x1B[0;31m"    /* Normal Colors    */
+#define C_RED       "\x1B[0;31m"    /* Normal Colors */
 #define C_GREEN     "\x1B[0;32m"
 #define C_YELLOW    "\x1B[0;33m"
 #define C_BLUE      "\x1B[0;34m"
 #define C_MAGENTA   "\x1B[0;35m"
 #define C_CYAN      "\x1B[0;36m"
 #define C_WHITE     "\x1B[0;37m"
-#define C_D_GREY    "\x1B[1;30m"      /* Light Colors        */
+#define C_D_GREY    "\x1B[1;30m"    /* Light Colors */
 #define C_B_RED     "\x1B[1;31m"
 #define C_B_GREEN   "\x1B[1;32m"
 #define C_B_YELLOW  "\x1B[1;33m"
@@ -159,10 +159,16 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define C_B_MAGENTA "\x1B[1;35m"
 #define C_B_CYAN    "\x1B[1;36m"
 #define C_B_WHITE   "\x1B[1;37m"
-#define BLINK       "\x1B[5m"
+#define BLINK       "\x1B[5m"      /* Special Codes */
 #define BACK        "\x1B[1D"
 #define UNDERLINE   "\x1B[4m"
 #define REVERSE     "\x1B[7m"
+#define UP          "\x1B[1A"      /* Cursor Movement */
+#define DOWN	    "\x1B[1B"
+#define RIGHT	    "\x1B[1C"
+#define LEFT        "\x1B[1D"
+
+#define HEADER "--------------------------------------------------------------------------------\r\n"
 
 /*
  * Class lookup values that correspond to the class table.
@@ -175,6 +181,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define HEALER_CLASS_LOOKUP                     5
 #define BLADESINGER_CLASS_LOOKUP                6
 #define RANGER_CLASS_LOOKUP                     7
+#define ROGUE_CLASS_LOOKUP                      8
 
 /*
  * PC Race Lookup
@@ -199,8 +206,8 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define BAN_PREFIX     B
 #define BAN_NEWBIES    C
 #define BAN_ALL        D
-#define BAN_PERMIT     E
 #define BAN_PERMANENT  F
+#define BAN_WHITELIST  G
 
 struct ban_data
 {
@@ -286,7 +293,8 @@ struct descriptor_data
     CHAR_DATA       *  original;
     bool               valid;
     bool               ansi;
-    char            *  host;
+    char            *  host; // host or the dotted ip_address
+    char            *  ip_address; // always the dotted ip_address
     int                descriptor;
     int                connected;
     bool               fcommand;
@@ -413,6 +421,7 @@ struct class_type
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
     bool    is_reclass;        /* Whether the class is a reclass (or a base class) */
+    bool    is_enabled;        /* Whether the class is enabled for public use */
 };
 
 struct item_type
@@ -561,6 +570,8 @@ struct settings_data
     // Game Locks / System Behavior
     bool newlock;           // New lock, no new characters can create
     bool wizlock;           // Only immortals can login
+    bool whitelist_lock;    // Whether a white list is active, see ban.c for info.
+    bool test_mode;         // Whether the entire game is put into test mode
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
@@ -1025,6 +1036,8 @@ typedef enum
 #define OBJ_VNUM_STEAK             27
 #define OBJ_VNUM_CAMPFIRE          28
 #define OBJ_VNUM_SPRING_2          29
+#define OBJ_VNUM_BIND_STONE        31
+
 #define OBJ_VNUM_ROSE              1001
 
 #define OBJ_VNUM_PIT               3010
@@ -1153,6 +1166,8 @@ typedef enum
 #define WEAPON_TWO_HANDS  (F)
 #define WEAPON_SHOCKING   (G)
 #define WEAPON_POISON     (H)
+#define WEAPON_LEECH      (I)
+#define WEAPON_STUN       (J)
 
 /* gate flags */
 #define GATE_NORMAL_EXIT  (A)
@@ -1204,11 +1219,6 @@ typedef enum
 #define APPLY_HITROLL        18
 #define APPLY_DAMROLL        19
 #define APPLY_SAVES          20
-#define APPLY_SAVING_PARA    20
-#define APPLY_SAVING_ROD     21
-#define APPLY_SAVING_PETRI   22
-#define APPLY_SAVING_BREATH  23
-#define APPLY_SAVING_SPELL   24
 #define APPLY_SPELL_AFFECT   25
 
 /*
@@ -1383,6 +1393,7 @@ typedef enum
 #define PLR_AUTOSAC         (F)
 #define PLR_AUTOGOLD        (G)
 #define PLR_AUTOSPLIT       (H)
+#define PLR_QUESTOR         (J)
 
 /* Special Flags */
 #define PLR_TESTER          (M)
@@ -1652,6 +1663,15 @@ struct pc_data
     time_t          last_immnote;
     int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
     char *          last_ip;         // Saves the last IP address used, see save.c for notes.
+    int             recall_vnum;     // Custom recall point that can be set by the user to any bind stone
+    CHAR_DATA *     quest_giver;     // Vassago - Questing
+    int             quest_points;    // Vassago - Questing
+    int             next_quest;      // Vassago - Questing
+    int             countdown;       // Vassago - Questing
+    int             quest_obj;       // Vassago - Questing
+    int             quest_mob;       // Vassago - Questing
+    int             pkills;          // The number of player kills a character has.
+    int             pkilled;         // The number of times a player has been killed.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2087,7 +2107,7 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
                 || strstr( Area->builders, ch->name )      \
                 || strstr( Area->builders, "All" ) ) )
 #define IS_WANTED(ch) (IS_SET(ch->act, PLR_WANTED))
-#define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER))
+#define IS_TESTER(ch) (IS_SET(ch->act, PLR_TESTER) || settings.test_mode)
 #define IS_GHOST(ch)  (is_affected(ch,gsn_ghost))
 #define IS_DAY()      (time_info.hour > 5 && time_info.hour < 20)
 #define IS_NIGHT()    (!IS_DAY())
@@ -2197,42 +2217,43 @@ extern  GLOBAL_DATA             global;
  * Then we close it whenever we need to open a file (e.g. a save file).
  */
 #if defined(_WIN32)
-    #define PLAYER_DIR	    "../player/"        /* Player files */
-    #define TEMP_FILE	    "../player/romtmp"
-    #define NULL_FILE       "nul"               /* To reserve one stream  */
+    #define PLAYER_DIR	     "../player/"        /* Player files */
+    #define TEMP_FILE	     "../player/romtmp"
+    #define NULL_FILE        "nul"               /* To reserve one stream  */
 #endif
 
 #if defined(unix)
-    #define PLAYER_DIR      "../player/"         /* Player files           */
-    #define GOD_DIR         "../gods/"           /* list of gods           */
-    #define TEMP_FILE       "../player/romtmp"
-    #define NULL_FILE       "/dev/null"          /* To reserve one stream  */
+    #define PLAYER_DIR       "../player/"         /* Player files           */
+    #define GOD_DIR          "../gods/"           /* list of gods           */
+    #define TEMP_FILE        "../player/romtmp"
+    #define NULL_FILE        "/dev/null"          /* To reserve one stream  */
 #endif
 
-#define AREA_LIST           "area.lst"                   /* List of areas */
-#define BUG_FILE            "../log/bugs.txt"            /* For 'bug' and bug() */
-#define TYPO_FILE           "../log/typos.txt"           /* For 'typo' */
-#define OHELPS_FILE	        "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
+#define AREA_LIST            "area.lst"                   /* List of areas */
+#define BUG_FILE             "../log/bugs.txt"            /* For 'bug' and bug() */
+#define TYPO_FILE            "../log/typos.txt"           /* For 'typo' */
+#define OHELPS_FILE	         "../log/orphaned_helps.txt"  /* Unmet 'help' requests */
 
-#define GROUP_FILE          "../classes/groups.dat"      /* groups file */
-#define CLASS_DIR           "../classes/"                /* classes directory */
-#define CLASS_FILE          "class.lst"                  /* classes file */
-#define SKILLS_FILE         "../classes/skills.dat"      /* skills and spells file */
+#define GROUP_FILE           "../classes/groups.dat"      /* groups file */
+#define CLASS_DIR            "../classes/"                /* classes directory */
+#define CLASS_FILE           "class.lst"                  /* classes file */
+#define SKILLS_FILE          "../classes/skills.dat"      /* skills and spells file */
 
-#define NOTE_FILE           "../notes/note.note"
-#define PENALTY_FILE        "../notes/penalty.note"
-#define NEWS_FILE           "../notes/news.note"
-#define CHANGES_FILE        "../notes/change.note"
-#define OOC_FILE            "../notes/ooc.note"
-#define STORY_FILE          "../notes/story.note"
-#define HISTORY_FILE        "../notes/history.note"
-#define IMMNOTE_FILE	    "../notes/imm.note"
+#define NOTE_FILE            "../notes/note.note"
+#define PENALTY_FILE         "../notes/penalty.note"
+#define NEWS_FILE            "../notes/news.note"
+#define CHANGES_FILE         "../notes/change.note"
+#define OOC_FILE             "../notes/ooc.note"
+#define STORY_FILE           "../notes/story.note"
+#define HISTORY_FILE         "../notes/history.note"
+#define IMMNOTE_FILE	     "../notes/imm.note"
 
-#define BAN_FILE            "../system/ban.dat"
-#define SAVED_OBJECT_FILE   "../system/saved_objects.dat"
-#define SETTINGS_FILE       "../system/settings.ini"
-#define STATISTICS_FILE     "../system/statistics.dat"
-#define DISABLED_FILE       "../system/disabled.dat"
+#define BAN_FILE             "../system/ban.dat"
+#define SAVED_OBJECT_FILE    "../system/saved_objects.dat"
+#define SETTINGS_FILE        "../system/settings.ini"
+#define STATISTICS_FILE      "../system/statistics.dat"
+#define DISABLED_FILE        "../system/disabled.dat"
+#define EXPORT_DATABASE_FILE "../system/cs-mud.db"
 
 // Exit codes
 #define MUD_EXIT_REBOOT          0                        /* Normal exit */
@@ -2294,7 +2315,7 @@ bool     check_ban           (char *site, int type);
 /* comm.c */
 void     show_string         (struct descriptor_data *d, char *input);
 void     close_socket        (DESCRIPTOR_DATA *dclose);
-void     write_to_buffer     (DESCRIPTOR_DATA *d, const char *txt, int length);
+void     write_to_buffer     (DESCRIPTOR_DATA *d, const char *txt);
 void     send_to_desc        (const char *txt, DESCRIPTOR_DATA *d);
 void     send_to_char        (const char *txt, CHAR_DATA *ch);
 void     page_to_char        (const char *txt, CHAR_DATA *ch);
@@ -2302,7 +2323,7 @@ void     page_to_char        (const char *txt, CHAR_DATA *ch);
 void     act_new             (const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type, int min_pos);
 void     printf_to_char      (CHAR_DATA *, char *, ...);
 void     printf_to_desc      (DESCRIPTOR_DATA *, char *, ...);
-bool     write_to_descriptor (int desc, char *txt, int length, DESCRIPTOR_DATA *d);
+bool     write_to_descriptor (int desc, char *txt, DESCRIPTOR_DATA *d);
 void     write_to_all_desc   (char *txt);
 void     send_to_all_char    (char *txt);
 void     copyover_broadcast  (char *txt, bool show_last_result);
@@ -2315,7 +2336,7 @@ void     boot_db             (void);
 void     area_update         (void);
 CD *     create_mobile       (MOB_INDEX_DATA *pMobIndex);
 void     clone_mobile        (CHAR_DATA *parent, CHAR_DATA *clone);
-OD *     create_object       (OBJ_INDEX_DATA *pObjIndex, int level);
+OD *     create_object       (OBJ_INDEX_DATA *pObjIndex);
 void     clone_object        (OBJ_DATA *parent, OBJ_DATA *clone);
 char *   get_extra_descr     (const char *name, EXTRA_DESCR_DATA *ed);
 MID *    get_mob_index       (int vnum);
@@ -2370,6 +2391,7 @@ void    cold_effect    (void *vo, int level, int dam, int target);
 void    fire_effect    (void *vo, int level, int dam, int target);
 void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
+bool    stun_effect    (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* nanny.c */
 void     show_greeting       (DESCRIPTOR_DATA *d);
@@ -2404,6 +2426,10 @@ char    *get_stance_name(CHAR_DATA *ch);
 int     stance_defensive_modifier (CHAR_DATA *ch);
 int     stance_offensive_modifier (CHAR_DATA *ch);
 
+/* clan.c */
+bool   is_clan            (CHAR_DATA *ch);
+bool   is_same_clan       (CHAR_DATA *ch, CHAR_DATA *victim);
+
 /* handler.c */
 AD    *affect_find        (AFFECT_DATA *paf, int sn);
 void   affect_check       (CHAR_DATA *ch, int where, int vector);
@@ -2419,8 +2445,6 @@ char  *item_name          (int item_type);
 int    attack_lookup      (const char *name);
 long   wiznet_lookup      (const char *name);
 int    class_lookup       (const char *name);
-bool   is_clan            (CHAR_DATA *ch);
-bool   is_same_clan       (CHAR_DATA *ch, CHAR_DATA *victim);
 int    get_skill          (CHAR_DATA *ch, int sn);
 int    get_weapon_sn      (CHAR_DATA *ch, bool dual);
 int    get_weapon_skill   (CHAR_DATA *ch, int sn);
@@ -2531,6 +2555,11 @@ void    mp_hprct_trigger   (CHAR_DATA *mob, CHAR_DATA *ch);
 /* mob_cmds.c */
 void    mob_interpret      (CHAR_DATA *ch, char *argument);
 
+/* quest.c */
+CHAR_DATA *get_quest_giver (int vnum);
+CHAR_DATA *find_quest_master(CHAR_DATA * ch);
+void       quest_update    (void);
+
 /* settings.c */
 void    save_settings      (void);
 
@@ -2550,6 +2579,8 @@ void    gn_add           (CHAR_DATA *ch, int gn);
 void    gn_remove        (CHAR_DATA *ch, int gn);
 void    group_add        (CHAR_DATA *ch, const char *name, bool deduct);
 void    group_remove     (CHAR_DATA *ch, const char *name);
+void    show_skill_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
+void    show_spell_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
 
 /* special.c */
 SF *    spec_lookup      (const char *name);
@@ -2585,9 +2616,10 @@ char *  string_proper  (char * argument);
 char *  num_punct      (int foo);
 
 /* olc.c */
-bool    run_olc_editor    (DESCRIPTOR_DATA *d);
-char    *olc_ed_name      (CHAR_DATA *ch);
-char    *olc_ed_vnum      (CHAR_DATA *ch);
+bool      run_olc_editor    (DESCRIPTOR_DATA *d);
+char      *olc_ed_name      (CHAR_DATA *ch);
+char      *olc_ed_vnum      (CHAR_DATA *ch);
+AREA_DATA *get_area_data    (int vnum);
 
 /* lookup.c */
 int    race_lookup          (const char *name);

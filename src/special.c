@@ -49,6 +49,7 @@
 /*
  * The following special functions are available for mobiles.
  */
+DECLARE_SPEC_FUN(spec_questmaster);  // Questing
 DECLARE_SPEC_FUN(spec_breath_any);
 DECLARE_SPEC_FUN(spec_breath_acid);
 DECLARE_SPEC_FUN(spec_breath_fire);
@@ -100,6 +101,7 @@ const struct spec_type spec_table[] = {
     {"spec_ogre_member", spec_ogre_member},
     {"spec_patrolman", spec_patrolman},
     {"spec_woodland_fighter", spec_woodland_fighter},
+    {"spec_questmaster", spec_questmaster}, // Questing
     {NULL, NULL}
 };
 
@@ -1268,3 +1270,16 @@ bool spec_woodland_fighter(CHAR_DATA *ch)
     return TRUE;
 
 } // end spec_woodland_fighter
+
+/*
+ * A special for the questmaster.
+ */
+bool spec_questmaster (CHAR_DATA *ch)
+{
+    if (ch->fighting != NULL)
+    {
+        return spec_cast_mage(ch);
+    }
+
+    return FALSE;
+}

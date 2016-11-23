@@ -302,25 +302,6 @@ int check_immune(CHAR_DATA * ch, int dam_type)
 }
 
 /*
- * Whether or not the character is in a clan or not.
- */
-bool is_clan(CHAR_DATA * ch)
-{
-    return ch->clan;
-}
-
-/*
- * Whether or not two characters are in the same clan.
- */
-bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
-{
-    if (clan_table[ch->clan].independent)
-        return FALSE;
-    else
-        return (ch->clan == victim->clan);
-}
-
-/*
  * Returns the weapon sn (skill number) for the weapon that the character
  * is currently wearing (either for the primary weapon or a secondary (dual)
  * wielded weapon.  e.g. this will return gsn_sword, gsn_dagger, gsn_mace, etc.
@@ -573,18 +554,6 @@ void reset_char(CHAR_DATA * ch)
                     case APPLY_SAVES:
                         ch->saving_throw += mod;
                         break;
-                    case APPLY_SAVING_ROD:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_PETRI:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_BREATH:
-                        ch->saving_throw += mod;
-                        break;
-                    case APPLY_SAVING_SPELL:
-                        ch->saving_throw += mod;
-                        break;
                 }
             }
 
@@ -634,18 +603,6 @@ void reset_char(CHAR_DATA * ch)
                     break;
 
                 case APPLY_SAVES:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_ROD:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_PETRI:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_BREATH:
-                    ch->saving_throw += mod;
-                    break;
-                case APPLY_SAVING_SPELL:
                     ch->saving_throw += mod;
                     break;
             }
@@ -699,18 +656,6 @@ void reset_char(CHAR_DATA * ch)
                 break;
 
             case APPLY_SAVES:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_ROD:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_PETRI:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_BREATH:
-                ch->saving_throw += mod;
-                break;
-            case APPLY_SAVING_SPELL:
                 ch->saving_throw += mod;
                 break;
         }
@@ -1030,18 +975,6 @@ void affect_modify(CHAR_DATA * ch, AFFECT_DATA * paf, bool fAdd)
             ch->damroll += mod;
             break;
         case APPLY_SAVES:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_ROD:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_PETRI:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_BREATH:
-            ch->saving_throw += mod;
-            break;
-        case APPLY_SAVING_SPELL:
             ch->saving_throw += mod;
             break;
         case APPLY_SPELL_AFFECT:
@@ -2422,15 +2355,15 @@ OBJ_DATA *create_money(int gold, int silver)
 
     if (gold == 0 && silver == 1)
     {
-        obj = create_object(get_obj_index(OBJ_VNUM_SILVER_ONE), 0);
+        obj = create_object(get_obj_index(OBJ_VNUM_SILVER_ONE));
     }
     else if (gold == 1 && silver == 0)
     {
-        obj = create_object(get_obj_index(OBJ_VNUM_GOLD_ONE), 0);
+        obj = create_object(get_obj_index(OBJ_VNUM_GOLD_ONE));
     }
     else if (silver == 0)
     {
-        obj = create_object(get_obj_index(OBJ_VNUM_GOLD_SOME), 0);
+        obj = create_object(get_obj_index(OBJ_VNUM_GOLD_SOME));
         sprintf(buf, obj->short_descr, gold);
         free_string(obj->short_descr);
         obj->short_descr = str_dup(buf);
@@ -2440,7 +2373,7 @@ OBJ_DATA *create_money(int gold, int silver)
     }
     else if (gold == 0)
     {
-        obj = create_object(get_obj_index(OBJ_VNUM_SILVER_SOME), 0);
+        obj = create_object(get_obj_index(OBJ_VNUM_SILVER_SOME));
         sprintf(buf, obj->short_descr, silver);
         free_string(obj->short_descr);
         obj->short_descr = str_dup(buf);
@@ -2451,7 +2384,7 @@ OBJ_DATA *create_money(int gold, int silver)
 
     else
     {
-        obj = create_object(get_obj_index(OBJ_VNUM_COINS), 0);
+        obj = create_object(get_obj_index(OBJ_VNUM_COINS));
         sprintf(buf, obj->short_descr, silver, gold);
         free_string(obj->short_descr);
         obj->short_descr = str_dup(buf);
@@ -2774,14 +2707,6 @@ char *affect_loc_name(int location)
             return "damage roll";
         case APPLY_SAVES:
             return "saves";
-        case APPLY_SAVING_ROD:
-            return "save vs rod";
-        case APPLY_SAVING_PETRI:
-            return "save vs petrification";
-        case APPLY_SAVING_BREATH:
-            return "save vs breath";
-        case APPLY_SAVING_SPELL:
-            return "save vs spell";
         case APPLY_SPELL_AFFECT:
             return "none";
     }
@@ -3279,6 +3204,10 @@ char *weapon_bit_name(int weapon_flags)
         strcat(buf, " shocking");
     if (weapon_flags & WEAPON_POISON)
         strcat(buf, " poison");
+    if (weapon_flags & WEAPON_LEECH)
+        strcat(buf, " leech");
+    if (weapon_flags & WEAPON_STUN)
+        strcat(buf, " stun");
 
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
@@ -3463,7 +3392,7 @@ void split_obj_sub(OBJ_DATA *obj, int num, bool complete)
     if (count <= num || num == 0)
         return;
 
-    rest = create_object(obj->pIndexData, 0);
+    rest = create_object(obj->pIndexData);
     clone_object(obj, rest);
 
     if (!complete)

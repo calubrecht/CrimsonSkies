@@ -1311,6 +1311,7 @@ void do_quit(CHAR_DATA * ch, char *argument)
 {
     DESCRIPTOR_DATA *d, *d_next;
     int id;
+    bool main_menu = FALSE;
 
     if (IS_NPC(ch))
         return;
@@ -1337,8 +1338,25 @@ void do_quit(CHAR_DATA * ch, char *argument)
 
     send_to_char("Alas, all good things must come to an end.\r\n", ch);
     act("$n has left the game.", ch, NULL, NULL, TO_ROOM);
-    log_f("%s has quit.", ch->name);
+
+    if (ch->desc != NULL && ch->desc->host != NULL)
+    {
+        log_f("%s@%s has quit.", ch->name, ch->desc->host);
+    }
+    else
+    {
+        log_f("%s has quit.", ch->name);
+    }
+
     wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0, get_trust(ch));
+
+    // If they specify that they want to go back to the main menu leave them connnected, log
+    // them out properly and then shuttle them there without disconnecting them.
+    if (!str_cmp(argument, "menu") )
+    {
+        send_to_char("\r\n{R[{WPush Enter to Continue{R]{x\r\n", ch);
+        main_menu = TRUE;
+    }
 
     /*
      * After extract_char the ch is no longer valid!
@@ -1348,8 +1366,20 @@ void do_quit(CHAR_DATA * ch, char *argument)
     id = ch->id;
     d = ch->desc;
     extract_char(ch, TRUE);
-    if (d != NULL)
-        close_socket(d);
+
+    // If they're going to the main menu set the connected state for it
+    // otherwise we need to close the socket to disconnect them.
+    if (main_menu && d != NULL)
+    {
+        d->connected = CON_LOGIN_MENU;
+    }
+    else
+    {
+        if (d != NULL)
+        {
+            close_socket(d);
+        }
+    }
 
     /* toast evil cheating bastards */
     for (d = descriptor_list; d != NULL; d = d_next)
@@ -1985,6 +2015,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char(reclass_list(), ch);
         return;
     }
+    else if (class_table[iClass]->is_enabled == FALSE)
+    {
+        send_to_char("That reclass is currently disabled.\r\n", ch);
+        return;
+    }
 
     if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
     {
@@ -2005,6 +2040,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
                 (ch->class != WARRIOR_CLASS_LOOKUP && ch->class != THIEF_CLASS_LOOKUP))
     {
         send_to_char("Only warriors or thieves can reclass into a ranger.\r\n", ch);
+        return;
+    }
+    else if (iClass == ROGUE_CLASS_LOOKUP && ch->class != THIEF_CLASS_LOOKUP)
+    {
+        send_to_char("Only thieves can reclass into a rogue.\r\n", ch);
         return;
     }
 
