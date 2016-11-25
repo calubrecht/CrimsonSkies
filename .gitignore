@@ -1,2 +1,6 @@
 area/cs-mud
 src/obj
+Debug/
+.vs/
+CrimsonSkies.V*
+CrimsonSkies.v*
