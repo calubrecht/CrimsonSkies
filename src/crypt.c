@@ -30,4 +30,5 @@ int main(int argc, char **argv)
     return -1;
   }
   printf("Crypt hash: %s\n", sha256_crypt_with_salt(argv[2], capitalize(argv[1])));
+  return 0;
 }
