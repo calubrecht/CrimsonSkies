@@ -2103,8 +2103,9 @@ void do_wear(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * Removes a piece of gear from the characters body.
+ */
 void do_remove(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2118,8 +2119,9 @@ void do_remove(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // Do they want to remove all their gear in one fell swoop?
-    if (!str_cmp(arg, "all"))
+    // Do they want to remove all their gear in one fell swoop?... allow
+    // only if not charmed.
+    if (!str_cmp(arg, "all") && !IS_AFFECTED(ch, AFF_CHARM))
     {
         remove_all_obj(ch);
         return;
