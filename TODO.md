@@ -116,3 +116,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bans to check both d->host and d->ip_address
   - Preserve group after copyover
   - Int to assist casting and/or casting damage, wisdom to affect saves
+  - Remove all gear to inventory on reclass.
+  - Drunk talk
