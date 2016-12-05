@@ -132,6 +132,10 @@ something to happen.  A road trails off to the west, to the horizon, while a
 small paved path leads into Red Oak.  
 ~
 0 0 2
+D1
+~
+~
+0 0 700
 D3
 ~
 ~
@@ -190,7 +194,7 @@ S
 
 #RESETS
 D 0 1808 2 1
-O 0 31 0 1803 A bind stone. loaded to Middle of a Huge Field
+O 0 31 0 1803 A bind stone loaded to Middle of a Huge Field
 S
 
 
