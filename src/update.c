@@ -1327,6 +1327,8 @@ void tick_update()
 
     } // end copyover
 
+    // Send line feeds to anyone who has the comm bit set for it.
+    linefeed_update();
 }
 
 /*

@@ -1433,6 +1433,7 @@ typedef enum
 #define COMM_TELNET_GA      (P)
 #define COMM_SHOW_AFFECTS   (Q)
 #define COMM_NOGRATS        (R)
+#define COMM_LINEFEED_TICK  (S)
 
 /* penalties */
 #define COMM_NOEMOTE        (T)
@@ -2281,6 +2282,7 @@ void     die_follower        (CHAR_DATA *ch);
 bool     is_same_group       (CHAR_DATA *ach, CHAR_DATA *bch);
 char     *obj_short          (OBJ_DATA *obj);
 void     shutdown_request    (int a);
+void     linefeed_update     ();
 
 /* act_enter.c */
 RID      *get_random_room    (CHAR_DATA *ch);

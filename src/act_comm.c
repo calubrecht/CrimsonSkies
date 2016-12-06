@@ -114,19 +114,19 @@ void do_channels(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
 
     /* lists all channels and their status */
-    send_to_char("Channel        Status\r\n", ch);
-    send_to_char("---------------------\r\n", ch);
+    send_to_char("Channel            Status\r\n", ch);
+    send_to_char("-------------------------\r\n", ch);
 
     if (is_clan(ch))
     {
-        send_to_char("clan           ", ch);
+        send_to_char("clan               ", ch);
 
         if (!IS_SET(ch->comm, COMM_NOCLAN))
             send_to_char("{GON{x\r\n", ch);
         else
             send_to_char("{ROFF{x\r\n", ch);
 
-        send_to_char("ooc clan       ", ch);
+        send_to_char("ooc clan           ", ch);
 
         if (!IS_SET(ch->comm, COMM_NOOCLAN))
             send_to_char("{GON{x\r\n", ch);
@@ -135,37 +135,37 @@ void do_channels(CHAR_DATA * ch, char *argument)
 
     }
 
-    send_to_char("gossip         ", ch);
+    send_to_char("gossip             ", ch);
     if (!IS_SET(ch->comm, COMM_NOGOSSIP))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("clan gossip    ", ch);
+    send_to_char("clan gossip        ", ch);
     if (!IS_SET(ch->comm, COMM_NOCGOSSIP))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("auction        ", ch);
+    send_to_char("auction            ", ch);
     if (!IS_SET(ch->comm, COMM_NOAUCTION))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("ooc            ", ch);
+    send_to_char("ooc                ", ch);
     if (!IS_SET(ch->comm, COMM_NOOOC))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("Q/A            ", ch);
+    send_to_char("Q/A                ", ch);
     if (!IS_SET(ch->comm, COMM_NOQUESTION))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("grats          ", ch);
+    send_to_char("grats              ", ch);
     if (!IS_SET(ch->comm, COMM_NOGRATS))
         send_to_char("{GON{x\r\n", ch);
     else
@@ -173,24 +173,31 @@ void do_channels(CHAR_DATA * ch, char *argument)
 
     if (IS_IMMORTAL(ch))
     {
-        send_to_char("imm channel    ", ch);
+        send_to_char("imm channel        ", ch);
         if (!IS_SET(ch->comm, COMM_NOWIZ))
             send_to_char("{GON{x\r\n", ch);
         else
             send_to_char("{ROFF{x\r\n", ch);
     }
 
-    send_to_char("tells          ", ch);
+    send_to_char("tells              ", ch);
     if (!IS_SET(ch->comm, COMM_DEAF))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
 
-    send_to_char("quiet mode     ", ch);
+    send_to_char("quiet mode         ", ch);
     if (IS_SET(ch->comm, COMM_QUIET))
         send_to_char("{GON{x\r\n", ch);
     else
         send_to_char("{ROFF{x\r\n", ch);
+
+    send_to_char("line feed on tick  ", ch);
+    if (IS_SET(ch->comm, COMM_LINEFEED_TICK))
+        send_to_char("{GON{x\r\n", ch);
+    else
+        send_to_char("{ROFF{x\r\n", ch);
+
 
     if (IS_SET(ch->comm, COMM_AFK))
         send_to_char("You are AFK.\r\n", ch);
@@ -1961,6 +1968,45 @@ void do_color(CHAR_DATA * ch, char *argument)
 void do_clear(CHAR_DATA * ch, char *argument)
 {
     send_to_char("\033[2J", ch);
+}
+
+/*
+ * Toggles whether the player wants a line feed sent down every tick.
+ */
+void do_linefeed(CHAR_DATA *ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+    if (IS_SET(ch->comm, COMM_LINEFEED_TICK))
+    {
+        send_to_char("You will no longer receive a line feed each tick.\r\n", ch);
+        REMOVE_BIT(ch->comm, COMM_LINEFEED_TICK);
+    }
+    else
+    {
+        send_to_char("You will get a line feed each tick.\r\n",ch);
+        SET_BIT(ch->comm, COMM_LINEFEED_TICK);
+    }
+}
+
+/*
+ * Sends a line feed to everyone who has COMM_LINEFEED_TICK set.  This should be
+ * called on the tick.
+ */
+void linefeed_update()
+{
+    CHAR_DATA *ch;
+
+    for (ch = char_list; ch != NULL; ch = ch->next)
+    {
+        if (!IS_NPC(ch) && ch->fighting == NULL && IS_SET(ch->comm, COMM_LINEFEED_TICK))
+        {
+            send_to_char("\r\n", ch);
+        }
+    }
 }
 
 /*

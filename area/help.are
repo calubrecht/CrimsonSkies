@@ -276,6 +276,18 @@ Of these timers, the hp/mana/move regeneration timer is popularly called the
 Area resetting happens roughly every 3 minutes if no one is in the area; less
 often (15 minutes) if some one is.  Also note that objects lying on the ground
 will not be regenerated if anyone is in the area when it resets.
+
+SEE ALSO: linefeed
+~
+
+0 LINEFEED~
+Syntax: linefeed
+
+The linefeed command will toggle whether or not the game sends you a line feed
+on each tick.  You can see the status of whether you have this on or off with
+the channel command.
+
+SEE ALSO: tick
 ~
 
 0 !~

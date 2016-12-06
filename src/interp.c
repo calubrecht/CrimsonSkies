@@ -416,6 +416,7 @@ const struct cmd_type cmd_table[] = {
     {"crypt",           do_crypt,       POS_DEAD, L3, LOG_ALWAYS, TRUE},
 	{"dbexport",        do_dbexport,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"loner",           do_loner,       POS_SLEEPING, 1, LOG_NORMAL, TRUE},
+    {"linefeed",        do_linefeed,    POS_SLEEPING, 1, LOG_NORMAL, TRUE},
 
     /*
      * OLC
