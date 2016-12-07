@@ -88,20 +88,20 @@ FHIK ABCD 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
 #705
-wizard~
-the wizard~
-A wizard walks around behind the counter, talking to himself.
+Phylo~
+Phylo~
+Phylo the wizardess stands behind the counter awaiting your request.
 ~
-The wizard looks old and senile, and yet he looks like a very powerful
-wizard. He is equipped with fine clothing, and is wearing many fine
-rings and bracelets.
+The wizardess has long purple hair which hangs out from under her hood
+which is drawn over her face.  She is balancing on a gnarled staff that
+almost seems to be humming.  
 ~
 human~
 ABV D 3 0
 23 0 1d1+999 1d1+999 1d8+32 magic
 -15 -15 -15 -15
 AF ABCD 0 0
-stand stand male 15000
+stand stand female 15000
 AHMV ABCDEFGHIJK medium unknown
 #706
 clerk~
@@ -220,9 +220,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -232,9 +232,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -244,9 +244,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -438,14 +438,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -1371,13 +1371,13 @@ G 0 712 0 A bread is given to the baker
 G 0 713 0 A cinnamon roll is given to the baker
 G 0 714 0 A batch of cookies is given to the baker
 G 0 715 0 A blueberry danish is given to the baker
-M 0 705 1 731 1 Load the wizard
-G 0 716 0 A scroll of cancellation is given to the wizard
-G 0 717 0 A scroll of identify is given to the wizard
-G 0 718 0 A yellow potion of see invisible is given to the wizard
-G 0 719 0 A green potion of see hidden is given to the wizard
-G 0 720 0 A scroll of recall is given to the wizard
-G 0 721 0 A wand of magic missiles is given to the wizard
+M 0 705 1 731 1 Load Phylo
+G 0 716 0 A scroll of cancellation is given to Phylo
+G 0 717 0 A scroll of identify is given to Phylo
+G 0 718 0 A yellow potion of see invisible is given to Phylo
+G 0 719 0 A green potion of see hidden is given to Phylo
+G 0 720 0 A scroll of recall is given to Phylo
+G 0 721 0 A wand of magic missiles is given to Phylo
 M 0 701 1 732 1 Load the jeweller
 G 0 3378 0 An opal is given to the jeweller
 G 0 3377 0 A diamond is given to the jeweller
