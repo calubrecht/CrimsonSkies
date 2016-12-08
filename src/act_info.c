@@ -2988,10 +2988,8 @@ void do_equipment(CHAR_DATA * ch, char *argument)
 {
     OBJ_DATA *obj;
     int iWear;
-    bool found;
 
     send_to_char("You are using:\r\n", ch);
-    found = FALSE;
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
     {
         if ((obj = get_eq_char(ch, iWear)) == NULL)
@@ -3011,11 +3009,7 @@ void do_equipment(CHAR_DATA * ch, char *argument)
         {
             send_to_char("something.\r\n", ch);
         }
-        found = TRUE;
     }
-
-    if (!found)
-        send_to_char("Nothing.\r\n", ch);
 
     return;
 }
