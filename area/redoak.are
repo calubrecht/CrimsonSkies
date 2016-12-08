@@ -623,6 +623,14 @@ oldstyle~
 drink 0 A
 2 2 'whisky' 0 0
 0 10 12 P
+#746
+glittering white warpstone~
+a glittering {Wwhite{x warpstone.~
+A glittering {Wwhite{x warpstone lays here.~
+pearl~
+warp_stone ABT AO
+0 0 0 0 0
+1 10 750 P
 #0
 
 
@@ -1205,7 +1213,7 @@ D0
 0 0 705
 S
 #731
-The Potion Shop~
+Phylo's Magic Shop~
 You are in a small room that smells of the alchemy that commences in the
 back.  On the back wall of the shop are many shelves holding vials,
 containers, pots and other items of mystic origin.  The village alchemist
@@ -1378,6 +1386,7 @@ G 0 718 0 A yellow potion of see invisible is given to Phylo
 G 0 719 0 A green potion of see hidden is given to Phylo
 G 0 720 0 A scroll of recall is given to Phylo
 G 0 721 0 A wand of magic missiles is given to Phylo
+G 0 746 0 A glittering {wwhite{x warpstone. is given to Phylo
 M 0 701 1 732 1 Load the jeweller
 G 0 3378 0 An opal is given to the jeweller
 G 0 3377 0 A diamond is given to the jeweller
