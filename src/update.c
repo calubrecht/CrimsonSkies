@@ -855,13 +855,20 @@ void char_update(void)
                 if (ch->was_in_room == NULL && ch->in_room != NULL)
                 {
                     ch->was_in_room = ch->in_room;
+
                     if (ch->fighting != NULL)
+                    {
                         stop_fighting(ch, TRUE);
-                    act("$n disappears into the void.",
-                        ch, NULL, NULL, TO_ROOM);
+                    }
+
+                    act("$n disappears into the void.", ch, NULL, NULL, TO_ROOM);
                     send_to_char("You disappear into the void.\r\n", ch);
+
                     if (ch->level > 1)
+                    {
                         save_char_obj(ch);
+                    }
+
                     char_from_room(ch);
                     char_to_room(ch, get_room_index(ROOM_VNUM_LIMBO));
                 }
@@ -870,8 +877,7 @@ void char_update(void)
             gain_condition(ch, COND_DRUNK, -1);
             gain_condition(ch, COND_FULL, ch->size > SIZE_MEDIUM ? -4 : -2);
             gain_condition(ch, COND_THIRST, -1);
-            gain_condition(ch, COND_HUNGER,
-                ch->size > SIZE_MEDIUM ? -2 : -1);
+            gain_condition(ch, COND_HUNGER, ch->size > SIZE_MEDIUM ? -2 : -1);
         }
 
         for (paf = ch->affected; paf != NULL; paf = paf_next)
@@ -1106,9 +1112,13 @@ void obj_update(void)
                 if (CAN_WEAR(obj, ITEM_WEAR_FLOAT))
                 {
                     if (obj->contains)
+                    {
                         message = "$p flickers and vanishes, spilling its contents on the floor.";
+                    }
                     else
+                    {
                         message = "$p flickers and vanishes.";
+                    }
                 }
                 else
                 {
