@@ -1667,13 +1667,12 @@ void make_corpse(CHAR_DATA * ch)
         // Player
         name = ch->name;
         corpse = create_object(get_obj_index(OBJ_VNUM_CORPSE_PC));
-        corpse->timer = number_range(25, 40);
+        corpse->timer = 40;
         corpse->owner = str_dup(ch->name);
 
         if (ch->gold > 1 || ch->silver > 1)
         {
-            obj_to_obj(create_money(ch->gold / 2, ch->silver / 2),
-                corpse);
+            obj_to_obj(create_money(ch->gold / 2, ch->silver / 2), corpse);
             ch->gold -= ch->gold / 2;
             ch->silver -= ch->silver / 2;
         }
