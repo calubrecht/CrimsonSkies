@@ -220,9 +220,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-18 1
-A
 19 1
+A
+18 1
 #702
 red oak sword~
 a red oak sword~
@@ -232,9 +232,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-18 1
-A
 19 1
+A
+18 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -244,9 +244,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-18 1
-A
 19 1
+A
+18 1
 #704
 club~
 a red oak club~
@@ -438,14 +438,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
-letters~
-They say, "Use 'hold lantern' to activate."
-~
-E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
+~
+E
+letters~
+They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -631,6 +631,19 @@ pearl~
 warp_stone ABT AO
 0 0 0 0 0
 1 10 750 P
+#747
+cogge broad sword~
+Cogge's broad sword~
+Cogge's broad sword lies upon the ground.~
+adamantite~
+weapon BI AN
+sword 4 8 cleave EF
+42 450 5600 P
+E
+scimitar blade~
+The gray metaled sword is both heavy and well crafted.  The edge of
+the blade looks as if it could cut through anything or anyone.
+~
 #0
 
 
@@ -1348,6 +1361,7 @@ M 0 708 8 700 8 Load the cityguard
 O 0 700 0 704 A fountain loaded to Town Center
 M 0 709 4 704 1 Load the cityguard
 M 0 711 1 704 1 Load Cogge
+E 0 747 0 16 Cogge's broadsword is loaded wielded of Cogge
 M 0 708 8 708 8 Load the cityguard
 M 0 708 8 708 8 Load the cityguard
 M 0 709 4 709 1 Load the cityguard
