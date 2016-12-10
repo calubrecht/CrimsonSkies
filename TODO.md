@@ -118,3 +118,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Int to assist casting and/or casting damage, wisdom to affect saves
   - Remove all gear to inventory on reclass.
   - Drunk talk
+  - Critical strike
+  - Sliding saves bonus based on wisdom
+  - Sliding magic damage bonus based on int
+  - Extra chance attack on init based on dex (higher the dex, the higher the percent)
+  - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
