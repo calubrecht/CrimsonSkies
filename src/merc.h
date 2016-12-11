@@ -2283,6 +2283,7 @@ bool     is_same_group       (CHAR_DATA *ach, CHAR_DATA *bch);
 char     *obj_short          (OBJ_DATA *obj);
 void     shutdown_request    (int a);
 void     linefeed_update     ();
+int      color_strlen        (const char *src);
 
 /* act_enter.c */
 RID      *get_random_room    (CHAR_DATA *ch);

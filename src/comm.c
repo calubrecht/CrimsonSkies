@@ -2585,6 +2585,50 @@ char *strip_color(char *string)
     return buf;
 } // end strip_color
 
+/*
+ * Returns the display length of a string as it would be on the screen by
+ * skipping any color codes that are found.  This is a modified version of
+ * Quixadhal's code from SmaugFUSS.
+ */
+int color_strlen(const char *text)
+{
+    register unsigned int i = 0;
+    int len = 0;
+
+    // Ditch out of it's a null
+    if( !text || !*text )
+    {
+        return 0;
+    }
+
+    for(i = 0; i < strlen(text);)
+    {
+        switch (text[i])
+        {
+            case '{':
+                // It's a bracket which we will skip because it's not displayed, so increment
+                // the string counter, but not the display length.
+                ++i;
+
+                // There is another character after the color code bracket, skip it also as it
+                // will not be displayed but only if it doesn't go out of the array bounds.
+                if (i < strlen(text))
+                {
+                    i++;
+                }
+
+                break;
+             default:
+                // This is a displayed character, both the display length and the string counter
+                // will be incremented.
+                ++len;
+                ++i;
+                break;
+        }
+    }
+    return len;
+}
+
 /* source: EOD, by John Booth <???> */
 void printf_to_desc(DESCRIPTOR_DATA * d, char *fmt, ...)
 {
