@@ -2608,7 +2608,7 @@ int color_strlen(const char *text)
             case '{':
                 // It's a bracket which we will skip because it's not displayed, so increment
                 // the string counter, but not the display length.
-                ++i;
+                i++;
 
                 // There is another character after the color code bracket, skip it also as it
                 // will not be displayed but only if it doesn't go out of the array bounds.
@@ -2621,8 +2621,8 @@ int color_strlen(const char *text)
              default:
                 // This is a displayed character, both the display length and the string counter
                 // will be incremented.
-                ++len;
-                ++i;
+                len++;
+                i++;
                 break;
         }
     }
