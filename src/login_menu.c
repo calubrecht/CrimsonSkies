@@ -82,14 +82,14 @@ void show_random_names(DESCRIPTOR_DATA *d)
     int row = 0;
     int col = 0;
 
-    send_to_desc("  _________________________________________________________________________\r\n", d);
-    send_to_desc(" /`                                                                        \\\r\n", d);
-    send_to_desc(" \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WRandom Names {w(((=-=-=-=-=-=-{x        |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("{w  _________________________________________________________________________\r\n", d);
+    send_to_desc("{w /`                                                                        \\\r\n", d);
+    send_to_desc("{w \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WRandom Names {w(((=-=-=-=-=-=-{w        |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
 
     for (row = 0; row < 8; row++)
     {
-        send_to_desc("   |    ", d);
+        send_to_desc("{w   |    {g", d);
 
         // Since the random function returns a static char we have to use it in
         // separate calls.
@@ -100,12 +100,12 @@ void show_random_names(DESCRIPTOR_DATA *d)
             send_to_desc(buf, d);
         }
 
-        send_to_desc("    |\r\n", d);
+        send_to_desc("{w    |\r\n", d);
     }
 
-    send_to_desc("  _|                                                                        |\r\n", d);
-    send_to_desc(" / |  -==================================================================-  |\r\n", d);
-    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
+    send_to_desc("{w \\/________________________________________________________________________/\r\n{x", d);
 
     return;
 }
@@ -119,32 +119,32 @@ void show_login_credits(DESCRIPTOR_DATA *d)
 {
     char buf[MAX_STRING_LENGTH];
 
-    send_to_desc("  _________________________________________________________________________\r\n", d);
-    send_to_desc(" /`                                                                        \\\r\n", d);
-    send_to_desc(" \\_|         {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WCredits {w(((=-=-=-=-=-=-{x         |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("{w  _________________________________________________________________________\r\n", d);
+    send_to_desc("{w /`                                                                        \\\r\n", d);
+    send_to_desc("{w \\_|         {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WCredits {w(((=-=-=-=-=-=-{w         |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
 
-    sprintf(buf, "   |    {G*{x {WCrimson Skies{x %s (1998-2016)                                     |\r\n", VERSION);
+    sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2016)                                     |\r\n", VERSION);
     send_to_desc(buf, d);
-    send_to_desc("   |          Blake Pell (Rhien)                                            |\r\n", d);
+    send_to_desc("{w   |          Blake Pell (Rhien)                                            |\r\n", d);
 
-    send_to_desc("   |    {G*{x {WROM 2.4{x (1993-1998)                                               |\r\n", d);
-    send_to_desc("   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
-    send_to_desc("   |    {G*{x {WMerc DikuMud{x (1991-1993)                                          |\r\n", d);
-    send_to_desc("   |          Michael Chastain, Michael Quan, Mitchel Tse                   |\r\n", d);
+    send_to_desc("{w   |    {G*{x {WROM 2.4{w (1993-1998)                                               |\r\n", d);
+    send_to_desc("{w   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
+    send_to_desc("{w   |    {G*{x {WMerc DikuMud{w (1991-1993)                                          |\r\n", d);
+    send_to_desc("{w   |          Michael Chastain, Michael Quan, Mitchel Tse                   |\r\n", d);
 
-    send_to_desc("   |    {G*{x {WDikuMud{x (1993-1998)                                               |\r\n", d);
-    send_to_desc("   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
-    send_to_desc("   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
+    send_to_desc("{w   |    {G*{x {WDikuMud{w (1993-1998)                                               |\r\n", d);
+    send_to_desc("{w   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
+    send_to_desc("{w   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
 
-    send_to_desc("   |                                                                        |\r\n", d);
-    send_to_desc("   |    {G*{x Detailed additional credits can be viewed in game via the         |\r\n", d);
-    send_to_desc("   |      credits command.  These additional credits include the names of   |\r\n", d);
-    send_to_desc("   |      many who have contributed through the mud community over the      |\r\n", d);
-    send_to_desc("   |      years where those contributions have been used here.              |\r\n", d);
-    send_to_desc("  _|                                                                        |\r\n", d);
-    send_to_desc(" / |  -==================================================================-  |\r\n", d);
-    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc("{w   |    {G*{w Detailed additional credits can be viewed in game via the         |\r\n", d);
+    send_to_desc("{w   |      credits command.  These additional credits include the names of   |\r\n", d);
+    send_to_desc("{w   |      many who have contributed through the mud community over the      |\r\n", d);
+    send_to_desc("{w   |      years where those contributions have been used here.              |\r\n", d);
+    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
+    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
     return;
 }
@@ -161,12 +161,12 @@ void show_login_who(DESCRIPTOR_DATA *d)
     int total_count = 0;
     bool end_row = TRUE;
 
-    send_to_desc("  _________________________________________________________________________\r\n", d);
-    send_to_desc(" /`                                                                        \\\r\n", d);
-    send_to_desc(" \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WOnline Players {w(((=-=-=-=-=-=-{x      |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
-    send_to_desc("   |                            {R( {WImmortals {R){x                               |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("{w  _________________________________________________________________________\r\n", d);
+    send_to_desc("{w /`                                                                        \\\r\n", d);
+    send_to_desc("{w \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WOnline Players {w(((=-=-=-=-=-=-{w      |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc("{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -190,17 +190,17 @@ void show_login_who(DESCRIPTOR_DATA *d)
         // Start a row?
         if (end_row)
         {
-            send_to_desc("   |    ", d);
+            send_to_desc("{w   |    ", d);
             end_row = FALSE;
         }
 
-        sprintf(buf, "{C%-16s{x", ch->name);
+        sprintf(buf, "{g%-16s{x", ch->name);
         send_to_desc(buf, d);
 
         // End a row?
         if (col % 4 == 0)
         {
-            send_to_desc("|\r\n", d);
+            send_to_desc("{w|\r\n", d);
             end_row = TRUE;
         }
     }
@@ -215,23 +215,23 @@ void show_login_who(DESCRIPTOR_DATA *d)
     if (count > 0 && end_row == FALSE)
     {
         // End that row
-        send_to_desc("    {x|\r\n", d);
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("    {w|\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
 
     // Display if there are no immortals online.
     if (count == 0)
     {
-        send_to_desc("   |   * {CThere are no immortals currently online.{x                           |\r\n", d);
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("{w   |    * {CThere are no immortals currently online.{w                          |\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
 
-    send_to_desc("   |                             {R( {WMortals {R){x                                |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("{w   |                             {R( {WMortals {R){w                                |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
 
     total_count += count;
 
@@ -262,17 +262,17 @@ void show_login_who(DESCRIPTOR_DATA *d)
         // Start a row?
         if (end_row)
         {
-            send_to_desc("   |    ", d);
+            send_to_desc("{w   |    ", d);
             end_row = FALSE;
         }
 
-        sprintf(buf, "{x%-16s{x", ch->name);
+        sprintf(buf, "{g%-16s{x", ch->name);
         send_to_desc(buf, d);
 
         // End a row?
         if (col % 4 == 0)
         {
-            send_to_desc("    |\r\n", d);
+            send_to_desc("    {w|\r\n", d);
             end_row = TRUE;
         }
 
@@ -288,32 +288,32 @@ void show_login_who(DESCRIPTOR_DATA *d)
     if (count > 0 && end_row == FALSE)
     {
         // End that row
-        send_to_desc("    {x|\r\n", d);
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("    {w|\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
 
     // Display if there are no mortals online.
     if (count == 0)
     {
-        send_to_desc("   |   * {CThere are no mortals currently online.{x                             |\r\n", d);
-        send_to_desc("   |                                                                        |\r\n", d);
+        send_to_desc("{w   |    * {CThere are no mortals currently online.{w                            |\r\n", d);
+        send_to_desc("{w   |                                                                        |\r\n", d);
     }
 
     total_count += count;
 
     if (total_count > 0)
     {
-        sprintf(buf, "   |    Total Players Online: %-3d                                           |\r\n", total_count);
+        sprintf(buf, "{w   |    Total Players Online: %-3d                                           |\r\n", total_count);
         send_to_desc(buf, d);
     }
 
-    send_to_desc("  _|                                                                        |\r\n", d);
-    send_to_desc(" / |  -==================================================================-  |\r\n", d);
-    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
+    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
     return;
 }
@@ -337,20 +337,20 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     // The login menu header
     send_to_desc("\r\n", d);
-    send_to_desc("  _________________________________________________________________________\r\n", d);
-    send_to_desc(" /`                                                                        \\\r\n", d);
-    send_to_desc(" \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{x        |\r\n", d);
-    send_to_desc("   |                                                                        |\r\n", d);
+    send_to_desc("{w  _________________________________________________________________________\r\n", d);
+    send_to_desc("{w /`                                                                        \\\r\n", d);
+    send_to_desc("{w \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{w        |\r\n", d);
+    send_to_desc("{w   |                                                                        |\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
     if (settings.wizlock || settings.newlock || ban_newbie || ban_all)
     {
-        sprintf(buf, "   |    {x({DN{x){Dew Character{x                ");
+        sprintf(buf, "{w   |    {x({DN{x){Dew Character{x                ");
     }
     else
     {
-        sprintf(buf, "   |    {x({GN{x){gew Character{x                ");
+        sprintf(buf, "{w   |    {x({GN{x){gew Character{x                ");
     }
 
     // Column 1.2 - Game Status
@@ -358,27 +358,27 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     if (global.is_copyover == TRUE)
     {
-        strcat(buf, "{RRebooting{x               |\r\n");
+        strcat(buf, "{RRebooting{w               |\r\n");
     }
     else if (settings.whitelist_lock)
     {
-        strcat(buf, "{RWhitelist Locked{x        |\r\n");
+        strcat(buf, "{RWhitelist Locked{w        |\r\n");
     }
     else if (settings.wizlock)
     {
-        strcat(buf, "{RLocked{x                  |\r\n");
+        strcat(buf, "{RLocked{w                  |\r\n");
     }
     else if (settings.newlock)
     {
-        strcat(buf, "{RNew Locked{x              |\r\n");
+        strcat(buf, "{RNew Locked{w              |\r\n");
     }
     else if (settings.test_mode)
     {
-        strcat(buf, "{YTest Mode{x               |\r\n");
+        strcat(buf, "{YTest Mode{w               |\r\n");
     }
     else
     {
-        strcat(buf, "{gOpen{x                    |\r\n");
+        strcat(buf, "{gOpen{w                    |\r\n");
     }
 
     send_to_desc(buf, d);
@@ -386,57 +386,57 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
     if (ban_all || settings.wizlock)
     {
-        sprintf(buf, "   |    {x({DP{x){Dlay Existing Character{x        ");
+        sprintf(buf, "{w   |    {x({DP{x){Dlay Existing Character{x        ");
     }
     else
     {
-        sprintf(buf, "   |    {x({GP{x){glay Existing Character{x        ");
+        sprintf(buf, "{w   |    {x({GP{x){glay Existing Character{x        ");
     }
 
     // Column 2.2 - Site status
     strcat(buf, "{WYour Site: ");
     if (ban_all)
     {
-        strcat(buf, "{rBanned{x                  |\r\n");
+        strcat(buf, "{rBanned{w                  |\r\n");
     }
     else
     {
         if (ban_newbie)
         {
-            strcat(buf, "{rNew Player Banned{x       |\r\n");
+            strcat(buf, "{rNew Player Banned{w       |\r\n");
         }
         else
         {
-            strcat(buf, "{gWelcome{x                 |\r\n");
+            strcat(buf, "{gWelcome{w                 |\r\n");
         }
     }
 
     send_to_desc(buf, d);
 
     // Column 3.1 - Who is currently online
-    sprintf(buf, "   |    {x({GW{x){gho is on now?{x                                                    |\r\n");
+    sprintf(buf, "{w   |    {x({GW{x){gho is on now?{w                                                    |\r\n");
     send_to_desc(buf, d);
 
     // Column 4.1 - Random name generator
-    sprintf(buf, "   |    {x({GR{x){gandom Name Generator{x                                             |\r\n");
+    sprintf(buf, "{w   |    {x({GR{x){gandom Name Generator{w                                             |\r\n");
     send_to_desc(buf, d);
 
     // Column 5.1 - Credits
-    sprintf(buf, "   |    {x({GC{x){gredits{x                                                           |\r\n");
+    sprintf(buf, "{w   |    {x({GC{x){gredits{w                                                           |\r\n");
     send_to_desc(buf, d);
 
     // Column 6.1 & 6.2 - Quit and System Time
-    sprintf(buf, "   |    {x({GQ{x){guit{x                                                              |\r\n");
+    sprintf(buf, "{w   |    {x({GQ{x){guit{w                                                              |\r\n");
     send_to_desc(buf, d);
 
     // Column 7.1 - Prompt
-    send_to_desc("   |                                                                        |\r\n", d);
-    sprintf(buf, "   |     {WYour selection? {x->                                                 |\r\n");
+    send_to_desc("{w   |                                                                        |\r\n", d);
+    sprintf(buf, "{w   |     {WYour selection? {w->                                                 |\r\n");
     send_to_desc(buf, d);
 
-    send_to_desc("  _|                                                                        |\r\n", d);
-    send_to_desc(" / |  -==================================================================-  |\r\n", d);
-    send_to_desc(" \\/________________________________________________________________________/\r\n", d);
+    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
+    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
     // Since we've wrapped the menu in an ASCII graphic that looks like a parchment, we'll need to
     // reposition the cursor to move up to "Your selection? ->".. then after the selection we'll
