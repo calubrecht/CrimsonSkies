@@ -377,7 +377,7 @@ struct pc_race_type pc_race_table[] = {
 
 /*
     {
-    "race name", short name, creation points, { class multipliers },
+    "race name", who name, creation points, { class multipliers },
     { bonus skills },
     { base stats (str, int, wis, dex, con) }, { max stats (str, int, wis, dex, con) },
     size
