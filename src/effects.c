@@ -560,6 +560,7 @@ void shock_effect(void *vo, int level, int dam, int target)
         /* daze and confused? */
         if (!saves_spell(level / 4 + dam / 20, victim, DAM_LIGHTNING))
         {
+            act("$n's muscles convulse.", victim, NULL, NULL, TO_ROOM);
             send_to_char("Your muscles stop responding.\r\n", victim);
             DAZE_STATE(victim, UMAX(12, level / 4 + dam / 20));
         }
