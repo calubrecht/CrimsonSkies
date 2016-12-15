@@ -761,7 +761,7 @@ int can_carry_n(CHAR_DATA * ch)
  */
 int can_carry_w(CHAR_DATA * ch)
 {
-    if (!IS_NPC(ch) && ch->level >= LEVEL_IMMORTAL)
+    if (!IS_NPC(ch) && IS_IMMORTAL(ch))
         return 10000000;
 
     if (IS_NPC(ch) && IS_SET(ch->act, ACT_PET))
