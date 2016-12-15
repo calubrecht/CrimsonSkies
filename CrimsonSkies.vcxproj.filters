@@ -180,6 +180,9 @@
     <ClCompile Include="src\clan.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\grid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
@@ -225,6 +228,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\sqlite\sqlite3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

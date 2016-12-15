@@ -26,11 +26,14 @@
  *                                                                         *
  ***************************************************************************/
 
-#if defined(macintosh)
-#include <types.h>
+ // System Specific Includes
+#if defined(_WIN32)
+#include <sys/types.h>
+#include <time.h>
 #else
 #include <sys/types.h>
 #include <sys/time.h>
+#include <time.h>
 #endif
 
 #include <stdio.h>
@@ -427,7 +430,11 @@ void row_to_char(GRID_ROW *row, CHAR_DATA *ch)
         //Append Padding to Top.
         for (n = 0; n < row->padding_top; ++n)
         {
+            #if defined(_WIN32)
+            ptrs[i][n] = _strdup(pad_buf); alloced++;
+            #else
             ptrs[i][n] = strdup(pad_buf); alloced++;
+            #endif
         }
 
         while (tok)
@@ -435,7 +442,13 @@ void row_to_char(GRID_ROW *row, CHAR_DATA *ch)
             colour_offset = count_colour(tok);
 
             sprintf(buf, "%*s%-*.*s%*s", row->padding_left, " ", actual_width + colour_offset, actual_width + colour_offset, tok, row->padding_right, " ");
+
+            #if defined(_WIN32)
+            ptrs[i][n] = _strdup(buf);
+            #else
             ptrs[i][n] = strdup(buf);
+            #endif
+
             tok = strtok(NULL, "\n");
             ++n;
         }
@@ -443,7 +456,11 @@ void row_to_char(GRID_ROW *row, CHAR_DATA *ch)
         //Add padding to bottom. This will also fill in any empty rows.
         for (; n < actual_height; ++n)
         {
+            #if defined(_WIN32)
+            ptrs[i][n] = _strdup(pad_buf);
+            #else
             ptrs[i][n] = strdup(pad_buf);
+            #endif
         }
     }
 

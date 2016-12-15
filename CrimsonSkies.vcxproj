@@ -91,6 +91,7 @@
     <ClCompile Include="src\enchantor.c" />
     <ClCompile Include="src\experience.c" />
     <ClCompile Include="src\fight.c" />
+    <ClCompile Include="src\grid.c" />
     <ClCompile Include="src\handler.c" />
     <ClCompile Include="src\healer.c" />
     <ClCompile Include="src\hunt.c" />
@@ -131,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="src\board.h" />
     <ClInclude Include="src\db.h" />
+    <ClInclude Include="src\grid.h" />
     <ClInclude Include="src\gsn.h" />
     <ClInclude Include="src\ini.h" />
     <ClInclude Include="src\interp.h" />
