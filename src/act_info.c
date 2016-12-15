@@ -42,6 +42,7 @@
 #include "tables.h"
 #include "lookup.h"
 #include "sha256.h"
+#include "grid.h"
 
 char *const where_name[] = {
     "<used as light>     ",
@@ -1969,336 +1970,97 @@ void do_worth(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Show all useful player data in a basic score card.
+ */
 void do_score(CHAR_DATA * ch, char *argument)
 {
+    GRID_DATA *grid;
+    GRID_ROW *row;
+    //GRID_CELL *cell;
     char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
 
-    printf_to_char(ch, "\r\n{gScore for %s%s\r\n", ch->name, IS_NPC(ch) ? "" : ch->pcdata->title);
+    // Create the grid
+    grid = create_grid(75);
 
-    if (get_trust(ch) != ch->level)
-        printf_to_char(ch, "You are trusted at level %d.\r\n", get_trust(ch));
+    // Row 1
+    // capitalize uses static memory therefore it will overwrite the second variable
+    // where it's used in a *printf.
+    sprintf(buf, "%s", capitalize(race_table[ch->race].name));
+    sprintf(buf2, "%s", capitalize(class_table[ch->class]->name));
 
-    send_to_char("----------------------------------------------------------------------------\r\n", ch);
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    row_append_cell(row, 75, "{WScore for %s, a %s %s{x",
+        capitalize(ch->name), buf, IS_NPC(ch) ? "Mobile" : buf2);
 
-    printf_to_char(ch, "{gLEVEL: {w%-3d          {gRace: {w%-10.10s        {gPlayed: {w%ld hours{x\r\n",
-        ch->level, capitalize(race_table[ch->race].name), hours_played(ch));
+    // Row 2 - Headers
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    row_append_cell(row, 21, "     {WStats{x");
+    row_append_cell(row, 26, "    {WCurrent State{x");
+    row_append_cell(row, 28, "      {WPlayer Info{x");
 
-    printf_to_char(ch, "{gYEARS: {w%-6d      {gClass: {w%-11.11s       {gLog In: {w%s{x\r",
-        get_age(ch), capitalize(class_table[ch->class]->name), ctime(&(ch->logon)));
+    // Row 3
+    row = create_row_padded(grid, 0, 0, 2, 2);
 
-    printf_to_char(ch, "{gSTR  : {w%2.2d{g(%s%2.2d{g)    HitRoll: {w%-4d{x              {gTime:   {w%s{x\r",
+    row_append_cell(row, 21, "  Str: {C%d{x({C%d{x)\n  Int: {C%d{x({C%d{x)\n  Wis: {C%d{x({C%d{x)\n  Dex: {C%d{x({C%d{x)\n  Con: {C%d{x({C%d{x)",
         ch->perm_stat[STAT_STR],
-        get_curr_stat(ch, STAT_STR) < ch->perm_stat[STAT_STR] ? "{R" : get_curr_stat(ch, STAT_STR) > ch->perm_stat[STAT_STR] ? "{G" : "{W",
-        get_curr_stat(ch, STAT_STR),
-        GET_HITROLL(ch), ctime(&current_time));
-
-    printf_to_char(ch, "{gINT  : {w%2.2d{g(%s%2.2d{g)    DamRoll: {w%-4d\r\n",
+        get_curr_stat (ch, STAT_STR),
         ch->perm_stat[STAT_INT],
-        get_curr_stat(ch, STAT_INT) < ch->perm_stat[STAT_INT] ? "{R" : get_curr_stat(ch, STAT_INT) > ch->perm_stat[STAT_INT] ? "{G" : "{W",
-        get_curr_stat(ch, STAT_INT),
-        GET_DAMROLL(ch));
-
-    printf_to_char(ch, "{gWIS  : {w%2.2d{g(%s%2.2d{g)      Armor: P: {w%d{x B: {w%d{x S: {w%d{x M: {w%d{x\r\n",
+        get_curr_stat (ch, STAT_INT),
         ch->perm_stat[STAT_WIS],
-        get_curr_stat(ch, STAT_WIS) < ch->perm_stat[STAT_WIS] ? "{R" : get_curr_stat(ch, STAT_WIS) > ch->perm_stat[STAT_WIS] ? "{G" : "{W",
-        get_curr_stat(ch, STAT_WIS),
-        GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC));
-
-    // Get alignment
-    if (IS_GOOD(ch)) {
-        sprintf(buf, "Good");
-    }
-    else if (IS_EVIL(ch)) {
-        sprintf(buf, "Evil");
-    }
-    else if (IS_NEUTRAL(ch)) {
-        sprintf(buf, "Neutral");
-    }
-
-    printf_to_char(ch, "{gDEX  : {w%2.2d{g(%s%2.2d{g)      Align: {w%-7.7s{x           {gItems:  {w%d of %d{x\r\n",
+        get_curr_stat (ch, STAT_WIS),
         ch->perm_stat[STAT_DEX],
-        get_curr_stat(ch, STAT_DEX) < ch->perm_stat[STAT_DEX] ? "{R" : get_curr_stat(ch, STAT_DEX) > ch->perm_stat[STAT_DEX] ? "{G" : "{W",
-        get_curr_stat(ch, STAT_DEX),
-        buf, ch->carry_number,
-        can_carry_n(ch));
+        get_curr_stat (ch, STAT_DEX),
+        ch->perm_stat[STAT_CON], get_curr_stat (ch, STAT_CON));
 
-    printf_to_char(ch, "{gCON  : {w%2.2d{g(%s%2.2d{g)        Sex: {w%-10.10s{x        {gWeight: {w%d of %d{x\r\n",
-        ch->perm_stat[STAT_CON],
-        get_curr_stat(ch, STAT_CON) < ch->perm_stat[STAT_CON] ? "{R" : get_curr_stat(ch, STAT_CON) > ch->perm_stat[STAT_CON] ? "{G" : "{W",
-        get_curr_stat(ch, STAT_CON),
-        ch->sex == 0 ? "Sexless" : ch->sex == 1 ? "Male" : "Female",
-        ch->carry_weight,
-        can_carry_w(ch));
-
-
-    printf_to_char(ch, "                   {gWimpy: {w%-5d{x\r\n", ch->wimpy);
-
-    printf_to_char(ch, "{gPRACT: {w%3.3d        {gHealth: {w%-5d of %5d    {gAutoSplit [{R%c{g]       AutoExit [{R%c{g]{x\r\n",
-        ch->practice, ch->hit, ch->max_hit,
-        IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' ',
-        IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' ');
-
-    printf_to_char(ch, "{gTRAIN: {w%3.3d          {gMana: {w%-5d of %5d    {gNoSummon  [{R%c{g]     AutoAssist [{R%c{g]{x\r\n",
-        ch->train, ch->mana, ch->max_mana,
-        IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' ',
-        IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' ');
-
-    printf_to_char(ch, "{gGOLD : {w%-11s  {gMove: {w%-5d of %5d    {gNoFollow  [{R%c{g]       AutoLoot [{R%c{g]{x\r\n",
-        num_punct(ch->gold), ch->move, ch->max_move,
-        IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' ',
-        IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' ');
-
-    if (!IS_NPC(ch)) {
-        sprintf(buf, "%d", (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
-    }
-    else {
-        sprintf(buf, "0");
-    }
-
-    printf_to_char(ch, "{gXP   : {w%-9d  {gNx Lvl: {w%-9s         {gAutoGold  [{R%c{g]        AutoSac [{R%c{g]{x\r\n",
-        ch->exp,
-        buf,
-        IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' ',
-        IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' ');
-
-    printf_to_char(ch, "{gPKILL: {w%-5d      {gStance: {w%-9s         {gCanLoot   [{R%c{g]          {gColor [{R%c{g]{x\r\n",
-        IS_NPC(ch) ? 0 : ch->pcdata->pkills,
-        capitalize(get_stance_name(ch)),
-        IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' ',
-        IS_SET(ch->act, PLR_COLOR) ? 'X' : ' ');
-
-    printf_to_char(ch, "                                            {gNoCancel  [{R%c{g]\r\n",
-        IS_SET(ch->act, PLR_NOCANCEL) ? 'X' : ' ');
-
-    send_to_char("{g----------------------------------------------------------------------------{x\r\n", ch);
-    // position, condition (hunger, thirst, drunk),
-    // immortal data, affect data
-
-} // end do_score
-
-void do_oldscore(CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    int i;
-
-    sprintf(buf,
-        "You are %s%s, level %d, %d years old (%d hours).\r\n",
-        ch->name,
-        IS_NPC(ch) ? "" : ch->pcdata->title,
-        ch->level, get_age(ch),
-        hours_played(ch));
-    send_to_char(buf, ch);
-
-    if (get_trust(ch) != ch->level)
-    {
-        sprintf(buf, "You are trusted at level %d.\r\n", get_trust(ch));
-        send_to_char(buf, ch);
-    }
-
-    sprintf(buf, "Race: %s  Sex: %s  Class: %s\r\n",
-        race_table[ch->race].name,
-        ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
-        IS_NPC(ch) ? "mobile" : class_table[ch->class]->name);
-    send_to_char(buf, ch);
-
-
-    sprintf(buf,
-        "You have %d/%d hit, %d/%d mana, %d/%d movement.\r\n",
-        ch->hit, ch->max_hit,
-        ch->mana, ch->max_mana, ch->move, ch->max_move);
-    send_to_char(buf, ch);
-
-    sprintf(buf,
-        "You have %d practices and %d training sessions.\r\n",
-        ch->practice, ch->train);
-    send_to_char(buf, ch);
-
-    sprintf(buf,
-        "You are carrying %d/%d items with weight %ld/%d pounds.\r\n",
+    // The immortal weight is boosted to a number that won't fit, just show 9999
+    row_append_cell(row, 26, "    HP: {C%-4d{x of {C%-4d{x\n  Mana: {C%-4d{x of {C%-4d{x\n  Move: {C%-4d{x of {C%-4d{x\n Items: {C%-4d{x of {C%-4d{x\nWeight: {C%-4d{x of {C%-4d{x",
+        ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move, ch->max_move,
         ch->carry_number, can_carry_n(ch),
-        get_carry_weight(ch) / 10, can_carry_w(ch) / 10);
-    send_to_char(buf, ch);
+        get_carry_weight(ch) / 10, !IS_IMMORTAL(ch) ? can_carry_w(ch) / 10 : 9999);
 
-    sprintf(buf,
-        "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
-        ch->perm_stat[STAT_STR],
-        get_curr_stat(ch, STAT_STR),
-        ch->perm_stat[STAT_INT],
-        get_curr_stat(ch, STAT_INT),
-        ch->perm_stat[STAT_WIS],
-        get_curr_stat(ch, STAT_WIS),
-        ch->perm_stat[STAT_DEX],
-        get_curr_stat(ch, STAT_DEX),
-        ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
-    send_to_char(buf, ch);
+    row_append_cell(row, 28, " Level: {C%d{x\nPlayed: {C%d hours{x\nGender: {C%s{x\n Align: {C%s{x\n   Age: {C%d{x",
+        ch->level,
+        (ch->played + (int) (current_time - ch->logon)) / 3600,
+        ch->sex == 0 ? "No Gender" : ch->sex == 1 ? "Male" : "Female",
+        IS_GOOD(ch) ? "Good" : IS_EVIL(ch) ? "Evil" : "Neutral",
+        get_age(ch)
+     );
 
-    sprintf(buf,
-        "You have scored %d exp, and have %ld gold and %ld silver coins.\r\n",
-        ch->exp, ch->gold, ch->silver);
-    send_to_char(buf, ch);
+    // Row 4 - Headers
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    row_append_cell(row, 21, "     {WWorth{x");
+    row_append_cell(row, 26, "       {WBattle{x");
+    row_append_cell(row, 28, "  {WStatistics and Info{x");
 
-    /* RT shows exp to level */
-    if (!IS_NPC(ch) && ch->level < LEVEL_HERO)
+    // Row 5
+    row = create_row_padded(grid, 0, 0, 2, 2);
+
+    row_append_cell(row, 21, "     Gold: {C%-4d{x\n   Silver: {C%-5d{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
+        ch->gold, ch->silver,
+        ch->train, ch->practice,
+        !IS_NPC(ch) ? ch->pcdata->quest_points : 0);
+
+    row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d{x\n Dam Roll: {C%d{x\n    Saves: {C%d{x",
+        GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
+        capitalize(get_stance_name(ch)),
+        ch->wimpy, GET_HITROLL(ch), GET_DAMROLL(ch), ch->saving_throw
+    );
+
+    row_append_cell(row, 28, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
+        !IS_NPC(ch) ? ch->pcdata->pkills : 0,
+        !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0,
+        !IS_NPC(ch) ? ch->pcdata->points : 0,
+        !IS_NPC(ch) ? ch->pcdata->pk_timer : 0
+    );
+
+    grid_to_char (grid, ch, TRUE);
+
+    if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
     {
-        sprintf(buf,
-            "You need %d exp to level.\r\n",
-            ((ch->level + 1) * exp_per_level(ch, ch->pcdata->points) -
-                ch->exp));
-        send_to_char(buf, ch);
+        do_function (ch, &do_affects, "");
     }
-
-    sprintf(buf, "Wimpy set to %d hit points.\r\n", ch->wimpy);
-    send_to_char(buf, ch);
-
-    if (!IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK] > 10)
-        send_to_char("You are drunk.\r\n", ch);
-    if (!IS_NPC(ch) && ch->pcdata->condition[COND_THIRST] == 0)
-        send_to_char("You are thirsty.\r\n", ch);
-    if (!IS_NPC(ch) && ch->pcdata->condition[COND_HUNGER] == 0)
-        send_to_char("You are hungry.\r\n", ch);
-
-    switch (ch->position)
-    {
-        case POS_DEAD:
-            send_to_char("You are DEAD!!\r\n", ch);
-            break;
-        case POS_MORTAL:
-            send_to_char("You are mortally wounded.\r\n", ch);
-            break;
-        case POS_INCAP:
-            send_to_char("You are incapacitated.\r\n", ch);
-            break;
-        case POS_STUNNED:
-            send_to_char("You are stunned.\r\n", ch);
-            break;
-        case POS_SLEEPING:
-            send_to_char("You are sleeping.\r\n", ch);
-            break;
-        case POS_RESTING:
-            send_to_char("You are resting.\r\n", ch);
-            break;
-        case POS_SITTING:
-            send_to_char("You are sitting.\r\n", ch);
-            break;
-        case POS_STANDING:
-            send_to_char("You are standing.\r\n", ch);
-            break;
-        case POS_FIGHTING:
-            send_to_char("You are fighting.\r\n", ch);
-            break;
-    }
-
-
-    /* print AC values */
-    if (ch->level >= 25)
-    {
-        sprintf(buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
-            GET_AC(ch, AC_PIERCE),
-            GET_AC(ch, AC_BASH),
-            GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC));
-        send_to_char(buf, ch);
-    }
-
-    for (i = 0; i < 4; i++)
-    {
-        char *temp;
-
-        switch (i)
-        {
-            case (AC_PIERCE) :
-                temp = "piercing";
-                break;
-            case (AC_BASH) :
-                temp = "bashing";
-                break;
-            case (AC_SLASH) :
-                temp = "slashing";
-                break;
-            case (AC_EXOTIC) :
-                temp = "magic";
-                break;
-            default:
-                temp = "error";
-                break;
-        }
-
-        send_to_char("You are ", ch);
-
-        if (GET_AC(ch, i) >= 101)
-            sprintf(buf, "hopelessly vulnerable to %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= 80)
-            sprintf(buf, "defenseless against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= 60)
-            sprintf(buf, "barely protected from %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= 40)
-            sprintf(buf, "slightly armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= 20)
-            sprintf(buf, "somewhat armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= 0)
-            sprintf(buf, "armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= -20)
-            sprintf(buf, "well-armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= -40)
-            sprintf(buf, "very well-armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= -60)
-            sprintf(buf, "heavily armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= -80)
-            sprintf(buf, "superbly armored against %s.\r\n", temp);
-        else if (GET_AC(ch, i) >= -100)
-            sprintf(buf, "almost invulnerable to %s.\r\n", temp);
-        else
-            sprintf(buf, "divinely armored against %s.\r\n", temp);
-
-        send_to_char(buf, ch);
-    }
-
-
-    /* RT wizinvis and holy light */
-    if (IS_IMMORTAL(ch))
-    {
-        send_to_char("Holy Light: ", ch);
-        if (IS_SET(ch->act, PLR_HOLYLIGHT))
-            send_to_char("on", ch);
-        else
-            send_to_char("off", ch);
-
-        if (ch->invis_level)
-        {
-            sprintf(buf, "  Invisible: level %d", ch->invis_level);
-            send_to_char(buf, ch);
-        }
-
-        if (ch->incog_level)
-        {
-            sprintf(buf, "  Incognito: level %d", ch->incog_level);
-            send_to_char(buf, ch);
-        }
-        send_to_char("\r\n", ch);
-    }
-
-    if (ch->level >= 15)
-    {
-        sprintf(buf, "Hitroll: %d  Damroll: %d.\r\n",
-            GET_HITROLL(ch), GET_DAMROLL(ch));
-        send_to_char(buf, ch);
-    }
-
-    if (ch->level >= 10)
-    {
-        if (IS_GOOD(ch)) {
-            sprintf(buf, "Alignment: Good.  ");
-        }
-        else if (IS_EVIL(ch)) {
-            sprintf(buf, "Alignment: Evil.  ");
-        }
-        else if (IS_NEUTRAL(ch)) {
-            sprintf(buf, "Alignment: Neutral.  ");
-        }
-        send_to_char(buf, ch);
-    }
-
-    if (IS_SET(ch->comm, COMM_SHOW_AFFECTS))
-        do_function(ch, &do_affects, "");
 }
 
 /*

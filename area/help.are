@@ -577,6 +577,7 @@ to the mud implementors.
                             [Erwin S. Andreasen]
                                [Fusion of Mud++]
                                      [Quixadhal]
+                        [Davion of mudbytes.net]
                                   [Jason Dinkel]
                                           [Lope]
                                [Edwin Groothuis]
@@ -3666,7 +3667,7 @@ Isaac sees:
 0 SHOW~
 Syntax: show
 
-Toggles whether affects will show in the score/oldscore commands.
+Toggles whether affects will show in the score command.
 ~
 
 0 SURRENDER~

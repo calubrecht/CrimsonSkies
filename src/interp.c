@@ -139,7 +139,6 @@ const struct cmd_type cmd_table[] = {
     {"report",    do_report,    POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"rules",     do_rules,     POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"score",     do_score,     POS_DEAD,     0, LOG_NORMAL, TRUE},
-    {"oldscore",  do_oldscore,  POS_DEAD,     0, LOG_NORMAL, FALSE},
     {"skills",    do_skills,    POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"socials",   do_socials,   POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"show",      do_show,      POS_DEAD,     0, LOG_NORMAL, TRUE},
