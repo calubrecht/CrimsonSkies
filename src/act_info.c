@@ -3182,15 +3182,15 @@ void do_report(CHAR_DATA * ch, char *argument)
     char buf[MAX_INPUT_LENGTH];
 
     sprintf(buf,
-        "You say 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'\r\n",
+        "You say 'I have %d/%d hp %d/%d mana %d/%d mv.'\r\n",
         ch->hit, ch->max_hit,
-        ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
+        ch->mana, ch->max_mana, ch->move, ch->max_move);
 
     send_to_char(buf, ch);
 
-    sprintf(buf, "$n says 'I have %d/%d hp %d/%d mana %d/%d mv %d xp.'",
+    sprintf(buf, "$n says 'I have %d/%d hp %d/%d mana %d/%d mv.'",
         ch->hit, ch->max_hit,
-        ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
+        ch->mana, ch->max_mana, ch->move, ch->max_move);
 
     act(buf, ch, NULL, NULL, TO_ROOM);
 
