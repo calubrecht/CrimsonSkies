@@ -123,3 +123,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Sliding magic damage bonus based on int
   - Extra chance attack on init based on dex (higher the dex, the higher the percent)
   - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
+  - Pscionist spell to temporarly wipe facial recognition of who a player is.
