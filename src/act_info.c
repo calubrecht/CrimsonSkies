@@ -1979,7 +1979,6 @@ void do_score(CHAR_DATA * ch, char *argument)
     GRID_ROW *row;
     //GRID_CELL *cell;
     char buf[MAX_STRING_LENGTH];
-    char buf2[MAX_STRING_LENGTH];
 
     // Create the grid
     grid = create_grid(75);
@@ -1987,12 +1986,11 @@ void do_score(CHAR_DATA * ch, char *argument)
     // Row 1
     // capitalize uses static memory therefore it will overwrite the second variable
     // where it's used in a *printf.
-    sprintf(buf, "%s", capitalize(race_table[ch->race].name));
-    sprintf(buf2, "%s", capitalize(class_table[ch->class]->name));
+    sprintf(buf, "%s", capitalize(class_table[ch->class]->name));
 
     row = create_row_padded(grid, 0, 0, 2, 2);
-    row_append_cell(row, 75, "{WScore for %s, a %s %s{x",
-        capitalize(ch->name), buf, IS_NPC(ch) ? "Mobile" : buf2);
+    row_append_cell(row, 75, "{WScore for %s, %s %s{x",
+        capitalize(ch->name), pc_race_table[ch->race].article_name, IS_NPC(ch) ? "Mobile" : buf);
 
     // Row 2 - Headers
     row = create_row_padded(grid, 0, 0, 2, 2);

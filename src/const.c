@@ -372,12 +372,12 @@ const struct race_type race_table[] = {
 };
 
 struct pc_race_type pc_race_table[] = {
-    {"null race", "", 0, {100, 100, 100, 100, 100},
+    {"null race", "", "", 0, {100, 100, 100, 100, 100},
      {""}, {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, 0},
 
 /*
     {
-    "race name", who name, creation points, { class multipliers },
+    "race name", who name, name with article, creation points, { class multipliers },
     { bonus skills },
     { base stats (str, int, wis, dex, con) }, { max stats (str, int, wis, dex, con) },
     size
@@ -385,35 +385,35 @@ struct pc_race_type pc_race_table[] = {
 */
     {
      // 65 starting stat line, 90 max stat line
-     "human", "Human", 0, {100, 100, 100, 100, 100},
+     "human", "Human", "a human", 0, {100, 100, 100, 100, 100},
      {"swim"},
      {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, SIZE_MEDIUM},
     {
      // 65 starting stat line, 91 max stat line
-     "elf", " Elf ", 5, {100, 125, 100, 120, 100},
+     "elf", " Elf ", "an elf", 5, {100, 125, 100, 120, 100},
      {"sneak", "hide", "swim"},
      {12, 14, 13, 15, 11}, {16, 20, 18, 21, 16}, SIZE_SMALL},
 
     {
      // 65 starting stat line, 90 max stat line
-     "dwarf", "Dwarf", 8, {150, 100, 125, 100, 150},
+     "dwarf", "Dwarf", "a dwarf", 8, {150, 100, 125, 100, 150},
      {"berserk"},
      {14, 12, 14, 10, 15}, {20, 16, 19, 14, 21}, SIZE_MEDIUM},
 
     {
      // 65 starting stat line, 90 max stat line
-     "ogre", "Ogre", 6, {200, 150, 150, 105, 200},
+     "ogre", "Ogre", "an ogre", 6, {200, 150, 150, 105, 200},
      {"bash", "fast healing"},
      {16, 11, 13, 11, 14}, {22, 15, 18, 15, 20}, SIZE_LARGE},
 
     {
      // 64 starting stat line, 88 max stat line
-     "kender", "Kender", 5, {100, 100, 100, 100, 100},
+     "kender", "Kender", "a kender", 5, {100, 100, 100, 100, 100},
      {"sneak", "swim", "peek", "dodge", "pick lock"},
      {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL},
     {
      // 64 starting stat line, 89 max stat line
-     "minotaur", "Minotr", 6, {200, 150, 150, 105, 200},
+     "minotaur", "Minotr", "a minotaur", 6, {200, 150, 150, 105, 200},
      {"gore"},
      {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 };
