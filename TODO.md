@@ -114,8 +114,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Revolt - Make it work against charmies but only if both the ch and master are clanned. (will need to look into is_safe).
   - Get rid of ban_permit, keep plr_permit.
   - Bans to check both d->host and d->ip_address
+  - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Int to assist casting and/or casting damage, wisdom to affect saves
   - Remove all gear to inventory on reclass.
   - Drunk talk
   - Critical strike
