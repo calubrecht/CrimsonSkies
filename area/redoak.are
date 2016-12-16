@@ -194,6 +194,35 @@ ABTV CDFJVZ 3 3000
 ACDEFHIKLNOT ABP CDHI JP
 stand stand male 0
 AHMV ABCDEFGHIJK large unknown
+#712
+common thief~
+a common thief~
+A common thief is here lurking about.
+~
+The thief appears to be poorly lurking about eyeing each passer looking
+for their next mark.  
+~
+human~
+AGHS DF 1 0
+1 0 2d4+5 0d9+100 1d2+0 none
+10 10 10 10
+FJNU 0 0 0
+stand stand male 1
+AHMV ABCDEFGHIJK medium unknown
+#713
+drunk~
+the drunk~
+A singing, happy drunk wanders around, singing about the Blade Dancer's Inn.
+~
+Here stands a drunk who seems to be have an awful lot of fun.  
+~
+human~
+AG 0 2 0
+2 -1 2d6+22 1d1+99 1d6+0 beating
+8 8 8 10
+DU 0 0 C
+stand stand male 65
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -1351,6 +1380,7 @@ S
 M 704 spec_questmaster
 M 705 spec_cast_mage
 M 711 spec_executioner
+M 712 spec_thief
 S
 
 
@@ -1361,10 +1391,11 @@ M 0 708 8 700 8 Load the cityguard
 O 0 700 0 704 A fountain loaded to Town Center
 M 0 709 4 704 1 Load the cityguard
 M 0 711 1 704 1 Load Cogge
-E 0 747 0 16 Cogge's broadsword is loaded wielded of Cogge
+E 0 747 0 16 Cogge's broad sword is loaded wielded of Cogge
 M 0 708 8 708 8 Load the cityguard
 M 0 708 8 708 8 Load the cityguard
 M 0 709 4 709 1 Load the cityguard
+M 0 712 1 710 1 Load a common thief
 M 0 708 8 712 8 Load the cityguard
 M 0 708 8 712 8 Load the cityguard
 M 0 709 4 717 1 Load the cityguard
@@ -1429,6 +1460,8 @@ G 0 707 0 A battle axe is given to the weaponsmith
 G 0 708 0 A spear is given to the weaponsmith
 G 0 709 0 A wooden staff is given to the weaponsmith
 G 0 710 0 A flail is given to the weaponsmith
+M 0 713 1 737 1 Load the drunk
+M 0 712 2 737 1 Load a common thief
 M 0 710 1 737 1 Load Leesaport the bartender
 G 0 743 0 A bottle of red oak lager is given to Leesaport the bartender
 G 0 744 0 A barrel of beer is given to Leesaport the bartender
