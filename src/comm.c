@@ -1009,7 +1009,31 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
  */
 void read_from_buffer(DESCRIPTOR_DATA * d)
 {
-    int i, j, k;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    /*
+     * Shift the input buffer if there is a tilde in it.. essentially this will in
+     * effect cancel any pending commands that have been entered in (say you spmm bash
+     * in 3 times and are waiting for the lag to end, this will allow you to cancel the
+     * 2nd and 3rd ones, perhaps to react to a disarm that you need to re-arm.  Etc.
+     * Know, that it gimps the tilde.  You may choose another character here OR provide
+     * another way for a user to enter the tilde, perhaps in the colors codes code.
+     */
+    while (d->inbuf[i] != '~' && d->inbuf[i] != '\0')
+    {
+        i++;
+    }
+
+    if (d->inbuf[i] == '~')
+    {
+        i++;
+
+        for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
+        return;
+    }
 
     /*
      * Hold horses if pending command already.
@@ -1119,8 +1143,12 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
      * Shift the input buffer.
      */
     while (d->inbuf[i] == '\n' || d->inbuf[i] == '\r')
+    {
         i++;
+    }
+
     for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
     return;
 }
 

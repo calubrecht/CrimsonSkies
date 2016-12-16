@@ -4075,6 +4075,17 @@ cleric to raise the casting level of themselves or another for a short
 period of time.
 ~
 
+0 CANCEL COMMAND TILDE~
+This mud offers the ability to cancel commands which have been entered
+but not processed yet.  In order to do this you can send a tilde
+character in your input at anytime.
+
+As a practical example, you may have spammed 2 or 3 bash commands in
+which take 3 rounds of combat to fulfil.. using tilden you can cancel
+the 2nd and 3rd in order to enter new commands in their place (such
+as re-arming a weapon if you are disarmed).
+~
+
 0 QUEST PQUEST~
 
 syntax:  pquest request
