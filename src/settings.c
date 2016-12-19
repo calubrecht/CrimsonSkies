@@ -100,14 +100,14 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        /*send_to_char("\r\n", ch);
+        send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WSystem Settings{x\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         sprintf(buf, "%-25s %-7s\r\n",
-            "Copyover on Crash", settings.copyover_on_crash ? "{GON{x" : "{ROFF{x");
-        send_to_char(buf, ch);*/
+            "Login Color Prompt", settings.login_color_prompt ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
 
     }
 
@@ -127,7 +127,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
     {
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
-        send_to_char("                  gainconvert|shockspread|testmode>\r\n", ch);
+        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt>\r\n", ch);
         return;
     }
 
@@ -253,6 +253,17 @@ void do_settings(CHAR_DATA *ch, char *argument)
         save_settings();
 
     }
+    else if (!str_prefix(arg1, "logincolorprompt"))
+    {
+        settings.login_color_prompt = !settings.login_color_prompt;
+
+        sprintf(buf, "$N has set the login color prompt to %s.", bool_onoff(settings.login_color_prompt));
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        printf_to_char(ch, "Login color prompt has been turned %s.\r\n", bool_onoff(settings.login_color_prompt));
+
+        save_settings();
+    }
     /*else if (!str_prefix(arg1, "copyoveroncrash"))
     {
         settings.copyover_on_crash = !settings.copyover_on_crash;
@@ -274,8 +285,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
     }*/
     else
     {
-        send_to_char("settings <wizlock | newlock | doublegold | doubleexperience|\r\n", ch);
-        send_to_char("          gainconvert | shockspread | copyoveroncrash\r\n", ch);
+        send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
+        send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
+        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt>\r\n", ch);
     }
 
 } // end do_settings
@@ -307,6 +319,7 @@ void load_settings()
     settings.gain_convert = iniparser_getboolean(ini, "Settings:GainConvert", FALSE);
     settings.test_mode = iniparser_getboolean(ini, "Settings:TestMode", FALSE);
     settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
+    settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
     //settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
 
     iniparser_freedict(ini);
@@ -348,6 +361,7 @@ void save_settings(void)
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
 
     // System Settings
+    fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");
     //fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
 
     fclose(fp);

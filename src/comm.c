@@ -701,7 +701,18 @@ void init_descriptor(int control)
     dnew = new_descriptor();
 
     dnew->descriptor = desc;
-    dnew->connected = CON_COLOR;
+
+    // Do they get prompted on whether they want color or do they go straight
+    // to the login menu with color defaulted to true.
+    if (settings.login_color_prompt)
+    {
+        dnew->connected = CON_COLOR;
+    }
+    else
+    {
+        dnew->connected = CON_LOGIN_MENU;
+    }
+
     dnew->ansi = TRUE;
     dnew->showstr_head = NULL;
     dnew->showstr_point = NULL;
@@ -821,7 +832,16 @@ void init_descriptor(int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
+    if (settings.login_color_prompt)
+    {
+        write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
+    }
+    else
+    {
+        // No color prompt, show them the greeting and the menu.
+        show_greeting(dnew);
+        show_login_menu(dnew);
+    }
 
     return;
 }

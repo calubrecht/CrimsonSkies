@@ -566,13 +566,14 @@ struct affect_data
 struct settings_data
 {
     // Game Bonuses
-    bool double_exp;        // Double Experience
-    bool double_gold;       // Double Gold
+    bool double_exp;         // Double Experience
+    bool double_gold;        // Double Gold
     // Game Locks / System Behavior
-    bool newlock;           // New lock, no new characters can create
-    bool wizlock;           // Only immortals can login
-    bool whitelist_lock;    // Whether a white list is active, see ban.c for info.
-    bool test_mode;         // Whether the entire game is put into test mode
+    bool newlock;            // New lock, no new characters can create
+    bool wizlock;            // Only immortals can login
+    bool whitelist_lock;     // Whether a white list is active, see ban.c for info.
+    bool test_mode;          // Whether the entire game is put into test mode
+    bool login_color_prompt; // Whether or not the Do you want color? prompt will appear on login
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
@@ -2053,6 +2054,9 @@ bool    ext_same_bits           (EXT_BV *var, EXT_BV *bits);
 void    ext_set_bits            (EXT_BV *var, EXT_BV *bits);
 void    ext_remove_bits         (EXT_BV *var, EXT_BV *bits);
 void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
+char    *bool_truefalse         (bool value);
+char    *bool_yesno             (bool value);
+char    *bool_onoff             (bool value);
 
 /*
  * Here are the extended bitvector macros:

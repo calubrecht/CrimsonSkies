@@ -226,3 +226,61 @@ bool file_exists(const char *fname)
     }
     return FALSE;
 }
+
+/*
+ * Returns the string true or false for the bool value.
+ */
+char *bool_truefalse(bool value)
+{
+    static char buf[6];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "true");
+    }
+    else
+    {
+        sprintf(buf, "%s", "false");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns the string yes or no for the bool value.
+ */
+char *bool_yesno(bool value)
+{
+    static char buf[4];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "yes");
+    }
+    else
+    {
+        sprintf(buf, "%s", "no");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns the string on or off for the bool value.
+ */
+char *bool_onoff(bool value)
+{
+    static char buf[4];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "on");
+    }
+    else
+    {
+        sprintf(buf, "%s", "off");
+    }
+
+    return buf;
+}
+
