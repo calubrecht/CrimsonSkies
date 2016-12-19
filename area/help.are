@@ -3011,7 +3011,7 @@ see a full listing of the healer's services type 'heal' in his presence.
 To receive healing, bring plenty of money and type 'heal <spell>'.
 ~
 
-0 GAIN~
+0 GAIN CONVERT~
 The gain command is used to learn new skills, once the proper trainer has 
 been found. (Check New Thalos) The following options can be used with gain:
 
@@ -3024,6 +3024,19 @@ Gain uses training sessions, not practices. (see 'help train')
 Gained skills and groups do NOT increase your experience per level or total
 number of creation points.  The gain convert option can be enabled or 
 disabled by the game administrators.
+~
+
+0 TEST MODE~
+Test mode allows an immortal to turn on the testing mode for all users of
+the mud without having to set or unset them automatically.  Test mode
+provides additional logging and diagnostic messages for use when debugging
+or testing.
+~
+
+0 LOGIN COLOR PROMPT~
+This setting allows the mud administrator to toggle whether a new
+connection to the mud will be prompted for whether they want color or
+not.
 ~
 
 52 CLONE~
