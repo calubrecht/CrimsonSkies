@@ -110,7 +110,15 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
         sprintf(buf, "%-25s %s\r\n",
+            "Mud Name", IS_NULLSTR(settings.mud_name) ? "N/A" : settings.mud_name);
+        send_to_char(buf, ch);
+
+        sprintf(buf, "%-25s %s\r\n",
             "Web Page URL", IS_NULLSTR(settings.web_page_url) ? "N/A" : settings.web_page_url);
+        send_to_char(buf, ch);
+
+        sprintf(buf, "%-25s %s\r\n",
+            "Login Greeting", IS_NULLSTR(settings.login_greeting) ? "N/A" : settings.login_greeting);
         send_to_char(buf, ch);
 
     }
@@ -331,7 +339,11 @@ void load_settings()
     free_string(settings.web_page_url);
     settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
 
-    //settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
+    free_string(settings.mud_name);
+    settings.mud_name = str_dup(iniparser_getstring(ini, "Settings:MudName", ""));
+
+    free_string(settings.login_greeting);
+    settings.login_greeting = str_dup(iniparser_getstring(ini, "Settings:LoginGreeting", ""));
 
     iniparser_freedict(ini);
 
@@ -373,10 +385,11 @@ void save_settings(void)
 
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");
-    //fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
 
     // Info
     fprintf(fp, "WebPageUrl = %s\n", IS_NULLSTR(settings.web_page_url) ? "" : settings.web_page_url);
+    fprintf(fp, "LoginGreeting = %s\n", IS_NULLSTR(settings.login_greeting) ? "" : settings.login_greeting);
+    fprintf(fp, "MudName = %s\n", IS_NULLSTR(settings.mud_name) ? "" : settings.mud_name);
 
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");

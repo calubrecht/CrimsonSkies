@@ -579,6 +579,8 @@ struct settings_data
     bool gain_convert; // Whether or not gain convert is enabled.
     // Info
     char *web_page_url;
+    char *mud_name;
+    char *login_greeting;
 };
 
 /*
