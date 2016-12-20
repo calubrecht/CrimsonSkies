@@ -125,7 +125,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
     // Get the arguments we need
     argument = one_argument(argument, arg1);
-    argument = one_argument(argument, arg2);
+    argument = first_arg(argument, arg2, FALSE);
 
     if (IS_NULLSTR(arg1))
     {
