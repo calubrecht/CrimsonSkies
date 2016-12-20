@@ -6376,8 +6376,11 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Quest time reset.\r\n", ch);
-    ch->pcdata->next_quest = 0;
+    char buf[MAX_STRING_LENGTH];
+
+    sprintf(buf, "%s\r\n", settings.web_page_url);
+    send_to_char(buf, ch);
+
     return;
 } // end do_debug
 

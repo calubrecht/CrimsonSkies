@@ -577,6 +577,8 @@ struct settings_data
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
+    // Info
+    char *web_page_url;
 };
 
 /*

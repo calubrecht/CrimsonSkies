@@ -90,6 +90,10 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Whitelist Lock", settings.whitelist_lock ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
+        sprintf(buf, "%-25s %-7s\r\n",
+            "Login Color Prompt", settings.login_color_prompt ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+
         send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WGame Mechanics{x\r\n", ch);
@@ -102,11 +106,11 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-        send_to_char("{WSystem Settings{x\r\n", ch);
+        send_to_char("{WGame Info{x\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
-        sprintf(buf, "%-25s %-7s\r\n",
-            "Login Color Prompt", settings.login_color_prompt ? "{GON{x" : "{ROFF{x");
+        sprintf(buf, "%-25s %s\r\n",
+            "Web Page URL", IS_NULLSTR(settings.web_page_url) ? "N/A" : settings.web_page_url);
         send_to_char(buf, ch);
 
     }
@@ -127,7 +131,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
     {
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
-        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt>\r\n", ch);
+        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
+        send_to_char("                  webpageurl>\r\n", ch);
         return;
     }
 
@@ -264,30 +269,32 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         save_settings();
     }
-    /*else if (!str_prefix(arg1, "copyoveroncrash"))
+    else if (!str_prefix(arg1, "webpageurl"))
     {
-        settings.copyover_on_crash = !settings.copyover_on_crash;
-
-        if (settings.copyover_on_crash)
+        if (!IS_NULLSTR(arg2))
         {
-            wiznet("$N has enabled copyover on crash.", ch, NULL, 0, 0, 0);
-            send_to_char("Copyover on crash enabled.\r\n", ch);
+            free_string(settings.web_page_url);
+            settings.web_page_url = str_dup(arg2);
         }
         else
         {
-            wiznet("$N has disabled copyover on crash.", ch, NULL, 0, 0, 0);
-            send_to_char("Copyover on crash disabled.\r\n", ch);
+            send_to_char("Please enter the web page's url as the last argument.\r\n", ch);
+            return;
         }
 
-        // Save the settings out to file.
-        save_settings();
+        sprintf(buf, "$N has set the web page URL to %s.", settings.web_page_url);
+        wiznet(buf, ch, NULL, 0, 0, 0);
 
-    }*/
+        printf_to_char(ch, "Web page URL has been turned %s.\r\n", settings.web_page_url);
+
+        save_settings();
+    }
     else
     {
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
-        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt>\r\n", ch);
+        send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
+        send_to_char("                  webpageurl>\r\n", ch);
     }
 
 } // end do_settings
@@ -320,6 +327,10 @@ void load_settings()
     settings.test_mode = iniparser_getboolean(ini, "Settings:TestMode", FALSE);
     settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
+
+    free_string(settings.web_page_url);
+    settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
+
     //settings.copyover_on_crash = iniparser_getboolean(ini, "Settings:CopyoverOnCrash", FALSE);
 
     iniparser_freedict(ini);
@@ -363,6 +374,9 @@ void save_settings(void)
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");
     //fprintf(fp, "CopyoverOnCrash = %s\n", settings.copyover_on_crash ? "True" : "False");
+
+    // Info
+    fprintf(fp, "WebPageUrl = %s\n", IS_NULLSTR(settings.web_page_url) ? "" : settings.web_page_url);
 
     fclose(fp);
     fpReserve = fopen(NULL_FILE, "r");
