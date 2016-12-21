@@ -140,7 +140,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
         return;
     }
 
@@ -317,12 +317,32 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         save_settings();
     }
+    else if (!str_prefix(arg1, "logingreeting"))
+    {
+        if (!IS_NULLSTR(arg2))
+        {
+            free_string(settings.login_greeting);
+            settings.login_greeting = str_dup(arg2);
+        }
+        else
+        {
+            send_to_char("Please enter the login greeting.\r\n", ch);
+            return;
+        }
+
+        sprintf(buf, "$N has set the login greeting to %s.", settings.login_greeting);
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        printf_to_char(ch, "The login greeting has been set to %s.\r\n", settings.login_greeting);
+
+        save_settings();
+    }
     else
     {
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
     }
 
 } // end do_settings
