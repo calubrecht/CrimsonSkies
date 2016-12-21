@@ -140,7 +140,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl>\r\n", ch);
+        send_to_char("                  webpageurl|mudname>\r\n", ch);
         return;
     }
 
@@ -293,7 +293,27 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the web page URL to %s.", settings.web_page_url);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Web page URL has been turned %s.\r\n", settings.web_page_url);
+        printf_to_char(ch, "Web page URL has been changed %s.\r\n", settings.web_page_url);
+
+        save_settings();
+    }
+    else if (!str_prefix(arg1, "mudname"))
+    {
+        if (!IS_NULLSTR(arg2))
+        {
+            free_string(settings.mud_name);
+            settings.mud_name = str_dup(arg2);
+        }
+        else
+        {
+            send_to_char("Please enter the mud's name.\r\n", ch);
+            return;
+        }
+
+        sprintf(buf, "$N has set the mud name to %s.", settings.mud_name);
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        printf_to_char(ch, "The mud's name has been set to %s.\r\n", settings.mud_name);
 
         save_settings();
     }
@@ -302,7 +322,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl>\r\n", ch);
+        send_to_char("                  webpageurl|mudname>\r\n", ch);
     }
 
 } // end do_settings
