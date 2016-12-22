@@ -3735,7 +3735,7 @@ void do_version(CHAR_DATA *ch, char *argument)
     }
     else
     {
-        sprintf(buf, "{RCrimson {rSkies{x (CS-Mud) Version %s last built on %s at %s\r\n", VERSION, __DATE__, __TIME__);
+        sprintf(buf, "Version %s last built on %s at %s\r\n", VERSION, __DATE__, __TIME__);
     }
 
     send_to_char(buf, ch);

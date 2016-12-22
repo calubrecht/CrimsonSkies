@@ -270,7 +270,15 @@ int main(int argc, char **argv)
         log_f("         hosts in the whitelist will be allowed to connect.");
     }
 
-    log_f("Crimson Skies is ready to rock on port %d.", port);
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        log_f("%s is ready to rock on port %d.", strip_color(settings.mud_name), port);
+    }
+    else
+    {
+        log_f("The game is ready to rock on port %d.", port);
+    }
+
     global.game_loaded = TRUE;
 
     game_loop(control);

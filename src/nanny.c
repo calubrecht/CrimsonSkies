@@ -590,7 +590,15 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             // reclass
-            send_to_char("\r\n{RCrimson {rSkies{x has many specialized reclasses although each character\r\n", ch);
+            if (!IS_NULLSTR(settings.mud_name))
+            {
+                printf_to_char(ch, "\r\n%s has many specialized reclasses although each character\r\n", settings.mud_name);
+            }
+            else
+            {
+                send_to_char("\r\nThis game has many specialized reclasses although each character\r\n", ch);
+            }
+
             send_to_char("must start off as one of four base classes (you can reclass as early\r\n", ch);
             send_to_char("level 10.  You will now select your initial base class.\r\n\r\n", ch);
 
@@ -823,7 +831,10 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n");
             }
 
-            send_to_desc("\r\nWelcome to {RCrimson {rSkies{x.\r\n\r\n", d);
+            if (!IS_NULLSTR(settings.mud_name))
+            {
+                printf_to_char(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
+            }
 
             // If the user is reclassing they will already be in the list, if not, add them.
             if (ch->pcdata->is_reclassing == FALSE)

@@ -1407,16 +1407,30 @@ void do_quit(CHAR_DATA * ch, char *argument)
 
 
 
+/*
+ * Allows a character to save their pfile.
+ */
 void do_save(CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC(ch))
+    {
         return;
+    }
 
     save_char_obj(ch);
-    send_to_char("Saving. Remember that {RCrimson {rSkies{x has automatic saving now.\r\n", ch);
+
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        printf_to_char(ch, "Saving.  Remember that %s has automatic saving.\r\n", settings.mud_name);
+    }
+    else
+    {
+        send_to_char("Saving. Remember that game has automatic saving.\r\n", ch);
+    }
 
     // Add lag on save, but on if it's not an immortal
-    if (!IS_IMMORTAL(ch)) {
+    if (!IS_IMMORTAL(ch))
+    {
         WAIT_STATE(ch, 4 * PULSE_VIOLENCE);
     }
 
