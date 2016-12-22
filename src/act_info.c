@@ -2166,7 +2166,15 @@ void do_time(CHAR_DATA * ch, char *argument)
         day_name[day % 7], day, suf, month_name[time_info.month]);
     send_to_char(buf, ch);
 
-    sprintf(buf, "{RCrimson {rSkies{x started up on %s\r\n", global.boot_time);
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        sprintf(buf, "%s started up on %s\r\n", settings.mud_name, global.boot_time);
+    }
+    else
+    {
+        sprintf(buf, "The game started up on %s\r\n", global.boot_time);
+    }
+
     send_to_char(buf, ch);
 
     sprintf(buf, "The system time is %s", (char *)ctime(&current_time));
@@ -3721,7 +3729,14 @@ void do_version(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
-    sprintf(buf, "{RCrimson {rSkies{x (CS-Mud) Version %s last built on %s at %s\r\n", VERSION, __DATE__, __TIME__);
-    send_to_char(buf, ch);
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        sprintf(buf, "%s Version %s last built on %s at %s\r\n", settings.mud_name, VERSION, __DATE__, __TIME__);
+    }
+    else
+    {
+        sprintf(buf, "{RCrimson {rSkies{x (CS-Mud) Version %s last built on %s at %s\r\n", VERSION, __DATE__, __TIME__);
+    }
 
+    send_to_char(buf, ch);
 }
