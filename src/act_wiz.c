@@ -6376,10 +6376,20 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
+    //char buf[MAX_STRING_LENGTH];
 
-    sprintf(buf, "%s\r\n", settings.web_page_url);
-    send_to_char(buf, ch);
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("***", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*****", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*******", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*********", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("***********", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("***************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*****************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("*******************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded(NULL, 20));
 
     return;
 } // end do_debug

@@ -284,3 +284,45 @@ char *bool_onoff(bool value)
     return buf;
 }
 
+/*
+ * Returns a string centered in the required width.  If null is passed in
+ * a string of spaces that is the width passed in will be returned.  If the
+ * string is * larger than the width it's just passed back out (but length
+ * checked to not overflow MSL).  -Rhien
+ */
+char *center_string_padded(const char *str, int width)
+{
+    static char buf[MAX_STRING_LENGTH];
+
+    // If it's null, pass back the string padded with all spaces
+    if (str == NULL)
+    {
+        snprintf(buf, MAX_STRING_LENGTH, "%*s", width - 1, "");
+        return buf;
+    }
+
+    int length = 0;
+
+    length = strlen(str);
+
+    // We can't center the string if the the string is larger than the
+    // width to center it in, just send it back.
+    if (length > width)
+    {
+        snprintf(buf, MAX_STRING_LENGTH, "%s", str);
+        return buf;
+    }
+
+    // Center the string within the width specified, use snprintf to ensure
+    // the string doesn't overflow the MAX_STRING_LENGTH
+    int pad_left = 0;
+    int pad_right = 0;
+
+    pad_left = (width / 2) + (length / 2);
+    pad_right = width - pad_left - 1;
+
+    // Use snprintf to pad the string
+    snprintf(buf, MAX_STRING_LENGTH, "%*s%*s", pad_left, str, pad_right, "");
+
+    return buf;
+}

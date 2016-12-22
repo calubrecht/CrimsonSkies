@@ -2058,9 +2058,6 @@ bool    ext_same_bits           (EXT_BV *var, EXT_BV *bits);
 void    ext_set_bits            (EXT_BV *var, EXT_BV *bits);
 void    ext_remove_bits         (EXT_BV *var, EXT_BV *bits);
 void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
-char    *bool_truefalse         (bool value);
-char    *bool_yesno             (bool value);
-char    *bool_onoff             (bool value);
 
 /*
  * Here are the extended bitvector macros:
@@ -2657,7 +2654,11 @@ void    gain_exp      (CHAR_DATA *ch, int gain);
 void    advance_level (CHAR_DATA *ch, bool hide);
 
 /* misc.c */
-bool file_exists(const char *fname);
+bool    file_exists           (const char *fname);
+char    *center_string_padded (const char *str, int width);
+char    *bool_truefalse       (bool value);
+char    *bool_yesno           (bool value);
+char    *bool_onoff           (bool value);
 
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
