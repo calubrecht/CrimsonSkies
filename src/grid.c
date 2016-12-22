@@ -382,9 +382,9 @@ void cell_set_linecount(GRID_CELL *cell)
 }
 
 /*
- * Counts colour codes to display offsets properly
+ * Counts color codes to display offsets properly
  */
-int count_colour(char *str)
+int count_color(char *str)
 {
     char c;
     int count = 0;
@@ -439,7 +439,7 @@ void row_to_char(GRID_ROW *row, CHAR_DATA *ch)
 
         while (tok)
         {
-            colour_offset = count_colour(tok);
+            colour_offset = count_color(tok);
 
             sprintf(buf, "%*s%-*.*s%*s", row->padding_left, " ", actual_width + colour_offset, actual_width + colour_offset, tok, row->padding_right, " ");
 
