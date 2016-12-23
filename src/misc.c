@@ -302,20 +302,18 @@ char *center_string_padded(const char *str, int width)
     }
 
     int length = 0;
+    int color_length = 0;
 
     length = strlen(str);
+    color_length = count_color(str);
 
     // We can't center the string if the the string is larger than the
     // width to center it in, just send it back.
-    if (length > width)
+    if ((length - color_length) > width)
     {
         snprintf(buf, MAX_STRING_LENGTH, "%s", str);
         return buf;
     }
-
-    // Subtract out the length for color codes which won't render to the
-    // screen.
-    length -= count_color(str);
 
     // Center the string within the width specified, use snprintf to ensure
     // the string doesn't overflow the MAX_STRING_LENGTH
@@ -324,6 +322,9 @@ char *center_string_padded(const char *str, int width)
 
     pad_left = (width / 2) + (length / 2);
     pad_right = width - pad_left - 1;
+
+    pad_left += color_length / 2;
+    pad_right += color_length / 2;
 
     // Use snprintf to pad the string
     snprintf(buf, MAX_STRING_LENGTH, "%*s%*s", pad_left, str, pad_right, "");

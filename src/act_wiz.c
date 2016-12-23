@@ -6380,14 +6380,16 @@ void do_debug(CHAR_DATA * ch, char *argument)
 
     printf_to_char(ch, "|%s|\r\n", center_string_padded("", 20));
     printf_to_char(ch, "|%s|\r\n", center_string_padded("*", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g*{x", 20));
     printf_to_char(ch, "|%s|\r\n", center_string_padded("***", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*****", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*******", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*********", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("***********", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*************", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("***************", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*****************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g***{x", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*****{x", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{Y*{G*{Y*{G*{Y*{G*{Y*", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*********{x", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{Y***********", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g***************", 20));
+    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g*****************{x", 20));
     printf_to_char(ch, "|%s|\r\n", center_string_padded("*******************", 20));
     printf_to_char(ch, "|%s|\r\n", center_string_padded(NULL, 20));
 
