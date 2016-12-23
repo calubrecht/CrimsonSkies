@@ -384,7 +384,7 @@ void cell_set_linecount(GRID_CELL *cell)
 /*
  * Counts color codes to display offsets properly
  */
-int count_color(char *str)
+int count_color(const char *str)
 {
     char c;
     int count = 0;

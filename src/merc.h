@@ -2395,6 +2395,9 @@ bool  check_disabled  (const struct cmd_type *command);
 void  load_disabled   (void);
 void  save_disabled   (void);
 
+/* grid.c */
+int   count_color     (const char *str);
+
 /* effect.c */
 void    acid_effect    (void *vo, int level, int dam, int target);
 void    cold_effect    (void *vo, int level, int dam, int target);

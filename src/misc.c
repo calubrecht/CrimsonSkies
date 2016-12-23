@@ -313,6 +313,10 @@ char *center_string_padded(const char *str, int width)
         return buf;
     }
 
+    // Subtract out the length for color codes which won't render to the
+    // screen.
+    length -= count_color(str);
+
     // Center the string within the width specified, use snprintf to ensure
     // the string doesn't overflow the MAX_STRING_LENGTH
     int pad_left = 0;
