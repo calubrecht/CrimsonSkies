@@ -350,7 +350,9 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
     else
     {
-        sprintf(buf, "{w   |    {x({GN{x){gew Character{x                ");
+        sprintf(buf, "{w   |    {x(%sN{x)%sew Character{x                ",
+            settings.login_menu_light_color,
+            settings.login_menu_dark_color);
     }
 
     // Column 1.2 - Game Status
@@ -390,7 +392,9 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
     else
     {
-        sprintf(buf, "{w   |    {x({GP{x){glay Existing Character{x        ");
+        sprintf(buf, "{w   |    {x(%sP{x)%slay Existing Character{x        ",
+            settings.login_menu_light_color,
+            settings.login_menu_dark_color);
     }
 
     // Column 2.2 - Site status
@@ -414,19 +418,31 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 3.1 - Who is currently online
-    sprintf(buf, "{w   |    {x({GW{x){gho is on now?{w                                                    |\r\n");
+    sprintf(buf, "{w   |    {x(%sW{x)%sho is on now?{w                                                    |\r\n",
+        settings.login_menu_light_color,
+        settings.login_menu_dark_color);
+
     send_to_desc(buf, d);
 
     // Column 4.1 - Random name generator
-    sprintf(buf, "{w   |    {x({GR{x){gandom Name Generator{w                                             |\r\n");
+    sprintf(buf, "{w   |    {x(%sR{x)%sandom Name Generator{w                                             |\r\n",
+        settings.login_menu_light_color,
+        settings.login_menu_dark_color);
+
     send_to_desc(buf, d);
 
     // Column 5.1 - Credits
-    sprintf(buf, "{w   |    {x({GC{x){gredits{w                                                           |\r\n");
+    sprintf(buf, "{w   |    {x(%sC{x)%sredits{w                                                           |\r\n",
+        settings.login_menu_light_color,
+        settings.login_menu_dark_color);
+
     send_to_desc(buf, d);
 
     // Column 6.1 & 6.2 - Quit and System Time
-    sprintf(buf, "{w   |    {x({GQ{x){guit{w                                                              |\r\n");
+    sprintf(buf, "{w   |    {x(%sQ{x)%suit{w                                                              |\r\n",
+        settings.login_menu_light_color,
+        settings.login_menu_dark_color);
+
     send_to_desc(buf, d);
 
     // Column 7.1 - Prompt
