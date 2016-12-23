@@ -581,6 +581,8 @@ struct settings_data
     char *web_page_url;
     char *mud_name;
     char *login_greeting;
+    char *login_menu_light_color;
+    char *login_menu_dark_color;
 };
 
 /*

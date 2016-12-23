@@ -385,6 +385,12 @@ void load_settings()
     free_string(settings.login_greeting);
     settings.login_greeting = str_dup(iniparser_getstring(ini, "Settings:LoginGreeting", ""));
 
+    free_string(settings.login_menu_light_color);
+    settings.login_menu_light_color = str_dup(iniparser_getstring(ini, "Settings:LoginMenuLightColor", "{G"));
+
+    free_string(settings.login_menu_dark_color);
+    settings.login_menu_dark_color = str_dup(iniparser_getstring(ini, "Settings:LoginMenuDarkColor", "{g"));
+
     iniparser_freedict(ini);
 
     global.last_boot_result = SUCCESS;
@@ -429,6 +435,8 @@ void save_settings(void)
     // Info
     fprintf(fp, "WebPageUrl = %s\n", IS_NULLSTR(settings.web_page_url) ? "" : settings.web_page_url);
     fprintf(fp, "LoginGreeting = %s\n", IS_NULLSTR(settings.login_greeting) ? "" : settings.login_greeting);
+    fprintf(fp, "LoginMenuLightColor = %s\n", IS_NULLSTR(settings.login_menu_light_color) ? "{G" : settings.login_menu_light_color);
+    fprintf(fp, "LoginMenuDarkColor = %s\n", IS_NULLSTR(settings.login_menu_dark_color) ? "{g" : settings.login_menu_dark_color);
     fprintf(fp, "MudName = %s\n", IS_NULLSTR(settings.mud_name) ? "" : settings.mud_name);
 
     fclose(fp);
