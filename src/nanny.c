@@ -831,7 +831,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 write_to_buffer(d, "Type 'password null <new password>' to fix.\r\n");
             }
 
-            if (!IS_NULLSTR(settings.mud_name))
+            if (!IS_NULLSTR(settings.login_greeting))
+            {
+                printf_to_char(ch, "\r\n%s.\r\n\r\n", settings.login_greeting);
+            }
+            else if (!IS_NULLSTR(settings.mud_name))
             {
                 printf_to_char(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
             }
