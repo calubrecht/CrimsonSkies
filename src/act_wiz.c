@@ -1770,6 +1770,7 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         send_to_char("Syntax:\r\n", ch);
         send_to_char("  vnum obj <name>\r\n", ch);
         send_to_char("  vnum mob <name>\r\n", ch);
+        send_to_char("  vnum room <name or owner>\r\n", ch);
         send_to_char("  vnum skill <skill or spell>\r\n", ch);
         return;
     }
@@ -1791,6 +1792,13 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         do_function(ch, &do_slookup, string);
         return;
     }
+
+    if (!str_cmp(arg, "room"))
+    {
+        do_function(ch, &do_rfind, string);
+        return;
+    }
+
     /* do both */
     do_function(ch, &do_mfind, argument);
     do_function(ch, &do_ofind, argument);
@@ -1852,6 +1860,50 @@ void do_mfind(CHAR_DATA * ch, char *argument)
         send_to_char("No mobiles by that name.\r\n", ch);
 
     return;
+}
+
+/*
+ * Finds a room based off of searching the room name and/or the owner
+ * of the room. -Rhien, 12/24/2016
+ */
+void do_rfind(CHAR_DATA * ch, char *argument)
+{
+    ROOM_INDEX_DATA *room;
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    bool found = FALSE;
+    int x = 0;
+
+    buffer = new_buf();
+
+    // Go through all the rooms via the room hash
+    for (x = 0; x < MAX_KEY_HASH; x++)
+    {
+        for (room = room_index_hash[x]; room != NULL; room = room->next)
+        {
+            if ((!IS_NULLSTR(room->name) && !str_infix(argument, room->name))
+                || (!IS_NULLSTR(room->owner) && !str_infix(argument, room->owner)))
+            {
+                sprintf(buf, "[%6d] {c%s{x in %s\r\n",
+                    room->vnum,
+                    room->name,
+                    room->area->name);
+                add_buf(buffer, buf);
+
+                found = TRUE;
+            }
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("Room(s) not found for your search.\r\n", ch);
+        return;
+    }
+
+    // Page it, then free the buffer
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
 }
 
 void do_ofind(CHAR_DATA * ch, char *argument)
