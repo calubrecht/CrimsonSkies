@@ -1874,6 +1874,12 @@ void do_rfind(CHAR_DATA * ch, char *argument)
     bool found = FALSE;
     int x = 0;
 
+    if (strlen(argument) < 3)
+    {
+        send_to_char("You must provide at least 3 letters on your room search.\r\n", ch);
+        return;
+    }
+
     buffer = new_buf();
 
     // Go through all the rooms via the room hash
@@ -1881,6 +1887,14 @@ void do_rfind(CHAR_DATA * ch, char *argument)
     {
         for (room = room_index_hash[x]; room != NULL; room = room->next)
         {
+            if (room->area == NULL)
+            {
+                // In theory this shouldn't happen, but...
+                sprintf(buf, "[%6d] (Bug: NULL Area)\r\n", room->vnum);
+                add_buf(buffer, buf);
+                continue;
+            }
+
             if ((!IS_NULLSTR(room->name) && !str_infix(argument, room->name))
                 || (!IS_NULLSTR(room->owner) && !str_infix(argument, room->owner)))
             {
