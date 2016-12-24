@@ -5687,6 +5687,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_protection_evil")) return spell_protection_evil;
             if (!str_cmp(name, "spell_protection_good")) return spell_protection_good;
             if (!str_cmp(name, "spell_protection_neutral")) return spell_protection_neutral;
+            if (!str_cmp(name, "spell_preserve")) return spell_preserve;
             break;
         case 'r':
             if (!str_cmp(name, "spell_refresh")) return spell_refresh;
@@ -5875,6 +5876,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_fog) return "spell_fog";
     if (spell == spell_dispel_fog) return "spell_dispel_fog";
     if (spell == spell_imbue) return "spell_imbue";
+    if (spell == spell_preserve) return "spell_preserve";
 
     return "reserved";
 

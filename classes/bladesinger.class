@@ -16,15 +16,9 @@ DefGroup    'bladesinger default'
 IsReclass   1
 IsEnabled   1
 Sk 'ventriloquate' 1 1
-Sk 'axe' 52 -1
 Sk 'dagger' 1 2
-Sk 'flail' 52 -1
-Sk 'mace' 52 -1
-Sk 'polearm' 52 -1
 Sk 'shield block' 1 4
-Sk 'spear' 52 -1
 Sk 'sword' 1 2
-Sk 'whip' 52 -1
 Sk 'parry' 1 4
 Sk 'scrolls' 1 2
 Sk 'staves' 1 2
@@ -135,6 +129,12 @@ Sk 'fire breath' 52 -1
 Sk 'frost breath' 52 -1
 Sk 'gas breath' 52 -1
 Sk 'lightning breath' 52 -1
+Sk 'axe' 52 -1
+Sk 'flail' 52 -1
+Sk 'mace' 52 -1
+Sk 'polearm' 52 -1
+Sk 'spear' 52 -1
+Sk 'whip' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -170,6 +170,7 @@ Sk 'peer' 52 -1
 Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'imbue' 52 -1
+Sk 'preserve' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1

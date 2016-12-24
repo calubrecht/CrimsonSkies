@@ -4701,6 +4701,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_bludgeon, "bludgeon");
     ASSIGN_GSN(gsn_revolt, "revolt");
     ASSIGN_GSN(gsn_imbue, "imbue");
+    ASSIGN_GSN(gsn_preserve, "preserve");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;

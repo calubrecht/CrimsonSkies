@@ -2305,6 +2305,7 @@ restore armor*      returns a piece of armor to it's original form.
 disenchant*         fades a weapon or piece of armor
 interlace spirit*   makes an item only usable by people of the same
                     aligntment as the enchantor
+preserve*           stops an item from rotting.
 
 * Indicates Enchantor only spell.
 ~
@@ -4097,6 +4098,16 @@ As a practical example, you may have spammed 2 or 3 bash commands in
 which take 3 rounds of combat to fulfil.. using tilden you can cancel
 the 2nd and 3rd in order to enter new commands in their place (such
 as re-arming a weapon if you are disarmed).
+~
+
+0 PRESERVE~
+Syntax: cast 'preserve' <object>
+
+The preserve spell will allow an enchantor to stop an object from
+rotting or crumbling over time, such as after a death when the rot
+death flag has been invoked.  This spell causes a great deal of
+stress on the enchantor who will have to wait after they cast it
+in order to cast it again.
 ~
 
 0 QUEST PQUEST~

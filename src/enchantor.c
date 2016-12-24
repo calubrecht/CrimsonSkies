@@ -1163,3 +1163,48 @@ void set_obj_enchanted(CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first)
     return;
 
 } // end set_obj_enchanted
+
+/*
+ * Preserves an item that is ready to rot/crumble..
+ */
+void spell_preserve(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    AFFECT_DATA af;
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+
+    if (is_affected(ch, sn))
+    {
+        send_to_char("You failed to cast preserve again so soon.\r\n", ch);
+        return;
+    }
+
+    if (obj->timer < 1)
+    {
+        send_to_char("That item doesn't require preserving.\r\n", ch);
+        return;
+    }
+
+    // 240 tick cool down period, e.g. it can't be used again for that long.
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 240;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    /*if ()
+    {
+        send_to_char("You cannot preserve that.\r\n", ch);
+        return;
+    }*/
+
+    // Reset the timer..
+    obj->timer = 0;
+
+    act("$p fades out of existence and then back into visible form.", ch, obj, NULL, TO_CHAR);
+    act("$p fades out of existence and then back into visible form.", ch, obj, NULL, TO_ROOM);
+
+    return;
+}
