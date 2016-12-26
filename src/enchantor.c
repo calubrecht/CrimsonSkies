@@ -1165,7 +1165,9 @@ void set_obj_enchanted(CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first)
 } // end set_obj_enchanted
 
 /*
- * Preserves an item that is ready to rot/crumble..
+ * Preserves an item that is ready to rot/crumble.  It has a cool down period
+ * of 160 minutes which means it can only be used on 1 item every 160 minutes
+ * of play time (has mitigating rot death can be a huge deal for a rare item).
  */
 void spell_preserve(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
@@ -1194,9 +1196,10 @@ void spell_preserve(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     af.bitvector = 0;
     affect_to_char(ch, &af);
 
+    // Any future checks that would mitigate this being used.
     /*if ()
     {
-        send_to_char("You cannot preserve that.\r\n", ch);
+        send_to_char("You cannot preserve that item.\r\n", ch);
         return;
     }*/
 
