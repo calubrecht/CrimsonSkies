@@ -355,15 +355,16 @@ void do_settings(CHAR_DATA *ch, char *argument)
   */
 void load_settings()
 {
-    dictionary  *ini;
+    bool save = FALSE;
+    dictionary *ini;
 
     ini = iniparser_load(SETTINGS_FILE);
 
+    // If it's null, log it, but continue on so the default are loaded, then save.
     if (ini == NULL)
     {
         log_f("WARNING: Settings file '%s' was not found or is inaccessible.", SETTINGS_FILE);
-        global.last_boot_result = DEFAULT;
-        return;
+        save = TRUE;
     }
 
     settings.wizlock = iniparser_getboolean(ini, "Settings:WizLock", FALSE);
@@ -392,6 +393,11 @@ void load_settings()
     settings.login_menu_dark_color = str_dup(iniparser_getstring(ini, "Settings:LoginMenuDarkColor", "{g"));
 
     iniparser_freedict(ini);
+
+    if (save)
+    {
+        save_settings();
+    }
 
     global.last_boot_result = SUCCESS;
     return;
