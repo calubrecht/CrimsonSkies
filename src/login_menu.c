@@ -31,7 +31,6 @@
 *                                                                         *
 ***************************************************************************/
 
-
 // System Specific Includes
 #if defined(_WIN32)
 #include <sys/types.h>
@@ -54,6 +53,8 @@
 #include "interp.h"
 #include "recycle.h"
 #include "tables.h"
+
+#define BLANK_MENU_LINE "{w   |                                                                        |\r\n"
 
 /*
 * Sends the greeting on login.
@@ -85,7 +86,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
     show_menu_header("Random Names", d);
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
 
     for (row = 0; row < 8; row++)
     {
@@ -103,7 +104,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
         send_to_desc("{w    |\r\n", d);
     }
 
-    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w / |  -==================================================================-  |\r\n", d);
     send_to_desc("{w \\/________________________________________________________________________/\r\n{x", d);
 
@@ -122,7 +123,7 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
     show_menu_header("Credits", d);
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
 
     sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2016)                                     |\r\n", VERSION);
     send_to_desc(buf, d);
@@ -137,12 +138,12 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     send_to_desc("{w   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
     send_to_desc("{w   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
 
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w   |    {G*{w Detailed additional credits can be viewed in game via the         |\r\n", d);
     send_to_desc("{w   |      credits command.  These additional credits include the names of   |\r\n", d);
     send_to_desc("{w   |      many who have contributed through the mud community over the      |\r\n", d);
     send_to_desc("{w   |      years where those contributions have been used here.              |\r\n", d);
-    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w / |  -==================================================================-  |\r\n", d);
     send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
@@ -164,9 +165,9 @@ void show_login_who(DESCRIPTOR_DATA *d)
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
     show_menu_header("Online Players", d);
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -216,22 +217,22 @@ void show_login_who(DESCRIPTOR_DATA *d)
     {
         // End that row
         send_to_desc("    {w|\r\n", d);
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
 
     // Display if there are no immortals online.
     if (count == 0)
     {
         send_to_desc("{w   |    * {CThere are no immortals currently online.{w                          |\r\n", d);
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
 
     send_to_desc("{w   |                             {R( {WMortals {R){w                                |\r\n", d);
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
 
     total_count += count;
 
@@ -289,18 +290,18 @@ void show_login_who(DESCRIPTOR_DATA *d)
     {
         // End that row
         send_to_desc("    {w|\r\n", d);
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
 
     // Display if there are no mortals online.
     if (count == 0)
     {
         send_to_desc("{w   |    * {CThere are no mortals currently online.{w                            |\r\n", d);
-        send_to_desc("{w   |                                                                        |\r\n", d);
+        send_to_desc(BLANK_MENU_LINE, d);
     }
 
     total_count += count;
@@ -311,7 +312,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
         send_to_desc(buf, d);
     }
 
-    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w / |  -==================================================================-  |\r\n", d);
     send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
@@ -341,10 +342,8 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc("{w /`                                                                        \\\r\n", d);
 
     show_menu_header("Login Menu", d);
-
+    send_to_desc(BLANK_MENU_LINE, d);
     //send_to_desc("{w \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{w        |\r\n", d);
-
-    send_to_desc("{w   |                                                                        |\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
     // newlocked, if their host is banned all together or if they are newbie banned.
@@ -450,11 +449,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 7.1 - Prompt
-    send_to_desc("{w   |                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     sprintf(buf, "{w   |     {WYour selection? {w->                                                 |\r\n");
     send_to_desc(buf, d);
 
-    send_to_desc("{w  _|                                                                        |\r\n", d);
+    send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w / |  -==================================================================-  |\r\n", d);
     send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 
