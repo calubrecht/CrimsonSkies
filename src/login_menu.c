@@ -83,8 +83,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
     int row = 0;
     int col = 0;
 
-    send_to_desc("{w  _________________________________________________________________________\r\n", d);
-    send_to_desc("{w /`                                                                        \\\r\n", d);
+    show_menu_top(d);
     show_menu_header("Random Names", d);
     send_to_desc(BLANK_MENU_LINE, d);
 
@@ -104,9 +103,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
         send_to_desc("{w    |\r\n", d);
     }
 
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
-    send_to_desc("{w \\/________________________________________________________________________/\r\n{x", d);
+    show_menu_bottom(d);
 
     return;
 }
@@ -120,8 +117,7 @@ void show_login_credits(DESCRIPTOR_DATA *d)
 {
     char buf[MAX_STRING_LENGTH];
 
-    send_to_desc("{w  _________________________________________________________________________\r\n", d);
-    send_to_desc("{w /`                                                                        \\\r\n", d);
+    show_menu_top(d);
     show_menu_header("Credits", d);
     send_to_desc(BLANK_MENU_LINE, d);
 
@@ -143,9 +139,8 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     send_to_desc("{w   |      credits command.  These additional credits include the names of   |\r\n", d);
     send_to_desc("{w   |      many who have contributed through the mud community over the      |\r\n", d);
     send_to_desc("{w   |      years where those contributions have been used here.              |\r\n", d);
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
-    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
+
+    show_menu_bottom(d);
 
     return;
 }
@@ -162,8 +157,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     int total_count = 0;
     bool end_row = TRUE;
 
-    send_to_desc("{w  _________________________________________________________________________\r\n", d);
-    send_to_desc("{w /`                                                                        \\\r\n", d);
+    show_menu_top(d);
     show_menu_header("Online Players", d);
     send_to_desc(BLANK_MENU_LINE, d);
     send_to_desc("{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
@@ -312,9 +306,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
         send_to_desc(buf, d);
     }
 
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
-    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
+    show_menu_bottom(d);
 
     return;
 }
@@ -338,11 +330,10 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     // The login menu header
     send_to_desc("\r\n", d);
-    send_to_desc("{w  _________________________________________________________________________\r\n", d);
-    send_to_desc("{w /`                                                                        \\\r\n", d);
-
+    show_menu_top(d);
     show_menu_header("Login Menu", d);
     send_to_desc(BLANK_MENU_LINE, d);
+
     //send_to_desc("{w \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{w        |\r\n", d);
 
     // Column 1.1 - Create a new character option.  The option is disabled if the game is wizlocked
@@ -453,9 +444,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     sprintf(buf, "{w   |     {WYour selection? {w->                                                 |\r\n");
     send_to_desc(buf, d);
 
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
-    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
+    show_menu_bottom(d);
 
     // Since we've wrapped the menu in an ASCII graphic that looks like a parchment, we'll need to
     // reposition the cursor to move up to "Your selection? ->".. then after the selection we'll
@@ -473,6 +462,25 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     return;
+}
+
+/*
+ * Show's the top portion of the menu
+ */
+void show_menu_top(DESCRIPTOR_DATA *d)
+{
+    send_to_desc("{w  _________________________________________________________________________\r\n", d);
+    send_to_desc("{w /`                                                                        \\\r\n", d);
+}
+
+/*
+ * Show's the bottom porition of the menu
+ */
+void show_menu_bottom(DESCRIPTOR_DATA *d)
+{
+    send_to_desc(BLANK_MENU_LINE, d);
+    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
+    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
 }
 
 /*

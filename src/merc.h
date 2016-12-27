@@ -2415,6 +2415,8 @@ void     show_menu_header    (char *caption, DESCRIPTOR_DATA *d);
 void     show_random_names   (DESCRIPTOR_DATA *d);
 void     show_login_who      (DESCRIPTOR_DATA *d);
 void     show_login_credits  (DESCRIPTOR_DATA *d);
+void     show_menu_top       (DESCRIPTOR_DATA *d);
+void     show_menu_bottom    (DESCRIPTOR_DATA *d);
 
 /* random.c */
 void     init_random         (void);
