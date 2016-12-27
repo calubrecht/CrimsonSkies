@@ -2408,7 +2408,7 @@ void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
 bool    stun_effect    (CHAR_DATA *ch, CHAR_DATA *victim);
 
-/* nanny.c */
+/* login_menu.c */
 void     show_greeting       (DESCRIPTOR_DATA *d);
 void     show_login_menu     (DESCRIPTOR_DATA *d);
 void     show_menu_header    (char *caption, DESCRIPTOR_DATA *d);
