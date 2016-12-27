@@ -2411,6 +2411,7 @@ bool    stun_effect    (CHAR_DATA *ch, CHAR_DATA *victim);
 /* nanny.c */
 void     show_greeting       (DESCRIPTOR_DATA *d);
 void     show_login_menu     (DESCRIPTOR_DATA *d);
+void     show_menu_header    (char *caption, DESCRIPTOR_DATA *d);
 void     show_random_names   (DESCRIPTOR_DATA *d);
 void     show_login_who      (DESCRIPTOR_DATA *d);
 void     show_login_credits  (DESCRIPTOR_DATA *d);

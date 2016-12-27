@@ -84,7 +84,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
 
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
-    send_to_desc("{w \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WRandom Names {w(((=-=-=-=-=-=-{w        |\r\n", d);
+    show_menu_header("Random Names", d);
     send_to_desc("{w   |                                                                        |\r\n", d);
 
     for (row = 0; row < 8; row++)
@@ -121,7 +121,7 @@ void show_login_credits(DESCRIPTOR_DATA *d)
 
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
-    send_to_desc("{w \\_|         {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WCredits {w(((=-=-=-=-=-=-{w         |\r\n", d);
+    show_menu_header("Credits", d);
     send_to_desc("{w   |                                                                        |\r\n", d);
 
     sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2016)                                     |\r\n", VERSION);
@@ -163,7 +163,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
 
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
-    send_to_desc("{w \\_|     {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WOnline Players {w(((=-=-=-=-=-=-{w      |\r\n", d);
+    show_menu_header("Online Players", d);
     send_to_desc("{w   |                                                                        |\r\n", d);
     send_to_desc("{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
     send_to_desc("{w   |                                                                        |\r\n", d);
@@ -332,8 +332,6 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
 
     char buf[MAX_STRING_LENGTH];
-    char buf2[MAX_STRING_LENGTH];
-    char center_text[MAX_STRING_LENGTH];
     bool ban_newbie = check_ban(d->host, BAN_NEWBIES);
     bool ban_all = check_ban(d->host, BAN_ALL);
 
@@ -342,13 +340,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc("{w  _________________________________________________________________________\r\n", d);
     send_to_desc("{w /`                                                                        \\\r\n", d);
 
-    // Center the heading depending on the mud name.. if it's too long it will push the line over however..
-    sprintf(buf, "{w \\_|%%s|\r\n");
-    sprintf(center_text, "{W-=-=-=-=-=-=))) %s: {WLogin Menu {w(((=-=-=-=-=-=-{w", settings.mud_name);
-    sprintf(center_text, "%s", center_string_padded(center_text, 73));
-
-    sprintf(buf2, buf, center_text);
-    send_to_desc(buf2, d);
+    show_menu_header("Login Menu", d);
 
     //send_to_desc("{w \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{w        |\r\n", d);
 
@@ -482,4 +474,21 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     return;
+}
+
+/*
+ * Sends a header of the menu that is centered.
+ */
+void show_menu_header(char *caption, DESCRIPTOR_DATA *d)
+{
+    char buf[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+    char center_text[MAX_STRING_LENGTH];
+
+    sprintf(buf, "{w \\_|%%s|\r\n");
+    sprintf(center_text, "{W-=-=-=-=-=-=))) %s: {W%s {w(((=-=-=-=-=-=-{w", settings.mud_name, caption);
+    sprintf(center_text, "%s", center_string_padded(center_text, 73));
+
+    sprintf(buf2, buf, center_text);
+    send_to_desc(buf2, d);
 }
