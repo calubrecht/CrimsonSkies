@@ -83,9 +83,13 @@ bool is_clan(CHAR_DATA * ch)
 bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (clan_table[ch->clan].independent)
+    {
         return FALSE;
+    }
     else
+    {
         return (ch->clan == victim->clan);
+    }
 }
 
 
@@ -112,7 +116,7 @@ int clan_lookup(const char *name)
  * A command to allow a player to become a loner without having to have an
  * immortal guild them.
  */
-void do_loner(CHAR_DATA *ch, char *argument )
+void do_loner(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
