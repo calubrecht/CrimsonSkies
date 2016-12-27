@@ -223,6 +223,23 @@ AG 0 2 0
 DU 0 0 C
 stand stand male 65
 AHMV ABCDEFGHIJK medium unknown
+#714
+healer~
+the healer~
+A healer is here, selling spells.
+~
+Although retired from adventuring, the healer still lends a hand.
+
+Type '{Gheal{x' to see a listing of spells.
+
+~
+human~
+ABQVa DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD 0 0
+stand stand male 5000
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -249,9 +266,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -261,9 +278,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -273,9 +290,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -467,14 +484,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -1165,6 +1182,10 @@ D0
 ~
 ~
 0 0 724
+D1
+~
+~
+0 0 738
 D2
 ~
 ~
@@ -1372,6 +1393,18 @@ D1
 ~
 0 0 725
 S
+#738
+Healer's Sanctuary~
+You are standing in a limestone hall of which ornate statues of deities
+line the walls.  The air is cold and at the end of the room stands a holy
+man with a long gnarled staff in a white robe.  
+~
+0 0 0
+D3
+~
+~
+0 0 725
+S
 #0
 
 
@@ -1381,6 +1414,7 @@ M 704 spec_questmaster
 M 705 spec_cast_mage
 M 711 spec_executioner
 M 712 spec_thief
+M 714 spec_cast_adept
 S
 
 
@@ -1466,6 +1500,7 @@ M 0 710 1 737 1 Load Leesaport the bartender
 G 0 743 0 A bottle of red oak lager is given to Leesaport the bartender
 G 0 744 0 A barrel of beer is given to Leesaport the bartender
 G 0 745 0 A shot of whisky is given to Leesaport the bartender
+M 0 714 1 738 1 Load the healer
 S
 
 
