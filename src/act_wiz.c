@@ -1462,19 +1462,19 @@ void do_ostat(CHAR_DATA * ch, char *argument)
             switch (paf->where)
             {
                 case TO_AFFECTS:
-                    sprintf(buf, "Adds %s affect.\n",
+                    sprintf(buf, "Adds %s affect.\r\n",
                         affect_bit_name(paf->bitvector));
                     break;
                 case TO_WEAPON:
-                    sprintf(buf, "Adds %s weapon flags.\n",
+                    sprintf(buf, "Adds %s weapon flags.\r\n",
                         weapon_bit_name(paf->bitvector));
                     break;
                 case TO_OBJECT:
-                    sprintf(buf, "Adds %s object flag.\n",
+                    sprintf(buf, "Adds %s object flag.\r\n",
                         extra_bit_name(paf->bitvector));
                     break;
                 case TO_IMMUNE:
-                    sprintf(buf, "Adds immunity to %s.\n",
+                    sprintf(buf, "Adds immunity to %s.\r\n",
                         imm_bit_name(paf->bitvector));
                     break;
                 case TO_RESIST:
@@ -1506,15 +1506,15 @@ void do_ostat(CHAR_DATA * ch, char *argument)
                 switch (paf->where)
                 {
                     case TO_AFFECTS:
-                        sprintf(buf, "Adds %s affect.\n",
+                        sprintf(buf, "Adds %s affect.\r\n",
                             affect_bit_name(paf->bitvector));
                         break;
                     case TO_OBJECT:
-                        sprintf(buf, "Adds %s object flag.\n",
+                        sprintf(buf, "Adds %s object flag.\r\n",
                             extra_bit_name(paf->bitvector));
                         break;
                     case TO_IMMUNE:
-                        sprintf(buf, "Adds immunity to %s.\n",
+                        sprintf(buf, "Adds immunity to %s.\r\n",
                             imm_bit_name(paf->bitvector));
                         break;
                     case TO_RESIST:
