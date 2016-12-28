@@ -318,13 +318,13 @@ weapon BCH AN
 sword 5 7 slice C
 51 80 12000 P
 A
-19 1
-A
-18 1
+5 2
 A
 1 2
 A
-5 2
+18 1
+A
+19 1
 #4176
 ciquala's robe~
 Ciquala's robe~
@@ -334,7 +334,7 @@ armor G AK
 BCD BCD BCD B 0
 51 50 29470 G
 A
-20 -3
+20 -1
 A
 2 2
 #4177
@@ -346,9 +346,9 @@ staff G AO
 10 5 10 'cure critical' 0
 45 20 12000 P
 A
-3 3
-A
 4 -1
+A
+3 3
 #4178
 crate~
 crate~
@@ -462,11 +462,11 @@ armor 0 AD
 CE CE CE AC 0
 33 1000 0 G
 A
-5 -5
+2 -1
 A
 1 -5
 A
-2 -1
+5 -5
 #4192
 torturer's whip~
 the torturer's whip~
@@ -610,21 +610,12 @@ sconces.  Each of these items in the room merits more investigation.
 ~
 0 8 0
 E
-runes~
-These runes are carved into the rock about the pool.  You think you
-recognize the rune of vision, and another that has something to do with
-projecting power at a distance.
-~
-E
-glyphs~
-The glyphs are drawn upon the stone with what appears to be blood.
-You do not recognize any of them, and it would probably be a good idea not to
-touch any of them.
-~
-E
-sconces~
-The sconces are black and shaped liked two hands, cradling the torches
-between their pointed nails.
+pool~
+As you lean forward and look in the pool, you see nothing but the dark
+murky water.  Gradually though, an image forms before you.  You recognize the
+person the image shows.  It is the Avatar!  Apparently this is a pool that
+Ciquala uses to scry upon her enemies. The image is so clear, you almost
+believe you could step into the pool, and appear in Lord British's castle.
 ~
 E
 torches~
@@ -634,12 +625,21 @@ flames are an icy blue, that makes you think twice about getting too close to
 them.
 ~
 E
-pool~
-As you lean forward and look in the pool, you see nothing but the dark
-murky water.  Gradually though, an image forms before you.  You recognize the
-person the image shows.  It is the Avatar!  Apparently this is a pool that
-Ciquala uses to scry upon her enemies. The image is so clear, you almost
-believe you could step into the pool, and appear in Lord British's castle.
+sconces~
+The sconces are black and shaped liked two hands, cradling the torches
+between their pointed nails.
+~
+E
+glyphs~
+The glyphs are drawn upon the stone with what appears to be blood.
+You do not recognize any of them, and it would probably be a good idea not to
+touch any of them.
+~
+E
+runes~
+These runes are carved into the rock about the pool.  You think you
+recognize the rune of vision, and another that has something to do with
+projecting power at a distance.
 ~
 D1
 ~
