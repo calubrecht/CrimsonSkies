@@ -6436,6 +6436,53 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
     return;
 }
 
+/*
+ * Makes any temporary spells on an object permanent.  This should only be a high level
+ * immortal command used to make quest items, etc.  It only makes the affects permanent for
+ * this instance of the object found.
+ */
+void do_permanent(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("On what item do you want to make the temporary affects permanent?\r\n", ch);
+        return;
+    }
+
+    obj = get_obj_here(ch, argument);
+
+    if (obj == NULL)
+    {
+        send_to_char("You do not see that here.\r\n", ch);
+        return;
+    }
+
+    // Look for any non permanent affects on the item, then set their duration
+    // to -1 which will make them permanent for just this item.
+    AFFECT_DATA *af;
+    int found = FALSE;
+
+    for (af = obj->affected; af != NULL; af = af->next)
+    {
+        if (af->duration > 0)
+        {
+            af->duration = -1;
+            found = TRUE;
+        }
+    }
+
+    // Show the the success or not.
+    if (found)
+    {
+        act("You have made the affects on $p permanent.", ch, obj, NULL, TO_CHAR);
+    }
+    else
+    {
+        act("There were no affects on $p that could be made permanent.", ch, obj, NULL, TO_CHAR);
+    }
+}
 
 /*
  * Debug function to quickly test code without having to wire something up.

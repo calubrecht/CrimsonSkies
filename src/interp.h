@@ -373,3 +373,4 @@ DECLARE_DO_FUN(do_bludgeon);
 DECLARE_DO_FUN(do_revolt);
 DECLARE_DO_FUN(do_linefeed);
 DECLARE_DO_FUN(do_rfind);
+DECLARE_DO_FUN(do_permanent);

@@ -4110,6 +4110,14 @@ stress on the enchantor who will have to wait after they cast it
 in order to cast it again.
 ~
 
+60 PERMANENT~
+Syntax: permanent <object name>
+
+A high level immortal command that makes any temporary affects on an
+object permanent.  This can be used to create unique quest items for
+instance that make a bless or fireproof last forever.
+~
+
 0 QUEST PQUEST~
 
 syntax:  pquest request
