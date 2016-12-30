@@ -2160,6 +2160,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         ch->pet = NULL;
     }
 
+    // Remove all of the players gear, we don't want someone to reclass and still be wearing
+    // their high level gear.
+    remove_all_obj(ch);
+
     // Remove any spells or affects so the player can't come out spelled up with
     // much higher levels spells.
     for (af = ch->affected; af != NULL; af = af_next)
