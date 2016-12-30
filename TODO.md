@@ -116,7 +116,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bans to check both d->host and d->ip_address
   - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Remove all gear to inventory on reclass.
   - Drunk talk
   - Critical strike
   - Sliding saves bonus based on wisdom
