@@ -124,7 +124,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Extra chance attack on init based on dex (higher the dex, the higher the percent)
   - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
-  - Common mud variables to settings so game is easier to pull updates from (mud name,
-    web page url, references to cs-mud, etc).
   - Ability to turn on/off who is available online from the main menu.
   - Support for area flags that save with the pfile (then add no-recall area, no magic area flags)
