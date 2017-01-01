@@ -334,7 +334,9 @@ bool check_dispel(int dis_level, CHAR_DATA * victim, int sn)
                     return TRUE;
                 }
                 else
+                {
                     af->level--;
+                }
             }
         }
     }
@@ -4578,28 +4580,50 @@ void spell_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (is_affected(victim, sn) || IS_AFFECTED(victim, AFF_SLOW))
     {
         if (victim == ch)
+        {
             send_to_char("You can't move any slower!\r\n", ch);
+        }
         else
-            act("$N can't get any slower than that.",
-                ch, NULL, victim, TO_CHAR);
+        {
+            act("$N can't get any slower than that.", ch, NULL, victim, TO_CHAR);
+        }
+
         return;
     }
 
-    if (saves_spell(level, victim, DAM_OTHER)
-        || IS_SET(victim->imm_flags, IMM_MAGIC))
+    // If the person cast it on themselves, and they are hasted, remove the haste, skip
+    // this if they are charmed and make it go through the normal checks.
+    if (ch == victim && IS_AFFECTED(victim, AFF_HASTE) && !IS_AFFECTED(victim, AFF_CHARM))
+    {
+        affect_strip(victim, gsn_haste);
+        if (skill_table[sn]->msg_off)
+        {
+            printf_to_char(ch, "%s\r\n", skill_table[gsn_haste]->msg_off);
+        }
+
+        return;
+    }
+
+    if (saves_spell(level, victim, DAM_OTHER) || IS_SET(victim->imm_flags, IMM_MAGIC))
     {
         if (victim != ch)
+        {
             send_to_char("Nothing seemed to happen.\r\n", ch);
+        }
+
         send_to_char("You feel momentarily lethargic.\r\n", victim);
         return;
     }
 
     if (IS_AFFECTED(victim, AFF_HASTE))
     {
-        if (!check_dispel(level, victim, skill_lookup("haste")))
+        if (!check_dispel(level, victim, gsn_haste))
         {
             if (victim != ch)
+            {
                 send_to_char("Spell failed.\r\n", ch);
+            }
+
             send_to_char("You feel momentarily slower.\r\n", victim);
             return;
         }
