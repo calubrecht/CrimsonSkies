@@ -121,7 +121,7 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     show_menu_header("Credits", d);
     send_to_desc(BLANK_MENU_LINE, d);
 
-    sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2016)                                     |\r\n", VERSION);
+    sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
     send_to_desc(buf, d);
     send_to_desc("{w   |          Blake Pell (Rhien)                                            |\r\n", d);
 
