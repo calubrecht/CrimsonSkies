@@ -3491,6 +3491,19 @@ void do_telnetga(CHAR_DATA * ch, char *argument)
  */
 void do_stats(CHAR_DATA *ch, char *argument)
 {
+    // Check if they just want the brief stats as was displayed in the old score command, if
+    // so, show them then get out.
+    if (!IS_NULLSTR(argument) && !str_prefix(argument, "brief"))
+    {
+        printf_to_char(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
+            ch->perm_stat[STAT_STR], get_curr_stat(ch,STAT_STR),
+            ch->perm_stat[STAT_INT], get_curr_stat(ch,STAT_INT),
+            ch->perm_stat[STAT_WIS], get_curr_stat(ch,STAT_WIS),
+            ch->perm_stat[STAT_DEX], get_curr_stat(ch,STAT_DEX),
+            ch->perm_stat[STAT_CON], get_curr_stat(ch,STAT_CON));
+        return;
+    }
+
     char buf[MAX_STRING_LENGTH];
 
     send_to_char("------------------------------------------------------\r\n", ch);

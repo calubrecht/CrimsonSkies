@@ -3270,12 +3270,18 @@ The clear command will clear the screen on mud clients that support it.
 ~
 
 0 STATS~
+Syntax: stats
+        stats brief
+
 Shows your current stats (strength, intelligence, wisdom, dexterity
 and constitution) along with adjustments from spells and equipment
 that might raise it.
 
 The stats command will also show you the max stats your race/class
 combo can achieve.
+
+You can see a brief compacted version of the stats by additionally
+including a brief after the command (stats brief).
 ~
 
 0 SWIM~
