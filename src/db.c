@@ -2939,6 +2939,7 @@ void do_memory(CHAR_DATA * ch, char *argument)
     // if it doesn't work for you, fix it and put a pull request in).  It should at least gracefully
     // fail if it does.. if ps isn't found or it doesn't return a result it will simply output nothing.
     FILE *fp;
+    int line_count = 0;
 
     // Open the command for reading, assumes cs-mud is the name of the executable to grep for
     fp = popen("ps aux|head -n 1&&ps aux|grep cs-mud|grep -v grep", "r");
@@ -2955,6 +2956,15 @@ void do_memory(CHAR_DATA * ch, char *argument)
         while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
         {
             printf_to_char(ch, "%s", buf);
+
+            // This is a little hacky, but the input from the system call only has a newline
+            // where some clients need a newline and a carriage return in order to consistently
+            // space the lines correctly.
+            if (line_count == 0)
+            {
+                line_count++;
+                send_to_char("\r", ch);
+            }
         }
     }
 
