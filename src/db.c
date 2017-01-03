@@ -2933,6 +2933,35 @@ void do_memory(CHAR_DATA * ch, char *argument)
     sprintf(buf, "Pits    %5d (%d objects in the pits, %d after consolidation)\r\n", pits_purged, all_objects_purged, base_objects_purged);
     send_to_char(buf, ch);
 
+#if !defined(_WIN32)
+    // Show the processes memory and cpu usage as per the ps command in POSIX.  I'm making
+    // the assumption that anything not _WIN32 is probably POSIX (maybe that's a bad assumption
+    // if it doesn't work for you, fix it and put a pull request in).  It should at least gracefully
+    // fail if it does.. if ps isn't found or it doesn't return a result it will simply output nothing.
+    FILE *fp;
+
+    // Open the command for reading, assumes cs-mud is the name of the executable to grep for
+    fp = popen("ps aux|head -n 1&&ps aux|grep cs-mud|grep -v grep", "r");
+
+    if (fp == NULL)
+    {
+        send_to_char("Error executing system call for this processes memory.\r\n", ch);
+    }
+    else
+    {
+        send_to_char("\r\n", ch);
+
+        // Read the output a line at a time and send it to the caller.
+        while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
+        {
+            printf_to_char(ch, "%s", buf);
+        }
+    }
+
+    // Close the file handle
+    pclose(fp);
+#endif
+
     return;
 }
 
