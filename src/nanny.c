@@ -234,8 +234,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 if (settings.wizlock && !IS_IMMORTAL(ch))
                 {
-                    send_to_desc("\r\nThe game is currently locked to all except immortals.\r\n Please try again later.\r\n", d);
-                    close_socket(d);
+                    free_char(d->character);
+                    d->character = NULL;
+
+                    send_to_desc("\r\nThe game is new locked to all except immortals.  Please try again later.\r\n", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                     return;
                 }
             }
