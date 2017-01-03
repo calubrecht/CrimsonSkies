@@ -219,11 +219,33 @@ EXT_BV multimeb(int bit, ...)
 bool file_exists(const char *fname)
 {
     FILE *file;
+
     if ((file = fopen(fname, "r")))
     {
         fclose(file);
         return TRUE;
     }
+
+    return FALSE;
+}
+
+/*
+ * Returns whether a player file exists or not for the specified player.
+ */
+bool player_exists(const char *player)
+{
+    FILE *file;
+    char filename[MAX_STRING_LENGTH];
+
+    // Player directory + the name of the player that's capitalized.
+    sprintf(filename, "%s%s", PLAYER_DIR, capitalize(player));
+
+    if ((file = fopen(filename, "r")))
+    {
+        fclose(file);
+        return TRUE;
+    }
+
     return FALSE;
 }
 

@@ -155,6 +155,7 @@ DECLARE_DO_FUN(do_memory);
 DECLARE_DO_FUN(do_mfind);
 DECLARE_DO_FUN(do_mset);
 DECLARE_DO_FUN(do_mstat);
+DECLARE_DO_FUN(do_player_offline_stat);
 DECLARE_DO_FUN(do_mwhere);
 DECLARE_DO_FUN(do_mob);
 DECLARE_DO_FUN(do_motd);

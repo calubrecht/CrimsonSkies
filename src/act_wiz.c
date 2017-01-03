@@ -969,8 +969,9 @@ void do_violate(CHAR_DATA * ch, char *argument)
     return;
 }
 
-/* RT to replace the 3 stat commands */
-
+/*
+ * RT to replace the 3 stat commands
+ */
 void do_stat(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -980,6 +981,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
     CHAR_DATA *victim;
 
     string = one_argument(argument, arg);
+
     if (arg[0] == '\0')
     {
         send_to_char("Syntax:\r\n", ch);
@@ -989,6 +991,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
         send_to_char("  stat room <number>\r\n", ch);
         send_to_char("  stat skill <player name>\r\n", ch);
         send_to_char("  stat spell <player name>\r\n", ch);
+        send_to_char("  stat offline <player name>\r\n", ch);
         return;
     }
 
@@ -1019,6 +1022,12 @@ void do_stat(CHAR_DATA * ch, char *argument)
     if (!str_cmp(arg, "spell"))
     {
         do_function(ch, &do_spellstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "offline"))
+    {
+        do_function(ch, &do_player_offline_stat, string);
         return;
     }
 
@@ -1105,6 +1114,26 @@ void do_spellstat(CHAR_DATA * ch, char *argument)
     }
 
     show_spell_list(victim, ch, "all");
+    return;
+}
+
+void do_player_offline_stat(CHAR_DATA * ch, char *argument)
+{
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("You must provide the player's name whom you wish to stat?\r\n", ch);
+      return;
+    }
+
+    if (player_exists(argument))
+    {
+        printf_to_char(ch, "A player file exists for %s.\r\n", capitalize(argument));
+    }
+    else
+    {
+        printf_to_char(ch, "No player file exists for %s.\r\n", capitalize(argument));
+    }
+
     return;
 }
 
@@ -6489,22 +6518,6 @@ void do_permanent(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    //char buf[MAX_STRING_LENGTH];
-
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g*{x", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("***", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g***{x", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*****{x", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{Y*{G*{Y*{G*{Y*{G*{Y*", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*********{x", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{Y***********", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{G*************", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g***************", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("{g*****************{x", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded("*******************", 20));
-    printf_to_char(ch, "|%s|\r\n", center_string_padded(NULL, 20));
 
     return;
 } // end do_debug

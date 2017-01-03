@@ -2667,6 +2667,7 @@ char    *center_string_padded (const char *str, int width);
 char    *bool_truefalse       (bool value);
 char    *bool_yesno           (bool value);
 char    *bool_onoff           (bool value);
+bool    player_exists         (const char *player);
 
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
