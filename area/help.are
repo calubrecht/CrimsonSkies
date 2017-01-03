@@ -4117,6 +4117,14 @@ the 2nd and 3rd in order to enter new commands in their place (such
 as re-arming a weapon if you are disarmed).
 ~
 
+58 PLAYERLIST~
+Syntax: playerlist
+
+Lists all players who have a file in the player file storage
+directory.  This could be a lengthy list depending on the size
+of the player base.
+~
+
 0 PRESERVE~
 Syntax: cast 'preserve' <object>
 

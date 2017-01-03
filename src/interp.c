@@ -417,6 +417,7 @@ const struct cmd_type cmd_table[] = {
     {"permanent",       do_permanent,   POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"loner",           do_loner,       POS_SLEEPING, 1, LOG_NORMAL, TRUE},
     {"linefeed",        do_linefeed,    POS_SLEEPING, 1, LOG_NORMAL, TRUE},
+    {"playerlist",      do_playerlist,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
 
     /*
      * OLC

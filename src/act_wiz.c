@@ -43,6 +43,7 @@
 #include "lookup.h"
 #include "sha256.h"
 #include <assert.h>  // For assert in area_name
+#include <dirent.h>
 
 /*
  * Local functions.
@@ -6521,11 +6522,77 @@ void do_permanent(CHAR_DATA * ch, char *argument)
 }
 
 /*
+ * Lists all players who have pfiles (this could get rather lengthy on a large mud).
+ */
+void do_playerlist(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    DIR *dir;
+    struct dirent *ent;
+    int col = 1;
+    int pfiles_found = 0;
+
+    // Initialize the buffer
+    buffer = new_buf();
+
+    if ((dir = opendir(PLAYER_DIR)) != NULL)
+    {
+        // Print all the files and directories within directory
+        while ((ent = readdir(dir)) != NULL)
+        {
+            // Get regular files and skip those that start with a .
+            if (!IS_NULLSTR(ent->d_name)
+                && ent->d_type == DT_REG
+                && ent->d_name[0] != '.')
+            {
+                if (col % 5 == 0)
+                {
+                    sprintf(buf, "%-13s\r\n", ent->d_name);
+                    col = 0;
+                }
+                else
+                {
+                   sprintf(buf, "%-13s", ent->d_name);
+                }
+
+                col++;
+                pfiles_found++;
+
+                add_buf(buffer, buf);
+            }
+        }
+
+        closedir(dir);
+    }
+
+    // At the end, show how many pfiles were found.  We will add two line breaks
+    // if not on the last column (which would have appended one already to make
+    // for two.
+    if (col == 5)
+    {
+        sprintf(buf, "\r\n%d player files were found.\r\n", pfiles_found);
+    }
+    else
+    {
+        sprintf(buf, "\r\n\r\n%d player files were found.\r\n", pfiles_found);
+    }
+
+    add_buf(buffer, buf);
+
+    page_to_char(buf_string(buffer), ch);
+
+    free_buf(buffer);
+
+    return;
+}
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-
+    send_to_char("Nothing to debug here.\r\n", ch);
     return;
 } // end do_debug
 
