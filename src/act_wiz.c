@@ -1127,7 +1127,14 @@ void do_player_offline_stat(CHAR_DATA * ch, char *argument)
 
     if (player_exists(argument))
     {
-        printf_to_char(ch, "A player file exists for %s.\r\n", capitalize(argument));
+        char pfile[MAX_STRING_LENGTH];
+        char pfile_modified[MAX_STRING_LENGTH];
+
+        // Get the pfile location, it should exist if we get here.
+        sprintf(pfile, "%s", player_file_location(capitalize(argument)));
+        sprintf(pfile_modified, "%s", file_last_modified(pfile));
+
+        printf_to_char(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
     }
     else
     {

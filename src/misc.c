@@ -30,6 +30,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdarg.h>
+#include <sys/stat.h>
 #include "merc.h"
 
 /*
@@ -216,11 +217,11 @@ EXT_BV multimeb(int bit, ...)
 /*
  * Returns whether a file exists or not.
  */
-bool file_exists(const char *fname)
+bool file_exists(const char *filename)
 {
     FILE *file;
 
-    if ((file = fopen(fname, "r")))
+    if ((file = fopen(filename, "r")))
     {
         fclose(file);
         return TRUE;
@@ -247,6 +248,37 @@ bool player_exists(const char *player)
     }
 
     return FALSE;
+}
+
+/*
+ * Returns the location to where a player file would be stored based off
+ * of their name (whether it exists or not is another story).
+ */
+char *player_file_location(const char *player)
+{
+    static char filename[MAX_STRING_LENGTH];
+
+    // Player directory + the name of the player that's capitalized.
+    sprintf(filename, "%s%s", PLAYER_DIR, capitalize(player));
+
+    return filename;
+}
+
+/*
+ * Returns the date a file was last modified (local time)
+ */
+char *file_last_modified(const char *filename)
+{
+    static char buf[100];
+    struct stat attrib;
+
+    // Stat the file
+    stat(filename, &attrib);
+
+    // Put the results changed to local time into a static string
+    strftime(buf, 100, "%m-%d-%y", localtime(&(attrib.st_ctime)));
+
+    return buf;
 }
 
 /*

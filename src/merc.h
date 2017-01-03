@@ -2668,6 +2668,8 @@ char    *bool_truefalse       (bool value);
 char    *bool_yesno           (bool value);
 char    *bool_onoff           (bool value);
 bool    player_exists         (const char *player);
+char    *player_file_location (const char *player);
+char    *file_last_modified   (const char *filename);
 
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
