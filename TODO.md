@@ -125,3 +125,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
   - Ability to turn on/off who is available online from the main menu.
   - Support for area flags that save with the pfile (then add no-recall area, no magic area flags)
+  - Help file update for notes to display supported spools
+  - Command to list the spools available, with properties to denote immortal only
+  - Prefix class code files with class_.
+  - Update login menu so new player and create both work for their purpose (they currently do the same thing)
+  - player_exists bool function.
+  - rename player offline method.
