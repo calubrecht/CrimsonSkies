@@ -3654,7 +3654,7 @@ void do_second(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    obj = get_obj_carry(ch, argument, ch); /* find the obj withing ch's inventory */
+    obj = get_obj_carry(ch, arg, ch); /* find the obj withing ch's inventory */
 
     if (obj == NULL)
     {
