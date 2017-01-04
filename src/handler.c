@@ -576,7 +576,6 @@ void reset_char(CHAR_DATA * ch)
                 case APPLY_CON:
                     ch->mod_stat[STAT_CON] += mod;
                     break;
-
                 case APPLY_SEX:
                     ch->sex += mod;
                     break;
@@ -589,10 +588,11 @@ void reset_char(CHAR_DATA * ch)
                 case APPLY_MOVE:
                     ch->max_move += mod;
                     break;
-
                 case APPLY_AC:
                     for (i = 0; i < 4; i++)
+                    {
                         ch->armor[i] += mod;
+                    }
                     break;
                 case APPLY_HITROLL:
                     ch->hitroll += mod;
@@ -600,7 +600,6 @@ void reset_char(CHAR_DATA * ch)
                 case APPLY_DAMROLL:
                     ch->damroll += mod;
                     break;
-
                 case APPLY_SAVES:
                     ch->saving_throw += mod;
                     break;
@@ -629,7 +628,6 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_CON:
                 ch->mod_stat[STAT_CON] += mod;
                 break;
-
             case APPLY_SEX:
                 ch->sex += mod;
                 break;
@@ -642,10 +640,11 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_MOVE:
                 ch->max_move += mod;
                 break;
-
             case APPLY_AC:
                 for (i = 0; i < 4; i++)
+                {
                     ch->armor[i] += mod;
+                }
                 break;
             case APPLY_HITROLL:
                 ch->hitroll += mod;
@@ -653,7 +652,6 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_DAMROLL:
                 ch->damroll += mod;
                 break;
-
             case APPLY_SAVES:
                 ch->saving_throw += mod;
                 break;
@@ -662,7 +660,9 @@ void reset_char(CHAR_DATA * ch)
 
     /* make sure sex is RIGHT!!!! */
     if (ch->sex < 0 || ch->sex > 2)
+    {
         ch->sex = ch->pcdata->true_sex;
+    }
 }
 
 /*
