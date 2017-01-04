@@ -356,6 +356,7 @@ const struct cmd_type cmd_table[] = {
     {"load",            do_load,        POS_DEAD, L4, LOG_ALWAYS, TRUE},
     {"newlock",         do_newlock,     POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"nochannels",      do_nochannels,  POS_DEAD, L5, LOG_ALWAYS, TRUE},
+    {"nopray",          do_nopray,      POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"noemote",         do_noemote,     POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"noshout",         do_noshout,     POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"notell",          do_notell,      POS_DEAD, L5, LOG_ALWAYS, TRUE},

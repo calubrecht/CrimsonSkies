@@ -1193,13 +1193,14 @@ mobile.  A full list of fields can be viewed by typing string obj or string
 mob.  Sorry, multi-line strings are not yet supported.
 ~
 
-55 NOCHANNEL NOEMOTE NOSHOUT NOTELL~
+55 NOCHANNEL NOEMOTE NOSHOUT NOTELL NOPRAY~
 Syntax: nochannel <character>
         noemote   <character>
         noshout   <character>
         notell    <character>
+        nopray    <character>
 
-Noemote, noshout, and notell are used to muffle other characters, by
+Noemote, noshout, notell and nopray are used to muffle other characters, by
 preventing them from emoting, shouting, and telling, respectively.
 Characters who are noshout'ed or no'telled will also not receive those
 forms of communication.

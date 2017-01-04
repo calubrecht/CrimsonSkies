@@ -1432,6 +1432,7 @@ typedef enum
 #define COMM_NOCLAN         (H)
 #define COMM_NOCGOSSIP      (I)
 #define COMM_NOOCLAN        (J)
+#define COMM_NOPRAY         (K)
 
 /* display flags */
 #define COMM_COMPACT        (L)

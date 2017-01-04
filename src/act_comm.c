@@ -875,6 +875,12 @@ void do_pray(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
+    if (IS_SET(ch->comm, COMM_NOPRAY))
+    {
+        send_to_char("You are allowed to pray currently.\r\n", ch);
+        return;
+    }
+
     if (argument[0] == '\0')
     {
         send_to_char("What do you wish to pray?\r\n", ch);
@@ -891,12 +897,11 @@ void do_pray(CHAR_DATA * ch, char *argument)
             victim = d->original ? d->original : d->character;
 
             if (d->connected == CON_PLAYING &&
-                d->character != ch &&
-                IS_IMMORTAL(d->character) &&
+                victim != ch &&
+                IS_IMMORTAL(victim) &&
                 !IS_SET(victim->comm, COMM_QUIET))
             {
-                act_new("{x$n prays '{G$t{x'",
-                    ch, argument, d->character, TO_VICT, POS_SLEEPING);
+                act_new("{x$n prays '{G$t{x'", ch, argument, victim, TO_VICT, POS_SLEEPING);
             }
         }
     }

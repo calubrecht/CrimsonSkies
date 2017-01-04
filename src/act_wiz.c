@@ -275,6 +275,55 @@ void do_nochannels(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * A command that allows immortals to revoke someone's praying privledges.
+ */
+void do_nopray(CHAR_DATA * ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    CHAR_DATA *victim;
+
+    one_argument(argument, arg);
+
+    if (arg[0] == '\0')
+    {
+        send_to_char("Nopray whom?", ch);
+        return;
+    }
+
+    if ((victim = get_char_world(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (get_trust(victim) >= get_trust(ch))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (IS_SET(victim->comm, COMM_NOPRAY))
+    {
+        REMOVE_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have restored your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY removed.\r\n", ch);
+        sprintf(buf, "$N restores praying privileges to %s", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+    else
+    {
+        SET_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have revoked your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY set.\r\n", ch);
+        sprintf(buf, "$N revokes %s's praying privileges.", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+
+    return;
+}
+
 void do_smote(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *vch;
