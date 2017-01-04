@@ -130,4 +130,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Prefix class code files with class_.
   - Update login menu so new player and create both work for their purpose (they currently do the same thing)
   - rename player offline method.
-  - damroll and hitroll bug fix where each swords weapon is stacking instead of being unique for that weapon (e.g. there should be two dam rolls).
+  - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
+  - Change the tohit bonus from str to dex.
