@@ -6095,6 +6095,9 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
     // This will remove all affects from the victim
     affect_strip_all(victim);
 
+    // Reset's the char
+    reset_char(ch);
+
     // Show the user what was done.
     if (ch != victim)
     {
