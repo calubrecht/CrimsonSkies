@@ -699,11 +699,11 @@ void do_ambush(CHAR_DATA *ch, char *argument)
     // Do the damage
     if (weapon == NULL)
     {
-        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch)), gsn_ambush, DAM_BASH, TRUE);
+        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch, NULL)), gsn_ambush, DAM_BASH, TRUE);
     }
     else
     {
-        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch)), gsn_ambush, weapon->value[3], TRUE);
+        damage(ch, victim, ((ch->level * 4) + GET_DAMROLL(ch, weapon)), gsn_ambush, weapon->value[3], TRUE);
     }
 
     // Check improve

@@ -2093,10 +2093,10 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
 #define GET_AC(ch,type)        ((ch)->armor[type]                \
                 + ( IS_AWAKE(ch)                \
             ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))
-#define GET_HITROLL(ch)    \
-        ((ch)->hitroll + str_app[get_curr_stat(ch,STAT_STR)].tohit + stance_offensive_modifier(ch))
-#define GET_DAMROLL(ch) \
-        ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam)
+#define GET_HITROLL(ch, obj)    \
+    ((ch)->hitroll + str_app[get_curr_stat(ch,STAT_STR)].tohit + stance_offensive_modifier(ch) + obj_affect_modifier(obj, APPLY_HITROLL))
+#define GET_DAMROLL(ch, obj) \
+    ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam + obj_affect_modifier(obj, APPLY_DAMROLL ))
 
 #define IS_OUTSIDE(ch)        (!IS_SET(                    \
                     (ch)->in_room->room_flags,            \
@@ -2541,6 +2541,7 @@ char * get_area_name      (int vnum);
 bool   same_continent     (int vnum_one, int vnum_two);
 int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
+int    obj_affect_modifier(OBJ_DATA *obj, int location);
 
 /* recycle.c */
 TIMER *new_timer          (void);

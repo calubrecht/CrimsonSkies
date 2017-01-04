@@ -531,7 +531,7 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
     if (thac0 < -5)
         thac0 = -5 + (thac0 + 5) / 2;
 
-    thac0 -= GET_HITROLL(ch) * skill / 100;
+    thac0 -= GET_HITROLL(ch, wield) * skill / 100;
     thac0 += 5 * (100 - skill) / 100;
 
     if (dt == gsn_backstab)
@@ -638,7 +638,7 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
             dam *= 2 + (ch->level / 8);
     }
 
-    dam += GET_DAMROLL(ch) * UMIN(100, skill) / 100;
+    dam += GET_DAMROLL(ch, wield) * UMIN(100, skill) / 100;
 
     if (dam <= 0)
         dam = 1;

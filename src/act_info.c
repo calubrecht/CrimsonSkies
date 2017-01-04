@@ -1980,6 +1980,8 @@ void do_score(CHAR_DATA * ch, char *argument)
     //GRID_CELL *cell;
     char buf[MAX_STRING_LENGTH];
     char center_text[MAX_STRING_LENGTH];
+    OBJ_DATA *wield;
+    OBJ_DATA *dual_wield;
 
     // Create the grid
     grid = create_grid(75);
@@ -2044,10 +2046,16 @@ void do_score(CHAR_DATA * ch, char *argument)
         ch->train, ch->practice,
         !IS_NPC(ch) ? ch->pcdata->quest_points : 0);
 
-    row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d{x\n Dam Roll: {C%d{x\n    Saves: {C%d{x",
+
+    wield = get_eq_char(ch, WEAR_WIELD);
+    dual_wield = get_eq_char(ch, WEAR_SECONDARY_WIELD);
+
+    row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d %d %d{x\n Dam Roll: {C%d %d %d{x\n    Saves: {C%d{x",
         GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
-        capitalize(get_stance_name(ch)),
-        ch->wimpy, GET_HITROLL(ch), GET_DAMROLL(ch), ch->saving_throw
+        capitalize(get_stance_name(ch)), ch->wimpy,
+        GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield), GET_HITROLL(ch, dual_wield),
+        GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield), GET_DAMROLL(ch, dual_wield),
+        ch->saving_throw
     );
 
     row_append_cell(row, 28, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
