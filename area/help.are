@@ -3052,6 +3052,11 @@ connection to the mud will be prompted for whether they want color or
 not.
 ~
 
+0 LOGIN WHO LIST ENABLED~
+This setting allows the mud administrator to toggle whether users can
+see who is playing the mud from the login menu.
+~
+
 52 CLONE~
 Syntax:
   clone obj <object>
