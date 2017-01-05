@@ -72,8 +72,8 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     }
 
     // Set the target to full health, set the healer to near death.
-    victim->hit = victim->max_hit;
-    ch->hit = 100;
+    victim->hit += ch->hit;
+    ch->hit = 1;
 
     act("$n raises $e hands to the sky and surrounds $N with a healing aura.", ch, NULL, victim, TO_NOTVICT);
     act("$n raises $e hands to the sky and surrounds you with a healing aura.", ch, NULL, victim, TO_VICT);
