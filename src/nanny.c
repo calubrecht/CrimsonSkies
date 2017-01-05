@@ -173,10 +173,15 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     close_socket(d);
                     return;
                 case 'w' : case 'W' :
-                    show_login_who(d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
-                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
-                    return;
+                    if (settings.login_who_list_enabled)
+                    {
+                        show_login_who(d);
+                        send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                        d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                        return;
+                    }
+
+                    break;
                 case 'c' : case 'C' :
                     show_login_credits(d);
                     send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);

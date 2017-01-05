@@ -90,8 +90,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Whitelist Lock", settings.whitelist_lock ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        sprintf(buf, "%-25s %-7s\r\n",
-            "Login Color Prompt", settings.login_color_prompt ? "{GON{x" : "{ROFF{x");
+        sprintf(buf, "%-25s %-7s  %-25s %-7s\r\n",
+            "Login Color Prompt", settings.login_color_prompt ? "{GON{x" : "{ROFF{x",
+            "Login Who List Enabled", settings.login_who_list_enabled ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
         send_to_char("\r\n", ch);
@@ -247,6 +248,17 @@ void do_settings(CHAR_DATA *ch, char *argument)
         save_settings();
 
     }
+    else if (!str_prefix(arg1, "loginwholist"))
+    {
+        settings.login_who_list_enabled = !settings.login_who_list_enabled;
+
+        printf_to_char(ch, "The login who list enabled flag has been set to: %s.\r\n", settings.login_who_list_enabled ? "ON" : "OFF");
+        sprintf(buf, "$N has set the login who list enabled flag to: %s", settings.login_who_list_enabled ? "ON" : "OFF");
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        // Save the settings out to file.
+        save_settings();
+    }
     else if (!str_prefix(arg1, "whitelistlock"))
     {
         settings.whitelist_lock = !settings.whitelist_lock;
@@ -376,6 +388,7 @@ void load_settings()
     settings.test_mode = iniparser_getboolean(ini, "Settings:TestMode", FALSE);
     settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
+    settings.login_who_list_enabled = iniparser_getboolean(ini, "Settings:LoginWhoListEnabled", TRUE);
 
     free_string(settings.web_page_url);
     settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
@@ -443,6 +456,7 @@ void save_settings(void)
     fprintf(fp, "LoginGreeting = %s\n", IS_NULLSTR(settings.login_greeting) ? "" : settings.login_greeting);
     fprintf(fp, "LoginMenuLightColor = %s\n", IS_NULLSTR(settings.login_menu_light_color) ? "{G" : settings.login_menu_light_color);
     fprintf(fp, "LoginMenuDarkColor = %s\n", IS_NULLSTR(settings.login_menu_dark_color) ? "{g" : settings.login_menu_dark_color);
+    fprintf(fp, "LoginWhoListEnabled = %s\n", settings.login_who_list_enabled ? "True" : "False");
     fprintf(fp, "MudName = %s\n", IS_NULLSTR(settings.mud_name) ? "" : settings.mud_name);
 
     fclose(fp);

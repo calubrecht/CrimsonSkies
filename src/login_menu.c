@@ -412,11 +412,14 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     send_to_desc(buf, d);
 
     // Column 3.1 - Who is currently online
-    sprintf(buf, "{w   |    {x(%sW{x)%sho is on now?{w                                                    |\r\n",
-        settings.login_menu_light_color,
-        settings.login_menu_dark_color);
+    if (settings.login_who_list_enabled)
+    {
+        sprintf(buf, "{w   |    {x(%sW{x)%sho is on now?{w                                                    |\r\n",
+            settings.login_menu_light_color,
+            settings.login_menu_dark_color);
 
-    send_to_desc(buf, d);
+        send_to_desc(buf, d);
+    }
 
     // Column 4.1 - Random name generator
     sprintf(buf, "{w   |    {x(%sR{x)%sandom Name Generator{w                                             |\r\n",

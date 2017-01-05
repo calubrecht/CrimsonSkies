@@ -583,6 +583,7 @@ struct settings_data
     char *login_greeting;
     char *login_menu_light_color;
     char *login_menu_dark_color;
+    bool login_who_list_enabled;
 };
 
 /*
