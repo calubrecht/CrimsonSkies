@@ -318,7 +318,6 @@ struct descriptor_data
  */
 struct str_app_type
 {
-    int    tohit;
     int    todam;
     int    carry;
     int    wield;
@@ -336,7 +335,8 @@ struct wis_app_type
 
 struct dex_app_type
 {
-    int    defensive;
+    int    defensive;      // AC Bonus
+    int    hitroll_bonus;  // Hit Roll Bonus
 };
 
 struct con_app_type
@@ -2094,7 +2094,7 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
                 + ( IS_AWAKE(ch)                \
             ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))
 #define GET_HITROLL(ch, obj)    \
-    ((ch)->hitroll + str_app[get_curr_stat(ch,STAT_STR)].tohit + stance_offensive_modifier(ch) + obj_affect_modifier(obj, APPLY_HITROLL))
+    ((ch)->hitroll + dex_app[get_curr_stat(ch,STAT_DEX)].hitroll_bonus + stance_offensive_modifier(ch) + obj_affect_modifier(obj, APPLY_HITROLL))
 #define GET_DAMROLL(ch, obj) \
     ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam + obj_affect_modifier(obj, APPLY_DAMROLL ))
 
