@@ -22,7 +22,7 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 04/16/2016            *
+ *  Name Generator (Written 12/16/1999, Last Updated 01/05/2017            *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
