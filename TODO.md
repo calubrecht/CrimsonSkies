@@ -131,4 +131,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update login menu so new player and create both work for their purpose (they currently do the same thing)
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
-  - Change the tohit bonus from str to dex.
