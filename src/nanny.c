@@ -310,7 +310,6 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             // check the ban though.
             if (check_ban(d->host, BAN_NEWBIES) || check_ban(d->host, BAN_ALL))
             {
-                // marker
                 log_f("Denying access to %s@%s.", argument, d->host);
                 send_to_desc("\r\nNew players are not allowed from your site.\r\n", d);
                 close_socket(d);
