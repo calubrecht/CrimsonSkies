@@ -161,8 +161,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                         return;
                     }
 
-                    send_to_desc("\r\nWhat is your character's name? ", d);
-                    d->connected = CON_GET_NAME;
+                    send_to_desc("\r\nBy what name do you wish to be known? ", d);
+                    d->connected = CON_NEW_CHARACTER;
                     return;
                 case 'p' : case 'P' :
                     send_to_desc("\r\nWhat is your character's name? ", d);
@@ -204,6 +204,88 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             d->connected = CON_LOGIN_MENU;
             return;
         case CON_GET_NAME:
+            // We no longer disconnected someone who enters a blank, we will route them back to the menu
+            if (argument[0] == '\0')
+            {
+                d->connected = CON_LOGIN_MENU;
+                show_login_menu(d);
+                return;
+            }
+
+            // Get the player's name in the format we want it in, e.g. upper case the first character.
+            argument[0] = UPPER(argument[0]);
+
+            if (!check_parse_name(argument))
+            {
+                send_to_desc("Illegal name, try another.\r\nName: ", d);
+                return;
+            }
+
+            // Load the player (if they exist), set them onto the descriptor
+            fOld = load_char_obj(d, argument);
+            ch = d->character;
+
+            // Have they been denied?  If so, close the socket which will boot them and then
+            // free the resources.
+            if (IS_SET(ch->act, PLR_DENY))
+            {
+                log_f("Denying access to %s@%s.", argument, d->host);
+                send_to_desc("\r\nYou are denied access.\r\n", d);
+                close_socket(d);
+                return;
+            }
+
+            // They have been site banned, close the socket, send them away.
+            if (check_ban(d->host, BAN_ALL))
+            {
+                log_f("Denying access to %s@%s.", argument, d->host);
+                send_to_desc("\r\nYour site is currently banned.\r\n", d);
+                close_socket(d);
+                return;
+            }
+
+            bool reconnect = FALSE;
+            reconnect = check_reconnect(d, argument, FALSE);
+
+            if (fOld || reconnect)
+            {
+                // Allow them reconnect if wizlocked, but not a new login (e.g. if they dropped link while wizlocked
+                // they may reconnect).  Otherwise, check the lock and send them back to the main menu if they're
+                // not an immortal.
+                if (settings.wizlock && !IS_IMMORTAL(ch) && !reconnect)
+                {
+                    free_char(d->character);
+                    d->character = NULL;
+
+                    send_to_desc("\r\nThe game is locked to all except immortals.  Please try again later.\r\n", d);
+                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                    return;
+                }
+
+                // The exist and have passed all checks, ask them for their password.
+                send_to_desc("Password: ", d);
+                write_to_buffer(d, echo_off_str);
+                d->connected = CON_GET_OLD_PASSWORD;
+                return;
+            }
+            else
+            {
+                // The player doesn't exist, free the char and send them back to the menu.
+                free_char(d->character);
+                d->character = NULL;
+
+                send_to_desc("\r\nNo character exists with that name, you may create a new character\r\n", d);
+                send_to_desc("from the main menu.\r\n", d);
+
+                send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+
+                return;
+            }
+
+            break;
+        case CON_NEW_CHARACTER:
             // We no longer disconnected someone who enters a blank, we will route
             // them back to the menu.
             if (argument[0] == '\0')
@@ -213,70 +295,75 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 return;
             }
 
+            if (settings.wizlock || settings.newlock)
+            {
+                send_to_desc("\r\nThe game is currently locked to new players.  Please try again later.\r\n", d);
+                send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
+                return;
+            }
+
+            // Get the character name into the format we want it.
             argument[0] = UPPER(argument[0]);
+
+            // The new lock was checked on the menu option, no need to check it again, we will
+            // check the ban though.
+            if (check_ban(d->host, BAN_NEWBIES) || check_ban(d->host, BAN_ALL))
+            {
+                // marker
+                log_f("Denying access to %s@%s.", argument, d->host);
+                send_to_desc("\r\nNew players are not allowed from your site.\r\n", d);
+                close_socket(d);
+                return;
+            }
+
+            // Check for straight up illegal/invalid names.
             if (!check_parse_name(argument))
             {
                 send_to_desc("Illegal name, try another.\r\nName: ", d);
                 return;
             }
 
+            // Does a player with the same name already exist?
+            if (player_exists(argument))
+            {
+                send_to_desc("\r\nA player with that name already exists.\r\n\r\nPlease choose another name: ", d);
+                return;
+            }
+
+            // fOld should always be false here unless something goes haywire in the load_char_obj.  This will start
+            // the setup process by initializing some things in the ch struct.  New Player/Existing player used to
+            // be from the same CON state which is why it's done like this.
             fOld = load_char_obj(d, argument);
             ch = d->character;
 
-            if (IS_SET(ch->act, PLR_DENY))
+            if (fOld)
             {
-                log_f("Denying access to %s@%s.", argument, d->host);
-                send_to_desc("\r\nYou are denied access.\r\n", d);
-                close_socket(d);
-                return;
+                // Sanity checking
+                bugf("A character (%s) existed in load_char_obj check after passing player_exists == false check.", ch->name);
             }
 
             if (check_reconnect(d, argument, FALSE))
             {
+                // More sanity checking
+                bugf("A character (%s) existed in check_reconnect after passing player_exists == false check.", ch->name);
                 fOld = TRUE;
-            }
-            else
-            {
-                if (settings.wizlock && !IS_IMMORTAL(ch))
-                {
-                    free_char(d->character);
-                    d->character = NULL;
-
-                    send_to_desc("\r\nThe game is new locked to all except immortals.  Please try again later.\r\n", d);
-                    send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
-                    d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
-                    return;
-                }
             }
 
             if (fOld)
             {
-                // Old Player
-                if (check_ban(d->host, BAN_ALL))
-                {
-                    send_to_desc("\r\nYour site is currently banned.\r\n", d);
-                    close_socket(d);
-                    return;
-                }
-
-                send_to_desc("Password: ", d);
-                write_to_buffer(d, echo_off_str);
-                d->connected = CON_GET_OLD_PASSWORD;
+                // Never should fOld be true if they want to creeate a new char, get out.
+                send_to_desc("\r\nAn error occurred in the creation process.  This error has been logged, please.\r\n", d);
+                send_to_desc("contact the game administrators with further details.\r\n", d);
+                send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
                 return;
             }
             else
             {
                 // New Player
-
-                // The new lock was checked on the menu option, no need to check it again, we will
-                // check the ban though.
-                if (check_ban(d->host, BAN_NEWBIES) || check_ban(d->host, BAN_ALL))
-                {
-                    send_to_desc("\r\nNew players are not allowed from your site.\r\n", d);
-                    close_socket(d);
-                    return;
-                }
-
+                // The new character has passed all the checks, ask them to confirm the name and
+                // then begin the creation process.
                 sprintf(buf, "Did I get that right, %s (Y/N)? ", argument);
                 send_to_desc(buf, d);
                 d->connected = CON_CONFIRM_NEW_NAME;
@@ -406,8 +493,12 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     sprintf(buf, "New character.\r\nGive me a password for %s: %s", ch->name, echo_off_str);
                     send_to_desc(buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
+
                     if (ch->desc->ansi)
+                    {
                         SET_BIT(ch->act, PLR_COLOR);
+                    }
+
                     break;
 
                 case 'n':
@@ -415,7 +506,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     send_to_desc("Ok, what IS it, then? ", d);
                     free_char(d->character);
                     d->character = NULL;
-                    d->connected = CON_GET_NAME;
+                    d->connected = CON_NEW_CHARACTER;
                     break;
 
                 default:
