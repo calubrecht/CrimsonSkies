@@ -58,7 +58,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Barbarian class - 4th attack, warcry, acute vision, bash bonus, no magic, spell vulnerable
   - Bladesinger reposition skill.
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
-  - rwhere command to find room by keyword and return room name/vnum.
   - Look at the auto saving code and make sure it's working right.
   - Check looting
   - Add guild room names and area names to class command.
@@ -123,11 +122,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Extra chance attack on init based on dex (higher the dex, the higher the percent)
   - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
-  - Ability to turn on/off who is available online from the main menu.
   - Support for area flags that save with the pfile (then add no-recall area, no magic area flags)
   - Help file update for notes to display supported spools
   - Command to list the spools available, with properties to denote immortal only
   - Prefix class code files with class_.
-  - Update login menu so new player and create both work for their purpose (they currently do the same thing)
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
