@@ -19,7 +19,7 @@
  *  benefitting.  We hope that you share your changes too.  What goes      *
  *  around, comes around.                                                  *
  **************************************************************************/
-#define VERSION "0.9"
+#define VERSION "1.0"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
