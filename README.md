@@ -5,6 +5,7 @@ Crimson Skies is an open source MUD starting from ROM 2.4b6.  Useful features fr
 (like Smaug) will be included on top mostly custom code.  My goal is to expand the Diku code line while
 keeping the feel of play that the Diku->Merc->Rom family of muds has brought the community over the years.
 
+  - [CS-Mud Documentation and Tutorials](./doc/index.md)
   - Development Game Server Address:  66.244.102.112, Port 4000
 
 If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
