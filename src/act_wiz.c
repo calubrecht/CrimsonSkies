@@ -30,6 +30,7 @@
     #include <sys/time.h>
     #include <unistd.h>                /* For execl in copyover() */
     #include <time.h>
+    #include <dirent.h>
 #endif
 
 // General Includes
@@ -43,7 +44,6 @@
 #include "lookup.h"
 #include "sha256.h"
 #include <assert.h>  // For assert in area_name
-#include <dirent.h>
 
 /*
  * Local functions.
@@ -6578,6 +6578,11 @@ void do_permanent(CHAR_DATA * ch, char *argument)
  */
 void do_playerlist(CHAR_DATA * ch, char *argument)
 {
+    #if defined(_WIN32)
+        send_to_char("This command is not currently supported on Windows.\r\n", ch);
+        return;
+    #endif
+
     char buf[MAX_STRING_LENGTH];
     BUFFER *buffer;
     DIR *dir;
