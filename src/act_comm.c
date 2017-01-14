@@ -1430,7 +1430,7 @@ void do_save(CHAR_DATA * ch, char *argument)
     }
     else
     {
-        send_to_char("Saving. Remember that game has automatic saving.\r\n", ch);
+        send_to_char("Saving. Remember that this game has automatic saving.\r\n", ch);
     }
 
     // Add lag on save, but on if it's not an immortal
