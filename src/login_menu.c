@@ -340,11 +340,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // newlocked, if their host is banned all together or if they are newbie banned.
     if (settings.wizlock || settings.newlock || ban_newbie || ban_all)
     {
-        sprintf(buf, "{w   |    {x({DN{x){Dew Character{x                ");
+        sprintf(buf, "{w   |    {w({DN{w){Dew Character{x                ");
     }
     else
     {
-        sprintf(buf, "{w   |    {x(%sN{x)%sew Character{x                ",
+        sprintf(buf, "{w   |    {w(%sN{w)%sew Character{x                ",
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
     }
@@ -382,11 +382,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
     if (ban_all || settings.wizlock)
     {
-        sprintf(buf, "{w   |    {x({DP{x){Dlay Existing Character{x        ");
+        sprintf(buf, "{w   |    {w({DP{w){Dlay Existing Character{x        ");
     }
     else
     {
-        sprintf(buf, "{w   |    {x(%sP{x)%slay Existing Character{x        ",
+        sprintf(buf, "{w   |    {w(%sP{w)%slay Existing Character{x        ",
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
     }
@@ -414,7 +414,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // Column 3.1 - Who is currently online
     if (settings.login_who_list_enabled)
     {
-        sprintf(buf, "{w   |    {x(%sW{x)%sho is on now?{w                                                    |\r\n",
+        sprintf(buf, "{w   |    {w(%sW{w)%sho is on now?{w                                                    |\r\n",
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
 
@@ -422,21 +422,21 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
 
     // Column 4.1 - Random name generator
-    sprintf(buf, "{w   |    {x(%sR{x)%sandom Name Generator{w                                             |\r\n",
+    sprintf(buf, "{w   |    {w(%sR{w)%sandom Name Generator{w                                             |\r\n",
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
     send_to_desc(buf, d);
 
     // Column 5.1 - Credits
-    sprintf(buf, "{w   |    {x(%sC{x)%sredits{w                                                           |\r\n",
+    sprintf(buf, "{w   |    {w(%sC{w)%sredits{w                                                           |\r\n",
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
     send_to_desc(buf, d);
 
     // Column 6.1 & 6.2 - Quit and System Time
-    sprintf(buf, "{w   |    {x(%sQ{x)%suit{w                                                              |\r\n",
+    sprintf(buf, "{w   |    {w(%sQ{w)%suit{w                                                              |\r\n",
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
