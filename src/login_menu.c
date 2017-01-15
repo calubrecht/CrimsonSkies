@@ -374,7 +374,8 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     }
     else
     {
-        strcat(buf, "{gOpen{w                    |\r\n");
+        strcat(buf, settings.login_menu_dark_color);
+        strcat(buf, "Open{w                    |\r\n");
     }
 
     send_to_desc(buf, d);
