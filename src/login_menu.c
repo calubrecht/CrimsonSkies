@@ -406,7 +406,8 @@ void show_login_menu(DESCRIPTOR_DATA *d)
         }
         else
         {
-            strcat(buf, "{gWelcome{w                 |\r\n");
+            strcat(buf, settings.login_menu_dark_color);
+            strcat(buf, "Welcome{w                 |\r\n");
         }
     }
 
