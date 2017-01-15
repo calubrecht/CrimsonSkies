@@ -1,14 +1,12 @@
 # CS-Mud 1.0 Documentation
 
-### Setup for Ubuntu Linux
+### Setup for Raspbian Linux
 
-This tutorial will assume that you have your Ubuntu Linux server setup with the ability to SSH in.
-
-*This document is still unfinished and subject to change as I make the setup process hopefully easier*
+This tutorial will assume that you have your Raspbian Linux server setup with the ability to SSH in.
 
 #### Prerequisites
 
-1. Ubuntu 16.04.1 LTS 
+1. Raspbian OS for the Raspberry Pi (a derivative of Debian) 
 2. Update apt-get (**sudo apt-get update**)
 3. Git (**sudo apt-get install git**)
 4. gcc compiler (**sudo apt-get install gcc**)
