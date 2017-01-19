@@ -43,7 +43,9 @@ I have).
 1. sudo pico rc.local
 1. paste the below above "exit 0" substituting your game location.
 
-`cd /home/<your user directory>/cs-mud/area
-./startup &`
+~~~~
+cd /home/<your user directory>/cs-mud/area
+./startup &
+~~~~
 
 [Back to Table of Contents](index.md)
