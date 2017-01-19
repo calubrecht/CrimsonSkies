@@ -43,9 +43,26 @@ I have).
 1. sudo pico rc.local
 1. paste the below above "exit 0" substituting your game location.
 
+My rc.local file looks like this:
+
 ~~~~
-cd /home/<your user directory>/cs-mud/area
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+cd /home/pi/cs-mud/area
 ./startup &
+
+exit 0
 ~~~~
 
 [Back to Table of Contents](index.md)
