@@ -33,4 +33,17 @@ This tutorial will assume that you have your Ubuntu Linux server setup with the 
     3. After creating, quit the mud and type "nano ../player/-your player name-".  Format is crucial in this file so just change the field values.  Change Level to 60 and Security to 10.  (Control-X to exit and save from Nano)
     4. telnet again to the game (telnet localhost 4000) and login again, you are an immortal at the maximum level (type 'wiz' to see all your new immortal commands)
 
+#### Start the game server on server boot
+
+The simplest way I have found to start the server up on boot is use the existing startup bash script that comes with cs-mud and 
+then add a few lines into the "rc.local" file to execute it when the server boots (I've used this on an Azure VM and a local Ubuntu server
+I have).
+
+1. cd /etc
+1. sudo pico rc.local
+1. paste the below above "exit 0" substituting your game location.
+
+`cd /home/<your user directory>/cs-mud/area
+./startup &`
+
 [Back to Table of Contents](index.md)
