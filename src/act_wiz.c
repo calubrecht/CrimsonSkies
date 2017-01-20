@@ -6581,7 +6581,7 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
     #if defined(_WIN32)
         send_to_char("This command is not currently supported on Windows.\r\n", ch);
         return;
-    #endif
+    #else
 
     char buf[MAX_STRING_LENGTH];
     BUFFER *buffer;
@@ -6642,6 +6642,8 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
     free_buf(buffer);
 
     return;
+
+    #endif
 }
 
 /*
