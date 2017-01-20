@@ -14,7 +14,7 @@ Setup and Installation Tutorial for Windows |
 
 #### Known CS-Mud Implentations
 
-|Game Name |IP Address | Port | Active
+|Game Name |IP Address | Port | Active |
 |--- | --- | --- | 
 |[LorenMUD](http://www.lorenmud.com) | lorenmud.com | 9100 | Yes |
 |N/A | 138.197.220.204| 4000 | Yes |
