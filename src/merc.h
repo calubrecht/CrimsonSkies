@@ -19,7 +19,10 @@
  *  benefitting.  We hope that you share your changes too.  What goes      *
  *  around, comes around.                                                  *
  **************************************************************************/
-#define VERSION "1.0"
+
+// We're going to use this to indicate the version of this release which
+// is arbitrary to the person implementing the game.
+#define VERSION "1.1"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
