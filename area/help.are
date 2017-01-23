@@ -4159,7 +4159,7 @@ Syntax: write <name of parchment> ++
 
 Read and write allow you to interact with a piece of parchment that is
 an object that is saved and can be passed between players.  In order to
-read a piece of paper simply "read <the name of the piece of parchment".
+read a piece of paper simply "read <the name of the piece of parchment>".
 
 You may write a single line to a piece of parchment or you may enter
 the string editor with "edit" or "++" to tailor your parchment to be
