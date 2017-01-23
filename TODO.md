@@ -131,6 +131,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Tutorial on setting up mud from scratch
   - Documentation, ugg.
   - First game startup, game name is not set.
+  - Fix formatting string removing line breaks.
+  - Find out why strings are saving funny (this was fixed in notes)  
 
   - Space before and after creation menus
   - All coloring on login menu to come from settings so no mismatched colors
