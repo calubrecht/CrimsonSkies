@@ -1682,6 +1682,11 @@ void make_corpse(CHAR_DATA * ch)
 
     corpse->level = ch->level;
 
+    // Make the corpse also have the players name in it.
+    sprintf(buf, "corpse %s", ch->name);
+    free_string(corpse->name);
+    corpse->name = str_dup(buf);
+
     sprintf(buf, corpse->short_descr, name);
     free_string(corpse->short_descr);
     corpse->short_descr = str_dup(buf);
