@@ -340,11 +340,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // newlocked, if their host is banned all together or if they are newbie banned.
     if (settings.wizlock || settings.newlock || ban_newbie || ban_all)
     {
-        sprintf(buf, "{w   |    {w({DN{w){Dew Character{x                ");
+        sprintf(buf, "{w   |    {w({DN{w){Dew Character{x                   ");
     }
     else
     {
-        sprintf(buf, "{w   |    {w(%sN{w)%sew Character{x                ",
+        sprintf(buf, "{w   |    {w(%sN{w)%sew Character{x                   ",
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
     }
@@ -354,28 +354,28 @@ void show_login_menu(DESCRIPTOR_DATA *d)
 
     if (global.is_copyover == TRUE)
     {
-        strcat(buf, "{RRebooting{w               |\r\n");
+        strcat(buf, "{RRebooting{w            |\r\n");
     }
     else if (settings.whitelist_lock)
     {
-        strcat(buf, "{RWhitelist Locked{w        |\r\n");
+        strcat(buf, "{RWhitelist Locked{w     |\r\n");
     }
     else if (settings.wizlock)
     {
-        strcat(buf, "{RLocked{w                  |\r\n");
+        strcat(buf, "{RLocked{w               |\r\n");
     }
     else if (settings.newlock)
     {
-        strcat(buf, "{RNew Locked{w              |\r\n");
+        strcat(buf, "{RNew Locked{w           |\r\n");
     }
     else if (settings.test_mode)
     {
-        strcat(buf, "{YTest Mode{w               |\r\n");
+        strcat(buf, "{YTest Mode{w            |\r\n");
     }
     else
     {
         strcat(buf, settings.login_menu_dark_color);
-        strcat(buf, "Open{w                    |\r\n");
+        strcat(buf, "Open{w                 |\r\n");
     }
 
     send_to_desc(buf, d);
@@ -383,11 +383,11 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
     if (ban_all || settings.wizlock)
     {
-        sprintf(buf, "{w   |    {w({DP{w){Dlay Existing Character{x        ");
+        sprintf(buf, "{w   |    {w({DP{w){Dlay Existing Character{x           ");
     }
     else
     {
-        sprintf(buf, "{w   |    {w(%sP{w)%slay Existing Character{x        ",
+        sprintf(buf, "{w   |    {w(%sP{w)%slay Existing Character{x           ",
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
     }
@@ -396,18 +396,18 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     strcat(buf, "{WYour Site: ");
     if (ban_all)
     {
-        strcat(buf, "{rBanned{w                  |\r\n");
+        strcat(buf, "{rBanned{w               |\r\n");
     }
     else
     {
         if (ban_newbie)
         {
-            strcat(buf, "{rNew Player Banned{w       |\r\n");
+            strcat(buf, "{rNew Player Banned{w    |\r\n");
         }
         else
         {
             strcat(buf, settings.login_menu_dark_color);
-            strcat(buf, "Welcome{w                 |\r\n");
+            strcat(buf, "Welcome{w              |\r\n");
         }
     }
 
