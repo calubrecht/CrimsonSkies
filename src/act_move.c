@@ -426,7 +426,7 @@ int find_door(CHAR_DATA * ch, char *arg)
 
     if ((pexit = ch->in_room->exit[door]) == NULL)
     {
-        act("I see no door $T here.", ch, NULL, arg, TO_CHAR);
+        act("I see no door $T of here.", ch, NULL, arg, TO_CHAR);
         return -1;
     }
 
