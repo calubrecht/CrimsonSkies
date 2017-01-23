@@ -1993,12 +1993,17 @@ OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex)
         case ITEM_MONEY:
         case ITEM_SHOVEL:
         case ITEM_FOG:
+        case ITEM_PARCHMENT:
             break;
     }
 
     for (paf = pObjIndex->affected; paf != NULL; paf = paf->next)
+    {
         if (paf->location == APPLY_SPELL_AFFECT)
+        {
             affect_to_obj(obj, paf);
+        }
+    }
 
     obj->next = object_list;
     object_list = obj;

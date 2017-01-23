@@ -1103,6 +1103,7 @@ typedef enum
 #define ITEM_JEWELRY     33
 #define ITEM_SHOVEL      34
 #define ITEM_FOG         35
+#define ITEM_PARCHMENT   36
 
 /*
  * Extra flags.

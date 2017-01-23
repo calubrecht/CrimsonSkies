@@ -377,3 +377,5 @@ DECLARE_DO_FUN(do_rfind);
 DECLARE_DO_FUN(do_permanent);
 DECLARE_DO_FUN(do_playerlist);
 DECLARE_DO_FUN(do_nopray);
+DECLARE_DO_FUN(do_write);
+DECLARE_DO_FUN(do_read);

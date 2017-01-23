@@ -4176,15 +4176,26 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
 {
     // If we're working we nothing then we're doing nothing.
     if (obj == NULL || ch == NULL)
+    {
         return;
+    }
 
     // Player doesn't have the skill at all yet (or will never have it)
     if (ch->level < skill_table[gsn_lore]->skill_level[ch->class]
         || get_skill(ch, gsn_lore) == 0)
+    {
         return;
+    }
 
     if (ch->position == POS_FIGHTING)
+    {
         return;
+    }
+
+    if (obj->item_type == ITEM_PARCHMENT)
+    {
+        return;
+    }
 
     // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))

@@ -261,6 +261,8 @@ const struct cmd_type cmd_table[] = {
     {"butcher",         do_butcher,     POS_STANDING, 0, LOG_NORMAL, TRUE},
 	{"ban",             do_ban,         POS_DEAD,    L2, LOG_ALWAYS, TRUE},
     {"bandage",         do_bandage,     POS_STANDING, 0, LOG_NORMAL, TRUE},
+    {"write",           do_write,       POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"read",            do_read,        POS_RESTING,  0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.

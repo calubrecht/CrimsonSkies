@@ -704,13 +704,15 @@ Syntax: description + <string>
 Syntax: description - 
 Syntax: description format
 Syntax: description ++
+Syntax: description edit
 
 Sets your long description to the given string.  If the description string
 starts with a '+', the part after the '+' is appended to your current
 description, so that you can make multi-line descriptions. You can delete
 lines by uses description -.  To format the string use the format argument.
-To enter the multi line editor use description ++.  When in the editor you
-can exit with the @ command on an empty line or enter .h for help options.
+To enter the multi line editor use description ++ or description edit.  When 
+in the editor you can exit with the @ command on an empty line or enter .h 
+for help options.
 ~
 
 0 PASSWORD~
@@ -4147,6 +4149,28 @@ Syntax: permanent <object name>
 A high level immortal command that makes any temporary affects on an
 object permanent.  This can be used to create unique quest items for
 instance that make a bless or fireproof last forever.
+~
+
+0 WRITE READ PARCHMENT PAPER~
+Syntax: read <name of parchment>
+Syntax: write <name of parchment> <message to write>
+Syntax: write <name of parchment> edit
+Syntax: write <name of parchment> ++
+
+Read and write allow you to interact with a piece of parchment that is
+an object that is saved and can be passed between players.  In order to
+read a piece of paper simply "read <the name of the piece of parchment".
+
+You may write a single line to a piece of parchment or you may enter
+the string editor with "edit" or "++" to tailor your parchment to be
+exactly as you want it.
+
+Once a parchment is written to it cannot be written to again, if you
+make a mistake you will need a new piece of parchment.
+
+Pieces of parchment can be purchased in stores such as the general store
+in Midgaard and Red Oak.  They may also be found at various locations
+around the world.
 ~
 
 0 QUEST PQUEST~

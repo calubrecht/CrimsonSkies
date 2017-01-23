@@ -3166,7 +3166,7 @@ void do_description(CHAR_DATA * ch, char *argument)
             return;
         }
 
-        if (!str_cmp(argument, "++"))
+        if (!str_cmp(argument, "++") || !str_cmp(argument, "edit"))
         {
             string_append( ch, &ch->description);
             return;

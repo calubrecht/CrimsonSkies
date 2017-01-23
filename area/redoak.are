@@ -670,7 +670,7 @@ drink 0 A
 2 2 'whisky' 0 0
 0 10 12 P
 #746
-glittering white warpstone~
+glittering white warpstone stone~
 a glittering {Wwhite{x warpstone.~
 A glittering {Wwhite{x warpstone lays here.~
 pearl~
@@ -690,6 +690,14 @@ scimitar blade~
 The gray metaled sword is both heavy and well crafted.  The edge of
 the blade looks as if it could cut through anything or anyone.
 ~
+#748
+parchment~
+a blank piece of parchment~
+An empty piece of parchment lies here.~
+paper~
+parchment 0 A
+0 0 0 0 0
+1 10 100 P
 #0
 
 
@@ -1486,6 +1494,7 @@ G 0 726 0 A buffalo water skin is given to the clerk
 G 0 725 0 A box is given to the clerk
 G 0 724 0 A bag is given to the clerk
 G 0 722 0 An iron shovel is given to the clerk
+G 0 748 0 A blank piece of parchment is given to the clerk
 M 0 704 1 735 1 Load the quest master
 M 0 702 1 736 1 Load the weaponsmith
 G 0 701 0 A red oak dagger is given to the weaponsmith
