@@ -121,7 +121,28 @@ void show_login_credits(DESCRIPTOR_DATA *d)
     show_menu_header("Credits", d);
     send_to_desc(BLANK_MENU_LINE, d);
 
-    sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+    // This is a hacky, fix this later to remove the spaces without checking the length like this in an if statement.
+    if (strlen(VERSION) == 3)
+    {
+        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+    }
+    else if (strlen(VERSION) == 4)
+    {
+        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+    }
+    else if (strlen(VERSION) == 5)
+    {
+        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                   |\r\n", VERSION);
+    }
+    else if (strlen(VERSION) == 6)
+    {
+        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                  |\r\n", VERSION);
+    }
+    else
+    {
+        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+    }
+
     send_to_desc(buf, d);
     send_to_desc("{w   |          Blake Pell (Rhien)                                            |\r\n", d);
 
