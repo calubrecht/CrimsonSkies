@@ -48,6 +48,7 @@
  */
 void do_write(CHAR_DATA *ch, char *argument)
 {
+    char buf[MAX_STRING_LENGTH];
     char arg[MAX_INPUT_LENGTH];
     OBJ_DATA *obj;
 
@@ -68,6 +69,41 @@ void do_write(CHAR_DATA *ch, char *argument)
     if (obj->item_type != ITEM_PARCHMENT)
     {
         send_to_char("That is not parchment.\r\n", ch);
+        return;
+    }
+
+    // We will handle the title here, the parchment can be titled/retitled
+    // even if it has already been written on (which is why it comes before
+    // that check).  We will enforce that the parchment always keeps that it
+    // is a piece of parchment in the title so players can't create pieces of
+    // parchment that look like other objects.
+    if (!str_prefix("title", argument))
+    {
+        // Pluck title off, keep the rest.
+        argument = one_argument(argument, arg);
+
+        if (IS_NULLSTR(argument))
+        {
+            // They must provide text for the title.
+            send_to_char("You must provide a title for the parchment.\r\n", ch);
+            return;
+        }
+        else if (strlen(argument) > 30)
+        {
+            // The title can't be that long, will enforce a 30 character limit.
+            send_to_char("Titles for parchment are limited to 30 characters.\r\n", ch);
+            return;
+        }
+
+        // Separate the object from the others like it if the character has more than
+        // one (otherwise it will write this over all of them).
+        separate_obj(obj);
+
+        // Construct the title, free the memory for the short description and copy the new one in.
+        sprintf(buf, "a piece of parchment titled \"%s\"", argument);
+        free_string(obj->short_descr);
+        obj->short_descr = str_dup(buf);
+
         return;
     }
 

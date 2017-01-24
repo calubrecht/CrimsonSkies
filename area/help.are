@@ -4156,6 +4156,7 @@ Syntax: read <name of parchment>
 Syntax: write <name of parchment> <message to write>
 Syntax: write <name of parchment> edit
 Syntax: write <name of parchment> ++
+Syntax: write <name of parchment> title <title of parchment>
 
 Read and write allow you to interact with a piece of parchment that is
 an object that is saved and can be passed between players.  In order to
@@ -4167,6 +4168,11 @@ exactly as you want it.
 
 Once a parchment is written to it cannot be written to again, if you
 make a mistake you will need a new piece of parchment.
+
+You may also give the parchment a title to make it unique to others
+pieces of paper you maybe holding.  For example this will title a
+parchment as a map:  "write parchment title Red Oak Map".  Names must
+not violate any rules set forth by the immortals.
 
 Pieces of parchment can be purchased in stores such as the general store
 in Midgaard and Red Oak.  They may also be found at various locations
