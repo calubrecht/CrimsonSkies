@@ -2943,7 +2943,7 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob, just pass this call down the line.
         process_portal_merchant(ch, argument);
@@ -3229,7 +3229,7 @@ void do_list(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob.
         process_portal_merchant(ch, "");

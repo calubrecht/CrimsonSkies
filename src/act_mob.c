@@ -45,6 +45,33 @@
 #include "tables.h"
 
 /*
+ * Determines whether a mob with the specific ACT flag is in the room with the specified character
+ * and if so returns that mob (otherwise, a NULL is returned).
+ */
+CHAR_DATA *find_mob_by_act(CHAR_DATA * ch, long act_flag)
+{
+    CHAR_DATA *mob;
+
+    if (ch == NULL)
+    {
+        return NULL;
+    }
+
+    // Check for portal merchant
+    for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
+    {
+        if (mob != NULL && IS_NPC(mob) && IS_SET(mob->act, act_flag))
+        {
+            return mob;
+        }
+    }
+
+    return NULL;
+
+} // end find_mob_by_act
+
+
+/*
  * Command for a healer mob that can sell spell
  */
 void do_heal(CHAR_DATA * ch, char *argument)
@@ -220,7 +247,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     int cost = 0;
     int roll = 0;
 
-    if ((mob = find_portal_merchant(ch)) == NULL)
+    if ((mob = find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT)) == NULL)
     {
         send_to_char("You must find a portal merchant in order to purchase a portal.\r\n", ch);
         return;
@@ -347,29 +374,3 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     act("$p rises up from the ground.", ch, portal, NULL, TO_ALL);
 
 } // end do_portal
-
-/*
- * Determins whether a merchant who sells portals is in the same room
- * with the player and returns that mob.
- */
-CHAR_DATA *find_portal_merchant(CHAR_DATA * ch)
-{
-    CHAR_DATA *mob;
-
-    if (ch == NULL)
-    {
-        return NULL;
-    }
-
-    // Check for portal merchant
-    for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
-    {
-        if (mob != NULL && IS_NPC(mob) && IS_SET(mob->act, ACT_IS_PORTAL_MERCHANT))
-        {
-            return mob;
-        }
-    }
-
-    return NULL;
-
-} // end find_portal_merchant

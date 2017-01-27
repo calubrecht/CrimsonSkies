@@ -2681,7 +2681,7 @@ char    *file_last_modified   (const char *filename);
 
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
-CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);
+CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
 
 #undef    CD
 #undef    MID
