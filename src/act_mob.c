@@ -402,7 +402,7 @@ void do_duplicate(CHAR_DATA *ch, char *argument)
     // No argument was sent, tell them how much it costs
     if (IS_NULLSTR(argument))
     {
-        act("{x$N says '{gI will duplicate a parchment for 10 gold pieces.  You may ask me to 'duplicate' a specific parchment in your possession.{x'\r\n", ch, NULL, mob, TO_CHAR);
+        act("{x$N says '{gI will duplicate a parchment for 10 gold pieces.  You may ask me to 'duplicate' a specific parchment in your possession.{x'", ch, NULL, mob, TO_CHAR);
         return;
     }
 
