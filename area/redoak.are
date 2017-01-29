@@ -240,6 +240,22 @@ ABQVa DFH 3 0
 FHIK ABCD 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
+#715
+scribe shazman scribe~
+Shazman~
+Shazman the scribe of Red Oak is here.
+~
+The aged scribe stands at average height and has a long white beard.  He
+is wearing robes that are worn and has a parn of spectacles that make is eye
+seem very small behind them.  
+~
+human~
+ABVZ DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -266,9 +282,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -278,9 +294,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -290,9 +306,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -484,14 +500,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -736,6 +752,10 @@ canopy above the road and the surrounding buildings.  To the west the large
 gates of Red Oak stand sturdy and tall.  
 ~
 0 262144 1
+D0
+~
+~
+0 0 739
 D1
 ~
 ~
@@ -1417,6 +1437,19 @@ D3
 ~
 0 0 725
 S
+#739
+Scribes Shop~
+You are standing in a room that has the scent of ink and old parchment. 
+There are no windows letting light in and the room is lit by a fire that's
+roaring in the fireplace.  At the end of the room is a long counter, behind
+the counter lies stacks and stacks of parchment.  
+~
+0 262144 1
+D2
+~
+~
+0 0 701
+S
 #0
 
 
@@ -1514,6 +1547,7 @@ G 0 743 0 A bottle of red oak lager is given to Leesaport the bartender
 G 0 744 0 A barrel of beer is given to Leesaport the bartender
 G 0 745 0 A shot of whisky is given to Leesaport the bartender
 M 0 714 1 738 1 Load the healer
+M 0 715 1 739 1 Load Shazman
 S
 
 

@@ -95,6 +95,7 @@ const struct flag_type act_flags[] = {
     {"nopurge",        V, TRUE},
     {"outdoors",       W, TRUE},
     {"indoors",        Y, TRUE},
+    {"scribe",         Z, TRUE},
     {"healer",        aa, TRUE},
     {"gain",          bb, TRUE},
     {"update_always", cc, TRUE},

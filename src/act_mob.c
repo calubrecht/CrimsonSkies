@@ -374,3 +374,76 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     act("$p rises up from the ground.", ch, portal, NULL, TO_ALL);
 
 } // end do_portal
+
+/*
+ * Duplicates a piece of parchment for a cost at a scribe.
+ */
+void do_duplicate(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *mob;
+    OBJ_DATA *obj;
+    OBJ_DATA *clone_obj;
+    int cost = 1000; // 10 gold
+
+    if ((mob = find_mob_by_act(ch, ACT_SCRIBE)) == NULL)
+    {
+        send_to_char("You must find a scribe in order to duplicate pieces of parchment.\r\n", ch);
+        return;
+    }
+
+    // Not with people that can't be seen.. this will depend on the mob.. if the mob has detect hidden
+    // or detect invis they will see most people unless they are in another for of non-detect, etc.
+    if (!can_see(mob, ch))
+    {
+        act("{x$N says '{gI don't trade with folks I can't see, please make yourself 'visible'.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // No argument was sent, tell them how much it costs
+    if (IS_NULLSTR(argument))
+    {
+        act("{x$N says '{gI will duplicate a parchment for 10 gold pieces.  You may ask me to 'duplicate' a specific parchment in your possession.{x'\r\n", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    if (cost > (ch->gold * 100 + ch->silver))
+    {
+        act("{x$N says '{gI apologize, but you do not appear to have enough wealth for my services.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    if ((obj = get_obj_carry(ch, argument, ch)) == NULL)
+    {
+        act("{x$N says '{gI do not see that you have that item.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Make sure the item is a piece of parchment.
+    if (obj->item_type != ITEM_PARCHMENT)
+    {
+        act("{x$N says '{gThat is not a piece of parchment.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Only copy the parchment if it has been written to.
+    if (obj->value[1] == FALSE)
+    {
+        act("{x$N says '{gThat parchment has not been written to yet, please provide one that has.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Deduct the cost and then clone the parchment.
+    deduct_cost(ch, cost);
+    mob->gold += cost / 100;
+    mob->silver += cost % 100;
+
+    clone_obj = create_object(obj->pIndexData);
+    clone_object(obj, clone_obj);
+    obj_to_char(clone_obj, ch);
+
+    act("$N dips his quill in ink and begins writing on a piece of parchment.", ch, NULL, mob, TO_ROOM);
+    act("$N hands you parchment with the identical text of your original.", ch, NULL, mob, TO_CHAR);
+
+    // A little lag
+    WAIT_STATE(ch, PULSE_VIOLENCE);
+}

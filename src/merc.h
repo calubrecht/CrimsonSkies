@@ -745,7 +745,7 @@ typedef enum
 #define ACT_NOPURGE            (V)   /* Mob can't be purged from a room */
 #define ACT_OUTDOORS           (W)
 #define ACT_INDOORS            (Y)
-//                             (Z)
+#define ACT_SCRIBE             (Z)
 #define ACT_IS_HEALER          (aa)  /* Mob sells healing services */
 #define ACT_GAIN               (bb)
 #define ACT_UPDATE_ALWAYS      (cc)

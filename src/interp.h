@@ -379,3 +379,4 @@ DECLARE_DO_FUN(do_playerlist);
 DECLARE_DO_FUN(do_nopray);
 DECLARE_DO_FUN(do_write);
 DECLARE_DO_FUN(do_read);
+DECLARE_DO_FUN(do_duplicate);

@@ -4151,12 +4151,13 @@ object permanent.  This can be used to create unique quest items for
 instance that make a bless or fireproof last forever.
 ~
 
-0 WRITE READ PARCHMENT PAPER~
+0 WRITE READ PARCHMENT PAPER DUPLICATE~
 Syntax: read <name of parchment>
 Syntax: write <name of parchment> <message to write>
 Syntax: write <name of parchment> edit
 Syntax: write <name of parchment> ++
 Syntax: write <name of parchment> title <title of parchment>
+Syntax: duplicate <name of parchment>
 
 Read and write allow you to interact with a piece of parchment that is
 an object that is saved and can be passed between players.  In order to
@@ -4177,6 +4178,11 @@ not violate any rules set forth by the immortals.
 Pieces of parchment can be purchased in stores such as the general store
 in Midgaard and Red Oak.  They may also be found at various locations
 around the world.
+
+There are also shops around the world that specialize in scribe services
+who are able to duplicate a piece of parchment in exchange for gold.
+You may use the 'duplicate' command to do so while in one of these shops.
+The first scribe shop in the world is off of Main Street in Red Oak.
 ~
 
 0 QUEST PQUEST~
