@@ -2011,7 +2011,7 @@ void spell_curse(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (IS_AFFECTED(victim, AFF_CURSE))
     {
-        send_to_char("They have already been cursed.", ch);
+        send_to_char("They have already been cursed.\r\n", ch);
         return;
     }
 
