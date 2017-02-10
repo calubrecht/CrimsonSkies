@@ -1880,8 +1880,8 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     {
         if (!remove_obj(ch, WEAR_ABOUT, fReplace))
             return;
-        act("$n wears $p about $s torso.", ch, obj, NULL, TO_ROOM);
-        act("You wear $p about your torso.", ch, obj, NULL, TO_CHAR);
+        act("$n wears $p about $s body.", ch, obj, NULL, TO_ROOM);
+        act("You wear $p about your body.", ch, obj, NULL, TO_CHAR);
         equip_char(ch, obj, WEAR_ABOUT);
         return;
     }
