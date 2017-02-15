@@ -683,8 +683,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->pcdata->true_sex = SEX_FEMALE;
                     break;
                 default:
-                    send_to_desc("That's not a sex.\r\nWhat IS your sex? ",
-                        d);
+                    send_to_desc("That's not a sex.\r\nWhat IS your sex? ", d);
                     return;
             }
 
@@ -719,6 +718,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
             }
+
+            write_to_buffer(d, "\r\n");
             send_to_char("Select an initial class: ", ch);
             d->connected = CON_GET_NEW_CLASS;
             break;
