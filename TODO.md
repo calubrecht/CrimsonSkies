@@ -133,9 +133,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - First game startup, game name is not set.
   - Fix formatting string removing line breaks.
   - Find out why strings are saving funny (this was fixed in notes)  
-
-  - Ability to title parchment so it's labeled as parchment but you can tell what it is if you have lots of parchments.
-  - Ability to copy a parchment easily.
-
-  - Space before and after creation menus
   - All coloring on login menu to come from settings so no mismatched colors
