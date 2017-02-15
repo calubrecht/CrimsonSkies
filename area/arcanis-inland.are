@@ -46,6 +46,10 @@ through the trees and your hair.  Far to the east, you barely make out a
 city and to the west the Silver Sea lines the horizon.  
 ~
 0 0 2
+D0
+~
+~
+0 0 2485
 D1
 ~
 ~
@@ -218,10 +222,11 @@ D2
 0 0 1809
 S
 #1811
-A Dead End~
+Along the Northern Road~
 The nothern road comes to an abrupt end here at a rocky ledge that leads
 sharply down into the deep chasm's of the nothern valley.  To the west you
-can see a drab structure which appears to be some sort of prison.  
+can see a drab structure which appears to be some sort of prison.  To the
+northwest you can see the looming Gray Mountains in the distance.  
 ~
 0 0 2
 D2
@@ -232,6 +237,10 @@ D3
 ~
 ~
 0 0 15100
+D6
+~
+~
+0 0 2403
 S
 #0
 

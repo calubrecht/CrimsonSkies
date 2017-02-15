@@ -8,9 +8,10 @@ Security 1
 Continent 3
 End
 
+
+
 #MOBILES
 #0
-
 
 
 
@@ -1287,13 +1288,18 @@ A rocky shoreline~
 You are standing on a rocky shoreline with coarse sand below your feet. 
 You are at the point where the waters of the Silver Sea converge with those
 of the Great Northwest Ocean.  Beyond the beach the are rock walls that rise
-high into the land of the Arcanis continent.  
+high into the land of the Arcanis continent.  To the east lies a path which
+leads up into the Gray Mountains.  
 ~
 0 0 12
 D0
 ~
 ~
 0 0 11592
+D1
+~
+~
+0 0 2410
 D2
 ~
 ~
@@ -2515,21 +2521,6 @@ S
 
 
 #RESETS
-M 0 11000 100 11200 2 Load a tuna fish
-M 0 11003 100 11210 2 Load a {Csea{x dragon
-M 0 11000 100 11211 2 Load a tuna fish
-M 0 11008 100 11219 2 Load a seagull
-M 0 11003 100 11219 2 Load a {Csea{x dragon
-M 0 11001 100 11220 2 Load a octopus
-M 0 11002 100 11221 2 Load a man o'war
-M 0 11000 100 11222 2 Load a tuna fish
-M 0 11005 100 11222 2 Load an aboleth
-M 0 11001 100 11228 2 Load a octopus
-M 0 11002 100 11228 2 Load a man o'war
-M 0 11000 100 11230 2 Load a tuna fish
-M 0 11008 100 11238 2 Load a seagull
-M 0 11006 100 11249 2 Load a dolphin
-M 0 11003 100 11250 2 Load a {Csea{x dragon
 M 0 11001 100 11269 2 Load a octopus
 M 0 11005 100 11271 2 Load an aboleth
 M 0 11003 100 11281 2 Load a {Csea{x dragon
@@ -2542,6 +2533,21 @@ M 0 11005 100 11292 2 Load an aboleth
 M 0 11003 100 11295 2 Load a {Csea{x dragon
 M 0 11006 100 11297 2 Load a dolphin
 M 0 11006 100 11299 2 Load a dolphin
+M 0 11000 100 11200 2 Load a tuna fish
+M 0 11003 100 11210 2 Load a {Csea{x dragon
+M 0 11000 100 11211 2 Load a tuna fish
+M 0 11008 100 11219 2 Load a jellyfish
+M 0 11003 100 11219 2 Load a {Csea{x dragon
+M 0 11001 100 11220 2 Load a octopus
+M 0 11002 100 11221 2 Load a man o'war
+M 0 11000 100 11222 2 Load a tuna fish
+M 0 11005 100 11222 2 Load an aboleth
+M 0 11001 100 11228 2 Load a octopus
+M 0 11002 100 11228 2 Load a man o'war
+M 0 11000 100 11230 2 Load a tuna fish
+M 0 11008 100 11238 2 Load a jellyfish
+M 0 11006 100 11249 2 Load a dolphin
+M 0 11003 100 11250 2 Load a {Csea{x dragon
 S
 
 
