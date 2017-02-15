@@ -128,7 +128,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Prefix class code files with class_.
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
-  - Tutorial on setting up mud from scratch
   - Documentation, ugg.
   - First game startup, game name is not set.
   - Fix formatting string removing line breaks.
