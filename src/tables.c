@@ -315,6 +315,7 @@ const struct flag_type area_flags[] = {
     {"changed", AREA_CHANGED, TRUE},
     {"added", AREA_ADDED, TRUE},
     {"loading", AREA_LOADING, FALSE},
+    {"norecall", AREA_NO_RECALL, TRUE},
     {NULL, 0, 0}
 };
 

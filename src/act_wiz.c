@@ -6651,7 +6651,9 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Nothing to debug here.\r\n", ch);
+    printf_to_char(ch, "Hit roll bonus: %d", dex_app[get_curr_stat(ch,STAT_DEX)].hitroll_bonus);
+    printf_to_char(ch, "Dam roll bonus: %d", str_app[get_curr_stat(ch,STAT_STR)].todam);
+
     return;
 } // end do_debug
 

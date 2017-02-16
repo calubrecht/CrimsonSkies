@@ -884,6 +884,7 @@ void save_other_helps(CHAR_DATA * ch)
  ****************************************************************************/
 void save_area(AREA_DATA * pArea)
 {
+    char buf[MAX_STRING_LENGTH];
     FILE *fp;
 
     fclose(fpReserve);
@@ -901,6 +902,7 @@ void save_area(AREA_DATA * pArea)
     fprintf(fp, "Credits %s~\n", pArea->credits);
     fprintf(fp, "Security %d\n", pArea->security);
     fprintf(fp, "Continent %d\n", pArea->continent);
+    fprintf(fp, "AreaFlags %s\n", fwrite_flag(pArea->area_flags, buf));
     fprintf(fp, "End\n\n\n\n");
 
     save_mobiles(fp, pArea);

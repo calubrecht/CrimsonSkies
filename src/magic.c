@@ -4842,8 +4842,9 @@ void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int targe
         return;
     }
 
-    if (IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL) ||
-        IS_AFFECTED(victim, AFF_CURSE))
+    if (IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+        || IS_AFFECTED(victim, AFF_CURSE)
+        || IS_SET(victim->in_room->area->area_flags, AREA_NO_RECALL))
     {
         send_to_char("Spell failed.\r\n", victim);
         return;

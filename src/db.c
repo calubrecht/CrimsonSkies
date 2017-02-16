@@ -495,6 +495,9 @@ void load_area(FILE * fp)
                     return;
                 }
                 break;
+            case 'A':
+                KEY("AreaFlags", pArea->area_flags, fread_flag(fp));
+                break;
             case 'B':
                 SKEY("Builders", pArea->builders);
                 break;

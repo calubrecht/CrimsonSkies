@@ -1745,7 +1745,9 @@ void do_recall(CHAR_DATA * ch, char *argument)
     if (ch->in_room == location)
         return;
 
-    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL) || IS_AFFECTED(ch, AFF_CURSE))
+    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
+        || IS_AFFECTED(ch, AFF_CURSE)
+        || IS_SET(ch->in_room->area->area_flags, AREA_NO_RECALL))
     {
         send_to_char("The gods have forsaken you.\r\n", ch);
         return;
