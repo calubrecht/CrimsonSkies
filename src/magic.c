@@ -4729,15 +4729,20 @@ void spell_summon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     return;
 }
 
-
-
+/*
+ * Spell that will allow a player to transport themselves to a random point in
+ * the world.
+ */
 void spell_teleport(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     ROOM_INDEX_DATA *pRoomIndex;
+    bool found = FALSE;
+    int counter = 0;
 
     if (victim->in_room == NULL
         || IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+        || IS_SET(victim->in_room->area->area_flags, AREA_NO_GATE)
         || (victim != ch && IS_SET(victim->imm_flags, IMM_SUMMON))
         || (!IS_NPC(ch) && victim->fighting != NULL)
         || (victim != ch && (saves_spell(level - 5, victim, DAM_OTHER))))
@@ -4746,10 +4751,36 @@ void spell_teleport(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    pRoomIndex = get_random_room(victim);
+    while (!found)
+    {
+        counter++;
+
+        // Get a random room
+        pRoomIndex = get_random_room(victim);
+
+        // Rooms must be not no gate and not no recall, hopefully ensuring
+        // they don't end up somewhere that's impossible to get out of without
+        // knowing how they'd have gotten there normally.
+        if (!IS_SET(pRoomIndex->area->area_flags, AREA_NO_GATE)
+            && !IS_SET(pRoomIndex->room_flags, ROOM_NO_RECALL))
+        {
+            found = TRUE;
+        }
+
+        // This should never happen, but...
+        if (counter > 200)
+        {
+            send_to_char("You failed.\r\n", ch);
+            bug("spell_teleport: Didn't find a room in first 200 tries", sn);
+            return;
+        }
+
+    }
 
     if (victim != ch)
+    {
         send_to_char("You have been teleported!\r\n", victim);
+    }
 
     act("$n vanishes!", victim, NULL, NULL, TO_ROOM);
     char_from_room(victim);
