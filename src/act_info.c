@@ -1992,8 +1992,17 @@ void do_score(CHAR_DATA * ch, char *argument)
     sprintf(buf, "%s", capitalize(class_table[ch->class]->name));
 
     row = create_row_padded(grid, 0, 0, 2, 2);
-    sprintf(center_text, "{WScore for %s, %s %s{x",
-        capitalize(ch->name), pc_race_table[ch->race].article_name, IS_NPC(ch) ? "Mobile" : buf);
+
+    if (!IS_NPC(ch))
+    {
+        sprintf(center_text, "{WScore for %s, %s %s{x",
+            capitalize(ch->name), pc_race_table[ch->race].article_name, buf);
+    }
+    else
+    {
+        sprintf(center_text, "{WScore for %s, an NPC{x", capitalize(ch->name));
+    }
+
     sprintf(center_text, "%s", center_string_padded(center_text, 71));
 
     row_append_cell(row, 75, center_text);
