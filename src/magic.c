@@ -2895,8 +2895,10 @@ void spell_frenzy(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     act("$n gets a wild look in $s eyes!", victim, NULL, NULL, TO_ROOM);
 }
 
-/* RT ROM-style gate */
-
+/*
+ * RT ROM-style gate
+ * Spell that allows a player to transport themselves to another player or mob.
+ */
 void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim;
@@ -2913,6 +2915,8 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || IS_SET(victim->in_room->room_flags, ROOM_NO_GATE)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_GATE)
+        || IS_SET(victim->in_room->area->area_flags, AREA_NO_GATE)
+        || IS_SET(ch->in_room->area->area_flags, AREA_NO_GATE)
         || victim->level >= level + 3
         || (is_clan(victim) && !is_same_clan(ch, victim))
         || (!IS_NPC(victim) && victim->level >= LEVEL_IMMORTAL)
@@ -4709,7 +4713,7 @@ void spell_summon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || (IS_NPC(victim) && victim->pIndexData->pShop != NULL)
         || (!IS_NPC(victim) && IS_SET(victim->act, PLR_NOSUMMON))
         || IS_SET(victim->in_room->area->area_flags, AREA_NO_SUMMON)
-        || IS_SET(ch->in_room->area->area_flags,AREA_NO_SUMMON)
+        || IS_SET(ch->in_room->area->area_flags, AREA_NO_SUMMON)
         || (IS_NPC(victim) && saves_spell(level, victim, DAM_OTHER)))
     {
         send_to_char("You failed.\r\n", ch);
