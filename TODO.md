@@ -122,14 +122,15 @@ This is my to do list, mostly will be things big and small as I think about them
   - Extra chance attack on init based on dex (higher the dex, the higher the percent)
   - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
-  - Support for area flags that save with the pfile (then add no-recall area, no magic area flags)
   - Help file update for notes to display supported spools
   - Command to list the spools available, with properties to denote immortal only
   - Prefix class code files with class_.
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
   - Documentation, ugg.
+  - No magic area flag
   - First game startup, game name is not set.
   - Fix formatting string removing line breaks.
   - Find out why strings are saving funny (this was fixed in notes)  
   - All coloring on login menu to come from settings so no mismatched colors
+  - Update formatting on the stat command, use the grid code.
