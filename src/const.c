@@ -525,7 +525,7 @@ const struct wis_app_type wis_app[26] = {
 /*
  * Modifiers for Dexterity based items.
  * Field 1:  defensive - (AC Bonus)
- * Field 2:  hit_bonus (Hit roll bonus)
+ * Field 2:  hitroll_bonus (Hit roll bonus)
  */
 const struct dex_app_type dex_app[26] = {
     {60,  -5},           /* 0 */
