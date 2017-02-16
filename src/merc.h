@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.1"
+#define VERSION "1.1.2"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -2709,6 +2709,7 @@ CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
 #define         AREA_ADDED      (B)    /* Area has been added to. */
 #define         AREA_LOADING    (C)    /* Used for counting in db.c */
 #define         AREA_NO_RECALL  (D)    /* Entire area is no recall */
+#define         AREA_NO_SUMMON  (E)    /* Cannot summon or be summoned from */
 
 #define         MAX_DIR        10    /* Maximum direction (0-9 are used making 10) */
 #define         NO_FLAG       -99    /* Must not be used in flags or stats. */

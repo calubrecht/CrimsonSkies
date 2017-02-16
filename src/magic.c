@@ -4685,8 +4685,9 @@ void spell_stone_skin(int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
+/*
+ * Spell to summon another player or mob.
+ */
 void spell_summon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim;
@@ -4707,6 +4708,8 @@ void spell_summon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || (IS_NPC(victim) && IS_SET(victim->imm_flags, IMM_SUMMON))
         || (IS_NPC(victim) && victim->pIndexData->pShop != NULL)
         || (!IS_NPC(victim) && IS_SET(victim->act, PLR_NOSUMMON))
+        || IS_SET(victim->in_room->area->area_flags, AREA_NO_SUMMON)
+        || IS_SET(ch->in_room->area->area_flags,AREA_NO_SUMMON)
         || (IS_NPC(victim) && saves_spell(level, victim, DAM_OTHER)))
     {
         send_to_char("You failed.\r\n", ch);
