@@ -762,7 +762,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     bool immune;
 
     if (victim->position == POS_DEAD)
+    {
         return FALSE;
+    }
 
     /*
      * Stop up any residual loopholes.
@@ -771,22 +773,30 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     {
         bug("Damage: %d: more than 1200 points!", dam);
         dam = 1200;
+
         if (!IS_IMMORTAL(ch))
         {
             OBJ_DATA *obj;
             obj = get_eq_char(ch, WEAR_WIELD);
-            send_to_char("You really shouldn't cheat.\r\n", ch);
-            if (obj != NULL)
-                extract_obj(obj);
-        }
+            send_to_char("You really shouldn't cheat, your weapon has been purged.\r\n", ch);
 
+            if (obj != NULL)
+            {
+                separate_obj(obj);
+                extract_obj(obj);
+            }
+        }
     }
 
     /* damage reduction */
     if (dam > 35)
+    {
         dam = (dam - 35) / 2 + 35;
+    }
     if (dam > 80)
+    {
         dam = (dam - 80) / 2 + 80;
+    }
 
     if (victim != ch)
     {
@@ -795,7 +805,10 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
          * Most other attacks are returned.
          */
         if (is_safe(ch, victim))
+        {
             return FALSE;
+        }
+
         check_wanted(ch, victim);
 
         if (victim->position > POS_STUNNED)
@@ -803,17 +816,27 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
             if (victim->fighting == NULL)
             {
                 set_fighting(victim, ch);
+
                 if (IS_NPC(victim) && HAS_TRIGGER(victim, TRIG_KILL))
+                {
                     mp_percent_trigger(victim, ch, NULL, NULL, TRIG_KILL);
+                }
             }
+
+            // I kind of feel like this should set POS_FIGHTING regardless of the timer OR
+            // the timer number should be high enough that they haven't voided out.
             if (victim->timer <= 4)
+            {
                 victim->position = POS_FIGHTING;
+            }
         }
 
         if (victim->position > POS_STUNNED)
         {
             if (ch->fighting == NULL)
+            {
                 set_fighting(ch, victim);
+            }
         }
 
         /*
@@ -854,18 +877,23 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
      * Damage modifiers.
      */
 
-    if (dam > 1 && !IS_NPC(victim)
-        && victim->pcdata->condition[COND_DRUNK] > 10)
+    if (dam > 1 && !IS_NPC(victim) && victim->pcdata->condition[COND_DRUNK] > 10)
+    {
         dam = 9 * dam / 10;
+    }
 
     if (dam > 1 && IS_AFFECTED(victim, AFF_SANCTUARY))
+    {
         dam /= 2;
+    }
 
     if (dam > 1 &&
          ((IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch))
            || (is_affected(victim, gsn_protection_neutral) && IS_NEUTRAL(ch))
            || (IS_AFFECTED(victim, AFF_PROTECT_GOOD) && IS_GOOD(ch))))
+    {
         dam -= dam / 4;
+    }
 
     immune = FALSE;
 
@@ -875,12 +903,19 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     if (dt >= TYPE_HIT && ch != victim)
     {
         if (check_parry(ch, victim))
+        {
             return FALSE;
-        if (check_dodge(ch, victim))
-            return FALSE;
-        if (check_shield_block(ch, victim))
-            return FALSE;
+        }
 
+        if (check_dodge(ch, victim))
+        {
+            return FALSE;
+        }
+
+        if (check_shield_block(ch, victim))
+        {
+            return FALSE;
+        }
     }
 
     switch (check_immune(victim, dam_type))
@@ -909,7 +944,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     }
 
     if (show)
+    {
         dam_message(ch, victim, dam, dt, immune);
+    }
 
     // We want the shock to spread even if the initial person is immune to lightning.  This will
     // only fire if the setting for shock_spread is set.
@@ -947,53 +984,51 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     }
 
     if (dam == 0)
+    {
         return FALSE;
+    }
 
     /*
      * Hurt the victim.
      * Inform the victim of his new state.
      */
     victim->hit -= dam;
-    if (!IS_NPC(victim)
-        && victim->level >= LEVEL_IMMORTAL && victim->hit < 1)
+
+    if (!IS_NPC(victim) && victim->level >= LEVEL_IMMORTAL && victim->hit < 1)
+    {
         victim->hit = 1;
+    }
+
     update_pos(victim);
 
     switch (victim->position)
     {
         case POS_MORTAL:
-            act("$n is mortally wounded, and will die soon, if not aided.",
-                victim, NULL, NULL, TO_ROOM);
-            send_to_char
-                ("You are mortally wounded, and will die soon, if not aided.\r\n",
-                    victim);
+            act("$n is mortally wounded, and will die soon, if not aided.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are mortally wounded, and will die soon, if not aided.\r\n", victim);
             break;
-
         case POS_INCAP:
-            act("$n is incapacitated and will slowly die, if not aided.",
-                victim, NULL, NULL, TO_ROOM);
-            send_to_char
-                ("You are incapacitated and will slowly die, if not aided.\r\n",
-                    victim);
+            act("$n is incapacitated and will slowly die, if not aided.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are incapacitated and will slowly die, if not aided.\r\n", victim);
             break;
-
         case POS_STUNNED:
-            act("$n is stunned, but will probably recover.",
-                victim, NULL, NULL, TO_ROOM);
-            send_to_char("You are stunned, but will probably recover.\r\n",
-                victim);
+            act("$n is stunned, but will probably recover.", victim, NULL, NULL, TO_ROOM);
+            send_to_char("You are stunned, but will probably recover.\r\n", victim);
             break;
-
         case POS_DEAD:
             act("$n is {RDEAD{x!!", victim, 0, 0, TO_ROOM);
             send_to_char("You have been {RKILLED{x!!{x\r\n\r\n", victim);
             break;
-
         default:
             if (dam > victim->max_hit / 4)
+            {
                 send_to_char("That really did {RHURT{x!{x\r\n", victim);
+            }
+
             if (victim->hit < victim->max_hit / 4)
+            {
                 send_to_char("You sure are {RBLEEDING{x!{x\r\n", victim);
+            }
             break;
     }
 
@@ -1001,7 +1036,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
      * Sleep spells and extremely wounded folks.
      */
     if (!IS_AWAKE(victim))
+    {
         stop_fighting(victim, FALSE);
+    }
 
     /*
      * Payoff for killing things.
@@ -1023,12 +1060,11 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
              * Dying penalty:
              * 2/3 way back to previous level.
              */
-            if (victim->exp > exp_per_level(victim, victim->pcdata->points)
-                * victim->level)
+            if (victim->exp > exp_per_level(victim, victim->pcdata->points) * victim->level)
+            {
                 gain_exp(victim,
-                    (2 *
-                        (exp_per_level(victim, victim->pcdata->points) *
-                            victim->level - victim->exp) / 3) + 50);
+                    (2 * (exp_per_level(victim, victim->pcdata->points) * victim->level - victim->exp) / 3) + 50);
+            }
         }
 
         sprintf(buf, "%s got toasted by %s at %s [room %d]",
@@ -1050,7 +1086,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
 
         // Send a toast message to the players.
         if (!IS_NPC(ch) && !IS_NPC(victim))
+        {
             toast(ch, victim);
+        }
 
         /*
          * Death trigger
@@ -1062,18 +1100,20 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         }
 
         raw_kill(victim);
+
         /* dump the flags */
         if (ch != victim && !IS_NPC(ch) && !is_same_clan(ch, victim))
         {
             if (IS_SET(victim->act, PLR_WANTED))
+            {
                 REMOVE_BIT(victim->act, PLR_WANTED);
+            }
         }
 
         /* RT new auto commands */
 
         if (!IS_NPC(ch)
-            && (corpse =
-                get_obj_list(ch, "corpse", ch->in_room->contents)) != NULL
+            && (corpse = get_obj_list(ch, "corpse", ch->in_room->contents)) != NULL
             && corpse->item_type == ITEM_CORPSE_NPC
             && can_see_obj(ch, corpse))
         {
@@ -1114,7 +1154,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     }
 
     if (victim == ch)
+    {
         return TRUE;
+    }
 
     /*
      * Take care of link dead people.
