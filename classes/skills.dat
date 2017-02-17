@@ -872,6 +872,7 @@ Beats       12
 Damage      magic missile~
 MsgOff      !Magic Missile!~
 Race        0
+Ranged       1
 End
 
 #SKILL
