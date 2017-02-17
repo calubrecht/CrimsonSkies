@@ -106,7 +106,7 @@ const struct cmd_type cmd_table[] = {
     {"order",     do_order,     POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"practice",  do_practice,  POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"rest",      do_rest,      POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
-    {"scan",      do_scan,      POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
+    {"scan",      do_scan,      POS_STANDING, 0,  LOG_NORMAL, TRUE},
     {"sit",       do_sit,       POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"sockets",   do_sockets,   POS_DEAD,     L7, LOG_NORMAL, TRUE},
     {"stand",     do_stand,     POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
