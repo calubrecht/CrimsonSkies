@@ -7151,6 +7151,8 @@ SEDIT(sedit_show)
         send_to_char(buf, ch);
     }
 
+    sprintf(buf, "Ranged:       [%s]\n\r", skill->ranged ? "True" : "False");
+    send_to_char(buf, ch);
 
     send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
     send_to_char("--------------------------------------------------------\r\n", ch);
@@ -7487,3 +7489,30 @@ SEDIT(sedit_race)
     return TRUE;
 }
 
+SEDIT( sedit_ranged)
+{
+    SKILLTYPE *skill;
+    EDIT_SKILL(ch, skill);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  ranged [true/false]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+        skill->ranged = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+        skill->ranged = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  ranged [true/false]\r\n", ch );
+        return FALSE;
+    }
+
+    return TRUE;
+}

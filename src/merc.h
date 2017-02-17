@@ -1940,6 +1940,7 @@ struct skill_type
     char *      msg_off;                   /* Wear off message             */
     char *      msg_obj;                   /* Wear off message for obects  */
     int         race;                      /* Specific race if the skill is only for one race */
+    bool        ranged;                    /* Whether or not this skill/spell is ranged */
 };
 
 struct  group_type
@@ -2562,7 +2563,6 @@ char *  one_argument       (char *argument, char *arg_first);
 
 /* magic.c */
 int    find_spell     (CHAR_DATA *ch, const char *name);
-int    mana_cost(CHAR_DATA *ch, int min_mana, int level);
 int    skill_lookup   (const char *name);
 bool   saves_spell    (int level, CHAR_DATA *victim, int dam_type);
 void   obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);

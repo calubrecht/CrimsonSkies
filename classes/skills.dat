@@ -655,6 +655,7 @@ Beats       12
 Damage      fireball~
 MsgOff      !Fireball!~
 Race        0
+Ranged       1
 End
 
 #SKILL

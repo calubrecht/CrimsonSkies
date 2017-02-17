@@ -4343,6 +4343,9 @@ SKILLTYPE *fread_skill(FILE *fp)
         skill->rating[x] = -1;
     }
 
+    // Default all skills to ranged false.
+    skill->ranged = FALSE;
+
     for (; ; )
     {
         word = feof(fp) ? "End" : fread_word(fp);
@@ -4379,6 +4382,7 @@ SKILLTYPE *fread_skill(FILE *fp)
                 break;
             case 'R':
                 KEY("Race", skill->race, fread_number(fp));
+                KEY("Ranged", skill->ranged, fread_number(fp));
                 break;
             case 'S':
                 KEY("SpellFun", skill->spell_fun, spell_function_lookup(fread_string(fp)));

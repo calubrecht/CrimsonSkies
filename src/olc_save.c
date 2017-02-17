@@ -1129,6 +1129,9 @@ void fwrite_skill(FILE *fp, int sn)
 
     fprintf(fp, "Race        %d\n", skill_table[sn]->race);
 
+    if (skill_table[sn]->ranged)
+        fprintf(fp,"Ranged       %d\n", skill_table[sn]->ranged);
+
     fprintf(fp, "End\n\n");
 
 } // end fwrite_skill
