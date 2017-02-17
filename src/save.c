@@ -166,9 +166,6 @@ void save_char_obj(CHAR_DATA * ch)
     return;
 }
 
-
-// marker
-
 /*
  * Write the char.
  */
