@@ -1641,10 +1641,19 @@ void do_scan(CHAR_DATA * ch, char *argument)
         for (door = 0; door < 9; door++)
         {
             if ((pExit = ch->in_room->exit[door]) != NULL)
+            {
+                // Can't look through a closed door.
+                if (IS_SET(pExit->exit_info, EX_CLOSED))
+                {
+                    break;
+                }
+
                 scan_list(pExit->u1.to_room, ch, 1, door);
+            }
         }
         return;
     }
+
     else if (!str_cmp(arg1, "n") || !str_cmp(arg1, "north"))
         door = 0;
     else if (!str_cmp(arg1, "e") || !str_cmp(arg1, "east"))
@@ -1681,6 +1690,12 @@ void do_scan(CHAR_DATA * ch, char *argument)
     {
         if ((pExit = scan_room->exit[door]) != NULL)
         {
+            // If the door is closed then you can't see through it.
+            if (IS_SET(pExit->exit_info, EX_CLOSED))
+            {
+                break;
+            }
+
             scan_room = pExit->u1.to_room;
             scan_list(pExit->u1.to_room, ch, depth, door);
         }
