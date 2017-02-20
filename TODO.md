@@ -12,7 +12,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
-  - Add ranged spells (fireball)
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Add profile command and/or way for user to store some OOC data like email.
@@ -134,3 +133,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Find out why strings are saving funny (this was fixed in notes)  
   - All coloring on login menu to come from settings so no mismatched colors
   - Update formatting on the stat command, use the grid code.
+  - Update ranged spells to support defense spells also (they only support offensive right now).
+  - Updated ranged spells to have a custom message for when the spell flies through another room.
+  - Update ranged spells to show the direction the spell came from.
