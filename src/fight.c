@@ -813,7 +813,7 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
 
         if (victim->position > POS_STUNNED)
         {
-            if (victim->fighting == NULL)
+            if (victim->fighting == NULL && in_same_room(ch, victim))
             {
                 set_fighting(victim, ch);
 
@@ -824,14 +824,16 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
             }
 
             // I kind of feel like this should set POS_FIGHTING regardless of the timer OR
-            // the timer number should be high enough that they haven't voided out.
-            if (victim->timer <= 4)
+            // the timer number should be high enough that they haven't voided out.  Make sure
+            // they are in the same room before setting the position to fighting (excludes ranged
+            // attacks and damage that comes from elsewhere).
+            if (victim->timer <= 4 && in_same_room(ch, victim))
             {
                 victim->position = POS_FIGHTING;
             }
         }
 
-        if (victim->position > POS_STUNNED)
+        if (victim->position > POS_STUNNED && in_same_room(ch, victim))
         {
             if (ch->fighting == NULL)
             {
@@ -843,7 +845,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
          * More charm stuff.
          */
         if (victim->master == ch)
+        {
             stop_follower(victim);
+        }
     }
 
     /*
@@ -1050,11 +1054,7 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
 
         if (!IS_NPC(victim))
         {
-            sprintf(buf, "%s killed by %s at %d",
-                victim->name,
-                (IS_NPC(ch) ? ch->short_descr : ch->name),
-                ch->in_room->vnum);
-            log_string(buf);
+            log_f("%s killed by %s at %d", victim->name, (IS_NPC(ch) ? ch->short_descr : ch->name), ch->in_room->vnum);
 
             /*
              * Dying penalty:

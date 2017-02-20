@@ -849,6 +849,7 @@ Beats       12
 Damage      lightning bolt~
 MsgOff      !Lightning Bolt!~
 Race        0
+Ranged       1
 End
 
 #SKILL

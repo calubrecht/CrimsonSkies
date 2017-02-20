@@ -1535,12 +1535,16 @@ Syntax: cast 'acid blast'     <victim>
 Syntax: cast 'burning hands'  <victim>
 Syntax: cast 'color spray'    <victim>
 Syntax: cast 'fireball'       <victim>
+Syntax  cast 'fireball'       <direction> <victim>
 Syntax: cast 'lightning bolt' <victim>
+Syntax: cast 'lightning bolt' <direction> <victim>
 Syntax: cast 'magic missile'  <victim>
+Syntax: cast 'magic missile'  <direction victim>
 Syntax: cast 'shocking grasp' <victim>
 
 These spells inflict damage on the victim.  The higher-level spells do
-more damage.
+more damage.  Spells such as fireball, lightning bolt and magic missle
+can be ranged in any direction for a number of rooms.
 ~
 
 0 'CALL LIGHTNING'~
@@ -4184,7 +4188,12 @@ who are able to duplicate a piece of parchment in exchange for gold.
 You may use the 'duplicate' command to do so while in one of these shops.
 The first scribe shop in the world is off of Main Street in Red Oak.
 ~
-
+0 RANGED SPELLS~
+There are some spells which can be ranged, or cast out of the room you're
+in and into another.  Fireball, lightning bolt and magic missile are
+examples of ones where the caster can strike an enemy from afar as long
+as they are in direct sight and can see the victim.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request

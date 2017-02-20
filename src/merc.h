@@ -2549,6 +2549,7 @@ bool   same_continent     (int vnum_one, int vnum_two);
 int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);
+bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* recycle.c */
 TIMER *new_timer          (void);
@@ -2562,11 +2563,12 @@ int     mult_argument      (char *argument, char *arg);
 char *  one_argument       (char *argument, char *arg_first);
 
 /* magic.c */
-int    find_spell     (CHAR_DATA *ch, const char *name);
-int    skill_lookup   (const char *name);
-bool   saves_spell    (int level, CHAR_DATA *victim, int dam_type);
-void   obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
-bool   check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
+int       find_spell     (CHAR_DATA *ch, const char *name);
+int       skill_lookup   (const char *name);
+bool      saves_spell    (int level, CHAR_DATA *victim, int dam_type);
+void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
+bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
+CHAR_DATA *get_target(CHAR_DATA *ch, char *argument, bool ranged);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);

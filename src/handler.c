@@ -3748,3 +3748,16 @@ bool obj_in_room(CHAR_DATA *ch, int vnum)
 
     return FALSE;
 }
+
+/*
+ * Whether two players are in the same room.
+ */
+bool in_same_room(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    if (ch != NULL && victim != NULL)
+    {
+        return (ch->in_room == victim->in_room);
+    }
+
+    return FALSE;
+}

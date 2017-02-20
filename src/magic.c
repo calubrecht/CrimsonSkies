@@ -426,11 +426,21 @@ void do_cast(CHAR_DATA * ch, char *argument)
             }
             else
             {
-                if ((victim = get_char_room(ch, target_name)) == NULL)
+                // This will get the target from a ranged room if it's ranged, otherwise it
+                // will get the target fromt he current room as per usual.
+                if ((victim = get_target(ch, target_name, skill_table[sn]->ranged)) == NULL)
                 {
-                    send_to_char("They aren't here.\r\n", ch);
+                    send_to_char( "They aren't here.\r\n", ch );
                     return;
                 }
+            }
+
+            // Make sure the targeted room isn't safe by ownership.
+            if (skill_table[sn]->ranged
+                && ((victim && victim->in_room && !IS_NULLSTR(victim->in_room->owner)) || (ch && ch->in_room && !IS_NULLSTR(ch->in_room->owner))))
+            {
+                send_to_char("Not in that room.\r\n",ch);
+                return;
             }
 
             if (!IS_NPC(ch))
@@ -440,6 +450,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
                     send_to_char("Not on that target.\r\n", ch);
                     return;
                 }
+
                 check_wanted(ch, victim);
             }
 
@@ -651,8 +662,7 @@ void do_cast(CHAR_DATA * ch, char *argument)
 /*
  * Cast spells at targets using a magical object.
  */
-void obj_cast_spell(int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim,
-    OBJ_DATA * obj)
+void obj_cast_spell(int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim, OBJ_DATA * obj)
 {
     void *vo;
     int target = TARGET_NONE;
@@ -790,7 +800,138 @@ void obj_cast_spell(int sn, int level, CHAR_DATA * ch, CHAR_DATA * victim,
     return;
 }
 
+/*
+ * Gets a target with the ability to find targets in other rooms if specified.
+ */
+CHAR_DATA *get_target(CHAR_DATA *ch, char *argument, bool ranged)
+{
+    char arg[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char arg3[MAX_INPUT_LENGTH];
+    CHAR_DATA *victim = NULL;
+    int number;
+    int count = 0;
+    bool found = FALSE;
+    ROOM_INDEX_DATA *scan_room;
+    EXIT_DATA *pExit;
+    int door = 0;
+    int depth = 0;
+    int max_depth = 4;
 
+    //int spell_range = 0;
+    //int spell_dir = -1;
+
+    argument = one_argument(argument, arg);
+    number = number_argument(argument, arg2);
+    sprintf(arg3, "%s", arg);
+    //spell_dir = -1;
+
+    if (ranged)
+    {
+        if (!str_cmp(arg, "n") || !str_cmp(arg, "north"))
+        {
+            door = 0;
+        }
+        else if (!str_cmp(arg, "e") || !str_cmp(arg, "east"))
+        {
+            door = 1;
+        }
+        else if (!str_cmp(arg, "s") || !str_cmp(arg, "south"))
+        {
+            door = 2;
+        }
+        else if (!str_cmp(arg, "w") || !str_cmp(arg, "west"))
+        {
+            door = 3;
+        }
+        else if (!str_cmp(arg, "u") || !str_cmp(arg, "up"))
+        {
+            door = 4;
+        }
+        else if (!str_cmp(arg, "d") || !str_cmp(arg, "down"))
+        {
+            door = 5;
+        }
+       else if (!str_cmp(arg, "nw") || !str_cmp(arg, "northwest"))
+        {
+            door = 6;
+        }
+        else if (!str_cmp(arg, "ne") || !str_cmp(arg, "northeast"))
+        {
+            door = 7;
+        }
+        else if (!str_cmp(arg, "sw") || !str_cmp(arg, "southwest"))
+        {
+            door = 8;
+        }
+        else if (!str_cmp(arg, "se") || !str_cmp(arg, "southeast"))
+        {
+            door = 9;
+        }
+        else
+        {
+            //spell_range = 0;
+        }
+
+        argument = one_argument(argument,arg);
+        scan_room = ch->in_room;
+
+        for (depth = 1; depth < max_depth; depth++)
+        {
+            if ((pExit = scan_room->exit[door]) != NULL)
+            {
+                // If the door is closed then you can't see through it.
+                if (IS_SET(pExit->exit_info, EX_CLOSED))
+                {
+                    break;
+                }
+
+                scan_room = pExit->u1.to_room;
+
+                for (victim = scan_room->people; victim != NULL; victim = victim->next_in_room)
+                {
+                    if (!can_see(ch, victim) || !is_name(arg, victim->name))
+                    {
+                        continue;
+                    }
+
+                    if (++count == number)
+                    {
+                        found = TRUE;
+                        //spell_dir = door;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    //spell_range = depth;
+                    break;
+                }
+
+
+            }
+        }
+    }
+
+    if (!found)
+    {
+        if ((victim = get_char_room(ch, arg3)) != NULL)
+        {
+            found = TRUE;
+            //spell_range = 0;
+        }
+    }
+
+    if (found)
+    {
+        return victim;
+    }
+    else
+    {
+        return NULL;
+    }
+}
 
 /*
  * Spell functions.
