@@ -142,6 +142,7 @@ Sk 'healers bind' 45 1
 Sk 'restore mental presence' 46 1
 Sk 'sacrificial heal' 51 1
 Sk 'reserved' 52 -1
+Sk 'ice blast' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'immortal blessing' 52 -1
 Sk 'bladesong' 52 -1

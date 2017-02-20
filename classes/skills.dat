@@ -659,6 +659,19 @@ Ranged       1
 End
 
 #SKILL
+Name        ice blast~
+SpellFun    spell_ice_blast~
+Target      1
+MinPos      7
+MinMana     15
+Beats       12
+Damage      ice blast~
+MsgOff      !Ice Blast!~
+Race        0
+Ranged       1
+End
+
+#SKILL
 Name        fireproof~
 SpellFun    spell_fireproof~
 Target      4

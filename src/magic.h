@@ -156,3 +156,4 @@ DECLARE_SPELL_FUN(spell_bark_skin);
 DECLARE_SPELL_FUN(spell_self_growth);
 DECLARE_SPELL_FUN(spell_imbue);
 DECLARE_SPELL_FUN(spell_preserve);
+DECLARE_SPELL_FUN(spell_ice_blast);

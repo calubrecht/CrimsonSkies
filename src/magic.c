@@ -2765,10 +2765,12 @@ void spell_energy_drain(int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
+/*
+ * Fireball spell, this spell will do fire damage and support ranging.
+ */
 void spell_fireball(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
+    int dam;
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     static const int dam_each[] = {
         0,
@@ -2778,17 +2780,48 @@ void spell_fireball(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         92, 94, 96, 98, 100, 102, 104, 106, 108, 110,
         112, 114, 116, 118, 120, 122, 124, 126, 128, 130
     };
-    int dam;
 
     level = UMIN(level, sizeof(dam_each) / sizeof(dam_each[0]) - 1);
     level = UMAX(0, level);
     dam = number_range(dam_each[level] / 2, dam_each[level] * 2);
+
     if (saves_spell(level, victim, DAM_FIRE))
+    {
         dam /= 2;
+    }
+
     damage(ch, victim, dam, sn, DAM_FIRE, TRUE);
     return;
 }
 
+/*
+ * Ice blast, this is the opposite of fireball.  This will do cold damage.
+ */
+void spell_ice_blast(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    int dam;
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    static const int dam_each[] = {
+        0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 30, 35, 40, 45, 50, 55,
+        60, 65, 70, 75, 80, 82, 84, 86, 88, 90,
+        92, 94, 96, 98, 100, 102, 104, 106, 108, 110,
+        112, 114, 116, 118, 120, 122, 124, 126, 128, 130
+    };
+
+    level = UMIN(level, sizeof(dam_each) / sizeof(dam_each[0]) - 1);
+    level = UMAX(0, level);
+    dam = number_range(dam_each[level] / 2, dam_each[level] * 2);
+
+    if (saves_spell(level, victim, DAM_COLD))
+    {
+        dam /= 2;
+    }
+
+    damage(ch, victim, dam, sn, DAM_COLD, TRUE);
+    return;
+}
 
 void spell_fireproof(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
@@ -5848,6 +5881,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_imbue")) return spell_imbue;
             if (!str_cmp(name, "spell_interlace_spirit")) return spell_interlace_spirit;
             if (!str_cmp(name, "spell_infravision")) return spell_infravision;
+            if (!str_cmp(name, "spell_ice_blast")) return spell_ice_blast;
             break;
         case 'k':
             if (!str_cmp(name, "spell_know_alignment")) return spell_know_alignment;
@@ -6071,6 +6105,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_dispel_fog) return "spell_dispel_fog";
     if (spell == spell_imbue) return "spell_imbue";
     if (spell == spell_preserve) return "spell_preserve";
+    if (spell == spell_ice_blast) return "spell_ice_blast";
 
     return "reserved";
 
