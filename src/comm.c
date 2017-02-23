@@ -678,11 +678,12 @@ void init_descriptor(int control)
 #if defined(_WIN32)
     int size;
     int desc;
-    size = sizeof(sock);
 #else
     size_t desc;
     socklen_t size;
 #endif
+
+    size = sizeof(sock);
 
     getsockname(control, (struct sockaddr *) &sock, &size);
     if ((desc = accept(control, (struct sockaddr *) &sock, &size)) < 0)
