@@ -34,6 +34,7 @@ struct clan_type
     char    *friendly_name; // Friendly unformatted name without color and with spacing
     int 	hall;           // Death Transfer Room
     bool	independent;    // True for loners/renegades, false for part of a real clan
+    bool    enabled;        // Whether or not this clan is enabled for use
 };
 
 struct position_type

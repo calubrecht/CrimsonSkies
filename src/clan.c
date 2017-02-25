@@ -60,13 +60,13 @@
  * Independent should be FALSE if it is a real clan
  */
 const struct clan_type clan_table[MAX_CLAN] = {
-    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE },
-    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE },
-    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE },
-    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE }
+    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE,  FALSE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE,  TRUE  },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE,  TRUE  },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE, TRUE  }
 };
 
 /*
@@ -176,8 +176,10 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
 
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
-        if (IS_NULLSTR(clan_table[clan].name))
-            continue;
+        if (IS_NULLSTR(clan_table[clan].name) || !clan_table[clan].enabled)
+        {
+           continue;
+        }
 
         sprintf(buf, "%-25s{x %-5s\r\n",
             clan_table[clan].who_name,
