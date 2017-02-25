@@ -782,6 +782,9 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
 
             if (obj != NULL)
             {
+                // Log it, extract it
+                log_f("%s's weapon was extracted for excess damage.", ch->name);
+                log_obj(obj);
                 separate_obj(obj);
                 extract_obj(obj);
             }
