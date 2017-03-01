@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.1.2"
+#define VERSION "1.1.3"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -1107,6 +1107,7 @@ typedef enum
 #define ITEM_SHOVEL      34
 #define ITEM_FOG         35
 #define ITEM_PARCHMENT   36
+#define ITEM_SEED        37
 
 /*
  * Extra flags.
@@ -1135,6 +1136,7 @@ typedef enum
 #define ITEM_MELT_DROP     (U)
 #define ITEM_HAD_TIMER     (V)
 #define ITEM_SELL_EXTRACT  (W)
+//                         (X)
 #define ITEM_BURN_PROOF    (Y)
 #define ITEM_NOUNCURSE     (Z)
 
@@ -2609,6 +2611,9 @@ void    group_add        (CHAR_DATA *ch, const char *name, bool deduct);
 void    group_remove     (CHAR_DATA *ch, const char *name);
 void    show_skill_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
 void    show_spell_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
+
+/* nature.c */
+void    seed_grow_check  (OBJ_DATA *obj);
 
 /* special.c */
 SF *    spec_lookup      (const char *name);

@@ -4196,6 +4196,18 @@ in and into another.  Fireball, lightning bolt and magic missile are
 examples of ones where the caster can strike an enemy from afar as long
 as they are in direct sight and can see the victim.
 ~
+0 SEEDS GROWING~
+Seeds maybe purchased at shops across the world or found out in the
+environnment.  Seeds when planted will have a chance at growing into
+something else (perhaps edible, perhaps medicinal, perhaps magical).
+
+Seeds maybe planted with the 'bury' command.  Different terrain
+types will better support (or not) seed growth as well as other
+environmental factors.
+
+The first seed merchant in the world is located off of Main Street
+in the town of Red Oak.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request

@@ -1079,6 +1079,22 @@ void obj_update(void)
             }
         }
 
+        // Seed processing.
+        if (obj->item_type == ITEM_SEED && IS_OBJ_STAT(obj, ITEM_BURIED))
+        {
+            seed_grow_check(obj);
+
+            // Check to see if the seed exists anymore after it was grown, if it doesn't
+            // skip the rest of the loop.
+            if (obj == NULL)
+            {
+                continue;
+            }
+        }
+
+        // This skipos out if the timer isn't 0... this means the code that runs below this runs
+        // and then the item goes *poof*.  Code that processes an item for something needs to go
+        // above here.
         if (obj->timer <= 0 || --obj->timer > 0)
             continue;
 

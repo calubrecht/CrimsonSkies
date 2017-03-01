@@ -2378,6 +2378,15 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             send_to_char(buf, ch);
             break;
 
+        case ITEM_SEED:
+            sprintf(buf,
+                "[v0] Vnum to Grow: [%d]\r\n"
+                "[v1] Percent Bonus: [%d]\r\n",
+                obj->value[0],
+                obj->value[1]);
+            send_to_char(buf, ch);
+            break;
+
         case ITEM_FOUNTAIN:
             sprintf(buf,
                 "[v0] Liquid Total: [%d]\r\n"
@@ -2563,6 +2572,23 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num, char *
                     pObj->value[0] = atoi(argument);
                     break;
             }
+            break;
+        case ITEM_SEED:
+            switch (value_num)
+            {
+                default:
+                    send_to_char("Nature System:  Grow Seed.\r\n", ch);
+                    return FALSE;
+                case 0:
+                    send_to_char( "Vnum of object to grow SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char( "Bonus for growing SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+            }
+
             break;
         case ITEM_PORTAL:
             switch (value_num)

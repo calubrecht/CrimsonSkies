@@ -70,6 +70,7 @@ const struct item_type item_table[] = {
     {ITEM_SHOVEL,       "shovel"},
     {ITEM_FOG,          "fog"},
     {ITEM_PARCHMENT,    "parchment"},
+    {ITEM_SEED,         "seed"},
     {0,                 NULL}
 };
 

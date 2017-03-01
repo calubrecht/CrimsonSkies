@@ -1997,6 +1997,7 @@ OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex)
         case ITEM_SHOVEL:
         case ITEM_FOG:
         case ITEM_PARCHMENT:
+        case ITEM_SEED:
             break;
     }
 

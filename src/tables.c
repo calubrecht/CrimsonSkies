@@ -429,6 +429,7 @@ const struct flag_type type_flags[] = {
     {"shovel", ITEM_SHOVEL, TRUE},
     {"fog", ITEM_FOG, TRUE},
     {"parchment", ITEM_PARCHMENT, TRUE},
+    {"seed", ITEM_SEED, TRUE},
     {NULL, 0, 0}
 };
 

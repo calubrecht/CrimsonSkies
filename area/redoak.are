@@ -6,6 +6,7 @@ LevelRange 1 51
 Credits Rhien~
 Security 1
 Continent 2
+AreaFlags A
 End
 
 
@@ -254,6 +255,20 @@ ABVZ DFH 3 0
 40 0 1d1+999 1d1+999 2d4+30 divine
 -15 -15 -15 -15
 FHIK ABCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#716
+timor merchant~
+Timor~
+Timor, the shopkeeper
+~
+You see a half-elf sitting on a stool behind his counter.
+~
+human~
+ABV DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK BCD 0 0
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
 #0
@@ -714,6 +729,70 @@ paper~
 parchment 0 A
 0 0 0 0 0
 1 10 100 P
+#749
+furry white seed~
+a furry white seed~
+A furry white seed lies here.~
+seed~
+seed 0 A
+BCDFGHJ BEF 0 0 0
+1 0 500 P
+#750
+milk thistle root~
+a milk thistle root~
+A milk thistle root lies here.~
+milk root~
+pill G AO
+10 'sanctuary' 'reserved' 'reserved' 'reserved'
+11 10 800 P
+#751
+carrot seed~
+a carrot seed~
+A carrot seed lies here.~
+seed~
+seed 0 A
+EFGHJ CDEF 0 0 0
+1 0 10 P
+#752
+carrot~
+a carrot~
+A carrot lies here.~
+food~
+food 0 A
+CD CD 0 0 0
+1 10 9 P
+#753
+pumpkin seed~
+a pumpkin seed~
+A pumpkin seed lies here.~
+seed~
+seed 0 A
+BEFGHJ CDEF 0 0 0
+1 0 10 P
+#754
+pumpkin~
+a pumpkin~
+A pumpkin lies here.~
+food~
+food 0 A
+CD CD 0 0 0
+1 10 9 P
+#755
+ash gray seed~
+an ash gray seed~
+An ash gray seed lies here.~
+seed~
+seed 0 A
+CEFGHJ CE 0 0 0
+1 0 500 P
+#756
+ash root~
+an ash root~
+An ash root lies here.~
+root~
+pill G AO
+10 'stone skin' 'reserved' 'reserved' 'reserved'
+11 10 800 P
 #0
 
 
@@ -900,6 +979,10 @@ Close to the east you can see the eastern gates of the city.  To the west
 heads towards the Town Center.  
 ~
 0 262144 1
+D0
+~
+~
+0 0 740
 D1
 ~
 ~
@@ -1450,6 +1533,71 @@ D2
 ~
 0 0 701
 S
+#740
+A Stone Archway to Timor's~
+You are standing at a stone arch-way stands over a cobblestone path that
+leads to a humble wooden establishment ahead.  A large wooden sign is
+hanging from the archway by thick bound rope.
+~
+0 0 0
+E
+sign~
+The sign reads: Timor's Seed Shop 
+~
+D0
+~
+~
+0 0 741
+D2
+~
+~
+0 0 707
+S
+#741
+Cobblestone Walkway~
+The cobblestone under your feet looks to be worn by time and the
+footsteps of many people over that have passed over it.  Directly to the
+north of you is the door to the wooden seed shack while a vast yard lays to
+the east.  
+~
+0 0 1
+D0
+~
+~
+0 0 742
+D1
+~
+~
+0 0 743
+D2
+~
+~
+0 0 740
+S
+#742
+Inside Timor's Shop~
+You are standing in a room with many many seeds, herbs and other type
+items covering the entire place.  A large counter stands in the back of the
+room and many of the better wares are laying behind the wooden stand.
+~
+0 8 0
+D2
+~
+~
+0 0 741
+S
+#743
+Timor's Garden~
+You are standing inside of Timor's garden.  The long yard has segmented
+gardens that are growing various types of produce and herbs.  Everything
+seems lush as the aroma of live vegetation fills the air.  
+~
+0 0 2
+D3
+~
+~
+0 0 741
+S
 #0
 
 
@@ -1548,6 +1696,11 @@ G 0 744 0 A barrel of beer is given to Leesaport the bartender
 G 0 745 0 A shot of whisky is given to Leesaport the bartender
 M 0 714 1 738 1 Load the healer
 M 0 715 1 739 1 Load Shazman
+M 0 716 1 742 1 Load Timor
+G 0 749 0 A furry white seed is given to Timor
+G 0 751 0 A carrot seed is given to Timor
+G 0 753 0 A pumpkin seed is given to Timor
+G 0 755 0 An ash gray seed is given to Timor
 S
 
 
@@ -1560,6 +1713,7 @@ S
 706 1 8 13 15 19 150 40 0 23
 707 9 0 0 0 0 100 50 0 23
 710 0 0 0 0 0 110 90 0 23
+716 0 0 0 0 0 100 50 0 23
 0
 
 
