@@ -6,6 +6,7 @@ LevelRange 1 51
 Credits [ All ] Diku    Midgaard~
 Security 9
 Continent 1
+AreaFlags A
 End
 
 
@@ -1844,6 +1845,22 @@ A
 A
 12 20
 ~
+#3125
+furry white seed~
+a deep green seed~
+A deep green seed lies here.~
+seed~
+seed 0 A
+BCEFKL BEF 0 0 0
+1 0 250 P
+#3126
+green root~
+a dark green root~
+A dark green root lies here sprouting from the ground.~
+milk root~
+pill G AO
+10 'cure light' 'reserved' 'reserved' 'reserved'
+11 10 800 P
 #3129
 hand cuffs~
 a pair of hand cuffs~
@@ -6353,7 +6370,7 @@ G 0 3032 0 A bag is given to the grocer
 G 0 3033 0 A box is given to the grocer
 E 0 3022 0 16 A long sword is loaded wielded of the grocer
 G 0 3379 0 A shovel is given to the grocer
-G 0 3380 0 A piece of parchment is given to the grocer
+G 0 3380 0 A blank piece of parchment is given to the grocer
 M 0 3003 1 3011 1 Load the weaponsmith
 G 0 3020 0 A dagger is given to the weaponsmith
 G 0 3021 0 A small sword is given to the weaponsmith
@@ -6456,6 +6473,7 @@ G 0 3039 0 A scroll of cancellation is given to the wizard
 G 0 3042 0 A scroll of recall is given to the wizard
 G 0 3043 0 A ring of protection is given to the wizard
 G 0 3044 0 A wand of magic missiles is given to the wizard
+G 0 3125 0 A deep green seed is given to the wizard
 M 0 3009 1 3034 1 Load the jeweller
 G 0 3378 0 An opal is given to the jeweller
 G 0 3377 0 A diamond is given to the jeweller
