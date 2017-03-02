@@ -183,6 +183,12 @@
     <ClCompile Include="src\grid.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\nature.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parchment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">

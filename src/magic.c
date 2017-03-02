@@ -4900,7 +4900,7 @@ void spell_summon(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 void spell_teleport(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    ROOM_INDEX_DATA *pRoomIndex;
+    ROOM_INDEX_DATA *pRoomIndex = NULL;
     bool found = FALSE;
     int counter = 0;
 
@@ -4941,16 +4941,25 @@ void spell_teleport(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     }
 
-    if (victim != ch)
+    if (pRoomIndex != NULL)
     {
-        send_to_char("You have been teleported!\r\n", victim);
+        if (victim != ch)
+        {
+            send_to_char("You have been teleported!\r\n", victim);
+        }
+
+        act("$n vanishes!", victim, NULL, NULL, TO_ROOM);
+        char_from_room(victim);
+        char_to_room(victim, pRoomIndex);
+        act("$n slowly fades into existence.", victim, NULL, NULL, TO_ROOM);
+        do_function(victim, &do_look, "auto");
+    }
+    else
+    {
+        send_to_char("You failed.\r\n", ch);
+        bug("spell_teleport: pRoomIndex was null", sn);
     }
 
-    act("$n vanishes!", victim, NULL, NULL, TO_ROOM);
-    char_from_room(victim);
-    char_to_room(victim, pRoomIndex);
-    act("$n slowly fades into existence.", victim, NULL, NULL, TO_ROOM);
-    do_function(victim, &do_look, "auto");
     return;
 }
 
