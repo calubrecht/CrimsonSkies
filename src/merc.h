@@ -2552,6 +2552,7 @@ int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);
 bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
+int    obj_contains_count (OBJ_DATA *obj);
 
 /* recycle.c */
 TIMER *new_timer          (void);

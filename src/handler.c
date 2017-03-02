@@ -3761,3 +3761,24 @@ bool in_same_room(CHAR_DATA *ch, CHAR_DATA *victim)
 
     return FALSE;
 }
+
+/*
+ * Returns the number of items an obj contains (e.g. how many things are in a container,
+ * corpse, etc.  If the obj is NULL or doesn't contain anything 0 will be returned.
+ */
+int obj_contains_count(OBJ_DATA *obj)
+{
+    if (obj == NULL)
+    {
+        return 0;
+    }
+
+    int count = 0;
+
+    for (obj = obj->contains; obj != NULL; obj = obj->next_content)
+    {
+        count++;
+    }
+
+    return count;
+}
