@@ -6651,8 +6651,18 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    printf_to_char(ch, "Hit roll bonus: %d", dex_app[get_curr_stat(ch,STAT_DEX)].hitroll_bonus);
-    printf_to_char(ch, "Dam roll bonus: %d", str_app[get_curr_stat(ch,STAT_STR)].todam);
+    OBJ_DATA *obj;
+    int count = 0;
+
+    if ((obj = get_obj_world(ch, argument)) == NULL)
+    {
+        send_to_char("Nothing like that in hell, earth, or heaven.\r\n", ch);
+        return;
+    }
+
+    count = get_obj_number(obj);
+
+    printf_to_char(ch, "That contains %d items.\r\n", count);
 
     return;
 } // end do_debug
