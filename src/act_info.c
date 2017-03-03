@@ -2065,7 +2065,7 @@ void do_score(CHAR_DATA * ch, char *argument)
     // Row 5
     row = create_row_padded(grid, 0, 0, 2, 2);
 
-    row_append_cell(row, 21, "     Gold: {C%-4d{x\n   Silver: {C%-5d{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
+    row_append_cell(row, 21, "     Gold: {C%-4ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
         ch->gold, ch->silver,
         ch->train, ch->practice,
         !IS_NPC(ch) ? ch->pcdata->quest_points : 0);
