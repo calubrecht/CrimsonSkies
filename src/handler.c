@@ -2504,6 +2504,9 @@ OBJ_DATA *create_money(int gold, int silver)
 /*
  * Return # of objects which an object counts as.
  * Thanks to Tony Chamberlain for the correct recursive code here.
+ * This method skips containers, gems, jewelry and money as small
+ * gems like diamonds could add up quickly (and you may have a reason
+ * to carry a large amount on you in order to make purchases.
  */
 int get_obj_number(OBJ_DATA * obj)
 {
@@ -2511,14 +2514,42 @@ int get_obj_number(OBJ_DATA * obj)
 
     if (obj->item_type == ITEM_CONTAINER || obj->item_type == ITEM_MONEY
         || obj->item_type == ITEM_GEM || obj->item_type == ITEM_JEWELRY)
+    {
         number = 0;
+    }
     else
+    {
         number = obj->count;
+    }
 
     for (obj = obj->contains; obj != NULL; obj = obj->next_content)
+    {
         number += get_obj_number(obj);
+    }
 
     return number;
+}
+
+/*
+ * Counts all objects of a specific type in a users inventory (this goes
+ * through their containers also).
+ */
+int obj_count_by_type(OBJ_DATA *obj, int item_type)
+{
+    int number = 0;
+
+    if (obj->item_type == item_type)
+    {
+        number = obj->count;
+    }
+
+    for (obj = obj->contains; obj != NULL; obj = obj->next_content)
+    {
+        number += obj_count_by_type(obj, item_type);
+    }
+
+    return number;
+
 }
 
 /*

@@ -2524,6 +2524,7 @@ OD *   get_obj_here       (CHAR_DATA *ch, char *argument);
 OD *   get_obj_world      (CHAR_DATA *ch, char *argument);
 OD *   create_money       (int gold, int silver);
 int    get_obj_number     (OBJ_DATA *obj);
+int    obj_count_by_type  (OBJ_DATA *obj, int item_type);
 int    get_obj_weight     (OBJ_DATA *obj);
 int    get_true_weight    (OBJ_DATA *obj);
 bool   room_is_dark       (ROOM_INDEX_DATA *pRoomIndex);

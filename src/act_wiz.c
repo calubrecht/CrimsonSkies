@@ -6657,11 +6657,21 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    OBJ_DATA *obj;
 
-    int gold = ch->silver / 100;
-    int silver = ch->silver % 100;
+    if (argument[0] == '\0')
+    {
+        send_to_char("Stat what?\r\n", ch);
+        return;
+    }
 
-    printf_to_char(ch, "You've exchanged %ld silver for %d gold and are left with %d change.\n\r", ch->silver, gold, silver);
+    if ((obj = get_obj_world(ch, argument)) == NULL)
+    {
+        send_to_char("Nothing like that in hell, earth, or heaven.\r\n", ch);
+        return;
+    }
+
+    printf_to_char(ch, "%d count\r\n", obj_count_by_type(obj, ITEM_WEAPON));
 
     return;
 } // end do_debug
