@@ -4661,7 +4661,10 @@ void load_statistics()
 } // end load_statistics
 
 /*
- * Assign GSN's to the proper skill.
+ * Assign GSN's to the proper skill.  If the gsn value is referenced instead
+ * of calls to skill_lookup it will be much more efficient as these are only
+ * loaded once at startup (as opposed to say, looking up 50 spells everytime
+ * the cancel spell or dispel spell is cast).
  */
 void assign_gsn()
 {
