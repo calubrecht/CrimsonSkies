@@ -2455,19 +2455,19 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     /* begin running through the spells */
 
-    if (check_dispel(level, victim, skill_lookup("armor")))
+    if (check_dispel(level, victim, gsn_armor))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("bless")))
+    if (check_dispel(level, victim, gsn_bless))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("blindness")))
+    if (check_dispel(level, victim, gsn_blindness))
     {
         found = TRUE;
         act("$n is no longer blinded.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("calm")))
+    if (check_dispel(level, victim, gsn_calm))
     {
         found = TRUE;
         act("$n no longer looks so peaceful...", victim, NULL, NULL,

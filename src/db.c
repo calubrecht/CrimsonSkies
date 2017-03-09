@@ -4729,6 +4729,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_circle, "circle");
     ASSIGN_GSN(gsn_disorientation, "disorientation");
     ASSIGN_GSN(gsn_blind_fighting, "blind fighting");
+    ASSIGN_GSN(gsn_armor, "armor");
     ASSIGN_GSN(gsn_bless, "bless");
     ASSIGN_GSN(gsn_song_of_dissonance, "song of dissonance");
     ASSIGN_GSN(gsn_song_of_protection, "song of protection");
@@ -4758,6 +4759,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_imbue, "imbue");
     ASSIGN_GSN(gsn_preserve, "preserve");
     ASSIGN_GSN(gsn_haste, "haste");
+    ASSIGN_GSN(gsn_calm, "calm");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;
