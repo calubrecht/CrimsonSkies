@@ -3612,7 +3612,8 @@ void empty_pits(void)
 
 /*
  * Whether or not a player is carrying a certain type of item in their
- * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).
+ * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).  This does not look
+ * into the contents of containers.
  */
 bool has_item_type(CHAR_DATA *ch, int item_type)
 {
