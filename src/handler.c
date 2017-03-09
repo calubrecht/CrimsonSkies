@@ -2965,6 +2965,8 @@ char *act_bit_name(int act_flags)
             strcat(buf, " train");
         if (act_flags & ACT_PRACTICE)
             strcat(buf, " practice");
+        if (act_flags & ACT_BANKER)
+            strcat(buf, " banker");
         if (act_flags & ACT_UNDEAD)
             strcat(buf, " undead");
         if (act_flags & ACT_CLERIC)

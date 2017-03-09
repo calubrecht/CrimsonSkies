@@ -85,7 +85,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp);
 void fread_pet (CHAR_DATA * ch, FILE * fp);
 void fread_obj (CHAR_DATA * ch, FILE * fp);
 
-
 /*
  * Save a character and inventory.
  */
@@ -175,6 +174,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     int sn, gn, pos;
     extern int top_group;
 
+    // Although this could save a mob, it's never called from a place
+    // that allows that, so pcdata calls should be safe.
     fprintf(fp, "#%s\n", IS_NPC(ch) ? "MOB" : "PLAYER");
 
     fprintf(fp, "Name %s~\n", ch->name);
@@ -212,15 +213,15 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     fprintf(fp, "HMV  %d %d %d %d %d %d\n",
         ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move,
         ch->max_move);
-    if (ch->gold > 0)
-        fprintf(fp, "Gold %ld\n", ch->gold);
-    else
-        fprintf(fp, "Gold %d\n", 0);
-    if (ch->silver > 0)
-        fprintf(fp, "Silver %ld\n", ch->silver);
-    else
-        fprintf(fp, "Silver %d\n", 0);
+
+    fprintf(fp, "Gold %ld\n", ch->gold);
+    fprintf(fp, "Silver %ld\n", ch->silver);
+
+    // Money they have stored in the bank
+    fprintf(fp, "BankGold %ld\n", ch->pcdata->bank_gold);
+
     fprintf(fp, "Experience  %d\n", ch->exp);
+
     if (ch->act != 0)
         fprintf(fp, "Act  %s\n", print_flags(ch->act));
     if (ch->affected_by != 0)
@@ -691,6 +692,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->pk_timer = 0;
     ch->pcdata->pkills = 0;
     ch->pcdata->pkilled = 0;
+    ch->pcdata->bank_gold = 0;
     ch->pcdata->recall_vnum = 0;
     ch->stance = STANCE_NORMAL;
 
@@ -967,6 +969,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Bamfout", ch->pcdata->bamfout, fread_string(fp));
                 KEY("Bin", ch->pcdata->bamfin, fread_string(fp));
                 KEY("Bout", ch->pcdata->bamfout, fread_string(fp));
+                KEY("BankGold", ch->pcdata->bank_gold, fread_number(fp));
                 break;
 
             case 'C':

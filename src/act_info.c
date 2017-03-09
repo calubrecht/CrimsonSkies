@@ -1963,24 +1963,30 @@ void do_exits(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Show's a players worth both in money and other valued stats.
+ */
 void do_worth(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-
+    // NPC's will only see stats that aren't in pcdata.
     if (IS_NPC(ch))
     {
-        sprintf(buf, "You have %ld gold and %ld silver.\r\n",
-            ch->gold, ch->silver);
-        send_to_char(buf, ch);
+        printf_to_char(ch, "You have %ld gold and %ld silver.\r\n", ch->gold, ch->silver);
         return;
     }
 
-    sprintf(buf,
-        "You have %ld gold, %ld silver, %d quest points and %d experience (%d exp to level).\r\n",
-        ch->gold, ch->silver, ch->pcdata->quest_points, ch->exp,
-        (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
-
-    send_to_char(buf, ch);
+    // Show experience also, but only if less than level 51.
+    if (ch->level < LEVEL_HERO)
+    {
+        printf_to_char(ch, "You carry %ld gold, %ld silver and have %ld gold in the bank.\r\n", ch->gold, ch->silver, ch->pcdata->bank_gold);
+        printf_to_char(ch, "You have %d quest points and %d experience (%d exp to level).\r\n",
+            ch->pcdata->quest_points, ch->exp, (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
+    }
+    else
+    {
+        printf_to_char(ch, "You carry %ld gold, %ld silver and have %ld gold in the bank.\r\n", ch->gold, ch->silver, ch->pcdata->bank_gold);
+        printf_to_char(ch, "You have %d quest points.\r\n", ch->pcdata->quest_points);
+    }
 
     return;
 }
@@ -2065,8 +2071,10 @@ void do_score(CHAR_DATA * ch, char *argument)
     // Row 5
     row = create_row_padded(grid, 0, 0, 2, 2);
 
-    row_append_cell(row, 21, "     Gold: {C%-4ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
-        ch->gold, ch->silver,
+    row_append_cell(row, 21, "     Gold: {C%-4ld{x\nBank Gold: {C%ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
+        ch->gold,
+        !IS_NPC(ch) ? ch->pcdata->bank_gold : 0,
+        ch->silver,
         ch->train, ch->practice,
         !IS_NPC(ch) ? ch->pcdata->quest_points : 0);
 

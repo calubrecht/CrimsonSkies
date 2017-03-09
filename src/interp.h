@@ -380,3 +380,4 @@ DECLARE_DO_FUN(do_nopray);
 DECLARE_DO_FUN(do_write);
 DECLARE_DO_FUN(do_read);
 DECLARE_DO_FUN(do_duplicate);
+DECLARE_DO_FUN(do_bank);

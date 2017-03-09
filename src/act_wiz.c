@@ -1689,6 +1689,12 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         victim->alignment, victim->gold, victim->silver, victim->exp);
     send_to_char(buf, ch);
 
+    if (!IS_NPC(victim))
+    {
+        sprintf(buf, "Bank Gold: %ld\r\n", victim->pcdata->bank_gold);
+        send_to_char(buf, ch);
+    }
+
     sprintf(buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
         GET_AC(victim, AC_PIERCE), GET_AC(victim, AC_BASH),
         GET_AC(victim, AC_SLASH), GET_AC(victim, AC_EXOTIC));
@@ -6651,18 +6657,11 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    OBJ_DATA *obj;
-    int count = 0;
 
-    if ((obj = get_obj_world(ch, argument)) == NULL)
-    {
-        send_to_char("Nothing like that in hell, earth, or heaven.\r\n", ch);
-        return;
-    }
+    int gold = ch->silver / 100;
+    int silver = ch->silver % 100;
 
-    count = get_obj_number(obj);
-
-    printf_to_char(ch, "That contains %d items.\r\n", count);
+    printf_to_char(ch, "You've exchanged %ld silver for %d gold and are left with %d change.\n\r", ch->silver, gold, silver);
 
     return;
 } // end do_debug

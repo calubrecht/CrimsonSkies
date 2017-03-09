@@ -111,8 +111,9 @@ const struct wiznet_type wiznet_table[] = {
     {"restore",   WIZ_RESTORE,   L2},
     {"snoops",    WIZ_SNOOPS,    L2},
     {"switches",  WIZ_SWITCHES,  L2},
-    {"secure",    WIZ_SECURE,    L1},
+    {"secure",    WIZ_SECURE,    L2},
     {"general",   WIZ_GENERAL,   IM},
+    {"bank",      WIZ_BANK,      L6},
     {NULL, 0, 0}
 };
 

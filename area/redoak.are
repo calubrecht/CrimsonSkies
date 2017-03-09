@@ -271,6 +271,19 @@ ABV DFH 3 0
 FHIK BCD 0 0
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
+#717
+banker~
+The banker~
+A banker wearing a suit with black suspenders is here.
+~
+~
+human~
+ABLV DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK BCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -297,9 +310,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-18 1
-A
 19 1
+A
+18 1
 #702
 red oak sword~
 a red oak sword~
@@ -309,9 +322,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-18 1
-A
 19 1
+A
+18 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -321,9 +334,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-18 1
-A
 19 1
+A
+18 1
 #704
 club~
 a red oak club~
@@ -515,14 +528,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
-letters~
-They say, "Use 'hold lantern' to activate."
-~
-E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
+~
+E
+letters~
+They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -839,6 +852,10 @@ D1
 ~
 ~
 0 0 702
+D2
+~
+~
+0 0 744
 D3
 ~
 ~
@@ -1598,6 +1615,19 @@ D3
 ~
 0 0 741
 S
+#744
+Bank of Red Oak~
+You are standing in the lobby of the bank of Red Oak.  The floor is made
+of smooth marble with various tones of gray striated throughout it.  A
+banker sits behind the counter that is shielded from you with iron bars,
+only allowing for small items to pass between you and him.  
+~
+0 262152 0
+D0
+~
+~
+0 0 701
+S
 #0
 
 
@@ -1701,6 +1731,7 @@ G 0 749 0 A furry white seed is given to Timor
 G 0 751 0 A carrot seed is given to Timor
 G 0 753 0 A pumpkin seed is given to Timor
 G 0 755 0 An ash gray seed is given to Timor
+M 0 717 1 744 1 Load The banker
 S
 
 

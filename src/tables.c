@@ -86,6 +86,7 @@ const struct flag_type act_flags[] = {
     {"pet",            I, TRUE},
     {"train",          J, TRUE},
     {"practice",       K, TRUE},
+    {"banker",         L, TRUE},
     {"undead",         O, TRUE},
     {"cleric",         Q, TRUE},
     {"mage",           R, TRUE},

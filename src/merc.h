@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.1.4"
+#define VERSION "1.1.5"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -732,7 +732,7 @@ typedef enum
 #define ACT_PET                (I)   /* Auto set for pets  */
 #define ACT_TRAIN              (J)   /* Can train PC's     */
 #define ACT_PRACTICE           (K)   /* Can practice PC's  */
-//                             (L)
+#define ACT_BANKER             (L)
 //                             (M)
 //                             (N)
 #define ACT_UNDEAD             (O)
@@ -1482,6 +1482,7 @@ typedef enum
 #define WIZ_PREFIX          (S)
 #define WIZ_SPAM            (T)
 #define WIZ_GENERAL         (U)
+#define WIZ_BANK            (V)
 
 /*
  * Prototype for a mob.
@@ -1690,6 +1691,7 @@ struct pc_data
     int             quest_mob;       // Vassago - Questing
     int             pkills;          // The number of player kills a character has.
     int             pkilled;         // The number of times a player has been killed.
+    long            bank_gold;       // The amount of gold a player has in the bank.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2647,6 +2649,7 @@ char *  first_arg      (char *argument, char *arg_first, bool fCase);
 char *  string_unpad   (char * argument);
 char *  string_proper  (char * argument);
 char *  num_punct      (int foo);
+char *  num_punct_long (long foo);
 
 /* olc.c */
 bool      run_olc_editor    (DESCRIPTOR_DATA *d);

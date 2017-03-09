@@ -3243,6 +3243,12 @@ void do_list(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (find_mob_by_act(ch, ACT_BANKER) != NULL)
+    {
+        do_bank(ch, "");
+        return;
+    }
+
     // Check to see if a quest master in the room.
     if (find_quest_master(ch) != NULL)
     {
