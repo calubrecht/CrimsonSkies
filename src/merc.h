@@ -2569,7 +2569,6 @@ char *  one_argument       (char *argument, char *arg_first);
 
 /* magic.c */
 int       find_spell     (CHAR_DATA *ch, const char *name);
-int       skill_lookup   (const char *name);
 bool      saves_spell    (int level, CHAR_DATA *victim, int dam_type);
 void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
 bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
@@ -2601,6 +2600,7 @@ void    save_char_obj      (CHAR_DATA *ch);
 bool    load_char_obj      (DESCRIPTOR_DATA *d, char *name);
 
 /* skills.c */
+int     skill_lookup     (const char *name);
 bool    parse_gen_groups (CHAR_DATA *ch, char *argument);
 void    list_group_costs (CHAR_DATA *ch);
 void    list_group_known (CHAR_DATA *ch);

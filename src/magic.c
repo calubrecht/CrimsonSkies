@@ -48,25 +48,6 @@ void say_spell(CHAR_DATA * ch, int sn);
 bool remove_obj(CHAR_DATA * ch, int iWear, bool fReplace);
 void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
 
-/*
- * Lookup a skill number by name.
- */
-int skill_lookup(const char *name)
-{
-    int sn;
-
-    for (sn = 0; sn < top_sn; sn++)
-    {
-        if (skill_table[sn]->name == NULL)
-            break;
-        if (LOWER(name[0]) == LOWER(skill_table[sn]->name[0])
-            && !str_prefix(name, skill_table[sn]->name))
-            return sn;
-    }
-
-    return -1;
-}
-
 int find_spell(CHAR_DATA * ch, const char *name)
 {
     /* finds a spell the character can cast if possible */

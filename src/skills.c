@@ -40,6 +40,25 @@
 #include "recycle.h"
 
 /*
+ * Lookup a skill number by name.
+ */
+int skill_lookup(const char *name)
+{
+    int sn;
+
+    for (sn = 0; sn < top_sn; sn++)
+    {
+        if (skill_table[sn]->name == NULL)
+            break;
+        if (LOWER(name[0]) == LOWER(skill_table[sn]->name[0])
+            && !str_prefix(name, skill_table[sn]->name))
+            return sn;
+    }
+
+    return -1;
+}
+
+/*
  * Returns the skill proficiency for a requested sn (skill number).  This will return
  * what the person's % learned is and then factor in other environmental factors like
  * whether the player is drunk or stunned (lowers the %).  There is a CHANCE_SKILL
