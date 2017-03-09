@@ -4685,7 +4685,9 @@ void assign_gsn()
     ASSIGN_GSN(gsn_third_attack, "third attack");
     ASSIGN_GSN(gsn_blindness, "blindness");
     ASSIGN_GSN(gsn_charm_person, "charm person");
+    ASSIGN_GSN(gsn_change_sex, "change sex");
     ASSIGN_GSN(gsn_curse, "curse");
+    ASSIGN_GSN(gsn_chill_touch, "chill touch");
     ASSIGN_GSN(gsn_invis, "invisibility");
     ASSIGN_GSN(gsn_mass_invis, "mass invis");
     ASSIGN_GSN(gsn_plague, "plague");

@@ -2474,25 +2474,25 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
             TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("change sex")))
+    if (check_dispel(level, victim, gsn_change_sex))
     {
         found = TRUE;
         act("$n looks more like $mself again.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("charm person")))
+    if (check_dispel(level, victim, gsn_charm_person))
     {
         found = TRUE;
         act("$n regains $s free will.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("chill touch")))
+    if (check_dispel(level, victim, gsn_chill_touch))
     {
         found = TRUE;
         act("$n looks warmer.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("curse")))
+    if (check_dispel(level, victim, gsn_curse))
         found = TRUE;
 
     if (check_dispel(level, victim, skill_lookup("detect evil")))
