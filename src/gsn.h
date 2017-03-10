@@ -20,15 +20,16 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
-/***************************************************************************
+ /***************************************************************************
  *  Portions of this code originated from a post made by Erwin Andreasen   *
  *  to the MERC/Envy mail list in January of 1998.  Additional code for    *
  *  assigning the GSN's originated from the Smaug code base and is needed  *
  *  to for setting the pointers in the skill table to the gsn where        *
  *  necessary.                                                             *
  *                                                                         *
- *  merc.h will have the global include for this file and then the IN_DB_C *
- *  flag will be set in db.c.  That should be all we need to set this up.  *
+ *  merc.h will have the global include for this file and then the         *
+ *  IN_GSN_C flag will be set in db.c.  That should be all we need to set  *
+ *  this up.                                                               *
  *                                                                         *
  *                                              - Rhien                    *
  **************************************************************************/
@@ -38,7 +39,7 @@
  * variable with be defined as an int in db.c and an extern in every
  * other file so they're accessible.
  */
-#ifdef IN_DB_C
+#ifdef IN_GSN_C
     #define DECLARE_GSN(gsn) int gsn;
 #else
     #define DECLARE_GSN(gsn) extern int gsn;
