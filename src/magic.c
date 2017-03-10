@@ -1258,111 +1258,109 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     /* begin running through the spells */
 
-    if (check_dispel(level, victim, skill_lookup("armor")))
+    if (check_dispel(level, victim, gsn_armor))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("bless")))
+    if (check_dispel(level, victim, gsn_bless))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("blindness")))
+    if (check_dispel(level, victim, gsn_blindness))
     {
         found = TRUE;
         act("$n is no longer blinded.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("calm")))
+    if (check_dispel(level, victim, gsn_calm))
     {
         found = TRUE;
-        act("$n no longer looks so peaceful...", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n no longer looks so peaceful...", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("change sex")))
+    if (check_dispel(level, victim, gsn_change_sex))
     {
         found = TRUE;
         act("$n looks more like $mself again.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("charm person")))
+    if (check_dispel(level, victim, gsn_charm_person))
     {
         found = TRUE;
         act("$n regains $s free will.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("chill touch")))
+    if (check_dispel(level, victim, gsn_chill_touch))
     {
         found = TRUE;
         act("$n looks warmer.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("curse")))
+    if (check_dispel(level, victim, gsn_curse))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect evil")))
+    if (check_dispel(level, victim, gsn_detect_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect good")))
+    if (check_dispel(level, victim, gsn_detect_good))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect hidden")))
+    if (check_dispel(level, victim, gsn_detect_hidden))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect invis")))
+    if (check_dispel(level, victim, gsn_detect_invis))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect magic")))
+    if (check_dispel(level, victim, gsn_detect_magic))
         found = TRUE;
 
     if (check_dispel(level, victim, gsn_enhanced_recovery))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("faerie fire")))
+    if (check_dispel(level, victim, gsn_faerie_fire))
     {
         act("The pink outline around $n fades away.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("fly")))
+    if (check_dispel(level, victim, gsn_fly))
     {
         act("$n falls to the ground!", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("frenzy")))
+    if (check_dispel(level, victim, gsn_frenzy))
     {
         act("$n no longer looks so wild.", victim, NULL, NULL, TO_ROOM);;
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("giant strength")))
+    if (check_dispel(level, victim, gsn_giant_strength))
     {
         act("$n no longer looks so mighty.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("haste")))
+    if (check_dispel(level, victim, gsn_haste))
     {
-        act("$n is no longer moving so quickly.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n is no longer moving so quickly.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("infravision")))
+    if (check_dispel(level, victim, gsn_infravision))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("invis")))
-    {
-        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, skill_lookup("mass invis")))
+    if (check_dispel(level, victim, gsn_invisibility))
     {
         act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("pass door")))
+    if (check_dispel(level, victim, gsn_mass_invisibility))
+    {
+        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_pass_door))
         found = TRUE;
 
     if (check_dispel(level, victim, gsn_protection_evil))
@@ -1374,50 +1372,46 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("sanctuary")))
+    if (check_dispel(level, victim, gsn_sanctuary))
     {
-        act("The white aura around $n's body vanishes.",
-            victim, NULL, NULL, TO_ROOM);
+        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("shield")))
+    if (check_dispel(level, victim, gsn_shield))
     {
-        act("The shield protecting $n vanishes.", victim, NULL, NULL,
-            TO_ROOM);
+        act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("sleep")))
+    if (check_dispel(level, victim, gsn_sleep))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("slow")))
+    if (check_dispel(level, victim, gsn_slow))
     {
-        act("$n is no longer moving so slowly.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("stone skin")))
+    if (check_dispel(level, victim, gsn_stone_skin))
     {
-        act("$n's skin regains its normal texture.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("weaken")))
+    if (check_dispel(level, victim, gsn_weaken))
     {
         act("$n looks stronger.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("enchant person")))
+    if (check_dispel(level, victim, gsn_enchant_person))
     {
         act("$n no longer looks as if $e is enchanted.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("water breathing")))
+    if (check_dispel(level, victim, gsn_water_breathing))
     {
         act("$n's breathing returns to normal.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
@@ -1429,24 +1423,24 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("bark skin")))
+    if (check_dispel(level, victim, gsn_bark_skin))
     {
         act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("self growth")))
+    if (check_dispel(level, victim, gsn_self_growth))
     {
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("life boost")))
+    if (check_dispel(level, victim, gsn_life_boost))
     {
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("sense affliction")))
+    if (check_dispel(level, victim, gsn_sense_affliction))
     {
         found = TRUE;
     }
@@ -1465,41 +1459,36 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (found)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
     else
+    {
         send_to_char("Spell failed.\r\n", ch);
+    }
 }
 
-void spell_cause_light(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_cause_light(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    damage(ch, (CHAR_DATA *)vo, dice(1, 8) + level / 3, sn, DAM_HARM,
-        TRUE);
+    damage(ch, (CHAR_DATA *)vo, dice(1, 8) + level / 3, sn, DAM_HARM, TRUE);
+    return;
+}
+
+void spell_cause_critical(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    damage(ch, (CHAR_DATA *)vo, dice(3, 8) + level - 6, sn, DAM_HARM, TRUE);
     return;
 }
 
 
 
-void spell_cause_critical(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_cause_serious(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
-    damage(ch, (CHAR_DATA *)vo, dice(3, 8) + level - 6, sn, DAM_HARM,
-        TRUE);
+    damage(ch, (CHAR_DATA *)vo, dice(2, 8) + level / 2, sn, DAM_HARM, TRUE);
     return;
 }
 
-
-
-void spell_cause_serious(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
-{
-    damage(ch, (CHAR_DATA *)vo, dice(2, 8) + level / 2, sn, DAM_HARM,
-        TRUE);
-    return;
-}
-
-void spell_chain_lightning(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_chain_lightning(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     CHAR_DATA *tmp_vict, *last_vict, *next_vict;
@@ -1508,16 +1497,17 @@ void spell_chain_lightning(int sn, int level, CHAR_DATA * ch, void *vo,
 
     /* first strike */
 
-    act("A lightning bolt leaps from $n's hand and arcs to $N.",
-        ch, NULL, victim, TO_ROOM);
-    act("A lightning bolt leaps from your hand and arcs to $N.",
-        ch, NULL, victim, TO_CHAR);
-    act("A lightning bolt leaps from $n's hand and hits you!",
-        ch, NULL, victim, TO_VICT);
+    act("A lightning bolt leaps from $n's hand and arcs to $N.", ch, NULL, victim, TO_ROOM);
+    act("A lightning bolt leaps from your hand and arcs to $N.", ch, NULL, victim, TO_CHAR);
+    act("A lightning bolt leaps from $n's hand and hits you!", ch, NULL, victim, TO_VICT);
 
     dam = dice(level, 6);
+
     if (saves_spell(level, victim, DAM_LIGHTNING))
+    {
         dam /= 3;
+    }
+
     damage(ch, victim, dam, sn, DAM_LIGHTNING, TRUE);
     last_vict = victim;
     level -= 4;                    /* decrement damage */
