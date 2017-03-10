@@ -80,6 +80,7 @@
     <ClCompile Include="src\act_wiz.c" />
     <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
+    <ClCompile Include="src\bank.c" />
     <ClCompile Include="src\bladesinger.c" />
     <ClCompile Include="src\clan.c" />
     <ClCompile Include="src\comm.c" />
