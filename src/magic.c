@@ -2495,46 +2495,46 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, gsn_curse))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect evil")))
+    if (check_dispel(level, victim, gsn_detect_evil))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect good")))
+    if (check_dispel(level, victim, gsn_detect_good))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect hidden")))
+    if (check_dispel(level, victim, gsn_detect_hidden))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect invis")))
+    if (check_dispel(level, victim, gsn_detect_invis))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("detect magic")))
+    if (check_dispel(level, victim, gsn_detect_magic))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("faerie fire")))
+    if (check_dispel(level, victim, gsn_faerie_fire))
     {
         act("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("fly")))
+    if (check_dispel(level, victim, gsn_fly))
     {
         act("$n falls to the ground!", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("frenzy")))
+    if (check_dispel(level, victim, gsn_frenzy))
     {
         act("$n no longer looks so wild.", victim, NULL, NULL, TO_ROOM);;
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("giant strength")))
+    if (check_dispel(level, victim, gsn_giant_strength))
     {
         act("$n no longer looks so mighty.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("haste")))
+    if (check_dispel(level, victim, gsn_haste))
     {
         act("$n is no longer moving so quickly.", victim, NULL, NULL,
             TO_ROOM);

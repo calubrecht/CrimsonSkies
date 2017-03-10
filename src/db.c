@@ -4761,7 +4761,15 @@ void assign_gsn()
     ASSIGN_GSN(gsn_imbue, "imbue");
     ASSIGN_GSN(gsn_preserve, "preserve");
     ASSIGN_GSN(gsn_haste, "haste");
+    ASSIGN_GSN(gsn_giant_strength, "giant strength");
     ASSIGN_GSN(gsn_calm, "calm");
+    ASSIGN_GSN(gsn_detect_evil, "detect evil");
+    ASSIGN_GSN(gsn_detect_good, "detect good");
+    ASSIGN_GSN(gsn_detect_hidden, "detect hidden");
+    ASSIGN_GSN(gsn_detect_invis, "detect invis");
+    ASSIGN_GSN(gsn_detect_magic, "detect magic");
+    ASSIGN_GSN(gsn_faerie_fire, "faerie fire");
+    ASSIGN_GSN(gsn_frenzy, "frenzy");
 
     if (global.last_boot_result == UNKNOWN)
         global.last_boot_result = SUCCESS;
