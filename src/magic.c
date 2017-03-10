@@ -1211,7 +1211,7 @@ void spell_calm(int sn, int level, CHAR_DATA * ch, void *vo, int target)
                 return;
 
             if (IS_AFFECTED(vch, AFF_CALM) || IS_AFFECTED(vch, AFF_BERSERK)
-                || is_affected(vch, skill_lookup("frenzy")))
+                || is_affected(vch, gsn_frenzy))
                 return;
 
             send_to_char("A wave of calm passes over you.\r\n", vch);
@@ -1719,11 +1719,15 @@ void spell_color_spray(int sn, int level, CHAR_DATA * ch, void *vo,
     level = UMIN(level, sizeof(dam_each) / sizeof(dam_each[0]) - 1);
     level = UMAX(0, level);
     dam = number_range(dam_each[level] / 2, dam_each[level] * 2);
+
     if (saves_spell(level, victim, DAM_LIGHT))
+    {
         dam /= 2;
+    }
     else
-        spell_blindness(skill_lookup("blindness"),
-            level / 2, ch, (void *)victim, TARGET_CHAR);
+    {
+        spell_blindness(gsn_blindness, level / 2, ch, (void *)victim, TARGET_CHAR);
+    }
 
     damage(ch, victim, dam, sn, DAM_LIGHT, TRUE);
     return;
@@ -2073,21 +2077,22 @@ void spell_curse(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         {
             AFFECT_DATA *paf;
 
-            paf = affect_find(obj->affected, skill_lookup("bless"));
-            if (!saves_dispel
-                (level, paf != NULL ? paf->level : obj->level, 0))
+            paf = affect_find(obj->affected, gsn_bless);
+
+            if (!saves_dispel(level, paf != NULL ? paf->level : obj->level, 0))
             {
                 if (paf != NULL)
+                {
                     affect_remove_obj(obj, paf);
+                }
+
                 act("$p glows with a red aura.", ch, obj, NULL, TO_ALL);
                 REMOVE_BIT(obj->extra_flags, ITEM_BLESS);
                 return;
             }
             else
             {
-                act
-                    ("The holy aura of $p is too powerful for you to overcome.",
-                        ch, obj, NULL, TO_CHAR);
+                act("The holy aura of $p is too powerful for you to overcome.", ch, obj, NULL, TO_CHAR);
                 return;
             }
         }
@@ -2990,7 +2995,7 @@ void spell_frenzy(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         }
     }
 
-    if (is_affected(victim, skill_lookup("calm")))
+    if (is_affected(victim, gsn_calm))
     {
         if (victim == ch)
             send_to_char("Why don't you just relax for a while?\r\n", ch);
@@ -3156,7 +3161,7 @@ void spell_haste(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (IS_AFFECTED(victim, AFF_SLOW))
     {
-        if (!check_dispel(level, victim, skill_lookup("slow")))
+        if (!check_dispel(level, victim, gsn_slow))
         {
             if (victim != ch)
                 send_to_char("Spell failed.\r\n", ch);
@@ -3377,11 +3382,6 @@ void spell_holy_word(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *vch;
     CHAR_DATA *vch_next;
     int dam;
-    int bless_num, curse_num, frenzy_num;
-
-    bless_num = skill_lookup("bless");
-    curse_num = skill_lookup("curse");
-    frenzy_num = skill_lookup("frenzy");
 
     act("$n utters a word of divine power!", ch, NULL, NULL, TO_ROOM);
     send_to_char("You utter a word of divine power.\r\n", ch);
@@ -3395,8 +3395,8 @@ void spell_holy_word(int sn, int level, CHAR_DATA * ch, void *vo, int target)
             (IS_NEUTRAL(ch) && IS_NEUTRAL(vch)))
         {
             send_to_char("You feel full more powerful.\r\n", vch);
-            spell_frenzy(frenzy_num, level, ch, (void *)vch, TARGET_CHAR);
-            spell_bless(bless_num, level, ch, (void *)vch, TARGET_CHAR);
+            spell_frenzy(gsn_frenzy, level, ch, (void *)vch, TARGET_CHAR);
+            spell_bless(gsn_bless, level, ch, (void *)vch, TARGET_CHAR);
         }
 
         else if ((IS_GOOD(ch) && IS_EVIL(vch)) ||
@@ -3404,7 +3404,7 @@ void spell_holy_word(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         {
             if (!is_safe_spell(ch, vch, TRUE))
             {
-                spell_curse(curse_num, level, ch, (void *)vch, TARGET_CHAR);
+                spell_curse(gsn_curse, level, ch, (void *)vch, TARGET_CHAR);
                 send_to_char("You are struck down!\r\n", vch);
                 dam = dice(level, 6);
                 damage(ch, vch, dam, sn, DAM_ENERGY, TRUE);
@@ -3415,7 +3415,7 @@ void spell_holy_word(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         {
             if (!is_safe_spell(ch, vch, TRUE))
             {
-                spell_curse(curse_num, level / 2, ch, (void *)vch,
+                spell_curse(gsn_curse, level / 2, ch, (void *)vch,
                     TARGET_CHAR);
                 send_to_char("You are struck down!\r\n", vch);
                 dam = dice(level, 4);
@@ -3984,17 +3984,13 @@ void spell_mass_healing(int sn, int level, CHAR_DATA * ch, void *vo,
     int target)
 {
     CHAR_DATA *gch;
-    int heal_num, refresh_num;
-
-    heal_num = skill_lookup("heal");
-    refresh_num = skill_lookup("refresh");
 
     for (gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room)
     {
         if ((IS_NPC(ch) && IS_NPC(gch)) || (!IS_NPC(ch) && !IS_NPC(gch)))
         {
-            spell_heal(heal_num, level, ch, (void *)gch, TARGET_CHAR);
-            spell_refresh(refresh_num, level, ch, (void *)gch, TARGET_CHAR);
+            spell_heal(gsn_heal, level, ch, (void *)gch, TARGET_CHAR);
+            spell_refresh(gsn_refresh, level, ch, (void *)gch, TARGET_CHAR);
         }
     }
 }

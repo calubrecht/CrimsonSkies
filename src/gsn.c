@@ -183,6 +183,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_cure_disease, "cure disease");
     ASSIGN_GSN(gsn_gas_breath, "gas breath");
     ASSIGN_GSN(gsn_high_explosive, "high explosive");
+    ASSIGN_GSN(gsn_heal, "heal");
 
     if (global.last_boot_result == UNKNOWN)
     {

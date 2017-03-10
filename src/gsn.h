@@ -177,3 +177,4 @@ DECLARE_GSN(gsn_refresh);
 DECLARE_GSN(gsn_cure_disease);
 DECLARE_GSN(gsn_gas_breath);
 DECLARE_GSN(gsn_high_explosive);
+DECLARE_GSN(gsn_heal);
