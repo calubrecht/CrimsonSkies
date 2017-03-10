@@ -703,6 +703,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     sprintf(strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
     if ((fp = fopen(strsave, "r")) != NULL)
     {
+        char buf[100];
         fclose(fp);
         sprintf(buf, "gzip -dfq %s", strsave);
         system(buf);
