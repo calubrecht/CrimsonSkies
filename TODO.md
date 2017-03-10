@@ -85,6 +85,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Create command to reset a users password while they maybe offline
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
+  - Function that makes someone invisible with no act messages.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
   - Make sha256_crypt cross platform compatible (endian stuff)
   - Prune note spools, currently old notes don't load but they are kept in the file.
@@ -139,3 +140,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
   - Move skill_lookup to gsn checks
   - Move gsn assigning to gsn.c
+  - Remove mass invis gsn, add invis flag when it's cast.
