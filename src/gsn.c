@@ -176,6 +176,13 @@ void assign_gsn()
     ASSIGN_GSN(gsn_life_boost, "life boost");
     ASSIGN_GSN(gsn_bark_skin, "bark skin");
     ASSIGN_GSN(gsn_self_growth, "self growth");
+    ASSIGN_GSN(gsn_cure_blindness, "cure blindess");
+    ASSIGN_GSN(gsn_cure_light, "cure light");
+    ASSIGN_GSN(gsn_cure_poison, "cure poison");
+    ASSIGN_GSN(gsn_refresh, "refresh");
+    ASSIGN_GSN(gsn_cure_disease, "cure disease");
+    ASSIGN_GSN(gsn_gas_breath, "gas breath");
+    ASSIGN_GSN(gsn_high_explosive, "high explosive");
 
     if (global.last_boot_result == UNKNOWN)
     {
