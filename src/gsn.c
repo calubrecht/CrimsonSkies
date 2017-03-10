@@ -176,7 +176,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_life_boost, "life boost");
     ASSIGN_GSN(gsn_bark_skin, "bark skin");
     ASSIGN_GSN(gsn_self_growth, "self growth");
-    ASSIGN_GSN(gsn_cure_blindness, "cure blindess");
+    ASSIGN_GSN(gsn_cure_blindness, "cure blindness");
     ASSIGN_GSN(gsn_cure_light, "cure light");
     ASSIGN_GSN(gsn_cure_poison, "cure poison");
     ASSIGN_GSN(gsn_refresh, "refresh");
