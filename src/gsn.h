@@ -81,8 +81,8 @@ DECLARE_GSN(gsn_charm_person)
 DECLARE_GSN(gsn_change_sex)
 DECLARE_GSN(gsn_curse)
 DECLARE_GSN(gsn_chill_touch)
-DECLARE_GSN(gsn_invis)
-DECLARE_GSN(gsn_mass_invis)
+DECLARE_GSN(gsn_invisibility)
+DECLARE_GSN(gsn_mass_invisibility)
 DECLARE_GSN(gsn_plague)
 DECLARE_GSN(gsn_poison)
 DECLARE_GSN(gsn_sleep)
@@ -163,3 +163,10 @@ DECLARE_GSN(gsn_detect_invis)
 DECLARE_GSN(gsn_detect_magic)
 DECLARE_GSN(gsn_faerie_fire)
 DECLARE_GSN(gsn_frenzy)
+DECLARE_GSN(gsn_infravision);
+DECLARE_GSN(gsn_pass_door);
+DECLARE_GSN(gsn_shield);
+DECLARE_GSN(gsn_stone_skin);
+DECLARE_GSN(gsn_life_boost);
+DECLARE_GSN(gsn_bark_skin);
+DECLARE_GSN(gsn_self_growth);

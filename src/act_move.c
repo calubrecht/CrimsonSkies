@@ -1684,8 +1684,8 @@ void do_hide(CHAR_DATA * ch, char *argument)
  */
 void do_visible(CHAR_DATA * ch, char *argument)
 {
-    affect_strip(ch, gsn_invis);
-    affect_strip(ch, gsn_mass_invis);
+    affect_strip(ch, gsn_invisibility);
+    affect_strip(ch, gsn_mass_invisibility);
     affect_strip(ch, gsn_sneak);
     affect_strip(ch, gsn_quiet_movement);
     affect_strip(ch, gsn_camouflage);

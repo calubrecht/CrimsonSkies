@@ -2541,22 +2541,22 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("infravision")))
+    if (check_dispel(level, victim, gsn_infravision))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("invis")))
+    if (check_dispel(level, victim, gsn_invisibility))
     {
         act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("mass invis")))
+    if (check_dispel(level, victim, gsn_mass_invisibility))
     {
         act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("pass door")))
+    if (check_dispel(level, victim, gsn_pass_door))
         found = TRUE;
 
     if (check_dispel(level, victim, gsn_protection_evil))
@@ -2568,56 +2568,55 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, gsn_protection_neutral))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("sanctuary")))
+    if (check_dispel(level, victim, gsn_sanctuary))
     {
-        act("The white aura around $n's body vanishes.",
-            victim, NULL, NULL, TO_ROOM);
+        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
     if (IS_AFFECTED(victim, AFF_SANCTUARY)
         && !saves_dispel(level, victim->level, -1)
-        && !is_affected(victim, skill_lookup("sanctuary")))
+        && !is_affected(victim, gsn_sanctuary))
     {
         REMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
         act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("shield")))
+    if (check_dispel(level, victim, gsn_shield))
     {
         act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("sleep")))
+    if (check_dispel(level, victim, gsn_sleep))
         found = TRUE;
 
-    if (check_dispel(level, victim, skill_lookup("slow")))
+    if (check_dispel(level, victim, gsn_slow))
     {
         act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("stone skin")))
+    if (check_dispel(level, victim, gsn_stone_skin))
     {
         act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("weaken")))
+    if (check_dispel(level, victim, gsn_weaken))
     {
         act("$n looks stronger.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("enchant person")))
+    if (check_dispel(level, victim, gsn_enchant_person))
     {
         act("$n no longer looks as if $e is enchanted.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("water breathing")))
+    if (check_dispel(level, victim, gsn_water_breathing))
     {
         act("$n begins to breath normally.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
@@ -2629,13 +2628,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("life boost")))
+    if (check_dispel(level, victim, gsn_life_boost))
     {
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("sense affliction")))
+    if (check_dispel(level, victim, gsn_sense_affliction))
     {
         found = TRUE;
     }
@@ -2651,13 +2650,13 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
-    if (check_dispel(level, victim, skill_lookup("bark skin")))
+    if (check_dispel(level, victim, gsn_bark_skin))
     {
         found = TRUE;
         act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
     }
 
-    if (check_dispel(level, victim, skill_lookup("self growth")))
+    if (check_dispel(level, victim, gsn_self_growth))
     {
         found = TRUE;
         act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
@@ -2892,8 +2891,8 @@ void spell_faerie_fog(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         if (ich == ch || saves_spell(level, ich, DAM_OTHER))
             continue;
 
-        affect_strip(ich, gsn_invis);
-        affect_strip(ich, gsn_mass_invis);
+        affect_strip(ich, gsn_invisibility);
+        affect_strip(ich, gsn_mass_invisibility);
         affect_strip(ich, gsn_sneak);
         affect_strip(ich, gsn_quiet_movement);
         affect_strip(ich, gsn_camouflage);

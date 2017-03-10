@@ -901,7 +901,7 @@ Race        0
 End
 
 #SKILL
-Name        mass invis~
+Name        mass invisibility~
 SpellFun    spell_mass_invis~
 Target      0
 MinPos      8

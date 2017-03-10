@@ -858,8 +858,8 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
      */
     if (IS_AFFECTED(ch, AFF_INVISIBLE))
     {
-        affect_strip(ch, gsn_invis);
-        affect_strip(ch, gsn_mass_invis);
+        affect_strip(ch, gsn_invisibility);
+        affect_strip(ch, gsn_mass_invisibility);
         REMOVE_BIT(ch->affected_by, AFF_INVISIBLE);
         act("$n fades into existence.", ch, NULL, NULL, TO_ROOM);
     }

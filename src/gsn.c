@@ -87,8 +87,8 @@ void assign_gsn()
     ASSIGN_GSN(gsn_change_sex, "change sex");
     ASSIGN_GSN(gsn_curse, "curse");
     ASSIGN_GSN(gsn_chill_touch, "chill touch");
-    ASSIGN_GSN(gsn_invis, "invisibility");
-    ASSIGN_GSN(gsn_mass_invis, "mass invis");
+    ASSIGN_GSN(gsn_invisibility, "invisibility");
+    ASSIGN_GSN(gsn_mass_invisibility, "mass invisibility");
     ASSIGN_GSN(gsn_plague, "plague");
     ASSIGN_GSN(gsn_poison, "poison");
     ASSIGN_GSN(gsn_sleep, "sleep");
@@ -169,6 +169,13 @@ void assign_gsn()
     ASSIGN_GSN(gsn_detect_magic, "detect magic");
     ASSIGN_GSN(gsn_faerie_fire, "faerie fire");
     ASSIGN_GSN(gsn_frenzy, "frenzy");
+    ASSIGN_GSN(gsn_infravision, "infravision");
+    ASSIGN_GSN(gsn_pass_door, "pass door");
+    ASSIGN_GSN(gsn_shield, "shield");
+    ASSIGN_GSN(gsn_stone_skin, "stone skin");
+    ASSIGN_GSN(gsn_life_boost, "life boost");
+    ASSIGN_GSN(gsn_bark_skin, "bark skin");
+    ASSIGN_GSN(gsn_self_growth, "self growth");
 
     if (global.last_boot_result == UNKNOWN)
     {
