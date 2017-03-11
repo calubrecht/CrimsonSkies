@@ -72,6 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\class_cleric.c" />
     <ClCompile Include="src\class_mage.c" />
     <ClCompile Include="src\class_thief.c" />
     <ClCompile Include="src\class_warrior.c" />
