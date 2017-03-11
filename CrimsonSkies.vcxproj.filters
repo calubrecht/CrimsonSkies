@@ -198,6 +198,9 @@
     <ClCompile Include="src\class_mage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\class_thief.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
