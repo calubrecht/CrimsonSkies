@@ -2324,6 +2324,8 @@ void     wear_obj            (CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace);
 void     get_obj             (CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container);
 void     show_lore           (CHAR_DATA *ch, OBJ_DATA *obj);
 void     remove_all_obj      (CHAR_DATA *ch);
+bool     remove_obj          (CHAR_DATA * ch, int iWear, bool fReplace);
+void     wear_obj            (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
 
 /* act_wiz.c */
 void     wiznet                    (char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level);
@@ -2574,7 +2576,8 @@ int       find_spell     (CHAR_DATA *ch, const char *name);
 bool      saves_spell    (int level, CHAR_DATA *victim, int dam_type);
 void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
 bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
-CHAR_DATA *get_target(CHAR_DATA *ch, char *argument, bool ranged);
+CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
+bool      saves_dispel   (int dis_level, int spell_level, int duration);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);

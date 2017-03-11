@@ -43,10 +43,6 @@
  */
 void say_spell(CHAR_DATA * ch, int sn);
 
-/* imported functions */
-bool remove_obj(CHAR_DATA * ch, int iWear, bool fReplace);
-void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
-
 int find_spell(CHAR_DATA * ch, const char *name)
 {
     /* finds a spell the character can cast if possible */
