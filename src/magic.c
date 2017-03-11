@@ -19,6 +19,15 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
+/***************************************************************************
+*  Magic                                                                   *
+*                                                                          *
+*  This file contains all of the base logic for magic and casting as well  *
+*  as spells that are generally shared and not specific to a type of magic *
+*  like mage or clerical spells.                                           *
+*                                                                          *
+***************************************************************************/
+
 // System Specific Includes
 #if defined(_WIN32)
     #include <sys/types.h>
