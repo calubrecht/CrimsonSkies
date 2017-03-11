@@ -178,12 +178,17 @@ void assign_gsn()
     ASSIGN_GSN(gsn_self_growth, "self growth");
     ASSIGN_GSN(gsn_cure_blindness, "cure blindness");
     ASSIGN_GSN(gsn_cure_light, "cure light");
+    ASSIGN_GSN(gsn_cure_serious, "cure serious");
+    ASSIGN_GSN(gsn_cure_critical, "cure critical");
     ASSIGN_GSN(gsn_cure_poison, "cure poison");
     ASSIGN_GSN(gsn_refresh, "refresh");
     ASSIGN_GSN(gsn_cure_disease, "cure disease");
     ASSIGN_GSN(gsn_gas_breath, "gas breath");
+    ASSIGN_GSN(gsn_fire_breath, "fire breath");
     ASSIGN_GSN(gsn_high_explosive, "high explosive");
     ASSIGN_GSN(gsn_heal, "heal");
+    ASSIGN_GSN(gsn_cancellation, "cancellation");
+    ASSIGN_GSN(gsn_remove_curse, "remove curse");
 
     if (global.last_boot_result == UNKNOWN)
     {

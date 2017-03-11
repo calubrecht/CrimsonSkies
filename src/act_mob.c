@@ -119,56 +119,56 @@ void do_heal(CHAR_DATA * ch, char *argument)
     if (!str_prefix(arg, "light"))
     {
         spell = spell_cure_light;
-        sn = skill_lookup("cure light");
+        sn = gsn_cure_light;
         words = "judicandus dies";
         cost = 1000;
     }
     else if (!str_prefix(arg, "serious"))
     {
         spell = spell_cure_serious;
-        sn = skill_lookup("cure serious");
+        sn = gsn_cure_serious;
         words = "judicandus gzfuajg";
         cost = 1500;
     }
     else if (!str_prefix(arg, "critical"))
     {
         spell = spell_cure_critical;
-        sn = skill_lookup("cure critical");
+        sn = gsn_cure_critical;
         words = "judicandus qfuhuqar";
         cost = 2500;
     }
     else if (!str_prefix(arg, "heal"))
     {
         spell = spell_heal;
-        sn = skill_lookup("heal");
+        sn = gsn_heal;
         words = "pzar";
         cost = 5000;
     }
     else if (!str_prefix(arg, "blindness"))
     {
         spell = spell_cure_blindness;
-        sn = skill_lookup("cure blindness");
+        sn = gsn_cure_blindness;
         words = "judicandus noselacri";
         cost = 2000;
     }
     else if (!str_prefix(arg, "disease"))
     {
         spell = spell_cure_disease;
-        sn = skill_lookup("cure disease");
+        sn = gsn_cure_disease;
         words = "judicandus eugzagz";
         cost = 1500;
     }
     else if (!str_prefix(arg, "poison"))
     {
         spell = spell_cure_poison;
-        sn = skill_lookup("cure poison");
+        sn = gsn_cure_poison;
         words = "judicandus sausabru";
         cost = 2500;
     }
     else if (!str_prefix(arg, "uncurse") || !str_prefix(arg, "curse"))
     {
         spell = spell_remove_curse;
-        sn = skill_lookup("remove curse");
+        sn = gsn_remove_curse;
         words = "candussido judifgz";
         cost = 5000;
     }
@@ -182,14 +182,14 @@ void do_heal(CHAR_DATA * ch, char *argument)
     else if (!str_prefix(arg, "refresh") || !str_prefix(arg, "moves"))
     {
         spell = spell_refresh;
-        sn = skill_lookup("refresh");
+        sn = gsn_refresh;
         words = "candusima";
         cost = 500;
     }
     else if (!str_prefix(arg, "cancel"))
     {
         spell = spell_cancellation;
-        sn = skill_lookup("cancellation");
+        sn = gsn_cancellation;
         words = "clarivoix";
         cost = 4000;
     }

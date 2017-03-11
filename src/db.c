@@ -1783,7 +1783,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_SANCTUARY))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("sanctuary");
+        af.type = gsn_sanctuary;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_NONE;
@@ -1795,7 +1795,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_HASTE))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("haste");
+        af.type = gsn_haste;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_DEX;
@@ -1808,7 +1808,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_PROTECT_EVIL))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("protection evil");
+        af.type = gsn_protection_evil;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_SAVES;
@@ -1820,7 +1820,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_PROTECT_GOOD))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("protection good");
+        af.type = gsn_protection_good;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_SAVES;

@@ -2199,7 +2199,7 @@ void do_berserk(CHAR_DATA * ch, char *argument)
     }
 
     if (IS_AFFECTED(ch, AFF_BERSERK) || is_affected(ch, gsn_berserk)
-        || is_affected(ch, skill_lookup("frenzy")))
+        || is_affected(ch, gsn_frenzy))
     {
         send_to_char("You get a little madder.\r\n", ch);
         return;
