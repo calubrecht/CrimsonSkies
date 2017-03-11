@@ -2455,6 +2455,8 @@ void    check_death     (CHAR_DATA *victim, int dt);
 char    *get_stance_name(CHAR_DATA *ch);
 int     stance_defensive_modifier (CHAR_DATA *ch);
 int     stance_offensive_modifier (CHAR_DATA *ch);
+void    disarm(CHAR_DATA * ch, CHAR_DATA * victim);
+
 
 /* clan.c */
 bool   is_clan            (CHAR_DATA *ch);
