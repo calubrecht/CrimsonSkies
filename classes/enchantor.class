@@ -92,7 +92,7 @@ Sk 'fog' 21 1
 Sk 'dispel fog' 21 1
 Sk 'fireball' 22 1
 Sk 'ice blast' 22 1
-Sk 'mass invis' 22 1
+Sk 'mass invisibility' 22 1
 Sk 'parry' 22 8
 Sk 'plague' 23 1
 Sk 'slow' 23 1
@@ -129,6 +129,7 @@ Sk 'wizard mark' 50 1
 Sk 'locate wizard mark' 51 1
 Sk 'preserve' 51 1
 Sk 'reserved' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -225,6 +226,7 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -234,6 +236,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 4
@@ -256,6 +259,7 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

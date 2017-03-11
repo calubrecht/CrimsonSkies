@@ -112,7 +112,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
  * items are loaded.  - Rhien
  */
 #define MAX_SOCIALS        256
-#define MAX_SKILL          200
+#define MAX_SKILL          250
 #define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
@@ -185,6 +185,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define BLADESINGER_CLASS_LOOKUP                6
 #define RANGER_CLASS_LOOKUP                     7
 #define ROGUE_CLASS_LOOKUP                      8
+#define PSIONICIST_CLASS_LOOKUP                 9
 
 /*
  * PC Race Lookup

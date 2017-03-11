@@ -157,3 +157,4 @@ DECLARE_SPELL_FUN(spell_self_growth);
 DECLARE_SPELL_FUN(spell_imbue);
 DECLARE_SPELL_FUN(spell_preserve);
 DECLARE_SPELL_FUN(spell_ice_blast);
+DECLARE_SPELL_FUN(spell_psionic_blast);

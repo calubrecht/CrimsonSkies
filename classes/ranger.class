@@ -150,6 +150,7 @@ Sk 'locate object' 49 2
 Sk 'gas breath' 50 2
 Sk 'fire breath' 51 2
 Sk 'reserved' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'bless' 52 -1
 Sk 'calm' 52 -1
 Sk 'frenzy' 52 -1
@@ -202,7 +203,7 @@ Sk 'disenchant' 53 4
 Sk 'farsight' 53 2
 Sk 'invisibility' 53 2
 Sk 'know alignment' 53 2
-Sk 'mass invis' 53 2
+Sk 'mass invisibility' 53 2
 Sk 'recharge' 53 2
 Sk 'sleep' 53 2
 Sk 'ventriloquate' 53 2
@@ -225,6 +226,7 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -234,6 +236,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 40
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
 Gr 'weaponsmaster' 20
 Gr 'attack' 0
 Gr 'beguiling' 0
@@ -256,6 +259,7 @@ Gr 'transportation' 8
 Gr 'weather' 6
 Gr 'bladesongs' 0
 Gr 'nature' 4
+Gr 'psionics' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

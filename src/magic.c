@@ -4337,6 +4337,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_protection_evil")) return spell_protection_evil;
             if (!str_cmp(name, "spell_protection_good")) return spell_protection_good;
             if (!str_cmp(name, "spell_protection_neutral")) return spell_protection_neutral;
+            if (!str_cmp(name, "spell_psionic_blast")) return spell_psionic_blast;
             if (!str_cmp(name, "spell_preserve")) return spell_preserve;
             break;
         case 'r':
@@ -4528,6 +4529,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_imbue) return "spell_imbue";
     if (spell == spell_preserve) return "spell_preserve";
     if (spell == spell_ice_blast) return "spell_ice_blast";
+    if (spell == spell_psionic_blast) return "spell_psionic_blast";
 
     return "reserved";
 

@@ -123,8 +123,9 @@ Sk 'dispel fog' 44 1
 Sk 'song of dissonance' 45 1
 Sk 'nexus' 46 2
 Sk 'calm' 48 1
-Sk 'mass invis' 48 1
+Sk 'mass invisibility' 48 1
 Sk 'reserved' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'acid breath' 52 -1
 Sk 'fire breath' 52 -1
 Sk 'frost breath' 52 -1
@@ -225,6 +226,7 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -234,6 +236,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 40
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
 Gr 'weaponsmaster' 0
 Gr 'attack' 0
 Gr 'beguiling' 0
@@ -256,6 +259,7 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 4
 Gr 'nature' 0
+Gr 'psionics' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

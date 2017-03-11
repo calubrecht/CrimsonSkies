@@ -58,6 +58,11 @@ Sk 'steal'
 End
 
 #GROUP
+Name 'psionicist basics'
+Sk 'dagger'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -185,6 +190,20 @@ Sk 'sneak'
 Sk 'revolt'
 Sk 'escape'
 Sk 'shiv'
+End
+
+#GROUP
+Name 'psionicist default'
+Sk 'lore'
+Sk 'beguiling'
+Sk 'combat'
+Sk 'detection'
+Sk 'enhancement'
+Sk 'illusion'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'transportation'
+Sk 'weather'
 End
 
 #GROUP
@@ -420,6 +439,11 @@ End
 Name 'nature'
 Sk 'bark skin'
 Sk 'self growth'
+End
+
+#GROUP
+Name 'psionics'
+Sk 'psionic blast'
 End
 
 #END

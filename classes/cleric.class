@@ -102,7 +102,7 @@ Sk 'lightning bolt' 23 1
 Sk 'dispel magic' 24 1
 Sk 'frenzy' 24 1
 Sk 'second attack' 24 8
-Sk 'mass invis' 25 1
+Sk 'mass invisibility' 25 1
 Sk 'pick lock' 25 8
 Sk 'cancellation' 26 1
 Sk 'word of recall' 28 1
@@ -127,6 +127,7 @@ Sk 'gas breath' 43 1
 Sk 'fire breath' 45 1
 Sk 'imbue' 45 1
 Sk 'reserved' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'ice blast' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
@@ -225,6 +226,7 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 40
 Gr 'thief default' 0
@@ -234,6 +236,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
 Gr 'beguiling' 0
@@ -256,6 +259,7 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
 Mult 0 100
 Mult 1 100
 Mult 2 125

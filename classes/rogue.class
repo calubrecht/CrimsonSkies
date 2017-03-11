@@ -110,7 +110,7 @@ Sk 'summon' 29 2
 Sk 'dispel magic' 30 2
 Sk 'fireball' 30 2
 Sk 'call lightning' 31 2
-Sk 'mass invis' 31 2
+Sk 'mass invisibility' 31 2
 Sk 'gate' 32 2
 Sk 'fog' 32 2
 Sk 'dispel fog' 32 2
@@ -133,6 +133,7 @@ Sk 'calm' 50 2
 Sk 'nexus' 50 4
 Sk 'fire breath' 50 2
 Sk 'reserved' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'ice blast' 52 2
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
@@ -225,6 +226,7 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 40
@@ -234,6 +236,7 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 6
@@ -256,6 +259,7 @@ Gr 'transportation' 8
 Gr 'weather' 8
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

@@ -21,6 +21,18 @@ Race        0
 End
 
 #SKILL
+Name        psionic blast~
+SpellFun    spell_psionic_blast~
+Target      1
+MinPos      7
+MinMana     20
+Beats       12
+Damage      psionic blast~
+MsgOff      !Psionic Blast!~
+Race        0
+End
+
+#SKILL
 Name        armor~
 SpellFun    spell_armor~
 Target      2

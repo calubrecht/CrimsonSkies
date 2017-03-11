@@ -1,19 +1,19 @@
-Name        mage~
-Class       0
-WhoName     Mag~
+Name        psionicist~
+Class       9
+WhoName     Psi~
 Attrprime   int
 Weapon      3701
 Guild       3018
 Guild       9618
-Skilladept  75
+Skilladept  85
 Thac0_00    20
 Thac0_32    6
 Hpmin       6
 Hpmax       8
 Mana        1
-BaseGroup   'mage basics'
-DefGroup    'mage default'
-IsReclass   0
+BaseGroup   'psionicist basics'
+DefGroup    'psionicist default'
+IsReclass   1
 IsEnabled   1
 Sk 'magic missile' 1 1
 Sk 'ventriloquate' 1 1
@@ -90,6 +90,7 @@ Sk 'charm person' 20 1
 Sk 'shield' 20 1
 Sk 'dodge' 20 8
 Sk 'haste' 21 1
+Sk 'acid blast' 22 1
 Sk 'fireball' 22 1
 Sk 'ice blast' 22 1
 Sk 'mass invisibility' 22 1
@@ -103,9 +104,9 @@ Sk 'hand to hand' 25 8
 Sk 'pick lock' 25 8
 Sk 'call lightning' 26 1
 Sk 'gate' 27 1
-Sk 'acid blast' 28 1
 Sk 'fog' 28 1
 Sk 'dispel fog' 28 1
+Sk 'psionic blast' 30 -1
 Sk 'second attack' 30 10
 Sk 'acid breath' 31 1
 Sk 'word of recall' 32 1
@@ -120,7 +121,6 @@ Sk 'fire breath' 40 1
 Sk 'enhanced damage' 45 10
 Sk 'calm' 48 1
 Sk 'reserved' 52 -1
-Sk 'psionic blast' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -259,7 +259,7 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
-Gr 'psionics' 0
+Gr 'psionics' 6
 Mult 0 100
 Mult 1 100
 Mult 2 100
