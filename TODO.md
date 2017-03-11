@@ -138,6 +138,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Updated ranged spells to have a custom message for when the spell flies through another room.
   - Update ranged spells to show the direction the spell came from.
   - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
-  - Move skill_lookup to gsn checks
-  - Move gsn assigning to gsn.c
   - Remove mass invis gsn, add invis flag when it's cast.
