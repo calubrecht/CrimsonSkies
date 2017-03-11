@@ -52,7 +52,6 @@ void make_corpse(CHAR_DATA * ch);
 void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual);
 void mob_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt);
 void raw_kill(CHAR_DATA * victim);
-void set_fighting(CHAR_DATA * ch, CHAR_DATA * victim);
 void toast(CHAR_DATA *ch, CHAR_DATA *victim);
 
 /*
