@@ -99,15 +99,6 @@
     <ClCompile Include="src\act_mob.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\enchantor.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bladesinger.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\healer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,9 +132,6 @@
     <ClCompile Include="src\ini.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ranger.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\settings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -163,9 +151,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\quest.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rogue.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\db_export.c">
@@ -193,6 +178,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gsn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_bladesinger.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_enchantor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_rogue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_ranger.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_healer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_mage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
