@@ -72,7 +72,18 @@ void spell_psionic_blast(int sn, int level, CHAR_DATA * ch, void *vo, int target
     {
         send_to_char("You are knocked back by the psionic blast!\r\n", victim);
         act("$n has been knocked back by the psionic blast!", victim, NULL, NULL, TO_ROOM);
-        DAZE_STATE(victim, PULSE_VIOLENCE);
+
+        if (number_range(1, 10) != 10)
+        {
+            // 90% of hitting this after the saves check
+            DAZE_STATE(victim, PULSE_VIOLENCE);
+        }
+        else
+        {
+            // 10% of hitting this after the saves check
+            DAZE_STATE(victim, PULSE_VIOLENCE);
+        }
+
         return;
     }
 
