@@ -183,3 +183,4 @@ DECLARE_GSN(gsn_high_explosive);
 DECLARE_GSN(gsn_heal);
 DECLARE_GSN(gsn_cancellation);
 DECLARE_GSN(gsn_remove_curse);
+DECLARE_GSN(gsn_healing_dream);

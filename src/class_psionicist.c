@@ -90,3 +90,44 @@ void spell_psionic_blast(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * This is a spell that can be cast on others if they are sleeping.  It
+ * cannot be cast on one's self but when a psioncist goes to sleep it will
+ * automatically be added to their affects.
+ */
+void spell_healing_dream(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    // Must be awake and must not be an NPC
+    if (IS_AWAKE(victim) || IS_NPC(victim))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (is_affected(victim, sn))
+    {
+        act("$N is already affected by a healing dream.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = -1;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+    send_to_char("You fall into a deep and restful sleep.\r\n", victim);
+
+    if (ch != victim)
+    {
+        act("Your magic lulls $N into a deep and restful sleep.", ch, NULL, victim, TO_CHAR);
+    }
+
+    return;
+}
+

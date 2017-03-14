@@ -261,14 +261,25 @@ int hit_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_hit - ch->hit);
@@ -368,14 +379,25 @@ int mana_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_mana - ch->mana);
@@ -441,14 +463,25 @@ int move_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_move - ch->move);
@@ -782,8 +815,9 @@ void char_update(void)
         ch_next = ch->next;
 
         if (ch->timer > 30)
+        {
             ch_quit = ch;
-
+        }
 
         // Player Kill Timer - This will make it so the players involved in pk have to wait
         // a few ticks after in order to quit.
@@ -794,6 +828,12 @@ void char_update(void)
 
             if (ch->pcdata->pk_timer)
                 --ch->pcdata->pk_timer;
+        }
+
+        if (IS_AWAKE(ch))
+        {
+            // Remove healing dream if they are no longer asleep
+            affect_strip(ch, gsn_healing_dream);
         }
 
         if (ch->position >= POS_STUNNED)

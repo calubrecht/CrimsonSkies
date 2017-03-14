@@ -444,6 +444,7 @@ End
 #GROUP
 Name 'psionics'
 Sk 'psionic blast'
+Sk 'healing dream'
 End
 
 #END

@@ -2236,4 +2236,15 @@ MsgOff      You feel the strain from preserve dissipate.~
 Race        0
 End
 
+#SKILL
+Name        healing dream~
+SpellFun    spell_healing_dream~
+Target      2
+MinPos      8
+MinMana     40
+Beats       12
+MsgOff      The healing dream begins to fade.~
+Race        0
+End
+
 #END
