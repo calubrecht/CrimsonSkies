@@ -131,3 +131,37 @@ void spell_healing_dream(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * Spell that will cause the victim to have 2x mana cost to cast a spell.
+ */
+void spell_mental_weight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        send_to_char("Their mind is already burdened.\r\n", ch);
+        return;
+    }
+
+    if (saves_spell(level, victim, DAM_MENTAL))
+    {
+        send_to_char("The spell failed.\r\n", ch);
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 10;
+    af.location = APPLY_NONE;
+    af.modifier = -1 * (level / 5);
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your mind feels burdened and heavy.\r\n", victim);
+    act("$n looks as if they are burdened.", victim, NULL, NULL, TO_ROOM);
+    return;
+}
+

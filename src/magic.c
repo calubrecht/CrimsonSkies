@@ -571,6 +571,13 @@ void do_cast(CHAR_DATA * ch, char *argument)
             break;
     }
 
+    // If the character is affected by mental weight then all mana costs are
+    // doubled.
+    if (is_affected(ch, gsn_mental_weight))
+    {
+        mana *= 2;
+    }
+
     if (!IS_NPC(ch) && ch->mana < mana)
     {
         send_to_char("You don't have enough mana.\r\n", ch);
@@ -1245,6 +1252,11 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (check_dispel(level, victim, gsn_sense_affliction))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_mental_weight))
     {
         found = TRUE;
     }
@@ -1960,6 +1972,12 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, gsn_imbue))
     {
         act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_mental_weight))
+    {
+        act("$n's looks as if their mental burden has lifted.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -4326,6 +4344,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_mass_refresh")) return spell_mass_refresh;
             if (!str_cmp(name, "spell_magic_resistance")) return spell_magic_resistance;
             if (!str_cmp(name, "spell_mana_transfer")) return spell_mana_transfer;
+            if (!str_cmp(name, "spell_mental_weight")) return spell_mental_weight;
             break;
         case 'n':
             if (!str_cmp(name, "spell_null")) return spell_null;
@@ -4534,6 +4553,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_ice_blast) return "spell_ice_blast";
     if (spell == spell_psionic_blast) return "spell_psionic_blast";
     if (spell == spell_healing_dream) return "spell_healing_dream";
+    if (spell == spell_mental_weight) return "spell_mental_weight";
 
     return "reserved";
 

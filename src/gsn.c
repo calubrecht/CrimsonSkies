@@ -190,6 +190,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_cancellation, "cancellation");
     ASSIGN_GSN(gsn_remove_curse, "remove curse");
     ASSIGN_GSN(gsn_healing_dream, "healing dream");
+    ASSIGN_GSN(gsn_mental_weight, "mental weight");
 
     if (global.last_boot_result == UNKNOWN)
     {

@@ -2247,4 +2247,15 @@ MsgOff      The healing dream begins to fade.~
 Race        0
 End
 
+#SKILL
+Name        mental weight~
+SpellFun    spell_mental_weight~
+Target      1
+MinPos      8
+MinMana     30
+Beats       12
+MsgOff      You feel the mental burden lift away.~
+Race        0
+End
+
 #END
