@@ -160,14 +160,22 @@ int get_skill(CHAR_DATA * ch, int sn)
     if (ch->daze > 0)
     {
         if (skill_table[sn]->spell_fun != spell_null)
+        {
+            // Spells
             skill /= 2;
+        }
         else
+        {
+            // Skills
             skill = 2 * skill / 3;
+        }
     }
 
     //  Are they drunk?
     if (!IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK] > 10)
+    {
         skill = 9 * skill / 10;
+    }
 
     return URANGE(0, skill, 100);
 }
