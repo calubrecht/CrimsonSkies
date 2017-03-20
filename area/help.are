@@ -3337,10 +3337,14 @@ After reclass you will be level 1 again as the reclass.
 Current classes available for reclass:
 
    {G*{x Enchantor (Mage)
+   {G*{x Psionicist (Mage)
    {G*{x Healer (Cleric)
    {G*{x Bladesinger (Any class, elves only)
    {G*{x Ranger (Warrior & Thieves)
    {G*{x Rogue (Thieves)
+
+Use the 'class' command to see a list of all of the games classes
+with additional info on them from the game tables.
 ~
 
 0 WAVES OF WEARINESS~
