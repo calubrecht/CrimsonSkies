@@ -2091,6 +2091,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only mages can reclass into enchantors.\r\n", ch);
         return;
     }
+    else if (iClass == PSIONICIST_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
+    {
+        send_to_char("Only mages can reclass into psionicists.\r\n", ch);
+        return;
+    }
     else if (iClass == HEALER_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
     {
         send_to_char("Only clerics can reclass into healers.\r\n", ch);
