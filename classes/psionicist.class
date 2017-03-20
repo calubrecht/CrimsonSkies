@@ -32,6 +32,7 @@ Sk 'wands' 1 2
 Sk 'recall' 1 2
 Sk 'spellcraft' 1 4
 Sk 'swim' 1 1
+Sk 'psionic focus' 1 1
 Sk 'detect magic' 2 1
 Sk 'detect invis' 3 1
 Sk 'chill touch' 4 1
@@ -262,7 +263,7 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
-Gr 'psionics' 6
+Gr 'psionics' 8
 Mult 0 100
 Mult 1 100
 Mult 2 100

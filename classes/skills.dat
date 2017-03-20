@@ -2262,10 +2262,21 @@ End
 Name        forget~
 SpellFun    spell_forget~
 Target      1
-MinPos      0
+MinPos      8
 MinMana     20
 Beats       12
 MsgOff      Your mind feels clear again.~
+Race        0
+End
+
+#SKILL
+Name        psionic focus~
+SpellFun    spell_psionic_focus~
+Target      2
+MinPos      8
+MinMana     20
+Beats       0
+MsgOff      The psionic focus wears off.~
 Race        0
 End
 

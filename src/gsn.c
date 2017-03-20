@@ -192,6 +192,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_healing_dream, "healing dream");
     ASSIGN_GSN(gsn_mental_weight, "mental weight");
     ASSIGN_GSN(gsn_forget, "forget");
+    ASSIGN_GSN(gsn_psionic_focus, "psionic focus");
 
     if (global.last_boot_result == UNKNOWN)
     {

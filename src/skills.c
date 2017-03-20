@@ -179,6 +179,16 @@ int get_skill(CHAR_DATA * ch, int sn)
         skill = 9 * skill / 10;
     }
 
+    // If affected by psionic focus then will get a slight boost on their
+    // stat checks but only if they are a player (NPC's don't benefit from this
+    // portion specifically).  This currently comes after the stun affect, it's
+    // possible that may need to be altered (moved before stun) or have stun
+    // taken into account here also.
+    if (!IS_NPC(ch) && is_affected(ch, gsn_psionic_focus))
+    {
+        skill = (skill * 10) / 9;
+    }
+
     return URANGE(0, skill, 100);
 }
 

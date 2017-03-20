@@ -200,3 +200,40 @@ void spell_mental_weight(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * Psionic Focus - Adds a focus which will increase hit (and possibly give a few
+ * other bonuses in skills checks (TODO)
+ */
+void spell_psionic_focus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N's mind is already focused.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 2;
+    af.location = APPLY_HITROLL;
+    af.modifier = 3;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your mind becomes acutely focused.\r\n", victim);
+    act("$n looks as if their mind is acutely focused.", victim, NULL, NULL, TO_ROOM);
+    return;
+}
+

@@ -186,3 +186,4 @@ DECLARE_GSN(gsn_remove_curse);
 DECLARE_GSN(gsn_healing_dream);
 DECLARE_GSN(gsn_mental_weight);
 DECLARE_GSN(gsn_forget);
+DECLARE_GSN(gsn_psionic_focus);
