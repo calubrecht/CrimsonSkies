@@ -139,3 +139,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update ranged spells to show the direction the spell came from.
   - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
   - Remove mass invis gsn, add invis flag when it's cast.
+  - Psion - Temporal Fracture
+  - Psion - Clairvoyance, ability to cast and then see a specific room (single room, has to have been there)
+  - Psion - Psionic Shield - -1 saves, -10AC
+  - Create function of all things to be removed in combat/damage.
