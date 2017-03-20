@@ -3603,7 +3603,8 @@ void do_bury(CHAR_DATA *ch, char *argument)
  * Command to dig in a room to look for buried items.  A shovel helps.  This
  * comes to us via the Smaug code base.
  */
-void do_dig(CHAR_DATA *ch, char *argument) {
+void do_dig(CHAR_DATA *ch, char *argument)
+{
     OBJ_DATA *obj;
     OBJ_DATA *startobj;
     bool found;

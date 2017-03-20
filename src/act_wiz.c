@@ -1691,7 +1691,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     if (!IS_NPC(victim))
     {
-        sprintf(buf, "Bank Gold: %ld\r\n", victim->pcdata->bank_gold);
+        sprintf(buf, "Bank Gold: %ld  Clairvoyance Vnum: %d\r\n", victim->pcdata->bank_gold, ch->pcdata->vnum_clairvoyance);
         send_to_char(buf, ch);
     }
 

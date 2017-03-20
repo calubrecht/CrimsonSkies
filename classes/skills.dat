@@ -2280,4 +2280,15 @@ MsgOff      The psionic focus wears off.~
 Race        0
 End
 
+#SKILL
+Name        clairvoyance~
+SpellFun    spell_clairvoyance~
+Target      0
+MinPos      8
+MinMana     150
+Beats       0
+MsgOff      Your clairvoyance has faded.~
+Race        0
+End
+
 #END

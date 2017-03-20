@@ -237,3 +237,119 @@ void spell_psionic_focus(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * The clairvoyance spell will allow a psionicist to focus their mind on the current
+ * room they are in (and then peek back in on it later using the clairvoyance command).
+ */
+void spell_clairvoyance(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    AFFECT_DATA af;
+
+    // No NPC's ever can use this as it utilitzes pc_data
+    if (IS_NPC(ch)
+        || ch == NULL
+        || ch->in_room == NULL)
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    // Remove the affect if it's already there
+    affect_strip(ch, sn);
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 30;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    ch->pcdata->vnum_clairvoyance = ch->in_room->vnum;
+
+    send_to_char("You focus your mind on the immediate surroundings.\r\n", ch);
+    act("$n focuses their mind on the immediate surroundings.", ch, NULL, NULL, TO_ROOM);
+    return;
+}
+
+/*
+ * The clairvoyance command works in tandem with the spell.  The spell sets the location
+ * that the psionicist wants to look at remotely, the command is the actual act of looking.
+ * In order to cast the spell the psionicist has to be able to get to the room first which
+ * will protect things like enemy clan rooms, etc.
+ */
+void do_clairvoyance(CHAR_DATA * ch, char *argument)
+{
+    if (ch == NULL
+        || IS_NPC(ch))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (ch->class != PSIONICIST_CLASS_LOOKUP)
+    {
+        send_to_char("Only psionicists are capable of clairvoyance.\r\n", ch);
+        return;
+    }
+
+    if (!is_affected(ch, gsn_clairvoyance))
+    {
+        send_to_char("You are not currently affected by clairvoyance.\r\n", ch);
+        return;
+    }
+
+    // Shouldn't happen, but this immortal area rooms are protected.
+    if (ch->pcdata->vnum_clairvoyance < 100)
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    switch (ch->substate)
+    {
+        default:
+            add_timer(ch, TIMER_DO_FUN, 24, do_clairvoyance, 1, NULL);
+            send_to_char("Your eyes turn pale white as you begin your focus your clairvoyance...\r\n", ch);
+            act("$n's eyes turn pale white.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case 1:
+            // Continue onward with the clairvoyance.
+            break;
+        case SUB_TIMER_DO_ABORT:
+            ch->substate = SUB_NONE;
+            send_to_char("Your eyes return to normal as you break your clairvoyant focus.\r\n", ch);
+            act("$n's eyes return to normal.", ch, NULL, NULL, TO_ROOM);
+            return;
+    }
+
+    ch->substate = SUB_NONE;
+
+    ROOM_INDEX_DATA *original_location;
+    ROOM_INDEX_DATA *remote_location;
+
+    remote_location = get_room_index(ch->pcdata->vnum_clairvoyance);
+
+    // Make the check to see if they can see to the other side or not
+    if (remote_location == NULL
+        || remote_location == ch->in_room
+        || !can_see_room(ch, remote_location)
+        || ch->fighting != NULL
+        || (room_is_private(remote_location) && !is_room_owner(ch, remote_location)))
+    {
+        send_to_char("You see swirling chaos...\r\n", ch);
+        return;
+    }
+
+    // Show the other side to the player, this will move them, look and then move them back.
+    original_location = ch->in_room;
+    char_from_room(ch);
+    char_to_room(ch, remote_location);
+    do_look(ch, "auto");
+    char_from_room(ch);
+    char_to_room(ch, original_location);
+
+    send_to_char("\r\nYour eyes return to normal as you break your clairvoyant focus.\r\n", ch);
+    act("$n's eyes return to normal.", ch, NULL, NULL, TO_ROOM);
+}

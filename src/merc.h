@@ -1681,18 +1681,19 @@ struct pc_data
     time_t          last_story;
     time_t          last_history;
     time_t          last_immnote;
-    int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
-    char *          last_ip;         // Saves the last IP address used, see save.c for notes.
-    int             recall_vnum;     // Custom recall point that can be set by the user to any bind stone
-    CHAR_DATA *     quest_giver;     // Vassago - Questing
-    int             quest_points;    // Vassago - Questing
-    int             next_quest;      // Vassago - Questing
-    int             countdown;       // Vassago - Questing
-    int             quest_obj;       // Vassago - Questing
-    int             quest_mob;       // Vassago - Questing
-    int             pkills;          // The number of player kills a character has.
-    int             pkilled;         // The number of times a player has been killed.
-    long            bank_gold;       // The amount of gold a player has in the bank.
+    int             pk_timer;          // How many ticks the player has to wait to quit after an event like pk.
+    char *          last_ip;           // Saves the last IP address used, see save.c for notes.
+    int             recall_vnum;       // Custom recall point that can be set by the user to any bind stone
+    CHAR_DATA *     quest_giver;       // Vassago - Questing
+    int             quest_points;      // Vassago - Questing
+    int             next_quest;        // Vassago - Questing
+    int             countdown;         // Vassago - Questing
+    int             quest_obj;         // Vassago - Questing
+    int             quest_mob;         // Vassago - Questing
+    int             pkills;            // The number of player kills a character has.
+    int             pkilled;           // The number of times a player has been killed.
+    long            bank_gold;         // The amount of gold a player has in the bank.
+    int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
 };
 
 /* Data for generating characters -- only used during generation */

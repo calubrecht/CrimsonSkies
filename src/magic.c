@@ -1261,6 +1261,11 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, gsn_clairvoyance))
+    {
+        found = TRUE;
+    }
+
     if (check_dispel(level, victim, gsn_imbue))
     {
         act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
@@ -1965,6 +1970,11 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     if (check_dispel(level, victim, gsn_enhanced_recovery))
+    {
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_clairvoyance))
     {
         found = TRUE;
     }
@@ -4293,6 +4303,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_cure_weaken")) return spell_cure_weaken;
             if (!str_cmp(name, "spell_cure_slow")) return spell_cure_slow;
             if (!str_cmp(name, "spell_cure_deafness")) return spell_cure_deafness;
+            if (!str_cmp(name, "spell_clairvoyance")) return spell_clairvoyance;
             break;
         case 'd':
             if (!str_cmp(name, "spell_detect_hidden")) return spell_detect_hidden;
@@ -4587,6 +4598,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_mental_weight) return "spell_mental_weight";
     if (spell == spell_forget) return "spell_forget";
     if (spell == spell_psionic_focus) return "spell_psionic_focus";
+    if (spell == spell_clairvoyance) return "spell_clairvoyance";
 
     return "reserved";
 

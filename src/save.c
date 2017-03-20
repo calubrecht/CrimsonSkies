@@ -326,6 +326,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
 
         fprintf(fp, "Stance %d\n", ch->stance);
 
+        fprintf(fp, "VnumClairvoyance %d\n", ch->pcdata->vnum_clairvoyance);
+
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
         fprintf(fp, "LastPenalty %ld\n", ch->pcdata->last_penalty);
@@ -693,6 +695,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->pkilled = 0;
     ch->pcdata->bank_gold = 0;
     ch->pcdata->recall_vnum = 0;
+    ch->pcdata->vnum_clairvoyance = 1;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -1268,6 +1271,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'V':
                 KEY("Version", ch->version, fread_number(fp));
                 KEY("Vers", ch->version, fread_number(fp));
+                KEY("VnumClairvoyance", ch->pcdata->vnum_clairvoyance, fread_number(fp));
 
                 if (!str_cmp(word, "Vnum"))
                 {

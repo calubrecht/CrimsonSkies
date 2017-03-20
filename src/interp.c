@@ -297,6 +297,7 @@ const struct cmd_type cmd_table[] = {
     {"peer",            do_peer,          POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"bludgeon",        do_bludgeon,      POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"revolt",          do_revolt,        POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"clairvoyance",    do_clairvoyance,  POS_RESTING,  0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)

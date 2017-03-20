@@ -193,6 +193,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_mental_weight, "mental weight");
     ASSIGN_GSN(gsn_forget, "forget");
     ASSIGN_GSN(gsn_psionic_focus, "psionic focus");
+    ASSIGN_GSN(gsn_clairvoyance, "clairvoyance");
 
     if (global.last_boot_result == UNKNOWN)
     {
