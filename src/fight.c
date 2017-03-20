@@ -446,14 +446,18 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
 
     /* just in case */
     if (victim == ch || ch == NULL || victim == NULL)
+    {
         return;
+    }
 
     /*
      * Can't beat a dead char!
      * Guard against weird room-leavings.
      */
     if (victim->position == POS_DEAD || ch->in_room != victim->in_room)
+    {
         return;
+    }
 
     // Grab the weapon for this hit
     if (!dual)
@@ -466,7 +470,9 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
 
         // If it's dual wield and they're not wearing a second weapon get out.
         if (!wield)
+        {
             return;
+        }
 
         // If it's dual wield, check to see if the player gets better at it
         check_improve(ch, gsn_dual_wield, TRUE, 30);
@@ -479,22 +485,37 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
     if (dt == TYPE_UNDEFINED)
     {
         dt = TYPE_HIT;
+
         if (wield != NULL && wield->item_type == ITEM_WEAPON)
+        {
             dt += wield->value[3];
+        }
         else
+        {
             dt += ch->dam_type;
+        }
     }
 
     if (dt < TYPE_HIT)
+    {
         if (wield != NULL)
+        {
             dam_type = attack_table[wield->value[3]].damage;
+        }
         else
+        {
             dam_type = attack_table[ch->dam_type].damage;
+        }
+    }
     else
+    {
         dam_type = attack_table[dt - TYPE_HIT].damage;
+    }
 
     if (dam_type == -1)
+    {
         dam_type = DAM_BASH;
+    }
 
     /* get the weapon skill */
     sn = get_weapon_sn(ch, dual);
@@ -507,33 +528,49 @@ void one_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt, bool dual)
     {
         thac0_00 = 20;
         thac0_32 = -4;            /* as good as a thief */
+
         if (IS_SET(ch->act, ACT_WARRIOR))
+        {
             thac0_32 = -10;
+        }
         else if (IS_SET(ch->act, ACT_THIEF))
+        {
             thac0_32 = -4;
+        }
         else if (IS_SET(ch->act, ACT_CLERIC))
+        {
             thac0_32 = 2;
+        }
         else if (IS_SET(ch->act, ACT_MAGE))
+        {
             thac0_32 = 6;
+        }
     }
     else
     {
         thac0_00 = class_table[ch->class]->thac0_00;
         thac0_32 = class_table[ch->class]->thac0_32;
     }
+
     thac0 = interpolate(ch->level, thac0_00, thac0_32);
 
     if (thac0 < 0)
+    {
         thac0 = thac0 / 2;
+    }
 
     if (thac0 < -5)
+    {
         thac0 = -5 + (thac0 + 5) / 2;
+    }
 
     thac0 -= GET_HITROLL(ch, wield) * skill / 100;
     thac0 += 5 * (100 - skill) / 100;
 
     if (dt == gsn_backstab)
+    {
         thac0 -= 10 * (100 - get_skill(ch, gsn_backstab));
+    }
 
     switch (dam_type)
     {
@@ -869,6 +906,7 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         // Mobs should have any of these class specific skills on.
         affect_strip(ch, gsn_quiet_movement);
         affect_strip(ch, gsn_camping);
+        affect_strip(ch, gsn_healing_dream);
 
         // Remove camouflage if they're fighting and it's still on.
         if (is_affected(ch, gsn_camouflage))
@@ -878,15 +916,13 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         }
     }
 
-    /*
-     * Damage modifiers.
-     */
-
+    // Damage modifiers.
     if (dam > 1 && !IS_NPC(victim) && victim->pcdata->condition[COND_DRUNK] > 10)
     {
         dam = 9 * dam / 10;
     }
 
+    // Sanctuary, the eternal spell of spells.
     if (dam > 1 && IS_AFFECTED(victim, AFF_SANCTUARY))
     {
         dam /= 2;
