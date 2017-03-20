@@ -125,7 +125,6 @@ Sk 'nexus' 46 2
 Sk 'calm' 48 1
 Sk 'mass invisibility' 48 1
 Sk 'reserved' 52 -1
-Sk 'psionic blast' 52 -1
 Sk 'acid breath' 52 -1
 Sk 'fire breath' 52 -1
 Sk 'frost breath' 52 -1
@@ -173,8 +172,10 @@ Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'imbue' 52 -1
 Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'healing dream' 52 -1
 Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1

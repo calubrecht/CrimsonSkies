@@ -95,6 +95,7 @@ Sk 'fireball' 22 1
 Sk 'ice blast' 22 1
 Sk 'mass invisibility' 22 1
 Sk 'parry' 22 8
+Sk 'forget' 22 1
 Sk 'plague' 23 1
 Sk 'slow' 23 1
 Sk 'pass door' 24 1
@@ -106,8 +107,8 @@ Sk 'call lightning' 26 1
 Sk 'gate' 27 1
 Sk 'fog' 28 1
 Sk 'dispel fog' 28 1
-Sk 'psionic blast' 30 -1
 Sk 'second attack' 30 10
+Sk 'psionic blast' 30 -1
 Sk 'acid breath' 31 1
 Sk 'word of recall' 32 1
 Sk 'chain lightning' 33 1

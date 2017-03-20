@@ -2258,4 +2258,15 @@ MsgOff      You feel the mental burden lift away.~
 Race        0
 End
 
+#SKILL
+Name        forget~
+SpellFun    spell_forget~
+Target      1
+MinPos      0
+MinMana     20
+Beats       12
+MsgOff      Your mind feels clear again.~
+Race        0
+End
+
 #END

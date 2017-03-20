@@ -120,7 +120,6 @@ Sk 'fire breath' 40 1
 Sk 'enhanced damage' 45 10
 Sk 'calm' 48 1
 Sk 'reserved' 52 -1
-Sk 'psionic blast' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -163,8 +162,10 @@ Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'imbue' 52 -1
 Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'healing dream' 52 -1
 Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1

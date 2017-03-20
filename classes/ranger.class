@@ -150,7 +150,6 @@ Sk 'locate object' 49 2
 Sk 'gas breath' 50 2
 Sk 'fire breath' 51 2
 Sk 'reserved' 52 -1
-Sk 'psionic blast' 52 -1
 Sk 'bless' 52 -1
 Sk 'calm' 52 -1
 Sk 'frenzy' 52 -1
@@ -187,8 +186,10 @@ Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'imbue' 52 -1
 Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'healing dream' 52 -1
 Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'enchant armor' 53 4

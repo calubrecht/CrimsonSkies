@@ -446,6 +446,7 @@ Name 'psionics'
 Sk 'psionic blast'
 Sk 'healing dream'
 Sk 'mental weight'
+Sk 'forget'
 End
 
 #END

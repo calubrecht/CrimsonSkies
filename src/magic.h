@@ -160,3 +160,4 @@ DECLARE_SPELL_FUN(spell_ice_blast);
 DECLARE_SPELL_FUN(spell_psionic_blast);
 DECLARE_SPELL_FUN(spell_healing_dream);
 DECLARE_SPELL_FUN(spell_mental_weight);
+DECLARE_SPELL_FUN(spell_forget);

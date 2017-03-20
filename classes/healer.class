@@ -142,7 +142,6 @@ Sk 'healers bind' 45 1
 Sk 'restore mental presence' 46 1
 Sk 'sacrificial heal' 51 1
 Sk 'reserved' 52 -1
-Sk 'psionic blast' 52 -1
 Sk 'ice blast' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'immortal blessing' 52 -1
@@ -172,8 +171,10 @@ Sk 'peer' 52 -1
 Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
 Sk 'healing dream' 52 -1
 Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1

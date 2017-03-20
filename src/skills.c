@@ -156,8 +156,10 @@ int get_skill(CHAR_DATA * ch, int sn)
             skill = 0;
     }
 
-    // Is the player stunned in any way?  If so, lower their %
-    if (ch->daze > 0)
+    // Is the player stunned in any way?  If so, lower their % (also, forget
+    // acts like a stun, we make tweak the % for forget later to make it less
+    // extreme since it lasts for 5 ticks and not a few seconds)
+    if (ch->daze > 0 || is_affected(ch, gsn_forget))
     {
         if (skill_table[sn]->spell_fun != spell_null)
         {

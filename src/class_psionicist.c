@@ -132,6 +132,41 @@ void spell_healing_dream(int sn, int level, CHAR_DATA * ch, void *vo, int target
 }
 
 /*
+ * Forget spell, will cause the victim to have a lower chanct to succeed on all skills/spells (lowers
+ * both by 33%).
+ */
+void spell_forget(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, gsn_forget))
+    {
+        send_to_char("They are already forgetful.\r\n", ch);
+        return;
+    }
+
+    if (saves_spell(level, victim, DAM_MENTAL))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.duration = 3;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your mind feels clouded.\r\n", victim);
+    act("$n looks as if their mind is clouded.", victim, NULL, NULL, TO_ROOM);
+    return;
+}
+
+/*
  * Spell that will cause the victim to have 2x mana cost to cast a spell.
  */
 void spell_mental_weight(int sn, int level, CHAR_DATA * ch, void *vo, int target)

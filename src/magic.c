@@ -1267,6 +1267,12 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, gsn_forget))
+    {
+        act("$n's mind looks clearer.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     // Affects that don't need a specialized message here.
     if (check_dispel(level, victim, gsn_song_of_dissonance)
         || check_dispel(level, victim, gsn_song_of_protection))
@@ -1981,10 +1987,21 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, gsn_forget))
+    {
+        act("$n's mind looks clearer.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     if (found)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
     else
+    {
         send_to_char("Spell failed.\r\n", ch);
+    }
+
     return;
 }
 
@@ -4301,6 +4318,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_fire_breath")) return spell_fire_breath;
             if (!str_cmp(name, "spell_frost_breath")) return spell_frost_breath;
             if (!str_cmp(name, "spell_fog")) return spell_fog;
+            if (!str_cmp(name, "spell_forget")) return spell_forget;
             break;
         case 'g':
             if (!str_cmp(name, "spell_gate")) return spell_gate;
@@ -4554,6 +4572,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_psionic_blast) return "spell_psionic_blast";
     if (spell == spell_healing_dream) return "spell_healing_dream";
     if (spell == spell_mental_weight) return "spell_mental_weight";
+    if (spell == spell_forget) return "spell_forget";
 
     return "reserved";
 
