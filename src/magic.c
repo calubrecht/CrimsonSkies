@@ -2234,6 +2234,13 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     CHAR_DATA *victim;
     bool gate_pet;
 
+    // Psionicist boost, can gate to higher levels mobs than normal at
+    // level casters.
+    if (ch->class == PSIONICIST_CLASS_LOOKUP)
+    {
+        level += 3;
+    }
+
     if ((victim = get_char_world(ch, target_name)) == NULL
         || victim == ch
         || victim->in_room == NULL
@@ -3982,11 +3989,21 @@ void spell_farsight(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
 }
 
-
+/*
+ * Spell that can create a portal that players can walk through to go somewhere else.
+ * Portal is one sided, you walk through it and there's no walking back.
+ */
 void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim;
     OBJ_DATA *portal, *stone;
+
+    // Psionicist boost, can portal to higher levels mobs than normal at
+    // level casters.
+    if (ch->class == PSIONICIST_CLASS_LOOKUP)
+    {
+        level += 3;
+    }
 
     if ((victim = get_char_world(ch, target_name)) == NULL
         || victim == ch
@@ -4035,6 +4052,9 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     act("$p rises up before you.", ch, portal, NULL, TO_CHAR);
 }
 
+/*
+ * Nexus spell to create a two way portal to a location.
+ */
 void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim;
@@ -4042,6 +4062,13 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     ROOM_INDEX_DATA *to_room, *from_room;
 
     from_room = ch->in_room;
+
+    // Psionicist boost, can nexus to higher levels mobs than normal at
+    // level casters.
+    if (ch->class == PSIONICIST_CLASS_LOOKUP)
+    {
+        level += 3;
+    }
 
     if ((victim = get_char_world(ch, target_name)) == NULL
         || victim == ch
