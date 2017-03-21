@@ -1284,6 +1284,12 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         found = TRUE;
     }
 
+    if (check_dispel(level, victim, gsn_psionic_shield))
+    {
+        act("$n's psionic shield dissipates.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
     // Affects that don't need a specialized message here.
     if (check_dispel(level, victim, gsn_song_of_dissonance)
         || check_dispel(level, victim, gsn_song_of_protection))
@@ -2012,6 +2018,12 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if (check_dispel(level, victim, gsn_psionic_focus))
     {
         act("$n's mind looks less focused.", victim, NULL, NULL, TO_ROOM);
+        found = TRUE;
+    }
+
+    if (check_dispel(level, victim, gsn_psionic_shield))
+    {
+        act("$n's psionic shield dissipates.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
@@ -4430,6 +4442,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_psionic_blast")) return spell_psionic_blast;
             if (!str_cmp(name, "spell_preserve")) return spell_preserve;
             if (!str_cmp(name, "spell_psionic_focus")) return spell_psionic_focus;
+            if (!str_cmp(name, "spell_psionic_shield")) return spell_psionic_shield;
             break;
         case 'r':
             if (!str_cmp(name, "spell_refresh")) return spell_refresh;
@@ -4626,6 +4639,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_forget) return "spell_forget";
     if (spell == spell_psionic_focus) return "spell_psionic_focus";
     if (spell == spell_clairvoyance) return "spell_clairvoyance";
+    if (spell == spell_psionic_shield) return "spell_psionic_shield";
 
     return "reserved";
 

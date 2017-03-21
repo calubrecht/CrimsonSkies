@@ -194,6 +194,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_forget, "forget");
     ASSIGN_GSN(gsn_psionic_focus, "psionic focus");
     ASSIGN_GSN(gsn_clairvoyance, "clairvoyance");
+    ASSIGN_GSN(gsn_psionic_shield, "psionic shield");
 
     if (global.last_boot_result == UNKNOWN)
     {

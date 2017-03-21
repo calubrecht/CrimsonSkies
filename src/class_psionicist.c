@@ -353,3 +353,44 @@ void do_clairvoyance(CHAR_DATA * ch, char *argument)
     send_to_char("\r\nYour eyes return to normal as you break your clairvoyant focus.\r\n", ch);
     act("$n's eyes return to normal.", ch, NULL, NULL, TO_ROOM);
 }
+
+/*
+ * Spell that gives psionicists a small amount of armor class an additional save.
+ */
+void spell_psionic_shield(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N's is already surrounded by a psionic shield.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 2;
+    af.location = APPLY_AC;
+    af.modifier = -10;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    af.location = APPLY_SAVES;
+    af.modifier = -1;;
+    affect_to_char(victim, &af);
+
+    send_to_char("You are enveloped by a psionic shield.\r\n", victim);
+    act("$n is enveloped by a psionic shield.", victim, NULL, NULL, TO_ROOM);
+
+    return;
+}

@@ -163,3 +163,4 @@ DECLARE_SPELL_FUN(spell_mental_weight);
 DECLARE_SPELL_FUN(spell_forget);
 DECLARE_SPELL_FUN(spell_psionic_focus);
 DECLARE_SPELL_FUN(spell_clairvoyance);
+DECLARE_SPELL_FUN(spell_psionic_shield);

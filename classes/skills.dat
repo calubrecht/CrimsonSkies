@@ -2291,4 +2291,15 @@ MsgOff      Your clairvoyance has faded.~
 Race        0
 End
 
+#SKILL
+Name        psionic shield~
+SpellFun    spell_psionic_shield~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      The psionic shield surrounding you dissipates.~
+Race        0
+End
+
 #END
