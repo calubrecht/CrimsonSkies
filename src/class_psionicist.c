@@ -394,3 +394,148 @@ void spell_psionic_shield(int sn, int level, CHAR_DATA * ch, void *vo, int targe
 
     return;
 }
+
+/*
+ * A spell that will allow a psionicist to boost a single stat of their choice.
+ * c 'boost' rhien strength.  This spell will need to be setup with a target of
+ * ignore so that we can parse the target_name variable ourselves.  This spell
+ * requires more of the argument to know what to do making it out of the norm for
+ * spell setup.
+ */
+void spell_boost(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim;
+    AFFECT_DATA af;
+    char arg[MAX_STRING_LENGTH];
+    char victim_name[MAX_STRING_LENGTH];
+
+    // Pluck the victim's name and the argument off the "target_name".
+    target_name = one_argument(target_name, victim_name);
+    target_name = one_argument(target_name, arg);
+
+    if (IS_NULLSTR(victim_name) || IS_NULLSTR(arg))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if ((victim = get_char_room(ch, victim_name)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    // Strip it on both the victim regardless whether it's there or not
+    affect_strip(victim, gsn_boost);
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 2;
+    af.bitvector = 0;
+
+    // If the psionicist is affected by psionic focus then there is a chance
+    // the modifier can jump from 1 to 2.  Otherwise, it's always 1.
+    if (is_affected(ch, gsn_psionic_focus))
+    {
+        af.modifier = number_range(1, 2);
+    }
+    else
+    {
+        af.modifier = 1;
+    }
+
+    // Now, find out what the psionicist wants to enhance on the person..
+    if (!str_prefix(arg, "strength"))
+    {
+        if (ch != victim)
+        {
+            act("$n focuses $s psionic energy into your strength.", ch, NULL, victim, TO_VICT);
+            act("You focus your psionic energy into $N's strength.", ch, NULL, victim, TO_CHAR);
+            act("$n focuses $s psionic energy into $N's strength.", ch, NULL, victim, TO_NOTVICT);
+        }
+        else
+        {
+            send_to_char("You focus your psionic energy into your strength.\r\n", ch);
+            act("$n focuses $s psionic energy into $s strength.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        af.location = APPLY_STR;
+        affect_to_char(victim, &af);
+    }
+    else if (!str_prefix(arg, "intelligence"))
+    {
+        if (ch != victim)
+        {
+            act("$n focuses $s psionic energy into your intelligence.", ch, NULL, victim, TO_VICT);
+            act("You focus your psionic energy into $N's intelligence.", ch, NULL, victim, TO_CHAR);
+            act("$n focuses $s psionic energy into $N's intelligence.", ch, NULL, victim, TO_NOTVICT);
+        }
+        else
+        {
+            send_to_char("You focus your psionic energy into your intelligence.\r\n", ch);
+            act("$n focuses $s psionic energy into $s intelligence.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        af.location = APPLY_INT;
+        affect_to_char(victim, &af);
+    }
+    else if (!str_prefix(arg, "wisdom"))
+    {
+        if (ch != victim)
+        {
+            act("$n focuses $s psionic energy into your wisdom.", ch, NULL, victim, TO_VICT);
+            act("You focus your psionic energy into $N's wisdom.", ch, NULL, victim, TO_CHAR);
+            act("$n focuses $s psionic energy into $N's wisdom.", ch, NULL, victim, TO_NOTVICT);
+        }
+        else
+        {
+            send_to_char("You focus your psionic energy into your wisdom.\r\n", ch);
+            act("$n focuses $s psionic energy into $s wisdom.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        af.location = APPLY_WIS;
+        affect_to_char(victim, &af);
+    }
+    else if (!str_prefix(arg, "dexterity"))
+    {
+        if (ch != victim)
+        {
+            act("$n focuses $s psionic energy into your dexterity.", ch, NULL, victim, TO_VICT);
+            act("You focus your psionic energy into $N's dexterity.", ch, NULL, victim, TO_CHAR);
+            act("$n focuses $s psionic energy into $N's dexterity.", ch, NULL, victim, TO_NOTVICT);
+        }
+        else
+        {
+            send_to_char("You focus your psionic energy into your dexterity.\r\n", ch);
+            act("$n focuses $s psionic energy into $s dexterity.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        af.location = APPLY_DEX;
+        affect_to_char(victim, &af);
+    }
+    else if (!str_prefix(arg, "constitution"))
+    {
+        if (ch != victim)
+        {
+            act("$n focuses $s psionic energy into your constitution.", ch, NULL, victim, TO_VICT);
+            act("You focus your psionic energy into $N's constitution.", ch, NULL, victim, TO_CHAR);
+            act("$n focuses $s psionic energy into $N's constitution.", ch, NULL, victim, TO_NOTVICT);
+        }
+        else
+        {
+            send_to_char("You focus your psionic energy into your constitution.\r\n", ch);
+            act("$n focuses $s psionic energy into $s constitution.", ch, NULL, NULL, TO_ROOM);
+        }
+
+        af.location = APPLY_CON;
+        affect_to_char(victim, &af);
+    }
+    else
+    {
+        send_to_char("You failed.\r\n", ch);
+    }
+
+    return;
+}
+

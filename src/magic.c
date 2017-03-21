@@ -4313,6 +4313,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_blindness")) return spell_blindness;
             if (!str_cmp(name, "spell_burning_hands")) return spell_burning_hands;
             if (!str_cmp(name, "spell_bark_skin")) return spell_bark_skin;
+            if (!str_cmp(name, "spell_boost")) return spell_boost;
             break;
         case 'c':
             if (!str_cmp(name, "spell_cancellation")) return spell_cancellation;
@@ -4640,6 +4641,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_psionic_focus) return "spell_psionic_focus";
     if (spell == spell_clairvoyance) return "spell_clairvoyance";
     if (spell == spell_psionic_shield) return "spell_psionic_shield";
+    if (spell == spell_boost) return "spell_boost";
 
     return "reserved";
 

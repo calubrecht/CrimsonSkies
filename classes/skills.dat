@@ -2302,4 +2302,14 @@ MsgOff      The psionic shield surrounding you dissipates.~
 Race        0
 End
 
+#SKILL
+Name        boost~
+SpellFun    spell_boost~
+Target      0
+MinPos      8
+MinMana     20
+Beats       12
+Race        0
+End
+
 #END

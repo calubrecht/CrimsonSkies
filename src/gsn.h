@@ -189,3 +189,4 @@ DECLARE_GSN(gsn_forget);
 DECLARE_GSN(gsn_psionic_focus);
 DECLARE_GSN(gsn_clairvoyance);
 DECLARE_GSN(gsn_psionic_shield);
+DECLARE_GSN(gsn_boost);
