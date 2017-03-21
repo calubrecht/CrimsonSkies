@@ -4212,6 +4212,94 @@ environmental factors.
 The first seed merchant in the world is located off of Main Street
 in the town of Red Oak.
 ~
+0 PSIONICIST~
+Psionicist's are masters of the mind and have focused that ability
+into magics that affect themselves, others and the environment around
+them.  As a psionicist grows in power so will the strength of the powers
+that they manifest which is different than how traditional magic works.
+
+The psionicist's default group is psionics.
+
+See also: reclass
+~
+0 PSIONIC BLAST~
+Syntax: cast 'psionic blast' <target>
+
+Psionic blast is a damaging attack spell which unleashes a mental blast
+on the enemy of great power.  In instances the blast is powerful enough
+to disorient the target.
+~
+
+0 HEALING DREAM~
+Syntax: cast 'healing dream' <target>
+
+When a psionicist goes to sleep their mental focus automatically enters
+into a state in which their regeneration is heightened.  This happens
+automatically without casting a spell.  They may also however cast
+this spell on others who are sleeping thus sharing the effect with a
+friend.  The act of waking will cause the effect to wear off.
+~
+
+0 MENTAL WEIGHT~
+Syntax: cast 'mental weight' <target>
+
+Mental weight is a maladiction like spell which allows a psionicist to
+make mental actions of the victim cost more (e.g. if landed any spell
+casted by the victim will cost more mana for the victim to cast).
+~
+
+0 FORGET~
+Syntax: cast 'forget' <target>
+
+The forget spell is a maladiction like spell which allows a psionicist
+to affect the memory of a victim.  In doing so, they victim will have
+a harder time executing spells and skill that they know.
+~
+
+0 PSIONIC FOCUS~
+Syntax: cast 'psionic focus'
+Syntax: cast 'psionic focus' <target>
+
+The psionic focus spell will help the recipient focus better which
+can assist in how well they hit.  For a psionicist, the spell may
+also enhance the effect of other spells when they are cast making it
+important for a psionicist to have on at all times.
+~
+
+0 CLAIRVOYANCE~
+Syntax to set target room: cast 'clairvoyance'
+Syntax to invoke the clairvoyant effect: clairvoyance
+
+Clairvoyance is the ability for a psionicist to view a place in which
+they are no longer at.  Their mind is able to travel and see what their
+physical eyes cannot.
+
+The clairvoyance spell is cast in the room where the psionicist wants
+to later view.  After the spell is cast they can use the clairvoyance
+command to see that location (that command takes a moment while the
+psionicist locates the place in their mind).  Should the spell effect
+be dispeled, cancelled or wear off then the it won't be usable until
+it is again cast.
+~
+
+0 PSIONIC SHIELD~
+Syntax: cast 'psionic shield'
+Syntax: cast 'psionic shield' <victim>
+
+The psionic shield is a basic protection spell which enhances both
+a targets armor class and saves.
+~
+
+0 BOOST~
+Syntax: cast 'boost' <victim> <attribute>
+
+The boost spell allows a psionicist to focus their energy into
+enhancing a single attribute of a target (those attributes being
+either strength, intelligence, wisdom, dexterity or constitution).
+
+The psionicist may re-cast this spell without having to cancel
+the effect off of themselves or the target if it is not them.
+~
 0 BANK BANKER DEPOSIT WITHDRAW EXCHANGE GOLD SILVER~
 Most towns and clan halls in the game will have a bank located somewhere
 within them where you can store your excess gold as well as convert
