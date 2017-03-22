@@ -56,8 +56,23 @@ void spell_psionic_blast(int sn, int level, CHAR_DATA * ch, void *vo, int target
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     int dam;
+    int hours = hours_played(ch);
 
     dam = dice(level, 12);
+
+    // As the psionicist goes up in hours, they get a damage boost up to 1000 hours.
+    if (hours >= 250 && hours < 500)
+    {
+        dam += 5;
+    }
+    else if (hours >= 500 && hours < 1000)
+    {
+        dam += 7;
+    }
+    else if (hours >= 1000)
+    {
+        dam += 10;
+    }
 
     // First saves check to see if the damage is halved
     if (saves_spell(level, victim, DAM_MENTAL))
