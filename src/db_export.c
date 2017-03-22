@@ -68,6 +68,7 @@ void export_help(void);
 void export_rooms(void);
 void export_weapon_flags(void);
 void export_room_flags(void);
+void export_classes(void);
 
 char *flag_string(const struct flag_type *flag_table, int bits);
 
@@ -136,6 +137,13 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     export_help();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
+    printf_to_char(ch, "%-55s", "Exporting Help Files");
+    export_help();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Classes");
+    export_classes();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
 
     send_to_char("\r\nExport of game data complete!\r\n", ch);
 }
@@ -1195,6 +1203,88 @@ void export_weapon_flags(void)
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
         bugf("export_weapon_flags -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_classes(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_extra_flags -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS class;", 0, 0, 0)))
+    {
+        bugf("export_classes -> Failed to drop table: class");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS class(id INTEGER PRIMARY KEY, name TEXT, who_name TEXT, attr_prime INTEGER, weapon INTEGER, skill_adept INTEGER, thac0_00 INTEGER, thac0_32 INTEGER, hp_min INTEGER, hp_max INTEGER, mana BOOLEAN, base_group TEXT, default_group TEXT, is_reclass BOOLEAN, is_enabled BOOLEAN);", 0, 0, 0)))
+    {
+        bugf("export_classes -> Failed to create table: class");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO class(id, name, who_name, attr_prime, weapon, skill_adept, thac0_00, thac0_32, hp_min, hp_max, mana, base_group, default_group, is_reclass, is_enabled) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_classes -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    // Loop over all extra flags
+    for (x = 0; x < top_class; x++)
+    {
+        sqlite3_bind_int(stmt, 1, x);
+        sqlite3_bind_text(stmt, 2, capitalize(class_table[x]->name), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 3, class_table[x]->who_name, -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 4, class_table[x]->attr_prime);
+        sqlite3_bind_int(stmt, 5, class_table[x]->weapon);
+        sqlite3_bind_int(stmt, 6, class_table[x]->skill_adept);
+        sqlite3_bind_int(stmt, 7, class_table[x]->thac0_00);
+        sqlite3_bind_int(stmt, 8, class_table[x]->thac0_32);
+        sqlite3_bind_int(stmt, 9, class_table[x]->hp_min);
+        sqlite3_bind_int(stmt, 10, class_table[x]->hp_max);
+        sqlite3_bind_int(stmt, 11, class_table[x]->fMana);
+        sqlite3_bind_text(stmt, 12, class_table[x]->base_group, -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 13, class_table[x]->default_group, -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 14, class_table[x]->is_reclass);
+        sqlite3_bind_int(stmt, 15, class_table[x]->is_enabled);
+
+        rc = sqlite3_step(stmt);
+
+        if (rc != SQLITE_DONE)
+        {
+            bugf("ERROR inserting data for %d: %s\n", capitalize(class_table[x]->name), sqlite3_errmsg(db));
+        }
+
+        sqlite3_reset(stmt);
+    }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_classes -> Failed to commit transaction.");
     }
 
     sqlite3_finalize(stmt);
