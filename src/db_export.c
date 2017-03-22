@@ -1305,7 +1305,6 @@ void export_stats(void)
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
-    int x;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
 
