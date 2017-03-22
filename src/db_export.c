@@ -69,6 +69,7 @@ void export_rooms(void);
 void export_weapon_flags(void);
 void export_room_flags(void);
 void export_classes(void);
+void export_stats(void);
 
 char *flag_string(const struct flag_type *flag_table, int bits);
 
@@ -143,6 +144,10 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 
     printf_to_char(ch, "%-55s", "Exporting Classes");
     export_classes();
+    send_to_char("[ {GComplete{x ]\r\n", ch);
+
+    printf_to_char(ch, "%-55s", "Exporting Stat Lookup");
+    export_stats();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
     send_to_char("\r\nExport of game data complete!\r\n", ch);
@@ -1185,7 +1190,7 @@ void export_weapon_flags(void)
     }
 
     // Loop over all extra flags
-    for (x = 0;  weapon_type2[x].name != NULL; x++)
+    for (x = 0; weapon_type2[x].name != NULL; x++)
     {
         sqlite3_bind_int(stmt, 1, weapon_type2[x].bit);
         sqlite3_bind_text(stmt, 2, weapon_type2[x].name, -1, SQLITE_STATIC);
@@ -1281,6 +1286,89 @@ void export_classes(void)
 
         sqlite3_reset(stmt);
     }
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_classes -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_stats(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+    int x;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_stats -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS stat;", 0, 0, 0)))
+    {
+        bugf("export_stats -> Failed to drop table: stat");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS stat(id INTEGER PRIMARY KEY, name TEXT, short_name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_stat -> Failed to create table: stat");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO stat(id, name, short_name) VALUES (?1, ?2, ?3);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_stats -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    sqlite3_bind_int(stmt, 1, 0);
+    sqlite3_bind_text(stmt, 2, "Strength", -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 3, "Str", -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, 1);
+    sqlite3_bind_text(stmt, 2, "Intelligence", -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 3, "Int", -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, 2);
+    sqlite3_bind_text(stmt, 2, "Wisdom", -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 3, "Wis", -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, 3);
+    sqlite3_bind_text(stmt, 2, "Dexterity", -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 3, "Dex", -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, 4);
+    sqlite3_bind_text(stmt, 2, "Constitution", -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 3, "Con", -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
 
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
