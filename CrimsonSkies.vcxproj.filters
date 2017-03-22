@@ -207,6 +207,9 @@
     <ClCompile Include="src\class_cleric.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\class_psionicist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">

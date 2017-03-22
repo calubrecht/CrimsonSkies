@@ -74,6 +74,7 @@
   <ItemGroup>
     <ClCompile Include="src\class_cleric.c" />
     <ClCompile Include="src\class_mage.c" />
+    <ClCompile Include="src\class_psionicist.c" />
     <ClCompile Include="src\class_thief.c" />
     <ClCompile Include="src\class_warrior.c" />
     <ClCompile Include="src\gsn.c" />
