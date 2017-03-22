@@ -140,6 +140,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
   - Remove mass invis gsn, add invis flag when it's cast.
   - Psion - Temporal Fracture
-  - Psion - Clairvoyance, ability to cast and then see a specific room (single room, has to have been there)
-  - Psion - Psionic Shield - -1 saves, -10AC
   - Create function of all things to be removed in combat/damage.
+  - Update cancel and dispel magic table to read from shared table.
+  - Psionics boosts based on the hours they've played.
+  - Unlock spell for psion
+  - Slippery Mind for psion
