@@ -7481,7 +7481,7 @@ SEDIT(sedit_rating)
     }
 
     for (class_no = 0; class_no < top_class; class_no++)
-        if (!str_cmp(class_name, class_table[class_no]->name))
+        if (!str_prefix(class_name, class_table[class_no]->name))
             break;
 
     if (class_no >= top_class)
