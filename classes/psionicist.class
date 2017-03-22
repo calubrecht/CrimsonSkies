@@ -17,15 +17,10 @@ IsReclass   1
 IsEnabled   1
 Sk 'magic missile' 1 1
 Sk 'ventriloquate' 1 1
-Sk 'axe' 1 6
 Sk 'dagger' 1 2
-Sk 'flail' 1 6
 Sk 'mace' 1 5
-Sk 'polearm' 1 6
 Sk 'shield block' 1 6
-Sk 'spear' 1 4
 Sk 'sword' 1 5
-Sk 'whip' 1 6
 Sk 'scrolls' 1 2
 Sk 'staves' 1 2
 Sk 'wands' 1 2
@@ -128,6 +123,11 @@ Sk 'enhanced damage' 45 10
 Sk 'calm' 48 1
 Sk 'clairvoyance' 51 1
 Sk 'reserved' 52 -1
+Sk 'axe' 52 -1
+Sk 'flail' 52 -1
+Sk 'polearm' 52 -1
+Sk 'spear' 52 -1
+Sk 'whip' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1
@@ -244,7 +244,7 @@ Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
 Gr 'psionicist default' 40
-Gr 'weaponsmaster' 40
+Gr 'weaponsmaster' 0
 Gr 'attack' 0
 Gr 'beguiling' 4
 Gr 'benedictions' 0
@@ -252,8 +252,8 @@ Gr 'combat' 6
 Gr 'creation' 4
 Gr 'curative' 0
 Gr 'detection' 4
-Gr 'draconian' 8
-Gr 'enchantment' 6
+Gr 'draconian' 0
+Gr 'enchantment' 0
 Gr 'enhancement' 5
 Gr 'harmful' 0
 Gr 'healing' 0
