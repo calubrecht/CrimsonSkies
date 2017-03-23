@@ -394,7 +394,7 @@ void load_settings()
     settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
 
     free_string(settings.mud_name);
-    settings.mud_name = str_dup(iniparser_getstring(ini, "Settings:MudName", ""));
+    settings.mud_name = str_dup(iniparser_getstring(ini, "Settings:MudName", "Crimson Skies"));
 
     free_string(settings.login_greeting);
     settings.login_greeting = str_dup(iniparser_getstring(ini, "Settings:LoginGreeting", ""));
