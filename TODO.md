@@ -124,12 +124,10 @@ This is my to do list, mostly will be things big and small as I think about them
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
   - Help file update for notes to display supported spools
   - Command to list the spools available, with properties to denote immortal only
-  - Prefix class code files with class_.
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
   - Documentation, ugg.
   - No magic area flag
-  - First game startup, game name is not set.
   - Fix formatting string removing line breaks.
   - Find out why strings are saving funny (this was fixed in notes)  
   - All coloring on login menu to come from settings so no mismatched colors
@@ -143,5 +141,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Create function of all things to be removed in combat/damage.
   - Update cancel and dispel magic table to read from shared table.
   - Psionics boosts based on the hours they've played.
-  - Unlock spell for psion
   - Slippery Mind for psion
+  - Psion Recall Agony A: Foe takes 2d6 damage.
