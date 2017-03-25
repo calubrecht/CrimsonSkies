@@ -931,6 +931,66 @@ CHAR_DATA *get_target(CHAR_DATA *ch, char *argument, bool ranged)
  * Spell functions.
  */
 
+// marker
+// TODO sanc needs special check for the AFF in dispel_magic (mobs get it via AFF)
+
+/*
+ * This contains the spells that can be dispelled or cancelled.  Those spells will
+ * loop through these.  This table requires a GSN and an optional ACT message that
+ * the room should see (leave it blank if not message is desired).
+ */
+const struct dispel_type dispel_table[] = {
+    { &gsn_armor, ""},
+    { &gsn_bless, ""},
+    { &gsn_blindness, "$n is no longer blinded."},
+    { &gsn_calm, "$n no longer looks so peaceful..."},
+    { &gsn_change_sex, "$n looks more like $mself again."},
+    { &gsn_charm_person, "$n regains $s free will."},
+    { &gsn_chill_touch, "$n looks warmer."},
+    { &gsn_curse, ""},
+    { &gsn_detect_evil, ""},
+    { &gsn_detect_good, ""},
+    { &gsn_detect_hidden, ""},
+    { &gsn_detect_invis, ""},
+    { &gsn_detect_magic, ""},
+    { &gsn_enhanced_recovery, ""},
+    { &gsn_faerie_fire, "The pink outline around $n fades away."},
+    { &gsn_fly, "$n falls to the ground!"},
+    { &gsn_frenzy, "$n no longer looks so wild."},
+    { &gsn_giant_strength, "$n no longer looks so mighty."},
+    { &gsn_haste, "$n is no longer moving so quickly."},
+    { &gsn_infravision, ""},
+    { &gsn_invisibility, "$n fades into existance."},
+    { &gsn_mass_invisibility, "$n fades into existance."},
+    { &gsn_pass_door, "&n is no longer translucent"},
+    { &gsn_protection_evil, ""},
+    { &gsn_protection_good, ""},
+    { &gsn_protection_neutral, ""},
+    { &gsn_sanctuary, "The white aura around $n's body vanishes."},
+    { &gsn_shield, "The shield protecting $n vanishes."},
+    { &gsn_sleep, ""},
+    { &gsn_slow, "$n is no longer moving so slowly."},
+    { &gsn_stone_skin, "$n's skin regains its normal texture."},
+    { &gsn_weaken, "$n looks stronger."},
+    { &gsn_enchant_person, "$n no longer looks as if $e is enchanted."},
+    { &gsn_water_breathing, "$n's breathing returns to normal."},
+    { &gsn_vitalizing_presence, "The vitalizing presence leaves $n's body."},
+    { &gsn_bark_skin, "$n's skin loses it's bark like texture."},
+    { &gsn_self_growth, "$n no longer looks as vitalized."},
+    { &gsn_life_boost, "$n no longer looks as vitalized."},
+    { &gsn_sense_affliction, ""},
+    { &gsn_mental_weight, ""},
+    { &gsn_clairvoyance, ""},
+    { &gsn_imbue, "$n's magical ability is no longer augmented."},
+    { &gsn_forget, "$n's mind looks clearer."},
+    { &gsn_psionic_focus, "$n's mind looks less focused."},
+    { &gsn_psionic_shield, "$n's psionic shield dissipates."},
+    { &gsn_song_of_protection, ""},
+    { &gsn_song_of_dissonance, ""},
+    {-1, NULL}
+};
+
+
 /*
  * Armor spell - increases a targets armor class.
  *

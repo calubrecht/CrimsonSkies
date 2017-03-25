@@ -429,6 +429,17 @@ struct class_type
     bool    is_enabled;        /* Whether the class is enabled for public use */
 };
 
+/*
+ * These are spells (and their message off) that are shared and used in both
+ * spell_cancel and spell_dispel.  The gsn is the global skill number of the
+ * spell and the room message is the act message the room should display.
+ */
+struct dispel_type
+{
+    int       gsn;
+    char *    room_msg;
+};
+
 struct item_type
 {
     int       type;
@@ -2185,6 +2196,7 @@ extern    const    struct    race_type       race_table[];
 extern             struct    pc_race_type    pc_race_table[];
 extern    const    struct    spec_type       spec_table[];
 extern    const    struct    liq_type        liq_table[];
+extern    const    struct    dispel_type     dispel_table[];
 extern             struct    social_type     social_table[MAX_SOCIALS];
 //extern             struct    skill_type      skill_table    [MAX_SKILL];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
