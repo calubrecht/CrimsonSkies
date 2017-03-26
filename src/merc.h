@@ -436,7 +436,7 @@ struct class_type
  */
 struct dispel_type
 {
-    int       gsn;
+    int  *    gsn;
     char *    room_msg;
 };
 
