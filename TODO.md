@@ -101,7 +101,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Clipboard command to allow a character to save notes.
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
-  - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
   - Delete expired notes by calling the save function, either on load or reboot.
@@ -139,7 +138,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Remove mass invis gsn, add invis flag when it's cast.
   - Psion - Temporal Fracture
   - Create function of all things to be removed in combat/damage.
-  - Update cancel and dispel magic table to read from shared table.
   - Psionics boosts based on the hours they've played.
   - Slippery Mind for psion
   - Psion Recall Agony A: Foe takes 2d6 damage.
