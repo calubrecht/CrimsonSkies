@@ -987,6 +987,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_psionic_shield, "$n's psionic shield dissipates."},
     { &gsn_song_of_protection, ""},
     { &gsn_song_of_dissonance, ""},
+    { &gsn_magic_resistance, "$n no longer looks resistant to magic."},
     {NULL, NULL}
 };
 
@@ -1113,6 +1114,7 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     bool found = FALSE;
+    int x = 0;
 
     level += 2;
 
@@ -1125,236 +1127,22 @@ void spell_cancellation(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    /* unlike dispel magic, the victim gets NO save */
+    // Unlike dispel magic, the victim gets NO save
 
-    /* begin running through the spells */
-
-    if (check_dispel(level, victim, gsn_armor))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_bless))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_blindness))
+    // Begin running through the spells in the dispel_table, if there is an
+    // act message to show to the room show it, otherwise it will be silent.
+    for (x = 0; dispel_table[x].gsn != NULL; x++)
     {
-        found = TRUE;
-        act("$n is no longer blinded.", victim, NULL, NULL, TO_ROOM);
-    }
+        if (check_dispel(level, victim, *dispel_table[x].gsn))
+        {
+            found = TRUE;
 
-    if (check_dispel(level, victim, gsn_calm))
-    {
-        found = TRUE;
-        act("$n no longer looks so peaceful...", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_change_sex))
-    {
-        found = TRUE;
-        act("$n looks more like $mself again.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_charm_person))
-    {
-        found = TRUE;
-        act("$n regains $s free will.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_chill_touch))
-    {
-        found = TRUE;
-        act("$n looks warmer.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_curse))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_evil))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_good))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_hidden))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_invis))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_magic))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_enhanced_recovery))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_faerie_fire))
-    {
-        act("The pink outline around $n fades away.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_fly))
-    {
-        act("$n falls to the ground!", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_frenzy))
-    {
-        act("$n no longer looks so wild.", victim, NULL, NULL, TO_ROOM);;
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_giant_strength))
-    {
-        act("$n no longer looks so mighty.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_haste))
-    {
-        act("$n is no longer moving so quickly.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_infravision))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_invisibility))
-    {
-        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_mass_invisibility))
-    {
-        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_pass_door))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_evil))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_good))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_neutral))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_sanctuary))
-    {
-        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_shield))
-    {
-        act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_sleep))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_slow))
-    {
-        act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_stone_skin))
-    {
-        act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_weaken))
-    {
-        act("$n looks stronger.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_enchant_person))
-    {
-        act("$n no longer looks as if $e is enchanted.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_water_breathing))
-    {
-        act("$n's breathing returns to normal.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_vitalizing_presence))
-    {
-        act("The vitalizing presence leaves $n's body.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_bark_skin))
-    {
-        act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_self_growth))
-    {
-        act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_life_boost))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_sense_affliction))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_mental_weight))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_clairvoyance))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_imbue))
-    {
-        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_forget))
-    {
-        act("$n's mind looks clearer.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_psionic_focus))
-    {
-        act("$n's mind looks less focused.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_psionic_shield))
-    {
-        act("$n's psionic shield dissipates.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    // Affects that don't need a specialized message here.
-    if (check_dispel(level, victim, gsn_song_of_dissonance)
-        || check_dispel(level, victim, gsn_song_of_protection))
-    {
-        found = TRUE;
+            // Check for the room message
+            if (!IS_NULLSTR(dispel_table[x].room_msg))
+            {
+                act(dispel_table[x].room_msg, victim, NULL, NULL, TO_ROOM);
+            }
+        }
     }
 
     if (found)
@@ -1835,6 +1623,7 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     bool found = FALSE;
+    int x = 0;
 
     if (saves_spell(level, victim, DAM_OTHER))
     {
@@ -1843,247 +1632,30 @@ void spell_dispel_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    /* begin running through the spells */
-
-    if (check_dispel(level, victim, gsn_armor))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_bless))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_blindness))
+    // Begin running through the spells in the dispel_table, if there is an
+    // act message to show to the room show it, otherwise it will be silent.
+    for (x = 0; dispel_table[x].gsn != NULL; x++)
     {
-        found = TRUE;
-        act("$n is no longer blinded.", victim, NULL, NULL, TO_ROOM);
+        if (check_dispel(level, victim, *dispel_table[x].gsn))
+        {
+            found = TRUE;
+
+            // Check for the room message
+            if (!IS_NULLSTR(dispel_table[x].room_msg))
+            {
+                act(dispel_table[x].room_msg, victim, NULL, NULL, TO_ROOM);
+            }
+        }
     }
 
-    if (check_dispel(level, victim, gsn_calm))
-    {
-        found = TRUE;
-        act("$n no longer looks so peaceful...", victim, NULL, NULL,
-            TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_change_sex))
-    {
-        found = TRUE;
-        act("$n looks more like $mself again.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_charm_person))
-    {
-        found = TRUE;
-        act("$n regains $s free will.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_chill_touch))
-    {
-        found = TRUE;
-        act("$n looks warmer.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_curse))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_evil))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_good))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_hidden))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_invis))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_detect_magic))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_faerie_fire))
-    {
-        act("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_fly))
-    {
-        act("$n falls to the ground!", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_frenzy))
-    {
-        act("$n no longer looks so wild.", victim, NULL, NULL, TO_ROOM);;
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_giant_strength))
-    {
-        act("$n no longer looks so mighty.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_haste))
-    {
-        act("$n is no longer moving so quickly.", victim, NULL, NULL,
-            TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_infravision))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_invisibility))
-    {
-        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_mass_invisibility))
-    {
-        act("$n fades into existance.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_pass_door))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_evil))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_good))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_protection_neutral))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_sanctuary))
-    {
-        act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
+    // This is different than cancel, sanc is weird on mobs because it's set with the AFF
+    // bit and not the gsn affect.  In these cases will run the saves check like this.
     if (IS_AFFECTED(victim, AFF_SANCTUARY)
         && !saves_dispel(level, victim->level, -1)
         && !is_affected(victim, gsn_sanctuary))
     {
         REMOVE_BIT(victim->affected_by, AFF_SANCTUARY);
         act("The white aura around $n's body vanishes.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_shield))
-    {
-        act("The shield protecting $n vanishes.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_sleep))
-        found = TRUE;
-
-    if (check_dispel(level, victim, gsn_slow))
-    {
-        act("$n is no longer moving so slowly.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_stone_skin))
-    {
-        act("$n's skin regains its normal texture.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_weaken))
-    {
-        act("$n looks stronger.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_enchant_person))
-    {
-        act("$n no longer looks as if $e is enchanted.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_water_breathing))
-    {
-        act("$n begins to breath normally.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_vitalizing_presence))
-    {
-        act("The vitalizing presence leaves $n's body.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_life_boost))
-    {
-        act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_sense_affliction))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_song_of_protection)
-        || check_dispel(level, victim, gsn_song_of_dissonance))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_enhanced_recovery))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_clairvoyance))
-    {
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_bark_skin))
-    {
-        found = TRUE;
-        act("$n's skin loses it's bark like texture.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_self_growth))
-    {
-        found = TRUE;
-        act("$n no longer looks as vitalized.", victim, NULL, NULL, TO_ROOM);
-    }
-
-    if (check_dispel(level, victim, gsn_imbue))
-    {
-        act("$n's magical ability is no longer augmented.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_mental_weight))
-    {
-        act("$n's looks as if their mental burden has lifted.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_forget))
-    {
-        act("$n's mind looks clearer.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_psionic_focus))
-    {
-        act("$n's mind looks less focused.", victim, NULL, NULL, TO_ROOM);
-        found = TRUE;
-    }
-
-    if (check_dispel(level, victim, gsn_psionic_shield))
-    {
-        act("$n's psionic shield dissipates.", victim, NULL, NULL, TO_ROOM);
         found = TRUE;
     }
 
