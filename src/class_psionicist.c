@@ -206,7 +206,7 @@ void spell_mental_weight(int sn, int level, CHAR_DATA * ch, void *vo, int target
     af.level = level;
     af.duration = 10;
     af.location = APPLY_NONE;
-    af.modifier = -1 * (level / 5);
+    af.modifier = 0;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
