@@ -154,6 +154,7 @@ void spell_forget(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
+    int duration = 2;
 
     if (is_affected(victim, gsn_forget))
     {
@@ -167,12 +168,18 @@ void spell_forget(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
+    // Duration is increased by one tick if the psion is older/stronger.
+    if (hours_played(ch) > 1000)
+    {
+        duration++;
+    }
+
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
     af.location = APPLY_NONE;
     af.modifier = 0;
-    af.duration = 3;
+    af.duration = duration;
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
