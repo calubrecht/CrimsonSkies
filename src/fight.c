@@ -1248,7 +1248,10 @@ bool is_safe(CHAR_DATA * ch, CHAR_DATA * victim)
 
     // Cannot attack a player which has recently died.
     if (IS_GHOST(victim))
+    {
+        send_to_char("You cannot attack them while they are a ghost.\r\n", ch);
         return TRUE;
+    }
 
     // You cannot attack if you are a player that has recently died.
     if (IS_GHOST(ch))
