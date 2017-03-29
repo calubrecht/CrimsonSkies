@@ -6,6 +6,7 @@ LevelRange 15 35
 Credits {10 35} Yaegar The Keep of the Warlock~
 Security 9
 Continent 1
+AreaFlags A
 End
 
 
@@ -360,9 +361,9 @@ armor AGJ AK
 B B B B A
 27 5 1000 P
 A
-3 2
-A
 12 50
+A
+3 2
 #15701
 bone staff~
 a bone staff~
@@ -382,9 +383,9 @@ weapon AGJ AN
 sword 4 5 pierce 0
 25 10 1000 P
 A
-18 2
-A
 19 2
+A
+18 2
 #15703
 bronze helm~
 a bronze helm~
@@ -476,9 +477,9 @@ weapon J AN
 mace 3 4 crush 0
 14 20 1000 P
 A
-19 2
-A
 18 -2
+A
+19 2
 #15714
 leather hauberk~
 a leather hauberk~
@@ -564,15 +565,13 @@ container S 0
 1000 0 0 1000 100
 0 1 0 P
 #15724
-collar~
+spiked collar~
 a spiked collar~
 A spiked dog collar lies here.~
 iron~
 armor 0 AC
 A BC B 0 A
 19 5 1000 P
-A
-18 2
 A
 19 2
 #15725
@@ -584,9 +583,9 @@ treasure J AO
 0 0 0 0 0
 18 3 1500 P
 A
-2 1
-A
 17 -2
+A
+2 1
 #15726
 dagger~
 a throwing dagger~
@@ -614,9 +613,9 @@ jewelry AGP AB
 0 0 0 0 0
 15 1 1250 P
 A
-20 -1
-A
 12 10
+A
+20 -1
 #15729
 elven boots~
 elven boots~
@@ -636,13 +635,13 @@ armor 0 AC
 0 0 0 0 A
 3 3 -900 P
 A
-5 1
-A
-13 10
+25 1
 A
 17 -5
 A
-25 1
+13 10
+A
+5 1
 #15731
 pick~
 a pick~
@@ -761,9 +760,9 @@ armor 0 AF
 D D D D A
 19 50 0 P
 A
-2 -4
-A
 14 -150
+A
+2 -4
 #15743
 map baragar keep~
 a map of baragar's keep~
