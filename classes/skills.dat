@@ -481,7 +481,7 @@ SpellFun    spell_enchant_armor~
 Target      4
 MinPos      8
 MinMana     100
-Beats       24
+Beats       12
 MsgOff      !Enchant Armor!~
 Race        0
 End
@@ -492,7 +492,7 @@ SpellFun    spell_enchant_weapon~
 Target      4
 MinPos      8
 MinMana     100
-Beats       24
+Beats       12
 MsgOff      !Enchant Weapon!~
 Race        0
 End
