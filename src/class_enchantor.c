@@ -489,13 +489,17 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
             if (paf->location == APPLY_AC)
             {
                 paf->type = sn;
-                paf->modifier += added;
                 paf->level = UMAX(paf->level, level);
 
-                // Game owner may max enchant
                 if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
                 {
+                    // Game owner max enchant
                     paf->modifier = -14;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
                 }
             }
         }
@@ -510,12 +514,16 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_AC;
-        paf->modifier = added;
 
-        // Game owner may max enchant
         if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
         {
+            // Game owner max enchant
             paf->modifier = -14;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
         }
 
         paf->bitvector = 0;
@@ -771,7 +779,6 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             if (paf->location == APPLY_DAMROLL)
             {
                 paf->type = sn;
-                paf->modifier += added;
 
                 if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
                 {
@@ -823,7 +830,6 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             if (paf->location == APPLY_HITROLL)
             {
                 paf->type = sn;
-                paf->modifier += added;
 
                 if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
                 {
