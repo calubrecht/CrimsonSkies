@@ -6657,21 +6657,11 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    OBJ_DATA *obj;
-
-    if (argument[0] == '\0')
-    {
-        send_to_char("Stat what?\r\n", ch);
-        return;
-    }
-
-    if ((obj = get_obj_world(ch, argument)) == NULL)
-    {
-        send_to_char("Nothing like that in hell, earth, or heaven.\r\n", ch);
-        return;
-    }
-
-    printf_to_char(ch, "%d count\r\n", obj_count_by_type(obj, ITEM_WEAPON));
+    printf_to_char(ch, "1: %d\r\n", number_bits(1));
+    printf_to_char(ch, "2: %d\r\n", number_bits(2));
+    printf_to_char(ch, "3: %d\r\n", number_bits(3));
+    printf_to_char(ch, "4: %d\r\n", number_bits(4));
+    printf_to_char(ch, "5: %d\r\n", number_bits(5));
 
     return;
 } // end do_debug

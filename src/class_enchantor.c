@@ -377,6 +377,13 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
         }
     }
 
+    // Game owner may max enchant, the item will still reflect it was enchanted by
+    // them.  Ideally this would be for special quest items.
+    if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+    {
+        fail = 0;
+    }
+
     // the moment of truth
     if (result < (fail / 5))
     {
@@ -484,6 +491,12 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
                 paf->type = sn;
                 paf->modifier += added;
                 paf->level = UMAX(paf->level, level);
+
+                // Game owner may max enchant
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    paf->modifier = -14;
+                }
             }
         }
     }
@@ -498,6 +511,13 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
         paf->duration = -1;
         paf->location = APPLY_AC;
         paf->modifier = added;
+
+        // Game owner may max enchant
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            paf->modifier = -14;
+        }
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
@@ -533,6 +553,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     // this means they have no bonus
     hit_bonus = 0;
     dam_bonus = 0;
+
     // base 25% chance of failure
     fail = 25;
 
@@ -619,6 +640,13 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             dam_bonus = paf->modifier;
             if (dam_bonus >= 12) { result = 0; }
         }
+    }
+
+    // Game owner may max enchant, the item will still reflect it was enchanted by
+    // them.  Ideally this would be for special quest items.
+    if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+    {
+        fail = 0;
     }
 
     // the moment of truth
@@ -744,6 +772,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             {
                 paf->type = sn;
                 paf->modifier += added;
+
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    // Game owner max enchant
+                    paf->modifier = 12;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
+                }
+
                 paf->level = UMAX(paf->level, level);
                 if (paf->modifier > 4)
                     SET_BIT(obj->extra_flags, ITEM_HUM);
@@ -759,7 +799,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_DAMROLL;
-        paf->modifier = added;
+
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            // Game owner max enchant
+            paf->modifier = 12;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
+        }
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
@@ -773,6 +824,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             {
                 paf->type = sn;
                 paf->modifier += added;
+
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    // Game owner max enchant
+                    paf->modifier = 12;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
+                }
+
                 paf->level = UMAX(paf->level, level);
                 if (paf->modifier > 4)
                     SET_BIT(obj->extra_flags, ITEM_HUM);
@@ -787,7 +850,19 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_HITROLL;
-        paf->modifier = added;
+
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            // Game owner max enchant
+            paf->modifier = 12;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
+        }
+
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
