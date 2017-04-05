@@ -2016,8 +2016,22 @@ void do_score(CHAR_DATA * ch, char *argument)
 
     if (!IS_NPC(ch))
     {
-        sprintf(center_text, "{WScore for %s, %s %s{x",
-            capitalize(ch->name), pc_race_table[ch->race].article_name, buf);
+        char rank[32];
+
+        if (ch->class == PRIEST_CLASS_LOOKUP)
+        {
+            sprintf(rank, " [%s]", priest_rank_table[ch->pcdata->priest_rank].name);
+        }
+        else
+        {
+            rank[0] = '\0';
+        }
+
+        sprintf(center_text, "{WScore for %s, %s %s%s{x",
+            capitalize(ch->name),
+            pc_race_table[ch->race].article_name,
+            buf,
+            rank);
     }
     else
     {
@@ -2512,7 +2526,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     // This is a hack for Windows/Visual C++, the gcc compiler allows for variable length arrays so
     // top_class is the number of classes dynamically read in.  This is akin to the old
     // MAX_CLASS (which now defines the ceiling and not the actual max classes).
-    bool rgfClass[10];
+    bool rgfClass[11];
 #endif
 
     bool rgfRace[MAX_PC_RACE];

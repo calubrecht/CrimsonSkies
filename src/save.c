@@ -325,8 +325,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
             ch->pcdata->condition[3]);
 
         fprintf(fp, "Stance %d\n", ch->stance);
-
         fprintf(fp, "VnumClairvoyance %d\n", ch->pcdata->vnum_clairvoyance);
+        fprintf(fp, "PriestRank %d\n", ch->pcdata->priest_rank);
 
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
@@ -696,6 +696,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->bank_gold = 0;
     ch->pcdata->recall_vnum = 0;
     ch->pcdata->vnum_clairvoyance = 1;
+    ch->pcdata->priest_rank = 0;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -1165,6 +1166,8 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("Pkilled", ch->pcdata->pkilled,fread_number(fp));
                 KEY("Pkills", ch->pcdata->pkills, fread_number(fp));
+
+                KEY("PriestRank", ch->pcdata->priest_rank, (fread_number(fp)));
 
                 break;
             case 'Q':

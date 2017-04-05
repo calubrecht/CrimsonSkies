@@ -191,3 +191,4 @@ DECLARE_GSN(gsn_clairvoyance);
 DECLARE_GSN(gsn_psionic_shield);
 DECLARE_GSN(gsn_boost);
 DECLARE_GSN(gsn_magic_resistance);
+DECLARE_GSN(gsn_agony);

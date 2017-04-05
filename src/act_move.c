@@ -1766,7 +1766,9 @@ void do_recall(CHAR_DATA * ch, char *argument)
     }
 
     if (ch->in_room == location)
+    {
         return;
+    }
 
     if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
         || IS_AFFECTED(ch, AFF_CURSE)
@@ -1824,7 +1826,12 @@ void do_recall(CHAR_DATA * ch, char *argument)
     do_function(ch, &do_look, "auto");
 
     if (ch->pet != NULL)
+    {
         do_function(ch->pet, &do_recall, "");
+    }
+
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
 
     return;
 }

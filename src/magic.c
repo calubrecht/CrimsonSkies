@@ -931,9 +931,6 @@ CHAR_DATA *get_target(CHAR_DATA *ch, char *argument, bool ranged)
  * Spell functions.
  */
 
-// marker
-// TODO sanc needs special check for the AFF in dispel_magic (mobs get it via AFF)
-
 /*
  * This contains the spells that can be dispelled or cancelled.  Those spells will
  * loop through these.  This table requires a GSN and an optional ACT message that
@@ -988,6 +985,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_song_of_protection, ""},
     { &gsn_song_of_dissonance, ""},
     { &gsn_magic_resistance, "$n no longer looks resistant to magic."},
+    { &gsn_agony, "The veil of agony o ver $n lifts."},
     {NULL, NULL}
 };
 
@@ -1907,10 +1905,15 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         send_to_char("You failed.\r\n", ch);
         return;
     }
+
     if (ch->pet != NULL && ch->in_room == ch->pet->in_room)
+    {
         gate_pet = TRUE;
+    }
     else
+    {
         gate_pet = FALSE;
+    }
 
     act("$n steps through a gate and vanishes.", ch, NULL, NULL, TO_ROOM);
     send_to_char("You step through a gate and vanish.\r\n", ch);
@@ -1922,14 +1925,17 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (gate_pet)
     {
-        act("$n steps through a gate and vanishes.", ch->pet, NULL, NULL,
-            TO_ROOM);
+        act("$n steps through a gate and vanishes.", ch->pet, NULL, NULL, TO_ROOM);
         send_to_char("You step through a gate and vanish.\r\n", ch->pet);
         char_from_room(ch->pet);
         char_to_room(ch->pet, victim->in_room);
         act("$n has arrived through a gate.", ch->pet, NULL, NULL, TO_ROOM);
         do_function(ch->pet, &do_look, "auto");
     }
+
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
+
 }
 
 
@@ -3146,6 +3152,9 @@ void spell_teleport(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         char_to_room(victim, pRoomIndex);
         act("$n slowly fades into existence.", victim, NULL, NULL, TO_ROOM);
         do_function(victim, &do_look, "auto");
+
+        // Priest, agony spell check/processing
+        agony_damage_check(ch);
     }
     else
     {
@@ -3199,7 +3208,9 @@ void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     int recall_vnum = 0;
 
     if (IS_NPC(victim))
+    {
         return;
+    }
 
     // If this is a player and they have a custom recall set to a bind stone
     // then use that, otherwise use the temple.
@@ -3227,8 +3238,9 @@ void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     }
 
     if (victim->fighting != NULL)
+    {
         stop_fighting(victim, TRUE);
-
+    }
 
     // Movement penalty if you are not an immortal.  If you have the enhanced recall
     // skill and pass the skill check you will lose less movement.
@@ -3252,6 +3264,9 @@ void spell_word_of_recall(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     char_to_room(victim, location);
     act("$n appears in the room.", victim, NULL, NULL, TO_ROOM);
     do_function(victim, &do_look, "auto");
+
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
 
 } // end spell_word_of_recall
 
@@ -3939,6 +3954,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_armor")) return spell_armor;
             if (!str_cmp(name, "spell_acid_blast")) return spell_acid_blast;
             if (!str_cmp(name, "spell_acid_breath")) return spell_acid_breath;
+            if (!str_cmp(name, "spell_agony")) return spell_agony;
             break;
         case 'b':
             if (!str_cmp(name, "spell_bless")) return spell_bless;
@@ -4274,6 +4290,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_clairvoyance) return "spell_clairvoyance";
     if (spell == spell_psionic_shield) return "spell_psionic_shield";
     if (spell == spell_boost) return "spell_boost";
+    if (spell == spell_agony) return "spell_agony";
 
     return "reserved";
 

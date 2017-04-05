@@ -165,3 +165,4 @@ DECLARE_SPELL_FUN(spell_psionic_focus);
 DECLARE_SPELL_FUN(spell_clairvoyance);
 DECLARE_SPELL_FUN(spell_psionic_shield);
 DECLARE_SPELL_FUN(spell_boost);
+DECLARE_SPELL_FUN(spell_agony);

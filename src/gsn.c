@@ -197,6 +197,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_psionic_shield, "psionic shield");
     ASSIGN_GSN(gsn_boost, "boost");
     ASSIGN_GSN(gsn_magic_resistance, "magic resistance");
+    ASSIGN_GSN(gsn_agony, "agony");
 
     if (global.last_boot_result == UNKNOWN)
     {

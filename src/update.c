@@ -1030,6 +1030,9 @@ void char_update(void)
         {
             damage(ch, ch, 1, TYPE_UNDEFINED, DAM_NONE, FALSE);
         }
+
+        // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
+        calculate_priest_rank(ch);
     }
 
     /*

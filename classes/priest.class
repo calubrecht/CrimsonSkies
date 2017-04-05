@@ -1,6 +1,6 @@
-Name        healer~
-Class       5
-WhoName     Hlr~
+Name        priest~
+Class       10
+WhoName     Pri~
 Attrprime   wis
 Weapon      3700
 Guild       3003
@@ -11,13 +11,12 @@ Thac0_32    2
 Hpmin       7
 Hpmax       10
 Mana        1
-BaseGroup   'healer basics'
-DefGroup    'healer default'
+BaseGroup   'priest basics'
+DefGroup    'priest default'
 IsReclass   1
-IsEnabled   1
+IsEnabled   0
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
-Sk 'refresh' 1 1
 Sk 'axe' 1 6
 Sk 'dagger' 1 3
 Sk 'flail' 1 3
@@ -33,22 +32,20 @@ Sk 'wands' 1 3
 Sk 'recall' 1 2
 Sk 'swim' 1 1
 Sk 'armor' 2 1
-Sk 'nourishment' 2 1
 Sk 'create water' 3 1
 Sk 'faerie fire' 3 1
 Sk 'continual light' 4 1
 Sk 'detect evil' 4 1
 Sk 'detect good' 4 1
-Sk 'bandage' 4 2
 Sk 'create food' 5 1
-Sk 'cure serious' 5 1
-Sk 'life boost' 5 1
+Sk 'refresh' 5 1
 Sk 'enhanced recall' 5 2
 Sk 'cure blindness' 6 1
 Sk 'detect magic' 6 1
 Sk 'meditation' 6 5
 Sk 'bless' 7 1
 Sk 'cause serious' 7 1
+Sk 'cure serious' 7 1
 Sk 'detect poison' 7 1
 Sk 'blindness' 8 1
 Sk 'detect invis' 8 1
@@ -62,21 +59,20 @@ Sk 'floating disc' 10 1
 Sk 'hand to hand' 10 5
 Sk 'lore' 10 6
 Sk 'create rose' 11 1
-Sk 'cure critical' 11 1
-Sk 'cure disease' 11 1
 Sk 'detect hidden' 11 1
-Sk 'cure poison' 12 1
 Sk 'fireproof' 12 1
 Sk 'poison' 12 1
 Sk 'summon' 12 1
 Sk 'kick' 12 4
 Sk 'cause critical' 13 1
+Sk 'cure critical' 13 1
+Sk 'cure disease' 13 1
 Sk 'infravision' 13 1
+Sk 'cure poison' 14 1
 Sk 'weaken' 14 1
 Sk 'dispel evil' 15 1
 Sk 'dispel good' 15 1
 Sk 'locate object' 15 1
-Sk 'sense affliction' 15 1
 Sk 'locate bind' 15 1
 Sk 'calm' 16 1
 Sk 'farsight' 16 1
@@ -84,7 +80,6 @@ Sk 'heat metal' 16 1
 Sk 'identify' 16 1
 Sk 'create spring' 17 1
 Sk 'gate' 17 1
-Sk 'heal' 17 1
 Sk 'plague' 17 1
 Sk 'call lightning' 18 1
 Sk 'curse' 18 1
@@ -97,22 +92,18 @@ Sk 'flamestrike' 20 1
 Sk 'sanctuary' 20 1
 Sk 'parry' 20 8
 Sk 'faerie fog' 21 1
+Sk 'heal' 21 1
 Sk 'peek' 21 7
-Sk 'mass refresh' 21 1
 Sk 'energy drain' 22 1
 Sk 'teleport' 22 1
 Sk 'dodge' 22 8
-Sk 'cure weaken' 22 1
 Sk 'harm' 23 1
 Sk 'lightning bolt' 23 1
 Sk 'dispel magic' 24 1
 Sk 'frenzy' 24 1
 Sk 'second attack' 24 8
-Sk 'vitalizing presence' 24 1
-Sk 'mass healing' 25 2
 Sk 'mass invisibility' 25 1
 Sk 'pick lock' 25 8
-Sk 'imbue' 25 1
 Sk 'cancellation' 26 1
 Sk 'word of recall' 28 1
 Sk 'fog' 28 1
@@ -120,38 +111,46 @@ Sk 'dispel fog' 28 1
 Sk 'portal' 30 2
 Sk 'slow' 30 1
 Sk 'enhanced damage' 30 9
+Sk 'agony' 30 1
 Sk 'pass door' 32 1
 Sk 'acid breath' 32 1
 Sk 'demonfire' 34 1
-Sk 'magic resistance' 34 1
-Sk 'mana transfer' 34 1
+Sk 'bandage' 34 2
 Sk 'nexus' 35 2
 Sk 'ray of truth' 35 1
 Sk 'shield' 35 1
 Sk 'holy word' 36 2
 Sk 'frost breath' 36 1
-Sk 'cure deafness' 36 1
-Sk 'cure slow' 37 1
-Sk 'remove faerie fire' 38 1
-Sk 'enhanced recovery' 39 1
+Sk 'mass healing' 38 2
 Sk 'stone skin' 40 1
 Sk 'lightning breath' 40 1
 Sk 'gas breath' 43 1
 Sk 'fire breath' 45 1
-Sk 'healers bind' 45 1
-Sk 'restore mental presence' 46 1
-Sk 'sacrificial heal' 51 1
+Sk 'imbue' 45 1
 Sk 'reserved' 52 -1
 Sk 'ice blast' 52 -1
 Sk 'spellcraft' 52 -1
+Sk 'vitalizing presence' 52 -1
+Sk 'life boost' 52 -1
+Sk 'magic resistance' 52 -1
+Sk 'mana transfer' 52 -1
+Sk 'cure weaken' 52 -1
+Sk 'restore mental presence' 52 -1
+Sk 'sense affliction' 52 -1
+Sk 'cure slow' 52 -1
 Sk 'immortal blessing' 52 -1
+Sk 'nourishment' 52 -1
+Sk 'enhanced recovery' 52 -1
 Sk 'bladesong' 52 -1
 Sk 'circle' 52 -1
 Sk 'disorientation' 52 -1
 Sk 'blind fighting' 52 -1
 Sk 'song of protection' 52 -1
+Sk 'healers bind' 52 -1
 Sk 'song of dissonance' 52 -1
+Sk 'cure deafness' 52 -1
 Sk 'circle stab' 52 -1
+Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
 Sk 'acute vision' 52 -1
@@ -179,7 +178,6 @@ Sk 'psionic focus' 52 -1
 Sk 'clairvoyance' 52 -1
 Sk 'psionic shield' 52 -1
 Sk 'boost' 52 -1
-Sk 'agony' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -224,6 +222,8 @@ Sk 'sneak' 53 0
 Sk 'steal' 53 0
 Sk 'dual wield' 53 0
 Sk 'waves of weariness' 53 0
+Sk 'sacrificial heal' 53 0
+Sk 'mass refresh' 53 0
 Gr 'rom basics' 0
 Gr 'mage basics' 0
 Gr 'cleric basics' 0
@@ -237,16 +237,16 @@ Gr 'rogue basics' 0
 Gr 'psionicist basics' 0
 Gr 'priest basics' 0
 Gr 'mage default' 0
-Gr 'cleric default' 0
+Gr 'cleric default' 40
 Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
-Gr 'healer default' 40
+Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
 Gr 'psionicist default' 0
-Gr 'priest default' 0
+Gr 'priest default' 40
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
 Gr 'beguiling' 0
@@ -260,8 +260,8 @@ Gr 'enchantment' 0
 Gr 'enhancement' 0
 Gr 'harmful' 3
 Gr 'healing' 3
-Gr 'advanced healing' 6
-Gr 'advanced curative' 4
+Gr 'advanced healing' 0
+Gr 'advanced curative' 0
 Gr 'illusion' 0
 Gr 'maladictions' 5
 Gr 'protective' 4
@@ -270,6 +270,7 @@ Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
 Gr 'psionics' 0
+Gr 'divination' 8
 Mult 0 100
 Mult 1 100
 Mult 2 125

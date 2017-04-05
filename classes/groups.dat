@@ -63,6 +63,11 @@ Sk 'dagger'
 End
 
 #GROUP
+Name 'priest basics'
+Sk 'mace'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -204,6 +209,20 @@ Sk 'maladictions'
 Sk 'protective'
 Sk 'transportation'
 Sk 'weather'
+End
+
+#GROUP
+Name 'priest default'
+Sk 'flail'
+Sk 'divination'
+Sk 'curative'
+Sk 'benedictions'
+Sk 'detection'
+Sk 'healing'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'shield block'
+Sk 'transportation'
 End
 
 #GROUP
@@ -451,6 +470,11 @@ Sk 'psionic focus'
 Sk 'clairvoyance'
 Sk 'psionic shield'
 Sk 'boost'
+End
+
+#GROUP
+Name 'divination'
+Sk 'agony'
 End
 
 #END

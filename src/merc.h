@@ -116,7 +116,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
-#define MAX_CLASS          10   // top_class
+#define MAX_CLASS          11   // top_class
 #define MAX_PC_RACE        7
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
@@ -186,6 +186,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define RANGER_CLASS_LOOKUP                     7
 #define ROGUE_CLASS_LOOKUP                      8
 #define PSIONICIST_CLASS_LOOKUP                 9
+#define PRIEST_CLASS_LOOKUP                     10
 
 /*
  * PC Race Lookup
@@ -197,6 +198,17 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define GIANT_RACE_LOOKUP                       4
 #define KENDER_RACE_LOOKUP                      5
 #define MINOTAUR_RACE_LOOKUP                    6
+
+/*
+ * Priest ranks
+ */
+#define PRIEST_RANK_NOVITIATE   0
+#define PRIEST_RANK_DEACON      1
+#define PRIEST_RANK_PRIEST      2
+#define PRIEST_RANK_BISHOP      3
+#define PRIEST_RANK_ARCHBISHOP  4
+#define PRIEST_RANK_CARDINAL    5
+#define PRIEST_RANK_HIGH_PRIEST 6
 
 /*
  * Thanks Dingo for making life a bit easier ;)
@@ -440,6 +452,17 @@ struct dispel_type
     char *    room_msg;
 };
 
+/*
+ * Priest ranks.  The integer rank for comparison, the name to be show in who and
+ * in score and the minimum hours required for a given rank.
+ */
+struct priest_rank_type
+{
+    int rank;
+    char * name;
+    int hours;
+};
+
 struct item_type
 {
     int       type;
@@ -555,6 +578,7 @@ struct note_data
 struct affect_data
 {
     AFFECT_DATA *  next;
+    CHAR_DATA *    caster;    // Included when the caster is needed later on an effect.
     bool           valid;
     int            where;
     int            type;
@@ -1705,6 +1729,7 @@ struct pc_data
     int             pkilled;           // The number of times a player has been killed.
     long            bank_gold;         // The amount of gold a player has in the bank.
     int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
+    int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2182,22 +2207,23 @@ struct    social_type
 /*
  * Global constants.
  */
-extern    const    struct    str_app_type    str_app[26];
-extern    const    struct    int_app_type    int_app[26];
-extern    const    struct    wis_app_type    wis_app[26];
-extern    const    struct    dex_app_type    dex_app[26];
-extern    const    struct    con_app_type    con_app[26];
+extern    const    struct    str_app_type     str_app[26];
+extern    const    struct    int_app_type     int_app[26];
+extern    const    struct    wis_app_type     wis_app[26];
+extern    const    struct    dex_app_type     dex_app[26];
+extern    const    struct    con_app_type     con_app[26];
 
-extern    const    struct    weapon_type     weapon_table[];
-extern    const    struct    item_type       item_table[];
-extern    const    struct    wiznet_type     wiznet_table[];
-extern    const    struct    attack_type     attack_table[];
-extern    const    struct    race_type       race_table[];
-extern             struct    pc_race_type    pc_race_table[];
-extern    const    struct    spec_type       spec_table[];
-extern    const    struct    liq_type        liq_table[];
-extern    const    struct    dispel_type     dispel_table[];
-extern             struct    social_type     social_table[MAX_SOCIALS];
+extern    const    struct    weapon_type      weapon_table[];
+extern    const    struct    item_type        item_table[];
+extern    const    struct    wiznet_type      wiznet_table[];
+extern    const    struct    attack_type      attack_table[];
+extern    const    struct    race_type        race_table[];
+extern             struct    pc_race_type     pc_race_table[];
+extern    const    struct    spec_type        spec_table[];
+extern    const    struct    liq_type         liq_table[];
+extern    const    struct    dispel_type      dispel_table[];
+extern    const    struct    priest_rank_type priest_rank_table[];
+extern             struct    social_type      social_table[MAX_SOCIALS];
 //extern             struct    skill_type      skill_table    [MAX_SKILL];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
 //extern    const    struct    group_type      group_table    [MAX_GROUP];
@@ -2712,6 +2738,10 @@ char    *file_last_modified   (const char *filename);
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
 CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
+
+/* class_priest.c */
+void          agony_damage_check(CHAR_DATA *ch);
+void          calculate_priest_rank(CHAR_DATA * ch);
 
 #undef    CD
 #undef    MID

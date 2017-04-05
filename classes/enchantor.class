@@ -179,6 +179,7 @@ Sk 'psionic focus' 52 -1
 Sk 'clairvoyance' 52 -1
 Sk 'psionic shield' 52 -1
 Sk 'boost' 52 -1
+Sk 'agony' 52 -1
 Sk 'bless' 53 1
 Sk 'cause critical' 53 1
 Sk 'cause light' 53 1
@@ -234,6 +235,7 @@ Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
 Gr 'psionicist basics' 0
+Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -244,6 +246,7 @@ Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
 Gr 'psionicist default' 0
+Gr 'priest default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 4

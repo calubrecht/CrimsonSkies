@@ -2312,4 +2312,16 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        agony~
+SpellFun    spell_agony~
+Target      1
+MinPos      7
+MinMana     10
+Beats       12
+Damage      agony~
+MsgOff      You feel the veil of agony lift.~
+Race        0
+End
+
 #END
