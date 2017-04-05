@@ -1091,7 +1091,7 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
 
         if (!IS_NPC(victim))
         {
-            log_f("%s killed by %s at %d", victim->name, (IS_NPC(ch) ? ch->short_descr : ch->name), ch->in_room->vnum);
+            log_f("%s killed by %s at %d", victim->name, (IS_NPC(ch) ? ch->short_descr : ch->name), victim->in_room->vnum);
 
             /*
              * Dying penalty:
@@ -1107,7 +1107,7 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         sprintf(buf, "%s got toasted by %s at %s [room %d]",
             (IS_NPC(victim) ? victim->short_descr : victim->name),
             (IS_NPC(ch) ? ch->short_descr : ch->name),
-            ch->in_room->name, ch->in_room->vnum);
+            victim->in_room->name, victim->in_room->vnum);
 
         if (IS_NPC(victim))
         {
