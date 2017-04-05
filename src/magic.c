@@ -985,7 +985,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_song_of_protection, ""},
     { &gsn_song_of_dissonance, ""},
     { &gsn_magic_resistance, "$n no longer looks resistant to magic."},
-    { &gsn_agony, "The veil of agony o ver $n lifts."},
+    { &gsn_agony, "The veil of agony over $n lifts."},
     {NULL, NULL}
 };
 
