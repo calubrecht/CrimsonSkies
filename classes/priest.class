@@ -58,6 +58,7 @@ Sk 'earthquake' 10 1
 Sk 'floating disc' 10 1
 Sk 'hand to hand' 10 5
 Sk 'lore' 10 6
+Sk 'agony' 10 1
 Sk 'create rose' 11 1
 Sk 'detect hidden' 11 1
 Sk 'fireproof' 12 1
@@ -111,7 +112,6 @@ Sk 'dispel fog' 28 1
 Sk 'portal' 30 2
 Sk 'slow' 30 1
 Sk 'enhanced damage' 30 9
-Sk 'agony' 30 1
 Sk 'pass door' 32 1
 Sk 'acid breath' 32 1
 Sk 'demonfire' 34 1
