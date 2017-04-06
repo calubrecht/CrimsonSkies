@@ -2335,4 +2335,15 @@ MsgOff      You feel the veil of agony lift.~
 Race        0
 End
 
+#SKILL
+Name        holy presence~
+SpellFun    spell_holy_presence~
+Target      2
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      The holy presence protecting you fades.~
+Race        0
+End
+
 #END

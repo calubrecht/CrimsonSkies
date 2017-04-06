@@ -92,6 +92,7 @@ Sk 'water breathing' 20 1
 Sk 'flamestrike' 20 1
 Sk 'sanctuary' 20 1
 Sk 'parry' 20 8
+Sk 'holy presence' 20 1
 Sk 'faerie fog' 21 1
 Sk 'heal' 21 1
 Sk 'peek' 21 7
@@ -178,6 +179,7 @@ Sk 'psionic focus' 52 -1
 Sk 'clairvoyance' 52 -1
 Sk 'psionic shield' 52 -1
 Sk 'boost' 52 -1
+Sk 'prayer' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1

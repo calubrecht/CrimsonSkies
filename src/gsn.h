@@ -193,3 +193,4 @@ DECLARE_GSN(gsn_boost);
 DECLARE_GSN(gsn_magic_resistance);
 DECLARE_GSN(gsn_prayer);
 DECLARE_GSN(gsn_agony);
+DECLARE_GSN(gsn_holy_presence);
