@@ -167,3 +167,4 @@ DECLARE_SPELL_FUN(spell_psionic_shield);
 DECLARE_SPELL_FUN(spell_boost);
 DECLARE_SPELL_FUN(spell_agony);
 DECLARE_SPELL_FUN(spell_holy_presence);
+DECLARE_SPELL_FUN(spell_displacement);

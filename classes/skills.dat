@@ -2346,4 +2346,14 @@ MsgOff      The holy presence protecting you fades.~
 Race        0
 End
 
+#SKILL
+Name        displacement~
+SpellFun    spell_displacement~
+Target      1
+MinPos      8
+MinMana     20
+Beats       12
+Race        0
+End
+
 #END

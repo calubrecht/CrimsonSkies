@@ -324,3 +324,85 @@ void spell_holy_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    ROOM_INDEX_DATA *location;
+    int recall_vnum = 0;
+
+    if (!prayer_check(ch))
+    {
+        return;
+    }
+
+    if (IS_NPC(victim))
+    {
+        send_to_char("Spell failed.\r\n", ch);
+        return;
+    }
+
+    // They are a player and not a mob, we can safely access pcdata
+    if (victim->pcdata->recall_vnum > 0)
+    {
+        recall_vnum = victim->pcdata->recall_vnum;
+    }
+    else
+    {
+        recall_vnum = ROOM_VNUM_TEMPLE;
+    }
+
+    // Make sure the recall vnum works
+    if ((location = get_room_index(recall_vnum)) == NULL)
+    {
+        send_to_char("They are a lost soul.\r\n", ch);
+        bugf("spell_displacement: vnum not found %d for victim %s", recall_vnum, victim->name);
+        return;
+    }
+
+    if (IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
+        || IS_AFFECTED(victim, AFF_CURSE)
+        || IS_SET(victim->in_room->area->area_flags, AREA_NO_RECALL)
+        || victim->fighting != NULL)
+    {
+        send_to_char("You feel your body phase out, and then back to this plane.\r\n", victim);
+        send_to_char("Spell failed.\r\n", ch);
+        return;
+    }
+
+    // Casting level boost based on the priest's rank (rank / 2)
+    if (!IS_NPC(ch))
+    {
+        level += (ch->pcdata->priest_rank / 2);
+    }
+
+    // Saves check
+    if (saves_spell(level, victim, DAM_OTHER))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (ch == victim)
+    {
+        send_to_char("\r\nYou phase out of existence and disappear.\r\n\r\n", ch);
+    }
+
+    // Cut the users move, this is not affected by enhanced recall
+    victim->move /= 2;
+
+    // Show the room the user has been displaced from.
+    act("$n phases out of existence and disappears.", victim, NULL, NULL, TO_ROOM);
+    char_from_room(victim);
+
+    // Show the roomthe user appears in
+    char_to_room(victim,location);
+    act("$n phases into existence and appears in the room.",victim,NULL,NULL,TO_ROOM);
+
+    // Auto look so the user realizes they've been displaced to elsewhere.
+    do_look(victim,"auto");
+
+    // There is an additional lag when this succeeds as if it lands often in hard to reach
+    // places could sway a fight.
+    WAIT_STATE(ch, skill_table[gsn_displacement]->beats / 2);
+
+}

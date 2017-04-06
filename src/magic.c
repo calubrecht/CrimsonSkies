@@ -4007,6 +4007,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_disenchant")) return spell_disenchant;
             if (!str_cmp(name, "spell_demonfire")) return spell_demonfire;
             if (!str_cmp(name, "spell_dispel_fog")) return spell_dispel_fog;
+            if (!str_cmp(name, "spell_displacement")) return spell_displacement;
             break;
         case 'e':
             if (!str_cmp(name, "spell_earthquake")) return spell_earthquake;
@@ -4294,6 +4295,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_boost) return "spell_boost";
     if (spell == spell_agony) return "spell_agony";
     if (spell == spell_holy_presence) return "spell_holy_presence";
+    if (spell == spell_displacement) return "spell_displacement";
 
     return "reserved";
 
