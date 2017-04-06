@@ -2313,6 +2313,17 @@ Race        0
 End
 
 #SKILL
+Name        prayer~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      You feel the wisdom from your god fade.~
+Race        0
+End
+
+#SKILL
 Name        agony~
 SpellFun    spell_agony~
 Target      1

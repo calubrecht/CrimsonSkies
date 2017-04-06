@@ -64,7 +64,7 @@ const struct priest_rank_type priest_rank_table[] = {
  * Calculates the players priest rank.  This will only work for priests and
  * will return otherwise.  This will be called on tick from the update handler.
  */
-void calculate_priest_rank(CHAR_DATA * ch)
+void calculate_priest_rank(CHAR_DATA *ch)
 {
     if (ch == NULL || IS_NPC(ch) || ch->class != PRIEST_CLASS_LOOKUP)
     {
@@ -98,13 +98,104 @@ void calculate_priest_rank(CHAR_DATA * ch)
 }
 
 /*
+ * A priest must pray to their god who will bestow upon them the ability to
+ * cast the specialized spells they have been gifted.  E.g. This affect needs
+ * to be on the player for them to cast their priest spells.  The priest will
+ * have to time out when their prayer affect runs out while in PK.. since they
+ * can't prayer back up until the pk_timer zeros out.
+ */
+void do_prayer(CHAR_DATA * ch, char *argument)
+{
+    if (ch == NULL)
+    {
+        return;
+    }
+
+    if (ch->class != PRIEST_CLASS_LOOKUP || IS_NPC(ch))
+    {
+        send_to_char("You bow your head and pray.\r\n", ch);
+        act("$n bows their head.", ch, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    if (is_affected(ch, gsn_prayer))
+    {
+        send_to_char("You are still affected by the wisdom of your god.\r\n", ch);
+        return;
+    }
+
+    if (ch->pcdata->pk_timer > 0)
+    {
+        send_to_char("You cannot concentrate on prayer this closely after battle.\r\n", ch);
+        return;
+    }
+
+    switch (ch->substate)
+    {
+        default:
+            add_timer(ch, TIMER_DO_FUN, 8, do_prayer, 1, NULL);
+            send_to_char("You kneel and pray for the blessing of wisdom.\r\n", ch);
+            act("$n kneels and prays for the blessing of wisdom.", ch, NULL, NULL, TO_ROOM);
+            return;
+        case 1:
+            // Continue onward with the prayer.
+            break;
+        case SUB_TIMER_DO_ABORT:
+            ch->substate = SUB_NONE;
+            send_to_char("Your concentration was broken before your prayers were finished.\r\n", ch);
+            return;
+    }
+
+    ch->substate = SUB_NONE;
+
+    send_to_char("A feeling of divinity overtakes your presence.\r\n", ch);
+    act("A feeling of divinity overtakes the room.", ch, NULL, NULL, TO_ROOM);
+
+    // Add the prayer affect
+    AFFECT_DATA af;
+
+    af.where = TO_AFFECTS;
+    af.type = gsn_prayer;
+    af.level = ch->level;
+    af.duration = (ch->level / 3) + ch->pcdata->priest_rank + 1;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    return;
+}
+
+/*
+ * A priest must have recently praied to their god in order to cast the spells blessed on them
+ * by their deity.
+ */
+bool prayer_check(CHAR_DATA *ch)
+{
+    if (is_affected(ch, gsn_prayer))
+    {
+        return TRUE;
+    }
+    else
+    {
+        send_to_char("Your gods wisdom must be present to produce such a magic.\r\n", ch);
+        return FALSE;
+    }
+}
+
+/*
  * Agony spell will allow the priest to maladict the victim in a way that will cause
  * them damage when they recall, word of recall, teleport or gate.
  */
-void spell_agony(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+void spell_agony(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
+
+    if (!prayer_check(ch))
+    {
+        return;
+    }
 
     if (is_affected(victim, sn))
     {

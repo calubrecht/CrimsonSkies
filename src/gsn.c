@@ -198,6 +198,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_boost, "boost");
     ASSIGN_GSN(gsn_magic_resistance, "magic resistance");
     ASSIGN_GSN(gsn_agony, "agony");
+    ASSIGN_GSN(gsn_prayer, "prayer");
 
     if (global.last_boot_result == UNKNOWN)
     {
