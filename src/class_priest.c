@@ -185,7 +185,8 @@ bool prayer_check(CHAR_DATA *ch)
 
 /*
  * Agony spell will allow the priest to maladict the victim in a way that will cause
- * them damage when they recall, word of recall, teleport or gate.
+ * them damage when they recall, word of recall, teleport or gate.  On NPC's this will
+ * have a different affect and will lower int/wis/con by 1.
  */
 void spell_agony(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
@@ -213,11 +214,25 @@ void spell_agony(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     af.type = sn;
     af.level = level;
     af.duration = 10;
-    af.modifier = ((ch->pcdata->priest_rank + 1) * 10);
-    af.location = APPLY_NONE;
     af.bitvector = 0;
     af.caster = ch;
-    affect_to_char(victim, &af);
+
+    if (!IS_NPC(victim))
+    {
+        af.location = APPLY_NONE;
+        af.modifier = ((ch->pcdata->priest_rank + 1) * 10);
+        affect_to_char(victim, &af);
+    }
+    else
+    {
+        af.modifier = -1;
+        af.location = APPLY_WIS;
+        affect_to_char(victim, &af);
+        af.location = APPLY_INT;
+        affect_to_char(victim, &af);
+        af.location = APPLY_CON;
+        affect_to_char(victim, &af);
+    }
 
     send_to_char("You feel an agony overshadow your soul.\r\n", victim);
     act("$n has an agony overshadow their soul.", victim, NULL, NULL, TO_ROOM);
@@ -300,7 +315,7 @@ void spell_holy_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target
     af.level = level;
     af.duration = (level / 2) + (ch->pcdata->priest_rank * 2);
     af.location = APPLY_AC;
-    af.modifier = -20 + (ch->pcdata->priest_rank * 2);
+    af.modifier = -20 - (ch->pcdata->priest_rank * 2);
     af.bitvector = 0;
     affect_to_char(victim, &af);
 
