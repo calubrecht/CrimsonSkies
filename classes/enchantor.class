@@ -109,18 +109,13 @@ Sk 'restore weapon' 28 1
 Sk 'restore armor' 29 1
 Sk 'portal' 30 2
 Sk 'second attack' 30 10
-Sk 'acid breath' 31 1
 Sk 'charm person' 32 1
 Sk 'word of recall' 32 1
 Sk 'enchant gem' 34 1
-Sk 'frost breath' 34 1
 Sk 'nexus' 35 2
 Sk 'sanctuary' 36 1
-Sk 'lightning breath' 37 1
 Sk 'chain lightning' 38 1
 Sk 'disenchant' 38 1
-Sk 'gas breath' 39 1
-Sk 'fire breath' 40 1
 Sk 'sequestor' 41 1
 Sk 'enhanced damage' 45 10
 Sk 'interlace spirit' 46 1
@@ -129,6 +124,11 @@ Sk 'wizard mark' 50 1
 Sk 'locate wizard mark' 51 1
 Sk 'preserve' 51 1
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
 Sk 'magic resistance' 52 -1

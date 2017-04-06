@@ -107,22 +107,22 @@ Sk 'dispel fog' 28 1
 Sk 'psionic shield' 29 1
 Sk 'second attack' 30 10
 Sk 'psionic blast' 30 -1
-Sk 'acid breath' 31 1
 Sk 'word of recall' 32 1
 Sk 'chain lightning' 33 1
-Sk 'frost breath' 34 1
 Sk 'healing dream' 34 1
 Sk 'portal' 35 2
 Sk 'sanctuary' 36 1
-Sk 'lightning breath' 37 1
-Sk 'gas breath' 39 1
 Sk 'mental weight' 39 1
 Sk 'nexus' 40 2
-Sk 'fire breath' 40 1
 Sk 'enhanced damage' 45 10
 Sk 'calm' 48 1
 Sk 'clairvoyance' 51 1
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'axe' 52 -1
 Sk 'flail' 52 -1
 Sk 'polearm' 52 -1

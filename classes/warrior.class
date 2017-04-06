@@ -115,26 +115,26 @@ Sk 'word of recall' 30 2
 Sk 'acid blast' 32 2
 Sk 'slow' 32 2
 Sk 'cancellation' 34 2
-Sk 'acid breath' 34 2
 Sk 'chain lightning' 36 2
 Sk 'teleport' 36 2
 Sk 'pass door' 37 2
 Sk 'portal' 40 4
 Sk 'shield' 40 2
-Sk 'frost breath' 40 2
 Sk 'holy word' 42 4
 Sk 'lore' 43 8
 Sk 'demonfire' 45 2
 Sk 'nexus' 45 4
 Sk 'stone skin' 45 2
 Sk 'mass healing' 46 4
-Sk 'lightning breath' 46 2
 Sk 'fog' 46 2
 Sk 'dispel fog' 46 2
 Sk 'ray of truth' 47 2
-Sk 'gas breath' 50 2
-Sk 'fire breath' 51 2
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1

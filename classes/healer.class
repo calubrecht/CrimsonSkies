@@ -121,7 +121,6 @@ Sk 'portal' 30 2
 Sk 'slow' 30 1
 Sk 'enhanced damage' 30 9
 Sk 'pass door' 32 1
-Sk 'acid breath' 32 1
 Sk 'demonfire' 34 1
 Sk 'magic resistance' 34 1
 Sk 'mana transfer' 34 1
@@ -129,20 +128,21 @@ Sk 'nexus' 35 2
 Sk 'ray of truth' 35 1
 Sk 'shield' 35 1
 Sk 'holy word' 36 2
-Sk 'frost breath' 36 1
 Sk 'cure deafness' 36 1
 Sk 'cure slow' 37 1
 Sk 'remove faerie fire' 38 1
 Sk 'enhanced recovery' 39 1
 Sk 'stone skin' 40 1
-Sk 'lightning breath' 40 1
-Sk 'gas breath' 43 1
-Sk 'fire breath' 45 1
 Sk 'healers bind' 45 1
 Sk 'restore mental presence' 46 1
 Sk 'sacrificial heal' 51 1
 Sk 'reserved' 52 -1
 Sk 'ice blast' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'immortal blessing' 52 -1
 Sk 'bladesong' 52 -1

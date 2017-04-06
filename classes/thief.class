@@ -111,23 +111,23 @@ Sk 'gate' 32 2
 Sk 'fog' 32 2
 Sk 'dispel fog' 32 2
 Sk 'heal' 33 2
-Sk 'acid breath' 33 2
 Sk 'cancellation' 34 2
 Sk 'acid blast' 35 2
 Sk 'shield' 35 2
 Sk 'plague' 36 2
-Sk 'frost breath' 38 2
 Sk 'chain lightning' 39 2
 Sk 'stone skin' 40 2
 Sk 'word of recall' 40 2
 Sk 'sanctuary' 42 2
-Sk 'lightning breath' 43 2
 Sk 'portal' 45 4
-Sk 'gas breath' 47 2
 Sk 'calm' 50 2
 Sk 'nexus' 50 4
-Sk 'fire breath' 50 2
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
