@@ -138,10 +138,6 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     export_help();
     send_to_char("[ {GComplete{x ]\r\n", ch);
 
-    printf_to_char(ch, "%-55s", "Exporting Help Files");
-    export_help();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
-
     printf_to_char(ch, "%-55s", "Exporting Classes");
     export_classes();
     send_to_char("[ {GComplete{x ]\r\n", ch);
