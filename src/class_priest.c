@@ -413,3 +413,76 @@ void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     WAIT_STATE(ch, skill_table[gsn_displacement]->beats / 2);
 
 }
+
+/*
+ * Holy flame is a priest attack spell that also surrounds the victim with faerie fire.
+ * This spell originated from fireball (damage slightly boosted).
+ */
+void spell_holy_flame(int sn, int level, CHAR_DATA *ch, void *vo,int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    AFFECT_DATA af;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
+    // Damage rises up to 51, this table came from fireball with the upper
+    // end receiving higher values.
+    static const int dam_each[] =
+    {
+      0,
+      0,    0,   1,   1,   1,      1,   1,   1,   1,   5,
+      10,  15,  20,  25,  30,     35,  40,  45,  50,  55,
+      60,  65,  70,  75,  80,     82,  84,  86,  88,  90,
+      92,  94,  96,  98, 100,    102, 104, 106, 108, 110,
+     112, 114, 116, 120, 124,    128, 132, 138, 145, 150
+    };
+
+    int dam;
+
+    level = UMIN(level, sizeof(dam_each)/sizeof(dam_each[0]) - 1);
+    level = UMAX(0, level);
+    dam  = number_range( dam_each[level] / 2, dam_each[level] * 2 );
+
+    // Saves check for reduced damage (by 33%)
+    if (saves_spell(level, victim, DAM_FIRE))
+    {
+        dam = (dam * 2) / 3;
+    }
+
+    // Do the damage
+    damage(ch, victim, dam, sn, DAM_FIRE, TRUE);
+
+    // Look for faerie fire, if it's on the victim then return, otherwise
+    // add the affect.
+    if (IS_AFFECTED(victim, AFF_FAERIE_FIRE)
+        || is_affected(victim, gsn_faerie_fire)
+        || is_affected(victim, gsn_holy_flame))
+    {
+        return;
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level / 5; // (10 ticks at 51)
+    af.location = APPLY_AC;
+    af.modifier = number_range(1, 3) * level; // Chance of higher or lower modifier than faerie fire
+    af.bitvector = AFF_FAERIE_FIRE;
+    affect_to_char(victim, &af);
+
+    send_to_char("Holy flames errupt all about you!\r\n", victim);
+    act("$n is surrounded by holy flames.", victim, NULL, NULL, TO_ROOM);
+
+    // If the victim is not in the same room (e.g. the holy flame was ranged, then
+    // show the caster the message since they would not have seen the TO_ROOM message).
+    if (ch->in_room != victim->in_room)
+    {
+        act("$N is surrounded by holy flames.", ch, NULL, victim, TO_CHAR);
+    }
+
+    return;
+}

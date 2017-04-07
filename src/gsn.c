@@ -201,6 +201,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_prayer, "prayer");
     ASSIGN_GSN(gsn_holy_presence, "holy presence");
     ASSIGN_GSN(gsn_displacement, "displacement");
+    ASSIGN_GSN(gsn_holy_flame, "holy flame");
 
     if (global.last_boot_result == UNKNOWN)
     {

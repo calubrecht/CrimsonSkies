@@ -2356,4 +2356,17 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        holy flame~
+SpellFun    spell_holy_flame~
+Target      1
+MinPos      7
+MinMana     15
+Beats       12
+Damage      holy flame~
+MsgOff      The holy flames around you subside.~
+Race        0
+Ranged       1
+End
+
 #END
