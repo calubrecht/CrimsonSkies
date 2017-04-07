@@ -1682,14 +1682,18 @@ void do_sneak(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * A skill allowing a player to hide from being seen by most others
+ * who don't have acute vision.
+ */
 void do_hide(CHAR_DATA * ch, char *argument)
 {
     send_to_char("You attempt to hide.\r\n", ch);
 
     if (IS_AFFECTED(ch, AFF_HIDE))
+    {
         REMOVE_BIT(ch->affected_by, AFF_HIDE);
+    }
 
     if (number_percent() < get_skill(ch, gsn_hide))
     {
@@ -1697,7 +1701,9 @@ void do_hide(CHAR_DATA * ch, char *argument)
         check_improve(ch, gsn_hide, TRUE, 3);
     }
     else
+    {
         check_improve(ch, gsn_hide, FALSE, 3);
+    }
 
     return;
 }
