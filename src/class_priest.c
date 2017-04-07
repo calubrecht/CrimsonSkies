@@ -324,6 +324,9 @@ void spell_holy_presence(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * Allows a clanner if successful to force a victim to recall.
+ */
 void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *) vo;
@@ -362,6 +365,7 @@ void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     if (IS_SET(victim->in_room->room_flags, ROOM_NO_RECALL)
         || IS_AFFECTED(victim, AFF_CURSE)
         || IS_SET(victim->in_room->area->area_flags, AREA_NO_RECALL)
+        || IS_SET(victim->in_room->room_flags, ROOM_ARENA)
         || victim->fighting != NULL)
     {
         send_to_char("You feel your body phase out, and then back to this plane.\r\n", victim);
@@ -372,7 +376,7 @@ void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     // Casting level boost based on the priest's rank (rank / 2)
     if (!IS_NPC(ch))
     {
-        level += (ch->pcdata->priest_rank / 2);
+        level += ch->pcdata->priest_rank;
     }
 
     // Saves check
@@ -400,6 +404,9 @@ void spell_displacement(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
     // Auto look so the user realizes they've been displaced to elsewhere.
     do_look(victim,"auto");
+
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
 
     // There is an additional lag when this succeeds as if it lands often in hard to reach
     // places could sway a fight.
