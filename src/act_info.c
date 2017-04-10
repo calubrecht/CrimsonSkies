@@ -2683,40 +2683,20 @@ void do_who(CHAR_DATA * ch, char *argument)
                 class);
         }
 
-    /*
-     * Format it up.
-     */
-        if (!IS_IMMORTAL(wch))
-        {
-            sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
-                wch->level,
-                wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-            class,
-                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                clan_table[wch->clan].who_name,
-                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                IS_TESTER(wch) ? "({WTester{x) " : "",
-                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                wch->name,
-                IS_NPC(wch) ? "" : wch->pcdata->title);
-        }
-        else
-        {
-            sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-                immbuf,
-                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                clan_table[wch->clan].who_name,
-                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                IS_TESTER(wch) ? "({WTester{x) " : "",
-                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                wch->name,
-                IS_NPC(wch) ? "" : wch->pcdata->title);
-        }
-        add_buf(output, buf);
+        // Format it up
+        sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
+            immbuf,
+            wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
+            wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
+            clan_table[wch->clan].who_name,
+            IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
+            IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
+            IS_TESTER(wch) ? "({WTester{x) " : "",
+            IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+            wch->name,
+            IS_NPC(wch) ? "" : wch->pcdata->title);
+
+            add_buf(output, buf);
     }
 
     sprintf(buf2, "\r\nPlayers found: %d\r\n", nMatch);
@@ -2724,7 +2704,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     page_to_char(buf_string(output), ch);
     free_buf(output);
     return;
-} // end do_who
+} 
 
 /*
  * Counts and shows the number of players currently on as well as showing
@@ -2753,7 +2733,7 @@ void do_count(CHAR_DATA * ch, char *argument)
     sprintf(buf, "The most we've ever had on was {R%d{x.\r\n", statistics.max_players_online);
     send_to_char(buf, ch);
 
-} // end do_count
+} 
 
 /*
  * Returns the current number of players online (connected == CON_PLAYING)
