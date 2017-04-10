@@ -102,7 +102,7 @@ Sk 'lightning bolt' 23 1
 Sk 'dispel magic' 24 1
 Sk 'frenzy' 24 1
 Sk 'second attack' 24 8
-Sk 'mass invis' 25 1
+Sk 'mass invisibility' 25 1
 Sk 'pick lock' 25 8
 Sk 'cancellation' 26 1
 Sk 'word of recall' 28 1
@@ -112,21 +112,22 @@ Sk 'portal' 30 2
 Sk 'slow' 30 1
 Sk 'enhanced damage' 30 9
 Sk 'pass door' 32 1
-Sk 'acid breath' 32 1
 Sk 'demonfire' 34 1
 Sk 'bandage' 34 2
 Sk 'nexus' 35 2
 Sk 'ray of truth' 35 1
 Sk 'shield' 35 1
 Sk 'holy word' 36 2
-Sk 'frost breath' 36 1
 Sk 'mass healing' 38 2
 Sk 'stone skin' 40 1
-Sk 'lightning breath' 40 1
-Sk 'gas breath' 43 1
-Sk 'fire breath' 45 1
 Sk 'imbue' 45 1
 Sk 'reserved' 52 -1
+Sk 'ice blast' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
@@ -167,6 +168,20 @@ Sk 'escape' 52 -1
 Sk 'peer' 52 -1
 Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
+Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
+Sk 'healing dream' 52 -1
+Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
+Sk 'psionic focus' 52 -1
+Sk 'clairvoyance' 52 -1
+Sk 'psionic shield' 52 -1
+Sk 'boost' 52 -1
+Sk 'prayer' 52 -1
+Sk 'agony' 52 -1
+Sk 'holy presence' 52 -1
+Sk 'displacement' 52 -1
+Sk 'holy flame' 52 -1
 Sk 'acid blast' 53 1
 Sk 'burning hands' 53 1
 Sk 'chain lightning' 53 1
@@ -223,6 +238,8 @@ Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
+Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 40
 Gr 'thief default' 0
@@ -232,6 +249,8 @@ Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
+Gr 'priest default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 5
 Gr 'beguiling' 0
@@ -254,6 +273,8 @@ Gr 'transportation' 4
 Gr 'weather' 4
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
+Gr 'divination' 0
 Mult 0 100
 Mult 1 100
 Mult 2 125

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -419,8 +419,7 @@ void reset_char(CHAR_DATA * ch)
             if (obj == NULL)
                 continue;
             if (!obj->enchanted)
-                for (af = obj->pIndexData->affected; af != NULL;
-            af = af->next)
+                for (af = obj->pIndexData->affected; af != NULL; af = af->next)
             {
                 mod = af->modifier;
                 switch (af->location)
@@ -526,7 +525,6 @@ void reset_char(CHAR_DATA * ch)
                     case APPLY_CON:
                         ch->mod_stat[STAT_CON] += mod;
                         break;
-
                     case APPLY_SEX:
                         ch->sex += mod;
                         break;
@@ -539,18 +537,32 @@ void reset_char(CHAR_DATA * ch)
                     case APPLY_MOVE:
                         ch->max_move += mod;
                         break;
-
                     case APPLY_AC:
                         for (i = 0; i < 4; i++)
+                        {
                             ch->armor[i] += mod;
+                        }
                         break;
                     case APPLY_HITROLL:
-                        ch->hitroll += mod;
+                        // Add the hitroll if it's not on the weapon.. the weapons will have
+                        // to be added individually depending on which is in use at the time
+                        // damage is given.
+                        if (obj->wear_loc != WEAR_WIELD && obj->wear_loc != WEAR_SECONDARY_WIELD)
+                        {
+                            ch->hitroll += mod;
+                        }
+
                         break;
                     case APPLY_DAMROLL:
-                        ch->damroll += mod;
-                        break;
+                        // Add the damroll if it's not on the weapon.. the weapons will have
+                        // to be added individually depending on which is in use at the time
+                        // damage is given.
+                        if (obj->wear_loc != WEAR_WIELD && obj->wear_loc != WEAR_SECONDARY_WIELD)
+                        {
+                            ch->damroll += mod;
+                        }
 
+                        break;
                     case APPLY_SAVES:
                         ch->saving_throw += mod;
                         break;
@@ -577,7 +589,6 @@ void reset_char(CHAR_DATA * ch)
                 case APPLY_CON:
                     ch->mod_stat[STAT_CON] += mod;
                     break;
-
                 case APPLY_SEX:
                     ch->sex += mod;
                     break;
@@ -590,18 +601,32 @@ void reset_char(CHAR_DATA * ch)
                 case APPLY_MOVE:
                     ch->max_move += mod;
                     break;
-
                 case APPLY_AC:
                     for (i = 0; i < 4; i++)
+                    {
                         ch->armor[i] += mod;
+                    }
                     break;
                 case APPLY_HITROLL:
-                    ch->hitroll += mod;
+                    // Add the hitroll if it's not on the weapon.. the weapons will have
+                    // to be added individually depending on which is in use at the time
+                    // damage is given.
+                    if (obj->wear_loc != WEAR_WIELD && obj->wear_loc != WEAR_SECONDARY_WIELD)
+                    {
+                        ch->hitroll += mod;
+                    }
+
                     break;
                 case APPLY_DAMROLL:
-                    ch->damroll += mod;
-                    break;
+                    // Add the damroll if it's not on the weapon.. the weapons will have
+                    // to be added individually depending on which is in use at the time
+                    // damage is given.
+                    if (obj->wear_loc != WEAR_WIELD && obj->wear_loc != WEAR_SECONDARY_WIELD)
+                    {
+                        ch->damroll += mod;
+                    }
 
+                    break;
                 case APPLY_SAVES:
                     ch->saving_throw += mod;
                     break;
@@ -630,7 +655,6 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_CON:
                 ch->mod_stat[STAT_CON] += mod;
                 break;
-
             case APPLY_SEX:
                 ch->sex += mod;
                 break;
@@ -643,10 +667,11 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_MOVE:
                 ch->max_move += mod;
                 break;
-
             case APPLY_AC:
                 for (i = 0; i < 4; i++)
+                {
                     ch->armor[i] += mod;
+                }
                 break;
             case APPLY_HITROLL:
                 ch->hitroll += mod;
@@ -654,7 +679,6 @@ void reset_char(CHAR_DATA * ch)
             case APPLY_DAMROLL:
                 ch->damroll += mod;
                 break;
-
             case APPLY_SAVES:
                 ch->saving_throw += mod;
                 break;
@@ -663,7 +687,9 @@ void reset_char(CHAR_DATA * ch)
 
     /* make sure sex is RIGHT!!!! */
     if (ch->sex < 0 || ch->sex > 2)
+    {
         ch->sex = ch->pcdata->true_sex;
+    }
 }
 
 /*
@@ -761,7 +787,7 @@ int can_carry_n(CHAR_DATA * ch)
  */
 int can_carry_w(CHAR_DATA * ch)
 {
-    if (!IS_NPC(ch) && ch->level >= LEVEL_IMMORTAL)
+    if (!IS_NPC(ch) && IS_IMMORTAL(ch))
         return 10000000;
 
     if (IS_NPC(ch) && IS_SET(ch->act, ACT_PET))
@@ -1344,6 +1370,43 @@ void affect_join(CHAR_DATA * ch, AFFECT_DATA * paf)
 }
 
 /*
+ * Gets the modifier on a specific object for the given APPLY_ location (like, APPLY_DAMROLL).
+ */
+int obj_affect_modifier(OBJ_DATA *obj, int location)
+{
+    AFFECT_DATA *paf;
+    int mod = 0;
+
+    // If the caller passes a null, give them a 0 modifier in return.
+    if (obj == NULL)
+    {
+        return 0;
+    }
+
+    // Find the modifier for the requested type, tally all required up then return it.
+    if (!obj->enchanted)
+    {
+        for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
+            if (paf->location == location)
+            {
+                mod += paf->modifier;
+            }
+        }
+    }
+
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == location)
+        {
+            mod += paf->modifier;
+        }
+    }
+
+   return mod;
+}
+
+/*
  * Move a char out of a room.
  */
 void char_from_room(CHAR_DATA * ch)
@@ -1648,21 +1711,47 @@ void equip_char(CHAR_DATA * ch, OBJ_DATA * obj, int iWear)
     }
 
     for (i = 0; i < 4; i++)
+    {
         ch->armor[i] -= apply_ac(obj, iWear, i);
+    }
+
     obj->wear_loc = iWear;
 
     if (!obj->enchanted)
+    {
         for (paf = obj->pIndexData->affected; paf != NULL; paf = paf->next)
+        {
             if (paf->location != APPLY_SPELL_AFFECT)
-                affect_modify(ch, paf, TRUE);
-    for (paf = obj->affected; paf != NULL; paf = paf->next)
-        if (paf->location == APPLY_SPELL_AFFECT)
-            affect_to_char(ch, paf);
-        else
-            affect_modify(ch, paf, TRUE);
+            {
+                // Modify the affect if it's not a weapon or dual wielded weapon with +hit/+dam, those will be handled elsewhere
+                if (!((iWear == WEAR_WIELD || iWear == WEAR_SECONDARY_WIELD) && (paf->location == APPLY_HITROLL || paf->location == APPLY_DAMROLL)))
+                {
+                    affect_modify(ch, paf, TRUE);
+                }
+            }
+        }
+    }
 
-    if (obj->item_type == ITEM_LIGHT
-        && obj->value[2] != 0 && ch->in_room != NULL) ++ch->in_room->light;
+    for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
+        if (paf->location == APPLY_SPELL_AFFECT)
+        {
+            affect_to_char(ch, paf);
+        }
+        else
+        {
+            // Modify the affect if it's not a weapon or dual wielded weapon with +hit/+dam, those will be handled elsewhere
+            if (!((iWear == WEAR_WIELD || iWear == WEAR_SECONDARY_WIELD) && (paf->location == APPLY_HITROLL || paf->location == APPLY_DAMROLL)))
+            {
+                affect_modify(ch, paf, TRUE);
+            }
+        }
+    }
+
+    if (obj->item_type == ITEM_LIGHT && obj->value[2] != 0 && ch->in_room != NULL)
+    {
+        ++ch->in_room->light;
+    }
 
     return;
 }
@@ -1684,8 +1773,9 @@ void unequip_char(CHAR_DATA * ch, OBJ_DATA * obj)
     }
 
     for (i = 0; i < 4; i++)
+    {
         ch->armor[i] += apply_ac(obj, obj->wear_loc, i);
-    obj->wear_loc = -1;
+    }
 
     if (!obj->enchanted)
     {
@@ -1707,13 +1797,19 @@ void unequip_char(CHAR_DATA * ch, OBJ_DATA * obj)
             }
             else
             {
-                affect_modify(ch, paf, FALSE);
+                // Modify the affect if it's not a weapon or dual wielded weapon with +hit/+dam, those will be handled elsewhere
+                if (!((obj->wear_loc == WEAR_WIELD || obj->wear_loc == WEAR_SECONDARY_WIELD) && (paf->location == APPLY_HITROLL || paf->location == APPLY_DAMROLL)))
+                {
+                    affect_modify(ch, paf, FALSE);
+                }
+
                 affect_check(ch, paf->where, paf->bitvector);
             }
         }
     }
 
     for (paf = obj->affected; paf != NULL; paf = paf->next)
+    {
         if (paf->location == APPLY_SPELL_AFFECT)
         {
             bug("Norm-Apply: %d", 0);
@@ -1733,9 +1829,17 @@ void unequip_char(CHAR_DATA * ch, OBJ_DATA * obj)
         }
         else
         {
-            affect_modify(ch, paf, FALSE);
+            // Modify the affect if it's not a weapon or dual wielded weapon with +hit/+dam, those will be handled elsewhere
+            if (!((obj->wear_loc == WEAR_WIELD || obj->wear_loc == WEAR_SECONDARY_WIELD) && (paf->location == APPLY_HITROLL || paf->location == APPLY_DAMROLL)))
+            {
+                affect_modify(ch, paf, FALSE);
+            }
+
             affect_check(ch, paf->where, paf->bitvector);
         }
+    }
+
+    obj->wear_loc = -1;
 
     if (obj->item_type == ITEM_LIGHT
         && obj->value[2] != 0
@@ -2400,6 +2504,9 @@ OBJ_DATA *create_money(int gold, int silver)
 /*
  * Return # of objects which an object counts as.
  * Thanks to Tony Chamberlain for the correct recursive code here.
+ * This method skips containers, gems, jewelry and money as small
+ * gems like diamonds could add up quickly (and you may have a reason
+ * to carry a large amount on you in order to make purchases.
  */
 int get_obj_number(OBJ_DATA * obj)
 {
@@ -2407,14 +2514,42 @@ int get_obj_number(OBJ_DATA * obj)
 
     if (obj->item_type == ITEM_CONTAINER || obj->item_type == ITEM_MONEY
         || obj->item_type == ITEM_GEM || obj->item_type == ITEM_JEWELRY)
+    {
         number = 0;
+    }
     else
+    {
         number = obj->count;
+    }
 
     for (obj = obj->contains; obj != NULL; obj = obj->next_content)
+    {
         number += get_obj_number(obj);
+    }
 
     return number;
+}
+
+/*
+ * Counts all objects of a specific type in a users inventory (this goes
+ * through their containers also).
+ */
+int obj_count_by_type(OBJ_DATA *obj, int item_type)
+{
+    int number = 0;
+
+    if (obj->item_type == item_type)
+    {
+        number = obj->count;
+    }
+
+    for (obj = obj->contains; obj != NULL; obj = obj->next_content)
+    {
+        number += obj_count_by_type(obj, item_type);
+    }
+
+    return number;
+
 }
 
 /*
@@ -2861,6 +2996,8 @@ char *act_bit_name(int act_flags)
             strcat(buf, " train");
         if (act_flags & ACT_PRACTICE)
             strcat(buf, " practice");
+        if (act_flags & ACT_BANKER)
+            strcat(buf, " banker");
         if (act_flags & ACT_UNDEAD)
             strcat(buf, " undead");
         if (act_flags & ACT_CLERIC)
@@ -3506,7 +3643,8 @@ void empty_pits(void)
 
 /*
  * Whether or not a player is carrying a certain type of item in their
- * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).
+ * inventory (e.g. ITEM_SHOVEL, ITEM_BOAT, etc.).  This does not look
+ * into the contents of containers.
  */
 bool has_item_type(CHAR_DATA *ch, int item_type)
 {
@@ -3640,6 +3778,19 @@ bool obj_in_room(CHAR_DATA *ch, int vnum)
         {
             return TRUE;
         }
+    }
+
+    return FALSE;
+}
+
+/*
+ * Whether two players are in the same room.
+ */
+bool in_same_room(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    if (ch != NULL && victim != NULL)
+    {
+        return (ch->in_room == victim->in_room);
     }
 
     return FALSE;

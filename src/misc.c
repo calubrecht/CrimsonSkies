@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -30,6 +30,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdarg.h>
+#include <sys/stat.h>
 #include "merc.h"
 
 /*
@@ -216,13 +217,171 @@ EXT_BV multimeb(int bit, ...)
 /*
  * Returns whether a file exists or not.
  */
-bool file_exists(const char *fname)
+bool file_exists(const char *filename)
 {
     FILE *file;
-    if ((file = fopen(fname, "r")))
+
+    if ((file = fopen(filename, "r")))
     {
         fclose(file);
         return TRUE;
     }
+
     return FALSE;
+}
+
+/*
+ * Returns whether a player file exists or not for the specified player.
+ */
+bool player_exists(const char *player)
+{
+    FILE *file;
+    char filename[MAX_STRING_LENGTH];
+
+    // Player directory + the name of the player that's capitalized.
+    sprintf(filename, "%s%s", PLAYER_DIR, capitalize(player));
+
+    if ((file = fopen(filename, "r")))
+    {
+        fclose(file);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+/*
+ * Returns the location to where a player file would be stored based off
+ * of their name (whether it exists or not is another story).
+ */
+char *player_file_location(const char *player)
+{
+    static char filename[MAX_STRING_LENGTH];
+
+    // Player directory + the name of the player that's capitalized.
+    sprintf(filename, "%s%s", PLAYER_DIR, capitalize(player));
+
+    return filename;
+}
+
+/*
+ * Returns the date a file was last modified (local time)
+ */
+char *file_last_modified(const char *filename)
+{
+    static char buf[100];
+    struct stat attrib;
+
+    // Stat the file
+    stat(filename, &attrib);
+
+    // Put the results changed to local time into a static string
+    strftime(buf, 100, "%m-%d-%y", localtime(&(attrib.st_ctime)));
+
+    return buf;
+}
+
+/*
+ * Returns the string true or false for the bool value.
+ */
+char *bool_truefalse(bool value)
+{
+    static char buf[6];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "true");
+    }
+    else
+    {
+        sprintf(buf, "%s", "false");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns the string yes or no for the bool value.
+ */
+char *bool_yesno(bool value)
+{
+    static char buf[4];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "yes");
+    }
+    else
+    {
+        sprintf(buf, "%s", "no");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns the string on or off for the bool value.
+ */
+char *bool_onoff(bool value)
+{
+    static char buf[4];
+
+    if (value)
+    {
+        sprintf(buf, "%s", "on");
+    }
+    else
+    {
+        sprintf(buf, "%s", "off");
+    }
+
+    return buf;
+}
+
+/*
+ * Returns a string centered in the required width.  If null is passed in
+ * a string of spaces that is the width passed in will be returned.  If the
+ * string is * larger than the width it's just passed back out (but length
+ * checked to not overflow MSL).  -Rhien
+ */
+char *center_string_padded(const char *str, int width)
+{
+    static char buf[MAX_STRING_LENGTH];
+
+    // If it's null, pass back the string padded with all spaces
+    if (str == NULL)
+    {
+        snprintf(buf, MAX_STRING_LENGTH, "%*s", width - 1, "");
+        return buf;
+    }
+
+    int length = 0;
+    int color_length = 0;
+
+    length = strlen(str);
+    color_length = count_color(str);
+
+    // We can't center the string if the the string is larger than the
+    // width to center it in, just send it back.
+    if ((length - color_length) > width)
+    {
+        snprintf(buf, MAX_STRING_LENGTH, "%s", str);
+        return buf;
+    }
+
+    // Center the string within the width specified, use snprintf to ensure
+    // the string doesn't overflow the MAX_STRING_LENGTH
+    int pad_left = 0;
+    int pad_right = 0;
+
+    pad_left = (width / 2) + (length / 2);
+    pad_right = width - pad_left - 1;
+
+    pad_left += color_length / 2;
+    pad_right += color_length / 2;
+
+    // Use snprintf to pad the string
+    snprintf(buf, MAX_STRING_LENGTH, "%*s%*s", pad_left, str, pad_right, "");
+
+    return buf;
 }

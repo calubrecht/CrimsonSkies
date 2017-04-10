@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -2433,6 +2433,15 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             send_to_char(buf, ch);
             break;
 
+        case ITEM_SEED:
+            sprintf(buf,
+                "[v0] Vnum to Grow: [%d]\r\n"
+                "[v1] Percent Bonus: [%d]\r\n",
+                obj->value[0],
+                obj->value[1]);
+            send_to_char(buf, ch);
+            break;
+
         case ITEM_FOUNTAIN:
             sprintf(buf,
                 "[v0] Liquid Total: [%d]\r\n"
@@ -2618,6 +2627,23 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num, char *
                     pObj->value[0] = atoi(argument);
                     break;
             }
+            break;
+        case ITEM_SEED:
+            switch (value_num)
+            {
+                default:
+                    send_to_char("Nature System:  Grow Seed.\r\n", ch);
+                    return FALSE;
+                case 0:
+                    send_to_char( "Vnum of object to grow SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char( "Bonus for growing SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+            }
+
             break;
         case ITEM_PORTAL:
             switch (value_num)
@@ -7380,6 +7406,8 @@ SEDIT(sedit_show)
         send_to_char(buf, ch);
     }
 
+    sprintf(buf, "Ranged:       [%s]\n\r", skill->ranged ? "True" : "False");
+    send_to_char(buf, ch);
 
     send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
     send_to_char("--------------------------------------------------------\r\n", ch);
@@ -7682,7 +7710,7 @@ SEDIT(sedit_rating)
     }
 
     for (class_no = 0; class_no < top_class; class_no++)
-        if (!str_cmp(class_name, class_table[class_no]->name))
+        if (!str_prefix(class_name, class_table[class_no]->name))
             break;
 
     if (class_no >= top_class)
@@ -7716,3 +7744,30 @@ SEDIT(sedit_race)
     return TRUE;
 }
 
+SEDIT( sedit_ranged)
+{
+    SKILLTYPE *skill;
+    EDIT_SKILL(ch, skill);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  ranged [true/false]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+        skill->ranged = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+        skill->ranged = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  ranged [true/false]\r\n", ch );
+        return FALSE;
+    }
+
+    return TRUE;
+}

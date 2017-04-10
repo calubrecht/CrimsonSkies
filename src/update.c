@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -261,14 +261,25 @@ int hit_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_hit - ch->hit);
@@ -368,14 +379,25 @@ int mana_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_mana - ch->mana);
@@ -441,14 +463,25 @@ int move_gain(CHAR_DATA * ch)
         gain += number_range(20, 50);
     }
 
+    // Healing dream, only can be on those who are sleeping and disappears
+    // once they wake.
+    if (is_affected(ch, gsn_healing_dream))
+    {
+        gain += number_range(25, 35);
+    }
+
     // Rangers camping - regen bonus is greater at night than during
     // during the day.
     if (is_affected(ch, gsn_camping))
     {
         if (IS_NIGHT())
+        {
             gain += number_range(20, 40);
+        }
         else
+        {
             gain += number_range(15, 25);
+        }
     }
 
     return UMIN(gain, ch->max_move - ch->move);
@@ -782,8 +815,9 @@ void char_update(void)
         ch_next = ch->next;
 
         if (ch->timer > 30)
+        {
             ch_quit = ch;
-
+        }
 
         // Player Kill Timer - This will make it so the players involved in pk have to wait
         // a few ticks after in order to quit.
@@ -794,6 +828,12 @@ void char_update(void)
 
             if (ch->pcdata->pk_timer)
                 --ch->pcdata->pk_timer;
+        }
+
+        if (IS_AWAKE(ch))
+        {
+            // Remove healing dream if they are no longer asleep
+            affect_strip(ch, gsn_healing_dream);
         }
 
         if (ch->position >= POS_STUNNED)
@@ -855,13 +895,20 @@ void char_update(void)
                 if (ch->was_in_room == NULL && ch->in_room != NULL)
                 {
                     ch->was_in_room = ch->in_room;
+
                     if (ch->fighting != NULL)
+                    {
                         stop_fighting(ch, TRUE);
-                    act("$n disappears into the void.",
-                        ch, NULL, NULL, TO_ROOM);
+                    }
+
+                    act("$n disappears into the void.", ch, NULL, NULL, TO_ROOM);
                     send_to_char("You disappear into the void.\r\n", ch);
+
                     if (ch->level > 1)
+                    {
                         save_char_obj(ch);
+                    }
+
                     char_from_room(ch);
                     char_to_room(ch, get_room_index(ROOM_VNUM_LIMBO));
                 }
@@ -870,8 +917,7 @@ void char_update(void)
             gain_condition(ch, COND_DRUNK, -1);
             gain_condition(ch, COND_FULL, ch->size > SIZE_MEDIUM ? -4 : -2);
             gain_condition(ch, COND_THIRST, -1);
-            gain_condition(ch, COND_HUNGER,
-                ch->size > SIZE_MEDIUM ? -2 : -1);
+            gain_condition(ch, COND_HUNGER, ch->size > SIZE_MEDIUM ? -2 : -1);
         }
 
         for (paf = ch->affected; paf != NULL; paf = paf_next)
@@ -984,6 +1030,9 @@ void char_update(void)
         {
             damage(ch, ch, 1, TYPE_UNDEFINED, DAM_NONE, FALSE);
         }
+
+        // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
+        calculate_priest_rank(ch);
     }
 
     /*
@@ -1073,6 +1122,22 @@ void obj_update(void)
             }
         }
 
+        // Seed processing.
+        if (obj->item_type == ITEM_SEED && IS_OBJ_STAT(obj, ITEM_BURIED))
+        {
+            seed_grow_check(obj);
+
+            // Check to see if the seed exists anymore after it was grown, if it doesn't
+            // skip the rest of the loop.
+            if (obj == NULL)
+            {
+                continue;
+            }
+        }
+
+        // This skipos out if the timer isn't 0... this means the code that runs below this runs
+        // and then the item goes *poof*.  Code that processes an item for something needs to go
+        // above here.
         if (obj->timer <= 0 || --obj->timer > 0)
             continue;
 
@@ -1106,9 +1171,13 @@ void obj_update(void)
                 if (CAN_WEAR(obj, ITEM_WEAR_FLOAT))
                 {
                     if (obj->contains)
+                    {
                         message = "$p flickers and vanishes, spilling its contents on the floor.";
+                    }
                     else
+                    {
                         message = "$p flickers and vanishes.";
+                    }
                 }
                 else
                 {
@@ -1327,6 +1396,8 @@ void tick_update()
 
     } // end copyover
 
+    // Send line feeds to anyone who has the comm bit set for it.
+    linefeed_update();
 }
 
 /*

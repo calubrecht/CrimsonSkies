@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -228,10 +228,10 @@ void cold_effect(void *vo, int level, int dam, int target)
             AFFECT_DATA af;
 
             act("$n turns blue and shivers.", victim, NULL, NULL, TO_ROOM);
-            act("A chill sinks deep into your bones.", victim, NULL, NULL,
-                TO_CHAR);
+            act("A chill sinks deep into your bones.", victim, NULL, NULL, TO_CHAR);
+
             af.where = TO_AFFECTS;
-            af.type = skill_lookup("chill touch");
+            af.type = gsn_chill_touch;
             af.level = level;
             af.duration = 6;
             af.location = APPLY_STR;
@@ -332,11 +332,10 @@ void fire_effect(void *vo, int level, int dam, int target)
         {
             AFFECT_DATA af;
             act("$n is blinded by smoke!", victim, NULL, NULL, TO_ROOM);
-            act("Your eyes tear up from smoke...you can't see a thing!",
-                victim, NULL, NULL, TO_CHAR);
+            act("Your eyes tear up from smoke...you can't see a thing!", victim, NULL, NULL, TO_CHAR);
 
             af.where = TO_AFFECTS;
-            af.type = skill_lookup("fire breath");
+            af.type = gsn_fire_breath;
             af.level = level;
             af.duration = number_range(0, level / 10);
             af.location = APPLY_HITROLL;
@@ -560,6 +559,7 @@ void shock_effect(void *vo, int level, int dam, int target)
         /* daze and confused? */
         if (!saves_spell(level / 4 + dam / 20, victim, DAM_LIGHTNING))
         {
+            act("$n's muscles convulse.", victim, NULL, NULL, TO_ROOM);
             send_to_char("Your muscles stop responding.\r\n", victim);
             DAZE_STATE(victim, UMAX(12, level / 4 + dam / 20));
         }

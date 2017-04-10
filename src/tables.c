@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -86,6 +86,7 @@ const struct flag_type act_flags[] = {
     {"pet",            I, TRUE},
     {"train",          J, TRUE},
     {"practice",       K, TRUE},
+    {"banker",         L, TRUE},
     {"undead",         O, TRUE},
     {"cleric",         Q, TRUE},
     {"mage",           R, TRUE},
@@ -95,6 +96,7 @@ const struct flag_type act_flags[] = {
     {"nopurge",        V, TRUE},
     {"outdoors",       W, TRUE},
     {"indoors",        Y, TRUE},
+    {"scribe",         Z, TRUE},
     {"healer",        aa, TRUE},
     {"gain",          bb, TRUE},
     {"update_always", cc, TRUE},
@@ -314,6 +316,9 @@ const struct flag_type area_flags[] = {
     {"changed", AREA_CHANGED, TRUE},
     {"added", AREA_ADDED, TRUE},
     {"loading", AREA_LOADING, FALSE},
+    {"norecall", AREA_NO_RECALL, TRUE},
+    {"nosummon", AREA_NO_SUMMON, TRUE},
+    {"nogate", AREA_NO_GATE, TRUE},
     {NULL, 0, 0}
 };
 
@@ -424,6 +429,8 @@ const struct flag_type type_flags[] = {
     {"jewelry", ITEM_JEWELRY, TRUE},
     {"shovel", ITEM_SHOVEL, TRUE},
     {"fog", ITEM_FOG, TRUE},
+    {"parchment", ITEM_PARCHMENT, TRUE},
+    {"seed", ITEM_SEED, TRUE},
     {NULL, 0, 0}
 };
 

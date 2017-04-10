@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -22,7 +22,7 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 04/16/2016            *
+ *  Name Generator (Written 12/16/1999, Last Updated 01/05/2017            *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
@@ -844,5 +844,29 @@ const struct name_part_type name_part_table[] = {
         {"Bli", "ren"},
         {"Sai", "teak"},
         {"Neh", "zerin"},
-        {NULL, NULL},
+        {"Bena", "lit"},
+        {"Brock", "baal"},
+        {"Rumpt", "ten"},
+        {"Thas", "gerd"},
+        {"Eli", "jah"},
+        {"Kip", "xal"},
+        {"Court", "ney"},
+        {"Nien", "nay"},
+        {"Taly", "aral"},
+        {"Uru", "aste"},
+        {"Verd", "asza"},
+        {"Thad", "nak"},
+        {"Xok", "arna"},
+        {"Saph", "yre"},
+        {"Aeri", "akh"},
+        {"Ix", "inean"},
+        {"Ter", "ces"},
+        {"Anath", "sai"},
+        {"Jah", "iza"},
+        {"Tei", "iath"},
+        {"Nyl", "yiad"},
+        {"Oruv", "umo"},
+        {"Jyl", "dray"},
+        {"Jael", "ek"},
+        {NULL, NULL}
 };

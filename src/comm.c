@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -270,7 +270,15 @@ int main(int argc, char **argv)
         log_f("         hosts in the whitelist will be allowed to connect.");
     }
 
-    log_f("Crimson Skies is ready to rock on port %d.", port);
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        log_f("%s is ready to rock on port %d.", strip_color(settings.mud_name), port);
+    }
+    else
+    {
+        log_f("The game is ready to rock on port %d.", port);
+    }
+
     global.game_loaded = TRUE;
 
     game_loop(control);
@@ -670,11 +678,12 @@ void init_descriptor(int control)
 #if defined(_WIN32)
     int size;
     int desc;
-    size = sizeof(sock);
 #else
     size_t desc;
     socklen_t size;
 #endif
+
+    size = sizeof(sock);
 
     getsockname(control, (struct sockaddr *) &sock, &size);
     if ((desc = accept(control, (struct sockaddr *) &sock, &size)) < 0)
@@ -701,7 +710,18 @@ void init_descriptor(int control)
     dnew = new_descriptor();
 
     dnew->descriptor = desc;
-    dnew->connected = CON_COLOR;
+
+    // Do they get prompted on whether they want color or do they go straight
+    // to the login menu with color defaulted to true.
+    if (settings.login_color_prompt)
+    {
+        dnew->connected = CON_COLOR;
+    }
+    else
+    {
+        dnew->connected = CON_LOGIN_MENU;
+    }
+
     dnew->ansi = TRUE;
     dnew->showstr_head = NULL;
     dnew->showstr_point = NULL;
@@ -821,7 +841,16 @@ void init_descriptor(int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
+    if (settings.login_color_prompt)
+    {
+        write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
+    }
+    else
+    {
+        // No color prompt, show them the greeting and the menu.
+        show_greeting(dnew);
+        show_login_menu(dnew);
+    }
 
     return;
 }
@@ -1009,7 +1038,31 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
  */
 void read_from_buffer(DESCRIPTOR_DATA * d)
 {
-    int i, j, k;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    /*
+     * Shift the input buffer if there is a tilde in it.. essentially this will in
+     * effect cancel any pending commands that have been entered in (say you spmm bash
+     * in 3 times and are waiting for the lag to end, this will allow you to cancel the
+     * 2nd and 3rd ones, perhaps to react to a disarm that you need to re-arm.  Etc.
+     * Know, that it gimps the tilde.  You may choose another character here OR provide
+     * another way for a user to enter the tilde, perhaps in the colors codes code.
+     */
+    while (d->inbuf[i] != '~' && d->inbuf[i] != '\0')
+    {
+        i++;
+    }
+
+    if (d->inbuf[i] == '~')
+    {
+        i++;
+
+        for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
+        return;
+    }
 
     /*
      * Hold horses if pending command already.
@@ -1119,8 +1172,12 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
      * Shift the input buffer.
      */
     while (d->inbuf[i] == '\n' || d->inbuf[i] == '\r')
+    {
         i++;
+    }
+
     for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
     return;
 }
 
@@ -2584,6 +2641,50 @@ char *strip_color(char *string)
     buf[count] = '\0';
     return buf;
 } // end strip_color
+
+/*
+ * Returns the display length of a string as it would be on the screen by
+ * skipping any color codes that are found.  This is a modified version of
+ * Quixadhal's code from SmaugFUSS.
+ */
+int color_strlen(const char *text)
+{
+    register unsigned int i = 0;
+    int len = 0;
+
+    // Ditch out of it's a null
+    if( !text || !*text )
+    {
+        return 0;
+    }
+
+    for(i = 0; i < strlen(text);)
+    {
+        switch (text[i])
+        {
+            case '{':
+                // It's a bracket which we will skip because it's not displayed, so increment
+                // the string counter, but not the display length.
+                i++;
+
+                // There is another character after the color code bracket, skip it also as it
+                // will not be displayed but only if it doesn't go out of the array bounds.
+                if (i < strlen(text))
+                {
+                    i++;
+                }
+
+                break;
+             default:
+                // This is a displayed character, both the display length and the string counter
+                // will be incremented.
+                len++;
+                i++;
+                break;
+        }
+    }
+    return len;
+}
 
 /* source: EOD, by John Booth <???> */
 void printf_to_desc(DESCRIPTOR_DATA * d, char *fmt, ...)

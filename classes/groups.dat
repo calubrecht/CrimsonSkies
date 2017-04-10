@@ -58,6 +58,16 @@ Sk 'steal'
 End
 
 #GROUP
+Name 'psionicist basics'
+Sk 'dagger'
+End
+
+#GROUP
+Name 'priest basics'
+Sk 'mace'
+End
+
+#GROUP
 Name 'mage default'
 Sk 'lore'
 Sk 'beguiling'
@@ -188,6 +198,34 @@ Sk 'shiv'
 End
 
 #GROUP
+Name 'psionicist default'
+Sk 'lore'
+Sk 'beguiling'
+Sk 'psionics'
+Sk 'detection'
+Sk 'enhancement'
+Sk 'illusion'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'transportation'
+Sk 'weather'
+End
+
+#GROUP
+Name 'priest default'
+Sk 'flail'
+Sk 'divination'
+Sk 'curative'
+Sk 'benedictions'
+Sk 'detection'
+Sk 'healing'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'shield block'
+Sk 'transportation'
+End
+
+#GROUP
 Name 'weaponsmaster'
 Sk 'axe'
 Sk 'dagger'
@@ -238,6 +276,7 @@ Sk 'fireball'
 Sk 'lightning bolt'
 Sk 'magic missile'
 Sk 'shocking grasp'
+Sk 'ice blast'
 End
 
 #GROUP
@@ -299,6 +338,7 @@ Sk 'restore weapon'
 Sk 'disenchant'
 Sk 'interlace spirit'
 Sk 'waves of weariness'
+Sk 'preserve'
 End
 
 #GROUP
@@ -418,6 +458,26 @@ End
 Name 'nature'
 Sk 'bark skin'
 Sk 'self growth'
+End
+
+#GROUP
+Name 'psionics'
+Sk 'psionic blast'
+Sk 'healing dream'
+Sk 'mental weight'
+Sk 'forget'
+Sk 'psionic focus'
+Sk 'clairvoyance'
+Sk 'psionic shield'
+Sk 'boost'
+End
+
+#GROUP
+Name 'divination'
+Sk 'agony'
+Sk 'holy presence'
+Sk 'displacement'
+Sk 'holy flame'
 End
 
 #END

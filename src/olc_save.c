@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -884,6 +884,7 @@ void save_other_helps(CHAR_DATA * ch)
  ****************************************************************************/
 void save_area(AREA_DATA * pArea)
 {
+    char buf[MAX_STRING_LENGTH];
     FILE *fp;
 
     fclose(fpReserve);
@@ -901,6 +902,7 @@ void save_area(AREA_DATA * pArea)
     fprintf(fp, "Credits %s~\n", pArea->credits);
     fprintf(fp, "Security %d\n", pArea->security);
     fprintf(fp, "Continent %d\n", pArea->continent);
+    fprintf(fp, "AreaFlags %s\n", fwrite_flag(pArea->area_flags, buf));
     fprintf(fp, "End\n\n\n\n");
 
     save_mobiles(fp, pArea);
@@ -1126,6 +1128,9 @@ void fwrite_skill(FILE *fp, int sn)
         fprintf(fp, "MsgObj      %s~\n", skill_table[sn]->msg_obj);
 
     fprintf(fp, "Race        %d\n", skill_table[sn]->race);
+
+    if (skill_table[sn]->ranged)
+        fprintf(fp,"Ranged       %d\n", skill_table[sn]->ranged);
 
     fprintf(fp, "End\n\n");
 

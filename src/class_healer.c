@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -72,8 +72,8 @@ void spell_sacrificial_heal(int sn, int level, CHAR_DATA *ch, void *vo, int targ
     }
 
     // Set the target to full health, set the healer to near death.
-    victim->hit = victim->max_hit;
-    ch->hit = 100;
+    victim->hit += ch->hit;
+    ch->hit = 1;
 
     act("$n raises $e hands to the sky and surrounds $N with a healing aura.", ch, NULL, victim, TO_NOTVICT);
     act("$n raises $e hands to the sky and surrounds you with a healing aura.", ch, NULL, victim, TO_VICT);
@@ -631,7 +631,7 @@ void spell_remove_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo, int t
         return;
     }
 
-    if (check_dispel(level + 3, victim, skill_lookup("faerie fire")))
+    if (check_dispel(level + 3, victim, gsn_faerie_fire))
     {
         act("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
     }

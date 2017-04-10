@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -60,13 +60,13 @@
  * Independent should be FALSE if it is a real clan
  */
 const struct clan_type clan_table[MAX_CLAN] = {
-    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE },
-    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE },
-    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE },
-    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE }
+    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE,  FALSE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE,  TRUE  },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE,  TRUE  },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE, TRUE  },
+    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE, TRUE  }
 };
 
 /*
@@ -83,9 +83,13 @@ bool is_clan(CHAR_DATA * ch)
 bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (clan_table[ch->clan].independent)
+    {
         return FALSE;
+    }
     else
+    {
         return (ch->clan == victim->clan);
+    }
 }
 
 
@@ -112,7 +116,7 @@ int clan_lookup(const char *name)
  * A command to allow a player to become a loner without having to have an
  * immortal guild them.
  */
-void do_loner(CHAR_DATA *ch, char *argument )
+void do_loner(CHAR_DATA *ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
 
@@ -172,8 +176,10 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
 
     for (clan = 0; clan < MAX_CLAN; clan++)
     {
-        if (IS_NULLSTR(clan_table[clan].name))
-            continue;
+        if (IS_NULLSTR(clan_table[clan].name) || !clan_table[clan].enabled)
+        {
+           continue;
+        }
 
         sprintf(buf, "%-25s{x %-5s\r\n",
             clan_table[clan].who_name,

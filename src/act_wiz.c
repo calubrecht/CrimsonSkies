@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -30,6 +30,7 @@
     #include <sys/time.h>
     #include <unistd.h>                /* For execl in copyover() */
     #include <time.h>
+    #include <dirent.h>
 #endif
 
 // General Includes
@@ -268,6 +269,55 @@ void do_nochannels(CHAR_DATA * ch, char *argument)
             victim);
         send_to_char("NOCHANNELS set.\r\n", ch);
         sprintf(buf, "$N revokes %s's channels.", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+
+    return;
+}
+
+/*
+ * A command that allows immortals to revoke someone's praying privledges.
+ */
+void do_nopray(CHAR_DATA * ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    CHAR_DATA *victim;
+
+    one_argument(argument, arg);
+
+    if (arg[0] == '\0')
+    {
+        send_to_char("Nopray whom?", ch);
+        return;
+    }
+
+    if ((victim = get_char_world(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (get_trust(victim) >= get_trust(ch))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (IS_SET(victim->comm, COMM_NOPRAY))
+    {
+        REMOVE_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have restored your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY removed.\r\n", ch);
+        sprintf(buf, "$N restores praying privileges to %s", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+    else
+    {
+        SET_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have revoked your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY set.\r\n", ch);
+        sprintf(buf, "$N revokes %s's praying privileges.", victim->name);
         wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
     }
 
@@ -969,8 +1019,9 @@ void do_violate(CHAR_DATA * ch, char *argument)
     return;
 }
 
-/* RT to replace the 3 stat commands */
-
+/*
+ * RT to replace the 3 stat commands
+ */
 void do_stat(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -980,6 +1031,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
     CHAR_DATA *victim;
 
     string = one_argument(argument, arg);
+
     if (arg[0] == '\0')
     {
         send_to_char("Syntax:\r\n", ch);
@@ -989,6 +1041,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
         send_to_char("  stat room <number>\r\n", ch);
         send_to_char("  stat skill <player name>\r\n", ch);
         send_to_char("  stat spell <player name>\r\n", ch);
+        send_to_char("  stat offline <player name>\r\n", ch);
         return;
     }
 
@@ -1019,6 +1072,12 @@ void do_stat(CHAR_DATA * ch, char *argument)
     if (!str_cmp(arg, "spell"))
     {
         do_function(ch, &do_spellstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "offline"))
+    {
+        do_function(ch, &do_player_offline_stat, string);
         return;
     }
 
@@ -1105,6 +1164,33 @@ void do_spellstat(CHAR_DATA * ch, char *argument)
     }
 
     show_spell_list(victim, ch, "all");
+    return;
+}
+
+void do_player_offline_stat(CHAR_DATA * ch, char *argument)
+{
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("You must provide the player's name whom you wish to stat?\r\n", ch);
+      return;
+    }
+
+    if (player_exists(argument))
+    {
+        char pfile[MAX_STRING_LENGTH];
+        char pfile_modified[MAX_STRING_LENGTH];
+
+        // Get the pfile location, it should exist if we get here.
+        sprintf(pfile, "%s", player_file_location(capitalize(argument)));
+        sprintf(pfile_modified, "%s", file_last_modified(pfile));
+
+        printf_to_char(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
+    }
+    else
+    {
+        printf_to_char(ch, "No player file exists for %s.\r\n", capitalize(argument));
+    }
+
     return;
 }
 
@@ -1462,19 +1548,19 @@ void do_ostat(CHAR_DATA * ch, char *argument)
             switch (paf->where)
             {
                 case TO_AFFECTS:
-                    sprintf(buf, "Adds %s affect.\n",
+                    sprintf(buf, "Adds %s affect.\r\n",
                         affect_bit_name(paf->bitvector));
                     break;
                 case TO_WEAPON:
-                    sprintf(buf, "Adds %s weapon flags.\n",
+                    sprintf(buf, "Adds %s weapon flags.\r\n",
                         weapon_bit_name(paf->bitvector));
                     break;
                 case TO_OBJECT:
-                    sprintf(buf, "Adds %s object flag.\n",
+                    sprintf(buf, "Adds %s object flag.\r\n",
                         extra_bit_name(paf->bitvector));
                     break;
                 case TO_IMMUNE:
-                    sprintf(buf, "Adds immunity to %s.\n",
+                    sprintf(buf, "Adds immunity to %s.\r\n",
                         imm_bit_name(paf->bitvector));
                     break;
                 case TO_RESIST:
@@ -1506,15 +1592,15 @@ void do_ostat(CHAR_DATA * ch, char *argument)
                 switch (paf->where)
                 {
                     case TO_AFFECTS:
-                        sprintf(buf, "Adds %s affect.\n",
+                        sprintf(buf, "Adds %s affect.\r\n",
                             affect_bit_name(paf->bitvector));
                         break;
                     case TO_OBJECT:
-                        sprintf(buf, "Adds %s object flag.\n",
+                        sprintf(buf, "Adds %s object flag.\r\n",
                             extra_bit_name(paf->bitvector));
                         break;
                     case TO_IMMUNE:
-                        sprintf(buf, "Adds immunity to %s.\n",
+                        sprintf(buf, "Adds immunity to %s.\r\n",
                             imm_bit_name(paf->bitvector));
                         break;
                     case TO_RESIST:
@@ -1603,6 +1689,12 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         victim->alignment, victim->gold, victim->silver, victim->exp);
     send_to_char(buf, ch);
 
+    if (!IS_NPC(victim))
+    {
+        sprintf(buf, "Bank Gold: %ld  Clairvoyance Vnum: %d\r\n", victim->pcdata->bank_gold, ch->pcdata->vnum_clairvoyance);
+        send_to_char(buf, ch);
+    }
+
     sprintf(buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
         GET_AC(victim, AC_PIERCE), GET_AC(victim, AC_BASH),
         GET_AC(victim, AC_SLASH), GET_AC(victim, AC_EXOTIC));
@@ -1610,7 +1702,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     sprintf(buf,
         "Hit: %d  Dam: %d  Saves: %d  Size: %s  Position: %s  Wimpy: %d\r\n",
-        GET_HITROLL(victim), GET_DAMROLL(victim), victim->saving_throw,
+        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), victim->saving_throw,
         size_table[victim->size].name,
         position_table[victim->position].name, victim->wimpy);
     send_to_char(buf, ch);
@@ -1770,6 +1862,7 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         send_to_char("Syntax:\r\n", ch);
         send_to_char("  vnum obj <name>\r\n", ch);
         send_to_char("  vnum mob <name>\r\n", ch);
+        send_to_char("  vnum room <name or owner>\r\n", ch);
         send_to_char("  vnum skill <skill or spell>\r\n", ch);
         return;
     }
@@ -1791,6 +1884,13 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         do_function(ch, &do_slookup, string);
         return;
     }
+
+    if (!str_cmp(arg, "room"))
+    {
+        do_function(ch, &do_rfind, string);
+        return;
+    }
+
     /* do both */
     do_function(ch, &do_mfind, argument);
     do_function(ch, &do_ofind, argument);
@@ -1852,6 +1952,64 @@ void do_mfind(CHAR_DATA * ch, char *argument)
         send_to_char("No mobiles by that name.\r\n", ch);
 
     return;
+}
+
+/*
+ * Finds a room based off of searching the room name and/or the owner
+ * of the room. -Rhien, 12/24/2016
+ */
+void do_rfind(CHAR_DATA * ch, char *argument)
+{
+    ROOM_INDEX_DATA *room;
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    bool found = FALSE;
+    int x = 0;
+
+    if (strlen(argument) < 3)
+    {
+        send_to_char("You must provide at least 3 letters on your room search.\r\n", ch);
+        return;
+    }
+
+    buffer = new_buf();
+
+    // Go through all the rooms via the room hash
+    for (x = 0; x < MAX_KEY_HASH; x++)
+    {
+        for (room = room_index_hash[x]; room != NULL; room = room->next)
+        {
+            if (room->area == NULL)
+            {
+                // In theory this shouldn't happen, but...
+                sprintf(buf, "[%6d] (Bug: NULL Area)\r\n", room->vnum);
+                add_buf(buffer, buf);
+                continue;
+            }
+
+            if ((!IS_NULLSTR(room->name) && !str_infix(argument, room->name))
+                || (!IS_NULLSTR(room->owner) && !str_infix(argument, room->owner)))
+            {
+                sprintf(buf, "[%6d] {c%s{x in %s\r\n",
+                    room->vnum,
+                    room->name,
+                    room->area->name);
+                add_buf(buffer, buf);
+
+                found = TRUE;
+            }
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("Room(s) not found for your search.\r\n", ch);
+        return;
+    }
+
+    // Page it, then free the buffer
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
 }
 
 void do_ofind(CHAR_DATA * ch, char *argument)
@@ -5943,6 +6101,9 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
     // This will remove all affects from the victim
     affect_strip_all(victim);
 
+    // Reset's the char
+    reset_char(ch);
+
     // Show the user what was done.
     if (ch != victim)
     {
@@ -6370,14 +6531,138 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
     return;
 }
 
+/*
+ * Makes any temporary spells on an object permanent.  This should only be a high level
+ * immortal command used to make quest items, etc.  It only makes the affects permanent for
+ * this instance of the object found.
+ */
+void do_permanent(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("On what item do you want to make the temporary affects permanent?\r\n", ch);
+        return;
+    }
+
+    obj = get_obj_here(ch, argument);
+
+    if (obj == NULL)
+    {
+        send_to_char("You do not see that here.\r\n", ch);
+        return;
+    }
+
+    // Look for any non permanent affects on the item, then set their duration
+    // to -1 which will make them permanent for just this item.
+    AFFECT_DATA *af;
+    int found = FALSE;
+
+    for (af = obj->affected; af != NULL; af = af->next)
+    {
+        if (af->duration > 0)
+        {
+            af->duration = -1;
+            found = TRUE;
+        }
+    }
+
+    // Show the the success or not.
+    if (found)
+    {
+        act("You have made the affects on $p permanent.", ch, obj, NULL, TO_CHAR);
+    }
+    else
+    {
+        act("There were no affects on $p that could be made permanent.", ch, obj, NULL, TO_CHAR);
+    }
+}
+
+/*
+ * Lists all players who have pfiles (this could get rather lengthy on a large mud).
+ */
+void do_playerlist(CHAR_DATA * ch, char *argument)
+{
+    #if defined(_WIN32)
+        send_to_char("This command is not currently supported on Windows.\r\n", ch);
+        return;
+    #else
+
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    DIR *dir;
+    struct dirent *ent;
+    int col = 1;
+    int pfiles_found = 0;
+
+    // Initialize the buffer
+    buffer = new_buf();
+
+    if ((dir = opendir(PLAYER_DIR)) != NULL)
+    {
+        // Print all the files and directories within directory
+        while ((ent = readdir(dir)) != NULL)
+        {
+            // Get regular files and skip those that start with a .
+            if (!IS_NULLSTR(ent->d_name)
+                && ent->d_type == DT_REG
+                && ent->d_name[0] != '.')
+            {
+                if (col % 5 == 0)
+                {
+                    sprintf(buf, "%-13s\r\n", ent->d_name);
+                    col = 0;
+                }
+                else
+                {
+                   sprintf(buf, "%-13s", ent->d_name);
+                }
+
+                col++;
+                pfiles_found++;
+
+                add_buf(buffer, buf);
+            }
+        }
+
+        closedir(dir);
+    }
+
+    // At the end, show how many pfiles were found.  We will add two line breaks
+    // if not on the last column (which would have appended one already to make
+    // for two.
+    if (col == 5)
+    {
+        sprintf(buf, "\r\n%d player files were found.\r\n", pfiles_found);
+    }
+    else
+    {
+        sprintf(buf, "\r\n\r\n%d player files were found.\r\n", pfiles_found);
+    }
+
+    add_buf(buffer, buf);
+
+    page_to_char(buf_string(buffer), ch);
+
+    free_buf(buffer);
+
+    return;
+
+    #endif
+}
 
 /*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Quest time reset.\r\n", ch);
-    ch->pcdata->next_quest = 0;
+    printf_to_char(ch, "1: %d\r\n", number_bits(1));
+    printf_to_char(ch, "2: %d\r\n", number_bits(2));
+    printf_to_char(ch, "3: %d\r\n", number_bits(3));
+    printf_to_char(ch, "4: %d\r\n", number_bits(4));
+    printf_to_char(ch, "5: %d\r\n", number_bits(5));
+
     return;
 } // end do_debug
 

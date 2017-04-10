@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -69,6 +69,8 @@ const struct item_type item_table[] = {
     {ITEM_JEWELRY,      "jewelry"},
     {ITEM_SHOVEL,       "shovel"},
     {ITEM_FOG,          "fog"},
+    {ITEM_PARCHMENT,    "parchment"},
+    {ITEM_SEED,         "seed"},
     {0,                 NULL}
 };
 
@@ -109,8 +111,9 @@ const struct wiznet_type wiznet_table[] = {
     {"restore",   WIZ_RESTORE,   L2},
     {"snoops",    WIZ_SNOOPS,    L2},
     {"switches",  WIZ_SWITCHES,  L2},
-    {"secure",    WIZ_SECURE,    L1},
+    {"secure",    WIZ_SECURE,    L2},
     {"general",   WIZ_GENERAL,   IM},
+    {"bank",      WIZ_BANK,      L6},
     {NULL, 0, 0}
 };
 
@@ -372,12 +375,12 @@ const struct race_type race_table[] = {
 };
 
 struct pc_race_type pc_race_table[] = {
-    {"null race", "", 0, {100, 100, 100, 100, 100},
+    {"null race", "", "", 0, {100, 100, 100, 100, 100},
      {""}, {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, 0},
 
 /*
     {
-    "race name", short name, creation points, { class multipliers },
+    "race name", who name, name with article, creation points, { class multipliers },
     { bonus skills },
     { base stats (str, int, wis, dex, con) }, { max stats (str, int, wis, dex, con) },
     size
@@ -385,73 +388,72 @@ struct pc_race_type pc_race_table[] = {
 */
     {
      // 65 starting stat line, 90 max stat line
-     "human", "Human", 0, {100, 100, 100, 100, 100},
+     "human", "Human", "a human", 0, {100, 100, 100, 100, 100},
      {"swim"},
      {13, 13, 13, 13, 13}, {18, 18, 18, 18, 18}, SIZE_MEDIUM},
     {
      // 65 starting stat line, 91 max stat line
-     "elf", " Elf ", 5, {100, 125, 100, 120, 100},
+     "elf", " Elf ", "an elf", 5, {100, 125, 100, 120, 100},
      {"sneak", "hide", "swim"},
      {12, 14, 13, 15, 11}, {16, 20, 18, 21, 16}, SIZE_SMALL},
 
     {
      // 65 starting stat line, 90 max stat line
-     "dwarf", "Dwarf", 8, {150, 100, 125, 100, 150},
+     "dwarf", "Dwarf", "a dwarf", 8, {150, 100, 125, 100, 150},
      {"berserk"},
      {14, 12, 14, 10, 15}, {20, 16, 19, 14, 21}, SIZE_MEDIUM},
 
     {
      // 65 starting stat line, 90 max stat line
-     "ogre", "Ogre", 6, {200, 150, 150, 105, 200},
+     "ogre", "Ogre", "an ogre", 6, {200, 150, 150, 105, 200},
      {"bash", "fast healing"},
      {16, 11, 13, 11, 14}, {22, 15, 18, 15, 20}, SIZE_LARGE},
 
     {
      // 64 starting stat line, 88 max stat line
-     "kender", "Kender", 5, {100, 100, 100, 100, 100},
+     "kender", "Kender", "a kender", 5, {100, 100, 100, 100, 100},
      {"sneak", "swim", "peek", "dodge", "pick lock"},
      {10, 12, 14, 18, 10}, {14, 18, 19, 22, 15}, SIZE_SMALL},
     {
      // 64 starting stat line, 89 max stat line
-     "minotaur", "Minotr", 6, {200, 150, 150, 105, 200},
+     "minotaur", "Minotr", "a minotaur", 6, {200, 150, 150, 105, 200},
      {"gore"},
      {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 };
 
 /*
  * Modifiers for Strength based items.
- * Field 1: tohit - Hit roll bonus
- * Field 2: todam - Dam roll bonus
- * Field 3: carry - Carry modifier
- * Field 4: wield - Wield modifier (factors into dropping weapon when weak)
+ * Field 1: todam - Dam roll bonus
+ * Field 2: carry - Carry modifier
+ * Field 3: wield - Wield modifier (factors into dropping weapon when weak)
  */
 const struct str_app_type str_app[26] = {
-    {-5, -4, 0, 0},                /* 0  */
-    {-5, -4, 3, 1},                /* 1  */
-    {-3, -2, 3, 2},
-    {-3, -1, 10, 3},            /* 3  */
-    {-2, -1, 25, 4},
-    {-2, -1, 55, 5},            /* 5  */
-    {-1, 0, 80, 6},
-    {-1, 0, 90, 7},
-    {0, 0, 100, 8},
-    {0, 0, 100, 9},
-    {0, 0, 115, 10},            /* 10  */
-    {0, 0, 115, 11},
-    {0, 0, 130, 12},
-    {0, 0, 130, 13},            /* 13  */
-    {0, 1, 140, 14},
-    {1, 1, 150, 15},            /* 15  */
-    {1, 2, 165, 16},
-    {2, 3, 180, 22},
-    {2, 3, 200, 25},            /* 18  */
-    {3, 4, 225, 30},
-    {3, 5, 250, 35},            /* 20  */
-    {4, 6, 300, 40},
-    {4, 6, 350, 45},
-    {5, 7, 400, 50},
-    {5, 8, 450, 55},
-    {6, 9, 500, 60}                /* 25   */
+    {-4, 0, 0},             /* 0  */
+    {-4, 3, 1},             /* 1  */
+    {-2, 3, 2},
+    {-1, 10, 3},            /* 3  */
+    {-1, 25, 4},
+    {-1, 55, 5},            /* 5  */
+    { 0, 80, 6},
+    { 0, 90, 7},
+    { 0, 100, 8},
+    { 0, 100, 9},
+    { 0, 115, 10},          /* 10  */
+    { 0, 115, 11},
+    { 0, 130, 12},
+    { 0, 130, 13},          /* 13  */
+    { 1, 140, 14},
+    { 1, 150, 15},          /* 15  */
+    { 2, 165, 16},
+    { 3, 180, 22},
+    { 3, 200, 25},          /* 18  */
+    { 4, 225, 30},
+    { 5, 250, 35},          /* 20  */
+    { 6, 300, 40},
+    { 6, 350, 45},
+    { 7, 400, 50},
+    { 8, 450, 55},
+    { 9, 500, 60}           /* 25   */
 };
 
 
@@ -524,35 +526,36 @@ const struct wis_app_type wis_app[26] = {
 
 /*
  * Modifiers for Dexterity based items.
- * Field 1:  Does not appear to be in use anymore, repurpose later.
+ * Field 1:  defensive - (AC Bonus)
+ * Field 2:  hitroll_bonus (Hit roll bonus)
  */
 const struct dex_app_type dex_app[26] = {
-    {60},                        /* 0 */
-    {50},                        /* 1 */
-    {50},
-    {40},
-    {30},
-    {20},                        /* 5 */
-    {10},
-    {0},
-    {0},
-    {0},
-    {0},                        /* 10 */
-    {0},
-    {0},
-    {0},
-    {0},
-    {-10},                        /* 15 */
-    {-15},
-    {-20},
-    {-30},
-    {-40},
-    {-50},                        /* 20 */
-    {-60},
-    {-75},
-    {-90},
-    {-105},
-    {-120}                        /* 25 */
+    {60,  -5},           /* 0 */
+    {50,  -5},           /* 1 */
+    {50,  -3},
+    {40,  -3},
+    {30,  -2},
+    {20,  -2},           /* 5 */
+    {10,  -1},
+    { 0,  -1},
+    { 0,   0},
+    { 0,   0},
+    { 0,   0},           /* 10 */
+    { 0,   0},
+    { 0,   0},
+    { 0,   0},
+    { 0,   0},
+    {-10,  1},           /* 15 */
+    {-15,  1},
+    {-20,  2},
+    {-30,  2},
+    {-40,  3},
+    {-50,  3},           /* 20 */
+    {-60,  4},
+    {-75,  4},
+    {-90,  5},
+    {-105, 5},
+    {-120, 6}            /* 25 */
 };
 
 

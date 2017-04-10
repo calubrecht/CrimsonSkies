@@ -1,5 +1,5 @@
 #HELPS
--1 OLC EDIT ASAVE~
+52 OLC EDIT ASAVE~
 Syntax: EDIT AREA  [create/reset] [vnum]     - Area Creation and Repoping.
 Syntax: EDIT ROOM  [create] [vnum]           - Room Creation and Editing.
 Syntax: EDIT OBJ   [create] <vnum>           - Object Creation and Editing.
@@ -17,13 +17,13 @@ Syntax: RESET  See Help Resets.              - Set Game Resets.
 
 Definition: [optional]  <required>  (combined arguments)
 ~
--1 OLC CREDITS~
+52 OLC CREDITS~
 OLC CREDITS
      The above commands are used to expand the game world.  The original
-code is based on was written by Surreality and installed in The Isles by Locke.
-It was then converted to work with Envy by Jason Dinkel, and ported to ROM
-2.3 by Hans Birkeland (Hugin). Port to Rom 2.4 by Ivan Toledo (ver 1.7).
-Dynamic loading of groups, classes and skills ported from SmaugFUSS by Blake 
+code is based on was written by Surreality.   It was then converted to 
+work with Envy by Jason Dinkel, and ported to ROM 2.3 by Hans 
+Birkeland (Hugin). Port to Rom 2.4 by Ivan Toledo (ver 1.7). Dynamic 
+loading of groups, classes and skills ported from SmaugFUSS by Blake 
 Pell (Rhien) of Crimson Skies (CS-Mud) with additional code added to OLC to
 allow for online editing.
 
@@ -33,14 +33,14 @@ resets the current room.  Most commands with no arguments display syntax.
 See also help: AEDIT REDIT MEDIT OEDIT GEDIT CEDIT
 ~
 
-0 ALIST~
+52 ALIST~
 Syntax: ALIST
 
 This command gives you a listing of all the areas along with their
 vnum assignments and the builder(s) assigned to editing them.
 ~
 
-0 AEDIT~
+52 AEDIT~
 Syntax: edit area	 -Enters the editor for the current area.
 Syntax: edit area <vnum> -Enters the editor for the selected area.
 
@@ -62,7 +62,7 @@ uvnum <upper>       - set the upper vnum
 <flags>             - area flags, type ? AREA for a list
 ~
 
-0 REDIT~
+52 REDIT~
 Syntax: edit room		-Enters the editor for the current room.
 
 The following commands are available from within the REDITOR:
@@ -141,7 +141,7 @@ skills.dat file and should be done with caution.
 ~
 
 
-0 EXIT~
+52 EXIT~
 For exits, type the direction (north/s/e/w) followed by:
 
 dig <vnum>         - creates the room and makes a two way link
@@ -160,7 +160,7 @@ a player closing the door and not due to the door being set to be closed.
 -South to [ 3744] Key: [   -1] Exit flags: [door CLOSED bashed pickproof]
 ~
 
-0 OEDIT~
+52 OEDIT~
 Syntax: edit object <vnum>	-Enters the editor for the selected object.
 
 The following commands are available from within the OEDITOR:
@@ -188,7 +188,7 @@ wear                - where object is worn, type ? WEAR for a list
 material            - material the object is made from
 ~
 
-0 MEDIT~
+52 MEDIT~
 Syntax: medit <vnum>		-Enters the editor for the selected mobile.
 
 The following commands are available from within the MEDITOR:
@@ -225,7 +225,7 @@ type 'help HITDICE', 'help MANADICE', 'help DAMDICE' for lists of reasonable dic
 combinations on different levels.
 ~
 
-0 HITDICE~
+52 HITDICE~
 A high number of dice makes for less variance in mobiles hitpoints.
 Suggested values are:
 
@@ -252,7 +252,7 @@ The values the server generates for merc-type mobs is
 where level is the level of the mobile.
 ~
 
-0 DAMDICE~
+52 DAMDICE~
 A high number of dice makes for less variance in mobiles hitpoints.
 Suggested values are:
 
@@ -272,7 +272,7 @@ standard merc values.  (Will be put in when there's time to calculate
 them...)
 ~
 
-0 RESETS~
+52 RESETS~
 Syntax: RESET <number> OBJ <vnum> <location on body>    - equips last mobile
         RESET <number> OBJ <vnum> inside <obj vnum>     - store in container
         RESET <number> OBJ <vnum> room                  - store in room
@@ -292,7 +292,7 @@ likely that resets will backfire if they are not carefully entered.
 If you wish to reset the room then use EDIT ROOM RESET.  
 ~
 
-0 MOB_AC~
+52 MOB_AC~
 The values ROM generates for a merc format mob is:
 
    level      pierce    bash    slash   exotic
@@ -317,7 +317,7 @@ These values are 10 times what you would put in an area file. This
 is because the server multiplies what it reads from file with 10.
 ~
 
-0 ITEM_LIGHT~
+52 ITEM_LIGHT~
 .   value 0    unused
    value 1    unused
    value 2    hours of light available, 0 is dead, -1 or 999 is infinite            
@@ -325,7 +325,7 @@ is because the server multiplies what it reads from file with 10.
    value 4    unused
 ~
 
-0 ITEM_STAFF_WAND~
+52 ITEM_STAFF_WAND~
 .   value 0    level
    value 1    max charges
    value 2    current charges
@@ -337,7 +337,7 @@ An up-to-date list of spells can be obtained by typing:
 ? SPELLS [ignore/attack/defend/self/object/all]
 ~
 
-0 ITEM_SCROLL_POTION_PILL~
+52 ITEM_SCROLL_POTION_PILL~
 .   value 0    level
    value 1    spell name 1
    value 2    spell name 2
@@ -348,7 +348,7 @@ An up-to-date list of spells can be obtained by typing:
 ? SPELLS [ignore/attack/defend/self/object/all]
 ~
 
-0 ITEM_ARMOR~
+52 ITEM_ARMOR~
 .   value 0    ac pierce
    value 1    ac bash
    value 2    ac slash
@@ -356,7 +356,7 @@ An up-to-date list of spells can be obtained by typing:
    value 4    unused
 ~
 
-0 ITEM_WEAPON~
+52 ITEM_WEAPON~
 .   value 0    weapon class.
    value 1    number of dice to roll.
    value 2    type of dice to roll.
@@ -370,7 +370,7 @@ help WEAPON_DICE
 ? WTYPE
 ~
 
-0 WEAPON_DICE~
+52 WEAPON_DICE~
 These are the values the server generates automatically when
 converting a merc-format mobile to ROM format.  A higher
 number of dice gives less variance in damage.  There is no
@@ -387,7 +387,7 @@ dice-bonus on weapon dice.
        50:     5d11
 ~
 
-0 ITEM_CONTAINER~
+52 ITEM_CONTAINER~
 .   value 0    weight capacity
    value 1    flags: closeable, pickproof, closed, locked            
    value 2    key vnum
@@ -398,7 +398,7 @@ An up-to-date list of flags can be obtained by typing
 ? CONTAINTER
 ~
 
-0 ITEM_DRINK~
+52 ITEM_DRINK~
 .   value0    capacity
    value 1    current quantity
    value 2    liquid type
@@ -409,7 +409,7 @@ An up-to-date list of liquid types can be obtained by typing
 ? LIQUID
 ~
 
-0 ITEM_FOOD~
+52 ITEM_FOOD~
 .   value 0    hours of food value
    value 1    unused
    value 2    unused
@@ -417,7 +417,7 @@ An up-to-date list of liquid types can be obtained by typing
    value 4    unused
 ~
 
-0 ITEM_MONEY~
+52 ITEM_MONEY~
 .   value 0    value in gold pieces
    value 1    unused
    value 2    unused

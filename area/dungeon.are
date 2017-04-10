@@ -5,7 +5,7 @@ VNUMs 15100 15169
 LevelRange 20 45
 Credits { 3 45}Yaegar/Aurorix The Dungeon~
 Security 9
-Continent 0
+Continent 2
 End
 
 
@@ -426,9 +426,9 @@ armor M AI
 0 0 0 0 A
 5 15 0 P
 A
-14 -50
-A
 2 -3
+A
+14 -50
 #15101
 straw~
 some filthy straw~
@@ -462,9 +462,9 @@ armor M AF
 0 0 0 0 A
 5 25 0 P
 A
-14 -200
-A
 2 -3
+A
+14 -200
 #15105
 bones~
 some bones~
@@ -814,9 +814,9 @@ weapon 0 AN
 sword 2 5 slash 0
 15 10 500 P
 A
-19 1
-A
 18 1
+A
+19 1
 #15141
 shield~
 a shield~
@@ -882,9 +882,9 @@ armor 0 AM
 AB AB AB AB A
 15 5 500 P
 A
-13 10
-A
 1 1
+A
+13 10
 #15148
 dog collar~
 a spiked dog collar~
@@ -918,9 +918,9 @@ armor 0 AK
 0 0 0 0 A
 10 15 0 P
 A
-14 -25
-A
 2 -2
+A
+14 -25
 #15152
 saliva coated fangs~
 some saliva coated fangs~
@@ -940,11 +940,11 @@ armor 0 AH
 0 0 0 0 A
 10 1 0 P
 A
-13 -10
+1 -1
 A
 2 -1
 A
-1 -1
+13 -10
 #15154
 pincers~
 a pair of pincers~
@@ -1028,9 +1028,9 @@ weapon ABEGJ AN
 dagger 4 4 pierce 0
 20 20 2000 P
 A
-12 15
-A
 13 15
+A
+12 15
 #15164
 jewelled necklace~
 a jewelled necklace~
@@ -1040,11 +1040,11 @@ armor AEJ AC
 0 0 0 0 A
 30 1 1000 P
 A
-4 1
+12 20
 A
 3 1
 A
-12 20
+4 1
 #15165
 boots quickness~
 boots of quickness~
@@ -1054,9 +1054,9 @@ armor 0 AG
 C C C C A
 29 1 0 P
 A
-2 2
-A
 14 50
+A
+2 2
 #15166
 platinum helm~
 a platinum helm~
@@ -1066,11 +1066,11 @@ armor BEJ AE
 C C C C A
 29 5 2000 P
 A
-12 5
+4 1
 A
 3 1
 A
-4 1
+12 5
 #15167
 cloak~
 a plain gray cloak~
@@ -1091,6 +1091,10 @@ line the stone walls on either side, but it still has a cold, merciless
 feel to it.
 ~
 0 8 0
+D1
+~
+~
+0 0 1811
 D3
 ~
 ~
@@ -1102,7 +1106,7 @@ Here those few fortunate prisoners with privileges are allowed a short walk.
 Guards stroll back and forth, keeping an eye on them. A chill wind blows
 across this only open air space in the dungeons.
 ~
-0 0 0
+0 0 2
 D0
 ~
 ~
@@ -1777,18 +1781,18 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D3
-~
-~
-0 -1 15145
-D1
-~
-~
-0 -1 15139
 D2
 ~
 ~
 0 -1 15141
+D1
+~
+~
+0 -1 15139
+D3
+~
+~
+0 -1 15145
 S
 #15141
 The Dark Maze~
@@ -1798,18 +1802,18 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D0
-~
-~
-0 -1 15140
-D2
-~
-~
-0 -1 15142
 D3
 ~
 ~
 0 -1 15146
+D2
+~
+~
+0 -1 15142
+D0
+~
+~
+0 -1 15140
 S
 #15142
 The Dark Maze~
@@ -1844,14 +1848,14 @@ D0
 ~
 ~
 0 -1 15142
-D2
-~
-~
-0 -1 15144
 D3
 ~
 ~
 0 -1 15148
+D2
+~
+~
+0 -1 15144
 S
 #15144
 The Dark Maze~
@@ -1882,14 +1886,14 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D2
-~
-~
-0 -1 15146
 D3
 ~
 ~
 0 -1 15150
+D2
+~
+~
+0 -1 15146
 D1
 ~
 ~
@@ -1907,22 +1911,22 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D3
-~
-~
-0 -1 15151
 D2
 ~
 ~
 0 -1 15147
-D0
-~
-~
-0 -1 15145
 D1
 ~
 ~
 0 -1 15141
+D0
+~
+~
+0 -1 15145
+D3
+~
+~
+0 -1 15151
 S
 #15147
 The Dark Maze~
@@ -1932,6 +1936,14 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
+D2
+~
+~
+0 -1 15148
+D3
+~
+~
+0 -1 15152
 D0
 ~
 ~
@@ -1940,14 +1952,6 @@ D1
 ~
 ~
 0 -1 15142
-D3
-~
-~
-0 -1 15152
-D2
-~
-~
-0 -1 15148
 S
 #15148
 The Dark Maze~
@@ -1957,22 +1961,22 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D1
-~
-~
-0 -1 15143
-D0
-~
-~
-0 -1 15147
 D3
 ~
 ~
 0 -1 15153
+D1
+~
+~
+0 -1 15143
 D2
 ~
 ~
 0 -1 15149
+D0
+~
+~
+0 -1 15147
 S
 #15149
 The Dark Maze~
@@ -1982,6 +1986,10 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
+D0
+~
+~
+0 -1 15148
 D3
 ~
 ~
@@ -1990,10 +1998,6 @@ D1
 ~
 ~
 0 -1 15144
-D0
-~
-~
-0 -1 15148
 S
 #15150
 The Dark Maze~
@@ -2003,6 +2007,10 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
+D1
+~
+~
+0 -1 15145
 D2
 ~
 ~
@@ -2011,12 +2019,33 @@ D3
 ~
 ~
 0 -1 15155
+S
+#15151
+The Dark Maze~
+This hive of subterranean passageways was once a burial chamber. But the
+priests long ago removed all the corpses, leaving the place vacant. Rumor
+has it, however, that a few tombs still remain, undisturbed for centuries,
+full of magnificent treasures.
+~
+0 8201 0
 D1
 ~
 ~
-0 -1 15145
+0 -1 15146
+D3
+~
+~
+0 -1 15156
+D2
+~
+~
+0 -1 15152
+D0
+~
+~
+0 -1 15150
 S
-#15151
+#15152
 The Dark Maze~
 This hive of subterranean passageways was once a burial chamber. But the
 priests long ago removed all the corpses, leaving the place vacant. Rumor
@@ -2027,28 +2056,7 @@ full of magnificent treasures.
 D0
 ~
 ~
-0 -1 15150
-D3
-~
-~
-0 -1 15156
-D2
-~
-~
-0 -1 15152
-D1
-~
-~
-0 -1 15146
-S
-#15152
-The Dark Maze~
-This hive of subterranean passageways was once a burial chamber. But the
-priests long ago removed all the corpses, leaving the place vacant. Rumor
-has it, however, that a few tombs still remain, undisturbed for centuries,
-full of magnificent treasures.
-~
-0 8201 0
+0 -1 15151
 D2
 ~
 ~
@@ -2061,10 +2069,6 @@ D1
 ~
 ~
 0 -1 15147
-D0
-~
-~
-0 -1 15151
 S
 #15153
 The Dark Maze~
@@ -2078,14 +2082,14 @@ D2
 ~
 ~
 0 -1 15154
-D3
-~
-~
-0 -1 15158
 D0
 ~
 ~
 0 -1 15152
+D3
+~
+~
+0 -1 15158
 D1
 ~
 ~
@@ -2103,10 +2107,6 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D1
-~
-~
-0 -1 15149
 D3
 ~
 ~
@@ -2115,6 +2115,10 @@ D0
 ~
 ~
 0 -1 15153
+D1
+~
+~
+0 -1 15149
 S
 #15155
 The Dark Maze~
@@ -2124,18 +2128,18 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D2
-~
-~
-0 -1 15156
-D3
-~
-~
-0 -1 15160
 D1
 ~
 ~
 0 -1 15150
+D3
+~
+~
+0 -1 15160
+D2
+~
+~
+0 -1 15156
 S
 #15156
 The Dark Maze~
@@ -2145,6 +2149,10 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
+D3
+~
+~
+0 -1 15161
 D2
 ~
 ~
@@ -2153,10 +2161,6 @@ D1
 ~
 ~
 0 -1 15151
-D3
-~
-~
-0 -1 15161
 D0
 ~
 ~
@@ -2174,10 +2178,6 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D2
-~
-~
-0 -1 15158
 D3
 ~
 ~
@@ -2190,6 +2190,10 @@ D0
 ~
 ~
 0 -1 15156
+D2
+~
+~
+0 -1 15158
 S
 #15158
 The Dark Maze~
@@ -2203,14 +2207,14 @@ D3
 ~
 ~
 0 -1 15163
-D0
-~
-~
-0 -1 15157
 D2
 ~
 ~
 0 -1 15159
+D0
+~
+~
+0 -1 15157
 D1
 ~
 ~
@@ -2224,10 +2228,6 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D1
-~
-~
-0 -1 15154
 D3
 ~
 ~
@@ -2236,6 +2236,10 @@ D0
 ~
 ~
 0 -1 15158
+D1
+~
+~
+0 -1 15154
 S
 #15160
 The Dark Maze~
@@ -2262,10 +2266,6 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D0
-~
-~
-0 -1 15160
 D2
 ~
 ~
@@ -2274,6 +2274,10 @@ D1
 ~
 ~
 0 -1 15156
+D0
+~
+~
+0 -1 15160
 S
 #15162
 The Dark Maze~
@@ -2283,14 +2287,14 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D1
-~
-~
-0 -1 15157
 D2
 ~
 ~
 0 -1 15163
+D1
+~
+~
+0 -1 15157
 D0
 ~
 ~
@@ -2308,18 +2312,18 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D1
-~
-~
-0 -1 15158
-D2
-~
-~
-0 -1 15164
 D0
 ~
 ~
 0 -1 15162
+D2
+~
+~
+0 -1 15164
+D1
+~
+~
+0 -1 15158
 S
 #15164
 The Dark Maze~
@@ -2329,14 +2333,14 @@ has it, however, that a few tombs still remain, undisturbed for centuries,
 full of magnificent treasures.
 ~
 0 8201 0
-D0
-~
-~
-0 -1 15163
 D1
 ~
 ~
 0 -1 15159
+D0
+~
+~
+0 -1 15163
 S
 #15165
 Tomb of Ael~

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -155,6 +155,7 @@ DECLARE_DO_FUN(do_memory);
 DECLARE_DO_FUN(do_mfind);
 DECLARE_DO_FUN(do_mset);
 DECLARE_DO_FUN(do_mstat);
+DECLARE_DO_FUN(do_player_offline_stat);
 DECLARE_DO_FUN(do_mwhere);
 DECLARE_DO_FUN(do_mob);
 DECLARE_DO_FUN(do_motd);
@@ -220,7 +221,6 @@ DECLARE_DO_FUN(do_save);
 DECLARE_DO_FUN(do_say);
 DECLARE_DO_FUN(do_scan);
 DECLARE_DO_FUN(do_score);
-DECLARE_DO_FUN(do_oldscore);
 DECLARE_DO_FUN(do_scroll);
 DECLARE_DO_FUN(do_sell);
 DECLARE_DO_FUN(do_set);
@@ -373,3 +373,14 @@ DECLARE_DO_FUN(do_clearreply);
 DECLARE_DO_FUN(do_loner);
 DECLARE_DO_FUN(do_bludgeon);
 DECLARE_DO_FUN(do_revolt);
+DECLARE_DO_FUN(do_linefeed);
+DECLARE_DO_FUN(do_rfind);
+DECLARE_DO_FUN(do_permanent);
+DECLARE_DO_FUN(do_playerlist);
+DECLARE_DO_FUN(do_nopray);
+DECLARE_DO_FUN(do_write);
+DECLARE_DO_FUN(do_read);
+DECLARE_DO_FUN(do_duplicate);
+DECLARE_DO_FUN(do_bank);
+DECLARE_DO_FUN(do_clairvoyance);
+DECLARE_DO_FUN(do_prayer);

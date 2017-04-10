@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -426,7 +426,7 @@ int find_door(CHAR_DATA * ch, char *arg)
 
     if ((pexit = ch->in_room->exit[door]) == NULL)
     {
-        act("I see no door $T here.", ch, NULL, arg, TO_CHAR);
+        act("I see no door $T of here.", ch, NULL, arg, TO_CHAR);
         return -1;
     }
 
@@ -1091,12 +1091,15 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("Maybe you should finish fighting first?\r\n", ch);
             return;
         }
+
         obj = get_obj_list(ch, argument, ch->in_room->contents);
+
         if (obj == NULL)
         {
             send_to_char("You don't see that here.\r\n", ch);
             return;
         }
+
         if (obj->item_type != ITEM_FURNITURE
             || (!IS_SET(obj->value[2], STAND_AT)
                 && !IS_SET(obj->value[2], STAND_ON)
@@ -1105,12 +1108,13 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("You can't seem to find a place to stand.\r\n", ch);
             return;
         }
+
         if (ch->on != obj && count_users(obj) >= obj->value[0])
         {
-            act_new("There's no room to stand on $p.",
-                ch, obj, NULL, TO_CHAR, POS_DEAD);
+            act_new("There's no room to stand on $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
             return;
         }
+
         ch->on = obj;
     }
 
@@ -1131,20 +1135,17 @@ void do_stand(CHAR_DATA * ch, char *argument)
             }
             else if (IS_SET(obj->value[2], STAND_AT))
             {
-                act_new("You wake and stand at $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand at $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands at $p.", ch, obj, NULL, TO_ROOM);
             }
             else if (IS_SET(obj->value[2], STAND_ON))
             {
-                act_new("You wake and stand on $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand on $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands on $p.", ch, obj, NULL, TO_ROOM);
             }
             else
             {
-                act_new("You wake and stand in $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand in $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands in $p.", ch, obj, NULL, TO_ROOM);
             }
             ch->position = POS_STANDING;
@@ -1185,6 +1186,9 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("You are already fighting!\r\n", ch);
             break;
     }
+
+    // Remove healing dream if they are no longer asleep
+    affect_strip(ch, gsn_healing_dream);
 
     return;
 } // end do_stand
@@ -1576,6 +1580,25 @@ void do_sleep(CHAR_DATA * ch, char *argument)
             break;
     }
 
+    // Now that the above code as run, we should know if they are asleep or not, psionicists
+    // can't cast healing dream on themselves because it can only be cast on sleeping people but
+    // when they sleep it will automatically take affect for them.
+    if (ch->position == POS_SLEEPING && ch->class == PSIONICIST_CLASS_LOOKUP)
+    {
+        AFFECT_DATA af;
+        affect_strip(ch, gsn_healing_dream);
+
+        af.where = TO_AFFECTS;
+        af.type = gsn_healing_dream;
+        af.level = ch->level;
+        af.duration = -1;
+        af.modifier = 0;
+        af.location = APPLY_NONE;
+        af.bitvector = 0;
+        affect_to_char(ch, &af);
+        send_to_char("You fall into a deep and restful sleep.\r\n", ch);
+    }
+
     return;
 } // end do_sleep
 
@@ -1659,14 +1682,18 @@ void do_sneak(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * A skill allowing a player to hide from being seen by most others
+ * who don't have acute vision.
+ */
 void do_hide(CHAR_DATA * ch, char *argument)
 {
     send_to_char("You attempt to hide.\r\n", ch);
 
     if (IS_AFFECTED(ch, AFF_HIDE))
+    {
         REMOVE_BIT(ch->affected_by, AFF_HIDE);
+    }
 
     if (number_percent() < get_skill(ch, gsn_hide))
     {
@@ -1674,7 +1701,9 @@ void do_hide(CHAR_DATA * ch, char *argument)
         check_improve(ch, gsn_hide, TRUE, 3);
     }
     else
+    {
         check_improve(ch, gsn_hide, FALSE, 3);
+    }
 
     return;
 }
@@ -1684,8 +1713,8 @@ void do_hide(CHAR_DATA * ch, char *argument)
  */
 void do_visible(CHAR_DATA * ch, char *argument)
 {
-    affect_strip(ch, gsn_invis);
-    affect_strip(ch, gsn_mass_invis);
+    affect_strip(ch, gsn_invisibility);
+    affect_strip(ch, gsn_mass_invisibility);
     affect_strip(ch, gsn_sneak);
     affect_strip(ch, gsn_quiet_movement);
     affect_strip(ch, gsn_camouflage);
@@ -1743,9 +1772,13 @@ void do_recall(CHAR_DATA * ch, char *argument)
     }
 
     if (ch->in_room == location)
+    {
         return;
+    }
 
-    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL) || IS_AFFECTED(ch, AFF_CURSE))
+    if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
+        || IS_AFFECTED(ch, AFF_CURSE)
+        || IS_SET(ch->in_room->area->area_flags, AREA_NO_RECALL))
     {
         send_to_char("The gods have forsaken you.\r\n", ch);
         return;
@@ -1799,7 +1832,12 @@ void do_recall(CHAR_DATA * ch, char *argument)
     do_function(ch, &do_look, "auto");
 
     if (ch->pet != NULL)
+    {
         do_function(ch->pet, &do_recall, "");
+    }
+
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
 
     return;
 }
@@ -2226,10 +2264,8 @@ void do_enter(CHAR_DATA * ch, char *argument)
                 if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
                     && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
                 {
-                    act("You can't bring $N into the city.",
-                        ch, NULL, fch, TO_CHAR);
-                    act("You aren't allowed in the city.",
-                        fch, NULL, NULL, TO_CHAR);
+                    act("You can't bring $N into the city.", ch, NULL, fch, TO_CHAR);
+                    act("You aren't allowed in the city.", fch, NULL, NULL, TO_CHAR);
                     continue;
                 }
 

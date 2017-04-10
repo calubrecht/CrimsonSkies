@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -377,6 +377,13 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
         }
     }
 
+    // Game owner may max enchant, the item will still reflect it was enchanted by
+    // them.  Ideally this would be for special quest items.
+    if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+    {
+        fail = 0;
+    }
+
     // the moment of truth
     if (result < (fail / 5))
     {
@@ -482,8 +489,18 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
             if (paf->location == APPLY_AC)
             {
                 paf->type = sn;
-                paf->modifier += added;
                 paf->level = UMAX(paf->level, level);
+
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    // Game owner max enchant
+                    paf->modifier = -14;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
+                }
             }
         }
     }
@@ -497,7 +514,18 @@ void spell_enchant_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_AC;
-        paf->modifier = added;
+
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            // Game owner max enchant
+            paf->modifier = -14;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
+        }
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
@@ -533,6 +561,7 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
     // this means they have no bonus
     hit_bonus = 0;
     dam_bonus = 0;
+
     // base 25% chance of failure
     fail = 25;
 
@@ -619,6 +648,13 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             dam_bonus = paf->modifier;
             if (dam_bonus >= 12) { result = 0; }
         }
+    }
+
+    // Game owner may max enchant, the item will still reflect it was enchanted by
+    // them.  Ideally this would be for special quest items.
+    if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+    {
+        fail = 0;
     }
 
     // the moment of truth
@@ -743,7 +779,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             if (paf->location == APPLY_DAMROLL)
             {
                 paf->type = sn;
-                paf->modifier += added;
+
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    // Game owner max enchant
+                    paf->modifier = 12;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
+                }
+
                 paf->level = UMAX(paf->level, level);
                 if (paf->modifier > 4)
                     SET_BIT(obj->extra_flags, ITEM_HUM);
@@ -759,7 +806,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_DAMROLL;
-        paf->modifier = added;
+
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            // Game owner max enchant
+            paf->modifier = 12;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
+        }
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
@@ -772,7 +830,18 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
             if (paf->location == APPLY_HITROLL)
             {
                 paf->type = sn;
-                paf->modifier += added;
+
+                if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+                {
+                    // Game owner max enchant
+                    paf->modifier = 12;
+                }
+                else
+                {
+                    // Regular enchant
+                    paf->modifier += added;
+                }
+
                 paf->level = UMAX(paf->level, level);
                 if (paf->modifier > 4)
                     SET_BIT(obj->extra_flags, ITEM_HUM);
@@ -787,7 +856,19 @@ void spell_enchant_weapon(int sn, int level, CHAR_DATA * ch, void *vo, int targe
         paf->level = level;
         paf->duration = -1;
         paf->location = APPLY_HITROLL;
-        paf->modifier = added;
+
+        if (IS_IMMORTAL(ch) && ch->level == MAX_LEVEL)
+        {
+            // Game owner max enchant
+            paf->modifier = 12;
+        }
+        else
+        {
+            // Regular enchant
+            paf->modifier = added;
+        }
+
+
         paf->bitvector = 0;
         paf->next = obj->affected;
         obj->affected = paf;
@@ -1163,3 +1244,51 @@ void set_obj_enchanted(CHAR_DATA * ch, OBJ_DATA * obj, bool clear_first)
     return;
 
 } // end set_obj_enchanted
+
+/*
+ * Preserves an item that is ready to rot/crumble.  It has a cool down period
+ * of 160 minutes which means it can only be used on 1 item every 160 minutes
+ * of play time (has mitigating rot death can be a huge deal for a rare item).
+ */
+void spell_preserve(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    AFFECT_DATA af;
+    OBJ_DATA *obj = (OBJ_DATA *) vo;
+
+    if (is_affected(ch, sn))
+    {
+        send_to_char("You failed to cast preserve again so soon.\r\n", ch);
+        return;
+    }
+
+    if (obj->timer < 1)
+    {
+        send_to_char("That item doesn't require preserving.\r\n", ch);
+        return;
+    }
+
+    // 240 tick cool down period, e.g. it can't be used again for that long.
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 240;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    // Any future checks that would mitigate this being used.
+    /*if ()
+    {
+        send_to_char("You cannot preserve that item.\r\n", ch);
+        return;
+    }*/
+
+    // Reset the timer..
+    obj->timer = 0;
+
+    act("$p fades out of existence and then back into visible form.", ch, obj, NULL, TO_CHAR);
+    act("$p fades out of existence and then back into visible form.", ch, obj, NULL, TO_ROOM);
+
+    return;
+}

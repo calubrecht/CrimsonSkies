@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -19,7 +19,10 @@
  *  benefitting.  We hope that you share your changes too.  What goes      *
  *  around, comes around.                                                  *
  **************************************************************************/
-#define VERSION "0.9"
+
+// We're going to use this to indicate the version of this release which
+// is arbitrary to the person implementing the game.
+#define VERSION "1.2.0"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -109,11 +112,11 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
  * items are loaded.  - Rhien
  */
 #define MAX_SOCIALS        256
-#define MAX_SKILL          200
+#define MAX_SKILL          250
 #define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
-#define MAX_CLASS          10   // top_class
+#define MAX_CLASS          11   // top_class
 #define MAX_PC_RACE        7
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
@@ -182,6 +185,8 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define BLADESINGER_CLASS_LOOKUP                6
 #define RANGER_CLASS_LOOKUP                     7
 #define ROGUE_CLASS_LOOKUP                      8
+#define PSIONICIST_CLASS_LOOKUP                 9
+#define PRIEST_CLASS_LOOKUP                     10
 
 /*
  * PC Race Lookup
@@ -193,6 +198,17 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define GIANT_RACE_LOOKUP                       4
 #define KENDER_RACE_LOOKUP                      5
 #define MINOTAUR_RACE_LOOKUP                    6
+
+/*
+ * Priest ranks
+ */
+#define PRIEST_RANK_NOVITIATE   0
+#define PRIEST_RANK_DEACON      1
+#define PRIEST_RANK_PRIEST      2
+#define PRIEST_RANK_BISHOP      3
+#define PRIEST_RANK_ARCHBISHOP  4
+#define PRIEST_RANK_CARDINAL    5
+#define PRIEST_RANK_HIGH_PRIEST 6
 
 /*
  * Thanks Dingo for making life a bit easier ;)
@@ -259,6 +275,7 @@ struct weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_NEW_CHARACTER           -18
 #define CON_LOGIN_RETURN            -17
 #define CON_LOGIN_MENU              -16
 #define CON_GET_EMAIL               -15
@@ -318,7 +335,6 @@ struct descriptor_data
  */
 struct str_app_type
 {
-    int    tohit;
     int    todam;
     int    carry;
     int    wield;
@@ -336,7 +352,8 @@ struct wis_app_type
 
 struct dex_app_type
 {
-    int    defensive;
+    int    defensive;      // AC Bonus
+    int    hitroll_bonus;  // Hit Roll Bonus
 };
 
 struct con_app_type
@@ -424,6 +441,28 @@ struct class_type
     bool    is_enabled;        /* Whether the class is enabled for public use */
 };
 
+/*
+ * These are spells (and their message off) that are shared and used in both
+ * spell_cancel and spell_dispel.  The gsn is the global skill number of the
+ * spell and the room message is the act message the room should display.
+ */
+struct dispel_type
+{
+    int  *    gsn;
+    char *    room_msg;
+};
+
+/*
+ * Priest ranks.  The integer rank for comparison, the name to be show in who and
+ * in score and the minimum hours required for a given rank.
+ */
+struct priest_rank_type
+{
+    int rank;
+    char * name;
+    int hours;
+};
+
 struct item_type
 {
     int       type;
@@ -479,6 +518,7 @@ struct pc_race_type                 /* additional data for pc races    */
 {
     char *  name;                   /* MUST be in race_type            */
     char    who_name[7];
+    char *  article_name;           /* Name plus article, an elf, a dwarf, etc.*/
     int     points;                 /* cost in points of the race      */
     int     class_mult[MAX_CLASS];  /* exp multiplier for class, * 100 */
     char *  skills[5];              /* bonus skills for the race       */
@@ -538,6 +578,7 @@ struct note_data
 struct affect_data
 {
     AFFECT_DATA *  next;
+    CHAR_DATA *    caster;    // Included when the caster is needed later on an effect.
     bool           valid;
     int            where;
     int            type;
@@ -565,16 +606,24 @@ struct affect_data
 struct settings_data
 {
     // Game Bonuses
-    bool double_exp;        // Double Experience
-    bool double_gold;       // Double Gold
+    bool double_exp;         // Double Experience
+    bool double_gold;        // Double Gold
     // Game Locks / System Behavior
-    bool newlock;           // New lock, no new characters can create
-    bool wizlock;           // Only immortals can login
-    bool whitelist_lock;    // Whether a white list is active, see ban.c for info.
-    bool test_mode;         // Whether the entire game is put into test mode
+    bool newlock;            // New lock, no new characters can create
+    bool wizlock;            // Only immortals can login
+    bool whitelist_lock;     // Whether a white list is active, see ban.c for info.
+    bool test_mode;          // Whether the entire game is put into test mode
+    bool login_color_prompt; // Whether or not the Do you want color? prompt will appear on login
     // Game Mechanics
     bool shock_spread; // Shocking effect spreads under water.
     bool gain_convert; // Whether or not gain convert is enabled.
+    // Info
+    char *web_page_url;
+    char *mud_name;
+    char *login_greeting;
+    char *login_menu_light_color;
+    char *login_menu_dark_color;
+    bool login_who_list_enabled;
 };
 
 /*
@@ -719,7 +768,7 @@ typedef enum
 #define ACT_PET                (I)   /* Auto set for pets  */
 #define ACT_TRAIN              (J)   /* Can train PC's     */
 #define ACT_PRACTICE           (K)   /* Can practice PC's  */
-//                             (L)
+#define ACT_BANKER             (L)
 //                             (M)
 //                             (N)
 #define ACT_UNDEAD             (O)
@@ -732,7 +781,7 @@ typedef enum
 #define ACT_NOPURGE            (V)   /* Mob can't be purged from a room */
 #define ACT_OUTDOORS           (W)
 #define ACT_INDOORS            (Y)
-//                             (Z)
+#define ACT_SCRIBE             (Z)
 #define ACT_IS_HEALER          (aa)  /* Mob sells healing services */
 #define ACT_GAIN               (bb)
 #define ACT_UPDATE_ALWAYS      (cc)
@@ -1093,6 +1142,8 @@ typedef enum
 #define ITEM_JEWELRY     33
 #define ITEM_SHOVEL      34
 #define ITEM_FOG         35
+#define ITEM_PARCHMENT   36
+#define ITEM_SEED        37
 
 /*
  * Extra flags.
@@ -1121,6 +1172,7 @@ typedef enum
 #define ITEM_MELT_DROP     (U)
 #define ITEM_HAD_TIMER     (V)
 #define ITEM_SELL_EXTRACT  (W)
+//                         (X)
 #define ITEM_BURN_PROOF    (Y)
 #define ITEM_NOUNCURSE     (Z)
 
@@ -1424,6 +1476,7 @@ typedef enum
 #define COMM_NOCLAN         (H)
 #define COMM_NOCGOSSIP      (I)
 #define COMM_NOOCLAN        (J)
+#define COMM_NOPRAY         (K)
 
 /* display flags */
 #define COMM_COMPACT        (L)
@@ -1433,6 +1486,7 @@ typedef enum
 #define COMM_TELNET_GA      (P)
 #define COMM_SHOW_AFFECTS   (Q)
 #define COMM_NOGRATS        (R)
+#define COMM_LINEFEED_TICK  (S)
 
 /* penalties */
 #define COMM_NOEMOTE        (T)
@@ -1464,6 +1518,7 @@ typedef enum
 #define WIZ_PREFIX          (S)
 #define WIZ_SPAM            (T)
 #define WIZ_GENERAL         (U)
+#define WIZ_BANK            (V)
 
 /*
  * Prototype for a mob.
@@ -1661,17 +1716,20 @@ struct pc_data
     time_t          last_story;
     time_t          last_history;
     time_t          last_immnote;
-    int             pk_timer;        // How many ticks the player has to wait to quit after an event like pk.
-    char *          last_ip;         // Saves the last IP address used, see save.c for notes.
-    int             recall_vnum;     // Custom recall point that can be set by the user to any bind stone
-    CHAR_DATA *     quest_giver;     // Vassago - Questing
-    int             quest_points;    // Vassago - Questing
-    int             next_quest;      // Vassago - Questing
-    int             countdown;       // Vassago - Questing
-    int             quest_obj;       // Vassago - Questing
-    int             quest_mob;       // Vassago - Questing
-    int             pkills;          // The number of player kills a character has.
-    int             pkilled;         // The number of times a player has been killed.
+    int             pk_timer;          // How many ticks the player has to wait to quit after an event like pk.
+    char *          last_ip;           // Saves the last IP address used, see save.c for notes.
+    int             recall_vnum;       // Custom recall point that can be set by the user to any bind stone
+    CHAR_DATA *     quest_giver;       // Vassago - Questing
+    int             quest_points;      // Vassago - Questing
+    int             next_quest;        // Vassago - Questing
+    int             countdown;         // Vassago - Questing
+    int             quest_obj;         // Vassago - Questing
+    int             quest_mob;         // Vassago - Questing
+    int             pkills;            // The number of player kills a character has.
+    int             pkilled;           // The number of times a player has been killed.
+    long            bank_gold;         // The amount of gold a player has in the bank.
+    int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
+    int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -1924,6 +1982,7 @@ struct skill_type
     char *      msg_off;                   /* Wear off message             */
     char *      msg_obj;                   /* Wear off message for obects  */
     int         race;                      /* Specific race if the skill is only for one race */
+    bool        ranged;                    /* Whether or not this skill/spell is ranged */
 };
 
 struct  group_type
@@ -2083,10 +2142,10 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
 #define GET_AC(ch,type)        ((ch)->armor[type]                \
                 + ( IS_AWAKE(ch)                \
             ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))
-#define GET_HITROLL(ch)    \
-        ((ch)->hitroll + str_app[get_curr_stat(ch,STAT_STR)].tohit + stance_offensive_modifier(ch))
-#define GET_DAMROLL(ch) \
-        ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam)
+#define GET_HITROLL(ch, obj)    \
+    ((ch)->hitroll + dex_app[get_curr_stat(ch,STAT_DEX)].hitroll_bonus + stance_offensive_modifier(ch) + obj_affect_modifier(obj, APPLY_HITROLL))
+#define GET_DAMROLL(ch, obj) \
+    ((ch)->damroll + str_app[get_curr_stat(ch,STAT_STR)].todam + obj_affect_modifier(obj, APPLY_DAMROLL ))
 
 #define IS_OUTSIDE(ch)        (!IS_SET(                    \
                     (ch)->in_room->room_flags,            \
@@ -2148,21 +2207,23 @@ struct    social_type
 /*
  * Global constants.
  */
-extern    const    struct    str_app_type    str_app[26];
-extern    const    struct    int_app_type    int_app[26];
-extern    const    struct    wis_app_type    wis_app[26];
-extern    const    struct    dex_app_type    dex_app[26];
-extern    const    struct    con_app_type    con_app[26];
+extern    const    struct    str_app_type     str_app[26];
+extern    const    struct    int_app_type     int_app[26];
+extern    const    struct    wis_app_type     wis_app[26];
+extern    const    struct    dex_app_type     dex_app[26];
+extern    const    struct    con_app_type     con_app[26];
 
-extern    const    struct    weapon_type     weapon_table[];
-extern    const    struct    item_type       item_table[];
-extern    const    struct    wiznet_type     wiznet_table[];
-extern    const    struct    attack_type     attack_table[];
-extern    const    struct    race_type       race_table[];
-extern             struct    pc_race_type    pc_race_table[];
-extern    const    struct    spec_type       spec_table[];
-extern    const    struct    liq_type        liq_table[];
-extern             struct    social_type     social_table[MAX_SOCIALS];
+extern    const    struct    weapon_type      weapon_table[];
+extern    const    struct    item_type        item_table[];
+extern    const    struct    wiznet_type      wiznet_table[];
+extern    const    struct    attack_type      attack_table[];
+extern    const    struct    race_type        race_table[];
+extern             struct    pc_race_type     pc_race_table[];
+extern    const    struct    spec_type        spec_table[];
+extern    const    struct    liq_type         liq_table[];
+extern    const    struct    dispel_type      dispel_table[];
+extern    const    struct    priest_rank_type priest_rank_table[];
+extern             struct    social_type      social_table[MAX_SOCIALS];
 //extern             struct    skill_type      skill_table    [MAX_SKILL];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
 //extern    const    struct    group_type      group_table    [MAX_GROUP];
@@ -2281,6 +2342,8 @@ void     die_follower        (CHAR_DATA *ch);
 bool     is_same_group       (CHAR_DATA *ach, CHAR_DATA *bch);
 char     *obj_short          (OBJ_DATA *obj);
 void     shutdown_request    (int a);
+void     linefeed_update     ();
+int      color_strlen        (const char *src);
 
 /* act_enter.c */
 RID      *get_random_room    (CHAR_DATA *ch);
@@ -2300,6 +2363,9 @@ bool     can_loot            (CHAR_DATA *ch, OBJ_DATA *obj);
 void     wear_obj            (CHAR_DATA *ch, OBJ_DATA *obj, bool fReplace);
 void     get_obj             (CHAR_DATA *ch, OBJ_DATA *obj, OBJ_DATA *container);
 void     show_lore           (CHAR_DATA *ch, OBJ_DATA *obj);
+void     remove_all_obj      (CHAR_DATA *ch);
+bool     remove_obj          (CHAR_DATA * ch, int iWear, bool fReplace);
+void     wear_obj            (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
 
 /* act_wiz.c */
 void     wiznet                    (char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level);
@@ -2385,6 +2451,9 @@ bool  check_disabled  (const struct cmd_type *command);
 void  load_disabled   (void);
 void  save_disabled   (void);
 
+/* grid.c */
+int   count_color     (const char *str);
+
 /* effect.c */
 void    acid_effect    (void *vo, int level, int dam, int target);
 void    cold_effect    (void *vo, int level, int dam, int target);
@@ -2393,12 +2462,15 @@ void    poison_effect  (void *vo, int level, int dam, int target);
 void    shock_effect   (void *vo, int level, int dam, int target);
 bool    stun_effect    (CHAR_DATA *ch, CHAR_DATA *victim);
 
-/* nanny.c */
+/* login_menu.c */
 void     show_greeting       (DESCRIPTOR_DATA *d);
 void     show_login_menu     (DESCRIPTOR_DATA *d);
+void     show_menu_header    (char *caption, DESCRIPTOR_DATA *d);
 void     show_random_names   (DESCRIPTOR_DATA *d);
 void     show_login_who      (DESCRIPTOR_DATA *d);
 void     show_login_credits  (DESCRIPTOR_DATA *d);
+void     show_menu_top       (DESCRIPTOR_DATA *d);
+void     show_menu_bottom    (DESCRIPTOR_DATA *d);
 
 /* random.c */
 void     init_random         (void);
@@ -2425,6 +2497,8 @@ void    check_death     (CHAR_DATA *victim, int dt);
 char    *get_stance_name(CHAR_DATA *ch);
 int     stance_defensive_modifier (CHAR_DATA *ch);
 int     stance_offensive_modifier (CHAR_DATA *ch);
+void    disarm(CHAR_DATA * ch, CHAR_DATA * victim);
+void    set_fighting(CHAR_DATA * ch, CHAR_DATA * victim);
 
 /* clan.c */
 bool   is_clan            (CHAR_DATA *ch);
@@ -2494,6 +2568,7 @@ OD *   get_obj_here       (CHAR_DATA *ch, char *argument);
 OD *   get_obj_world      (CHAR_DATA *ch, char *argument);
 OD *   create_money       (int gold, int silver);
 int    get_obj_number     (OBJ_DATA *obj);
+int    obj_count_by_type  (OBJ_DATA *obj, int item_type);
 int    get_obj_weight     (OBJ_DATA *obj);
 int    get_true_weight    (OBJ_DATA *obj);
 bool   room_is_dark       (ROOM_INDEX_DATA *pRoomIndex);
@@ -2522,6 +2597,8 @@ char * get_area_name      (int vnum);
 bool   same_continent     (int vnum_one, int vnum_two);
 int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
+int    obj_affect_modifier(OBJ_DATA *obj, int location);
+bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* recycle.c */
 TIMER *new_timer          (void);
@@ -2535,12 +2612,12 @@ int     mult_argument      (char *argument, char *arg);
 char *  one_argument       (char *argument, char *arg_first);
 
 /* magic.c */
-int    find_spell     (CHAR_DATA *ch, const char *name);
-int    mana_cost(CHAR_DATA *ch, int min_mana, int level);
-int    skill_lookup   (const char *name);
-bool   saves_spell    (int level, CHAR_DATA *victim, int dam_type);
-void   obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
-bool   check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
+int       find_spell     (CHAR_DATA *ch, const char *name);
+bool      saves_spell    (int level, CHAR_DATA *victim, int dam_type);
+void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, OBJ_DATA *obj);
+bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
+CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
+bool      saves_dispel   (int dis_level, int spell_level, int duration);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);
@@ -2568,6 +2645,7 @@ void    save_char_obj      (CHAR_DATA *ch);
 bool    load_char_obj      (DESCRIPTOR_DATA *d, char *name);
 
 /* skills.c */
+int     skill_lookup     (const char *name);
 bool    parse_gen_groups (CHAR_DATA *ch, char *argument);
 void    list_group_costs (CHAR_DATA *ch);
 void    list_group_known (CHAR_DATA *ch);
@@ -2581,6 +2659,9 @@ void    group_add        (CHAR_DATA *ch, const char *name, bool deduct);
 void    group_remove     (CHAR_DATA *ch, const char *name);
 void    show_skill_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
 void    show_spell_list  (CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument);
+
+/* nature.c */
+void    seed_grow_check  (OBJ_DATA *obj);
 
 /* special.c */
 SF *    spec_lookup      (const char *name);
@@ -2614,6 +2695,7 @@ char *  first_arg      (char *argument, char *arg_first, bool fCase);
 char *  string_unpad   (char * argument);
 char *  string_proper  (char * argument);
 char *  num_punct      (int foo);
+char *  num_punct_long (long foo);
 
 /* olc.c */
 bool      run_olc_editor    (DESCRIPTOR_DATA *d);
@@ -2644,11 +2726,22 @@ void    gain_exp      (CHAR_DATA *ch, int gain);
 void    advance_level (CHAR_DATA *ch, bool hide);
 
 /* misc.c */
-bool file_exists(const char *fname);
+bool    file_exists           (const char *fname);
+char    *center_string_padded (const char *str, int width);
+char    *bool_truefalse       (bool value);
+char    *bool_yesno           (bool value);
+char    *bool_onoff           (bool value);
+bool    player_exists         (const char *player);
+char    *player_file_location (const char *player);
+char    *file_last_modified   (const char *filename);
 
 /* act_mob.c */
 void          process_portal_merchant (CHAR_DATA * ch, char *argument);
-CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);
+CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
+
+/* class_priest.c */
+void          agony_damage_check(CHAR_DATA *ch);
+void          calculate_priest_rank(CHAR_DATA * ch);
 
 #undef    CD
 #undef    MID
@@ -2675,6 +2768,9 @@ CHAR_DATA *   find_portal_merchant (CHAR_DATA * ch);
 #define         AREA_CHANGED    (A)    /* Area has been modified. */
 #define         AREA_ADDED      (B)    /* Area has been added to. */
 #define         AREA_LOADING    (C)    /* Used for counting in db.c */
+#define         AREA_NO_RECALL  (D)    /* Entire area is no recall */
+#define         AREA_NO_SUMMON  (E)    /* Cannot summon or be summoned from */
+#define         AREA_NO_GATE    (F)    /* Area cannot be gated into or from */
 
 #define         MAX_DIR        10    /* Maximum direction (0-9 are used making 10) */
 #define         NO_FLAG       -99    /* Must not be used in flags or stats. */

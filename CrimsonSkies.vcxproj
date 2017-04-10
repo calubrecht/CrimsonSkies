@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -13,18 +13,19 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{26C6B9EE-48E7-46B4-90ED-F46EB6AB4A21}</ProjectGuid>
     <RootNamespace>CrimsonSkies</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -72,6 +73,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\class_cleric.c" />
+    <ClCompile Include="src\class_mage.c" />
+    <ClCompile Include="src\class_priest.c" />
+    <ClCompile Include="src\class_psionicist.c" />
+    <ClCompile Include="src\class_thief.c" />
+    <ClCompile Include="src\class_warrior.c" />
+    <ClCompile Include="src\gsn.c" />
     <ClCompile Include="src\act_comm.c" />
     <ClCompile Include="src\act_info.c" />
     <ClCompile Include="src\act_mob.c" />
@@ -80,7 +88,8 @@
     <ClCompile Include="src\act_wiz.c" />
     <ClCompile Include="src\alias.c" />
     <ClCompile Include="src\ban.c" />
-    <ClCompile Include="src\bladesinger.c" />
+    <ClCompile Include="src\bank.c" />
+    <ClCompile Include="src\class_bladesinger.c" />
     <ClCompile Include="src\clan.c" />
     <ClCompile Include="src\comm.c" />
     <ClCompile Include="src\const.c" />
@@ -88,11 +97,12 @@
     <ClCompile Include="src\db_export.c" />
     <ClCompile Include="src\disable.c" />
     <ClCompile Include="src\effects.c" />
-    <ClCompile Include="src\enchantor.c" />
+    <ClCompile Include="src\class_enchantor.c" />
     <ClCompile Include="src\experience.c" />
     <ClCompile Include="src\fight.c" />
+    <ClCompile Include="src\grid.c" />
     <ClCompile Include="src\handler.c" />
-    <ClCompile Include="src\healer.c" />
+    <ClCompile Include="src\class_healer.c" />
     <ClCompile Include="src\hunt.c" />
     <ClCompile Include="src\ini.c" />
     <ClCompile Include="src\interp.c" />
@@ -106,6 +116,7 @@
     <ClCompile Include="src\mob_prog.c" />
     <ClCompile Include="src\name_generator.c" />
     <ClCompile Include="src\nanny.c" />
+    <ClCompile Include="src\nature.c" />
     <ClCompile Include="src\note.c" />
     <ClCompile Include="src\olc.c" />
     <ClCompile Include="src\olc_act.c" />
@@ -113,11 +124,12 @@
     <ClCompile Include="src\olc_mem.c" />
     <ClCompile Include="src\olc_save.c" />
     <ClCompile Include="src\olc_string.c" />
+    <ClCompile Include="src\parchment.c" />
     <ClCompile Include="src\quest.c" />
     <ClCompile Include="src\random.c" />
-    <ClCompile Include="src\ranger.c" />
+    <ClCompile Include="src\class_ranger.c" />
     <ClCompile Include="src\recycle.c" />
-    <ClCompile Include="src\rogue.c" />
+    <ClCompile Include="src\class_rogue.c" />
     <ClCompile Include="src\save.c" />
     <ClCompile Include="src\settings.c" />
     <ClCompile Include="src\sha256.c" />
@@ -131,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="src\board.h" />
     <ClInclude Include="src\db.h" />
+    <ClInclude Include="src\grid.h" />
     <ClInclude Include="src\gsn.h" />
     <ClInclude Include="src\ini.h" />
     <ClInclude Include="src\interp.h" />
@@ -235,24 +248,28 @@
     <None Include="classes\warrior.class" />
     <None Include="doc\changes.olc" />
     <None Include="doc\historical\telnet.html" />
-    <None Include="doc\license.doc" />
+    <None Include="doc\historical\license.doc" />
+    <None Include="doc\index.md" />
     <None Include="doc\MPDocs\examples.doc" />
     <None Include="doc\MPDocs\hacker.doc" />
     <None Include="doc\MPDocs\howto" />
     <None Include="doc\MPDocs\mobprog.doc" />
     <None Include="doc\MPDocs\readme" />
     <None Include="doc\MPDocs\surrender.hlp" />
-    <None Include="doc\README.merc" />
+    <None Include="doc\historical\README.merc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />
     <None Include="doc\rom.credits" />
-    <None Include="doc\rom.license" />
-    <None Include="doc\Rom2.4.doc" />
+    <None Include="doc\historical\rom.license" />
+    <None Include="doc\historical\Rom2.4.doc" />
+    <None Include="doc\setup-linux-raspbian.md" />
+    <None Include="doc\setup-linux-ubuntu.md" />
+    <None Include="doc\supported-operating-systems.md" />
     <None Include="README.md" />
     <None Include="src\Makefile" />
-    <None Include="doc\Makefile.linux" />
-    <None Include="doc\Makefile.normal" />
-    <None Include="doc\Makefile.solaris" />
+    <None Include="doc\historical\Makefile.linux" />
+    <None Include="doc\historical\Makefile.normal" />
+    <None Include="doc\historical\Makefile.solaris" />
     <None Include="system\ban.dat" />
     <None Include="system\settings.dat" />
     <None Include="TODO.md" />
@@ -260,25 +277,25 @@
   <ItemGroup>
     <Text Include="area\config.txt" />
     <Text Include="area\orphaned_helps.txt" />
-    <Text Include="doc\act.txt" />
-    <Text Include="doc\area.txt" />
-    <Text Include="doc\class.txt" />
-    <Text Include="doc\command.txt" />
+    <Text Include="doc\historical\act.txt" />
+    <Text Include="doc\historical\area.txt" />
+    <Text Include="doc\historical\class.txt" />
+    <Text Include="doc\historical\command.txt" />
     <Text Include="doc\contrib.txt" />
     <Text Include="doc\drool.txt" />
-    <Text Include="doc\hacker.txt" />
-    <Text Include="doc\license.txt" />
-    <Text Include="doc\memory.txt" />
+    <Text Include="doc\historical\hacker.txt" />
+    <Text Include="doc\historical\license.txt" />
+    <Text Include="doc\historical\memory.txt" />
     <Text Include="doc\MPDocs\new_readme.txt" />
-    <Text Include="doc\pfile.txt" />
+    <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\port.txt" />
-    <Text Include="doc\security.txt" />
+    <Text Include="doc\historical\security.txt" />
     <Text Include="doc\historical\sites.txt" />
-    <Text Include="doc\skill.txt" />
+    <Text Include="doc\historical\skill.txt" />
     <Text Include="doc\sky.txt" />
     <Text Include="doc\historical\trad.txt" />
     <Text Include="doc\historical\vnum.txt" />
-    <Text Include="doc\WindowsSupport.txt" />
+    <Text Include="doc\historical\WindowsSupport.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

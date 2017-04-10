@@ -46,6 +46,10 @@ through the trees and your hair.  Far to the east, you barely make out a
 city and to the west the Silver Sea lines the horizon.  
 ~
 0 0 2
+D0
+~
+~
+0 0 2485
 D1
 ~
 ~
@@ -132,6 +136,10 @@ something to happen.  A road trails off to the west, to the horizon, while a
 small paved path leads into Red Oak.  
 ~
 0 0 2
+D1
+~
+~
+0 0 700
 D3
 ~
 ~
@@ -179,6 +187,61 @@ D2
 ~
 1 0 6950
 S
+#1809
+Outside Red Oak's Northern Gate~
+You are standing outside of the northern gates of the town of Red Oak. 
+The dusty and worn you are on continues on to the north while the gates of
+the city are to your south.  There are giant red oak trees that fill in the
+surroundings but not so close that the light from the sun and moon can't
+make it through.  
+~
+0 0 3
+D0
+~
+~
+0 0 1810
+D2
+~
+~
+0 0 712
+S
+#1810
+Along the Northern Road~
+You are standing on the the dusty path of the northern road.  Sparse red
+oak trees line the fields to the east and west and the lights of the town of
+Red Oak can be see far in the distance to the south.  
+~
+0 0 3
+D0
+~
+~
+0 0 1811
+D2
+~
+~
+0 0 1809
+S
+#1811
+Along the Northern Road~
+The nothern road comes to an abrupt end here at a rocky ledge that leads
+sharply down into the deep chasm's of the nothern valley.  To the west you
+can see a drab structure which appears to be some sort of prison.  To the
+northwest you can see the looming Gray Mountains in the distance.  
+~
+0 0 2
+D2
+~
+~
+0 0 1810
+D3
+~
+~
+0 0 15100
+D6
+~
+~
+0 0 2403
+S
 #0
 
 
@@ -190,7 +253,7 @@ S
 
 #RESETS
 D 0 1808 2 1
-O 0 31 0 1803 A bind stone. loaded to Middle of a Huge Field
+O 0 31 0 1803 A bind stone loaded to Middle of a Huge Field
 S
 
 

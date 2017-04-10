@@ -12,7 +12,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
-  - Add ranged spells (fireball)
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Add profile command and/or way for user to store some OOC data like email.
@@ -58,7 +57,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Barbarian class - 4th attack, warcry, acute vision, bash bonus, no magic, spell vulnerable
   - Bladesinger reposition skill.
   - When examining a pit/shelves/container, make it clear what the character can and can't wear.
-  - rwhere command to find room by keyword and return room name/vnum.
   - Look at the auto saving code and make sure it's working right.
   - Check looting
   - Add guild room names and area names to class command.
@@ -87,6 +85,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Create command to reset a users password while they maybe offline
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
+  - Function that makes someone invisible with no act messages.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
   - Make sha256_crypt cross platform compatible (endian stuff)
   - Prune note spools, currently old notes don't load but they are kept in the file.
@@ -102,7 +101,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Clipboard command to allow a character to save notes.
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
-  - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
   - Delete expired notes by calling the save function, either on load or reboot.
@@ -114,5 +112,36 @@ This is my to do list, mostly will be things big and small as I think about them
   - Revolt - Make it work against charmies but only if both the ch and master are clanned. (will need to look into is_safe).
   - Get rid of ban_permit, keep plr_permit.
   - Bans to check both d->host and d->ip_address
+  - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Int to assist casting and/or casting damage, wisdom to affect saves
+  - Drunk talk
+  - Critical strike
+  - Sliding saves bonus based on wisdom
+  - Sliding magic damage bonus based on int
+  - Extra chance attack on init based on dex (higher the dex, the higher the percent)
+  - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
+  - Pscionist spell to temporarly wipe facial recognition of who a player is.
+  - Help file update for notes to display supported spools
+  - Command to list the spools available, with properties to denote immortal only
+  - rename player offline method.
+  - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
+  - Documentation, ugg.
+  - No magic area flag
+  - Fix formatting string removing line breaks.
+  - Find out why strings are saving funny (this was fixed in notes)  
+  - All coloring on login menu to come from settings so no mismatched colors
+  - Update formatting on the stat command, use the grid code.
+  - Update ranged spells to support defense spells also (they only support offensive right now).
+  - Updated ranged spells to have a custom message for when the spell flies through another room.
+  - Update ranged spells to show the direction the spell came from.
+  - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
+  - Remove mass invis gsn, add invis flag when it's cast.
+  - Psion - Temporal Fracture
+  - Create function of all things to be removed in combat/damage.
+  - Psionics boosts based on the hours they've played.
+  - Slippery Mind for psion
+  - Priest Recall Agony A: Foe takes 2d6 damage.
+  - Remove armor class from the hit check, reduce damage from it though
+  - Priest rank in who
+  - Cleanup whois/who, shouldn't be two cases for immortal/not immortal duplicating a lot of the formatting.
+  - Room affects

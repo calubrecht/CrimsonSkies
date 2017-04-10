@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -155,3 +155,17 @@ DECLARE_SPELL_FUN(spell_detect_door);
 DECLARE_SPELL_FUN(spell_bark_skin);
 DECLARE_SPELL_FUN(spell_self_growth);
 DECLARE_SPELL_FUN(spell_imbue);
+DECLARE_SPELL_FUN(spell_preserve);
+DECLARE_SPELL_FUN(spell_ice_blast);
+DECLARE_SPELL_FUN(spell_psionic_blast);
+DECLARE_SPELL_FUN(spell_healing_dream);
+DECLARE_SPELL_FUN(spell_mental_weight);
+DECLARE_SPELL_FUN(spell_forget);
+DECLARE_SPELL_FUN(spell_psionic_focus);
+DECLARE_SPELL_FUN(spell_clairvoyance);
+DECLARE_SPELL_FUN(spell_psionic_shield);
+DECLARE_SPELL_FUN(spell_boost);
+DECLARE_SPELL_FUN(spell_agony);
+DECLARE_SPELL_FUN(spell_holy_presence);
+DECLARE_SPELL_FUN(spell_displacement);
+DECLARE_SPELL_FUN(spell_holy_flame);

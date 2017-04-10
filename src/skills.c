@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -38,6 +38,25 @@
 #include "interp.h"
 #include "magic.h"
 #include "recycle.h"
+
+/*
+ * Lookup a skill number by name.
+ */
+int skill_lookup(const char *name)
+{
+    int sn;
+
+    for (sn = 0; sn < top_sn; sn++)
+    {
+        if (skill_table[sn]->name == NULL)
+            break;
+        if (LOWER(name[0]) == LOWER(skill_table[sn]->name[0])
+            && !str_prefix(name, skill_table[sn]->name))
+            return sn;
+    }
+
+    return -1;
+}
 
 /*
  * Returns the skill proficiency for a requested sn (skill number).  This will return
@@ -137,18 +156,38 @@ int get_skill(CHAR_DATA * ch, int sn)
             skill = 0;
     }
 
-    // Is the player stunned in any way?  If so, lower their %
-    if (ch->daze > 0)
+    // Is the player stunned in any way?  If so, lower their % (also, forget
+    // acts like a stun, we make tweak the % for forget later to make it less
+    // extreme since it lasts for 5 ticks and not a few seconds)
+    if (ch->daze > 0 || is_affected(ch, gsn_forget))
     {
         if (skill_table[sn]->spell_fun != spell_null)
+        {
+            // Spells
             skill /= 2;
+        }
         else
+        {
+            // Skills
             skill = 2 * skill / 3;
+        }
     }
 
     //  Are they drunk?
     if (!IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK] > 10)
+    {
         skill = 9 * skill / 10;
+    }
+
+    // If affected by psionic focus then will get a slight boost on their
+    // stat checks but only if they are a player (NPC's don't benefit from this
+    // portion specifically).  This currently comes after the stun affect, it's
+    // possible that may need to be altered (moved before stun) or have stun
+    // taken into account here also.
+    if (!IS_NPC(ch) && is_affected(ch, gsn_psionic_focus))
+    {
+        skill = (skill * 10) / 9;
+    }
 
     return URANGE(0, skill, 100);
 }
