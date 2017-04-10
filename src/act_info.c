@@ -2377,7 +2377,7 @@ void do_whoami(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     sprintf(buf, "You are logged on as %s.\r\n", ch->name);
     send_to_char(buf, ch);
-} // end do_whoami
+} 
 
 /*
  * whois command allows a player to specifically look to see if another player
@@ -2456,37 +2456,18 @@ void do_whois(CHAR_DATA * ch, char *argument)
                     class);
             }
 
-            /* a little formatting */
-            if (!IS_IMMORTAL(wch))
-            {
-                sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
-                    wch->level,
-                    wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                class,
-                    wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                    wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                    clan_table[wch->clan].who_name,
-                    IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                    IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                    IS_TESTER(wch) ? "({WTester{x) " : "",
-                    IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                    wch->name,
-                    IS_NPC(wch) ? "" : wch->pcdata->title);
-            }
-            else
-            {
-                sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-                    immbuf,
-                    wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                    wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                    clan_table[wch->clan].who_name,
-                    IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                    IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                    IS_TESTER(wch) ? "({WTester{x) " : "",
-                    IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                    wch->name,
-                    IS_NPC(wch) ? "" : wch->pcdata->title);
-            }
+            sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
+                immbuf,
+                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
+                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
+                clan_table[wch->clan].who_name,
+                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
+                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
+                IS_TESTER(wch) ? "({WTester{x) " : "",
+                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+                wch->name,
+                IS_NPC(wch) ? "" : wch->pcdata->title);
+
             add_buf(output, buf);
         }
     }
@@ -2499,7 +2480,7 @@ void do_whois(CHAR_DATA * ch, char *argument)
 
     page_to_char(buf_string(output), ch);
     free_buf(output);
-} // end do_whois
+}
 
 /*
  * New 'who' command originally by Alander of Rivers of Mud.
