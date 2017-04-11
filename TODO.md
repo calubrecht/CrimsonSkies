@@ -143,5 +143,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - Priest Recall Agony A: Foe takes 2d6 damage.
   - Remove armor class from the hit check, reduce damage from it though
   - Priest rank in who
-  - Cleanup whois/who, shouldn't be two cases for immortal/not immortal duplicating a lot of the formatting.
   - Room affects
+  - Create a sub for the do_who/do_whois for the player formatting piece so it's not duplicated between the two.
