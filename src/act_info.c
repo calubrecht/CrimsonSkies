@@ -2377,7 +2377,81 @@ void do_whoami(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     sprintf(buf, "You are logged on as %s.\r\n", ch->name);
     send_to_char(buf, ch);
-} 
+}
+
+/*
+ * This will be called from various who functions.  I used static variables since
+ * it will be called multiple times (and they won't need to be reallocated).  This
+ * will make it easier to re-use this formatting logic without having to edit every
+ * who function.
+ */
+char *who_list_formatter(CHAR_DATA *wch)
+{
+    static char buf[MAX_STRING_LENGTH];
+    static char info_buf[16];
+    static char rank[32];
+
+    // Work out the printing
+    switch (wch->level)
+    {
+        case MAX_LEVEL - 0:
+            sprintf(info_buf, "%s", " IMPLEMENTOR ");
+            break;
+        case MAX_LEVEL - 1:
+            sprintf(info_buf, "%s", "    ADMIN    ");
+            break;
+        case MAX_LEVEL - 2:
+            sprintf(info_buf, "%s", "    CODER    ");
+            break;
+        case MAX_LEVEL - 3:
+            sprintf(info_buf, "%s", "   BUILDER   ");
+            break;
+        case MAX_LEVEL - 4:
+            sprintf(info_buf, "%s", "    QUEST    ");
+            break;
+        case MAX_LEVEL - 5:
+            sprintf(info_buf, "%s", "  ROLE-PLAY  ");
+            break;
+        case MAX_LEVEL - 6:
+            sprintf(info_buf, "%s", "    STORY    ");
+            break;
+        case MAX_LEVEL - 7:
+            sprintf(info_buf, "%s", "   RETIRED   ");
+            break;
+        case MAX_LEVEL - 8:
+            sprintf(info_buf, "%s", "  TRIAL IMM  ");
+            break;
+        default:
+            sprintf(info_buf, "%2d %6s %s", wch->level,
+                wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                class_table[wch->class]->who_name);
+    }
+
+    // Priest rank
+    if (wch->class == PRIEST_CLASS_LOOKUP)
+    {
+       sprintf(rank, "%s ", priest_rank_table[wch->pcdata->priest_rank].name);
+    }
+    else
+    {
+       rank[0] = '\0';
+    }
+
+    sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s%s\r\n",
+        info_buf,
+        wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
+        wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
+        clan_table[wch->clan].who_name,
+        IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
+        IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
+        IS_TESTER(wch) ? "({WTester{x) " : "",
+        IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+        rank,
+        wch->name,
+        IS_NPC(wch) ? "" : wch->pcdata->title);
+
+    return buf;
+}
 
 /*
  * whois command allows a player to specifically look to see if another player
@@ -2388,7 +2462,6 @@ void do_whois(CHAR_DATA * ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
     char buf[MAX_STRING_LENGTH];
     BUFFER *output;
-    char immbuf[15];
     DESCRIPTOR_DATA *d;
     bool found = FALSE;
 
@@ -2405,7 +2478,6 @@ void do_whois(CHAR_DATA * ch, char *argument)
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *wch;
-        char const *class;
 
         if (d->connected != CON_PLAYING || !can_see(ch, d->character))
             continue;
@@ -2418,56 +2490,7 @@ void do_whois(CHAR_DATA * ch, char *argument)
         if (!str_prefix(arg, wch->name))
         {
             found = TRUE;
-
-            /* work out the printing */
-            class = class_table[wch->class]->who_name;
-            switch (wch->level)
-            {
-                case MAX_LEVEL - 0:
-                    sprintf(immbuf, "%s", " IMPLEMENTOR ");
-                    break;
-                case MAX_LEVEL - 1:
-                    sprintf(immbuf, "%s", "    ADMIN    ");
-                    break;
-                case MAX_LEVEL - 2:
-                    sprintf(immbuf, "%s", "    CODER    ");
-                    break;
-                case MAX_LEVEL - 3:
-                    sprintf(immbuf, "%s", "   BUILDER   ");
-                    break;
-                case MAX_LEVEL - 4:
-                    sprintf(immbuf, "%s", "    QUEST    ");
-                    break;
-                case MAX_LEVEL - 5:
-                    sprintf(immbuf, "%s", "  ROLE-PLAY  ");
-                    break;
-                case MAX_LEVEL - 6:
-                    sprintf(immbuf, "%s", "    STORY    ");
-                    break;
-                case MAX_LEVEL - 7:
-                    sprintf(immbuf, "%s", "   RETIRED   ");
-                    break;
-                case MAX_LEVEL - 8:
-                    sprintf(immbuf, "%s", "  TRIAL IMM  ");
-                    break;
-                default:
-                    sprintf(immbuf, "%2d %6s %s", wch->level,
-                        wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                    class);
-            }
-
-            sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-                immbuf,
-                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                clan_table[wch->clan].who_name,
-                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                IS_TESTER(wch) ? "({WTester{x) " : "",
-                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                wch->name,
-                IS_NPC(wch) ? "" : wch->pcdata->title);
-
+            sprintf(buf, "%s", who_list_formatter(wch));
             add_buf(output, buf);
         }
     }
@@ -2489,7 +2512,6 @@ void do_who(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-    char immbuf[15];
     BUFFER *output;
     DESCRIPTOR_DATA *d;
     extern int top_class;
@@ -2619,7 +2641,6 @@ void do_who(CHAR_DATA * ch, char *argument)
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *wch;
-        char const *class;
 
         /*
          * Check for match against restrictions.
@@ -2643,60 +2664,8 @@ void do_who(CHAR_DATA * ch, char *argument)
             continue;
 
         nMatch++;
-
-        /*
-         * Figure out what to print for class.
-         */
-        class = class_table[wch->class]->who_name;
-        switch (wch->level)
-        {
-            case MAX_LEVEL - 0:
-                sprintf(immbuf, "%s", " IMPLEMENTOR ");
-                break;
-            case MAX_LEVEL - 1:
-                sprintf(immbuf, "%s", "    ADMIN    ");
-                break;
-            case MAX_LEVEL - 2:
-                sprintf(immbuf, "%s", "    CODER    ");
-                break;
-            case MAX_LEVEL - 3:
-                sprintf(immbuf, "%s", "   BUILDER   ");
-                break;
-            case MAX_LEVEL - 4:
-                sprintf(immbuf, "%s", "    QUEST    ");
-                break;
-            case MAX_LEVEL - 5:
-                sprintf(immbuf, "%s", "  ROLE-PLAY  ");
-                break;
-            case MAX_LEVEL - 6:
-                sprintf(immbuf, "%s", "    STORY    ");
-                break;
-            case MAX_LEVEL - 7:
-                sprintf(immbuf, "%s", "   RETIRED   ");
-                break;
-            case MAX_LEVEL - 8:
-                sprintf(immbuf, "%s", "  TRIAL IMM  ");
-                break;
-            default:
-                sprintf(immbuf, "%2d %6s %s", wch->level,
-                    wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                class);
-        }
-
-        // Format it up
-        sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-            immbuf,
-            wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-            wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-            clan_table[wch->clan].who_name,
-            IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-            IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-            IS_TESTER(wch) ? "({WTester{x) " : "",
-            IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-            wch->name,
-            IS_NPC(wch) ? "" : wch->pcdata->title);
-
-            add_buf(output, buf);
+        sprintf(buf, "%s", who_list_formatter(wch));
+        add_buf(output, buf);
     }
 
     sprintf(buf2, "\r\nPlayers found: %d\r\n", nMatch);
@@ -2704,7 +2673,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     page_to_char(buf_string(output), ch);
     free_buf(output);
     return;
-} 
+}
 
 /*
  * Counts and shows the number of players currently on as well as showing

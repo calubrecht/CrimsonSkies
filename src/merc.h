@@ -2352,8 +2352,10 @@ RID      *get_random_room    (CHAR_DATA *ch);
 void     set_title           (CHAR_DATA *ch, char *title);
 bool     char_in_list        (CHAR_DATA *ch);
 char     *pers               (CHAR_DATA *ch, CHAR_DATA *looker);
+char     *who_list_formatter (CHAR_DATA *wch);
 int      player_online_count (void);
 bool     check_fog           (CHAR_DATA * ch);
+
 
 /* act_move.c */
 void     move_char           (CHAR_DATA *ch, int door, bool follow);
