@@ -145,3 +145,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Priest rank in who
   - Room affects
   - Create a sub for the do_who/do_whois for the player formatting piece so it's not duplicated between the two.
+  - hostile flag
