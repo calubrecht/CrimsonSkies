@@ -580,10 +580,23 @@ bool add_buf(BUFFER * buffer, char *string)
         buffer->size = get_size(buffer->size + 1);
         {
             if (buffer->size == -1)
-            {                    /* overflow */
+            {
+                // Overflow!
+                //
+                // If the buffer gets here it's too large, it will set the state to OVERFLOW
+                // and no more will be added until it's cleared (anything else added gets ignored).
+                // For debugging's sake and to identify what is trying to send that much data, we
+                // will log the last string.  In theory, this should only log one line once the
+                // buffer exceeds it's max.
                 buffer->size = oldsize;
                 buffer->state = BUFFER_OVERFLOW;
                 bug("buffer overflow past size %d", buffer->size);
+
+                if (!IS_NULLSTR(string))
+                {
+                    bugf("overflow line: %s", string);
+                }
+
                 return FALSE;
             }
         }
