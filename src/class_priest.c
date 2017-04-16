@@ -486,3 +486,40 @@ void spell_holy_flame(int sn, int level, CHAR_DATA *ch, void *vo,int target)
 
     return;
 }
+
+/*
+ * A spell which bestows a divine wisdom onto the recipient.  E.g. ups their wisdom.
+ */
+void spell_divine_wisdom(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N is already instilled with a divine wisdom.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = (level / 2) + (ch->pcdata->priest_rank * 2);
+    af.location = APPLY_WIS;
+    af.modifier = 2;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("You feel a divine wisdom instilled into your soul.\r\n", victim);
+    act("$N is instilled with a divine wisdom.", victim, NULL, NULL, TO_ROOM);
+    return;
+}
+

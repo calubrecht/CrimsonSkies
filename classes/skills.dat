@@ -2369,4 +2369,15 @@ Race        0
 Ranged       1
 End
 
+#SKILL
+Name        divine wisdom~
+SpellFun    spell_divine_wisdom~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      The divine wisdom leaves your soul.~
+Race        0
+End
+
 #END

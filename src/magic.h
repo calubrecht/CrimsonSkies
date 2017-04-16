@@ -169,3 +169,4 @@ DECLARE_SPELL_FUN(spell_agony);
 DECLARE_SPELL_FUN(spell_holy_presence);
 DECLARE_SPELL_FUN(spell_displacement);
 DECLARE_SPELL_FUN(spell_holy_flame);
+DECLARE_SPELL_FUN(spell_divine_wisdom);

@@ -988,6 +988,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_agony, "The veil of agony over $n lifts."},
     { &gsn_holy_presence, "The holy presence protecting $n fades."},
     { &gsn_holy_flame, "The holy flames around $n fade."},
+    { &gsn_divine_wisdom, "The divine wisdom leaves $n's soul."},
     {NULL, NULL}
 };
 
@@ -4009,6 +4010,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_demonfire")) return spell_demonfire;
             if (!str_cmp(name, "spell_dispel_fog")) return spell_dispel_fog;
             if (!str_cmp(name, "spell_displacement")) return spell_displacement;
+            if (!str_cmp(name, "spell_divine_wisdom")) return spell_divine_wisdom;
             break;
         case 'e':
             if (!str_cmp(name, "spell_earthquake")) return spell_earthquake;
@@ -4299,6 +4301,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_holy_presence) return "spell_holy_presence";
     if (spell == spell_displacement) return "spell_displacement";
     if (spell == spell_holy_flame) return "spell_holy_flame";
+    if (spell == spell_divine_wisdom) return "spell_divine_wisdom";
 
     return "reserved";
 
