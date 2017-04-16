@@ -4318,6 +4318,11 @@ The bank offers the following options through the bank command:
   bank transfer 100 gold player: Transfer coins to another persons account
                                  e.g. bank transfer 100 gold rhien
 ~
+0 HOSTILE~
+The hostile flag will show in the who list if a player has recently been
+involved in player versus player or player kill (PVP or PK) combat.  You
+cannot logout of the game while you are hostile.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request

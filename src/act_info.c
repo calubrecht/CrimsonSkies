@@ -303,7 +303,9 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     if (!IS_NPC(ch))
     {
         if (IS_NPC(victim) && ch->pcdata->quest_mob > 0 && victim->pIndexData->vnum == ch->pcdata->quest_mob)
+        {
             strcat( buf, "[{RTARGET{x] ");
+        }
     }
 
     // Healers sense affliction
@@ -323,7 +325,15 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     }
 
     if (!IS_NPC(victim) && IS_SET(victim->act, PLR_WANTED))
+    {
         strcat(buf, "({RWANTED{x) ");
+    }
+
+    if (!IS_NPC(victim) && victim->pcdata->pk_timer > 0)
+    {
+        strcat(buf, "({WHostile{x) ");
+    }
+
     if (victim->position == victim->start_pos
         && victim->long_descr[0] != '\0')
     {
@@ -2437,7 +2447,7 @@ char *who_list_formatter(CHAR_DATA *wch)
        rank[0] = '\0';
     }
 
-    sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s%s\r\n",
+    sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s%s%s\r\n",
         info_buf,
         wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
         wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
@@ -2446,6 +2456,7 @@ char *who_list_formatter(CHAR_DATA *wch)
         IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
         IS_TESTER(wch) ? "({WTester{x) " : "",
         IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+        wch->pcdata->pk_timer > 0 ? "({WHostile{x) " : "",
         rank,
         wch->name,
         IS_NPC(wch) ? "" : wch->pcdata->title);

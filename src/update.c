@@ -824,10 +824,21 @@ void char_update(void)
         if (!IS_NPC(ch))
         {
             if (IS_IMMORTAL(ch))
+            {
                 ch->pcdata->pk_timer = 0;
+            }
+
+            // This will be reduced to none... tell them their hostile timer is over.
+            if (ch->pcdata->pk_timer == 1)
+            {
+                send_to_char("You are no longer hostile.\r\n", ch);
+            }
 
             if (ch->pcdata->pk_timer)
+            {
                 --ch->pcdata->pk_timer;
+            }
+
         }
 
         if (IS_AWAKE(ch))
