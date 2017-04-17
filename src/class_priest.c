@@ -519,7 +519,7 @@ void spell_divine_wisdom(int sn, int level, CHAR_DATA * ch, void *vo, int target
     affect_to_char(victim, &af);
 
     send_to_char("You feel a divine wisdom instilled into your soul.\r\n", victim);
-    act("$N is instilled with a divine wisdom.", victim, NULL, NULL, TO_ROOM);
+    act("$N is instilled with a divine wisdom.", victim, NULL, victim, TO_ROOM);
     return;
 }
 
