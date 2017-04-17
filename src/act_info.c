@@ -315,6 +315,7 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_plague) ||
             is_affected(victim, gsn_curse) ||
             is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_poison_prick) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
             is_affected(victim, gsn_song_of_dissonance) ||
@@ -585,6 +586,7 @@ void show_char_to_char_1(CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_plague) ||
             is_affected(victim, gsn_curse) ||
             is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_poison_prick) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
             is_affected(victim, gsn_song_of_dissonance) ||
