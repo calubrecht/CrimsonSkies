@@ -141,6 +141,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Psionics boosts based on the hours they've played.
   - Slippery Mind for psion
   - Priest Recall Agony A: Foe takes 2d6 damage.
-  - Remove armor class from the hit check, reduce damage from it though
+  - Remove armor class (AC) from the hit check, reduce damage from it though
   - Room affects
-  - Create a sub for the do_who/do_whois for the player formatting piece so it's not duplicated between the two.
+  - pk wholist
+  - jab skill for rogues that lowers dex
+  - damage adjustment based on int (up or down) on damage casting spells.
