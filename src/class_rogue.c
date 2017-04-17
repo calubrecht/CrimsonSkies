@@ -408,7 +408,7 @@ void do_escape(CHAR_DATA * ch, char *argument)
         af.where = TO_AFFECTS;
         af.type = gsn_escape;
         af.level = 0;
-        af.duration = 5;
+        af.duration = 3;
         af.location = APPLY_NONE;
         af.modifier = 0;
         af.bitvector = 0;
@@ -421,7 +421,8 @@ void do_escape(CHAR_DATA * ch, char *argument)
 
     send_to_char("PANIC! You couldn't escape!\r\n", ch);
     return;
-} // end do_flee
+
+}
 
 /*
  * Skill that will allow the Rogue to peer around the room with high
