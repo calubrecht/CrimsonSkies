@@ -243,13 +243,13 @@ Gr 'psionicist basics' 0
 Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
-Gr 'thief default' 40
+Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
-Gr 'rogue default' 0
+Gr 'rogue default' 40
 Gr 'psionicist default' 0
 Gr 'priest default' 0
 Gr 'weaponsmaster' 40
