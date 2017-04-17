@@ -5540,7 +5540,11 @@ void do_forcetick(CHAR_DATA * ch, char *argument)
 {
     // We're going to show a WIZNET message for this
     char buf[100];
-    strcpy(buf, "$N forces a TICK ");
+
+    sprintf(buf, "%s forces time to move ahead.\r\n", ch->name);
+    send_to_all_char(buf);
+
+    sprintf(buf, "$N forces a TICK");
 
     update_handler(TRUE);
 
