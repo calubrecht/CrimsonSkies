@@ -207,8 +207,9 @@ int casting_level(CHAR_DATA *ch)
 
     // Mage and mage reclassese get a bonus casting level, they are the
     // masters of spells.
-    if (ch->class == MAGE_CLASS_LOOKUP ||
-        ch->class == ENCHANTOR_CLASS_LOOKUP)
+    if (ch->class == MAGE_CLASS_LOOKUP
+        || ch->class == PSIONICIST_CLASS_LOOKUP
+        || ch->class == ENCHANTOR_CLASS_LOOKUP)
     {
         level += 1;
     }
