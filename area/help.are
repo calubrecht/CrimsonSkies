@@ -3614,6 +3614,14 @@ in that direction and you will be able to see visible players and
 creatures as far as 3 rooms away.
 ~
 
+0 PEER~
+Syntax: peer
+
+The peer skill allows rogue's to examine a room for signs of other individuals.
+They may not see them but they can accuractly guess how many others maybe
+hiding out of sight.
+~
+
 0 TOUCH~
 Syntax: touch <object or player>
 
