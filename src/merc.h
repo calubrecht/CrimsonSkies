@@ -434,7 +434,7 @@ struct class_type
     int     thac0_32;          /* Thac0 for level 32          */
     int     hp_min;            /* Min hp gained on leveling   */
     int     hp_max;            /* Max hp gained on leveling   */
-    bool    fMana;             /* Class gains mana on level   */
+    bool    mana;              /* Class gains mana on level   */
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
     bool    is_reclass;        /* Whether the class is a reclass (or a base class) */

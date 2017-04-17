@@ -354,8 +354,10 @@ void advance_level(CHAR_DATA * ch, bool hide)
         + get_curr_stat(ch, STAT_WIS)) / 5);
 
     // Not a magic type class (e.g. mage or cleric or their tree of reclasses)
-    if (!class_table[ch->class]->fMana)
+    if (!class_table[ch->class]->mana)
+    {
         add_mana /= 2;
+    }
 
     add_move = number_range(1, (get_curr_stat(ch, STAT_CON) + get_curr_stat(ch, STAT_DEX)) / 6);
     add_prac = wis_app[get_curr_stat(ch, STAT_WIS)].practice;

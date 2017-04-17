@@ -182,7 +182,7 @@ int casting_level(CHAR_DATA *ch)
         return level;
 
     // Non mana classes cast below level, a level 51 will cast around level 38/39.
-    if (!class_table[ch->class]->fMana)
+    if (!class_table[ch->class]->mana)
     {
         level = 3 * level / 4;
     }
@@ -275,7 +275,7 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
         break;
     }
 
-    if (!IS_NPC(victim) && class_table[victim->class]->fMana)
+    if (!IS_NPC(victim) && class_table[victim->class]->mana)
     {
         save = 9 * save / 10;
     }

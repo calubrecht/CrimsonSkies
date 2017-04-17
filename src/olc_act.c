@@ -6437,11 +6437,11 @@ CEDIT(cedit_mana)
 
     if (!str_prefix(argument, "true"))
     {
-        class->fMana = TRUE;
+        class->mana = TRUE;
     }
     else if (!str_prefix(argument, "false"))
     {
-        class->fMana = FALSE;
+        class->mana = FALSE;
     }
     else
     {
@@ -6688,7 +6688,7 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     sprintf(buf, "HP Max:        [%d]\r\n", class->hp_max);
     send_to_char(buf, ch);
-    sprintf(buf, "Mana:          [%s]\r\n", class->fMana ? "True" : "False");
+    sprintf(buf, "Mana:          [%s]\r\n", class->mana ? "True" : "False");
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");

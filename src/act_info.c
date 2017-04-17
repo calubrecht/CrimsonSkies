@@ -3596,7 +3596,7 @@ void do_class(CHAR_DATA *ch, char *argument)
                 class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
                 class_table[i]->who_name,
                 prime_stat,
-                class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
+                class_table[i]->mana == TRUE ? "{GTrue{x" : "{RFalse{x",
                 class_table[i]->skill_adept,
                 class_table[i]->is_enabled == TRUE  ? "{GTrue{x" : "{RFalse{x"
                 );
@@ -3656,7 +3656,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     sprintf(buf, "%-30s [%2d]\r\n", "{WHP Maximum Per Level{x:", class_table[i]->hp_max);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
+    sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->mana == TRUE ? "{GTrue{x" : "{RFalse{x");
     send_to_char(buf, ch);
 
     sprintf(buf, "%-30s [%s]\r\n", "{WBase Group{x:", class_table[i]->base_group);

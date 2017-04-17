@@ -1267,7 +1267,7 @@ void export_classes(void)
         sqlite3_bind_int(stmt, 8, class_table[x]->thac0_32);
         sqlite3_bind_int(stmt, 9, class_table[x]->hp_min);
         sqlite3_bind_int(stmt, 10, class_table[x]->hp_max);
-        sqlite3_bind_int(stmt, 11, class_table[x]->fMana);
+        sqlite3_bind_int(stmt, 11, class_table[x]->mana);
         sqlite3_bind_text(stmt, 12, class_table[x]->base_group, -1, SQLITE_STATIC);
         sqlite3_bind_text(stmt, 13, class_table[x]->default_group, -1, SQLITE_STATIC);
         sqlite3_bind_int(stmt, 14, class_table[x]->is_reclass);

@@ -4042,7 +4042,7 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
-                KEY("Mana", class->fMana, fread_number(fp));
+                KEY("Mana", class->mana, fread_number(fp));
                 break;
             case 'N':
                 KEY("Name", class->name, fread_string(fp));

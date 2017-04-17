@@ -1032,7 +1032,7 @@ void save_class(int num)
     fprintf(fp, "Thac0_32    %d\n", class_table[num]->thac0_32);
     fprintf(fp, "Hpmin       %d\n", class_table[num]->hp_min);
     fprintf(fp, "Hpmax       %d\n", class_table[num]->hp_max);
-    fprintf(fp, "Mana        %d\n", class_table[num]->fMana);
+    fprintf(fp, "Mana        %d\n", class_table[num]->mana);
     //fprintf( fp, "Expbase     %d\n",       class_table[num]->exp_base         );
     fprintf(fp, "BaseGroup   '%s'\n", class_table[num]->base_group);
     fprintf(fp, "DefGroup    '%s'\n", class_table[num]->default_group);
