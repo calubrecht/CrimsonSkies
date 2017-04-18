@@ -36,9 +36,6 @@
     <ClCompile Include="src\comm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\const.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\db.c">
       <Filter>Source Files</Filter>
     </ClCompile>
