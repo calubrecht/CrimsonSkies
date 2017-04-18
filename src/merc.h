@@ -2710,6 +2710,7 @@ AREA_DATA *get_area_data    (int vnum);
 int    race_lookup          (const char *name);
 int    item_lookup          (const char *name);
 int    liq_lookup           (const char *name);
+int    deity_lookup         (const char *name);
 
 /* log.c */
 void   bug                  (const char *str, int param);
