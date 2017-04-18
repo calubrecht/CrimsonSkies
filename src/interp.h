@@ -383,3 +383,4 @@ DECLARE_DO_FUN(do_duplicate);
 DECLARE_DO_FUN(do_bank);
 DECLARE_DO_FUN(do_clairvoyance);
 DECLARE_DO_FUN(do_prayer);
+DECLARE_DO_FUN(do_deity);

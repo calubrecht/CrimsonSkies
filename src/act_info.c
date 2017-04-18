@@ -3712,3 +3712,20 @@ void do_version(CHAR_DATA *ch, char *argument)
 
     send_to_char(buf, ch);
 }
+
+/*
+ * Shows the gods and goddesses that are available for a player to choose from.
+ */
+void do_deity(CHAR_DATA *ch, char *argument)
+{
+    int x = 0;
+
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WDeity       Description{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
+    for (x = 0; deity_table[x].name != NULL; x++)
+    {
+        printf_to_char(ch, "%-12s%s\r\n", deity_table[x].name, deity_table[x].description);
+    }
+}

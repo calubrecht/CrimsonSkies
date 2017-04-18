@@ -4326,6 +4326,13 @@ The bank offers the following options through the bank command:
   bank transfer 100 gold player: Transfer coins to another persons account
                                  e.g. bank transfer 100 gold rhien
 ~
+0 DEITY~
+Syntax: deity
+
+Lists all of the gods and goddesses that a player may choose from in
+creation as their roleplay deity.  Some game mechanics maybe based on
+the deity that you choose so choose wisely.
+~
 0 HOSTILE~
 The hostile flag will show in the who list if a player has recently been
 involved in player versus player or player kill (PVP or PK) combat.  You
