@@ -786,11 +786,12 @@ const struct portal_shop_type portal_shop_table[] = {
  * The gods or goddesses in which a player may follow.
  */
 const struct deity_type deity_table[] = {
-    { "Athiest", "No belief", ALIGN_ALL },
-    { "Aurias", "God of Light", ALIGN_GOOD },
-    { "Sebalis", "God of Darkness", ALIGN_EVIL },
-    { "Kiyria", "Goddess of Balance", ALIGN_NEUTRAL },
-    { "Shalonari", "Goddess of Nature", ALIGN_ALL },
-    { "Raije", "God of War", ALIGN_ALL },
+    { "Athiest", "No belief", ALIGN_ALL, TRUE },
+    { "Aurias", "God of Light", ALIGN_GOOD, TRUE },
+    { "Drakylar", "God of Darkness", ALIGN_EVIL, TRUE },
+    { "Kiyria", "Goddess of Balance", ALIGN_NEUTRAL, TRUE },
+    { "Caia", "Goddess of Nature", ALIGN_ALL, TRUE },
+    { "Raije", "God of War", ALIGN_ALL, TRUE },
+    { "Pathas", "God of Magicks", ALIGN_ALL, TRUE },
     { NULL, NULL, 0 }
 };

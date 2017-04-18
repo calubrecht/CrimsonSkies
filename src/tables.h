@@ -90,7 +90,8 @@ struct deity_type
 {
     char *name;          // The actual name of the deity
     char *description;   // God/Goddesses description
-    int align;          // Alignment (or all)
+    int align;           // Alignment (or all)
+    bool enabled;        // Whether or not they can be selected at creation
 };
 
 /* game tables */
