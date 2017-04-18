@@ -1048,9 +1048,10 @@ typedef enum
 #define SIZE_GIANT   5
 
 /* alignments */
-#define ALIGN_EVIL      1
-#define ALIGN_NEUTRAL   2
-#define ALIGN_GOOD		3
+#define ALIGN_EVIL      1   // Evil folks
+#define ALIGN_NEUTRAL   2   // Neutral folks
+#define ALIGN_GOOD		3   // Good folks
+#define ALIGN_ALL       4   // This is going to be used for gods who accept anyone (not a true alignment)
 
 /*
  * Well known object virtual numbers.

@@ -781,3 +781,13 @@ const struct portal_shop_type portal_shop_table[] = {
     { "plains",        324, 2500 },
     { NULL,              0,    0 }
 };
+
+const struct deity_type deity_table[] = {
+    { "Athiest", "No belief", ALIGN_ALL },
+    { "Aurias", "God of Light", ALIGN_GOOD },
+    { "Sebalis", "God of Darkness", ALIGN_EVIL },
+    { "Kiyria", "Goddess of Balance", ALIGN_NEUTRAL },
+    { "Shalonari", "Goddess of Nature", ALIGN_ALL },
+    { "Raije", "God of War", ALIGN_ALL },
+    { NULL, NULL, 0 }
+};

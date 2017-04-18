@@ -22,7 +22,7 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 01/05/2017            *
+ *  Name Generator (Written 12/16/1999, Last Updated 04/18/2017)           *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
@@ -868,5 +868,52 @@ const struct name_part_type name_part_table[] = {
         {"Oruv", "umo"},
         {"Jyl", "dray"},
         {"Jael", "ek"},
+        {"Dra", "lles"},
+        {"Drag", "reya"},
+        {"Drak", "atis"},
+        {"Rai", "je"},
+        {"Turp", "ifer"},
+        {"Necru", "inin"},
+        {"Thana", "aelynn"},
+        {"Gann", "uine"},
+        {"Thra", "hio"},
+        {"Seri", "phyril"},
+        {"Nic", "esan"},
+        {"Akar", "rog"},
+        {"Azer", "ola"},
+        {"Grim", "ixis"},
+        {"Gav", "aria"},
+        {"Bal", "myl"},
+        {"Taer", "ntym"},
+        {"Rias", "tus"},
+        {"Xol", "ollo"},
+        {"Lei", "torex"},
+        {"Bok", "nog"},
+        {"Hiph", "estus"},
+        {"Jyx", "leia"},
+        {"Anca", "adar"},
+        {"Anne", "mari"},
+        {"Dala", "uil"},
+        {"Asan", "onne"},
+        {"Div", "orak"},
+        {"Dron", "och"},
+        {"Har", "chon"},
+        {"Irae", "yna"},
+        {"Ira", "idan"},
+        {"Kend", "iren"},
+        {"Lag", "orine"},
+        {"Las", "adoria"},
+        {"Maud", "thys"},
+        {"Kher", "ajen"},
+        {"Ise", "kari"},
+        {"Jaus", "taren"},
+        {"Guat", "horal"},
+        {"Delu", "scius"},
+        {"Deri", "shi"},
+        {"Clin", "denn"},
+        {"Naza", "wn"},
+        {"Nara", "belle"},
+        {"Neth", "thael"},
+        {"Opith", "ochi"},
         {NULL, NULL}
 };

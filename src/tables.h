@@ -83,13 +83,24 @@ struct portal_shop_type
     int cost;
 };
 
+/*
+ * Deity table for the gods and goddess of the world.
+ */
+struct deity_type
+{
+    char *name;          // The actual name of the deity
+    char *description;   // God/Goddesses description
+    int align;          // Alignment (or all)
+};
+
 /* game tables */
-extern	const	struct	clan_type	clan_table[MAX_CLAN];
-extern	const	struct	position_type	position_table[];
-extern	const	struct	sex_type	sex_table[];
-extern	const	struct	size_type	size_table[];
-extern  const   struct  continent_type  continent_table[];
+extern	const	struct	clan_type	     clan_table[MAX_CLAN];
+extern	const	struct	position_type	 position_table[];
+extern	const	struct	sex_type	     sex_table[];
+extern	const	struct	size_type	     size_table[];
+extern  const   struct  continent_type   continent_table[];
 extern  const   struct  portal_shop_type portal_shop_table[];
+extern  const   struct  deity_type       deity_table[];
 
 /* flag tables */
 extern	const	struct	flag_type	act_flags[];
@@ -128,6 +139,6 @@ extern	const	struct	flag_type	size_flags[];
 extern	const	struct	flag_type	position_flags[];
 extern	const	struct	flag_type	ac_type[];
 extern	const	struct	bit_type	bitvector_type[];
-extern  const   struct  flag_type       continent_flags[];
-extern  const   struct  flag_type       stat_flags[];
-extern  const   struct  flag_type       target_flags[];
+extern  const   struct  flag_type   continent_flags[];
+extern  const   struct  flag_type   stat_flags[];
+extern  const   struct  flag_type   target_flags[];
