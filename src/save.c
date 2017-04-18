@@ -327,6 +327,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "Stance %d\n", ch->stance);
         fprintf(fp, "VnumClairvoyance %d\n", ch->pcdata->vnum_clairvoyance);
         fprintf(fp, "PriestRank %d\n", ch->pcdata->priest_rank);
+        fprintf(fp, "Deity %d\n", ch->pcdata->deity);
 
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
@@ -697,6 +698,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->recall_vnum = 0;
     ch->pcdata->vnum_clairvoyance = 1;
     ch->pcdata->priest_rank = 0;
+    ch->pcdata->deity = 0;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -1001,6 +1003,8 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("Description", ch->description, fread_string(fp));
                 KEY("Desc", ch->description, fread_string(fp));
+
+                KEY("Deity", ch->pcdata->deity, fread_number(fp));
 
                 break;
             case 'E':

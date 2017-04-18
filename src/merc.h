@@ -1730,6 +1730,7 @@ struct pc_data
     long            bank_gold;         // The amount of gold a player has in the bank.
     int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
     int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
+    int             deity;             // The deity if any that the user follows
 };
 
 /* Data for generating characters -- only used during generation */
