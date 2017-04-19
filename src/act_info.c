@@ -3719,6 +3719,7 @@ void do_version(CHAR_DATA *ch, char *argument)
 void do_deity(CHAR_DATA *ch, char *argument)
 {
     int x = 0;
+    char deity[12];
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
     send_to_char("{WDeity       Description{x\r\n", ch);
@@ -3726,6 +3727,21 @@ void do_deity(CHAR_DATA *ch, char *argument)
 
     for (x = 0; deity_table[x].name != NULL; x++)
     {
-        printf_to_char(ch, "%-12s%s\r\n", deity_table[x].name, deity_table[x].description);
+        // Mark with a * if the deity is the characters god or goddess.
+        if (!IS_NPC(ch) && ch->pcdata->deity == x)
+        {
+            sprintf(deity, "%s*", deity_table[x].name);
+        }
+        else
+        {
+            sprintf(deity, "%s", deity_table[x].name);
+        }
+
+        printf_to_char(ch, "%-12s%s\r\n", deity, deity_table[x].description);
+    }
+
+    if (!IS_NPC(ch))
+    {
+        send_to_char("\r\n* denotes the deity or path you follow.\r\n", ch);
     }
 }
