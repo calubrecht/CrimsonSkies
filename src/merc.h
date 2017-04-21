@@ -275,6 +275,7 @@ struct weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_GET_DEITY               -19
 #define CON_NEW_CHARACTER           -18
 #define CON_LOGIN_RETURN            -17
 #define CON_LOGIN_MENU              -16

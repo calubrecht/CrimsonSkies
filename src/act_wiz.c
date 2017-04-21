@@ -3906,7 +3906,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k questpoints\r\n", ch);
+        send_to_char("    1k questpoints deity\r\n", ch);
         return;
     }
 
@@ -4273,6 +4273,22 @@ void do_mset(CHAR_DATA * ch, char *argument)
         }
 
         victim->race = race;
+        return;
+    }
+
+    if (!str_prefix(arg2, "deity"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("You cannot set an NPC's deity.\r\n", ch);
+            return;
+        }
+
+        int deity;
+        deity = deity_lookup(arg3);
+        victim->pcdata->deity = deity;
+
+        printf_to_char(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
         return;
     }
 
@@ -4801,7 +4817,14 @@ void do_sockets(CHAR_DATA * ch, char *argument)
             default:
                 sprintf(state, "Unknown");
                 break;
+            case CON_GET_DEITY:
+                sprintf(state, "Get Deity");
+                break;
+            case CON_NEW_CHARACTER:
+                sprintf(state, "New Character");
+                break;
             case CON_LOGIN_MENU:
+            case CON_LOGIN_RETURN:
                 sprintf(state, "Login Menu");
                 break;
             case -15:

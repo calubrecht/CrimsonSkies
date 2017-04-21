@@ -772,22 +772,65 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->alignment = ALIGN_EVIL;
                     break;
                 default:
-                    send_to_desc("That's not a valid alignment.\r\n", d);
-                    send_to_desc("Which alignment (G/N/E)? ", d);
+                    send_to_char("That's not a valid alignment.\r\n", ch);
+                    send_to_char("Which alignment (G/N/E)? ", ch);
                     return;
             }
 
-            write_to_buffer(d, "\r\n");
+            send_to_char("\r\n", ch);
+            send_to_char("The following are the deities available for you to follow:\r\n", ch);
 
+            // Loop through the available deities and show the player only the
+            // ones that they're allowed to take.
+            for (i = 0; deity_table[i].name != NULL; i++)
+            {
+                if (deity_table[i].align != ALIGN_ALL)
+                {
+                    if (deity_table[i].align != ch->alignment)
+                    {
+                        continue;
+                    }
+                }
+
+                printf_to_char(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+            }
+
+            send_to_char("Which deity do you wish to follow? ", ch);
+
+            d->connected = CON_GET_DEITY;
+            break;
+        case CON_GET_DEITY:
+            one_argument(argument,arg);
+            i = deity_lookup(argument);
+
+            // Weed out invalid picks since deity_lookup will return anything (not just what was
+            // previously shown.
+            if (i < 0 || (deity_table[i].align != ch->alignment && deity_table[i].align != ALIGN_ALL))
+            {
+                send_to_char("That's not a valid deity for you.\r\n", ch);
+                send_to_char("Which deity do you wish to follow? ", ch);
+                return;
+            }
+
+            // It's valid, set the players deity.
+            ch->pcdata->deity = i;
+
+            // Prepare to take all the skills needed, setup default skills
+            send_to_char("\r\n", ch);
+
+            // Add the game basics group and the base group for the players class.
             group_add(ch, "rom basics", FALSE);
             group_add(ch, class_table[ch->class]->base_group, FALSE);
-            ch->pcdata->learned[gsn_recall] = 50;
-            send_to_desc("Do you wish to customize this character?\r\n", d);
-            send_to_desc("Customization takes time, but allows a wider range of skills and abilities.\r\n", d);
-            send_to_desc("Customize (Y/N)? ", d);
-            d->connected = CON_DEFAULT_CHOICE;
-            break;
 
+            // Skills they get for free
+            ch->pcdata->learned[gsn_recall] = 50;
+
+            send_to_char("Do you wish to customize this character?\r\n", ch);
+            send_to_char("Customization takes time, but allows a wider range of skills and abilities.\r\n", ch);
+            send_to_char("Customize (Y/N)? ", ch);
+            d->connected = CON_DEFAULT_CHOICE;
+
+            break;
         case CON_DEFAULT_CHOICE:
             write_to_buffer(d, "\r\n");
             switch (argument[0])
