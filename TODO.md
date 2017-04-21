@@ -138,7 +138,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Remove mass invis gsn, add invis flag when it's cast.
   - Psion - Temporal Fracture
   - Create function of all things to be removed in combat/damage.
-  - Psionics boosts based on the hours they've played.
   - Slippery Mind for psion
   - Priest Recall Agony A: Foe takes 2d6 damage.
   - Remove armor class (AC) from the hit check, reduce damage from it though
