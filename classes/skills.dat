@@ -2380,4 +2380,14 @@ MsgOff      The divine wisdom leaves your soul.~
 Race        0
 End
 
+#SKILL
+Name        know religion~
+SpellFun    spell_know_religion~
+Target      2
+MinPos      8
+MinMana     5
+Beats       12
+Race        0
+End
+
 #END

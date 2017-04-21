@@ -4065,6 +4065,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             break;
         case 'k':
             if (!str_cmp(name, "spell_know_alignment")) return spell_know_alignment;
+            if (!str_cmp(name, "spell_know_religion")) return spell_know_religion;
             break;
         case 'l':
             if (!str_cmp(name, "spell_locate_object")) return spell_locate_object;
@@ -4303,6 +4304,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_displacement) return "spell_displacement";
     if (spell == spell_holy_flame) return "spell_holy_flame";
     if (spell == spell_divine_wisdom) return "spell_divine_wisdom";
+    if (spell == spell_know_religion) return "spell_know_religion";
 
     return "reserved";
 

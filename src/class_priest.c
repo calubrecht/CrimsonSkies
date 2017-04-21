@@ -42,6 +42,7 @@
 #include "interp.h"
 #include "magic.h"
 #include "recycle.h"
+#include "tables.h"
 
 extern char *target_name;
 
@@ -523,3 +524,32 @@ void spell_divine_wisdom(int sn, int level, CHAR_DATA * ch, void *vo, int target
     return;
 }
 
+/*
+ * A spell which allows the priest to know another players religion
+ */
+void spell_know_religion(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+
+    // NPC's don't have religion (although that would be interesting in the future...)
+    if (IS_NPC(victim))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    // Deity check
+    if (victim->pcdata->deity == 0)
+    {
+        printf_to_char(ch, "%s does not follow a god or goddess.\r\n", PERS(victim, ch));
+    }
+    else
+    {
+        printf_to_char(ch, "%s is a follower of %s, %s\r\n"
+                                , PERS(victim, ch)
+                                , deity_table[victim->pcdata->deity].name
+                                , deity_table[victim->pcdata->deity].description);
+    }
+
+    return;
+}
