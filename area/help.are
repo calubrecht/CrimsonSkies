@@ -3361,8 +3361,8 @@ See also:  reclass
 ~
 
 0 SACRIFICIAL HEAL~
-Sacrificial heal allows the healer to fully heal an individual although
-at great cost to their own health.
+Sacrificial heal allows the healer to transfer all of the health they
+have available to anotehr individual at great cost to themselves.
 ~
 
 0 MASS REFRESH~
