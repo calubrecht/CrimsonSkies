@@ -2037,13 +2037,15 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     extern int top_group;
 
     // Players must be at least level 10 to reclass.
-    if (ch->level < 10) {
+    if (ch->level < 10)
+    {
         send_to_char("You must be at least level 10 to reclass.\r\n", ch);
         return;
     }
 
     // Immortals can't reclass.. they must set.
-    if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
+    if (IS_NPC(ch) || IS_IMMORTAL(ch))
+    {
         send_to_char("Immortals cannot reclass, use set to change your class instead.\r\n", ch);
         return;
     }
@@ -2115,6 +2117,17 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     else if (iClass == ROGUE_CLASS_LOOKUP && ch->class != THIEF_CLASS_LOOKUP)
     {
         send_to_char("Only thieves can reclass into a rogue.\r\n", ch);
+        return;
+    }
+    else if (iClass == PRIEST_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
+    {
+        send_to_char("Only clerics can reclass into a priest.\r\n", ch);
+        return;
+    }
+    else if (iClass == PRIEST_CLASS_LOOKUP && ch->pcdata->deity == 0)
+    {
+        // Must follow a god or goddess in order to reclass into a priest.
+        send_to_char("Athiest's may not reclass into a priest.\r\n", ch);
         return;
     }
 
