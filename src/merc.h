@@ -713,10 +713,11 @@ typedef enum
  * in special.c or for loading).
  * Defined in #MOBILES.
  */
-#define MOB_VNUM_FIDO       3090
-#define MOB_VNUM_PATROLMAN  2106
-#define GROUP_VNUM_TROLLS   2100
-#define GROUP_VNUM_OGRES    2101
+#define MOB_VNUM_FIDO            3090
+#define MOB_VNUM_PATROLMAN       2106
+#define VNUM_GUARDIAN_ANGEL        10
+#define GROUP_VNUM_TROLLS        2100
+#define GROUP_VNUM_OGRES         2101
 
 /* RT ASCII conversions -- used so we can have letters in this file */
 #define A            1
@@ -2172,6 +2173,7 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
 #define IS_GHOST(ch)  (is_affected(ch,gsn_ghost))
 #define IS_DAY()      (time_info.hour > 5 && time_info.hour < 20)
 #define IS_NIGHT()    (!IS_DAY())
+#define IS_FIGHTING(ch) (ch->fighting != NULL)
 
 /*
  * Object macros.
@@ -2603,6 +2605,7 @@ int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);
 bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
+bool   leads_grouped_mob  (CHAR_DATA *ch, int mob_vnum);
 
 /* recycle.c */
 TIMER *new_timer          (void);

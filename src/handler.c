@@ -3795,3 +3795,27 @@ bool in_same_room(CHAR_DATA *ch, CHAR_DATA *victim)
 
     return FALSE;
 }
+
+/*
+ * Determins whether the character leads group that has the specified mob
+ * in it.  This important for figuring out if a player already has a charmy
+ * they have summoned via a skill.
+ */
+bool leads_grouped_mob(CHAR_DATA *ch, int mob_vnum)
+{
+    CHAR_DATA *fch;
+
+    // Make sure that the player doesn't already the specified mob grouped.
+    for (fch = char_list; fch != NULL; fch = fch->next)
+    {
+        if (fch->master == ch && IS_NPC(fch))
+        {
+            if (fch->pIndexData->vnum == mob_vnum)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
+}
