@@ -1680,7 +1680,7 @@ void set_fighting(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (ch->fighting != NULL)
     {
-        bug("Set_fighting: already fighting", 0);
+        //bug("Set_fighting: already fighting", 0);
         return;
     }
 
