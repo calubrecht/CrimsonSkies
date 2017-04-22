@@ -501,6 +501,7 @@ void do_rescue(CHAR_DATA * ch, char *argument)
     }
 
     WAIT_STATE(ch, skill_table[gsn_rescue]->beats);
+
     if (number_percent() > get_skill(ch, gsn_rescue))
     {
         send_to_char("You fail the rescue.\r\n", ch);
@@ -513,9 +514,12 @@ void do_rescue(CHAR_DATA * ch, char *argument)
     act("$n rescues $N!", ch, NULL, victim, TO_NOTVICT);
     check_improve(ch, gsn_rescue, TRUE, 1);
 
+    // Stop the fighting
     stop_fighting(fch, FALSE);
     stop_fighting(victim, FALSE);
+    stop_fighting (ch, FALSE); // Gets rid of the extra attack round technique/bug
 
+    // Check wanted, reset fighting.
     check_wanted(ch, fch);
     set_fighting(ch, fch);
     set_fighting(fch, ch);
