@@ -2390,4 +2390,15 @@ Beats       12
 Race        0
 End
 
+#SKILL
+Name        guardian angel~
+SpellFun    spell_guardian_angel~
+Target      0
+MinPos      8
+MinMana     50
+Beats       12
+MsgOff      The guardian angel fades from existence.~
+Race        0
+End
+
 #END

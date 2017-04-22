@@ -203,6 +203,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_displacement, "displacement");
     ASSIGN_GSN(gsn_holy_flame, "holy flame");
     ASSIGN_GSN(gsn_divine_wisdom, "divine wisdom");
+    ASSIGN_GSN(gsn_guardian_angel, "guardian angel");
 
     if (global.last_boot_result == UNKNOWN)
     {

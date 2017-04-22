@@ -24,6 +24,8 @@
 *  Priest Class                                                            *
 ***************************************************************************/
 
+// TODO - Desperate Prayer, crucify
+
 // System Specific Includes
 #if defined(_WIN32)
 #include <sys/types.h>
@@ -109,6 +111,12 @@ void do_prayer(CHAR_DATA * ch, char *argument)
 {
     if (ch == NULL)
     {
+        return;
+    }
+
+    if (IS_FIGHTING(ch))
+    {
+        send_to_char("You cannot concentrate enough.\r\n", ch);
         return;
     }
 
@@ -550,6 +558,94 @@ void spell_know_religion(int sn, int level, CHAR_DATA * ch, void *vo, int target
                                 , deity_table[victim->pcdata->deity].name
                                 , deity_table[victim->pcdata->deity].description);
     }
+
+    return;
+}
+
+/*
+ * Guardian angel is a spell that will allow a priest to summon a single charmie that
+ * will instantly initiate a rescue on them.
+ */
+void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    MOB_INDEX_DATA *pMobIndex;
+    int i;
+    CHAR_DATA *mob;
+    AFFECT_DATA af;
+
+    // Check if they already lead a guardian
+    if (leads_grouped_mob(ch, VNUM_GUARDIAN_ANGEL))
+    {
+        send_to_char("You may only have one guardian angel at a time.\r\n", ch);
+        return;
+    }
+
+    // Check to make sure that the guardian angel vnum actually exists, if not,
+    // report it.
+    if ((pMobIndex = get_mob_index(VNUM_GUARDIAN_ANGEL)) == NULL)
+    {
+        send_to_char("You failed.\r\n", ch);
+        bugf("spell_guardian_angel: no vnum %d for mob", VNUM_GUARDIAN_ANGEL);
+        return;
+    }
+
+    // Create the guardian
+    mob = create_mobile(pMobIndex);
+
+    // Hit points, level, saves and the hitroll/damroll.
+    mob->max_hit = UMIN(ch->max_hit, 1000); // Lowest of 1000 or the players max hit
+    mob->hit = mob->max_hit;
+    mob->level = 9 * (level / 10);    // 10% below the casters level
+    mob->saving_throw = -1 * (level / 5);
+    mob->hitroll = level / 2;
+    mob->damroll = level / 3;
+
+    // Armor class
+    for (i = 0; i < 4; i++)
+    {
+        mob->armor[i] = level * -3;
+    }
+
+    // Dice rolls for the mob
+    mob->damage[DICE_NUMBER] = level / 10;
+    mob->damage[DICE_TYPE] = level / 5;
+
+    // Set the stats of the guardian to those of the player
+    for (i = 0; i < MAX_STATS; i++)
+    {
+        mob->perm_stat[i] = ch->perm_stat[i];
+    }
+
+    // Send the guardian to the room
+    char_to_room(mob, ch->in_room);
+
+    // Show the message to the room
+    act("$n has summoned $N!", ch, NULL, mob, TO_ROOM);
+    act("$N appears in the room and is bound to your will.", ch, NULL, mob, TO_CHAR);
+
+    // Add the follow to the players group with the player aqs the leader
+    add_follower(mob, ch);
+    mob->leader = ch;
+
+    // Set the affect on the guardian with the charm bit
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.modifier = 0;
+    af.location = 0;
+    af.bitvector = AFF_CHARM;
+    affect_to_char(mob, &af);
+
+    // Remove the guardian affect from the player if it exists, it will be re-added
+    if (is_affected(ch, sn))
+    {
+        affect_strip(ch, sn);
+    }
+
+    // Add the guardian bit onto the player, but remove the charm first
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
 
     return;
 }

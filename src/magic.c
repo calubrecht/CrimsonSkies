@@ -4042,6 +4042,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_giant_strength")) return spell_giant_strength;
             if (!str_cmp(name, "spell_gas_breath")) return spell_gas_breath;
             if (!str_cmp(name, "spell_general_purpose")) return spell_general_purpose;
+            if (!str_cmp(name, "spell_guardian_angel")) return spell_guardian_angel;
             break;
         case 'h':
             if (!str_cmp(name, "spell_haste")) return spell_haste;
@@ -4305,6 +4306,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_holy_flame) return "spell_holy_flame";
     if (spell == spell_divine_wisdom) return "spell_divine_wisdom";
     if (spell == spell_know_religion) return "spell_know_religion";
+    if (spell == spell_guardian_angel) return "spell_guardian_angel";
 
     return "reserved";
 

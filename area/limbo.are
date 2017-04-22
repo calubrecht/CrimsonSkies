@@ -6,11 +6,26 @@ LevelRange 1 60
 Credits [ All ] Diku    Limbo~
 Security 9
 Continent 0
+AreaFlags A
 End
 
 
 
 #MOBILES
+#10
+guardian angel~
+A guardian angel~
+A guardian angel levitates above the ground.
+~
+~
+human~
+AB DFJZ 1 0
+20 0 3d9+333 10d9+100 2d8+5 none
+-4 -4 -4 7
+FK 0 0 0
+stand stand male 0
+HMV ABCDEFGHIJK medium unknown
+F for A
 #0
 
 
