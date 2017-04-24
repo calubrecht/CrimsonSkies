@@ -2394,7 +2394,7 @@ End
 Name        guardian angel~
 SpellFun    spell_guardian_angel~
 Target      0
-MinPos      8
+MinPos      7
 MinMana     50
 Beats       12
 MsgOff      The guardian angel fades from existence.~

@@ -647,5 +647,12 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
     af.bitvector = 0;
     affect_to_char(ch, &af);
 
+    // If the player is currently fighting and the guardian angel has been called
+    // during combat then have it try to rescue right off the bat.
+    if (IS_FIGHTING(ch))
+    {
+        do_function(mob, &do_rescue, ch->name);
+    }
+
     return;
 }
