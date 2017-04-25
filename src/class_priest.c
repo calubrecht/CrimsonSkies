@@ -504,6 +504,12 @@ void spell_divine_wisdom(int sn, int level, CHAR_DATA * ch, void *vo, int target
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
 
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
     if (is_affected(victim, sn))
     {
         if (victim == ch)
@@ -539,6 +545,12 @@ void spell_know_religion(int sn, int level, CHAR_DATA * ch, void *vo, int target
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
 
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
     // NPC's don't have religion (although that would be interesting in the future...)
     if (IS_NPC(victim))
     {
@@ -572,6 +584,12 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
     int i;
     CHAR_DATA *mob;
     AFFECT_DATA af;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
 
     // Check if they already lead a guardian
     if (leads_grouped_mob(ch, VNUM_GUARDIAN_ANGEL))
