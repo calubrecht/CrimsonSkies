@@ -115,6 +115,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
     {
         int iGuild;
         int move;
+        bool water_walk = FALSE;
 
         // Is it a guild room?  If so, see if they can go in.
         if (IS_SET(to_room->room_flags, ROOM_GUILD))
@@ -147,6 +148,14 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             }
         }
 
+        // Ocean, see if they have water walk on.
+        if (in_room->sector_type == SECT_WATER_NOSWIM
+            || to_room->sector_type == SECT_WATER_NOSWIM
+            || to_room->sector_type == SECT_OCEAN)
+        {
+            water_walk = is_affected(ch, gsn_water_walk);
+        }
+
         // Water or ocean.. although we let people swim now with a skill, so
         // the no swim only makes it a requirement that they have swim.
         if ((in_room->sector_type == SECT_WATER_NOSWIM
@@ -161,9 +170,11 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
              */
             found = has_item_type(ch, ITEM_BOAT);
 
-            // Immortal gets a courtesy boat.
-            if (IS_IMMORTAL(ch))
+            // Immortal gets a courtesy boat, so do those with the water walk spell on.
+            if (IS_IMMORTAL(ch) || water_walk)
+            {
                 found = TRUE;
+            }
 
             // Check swim skill, this should be the last one as we're going to deal
             // some damage and return out at this point if none of the other cases
@@ -196,13 +207,13 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             }
         }
 
-        move = movement_loss[UMIN(SECT_MAX - 1, in_room->sector_type)]
-            + movement_loss[UMIN(SECT_MAX - 1, to_room->sector_type)];
+        move = movement_loss[UMIN(SECT_MAX - 1, in_room->sector_type)] + movement_loss[UMIN(SECT_MAX - 1, to_room->sector_type)];
+        move /= 2;
 
-        move /= 2;                /* i.e. the average */
-
-        // Immortals don't lose movement
-        if (IS_IMMORTAL(ch))
+        // Immortals don't lose movement, also, players on water with the water walk
+        // spell on don't lose movement (water walk will only be true if they're on
+        // water somewhere and have the spell on).
+        if (IS_IMMORTAL(ch) || water_walk)
             move = 0;
 
         /* conditional effects */
@@ -225,7 +236,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         if (in_room->sector_type == SECT_OCEAN && !IS_IMMORTAL(ch))
         {
             // Ocean Lag, Phew
-            WAIT_STATE(ch, 6);
+            WAIT_STATE(ch, 12);
         }
         else
         {

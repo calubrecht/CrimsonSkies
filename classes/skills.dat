@@ -2401,4 +2401,15 @@ MsgOff      The guardian angel fades from existence.~
 Race        0
 End
 
+#SKILL
+Name        water walk~
+SpellFun    spell_water_walk~
+Target      3
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      You feel the blessing of water walking fade.~
+Race        0
+End
+
 #END

@@ -990,6 +990,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_holy_presence, "The holy presence protecting $n fades."},
     { &gsn_holy_flame, "The holy flames around $n fade."},
     { &gsn_divine_wisdom, "The divine wisdom leaves $n's soul."},
+    { &gsn_water_walk, "$n's blessing of water walking fades."},
     {NULL, NULL}
 };
 
@@ -4142,6 +4143,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_withering_enchant")) return spell_withering_enchant;
             if (!str_cmp(name, "spell_wizard_mark")) return spell_wizard_mark;
             if (!str_cmp(name, "spell_waves_of_weariness")) return spell_waves_of_weariness;
+            if (!str_cmp(name, "spell_water_walk")) return spell_water_walk;
             break;
     }
 
@@ -4307,6 +4309,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_divine_wisdom) return "spell_divine_wisdom";
     if (spell == spell_know_religion) return "spell_know_religion";
     if (spell == spell_guardian_angel) return "spell_guardian_angel";
+    if (spell == spell_water_walk) return "spell_water_walk";
 
     return "reserved";
 

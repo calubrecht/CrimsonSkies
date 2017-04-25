@@ -674,3 +674,50 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
 
     return;
 }
+/*
+ * A divination spell that allows a priest to walk on water for a tick.  This can't
+ * and shouldn't be cast on everyone, we don't want the whole mud negating water
+ * restrictions like the oceans.  The lag in the ocean should still take affect, just
+ * not the movement cost.
+ */
+void spell_water_walk(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
+    // This will only work on themselves.
+    if (victim != ch)
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 1;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("You are blessed with the ability to walk on water.\r\n", victim);
+    act("$N has been blessed with the ability to walk on water.", victim, NULL, victim, TO_ROOM);
+    return;
+}
+

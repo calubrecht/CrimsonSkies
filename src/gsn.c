@@ -204,6 +204,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_holy_flame, "holy flame");
     ASSIGN_GSN(gsn_divine_wisdom, "divine wisdom");
     ASSIGN_GSN(gsn_guardian_angel, "guardian angel");
+    ASSIGN_GSN(gsn_water_walk, "water walk");
 
     if (global.last_boot_result == UNKNOWN)
     {

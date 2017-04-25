@@ -198,3 +198,4 @@ DECLARE_GSN(gsn_displacement);
 DECLARE_GSN(gsn_holy_flame);
 DECLARE_GSN(gsn_divine_wisdom);
 DECLARE_GSN(gsn_guardian_angel);
+DECLARE_GSN(gsn_water_walk);

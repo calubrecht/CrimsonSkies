@@ -1545,8 +1545,7 @@ void environment_update()
 
             // Water breathing won't help their movement loss but it will keep them from
             // drowning.
-            if (ch->move <= 0 &&
-                !is_affected(ch, gsn_water_breathing))
+            if (ch->move <= 0 && !is_affected(ch, gsn_water_breathing))
             {
                 send_to_char("You gasp for air as water fills your lungs!\r\n", ch);
                 ch->hit -= (UMAX(1, (ch->hit / 6)));
@@ -1556,8 +1555,12 @@ void environment_update()
             {
                 // Everyone loses movement treading water in the ocean.  Consider adding
                 // swim skill to lessen this, also maybe make stronger people lose less.
-                send_to_char("You struggle to tread water in the ocean.\r\n", ch);
-                ch->move -= 10;
+                // Priest's who are affected by water walking are exempt.
+                if (!is_affected(ch, gsn_water_walk))
+                {
+                    send_to_char("You struggle to tread water in the ocean.\r\n", ch);
+                    ch->move -= 10;
+                }
 
                 // Don't allow movement to go below 0
                 if (ch->move < 0)
