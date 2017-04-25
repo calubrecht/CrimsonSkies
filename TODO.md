@@ -148,3 +148,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - ArenaKills added to pcdata
   - Make guardian angel spell mob disappear after the effect is gone from the mob.
   - Make guardian angel spell tailored to alignment, put god name into the description for the mob.
+  - swims in message (floats in).
