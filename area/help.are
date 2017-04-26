@@ -3339,6 +3339,7 @@ Current classes available for reclass:
    {G*{x Enchantor (Mage)
    {G*{x Psionicist (Mage)
    {G*{x Healer (Cleric)
+   {G*{x Priest (Cleric, must follow a god or goddess)
    {G*{x Bladesinger (Any class, elves only)
    {G*{x Ranger (Warrior & Thieves)
    {G*{x Rogue (Thieves)
@@ -4332,6 +4333,95 @@ Syntax: deity
 Lists all of the gods and goddesses that a player may choose from in
 creation as their roleplay deity.  Some game mechanics maybe based on
 the deity that you choose so choose wisely.
+~
+0 PRIESTS~
+Priests are holy and channel their power from their respective god or
+goddess which they must always show reverence to.
+
+In order for a priest to cast any of the spells given to them by their
+deity, they must have recently prayed (via the prayer command).
+
+Priests also gain power the longer than they worship their deity.  Those
+who are reverent and loyal will receive more power on the spells that
+are given to them by their deity.  The priests ranks in order are
+Novitiate, Deacon, Priest, Bishop, Archbishop, Cardinal and High Priest.
+
+The priests default spells are in divination (use 'info divination' to
+see their spell list).
+
+See also: reclass, prayer, divination
+~
+0 AGONY~
+Syntax: c 'agony' <target>
+
+Agony is a priest specific maladiction that allows them to inflict an
+agony on their victim in behalf of their deity.  The person affected
+will receive damage when they recall, word of recall, teleport or gate.
+
+If this is cast on an NPC it will lower their wisdom, intelligence and
+constitution.
+~
+0 HOLY PRESENCE~
+Syntax: c 'holy presence'
+        c 'holy presence' <target>
+
+Holy presence is a priest spell that will assist in allowing the target
+to receive less damage from foes.
+~
+0 DISPLACEMENT~
+Syntax: c 'displacement' <target>
+
+Displacement is a priest spell that if successful will force another
+player to recall.  This can be handy when fighting large groups of
+other characters.
+~
+0 HOLY FLAME~
+Syntax: c 'holy flame' <target>
+        c 'holy flame' <dirction> <target>
+
+Holy flame is a priest spell that both deals fire damage and inflicts
+a faerie fire on the fictim.  Holy flame is special in that it can be
+ranged for up to three rooms allowing the priest to cast it from outside
+of the room the victim is in.
+~
+0 DIVINE WISDOM~
+Syntax: c 'divine wisdom'
+        c 'divine wisdom' <target>
+
+Divine wisdom is a priest spell that allows the priest to bestow a boost
+in a target's wisdom.  The duration of the spell grows along with the
+priest's rank.
+~
+0 GUARDIAN ANGEL~
+Syntax: c 'guardian angel'
+
+The guardian angel spell is a priest spell that will allow the priest
+to call an angel to assist them in combating their foes.  If the priest
+is not fighting the angel will be grouped, charmed and will assist in
+fights as well as take orders.  If the priest is fighting, the angel
+will be summoned and will automatically initiate a rescue command to
+rescue the priest as their first act.
+~
+0 WATER WALK~
+Syntax: c 'water walk'
+
+Water walk is a priest spell that will allow the priest to walk on
+water.  This will not alleviate lag associated with walking over the
+ocean but it will remove all movement cost.  This spell cannot be
+cast on others.
+~
+0 KNOW RELIGION~
+Syntax: c 'know religion' <target>
+
+Know religion is a spell that will allow the caster to see what deity
+another character follows.
+~
+0 PRAYER~
+Syntax: prayer
+
+In order for priests to be able to cast any of the spells they have been
+granted by their god or godess, they must first pray.  Their prayers
+will last for an amount of time that can be seen with the affects command.
 ~
 0 HOSTILE~
 The hostile flag will show in the who list if a player has recently been
