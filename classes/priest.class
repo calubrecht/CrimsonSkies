@@ -98,7 +98,7 @@ Sk 'parry' 20 8
 Sk 'holy presence' 20 1
 Sk 'faerie fog' 21 1
 Sk 'heal' 21 1
-Sk 'peek' 21 7
+Sk 'peek' 21 8
 Sk 'energy drain' 22 1
 Sk 'teleport' 22 1
 Sk 'dodge' 22 8
@@ -108,7 +108,6 @@ Sk 'dispel magic' 24 1
 Sk 'frenzy' 24 1
 Sk 'second attack' 24 8
 Sk 'mass invisibility' 25 1
-Sk 'pick lock' 25 8
 Sk 'guardian angel' 25 1
 Sk 'cancellation' 26 1
 Sk 'word of recall' 28 1
@@ -136,6 +135,7 @@ Sk 'fire breath' 52 -1
 Sk 'frost breath' 52 -1
 Sk 'gas breath' 52 -1
 Sk 'lightning breath' 52 -1
+Sk 'pick lock' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
@@ -245,7 +245,7 @@ Gr 'rogue basics' 0
 Gr 'psionicist basics' 0
 Gr 'priest basics' 0
 Gr 'mage default' 0
-Gr 'cleric default' 40
+Gr 'cleric default' 0
 Gr 'thief default' 0
 Gr 'warrior default' 0
 Gr 'enchantor default' 0
