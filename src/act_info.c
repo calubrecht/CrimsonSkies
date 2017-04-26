@@ -2612,7 +2612,9 @@ void do_who(CHAR_DATA * ch, char *argument)
                     if (iRace == 0 || iRace >= MAX_PC_RACE)
                     {
                         if (!str_prefix(arg, "clan"))
+                        {
                             fClan = TRUE;
+                        }
                         else
                         {
                             iClan = clan_lookup(arg);
@@ -2623,9 +2625,7 @@ void do_who(CHAR_DATA * ch, char *argument)
                             }
                             else
                             {
-                                send_to_char
-                                    ("That's not a valid race, class, or clan.\r\n",
-                                        ch);
+                                send_to_char("That's not a valid race, class, or clan.\r\n", ch);
                                 return;
                             }
                         }

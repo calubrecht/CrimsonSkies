@@ -82,6 +82,7 @@ bool is_clan(CHAR_DATA * ch)
  */
 bool is_same_clan(CHAR_DATA * ch, CHAR_DATA * victim)
 {
+    // Loner's and renegades should never be considered in the same clan.
     if (clan_table[ch->clan].independent)
     {
         return FALSE;
