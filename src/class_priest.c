@@ -59,8 +59,8 @@ const struct priest_rank_type priest_rank_table[] = {
     { PRIEST_RANK_PRIEST,      "Priest",       250},
     { PRIEST_RANK_BISHOP,      "Bishop",       500},
     { PRIEST_RANK_ARCHBISHOP,  "Archbishop",   750},
-    { PRIEST_RANK_CARDINAL,    "Cardinal",    1000},
-    { PRIEST_RANK_HIGH_PRIEST, "High Priest", 1500}
+    { PRIEST_RANK_CARDINAL,    "Cardinal",    1250},
+    { PRIEST_RANK_HIGH_PRIEST, "High Priest", 2000}
 };
 
 /*
