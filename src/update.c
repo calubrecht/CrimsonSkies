@@ -141,7 +141,7 @@ void update_handler(bool forced)
 
     /*
      * The tick update is the big event where lots of updates occur.  ROM traditionally runs
-     * ticks at random times around a minute, we're going to do one ever 40 seconds (as defined
+     * ticks at random times around a minute, we're going to do one every 40 seconds (as defined
      * in merc.h).
      */
     if (--pulse_tick <= 0)
@@ -1455,10 +1455,14 @@ bool on_shore(CHAR_DATA *ch)
     int door;
 
     if (!ch || !ch->in_room)
+    {
         return FALSE;
+    }
 
     if (ch->in_room->sector_type == SECT_OCEAN)
+    {
         return FALSE;
+    }
 
     for (door = 0; door < MAX_DIR; door++)
     {
@@ -1470,10 +1474,12 @@ bool on_shore(CHAR_DATA *ch)
         }
 
         if (scan_room->sector_type == SECT_OCEAN)
+        {
             return TRUE;
+        }
     }
     return FALSE;
-} // end on_shore
+}
 
 /*
  * Updates for characters on the shore which are players that are next to an ocean room.
@@ -1501,11 +1507,11 @@ void shore_update()
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING
-            &&   d->character
-            &&   IS_OUTSIDE(d->character)
+            && d->character
+            && IS_OUTSIDE(d->character)
             && IS_AWAKE(d->character)
             && d->character->in_room
-            &&   on_shore(d->character))
+            && on_shore(d->character))
         {
             send_to_char(buf, d->character);
         }
