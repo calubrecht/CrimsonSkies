@@ -14,7 +14,7 @@ Mana        1
 BaseGroup   'priest basics'
 DefGroup    'priest default'
 IsReclass   1
-IsEnabled   0
+IsEnabled   1
 Sk 'cause light' 1 1
 Sk 'cure light' 1 1
 Sk 'axe' 1 6
