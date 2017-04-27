@@ -581,6 +581,7 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
     int i;
     CHAR_DATA *mob;
     AFFECT_DATA af;
+    char buf[MAX_STRING_LENGTH];
 
     // Must be prayed to cast
     if(!prayer_check(ch))
@@ -630,6 +631,15 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
     {
         mob->perm_stat[i] = ch->perm_stat[i];
     }
+
+    // Tailor the short and long descriptions
+    sprintf(buf, "A guardian angel of %s", deity_table[ch->pcdata->deity].name);
+    free_string(mob->short_descr);
+    mob->short_descr = str_dup(buf);
+
+    sprintf(buf, "A guardian angel of %s levitates above the ground.\r\n", deity_table[ch->pcdata->deity].name);
+    free_string(mob->long_descr);
+    mob->long_descr = str_dup(buf);
 
     // Send the guardian to the room
     char_to_room(mob, ch->in_room);
