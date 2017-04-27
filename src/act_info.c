@@ -3504,7 +3504,7 @@ void do_stats(CHAR_DATA *ch, char *argument)
 {
     // Check if they just want the brief stats as was displayed in the old score command, if
     // so, show them then get out.
-    if (!IS_NULLSTR(argument) && !str_prefix(argument, "brief"))
+    if (IS_NULLSTR(argument))
     {
         printf_to_char(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
             ch->perm_stat[STAT_STR], get_curr_stat(ch,STAT_STR),

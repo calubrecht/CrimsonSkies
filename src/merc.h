@@ -615,8 +615,9 @@ struct settings_data
     bool test_mode;          // Whether the entire game is put into test mode
     bool login_color_prompt; // Whether or not the Do you want color? prompt will appear on login
     // Game Mechanics
-    bool shock_spread; // Shocking effect spreads under water.
-    bool gain_convert; // Whether or not gain convert is enabled.
+    bool shock_spread;       // Shocking effect spreads under water.
+    bool gain_convert;       // Whether or not gain convert is enabled.
+    int stat_surge;          // How far above the players natural stat a spell can take it.
     // Info
     char *web_page_url;
     char *mud_name;

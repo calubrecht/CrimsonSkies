@@ -3287,17 +3287,12 @@ The clear command will clear the screen on mud clients that support it.
 
 0 STATS~
 Syntax: stats
-        stats brief
+        stats detail
 
 Shows your current stats (strength, intelligence, wisdom, dexterity
-and constitution) along with adjustments from spells and equipment
-that might raise it.
-
-The stats command will also show you the max stats your race/class
-combo can achieve.
-
-You can see a brief compacted version of the stats by additionally
-including a brief after the command (stats brief).
+and constitution).  Stats with the detail argument will show you
+stats along with adjustments from spells and equipment that might
+raise it and what the racial max should be.
 ~
 
 0 SWIM~
@@ -4427,6 +4422,11 @@ will last for an amount of time that can be seen with the affects command.
 The hostile flag will show in the who list if a player has recently been
 involved in player versus player or player kill (PVP or PK) combat.  You
 cannot logout of the game while you are hostile.
+~
+0 STAT SURGE~
+Stat surge is a setting which allows the game admins to allow for stats
+to be raised above their racial/class maximum by spells and bonuses on
+gear.
 ~
 0 QUEST PQUEST~
 

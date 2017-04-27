@@ -726,17 +726,31 @@ int get_curr_stat(CHAR_DATA * ch, int stat)
     int max;
 
     if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
+    {
         max = 25;
+    }
 
     else
     {
-        max = pc_race_table[ch->race].max_stats[stat] + 4;
+        // Stock ROM allowed players to go above their max stat by 4 with spells, this
+        // is now a setting with 0 being the default.  Everyone getting into the 20's
+        // for stats makes much less diversity.. spells are still useful without this
+        // because they can help protect against maladictions.  Game admin can then set
+        // this to their liking.
+        max = pc_race_table[ch->race].max_stats[stat] + settings.stat_surge;
 
+        // This is legit, the primary stat for your class gets you a +2 bonus over
+        // your racial max.
         if (class_table[ch->class]->attr_prime == stat)
+        {
             max += 2;
+        }
 
+        // And why not.
         if (ch->race == race_lookup("human"))
+        {
             max += 1;
+        }
 
         max = UMIN(max, 25);
     }

@@ -105,6 +105,10 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
+        sprintf(buf, "%-25s %-7d\r\n",
+            "Stat Surge", settings.stat_surge);
+        send_to_char(buf, ch);
+
         send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WGame Info{x\r\n", ch);
@@ -141,7 +145,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|statsurge>\r\n", ch);
         return;
     }
 
@@ -309,6 +313,21 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         save_settings();
     }
+    else if (!str_prefix(arg1, "statsurge"))
+    {
+        if (!IS_NULLSTR(arg2))
+        {
+            settings.stat_surge = atoi(arg2);
+            printf_to_char(ch, "Stats can now be surged %d above their maximum.\r\n", settings.stat_surge);
+
+            save_settings();
+        }
+        else
+        {
+            send_to_char("Please enter a numeric value for the stat surge.\r\n", ch);
+            return;
+        }
+    }
     else if (!str_prefix(arg1, "mudname"))
     {
         if (!IS_NULLSTR(arg2))
@@ -390,6 +409,8 @@ void load_settings()
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
     settings.login_who_list_enabled = iniparser_getboolean(ini, "Settings:LoginWhoListEnabled", TRUE);
 
+    settings.stat_surge = iniparser_getint(ini, "Settings:StatSurge", 0);
+
     free_string(settings.web_page_url);
     settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
 
@@ -447,6 +468,7 @@ void save_settings(void)
     // Game Mechanics Settings
     fprintf(fp, "ShockSpread = %s\n", settings.shock_spread ? "True" : "False");
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
+    fprintf(fp, "StatSurge = %d\n", settings.stat_surge);
 
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");
