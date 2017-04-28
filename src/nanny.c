@@ -1016,6 +1016,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 // Auto exit for first time players
                 SET_BIT(ch->act, PLR_AUTOEXIT);
 
+                // Will set auto loot by default
+                SET_BIT(ch->act, PLR_AUTOLOOT);
+
                 do_function(ch, &do_outfit, "");
                 obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP)), ch);
 
