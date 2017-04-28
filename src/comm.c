@@ -2821,6 +2821,9 @@ void shutdown_request(int a)
     // Alas, all good things must come to an end.
     signal(a, SIG_DFL);
 
+    // Force core?
+    abort();
+
 #if defined( _WIN32 )
     global.shutdown = TRUE;
 #else
