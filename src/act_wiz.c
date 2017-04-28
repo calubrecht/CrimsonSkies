@@ -6684,7 +6684,9 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    printf_to_char(ch, "1: %d\r\n", number_bits(1));
+    CHAR_DATA *victim;
+
+    printf_to_char(ch, "1: %2\r\n", victim->name);
     printf_to_char(ch, "2: %d\r\n", number_bits(2));
     printf_to_char(ch, "3: %d\r\n", number_bits(3));
     printf_to_char(ch, "4: %d\r\n", number_bits(4));

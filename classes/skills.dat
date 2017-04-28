@@ -2412,4 +2412,15 @@ MsgOff      You feel the blessing of water walking fade.~
 Race        0
 End
 
+#SKILL
+Name        fourth attack~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       0
+MsgOff      !Fourth Attack!~
+Race        0
+End
+
 #END

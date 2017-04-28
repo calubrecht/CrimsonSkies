@@ -187,6 +187,7 @@ Sk 'divine wisdom' 52 -1
 Sk 'know religion' 52 -1
 Sk 'guardian angel' 52 -1
 Sk 'water walk' 52 -1
+Sk 'fourth attack' 52 -1
 Sk 'bless' 53 2
 Sk 'cause critical' 53 2
 Sk 'cause light' 53 2
@@ -237,6 +238,7 @@ Gr 'mage basics' 0
 Gr 'cleric basics' 0
 Gr 'thief basics' 0
 Gr 'warrior basics' 0
+Gr 'barbarian basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
@@ -248,6 +250,7 @@ Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
 Gr 'warrior default' 0
+Gr 'barbarian default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0

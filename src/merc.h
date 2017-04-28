@@ -116,7 +116,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
-#define MAX_CLASS          11   // top_class
+#define MAX_CLASS          12   // top_class
 #define MAX_PC_RACE        7
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
@@ -187,6 +187,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define ROGUE_CLASS_LOOKUP                      8
 #define PSIONICIST_CLASS_LOOKUP                 9
 #define PRIEST_CLASS_LOOKUP                     10
+#define BARBARIAN_CLASS_LOOKUP                  11
 
 /*
  * PC Race Lookup

@@ -241,7 +241,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     chance = get_skill(ch, gsn_third_attack) / 4;
 
     if (IS_AFFECTED(ch, AFF_SLOW))
-        chance = 0;;
+        chance /= 4;
 
     if (number_percent() < chance)
     {
@@ -252,7 +252,22 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 5 (Dual Wield #1)
+    // Attack 5 (4rd attack skill) (few classes will have this, barbarian's only at first)
+    chance = get_skill(ch, gsn_fourth_attack) / 4;
+
+    if (IS_AFFECTED(ch, AFF_SLOW))
+        chance /= 4;
+
+    if (number_percent() < chance)
+    {
+        one_hit(ch, victim, dt, FALSE);
+        check_improve(ch, gsn_fourth_attack, TRUE, 6);
+
+        if (ch->fighting != victim)
+            return;
+    }
+
+    // Attack 6 (Dual Wield #1)
     if (number_percent() < get_skill(ch, gsn_dual_wield))
     {
         one_hit(ch, victim, dt, TRUE);
@@ -261,7 +276,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 6 (Dual Wield #2  + Haste)
+    // Attack 7 (Dual Wield #2  + Haste)
     if (IS_AFFECTED(ch, AFF_HASTE) &&
         number_percent() < get_skill(ch, gsn_dual_wield))
     {
@@ -271,7 +286,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 7 (Bladesong)
+    // Attack 8 (Bladesong)
     if (is_affected(ch, gsn_bladesong))
     {
         one_hit(ch, victim, dt, FALSE);
@@ -280,7 +295,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 8 (Stance Offensive), 60% chance of bonus attack
+    // Attack 9 (Stance Offensive), 60% chance of bonus attack
     if (ch->stance == STANCE_OFFENSIVE && CHANCE(60))
     {
         one_hit(ch, victim, dt, FALSE);
