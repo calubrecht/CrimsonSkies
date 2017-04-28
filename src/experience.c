@@ -378,6 +378,11 @@ void advance_level(CHAR_DATA * ch, bool hide)
             // These classes are heavy on the mana usage, they'll get a slight bonus per level.
             add_mana += 2;
             break;
+        case BARBARIAN_CLASS_LOOKUP:
+            // Barbarians have no spells and have to walk everywhere, give them a fairly large
+            // movement bonus on level.
+            add_move += 5;
+            break;
     }
 
     add_train = 1;
