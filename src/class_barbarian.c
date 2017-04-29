@@ -24,6 +24,11 @@
  *                                                                         *
  *  Barbarians                                                             *
  *                                                                         *
+ *  Barbarians are highly skilled fighters who are unable to learn the     *
+ *  ways of magic (at all).  They typically have higher health and         *
+ *  movement available to them and try to win victory with their sheer     *
+ *  power.  This makes larger, dumber races much better barbarians.        *
+ *                                                                         *
  *  Skills                                                                 *
  *                                                                         *
  *    - 4th attack                                                         *
