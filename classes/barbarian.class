@@ -34,6 +34,7 @@ Sk 'wands' 1 8
 Sk 'recall' 1 2
 Sk 'swim' 1 1
 Sk 'dirt kicking' 3 4
+Sk 'warcry' 4 3
 Sk 'second attack' 5 3
 Sk 'enhanced recall' 5 2
 Sk 'hand to hand' 6 4
@@ -49,8 +50,8 @@ Sk 'haggle' 14 6
 Sk 'peek' 14 6
 Sk 'trip' 15 8
 Sk 'meditation' 15 8
+Sk 'acute vision' 15 2
 Sk 'infravision' 16 2
-Sk 'berserk' 18 5
 Sk 'blind fighting' 19 2
 Sk 'dual wield' 25 6
 Sk 'fourth attack' 25 4
@@ -193,7 +194,6 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
-Sk 'acute vision' 52 -1
 Sk 'track' 52 -1
 Sk 'butcher' 52 -1
 Sk 'bandage' 52 -1
@@ -233,6 +233,7 @@ Sk 'divine wisdom' 52 -1
 Sk 'know religion' 52 -1
 Sk 'guardian angel' 52 -1
 Sk 'water walk' 52 -1
+Sk 'berserk' 53 0
 Gr 'rom basics' 0
 Gr 'mage basics' 0
 Gr 'cleric basics' 0

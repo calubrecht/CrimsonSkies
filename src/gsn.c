@@ -206,6 +206,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_guardian_angel, "guardian angel");
     ASSIGN_GSN(gsn_water_walk, "water walk");
     ASSIGN_GSN(gsn_fourth_attack, "fourth attack");
+    ASSIGN_GSN(gsn_warcry, "warcry");
 
     if (global.last_boot_result == UNKNOWN)
     {
