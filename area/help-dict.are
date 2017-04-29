@@ -6,6 +6,10 @@ An NPC is a non player character.
 -1 MOBILE MOB~
 A mobile or "mob" is a non player creature in the game.
 ~
+-1 Q-POINT QPOINTS 'QUEST POINTS'~
+Quest Points are obtained by completing quests from a quest master.  They can be used
+to buy items not otherwise available in the world.
+~
 -1 WEAPON FLAGS FLAMING FROST VAMPIRIC SHARP VORPAL TWOHANDS SHOCKING POISON LEECH STUN~
 
 A flag on certain weapons change the behavior of a weapon.  The
