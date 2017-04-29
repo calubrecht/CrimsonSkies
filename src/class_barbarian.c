@@ -62,6 +62,9 @@ void do_warcry(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // We're going to re-use the berserk affect, no need to create a new one
+    // when these mostly have the same behavior (warcry has higher stat output
+    // for the person using it).
     if (IS_AFFECTED(ch, AFF_BERSERK)
         || is_affected(ch, gsn_berserk)
         || is_affected(ch, gsn_frenzy)
@@ -83,9 +86,28 @@ void do_warcry(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    /* modifiers */
+    // Modifiers for chance
+    // First off, sector type (better chances in some, worse in others)
+    switch (ch->in_room->sector_type)
+    {
+        default:
+            chance += 5;
+            break;
+        case SECT_INSIDE:
+            chance -= 5;
+            break;
+        case SECT_CITY:
+            chance -= 5;
+            break;
+        case SECT_WATER_SWIM:
+        case SECT_WATER_NOSWIM:
+        case SECT_UNDERWATER:
+        case SECT_OCEAN:
+            chance -= 15;
+            break;
+    }
 
-    /* fighting */
+    // Better chance while fighting
     if (ch->position == POS_FIGHTING)
     {
         chance += 15;
