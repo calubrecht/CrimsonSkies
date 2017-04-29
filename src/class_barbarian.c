@@ -43,13 +43,13 @@
 #include "tables.h"
 
 /*
- * Warcry, like berserk on better.
+ * Warcry, like berserk only better.
  */
 void do_warcry(CHAR_DATA * ch, char *argument)
 {
     int chance, hp_percent;
 
-    if ((chance = get_skill(ch, gsn_berserk)) == 0
+    if ((chance = get_skill(ch, gsn_warcry)) == 0
         || (IS_NPC(ch) && !IS_SET(ch->off_flags, OFF_BERSERK))
         || (!IS_NPC(ch) && ch->level < skill_table[gsn_warcry]->skill_level[ch->class]))
     {
@@ -135,7 +135,7 @@ void do_warcry(CHAR_DATA * ch, char *argument)
         ch->move = (ch->move * 4) / 5;
 
         send_to_char("Your attempt to muster a warcry but nothing happens.\r\n", ch);
-        check_improve(ch, gsn_berserk, FALSE, 3);
+        check_improve(ch, gsn_warcry, FALSE, 3);
     }
 }
 
