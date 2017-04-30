@@ -34,6 +34,7 @@
  *    - 4th attack                                                         *
  *    - Warcry                                                             *
  *    - Acute Vision                                                       *
+ *    - Cleanse                                                            *
  *                                                                         *
  ***************************************************************************/
 
@@ -166,3 +167,75 @@ void do_warcry(CHAR_DATA * ch, char *argument)
     }
 }
 
+/*
+ * Cleanse skill to allow a barbarian a chance to clear their eyes from physical debris (like
+ * the much used dirt kick skill).
+ */
+void do_cleanse(CHAR_DATA * ch, char *argument)
+{
+    // Ditch out if they aren't affected by dirt kick (or other typess of future physical blinds)
+    if (!is_affected(ch, gsn_dirt))
+    {
+        send_to_char("There is nothing physical in your eyes clouding your vision.\r\n", ch);
+        return;
+    }
+
+    // Check if they have the skill
+    if (get_skill(ch, gsn_cleanse) == 0
+        || (!IS_NPC(ch) && ch->level < skill_table[gsn_cleanse]->skill_level[ch->class]))
+    {
+        send_to_char("You failed, perhaps you aren't skilled enough.\r\n", ch);
+        return;
+    }
+
+    OBJ_DATA *obj;
+    bool found = FALSE;
+
+    // Look to see if they have a drink container in their inventory that has water
+    // in it, we look for them becaause if they are blind, they won't be able to see it
+    // themselves (perk of this skill).  They may have multiple drink contianers, find
+    // anyone that has water (if the first doesn't or is empty, proceed to the next)
+    for (obj = ch->carrying; obj != NULL; obj = obj->next_content)
+    {
+        if (obj->item_type == ITEM_DRINK_CON
+            && obj->value[1] > 0
+            && obj->value[2] == 0)
+        {
+            // We found it, break out leaving the obj referenced as the drink container
+            // we are going to use.
+            found = TRUE;
+            break;
+        }
+    }
+
+    if (!found || obj == NULL)
+    {
+        send_to_char("You look in desperation for a container with water but find none.\r\n", ch);
+        act("$n looks in desperation for a container with water but finds none.", ch, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    // The skill check
+    if (get_skill(ch, gsn_cleanse) > number_percent())
+    {
+        printf_to_char(ch, "You rinse the debris from your eyes with water from %s.\r\n", obj->short_descr);
+        act("$n rinses the debris from $s eyes with water from $p.", ch, obj, NULL, TO_ROOM);
+
+        // Remove it, but don't send the message off.
+        affect_strip(ch, gsn_dirt);
+
+        // Check for improve
+        check_improve(ch, gsn_cleanse, TRUE, 2);
+    }
+    else
+    {
+        send_to_char("You failed to rinse the debris from your eyes.\r\n", ch);
+        act("$n attempts to rinse debris from $s eyes.es.", ch, NULL, NULL, TO_ROOM);
+
+        check_improve(ch, gsn_cleanse, FALSE, 4);
+    }
+
+    WAIT_STATE(ch, skill_table[gsn_cleanse]->beats);
+
+    return;
+}

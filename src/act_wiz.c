@@ -6684,10 +6684,18 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    printf_to_char(ch, "2: %d\r\n", number_bits(2));
-    printf_to_char(ch, "3: %d\r\n", number_bits(3));
-    printf_to_char(ch, "4: %d\r\n", number_bits(4));
-    printf_to_char(ch, "5: %d\r\n", number_bits(5));
+        AFFECT_DATA af;
+        check_improve(ch, gsn_dirt, TRUE, 2);
+
+        af.where = TO_AFFECTS;
+        af.type = gsn_dirt;
+        af.level = ch->level;
+        af.duration = 0;
+        af.location = APPLY_HITROLL;
+        af.modifier = -4;
+        af.bitvector = AFF_BLIND;
+
+        affect_to_char(ch, &af);
 
     return;
 } // end do_debug

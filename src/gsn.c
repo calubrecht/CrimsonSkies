@@ -207,6 +207,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_water_walk, "water walk");
     ASSIGN_GSN(gsn_fourth_attack, "fourth attack");
     ASSIGN_GSN(gsn_warcry, "warcry");
+    ASSIGN_GSN(gsn_cleanse, "cleanse");
 
     if (global.last_boot_result == UNKNOWN)
     {

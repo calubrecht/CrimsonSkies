@@ -300,6 +300,7 @@ const struct cmd_type cmd_table[] = {
     {"clairvoyance",    do_clairvoyance,  POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"prayer",          do_prayer,        POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"warcry",          do_warcry,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"cleanse",         do_cleanse,       POS_RESTING,  0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)

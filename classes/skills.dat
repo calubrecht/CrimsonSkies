@@ -2434,4 +2434,15 @@ MsgOff      You feel your pulse slow down.~
 Race        0
 End
 
+#SKILL
+Name        cleanse~
+SpellFun    spell_null~
+Target      0
+MinPos      5
+MinMana     0
+Beats       24
+MsgOff      !Cleanse!~
+Race        0
+End
+
 #END
