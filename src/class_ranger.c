@@ -740,7 +740,7 @@ void do_find_water(CHAR_DATA *ch, char *argument)
     OBJ_DATA *spring;
 
     // Check if they have the skill
-    if (get_skill(ch,gsn_find_water) == 0
+    if (get_skill(ch, gsn_find_water) == 0
         ||(!IS_NPC(ch)
         && ch->level < skill_table[gsn_find_water]->skill_level[ch->class]))
     {
