@@ -202,3 +202,4 @@ DECLARE_GSN(gsn_water_walk);
 DECLARE_GSN(gsn_fourth_attack);
 DECLARE_GSN(gsn_warcry);
 DECLARE_GSN(gsn_cleanse);
+DECLARE_GSN(gsn_natural_refresh);

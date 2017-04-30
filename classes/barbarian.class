@@ -46,10 +46,10 @@ Sk 'disarm' 11 4
 Sk 'third attack' 12 4
 Sk 'hide' 12 6
 Sk 'dodge' 13 6
+Sk 'natural refresh' 13 2
 Sk 'haggle' 14 6
 Sk 'peek' 14 6
 Sk 'trip' 15 8
-Sk 'meditation' 15 8
 Sk 'acute vision' 15 2
 Sk 'infravision' 16 2
 Sk 'blind fighting' 19 2
@@ -168,6 +168,7 @@ Sk 'general purpose' 52 -1
 Sk 'high explosive' 52 -1
 Sk 'locate wizard mark' 52 -1
 Sk 'backstab' 52 -1
+Sk 'meditation' 52 -1
 Sk 'steal' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'waves of weariness' 52 -1

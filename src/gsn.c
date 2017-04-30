@@ -208,6 +208,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_fourth_attack, "fourth attack");
     ASSIGN_GSN(gsn_warcry, "warcry");
     ASSIGN_GSN(gsn_cleanse, "cleanse");
+    ASSIGN_GSN(gsn_natural_refresh, "natural refresh");
 
     if (global.last_boot_result == UNKNOWN)
     {

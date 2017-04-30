@@ -487,6 +487,18 @@ int move_gain(CHAR_DATA * ch)
         }
     }
 
+    // Barbarians, natural refresh skill gives a boost in movement regen.
+    if (number_percent() < get_skill(ch, gsn_natural_refresh))
+    {
+        gain += ch->level / 2;
+
+        if (ch->move < ch->max_move)
+        {
+            check_improve(ch, gsn_natural_refresh, TRUE, 6);
+        }
+    }
+
+
     return UMIN(gain, ch->max_move - ch->move);
 
 } // end int move_gain
