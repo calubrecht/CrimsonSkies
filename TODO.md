@@ -150,8 +150,9 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make guardian angel spell mob disappear after the effect is gone from the mob.
   - swims in message (floats in).
   - add hitroll_bonus, damroll_bonus to class structure
-  - barb, cleanse skill.
+  - merit system
+  - Secondary class stat
   - barb, mud coat skill.
-  
+  - Race skill to show stats on all available pc races.
 
-  -> barbarian, 4th attack, more moves on level gain, warcry
+  -> barbarian, 4th attack, more moves on level gain, warcry, cleanse, natural refresh 
