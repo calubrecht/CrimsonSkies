@@ -1,10 +1,10 @@
-Changes made for Windows support (Tested on Windows 7, 8, 8.1 & 10 with Visual Studio 2015)
+Changes made for Windows support (Tested on Windows 7, 8, 8.1 & 10 with Visual Studio 2017)
 
 Visual Studio Project Changes
 
 To fix sprintf errors in VS:
     - Project Properties -> C/C++ -> Preprocessor -> Preprocessor Defintions
-    - Add Disable _CRT_SECURE_NO_DEPRECATE 
+    - Add Disable _CRT_SECURE_NO_DEPRECATE
 
 To fix net errors add winsock:
     - Project Properties -> Linker -> Input -> Additional Dependencies
@@ -28,9 +28,13 @@ To fix:
 	- Add _WIN32 include for winsock.h
 
 To fix:
-	- error C4996: 'write': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _write. See online help for details.	
+	- error C4996: 'write': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _write. See online help for details.
 	- Add _WIN32 code and change write to _write
 	- Alt fix, use send instead of write in Windows.
+
+To fix:
+	- error E1696: cannot open source file "winsock2.h"
+	- Open the Project -> CrimsonSkies Properties -> Configuration Properties -> General -> Set the Platform Toolset to v141_xp (or any versions that target xp, various may work)
 
 Additional Notes:
 
