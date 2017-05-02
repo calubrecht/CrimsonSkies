@@ -2130,6 +2130,16 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Athiest's may not reclass into a priest.\r\n", ch);
         return;
     }
+    else if (iClass == BARBARIAN_CLASS_LOOKUP && ch->class != WARRIOR_CLASS_LOOKUP)
+    {
+        send_to_char("Only warrior's can be barbarians.\r\n", ch);
+        return;
+    }
+    else if (iClass == BARBARIAN_CLASS_LOOKUP && ch->race == KENDER_RACE_LOOKUP)
+    {
+        send_to_char("Kender cannot be barbarians.\r\n", ch);
+        return;
+    }
 
     char buf[MSL];
     int oldLevel = 0;
