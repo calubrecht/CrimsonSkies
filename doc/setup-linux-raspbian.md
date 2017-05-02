@@ -1,4 +1,4 @@
-# CS-Mud 1.0 Documentation
+# CS-Mud 1.3.0 Documentation
 
 ### Setup for Raspbian Linux
 

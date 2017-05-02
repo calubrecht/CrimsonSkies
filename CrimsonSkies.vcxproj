@@ -264,6 +264,7 @@
     <None Include="doc\historical\Rom2.4.doc" />
     <None Include="doc\setup-linux-raspbian.md" />
     <None Include="doc\setup-linux-ubuntu.md" />
+    <None Include="doc\setup-windows.md" />
     <None Include="doc\supported-operating-systems.md" />
     <None Include="README.md" />
     <None Include="src\Makefile" />

@@ -379,6 +379,7 @@
     <None Include="doc\supported-operating-systems.md" />
     <None Include="doc\setup-linux-ubuntu.md" />
     <None Include="doc\setup-linux-raspbian.md" />
+    <None Include="doc\setup-windows.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
