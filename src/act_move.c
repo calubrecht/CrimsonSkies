@@ -1906,6 +1906,9 @@ void do_bind(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * The ability to train a stat, health, mana or movement.
+ */
 void do_train(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -1914,16 +1917,19 @@ void do_train(CHAR_DATA * ch, char *argument)
     char *pOutput = NULL;
     int cost;
 
+    // Must be a player to train
     if (IS_NPC(ch))
+    {
         return;
+    }
 
-    /*
-     * Check for trainer.
-     */
+    // Check for a trainer.
     for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
     {
         if (IS_NPC(mob) && IS_SET(mob->act, ACT_TRAIN))
+        {
             break;
+        }
     }
 
     if (mob == NULL)
@@ -1943,81 +1949,66 @@ void do_train(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "str"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_STR)
-            cost = 1;
         stat = STAT_STR;
         pOutput = "strength";
     }
-
     else if (!str_cmp(argument, "int"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_INT)
-            cost = 1;
         stat = STAT_INT;
         pOutput = "intelligence";
     }
-
     else if (!str_cmp(argument, "wis"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_WIS)
-            cost = 1;
         stat = STAT_WIS;
         pOutput = "wisdom";
     }
-
     else if (!str_cmp(argument, "dex"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_DEX)
-            cost = 1;
         stat = STAT_DEX;
         pOutput = "dexterity";
     }
 
     else if (!str_cmp(argument, "con"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_CON)
-            cost = 1;
         stat = STAT_CON;
         pOutput = "constitution";
     }
-
     else if (!str_cmp(argument, "hp"))
+    {
         cost = 1;
-
+    }
     else if (!str_cmp(argument, "mana"))
+    {
         cost = 1;
-
+    }
     else
     {
         strcpy(buf, "You can train:");
+
         if (ch->perm_stat[STAT_STR] < get_max_train(ch, STAT_STR))
+        {
             strcat(buf, " str");
+        }
         if (ch->perm_stat[STAT_INT] < get_max_train(ch, STAT_INT))
+        {
             strcat(buf, " int");
+        }
         if (ch->perm_stat[STAT_WIS] < get_max_train(ch, STAT_WIS))
+        {
             strcat(buf, " wis");
+        }
         if (ch->perm_stat[STAT_DEX] < get_max_train(ch, STAT_DEX))
+        {
             strcat(buf, " dex");
+        }
         if (ch->perm_stat[STAT_CON] < get_max_train(ch, STAT_CON))
+        {
             strcat(buf, " con");
-        strcat(buf, " hp mana");
-
-        if (buf[strlen(buf) - 1] != ':')
-        {
-            strcat(buf, ".\r\n");
-            send_to_char(buf, ch);
-        }
-        else
-        {
-            /*
-             * This message dedicated to Jordan ... you big stud!
-             */
-            act("You have nothing left to train, you $T!",
-                ch, NULL,
-                ch->sex == SEX_MALE ? "big stud" :
-                ch->sex == SEX_FEMALE ? "hot babe" : "wild thing", TO_CHAR);
         }
 
+        // hp and mana are always available to train as long as trains exist.
+        strcat(buf, " hp mana\r\n");
+        send_to_char(buf, ch);
         return;
     }
 
@@ -2055,21 +2046,25 @@ void do_train(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Make sure they are not going over the maximum amount of the stat for
+    // their race/class (with any special modifiers as defined in get_max_train).
     if (ch->perm_stat[stat] >= get_max_train(ch, stat))
     {
         act("Your $T is already at maximum.", ch, NULL, pOutput, TO_CHAR);
         return;
     }
 
+    // Check that they have enough trains
     if (cost > ch->train)
     {
         send_to_char("You don't have enough training sessions.\r\n", ch);
         return;
     }
 
+    // Deduct the train, up the stat.
     ch->train -= cost;
-
     ch->perm_stat[stat] += 1;
+
     act("Your $T increases!", ch, NULL, pOutput, TO_CHAR);
     act("$n's $T increases!", ch, NULL, pOutput, TO_ROOM);
     return;
