@@ -2379,6 +2379,8 @@ void     wear_obj            (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
 void     wiznet                    (char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level);
 void     copyover_recover          (void);
 void     copyover_load_descriptors (void);
+void     auto_train                (CHAR_DATA *ch);
+
 
 /* alias.c */
 void     substitute_alias    (DESCRIPTOR_DATA *d, char *input);

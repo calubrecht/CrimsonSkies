@@ -2998,7 +2998,9 @@ void do_advance(CHAR_DATA * ch, char *argument)
     {
         victim->level += 1;
         advance_level(victim, TRUE);
+        auto_train(victim);
     }
+
     sprintf(buf, "You are now level %d.\r\n", victim->level);
     send_to_char(buf, victim);
     victim->exp = exp_per_level(victim, victim->pcdata->points)
@@ -3006,6 +3008,50 @@ void do_advance(CHAR_DATA * ch, char *argument)
     victim->trust = 0;
     save_char_obj(victim);
     return;
+}
+
+/*
+ * Automatically trains stats in the order best for leveling.  For use with advance
+ * in order to setup level 51 test characters that are close to real stats.
+ */
+void auto_train(CHAR_DATA *ch)
+{
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+    while (ch->train > 1)
+    {
+        ch->train -= 1;
+
+        if (ch->perm_stat[STAT_CON] < get_max_train(ch, STAT_CON))
+        {
+             ch->perm_stat[STAT_CON] += 1;
+        }
+        else if (ch->perm_stat[STAT_WIS] < get_max_train(ch, STAT_WIS))
+        {
+             ch->perm_stat[STAT_WIS] += 1;
+        }
+        else if (ch->perm_stat[STAT_INT] < get_max_train(ch, STAT_INT))
+        {
+             ch->perm_stat[STAT_INT] += 1;
+        }
+        else if (ch->perm_stat[STAT_STR] < get_max_train(ch, STAT_STR))
+        {
+             ch->perm_stat[STAT_STR] += 1;
+        }
+        else if (ch->perm_stat[STAT_DEX] < get_max_train(ch, STAT_DEX))
+        {
+             ch->perm_stat[STAT_DEX] += 1;
+        }
+        else
+        {
+            ch->pcdata->perm_hit += 10;
+            ch->max_hit += 10;
+            ch->hit += 10;
+        }
+    }
 }
 
 void do_trust(CHAR_DATA * ch, char *argument)
