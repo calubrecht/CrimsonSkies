@@ -14,7 +14,7 @@ Mana        0
 BaseGroup   'barbarian basics'
 DefGroup    'barbarian default'
 IsReclass   1
-IsEnabled   0
+IsEnabled   1
 Sk 'axe' 1 4
 Sk 'dagger' 1 2
 Sk 'flail' 1 4
