@@ -1990,13 +1990,13 @@ void do_worth(CHAR_DATA * ch, char *argument)
     // Show experience also, but only if less than level 51.
     if (ch->level < LEVEL_HERO)
     {
-        printf_to_char(ch, "You carry %ld gold, %ld silver and have %ld gold in the bank.\r\n", ch->gold, ch->silver, ch->pcdata->bank_gold);
+        printf_to_char(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
         printf_to_char(ch, "You have %d quest points and %d experience (%d exp to level).\r\n",
             ch->pcdata->quest_points, ch->exp, (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
     }
     else
     {
-        printf_to_char(ch, "You carry %ld gold, %ld silver and have %ld gold in the bank.\r\n", ch->gold, ch->silver, ch->pcdata->bank_gold);
+        printf_to_char(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
         printf_to_char(ch, "You have %d quest points.\r\n", ch->pcdata->quest_points);
     }
 
