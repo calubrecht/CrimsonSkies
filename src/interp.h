@@ -386,3 +386,4 @@ DECLARE_DO_FUN(do_prayer);
 DECLARE_DO_FUN(do_deity);
 DECLARE_DO_FUN(do_warcry);
 DECLARE_DO_FUN(do_cleanse);
+DECLARE_DO_FUN(do_power_swing);

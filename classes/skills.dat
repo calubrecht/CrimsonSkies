@@ -2455,4 +2455,16 @@ Beats       0
 Race        0
 End
 
+#SKILL
+Name        power swing~
+SpellFun    spell_null~
+Target      1
+MinPos      7
+MinMana     0
+Beats       24
+Damage      power swing~
+MsgOff      !Powerswing!~
+Race        0
+End
+
 #END

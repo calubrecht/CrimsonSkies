@@ -36,6 +36,7 @@
  *    - Acute Vision                                                       *
  *    - Cleanse                                                            *
  *    - Natural Refresh                                                    *
+ *    - Power swing                                                        *
  *                                                                         *
  ***************************************************************************/
 
@@ -237,6 +238,103 @@ void do_cleanse(CHAR_DATA * ch, char *argument)
     }
 
     WAIT_STATE(ch, skill_table[gsn_cleanse]->beats);
+
+    return;
+}
+
+/*
+ * Barbarian's power swing, taking a two handed weapon and pummelling people with it.
+ */
+void do_power_swing(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+    OBJ_DATA *obj;
+    int chance = 0;
+    int dam = 0;
+    int stun_chance = 0;
+
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+    if (!IS_NPC(ch) && ch->level < skill_table[gsn_power_swing]->skill_level[ch->class])
+    {
+        send_to_char("You better leave the powering swinging to the barbarians.\r\n", ch);
+        return;
+    }
+
+    if ((victim = ch->fighting) == NULL)
+    {
+        send_to_char("You aren't fighting anyone.\r\n", ch);
+        return;
+    }
+
+    obj = get_eq_char(ch, WEAR_WIELD);
+
+    if (obj == NULL)
+    {
+        send_to_char("You cannot power swing without a primary weapon.\r\n", ch);
+        WAIT_STATE(ch, skill_table[gsn_power_swing]->beats);
+        return;
+    }
+
+    chance = get_skill(ch, gsn_power_swing);
+    dam = number_range(ch->level, ch->level * 2);
+
+    // Show to testers
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Powerswing Chance {W%d{x]\r\n", chance);
+    }
+
+    // The moment of truth.
+    if (CHANCE(chance))
+    {
+        // Success!
+        damage(ch, victim, dam, gsn_power_swing, DAM_BASH, TRUE);
+        check_improve(ch, gsn_power_swing, TRUE, 1);
+
+        // 25% base stun chance.
+        stun_chance = 25;
+
+        // Factor in the standard modifier (blind, haste, slow, etc.).
+        stun_chance += standard_modifier(ch, victim);
+
+        // Object should not be null by here, two handed gets a bonus on the stun.
+        if (IS_WEAPON_STAT(obj, WEAPON_TWO_HANDS))
+        {
+            // Random 5% to 10% bonus
+            stun_chance += number_range(5, 10);
+            return;
+        }
+
+        // Show to testers
+        if (IS_TESTER(ch))
+        {
+            printf_to_char(ch, "[Powerswing Stun Chance {W%d{x]\r\n", stun_chance);
+        }
+
+        // Now, chance for stun.
+        if (CHANCE(stun_chance))
+        {
+            act("$n's power swing knocks you backwards!", ch, NULL, victim, TO_VICT);
+            act("Your power swing knocks $N backwards!", ch, NULL, victim, TO_CHAR);
+            act("$n's power swing knocks $N backwards!", ch, NULL, victim, TO_NOTVICT);
+            DAZE_STATE(victim, 2 * PULSE_VIOLENCE);
+        }
+
+    }
+    else
+    {
+        // Failure
+        damage(ch, victim, 0, gsn_power_swing, DAM_BASH, TRUE);
+        check_improve(ch, gsn_power_swing, FALSE, 2);
+    }
+
+    // Check wanted, apply the lag, then we're done folks
+    check_wanted(ch, victim);
+    WAIT_STATE(ch, skill_table[gsn_power_swing]->beats);
 
     return;
 }

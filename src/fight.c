@@ -2843,3 +2843,66 @@ char *get_stance_name(CHAR_DATA *ch)
 
     return buf;
 }
+
+/*
+ * A standard modifier for physical type skill attacks.  This is a percent plus or
+ * minus the ch should get on skills where it's used based off of the state of the
+ * player and the victim (things like blinds, hastes, etc.).
+ */
+int standard_modifier(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    int mod = 0;
+
+    // Haste
+    if (IS_AFFECTED(ch, AFF_HASTE) && !IS_AFFECTED(victim, AFF_HASTE))
+    {
+        mod += 5;
+    }
+    else if (!IS_AFFECTED(ch, AFF_HASTE) && IS_AFFECTED(victim, AFF_HASTE))
+    {
+        mod -= 5;
+    }
+
+    // Slow
+    if (IS_AFFECTED(ch, AFF_SLOW))
+    {
+        mod -= 5;
+    }
+
+    if (IS_AFFECTED(victim, AFF_SLOW))
+    {
+        mod += 5;
+    }
+
+    // Blind
+    if (IS_AFFECTED(ch, AFF_BLIND))
+    {
+        mod -= 10;
+
+        if (CHANCE_SKILL(ch, gsn_blind_fighting))
+        {
+            // They passed a blind fighting check, give them some back.
+            mod += 5;
+        }
+    }
+
+    if (IS_AFFECTED(victim, AFF_BLIND))
+    {
+        mod += 10;
+
+        if (CHANCE_SKILL(victim, gsn_blind_fighting))
+        {
+            // They passed a blind fighting check, give them some back.
+            mod -= 5;
+        }
+    }
+
+    // Show to testers
+    if (IS_TESTER(ch))
+    {
+        printf_to_char(ch, "[Standard Modifier {W%d{x]\r\n", mod);
+    }
+
+    return mod;
+
+}

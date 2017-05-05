@@ -209,6 +209,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_warcry, "warcry");
     ASSIGN_GSN(gsn_cleanse, "cleanse");
     ASSIGN_GSN(gsn_natural_refresh, "natural refresh");
+    ASSIGN_GSN(gsn_power_swing, "power swing");
 
     if (global.last_boot_result == UNKNOWN)
     {
