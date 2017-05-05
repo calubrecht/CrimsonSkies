@@ -304,9 +304,15 @@ void do_power_swing(CHAR_DATA * ch, char *argument)
         // Object should not be null by here, two handed gets a bonus on the stun.
         if (IS_WEAPON_STAT(obj, WEAPON_TWO_HANDS))
         {
-            // Random 5% to 10% bonus
-            stun_chance += number_range(5, 10);
+            // Random 5% boost for a 2 handed weapon
+            stun_chance += 5;
             return;
+        }
+
+        // 1% to 5% boost for warcry
+        if (is_affected(ch, gsn_warcry))
+        {
+            stun_chance += number_range(1, 5);
         }
 
         // Show to testers
