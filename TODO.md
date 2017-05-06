@@ -139,7 +139,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Psion - Temporal Fracture
   - Create function of all things to be removed in combat/damage.
   - Slippery Mind for psion
-  - Priest Recall Agony A: Foe takes 2d6 damage.
   - Remove armor class (AC) from the hit check, reduce damage from it though
   - Room affects
   - pk wholist
@@ -154,5 +153,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Secondary class stat
   - barb, mud coat skill.
   - Race skill to show stats on all available pc races.
+  - tnl command
 
-  -> barbarian, 4th attack, more moves on level gain, warcry, cleanse, natural refresh 
+  -> barbarian, 4th attack, more moves on level gain, warcry, cleanse, natural refresh, power swing
