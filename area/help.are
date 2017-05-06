@@ -4444,6 +4444,13 @@ to catch a second wind at times when they are at low health.
 
 See also: reclass
 ~
+0 WARCRY~
+Syntax: warcry
+Warcry is a barbarian skill which allows the barbarian to focus their
+power in a way that raisest their hit, damage and strength although
+slightly slowering their dexterity.  They all receive a small health
+boost upon execution.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request
