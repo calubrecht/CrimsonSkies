@@ -2580,6 +2580,12 @@ third attack does NOT assure three attacks per round.  Only warriors and highly
 skilled thieves may learn this skill.
 ~
 
+0 'FOURTH ATTACK'~
+Training in fourth attack allows the character a chance at an additional strike
+in a combat.  Fourth attack does NOT assure four attacks per round.  Only
+barbarians may learn this skill.
+~
+
 0 HIDE SNEAK~
 Hide and sneak are similar skills, both related to remaining undetected.
 Hide has a very high chance of success, but only works for as long as the
@@ -3339,6 +3345,7 @@ Current classes available for reclass:
    {G*{x Bladesinger (Any class, elves only)
    {G*{x Ranger (Warrior & Thieves)
    {G*{x Rogue (Thieves)
+   {G*{x Barbarian (Warrior, No Kender's)
 
 Use the 'class' command to see a list of all of the games classes
 with additional info on them from the game tables.
@@ -4428,6 +4435,14 @@ cannot logout of the game while you are hostile.
 Stat surge is a setting which allows the game admins to allow for stats
 to be raised above their racial/class maximum by spells and bonuses on
 gear.
+~
+0 BARBARIAN~
+Barbarian's are warriors who are unable to wield any magic.  They have
+higher health and movement than a warrior as well as the ability to
+hit better and harder.  Barbarians are also known for their ability
+to catch a second wind at times when they are at low health.
+
+See also: reclass
 ~
 0 QUEST PQUEST~
 
