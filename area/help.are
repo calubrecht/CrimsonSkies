@@ -4446,10 +4446,22 @@ See also: reclass
 ~
 0 WARCRY~
 Syntax: warcry
+
 Warcry is a barbarian skill which allows the barbarian to focus their
 power in a way that raisest their hit, damage and strength although
 slightly slowering their dexterity.  They all receive a small health
 boost upon execution.
+~
+0 CLEANSE~
+Syntax: cleanse
+
+Cleanse is a barbarian skill which allows the barbarian to effectively
+clear out physical debris from their eyes.  The barbarian must have a
+container filled with water on them in their inventory for this to work.
+~
+0 NATURAL REFRESH~
+Natural refresh is a barbarian skill which will allow the character to
+heal more movement every tick.
 ~
 0 QUEST PQUEST~
 
