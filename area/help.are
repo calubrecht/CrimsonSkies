@@ -4463,6 +4463,14 @@ container filled with water on them in their inventory for this to work.
 Natural refresh is a barbarian skill which will allow the character to
 heal more movement every tick.
 ~
+0 'POWER SWING' POWERSWING~
+Syntax: powerswing <victim>
+
+Power swing is a barbarian skill that allows a barbarian to deal a
+crushing blow onto their enemy.  Sometimes the attack can be powerful
+enough to daze their opponent.  Using a two handed can wield better
+results for this skill although it is not necessary to use.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request
