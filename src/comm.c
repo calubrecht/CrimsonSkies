@@ -1688,6 +1688,20 @@ void send_to_all_char(char *txt)
 }
 
 /*
+ * Lowest level output function.  Shorthand for write_to_descriptor if the DESCRIPTOR_DATA
+ * isn't null.
+ */
+bool write_to_desc(char *str, DESCRIPTOR_DATA *d)
+{
+    if (d != NULL)
+    {
+        return write_to_descriptor(d->descriptor, str, d);
+    }
+
+    return FALSE;
+}
+
+/*
  * - Lowest level output function.
  * - Write a block of text to the file descriptor.
  * - If this gives errors on very long blocks (like 'ofind all') then

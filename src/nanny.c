@@ -147,7 +147,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
             // writing them over pieces of already rendered text.
             sprintf(buf, "%s%s%s", DOWN, DOWN, DOWN);
-            send_to_desc(buf, d);
+            write_to_desc(buf, d);
 
             switch( argument[0] )
             {

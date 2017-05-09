@@ -2400,6 +2400,7 @@ void     act_new             (const char *format, CHAR_DATA *ch, const void *arg
 void     printf_to_char      (CHAR_DATA *, char *, ...);
 void     printf_to_desc      (DESCRIPTOR_DATA *, char *, ...);
 bool     write_to_descriptor (int desc, char *txt, DESCRIPTOR_DATA *d);
+bool     write_to_desc       (char *str, DESCRIPTOR_DATA *d);
 void     write_to_all_desc   (char *txt);
 void     send_to_all_char    (char *txt);
 void     copyover_broadcast  (char *txt, bool show_last_result);
