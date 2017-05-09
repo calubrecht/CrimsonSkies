@@ -2494,7 +2494,8 @@ learn this skill.
 Disarm is a somewhat showy and unreliable skill, designed to relieve your
 opponent of his weapon.  The best possible chance of disarming occurs when you
 are skilled both your own and your opponent's weapon. Only talented thieves
-and warriors may learn this skill.
+and warriors may learn this skill.  If your opponent is using a weapon in both
+hands then their secondary weapon will be switched to their primary arm.
 ~
 
 0 DODGE~
