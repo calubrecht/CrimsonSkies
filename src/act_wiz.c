@@ -189,6 +189,7 @@ void do_guild(CHAR_DATA * ch, char *argument)
         send_to_char("Syntax: guild <character> <clan name>\r\n", ch);
         return;
     }
+
     if ((victim = get_char_world(ch, arg1)) == NULL)
     {
         send_to_char("They aren't playing.\r\n", ch);
@@ -221,11 +222,11 @@ void do_guild(CHAR_DATA * ch, char *argument)
         sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, ch);
         sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        send_to_char(buf, victim);
     }
 
     victim->clan = clan;
-} // end do_guild
+}
 
 /* RT nochannels command, for those spammers */
 void do_nochannels(CHAR_DATA * ch, char *argument)
