@@ -27,7 +27,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Note cleanup, note forward bug
   - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
-  - Assassin class
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area so they save).
@@ -152,7 +151,14 @@ This is my to do list, mostly will be things big and small as I think about them
   - merit system
   - Secondary class stat
   - barb, mud coat skill.
+  - barb skill, second wind.
   - Race skill to show stats on all available pc races.
   - tnl command
+  - enhance pain spell (more damage taken)
+  - psionict's chance to avoid psionic damage damage
+  - assassin class (strangle, assassinate, flash bomb)
+  - assassin surprise attack (moves a person into the next room and attacks in a single command)
+  - draw command, to draw a random card.
 
-  -> barbarian, 4th attack, more moves on level gain, warcry, cleanse, natural refresh, power swing
+  -> barbarian*, 4th attack*, more moves on level gain*, warcry*, cleanse*, natural refresh*, power swing
+ 
