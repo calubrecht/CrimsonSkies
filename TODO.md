@@ -151,7 +151,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - merit system
   - Secondary class stat
   - barb, mud coat skill.
-  - barb skill, second wind.
   - Race skill to show stats on all available pc races.
   - tnl command
   - enhance pain spell (more damage taken)
@@ -160,5 +159,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - assassin surprise attack (moves a person into the next room and attacks in a single command)
   - draw command, to draw a random card.
 
-  -> barbarian*, 4th attack*, more moves on level gain*, warcry*, cleanse*, natural refresh*, power swing
  
