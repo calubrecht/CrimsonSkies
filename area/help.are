@@ -4443,6 +4443,9 @@ higher health and movement than a warrior as well as the ability to
 hit better and harder.  Barbarians are also known for their ability
 to catch a second wind at times when they are at low health.
 
+Barbarians special abilities include 4th attack, warcry, acute vision,
+cleanse, natural refresh, power swing and second wind.
+
 See also: reclass
 ~
 0 WARCRY~
@@ -4471,6 +4474,11 @@ Power swing is a barbarian skill that allows a barbarian to deal a
 crushing blow onto their enemy.  Sometimes the attack can be powerful
 enough to daze their opponent.  Using a two handed can wield better
 results for this skill although it is not necessary to use.
+~
+0 'SECOND WIND'~
+Second wind is a barbarian skill which will give them a burst of energy
+when their health gets too low, possibly saving them in a fight.  Once
+this has happened another second won't occur for a set period of time.
 ~
 0 QUEST PQUEST~
 

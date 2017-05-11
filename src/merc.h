@@ -2758,6 +2758,9 @@ CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
 void          agony_damage_check(CHAR_DATA *ch);
 void          calculate_priest_rank(CHAR_DATA * ch);
 
+/* class_barbarian.c */
+void          second_wind(CHAR_DATA * ch);
+
 #undef    CD
 #undef    MID
 #undef    OD

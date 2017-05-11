@@ -37,6 +37,7 @@
  *    - Cleanse                                                            *
  *    - Natural Refresh                                                    *
  *    - Power swing                                                        *
+ *    - Second wind                                                        *
  *                                                                         *
  ***************************************************************************/
 
@@ -343,4 +344,68 @@ void do_power_swing(CHAR_DATA * ch, char *argument)
     WAIT_STATE(ch, skill_table[gsn_power_swing]->beats);
 
     return;
+}
+
+/*
+ * Second wind allows a barbarian a chance to get a second wind which heals
+ * a percentage of their health once they are hurt.  This will process on
+ * damage taken, it will have a cool down period before it takes affect again
+ * and it will be passive in that the character cannot invoke it themselves.
+ */
+void second_wind(CHAR_DATA * ch)
+{
+    // Class check, ditch out, no need to process further if any of these are true.
+    if (IS_NPC(ch)
+        || ch->class != BARBARIAN_CLASS_LOOKUP
+        || get_skill(ch, gsn_second_wind) == 0
+        || ch->level < skill_table[gsn_second_wind]->skill_level[ch->class])
+    {
+        return;
+    }
+
+    int health_percent = 100;
+
+    // Get their health percentage
+    if (ch->max_hit > 0)
+    {
+        health_percent = (100 * ch->hit) / ch->max_hit;
+    }
+
+    // Exits: Too much health or failed chance, also, not going to happen if
+    // they have been slowed.
+    if (health_percent > 20
+        || !CHANCE_SKILL(ch, gsn_second_wind)
+        || is_affected(ch, gsn_slow))
+    {
+        check_improve(ch, gsn_second_wind, FALSE, 1);
+        return;
+    }
+
+    // We have gotten here.. they are successful, if they don't have second wind's
+    // cool down then we'll credit some health and add the second wind affect.
+    if (!is_affected(ch, gsn_second_wind))
+    {
+        send_to_char("You surge with a sudden burst of energy!\r\n", ch);
+        act("$n surges with a sudden burst of energy!", ch, NULL, NULL, TO_ROOM);
+
+        // Credit back 20% of their health.
+        int hp = ch->max_hit * .2;
+        ch->hit += hp;
+
+        // Add the affect so this won't be processed again until it's gone, 50 ticks
+        // is a little over a half hour real time.
+        AFFECT_DATA af;
+
+        af.where = TO_AFFECTS;
+        af.type = gsn_second_wind;
+        af.level = ch->level;
+        af.duration = 50;
+        af.modifier = 0;
+        af.location = APPLY_NONE;
+        af.bitvector = 0;
+        affect_to_char(ch, &af);
+
+        check_improve(ch, gsn_second_wind, TRUE, 1);
+    }
+
 }

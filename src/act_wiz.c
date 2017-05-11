@@ -6731,18 +6731,19 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-        AFFECT_DATA af;
-        check_improve(ch, gsn_dirt, TRUE, 2);
+    int percent = 0;
 
-        af.where = TO_AFFECTS;
-        af.type = gsn_dirt;
-        af.level = ch->level;
-        af.duration = 0;
-        af.location = APPLY_HITROLL;
-        af.modifier = -4;
-        af.bitvector = AFF_BLIND;
+    if (ch->max_hit > 0)
+    {
+        percent = (100 * ch->hit) / ch->max_hit;
+    }
 
-        affect_to_char(ch, &af);
+    int hp = ch->max_hit * .2;
+
+    printf_to_char(ch, "Health at %d%\r\n", percent);
+    printf_to_char(ch, "Add back: %d\r\n", hp);
+
+
 
     return;
 } // end do_debug

@@ -1055,6 +1055,10 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         victim->hit = 1;
     }
 
+    // Barbarians, see if they hit their second wind which gives them a chance to
+    // boost their health under certain circumstances.
+    second_wind(victim);
+
     update_pos(victim);
 
     switch (victim->position)
