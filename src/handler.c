@@ -3833,3 +3833,22 @@ bool leads_grouped_mob(CHAR_DATA *ch, int mob_vnum)
 
     return FALSE;
 }
+
+/*
+ * Return ascii name of an affect bit vector.
+ */
+char *deity_formatted_name(CHAR_DATA *ch)
+{
+    static char buf[64];
+
+    if (IS_NPC(ch))
+    {
+        sprintf(buf, "None");
+        return buf;
+    }
+
+    // Name and description
+    sprintf(buf, "%s, %s", deity_table[ch->pcdata->deity].name, deity_table[ch->pcdata->deity].description);
+
+    return buf;
+}

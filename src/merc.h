@@ -479,6 +479,18 @@ struct continent_type
     char *    name;
 };
 
+/*
+ * Structure for a merit including the bit, the name, a description and
+ * whether it can be choosen from the login menu.
+ */
+struct merit_type
+{
+    long   merit;
+    char * name;
+    char * description;
+    bool   chooseable;
+};
+
 struct weapon_type
 {
     char *    name;
@@ -1524,6 +1536,10 @@ typedef enum
 #define WIZ_GENERAL         (U)
 #define WIZ_BANK            (V)
 
+// Merits
+#define MERIT_MAGIC_AFFINITY   (A)
+#define MERIT_MAGIC_RESISTANCE (B)
+
 /*
  * Prototype for a mob.
  * This is the in-memory version of #MOBILES.
@@ -1735,6 +1751,7 @@ struct pc_data
     int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
     int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
     int             deity;             // The deity if any that the user follows
+    long            merit;
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2613,6 +2630,7 @@ bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);
 bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
 bool   leads_grouped_mob  (CHAR_DATA *ch, int mob_vnum);
+char * deity_formatted_name (CHAR_DATA *ch);
 
 /* recycle.c */
 TIMER *new_timer          (void);

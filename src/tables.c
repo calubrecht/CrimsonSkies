@@ -765,6 +765,15 @@ const struct continent_type continent_table[] = {
 };
 
 /*
+ * Merits that can increase a players ability in given areas.
+ */
+const struct merit_type merit_table[] = {
+    { MERIT_MAGIC_AFFINITY,   "Magic Affinity"  },
+    { MERIT_MAGIC_RESISTANCE, "Magic Resistance" },
+    { 0, NULL, NULL, FALSE}
+};
+
+/*
  * This is the portal shop type that defines where portal shops are allowed
  * to send players and how much it costs.  Each shop will manipulate the price
  * depending on where the player is and where they are going (e.g. if you're

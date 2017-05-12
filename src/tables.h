@@ -102,6 +102,7 @@ extern	const	struct	size_type	     size_table[];
 extern  const   struct  continent_type   continent_table[];
 extern  const   struct  portal_shop_type portal_shop_table[];
 extern  const   struct  deity_type       deity_table[];
+extern  const   struct  merit_type       merit_table[];
 
 /* flag tables */
 extern	const	struct	flag_type	act_flags[];

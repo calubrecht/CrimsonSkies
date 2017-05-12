@@ -2137,6 +2137,17 @@ void do_score(CHAR_DATA * ch, char *argument)
         !IS_NPC(ch) ? ch->pcdata->pk_timer : 0
     );
 
+    // Row 6 - Headers for Additional Info
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    sprintf(center_text, "%s", center_string_padded("{WAdditional Info{x", 71));
+    row_append_cell(row, 75, center_text);
+
+    // Row 7 - Additional Info
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    sprintf(buf, "Deity: {C%-25s{x", deity_formatted_name(ch));
+    row_append_cell(row, 75, buf);
+
+    // Finally, send the grid to the character
     grid_to_char (grid, ch, TRUE);
 
     if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))

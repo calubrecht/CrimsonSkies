@@ -374,6 +374,11 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
             fprintf( fp, "QuestGiver %d\n",  ch->pcdata->quest_giver->pIndexData->vnum);
         }
 
+        if (ch->pcdata->merit != 0)
+        {
+            fprintf(fp, "Merit %s\n", print_flags(ch->pcdata->merit));
+        }
+
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
         {
@@ -1144,7 +1149,9 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("LastIpAddress", ch->pcdata->last_ip, fread_string(fp));
 
                 break;
-
+            case 'M':
+                KEY("Merit", ch->pcdata->merit, fread_flag(fp));
+                break;
             case 'N':
                 KEYS("Name", ch->name, fread_string(fp));
                 break;
