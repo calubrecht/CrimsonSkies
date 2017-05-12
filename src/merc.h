@@ -487,7 +487,6 @@ struct merit_type
 {
     long   merit;
     char * name;
-    char * description;
     bool   chooseable;
 };
 

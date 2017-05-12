@@ -768,9 +768,9 @@ const struct continent_type continent_table[] = {
  * Merits that can increase a players ability in given areas.
  */
 const struct merit_type merit_table[] = {
-    { MERIT_MAGIC_AFFINITY,   "Magic Affinity"  },
-    { MERIT_MAGIC_RESISTANCE, "Magic Resistance" },
-    { 0, NULL, NULL, FALSE}
+    { MERIT_MAGIC_AFFINITY, "Magic Affinity", TRUE },
+    { MERIT_MAGIC_RESISTANCE, "Magic Resistance", TRUE },
+    { 0, NULL, FALSE}
 };
 
 /*

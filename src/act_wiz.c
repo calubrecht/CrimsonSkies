@@ -3953,7 +3953,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k questpoints deity\r\n", ch);
+        send_to_char("    1k questpoints deity merit\r\n", ch);
         return;
     }
 
@@ -4336,6 +4336,50 @@ void do_mset(CHAR_DATA * ch, char *argument)
         victim->pcdata->deity = deity;
 
         printf_to_char(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
+        return;
+    }
+
+    if (!str_prefix(arg2, "merit"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("You cannot set merits on NPC's.\r\n", ch);
+            return;
+        }
+
+        int x;
+        bool found = FALSE;
+
+        for (x = 0; merit_table[x].name != NULL; x++)
+        {
+            if (LOWER(arg3[0]) == LOWER(merit_table[x].name[0]) && !str_prefix(arg3, merit_table[x].name))
+            {
+                if (IS_SET(victim->pcdata->merit, merit_table[x].merit))
+                {
+                    REMOVE_BIT(victim->pcdata->merit, merit_table[x].merit);
+                    printf_to_char(ch, "%s removed from %s.\r\n", merit_table[x].name, victim->name);
+                }
+                else
+                {
+                    SET_BIT(victim->pcdata->merit, merit_table[x].merit);
+                    printf_to_char(ch, "%s added to %s.\r\n", merit_table[x].name, victim->name);
+                }
+
+                found = TRUE;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            send_to_char("That merit was not found.\r\n\r\nThe following are valid merits:\r\n\r\n", ch);
+
+            for (x = 0; merit_table[x].name != NULL; x++)
+            {
+                printf_to_char(ch, " * %s\r\n", merit_table[x].name);
+            }
+        }
+
         return;
     }
 
