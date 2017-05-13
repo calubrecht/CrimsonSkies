@@ -158,5 +158,5 @@ This is my to do list, mostly will be things big and small as I think about them
   - assassin class (strangle, assassinate, flash bomb)
   - assassin surprise attack (moves a person into the next room and attacks in a single command)
   - draw command, to draw a random card.
-
- 
+  - Casting Level in score
+  - merit, add cp back for merits on reclass.
