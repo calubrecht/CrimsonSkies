@@ -209,7 +209,7 @@ int casting_level(CHAR_DATA *ch)
     // Merit - Magic Affinity
     if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_MAGIC_AFFINITY))
     {
-      level += 1;
+        level += 1;
     }
 
     // Mage and mage reclassese get a bonus casting level, they are the
