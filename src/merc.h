@@ -2650,6 +2650,10 @@ bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
 CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
 bool      saves_dispel   (int dis_level, int spell_level, int duration);
 
+/* merit.c */
+void add_merit(CHAR_DATA *ch, long merit);
+void remove_merit(CHAR_DATA *ch, long merit);
+
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);
 void    mp_act_trigger     (char *argument, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2, int type);

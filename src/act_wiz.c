@@ -3953,7 +3953,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k questpoints deity merit\r\n", ch);
+        send_to_char("    1k questpoints deity merit[merit name|reset]\r\n", ch);
         return;
     }
 
@@ -4348,6 +4348,21 @@ void do_mset(CHAR_DATA * ch, char *argument)
         }
 
         int x;
+
+        if (!str_cmp(arg3, "clear") || !str_cmp(arg3, "reset"))
+        {
+            // Have to officially remove them one by one to reset any affects
+            // they might have.  Remove merit will check to see if they have it
+            // or not.
+            for (x = 0; merit_table[x].name != NULL; x++)
+            {
+                remove_merit(victim, merit_table[x].merit);
+            }
+
+            send_to_char("Merits cleared.\r\n", ch);
+            return;
+        }
+
         bool found = FALSE;
 
         for (x = 0; merit_table[x].name != NULL; x++)
@@ -4356,12 +4371,12 @@ void do_mset(CHAR_DATA * ch, char *argument)
             {
                 if (IS_SET(victim->pcdata->merit, merit_table[x].merit))
                 {
-                    REMOVE_BIT(victim->pcdata->merit, merit_table[x].merit);
+                    remove_merit(victim, merit_table[x].merit);
                     printf_to_char(ch, "%s removed from %s.\r\n", merit_table[x].name, victim->name);
                 }
                 else
                 {
-                    SET_BIT(victim->pcdata->merit, merit_table[x].merit);
+                    add_merit(victim, merit_table[x].merit);
                     printf_to_char(ch, "%s added to %s.\r\n", merit_table[x].name, victim->name);
                 }
 

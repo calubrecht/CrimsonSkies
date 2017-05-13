@@ -690,6 +690,13 @@ void reset_char(CHAR_DATA * ch)
     {
         ch->sex = ch->pcdata->true_sex;
     }
+
+    // Merit - Magic Resistance
+    if(IS_SET(ch->pcdata->merit, MERIT_MAGIC_RESISTANCE))
+    {
+        ch->saving_throw -= 4;
+    }
+
 }
 
 /*

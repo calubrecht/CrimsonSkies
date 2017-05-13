@@ -199,10 +199,17 @@ int casting_level(CHAR_DATA *ch)
         level += 1;
     }
 
-    // Spellcraft skill gains a bonus, making it a super useful skill
+    // Spellcraft skill gains a bonus, making it a super useful skill, this will
+    // require the skill check to pass though so it's not a given.
     if (CHANCE_SKILL(ch, gsn_spellcraft))
     {
         level += 1;
+    }
+
+    // Merit - Magic Affinity
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_MAGIC_AFFINITY))
+    {
+      level += 1;
     }
 
     // Mage and mage reclassese get a bonus casting level, they are the
@@ -248,7 +255,9 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
 
     // Beserk offers some magic resistance
     if (IS_AFFECTED(victim, AFF_BERSERK))
+    {
         save += victim->level / 2;
+    }
 
     // Check immunity, resistance and vulnerabilty
     switch (check_immune(victim, dam_type))
