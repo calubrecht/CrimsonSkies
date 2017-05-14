@@ -999,6 +999,12 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
         dam *= 2;
     }
 
+    // Damage Reduction Merit, -5% damage (needs to be at the end of the damage modifiers)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_DAMAGE_REDUCTION))
+    {
+        dam = (19 * dam) / 20;
+    }
+
     if (show)
     {
         dam_message(ch, victim, dam, dt, immune);

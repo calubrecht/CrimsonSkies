@@ -1538,6 +1538,7 @@ typedef enum
 // Merits
 #define MERIT_MAGIC_AFFINITY   (A)
 #define MERIT_MAGIC_RESISTANCE (B)
+#define MERIT_DAMAGE_REDUCTION (C)
 
 /*
  * Prototype for a mob.
