@@ -381,7 +381,7 @@ void advance_level(CHAR_DATA * ch, bool hide)
         case BARBARIAN_CLASS_LOOKUP:
             // Barbarians have no spells and have to walk everywhere, give them a fairly large
             // movement bonus on level.
-            add_move += 5;
+            add_move += 4;
             break;
     }
 

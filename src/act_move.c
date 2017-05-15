@@ -223,6 +223,12 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         if (IS_AFFECTED(ch, AFF_SLOW))
             move *= 2;
 
+        // Merit - Light Footed, 25% chance of a 20% movement reduction cost
+        if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_LIGHT_FOOTED && CHANCE(25)))
+        {
+            move = (move * 8) / 10;
+        }
+
         if (ch->move < move)
         {
             send_to_char("You are too exhausted.\r\n", ch);
@@ -1659,6 +1665,12 @@ void do_wake(CHAR_DATA * ch, char *argument)
     return;
 } // end do_wake
 
+/*
+ * Skill that allows the player to walk quietly so others don't see them enter
+ * or exit a room, also hides them from players without acute vision or who don't
+ * have their detect spells up.  This is a skill, but people who have the light
+ * footed merit also have access to it.
+ */
 void do_sneak(CHAR_DATA * ch, char *argument)
 {
     AFFECT_DATA af;
@@ -1671,7 +1683,14 @@ void do_sneak(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (number_percent() < get_skill(ch, gsn_sneak))
+    bool light_footed = FALSE;
+
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_LIGHT_FOOTED))
+    {
+        light_footed = TRUE;
+    }
+
+    if ((number_percent() < get_skill(ch, gsn_sneak)) || light_footed)
     {
         check_improve(ch, gsn_sneak, TRUE, 3);
         af.where = TO_AFFECTS;

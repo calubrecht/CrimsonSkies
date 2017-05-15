@@ -53,6 +53,7 @@
  */
 const struct merit_type merit_table[] = {
     { MERIT_DAMAGE_REDUCTION, "Damage Reduction", TRUE },   // -5% damage
+    { MERIT_LIGHT_FOOTED, "Light Footed", TRUE },           // Chance of reduced movement cost, access to sneak skill
     { MERIT_MAGIC_AFFINITY, "Magic Affinity", TRUE },       // +1 Casting Level
     { MERIT_MAGIC_RESISTANCE, "Magic Resistance", TRUE },   // -4 Saves
     { 0, NULL, FALSE}
