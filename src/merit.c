@@ -21,16 +21,17 @@
  **************************************************************************/
 
 /***************************************************************************
- *  Merits add abilities to a character, they cost creation points when a
- *  character is created.  They can also be earned from in game mechansims.
- *  They are added and removed through add_merit and remove_merit which
- *  will set the bits necessary and then setup any conditions that need to
- *  happen (like lower saves, etc).  Anything like this will also need to
- *  be accounted for in the reset_char function in handler.c.  Merits that
- *  don't toggle stats like that (e.g. magic affinity which raises casting
- *  level) don't need to worry about that in either location.
+ *  Merits add abilities to a character, they cost creation points when a  *
+ *  character is created.  They can also be earned from in game mechansims.*
+ *  They are added and removed through add_merit and remove_merit which    *
+ *  will set the bits necessary and then setup any conditions that need to *
+ *  happen (like lower saves, etc).  Anything like this will also need to  *
+ *  be accounted for in the reset_char function in handler.c if it affects *
+ *  something like allow a stat above the maximum for that race/class.     *
+ *  Merits that don't toggle stats like that (e.g. magic affinity which    *
+ *  raises casting level) don't need to worry about that in either         *
+ *  location (or can use a permanent affect added to apply_merit_affects). *
  ***************************************************************************/
-
 
 // System Specific Includes
 #if defined(_WIN32)
@@ -122,7 +123,7 @@ void remove_merit(CHAR_DATA *ch, long merit)
 
 /*
  * Applies any offical affects to a player for their given merits.  A merit affect can and should
- * still be cancelled off or dispelled, but will re-take affect on tick.
+ * still be cancelled off or dispelled if it's a normal spell, but will re-take affect on tick.
  */
 void apply_merit_affects(CHAR_DATA *ch)
 {
