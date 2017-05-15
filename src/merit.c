@@ -20,6 +20,18 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
+/***************************************************************************
+ *  Merits add abilities to a character, they cost creation points when a
+ *  character is created.  They can also be earned from in game mechansims.
+ *  They are added and removed through add_merit and remove_merit which
+ *  will set the bits necessary and then setup any conditions that need to
+ *  happen (like lower saves, etc).  Anything like this will also need to
+ *  be accounted for in the reset_char function in handler.c.  Merits that
+ *  don't toggle stats like that (e.g. magic affinity which raises casting
+ *  level) don't need to worry about that in either location.
+ ***************************************************************************/
+
+
 // System Specific Includes
 #if defined(_WIN32)
     #include <sys/types.h>
@@ -55,8 +67,7 @@ void add_merit(CHAR_DATA *ch, long merit)
 {
     // Not on NPC's and don't process the change (that reset_char would also process) if
     // the player already has the merit.
-    if (IS_NPC(ch)
-        || IS_SET(ch->pcdata->merit, merit))
+    if (IS_NPC(ch) || IS_SET(ch->pcdata->merit, merit))
     {
         return;
     }
@@ -70,7 +81,6 @@ void add_merit(CHAR_DATA *ch, long merit)
     }
 
     SET_BIT(ch->pcdata->merit, merit);
-
 }
 
 /*
@@ -81,8 +91,7 @@ void remove_merit(CHAR_DATA *ch, long merit)
 {
     // Not on NPC's and don't process the change (that reset_char would also process) if
     // the player already has the merit.
-    if (IS_NPC(ch)
-        || !IS_SET(ch->pcdata->merit, merit))
+    if (IS_NPC(ch) || !IS_SET(ch->pcdata->merit, merit))
     {
         return;
     }
@@ -96,5 +105,4 @@ void remove_merit(CHAR_DATA *ch, long merit)
     }
 
     REMOVE_BIT(ch->pcdata->merit, merit);
-
 }
