@@ -807,7 +807,7 @@ void weather_update(void)
 
 /*
  * Update all chars, including mobs.
-*/
+ */
 void char_update(void)
 {
     CHAR_DATA *ch;
@@ -854,6 +854,16 @@ void char_update(void)
                 --ch->pcdata->pk_timer;
             }
 
+        }
+
+        // Things that need to happen to players only.
+        if (!IS_NPC(ch))
+        {
+            // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
+            calculate_priest_rank(ch);
+
+            // Add any merit affects on (or back on) if they aren't on the player (checks done in this procedure).
+            apply_merit_affects(ch);
         }
 
         if (IS_AWAKE(ch))
@@ -1057,8 +1067,6 @@ void char_update(void)
             damage(ch, ch, 1, TYPE_UNDEFINED, DAM_NONE, FALSE);
         }
 
-        // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
-        calculate_priest_rank(ch);
     }
 
     /*

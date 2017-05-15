@@ -1540,6 +1540,7 @@ typedef enum
 #define MERIT_MAGIC_RESISTANCE (B)
 #define MERIT_DAMAGE_REDUCTION (C)
 #define MERIT_LIGHT_FOOTED     (D)
+#define MERIT_PERCEPTION       (E)
 
 /*
  * Prototype for a mob.
@@ -2655,6 +2656,7 @@ bool      saves_dispel   (int dis_level, int spell_level, int duration);
 /* merit.c */
 void add_merit(CHAR_DATA *ch, long merit);
 void remove_merit(CHAR_DATA *ch, long merit);
+void apply_merit_affects(CHAR_DATA *ch);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);
