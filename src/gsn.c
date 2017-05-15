@@ -211,6 +211,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_natural_refresh, "natural refresh");
     ASSIGN_GSN(gsn_power_swing, "power swing");
     ASSIGN_GSN(gsn_second_wind, "second wind");
+    ASSIGN_GSN(gsn_magic_protection, "magic protection");
 
     if (global.last_boot_result == UNKNOWN)
     {

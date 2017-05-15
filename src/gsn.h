@@ -205,3 +205,4 @@ DECLARE_GSN(gsn_cleanse);
 DECLARE_GSN(gsn_natural_refresh);
 DECLARE_GSN(gsn_power_swing);
 DECLARE_GSN(gsn_second_wind);
+DECLARE_GSN(gsn_magic_protection);

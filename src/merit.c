@@ -56,7 +56,7 @@ const struct merit_type merit_table[] = {
     { MERIT_DAMAGE_REDUCTION, "Damage Reduction", TRUE },   // -5% damage
     { MERIT_LIGHT_FOOTED, "Light Footed", TRUE },           // Chance of reduced movement cost, access to sneak skill
     { MERIT_MAGIC_AFFINITY, "Magic Affinity", TRUE },       // +1 Casting Level
-    { MERIT_MAGIC_RESISTANCE, "Magic Resistance", TRUE },   // -4 Saves
+    { MERIT_MAGIC_PROTECTION, "Magic Protection", TRUE },   // -4 Saves
     { MERIT_PERCEPTION, "Perception", TRUE},                // Permanent affects for -> detect hidden, detect invis, detect good, detect evil, detect magic
     { 0, NULL, FALSE}
 };
@@ -80,9 +80,7 @@ void add_merit(CHAR_DATA *ch, long merit)
     // Every case here must have a corresponding removal case in remove_merit
     switch (merit)
     {
-        case MERIT_MAGIC_RESISTANCE:
-            ch->saving_throw -= 4;
-            break;
+        case MERIT_MAGIC_PROTECTION:
         case MERIT_PERCEPTION:
             apply_merit_affects(ch);
             break;
@@ -107,8 +105,8 @@ void remove_merit(CHAR_DATA *ch, long merit)
     // Every case here must have a corresponding removal case in remove_merit
     switch (merit)
     {
-        case MERIT_MAGIC_RESISTANCE:
-            ch->saving_throw += 4;
+        case MERIT_MAGIC_PROTECTION:
+            affect_strip(ch, gsn_magic_protection);
             break;
         case MERIT_PERCEPTION:
             affect_strip(ch, gsn_detect_hidden);
@@ -134,6 +132,7 @@ void apply_merit_affects(CHAR_DATA *ch)
         return;
     }
 
+    // Perception
     if (IS_SET(ch->pcdata->merit, MERIT_PERCEPTION))
     {
         // Base affect settings
@@ -180,6 +179,22 @@ void apply_merit_affects(CHAR_DATA *ch)
         {
             af.type = gsn_detect_evil;
             af.bitvector = AFF_DETECT_EVIL;
+            affect_to_char(ch, &af);
+        }
+    }
+
+    // Magic Resistance
+    if (IS_SET(ch->pcdata->merit, MERIT_MAGIC_PROTECTION))
+    {
+        if (!is_affected(ch, gsn_magic_protection))
+        {
+            af.where = TO_AFFECTS;
+            af.level = ch->level;
+            af.duration = -1;
+            af.location = APPLY_SAVES;
+            af.modifier = -4;
+            af.type = gsn_magic_protection;
+            af.bitvector = 0;
             affect_to_char(ch, &af);
         }
     }

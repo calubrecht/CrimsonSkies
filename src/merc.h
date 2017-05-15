@@ -1537,7 +1537,7 @@ typedef enum
 
 // Merits
 #define MERIT_MAGIC_AFFINITY   (A)
-#define MERIT_MAGIC_RESISTANCE (B)
+#define MERIT_MAGIC_PROTECTION (B)
 #define MERIT_DAMAGE_REDUCTION (C)
 #define MERIT_LIGHT_FOOTED     (D)
 #define MERIT_PERCEPTION       (E)
