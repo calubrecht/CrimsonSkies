@@ -1536,11 +1536,12 @@ typedef enum
 #define WIZ_BANK            (V)
 
 // Merits
-#define MERIT_MAGIC_AFFINITY   (A)
-#define MERIT_MAGIC_PROTECTION (B)
-#define MERIT_DAMAGE_REDUCTION (C)
-#define MERIT_LIGHT_FOOTED     (D)
-#define MERIT_PERCEPTION       (E)
+#define MERIT_MAGIC_AFFINITY     (A)
+#define MERIT_MAGIC_PROTECTION   (B)
+#define MERIT_DAMAGE_REDUCTION   (C)
+#define MERIT_LIGHT_FOOTED       (D)
+#define MERIT_PERCEPTION         (E)
+#define MERIT_PRECISION_STRIKING (F)
 
 /*
  * Prototype for a mob.

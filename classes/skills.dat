@@ -2477,4 +2477,25 @@ Beats       0
 Race        0
 End
 
+#SKILL
+Name        magic protection~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      Your magical protection fades.~
+Race        0
+End
+
+#SKILL
+Name        precision striking~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
 #END
