@@ -1170,23 +1170,31 @@ void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
         || ch->pcdata->learned[sn] == 0 || ch->pcdata->learned[sn] == 100)
         return;                    /* skill is not known */
 
-    /* check to see if the character has a chance to learn */
+    // Check to see if the character has a chance to learn.  Intelligence
+    // factors in, the rating of the skill for the player factors in, it gets
+    // easier the higher level you are.
     chance = 10 * int_app[get_curr_stat(ch, STAT_INT)].learn;
-    chance /= (multiplier * skill_table[sn]->rating[ch->class] * 4);
+    chance /= (multiplier * abs(skill_table[sn]->rating[ch->class]) * 4);
     chance += ch->level;
 
+    // Merit - Fast Learner (additional 5% on the initial chance to learn)
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+    {
+        chance += 50;
+    }
+
     if (number_range(1, 1000) > chance)
+    {
         return;
+    }
 
-    /* now that the character has a CHANCE to learn, see if they really have */
-
+    // Now that the character has a CHANCE to learn, see if they really have.
     if (success)
     {
         chance = URANGE(5, 100 - ch->pcdata->learned[sn], 95);
         if (number_percent() < chance)
         {
-            sprintf(buf, "You have become better at %s!\r\n",
-                skill_table[sn]->name);
+            sprintf(buf, "You have become better at %s!\r\n", skill_table[sn]->name);
             send_to_char(buf, ch);
             ch->pcdata->learned[sn]++;
             gain_exp(ch, 2 * skill_table[sn]->rating[ch->class]);
@@ -1198,9 +1206,7 @@ void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
         chance = URANGE(5, ch->pcdata->learned[sn] / 2, 30);
         if (number_percent() < chance)
         {
-            sprintf(buf,
-                "You learn from your mistakes, and your %s skill improves.\r\n",
-                skill_table[sn]->name);
+            sprintf(buf, "You learn from your mistakes, and your %s skill improves.\r\n", skill_table[sn]->name);
             send_to_char(buf, ch);
             ch->pcdata->learned[sn] += number_range(1, 3);
             ch->pcdata->learned[sn] = UMIN(ch->pcdata->learned[sn], 100);

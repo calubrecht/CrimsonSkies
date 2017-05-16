@@ -217,8 +217,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     xp = (xp * (100 + (get_curr_stat(gch, STAT_INT) * 4))) / 100;
 
     // Double experience bonus (this must be the last check to truly double
-    // the calculation.
-    if (settings.double_exp)
+    // the calculation.  Also, people with the fast learner merit get this all
+    // the time (they don't get double the double experience however)
+    if (settings.double_exp || (!IS_NPC(gch) && IS_SET(gch->pcdata->merit, MERIT_FAST_LEARNER)))
     {
         xp *= 2;
     }
@@ -378,7 +379,15 @@ void advance_level(CHAR_DATA * ch, bool hide)
     }
 
     add_move = number_range(1, (get_curr_stat(ch, STAT_CON) + get_curr_stat(ch, STAT_DEX)) / 6);
+
+    // Practices are based off of wisdom
     add_prac = wis_app[get_curr_stat(ch, STAT_WIS)].practice;
+
+    // Merit - Fast Learner (1 additional practice per level).
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+    {
+        add_prac += 1;
+    }
 
     add_hp = add_hp * 9 / 10;
     add_mana = add_mana * 9 / 10;

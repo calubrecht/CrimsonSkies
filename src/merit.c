@@ -54,6 +54,7 @@
  */
 const struct merit_type merit_table[] = {
     { MERIT_DAMAGE_REDUCTION, "Damage Reduction", TRUE },    // -5% damage
+    { MERIT_FAST_LEARNER, "Fast Learner", TRUE},             // Double experience, bonus on raising % on skills when learning, additional practice per level.
     { MERIT_LIGHT_FOOTED, "Light Footed", TRUE },            // Chance of reduced movement cost, access to sneak skill
     { MERIT_MAGIC_AFFINITY, "Magic Affinity", TRUE },        // +1 Casting Level
     { MERIT_MAGIC_PROTECTION, "Magic Protection", TRUE },    // -4 Saves
