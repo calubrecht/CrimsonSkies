@@ -6,6 +6,13 @@ An NPC is a non player character.
 -1 MOBILE MOB~
 A mobile or "mob" is a non player creature in the game.
 ~
+-1 'HOURS AFFECT EXPERIENCE'~
+The hours affect experience setting determines whether the game will change your
+experience based on the hours played.  If this setting is on you may earn less
+experience if you have less hours played.
+
+See also:  help settings
+~
 -1 Q-POINT QPOINTS 'QUEST POINTS'~
 Quest Points are obtained by completing quests from a quest master.  They can be used
 to buy items not otherwise available in the world.

@@ -105,8 +105,9 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
-        sprintf(buf, "%-25s %-7d\r\n",
-            "Stat Surge", settings.stat_surge);
+        sprintf(buf, "%-25s %-4d %-25s %-7s\r\n",
+            "Stat Surge", settings.stat_surge,
+            "Hours Affect Experience", settings.hours_affect_exp ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
         send_to_char("\r\n", ch);
@@ -293,6 +294,17 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         save_settings();
     }
+    else if (!str_prefix(arg1, "hoursexp"))
+    {
+        settings.hours_affect_exp = !settings.hours_affect_exp;
+
+        sprintf(buf, "$N has set the hours affect experience setting to %s.", bool_onoff(settings.hours_affect_exp));
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        printf_to_char(ch, "Hours affecting experience has been turned %s.\r\n", bool_onoff(settings.hours_affect_exp));
+
+        save_settings();
+    }
     else if (!str_prefix(arg1, "webpageurl"))
     {
         if (!IS_NULLSTR(arg2))
@@ -373,7 +385,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|hoursexp>\r\n", ch);
     }
 
 } // end do_settings
@@ -408,6 +420,7 @@ void load_settings()
     settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
     settings.login_who_list_enabled = iniparser_getboolean(ini, "Settings:LoginWhoListEnabled", TRUE);
+    settings.hours_affect_exp = iniparser_getboolean(ini, "Settings:HoursAffectExperience", TRUE);
 
     settings.stat_surge = iniparser_getint(ini, "Settings:StatSurge", 0);
 
@@ -469,6 +482,7 @@ void save_settings(void)
     fprintf(fp, "ShockSpread = %s\n", settings.shock_spread ? "True" : "False");
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
     fprintf(fp, "StatSurge = %d\n", settings.stat_surge);
+    fprintf(fp, "HoursAffectExperience = %s\n", settings.hours_affect_exp ? "True" : "False");
 
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");

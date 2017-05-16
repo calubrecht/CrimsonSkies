@@ -64,7 +64,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     // No experience if the person is charmed or they are in the arena.
     if (IS_SET(gch->affected_by, AFF_CHARM)
         || IS_SET(gch->in_room->room_flags, ROOM_ARENA))
+    {
         return 0;
+    }
 
     xp = 0;
     level_range = victim->level - gch->level;
@@ -122,7 +124,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     // If level range is greater than 4 between player and victim then
     // give them a sliding bonus
     if (level_range > 4)
+    {
         base_exp = 160 + 20 * (level_range - 4);
+    }
 
     // Instead adding up the base, going to create slight increase here
     // that can be tweaked as needed.
@@ -165,13 +169,18 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
 
     /* more exp at the low levels */
     if (gch->level < 6)
+    {
         xp = 10 * xp / (gch->level + 4);
+    }
 
     /* less at high */
     if (gch->level > 43)
+    {
         xp = 15 * xp / (gch->level - 25);
+    }
 
-    /* reduce for playing time */
+    /* reduce for playing time if the game setting for this is toggled on */
+    if (settings.hours_affect_exp)
     {
         /* compute quarter-hours per level */
         time_per_level = 4 *
@@ -179,8 +188,13 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
             / gch->level;
 
         time_per_level = URANGE(2, time_per_level, 12);
-        if (gch->level < 15)    /* make it a curve */
+
+        /* make it a curve */
+        if (gch->level < 15)
+        {
             time_per_level = UMAX(time_per_level, (15 - gch->level));
+        }
+
         xp = xp * time_per_level / 12;
     }
 
@@ -189,7 +203,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     if ((gch->class == RANGER_CLASS_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
         || (gch->race == ELF_RACE_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
         || (gch->race == DWARF_RACE_LOOKUP && gch->in_room->sector_type == SECT_MOUNTAIN))
+    {
         xp = xp * 20 / 19;
+    }
 
     /* randomize the rewards */
     xp = number_range(xp * 3 / 4, xp * 5 / 4);
@@ -203,7 +219,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     // Double experience bonus (this must be the last check to truly double
     // the calculation.
     if (settings.double_exp)
+    {
         xp *= 2;
+    }
 
     return xp;
 }

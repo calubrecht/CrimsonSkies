@@ -630,6 +630,7 @@ struct settings_data
     bool shock_spread;       // Shocking effect spreads under water.
     bool gain_convert;       // Whether or not gain convert is enabled.
     int stat_surge;          // How far above the players natural stat a spell can take it.
+    bool hours_affect_exp;   // Whether hours affect experience
     // Info
     char *web_page_url;
     char *mud_name;
