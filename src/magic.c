@@ -2522,17 +2522,18 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    if (saves_spell(level, victim, DAM_DISEASE) ||
-        (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
+    if (saves_spell(level, victim, DAM_DISEASE) || (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
     {
-        if (ch == victim)
-        {
-            send_to_char("You feel momentarily ill, but it passes.\r\n", ch);
-        }
-        else
-        {
-            act("$N seems to be unaffected.", ch, NULL, victim, TO_CHAR);
-        }
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        act("$n looks slightly ill, but it passes.", victim, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    // Merit - Healthy (50% chance to avoiding plague after it passes the saves check)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_HEALTHY) && CHANCE(50))
+    {
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        act("$n looks slightly ill, but it passes.", victim, NULL, NULL, TO_ROOM);
         return;
     }
 
@@ -2570,13 +2571,12 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
             if (IS_OBJ_STAT(obj, ITEM_BLESS)
                 || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
             {
-                act("Your spell fails to corrupt $p.", ch, obj, NULL,
-                    TO_CHAR);
+                act("Your spell fails to corrupt $p.", ch, obj, NULL, TO_CHAR);
                 return;
             }
+
             obj->value[3] = 1;
-            act("$p is infused with poisonous vapors.", ch, obj, NULL,
-                TO_ALL);
+            act("$p is infused with poisonous vapors.", ch, obj, NULL, TO_ALL);
             return;
         }
 
@@ -2629,8 +2629,15 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (saves_spell(level, victim, DAM_POISON))
     {
-        act("$n turns slightly green, but it passes.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n turns slightly green, but it passes.", victim, NULL, NULL, TO_ROOM);
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        return;
+    }
+
+    // Merit - Healthy (50% chance to avoiding plague after it passes the saves check)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_HEALTHY) && CHANCE(50))
+    {
+        act("$n turns slightly green, but it passes.", victim, NULL, NULL, TO_ROOM);
         send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
         return;
     }

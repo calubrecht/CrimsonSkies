@@ -265,7 +265,13 @@ int hit_gain(CHAR_DATA * ch)
     // once they wake.
     if (is_affected(ch, gsn_healing_dream))
     {
-        gain += number_range(25, 35);
+        gain += number_range(40, 70);
+    }
+
+    // Merit - Healthy
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_HEALTHY))
+    {
+        gain += number_range(15, 25);
     }
 
     // Rangers camping - regen bonus is greater at night than during
