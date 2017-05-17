@@ -412,6 +412,24 @@ void advance_level(CHAR_DATA * ch, bool hide)
             break;
     }
 
+    // Merit - Constitution
+    if (IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION))
+    {
+        add_hp += 2;
+    }
+
+    // Merit - Intelligence
+    if (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE))
+    {
+        add_mana += 1;
+    }
+
+    // Merit - Wisdom
+    if (IS_SET(ch->pcdata->merit, MERIT_WISDOM))
+    {
+        add_mana += 1;
+    }
+
     add_train = 1;
 
     ch->max_hit += add_hp;

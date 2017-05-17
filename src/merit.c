@@ -61,6 +61,9 @@ const struct merit_type merit_table[] = {
     { MERIT_MAGIC_PROTECTION, "Magic Protection", TRUE },     // -4 Saves
     { MERIT_PERCEPTION, "Perception", TRUE },                 // Permanent affects for -> detect hidden, detect invis, detect good, detect evil, detect magic
     { MERIT_PRECISION_STRIKING, "Precision Striking", TRUE} , // +5 hit roll
+    { MERIT_CONSTITUTION, "Higher Constitution", TRUE },      // +1 constitution, +2 hp per level.
+    { MERIT_INTELLIGENCE, "Higher Intelligence", TRUE },      // +1 intelligence, +1 mana per level.
+    { MERIT_WISDOM, "Higher Wisdom", TRUE },                  // +1 wisdom, +1 mana per level.
     { 0, NULL, FALSE}
 };
 
@@ -87,6 +90,15 @@ void add_merit(CHAR_DATA *ch, long merit)
         case MERIT_PERCEPTION:
         case MERIT_PRECISION_STRIKING:
             apply_merit_affects(ch);
+            break;
+        case MERIT_CONSTITUTION:
+            ch->perm_stat[STAT_CON] += 1;
+            break;
+        case MERIT_WISDOM:
+            ch->perm_stat[STAT_WIS] += 1;
+            break;
+        case MERIT_INTELLIGENCE:
+            ch->perm_stat[STAT_INT] += 1;
             break;
     }
 }
@@ -122,6 +134,16 @@ void remove_merit(CHAR_DATA *ch, long merit)
         case MERIT_PRECISION_STRIKING:
             affect_strip(ch, gsn_precision_striking);
             break;
+        case MERIT_CONSTITUTION:
+            ch->perm_stat[STAT_CON] -= 1;
+            break;
+        case MERIT_WISDOM:
+            ch->perm_stat[STAT_WIS] -= 1;
+            break;
+        case MERIT_INTELLIGENCE:
+            ch->perm_stat[STAT_INT] -= 1;
+            break;
+
     }
 
 }

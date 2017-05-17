@@ -730,7 +730,6 @@ int get_curr_stat(CHAR_DATA * ch, int stat)
     {
         max = 25;
     }
-
     else
     {
         // Stock ROM allowed players to go above their max stat by 4 with spells, this
@@ -745,6 +744,14 @@ int get_curr_stat(CHAR_DATA * ch, int stat)
         if (class_table[ch->class]->attr_prime == stat)
         {
             max += 2;
+        }
+
+        // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
+        if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
+            || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+            || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
+        {
+            max += 1;
         }
 
         // And why not.
@@ -769,15 +776,32 @@ int get_max_train(CHAR_DATA * ch, int stat)
     int max;
 
     if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
+    {
         return 25;
+    }
 
+    // Get the max stats for the players race for the requested stat
     max = pc_race_table[ch->race].max_stats[stat];
+
+    // Modify based off of the what the player's classes primary stat is
     if (class_table[ch->class]->attr_prime == stat)
     {
         if (ch->race == race_lookup("human"))
+        {
             max += 3;
+        }
         else
+        {
             max += 2;
+        }
+    }
+
+    // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
+    if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
+        || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+        || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
+    {
+        max += 1;
     }
 
     return UMIN(max, 25);

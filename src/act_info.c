@@ -3411,10 +3411,10 @@ void do_stats(CHAR_DATA *ch, char *argument)
 
     char buf[MAX_STRING_LENGTH];
 
-    send_to_char("------------------------------------------------------\r\n", ch);
-    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class{x\r\n");
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
+    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class (with merits){x\r\n");
     send_to_char(buf, ch);
-    send_to_char("------------------------------------------------------\r\n", ch);
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
 
     sprintf(buf, "Strength        {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_STR],
@@ -3451,7 +3451,7 @@ void do_stats(CHAR_DATA *ch, char *argument)
         get_max_train(ch, STAT_CON));
     send_to_char(buf, ch);
 
-    send_to_char("------------------------------------------------------\r\n", ch);
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
 
     return;
 } // end do_stats

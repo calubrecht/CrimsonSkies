@@ -1545,6 +1545,9 @@ typedef enum
 #define MERIT_PRECISION_STRIKING (F)
 #define MERIT_FAST_LEARNER       (G)
 #define MERIT_HEALTHY            (H)
+#define MERIT_CONSTITUTION       (I)
+#define MERIT_INTELLIGENCE       (J)
+#define MERIT_WISDOM             (K)
 
 /*
  * Prototype for a mob.
