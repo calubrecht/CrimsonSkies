@@ -4497,7 +4497,13 @@ Merit List:
  * Magic Affinity
  * Magic Protection
  * Perception
+~
+0 MERITLIST~
+Syntax: meritlist
 
+The merit list command will show you all merits that are currently in
+the game, whether a player can choose them at creation and which ones
+if any you currently have set on you.
 ~
 0 'SECOND WIND'~
 Second wind is a barbarian skill which will give them a burst of energy

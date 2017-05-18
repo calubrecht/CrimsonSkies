@@ -258,3 +258,30 @@ void apply_merit_affects(CHAR_DATA *ch)
     }
 
 }
+
+/*
+ * Shows a list of all merits in the game and whether the player any of them.
+ */
+void do_meritlist(CHAR_DATA *ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        send_to_char("This command is not usable by NPC's\r\n", ch);
+        return;
+    }
+
+    int i;
+
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
+    printf_to_char(ch, "%-29s%-17s%-15s\r\n", "{WMerit{x", "{WYou Have{x", "{WPlayer Chooseable{x");
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
+
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        printf_to_char(ch, "%-25s%-17s%-13s\r\n",
+            merit_table[i].name,
+            IS_SET(ch->pcdata->merit, merit_table[i].merit) ? "{GTrue{x" : "{RFalse{x",
+            merit_table[i].chooseable == TRUE ? "{GTrue{x" : "{RFalse{x");
+    }
+
+}

@@ -429,6 +429,7 @@ const struct cmd_type cmd_table[] = {
     {"playerlist",      do_playerlist,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"duplicate",       do_duplicate,   POS_STANDING, 1, LOG_NORMAL, TRUE},
     {"deity",           do_deity,       POS_DEAD,  1, LOG_NORMAL, TRUE},
+    {"meritlist",       do_meritlist,   POS_DEAD, 1, LOG_NORMAL, TRUE},
 
     /*
      * OLC
