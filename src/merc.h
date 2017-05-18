@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.4.0"
+#define VERSION "1.4.5"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -276,6 +276,8 @@ struct weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_CHOOSE_MERIT            -21
+#define CON_ASK_MERIT               -20
 #define CON_GET_DEITY               -19
 #define CON_NEW_CHARACTER           -18
 #define CON_LOGIN_RETURN            -17
@@ -2756,6 +2758,7 @@ int    race_lookup          (const char *name);
 int    item_lookup          (const char *name);
 int    liq_lookup           (const char *name);
 int    deity_lookup         (const char *name);
+int    merit_lookup         (const char *name);
 
 /* log.c */
 void   bug                  (const char *str, int param);

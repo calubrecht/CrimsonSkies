@@ -4333,6 +4333,13 @@ void do_mset(CHAR_DATA * ch, char *argument)
 
         int deity;
         deity = deity_lookup(arg3);
+
+        if (deity < 0)
+        {
+            send_to_char("That's not a valid deity.\r\n", ch);
+            return;
+        }
+
         victim->pcdata->deity = deity;
 
         printf_to_char(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
@@ -4925,6 +4932,10 @@ void do_sockets(CHAR_DATA * ch, char *argument)
                 break;
             case CON_GET_DEITY:
                 sprintf(state, "Get Deity");
+                break;
+            case CON_ASK_MERIT:
+            case CON_CHOOSE_MERIT:
+                sprintf(state, "Merit Selection");
                 break;
             case CON_NEW_CHARACTER:
                 sprintf(state, "New Character");

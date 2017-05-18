@@ -489,7 +489,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'y':
                 case 'Y':
-                    sprintf(buf, "New character.\r\nGive me a password for %s: %s", ch->name, echo_off_str);
+                    sprintf(buf, "\r\nGive me a password for %s: %s", ch->name, echo_off_str);
                     send_to_desc(buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
 
@@ -777,6 +777,72 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     return;
             }
 
+            send_to_char("\r\nWould you like to choose a merit for your character for 10cp (Y/N)?", ch);
+            d->connected = CON_ASK_MERIT;
+
+            break;
+        case CON_ASK_MERIT:
+            switch (argument[0])
+            {
+                case 'y':
+                case 'Y':
+                    send_to_char("\r\nThe following are valid merits:\r\n", ch);
+
+                    for (i = 0; merit_table[i].name != NULL; i++)
+                    {
+                        printf_to_char(ch, "  {G*{x %s\r\n", merit_table[i].name);
+                    }
+
+                    send_to_char("\r\nPlease choose a merit: ", ch);
+
+                    d->connected = CON_CHOOSE_MERIT;
+                    return;
+                case 'n':
+                case 'N':
+                    // No merit, proceed to choose deity
+                    send_to_char("\r\nThe following are the deities available for you to follow:\r\n", ch);
+
+                    // Loop through the available deities and show the player only the
+                    // ones that they're allowed to take.
+                    for (i = 0; deity_table[i].name != NULL; i++)
+                    {
+                        if (deity_table[i].align != ALIGN_ALL)
+                        {
+                            if (deity_table[i].align != ch->alignment)
+                            {
+                                continue;
+                            }
+                        }
+
+                        printf_to_char(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+                    }
+
+                    send_to_char("Which deity do you wish to follow? ", ch);
+
+                    d->connected = CON_GET_DEITY;
+                    return;
+                default:
+                    // No valid, repeat ask
+                    send_to_char("Please choose yes or no ('Y' or 'N').\r\n", ch);
+                    return;
+            }
+
+            break;
+        case CON_CHOOSE_MERIT:
+            one_argument(argument, arg);
+            i = merit_lookup(argument);
+
+            if (i < 0)
+            {
+                send_to_char("That's not a valid merit.  Which merit do you want? ", ch);
+                return;
+            }
+
+            // Add 10 creation points and then add the merit
+            ch->pcdata->points += 10;
+            add_merit(ch, merit_table[i].merit);
+
+            // Deity is on deck
             send_to_char("\r\n", ch);
             send_to_char("The following are the deities available for you to follow:\r\n", ch);
 
@@ -798,9 +864,10 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             send_to_char("Which deity do you wish to follow? ", ch);
 
             d->connected = CON_GET_DEITY;
-            break;
+
+            return;
         case CON_GET_DEITY:
-            one_argument(argument,arg);
+            one_argument(argument, arg);
             i = deity_lookup(argument);
 
             // Weed out invalid picks since deity_lookup will return anything (not just what was

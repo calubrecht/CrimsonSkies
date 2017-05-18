@@ -201,6 +201,24 @@ int deity_lookup(const char *name)
         }
     }
 
-    return 0;
+    return -1;
+}
+
+/*
+ * Returns the numeric value for the merit based on the provided name.
+ */
+int merit_lookup(const char *name)
+{
+    int x;
+
+    for (x = 0; merit_table[x].name != NULL; x++)
+    {
+        if (LOWER(name[0]) == LOWER(merit_table[x].name[0]) && !str_prefix(name, merit_table[x].name))
+        {
+            return x;
+        }
+    }
+
+    return -1;
 }
 
