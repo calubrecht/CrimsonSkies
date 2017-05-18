@@ -1548,6 +1548,8 @@ typedef enum
 #define MERIT_CONSTITUTION       (I)
 #define MERIT_INTELLIGENCE       (J)
 #define MERIT_WISDOM             (K)
+#define MERIT_STRENGTH           (L)
+#define MERIT_DEXTERITY          (M)
 
 /*
  * Prototype for a mob.

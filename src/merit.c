@@ -57,13 +57,15 @@ const struct merit_type merit_table[] = {
     { MERIT_FAST_LEARNER, "Fast Learner", TRUE },             // Double experience, bonus on raising % on skills when learning, additional practice per level.
     { MERIT_HEALTHY, "Healthy", TRUE },                       // Increased regen, additional resistance to plague/poison
     { MERIT_CONSTITUTION, "Higher Constitution", TRUE },      // +1 constitution, +2 hp per level.
+    { MERIT_DEXTERITY, "Higher Dexterity", TRUE },            // +1 Dexterity
     { MERIT_INTELLIGENCE, "Higher Intelligence", TRUE },      // +1 intelligence, +1 mana per level.
+    { MERIT_STRENGTH, "Higher Strength", TRUE },              // +1 Strength
     { MERIT_WISDOM, "Higher Wisdom", TRUE },                  // +1 wisdom, +1 mana per level.
     { MERIT_LIGHT_FOOTED, "Light Footed", TRUE },             // Chance of reduced movement cost, access to sneak skill
     { MERIT_MAGIC_AFFINITY, "Magic Affinity", TRUE },         // +1 Casting Level
     { MERIT_MAGIC_PROTECTION, "Magic Protection", TRUE },     // -4 Saves
     { MERIT_PERCEPTION, "Perception", TRUE },                 // Permanent affects for -> detect hidden, detect invis, detect good, detect evil, detect magic
-    { MERIT_PRECISION_STRIKING, "Precision Striking", TRUE} , // +5 hit roll
+    { MERIT_PRECISION_STRIKING, "Precision Striking", TRUE }, // +5 hit roll
     { 0, NULL, FALSE}
 };
 
@@ -99,6 +101,12 @@ void add_merit(CHAR_DATA *ch, long merit)
             break;
         case MERIT_INTELLIGENCE:
             ch->perm_stat[STAT_INT] += 1;
+            break;
+        case MERIT_STRENGTH:
+            ch->perm_stat[STAT_STR] += 1;
+            break;
+        case MERIT_DEXTERITY:
+            ch->perm_stat[STAT_DEX] += 1;
             break;
     }
 }
@@ -143,7 +151,12 @@ void remove_merit(CHAR_DATA *ch, long merit)
         case MERIT_INTELLIGENCE:
             ch->perm_stat[STAT_INT] -= 1;
             break;
-
+        case MERIT_STRENGTH:
+            ch->perm_stat[STAT_STR] -= 1;
+            break;
+        case MERIT_DEXTERITY:
+            ch->perm_stat[STAT_DEX] -= 1;
+            break;
     }
 
 }

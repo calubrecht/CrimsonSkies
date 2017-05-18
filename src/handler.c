@@ -749,6 +749,8 @@ int get_curr_stat(CHAR_DATA * ch, int stat)
         // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
         if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
             || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+            || (IS_SET(ch->pcdata->merit, MERIT_STRENGTH) && stat == STAT_STR)
+            || (IS_SET(ch->pcdata->merit, MERIT_DEXTERITY) && stat == STAT_DEX)
             || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
         {
             max += 1;
@@ -799,6 +801,8 @@ int get_max_train(CHAR_DATA * ch, int stat)
     // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
     if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
         || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+        || (IS_SET(ch->pcdata->merit, MERIT_STRENGTH) && stat == STAT_STR)
+        || (IS_SET(ch->pcdata->merit, MERIT_DEXTERITY) && stat == STAT_DEX)
         || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
     {
         max += 1;
