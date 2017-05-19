@@ -160,3 +160,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - draw command, to draw a random card.
   - Casting Level in score
   - Merits, don't allow to go over 25 for a stat.
+  - Merits, check about removing / re-adding on reclass (because it resets the perm stats).
