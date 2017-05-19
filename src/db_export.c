@@ -79,74 +79,74 @@ char *flag_string(const struct flag_type *flag_table, int bits);
  */
 void do_dbexport(CHAR_DATA * ch, char *argument)
 {
-    printf_to_char(ch, "%-55sStatus\r\n", "Action");
-    send_to_char(HEADER, ch);
+    writef(ch->desc, "%-55sStatus\r\n", "Action");
+    writef(ch->desc, HEADER);
 
-    printf_to_char(ch, "%-55s", "Exporting Bits");
+    writef(ch->desc, "%-55s", "Exporting Bits");
     export_bits();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Continents");
+    writef(ch->desc, "%-55s", "Exporting Continents");
     export_continents();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Item Types");
+    writef(ch->desc, "%-55s", "Exporting Item Types");
     export_item_type();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Weapon Flags");
+    writef(ch->desc, "%-55s", "Exporting Weapon Flags");
     export_weapon_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Sector Types");
+    writef(ch->desc, "%-55s", "Exporting Sector Types");
     export_sector_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Room Flags");
+    writef(ch->desc, "%-55s", "Exporting Room Flags");
     export_room_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Areas");
+    writef(ch->desc, "%-55s", "Exporting Areas");
     export_areas();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Objects");
+    writef(ch->desc, "%-55s", "Exporting Objects");
     export_objects();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Extra Flags");
+    writef(ch->desc, "%-55s", "Exporting Extra Flags");
     export_extra_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Wear Flags");
+    writef(ch->desc, "%-55s", "Exporting Wear Flags");
     export_wear_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Apply Flags");
+    writef(ch->desc, "%-55s", "Exporting Apply Flags");
     export_apply_flags();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Clans");
+    writef(ch->desc, "%-55s", "Exporting Clans");
     export_clans();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Rooms");
+    writef(ch->desc, "%-55s", "Exporting Rooms");
     export_rooms();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Help Files");
+    writef(ch->desc, "%-55s", "Exporting Help Files");
     export_help();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Classes");
+    writef(ch->desc, "%-55s", "Exporting Classes");
     export_classes();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    printf_to_char(ch, "%-55s", "Exporting Stat Lookup");
+    writef(ch->desc, "%-55s", "Exporting Stat Lookup");
     export_stats();
-    send_to_char("[ {GComplete{x ]\r\n", ch);
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
 
-    send_to_char("\r\nExport of game data complete!\r\n", ch);
+    writef(ch->desc, "\r\nExport of game data complete!\r\n");
 }
 
 void export_objects(void)

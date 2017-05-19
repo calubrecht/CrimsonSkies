@@ -2434,6 +2434,7 @@ bool     write_to_desc       (char *str, DESCRIPTOR_DATA *d);
 void     write_to_all_desc   (char *txt);
 void     send_to_all_char    (char *txt);
 void     copyover_broadcast  (char *txt, bool show_last_result);
+void     writef              (DESCRIPTOR_DATA * d, char *fmt, ...);
 
 /* db.c */
 void     reset_area          (AREA_DATA * pArea);        /* OLC */

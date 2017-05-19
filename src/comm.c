@@ -1702,6 +1702,23 @@ bool write_to_desc(char *str, DESCRIPTOR_DATA *d)
 }
 
 /*
+ * printf support for low level write to descriptor.
+ */
+void writef(DESCRIPTOR_DATA * d, char *fmt, ...)
+{
+    char buf[MAX_STRING_LENGTH];
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(buf, fmt, args);
+    va_end(args);
+
+    if (d != NULL)
+    {
+        write_to_descriptor(d->descriptor, buf, d);
+    }
+}
+
+/*
  * - Lowest level output function.
  * - Write a block of text to the file descriptor.
  * - If this gives errors on very long blocks (like 'ofind all') then
