@@ -1167,7 +1167,7 @@ struct pc_race_type pc_race_table[] = {
      // 65 starting stat line, 90 max stat line
      "ogre", "Ogre", "an ogre", 6, {200, 150, 150, 105, 200},
      {"bash", "fast healing"},
-     {16, 11, 13, 11, 14}, {22, 15, 18, 15, 20}, SIZE_LARGE},
+     {16, 11, 13, 11, 14}, {22, 15, 17, 15, 21}, SIZE_LARGE},
 
     {
      // 64 starting stat line, 88 max stat line
