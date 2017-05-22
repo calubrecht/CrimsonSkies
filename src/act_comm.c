@@ -930,7 +930,6 @@ void do_say(CHAR_DATA * ch, char *argument)
 
         for (; to != NULL; to = to->next_in_room)
         {
-            // marker
             if (!IS_SET(to->affected_by, AFF_DEAFEN))
             {
                 act_new("{x$n says '{g$t{x'", ch, argument, to, TO_VICT, POS_RESTING);
@@ -2068,6 +2067,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     int iClass = 0;
     iClass = class_lookup(argument);
     int i = 0;
+    long merit = 0;
 
     // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
@@ -2179,6 +2179,19 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     ch->practice = 5;
     ch->practice += oldLevel / 5;
 
+    // Save the merits they had, we will use this to re-construct the merits at a later step.
+    merit = ch->pcdata->merit;
+
+    // Remove all merits the user had, we will re-add them later so any stats are correctly
+    // reapplied.
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        if (IS_SET(ch->pcdata->merit, merit_table[i].merit))
+        {
+            remove_merit(ch, merit_table[i].merit);
+        }
+    }
+
     // Reset the users stats back to default (they will have more trains now to up them quicker).
     for (i = 0; i < MAX_STATS; i++)
     {
@@ -2238,6 +2251,16 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     // Reset points
     ch->pcdata->points = pc_race_table[ch->race].points;
+
+    // Reset the merits, we saved the long value which is the state of all merits, we
+    // will now reset it, then remove/re-add so their stat changes take affect.
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        if (IS_SET(merit, merit_table[i].merit))
+        {
+            add_merit(ch, merit_table[i].merit);
+        }
+    }
 
     // Add back in the base groups
     group_add(ch, "rom basics", FALSE);
