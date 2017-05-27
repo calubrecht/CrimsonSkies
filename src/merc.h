@@ -199,6 +199,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define GIANT_RACE_LOOKUP                       4
 #define KENDER_RACE_LOOKUP                      5
 #define MINOTAUR_RACE_LOOKUP                    6
+#define HALF_ELF_RACE_LOOKUP                    7
 
 /*
  * Priest ranks
