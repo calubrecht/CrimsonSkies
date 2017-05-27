@@ -1061,6 +1061,7 @@ void save_class(int num)
         }
     }
 
+    // TODO, fill in the class multipliers in the race table.
     for (race = 0; race < MAX_PC_RACE; race++)
     {
         if (pc_race_table[race].name == NULL || pc_race_table[race].name[0] == '\0')

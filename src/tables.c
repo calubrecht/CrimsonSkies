@@ -969,6 +969,11 @@ const struct race_type race_table[] = {
      0, 0, VULN_FIRE,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
     {
+     "half-elf", TRUE,
+     0, AFF_INFRARED, 0,
+     0, 0, 0,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
+    {
      "bat", FALSE,
      0, AFF_FLYING | AFF_DARK_VISION, OFF_DODGE | OFF_FAST,
      0, 0, VULN_LIGHT,
@@ -1178,7 +1183,14 @@ struct pc_race_type pc_race_table[] = {
      // 64 starting stat line, 89 max stat line
      "minotaur", "Minotr", "a minotaur", 6, {200, 150, 150, 105, 200},
      {"gore"},
-     {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE}
+     {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE},
+
+    {
+     // 65 starting stat line, 90 max stat line
+     "half-elf", "H-Elf", "a half elf", 5, {100, 125, 100, 120, 100},
+     {"sneak", "hide", "swim"},
+     {12, 14, 13, 15, 11}, {17, 19, 18, 19, 17}, SIZE_SMALL}
+
 };
 
 /*
