@@ -6,6 +6,7 @@ LevelRange 5 30
 Credits [ 5 30] Tyrst   Wyvern's Tower~
 Security 9
 Continent 1
+AreaFlags A
 End
 
 
@@ -144,11 +145,11 @@ A burly minotaur watches you solemnly.
 ~
 This powerful creature wonders whether to kill you or not ...
 ~
-human~
+minotaur~
 ACG D 1 0
 14 0 2d10+190 7d9+100 1d12+3 none
 -1 -1 -1 8
-EFNU 0 0 0
+EFNU 0 0 H
 stand stand male 75
 AHMV ABCDEFGHIJK medium unknown
 #1612
@@ -158,11 +159,11 @@ A bloodthirsty minotaur slowly counts his loot
 ~
 He looks up at you and screams 'SO! Coming to steal my hoard!'
 ~
-human~
+minotaur~
 ABCFG D 1 0
 15 0 3d9+208 7d9+100 2d6+3 none
 -2 -2 -2 7
-EFNU 0 0 0
+EFNU 0 0 H
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
 #1613
@@ -172,11 +173,11 @@ Sitting here in this room is the Minotaur Captain.
 ~
 He looks at you, and a sinister grin slowly spreads on his face ...
 ~
-human~
+minotaur~
 ABCFG D 1 0
 17 0 3d9+258 8d9+100 3d4+4 none
 -3 -3 -3 7
-EFNU 0 0 0
+EFNU 0 0 H
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
 #1614
