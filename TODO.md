@@ -1,4 +1,4 @@
-To Do List
+wTo Do List
 ==========
 
 This is my to do list, mostly will be things big and small as I think about them.
@@ -148,7 +148,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Make guardian angel spell mob disappear after the effect is gone from the mob.
   - swims in message (floats in).
   - add hitroll_bonus, damroll_bonus to class structure
-  - merit system
   - Secondary class stat
   - barb, mud coat skill.
   - Race skill to show stats on all available pc races.
@@ -160,5 +159,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - draw command, to draw a random card.
   - Casting Level in score
   - Merits, don't allow to go over 25 for a stat.
-  - Merits, check about removing / re-adding on reclass (because it resets the perm stats).
   - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
