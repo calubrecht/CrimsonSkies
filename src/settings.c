@@ -146,7 +146,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting|statsurge>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
         return;
     }
 
@@ -385,7 +385,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting|hoursexp>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
     }
 
 } // end do_settings
