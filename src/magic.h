@@ -173,3 +173,4 @@ DECLARE_SPELL_FUN(spell_divine_wisdom);
 DECLARE_SPELL_FUN(spell_know_religion);
 DECLARE_SPELL_FUN(spell_guardian_angel);
 DECLARE_SPELL_FUN(spell_water_walk);
+DECLARE_SPELL_FUN(spell_detect_fireproof);

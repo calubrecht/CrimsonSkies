@@ -207,3 +207,4 @@ DECLARE_GSN(gsn_power_swing);
 DECLARE_GSN(gsn_second_wind);
 DECLARE_GSN(gsn_magic_protection);
 DECLARE_GSN(gsn_precision_striking);
+DECLARE_GSN(gsn_detect_fireproof);

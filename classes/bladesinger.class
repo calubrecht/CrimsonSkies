@@ -95,6 +95,7 @@ Sk 'ice blast' 24 1
 Sk 'identify' 24 1
 Sk 'pick lock' 25 16
 Sk 'call lightning' 26 1
+Sk 'detect fireproof' 26 1
 Sk 'know alignment' 27 1
 Sk 'gate' 28 1
 Sk 'shield' 28 1

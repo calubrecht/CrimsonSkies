@@ -108,6 +108,8 @@ char *format_obj_to_char(OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
         strcat(buf, "({YHumming{x) ");
     if (IS_OBJ_STAT(obj, ITEM_BURIED))
         strcat(buf, "({yBuried{x) ");
+    if (IS_OBJ_STAT(obj, ITEM_BURN_PROOF) && is_affected(ch, gsn_detect_fireproof))
+        strcat(buf, "({yFireproof{x) ");
 
     if (fShort)
     {

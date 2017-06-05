@@ -960,6 +960,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_detect_hidden, "$n can no longer detect hidden."},
     { &gsn_detect_invis, "$n can no longer detect invisibility."},
     { &gsn_detect_magic, "$n can no longer detect magic."},
+    { &gsn_detect_fireproof, ""},
     { &gsn_enhanced_recovery, ""},
     { &gsn_faerie_fire, "The pink outline around $n fades away."},
     { &gsn_fly, "$n falls to the ground!"},
@@ -1505,10 +1506,7 @@ void spell_detect_good(int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
-void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1535,14 +1533,18 @@ void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo,
     af.modifier = 0;
     af.bitvector = AFF_DETECT_HIDDEN;
     affect_to_char(victim, &af);
+
     send_to_char("Your awareness improves.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
-void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1569,14 +1571,18 @@ void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo,
     af.location = APPLY_NONE;
     af.bitvector = AFF_DETECT_INVIS;
     affect_to_char(victim, &af);
+
     send_to_char("Your eyes tingle.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
-void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1603,29 +1609,78 @@ void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo,
     af.location = APPLY_NONE;
     af.bitvector = AFF_DETECT_MAGIC;
     affect_to_char(victim, &af);
+
     send_to_char("Your eyes tingle.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
 
 
-void spell_detect_poison(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *)vo;
 
     if (obj->item_type == ITEM_DRINK_CON || obj->item_type == ITEM_FOOD)
     {
         if (obj->value[3] != 0)
+        {
             send_to_char("You smell poisonous fumes.\r\n", ch);
+        }
         else
+        {
             send_to_char("It looks delicious.\r\n", ch);
+        }
     }
     else
     {
         send_to_char("It doesn't look poisoned.\r\n", ch);
+    }
+
+    return;
+}
+
+/*
+ * A spell that will allow the caster to detect fireproofed items when examined.
+ */
+void spell_detect_fireproof(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, gsn_detect_fireproof))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N can already sense fireproofed items.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your awareness to detect fireproofed items improves.\r\n", victim);
+
+    if (ch != victim)
+    {
+        send_to_char("Ok.\r\n", ch);
     }
 
     return;
@@ -4022,6 +4077,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_detect_good")) return spell_detect_good;
             if (!str_cmp(name, "spell_detect_magic")) return spell_detect_magic;
             if (!str_cmp(name, "spell_detect_poison")) return spell_detect_poison;
+            if (!str_cmp(name, "spell_detect_fireproof")) return spell_detect_fireproof;
             if (!str_cmp(name, "spell_dispel_evil")) return spell_dispel_evil;
             if (!str_cmp(name, "spell_dispel_good")) return spell_dispel_good;
             if (!str_cmp(name, "spell_disenchant")) return spell_disenchant;
@@ -4326,6 +4382,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_know_religion) return "spell_know_religion";
     if (spell == spell_guardian_angel) return "spell_guardian_angel";
     if (spell == spell_water_walk) return "spell_water_walk";
+    if (spell == spell_detect_fireproof) return "spell_detect_fireproof";
 
     return "reserved";
 

@@ -94,6 +94,7 @@ Sk 'parry' 20 8
 Sk 'faerie fog' 21 1
 Sk 'heal' 21 1
 Sk 'peek' 21 7
+Sk 'detect fireproof' 21 1
 Sk 'energy drain' 22 1
 Sk 'teleport' 22 1
 Sk 'dodge' 22 8

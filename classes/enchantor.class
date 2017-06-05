@@ -90,6 +90,7 @@ Sk 'dodge' 20 8
 Sk 'haste' 21 1
 Sk 'fog' 21 1
 Sk 'dispel fog' 21 1
+Sk 'detect fireproof' 21 1
 Sk 'fireball' 22 1
 Sk 'ice blast' 22 1
 Sk 'mass invisibility' 22 1

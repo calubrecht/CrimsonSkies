@@ -213,6 +213,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_second_wind, "second wind");
     ASSIGN_GSN(gsn_magic_protection, "magic protection");
     ASSIGN_GSN(gsn_precision_striking, "precision striking");
+    ASSIGN_GSN(gsn_detect_fireproof, "detect fireproof");
 
     if (global.last_boot_result == UNKNOWN)
     {

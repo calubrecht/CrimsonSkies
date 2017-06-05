@@ -1673,6 +1673,12 @@ Syntax: cast 'detect hidden'
 This spell enables the caster to detect sneaking creatures.
 ~
 
+0 'DETECT FIREPROOF'~
+Syntax: cast 'detect fireproof'
+
+This spell enables the caster to see whether an item is currently fireproofed.
+~
+
 0 'DETECT INVIS'~
 Syntax: cast 'detect invis'
 

@@ -134,6 +134,7 @@ Sk 'fog' 38 2
 Sk 'dispel fog' 38 2
 Sk 'portal' 40 4
 Sk 'shield' 40 2
+Sk 'detect fireproof' 40 2
 Sk 'detect evil' 43 2
 Sk 'detect good' 43 2
 Sk 'quiet movement' 43 1

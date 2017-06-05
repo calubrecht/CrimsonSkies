@@ -2498,4 +2498,15 @@ Beats       0
 Race        0
 End
 
+#SKILL
+Name        detect fireproof~
+SpellFun    spell_detect_fireproof~
+Target      3
+MinPos      8
+MinMana     5
+Beats       12
+MsgOff      You are no longer able to detect fireproofed items.~
+Race        0
+End
+
 #END
