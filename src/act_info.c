@@ -2056,25 +2056,19 @@ void do_score(CHAR_DATA * ch, char *argument)
 
     row_append_cell(row, 75, center_text);
 
-    // Row 2 - Headers
-    row = create_row_padded(grid, 0, 0, 2, 2);
-    row_append_cell(row, 21, "     {WStats{x");
-    row_append_cell(row, 26, "    {WCurrent State{x");
-    row_append_cell(row, 28, "      {WPlayer Info{x");
-
-    // Row 3
+    // Row 2
     row = create_row_padded(grid, 0, 0, 2, 2);
 
     row_append_cell(row, 21, "  Str: {C%d{x({C%d{x)\n  Int: {C%d{x({C%d{x)\n  Wis: {C%d{x({C%d{x)\n  Dex: {C%d{x({C%d{x)\n  Con: {C%d{x({C%d{x)",
         ch->perm_stat[STAT_STR],
-        get_curr_stat (ch, STAT_STR),
+        get_curr_stat(ch, STAT_STR),
         ch->perm_stat[STAT_INT],
-        get_curr_stat (ch, STAT_INT),
+        get_curr_stat(ch, STAT_INT),
         ch->perm_stat[STAT_WIS],
-        get_curr_stat (ch, STAT_WIS),
+        get_curr_stat(ch, STAT_WIS),
         ch->perm_stat[STAT_DEX],
-        get_curr_stat (ch, STAT_DEX),
-        ch->perm_stat[STAT_CON], get_curr_stat (ch, STAT_CON));
+        get_curr_stat(ch, STAT_DEX),
+        ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
 
     // The immortal weight is boosted to a number that won't fit, just show 9999
     row_append_cell(row, 26, "    HP: {C%-4d{x of {C%-4d{x\n  Mana: {C%-4d{x of {C%-4d{x\n  Move: {C%-4d{x of {C%-4d{x\n Items: {C%-4d{x of {C%-4d{x\nWeight: {C%-4d{x of {C%-4d{x",
@@ -2084,19 +2078,13 @@ void do_score(CHAR_DATA * ch, char *argument)
 
     row_append_cell(row, 28, " Level: {C%d{x\nPlayed: {C%d hours{x\nGender: {C%s{x\n Align: {C%s{x\n   Age: {C%d{x",
         ch->level,
-        (ch->played + (int) (current_time - ch->logon)) / 3600,
+        (ch->played + (int)(current_time - ch->logon)) / 3600,
         ch->sex == 0 ? "No Gender" : ch->sex == 1 ? "Male" : "Female",
         IS_GOOD(ch) ? "Good" : IS_EVIL(ch) ? "Evil" : "Neutral",
         get_age(ch)
-     );
+    );
 
-    // Row 4 - Headers
-    row = create_row_padded(grid, 0, 0, 2, 2);
-    row_append_cell(row, 21, "     {WWorth{x");
-    row_append_cell(row, 26, "       {WBattle{x");
-    row_append_cell(row, 28, "  {WStatistics and Info{x");
-
-    // Row 5
+    // Row 3
     row = create_row_padded(grid, 0, 0, 2, 2);
 
     row_append_cell(row, 21, "     Gold: {C%-4ld{x\nBank Gold: {C%ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
@@ -2113,22 +2101,20 @@ void do_score(CHAR_DATA * ch, char *argument)
     // If they are dual wielding (and have a secondary weapon wielded then show the hit roll/dam roll for that also.
     if (get_skill(ch, gsn_dual_wield) > 0 && dual_wield != NULL)
     {
-        row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d %d %d{x\n Dam Roll: {C%d %d %d{x\n    Saves: {C%d{x",
-            GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
-            capitalize(get_stance_name(ch)), ch->wimpy,
+        row_append_cell(row, 26, "   Hit Roll: {C%d %d %d{x\n   Dam Roll: {C%d %d %d{x\n     Stance: {C%s{x\n  Wimpy @HP: {C%d{x\nCasting Lvl: {C%d{x\n      Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield), GET_HITROLL(ch, dual_wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield), GET_DAMROLL(ch, dual_wield),
-            ch->saving_throw
+            capitalize(get_stance_name(ch)), ch->wimpy,
+            casting_level(ch), ch->saving_throw
         );
     }
     else
     {
-        row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d %d{x\n Dam Roll: {C%d %d{x\n    Saves: {C%d{x",
-            GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
-            capitalize(get_stance_name(ch)), ch->wimpy,
+        row_append_cell(row, 26, "   Hit Roll: {C%d %d{x\n   Dam Roll: {C%d %d{x\n     Stance: {C%s{x\n  Wimpy @HP: {C%d{x\nCasting Lvl: {C%d{x\n      Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield),
-            ch->saving_throw
+            capitalize(get_stance_name(ch)), ch->wimpy,
+            casting_level(ch), ch->saving_throw
         );
     }
 
@@ -2139,23 +2125,23 @@ void do_score(CHAR_DATA * ch, char *argument)
         !IS_NPC(ch) ? ch->pcdata->pk_timer : 0
     );
 
-    // Row 6 - Headers for Additional Info
-    row = create_row_padded(grid, 0, 0, 2, 2);
-    sprintf(center_text, "%s", center_string_padded("{WAdditional Info{x", 71));
-    row_append_cell(row, 75, center_text);
-
-    // Row 7 - Additional Info
+    // Row 4 - Additional Info
     row = create_row_padded(grid, 0, 0, 2, 2);
     sprintf(buf, "Deity: {C%-25s{x", deity_formatted_name(ch));
-    row_append_cell(row, 75, buf);
+    row_append_cell(row, 38, buf);
+
+    row_append_cell(row, 37, "AC Pierce: {C%-4d{x   AC Bash: {C%-4d{x\n AC Slash: {C%-4d{x  AC Magic: {C%-4d{x",
+        GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC)
+    );
 
     // Finally, send the grid to the character
-    grid_to_char (grid, ch, TRUE);
+    grid_to_char(grid, ch, TRUE);
 
-    if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
+    if (IS_SET(ch->comm, COMM_SHOW_AFFECTS))
     {
-        do_function (ch, &do_affects, "");
+        do_function(ch, &do_affects, "");
     }
+
 }
 
 /*
