@@ -2665,6 +2665,7 @@ void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, O
 bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
 CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
 bool      saves_dispel   (int dis_level, int spell_level, int duration);
+int       casting_level  (CHAR_DATA *ch);
 
 /* merit.c */
 void add_merit(CHAR_DATA *ch, long merit);
