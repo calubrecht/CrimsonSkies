@@ -26,6 +26,13 @@
  *                                                                         *
  ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *  NOTE - When creating a grid only use \n otherwise the spacing at the   *
+ *         end of the line will be off by one.                             *
+ *                                                                         *
+ ***************************************************************************/
+
  // System Specific Includes
 #if defined(_WIN32)
 #include <sys/types.h>

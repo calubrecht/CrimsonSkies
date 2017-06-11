@@ -70,6 +70,53 @@ const struct merit_type merit_table[] = {
 };
 
 /*
+ * Returns a list of the names of the merits a person has.
+ */
+char *merit_list(CHAR_DATA *ch)
+{
+    static char buf[1024];
+    int i = 0;
+    int found = 0;
+    bool new_line = FALSE;
+
+    if (IS_NPC(ch))
+    {
+        return "None";
+    }
+
+    // Since this is static it's a must must must that it's reset, otherwise
+    // it would concat onto the previous run and eventually ya know, stuff goes bad.
+    buf[0] = '\0';
+
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        if (IS_SET(ch->pcdata->merit, merit_table[i].merit))
+        {
+            found++;
+
+            if (!new_line)
+            {
+                strcat(buf, ", ");
+            }
+
+            new_line = FALSE;
+            strcat(buf, "{C");
+            strcat(buf, merit_table[i].name);
+            strcat(buf, "{x");
+
+            if (found % 3 == 0)
+            {
+                strcat(buf, " \n          ");                
+                new_line = TRUE;
+            }
+
+        }
+    }
+
+    return (buf[0] != '\0') ? buf + 2 : "{CNone{x";
+}
+
+/*
  * Adds a merit to a character and initially puts the affect in place if it's
  * a merit that needs an attribute to change on a char.  remove_merit must be
  * called to properly remove the merit.

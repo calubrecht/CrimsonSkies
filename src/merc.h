@@ -2671,6 +2671,7 @@ int       casting_level  (CHAR_DATA *ch);
 void add_merit(CHAR_DATA *ch, long merit);
 void remove_merit(CHAR_DATA *ch, long merit);
 void apply_merit_affects(CHAR_DATA *ch);
+char *merit_list(CHAR_DATA *ch);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);

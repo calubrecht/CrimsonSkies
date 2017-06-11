@@ -2018,6 +2018,8 @@ void do_score(CHAR_DATA * ch, char *argument)
     OBJ_DATA *wield;
     OBJ_DATA *dual_wield;
 
+    send_to_char("\r\n", ch);
+
     // Create the grid
     grid = create_grid(75);
 
@@ -2133,6 +2135,14 @@ void do_score(CHAR_DATA * ch, char *argument)
     row_append_cell(row, 37, "AC Pierce: {C%-4d{x   AC Bash: {C%-4d{x\n AC Slash: {C%-4d{x  AC Magic: {C%-4d{x",
         GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC)
     );
+
+    // Row 5 - Merits
+    if (!IS_NPC(ch))
+    {
+        row = create_row_padded(grid, 0, 0, 2, 2);
+        sprintf(buf, "Merit(s): %s", merit_list(ch));
+        row_append_cell(row, 75, buf);
+    }
 
     // Finally, send the grid to the character
     grid_to_char(grid, ch, TRUE);
