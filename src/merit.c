@@ -45,6 +45,7 @@
 
 // General Includes
 #include <stdio.h>
+#include <string.h>
 #include "merc.h"
 #include "tables.h"
 #include "interp.h"
@@ -106,7 +107,7 @@ char *merit_list(CHAR_DATA *ch)
 
             if (found % 3 == 0)
             {
-                strcat(buf, " \n          ");                
+                strcat(buf, " \n          ");
                 new_line = TRUE;
             }
 
