@@ -188,7 +188,7 @@ int casting_level(CHAR_DATA *ch)
     }
 
     // Giants lose a casting level
-    if (ch->race == GIANT_RACE_LOOKUP)
+    if (ch->race == OGRE_RACE_LOOKUP)
     {
         level -= 1;
     }

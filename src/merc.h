@@ -196,7 +196,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define HUMAN_RACE_LOOKUP                       1
 #define ELF_RACE_LOOKUP                         2
 #define DWARF_RACE_LOOKUP                       3
-#define GIANT_RACE_LOOKUP                       4
+#define OGRE_RACE_LOOKUP                        4
 #define KENDER_RACE_LOOKUP                      5
 #define MINOTAUR_RACE_LOOKUP                    6
 #define HALF_ELF_RACE_LOOKUP                    7
