@@ -82,7 +82,7 @@ char *merit_list(CHAR_DATA *ch)
 
     if (IS_NPC(ch))
     {
-        return "None";
+        return "{CNone{x";
     }
 
     // Since this is static it's a must must must that it's reset, otherwise
@@ -93,6 +93,12 @@ char *merit_list(CHAR_DATA *ch)
     {
         if (IS_SET(ch->pcdata->merit, merit_table[i].merit))
         {
+            if (found % 3 == 0 && found != 0)
+            {
+                strcat(buf, " \n          ");
+                new_line = TRUE;
+            }
+
             found++;
 
             if (!new_line)
@@ -104,13 +110,6 @@ char *merit_list(CHAR_DATA *ch)
             strcat(buf, "{C");
             strcat(buf, merit_table[i].name);
             strcat(buf, "{x");
-
-            if (found % 3 == 0)
-            {
-                strcat(buf, " \n          ");
-                new_line = TRUE;
-            }
-
         }
     }
 
