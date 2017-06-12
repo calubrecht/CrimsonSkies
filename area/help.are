@@ -979,7 +979,7 @@ There are penalties for using STEAL on other players.
 In order to STEAL successfully, you must practice the appropriate skill.
 ~
 
-0 PRACTICE~
+0 PRACTICE PRACTICES~
 Syntax: PRACTICE
         PRACTICE <skill|spell>
 
@@ -996,7 +996,7 @@ have each time you gain a level.  Unused sessions are saved until you
 do use them.
 ~
 
-0 TRAIN~
+0 TRAIN TRAINS~
 Syntax: train <str int wis dex con hp mana>
 
 TRAIN increases one of your attributes.  When you start the game, your
