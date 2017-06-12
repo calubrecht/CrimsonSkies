@@ -2087,7 +2087,7 @@ void do_score(CHAR_DATA * ch, char *argument)
     );
 
     // Row 3
-    row = create_row_padded(grid, 0, 0, 2, 2);
+    row = create_row_padded(grid, 0, 0, 1, 1);
 
     row_append_cell(row, 21, "     Gold: {C%-4ld{x\nBank Gold: {C%ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
         ch->gold,
@@ -2103,7 +2103,7 @@ void do_score(CHAR_DATA * ch, char *argument)
     // If they are dual wielding (and have a secondary weapon wielded then show the hit roll/dam roll for that also.
     if (get_skill(ch, gsn_dual_wield) > 0 && dual_wield != NULL)
     {
-        row_append_cell(row, 26, "   Hit Roll: {C%d %d %d{x\n   Dam Roll: {C%d %d %d{x\n     Stance: {C%s{x\n  Wimpy @HP: {C%d{x\nCasting Lvl: {C%d{x\n      Saves: {C%d{x",
+        row_append_cell(row, 27, "Hit Roll: {CB:%d P:%d S:%d{x\nDam Roll: {CB:%d P:%d S:%d{x\n  Stance: {C%s{x\n   Wimpy: {C%d HP{x\n Casting: {CLevel %d{x\n   Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield), GET_HITROLL(ch, dual_wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield), GET_DAMROLL(ch, dual_wield),
             capitalize(get_stance_name(ch)), ch->wimpy,
@@ -2112,7 +2112,7 @@ void do_score(CHAR_DATA * ch, char *argument)
     }
     else
     {
-        row_append_cell(row, 26, "   Hit Roll: {C%d %d{x\n   Dam Roll: {C%d %d{x\n     Stance: {C%s{x\n  Wimpy @HP: {C%d{x\nCasting Lvl: {C%d{x\n      Saves: {C%d{x",
+        row_append_cell(row, 27, "Hit Roll: {CB:%d P:%d{x\nDam Roll: {CB:%d P:%d{x\n  Stance: {C%s{x\n   Wimpy: {C%d HP{x\n Casting: {CLevel %d{x\n   Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield),
             capitalize(get_stance_name(ch)), ch->wimpy,
@@ -2120,7 +2120,7 @@ void do_score(CHAR_DATA * ch, char *argument)
         );
     }
 
-    row_append_cell(row, 28, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
+    row_append_cell(row, 27, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
         !IS_NPC(ch) ? ch->pcdata->pkills : 0,
         !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0,
         !IS_NPC(ch) ? ch->pcdata->points : 0,
