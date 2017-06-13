@@ -32,7 +32,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area so they save).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
-  - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
   - Save pc_race_table out to disk and load it in, add OLC for it.
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
@@ -157,10 +156,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - assassin class (strangle, assassinate, flash bomb)
   - assassin surprise attack (moves a person into the next room and attacks in a single command)
   - draw command, to draw a random card.
-  - Casting Level in score
-  - Merits in score
   - Merits, don't allow to go over 25 for a stat.
   - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
   - Previous HP to affect your reclass HP
   - Clan specific reclass
-  - Detect fireproof spell
