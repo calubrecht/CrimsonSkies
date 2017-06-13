@@ -68,16 +68,28 @@ void violence_update(void)
     {
         ch_next = ch->next;
 
+        // They aren't fighting (or are somehow in a null room), exit out.
         if ((victim = ch->fighting) == NULL || ch->in_room == NULL)
+        {
             continue;
+        }
 
+        // The character must be awake and in the same room with the victim for
+        // battle to be processed.
         if (IS_AWAKE(ch) && ch->in_room == victim->in_room)
+        {
             multi_hit(ch, victim, TYPE_UNDEFINED);
+        }
         else
+        {
+            // If they're not in the same room or not awake, stop fighting.
             stop_fighting(ch, FALSE);
+        }
 
         if ((victim = ch->fighting) == NULL)
+        {
             continue;
+        }
 
         // Fun for the whole family!
         check_assist(ch, victim);
@@ -85,9 +97,13 @@ void violence_update(void)
         if (IS_NPC(ch))
         {
             if (HAS_TRIGGER(ch, TRIG_FIGHT))
+            {
                 mp_percent_trigger(ch, victim, NULL, NULL, TRIG_FIGHT);
+            }
             if (HAS_TRIGGER(ch, TRIG_HPCNT))
+            {
                 mp_hprct_trigger(ch, victim);
+            }
         }
     }
 
