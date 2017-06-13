@@ -290,12 +290,20 @@ Gr 'bladesongs' 0
 Gr 'nature' 0
 Gr 'psionics' 0
 Gr 'divination' 0
+* null race (0)
 Mult 0 100
+* human (1)
 Mult 1 100
+* elf (2)
 Mult 2 100
+* dwarf (3)
 Mult 3 150
+* ogre (4)
 Mult 4 200
+* kender (5)
 Mult 5 150
+* minotaur (6)
 Mult 6 200
+* half-elf (7)
 Mult 7 100
 End

@@ -1067,6 +1067,9 @@ void save_class(int num)
         if (pc_race_table[race].name == NULL || pc_race_table[race].name[0] == '\0')
             break;
 
+        // Save the multipler, but also a comment with the race name so it actually
+        // means something if we look at it.
+        fprintf(fp, "* %s (%d)\n", pc_race_table[race].name, race);
         fprintf(fp, "Mult %d %d\n", race, pc_race_table[race].class_mult[num]);
     }
 
