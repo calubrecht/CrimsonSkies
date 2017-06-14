@@ -6,6 +6,7 @@ LevelRange 52 60
 Credits Rhien~
 Security 1
 Continent 0
+AreaFlags A
 End
 
 
@@ -17,8 +18,8 @@ a level 5 mob~
 A level 5 mob is here.
 ~
 ~
-human~
-AC 0 1 0
+half elf~
+AC J 1 0
 5 0 2d6+60 2d9+100 1d6+1 none
 5 5 5 9
 EFNU 0 0 0

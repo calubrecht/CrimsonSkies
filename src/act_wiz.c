@@ -6797,28 +6797,6 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Debug function to quickly test code without having to wire something up.
- */
-void do_debug(CHAR_DATA * ch, char *argument)
-{
-    int percent = 0;
-
-    if (ch->max_hit > 0)
-    {
-        percent = (100 * ch->hit) / ch->max_hit;
-    }
-
-    int hp = ch->max_hit * .2;
-
-    printf_to_char(ch, "Health at %d%\r\n", percent);
-    printf_to_char(ch, "Add back: %d\r\n", hp);
-
-
-
-    return;
-} // end do_debug
-
-/*
  * Checks all objects in the object list for problems.
  */
 /*
@@ -6835,3 +6813,37 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
     }
 
 } */ // end do_objcheck
+
+/*
+ * Debug function to quickly test code without having to wire something up.
+ */
+void do_debug(CHAR_DATA * ch, char *argument)
+{
+    int x = 0;
+    int y = 0;
+    int col = 0;
+
+    for (x = 0; x < MAX_CLASS; x++)
+    {
+        printf_to_char(ch, "%s:\r\n", class_table[x]->name);
+
+        for (y = 0;y < MAX_PC_RACE; y++)
+        {
+            col++;
+
+            printf_to_char(ch, "  * %-12s %d", pc_race_table[y].name, pc_race_table[y].class_mult[x]);
+
+            if (col % 3 == 0)
+            {
+                send_to_char("\r\n", ch);
+            }
+
+        }
+
+        col = 0;
+        send_to_char("\r\n", ch);
+
+    }
+
+    return;
+} // end do_debug

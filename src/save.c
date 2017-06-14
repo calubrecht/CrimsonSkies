@@ -777,7 +777,17 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
         int i;
 
         if (ch->race == 0)
+        {
+            if (!IS_NPC(ch))
+            {
+                // Log a message if the users race wasn't found.
+                bugf("Player %s had a null race.", ch->name);
+                wiznet("BUG: $N had a null race and was auto-set to human.", ch, NULL, WIZ_GENERAL, 0, 0);
+                send_to_char("{RYour race was corrupted.  Please contact an immortal for resolution.{x\r\n", ch);
+            }
+
             ch->race = race_lookup("human");
+        }
 
         ch->size = pc_race_table[ch->race].size;
         ch->dam_type = 17;        /*punch */
