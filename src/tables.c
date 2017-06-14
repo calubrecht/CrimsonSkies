@@ -929,7 +929,7 @@ const struct race_type race_table[] = {
     name,        pc_race?,
     act bits,    aff_by bits,    off bits,
     imm,        res,        vuln,
-    form,        parts 
+    form,        parts
     },
 */
     {"unique", FALSE, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -945,7 +945,28 @@ const struct race_type race_table[] = {
      0, AFF_INFRARED, 0,
      0, RES_CHARM, VULN_IRON,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
+    {
+     "half elf", TRUE,
+     0, AFF_INFRARED, 0,
+     0, 0, 0,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
+    {
+     "wild elf", TRUE,
+     0, AFF_INFRARED, VULN_IRON,
+     0, 0, 0,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K },
 
+    {
+     "sea elf", TRUE,
+     0, AFF_INFRARED, VULN_IRON,
+     0, 0, 0,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K },
+
+    {
+     "dark elf", TRUE,
+     0, AFF_INFRARED, VULN_IRON,
+     0, 0, 0,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K },
     {
      "dwarf", TRUE,
      0, AFF_INFRARED, 0,
@@ -967,11 +988,6 @@ const struct race_type race_table[] = {
      "minotaur", TRUE,
      0, 0, 0,
      0, 0, VULN_FIRE,
-     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
-    {
-     "half elf", TRUE,
-     0, AFF_INFRARED, 0,
-     0, 0, 0,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
     {
      "bat", FALSE,
@@ -1159,8 +1175,31 @@ struct pc_race_type pc_race_table[] = {
     {
      // 65 starting stat line, 91 max stat line
      "elf", " Elf ", "an elf", 5, {100, 125, 100, 120, 100},
-     {"sneak", "hide", "swim"},
+     {"sneak", "hide", "swim", "meditation"},
      {12, 14, 13, 15, 11}, {16, 20, 18, 21, 16}, SIZE_SMALL},
+
+    {
+     // 65 starting stat line, 90 max stat line
+     "half elf", "H-Elf", "a half elf", 5,{ 100, 125, 100, 120, 100 },
+     { "sneak", "hide", "swim"},
+     { 12, 14, 13, 15, 11 },{ 17, 19, 18, 19, 17 }, SIZE_SMALL },
+
+    {
+     // 65 starting stat line, 90 max stat line
+     "wild elf", "W-Elf", "a wild elf", 5,{ 100, 125, 100, 120, 100 },
+     { "sneak", "hide", "swim", "fast healing" },
+     { 12, 14, 13, 15, 11 },{ 17, 17, 17, 22, 17 }, SIZE_SMALL },
+
+     {
+      // 64 starting stat line, 89 max stat line
+      "sea elf", "Sea-E", "a sea elf", 5,{ 100, 125, 100, 120, 100 },
+      { "swim" },
+      { 12, 13, 13, 15, 11 },{ 16, 18, 18, 21, 16 }, SIZE_SMALL },
+     {
+      // 65 starting stat line, 91 max stat line
+      "dark elf", "D-Elf", "a dark elf", 5,{ 100, 125, 100, 120, 100 },
+      { "sneak", "hide", "swim", "meditation" },
+      { 12, 14, 13, 15, 11 },{ 16, 20, 18, 21, 16 }, SIZE_SMALL },
 
     {
      // 65 starting stat line, 90 max stat line
@@ -1183,13 +1222,7 @@ struct pc_race_type pc_race_table[] = {
      // 64 starting stat line, 89 max stat line
      "minotaur", "Minotr", "a minotaur", 6, {200, 150, 150, 105, 200},
      {"gore"},
-     {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE},
-
-    {
-     // 65 starting stat line, 90 max stat line
-     "half elf", "H-Elf", "a half elf", 5, {100, 125, 100, 120, 100},
-     {"sneak", "hide", "swim"},
-     {12, 14, 13, 15, 11}, {17, 19, 18, 19, 17}, SIZE_SMALL}
+     {13, 12, 12, 14, 13}, {20, 18, 17, 14, 20}, SIZE_LARGE}
 
 };
 

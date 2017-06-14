@@ -296,14 +296,20 @@ Mult 0 100
 Mult 1 100
 * elf (2)
 Mult 2 100
-* dwarf (3)
-Mult 3 150
-* ogre (4)
-Mult 4 200
-* kender (5)
-Mult 5 150
-* minotaur (6)
+* half elf (3)
+Mult 3 100
+* wild elf (4)
+Mult 4 100
+* sea elf (5)
+Mult 5 100
+* dark elf (6)
 Mult 6 200
-* half-elf (7)
+* dwarf (7)
 Mult 7 100
+* ogre (8)
+Mult 8 100
+* kender (9)
+Mult 9 100
+* minotaur (10)
+Mult 10 100
 End
