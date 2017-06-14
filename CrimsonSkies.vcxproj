@@ -50,7 +50,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <StackReserveSize>10240</StackReserveSize>
+      <StackReserveSize>1000000</StackReserveSize>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)\area\*.*" "$(SolutionDir)$(Configuration)\"</Command>
@@ -237,6 +237,7 @@
     <None Include="area\valley.are" />
     <None Include="area\warlock-keep.are" />
     <None Include="area\wyvern.are" />
+    <None Include="classes\barbarian.class" />
     <None Include="classes\bladesinger.class" />
     <None Include="classes\class.lst" />
     <None Include="classes\cleric.class" />
@@ -244,7 +245,10 @@
     <None Include="classes\groups.dat" />
     <None Include="classes\healer.class" />
     <None Include="classes\mage.class" />
+    <None Include="classes\priest.class" />
+    <None Include="classes\psionicist.class" />
     <None Include="classes\ranger.class" />
+    <None Include="classes\rogue.class" />
     <None Include="classes\skills.dat" />
     <None Include="classes\thief.class" />
     <None Include="classes\warrior.class" />
