@@ -3665,6 +3665,7 @@ void do_race(CHAR_DATA *ch, char *argument)
 {
     int race = 0;
     char buf[MAX_STRING_LENGTH];
+    int x = 0;
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
     send_to_char("{WRace{x             {WWho Name{x   {WSize{x\r\n", ch);
@@ -3672,6 +3673,8 @@ void do_race(CHAR_DATA *ch, char *argument)
 
     for (race = 1; race < MAX_PC_RACE; race++)
     {
+        x++;
+
         // Format the size from the size flags table, since capitalize is a static char function it can't be called
         // twice in the printf which is why we're formatting it here.
         sprintf(buf, "%s", capitalize(flag_string(size_flags, pc_race_table[race].size)));
@@ -3680,6 +3683,7 @@ void do_race(CHAR_DATA *ch, char *argument)
     }
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    printf_to_char(ch, "%d player chooseable races displayed.\r\n", x);
 
     return;
 
