@@ -3464,6 +3464,8 @@ void do_class(CHAR_DATA *ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     char prime_stat[5];
     int i = 0;
+    int race = 0;
+    int col = 0;
 
     if (IS_NULLSTR(argument))
     {
@@ -3556,6 +3558,24 @@ void do_class(CHAR_DATA *ch, char *argument)
 
     sprintf(buf, "%-30s [%s]\r\n", "{WDefault Group{x:", class_table[i]->default_group);
     send_to_char(buf, ch);
+
+    send_to_char("{WClass Multipliers{x:\r\n", ch);
+
+    for (race = 0;race < MAX_PC_RACE; race++)
+    {
+        col++;
+
+        printf_to_char(ch, "  * %-16s %d", pc_race_table[race].name, pc_race_table[race].class_mult[i]);
+
+        if (col % 3 == 0)
+        {
+            send_to_char("\r\n", ch);
+        }
+
+    }
+
+    col = 0;
+    send_to_char("\r\n", ch);
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
     send_to_char("Note:  Some of these settings are the default and maybe influenced by other in\r\n", ch);
