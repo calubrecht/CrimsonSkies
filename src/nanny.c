@@ -698,7 +698,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             send_to_char("must start off as one of four base classes (you can reclass as early\r\n", ch);
-            send_to_char("level 10.  You will now select your initial base class.\r\n\r\n", ch);
+            send_to_char("level 10).  You will now select your initial base class.\r\n\r\n", ch);
 
             send_to_char("The following initial classes are available:\r\n", ch);
             for (iClass = 0; iClass < top_class; iClass++)
