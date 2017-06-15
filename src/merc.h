@@ -117,7 +117,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
 #define MAX_CLASS          12   // top_class
-#define MAX_PC_RACE        11
+#define MAX_PC_RACE        13
 #define MAX_CLAN           7
 #define MAX_DAMAGE_MESSAGE 41
 #define MAX_LEVEL          60
@@ -200,9 +200,11 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define SEA_ELF_RACE_LOOKUP                     5
 #define DARK_ELF_RACE_LOOKUP                    6
 #define DWARF_RACE_LOOKUP                       7
-#define OGRE_RACE_LOOKUP                        8
-#define KENDER_RACE_LOOKUP                      9
-#define MINOTAUR_RACE_LOOKUP                    10
+#define HILL_DWARF_RACE_LOOKUP                  8
+#define MOUNTAIN_DWARF_RACE_LOOKUP              9
+#define OGRE_RACE_LOOKUP                        10
+#define KENDER_RACE_LOOKUP                      11
+#define MINOTAUR_RACE_LOOKUP                    12
 
 /*
  * Priest ranks

@@ -6831,7 +6831,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
         {
             col++;
 
-            printf_to_char(ch, "  * %-12s %d", pc_race_table[y].name, pc_race_table[y].class_mult[x]);
+            printf_to_char(ch, "  * %-16s %d", pc_race_table[y].name, pc_race_table[y].class_mult[x]);
 
             if (col % 3 == 0)
             {

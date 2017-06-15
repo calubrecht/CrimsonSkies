@@ -306,10 +306,14 @@ Mult 5 125
 Mult 6 125
 * dwarf (7)
 Mult 7 100
-* ogre (8)
-Mult 8 150
-* kender (9)
-Mult 9 150
-* minotaur (10)
+* hill dwarf (8)
+Mult 8 100
+* mountain dwarf (9)
+Mult 9 100
+* ogre (10)
 Mult 10 150
+* kender (11)
+Mult 11 150
+* minotaur (12)
+Mult 12 150
 End

@@ -972,7 +972,16 @@ const struct race_type race_table[] = {
      0, AFF_INFRARED, 0,
      0, RES_POISON | RES_DISEASE, VULN_DROWNING,
      A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
-
+    {
+     "hill dwarf", TRUE,
+     0, AFF_INFRARED, 0,
+     0, RES_POISON | RES_DISEASE, VULN_DROWNING,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
+    {
+     "mountain dwarf", TRUE,
+     0, AFF_INFRARED, 0,
+     0, RES_POISON | RES_DISEASE, VULN_DROWNING,
+     A | H | M | V, A | B | C | D | E | F | G | H | I | J | K},
     {
      "ogre", TRUE,
      0, 0, 0,
@@ -1202,10 +1211,22 @@ struct pc_race_type pc_race_table[] = {
       { 12, 14, 13, 15, 11 },{ 16, 20, 18, 21, 16 }, SIZE_SMALL },
 
     {
-     // 65 starting stat line, 90 max stat line
+     // 65 starting stat line, 89 max stat line
      "dwarf", "Dwarf", "a dwarf", 8, {150, 100, 125, 100, 150},
      {"berserk"},
-     {14, 12, 14, 10, 15}, {20, 16, 19, 14, 21}, SIZE_MEDIUM},
+     {14, 12, 14, 10, 15}, {19, 15, 21, 14, 20}, SIZE_MEDIUM},
+
+    {
+     // 65 starting stat line, 89 max stat line
+     "hill dwarf", "H-Dwf", "a hill dwarf", 8, {150, 100, 125, 100, 150},
+     {"berserk"},
+     {14, 12, 14, 10, 15}, {18, 15, 21, 15, 20}, SIZE_MEDIUM},
+
+    {
+     // 65 starting stat line, 89 max stat line
+     "mountain dwarf", "Dwarf", "a mountain dwarf", 8, {150, 100, 125, 100, 150},
+     {"berserk"},
+     {14, 12, 14, 10, 15}, {20, 15, 21, 13, 20}, SIZE_MEDIUM},
 
     {
      // 65 starting stat line, 90 max stat line
