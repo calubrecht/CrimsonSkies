@@ -2103,9 +2103,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only clerics can reclass into healers.\r\n", ch);
         return;
     }
-    else if (iClass == BLADESINGER_CLASS_LOOKUP && (ch->race != ELF_RACE_LOOKUP && ch->race != HALF_ELF_RACE_LOOKUP))
+    else if (iClass == BLADESINGER_CLASS_LOOKUP
+        && (ch->race != ELF_RACE_LOOKUP && ch->race != HALF_ELF_RACE_LOOKUP && ch->race != WILD_ELF_RACE_LOOKUP))
     {
-        send_to_char("Only elves can be bladesingers.\r\n", ch);
+        send_to_char("Only elves can be bladesingers (excluding dark elves).\r\n", ch);
         return;
     }
     else if (iClass == RANGER_CLASS_LOOKUP &&
