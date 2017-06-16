@@ -3668,7 +3668,7 @@ void do_race(CHAR_DATA *ch, char *argument)
     int x = 0;
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    send_to_char("{WRace{x             {WWho Name{x   {WSize{x\r\n", ch);
+    send_to_char("{WRace             {WWho Name   Size       Str  Int  Wis  Dex  Con{x\r\n", ch);
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
     for (race = 1; race < MAX_PC_RACE; race++)
@@ -3679,7 +3679,15 @@ void do_race(CHAR_DATA *ch, char *argument)
         // twice in the printf which is why we're formatting it here.
         sprintf(buf, "%s", capitalize(flag_string(size_flags, pc_race_table[race].size)));
 
-        printf_to_char(ch, "%-16s %-10s %-6s (%d)\r\n", capitalize(pc_race_table[race].name), pc_race_table[race].who_name, buf, pc_race_table[race].size);
+        printf_to_char(ch, "%-16s %-10s %-6s (%d)  %d   %d   %d   %d   %d\r\n"
+            , capitalize(pc_race_table[race].name)
+            , pc_race_table[race].who_name, buf, pc_race_table[race].size
+            , pc_race_table[race].max_stats[STAT_STR]
+            , pc_race_table[race].max_stats[STAT_INT]
+            , pc_race_table[race].max_stats[STAT_WIS]
+            , pc_race_table[race].max_stats[STAT_DEX]
+            , pc_race_table[race].max_stats[STAT_CON]
+        );
     }
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
