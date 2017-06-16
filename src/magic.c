@@ -242,6 +242,35 @@ int casting_level(CHAR_DATA *ch)
 } // end casting_level
 
 /*
+ * Returns the saves for a player.  Saves are calculated elsewhere and stored in the
+ * saving_throw field.  This will return that with any other real time code based
+ * modifications we want to make such as bonuses or penalities based off of stats
+ * or those for class/race combos, etc.
+ */
+int get_saves(CHAR_DATA * ch)
+{
+    int saves = 0;
+
+    if (ch != NULL)
+    {
+        // Get their saves
+        saves = ch->saving_throw;
+
+        // If they are a player, run through any mods we have.
+        if (!IS_NPC(ch))
+        {
+            saves += wis_app[get_curr_stat(ch, STAT_WIS)].saves_bonus;
+        }
+
+        return saves;
+    }
+    else
+    {
+        return saves;
+    }
+}
+
+/*
  * Compute a saving throw.
  * Negative apply's to saving_throw make saving throw better (subtracting a negative raises
  * the chance of saving), adding to the save variable here for certain cases also helps the
@@ -251,7 +280,7 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
 {
     int save;
 
-    save = 50 + (victim->level - level) * 5 - victim->saving_throw * 2;
+    save = 50 + (victim->level - level) * 5 - get_saves(victim) * 2;
 
     // Beserk offers some magic resistance
     if (IS_AFFECTED(victim, AFF_BERSERK))

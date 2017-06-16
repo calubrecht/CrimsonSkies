@@ -1703,7 +1703,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     sprintf(buf,
         "Hit: %d  Dam: %d  Saves: %d  Size: %s  Position: %s  Wimpy: %d\r\n",
-        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), victim->saving_throw,
+        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), get_saves(victim),
         size_table[victim->size].name,
         position_table[victim->position].name, victim->wimpy);
     send_to_char(buf, ch);

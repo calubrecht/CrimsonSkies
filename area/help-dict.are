@@ -66,7 +66,9 @@ casts magic spells at.
 0 SAVES~
 The saves label in the score shows you how many saves your character currently
 has.  Saves help to determine how well you can resist spells that are being
-cast on you.  The lower your saves the better.
+cast on you.  The lower your saves the better.  Saves can be modified for
+better or worse by some spells, some gear, a players wisdom or other attributes
+such as race and class combinations.
 ~
 0 'CREATION POINTS'~
 Creation points are determined by how many skills and spells you took at

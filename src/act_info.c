@@ -2107,7 +2107,7 @@ void do_score(CHAR_DATA * ch, char *argument)
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield), GET_HITROLL(ch, dual_wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield), GET_DAMROLL(ch, dual_wield),
             capitalize(get_stance_name(ch)), ch->wimpy,
-            casting_level(ch), ch->saving_throw
+            casting_level(ch), get_saves(ch)
         );
     }
     else
@@ -2116,7 +2116,7 @@ void do_score(CHAR_DATA * ch, char *argument)
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield),
             capitalize(get_stance_name(ch)), ch->wimpy,
-            casting_level(ch), ch->saving_throw
+            casting_level(ch), get_saves(ch)
         );
     }
 

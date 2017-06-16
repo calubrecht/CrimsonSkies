@@ -345,30 +345,31 @@ struct descriptor_data
  */
 struct str_app_type
 {
-    int    todam;
-    int    carry;
-    int    wield;
+    int todam;
+    int carry;
+    int wield;
 };
 
 struct int_app_type
 {
-    int    learn;
+    int learn;
 };
 
 struct wis_app_type
 {
-    int    practice;
+    int practice;
+    int saves_bonus;    // Bonus the players saves
 };
 
 struct dex_app_type
 {
-    int    defensive;      // AC Bonus
-    int    hitroll_bonus;  // Hit Roll Bonus
+    int defensive;      // AC Bonus
+    int hitroll_bonus;  // Hit Roll Bonus
 };
 
 struct con_app_type
 {
-    int    hitp;
+    int hitp;
 };
 
 /*
@@ -2671,6 +2672,7 @@ bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
 CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
 bool      saves_dispel   (int dis_level, int spell_level, int duration);
 int       casting_level  (CHAR_DATA *ch);
+int       get_saves      (CHAR_DATA *ch);
 
 /* merit.c */
 void add_merit(CHAR_DATA *ch, long merit);
