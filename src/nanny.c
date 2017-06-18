@@ -396,8 +396,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 // Turn string echoing back on and send them back to the login menu.
                 write_to_buffer(d, echo_on_str);
-                d->connected = CON_LOGIN_MENU;
-                show_login_menu(d);
+                send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
 
                 return;
             }
