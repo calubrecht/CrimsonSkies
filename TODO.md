@@ -149,7 +149,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - add hitroll_bonus, damroll_bonus to class structure
   - Secondary class stat
   - barb, mud coat skill.
-  - Race skill to show stats on all available pc races.
   - tnl command
   - enhance pain spell (more damage taken)
   - psionict's chance to avoid psionic damage damage
