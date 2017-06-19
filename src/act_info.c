@@ -966,6 +966,30 @@ void do_autoassist(CHAR_DATA * ch, char *argument)
     }
 }
 
+/*
+ * Whether or not the player will attempt to quit out when the go link dead.
+ */
+void do_autoquit( CHAR_DATA *ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+
+    if (IS_SET(ch->act, PLR_AUTOQUIT))
+    {
+        send_to_char("You will no longer attempt to quit when you go linkdead.\r\n", ch);
+        REMOVE_BIT(ch->act, PLR_AUTOQUIT);
+    }
+    else
+    {
+        send_to_char("You will attempt to quit when you go linkdead.\r\n", ch);
+        SET_BIT(ch->act, PLR_AUTOQUIT);
+    }
+}
+
+
 void do_autoexit(CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC(ch))
@@ -1064,6 +1088,7 @@ void do_autoall(CHAR_DATA *ch, char * argument)
         SET_BIT(ch->act, PLR_AUTOLOOT);
         SET_BIT(ch->act, PLR_AUTOSAC);
         SET_BIT(ch->act, PLR_AUTOSPLIT);
+        SET_BIT(ch->act, PLR_AUTOQUIT);
 
         send_to_char("All autos turned on.\r\n", ch);
     }
@@ -1075,6 +1100,7 @@ void do_autoall(CHAR_DATA *ch, char * argument)
         REMOVE_BIT(ch->act, PLR_AUTOLOOT);
         REMOVE_BIT(ch->act, PLR_AUTOSAC);
         REMOVE_BIT(ch->act, PLR_AUTOSPLIT);
+        REMOVE_BIT(ch->act, PLR_AUTOQUIT);
 
         send_to_char("All autos turned off.\r\n", ch);
     }
@@ -2168,9 +2194,10 @@ void do_score(CHAR_DATA * ch, char *argument)
             , IS_SET(ch->comm, COMM_COMPACT) ? 'X' : ' '
         );
 
-        sprintf(buf, "%s Combine Items [{C%c{x]"
+        sprintf(buf, "%s Combine Items [{C%c{x]    Auto Quit [{C%c{x]"
             , buf
             , IS_SET(ch->comm, COMM_COMBINE) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOQUIT) ? 'X' : ' '
         );
 
         row_append_cell(row, 75, buf);

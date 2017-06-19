@@ -389,3 +389,4 @@ DECLARE_DO_FUN(do_cleanse);
 DECLARE_DO_FUN(do_power_swing);
 DECLARE_DO_FUN(do_meritlist);
 DECLARE_DO_FUN(do_race);
+DECLARE_DO_FUN(do_autoquit);

@@ -1470,6 +1470,7 @@ typedef enum
 #define PLR_AUTOSAC         (F)
 #define PLR_AUTOGOLD        (G)
 #define PLR_AUTOSPLIT       (H)
+#define PLR_AUTOQUIT        (I)
 #define PLR_QUESTOR         (J)
 
 /* Special Flags */

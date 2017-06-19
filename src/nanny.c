@@ -1065,6 +1065,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 // First time character bits
                 SET_BIT(ch->act, PLR_COLOR);
                 SET_BIT(ch->comm, COMM_TELNET_GA);
+                SET_BIT(ch->act, PLR_AUTOQUIT);
 
                 ch->perm_stat[class_table[ch->class]->attr_prime] += 3;
 

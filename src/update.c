@@ -1098,7 +1098,7 @@ void char_update(void)
             save_char_obj(ch);
         }
 
-        if (ch == ch_quit)
+        if (ch == ch_quit || (!IS_NPC(ch) && !ch->desc && IS_SET(ch->act,PLR_AUTOQUIT)))
         {
             do_function(ch, &do_quit, "");
         }
