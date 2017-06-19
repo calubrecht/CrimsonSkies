@@ -2136,12 +2136,45 @@ void do_score(CHAR_DATA * ch, char *argument)
         GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC)
     );
 
-    // Row 5 - Merits
+    // Row 5 - Merits & Row 6 - Auto Functions
     if (!IS_NPC(ch))
     {
         row = create_row_padded(grid, 0, 0, 2, 2);
         sprintf(buf, "Merit(s): %s", merit_list(ch));
         row_append_cell(row, 75, buf);
+
+        row = create_row_padded(grid, 0, 0, 2, 2);
+
+        sprintf(buf, "     No Cancel [{C%c{x]    No Summon [{C%c{x]     Can Loot [{C%c{x]     No Follow [{C%c{x]\n"
+            , IS_SET(ch->act, PLR_NOCANCEL) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%s   Auto Assist [{C%c{x]    Auto Exit [{C%c{x]    Auto Gold [{C%c{x]     Auto Loot [{C%c{x]\n"
+            , buf
+            , IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%sAuto Sacrifice [{C%c{x]   Auto Split [{C%c{x]     TelnetGA [{C%c{x]  Compact Mode [{C%c{x]\n"
+            , buf
+            , IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' '
+            , IS_SET(ch->comm, COMM_TELNET_GA) ? 'X' : ' '
+            , IS_SET(ch->comm, COMM_COMPACT) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%s Combine Items [{C%c{x]"
+            , buf
+            , IS_SET(ch->comm, COMM_COMBINE) ? 'X' : ' '
+        );
+
+        row_append_cell(row, 75, buf);
+
     }
 
     // Finally, send the grid to the character
