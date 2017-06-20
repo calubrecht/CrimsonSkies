@@ -1508,6 +1508,10 @@ void bust_a_prompt(CHAR_DATA * ch)
                 }
                 i = buf2;
                 break;
+            case 'y':
+                sprintf(buf2, "%d", ch->wimpy);
+                i = buf2;
+                break;
             case '%':
                 sprintf(buf2, "%%");
                 i = buf2;
