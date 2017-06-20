@@ -2412,6 +2412,9 @@ void do_snoop(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Allows an immortal to switch into a mob.
+ */
 void do_switch(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
@@ -2472,12 +2475,17 @@ void do_switch(CHAR_DATA * ch, char *argument)
     ch->desc->original = ch;
     victim->desc = ch->desc;
     ch->desc = NULL;
+
     /* change communications to match */
     if (ch->prompt != NULL)
+    {
         victim->prompt = str_dup(ch->prompt);
+    }
+
     victim->comm = ch->comm;
     victim->lines = ch->lines;
-    send_to_char("Ok.\r\n", victim);
+
+    printf_to_char(victim, "You have switched into %s.\r\n", victim->short_descr);
     return;
 }
 
