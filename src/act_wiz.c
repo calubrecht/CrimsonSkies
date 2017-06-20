@@ -6827,31 +6827,6 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    int x = 0;
-    int y = 0;
-    int col = 0;
-
-    for (x = 0; x < MAX_CLASS; x++)
-    {
-        printf_to_char(ch, "%s:\r\n", class_table[x]->name);
-
-        for (y = 0;y < MAX_PC_RACE; y++)
-        {
-            col++;
-
-            printf_to_char(ch, "  * %-16s %d", pc_race_table[y].name, pc_race_table[y].class_mult[x]);
-
-            if (col % 3 == 0)
-            {
-                send_to_char("\r\n", ch);
-            }
-
-        }
-
-        col = 0;
-        send_to_char("\r\n", ch);
-
-    }
-
+    send_to_char("Huh?\r\n", ch);
     return;
 } // end do_debug
