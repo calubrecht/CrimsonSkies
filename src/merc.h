@@ -1070,6 +1070,7 @@ typedef enum
 #define SIZE_LARGE   3
 #define SIZE_HUGE    4
 #define SIZE_GIANT   5
+#define SIZE_DRAGON  6
 
 /* alignments */
 #define ALIGN_EVIL      1   // Evil folks
