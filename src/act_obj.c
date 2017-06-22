@@ -2949,6 +2949,12 @@ void do_list(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (find_mob_by_act(ch, ACT_IS_HEALER) != NULL)
+    {
+        do_heal(ch, "");
+        return;
+    }
+
     if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         ROOM_INDEX_DATA *pRoomIndexNext;
