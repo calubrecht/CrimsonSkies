@@ -1137,7 +1137,7 @@ REDIT(redit_show)
     if (pRoom->clan > 0)
     {
         sprintf(buf, "Clan      : [%d] %s\r\n",
-            pRoom->clan, clan_table[pRoom->clan].name);
+            pRoom->clan, clan_table[pRoom->clan].friendly_name);
         strcat(buf1, buf);
     }
 
