@@ -198,7 +198,11 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (!str_prefix(arg2, "none"))
     {
-        send_to_char("They are now clanless.\r\n", ch);
+        if (ch != victim)
+        {
+            send_to_char("They are now clanless.\r\n", ch);
+        }
+
         send_to_char("You are now a member of no clan!\r\n", victim);
         victim->clan = 0;
         return;
@@ -212,15 +216,23 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (clan_table[clan].independent)
     {
-        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        if (ch != victim)
+        {
+            sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
+            send_to_char(buf, ch);
+        }
+
         sprintf(buf, "You are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
     }
     else
     {
-        sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        if (ch != victim)
+        {
+            sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
+            send_to_char(buf, ch);
+        }
+
         sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
     }
@@ -6827,6 +6839,25 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    send_to_char("Huh?\r\n", ch);
+    ROOM_INDEX_DATA *pRoomIndex;
+    AREA_DATA *pArea;
+    int vnum;
+
+    pArea = ch->in_room->area;
+
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
+    {
+        if ((pRoomIndex = get_room_index(vnum)))
+        {
+            if (pRoomIndex != NULL)
+            {
+                pRoomIndex->clan = clan_lookup("Sylvan");
+                SET_BIT(pRoomIndex->room_flags, ROOM_NO_GATE);
+            }
+        }
+    }
+
+    send_to_char("Ok.\r\n", ch);
+
     return;
 } // end do_debug
