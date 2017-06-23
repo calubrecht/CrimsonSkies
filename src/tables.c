@@ -462,6 +462,7 @@ const struct flag_type extra_flags[] = {
     {"burnproof", ITEM_BURN_PROOF, TRUE},
     {"nouncurse", ITEM_NOUNCURSE, TRUE},
     {"buried", ITEM_BURIED, TRUE},
+    {"nolocate", ITEM_NOLOCATE, TRUE},
     {NULL, 0, 0}
 };
 
