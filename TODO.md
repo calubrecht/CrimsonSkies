@@ -159,3 +159,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
   - Previous HP to affect your reclass HP
   - Clan specific reclass
+  - Allow logout even in pk lag if the player is in a clan owned room of the clan they are in
