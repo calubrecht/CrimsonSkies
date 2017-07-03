@@ -3008,6 +3008,8 @@ char *extra_bit_name(int extra_flags)
         strcat(buf, " burn_proof");
     if (extra_flags & ITEM_NOUNCURSE)
         strcat(buf, " no_uncurse");
+    if (extra_flags & ITEM_MELT_DROP)
+        strcat(buf, " melt_drop");
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
