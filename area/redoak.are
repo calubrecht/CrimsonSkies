@@ -310,9 +310,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -322,9 +322,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -334,9 +334,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -528,14 +528,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -1017,6 +1017,10 @@ canopy above the road and the surrounding buildings.  To the east the large
 gates of Red Oak stand sturdy and tall.  
 ~
 0 262144 1
+D1
+~
+~
+0 0 1812
 D3
 ~
 ~
