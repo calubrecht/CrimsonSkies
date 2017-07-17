@@ -688,6 +688,7 @@ void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target
 
     return;
 }
+
 /*
  * A divination spell that allows a priest to walk on water for a tick.  This can't
  * and shouldn't be cast on everyone, we don't want the whole mud negating water
