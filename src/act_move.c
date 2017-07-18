@@ -1909,6 +1909,9 @@ void do_bind(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // This looks for objects with the keyword bindstone in the keywords, fear not though, we will
+    // actually check it to make sure it's the bindstone vnum as to prevent hacks from things like
+    // parchments being named with this in the keywords.
     obj = get_obj_list(ch, "bindstone", ch->in_room->contents);
 
     if (obj == NULL || obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
