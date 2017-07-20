@@ -295,7 +295,7 @@ S
 #1815
 A small dirt road~
 To the west of you, the frontier town of Red Oak can be seen.  To the
-northeast, the Great Forest can be seen.  
+northeast, the Sylvan Forest can be seen.  
 ~
 0 0 2
 D1
@@ -344,11 +344,15 @@ D3
 S
 #1818
 A small dirt road~
-The mighty trees of the Great Forest rise before you to the north, their
+The mighty trees of the Sylvan Forest rise before you to the north, their
 massive trunks twisting towards the sky in savage grace.  To the west, the
 sounds and smells of Red Oak are barely present.  
 ~
 0 0 2
+D0
+~
+~
+0 0 10550
 D3
 ~
 ~
