@@ -1039,6 +1039,11 @@ void save_class(int num)
     fprintf(fp, "IsReclass   %d\n", class_table[num]->is_reclass);
     fprintf(fp, "IsEnabled   %d\n", class_table[num]->is_enabled);
 
+    if (class_table[num]->clan)
+    {
+        fprintf(fp, "Clan %s~\n", clan_table[class_table[num]->clan].name);
+    }
+
     for (lev = 0; lev < MAX_LEVEL; lev++)
     {
         for (i = 0; i < top_sn; i++)

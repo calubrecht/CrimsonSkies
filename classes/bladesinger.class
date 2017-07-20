@@ -15,6 +15,7 @@ BaseGroup   'bladesinger basics'
 DefGroup    'bladesinger default'
 IsReclass   1
 IsEnabled   1
+Clan sylvan~
 Sk 'ventriloquate' 1 1
 Sk 'dagger' 1 2
 Sk 'shield block' 1 4

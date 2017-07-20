@@ -449,6 +449,7 @@ struct class_type
     char *  default_group;     /* default skills gained       */
     bool    is_reclass;        /* Whether the class is a reclass (or a base class) */
     bool    is_enabled;        /* Whether the class is enabled for public use */
+    int     clan;              /* The clan number if this is a clan specific reclass */
 };
 
 /*

@@ -6260,6 +6260,33 @@ CEDIT(cedit_name)
     return TRUE;
 }
 
+CEDIT(cedit_clan)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  clan [clan name]\r\n", ch);
+        return FALSE;
+    }
+
+    class->clan = clan_lookup(argument);
+
+    if (class->clan == 0)
+    {
+        send_to_char("Clan cleared.\r\n", ch);
+    }
+    else
+    {
+        send_to_char("Clan set.\r\n", ch);
+    }
+
+    return TRUE;
+}
+
+
 CEDIT(cedit_whoname)
 {
     CLASSTYPE *class;
@@ -6695,6 +6722,17 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
+
+    if (class->clan > 0)
+    {
+        sprintf(buf, "Clan Specific: [%s]\r\n", clan_table[class->clan].friendly_name);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        send_to_char("Clan Specific: [None]\r\n", ch);
+    }
+
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);
     sprintf(buf, "Default Group: [%s]\r\n", class->default_group);

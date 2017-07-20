@@ -359,6 +359,7 @@ const struct olc_cmd_type cedit_table[] =
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},
+    {   "clan",         cedit_clan      },
     {   "",             0,              }
 };
 

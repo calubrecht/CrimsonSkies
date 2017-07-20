@@ -2087,6 +2087,11 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("That reclass is currently disabled.\r\n", ch);
         return;
     }
+    else if (class_table[iClass]->clan > 0 && ch->clan != class_table[iClass]->clan)
+    {
+        printf_to_char(ch, "That is a clan specific reclass only available to %s.\r\n", clan_table[class_table[iClass]->clan].friendly_name);
+        return;
+    }
 
     if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
     {
@@ -2104,7 +2109,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         return;
     }
     else if (iClass == BLADESINGER_CLASS_LOOKUP
-        && (ch->race != ELF_RACE_LOOKUP && ch->race != HALF_ELF_RACE_LOOKUP && ch->race != WILD_ELF_RACE_LOOKUP))
+        && (ch->race != ELF_RACE_LOOKUP && ch->race != HALF_ELF_RACE_LOOKUP && ch->race != WILD_ELF_RACE_LOOKUP && ch->race != SEA_ELF_RACE_LOOKUP))
     {
         send_to_char("Only elves can be bladesingers (excluding dark elves).\r\n", ch);
         return;
@@ -2275,7 +2280,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     send_to_char("Customization takes time, but allows a wider range of skills and abilities.\r\n", ch);
     send_to_char("Customize (Y/N)? ", ch);
 
-    // Move character to LIMBO so they can't be attacked or messed with while this 
+    // Move character to LIMBO so they can't be attacked or messed with while this
     // process is happening.  If they disconnect from reclass they will end up at
     // their last save point.  Reclassing players don't save.
     char_from_room(ch);

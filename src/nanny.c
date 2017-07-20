@@ -1109,7 +1109,10 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 ch->pcdata->is_reclassing = FALSE;
 
                 char_from_room(ch);
-                char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+
+                // This will transfer the player to their clan hall's altar.  If they aren't
+                // in a clan then ch->clan will be 0 and will go to the default altar.
+                char_to_room(ch, get_room_index(clan_table[ch->clan].hall));
 
                 // Outfit them with sub issue gear if they need it.
                 do_function(ch, &do_outfit, "");

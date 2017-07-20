@@ -3973,6 +3973,9 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
+
+                KEY("Clan", class->clan, clan_lookup(fread_string(fp)));
+
                 break;
             case 'D':
                 KEY("DefGroup", class->default_group, str_dup(fread_word(fp)));
