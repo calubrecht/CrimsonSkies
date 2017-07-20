@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include "merc.h"
 #include "interp.h"
+#include "tables.h"
 
 // The supported directions, there are corresponding DIR_* constants that are in merc.h that are in the 
 // same order as this.
@@ -1891,6 +1892,20 @@ void do_bind(CHAR_DATA * ch, char *argument)
     // be done without a bind stone in the room.
     if (!IS_NULLSTR(argument) && (!str_cmp(argument, "reset")))
     {
+        // If they're in a clan, reset them to their clan's recall, otherwise, use the temple.
+        if (is_clan(ch))
+        {
+            ROOM_INDEX_DATA *location;
+
+            // Make sure the recall point is valid, then set it.
+            if ((location = get_room_index(clan_table[ch->clan].recall_vnum)) != NULL)
+            {
+                ch->pcdata->recall_vnum = clan_table[ch->clan].recall_vnum;
+                printf_to_char(ch, "Your recall point has been reset to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+                return;
+            }
+        }
+
         ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
         send_to_char("Your recall point has been reset.\r\n", ch);
         return;
