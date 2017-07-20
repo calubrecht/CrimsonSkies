@@ -55,18 +55,19 @@
 /*
  * Clan Table
  *
- * Name, Who Name, Friendly Name, Death Transfer Room, Independent
+ * Name, Who Name, Friendly Name, Death Transfer Room, Recall VNUM, Independent
  *
  * Independent should be FALSE if it is a real clan
  */
 const struct clan_type clan_table[MAX_CLAN] = {
-    { "",           "",                      "",             ROOM_VNUM_ALTAR, TRUE,  FALSE },
-    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR, TRUE,  TRUE  },
-    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR, TRUE,  TRUE  },
-    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR, FALSE, TRUE  },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR, FALSE, TRUE  },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR, FALSE, TRUE  },
-    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR, FALSE, TRUE  }
+    { "",           "",                      "",             ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  FALSE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  TRUE  },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  TRUE  },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
+    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
+    { "sylvan",     "[ {gSylvan{x ] ",       "Sylvan",       ROOM_VNUM_SYLVAN_ALTER, ROOM_VNUM_SYLVAN_RECALL, FALSE, TRUE  }
 };
 
 /*
@@ -136,7 +137,7 @@ void do_loner(CHAR_DATA *ch, char *argument)
 
     if (str_cmp(argument, ch->name))
     {
-        send_to_char("This is not your name...\n\r", ch);
+        send_to_char("This is not your name...\r\n", ch);
         return;
     }
 
@@ -170,9 +171,10 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
 {
     int clan;
     char buf[MAX_STRING_LENGTH];
+    ROOM_INDEX_DATA *location;
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    send_to_char("{WClan                  Independent{x\r\n", ch);
+    send_to_char("{WClan               Independent   Recall Point{x\r\n", ch);
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
     for (clan = 0; clan < MAX_CLAN; clan++)
@@ -182,9 +184,12 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
            continue;
         }
 
-        sprintf(buf, "%-25s{x %-5s\r\n",
+        location = get_room_index(clan_table[clan].recall_vnum);
+
+        sprintf(buf, "%-22s{x %-13s {c%-20s{x\r\n",
             clan_table[clan].who_name,
-            clan_table[clan].independent == TRUE ? "True" : "False"
+            clan_table[clan].independent == TRUE ? "True" : "False",
+            (location != NULL && !IS_NULLSTR(location->name)) ? location->name : "Unknown"
             );
 
         send_to_char(buf, ch);

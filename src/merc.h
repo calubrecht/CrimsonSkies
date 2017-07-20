@@ -118,7 +118,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define MAX_ALIAS          10
 #define MAX_CLASS          12   // top_class
 #define MAX_PC_RACE        13
-#define MAX_CLAN           7
+#define MAX_CLAN           8
 #define MAX_DAMAGE_MESSAGE 41
 #define MAX_LEVEL          60
 #define LEVEL_HERO         51
@@ -1318,6 +1318,12 @@ typedef enum
 #define ROOM_VNUM_TEMPLE   3001
 #define ROOM_VNUM_ALTAR    3054
 #define ROOM_VNUM_SCHOOL   3700
+
+/*
+ * Clan specifc altar's and recalls
+ */
+#define ROOM_VNUM_SYLVAN_ALTER  10560
+#define ROOM_VNUM_SYLVAN_RECALL  1815
 
 /*
  * Room flags.

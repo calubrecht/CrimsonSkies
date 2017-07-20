@@ -235,6 +235,20 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
         sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
+
+        // They are in a new clan, if that clan has a recall point, set it.
+        if (!IS_NPC(victim))
+        {
+            ROOM_INDEX_DATA *location;
+
+            // Make sure the recall point is valid, then set it.
+            if ((location = get_room_index(clan_table[clan].recall_vnum)) != NULL)
+            {
+                victim->pcdata->recall_vnum = clan_table[clan].recall_vnum;
+                printf_to_char(victim, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+            }
+        }
+
     }
 
     victim->clan = clan;
@@ -6266,7 +6280,13 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
     affect_strip_all(victim);
 
     // Reset's the char
-    reset_char(ch);
+    reset_char(victim);
+
+    // Set their pk timer to 0.
+    if (!IS_NPC(victim))
+    {
+        victim->pcdata->pk_timer = 0;
+    }
 
     // Show the user what was done.
     if (ch != victim)

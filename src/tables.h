@@ -33,6 +33,7 @@ struct clan_type
     char 	*who_name;      // The name that should appear in the who list
     char    *friendly_name; // Friendly unformatted name without color and with spacing
     int 	hall;           // Death Transfer Room
+    int     recall_vnum;    // Default recall vnum for the clan
     bool	independent;    // True for loners/renegades, false for part of a real clan
     bool    enabled;        // Whether or not this clan is enabled for use
 };
