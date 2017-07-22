@@ -6,7 +6,7 @@ LevelRange 1 51
 Credits Crusher~
 Security 1
 Continent 0
-AreaFlags B
+AreaFlags AB
 End
 
 
@@ -59,6 +59,22 @@ ABV HJ 3 0
 -15 -15 -15 -15
 EFJ ABCD B Z
 stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#10553
+guildmaster master~
+the guildmaster~
+Your guildmaster is standing here.
+~
+Even though your guildmaster looks old and tired, you can clearly see the
+vast amount of knowledge she possesses. She is wearing fine magic clothing,
+and you notice that she is surrounded by a blue shimmering aura.
+~
+elf~
+ABJKRVb DEFJZ 3 0
+36 0 1d1+1999 1d1+999 3d8+24 magic
+-15 -15 -15 -15
+FG ABCD B Z
+stand stand female 0
 AHMV ABCDEFGHIJK medium unknown
 #0
 
@@ -451,6 +467,19 @@ D4
 0 0 10562
 C sylvan~
 S
+#10564
+Sylvan Guildmaster~
+You are standing in the cut out trunk of large Vallenwood tree.  On the
+walls hang many daggers, swords and items of magical creation.  In the back
+of the room stands an aged elf whose job is to assist with the training of
+the sapplings.  
+~
+0 0 0
+D0
+~
+~
+0 0 10568
+S
 #10565
 The Garden of Spring~
 You are standing amidst a beautiful garden of blooming wildflowers and
@@ -529,6 +558,10 @@ D0
 ~
 ~
 0 0 10567
+D2
+~
+~
+0 0 10564
 D3
 ~
 ~
@@ -540,6 +573,7 @@ S
 
 
 #SPECIALS
+M 10553 spec_cast_mage
 S
 
 
@@ -558,6 +592,7 @@ O 0 10551 0 10559 A portal to miden'nir loaded to The Moongates
 O 0 10552 0 10560 A sleeping pad loaded to Above the Altar
 O 0 10553 0 10560 A gold-etched crystalline fountain loaded to Above the Altar
 O 0 10557 0 10562 The shelves loaded to Sylvan Storehouse
+M 0 10553 1 10564 1 Load the guildmaster
 O 0 10558 0 10567 The pond loaded to Enedeithel Pond
 S
 
