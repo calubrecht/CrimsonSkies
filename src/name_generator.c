@@ -132,7 +132,7 @@ void init_name_parts()
     max_name_part = max_name_part - 1;
 
     log_f("STATUS: Initializing Random Name Table Count - %d entries (%s maximum possibilities)",
-        max_name_part, num_punct(max_name_part * max_name_part));
+    max_name_part, num_punct(max_name_part * max_name_part));
 
     // This would need to be be commented out or removed if moving this code to another mud.
     if (global.last_boot_result == UNKNOWN)
@@ -924,5 +924,30 @@ const struct name_part_type name_part_table[] = {
         {"Rhea", "drem"},
         {"Pyth", "dram"},
         {"Pith", "drek"},
+        {"Broll", "gam"},
+        {"Ciaph", "bine"},
+        {"Balin", "maar"},
+        {"Brea", "inik"},
+        {"Ciat", "inic"},
+        {"Hart", "iael"},
+        {"Izzi", "sar"},
+        {"Maes", "ater"},
+        {"Meis", "atar"},
+        {"Narth", "itir"},
+        {"Kyrl", "mira"},
+        {"Saer", "mara"},
+        {"Bran", "ovar"},
+        {"Daeg", "agor"},
+        {"Arga", "ezrin"},
+        {"Belin", "dae"},
+        {"Seles", "grim"},
+        {"Sael", "syn"},
+        {"Rhaul", "stia"},
+        {"Sav", "elly"},
+        {"Thz", "bor"},
+        {"Vaeli", "cena"},
+        {"Vlad", "myr"},
+        {"Hiem", "essa"},
+        {"Sach", "assa"},
         {NULL, NULL}
 };
