@@ -418,6 +418,8 @@ void advance_level(CHAR_DATA * ch, bool hide)
         add_hp += 2;
     }
 
+    // The merits for wisdom and intelligence are seperate checks so if someone has both
+    // they will get 2 mana instead of 1.
     // Merit - Intelligence
     if (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE))
     {
