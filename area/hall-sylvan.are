@@ -61,9 +61,9 @@ EFJ ABCD B Z
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
 #10553
-guildmaster master~
-the guildmaster~
-Your guildmaster is standing here.
+elven guildmaster master~
+the elven guildmaster~
+The elven guildmaster is standing here.
 ~
 Even though your guildmaster looks old and tired, you can clearly see the
 vast amount of knowledge she possesses. She is wearing fine magic clothing,
@@ -592,7 +592,7 @@ O 0 10551 0 10559 A portal to miden'nir loaded to The Moongates
 O 0 10552 0 10560 A sleeping pad loaded to Above the Altar
 O 0 10553 0 10560 A gold-etched crystalline fountain loaded to Above the Altar
 O 0 10557 0 10562 The shelves loaded to Sylvan Storehouse
-M 0 10553 1 10564 1 Load the guildmaster
+M 0 10553 1 10564 1 Load the elven guildmaster
 O 0 10558 0 10567 The pond loaded to Enedeithel Pond
 S
 
