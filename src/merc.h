@@ -1327,6 +1327,7 @@ typedef enum
 #define ROOM_VNUM_SYLVAN_RECALL     1815
 #define ROOM_VNUM_WARHAMMER_ALTER  10607
 #define ROOM_VNUM_WARHAMMER_RECALL   903
+#define ROOM_VNUM_REDOAK_ALTAR       704
 
 /*
  * Room flags.

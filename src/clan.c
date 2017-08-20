@@ -65,7 +65,7 @@ const struct clan_type clan_table[MAX_CLAN] = {
     { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            TRUE,  TRUE  },
     { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
     { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_REDOAK_ALTAR,    ROOM_VNUM_REDOAK_ALTAR,     FALSE, TRUE  },
     { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
     { "sylvan",     "[ {gSylvan{x ] ",       "Sylvan",       ROOM_VNUM_SYLVAN_ALTER,    ROOM_VNUM_SYLVAN_RECALL,    FALSE, TRUE  },
     { "warhammer",  "[ {CWar Hammer{x ] ",   "War Hammer",   ROOM_VNUM_WARHAMMER_ALTER, ROOM_VNUM_WARHAMMER_RECALL, FALSE, TRUE  }
