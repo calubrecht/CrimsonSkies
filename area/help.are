@@ -4527,6 +4527,12 @@ Second wind is a barbarian skill which will give them a burst of energy
 when their health gets too low, possibly saving them in a fight.  Once
 this has happened another second won't occur for a set period of time.
 ~
+0 DRAW~
+The draw command will allow a player a draw a random card from a deck
+of cards.  This is often used between players to determine who strikes
+first in a duel or events that require players to need to setup a
+random order.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request
