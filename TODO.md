@@ -155,7 +155,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - assassin class (strangle, assassinate, flash bomb)
   - assassin surprise attack (moves a person into the next room and attacks in a single command)
   - draw command, to draw a random card.
-  - Merits, don't allow to go over 25 for a stat.
   - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
   - Previous HP to affect your reclass HP
   - Clan specific reclass
@@ -163,4 +162,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Priest spell (with cooldown) to prevent a person from entering a room for a tick
   - Ranger skill to show terrain of room after the room description
   - Area flag that denotes a clan/kingdom hall.
-  - guild list to also denote continent the clan hall is on.
