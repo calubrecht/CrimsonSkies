@@ -3840,6 +3840,7 @@ void do_draw(CHAR_DATA *ch, char *argument)
             // Continue onward with drawing a card.
             break;
         case SUB_TIMER_DO_ABORT:
+            // The player stopped early which will cause them to not draw a card.
             ch->substate = SUB_NONE;
             send_to_char("You stop shuffling the deck early and do not draw a card.\r\n", ch);
             act("$n stops shuffling the deck early and does not draw a card.", ch, NULL, NULL, TO_ROOM);
@@ -3849,7 +3850,8 @@ void do_draw(CHAR_DATA *ch, char *argument)
     // Reset the characters substate
     ch->substate = SUB_NONE;
 
-    // Get a random card that we can reference from the static deck array
+    // Get a random card that we can reference from the static deck array, show the final result
+    // to both the player and the room.
     card = number_range(0, 51);
     act("You draw a $t from a deck of cards.", ch, deck[card], NULL, TO_CHAR);
     act("$n draws a $t from a deck of cards.", ch, deck[card], NULL, TO_ROOM);
