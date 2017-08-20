@@ -175,7 +175,7 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
     ROOM_INDEX_DATA *location;
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    send_to_char("{WClan               Independent   Recall Point{x\r\n", ch);
+    send_to_char("{WClan               Independent   Continent  Recall Point{x\r\n", ch);
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
 
     for (clan = 0; clan < MAX_CLAN; clan++)
@@ -187,9 +187,10 @@ void do_guildlist(CHAR_DATA *ch, char *argument)
 
         location = get_room_index(clan_table[clan].recall_vnum);
 
-        sprintf(buf, "%-22s{x %-13s {c%-20s{x\r\n",
+        sprintf(buf, "%-22s{x %-13s %-10s {c%-20s{x\r\n",
             clan_table[clan].who_name,
             clan_table[clan].independent == TRUE ? "True" : "False",
+            (location != NULL && location->area != NULL) ? capitalize(continent_table[location->area->continent].name) : "Unknown",
             (location != NULL && !IS_NULLSTR(location->name)) ? location->name : "Unknown"
             );
 
