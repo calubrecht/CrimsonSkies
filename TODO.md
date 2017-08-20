@@ -163,3 +163,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Priest spell (with cooldown) to prevent a person from entering a room for a tick
   - Ranger skill to show terrain of room after the room description
   - Area flag that denotes a clan/kingdom hall.
+  - guild list to also denote continent the clan hall is on.
