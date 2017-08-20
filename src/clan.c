@@ -60,15 +60,15 @@
  * Independent should be FALSE if it is a real clan
  */
 const struct clan_type clan_table[MAX_CLAN] = {
-    { "",           "",                      "",             ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  FALSE },
-    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  TRUE  },
-    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         TRUE,  TRUE  },
-    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
-    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  },
-    { "sylvan",     "[ {gSylvan{x ] ",       "Sylvan",       ROOM_VNUM_SYLVAN_ALTER, ROOM_VNUM_SYLVAN_RECALL, FALSE, TRUE  },
-    { "warhammer",  "[ {CWar Hammer{x ] ",    "War Hammer",   ROOM_VNUM_ALTAR,        ROOM_VNUM_ALTAR,         FALSE, TRUE  }
+    { "",           "",                      "",             ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            TRUE,  FALSE },
+    { "loner",      "[ {WLoner{x ] ",        "Loner",        ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            TRUE,  TRUE  },
+    { "renegade",   "[ {WRenegade{x ] ",     "Renegade",     ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            TRUE,  TRUE  },
+    { "midgaard",   "[ {BMidgaard{x ] ",     "Midgaard",     ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
+    { "newthalos",  "[ {cNew Thalos{x ] ",   "New Thalos",   ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
+    { "redoakarmy", "[ {RRed Oak Army{x ] ", "Red Oak Army", ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
+    { "cult",       "[ {wCult{x ] ",         "Cult",         ROOM_VNUM_ALTAR,           ROOM_VNUM_ALTAR,            FALSE, TRUE  },
+    { "sylvan",     "[ {gSylvan{x ] ",       "Sylvan",       ROOM_VNUM_SYLVAN_ALTER,    ROOM_VNUM_SYLVAN_RECALL,    FALSE, TRUE  },
+    { "warhammer",  "[ {CWar Hammer{x ] ",   "War Hammer",   ROOM_VNUM_WARHAMMER_ALTER, ROOM_VNUM_WARHAMMER_RECALL, FALSE, TRUE  }
 };
 
 /*

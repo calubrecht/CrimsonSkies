@@ -1323,8 +1323,10 @@ typedef enum
 /*
  * Clan specifc altar's and recalls
  */
-#define ROOM_VNUM_SYLVAN_ALTER  10560
-#define ROOM_VNUM_SYLVAN_RECALL  1815
+#define ROOM_VNUM_SYLVAN_ALTER     10560
+#define ROOM_VNUM_SYLVAN_RECALL     1815
+#define ROOM_VNUM_WARHAMMER_ALTER  10607
+#define ROOM_VNUM_WARHAMMER_RECALL   903
 
 /*
  * Room flags.
