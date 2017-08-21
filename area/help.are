@@ -3170,12 +3170,13 @@ it is higher.
 The gate spell is a powerful transportation magic that opens up a portal 
 between your character and another person or creature somewhere else in the
 world.  This portal will transport you and any pet you might have, but not
-other members of your group.  Monsters recieve a save against gate, and
+other members of your group.  Monsters receive a save against gate, and
 monster or players more than 3 levels higher than you can not be gated to at 
-all.  God rooms, private rooms, and no recall rooms cannot be gated to, and
-no recall rooms cannot be gated out of.  Finally, any god or hero is also 
-immune to gate, as well as in player who has no summon set.  Clan members 
-may not be gated to except by their fellow Clan members.
+all.  God rooms, private rooms, clan halls and no recall rooms cannot be 
+gated to, and no recall rooms cannot be gated out of.  Finally, any god 
+or hero is also immune to gate, as well as in player who has no summon 
+set.  Clan members may not be gated to except by their fellow clan
+members.
 ~
 
 0 AFFECTS AFFECT~
@@ -4533,7 +4534,7 @@ of cards.  This is often used between players to determine who strikes
 first in a duel or events that require players to need to setup a
 random order.
 ~
-0 'SURVEY TERRAIN'
+0 'SURVEY TERRAIN'~
 Survey terrain is a passive ranger skill that will allow the ranger
 to see what the current rooms terrain type is next to the name of
 the room when looking at the room.
