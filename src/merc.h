@@ -2658,6 +2658,7 @@ void   make_ghost         (CHAR_DATA *ch);
 char * get_room_name      (int vnum);
 char * get_area_name      (int vnum);
 bool   same_continent     (int vnum_one, int vnum_two);
+bool  same_continent_char (CHAR_DATA *ch, CHAR_DATA *victim);
 int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);

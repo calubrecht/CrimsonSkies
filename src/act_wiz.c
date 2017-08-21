@@ -6871,8 +6871,8 @@ void do_debug(CHAR_DATA * ch, char *argument)
         {
             if (pRoomIndex != NULL)
             {
-                pRoomIndex->clan = clan_lookup("warhammer");
-                SET_BIT(pRoomIndex->room_flags, ROOM_NO_GATE);
+                pRoomIndex->clan = clan_lookup("syvlan");
+                REMOVE_BIT(pRoomIndex->room_flags, ROOM_NO_GATE);
             }
         }
     }

@@ -3762,7 +3762,8 @@ void make_ghost(CHAR_DATA *ch)
 } // end make_ghost
 
 /*
- * Will determine if two vnums are on the same continent.
+ * Will determine if two vnums are on the same continent.  This is a raw vnum
+ * comparison that doesn't account for limbo.  Limbo != Midgaard
  */
 bool same_continent(int vnum_one, int vnum_two)
 {
@@ -3795,6 +3796,32 @@ bool same_continent(int vnum_one, int vnum_two)
     }
 
 } // end bool same_continent
+
+/*
+ * Determines if two players are on the same continent.  Limbo is treated
+ * differently in that a victim in Limbo is seen as on the same continent.
+ * This will allow someone to gate to someone in Limbo, but not gate from
+ * Limbo out.
+ */
+bool same_continent_char(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    // Something is null / gone wrong, return that they are not on the
+    // same continent.
+    if (ch == NULL || victim == NULL || ch->in_room == NULL || victim->in_room == NULL)
+    {
+        return FALSE;
+    }
+
+    // They are on the same continet OR the victim is in Limbo.
+    if (ch->in_room->area->continent == victim->in_room->area->continent
+        || victim->in_room->area->continent == 0)
+    {
+        return TRUE;
+    }
+
+    // They are not on the same continent.
+    return FALSE;
+}
 
 /*
  * The number of hours that a player has played.  For a mob, this will return
