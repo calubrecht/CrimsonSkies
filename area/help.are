@@ -3176,7 +3176,9 @@ all.  God rooms, private rooms, clan halls and no recall rooms cannot be
 gated to, and no recall rooms cannot be gated out of.  Finally, any god 
 or hero is also immune to gate, as well as in player who has no summon 
 set.  Clan members may not be gated to except by their fellow clan
-members.
+members.  You can only gate to other areas in the same continent or
+to someone in limbo (you cannot gate out of limbo but can around it).
+To transport yourself to other continents use portal or nexus.
 ~
 
 0 AFFECTS AFFECT~
