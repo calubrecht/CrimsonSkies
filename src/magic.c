@@ -1984,6 +1984,7 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if ((victim = get_char_world(ch, target_name)) == NULL
         || victim == ch
         || victim->in_room == NULL
+        || victim->in_room->clan
         || !can_see_room(ch, victim->in_room)
         || IS_SET(victim->in_room->room_flags, ROOM_SAFE)
         || IS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
