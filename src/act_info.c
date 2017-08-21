@@ -1372,18 +1372,26 @@ void do_look(CHAR_DATA * ch, char *argument)
     if (arg1[0] == '\0' || !str_cmp(arg1, "auto"))
     {
         /* 'look' or 'look auto' */
-        sprintf(buf, "{c%s [%s]{x", ch->in_room->name, ch->in_room->area->name);
+        sprintf(buf, "{c%s [%s]", ch->in_room->name, ch->in_room->area->name);
         send_to_char(buf, ch);
+
+        // Survey terrain for rangers, allows the to auto see what the terrain is in the room.
+        if (CHANCE_SKILL(ch, gsn_survey_terrain))
+        {
+            check_improve(ch, gsn_survey_terrain, TRUE, 1);
+            sprintf(buf, " [%s]", capitalize(flag_string(sector_flags, ch->in_room->sector_type)));
+            send_to_char(buf, ch);
+        }
 
         if ((IS_IMMORTAL(ch)
             && (IS_NPC(ch) || IS_SET(ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER(ch, ch->in_room->area))
         {
-            sprintf(buf, "{r [{RRoom %d{r]{x", ch->in_room->vnum);
+            sprintf(buf, "{r [{RRoom %d{r]", ch->in_room->vnum);
             send_to_char(buf, ch);
         }
 
-        send_to_char("\r\n", ch);
+        send_to_char("{x\r\n", ch);
 
         if (arg1[0] == '\0' || (!IS_NPC(ch) && !IS_SET(ch->comm, COMM_BRIEF)))
         {

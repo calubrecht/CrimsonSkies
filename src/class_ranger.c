@@ -41,8 +41,8 @@
  *    - Quiet Movement                                                     *
  *    - Camp                                                               *
  *    - Camouflage                                                         *
+ *    - Survey Terrain                                                     *
  *    - Track (hunt.c)                                                     *
- *    - Acute Vision                                                       *
  *                                                                         *
  ***************************************************************************/
 

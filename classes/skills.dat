@@ -2509,4 +2509,15 @@ MsgOff      You are no longer able to detect fireproofed items.~
 Race        0
 End
 
+#SKILL
+Name        survey terrain~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      !Survey Terrain!~
+Race        0
+End
+
 #END
