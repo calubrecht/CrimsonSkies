@@ -165,3 +165,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Guildmasters in Red Oak
   - Hometown selection in creation
   - If you put something in a container specific if it's in inventory.
+  - Survey Terrain improve is showing up color coded after the title, move this improve until later or gag it.
