@@ -3782,7 +3782,8 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || IS_SET(victim->in_room->room_flags, ROOM_NO_GATE)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_GATE)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
-        || victim->level >= level + 3 || (!IS_NPC(victim) && victim->level >= LEVEL_HERO)    /* NOT trust */
+        || victim->level >= level + 3
+        || (!IS_NPC(victim) && victim->level >= LEVEL_HERO)    /* NOT trust */
         || (IS_NPC(victim) && IS_SET(victim->imm_flags, IMM_SUMMON))
         || (IS_NPC(victim) && saves_spell(level, victim, DAM_NONE))
         || (is_clan(victim) && !is_same_clan(ch, victim)))
@@ -3792,11 +3793,11 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     stone = get_eq_char(ch, WEAR_HOLD);
+
     if (!IS_IMMORTAL(ch)
         && (stone == NULL || stone->item_type != ITEM_WARP_STONE))
     {
-        send_to_char("You lack the proper component for this spell.\r\n",
-            ch);
+        send_to_char("You lack the proper component for this spell.\r\n", ch);
         return;
     }
 
@@ -3858,11 +3859,11 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     stone = get_eq_char(ch, WEAR_HOLD);
+
     if (!IS_IMMORTAL(ch)
         && (stone == NULL || stone->item_type != ITEM_WARP_STONE))
     {
-        send_to_char("You lack the proper component for this spell.\r\n",
-            ch);
+        send_to_char("You lack the proper component for this spell.\r\n", ch);
         return;
     }
 
@@ -3897,10 +3898,8 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (to_room->people != NULL)
     {
-        act("$p rises up from the ground.", to_room->people, portal, NULL,
-            TO_ROOM);
-        act("$p rises up from the ground.", to_room->people, portal, NULL,
-            TO_CHAR);
+        act("$p rises up from the ground.", to_room->people, portal, NULL, TO_ROOM);
+        act("$p rises up from the ground.", to_room->people, portal, NULL, TO_CHAR);
     }
 }
 
