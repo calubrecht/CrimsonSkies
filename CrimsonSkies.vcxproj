@@ -252,10 +252,12 @@
     <None Include="classes\skills.dat" />
     <None Include="classes\thief.class" />
     <None Include="classes\warrior.class" />
+    <None Include="doc\area-directions.md" />
     <None Include="doc\changes.olc" />
     <None Include="doc\historical\telnet.html" />
     <None Include="doc\historical\license.doc" />
     <None Include="doc\index.md" />
+    <None Include="doc\mob-prog.md" />
     <None Include="doc\MPDocs\examples.doc" />
     <None Include="doc\MPDocs\hacker.doc" />
     <None Include="doc\MPDocs\howto" />
@@ -293,6 +295,7 @@
     <Text Include="doc\historical\hacker.txt" />
     <Text Include="doc\historical\license.txt" />
     <Text Include="doc\historical\memory.txt" />
+    <Text Include="doc\mob-prog-examples.md" />
     <Text Include="doc\MPDocs\new_readme.txt" />
     <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\port.txt" />
@@ -302,7 +305,6 @@
     <Text Include="doc\sky.txt" />
     <Text Include="doc\historical\trad.txt" />
     <Text Include="doc\historical\vnum.txt" />
-    <Text Include="doc\historical\WindowsSupport.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -387,6 +387,8 @@
     <None Include="classes\psionicist.class" />
     <None Include="classes\rogue.class" />
     <None Include="classes\barbarian.class" />
+    <None Include="doc\area-directions.md" />
+    <None Include="doc\mob-prog.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
@@ -399,7 +401,6 @@
     <Text Include="doc\historical\vnum.txt" />
     <Text Include="doc\historical\trad.txt" />
     <Text Include="doc\historical\sites.txt" />
-    <Text Include="doc\historical\WindowsSupport.txt" />
     <Text Include="doc\historical\act.txt" />
     <Text Include="doc\historical\area.txt" />
     <Text Include="doc\historical\class.txt" />
@@ -410,5 +411,6 @@
     <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\historical\security.txt" />
     <Text Include="doc\historical\skill.txt" />
+    <Text Include="doc\mob-prog-examples.md" />
   </ItemGroup>
 </Project>
