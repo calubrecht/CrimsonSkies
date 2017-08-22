@@ -164,3 +164,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Area flag that denotes a clan/kingdom hall.
   - Guildmasters in Red Oak
   - Hometown selection in creation
+  - If you put something in a container specific if it's in inventory.
