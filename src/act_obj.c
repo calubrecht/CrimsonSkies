@@ -3913,12 +3913,12 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))
     {
-        send_to_char("\r\nYour knowledge of this objects lore has garnered you this additional information:\r\n", ch);
+        send_to_char("\r\nYour lore has garnered you this additional information:\r\n", ch);
         check_improve(ch, gsn_lore, TRUE, 9);
     }
     else
     {
-        send_to_char("\r\nYou can't seem to recall any additional information about the lore of this item.\r\n", ch);
+        send_to_char("\r\nYou can't seem to recall any lore of this item.\r\n", ch);
         check_improve(ch, gsn_lore, FALSE, 9);
         return;
     }

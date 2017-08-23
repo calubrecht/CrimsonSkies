@@ -1559,7 +1559,14 @@ void do_look(CHAR_DATA * ch, char *argument)
                 {
                     send_to_char(obj->description, ch);
                     send_to_char("\r\n", ch);
-                    show_lore(ch, obj);
+
+                    // Only show the lore on an item if it's not a container.
+                    if (obj->item_type != ITEM_CONTAINER
+                        && obj->item_type != ITEM_CORPSE_NPC
+                        && obj->item_type != ITEM_CORPSE_PC)
+                    {
+                        show_lore(ch, obj);
+                    }
                     return;
                 }
         }
