@@ -2123,7 +2123,7 @@ void do_score(CHAR_DATA * ch, char *argument)
 
     row_append_cell(row, 28, " Level: {C%d{x\nPlayed: {C%d hours{x\nGender: {C%s{x\n Align: {C%s{x\n   Age: {C%d{x",
         ch->level,
-        (ch->played + (int)(current_time - ch->logon)) / 3600,
+        hours_played(ch),
         ch->sex == 0 ? "No Gender" : ch->sex == 1 ? "Male" : "Female",
         IS_GOOD(ch) ? "Good" : IS_EVIL(ch) ? "Evil" : "Neutral",
         get_age(ch)
