@@ -76,7 +76,10 @@ const struct priest_rank_type priest_rank_table[] = {
  */
 void calculate_priest_rank(CHAR_DATA *ch)
 {
-    if (ch == NULL || IS_NPC(ch) || ch->class != PRIEST_CLASS_LOOKUP)
+    // We don't need to calculate if they're not a priest or a high priest.
+    if (ch == NULL || IS_NPC(ch)
+        || ch->class != PRIEST_CLASS_LOOKUP
+        || ch->pcdata->priest_rank == PRIEST_RANK_HIGH_PRIEST)
     {
         return;
     }
