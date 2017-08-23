@@ -3875,3 +3875,13 @@ void do_draw(CHAR_DATA *ch, char *argument)
 
     return;
 }
+
+/*
+ * tnl - To next level.  Simple command to show just how many experience points are needed until
+ * the next level.  Easier to write triggers off of then.
+ */
+void do_tnl(CHAR_DATA *ch, char *argument)
+{
+    printf_to_char(ch, "You have %d experience points until the next level.\r\n",
+        !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0);
+}

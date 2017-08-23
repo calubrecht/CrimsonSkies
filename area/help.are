@@ -4541,6 +4541,12 @@ Survey terrain is a passive ranger skill that will allow the ranger
 to see what the current rooms terrain type is next to the name of
 the room when looking at the room.
 ~
+0 TNL~
+Syntax: tnl
+
+The tnl command will show you the amount of experience you need until
+you reach the next level.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request

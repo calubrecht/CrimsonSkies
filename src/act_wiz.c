@@ -6859,7 +6859,7 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    ROOM_INDEX_DATA *pRoomIndex;
+/*  ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;
     int vnum;
 
@@ -6876,8 +6876,9 @@ void do_debug(CHAR_DATA * ch, char *argument)
             }
         }
     }
-
-    send_to_char("Ok.\r\n", ch);
+*/
+    do_restore(ch, "self");
+    //send_to_char("Ok.\r\n", ch);
 
     return;
 } // end do_debug

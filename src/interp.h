@@ -391,3 +391,4 @@ DECLARE_DO_FUN(do_meritlist);
 DECLARE_DO_FUN(do_race);
 DECLARE_DO_FUN(do_autoquit);
 DECLARE_DO_FUN(do_draw);
+DECLARE_DO_FUN(do_tnl);
