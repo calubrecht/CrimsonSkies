@@ -183,10 +183,7 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     if (settings.hours_affect_exp)
     {
         /* compute quarter-hours per level */
-        time_per_level = 4 *
-            (gch->played + (int)(current_time - gch->logon)) / 3600
-            / gch->level;
-
+        time_per_level = 4 * hours_played(gch) / gch->level;
         time_per_level = URANGE(2, time_per_level, 12);
 
         /* make it a curve */
