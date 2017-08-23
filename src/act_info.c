@@ -1327,6 +1327,7 @@ void do_look(CHAR_DATA * ch, char *argument)
     int number, count;
     ROOM_INDEX_DATA *location;
     ROOM_INDEX_DATA *original;
+    bool survey_improve = FALSE;
 
     if (ch->desc == NULL)
         return;
@@ -1378,7 +1379,7 @@ void do_look(CHAR_DATA * ch, char *argument)
         // Survey terrain for rangers, allows the to auto see what the terrain is in the room.
         if (CHANCE_SKILL(ch, gsn_survey_terrain))
         {
-            check_improve(ch, gsn_survey_terrain, TRUE, 1);
+            survey_improve = TRUE;
             sprintf(buf, " [%s]", capitalize(flag_string(sector_flags, ch->in_room->sector_type)));
             send_to_char(buf, ch);
         }
@@ -1408,6 +1409,14 @@ void do_look(CHAR_DATA * ch, char *argument)
 
         show_list_to_char(ch->in_room->contents, ch, FALSE, FALSE);
         show_char_to_char(ch->in_room->people, ch);
+
+        // This check is down here so if the improve message fires off it doesn't print half
+        // way through the room display code (and in the middle of color code sequences).
+        if (survey_improve)
+        {
+            check_improve(ch, gsn_survey_terrain, TRUE, 1);
+        }
+
         return;
     }
 
