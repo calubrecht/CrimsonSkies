@@ -319,7 +319,6 @@
     <None Include="area\valley.are" />
     <None Include="area\wyvern.are" />
     <None Include="doc\MPDocs\mobprog.doc" />
-    <None Include="doc\MPDocs\readme" />
     <None Include="doc\changes.olc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />

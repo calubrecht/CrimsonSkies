@@ -260,7 +260,6 @@
     <None Include="doc\mob-prog-implementation.md" />
     <None Include="doc\mob-prog.md" />
     <None Include="doc\MPDocs\mobprog.doc" />
-    <None Include="doc\MPDocs\readme" />
     <None Include="doc\historical\README.merc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />
