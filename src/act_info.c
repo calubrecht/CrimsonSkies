@@ -346,9 +346,12 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     }
 
     strcat(buf, PERS(victim, ch));
-    if (!IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF)
+
+    // Removed title from what a person sees in the room.  In the future this is where we
+    // will put a persons nobility (official last name) on.
+    /*if (!IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF)
         && victim->position == POS_STANDING && ch->on == NULL)
-        strcat(buf, victim->pcdata->title);
+        strcat(buf, victim->pcdata->title);*/
 
     switch (victim->position)
     {
