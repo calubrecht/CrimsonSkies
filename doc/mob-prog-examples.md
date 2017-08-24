@@ -300,8 +300,15 @@ mob transfer $n 3046
 ~
 ~~~~
 
+Here is one final simple example of a basic mob prog that could be setup to trigger when a character enters an area:
+
+~~~~
+#6575
+mob zecho $I shouts '{YLet it be know, $n has entered the dueling grounds!{x'
+~
+~~~~
+
 Finally, if hand adding these into the files the MOBPROGS section is terminated with a `#0`.  Feel free
 to reference the Midgaard area file (midgaard.are) to see working examples of these.
-
 
 [Back to Table of Contents](index.md)

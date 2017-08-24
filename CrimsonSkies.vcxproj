@@ -257,13 +257,10 @@
     <None Include="doc\historical\telnet.html" />
     <None Include="doc\historical\license.doc" />
     <None Include="doc\index.md" />
+    <None Include="doc\mob-prog-implementation.md" />
     <None Include="doc\mob-prog.md" />
-    <None Include="doc\MPDocs\examples.doc" />
-    <None Include="doc\MPDocs\hacker.doc" />
-    <None Include="doc\MPDocs\howto" />
     <None Include="doc\MPDocs\mobprog.doc" />
     <None Include="doc\MPDocs\readme" />
-    <None Include="doc\MPDocs\surrender.hlp" />
     <None Include="doc\historical\README.merc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />
@@ -296,7 +293,6 @@
     <Text Include="doc\historical\license.txt" />
     <Text Include="doc\historical\memory.txt" />
     <Text Include="doc\mob-prog-examples.md" />
-    <Text Include="doc\MPDocs\new_readme.txt" />
     <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\port.txt" />
     <Text Include="doc\historical\security.txt" />
