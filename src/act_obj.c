@@ -4224,6 +4224,12 @@ void do_empty(CHAR_DATA *ch, char *argument)
 
             if (arg2[0] == '\0')
             {
+                if (IS_SET (ch->in_room->room_flags, ROOM_ARENA))
+                {
+                    send_to_char ("No littering in the arena.\r\n", ch);
+                    return;
+                }
+
                 if (empty_obj(obj, NULL, ch->in_room))
                 {
                     act("You empty the contents of $p onto the ground.", ch, obj, NULL, TO_CHAR);
