@@ -4083,3 +4083,75 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     }
 
 } // end show_lore
+
+  /*
+   * Empties an objects contents into another object or a room.  This is brought to us
+   * by the Smaug code base.
+   */
+bool empty_obj(OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room)
+{
+    OBJ_DATA *temp_obj, *temp_obj_next;
+    CHAR_DATA *ch = obj->carried_by;
+    bool moved_some = FALSE;
+
+    if (!obj)
+    {
+        bug("empty_obj: NULL obj", 0);
+        return FALSE;
+    }
+
+    // Move the contents from one container to another.
+    if (dest_obj || (!dest_room && !ch && (dest_obj = obj->in_obj) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+
+            // Make sure the destination object is a container and that it can hold the
+            // weight.
+            if (dest_obj->item_type == ITEM_CONTAINER
+                && (get_obj_weight(temp_obj) + get_true_weight(dest_obj) > (dest_obj->value[0] * 10)
+                || get_obj_weight(temp_obj) > (dest_obj->value[3] * 10)))
+                continue;
+
+            // Remove the object from one container, put it into the next.  No need to separate
+            // because we're taking it all.
+            obj_from_obj(temp_obj);
+            obj_to_obj(temp_obj, dest_obj);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the the provided room.
+    if (dest_room || (!ch && (dest_room = obj->in_room) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_room(temp_obj, dest_room);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the character who is holding the container.
+    if (ch)
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_char(temp_obj, ch);
+            moved_some = TRUE;
+        }
+        return moved_some;
+    }
+
+    // If we got here then we were not provided the correct inputs, log it.
+    bug("empty_obj: could not determine a destination for vnum %d", obj->pIndexData->vnum);
+    return FALSE;
+}

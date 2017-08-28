@@ -2423,6 +2423,7 @@ void     show_lore           (CHAR_DATA *ch, OBJ_DATA *obj);
 void     remove_all_obj      (CHAR_DATA *ch);
 bool     remove_obj          (CHAR_DATA * ch, int iWear, bool fReplace);
 void     wear_obj            (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
+bool     empty_obj           (OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room);
 
 /* act_wiz.c */
 void     wiznet                    (char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level);
