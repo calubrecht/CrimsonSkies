@@ -4155,3 +4155,138 @@ bool empty_obj(OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room)
     bug("empty_obj: could not determine a destination for vnum %d", obj->pIndexData->vnum);
     return FALSE;
 }
+
+/*
+ * The ability to empty a container into another container, empty a liquid container
+ * or dump a container into your inventory.  This code originated from a piece Smaug who
+ * acquired it from Crimson Blade (Noplex, Krowe, Emberlyna, Lanthos).  It was originally
+ * part of liquids.c in Smaug.
+ */
+void do_empty(CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    if ((!str_cmp(arg2, "into") || !str_cmp(arg2, "in")) && argument[0] != '\0')
+    {
+        argument = one_argument(argument, arg2);
+    }
+
+    if (arg1[0] == '\0')
+    {
+        send_to_char("Empty what?\r\n", ch);
+        return;
+    }
+
+    if ((obj = get_obj_carry(ch, arg1, ch)) == NULL)
+    {
+        send_to_char("You aren't carrying that.\r\n", ch);
+        return;
+    }
+
+    if (obj->count > 1)
+    {
+        separate_obj(obj);
+    }
+
+    switch (obj->item_type)
+    {
+        default:
+            act("You shake $p in an attempt to empty it...", ch, obj, NULL, TO_CHAR);
+            act("$n begins to shake $p in an attempt to empty it...", ch, obj, NULL, TO_ROOM);
+            return;
+        case ITEM_DRINK_CON:
+            if (obj->value[1] < 1)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+            act("You empty $p.", ch, obj, NULL, TO_CHAR);
+            act("$n empties $p.", ch, obj, NULL, TO_ROOM);
+            obj->value[1] = 0;
+            return;
+        case ITEM_CONTAINER:
+            if (IS_SET(obj->value[1], CONT_CLOSED))
+            {
+                act("The $d is closed.", ch, NULL, obj->name, TO_CHAR);
+                return;
+            }
+
+            if (!obj->contains)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+
+            if (arg2[0] == '\0')
+            {
+                if (empty_obj(obj, NULL, ch->in_room))
+                {
+                    act("You empty the contents of $p onto the ground.", ch, obj, NULL, TO_CHAR);
+                    act("$n empties the contents of $p onto the ground.", ch, obj, NULL, TO_ROOM);
+                }
+                else
+                {
+                    send_to_char("Hmmm... didn't work.\r\n", ch);
+                }
+            }
+            else
+            {
+                OBJ_DATA *dest = get_obj_here(ch, arg2);
+
+                if (!str_prefix("self", arg2))
+                {
+                    if (empty_obj(obj, NULL, NULL))
+                    {
+                        act("You empty the contents of $p into your inventory.", ch, obj, NULL, TO_CHAR);
+                        act("$n empties the contents of $p into $s inventory.", ch, obj, NULL, TO_ROOM);
+                    }
+
+                    return;
+                }
+
+                if (!dest)
+                {
+                    send_to_char("You can't find it.\r\n", ch);
+                    return;
+                }
+
+                if (dest == obj)
+                {
+                    send_to_char("You can't empty something into itself!\r\n", ch);
+                    return;
+                }
+
+                if (dest->item_type != ITEM_CONTAINER)
+                {
+                    send_to_char("That's not a container!\r\n", ch);
+                    return;
+
+                }
+                if (IS_SET(dest->value[1], CONT_CLOSED))
+                {
+                    act("The $d is closed.", ch, NULL, dest->name, TO_CHAR);
+                    return;
+                }
+
+                separate_obj(dest);
+
+                if (empty_obj(obj, dest, NULL))
+                {
+                    act("You empty the contents of $p into $P.", ch, obj, dest, TO_CHAR);
+                    act("$n empties the contents of $p into $P.", ch, obj, dest, TO_ROOM);
+                }
+                else
+                {
+                    act("$P is too full.", ch, obj, dest, TO_CHAR);
+                }
+            }
+
+        return;
+    }
+}
+

@@ -268,6 +268,7 @@ const struct cmd_type cmd_table[] = {
     {"bandage",         do_bandage,     POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"write",           do_write,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"read",            do_read,        POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"empty",           do_empty,       POS_RESTING,  0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.

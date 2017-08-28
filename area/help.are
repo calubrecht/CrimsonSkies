@@ -4547,6 +4547,20 @@ Syntax: tnl
 The tnl command will show you the amount of experience you need until
 you reach the next level.
 ~
+0 EMPTY~
+Syntax: empty <source container> <destination container>
+        empty <container> into <container>
+        empty <container>
+        empty <container> self
+
+The empty command allows you to empty a container in various ways.
+You may empty one container into another.  You may empty a
+container onto the ground or you may empty a container into your
+inventory.
+
+Empty also allows you to empty a liquid container getting rid of
+it's contents so the drinking container maybe refilled.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request
