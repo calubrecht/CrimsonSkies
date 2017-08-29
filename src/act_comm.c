@@ -1425,7 +1425,7 @@ void do_save(CHAR_DATA * ch, char *argument)
 
     if (!IS_NULLSTR(settings.mud_name))
     {
-        printf_to_char(ch, "Saving.  Remember that %s has automatic saving.\r\n", settings.mud_name);
+        sendf(ch, "Saving.  Remember that %s has automatic saving.\r\n", settings.mud_name);
     }
     else
     {
@@ -2089,7 +2089,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     }
     else if (class_table[iClass]->clan > 0 && ch->clan != class_table[iClass]->clan)
     {
-        printf_to_char(ch, "That is a clan specific reclass only available to %s.\r\n", clan_table[class_table[iClass]->clan].friendly_name);
+        sendf(ch, "That is a clan specific reclass only available to %s.\r\n", clan_table[class_table[iClass]->clan].friendly_name);
         return;
     }
 

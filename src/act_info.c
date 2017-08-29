@@ -2038,21 +2038,21 @@ void do_worth(CHAR_DATA * ch, char *argument)
     // NPC's will only see stats that aren't in pcdata.
     if (IS_NPC(ch))
     {
-        printf_to_char(ch, "You have %ld gold and %ld silver.\r\n", ch->gold, ch->silver);
+        sendf(ch, "You have %ld gold and %ld silver.\r\n", ch->gold, ch->silver);
         return;
     }
 
     // Show experience also, but only if less than level 51.
     if (ch->level < LEVEL_HERO)
     {
-        printf_to_char(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
-        printf_to_char(ch, "You have %d quest points and %d experience (%d exp to level).\r\n",
+        sendf(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
+        sendf(ch, "You have %d quest points and %d experience (%d exp to level).\r\n",
             ch->pcdata->quest_points, ch->exp, (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
     }
     else
     {
-        printf_to_char(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
-        printf_to_char(ch, "You have %d quest points.\r\n", ch->pcdata->quest_points);
+        sendf(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
+        sendf(ch, "You have %d quest points.\r\n", ch->pcdata->quest_points);
     }
 
     return;
@@ -3485,7 +3485,7 @@ void do_stats(CHAR_DATA *ch, char *argument)
     // so, show them then get out.
     if (IS_NULLSTR(argument))
     {
-        printf_to_char(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
+        sendf(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
             ch->perm_stat[STAT_STR], get_curr_stat(ch,STAT_STR),
             ch->perm_stat[STAT_INT], get_curr_stat(ch,STAT_INT),
             ch->perm_stat[STAT_WIS], get_curr_stat(ch,STAT_WIS),
@@ -3652,7 +3652,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     {
         col++;
 
-        printf_to_char(ch, "  * %-16s %d", pc_race_table[race].name, pc_race_table[race].class_mult[i]);
+        sendf(ch, "  * %-16s %d", pc_race_table[race].name, pc_race_table[race].class_mult[i]);
 
         if (col % 3 == 0)
         {
@@ -3736,7 +3736,7 @@ void do_deity(CHAR_DATA *ch, char *argument)
             sprintf(deity, "%s", deity_table[x].name);
         }
 
-        printf_to_char(ch, "%-12s%s\r\n", deity, deity_table[x].description);
+        sendf(ch, "%-12s%s\r\n", deity, deity_table[x].description);
     }
 
     if (!IS_NPC(ch))
@@ -3766,7 +3766,7 @@ void do_race(CHAR_DATA *ch, char *argument)
         // twice in the printf which is why we're formatting it here.
         sprintf(buf, "%s", capitalize(flag_string(size_flags, pc_race_table[race].size)));
 
-        printf_to_char(ch, "%-16s %-10s %-6s (%d)  %d   %d   %d   %d   %d\r\n"
+        sendf(ch, "%-16s %-10s %-6s (%d)  %d   %d   %d   %d   %d\r\n"
             , capitalize(pc_race_table[race].name)
             , pc_race_table[race].who_name, buf, pc_race_table[race].size
             , pc_race_table[race].max_stats[STAT_STR]
@@ -3778,7 +3778,7 @@ void do_race(CHAR_DATA *ch, char *argument)
     }
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
-    printf_to_char(ch, "%d player chooseable races displayed.\r\n", x);
+    sendf(ch, "%d player chooseable races displayed.\r\n", x);
 
     return;
 
@@ -3892,6 +3892,6 @@ void do_draw(CHAR_DATA *ch, char *argument)
  */
 void do_tnl(CHAR_DATA *ch, char *argument)
 {
-    printf_to_char(ch, "You have %d experience points until the next level.\r\n",
+    sendf(ch, "You have %d experience points until the next level.\r\n",
         !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0);
 }

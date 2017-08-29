@@ -221,7 +221,7 @@ void do_cleanse(CHAR_DATA * ch, char *argument)
     // The skill check
     if (get_skill(ch, gsn_cleanse) > number_percent())
     {
-        printf_to_char(ch, "You rinse the debris from your eyes with water from %s.\r\n", obj->short_descr);
+        sendf(ch, "You rinse the debris from your eyes with water from %s.\r\n", obj->short_descr);
         act("$n rinses the debris from $s eyes with water from $p.", ch, obj, NULL, TO_ROOM);
 
         // Remove it, but don't send the message off.
@@ -286,7 +286,7 @@ void do_power_swing(CHAR_DATA * ch, char *argument)
     // Show to testers
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Powerswing Chance {W%d{x]\r\n", chance);
+        sendf(ch, "[Powerswing Chance {W%d{x]\r\n", chance);
     }
 
     // The moment of truth.
@@ -319,7 +319,7 @@ void do_power_swing(CHAR_DATA * ch, char *argument)
         // Show to testers
         if (IS_TESTER(ch))
         {
-            printf_to_char(ch, "[Powerswing Stun Chance {W%d{x]\r\n", stun_chance);
+            sendf(ch, "[Powerswing Stun Chance {W%d{x]\r\n", stun_chance);
         }
 
         // Now, chance for stun.

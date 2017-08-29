@@ -1901,7 +1901,7 @@ void do_bind(CHAR_DATA * ch, char *argument)
             if ((location = get_room_index(clan_table[ch->clan].recall_vnum)) != NULL)
             {
                 ch->pcdata->recall_vnum = clan_table[ch->clan].recall_vnum;
-                printf_to_char(ch, "Your recall point has been reset to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+                sendf(ch, "Your recall point has been reset to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
                 return;
             }
         }

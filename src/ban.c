@@ -331,12 +331,12 @@ void ban_site(CHAR_DATA * ch, char *argument, bool fPerm)
 
     if (type != BAN_WHITELIST)
     {
-        printf_to_char(ch, "%s has been banned.\r\n", pban->name);
+        sendf(ch, "%s has been banned.\r\n", pban->name);
         return;
     }
     else
     {
-        printf_to_char(ch, "%s has been added to the whitelist.\r\n", pban->name);
+        sendf(ch, "%s has been added to the whitelist.\r\n", pban->name);
         return;
     }
 

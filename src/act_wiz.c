@@ -245,7 +245,7 @@ void do_guild(CHAR_DATA * ch, char *argument)
             if ((location = get_room_index(clan_table[clan].recall_vnum)) != NULL)
             {
                 victim->pcdata->recall_vnum = clan_table[clan].recall_vnum;
-                printf_to_char(victim, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+                sendf(victim, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
             }
         }
 
@@ -1211,11 +1211,11 @@ void do_player_offline_stat(CHAR_DATA * ch, char *argument)
         sprintf(pfile, "%s", player_file_location(capitalize(argument)));
         sprintf(pfile_modified, "%s", file_last_modified(pfile));
 
-        printf_to_char(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
+        sendf(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
     }
     else
     {
-        printf_to_char(ch, "No player file exists for %s.\r\n", capitalize(argument));
+        sendf(ch, "No player file exists for %s.\r\n", capitalize(argument));
     }
 
     return;
@@ -2511,7 +2511,7 @@ void do_switch(CHAR_DATA * ch, char *argument)
     victim->comm = ch->comm;
     victim->lines = ch->lines;
 
-    printf_to_char(victim, "You have switched into %s.\r\n", victim->short_descr);
+    sendf(victim, "You have switched into %s.\r\n", victim->short_descr);
     return;
 }
 
@@ -4376,7 +4376,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
 
         victim->pcdata->deity = deity;
 
-        printf_to_char(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
+        sendf(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
         return;
     }
 
@@ -4413,12 +4413,12 @@ void do_mset(CHAR_DATA * ch, char *argument)
                 if (IS_SET(victim->pcdata->merit, merit_table[x].merit))
                 {
                     remove_merit(victim, merit_table[x].merit);
-                    printf_to_char(ch, "%s removed from %s.\r\n", merit_table[x].name, victim->name);
+                    sendf(ch, "%s removed from %s.\r\n", merit_table[x].name, victim->name);
                 }
                 else
                 {
                     add_merit(victim, merit_table[x].merit);
-                    printf_to_char(ch, "%s added to %s.\r\n", merit_table[x].name, victim->name);
+                    sendf(ch, "%s added to %s.\r\n", merit_table[x].name, victim->name);
                 }
 
                 found = TRUE;
@@ -4432,7 +4432,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
 
             for (x = 0; merit_table[x].name != NULL; x++)
             {
-                printf_to_char(ch, " * %s\r\n", merit_table[x].name);
+                sendf(ch, " * %s\r\n", merit_table[x].name);
             }
         }
 
@@ -4549,7 +4549,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         }
 
         victim->played = (value * 3600);
-        printf_to_char(ch, "%s's hours set to %d.\r\n", victim->name, value);
+        sendf(ch, "%s's hours set to %d.\r\n", victim->name, value);
 
         return;
     }
@@ -4566,8 +4566,8 @@ void do_mset(CHAR_DATA * ch, char *argument)
         victim->exp = victim->level * 1000;
         victim->pcdata->points = 40;
 
-        printf_to_char(ch, "%s has been set to 1k per level.\r\n", victim->name);
-        printf_to_char(victim, "%s has set you to 1k per level.\r\n", ch->name);
+        sendf(ch, "%s has been set to 1k per level.\r\n", victim->name);
+        sendf(victim, "%s has set you to 1k per level.\r\n", ch->name);
 
         sprintf(buf, "%s has set %s to 1k per level.", ch->name, victim->name);
         wiznet(buf, NULL, NULL, WIZ_SECURE, 0, 0);
@@ -6536,8 +6536,8 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
     obj_from_char(obj);
     obj_to_char(obj, ch);
 
-    printf_to_char(ch, "You have confiscated %s from %s.\r\n", obj->short_descr, victim->name);
-    printf_to_char(victim, "%s has confiscated %s from you.\r\n", PERS(ch, victim), obj->short_descr);
+    sendf(ch, "You have confiscated %s from %s.\r\n", obj->short_descr, victim->name);
+    sendf(victim, "%s has confiscated %s from you.\r\n", PERS(ch, victim), obj->short_descr);
 
     return;
 
@@ -6710,7 +6710,7 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
 
     // Unset the pointer to the previous character.
     victim->reply = NULL;
-    printf_to_char(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
+    sendf(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
 
     return;
 }
@@ -6887,7 +6887,7 @@ void do_pload(CHAR_DATA *ch, char *argument)
         char_to_room(d.character, ch->in_room); /* put in room imm is in */
     }
 
-    printf_to_char(ch, "You pull %s from the ether.\r\n", d.character->name);
+    sendf(ch, "You pull %s from the ether.\r\n", d.character->name);
 
     if (d.character->pet != NULL)
     {
@@ -6937,7 +6937,7 @@ void do_punload(CHAR_DATA *ch, char *argument)
         ch->was_in_room = NULL;
     }
 
-    printf_to_char(ch, "You release %s back into the ether.\r\n", victim->name);
+    sendf(ch, "You release %s back into the ether.\r\n", victim->name);
     do_quit(victim, "");
 }
 
