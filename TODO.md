@@ -110,7 +110,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bans to check both d->host and d->ip_address
   - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Drunk talk
   - Critical strike
   - Sliding saves bonus based on wisdom
   - Sliding magic damage bonus based on int
@@ -160,3 +159,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Hometown selection in creation
   - Drunk randoms from smaug
   - Drunk in score or affects
+  - Whisper command
