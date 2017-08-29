@@ -6837,6 +6837,113 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
 }
 
 /*
+ * Loads an offline character into the game and transfers them to the immortal (for
+ * implementors only).
+ */
+void do_pload(CHAR_DATA *ch, char *argument)
+{
+    DESCRIPTOR_DATA d;
+    bool exists = FALSE;
+    char name[MAX_INPUT_LENGTH];
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Load who?\r\n", ch);
+        return;
+    }
+
+    argument[0] = UPPER(argument[0]);
+    argument = one_argument(argument, name);
+
+    /* Dont want to load a second copy of a player who's already online! */
+    if (get_char_world(ch, name) != NULL)
+    {
+        send_to_char("That person is currently connected.\r\n", ch);
+        return;
+    }
+
+    exists = load_char_obj(&d, name); /* char pfile exists? */
+
+    if (!exists)
+    {
+        send_to_char("That player does not exist.\r\n", ch);
+        return;
+    }
+
+    d.character->desc = NULL;
+    d.character->next = char_list;
+    char_list = d.character;
+    d.connected = CON_PLAYING;
+    reset_char(d.character);
+
+    /* bring player to imm */
+    if (d.character->in_room != NULL)
+    {
+        if (d.character->was_in_room == NULL)
+        {
+            d.character->was_in_room = d.character->in_room;
+        }
+
+        char_from_room(d.character);
+        char_to_room(d.character, ch->in_room); /* put in room imm is in */
+    }
+
+    printf_to_char(ch, "You pull %s from the ether.\r\n", d.character->name);
+
+    if (d.character->pet != NULL)
+    {
+        char_to_room(d.character->pet, d.character->in_room);
+        act("$n has entered the game.", d.character->pet, NULL, NULL, TO_ROOM);
+    }
+
+}
+
+/*
+ * Meant to run after pload to unload a player.  This will transfer them back to where
+ * they came from and then force them to save and exit.  This code is common in many code
+ * bases, not sure where it originated.  Fixed a bug with room transfer and then another
+ * NULLing the was_in_room from comparing with the Moosehead Sled version.
+ */
+void do_punload(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+    char who[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, who);
+
+    if ((victim = get_char_world(ch, who)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    /* Person is legitametly logged on... was not ploaded.*/
+    if (victim->desc != NULL)
+    {
+        send_to_char("That player has a valid connection and cannot be unloaded.\r\n", ch);
+        return;
+    }
+
+    if (victim->was_in_room != NULL) /* return player and pet to orig room */
+    {
+        char_from_room(victim);
+        char_to_room(victim, victim->was_in_room);
+
+        if (victim->pet != NULL)
+        {
+            char_from_room(victim->pet);
+            char_to_room(victim->pet, victim->was_in_room);
+        }
+
+        ch->was_in_room = NULL;
+    }
+
+    printf_to_char(ch, "You release %s back into the ether.\r\n", victim->name);
+    do_quit(victim, "");
+}
+
+
+/*
  * Checks all objects in the object list for problems.
  */
 /*

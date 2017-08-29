@@ -393,3 +393,5 @@ DECLARE_DO_FUN(do_autoquit);
 DECLARE_DO_FUN(do_draw);
 DECLARE_DO_FUN(do_tnl);
 DECLARE_DO_FUN(do_empty);
+DECLARE_DO_FUN(do_pload);
+DECLARE_DO_FUN(do_punload);
