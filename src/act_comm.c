@@ -317,7 +317,6 @@ void do_replay(CHAR_DATA * ch, char *argument)
  */
 void do_auction(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -377,7 +376,6 @@ void do_auction(CHAR_DATA * ch, char *argument)
 /* RT chat replaced with ROM gossip */
 void do_gossip(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -436,7 +434,6 @@ void do_gossip(CHAR_DATA * ch, char *argument)
  */
 void do_cgossip(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -725,7 +722,6 @@ void do_answer(CHAR_DATA * ch, char *argument)
 /* clan channels */
 void do_clantalk(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (!is_clan(ch) || clan_table[ch->clan].independent)
