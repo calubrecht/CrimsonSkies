@@ -29,7 +29,7 @@
     #include <sys/types.h>
     #include <sys/time.h>
     #include <time.h>
-    #include <unistd.h>                /* OLC -- for close read write etc */
+    #include <unistd.h>  //OLC -- for close read write etc
 #endif
 
 #include <ctype.h>
@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>                /* printf_to_char */
+#include <stdarg.h>  // sendf
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"

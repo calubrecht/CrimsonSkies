@@ -2961,7 +2961,7 @@ void do_memory(CHAR_DATA * ch, char *argument)
         // Read the output a line at a time and send it to the caller.
         while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
         {
-            printf_to_char(ch, "%s", buf);
+            sendf(ch, "%s", buf);
 
             // This is a little hacky, but the input from the system call only has a newline
             // where some clients need a newline and a carriage return in order to consistently

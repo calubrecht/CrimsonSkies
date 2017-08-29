@@ -47,7 +47,7 @@
 #else
 #include <sys/types.h>
 #include <sys/time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
+#include <unistd.h>  //  OLC -- for close read write etc
 #include <time.h>
 #endif
 
@@ -57,7 +57,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>                /* printf_to_char */
+#include <stdarg.h>  // for sendf
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
