@@ -471,7 +471,7 @@ void do_peer(CHAR_DATA * ch, char *argument)
 
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Peer Chance {W%d%%{x]\r\n", chance);
+        sendf(ch, "[Peer Chance {W%d%%{x]\r\n", chance);
     }
 
     act("$N peers around the immediate area.", ch, NULL, NULL, TO_ROOM);
@@ -497,7 +497,7 @@ void do_peer(CHAR_DATA * ch, char *argument)
 
     if (count > 0)
     {
-        printf_to_char(ch, "You see signs of %d other individual%s here.\r\n", count, count > 1 ? "s" : "");
+        sendf(ch, "You see signs of %d other individual%s here.\r\n", count, count > 1 ? "s" : "");
         check_improve(ch, gsn_peer, TRUE, 3);
     }
     else
@@ -620,7 +620,7 @@ void do_bludgeon(CHAR_DATA * ch, char *argument)
 
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Bludgeon Chance {W%d%%{x]\r\n", chance);
+        sendf(ch, "[Bludgeon Chance {W%d%%{x]\r\n", chance);
     }
 
     // The time that must be waited after this command
@@ -747,7 +747,7 @@ void do_revolt(CHAR_DATA * ch, char *argument)
 
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Revolt Chance {W%d%%{x]\r\n", roll);
+        sendf(ch, "[Revolt Chance {W%d%%{x]\r\n", roll);
     }
 
     if (CHANCE(roll))

@@ -690,7 +690,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             // reclass
             if (!IS_NULLSTR(settings.mud_name))
             {
-                printf_to_char(ch, "\r\n%s has many specialized reclasses although each character\r\n", settings.mud_name);
+                sendf(ch, "\r\n%s has many specialized reclasses although each character\r\n", settings.mud_name);
             }
             else
             {
@@ -790,7 +790,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                     for (i = 0; merit_table[i].name != NULL; i++)
                     {
-                        printf_to_char(ch, "  {G*{x %s\r\n", merit_table[i].name);
+                        sendf(ch, "  {G*{x %s\r\n", merit_table[i].name);
                     }
 
                     send_to_char("\r\nPlease choose a merit: ", ch);
@@ -814,7 +814,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                             }
                         }
 
-                        printf_to_char(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+                        sendf(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
                     }
 
                     send_to_char("Which deity do you wish to follow? ", ch);
@@ -858,7 +858,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     }
                 }
 
-                printf_to_char(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+                sendf(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
             }
 
             send_to_char("Which deity do you wish to follow? ", ch);
@@ -1043,11 +1043,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (!IS_NULLSTR(settings.login_greeting))
             {
-                printf_to_char(ch, "\r\n%s.\r\n\r\n", settings.login_greeting);
+                sendf(ch, "\r\n%s.\r\n\r\n", settings.login_greeting);
             }
             else if (!IS_NULLSTR(settings.mud_name))
             {
-                printf_to_char(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
+                sendf(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
             }
 
             // If the user is reclassing they will already be in the list, if not, add them.

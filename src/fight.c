@@ -2926,7 +2926,7 @@ int standard_modifier(CHAR_DATA *ch, CHAR_DATA *victim)
     // Show to testers
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Standard Modifier {W%d{x]\r\n", mod);
+        sendf(ch, "[Standard Modifier {W%d{x]\r\n", mod);
     }
 
     return mod;

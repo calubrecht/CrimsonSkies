@@ -868,7 +868,7 @@ void save_other_helps(CHAR_DATA * ch)
             save_helps(fp, ha);
 
             if (ch)
-                printf_to_char(ch, "%s\r\n", ha->filename);
+                sendf(ch, "%s\r\n", ha->filename);
 
             fprintf(fp, "#$\n");
             fclose(fp);

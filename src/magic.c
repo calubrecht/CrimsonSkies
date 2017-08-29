@@ -3072,7 +3072,7 @@ void spell_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         affect_strip(victim, gsn_haste);
         if (skill_table[gsn_haste]->msg_off)
         {
-            printf_to_char(ch, "%s\r\n", skill_table[gsn_haste]->msg_off);
+            sendf(ch, "%s\r\n", skill_table[gsn_haste]->msg_off);
         }
 
         return;

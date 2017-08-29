@@ -102,7 +102,7 @@ void calculate_priest_rank(CHAR_DATA *ch)
     {
         ch->pcdata->priest_rank = rank;
 
-        printf_to_char(ch, "You have attained the priest rank of %s.\r\n", priest_rank_table[rank].name);
+        sendf(ch, "You have attained the priest rank of %s.\r\n", priest_rank_table[rank].name);
         log_f("%s has attained the priest rank %s.", ch->name, priest_rank_table[rank].name);
 
         save_char_obj(ch);
@@ -568,11 +568,11 @@ void spell_know_religion(int sn, int level, CHAR_DATA * ch, void *vo, int target
     // Deity check
     if (victim->pcdata->deity == 0)
     {
-        printf_to_char(ch, "%s does not follow a god or goddess.\r\n", PERS(victim, ch));
+        sendf(ch, "%s does not follow a god or goddess.\r\n", PERS(victim, ch));
     }
     else
     {
-        printf_to_char(ch, "%s is a follower of %s, %s\r\n"
+        sendf(ch, "%s is a follower of %s, %s\r\n"
                                 , PERS(victim, ch)
                                 , deity_table[victim->pcdata->deity].name
                                 , deity_table[victim->pcdata->deity].description);

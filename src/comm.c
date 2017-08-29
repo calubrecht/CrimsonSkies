@@ -2721,19 +2721,12 @@ int color_strlen(const char *text)
     return len;
 }
 
-/* source: EOD, by John Booth <???> */
-void printf_to_desc(DESCRIPTOR_DATA * d, char *fmt, ...)
-{
-    char buf[MSL];
-    va_list args;
-    va_start(args, fmt);
-    vsprintf(buf, fmt, args);
-    va_end(args);
-
-    send_to_desc(buf, d);
-}
-
-void printf_to_char(CHAR_DATA * ch, char *fmt, ...)
+/*
+ * Written by John Booth, EOD (as printf_to_char), renamed to sendf for easier
+ * coding as we make this a standard.  This assumes nothing will be larger
+ * than MAX_STRING_LENGTH and in the end passes the call down to send_to_char.
+ */
+void sendf(CHAR_DATA * ch, char *fmt, ...)
 {
     char buf[MAX_STRING_LENGTH];
     va_list args;

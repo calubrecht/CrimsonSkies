@@ -535,7 +535,7 @@ void do_circlestab(CHAR_DATA *ch, char *argument)
 
         if (IS_TESTER(ch))
         {
-            printf_to_char(ch, "[Circlestab Stun Chance {W%d%%{x]\r\n", chance);
+            sendf(ch, "[Circlestab Stun Chance {W%d%%{x]\r\n", chance);
         }
 
         if (CHANCE(chance))

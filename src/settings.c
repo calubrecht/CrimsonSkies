@@ -258,7 +258,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
     {
         settings.login_who_list_enabled = !settings.login_who_list_enabled;
 
-        printf_to_char(ch, "The login who list enabled flag has been set to: %s.\r\n", settings.login_who_list_enabled ? "ON" : "OFF");
+        sendf(ch, "The login who list enabled flag has been set to: %s.\r\n", settings.login_who_list_enabled ? "ON" : "OFF");
         sprintf(buf, "$N has set the login who list enabled flag to: %s", settings.login_who_list_enabled ? "ON" : "OFF");
         wiznet(buf, ch, NULL, 0, 0, 0);
 
@@ -291,7 +291,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the login color prompt to %s.", bool_onoff(settings.login_color_prompt));
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Login color prompt has been turned %s.\r\n", bool_onoff(settings.login_color_prompt));
+        sendf(ch, "Login color prompt has been turned %s.\r\n", bool_onoff(settings.login_color_prompt));
 
         save_settings();
     }
@@ -302,7 +302,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the hours affect experience setting to %s.", bool_onoff(settings.hours_affect_exp));
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Hours affecting experience has been turned %s.\r\n", bool_onoff(settings.hours_affect_exp));
+        sendf(ch, "Hours affecting experience has been turned %s.\r\n", bool_onoff(settings.hours_affect_exp));
 
         save_settings();
     }
@@ -322,7 +322,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the web page URL to %s.", settings.web_page_url);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Web page URL has been changed %s.\r\n", settings.web_page_url);
+        sendf(ch, "Web page URL has been changed %s.\r\n", settings.web_page_url);
 
         save_settings();
     }
@@ -331,7 +331,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         if (!IS_NULLSTR(arg2))
         {
             settings.stat_surge = atoi(arg2);
-            printf_to_char(ch, "Stats can now be surged %d above their maximum.\r\n", settings.stat_surge);
+            sendf(ch, "Stats can now be surged %d above their maximum.\r\n", settings.stat_surge);
 
             save_settings();
         }
@@ -357,7 +357,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the mud name to %s.", settings.mud_name);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "The mud's name has been set to %s.\r\n", settings.mud_name);
+        sendf(ch, "The mud's name has been set to %s.\r\n", settings.mud_name);
 
         save_settings();
     }
@@ -377,7 +377,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the login greeting to %s.", settings.login_greeting);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "The login greeting has been set to %s.\r\n", settings.login_greeting);
+        sendf(ch, "The login greeting has been set to %s.\r\n", settings.login_greeting);
 
         save_settings();
     }

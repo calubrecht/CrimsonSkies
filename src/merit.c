@@ -320,12 +320,12 @@ void do_meritlist(CHAR_DATA *ch, char *argument)
     int i;
 
     send_to_char("--------------------------------------------------------------------\r\n", ch);
-    printf_to_char(ch, "%-29s%-17s%-15s\r\n", "{WMerit{x", "{WYou Have{x", "{WPlayer Chooseable{x");
+    sendf(ch, "%-29s%-17s%-15s\r\n", "{WMerit{x", "{WYou Have{x", "{WPlayer Chooseable{x");
     send_to_char("--------------------------------------------------------------------\r\n", ch);
 
     for (i = 0; merit_table[i].name != NULL; i++)
     {
-        printf_to_char(ch, "%-25s%-17s%-13s\r\n",
+        sendf(ch, "%-25s%-17s%-13s\r\n",
             merit_table[i].name,
             IS_SET(ch->pcdata->merit, merit_table[i].merit) ? "{GTrue{x" : "{RFalse{x",
             merit_table[i].chooseable == TRUE ? "{GTrue{x" : "{RFalse{x");

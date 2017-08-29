@@ -5335,7 +5335,7 @@ HEDIT(hedit_level)
 
     if (lev < -1 || lev > MAX_LEVEL)
     {
-        printf_to_char(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
+        sendf(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
             MAX_LEVEL);
         return FALSE;
     }
