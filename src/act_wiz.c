@@ -6884,7 +6884,6 @@ void do_pload(CHAR_DATA *ch, char *argument)
             d.character->was_in_room = d.character->in_room;
         }
 
-        char_from_room(d.character);
         char_to_room(d.character, ch->in_room); /* put in room imm is in */
     }
 
