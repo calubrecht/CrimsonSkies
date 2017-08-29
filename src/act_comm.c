@@ -347,16 +347,16 @@ void do_auction(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\r\n", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT(ch->comm, COMM_NOAUCTION);
     }
 
-    sprintf(buf, "{xYou auction '{m%s{x'\r\n", argument);
-    send_to_char(buf, ch);
+    argument = make_drunk(argument, ch);
+    sendf(ch, "{xYou auction '{m%s{x'\r\n", argument);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *victim;
@@ -369,8 +369,7 @@ void do_auction(CHAR_DATA * ch, char *argument)
             !IS_SET(victim->comm, COMM_NOAUCTION) &&
             !IS_SET(victim->comm, COMM_QUIET))
         {
-            act_new("{x$n auctions '{m$t{x'",
-                ch, argument, d->character, TO_VICT, POS_DEAD);
+            act_new("{x$n auctions '{m$t{x'", ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
 } // end do_auction
@@ -411,8 +410,8 @@ void do_gossip(CHAR_DATA * ch, char *argument)
 
         REMOVE_BIT(ch->comm, COMM_NOGOSSIP);
 
-        sprintf(buf, "{xYou gossip '{W%s{x'\r\n", argument);
-        send_to_char(buf, ch);
+        argument = make_drunk(argument, ch);
+        sendf(ch, "{xYou gossip '{W%s{x'\r\n", argument);
 
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -470,8 +469,8 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
 
         REMOVE_BIT(ch->comm, COMM_NOCGOSSIP);
 
-        sprintf(buf, "{xYou clan gossip '{R%s{x'\r\n", argument);
-        send_to_char(buf, ch);
+        argument = make_drunk(argument, ch);
+        sendf(ch, "{xYou clan gossip '{R%s{x'\r\n", argument);
 
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -492,7 +491,7 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
 } // end do_cgossip
 
 /*
- * OOC channel for out of character conversation.
+ * OOC channel for out of character conversation. (no drunk conversion on ooc)
  */
 void do_ooc(CHAR_DATA * ch, char *argument)
 {
@@ -550,6 +549,9 @@ void do_ooc(CHAR_DATA * ch, char *argument)
     }
 } // end do_gossip
 
+/*
+ * Grats channel for congratulations (no drunk conversion on grats)
+ */
 void do_grats(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -579,8 +581,7 @@ void do_grats(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\r\n", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
 
         }
@@ -607,7 +608,7 @@ void do_grats(CHAR_DATA * ch, char *argument)
     }
 }
 
-/* RT question channel */
+/* RT question channel (no drunk conversion on question/answer) */
 void do_question(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -664,7 +665,7 @@ void do_question(CHAR_DATA * ch, char *argument)
     }
 }
 
-/* RT answer channel - uses same line as questions */
+/* RT answer channel - uses same line as questions (no drunk conversion on answer) */
 void do_answer(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -750,15 +751,15 @@ void do_clantalk(CHAR_DATA * ch, char *argument)
 
     if (IS_SET(ch->comm, COMM_NOCHANNELS))
     {
-        send_to_char("The gods have revoked your channel priviliges.\r\n",
-            ch);
+        send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
         return;
     }
 
     REMOVE_BIT(ch->comm, COMM_NOCLAN);
 
-    sprintf(buf, "{xYou clan '{G%s{x'\r\n", argument);
-    send_to_char(buf, ch);
+    argument = make_drunk(argument, ch);
+    sendf(ch, "{xYou clan '{G%s{x'\r\n", argument);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING &&
@@ -776,7 +777,7 @@ void do_clantalk(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * OOC Clan Talk
+ * OOC Clan Talk (no drunk conversion on oclan)
  */
 void do_oclantalk(CHAR_DATA *ch, char *argument)
 {
@@ -858,8 +859,7 @@ void do_immtalk(CHAR_DATA * ch, char *argument)
             IS_IMMORTAL(d->character) &&
             !IS_SET(d->character->comm, COMM_NOWIZ))
         {
-            act_new("{C$n: {W$t{x", ch, argument, d->character, TO_VICT,
-                POS_DEAD);
+            act_new("{C$n: {W$t{x", ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
 
@@ -915,10 +915,6 @@ void do_say(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // The old way only took these two lines, I'm leaving them here in case I want
-    // to roll back.
-    //act ("{x$n says '{g$T{x'", ch, NULL, argument, TO_ROOM);
-    //act ("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
 
     if (ch->in_room != NULL)
     {
@@ -926,6 +922,7 @@ void do_say(CHAR_DATA * ch, char *argument)
 
         to = ch->in_room->people;
 
+        argument = make_drunk(argument, ch);
         act_new("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR, POS_RESTING);
 
         for (; to != NULL; to = to->next_in_room)
@@ -997,12 +994,12 @@ void do_tell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     if (victim->desc == NULL && !IS_NPC(victim))
     {
-        act("$N seems to have misplaced $S link...try again later.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'{x\r\n", PERS(ch, victim),
-            argument);
+        act("$N seems to have misplaced $S link...try again later.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'{x\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
@@ -1021,8 +1018,7 @@ void do_tell(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (
-        (IS_SET(victim->comm, COMM_QUIET)
+    if ((IS_SET(victim->comm, COMM_QUIET)
             || IS_SET(victim->comm, COMM_DEAF)) && !IS_IMMORTAL(ch))
     {
         act("$E is not receiving tells.", ch, 0, victim, TO_CHAR);
@@ -1033,23 +1029,19 @@ void do_tell(CHAR_DATA * ch, char *argument)
     {
         if (IS_NPC(victim))
         {
-            act("$E is AFK, and not receiving tells.", ch, NULL, victim,
-                TO_CHAR);
+            act("$E is AFK, and not receiving tells.", ch, NULL, victim, TO_CHAR);
             return;
         }
 
-        act("$E is AFK, but your tell will go through when $E returns.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act("$E is AFK, but your tell will go through when $E returns.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
     }
 
     act("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR);
-    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
-        POS_DEAD);
+    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT, POS_DEAD);
     victim->reply = ch;
 
     if (!IS_NPC(ch) && IS_NPC(victim) && HAS_TRIGGER(victim, TRIG_SPEECH))
@@ -1076,12 +1068,12 @@ void do_reply(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     if (victim->desc == NULL && !IS_NPC(victim))
     {
-        act("$N seems to have misplaced $S link...try again later.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act("$N seems to have misplaced $S link...try again later.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
@@ -1093,13 +1085,11 @@ void do_reply(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (
-        (IS_SET(victim->comm, COMM_QUIET)
+    if ((IS_SET(victim->comm, COMM_QUIET)
             || IS_SET(victim->comm, COMM_DEAF)) && !IS_IMMORTAL(ch)
         && !IS_IMMORTAL(victim))
     {
-        act_new("$E is not receiving tells.", ch, 0, victim, TO_CHAR,
-            POS_DEAD);
+        act_new("$E is not receiving tells.", ch, 0, victim, TO_CHAR, POS_DEAD);
         return;
     }
 
@@ -1113,24 +1103,19 @@ void do_reply(CHAR_DATA * ch, char *argument)
     {
         if (IS_NPC(victim))
         {
-            act_new("$E is AFK, and not receiving tells.",
-                ch, NULL, victim, TO_CHAR, POS_DEAD);
+            act_new("$E is AFK, and not receiving tells.", ch, NULL, victim, TO_CHAR, POS_DEAD);
             return;
         }
 
-        act_new("$E is AFK, but your tell will go through when $E returns.",
-            ch, NULL, victim, TO_CHAR, POS_DEAD);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act_new("$E is AFK, but your tell will go through when $E returns.", ch, NULL, victim, TO_CHAR, POS_DEAD);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
     }
 
-    act_new("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR,
-        POS_DEAD);
-    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
-        POS_DEAD);
+    act_new("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR, POS_DEAD);
+    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT, POS_DEAD);
     victim->reply = ch;
 
     return;
@@ -1152,8 +1137,10 @@ void do_yell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
 
     act("{xYou yell '{Y$t{x'", ch, argument, NULL, TO_CHAR);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING
@@ -1922,7 +1909,10 @@ void do_gtell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     act("{xYou tell the group '{C$T{x'", ch, NULL, argument, TO_CHAR);
+
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
         if (is_same_group(gch, ch))
@@ -2351,6 +2341,8 @@ void do_direct(CHAR_DATA *ch, char *argument)
         send_to_char("They arent here.\r\n", ch);
         return;
     }
+
+    argument = make_drunk(argument, ch);
 
     sprintf(buf, "{x$n says (to {g$N{x) '{g%s{x'", argument);
     act(buf, ch, NULL, victim, TO_NOTVICT);

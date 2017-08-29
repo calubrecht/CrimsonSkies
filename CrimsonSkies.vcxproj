@@ -81,6 +81,7 @@
     <ClCompile Include="src\class_psionicist.c" />
     <ClCompile Include="src\class_thief.c" />
     <ClCompile Include="src\class_warrior.c" />
+    <ClCompile Include="src\language.c" />
     <ClCompile Include="src\gsn.c" />
     <ClCompile Include="src\act_comm.c" />
     <ClCompile Include="src\act_info.c" />

@@ -707,6 +707,16 @@ struct global_data
 };
 
 /*
+ * Drunk struct
+ */
+struct struckdrunk
+{
+    int     min_drunk_level;
+    int     number_of_rep;
+    char    *replacement[11];
+};
+
+/*
  * Character Sub States / Timers (from Smaug)
  */
 typedef enum
@@ -2821,6 +2831,9 @@ void          calculate_priest_rank(CHAR_DATA * ch);
 
 /* class_barbarian.c */
 void          second_wind(CHAR_DATA * ch);
+
+/* drunk.c */
+char *make_drunk(char *string, CHAR_DATA *ch);
 
 #undef    CD
 #undef    MID
