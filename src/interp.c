@@ -190,6 +190,7 @@ const struct cmd_type cmd_table[] = {
      * Communication commands.
      */
     {"afk",             do_afk,         POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"ask",             do_question,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"answer",          do_answer,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"deaf",            do_deaf,        POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"emote",           do_emote,       POS_RESTING,  0, LOG_NORMAL, TRUE},
@@ -203,11 +204,10 @@ const struct cmd_type cmd_table[] = {
     {";",               do_gtell,       POS_DEAD,     0, LOG_NORMAL, FALSE},
     {"question",        do_question,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"quiet",           do_quiet,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
-    {"reply",           do_reply,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"reply",           do_reply,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"replay",          do_replay,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"say",             do_say,         POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"'",               do_say,         POS_RESTING,  0, LOG_NORMAL, FALSE},
-
     {"shout",           do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, TRUE},
