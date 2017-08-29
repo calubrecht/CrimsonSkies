@@ -146,7 +146,6 @@ void init_name_parts()
  */
 void do_random_names(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     int row = 0;
     int col = 0;
 
@@ -156,11 +155,10 @@ void do_random_names(CHAR_DATA * ch, char *argument)
         // separate calls.
         for (col = 0; col < 5; col++)
         {
-            sprintf(buf, "%-16s", generate_random_name());
-            send_to_char(buf, ch);
+            sendf(ch, "%-16s", generate_random_name());
         }
 
-        send_to_char("\r\n", ch);
+        sendf(ch, "\r\n");
     }
 
     return;
