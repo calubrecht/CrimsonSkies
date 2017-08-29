@@ -4,12 +4,10 @@ wTo Do List
 This is my to do list, mostly will be things big and small as I think about them.
 
   - Add custom recall field for each clan in the tables struct.
-  - Add command so anyone can go loner.
   - Add luck stat
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
   - do_reset and aedit_reset collision
-  - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
