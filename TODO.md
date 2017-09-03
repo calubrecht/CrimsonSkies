@@ -160,3 +160,4 @@ This is my to do list, mostly will be things big and small as I think about them
   - Drunk randoms from smaug
   - Drunk in score or affects
   - Whisper command
+  - add clance command
