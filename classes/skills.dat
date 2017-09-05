@@ -2520,4 +2520,15 @@ MsgOff      !Survey Terrain!~
 Race        0
 End
 
+#SKILL
+Name        smoke bomb~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       24
+MsgOff      !SmokeBomb!~
+Race        0
+End
+
 #END
