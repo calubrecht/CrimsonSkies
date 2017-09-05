@@ -6965,6 +6965,10 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
+    char buf[MSL];
+    sprintf(buf, "%s", health_description(ch, ch));
+    send_to_char(buf, ch);
+
 /*  ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;
     int vnum;
@@ -6983,7 +6987,7 @@ void do_debug(CHAR_DATA * ch, char *argument)
         }
     }
 */
-    do_restore(ch, "self");
+    //do_restore(ch, "self");
     //send_to_char("Ok.\r\n", ch);
 
     return;

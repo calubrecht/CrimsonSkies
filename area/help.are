@@ -4568,6 +4568,12 @@ inventory.
 Empty also allows you to empty a liquid container getting rid of
 it's contents so the drinking container maybe refilled.
 ~
+0 GLANCE~
+Syntax: glance <target>
+
+Glance allows you to quickly check the vitality of another individual
+be it a character or a mob (you must be able to actually see them first).
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request

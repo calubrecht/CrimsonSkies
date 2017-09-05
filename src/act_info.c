@@ -3895,3 +3895,37 @@ void do_tnl(CHAR_DATA *ch, char *argument)
     sendf(ch, "You have %d experience points until the next level.\r\n",
         !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0);
 }
+
+/*
+ * Glance command to quickly spot check a person's health.
+ */
+void do_glance(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (ch == NULL)
+    {
+        return;
+    }
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("Glance at whom?\r\n", ch);
+        return;
+    }
+
+    if ((victim = get_char_room(ch, argument)) == NULL)
+    {
+        send_to_char("You don't see that individual.\r\n", ch);
+        return;
+    }
+
+    // Call the standard description function for looking at someone else.
+    sendf(ch, "%s", health_description(ch, victim));
+
+    // Show the room other than yourself.
+    act("$n glances at you.", ch, NULL, victim, TO_VICT);
+    act("$n glances at $N.", ch, NULL, victim, TO_NOTVICT);
+
+    return;
+}

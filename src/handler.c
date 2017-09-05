@@ -3910,3 +3910,65 @@ char *deity_formatted_name(CHAR_DATA *ch)
 
     return buf;
 }
+
+/*
+ * Returns the standard description of a person's health.  This requires both the person looking and the
+ * person receiving as it will shift their name in certain circumstances (e.g. to someone if their blind).
+ */
+char *health_description(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    static char buf[256];
+    int percent;
+
+    // Reset, we don't want to strcat onto the last copy.
+    buf[0] = '\0';
+
+    if (victim->max_hit > 0)
+    {
+        percent = (100 * victim->hit) / victim->max_hit;
+    }
+    else
+    {
+        percent = -1;
+    }
+
+    strcpy(buf, PERS(victim, ch));
+
+    if (percent >= 100)
+    {
+        strcat(buf, " is in excellent condition.\r\n");
+    }
+    else if (percent >= 90)
+    {
+        strcat(buf, " has a few scratches.\r\n");
+    }
+    else if (percent >= 75)
+    {
+        strcat(buf, " has some small wounds and bruises.\r\n");
+    }
+    else if (percent >= 50)
+    {
+        strcat(buf, " has quite a few wounds.\r\n");
+    }
+    else if (percent >= 30)
+    {
+        strcat(buf, " has some big nasty wounds and scratches.\r\n");
+    }
+    else if (percent >= 15)
+    {
+        strcat(buf, " looks pretty hurt.\r\n");
+    }
+    else if (percent >= 0)
+    {
+        strcat(buf, " is in awful condition.\r\n");
+    }
+    else
+    {
+        strcat(buf, " is bleeding to death.\r\n");
+    }
+
+    buf[0] = UPPER(buf[0]);
+
+    return buf;
+}
+

@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.4.9"
+#define VERSION "1.4.10"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -2675,6 +2675,7 @@ int    obj_affect_modifier(OBJ_DATA *obj, int location);
 bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
 bool   leads_grouped_mob  (CHAR_DATA *ch, int mob_vnum);
 char * deity_formatted_name (CHAR_DATA *ch);
+char *health_description  (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* recycle.c */
 TIMER *new_timer          (void);

@@ -118,6 +118,7 @@ const struct cmd_type cmd_table[] = {
     {"clearreply",do_clearreply,POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"second",    do_second,    POS_RESTING,  0,  LOG_NORMAL, FALSE},
     {"dual",      do_second,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
+    {"glance",    do_glance,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
 
     /*
      * Informational commands.
