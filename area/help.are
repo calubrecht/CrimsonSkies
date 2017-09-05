@@ -4082,6 +4082,13 @@ restoring visibility to all who pass through it.
 SEE ALSO: fog
 ~
 
+0 'SMOKE BOMB'~
+Syntax: smokebomb
+
+Allows a rogue to toss a smoke bomb into the room that will make it
+more difficult for people to see the room and other people.
+~
+
 52 CLEARREPLY~
 Syntax: clearreply <player name>
 

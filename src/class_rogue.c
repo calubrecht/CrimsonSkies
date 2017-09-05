@@ -32,7 +32,6 @@
 
  /*
     TODO list
-    Smoke Bomb (leaves a fog/smoke in the area)
     Set Trap
  */
 
@@ -773,4 +772,74 @@ void do_revolt(CHAR_DATA * ch, char *argument)
     }
 
     WAIT_STATE(ch, skill_table[gsn_revolt]->beats);
+}
+
+/*
+ * Smoke bomb, allows a Rogue to toss a smoke bomb down in the room creating a temporary smoke screen
+ * that's hard to see through (e.g. fog restrung).
+ */
+void do_smokebomb(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *fog;
+    OBJ_DATA *obj;
+    int density = 0;
+    int duration = 0;
+
+    if (!CHANCE_SKILL(ch, gsn_smokebomb))
+    {
+        act("$n throws down a smoke bomb down that appears to fizzle out.", ch, NULL, NULL, TO_ROOM);
+        act("You throw down a smoke bomb that appears to fizzle out.", ch, NULL, NULL, TO_CHAR);
+        check_improve(ch, gsn_smokebomb, FALSE, 8);
+        return;
+    }
+
+    for (obj = ch->in_room->contents; obj; obj = obj->next_content)
+    {
+        if (obj->item_type == ITEM_FOG)
+        {
+            send_to_char("There is already fog or smoke in the room.\r\n", ch);
+            return;
+        }
+    }
+
+    // Quality of the fog
+    density = number_range(ch->level / 2, 100);
+    duration = number_range(1, 3);
+
+    // Much lower density in the city
+    if (ch->in_room->sector_type == SECT_CITY)
+    {
+        density -= 30;
+    }
+
+    density = URANGE(5, density, 100);
+
+    // Immortals cast impenetrable fog
+    if (IS_IMMORTAL(ch))
+    {
+        density = 100;
+    }
+
+    fog = create_object(get_obj_index(OBJ_VNUM_FOG));
+    fog->value[0] = density; // thickness of the fog
+    fog->timer = duration; // duration of the fog
+
+    // Restring the fog object.
+    free_string(fog->short_descr);
+    fog->short_descr = str_dup("A wall of smoke");
+
+    free_string(fog->description);
+    fog->description = str_dup("A wall of smoke hangs in the air.");
+
+    obj_to_room(fog, ch->in_room);
+
+    act("$n throws down a smoke bomb as smoke begins to engulf the area.", ch, NULL, NULL, TO_ROOM);
+    act("You throw down a smoke bomb as smoke begins to engulf the area.", ch, NULL, NULL, TO_CHAR);
+
+    check_improve(ch, gsn_smokebomb, TRUE, 7);
+
+    // Lag for the command
+    WAIT_STATE(ch, skill_table[gsn_smokebomb]->beats);
+
+    return;
 }
