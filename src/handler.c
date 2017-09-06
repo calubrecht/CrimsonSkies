@@ -3917,7 +3917,7 @@ char *deity_formatted_name(CHAR_DATA *ch)
  */
 char *health_description(CHAR_DATA *ch, CHAR_DATA *victim)
 {
-    static char buf[256];
+    static char buf[128];
     int percent;
 
     // Reset, we don't want to strcat onto the last copy.
