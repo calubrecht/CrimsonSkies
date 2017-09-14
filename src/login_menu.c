@@ -79,7 +79,6 @@ void show_greeting(DESCRIPTOR_DATA *d)
 */
 void show_random_names(DESCRIPTOR_DATA *d)
 {
-    char buf[MAX_STRING_LENGTH];
     int row = 0;
     int col = 0;
 
@@ -96,8 +95,7 @@ void show_random_names(DESCRIPTOR_DATA *d)
 
         for (col = 0; col < 4; col++)
         {
-            sprintf(buf, "%-16s", generate_random_name());
-            write_to_descriptor(d->descriptor, buf, d);
+            writef(d, "%-16s", generate_random_name());
         }
 
         write_to_descriptor(d->descriptor, "{w    |\r\n", d);
@@ -115,37 +113,26 @@ void show_random_names(DESCRIPTOR_DATA *d)
 */
 void show_login_credits(DESCRIPTOR_DATA *d)
 {
-    char buf[MAX_STRING_LENGTH];
+    int space = 0;
+    int x = 0;
 
     show_menu_top(d);
     show_menu_header("Credits", d);
     write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
-    // This is a hacky, fix this later to remove the spaces without checking the length like this in an if statement.
-    if (strlen(VERSION) == 3)
+    // This line should dynamically space up to a version number
+    writef(d, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)", VERSION);
+
+    space = 40 - strlen(VERSION);
+
+    for (x = 0; x < space; x++)
     {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 4)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 5)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                   |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 6)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                  |\r\n", VERSION);
-    }
-    else
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+        write_to_descriptor(d->descriptor, " ", d);
     }
 
-    write_to_descriptor(d->descriptor, buf, d);
+    write_to_descriptor(d->descriptor, "|\r\n", d);
+
     write_to_descriptor(d->descriptor, "{w   |          Blake Pell (Rhien)                                            |\r\n", d);
-
     write_to_descriptor(d->descriptor, "{w   |    {G*{x {WROM 2.4{w (1993-1998)                                               |\r\n", d);
     write_to_descriptor(d->descriptor, "{w   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
     write_to_descriptor(d->descriptor, "{w   |    {G*{x {WMerc DikuMud{w (1991-1993)                                          |\r\n", d);

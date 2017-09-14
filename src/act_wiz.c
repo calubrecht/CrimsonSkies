@@ -6965,9 +6965,7 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    char buf[MSL];
-    sprintf(buf, "%s", health_description(ch, ch));
-    send_to_char(buf, ch);
+    sendf(ch, "%s", health_description(ch, ch));
 
 /*  ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;
