@@ -203,6 +203,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     fprintf(fp, "Played %d\n", ch->played + (int)(current_time - ch->logon));
     fprintf(fp, "Pkilled %d\n", ch->pcdata->pkilled);
     fprintf(fp, "Pkills %d\n", ch->pcdata->pkills);
+    fprintf(fp, "PkillsArena %d\n", ch->pcdata->pkills_arena);
 
     fprintf(fp, "Scroll %d\n", ch->lines);
     fprintf(fp, "Room %d\n", (ch->in_room == get_room_index(ROOM_VNUM_LIMBO)
@@ -698,6 +699,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
     ch->pcdata->pkills = 0;
+    ch->pcdata->pkills_arena = 0;
     ch->pcdata->pkilled = 0;
     ch->pcdata->bank_gold = 0;
     ch->pcdata->recall_vnum = 0;
@@ -1187,6 +1189,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("Pkilled", ch->pcdata->pkilled,fread_number(fp));
                 KEY("Pkills", ch->pcdata->pkills, fread_number(fp));
+                KEY("PkillsArena", ch->pcdata->pkills_arena, fread_number(fp));
 
                 KEY("PriestRank", ch->pcdata->priest_rank, (fread_number(fp)));
 

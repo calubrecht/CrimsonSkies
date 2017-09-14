@@ -2520,6 +2520,13 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
         ch->pcdata->pkills++;
     }
 
+    // If it's in the arena, any kill between a player and a player is good, tally
+    // it in the arena kills stat.
+    if (!IS_NPC(victim) && !IS_NPC(ch) && IS_SET(ch->in_room->room_flags, ROOM_ARENA))
+    {
+        ch->pcdata->pkills_arena++;
+    }
+
     // Send it to all the players
     send_to_all_char(buf);
 

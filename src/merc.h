@@ -1788,6 +1788,7 @@ struct pc_data
     int             quest_obj;         // Vassago - Questing
     int             quest_mob;         // Vassago - Questing
     int             pkills;            // The number of player kills a character has.
+    int             pkills_arena;      // The number of player kills a character has in the arena.
     int             pkilled;           // The number of times a player has been killed.
     long            bank_gold;         // The amount of gold a player has in the bank.
     int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it

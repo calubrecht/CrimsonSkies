@@ -2173,8 +2173,9 @@ void do_score(CHAR_DATA * ch, char *argument)
         );
     }
 
-    row_append_cell(row, 27, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
+    row_append_cell(row, 27, "   Player Kills: {C%d{x\n    Arena Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
         !IS_NPC(ch) ? ch->pcdata->pkills : 0,
+        !IS_NPC(ch) ? ch->pcdata->pkills_arena : 0,
         !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0,
         !IS_NPC(ch) ? ch->pcdata->points : 0,
         !IS_NPC(ch) ? ch->pcdata->pk_timer : 0
