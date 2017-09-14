@@ -41,7 +41,9 @@ Here are some related resources that are thanksfully still active.
 
 ## License 
 
-As this is a ROM/Merc/Diku deritivate it must adhear to the licenses set before it from those code bases.  
+As this is a ROM/Merc/Diku deritivate it must adhear to the licenses set before it from those code bases.  I
+request that you leave any attributions on the login screen as the credits refer to the Diku lineage (including
+mine).  The credits menu should provide ample space should you keep the menu system.
 
 ## Contact Me
 
