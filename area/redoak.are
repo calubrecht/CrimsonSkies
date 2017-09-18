@@ -172,7 +172,7 @@ Before you stands a tired looking bartender of average height.  He has
 short brown hair and looks as if he's been through the ringer a few times.  
 ~
 human~
-ABHVXYZ D 1 0
+ABHVXY D 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -310,9 +310,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-18 1
-A
 19 1
+A
+18 1
 #702
 red oak sword~
 a red oak sword~
@@ -322,9 +322,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-18 1
-A
 19 1
+A
+18 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -334,9 +334,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-18 1
-A
 19 1
+A
+18 1
 #704
 club~
 a red oak club~
@@ -528,14 +528,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
-letters~
-They say, "Use 'hold lantern' to activate."
-~
-E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
+~
+E
+letters~
+They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
