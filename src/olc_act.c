@@ -6779,6 +6779,7 @@ CEDIT(cedit_guild)
     char arg1[MAX_STRING_LENGTH];
     char arg2[MAX_STRING_LENGTH];
     int num, vnum;
+    ROOM_INDEX_DATA *room;
 
     EDIT_CLASS(ch, class);
 
@@ -6791,9 +6792,9 @@ CEDIT(cedit_guild)
     argument = one_argument(argument, arg1);
     argument = one_argument(argument, arg2);
     num = atoi(arg1);
-    vnum = atoi(arg1);
+    vnum = atoi(arg2);
 
-    if (!is_number(arg1) || !is_number(arg2) == '\0')
+    if (!is_number(arg1) || !is_number(arg2))
     {
         send_to_char("Syntax:  guild [#] Room_Vnum\r\n", ch);
         return FALSE;
@@ -6805,7 +6806,22 @@ CEDIT(cedit_guild)
         return FALSE;
     }
 
+    if (vnum > 99999)
+    {
+        send_to_char("That is an invalid room.\r\n", ch);
+        return FALSE;
+    }
+
+
+    if ((room = get_room_index(vnum)) == NULL)
+    {
+        send_to_char("That is an invalid room.\r\n", ch);
+        return FALSE;
+    }
+
     class->guild[num] = vnum;
+
+    sendf(ch, "Guild slot %d set to {c%s{x [Room %d].\r\n", num, room->name, vnum);
 
     return TRUE;
 }

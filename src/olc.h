@@ -342,6 +342,7 @@ DECLARE_OLC_FUN(cedit_groups);
 DECLARE_OLC_FUN(cedit_isreclass);
 DECLARE_OLC_FUN(cedit_isenabled);
 DECLARE_OLC_FUN(cedit_clan);
+DECLARE_OLC_FUN(cedit_guild);
 
 /*
 * Macros
