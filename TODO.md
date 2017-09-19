@@ -23,7 +23,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug
-  - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
@@ -155,7 +154,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Allow logout even in pk lag if the player is in a clan owned room of the clan they are in
   - Priest spell (with cooldown) to prevent a person from entering a room for a tick
   - Area flag that denotes a clan/kingdom hall.
-  - Guildmasters in Red Oak
   - Hometown selection in creation
   - Drunk randoms from smaug
   - Drunk in score or affects
