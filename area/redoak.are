@@ -284,6 +284,67 @@ ABLV DFH 3 0
 FHIK BCD 0 0
 stand stand male 0
 AHMV ABCDEFGHIJK medium unknown
+#718
+guildmaster master~
+the guildmaster~
+Your guildmaster is standing here.
+~
+A large warrior with chainmail armor and swords sheathed on both sides of
+his body stands here.  He has a trimmed black beard and scars to prove that
+he has seen much combat in his day.  
+~
+human~
+ABJKTVb DFJ 3 0
+36 0 1d1+1999 1d1+199 3d8+24 beating
+-20 -20 -20 -20
+ACDEIK ABCD LQ R
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#719
+mage guildmaster~
+the guildmaster~
+Your guildmaster stands here.
+~
+An old man peering through ancient tomes rests here.
+~
+human~
+ABJKRVb DF 2 0
+40 10 1d1+30000 1d1+499 5d8+5 pierce
+-15 -15 -15 -15
+FHN ABCD 0 0
+stand stand male 15000
+AHMV ABCDEFGHIJK medium unknown
+#720
+thief guildmaster~
+the guildmaster~
+Your guildmaster stands here.
+~
+The thief snickers are you while he spins a coin around his fingers with
+practised ease.  You wonder if it's your coin.  
+~
+human~
+ABJKRVb DF 2 0
+40 10 1d1+30000 1d1+499 5d8+5 pierce
+-15 -15 -15 -15
+FHN ABCD 0 0
+stand stand male 15000
+AHMV ABCDEFGHIJK medium unknown
+#721
+guildmaster master~
+the guildmaster~
+Your guildmaster is standing here.
+~
+Even though your guildmaster looks old and tired, you can clearly see the
+vast amount of knowledge she possesses. She is wearing fine magic clothing,
+and you notice that she is surrounded by a blue shimmering aura.
+~
+human~
+ABJKRVb DEFJZ 3 0
+36 0 1d1+1999 1d1+999 3d8+24 magic
+-15 -15 -15 -15
+FG ABCD B Z
+stand stand female 0
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -310,9 +371,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -322,9 +383,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -334,9 +395,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -528,14 +589,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -1343,10 +1404,18 @@ D0
 ~
 ~
 0 0 704
+D1
+~
+~
+0 0 745
 D2
 ~
 ~
 0 0 727
+D3
+~
+~
+0 0 747
 S
 #727
 South Gate Road~
@@ -1360,10 +1429,18 @@ D0
 ~
 ~
 0 0 726
+D1
+~
+~
+0 0 751
 D2
 ~
 ~
 0 0 728
+D3
+~
+~
+0 0 749
 S
 #728
 South Gate Road~
@@ -1632,6 +1709,118 @@ D0
 ~
 0 0 701
 S
+#745
+Warrior's Guild~
+You are standing inside of the warrior's guild of Red Oak.  Swords and
+daggers adorn the walls and the south of the clinking of sword on armor can
+be heard from the north.  
+~
+0 262184 0
+D0
+~
+~
+0 0 746
+D3
+~
+~
+0 0 726
+S
+#746
+Warrior's Guild~
+You are standing in a large room that has been crafted as a small arena
+of sorts.  A large and muscular warrior stands at the end of the room
+overseeing those who come to seek his training in the art of combat.  
+~
+0 262152 0
+D2
+~
+~
+0 0 745
+S
+#747
+Mage's Guild~
+As you enter this room you can feel the magic swirl about you.  Books
+are scattered about and magical symbols are drawn on the floor.  In the
+center of all of this sets a wizard's stone.  
+~
+0 40 0
+D0
+~
+~
+0 0 748
+D1
+~
+~
+0 0 726
+S
+#748
+Mage's Guild~
+The walls are lined with shelves filled with books and magical trinkets. 
+In the center of the room is a large crystal ball with swirling images
+emanating from it.  
+~
+0 8 0
+D2
+~
+~
+0 0 747
+S
+#749
+Thieve's Guild~
+You are standing in the thieves guild.  Everything is a little dingy and
+there are some odd looking characters standing about eyeing your every
+movement.  There are various short daggers, coin purses and knick knacks
+strewn about.  
+~
+0 40 0
+D1
+~
+~
+0 0 727
+D2
+~
+~
+0 0 750
+S
+#750
+Thieve's Guild~
+The open hidden panel behind you seems to shed no light in here, and you
+find yourself in complete darkness.  You feel the presence of someone in the
+room with you--was that a finger on your purse?!?  Quick!  Make a light!  
+~
+0 0 0
+D0
+~
+~
+0 0 749
+S
+#751
+Cleric's Guild~
+Many ornate tapestries hang from the walls depicting the various God's of
+the world or acts of those followers throughout time.  There are candles lit
+all along the wall and there is a distinct holy feeling about this place.  
+~
+0 40 0
+D2
+~
+~
+0 0 752
+D3
+~
+~
+0 0 727
+S
+#752
+Cleric's Guild~
+This is a small room with colored light filtering in from the stained
+glass.  A man with robes and an ornate staff waits here to train you.  
+~
+0 8 0
+D0
+~
+~
+0 0 751
+S
 #0
 
 
@@ -1642,6 +1831,7 @@ M 705 spec_cast_mage
 M 711 spec_executioner
 M 712 spec_thief
 M 714 spec_cast_adept
+M 721 spec_cast_mage
 S
 
 
@@ -1736,6 +1926,10 @@ G 0 751 0 A carrot seed is given to Timor
 G 0 753 0 A pumpkin seed is given to Timor
 G 0 755 0 An ash gray seed is given to Timor
 M 0 717 1 744 1 Load The banker
+M 0 718 1 746 1 Load the guildmaster
+M 0 719 1 748 1 Load the guildmaster
+M 0 720 1 750 1 Load the guildmaster
+M 0 721 1 752 1 Load the guildmaster
 S
 
 
