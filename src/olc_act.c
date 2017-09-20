@@ -6806,9 +6806,9 @@ CEDIT(cedit_guild)
         return FALSE;
     }
 
-    if (vnum > 99999)
+    if (vnum > top_vnum_room)
     {
-        send_to_char("That is an invalid room.\r\n", ch);
+        send_to_char("That is a greater vnum than any existing room.\r\n", ch);
         return FALSE;
     }
 

@@ -6965,7 +6965,8 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    sendf(ch, "%s", health_description(ch, ch));
+    //sendf(ch, "%s", health_description(ch, ch));
+    sendf(ch, "Top VNUM: %d\r\n", top_vnum_room);
 
 /*  ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;
