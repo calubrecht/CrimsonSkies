@@ -1679,8 +1679,7 @@ bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim)
  */
 bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim)
 {
-    // First, check for self projection, if it's not on the victim then get
-    // out here.
+    // First, check for self projection, if it's not on the victim then get out here.
     if (!is_affected(victim, gsn_self_projection))
     {
         return FALSE;
@@ -1688,6 +1687,12 @@ bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim)
 
     // 4% base chance
     int chance = 4;
+
+    // If the attacker has the precision striking merit then half the chance.
+    if (is_affected(ch, gsn_precision_striking))
+    {
+        chance /= 2;
+    }
 
     // The chance to fail
     if (!CHANCE(chance))
