@@ -210,3 +210,4 @@ DECLARE_GSN(gsn_precision_striking);
 DECLARE_GSN(gsn_detect_fireproof);
 DECLARE_GSN(gsn_survey_terrain);
 DECLARE_GSN(gsn_smokebomb);
+DECLARE_GSN(gsn_self_projection);

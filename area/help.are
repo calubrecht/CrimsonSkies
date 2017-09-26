@@ -2408,9 +2408,10 @@ the illusion group is very small, but it will be expanded in the future.
 Only thieves and mages can cast illusion spells, which consist of the 
 following:
 
-invis		turns the target invisible
-mass invis	turns the caster's group invisible
-ventriloquate	allows the caster to put words in someone's mouth
+invis		     turns the target invisible
+mass invis	     turns the caster's group invisible
+ventriloquate	 allows the caster to put words in someone's mouth
+self projection  projects an image out in front of the caster of themselves.
 ~
 
 0 MALADICTIONS~
@@ -4573,6 +4574,13 @@ Syntax: glance <target>
 
 Glance allows you to quickly check the vitality of another individual
 be it a character or a mob (you must be able to actually see them first).
+~
+0 SELF PROJECTION~
+Syntax: cast 'self projection'
+
+Self projection is an illusion spell that allows the caster to project
+an image of themselves out in front of them which in rare cases may
+cause an attack to miss with their swing.
 ~
 0 QUEST PQUEST~
 

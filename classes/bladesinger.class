@@ -108,6 +108,7 @@ Sk 'detect invis' 30 1
 Sk 'detect hidden' 31 1
 Sk 'locate object' 31 1
 Sk 'pass door' 31 1
+Sk 'self projection' 31 1
 Sk 'detect poison' 32 1
 Sk 'spellcraft' 32 4
 Sk 'water breathing' 33 1

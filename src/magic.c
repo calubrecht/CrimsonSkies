@@ -1030,6 +1030,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_holy_flame, "The holy flames around $n fade."},
     { &gsn_divine_wisdom, "The divine wisdom leaves $n's soul."},
     { &gsn_water_walk, "$n's blessing of water walking fades."},
+    { &gsn_self_projection, "$n's self projection disappears."},
     {NULL, NULL}
 };
 
@@ -1069,9 +1070,14 @@ void spell_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.location = APPLY_AC;
     af.bitvector = 0;
     affect_to_char(victim, &af);
+
     send_to_char("You feel someone protecting you.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected by your magic.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
@@ -4046,6 +4052,53 @@ void spell_dispel_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 }
 
 /*
+ * Self projection spell (Illusion group) - Puts a shifted image of a person in
+ * front of them that can disorient the attacker causing them to miss in their strike.
+ * This should only be castable on one's self.
+ */
+void spell_self_projection(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
+            act("$N's image is already projecting out in front of them.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 24;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your image projects out slightly in front of you.\r\n", victim);
+    act("$n's image shifts out in front of $m.", victim, NULL, NULL, TO_ROOM);
+
+    if (ch != victim)
+    {
+        act("$N's image projects out in front of $M.", ch, NULL, victim, TO_CHAR);
+    }
+
+    return;
+}
+
+
+/*
  * Returns the spell function for the specified name.  This will allow loading from
  * a file (although this has to be updated which isn't ideal but is necessary).  By
  * switching for the 7th character we can cut down the number of checks run.  All
@@ -4230,6 +4283,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_song_of_protection")) return spell_song_of_protection;
             if (!str_cmp(name, "spell_song_of_dissonance")) return spell_song_of_dissonance;
             if (!str_cmp(name, "spell_self_growth")) return spell_self_growth;
+            if (!str_cmp(name, "spell_self_projection")) return spell_self_projection;
             break;
         case 't':
             if (!str_cmp(name, "spell_teleport")) return spell_teleport;
@@ -4413,6 +4467,7 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_guardian_angel) return "spell_guardian_angel";
     if (spell == spell_water_walk) return "spell_water_walk";
     if (spell == spell_detect_fireproof) return "spell_detect_fireproof";
+    if (spell == spell_self_projection) return "spell_self_projection";
 
     return "reserved";
 

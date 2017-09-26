@@ -2531,4 +2531,15 @@ MsgOff      !SmokeBomb!~
 Race        0
 End
 
+#SKILL
+Name        self projection~
+SpellFun    spell_self_projection~
+Target      3
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      Your projected image suddenly disappears.~
+Race        0
+End
+
 #END

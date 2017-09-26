@@ -42,6 +42,7 @@
  */
 void check_assist(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim);
+bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim);
 void check_wanted(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_shield_block(CHAR_DATA * ch, CHAR_DATA * victim);
@@ -974,17 +975,10 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
      */
     if (dt >= TYPE_HIT && ch != victim)
     {
-        if (check_parry(ch, victim))
-        {
-            return FALSE;
-        }
-
-        if (check_dodge(ch, victim))
-        {
-            return FALSE;
-        }
-
-        if (check_shield_block(ch, victim))
+        if (check_parry(ch, victim)
+            || check_dodge(ch, victim)
+            || check_shield_block(ch, victim)
+            || check_self_projection(ch, victim))
         {
             return FALSE;
         }
@@ -1678,7 +1672,35 @@ bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim)
     act("$N dodges your attack.", ch, NULL, victim, TO_CHAR);
     check_improve(victim, gsn_dodge, TRUE, 6);
     return TRUE;
-} // end bool check_dodge
+}
+
+/*
+ * Check to see if self projection stops an attack
+ */
+bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim)
+{
+    // First, check for self projection, if it's not on the victim then get
+    // out here.
+    if (!is_affected(victim, gsn_self_projection))
+    {
+        return FALSE;
+    }
+
+    // 4% base chance
+    int chance = 4;
+
+    // The chance to fail
+    if (!CHANCE(chance))
+    {
+        return FALSE;
+    }
+
+    act("$n's attack misses as they swing at your self projection.", ch, NULL, victim, TO_VICT);
+    act("You swing $N's self projection and miss.", ch, NULL, victim, TO_CHAR);
+
+    return TRUE;
+}
+
 
 /*
  * Set position of a victim.

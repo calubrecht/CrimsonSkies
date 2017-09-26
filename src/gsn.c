@@ -216,6 +216,7 @@ void assign_gsn()
     ASSIGN_GSN(gsn_detect_fireproof, "detect fireproof");
     ASSIGN_GSN(gsn_survey_terrain, "survey terrain");
     ASSIGN_GSN(gsn_smokebomb, "smoke bomb");
+    ASSIGN_GSN(gsn_self_projection, "self projection");
 
     if (global.last_boot_result == UNKNOWN)
     {

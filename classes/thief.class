@@ -114,6 +114,7 @@ Sk 'fog' 32 2
 Sk 'dispel fog' 32 2
 Sk 'heal' 33 2
 Sk 'cancellation' 34 2
+Sk 'self projection' 34 2
 Sk 'acid blast' 35 2
 Sk 'shield' 35 2
 Sk 'plague' 36 2
