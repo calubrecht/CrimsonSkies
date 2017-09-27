@@ -214,6 +214,7 @@ const struct cmd_type cmd_table[] = {
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, TRUE},
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, TRUE},
     {"direct",          do_direct,      POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"whisper",         do_whisper,     POS_RESTING,  0, LOG_NORMAL, TRUE},
     {">",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"@",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
 

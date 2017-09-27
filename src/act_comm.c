@@ -903,6 +903,9 @@ void do_pray(CHAR_DATA * ch, char *argument)
     }
 } // end do_pray
 
+/*
+ * Allows a player to say something to the awake people in the room who aren't asleep.
+ */
 void do_say(CHAR_DATA * ch, char *argument)
 {
     if (argument[0] == '\0')
@@ -940,11 +943,66 @@ void do_say(CHAR_DATA * ch, char *argument)
         for (mob = ch->in_room->people; mob != NULL; mob = mob_next)
         {
             mob_next = mob->next_in_room;
+
             if (IS_NPC(mob) && HAS_TRIGGER(mob, TRIG_SPEECH)
                 && mob->position == mob->pIndexData->default_pos)
+            {
                 mp_act_trigger(argument, mob, ch, NULL, NULL, TRIG_SPEECH);
+            }
         }
     }
+    return;
+}
+
+/*
+ * Allows a player to whisper something to the room (more of an RP say to denote inflection).
+ */
+void do_whisper(CHAR_DATA * ch, char *argument)
+{
+    if (argument[0] == '\0')
+    {
+        send_to_char("Whisper what?\r\n", ch);
+        return;
+    }
+
+
+    if (ch->in_room != NULL)
+    {
+        CHAR_DATA *to;
+
+        to = ch->in_room->people;
+
+        argument = make_drunk(argument, ch);
+        act_new("{xYou whisper '{c$T{x'", ch, NULL, argument, TO_CHAR, POS_RESTING);
+
+        for (; to != NULL; to = to->next_in_room)
+        {
+            if (!IS_SET(to->affected_by, AFF_DEAFEN))
+            {
+                act_new("{x$n whispers '{c$t{x'", ch, argument, to, TO_VICT, POS_RESTING);
+            }
+            else
+            {
+                act_new("{x$n appears to be whispering something but you cannot hear them because you're deaf.", ch, NULL, to, TO_VICT, POS_RESTING);
+            }
+        }
+    }
+
+    if (!IS_NPC(ch))
+    {
+        CHAR_DATA *mob, *mob_next;
+        for (mob = ch->in_room->people; mob != NULL; mob = mob_next)
+        {
+            mob_next = mob->next_in_room;
+
+            if (IS_NPC(mob) && HAS_TRIGGER(mob, TRIG_SPEECH)
+                && mob->position == mob->pIndexData->default_pos)
+            {
+                mp_act_trigger(argument, mob, ch, NULL, NULL, TRIG_SPEECH);
+            }
+        }
+    }
+
     return;
 }
 
@@ -2373,4 +2431,3 @@ void do_direct(CHAR_DATA *ch, char *argument)
     return;
 
 } // end do_direct
-
