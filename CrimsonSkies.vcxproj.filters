@@ -388,6 +388,13 @@
     <None Include="doc\area-directions.md" />
     <None Include="doc\mob-prog.md" />
     <None Include="doc\mob-prog-implementation.md" />
+    <None Include="area\dungeon.are" />
+    <None Include="area\gray-mountains.are" />
+    <None Include="area\hall-sylvan.are" />
+    <None Include="area\hall-warhammer.are" />
+    <None Include="area\help-dict.are" />
+    <None Include="area\help-mud.are" />
+    <None Include="area\redoak.are" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
