@@ -417,10 +417,11 @@ Use STAND or WAKE to come back to a standing position.  You can
 also WAKE other sleeping characters.
 ~
 
-0 GTELL ; REPLY SAY TELL~
+0 GTELL ; REPLY SAY TELL WHISPER~
 Syntax: gtell <message>
 Syntax: say   <message>
 Syntax: tell  <character> <message>
+Syntax: whisper <message>
 
 All of these commands send messages to other players.  GTELL sends a message to
 all of the characters in your group, wherever they are, even if they are
