@@ -1428,14 +1428,17 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'g':
+                // Gold the character has on them
                 sprintf(buf2, "%ld", ch->gold);
                 i = buf2;
                 break;
             case 's':
+                // Silver the character has on them
                 sprintf(buf2, "%ld", ch->silver);
                 i = buf2;
                 break;
             case 'S':
+                // Battle stance
                 sprintf(buf2, "%s", capitalize(get_stance_name(ch)));
                 i = buf2;
                 break;
@@ -1445,12 +1448,8 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'a':
-                if (ch->level > 9)
-                    sprintf(buf2, "%d", ch->alignment);
-                else
-                    sprintf(buf2, "%s",
-                        IS_GOOD(ch) ? "good" : IS_EVIL(ch) ? "evil" :
-                        "neutral");
+                // Alignment
+                sprintf(buf2, "%s", IS_GOOD(ch) ? "good" : IS_EVIL(ch) ? "evil" : "neutral");
                 i = buf2;
                 break;
             case 'r':
