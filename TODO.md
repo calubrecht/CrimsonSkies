@@ -160,3 +160,8 @@ This is my to do list, mostly will be things big and small as I think about them
   - Whisper command
   - Smoke/fog lowers in quality every tick.
   - Make glance also show magic status if detect magic is up.
+  - %t for time in prompt.
+  - Sheathed weapon
+  - Ability to enter a background history about your character
+  - whoisic (shows description, phyiscal appearnce and background).
+  - key chain
