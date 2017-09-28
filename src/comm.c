@@ -1439,6 +1439,11 @@ void bust_a_prompt(CHAR_DATA * ch)
                 sprintf(buf2, "%s", capitalize(get_stance_name(ch)));
                 i = buf2;
                 break;
+            case 't':
+                // Time of the day
+                sprintf(buf2, "%d%s", (time_info.hour % 12 == 0) ? 12 : time_info.hour % 12, time_info.hour >= 12 ? "pm" : "am");
+                i = buf2;
+                break;
             case 'a':
                 if (ch->level > 9)
                     sprintf(buf2, "%d", ch->alignment);
