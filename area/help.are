@@ -40,7 +40,7 @@ Syntax: color
         {M{{M     bright magenta {x{{x     clear (reset color)
         {{{{     {{ char         {x{{&{x     {&reverse text{x
         {{/     newline        {{*     beep
-        {{_{x     {_underline{x
+        {{_{x     {_underline{x{{- a tilde
 
         Color is written by Lope (ant@solace.mh.se)
 ~
