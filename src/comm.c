@@ -1349,8 +1349,10 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = " ";
                 break;
             case 'e':
+                // The exits that are visible from the current room.
                 found = FALSE;
                 doors[0] = '\0';
+
                 for (door = 0; door < MAX_DIR; door++)
                 {
                     if ((pexit = ch->in_room->exit[door]) != NULL
@@ -1364,14 +1366,17 @@ void bust_a_prompt(CHAR_DATA * ch)
                         strcat(doors, dir_name[door]);
                     }
                 }
+
                 if (!found)
                 {
                     strcat(doors, "none");
                 }
+
                 sprintf(buf2, "%s", doors);
                 i = buf2;
                 break;
             case 'c':
+                // Ability to add a carriage return to the prompt.
                 sprintf(buf2, "%s", "\r\n");
                 i = buf2;
                 break;
@@ -1386,6 +1391,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'H':
+                // Maximum HP a player currently is able of having
                 sprintf(buf2, "%d", ch->max_hit);
                 i = buf2;
                 break;
@@ -1400,6 +1406,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'M':
+                // Maximum mana a player currently is able of having
                 sprintf(buf2, "%d", ch->max_mana);
                 i = buf2;
                 break;
@@ -1413,18 +1420,19 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'V':
+                // Maximum movement a player currently is able of having
                 sprintf(buf2, "%d", ch->max_move);
                 i = buf2;
                 break;
             case 'x':
+                // The amount of experience in total a player has
                 sprintf(buf2, "%d", ch->exp);
                 i = buf2;
                 break;
             case 'X':
+                // The experience a user has until their next level.
                 sprintf(buf2, "%d", IS_NPC(ch) ? 0 :
-                    (ch->level + 1) * exp_per_level(ch,
-                        ch->pcdata->
-                        points) - ch->exp);
+                    (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
                 i = buf2;
                 break;
             case 'g':
@@ -1453,19 +1461,24 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'r':
+                // The name of the room a player is in.
                 if (ch->in_room != NULL)
+                {
                     sprintf(buf2, "%s",
                         ((!IS_NPC
-                            (ch) && IS_SET(ch->act, PLR_HOLYLIGHT))
+                        (ch) && IS_SET(ch->act, PLR_HOLYLIGHT))
                             || (!IS_AFFECTED(ch, AFF_BLIND)
-                                && !room_is_dark(ch->
-                                    in_room))) ? ch->in_room->
-                        name : "darkness");
+                                && !room_is_dark(ch->in_room))) ? ch->in_room->name : "darkness");
+                }
                 else
+                {
                     sprintf(buf2, " ");
+                }
+
                 i = buf2;
                 break;
             case 'R':
+                // The vnum of the room the player is in (Immortal only)
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
                 {
                     sprintf(buf2, "%d", ch->in_room->vnum);
@@ -1474,6 +1487,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 {
                     sprintf(buf2, " ");
                 }
+
                 i = buf2;
                 break;
             case 'w':
@@ -1502,6 +1516,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'z':
+                // The name of the area a player is in (immortal only)
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
                 {
                     sprintf(buf2, "%s", ch->in_room->area->name);
@@ -1513,6 +1528,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'y':
+                // What the players current wimpy is set at (the HP at which they auto flee)
                 sprintf(buf2, "%d", ch->wimpy);
                 i = buf2;
                 break;
@@ -1530,19 +1546,24 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case '%':
+                // The ability to show a percent sign.
                 sprintf(buf2, "%%");
                 i = buf2;
                 break;
             case 'o':
+                // The name of the OLC editor the player is currently in.
                 sprintf(buf2, "%s", olc_ed_name(ch));
                 i = buf2;
                 break;
             case 'O':
+                // The vnum from OLC the player is currently editing.
                 sprintf(buf2, "%s", olc_ed_vnum(ch));
                 i = buf2;
                 break;
         }
+
         ++str;
+
         while ((*point = *i) != '\0')
         {
             ++point, ++i;
