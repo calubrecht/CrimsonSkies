@@ -17,7 +17,7 @@ healer lara~
 Lara~
 Lara stands here, tending the altar.
 ~
-A quiet elf with long flowing blond hair stands here tending to the altar.  
+A quiet elf with long flowing blond hair stands here tending to the altar.
 ~
 elf~
 ABQVa DFHJ 3 0
@@ -189,7 +189,7 @@ sacred to all elves save those whom are drow.  Huge vallenwood trees loom
 around the perimeter of this place, so closely grown together and magically
 bonded that there is no way in other than here.  A large boulder sits off to
 the side, obviously meant to block the entrance when needed. An elf stands
-guard here, wary of unwanted 'guests'.  Through the entrance, you see 
+guard here, wary of unwanted 'guests'.  Through the entrance, you see
 glimpses of the verdant gardens of the Hall of Moons.
 ~
 0 0 3
@@ -205,19 +205,21 @@ D6
 ~
 ~
 0 0 10552
+C sylvan~
 S
 #10551
 In the Trees~
 You stand amidst the leafy boughs of the Vallenwoods.  What looks to have
 once served as a bed, made entirely of woven branches and twigs, rests in
 the center of this small clearing.  Faint light penetrates this clearing
-from the sky above.  
+from the sky above.
 ~
 0 0 3
 D5
 ~
 ~
 0 0 10550
+C sylvan~
 S
 #10552
 The Garden of Spring~
@@ -226,7 +228,7 @@ young trees.  The fragrance from the fauna is intoxicating, and brings to
 you memories of a beautiful spring morning, regardless of the weather
 outside of this garden.  A carefully cobbled pathway leads north to the Hall
 of Moons, and several smaller paths lead east and west.  To the southeast,
-you see the entrance.  
+you see the entrance.
 ~
 0 0 0
 D0
@@ -245,14 +247,15 @@ D9
 ~
 ~
 0 0 10550
+C sylvan~
 S
 #10553
 Entrance to the Hall of Moons~
 You have reached the entrance to the hall of Sylvan.  Around you, the
-courtyard continues, and before you are the doors that lead into the hall. 
+courtyard continues, and before you are the doors that lead into the hall.
 To the north, you see the Hall of Moons, ancestral home to the ancient
 Sylvan elves.  The fragrance of the gardens extend from the south and
-west and to your east, you spy a small pond. 
+west and to your east, you spy a small pond.
 ~
 0 0 0
 D0
@@ -271,6 +274,7 @@ D3
 ~
 ~
 0 0 10566
+C sylvan~
 S
 #10554
 The Hall of Moons~
@@ -279,7 +283,7 @@ Hall of Moons, beautiful vallenwood trees physically and magically
 cultivated for thousands of years to provide protection.  The vallenwoods'
 leafy boughs provide a natural roof, and a magical light softly illuminates
 the entire hall from above.  A small pathway through these trees leads to the
-west, while the Hall continues to the north.  
+west, while the Hall continues to the north.
 ~
 0 0 0
 D0
@@ -294,6 +298,7 @@ D3
 ~
 ~
 0 0 10557
+C sylvan~
 S
 #10555
 The Speaker of the Moon's Circle~
@@ -302,7 +307,7 @@ a soft magical light.  Within the circle, there is a small platform where
 you can usually find the Speaker of Moons, the leader of all the houses of
 the Sylvan.  Unlike the rest of the Hall, this place does not have a
 roof, and you see the sky above.  At night, the moons and the circle of
-crystal provide more than adequate lighting.  
+crystal provide more than adequate lighting.
 ~
 0 0 0
 D0
@@ -313,26 +318,28 @@ D2
 ~
 ~
 0 0 10554
+C sylvan~
 S
 #10556
 The Council Chambers~
 You have entered the Room of Council.  Tapestries hang along the walls of
 this room, where the Speaker of the Moons and the Senate usually meet to
 discuss the affairs of the Houses of Sylvan.  Several young elves clean
-and polish the huge stone table that dominates this room.  
+and polish the huge stone table that dominates this room.
 ~
 0 0 0
 D2
 ~
 ~
 0 0 10555
+C sylvan~
 S
 #10557
 The Dining Hall~
 A long table, covered with white silk fills this room.  An elf stands
 nearby, slowly stirring a stew kettle, over an open firepit.  Several elves
 are seated along the length of the table, eating what seems to be a
-delicious meal of Elana's stew and elven wine. 
+delicious meal of Elana's stew and elven wine.
 ~
 0 0 0
 D1
@@ -343,6 +350,7 @@ D3
 ~
 ~
 0 0 10558
+C sylvan~
 S
 #10558
 The Altar of Sylvan~
@@ -352,7 +360,7 @@ feel as if the worries of the world have escaped you, and feel tempted to
 sit, rest and sleep just as a number of other elves in this room are doing
 now.  A young elf in white robes is kneeling at the altar, and prays to the
 gods and goddesses of Good.  A small staircase leads up to a second level,
-where you hear hushed voices and the quiet snore of a sleeping elf. 
+where you hear hushed voices and the quiet snore of a sleeping elf.
 ~
 0 0 0
 D1
@@ -367,6 +375,7 @@ D5
 ~
 ~
 0 0 10559
+C sylvan~
 S
 #10559
 The Moongates~
@@ -379,6 +388,7 @@ D4
 ~
 ~
 0 0 10558
+C sylvan~
 S
 #10560
 Above the Altar~
@@ -386,9 +396,9 @@ You are on a large, expansive platform above the Altar.  Sleeping pads
 surround you, some with elves, some without.  This is where many come to
 meditate and heal the physical and mental wounds of combat.  The soothing
 trickle of water emanates from a fountain at the southern end of the
-platform, which feeds a long, vanishing edge pool extending to the south. 
+platform, which feeds a long, vanishing edge pool extending to the south.
 Running parallel to the pool are two walkways made of silver rope and ivory
-boards that lead into the foliage south.  
+boards that lead into the foliage south.
 ~
 0 0 0
 D2
@@ -400,6 +410,7 @@ D5
 ~
 0 0 10558
 M 200 H 200
+C sylvan~
 S
 #10561
 Inside the Trunk of a Vallenwood~
@@ -407,7 +418,7 @@ The cavernous body of this vallenwood has been magically altered to give
 it a towering internal capacity, filling the air with the presence of
 powerful magic.  There is no air circulation to speak of and many tiny dust
 motes are suspended in the air, flickering like golden sparks lit by the
-soft glow of several hundred magical spheres.  
+soft glow of several hundred magical spheres.
 ~
 0 0 0
 D0
@@ -418,14 +429,15 @@ D1
 ~
 ~
 0 0 10562
+C sylvan~
 S
 #10562
 Sylvan Storehouse~
-You are in the large vallenwood tree that serves as the storage area. 
+You are in the large vallenwood tree that serves as the storage area.
 Shelves line the walls, filled with equipment and magical items for all
 Sylvan to use.  The spiral stairs down to the merchant's caravan below.  A
 walkway of silvery rope and ivory boards leads into a separate and equally
-large vallenwood to the west.  
+large vallenwood to the west.
 ~
 0 0 0
 D3
@@ -436,12 +448,13 @@ D5
 ~
 ~
 0 0 10563
+C sylvan~
 S
 #10563
 Base of a Vallenwood~
 A huge Vallenwood looms here.  A spiral staircase inside the ancient
 Vallenwood leads up to the mystic shelves which store spare equipment and
-items for use of the elves.  To the east you can spy the Garden Spring.  
+items for use of the elves.  To the east you can spy the Garden Spring.
 ~
 0 0 0
 D1
@@ -452,19 +465,21 @@ D4
 ~
 ~
 0 0 10562
+C sylvan~
 S
 #10564
 Sylvan Guildmaster~
 You are standing in the cut out trunk of large Vallenwood tree.  On the
 walls hang many daggers, swords and items of magical creation.  In the back
 of the room stands an aged elf whose job is to assist with the training of
-the sapplings.  
+the sapplings.
 ~
 0 0 0
 D0
 ~
 ~
 0 0 10568
+C sylvan~
 S
 #10565
 The Garden of Spring~
@@ -488,6 +503,7 @@ D3
 ~
 ~
 0 0 10563
+C sylvan~
 S
 #10566
 The Garden of Spring~
@@ -506,6 +522,7 @@ D2
 ~
 ~
 0 0 10565
+C sylvan~
 S
 #10567
 Enedeithel Pond~
@@ -525,6 +542,7 @@ D3
 ~
 ~
 0 0 10553
+C sylvan~
 S
 #10568
 The Field of Song~
@@ -549,6 +567,7 @@ D3
 ~
 ~
 0 0 10552
+C sylvan~
 S
 #0
 
