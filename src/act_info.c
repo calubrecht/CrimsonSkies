@@ -3226,25 +3226,24 @@ void do_description(CHAR_DATA * ch, char *argument)
                 if (buf[len] == '\r')
                 {
                     if (!found)
-                    {
-                        /* back it up */
+                    {   /* back it up */
                         if (len > 0)
                             len--;
+
                         found = TRUE;
                     }
                     else
-                    {            /* found the second one */
-
+                    {   /* found the second one */
                         buf[len + 1] = '\0';
                         free_string(ch->description);
                         ch->description = str_dup(buf);
                         send_to_char("Your description is:\r\n", ch);
-                        send_to_char(ch->description ? ch->description :
-                            "(None).\r\n", ch);
+                        send_to_char(ch->description ? ch->description : "(None).\r\n", ch);
                         return;
                     }
                 }
             }
+
             buf[0] = '\0';
             free_string(ch->description);
             ch->description = str_dup(buf);
@@ -3254,7 +3253,7 @@ void do_description(CHAR_DATA * ch, char *argument)
 
         if (!str_cmp(argument, "++") || !str_cmp(argument, "edit"))
         {
-            string_append( ch, &ch->description);
+            string_append(ch, &ch->description);
             return;
         }
         else if (!str_cmp(argument, "format"))
@@ -3294,8 +3293,6 @@ void do_description(CHAR_DATA * ch, char *argument)
     send_to_char(ch->description ? ch->description : "(None).\r\n", ch);
     return;
 }
-
-
 
 void do_report(CHAR_DATA * ch, char *argument)
 {
