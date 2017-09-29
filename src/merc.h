@@ -488,7 +488,7 @@ struct export_flags_type
 {
     char  *table_name;
     char  *friendly_name;
-    struct flag_type *flags;
+    const struct flag_type *flags;
 };
 
 /*

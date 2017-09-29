@@ -64,7 +64,7 @@ void export_help(void);
 void export_rooms(void);
 void export_classes(void);
 void export_stats(void);
-void export_flags(char *table_name, struct flag_type *flags);
+void export_flags(char *table_name, const struct flag_type *flags);
 
 char *flag_string(const struct flag_type *flag_table, int bits);
 
@@ -122,7 +122,6 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
     // These are all of the tables that are flag_types (makes it easy to export generically).
     for (x = 0; export_flags_table[x].table_name != NULL; x++)
     {
-        char buf[MSL];
         writef(ch->desc, "Exporting %-45s", export_flags_table[x].friendly_name);
         export_flags(export_flags_table[x].table_name, export_flags_table[x].flags);
         writef(ch->desc, "[ {GComplete{x ]\r\n");
@@ -176,7 +175,7 @@ const struct export_flags_type export_flags_table[] = {
 * flags table must have a final entry with a NULL or this will ya know, doing something not
 * great.
 */
-void export_flags(char *table_name, struct flag_type *flags)
+void export_flags(char *table_name, const struct flag_type *flags)
 {
     sqlite3 *db;
     int rc;
