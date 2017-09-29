@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "2017.09.28"
+#define VERSION "2017.09.29"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -478,6 +478,17 @@ struct item_type
 {
     int       type;
     char *    name;
+};
+
+
+/*
+ * Tables that can be exported via db_export and the flag_type that table maps to.
+ */
+struct export_flags_type
+{
+    char  *table_name;
+    char  *friendly_name;
+    struct flag_type *flags;
 };
 
 /*
@@ -2289,6 +2300,7 @@ extern    const    struct    spec_type        spec_table[];
 extern    const    struct    liq_type         liq_table[];
 extern    const    struct    dispel_type      dispel_table[];
 extern    const    struct    priest_rank_type priest_rank_table[];
+extern    const    struct    export_flags_type export_flags_table[];
 extern             struct    social_type      social_table[MAX_SOCIALS];
 //extern             struct    skill_type      skill_table    [MAX_SKILL];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
