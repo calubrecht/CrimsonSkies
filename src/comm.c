@@ -1516,6 +1516,19 @@ void bust_a_prompt(CHAR_DATA * ch)
                 sprintf(buf2, "%d", ch->wimpy);
                 i = buf2;
                 break;
+            case 'q':
+                // Quest Points (Which are only for players, not for NPC's)
+                if (!IS_NPC(ch) && ch->pcdata != NULL)
+                {
+                    sprintf(buf2, "%d", ch->pcdata->quest_points);
+                }
+                else
+                {
+                    sprintf(buf2, "%d", 0);
+                }
+
+                i = buf2;
+                break;
             case '%':
                 sprintf(buf2, "%%");
                 i = buf2;

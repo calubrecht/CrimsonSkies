@@ -159,6 +159,7 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
         %r :  Display the room name you are in
         %e :  Display the exits from the room in NESWDU style
         %c :  Display a carriage return (useful for multi-line prompts)
+        %q :  Display quest points
         %t :  Display time of the day
         %R :  Display the vnum you are in (IMMORTAL ONLY)
         %z :  Display the area name you are in (IMMORTAL ONLY)
