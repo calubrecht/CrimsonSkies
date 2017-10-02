@@ -543,7 +543,7 @@ to the mud implementors.
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
           {w--------------------------------------
-          - {R[{WCrimson Skies 1.3{R] ({W1998-2017{R){w ----
+          - {R[{WCrimson Skies{R]     ({W1998-2017{R){w ----
           --------------------------------------{x
           Blake Pell                     [Rhien]
           {w--------------------------------------{x
@@ -574,6 +574,12 @@ to the mud implementors.
           --------------------------------------{x
           Michael Mraz                   [Rusty]
                                  [Kris Carlgren]
+
+          {w--------------------------------------
+          - {R[{WLoren Mud{R]{x                  -------
+          --------------------------------------{x
+          John Jackson                 [Khyldes]
+
           {w--------------------------------------
           - {R[{WVarious Code Contributions{R]{w -------
           --------------------------------------{x
@@ -4612,6 +4618,15 @@ clear the quest.  Of course, the questor will not be to pleased with you.
 Personal quest rewards come in the form of gold and quest points.  Quest
 points are shown in your score and may be saved up and used to purchase
 special items from the quest mob.  
+~
+0 KEYRING 'KEY RING'~
+Syntax: keyring show
+        keyring add <key>
+        kerying remove <1-10>
+
+The key ring will allow a player to store up to 10 keys at a time on
+a ring for safe keeping.  Rings that may have had a rot death timer
+triggered cannot be added.
 ~
 
 -1 $~

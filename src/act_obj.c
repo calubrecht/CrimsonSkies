@@ -4296,3 +4296,167 @@ void do_empty(CHAR_DATA *ch, char *argument)
     }
 }
 
+/*
+ * Command to allow players to store up to 10 keys in a keyring
+ * Contributed by Khlydes of LorenMud.
+ */
+void do_keyring(CHAR_DATA * ch, char * argument)
+{
+    OBJ_INDEX_DATA * obj;
+    OBJ_DATA * obj2;
+    OBJ_DATA * object;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char buf[MAX_INPUT_LENGTH];
+    int i, key[10];
+    bool found = FALSE;
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    for (i = 0; i < 10; i++)
+    {
+        key[i] = ch->pcdata->key_ring[i];
+    }
+
+    if (IS_NULLSTR(arg1))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "show"))
+    {
+        send_to_char("The available keys on your key ring are:\r\n", ch);
+
+        for (i = 0; i < 10; i++)
+        {
+            if (key[i] != -1)
+            {
+                obj = get_obj_index(key[i]);
+
+                if (obj != NULL && obj->item_type == ITEM_KEY)
+                {
+                    sprintf(buf, "%2d.   %s\r\n", (i + 1), obj->short_descr);
+                }
+                else
+                {
+                    sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+                    ch->pcdata->key_ring[i] = -1;
+                }
+            }
+            else
+            {
+                sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+            }
+
+            send_to_char(buf, ch);
+        }
+
+        return;
+    }
+
+    if (IS_NULLSTR(arg2))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "add"))
+    {
+        if ((object = get_obj_carry(ch, arg2, ch)) == NULL)
+        {
+            send_to_char("You do not have that key.\r\n", ch);
+        }
+        else
+        {
+            if (object->item_type != ITEM_KEY)
+            {
+                send_to_char("That is not a key.\r\n", ch);
+            }
+            else if (object->timer > 0)
+            {
+                // If the key has a timer that means it's on the clock to crumbling, putting
+                // it on the key ring would create a loophole to avoid that mechansim.  Rot
+                // death items are ok as long as they haven't been triggered.
+                send_to_char("That key is too fragile to add to your key ring.\r\n", ch);
+            }
+            else
+            {
+                for (i = 0; i < 10; i++)
+                {
+                    if (key[i] == -1)
+                    {
+                        // Set they key onto the ring, they separate it and extract it.  Separating it
+                        // will only take one of the keys from the inventory if multiple exist that have
+                        // been consolidated.
+                        ch->pcdata->key_ring[i] = object->pIndexData->vnum;
+                        separate_obj(object);
+                        extract_obj(object);
+                        send_to_char("The key has been added to your key ring.\r\n", ch);
+                        found = TRUE;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    send_to_char("Your key ring is full, you must remove a key first.\r\n", ch);
+                }
+            }
+        }
+
+        return;
+    }
+
+    if (!is_number(arg2))
+    {
+        send_to_char("You must choose a key between 1 and 10.\r\n", ch);
+        return;
+    }
+
+    int value = atoi(arg2);
+
+    if (!str_cmp(arg1, "remove"))
+    {
+        if (value < 1 || value > 10)
+        {
+            send_to_char("You must remove a key from 1 to 10.\r\n", ch);
+            return;
+        }
+        else
+        {
+            value -= 1;
+            obj2 = create_object(get_obj_index(ch->pcdata->key_ring[value]));
+
+            // This key is getting removed, unset it from the ring
+            ch->pcdata->key_ring[value] = -1;
+
+            if (obj2 != NULL && obj2->item_type == ITEM_KEY)
+            {
+                sprintf(buf, "You have removed %s from your key ring.\r\n", obj2->short_descr);
+                obj_to_char(obj2, ch);
+            }
+            else
+            {
+                // Only extract the object if it's not null (extracting a NULL object will crash)
+                if (obj2 != NULL)
+                {
+                    bugf("Invalid key found in do_keyring (e.g. it's not a key, find out how it got there): vnum = %d.", obj2->pIndexData->vnum);
+                    extract_obj(obj2);  // No need to separate, just extract
+                }
+
+                // One way or another, the key was invalid if we get here (perhaps an area was removed?)
+                sprintf(buf, "They key crumbled in your hands.\r\n");
+            }
+
+            send_to_char(buf, ch);
+        }
+    }
+
+    return;
+}

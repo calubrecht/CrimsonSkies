@@ -92,6 +92,11 @@ behavior.  The alignment will factor into some game mechanics but is also
 a required roleplay attribute (a good character should not act evil for
 example).
 ~
+0 ROTDEATH 'ROT DEATH'~
+Rot death is an item flag that is triggered when a player dies while holding
+an item set with it.  Upon the player dying the item will only have a set
+amount of time to exist before it crumbles.
+~
 
 0 $~
 

@@ -340,6 +340,14 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "LastHistory %ld\n", ch->pcdata->last_history);
         fprintf(fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
 
+        // Key Ring
+        fprintf( fp, "KeyRing %d %d %d %d %d %d %d %d %d %d\n",
+            ch->pcdata->key_ring[0], ch->pcdata->key_ring[1],
+            ch->pcdata->key_ring[2], ch->pcdata->key_ring[3],
+            ch->pcdata->key_ring[4], ch->pcdata->key_ring[5],
+            ch->pcdata->key_ring[6], ch->pcdata->key_ring[7],
+            ch->pcdata->key_ring[8], ch->pcdata->key_ring[9]);
+
         // Questing
         if (ch->pcdata->quest_points != 0)
         {
@@ -1134,7 +1142,21 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Inco", ch->incog_level, fread_number(fp));
 
                 break;
+            case 'K':
+                if (!str_cmp(word, "KeyRing"))
+                {
+                    int key;
 
+                    for (key = 0; key < 10; key++)
+                    {
+                        ch->pcdata->key_ring[key] = fread_number(fp);
+                    }
+
+                    fMatch = TRUE;
+                    break;
+                }
+
+                break;
             case 'L':
                 KEY("LastLevel", ch->pcdata->last_level, fread_number(fp));
                 KEY("LLev", ch->pcdata->last_level, fread_number(fp));

@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "2017.09.29"
+#define VERSION "2017.10.01"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -1806,6 +1806,7 @@ struct pc_data
     int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
     int             deity;             // The deity if any that the user follows
     long            merit;
+    int             key_ring[10];      // The keys that can be stored on a key ring.
 };
 
 /* Data for generating characters -- only used during generation */
