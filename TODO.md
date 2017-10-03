@@ -161,4 +161,3 @@ This is my to do list, mostly will be things big and small as I think about them
   - Sheathed weapon
   - Ability to enter a background history about your character
   - whoisic (shows description, phyiscal appearnce and background).
-  - key chain
