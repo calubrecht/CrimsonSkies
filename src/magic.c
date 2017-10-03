@@ -3988,7 +3988,13 @@ void spell_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     // Slightly higher density in the forests
     if (ch->in_room->sector_type == SECT_FOREST)
     {
-        density += 5;
+        density += 10;
+    }
+
+    // Much higher on the ocean where water is abundant to make the fog
+    if (ch->in_room->sector_type == SECT_OCEAN)
+    {
+        density += 20;
     }
 
     density = URANGE(5, density, 100);
