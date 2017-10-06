@@ -827,7 +827,7 @@ out:
 }
 
 /*
- * TODO - Resets, extra descriptions.
+ * TODO - Extra descriptions
  */
 void export_rooms(void)
 {
@@ -835,8 +835,11 @@ void export_rooms(void)
     int rc;
     sqlite3_stmt *stmt;
     sqlite3_stmt *stmt_exit;
+    sqlite3_stmt *stmt_objects;
+    sqlite3_stmt *stmt_mobs;
     EXIT_DATA *pexit;
     ROOM_INDEX_DATA *room;
+    RESET_DATA *pReset;
     int x = 0;
     int door = 0;
 
@@ -862,6 +865,18 @@ void export_rooms(void)
         goto out;
     }
 
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS room_objects;", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to drop table: room_objects");
+        goto out;
+    }
+
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS room_mobs;", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to drop table: room_mobs");
+        goto out;
+    }
+
     // Create the tables they do not exist
     if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room(vnum INTEGER PRIMARY KEY, room_name TEXT, room_description TEXT, owner TEXT, room_flags INTEGER, light INTEGER, sector_type INTEGER, heal_rate INTEGER, mana_rate INTEGER, clan INTEGER, area_vnum INTEGER, area_name TEXT);", 0, 0, 0)))
     {
@@ -872,6 +887,18 @@ void export_rooms(void)
     if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room_exits(vnum INTEGER, to_vnum INTEGER, dir INTEGER, dir_name TEXT, keyword TEXT, description TEXT, orig_door INTEGER, rs_flags INTEGER, exits_area BOOLEAN);", 0, 0, 0)))
     {
         bugf("Db Export -> Failed to create table: room");
+        goto out;
+    }
+
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room_objects(room_vnum INTEGER, object_vnum INTEGER);", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to create table: room_objects");
+        goto out;
+    }
+
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room_mobs(room_vnum INTEGER, mob_vnum INTEGER);", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to create table: room_mobs");
         goto out;
     }
 
@@ -891,10 +918,23 @@ void export_rooms(void)
         goto out;
     }
 
+    if (sqlite3_prepare(db, "INSERT INTO room_objects(room_vnum, object_vnum) VALUES (?1, ?2);", -1, &stmt_objects, NULL) != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to prepare insert statement for room_objects");
+        goto out;
+    }
+
+    if (sqlite3_prepare(db, "INSERT INTO room_mobs(room_vnum, mob_vnum) VALUES (?1, ?2);", -1, &stmt_mobs, NULL) != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to prepare insert statement for room_mobs");
+        goto out;
+    }
+
     for (x = 0; x < MAX_KEY_HASH; x++) /* room index hash table */
     {
         for (room = room_index_hash[x]; room != NULL; room = room->next)
         {
+            // First the room data
             sqlite3_bind_int(stmt, 1, room->vnum);
             sqlite3_bind_text(stmt, 2, room->name, -1, SQLITE_STATIC);
             sqlite3_bind_text(stmt, 3, room->description, -1, SQLITE_STATIC);
@@ -944,6 +984,50 @@ void export_rooms(void)
                 }
             }
 
+            // Resets for what objects and mobs end up in this room in some capacity.  Due to the way objects are reset onto mobs, we
+            // can't easily get what mob it's on (when resets are loaded it puts the object onto the last mob loaded in that room before
+            // the reset... we don't have that here.  We *could* in the future do a search for the item on all mobs in the world but it
+            // would require a pristine copy of the world (e.g. you're using real time data then.. a player could have taken the object or
+            // it might not have reloaded, etc.).  For now we'll omit that.
+            for (pReset = room->reset_first; pReset != NULL; pReset = pReset->next)
+            {
+                switch (pReset->command)
+                {
+                    case 'M':
+                        sqlite3_bind_int(stmt_mobs, 1, room->vnum);
+                        sqlite3_bind_int(stmt_mobs, 2, pReset->arg1);
+
+                        rc = sqlite3_step(stmt_mobs);
+
+                        if (rc != SQLITE_DONE)
+                        {
+                            bugf("ERROR inserting data for reset in %s (%d, object %d): %s\n", room->name, room->vnum, pReset->arg1, sqlite3_errmsg(db));
+                        }
+
+                        sqlite3_reset(stmt_mobs);
+
+                        break;
+                    case 'O':   // Object in the room
+                    case 'P':   // Object in another object
+                    case 'G':   // Object carried by a mob
+                    case 'E':   // Object equiped onto a mob
+                        sqlite3_bind_int(stmt_objects, 1, room->vnum);
+                        sqlite3_bind_int(stmt_objects, 2, pReset->arg1);
+                        sqlite3_bind_int(stmt_objects, 3, 0);
+
+                        rc = sqlite3_step(stmt_objects);
+
+                        if (rc != SQLITE_DONE)
+                        {
+                            bugf("ERROR inserting data for reset in %s (%d, object %d): %s\n", room->name, room->vnum, pReset->arg1, sqlite3_errmsg(db));
+                        }
+
+                        sqlite3_reset(stmt_objects);
+
+                        break;
+                }
+            }
+
         }
     }
 
@@ -954,6 +1038,8 @@ void export_rooms(void)
 
     sqlite3_finalize(stmt);
     sqlite3_finalize(stmt_exit);
+    sqlite3_finalize(stmt_objects);
+    sqlite3_finalize(stmt_mobs);
 
 out:
     // Cleanup
