@@ -64,6 +64,7 @@ void export_help(void);
 void export_rooms(void);
 void export_classes(void);
 void export_stats(void);
+void export_directions(void);
 void export_flags(char *table_name, const struct flag_type *flags);
 
 char *flag_string(const struct flag_type *flag_table, int bits);
@@ -117,6 +118,10 @@ void do_dbexport(CHAR_DATA * ch, char *argument)
 
     writef(ch->desc, "%-55s", "Exporting Stat Lookup");
     export_stats();
+    writef(ch->desc, "[ {GComplete{x ]\r\n");
+
+    writef(ch->desc, "%-55s", "Exporting Directions");
+    export_directions();
     writef(ch->desc, "[ {GComplete{x ]\r\n");
 
     // These are all of the tables that are flag_types (makes it easy to export generically).
@@ -1060,7 +1065,129 @@ void export_stats(void)
 
     if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
     {
-        bugf("export_classes -> Failed to commit transaction.");
+        bugf("export_stats -> Failed to commit transaction.");
+    }
+
+    sqlite3_finalize(stmt);
+
+out:
+    // Cleanup
+    sqlite3_close(db);
+    return;
+}
+
+void export_directions(void)
+{
+    sqlite3 *db;
+    int rc;
+    sqlite3_stmt *stmt;
+
+    rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
+
+    if (rc != SQLITE_OK)
+    {
+        bugf("export_directions -> Failed to open %s", EXPORT_DATABASE_FILE);
+        goto out;
+    }
+
+
+    // Total reload everytime, drop the table if it exists.
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS directions;", 0, 0, 0)))
+    {
+        bugf("export_directions -> Failed to drop table: directions");
+        goto out;
+    }
+
+    // Create the tables they do not exist
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS directions(dir_id INTEGER PRIMARY KEY, name TEXT, reverse_dir_id INTEGER, reverse_name TEXT);", 0, 0, 0)))
+    {
+        bugf("export_directions -> Failed to create table: directions");
+        goto out;
+    }
+
+    // Begin a transaction
+    sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL);
+
+    // Prepare the insert statement that we'll re-use in the loop
+    if (sqlite3_prepare(db, "INSERT INTO directions(dir_id, name, reverse_dir_id, reverse_name) VALUES (?1, ?2, ?3, ?4);", -1, &stmt, NULL) != SQLITE_OK)
+    {
+        bugf("export_directions -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    sqlite3_bind_int(stmt, 1, DIR_NORTH);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_NORTH], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_SOUTH);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_SOUTH], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_EAST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_EAST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_WEST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_WEST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_SOUTH);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_SOUTH], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_NORTH);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_NORTH], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_WEST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_WEST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_EAST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_EAST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_UP);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_UP], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_DOWN);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_DOWN], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_DOWN);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_DOWN], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_UP);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_UP], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_NORTHWEST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_NORTHWEST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_SOUTHEAST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_SOUTHEAST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_NORTHEAST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_NORTHEAST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_SOUTHWEST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_SOUTHWEST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_SOUTHWEST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_SOUTHWEST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_NORTHEAST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_NORTHEAST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    sqlite3_bind_int(stmt, 1, DIR_SOUTHEAST);
+    sqlite3_bind_text(stmt, 2, dir_name[DIR_SOUTHEAST], -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 3, DIR_NORTHWEST);
+    sqlite3_bind_text(stmt, 4, dir_name[DIR_NORTHWEST], -1, SQLITE_STATIC);
+    rc = sqlite3_step(stmt);
+    sqlite3_reset(stmt);
+
+    if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK)
+    {
+        bugf("export_directions -> Failed to commit transaction.");
     }
 
     sqlite3_finalize(stmt);
