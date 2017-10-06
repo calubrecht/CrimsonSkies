@@ -827,15 +827,18 @@ out:
 }
 
 /*
- * TODO - Resets, exits, extra descriptions.
+ * TODO - Resets, extra descriptions.
  */
 void export_rooms(void)
 {
     sqlite3 *db;
     int rc;
     sqlite3_stmt *stmt;
+    sqlite3_stmt *stmt_exit;
+    EXIT_DATA *pexit;
     ROOM_INDEX_DATA *room;
     int x = 0;
+    int door = 0;
 
     rc = sqlite3_open(EXPORT_DATABASE_FILE, &db);
 
@@ -853,8 +856,20 @@ void export_rooms(void)
         goto out;
     }
 
+    if ((sqlite3_exec(db, "DROP TABLE IF EXISTS room_exits;", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to drop table: room_exits");
+        goto out;
+    }
+
     // Create the tables they do not exist
     if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room(vnum INTEGER PRIMARY KEY, room_name TEXT, room_description TEXT, owner TEXT, room_flags INTEGER, light INTEGER, sector_type INTEGER, heal_rate INTEGER, mana_rate INTEGER, clan INTEGER, area_vnum INTEGER, area_name TEXT);", 0, 0, 0)))
+    {
+        bugf("Db Export -> Failed to create table: room");
+        goto out;
+    }
+
+    if ((sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS room_exits(vnum INTEGER, to_vnum INTEGER, dir INTEGER, dir_name TEXT, keyword TEXT, description TEXT, orig_door INTEGER, rs_flags INTEGER, exits_area BOOLEAN);", 0, 0, 0)))
     {
         bugf("Db Export -> Failed to create table: room");
         goto out;
@@ -867,6 +882,12 @@ void export_rooms(void)
     if (sqlite3_prepare(db, "INSERT INTO room(vnum, room_name, room_description, owner, room_flags, light, sector_type, heal_rate, mana_rate, clan, area_vnum, area_name) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12);", -1, &stmt, NULL) != SQLITE_OK)
     {
         bugf("export_rooms -> Failed to prepare insert statement");
+        goto out;
+    }
+
+    if (sqlite3_prepare(db, "INSERT INTO room_exits(vnum, to_vnum, dir, dir_name, keyword, description, orig_door, rs_flags, exits_area) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9);", -1, &stmt_exit, NULL) != SQLITE_OK)
+    {
+        bugf("export_rooms -> Failed to prepare insert statement for room_exits");
         goto out;
     }
 
@@ -896,6 +917,33 @@ void export_rooms(void)
 
             sqlite3_reset(stmt);
 
+            // Now, insert the exits
+            for (door = 0; door < MAX_DIR; door++)
+            {
+                if ((pexit = room->exit[door]) != NULL
+                    && pexit->u1.to_room != NULL)
+                {
+                    sqlite3_bind_int(stmt_exit, 1, room->vnum);
+                    sqlite3_bind_int(stmt_exit, 2, pexit->u1.to_room->vnum);
+                    sqlite3_bind_int(stmt_exit, 3, door);
+                    sqlite3_bind_text(stmt_exit, 4, dir_name[door], -1, SQLITE_STATIC);
+                    sqlite3_bind_text(stmt_exit, 5, pexit->keyword, -1, SQLITE_STATIC);
+                    sqlite3_bind_text(stmt_exit, 6, pexit->description, -1, SQLITE_STATIC);
+                    sqlite3_bind_int(stmt_exit, 7, pexit->orig_door);
+                    sqlite3_bind_int(stmt_exit, 8, pexit->rs_flags);
+                    sqlite3_bind_int(stmt_exit, 9, (room->area->vnum != pexit->u1.to_room->area->vnum) ? TRUE : FALSE);
+
+                    rc = sqlite3_step(stmt_exit);
+
+                    if (rc != SQLITE_DONE)
+                    {
+                        bugf("ERROR inserting exit data for room %s (vnum=%d, exit=%d): %s\n", room->name, room->vnum, door, sqlite3_errmsg(db));
+                    }
+
+                    sqlite3_reset(stmt_exit);
+                }
+            }
+
         }
     }
 
@@ -905,6 +953,7 @@ void export_rooms(void)
     }
 
     sqlite3_finalize(stmt);
+    sqlite3_finalize(stmt_exit);
 
 out:
     // Cleanup
