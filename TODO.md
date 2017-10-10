@@ -138,7 +138,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - pk wholist
   - jab skill for rogues that lowers dex
   - damage adjustment based on int (up or down) on damage casting spells.
-  - ArenaKills added to pcdata
   - nobility
   - Make guardian angel spell mob disappear after the effect is gone from the mob.
   - swims in message (floats in).
