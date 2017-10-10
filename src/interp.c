@@ -445,6 +445,7 @@ const struct cmd_type cmd_table[] = {
     {"draw",            do_draw,        POS_RESTING, 1, LOG_NORMAL, TRUE},
     {"tnl",             do_tnl,         POS_DEAD, 1, LOG_NORMAL, TRUE},
     {"keyring",         do_keyring,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"improve",         do_improve,     POS_DEAD, 1, LOG_NORMAL, TRUE},
 
     /*
      * OLC

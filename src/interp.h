@@ -399,3 +399,4 @@ DECLARE_DO_FUN(do_smokebomb);
 DECLARE_DO_FUN(do_glance);
 DECLARE_DO_FUN(do_whisper);
 DECLARE_DO_FUN(do_keyring);
+DECLARE_DO_FUN(do_improve);

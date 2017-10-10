@@ -341,12 +341,16 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
 
         // Key Ring
-        fprintf( fp, "KeyRing %d %d %d %d %d %d %d %d %d %d\n",
+        fprintf(fp, "KeyRing %d %d %d %d %d %d %d %d %d %d\n",
             ch->pcdata->key_ring[0], ch->pcdata->key_ring[1],
             ch->pcdata->key_ring[2], ch->pcdata->key_ring[3],
             ch->pcdata->key_ring[4], ch->pcdata->key_ring[5],
             ch->pcdata->key_ring[6], ch->pcdata->key_ring[7],
             ch->pcdata->key_ring[8], ch->pcdata->key_ring[9]);
+
+        // Improves
+        fprintf(fp, "ImproveFocus %s~\n", skill_table[ch->pcdata->improve_focus_gsn]->name);
+        fprintf(fp, "ImproveMinutes %d\n", ch->pcdata->improve_minutes);
 
         // Questing
         if (ch->pcdata->quest_points != 0)
@@ -1140,6 +1144,9 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("IncognitoLevel", ch->incog_level, fread_number(fp));
                 KEY("Inco", ch->incog_level, fread_number(fp));
+
+                KEY("ImproveFocus", ch->pcdata->improve_focus_gsn, skill_lookup(fread_string(fp)));
+                KEY("ImproveMinutes", ch->pcdata->improve_minutes, fread_number(fp));
 
                 break;
             case 'K':

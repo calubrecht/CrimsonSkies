@@ -110,6 +110,10 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Hours Affect Experience", settings.hours_affect_exp ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
+        sprintf(buf, "%-25s %-7s\r\n",
+            "Focused Improves", settings.focused_improves ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+
         send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WGame Info{x\r\n", ch);
@@ -147,7 +151,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
         send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
-        send_to_char("                  loginwholist\r\n", ch);
+        send_to_char("                  loginwholist|improves\r\n", ch);
         return;
     }
 
@@ -306,6 +310,17 @@ void do_settings(CHAR_DATA *ch, char *argument)
 
         save_settings();
     }
+    else if (!str_prefix(arg1, "improves"))
+    {
+        settings.focused_improves = !settings.focused_improves;
+
+        sprintf(buf, "$N has set the focused improves setting to %s.", bool_onoff(settings.focused_improves));
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        sendf(ch, "Focused improves has been turned %s.\r\n", bool_onoff(settings.focused_improves));
+
+        save_settings();
+    }
     else if (!str_prefix(arg1, "webpageurl"))
     {
         if (!IS_NULLSTR(arg2))
@@ -387,7 +402,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
         send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
-        send_to_char("                  loginwholist\r\n", ch);
+        send_to_char("                  loginwholist|improves\r\n", ch);
     }
 
 } // end do_settings
@@ -423,6 +438,7 @@ void load_settings()
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
     settings.login_who_list_enabled = iniparser_getboolean(ini, "Settings:LoginWhoListEnabled", TRUE);
     settings.hours_affect_exp = iniparser_getboolean(ini, "Settings:HoursAffectExperience", TRUE);
+    settings.focused_improves = iniparser_getboolean(ini, "Settings:FocusedImproves", TRUE);
 
     settings.stat_surge = iniparser_getint(ini, "Settings:StatSurge", 0);
 
@@ -485,6 +501,7 @@ void save_settings(void)
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
     fprintf(fp, "StatSurge = %d\n", settings.stat_surge);
     fprintf(fp, "HoursAffectExperience = %s\n", settings.hours_affect_exp ? "True" : "False");
+    fprintf(fp, "FocusedImproves = %s\n", settings.focused_improves ? "True" : "False");
 
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");

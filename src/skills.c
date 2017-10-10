@@ -1215,6 +1215,88 @@ void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
     }
 }
 
+/*
+ * Checks to see if it's time to for a player to improve the skill they've focused on
+ * via the improve command.  This is based solely on their int, there is a minutes
+ * between improves in the int_app table.
+ */
+void check_time_improve(CHAR_DATA * ch)
+{
+    int sn = 0;
+
+    // If the system is turned off, ditch out.
+    if (!settings.focused_improves)
+        return;
+
+    // Only for players
+    if (IS_NPC(ch))
+        return;
+
+    // The player hasn't focused on a skill.
+    if (ch->pcdata->improve_focus_gsn == 0)
+        return;
+
+    sn = ch->pcdata->improve_focus_gsn;
+
+    // Can't improve if they don't have the skill or it's already at 100.
+    if (ch->level < skill_table[sn]->skill_level[ch->class]
+        || skill_table[sn]->rating[ch->class] == 0
+        || ch->pcdata->learned[sn] == 0
+        || ch->pcdata->learned[sn] == 100)
+        return;
+
+    // Subtract 1 minute
+    ch->pcdata->improve_minutes -= 1;
+
+    // Fast learners get a 25% chance of gaining an additional minute
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER) && CHANCE(25))
+    {
+        ch->pcdata->improve_minutes -= 1;
+    }
+
+    // Improve
+    if (ch->pcdata->improve_minutes <= 0)
+    {
+        // Reset their next improve time based on their int, increase the skill, make sure
+        // it's not over 100.
+        ch->pcdata->improve_minutes = int_app[get_curr_stat(ch, STAT_INT)].improve_minutes;
+
+        // Chance for a higher raise, again, based on intelligence.
+        int chance = get_curr_stat(ch, STAT_INT) * 4;
+
+        // 15% higher chance if you have the merit fast learner.
+        if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+        {
+            chance += 15;
+        }
+
+        // Moment of truth, is it a 1%, 2% or 3% increase.
+        if (CHANCE(chance))
+        {
+            ch->pcdata->learned[sn] += number_range(2, 3);
+        }
+        else
+        {
+            ch->pcdata->learned[sn]++;
+        }
+
+        // Ensure a max of only 100
+        ch->pcdata->learned[sn] = UMIN(ch->pcdata->learned[sn], 100);
+
+        if (ch->pcdata->learned[sn] == 100)
+        {
+            sendf(ch, "You are now fully learned at %s!\r\n", skill_table[sn]->name);
+
+            // Reset the focus to nothing.
+            ch->pcdata->improve_focus_gsn = 0;
+        }
+        else
+        {
+            sendf(ch, "You have become better at %s!\r\n", skill_table[sn]->name);
+        }
+    }
+}
+
 /* returns a group index number given the name */
 int group_lookup(const char *name)
 {
@@ -1476,5 +1558,73 @@ void do_practice(CHAR_DATA * ch, char *argument)
     }
 
     return;
+
+}
+
+/*
+ * Tells a player what they are improving on and how long they still have until their
+ * focusing on that skill pays off.  Also allows the player to set the skill they want
+ * to focus on.
+ */
+void do_improve(CHAR_DATA * ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        send_to_char("NPC's cannot improve skills.\r\n", ch);
+    }
+
+    // Setting to allow this to be turned off.
+    if (!settings.focused_improves)
+    {
+        send_to_char("The improves system has been turned off.  You will still improve on your skills\r\n", ch);
+        send_to_char("and spells through using them.\r\n", ch);
+        return;
+    }
+
+    int sn = 0;
+
+    // No input was entered, so show them what they are focused on (or not)
+    if (IS_NULLSTR(argument))
+    {
+        sn = ch->pcdata->improve_focus_gsn;
+
+        // They haven't focused on any specific skill, they can't on that specific skill or they're
+        // already at 100% for it.
+        if (sn == 0
+            || ch->level < skill_table[sn]->skill_level[ch->class]
+            || skill_table[sn]->rating[ch->class] == 0
+            || ch->pcdata->learned[sn] == 0
+            || ch->pcdata->learned[sn] == 100)
+        {
+            send_to_char("You are not currently focused on improving any skills.\r\n", ch);
+            return;
+        }
+
+        sendf(ch, "You have %d minute%s left until you improve on %s (%d%).\r\n"
+            , ch->pcdata->improve_minutes
+            , ch->pcdata->improve_minutes > 1 ? "s" : ""
+            , skill_table[sn]->name
+            , ch->pcdata->learned[sn]);
+        return;
+    }
+
+    // If we got here, there is an new skill we need to look, validate and try to set.
+    sn = skill_lookup(argument);
+
+    if (sn == -1
+        || sn == 0
+        || ch->level < skill_table[sn]->skill_level[ch->class]
+        || skill_table[sn]->rating[ch->class] == 0
+        || ch->pcdata->learned[sn] == 0
+        || ch->pcdata->learned[sn] == 100)
+    {
+        send_to_char("That is not a valid skill or spell that you can improve on.\r\n", ch);
+        return;
+    }
+    else
+    {
+        sendf(ch, "You are now focused on improving %s (%d%).\r\n", skill_table[sn]->name, ch->pcdata->learned[sn]);
+        ch->pcdata->improve_focus_gsn = sn;
+    }
 
 }

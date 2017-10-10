@@ -1824,8 +1824,20 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     if (!IS_NPC(victim))
     {
-        sprintf(buf, "Security: %d.\r\n", victim->pcdata->security);    /* OLC */
-        send_to_char(buf, ch);    /* OLC */
+        // OLC
+        sendf(ch, "Security: %d  ", victim->pcdata->security);
+
+        if (ch->pcdata->improve_focus_gsn == 0)
+        {
+            sendf(ch, "Improving: (none)  Minutes until improvement: %d\r\n"
+                , ch->pcdata->improve_minutes);
+        }
+        else
+        {
+            sendf(ch, "Improving: %s  Minutes until improvement: %d\r\n"
+                , skill_table[ch->pcdata->improve_focus_gsn]->name
+                , ch->pcdata->improve_minutes);
+        }
     }
 
     sprintf(buf, "Short description: %s\r\nLong  description: %s",
@@ -6965,8 +6977,11 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-    //sendf(ch, "%s", health_description(ch, ch));
-    sendf(ch, "Top VNUM: %d\r\n", top_vnum_room);
+    //double x = difftime(current_time, ch->pcdata->last_note);
+    //x = x / 60;
+    //sendf(ch, "It has been %f minutes since you last sent a note.\r\n", x);
+
+    ch->pcdata->improve_focus_gsn = 164;
 
 /*  ROOM_INDEX_DATA *pRoomIndex;
     AREA_DATA *pArea;

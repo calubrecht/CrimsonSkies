@@ -61,6 +61,7 @@ void tick_update        (void);
 void half_tick_update   (void);
 void shore_update       (void);
 void environment_update (void);
+void improves_update    (void);
 
 /* used for saving */
 int save_number = 0;
@@ -131,6 +132,11 @@ void update_handler(bool forced)
         // making a longer term method, something that occurs every 10 minutes or so.  We'll start
         // here though as it's writing out very litte.
         save_statistics();
+
+        // This will process the skills people are focusing on to improve.  This must run
+        // once a minute, it will decriment the minutes left on the pcdata and adjust upward
+        // any skill that has improved (then reset the timer).
+        improves_update();
     }
 
     // Just firing the tick, not messing with violence, mobiles or areas.
@@ -1660,3 +1666,21 @@ void timer_update(CHAR_DATA *ch)
     }
 } // end timer_update
 
+/*
+ * Loops through only the players in the game and sees if they have improved
+ * on the skill they are focused on.
+ */
+void improves_update()
+{
+    DESCRIPTOR_DATA *d;
+
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->connected == CON_PLAYING
+            && d->character
+            && d->character->in_room)
+        {
+            check_time_improve(d->character);
+        }
+    }
+}

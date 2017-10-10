@@ -183,7 +183,7 @@ se,sw)                              kill flee case wimpy
 exits recall
 sleep wake rest stand               {R[{WOTHER{R]{x
                                     save quit logout
-                                    practice train
+                                    practice train improve
 
 {R[{WOBJECTS{R]{x                           {R[{WINFORMATION / COMMUNICATION{R]{x
 get put drop give use               help commands areas
@@ -1004,6 +1004,8 @@ The higher your intelligence, the more you will learn at each practice
 session.  The higher your wisdom, the more practice sessions you will
 have each time you gain a level.  Unused sessions are saved until you
 do use them.
+
+See also: IMPROVE
 ~
 
 0 TRAIN TRAINS~
@@ -3114,11 +3116,22 @@ mobile inventory, except for items which are too high for you to clone.
 Strung extended descriptions on objects are not kept, however.
 ~
 
-0 SKILLS SPELLS~
+0 SKILLS SPELLS IMPROVEMENT IMPROVES~
 The skills and spells commands are used to display your character's list
 of available skills (or spells, as the case may be).  They are listed in
 order of level, with mana cost (for spells) or percentage (for skills)
 listed where applicable.
+
+You can increase your proficiency in skills and spells through a few
+different mechanisms.  First, you will gain practices as you increase
+the level of your character.  A practice can be used at a trainer to
+increase how well you know a spell/skill.  Second, a skill or spell
+will increase as you use it (intelligence helps this go faster).  Third
+you can focus on a single spell or skill at a time and over time you
+will get better at it (this also occurs faster with higher intelligence
+or with the fast learning merit).
+
+See also: PRACTICE
 ~
 
 0 OUTFIT~

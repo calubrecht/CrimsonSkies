@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "2017.10.06"
+#define VERSION "2017.10.10"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -352,7 +352,8 @@ struct str_app_type
 
 struct int_app_type
 {
-    int learn;
+    int learn;            // How fast individuals learn from using skills, higher is better
+    int improve_minutes;  // How many online minutes between improve a skill, lower is better
 };
 
 struct wis_app_type
@@ -652,6 +653,7 @@ struct settings_data
     bool gain_convert;       // Whether or not gain convert is enabled.
     int stat_surge;          // How far above the players natural stat a spell can take it.
     bool hours_affect_exp;   // Whether hours affect experience
+    bool focused_improves;   // Whether or not you improve skills via the improvement system.
     // Info
     char *web_page_url;
     char *mud_name;
@@ -1807,6 +1809,8 @@ struct pc_data
     int             deity;             // The deity if any that the user follows
     long            merit;
     int             key_ring[10];      // The keys that can be stored on a key ring.
+    int             improve_focus_gsn; // GSN of the skill the player is focusing on to improve.
+    int             improve_minutes;   // Number of minutes until the next improve for the player.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2751,6 +2755,7 @@ void    list_group_known (CHAR_DATA *ch);
 int     exp_per_level    (CHAR_DATA *ch, int points);
 void    check_improve    (CHAR_DATA *ch, int sn, bool success, int multiplier);
 bool    check_skill_improve (CHAR_DATA * ch, int sn, int success_multiplier, int failure_multiplier);
+void    check_time_improve(CHAR_DATA * ch);
 int     group_lookup     (const char *name);
 void    gn_add           (CHAR_DATA *ch, int gn);
 void    gn_remove        (CHAR_DATA *ch, int gn);
