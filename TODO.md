@@ -156,7 +156,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Area flag that denotes a clan/kingdom hall.
   - Hometown selection in creation
   - Drunk in score or affects
-  - Smoke/fog lowers in quality every tick.
   - Make glance also show magic status if detect magic is up.
   - Sheathed weapon
   - Ability to enter a background history about your character
