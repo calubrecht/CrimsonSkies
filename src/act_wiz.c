@@ -1827,16 +1827,16 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         // OLC
         sendf(ch, "Security: %d  ", victim->pcdata->security);
 
-        if (ch->pcdata->improve_focus_gsn == 0)
+        if (victim->pcdata->improve_focus_gsn == 0)
         {
             sendf(ch, "Improving: (none)  Minutes until improvement: %d\r\n"
-                , ch->pcdata->improve_minutes);
+                , victim->pcdata->improve_minutes);
         }
         else
         {
             sendf(ch, "Improving: %s  Minutes until improvement: %d\r\n"
-                , skill_table[ch->pcdata->improve_focus_gsn]->name
-                , ch->pcdata->improve_minutes);
+                , skill_table[victim->pcdata->improve_focus_gsn]->name
+                , victim->pcdata->improve_minutes);
         }
     }
 
