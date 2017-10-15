@@ -2025,11 +2025,6 @@ staves		The use of staves and similar devices (see 'help brandish')
 wands		The use of wands and similar items (see 'help zap') 
 ~
 
-0 'GROUP HEADER'~
-The following skills and groups are available to your chacter:
-(this list may be seen again by typing list)
-~
-
 0 'GROUP HELP'~
 The following commands are available:
 list         display all groups and skills not yet bought
@@ -2040,9 +2035,6 @@ info <name>  list the skills or spells contained within a group
 help <name>  help on skills and groups, or other help topics
 done	     exit the character generation process
 ~
-
--1 'MENU CHOICE'~
-Choice (add,drop,list,help)?~
 
 0 'GROUPS' 'INFO'~
 The skill system allows you to fully customize your new character, making

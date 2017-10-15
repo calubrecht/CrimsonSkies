@@ -716,18 +716,18 @@ void show_skill_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 /* shows skills, groups and costs (only if not bought) */
 void list_group_costs(CHAR_DATA * ch)
 {
-    char buf[100];
     int gn, sn, col;
     extern int top_group;
+    bool found_groups = FALSE;
+    bool found_skills = FALSE;
 
     if (IS_NPC(ch))
         return;
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "group", "cp",
-        "group", "cp", "group", "cp");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Group", "CP", "Group", "CP", "Group", "CP");
+    sendf(ch, HEADER);
 
     for (gn = 0; gn < top_group; gn++)
     {
@@ -738,22 +738,34 @@ void list_group_costs(CHAR_DATA * ch)
             && !ch->pcdata->group_known[gn]
             && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", group_table[gn]->name,
-                group_table[gn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_groups = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", group_table[gn]->name, group_table[gn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
+
     if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_groups)
+    {
+        sendf(ch, "{WThere are no groups left to take.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "skill", "cp",
-        "skill", "cp", "skill", "cp");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Skill", "CP", "Skill", "CP", "Skill", "CP");
+    sendf(ch, HEADER);
 
     for (sn = 0; sn < top_sn; sn++)
     {
@@ -769,64 +781,84 @@ void list_group_costs(CHAR_DATA * ch)
             && skill_table[sn]->spell_fun == spell_null
             && skill_table[sn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", skill_table[sn]->name,
-                skill_table[sn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_skills = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", skill_table[sn]->name, skill_table[sn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
 
-    sprintf(buf, "Creation points: %d\r\n", ch->pcdata->points);
-    send_to_char(buf, ch);
-    sprintf(buf, "Experience per level: %d\r\n",
-        exp_per_level(ch, ch->gen_data->points_chosen));
-    send_to_char(buf, ch);
+    if (col % 3 != 0)
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_skills)
+    {
+        sendf(ch, "{WThere are no skills left to take.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
+    sendf(ch, "{WCreation points:      {G%d{x\r\n", ch->pcdata->points);
+    sendf(ch, "{WExperience per level: {G%d{x\r\n\r\n", exp_per_level(ch, ch->gen_data->points_chosen));
+
     return;
 }
 
 void list_group_chosen(CHAR_DATA * ch)
 {
-    char buf[100];
     int gn, sn, col;
     extern int top_group;
+    bool found_groups = FALSE;
+    bool found_skills = FALSE;
 
     if (IS_NPC(ch))
         return;
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "group", "cp", "group",
-        "cp", "group", "cp\r\n");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Group", "CP", "Group", "CP", "Group", "CP");
+    sendf(ch, HEADER);
 
     for (gn = 0; gn < top_group; gn++)
     {
         if (group_table[gn]->name == NULL)
             break;
 
-        if (ch->gen_data->group_chosen[gn]
-            && group_table[gn]->rating[ch->class] > 0)
+        if (ch->gen_data->group_chosen[gn] && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", group_table[gn]->name,
-                group_table[gn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_groups = TRUE;
+            sendf(ch, "{W%-18s {G%-5d{x ", group_table[gn]->name, group_table[gn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
+
     if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_groups)
+    {
+        sendf(ch, "{WNo groups have yet been choosen.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "skill", "cp", "skill",
-        "cp", "skill", "cp\r\n");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Skill", "CP", "Skill", "CP", "Skill", "CP");
+    sendf(ch, HEADER);
 
     for (sn = 0; sn < top_sn; sn++)
     {
@@ -837,25 +869,34 @@ void list_group_chosen(CHAR_DATA * ch)
         if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
             continue;
 
-        if (ch->gen_data->skill_chosen[sn]
-            && skill_table[sn]->rating[ch->class] > 0)
+        if (ch->gen_data->skill_chosen[sn] && skill_table[sn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", skill_table[sn]->name,
-                skill_table[sn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_skills = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", skill_table[sn]->name, skill_table[sn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
 
-    sprintf(buf, "Creation points: %d\r\n", ch->gen_data->points_chosen);
-    send_to_char(buf, ch);
-    sprintf(buf, "Experience per level: %d\r\n",
-        exp_per_level(ch, ch->gen_data->points_chosen));
-    send_to_char(buf, ch);
+    if (col % 3 != 0)
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_skills)
+    {
+        sendf(ch, "{WNo skills have yet been choosen.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
+    sendf(ch, "{WCreation points:      {G%d{x\r\n", ch->pcdata->points);
+    sendf(ch, "{WExperience per level: {G%d{x\r\n\r\n", exp_per_level(ch, ch->gen_data->points_chosen));
+
     return;
 }
 

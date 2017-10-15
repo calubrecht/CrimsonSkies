@@ -817,7 +817,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                         sendf(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
                     }
 
-                    send_to_char("Which deity do you wish to follow? ", ch);
+                    send_to_char("\r\nWhich deity do you wish to follow? ", ch);
 
                     d->connected = CON_GET_DEITY;
                     return;
@@ -906,17 +906,22 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 case 'Y':
                     ch->gen_data = new_gen_data();
                     ch->gen_data->points_chosen = ch->pcdata->points;
-                    do_function(ch, &do_help, "group header");
+
+                    send_to_char("\r\nThe following skills and spells are available to your character:\r\n", ch);
+                    send_to_char("(this list may be seen again by typing 'list')\r\n\r\n", ch);
+
                     list_group_costs(ch);
-                    write_to_buffer(d, "You already have the following skills:\r\n");
-                    do_function(ch, &do_skills, "");
-                    do_function(ch, &do_help, "menu choice");
+
+                    // Commented out, they shouldn't have any skills at this point..
+                    //write_to_buffer(d, "You already have the following skills:\r\n");
+                    //do_function(ch, &do_skills, "");
+
+                    send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
                     d->connected = CON_GEN_GROUPS;
                     break;
                 case 'n':
                 case 'N':
-                    group_add(ch, class_table[ch->class]->default_group,
-                        TRUE);
+                    group_add(ch, class_table[ch->class]->default_group, TRUE);
                     write_to_buffer(d, "\r\n");
                     write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                     buf[0] = '\0';
@@ -1021,10 +1026,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (!parse_gen_groups(ch, argument))
             {
-                send_to_char("Choices are: list,learned,premise,add,drop,info,help, and done.\r\n", ch);
+                send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
             }
 
-            do_function(ch, &do_help, "menu choice");
+            send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
+
             break;
 
         case CON_READ_IMOTD:
