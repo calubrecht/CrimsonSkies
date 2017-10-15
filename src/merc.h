@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "2017.10.10"
+#define VERSION "2017.10.15"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
