@@ -916,7 +916,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     //write_to_buffer(d, "You already have the following skills:\r\n");
                     //do_function(ch, &do_skills, "");
 
-                    send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
+                    send_to_char("Choice: (list,add,drop,learned,info,help,done)? \r\n", ch);
                     d->connected = CON_GEN_GROUPS;
                     break;
                 case 'n':
@@ -1026,7 +1026,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             parse_gen_groups(ch, argument);
 
-            send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
+            send_to_char("Choice: (list,add,drop,learned,info,help,done)? \r\n", ch);
 
             break;
 

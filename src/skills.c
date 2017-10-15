@@ -1086,12 +1086,6 @@ bool parse_gen_groups(CHAR_DATA * ch, char *argument)
         return TRUE;
     }
 
-    if (!str_prefix(arg, "premise"))
-    {
-        do_function(ch, &do_help, "premise");
-        return TRUE;
-    }
-
     if (!str_prefix(arg, "list"))
     {
         list_group_costs(ch);
