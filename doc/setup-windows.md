@@ -22,6 +22,12 @@ The current supported version is through Visual Studio 2017 Community (which is 
 
 #### Troubleshooting Commong Issues
 
+- To fix: error E1696: cannot open source file "winsock2.h"
+	- Open the Project -> CrimsonSkies Properties -> Configuration Properties -> General -> Set the Platform Toolset to v141_xp (or any versions that target xp, various may work)
+
+- To fix: Project 'CrimsonSkies' could not be loaded because it's missing install components. To fix this launch Visual Studio setup with the following selections: Microsoft.VisualStudio.ComponentGroup.NativeDesktop.WinXP
+	- In the Visual Studio Setup, Install "Windows XP support for C++".
+
 - To fix: sprintf errors in VS
     - Project Properties -> C/C++ -> Preprocessor -> Preprocessor Defintions
     - Add Disable _CRT_SECURE_NO_DEPRECATE
@@ -46,9 +52,6 @@ The current supported version is through Visual Studio 2017 Community (which is 
 - To fix: error C4996: 'write': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _write. See online help for details.
 	- Add _WIN32 code and change write to _write
 	- Alt fix, use send instead of write in Windows.
-
-- To fix: error E1696: cannot open source file "winsock2.h"
-	- Open the Project -> CrimsonSkies Properties -> Configuration Properties -> General -> Set the Platform Toolset to v141_xp (or any versions that target xp, various may work)
 
 #### Additional Notes:
 
