@@ -1024,10 +1024,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 break;
             }
 
-            if (!parse_gen_groups(ch, argument))
-            {
-                send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
-            }
+            parse_gen_groups(ch, argument);
 
             send_to_char("Choice: (list,add,drop,learned,premise,info,help,done)? \r\n", ch);
 
