@@ -300,8 +300,12 @@ CHAR_DATA *new_char(void)
     ch->timer_buf = &str_empty[0];
     ch->logon = current_time;
     ch->lines = PAGELEN;
+
     for (i = 0; i < 4; i++)
+    {
         ch->armor[i] = 100;
+    }
+
     ch->position = POS_STANDING;
     ch->hit = 20;
     ch->max_hit = 20;
@@ -367,6 +371,7 @@ PC_DATA *pcdata_free;
 PC_DATA *new_pcdata(void)
 {
     int alias;
+    int i;
 
     static PC_DATA pcdata_zero;
     PC_DATA *pcdata;
@@ -385,6 +390,12 @@ PC_DATA *new_pcdata(void)
     {
         pcdata->alias[alias] = NULL;
         pcdata->alias_sub[alias] = NULL;
+    }
+
+    // Set the initial key ring keys to -1.
+    for (i = 0; i < 10; i++)
+    {
+        pcdata->key_ring[i] = -1;
     }
 
     pcdata->buffer = new_buf();
@@ -413,6 +424,7 @@ void free_pcdata(PC_DATA * pcdata)
         free_string(pcdata->alias[alias]);
         free_string(pcdata->alias_sub[alias]);
     }
+
     INVALIDATE(pcdata);
     pcdata->next = pcdata_free;
     pcdata_free = pcdata;
@@ -580,10 +592,23 @@ bool add_buf(BUFFER * buffer, char *string)
         buffer->size = get_size(buffer->size + 1);
         {
             if (buffer->size == -1)
-            {                    /* overflow */
+            {
+                // Overflow!
+                //
+                // If the buffer gets here it's too large, it will set the state to OVERFLOW
+                // and no more will be added until it's cleared (anything else added gets ignored).
+                // For debugging's sake and to identify what is trying to send that much data, we
+                // will log the last string.  In theory, this should only log one line once the
+                // buffer exceeds it's max.
                 buffer->size = oldsize;
                 buffer->state = BUFFER_OVERFLOW;
                 bug("buffer overflow past size %d", buffer->size);
+
+                if (!IS_NULLSTR(string))
+                {
+                    bugf("overflow line: %s", string);
+                }
+
                 return FALSE;
             }
         }

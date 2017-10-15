@@ -1148,125 +1148,6 @@ void do_give(CHAR_DATA * ch, char *argument)
 
 } // end do_give
 
-
-/* for poisoning weapons and food/drink */
-void do_envenom(CHAR_DATA * ch, char *argument)
-{
-    OBJ_DATA *obj;
-    AFFECT_DATA af;
-    int percent, skill;
-
-    /* find out what */
-    if (argument[0] == '\0')
-    {
-        send_to_char("Envenom what item?\r\n", ch);
-        return;
-    }
-
-    obj = get_obj_list(ch, argument, ch->carrying);
-
-    if (obj == NULL)
-    {
-        send_to_char("You don't have that item.\r\n", ch);
-        return;
-    }
-
-    if ((skill = get_skill(ch, gsn_envenom)) < 1)
-    {
-        send_to_char("Are you crazy? You'd poison yourself!\r\n", ch);
-        return;
-    }
-
-    if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
-    {
-        if (IS_OBJ_STAT(obj, ITEM_BLESS)
-            || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
-        {
-            act("You fail to poison $p.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        if (number_percent() < skill)
-        {                        /* success! */
-            act("$n treats $p with deadly poison.", ch, obj, NULL, TO_ROOM);
-            act("You treat $p with deadly poison.", ch, obj, NULL, TO_CHAR);
-            if (!obj->value[3])
-            {
-                obj->value[3] = 1;
-                check_improve(ch, gsn_envenom, TRUE, 4);
-            }
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-
-        act("You fail to poison $p.", ch, obj, NULL, TO_CHAR);
-        if (!obj->value[3])
-            check_improve(ch, gsn_envenom, FALSE, 4);
-        WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-        return;
-    }
-
-    if (obj->item_type == ITEM_WEAPON)
-    {
-        if (IS_WEAPON_STAT(obj, WEAPON_FLAMING)
-            || IS_WEAPON_STAT(obj, WEAPON_FROST)
-            || IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC)
-            || IS_WEAPON_STAT(obj, WEAPON_SHARP)
-            || IS_WEAPON_STAT(obj, WEAPON_VORPAL)
-            || IS_WEAPON_STAT(obj, WEAPON_SHOCKING)
-            || IS_WEAPON_STAT(obj, WEAPON_LEECH)
-            || IS_OBJ_STAT(obj, ITEM_BLESS)
-            || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
-        {
-            act("You can't seem to envenom $p.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        if (obj->value[3] < 0
-            || attack_table[obj->value[3]].damage == DAM_BASH)
-        {
-            send_to_char("You can only envenom edged weapons.\r\n", ch);
-            return;
-        }
-
-        if (IS_WEAPON_STAT(obj, WEAPON_POISON))
-        {
-            act("$p is already envenomed.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        percent = number_percent();
-        if (percent < skill)
-        {
-            separate_obj(obj);
-            af.where = TO_WEAPON;
-            af.type = gsn_poison;
-            af.level = ch->level * percent / 100;
-            af.duration = ch->level / 2 * percent / 100;
-            af.location = 0;
-            af.modifier = 0;
-            af.bitvector = WEAPON_POISON;
-            affect_to_obj(obj, &af);
-
-            act("$n coats $p with deadly venom.", ch, obj, NULL, TO_ROOM);
-            act("You coat $p with venom.", ch, obj, NULL, TO_CHAR);
-            check_improve(ch, gsn_envenom, TRUE, 3);
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-        else
-        {
-            act("You fail to envenom $p.", ch, obj, NULL, TO_CHAR);
-            check_improve(ch, gsn_envenom, FALSE, 3);
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-    }
-
-    act("You can't poison $p.", ch, obj, NULL, TO_CHAR);
-    return;
-}
-
 /*
  * Fills an item with a liquid.
  */
@@ -1880,8 +1761,8 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     {
         if (!remove_obj(ch, WEAR_ABOUT, fReplace))
             return;
-        act("$n wears $p about $s torso.", ch, obj, NULL, TO_ROOM);
-        act("You wear $p about your torso.", ch, obj, NULL, TO_CHAR);
+        act("$n wears $p about $s body.", ch, obj, NULL, TO_ROOM);
+        act("You wear $p about your body.", ch, obj, NULL, TO_CHAR);
         equip_char(ch, obj, WEAR_ABOUT);
         return;
     }
@@ -2543,194 +2424,6 @@ void do_zap(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Allows a player to steal an item from another.  If the player is a clanner they will
- * receive a WANTED flag it it fails.  Kender are acute at stealing or "finding misplaced
- * items).
- */
-void do_steal(CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    char arg1[MAX_INPUT_LENGTH];
-    char arg2[MAX_INPUT_LENGTH];
-    CHAR_DATA *victim;
-    OBJ_DATA *obj;
-    int percent;
-
-    argument = one_argument(argument, arg1);
-    argument = one_argument(argument, arg2);
-
-    if (arg1[0] == '\0' || arg2[0] == '\0')
-    {
-        send_to_char("Steal what from whom?\r\n", ch);
-        return;
-    }
-
-    if ((victim = get_char_room(ch, arg2)) == NULL)
-    {
-        send_to_char("They aren't here.\r\n", ch);
-        return;
-    }
-
-    if (victim == ch)
-    {
-        send_to_char("That's pointless.\r\n", ch);
-        return;
-    }
-
-    if (is_safe(ch, victim))
-        return;
-
-    if (IS_NPC(victim) && victim->position == POS_FIGHTING)
-    {
-        send_to_char("Kill stealing is not permitted.\r\n"
-            "You'd better not -- you might get hit.\r\n", ch);
-        return;
-    }
-
-    if (victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
-    {
-        send_to_char("You cannot steal in an arena.\r\n", ch);
-        return;
-    }
-
-    WAIT_STATE(ch, skill_table[gsn_steal]->beats);
-    percent = number_percent();
-
-    if (!IS_AWAKE(victim))
-        percent += 5;
-
-    if (!can_see(victim, ch))
-        percent += 5;
-
-    if (ch->race == KENDER_RACE_LOOKUP)
-        percent += 20;
-
-    if (((ch->level + 7 < victim->level || ch->level - 7 > victim->level)
-        && !IS_NPC(victim) && !IS_NPC(ch))
-        || (!IS_NPC(ch) && percent > get_skill(ch, gsn_steal))
-        || (!IS_NPC(ch) && !is_clan(ch)))
-    {
-        /*
-         * Failure.
-         */
-        send_to_char("Oops.\r\n", ch);
-        affect_strip(ch, gsn_sneak);
-        REMOVE_BIT(ch->affected_by, AFF_SNEAK);
-
-        act("$n tried to steal from you.\r\n", ch, NULL, victim, TO_VICT);
-        act("$n tried to steal from $N.\r\n", ch, NULL, victim, TO_NOTVICT);
-        switch (number_range(0, 3))
-        {
-            case 0:
-                sprintf(buf, "%s is a lousy thief!", ch->name);
-                break;
-            case 1:
-                sprintf(buf, "%s couldn't rob %s way out of a paper bag!",
-                    ch->name, (ch->sex == 2) ? "her" : "his");
-                break;
-            case 2:
-                sprintf(buf, "%s tried to rob me!", ch->name);
-                break;
-            case 3:
-                sprintf(buf, "Keep your hands out of there, %s!", ch->name);
-                break;
-        }
-        if (!IS_AWAKE(victim))
-            do_function(victim, &do_wake, "");
-        if (IS_AWAKE(victim))
-            do_function(victim, &do_yell, buf);
-        if (!IS_NPC(ch))
-        {
-            if (IS_NPC(victim))
-            {
-                check_improve(ch, gsn_steal, FALSE, 2);
-                multi_hit(victim, ch, TYPE_UNDEFINED);
-            }
-            else
-            {
-                sprintf(buf, "$N tried to steal from %s.", victim->name);
-                wiznet(buf, ch, NULL, WIZ_FLAGS, 0, 0);
-                if (!IS_SET(ch->act, PLR_WANTED))
-                {
-                    SET_BIT(ch->act, PLR_WANTED);
-                    send_to_char("*** You are now ({RWANTED{x)!! ***\r\n", ch);
-                    save_char_obj(ch);
-                }
-            }
-        }
-
-        return;
-    }
-
-    if (!str_cmp(arg1, "coin")
-        || !str_cmp(arg1, "coins")
-        || !str_cmp(arg1, "gold") || !str_cmp(arg1, "silver"))
-    {
-        int gold, silver;
-
-        gold = victim->gold * number_range(1, ch->level) / MAX_LEVEL;
-        silver = victim->silver * number_range(1, ch->level) / MAX_LEVEL;
-        if (gold <= 0 && silver <= 0)
-        {
-            send_to_char("You couldn't get any coins.\r\n", ch);
-            return;
-        }
-
-        ch->gold += gold;
-        ch->silver += silver;
-        victim->silver -= silver;
-        victim->gold -= gold;
-        if (silver <= 0)
-            sprintf(buf, "Bingo!  You got %d gold coins.\r\n", gold);
-        else if (gold <= 0)
-            sprintf(buf, "Bingo!  You got %d silver coins.\r\n", silver);
-        else
-            sprintf(buf, "Bingo!  You got %d silver and %d gold coins.\r\n",
-                silver, gold);
-
-        send_to_char(buf, ch);
-        check_improve(ch, gsn_steal, TRUE, 2);
-        return;
-    }
-
-    if ((obj = get_obj_carry(victim, arg1, ch)) == NULL)
-    {
-        send_to_char("You can't find it.\r\n", ch);
-        return;
-    }
-
-    if (!can_drop_obj(ch, obj)
-        || IS_SET(obj->extra_flags, ITEM_INVENTORY)
-        || obj->level > ch->level)
-    {
-        send_to_char("You can't pry it away.\r\n", ch);
-        return;
-    }
-
-    if (ch->carry_number + get_obj_number(obj) > can_carry_n(ch))
-    {
-        send_to_char("You have your hands full.\r\n", ch);
-        return;
-    }
-
-    if (ch->carry_weight + get_obj_weight(obj) > can_carry_w(ch))
-    {
-        send_to_char("You can't carry that much weight.\r\n", ch);
-        return;
-    }
-
-    separate_obj(obj);
-    obj_from_char(obj);
-    obj_to_char(obj, ch);
-    act("You pocket $p.", ch, obj, NULL, TO_CHAR);
-    check_improve(ch, gsn_steal, TRUE, 2);
-    send_to_char("Got it!\r\n", ch);
-    return;
-}
-
-
-
-/*
  * Shopping commands.
  */
 CHAR_DATA *find_keeper(CHAR_DATA * ch)
@@ -2943,7 +2636,7 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob, just pass this call down the line.
         process_portal_merchant(ch, argument);
@@ -3229,10 +2922,23 @@ void do_list(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob.
         process_portal_merchant(ch, "");
+        return;
+    }
+
+    if (find_mob_by_act(ch, ACT_SCRIBE) != NULL)
+    {
+        // Make the call to act_mob.
+        do_duplicate(ch, "");
+        return;
+    }
+
+    if (find_mob_by_act(ch, ACT_BANKER) != NULL)
+    {
+        do_bank(ch, "");
         return;
     }
 
@@ -3240,6 +2946,12 @@ void do_list(CHAR_DATA * ch, char *argument)
     if (find_quest_master(ch) != NULL)
     {
         do_pquest(ch, "list");
+        return;
+    }
+
+    if (find_mob_by_act(ch, ACT_IS_HEALER) != NULL)
+    {
+        do_heal(ch, "");
         return;
     }
 
@@ -3897,7 +3609,8 @@ void do_bury(CHAR_DATA *ch, char *argument)
  * Command to dig in a room to look for buried items.  A shovel helps.  This
  * comes to us via the Smaug code base.
  */
-void do_dig(CHAR_DATA *ch, char *argument) {
+void do_dig(CHAR_DATA *ch, char *argument)
+{
     OBJ_DATA *obj;
     OBJ_DATA *startobj;
     bool found;
@@ -4200,12 +3913,12 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))
     {
-        send_to_char("\r\nYour knowledge of this objects lore has garnered you this additional information:\r\n", ch);
+        send_to_char("\r\nYour lore has garnered you this additional information:\r\n", ch);
         check_improve(ch, gsn_lore, TRUE, 9);
     }
     else
     {
-        send_to_char("\r\nYou can't seem to recall any additional information about the lore of this item.\r\n", ch);
+        send_to_char("\r\nYou can't seem to recall any lore of this item.\r\n", ch);
         check_improve(ch, gsn_lore, FALSE, 9);
         return;
     }
@@ -4370,3 +4083,380 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     }
 
 } // end show_lore
+
+  /*
+   * Empties an objects contents into another object or a room.  This is brought to us
+   * by the Smaug code base.
+   */
+bool empty_obj(OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room)
+{
+    OBJ_DATA *temp_obj, *temp_obj_next;
+    CHAR_DATA *ch = obj->carried_by;
+    bool moved_some = FALSE;
+
+    if (!obj)
+    {
+        bug("empty_obj: NULL obj", 0);
+        return FALSE;
+    }
+
+    // Move the contents from one container to another.
+    if (dest_obj || (!dest_room && !ch && (dest_obj = obj->in_obj) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+
+            // Make sure the destination object is a container and that it can hold the
+            // weight.
+            if (dest_obj->item_type == ITEM_CONTAINER
+                && (get_obj_weight(temp_obj) + get_true_weight(dest_obj) > (dest_obj->value[0] * 10)
+                || get_obj_weight(temp_obj) > (dest_obj->value[3] * 10)))
+                continue;
+
+            // Remove the object from one container, put it into the next.  No need to separate
+            // because we're taking it all.
+            obj_from_obj(temp_obj);
+            obj_to_obj(temp_obj, dest_obj);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the the provided room.
+    if (dest_room || (!ch && (dest_room = obj->in_room) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_room(temp_obj, dest_room);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the character who is holding the container.
+    if (ch)
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_char(temp_obj, ch);
+            moved_some = TRUE;
+        }
+        return moved_some;
+    }
+
+    // If we got here then we were not provided the correct inputs, log it.
+    bug("empty_obj: could not determine a destination for vnum %d", obj->pIndexData->vnum);
+    return FALSE;
+}
+
+/*
+ * The ability to empty a container into another container, empty a liquid container
+ * or dump a container into your inventory.  This code originated from a piece Smaug who
+ * acquired it from Crimson Blade (Noplex, Krowe, Emberlyna, Lanthos).  It was originally
+ * part of liquids.c in Smaug.
+ */
+void do_empty(CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    if ((!str_cmp(arg2, "into") || !str_cmp(arg2, "in")) && argument[0] != '\0')
+    {
+        argument = one_argument(argument, arg2);
+    }
+
+    if (arg1[0] == '\0')
+    {
+        send_to_char("Empty what?\r\n", ch);
+        return;
+    }
+
+    if ((obj = get_obj_carry(ch, arg1, ch)) == NULL)
+    {
+        send_to_char("You aren't carrying that.\r\n", ch);
+        return;
+    }
+
+    if (obj->count > 1)
+    {
+        separate_obj(obj);
+    }
+
+    switch (obj->item_type)
+    {
+        default:
+            act("You shake $p in an attempt to empty it...", ch, obj, NULL, TO_CHAR);
+            act("$n begins to shake $p in an attempt to empty it...", ch, obj, NULL, TO_ROOM);
+            return;
+        case ITEM_DRINK_CON:
+            if (obj->value[1] < 1)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+            act("You empty $p.", ch, obj, NULL, TO_CHAR);
+            act("$n empties $p.", ch, obj, NULL, TO_ROOM);
+            obj->value[1] = 0;
+            return;
+        case ITEM_CONTAINER:
+            if (IS_SET(obj->value[1], CONT_CLOSED))
+            {
+                act("The $d is closed.", ch, NULL, obj->name, TO_CHAR);
+                return;
+            }
+
+            if (!obj->contains)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+
+            if (arg2[0] == '\0')
+            {
+                if (IS_SET (ch->in_room->room_flags, ROOM_ARENA))
+                {
+                    send_to_char ("No littering in the arena.\r\n", ch);
+                    return;
+                }
+
+                if (empty_obj(obj, NULL, ch->in_room))
+                {
+                    act("You empty the contents of $p onto the ground.", ch, obj, NULL, TO_CHAR);
+                    act("$n empties the contents of $p onto the ground.", ch, obj, NULL, TO_ROOM);
+                }
+                else
+                {
+                    send_to_char("Hmmm... didn't work.\r\n", ch);
+                }
+            }
+            else
+            {
+                OBJ_DATA *dest = get_obj_here(ch, arg2);
+
+                if (!str_prefix("self", arg2))
+                {
+                    if (empty_obj(obj, NULL, NULL))
+                    {
+                        act("You empty the contents of $p into your inventory.", ch, obj, NULL, TO_CHAR);
+                        act("$n empties the contents of $p into $s inventory.", ch, obj, NULL, TO_ROOM);
+                    }
+
+                    return;
+                }
+
+                if (!dest)
+                {
+                    send_to_char("You can't find it.\r\n", ch);
+                    return;
+                }
+
+                if (dest == obj)
+                {
+                    send_to_char("You can't empty something into itself!\r\n", ch);
+                    return;
+                }
+
+                if (dest->item_type != ITEM_CONTAINER)
+                {
+                    send_to_char("That's not a container!\r\n", ch);
+                    return;
+
+                }
+                if (IS_SET(dest->value[1], CONT_CLOSED))
+                {
+                    act("The $d is closed.", ch, NULL, dest->name, TO_CHAR);
+                    return;
+                }
+
+                separate_obj(dest);
+
+                if (empty_obj(obj, dest, NULL))
+                {
+                    act("You empty the contents of $p into $P.", ch, obj, dest, TO_CHAR);
+                    act("$n empties the contents of $p into $P.", ch, obj, dest, TO_ROOM);
+                }
+                else
+                {
+                    act("$P is too full.", ch, obj, dest, TO_CHAR);
+                }
+            }
+
+        return;
+    }
+}
+
+/*
+ * Command to allow players to store up to 10 keys in a keyring
+ * Contributed by Khlydes of LorenMud.
+ */
+void do_keyring(CHAR_DATA * ch, char * argument)
+{
+    OBJ_INDEX_DATA * obj;
+    OBJ_DATA * obj2;
+    OBJ_DATA * object;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char buf[MAX_INPUT_LENGTH];
+    int i, key[10];
+    bool found = FALSE;
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    for (i = 0; i < 10; i++)
+    {
+        key[i] = ch->pcdata->key_ring[i];
+    }
+
+    if (IS_NULLSTR(arg1))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "show"))
+    {
+        send_to_char("The available keys on your key ring are:\r\n", ch);
+
+        for (i = 0; i < 10; i++)
+        {
+            if (key[i] != -1)
+            {
+                obj = get_obj_index(key[i]);
+
+                if (obj != NULL && obj->item_type == ITEM_KEY)
+                {
+                    sprintf(buf, "%2d.   %s\r\n", (i + 1), obj->short_descr);
+                }
+                else
+                {
+                    sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+                    ch->pcdata->key_ring[i] = -1;
+                }
+            }
+            else
+            {
+                sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+            }
+
+            send_to_char(buf, ch);
+        }
+
+        return;
+    }
+
+    if (IS_NULLSTR(arg2))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "add"))
+    {
+        if ((object = get_obj_carry(ch, arg2, ch)) == NULL)
+        {
+            send_to_char("You do not have that key.\r\n", ch);
+        }
+        else
+        {
+            if (object->item_type != ITEM_KEY)
+            {
+                send_to_char("That is not a key.\r\n", ch);
+            }
+            else if (object->timer > 0)
+            {
+                // If the key has a timer that means it's on the clock to crumbling, putting
+                // it on the key ring would create a loophole to avoid that mechansim.  Rot
+                // death items are ok as long as they haven't been triggered.
+                send_to_char("That key is too fragile to add to your key ring.\r\n", ch);
+            }
+            else
+            {
+                for (i = 0; i < 10; i++)
+                {
+                    if (key[i] == -1)
+                    {
+                        // Set they key onto the ring, they separate it and extract it.  Separating it
+                        // will only take one of the keys from the inventory if multiple exist that have
+                        // been consolidated.
+                        ch->pcdata->key_ring[i] = object->pIndexData->vnum;
+                        separate_obj(object);
+                        extract_obj(object);
+                        send_to_char("The key has been added to your key ring.\r\n", ch);
+                        found = TRUE;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    send_to_char("Your key ring is full, you must remove a key first.\r\n", ch);
+                }
+            }
+        }
+
+        return;
+    }
+
+    if (!is_number(arg2))
+    {
+        send_to_char("You must choose a key between 1 and 10.\r\n", ch);
+        return;
+    }
+
+    int value = atoi(arg2);
+
+    if (!str_cmp(arg1, "remove"))
+    {
+        if (value < 1 || value > 10)
+        {
+            send_to_char("You must remove a key from 1 to 10.\r\n", ch);
+            return;
+        }
+        else
+        {
+            value -= 1;
+            obj2 = create_object(get_obj_index(ch->pcdata->key_ring[value]));
+
+            // This key is getting removed, unset it from the ring
+            ch->pcdata->key_ring[value] = -1;
+
+            if (obj2 != NULL && obj2->item_type == ITEM_KEY)
+            {
+                sprintf(buf, "You have removed %s from your key ring.\r\n", obj2->short_descr);
+                obj_to_char(obj2, ch);
+            }
+            else
+            {
+                // Only extract the object if it's not null (extracting a NULL object will crash)
+                if (obj2 != NULL)
+                {
+                    bugf("Invalid key found in do_keyring (e.g. it's not a key, find out how it got there): vnum = %d.", obj2->pIndexData->vnum);
+                    extract_obj(obj2);  // No need to separate, just extract
+                }
+
+                // One way or another, the key was invalid if we get here (perhaps an area was removed?)
+                sprintf(buf, "They key crumbled in your hands.\r\n");
+            }
+
+            send_to_char(buf, ch);
+        }
+    }
+
+    return;
+}

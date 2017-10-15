@@ -85,7 +85,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp);
 void fread_pet (CHAR_DATA * ch, FILE * fp);
 void fread_obj (CHAR_DATA * ch, FILE * fp);
 
-
 /*
  * Save a character and inventory.
  */
@@ -166,9 +165,6 @@ void save_char_obj(CHAR_DATA * ch)
     return;
 }
 
-
-// marker
-
 /*
  * Write the char.
  */
@@ -178,6 +174,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     int sn, gn, pos;
     extern int top_group;
 
+    // Although this could save a mob, it's never called from a place
+    // that allows that, so pcdata calls should be safe.
     fprintf(fp, "#%s\n", IS_NPC(ch) ? "MOB" : "PLAYER");
 
     fprintf(fp, "Name %s~\n", ch->name);
@@ -205,6 +203,7 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     fprintf(fp, "Played %d\n", ch->played + (int)(current_time - ch->logon));
     fprintf(fp, "Pkilled %d\n", ch->pcdata->pkilled);
     fprintf(fp, "Pkills %d\n", ch->pcdata->pkills);
+    fprintf(fp, "PkillsArena %d\n", ch->pcdata->pkills_arena);
 
     fprintf(fp, "Scroll %d\n", ch->lines);
     fprintf(fp, "Room %d\n", (ch->in_room == get_room_index(ROOM_VNUM_LIMBO)
@@ -215,15 +214,15 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     fprintf(fp, "HMV  %d %d %d %d %d %d\n",
         ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move,
         ch->max_move);
-    if (ch->gold > 0)
-        fprintf(fp, "Gold %ld\n", ch->gold);
-    else
-        fprintf(fp, "Gold %d\n", 0);
-    if (ch->silver > 0)
-        fprintf(fp, "Silver %ld\n", ch->silver);
-    else
-        fprintf(fp, "Silver %d\n", 0);
+
+    fprintf(fp, "Gold %ld\n", ch->gold);
+    fprintf(fp, "Silver %ld\n", ch->silver);
+
+    // Money they have stored in the bank
+    fprintf(fp, "BankGold %ld\n", ch->pcdata->bank_gold);
+
     fprintf(fp, "Experience  %d\n", ch->exp);
+
     if (ch->act != 0)
         fprintf(fp, "Act  %s\n", print_flags(ch->act));
     if (ch->affected_by != 0)
@@ -327,6 +326,9 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
             ch->pcdata->condition[3]);
 
         fprintf(fp, "Stance %d\n", ch->stance);
+        fprintf(fp, "VnumClairvoyance %d\n", ch->pcdata->vnum_clairvoyance);
+        fprintf(fp, "PriestRank %d\n", ch->pcdata->priest_rank);
+        fprintf(fp, "Deity %d\n", ch->pcdata->deity);
 
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
@@ -337,6 +339,18 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "LastStoryNote %ld\n", ch->pcdata->last_story);
         fprintf(fp, "LastHistory %ld\n", ch->pcdata->last_history);
         fprintf(fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
+
+        // Key Ring
+        fprintf(fp, "KeyRing %d %d %d %d %d %d %d %d %d %d\n",
+            ch->pcdata->key_ring[0], ch->pcdata->key_ring[1],
+            ch->pcdata->key_ring[2], ch->pcdata->key_ring[3],
+            ch->pcdata->key_ring[4], ch->pcdata->key_ring[5],
+            ch->pcdata->key_ring[6], ch->pcdata->key_ring[7],
+            ch->pcdata->key_ring[8], ch->pcdata->key_ring[9]);
+
+        // Improves
+        fprintf(fp, "ImproveFocus %s~\n", skill_table[ch->pcdata->improve_focus_gsn]->name);
+        fprintf(fp, "ImproveMinutes %d\n", ch->pcdata->improve_minutes);
 
         // Questing
         if (ch->pcdata->quest_points != 0)
@@ -371,6 +385,11 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         if (ch->pcdata->quest_giver != NULL)
         {
             fprintf( fp, "QuestGiver %d\n",  ch->pcdata->quest_giver->pIndexData->vnum);
+        }
+
+        if (ch->pcdata->merit != 0)
+        {
+            fprintf(fp, "Merit %s\n", print_flags(ch->pcdata->merit));
         }
 
         /* write alias */
@@ -660,7 +679,6 @@ void fwrite_obj(CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 {
     char strsave[MAX_INPUT_LENGTH];
-    char buf[100];
     CHAR_DATA *ch;
     FILE *fp;
     bool found;
@@ -693,8 +711,13 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
     ch->pcdata->pkills = 0;
+    ch->pcdata->pkills_arena = 0;
     ch->pcdata->pkilled = 0;
+    ch->pcdata->bank_gold = 0;
     ch->pcdata->recall_vnum = 0;
+    ch->pcdata->vnum_clairvoyance = 1;
+    ch->pcdata->priest_rank = 0;
+    ch->pcdata->deity = 0;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -705,6 +728,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     sprintf(strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
     if ((fp = fopen(strsave, "r")) != NULL)
     {
+        char buf[100];
         fclose(fp);
         sprintf(buf, "gzip -dfq %s", strsave);
         system(buf);
@@ -767,7 +791,17 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
         int i;
 
         if (ch->race == 0)
+        {
+            if (!IS_NPC(ch))
+            {
+                // Log a message if the users race wasn't found.
+                bugf("Player %s had a null race.", ch->name);
+                wiznet("BUG: $N had a null race and was auto-set to human.", ch, NULL, WIZ_GENERAL, 0, 0);
+                send_to_char("{RYour race was corrupted.  Please contact an immortal for resolution.{x\r\n", ch);
+            }
+
             ch->race = race_lookup("human");
+        }
 
         ch->size = pc_race_table[ch->race].size;
         ch->dam_type = 17;        /*punch */
@@ -970,6 +1004,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Bamfout", ch->pcdata->bamfout, fread_string(fp));
                 KEY("Bin", ch->pcdata->bamfin, fread_string(fp));
                 KEY("Bout", ch->pcdata->bamfout, fread_string(fp));
+                KEY("BankGold", ch->pcdata->bank_gold, fread_number(fp));
                 break;
 
             case 'C':
@@ -997,6 +1032,8 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("Description", ch->description, fread_string(fp));
                 KEY("Desc", ch->description, fread_string(fp));
+
+                KEY("Deity", ch->pcdata->deity, fread_number(fp));
 
                 break;
             case 'E':
@@ -1108,8 +1145,25 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("IncognitoLevel", ch->incog_level, fread_number(fp));
                 KEY("Inco", ch->incog_level, fread_number(fp));
 
-                break;
+                KEY("ImproveFocus", ch->pcdata->improve_focus_gsn, skill_lookup(fread_string(fp)));
+                KEY("ImproveMinutes", ch->pcdata->improve_minutes, fread_number(fp));
 
+                break;
+            case 'K':
+                if (!str_cmp(word, "KeyRing"))
+                {
+                    int key;
+
+                    for (key = 0; key < 10; key++)
+                    {
+                        ch->pcdata->key_ring[key] = fread_number(fp);
+                    }
+
+                    fMatch = TRUE;
+                    break;
+                }
+
+                break;
             case 'L':
                 KEY("LastLevel", ch->pcdata->last_level, fread_number(fp));
                 KEY("LLev", ch->pcdata->last_level, fread_number(fp));
@@ -1136,7 +1190,9 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("LastIpAddress", ch->pcdata->last_ip, fread_string(fp));
 
                 break;
-
+            case 'M':
+                KEY("Merit", ch->pcdata->merit, fread_flag(fp));
+                break;
             case 'N':
                 KEYS("Name", ch->name, fread_string(fp));
                 break;
@@ -1162,6 +1218,9 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEY("Pkilled", ch->pcdata->pkilled,fread_number(fp));
                 KEY("Pkills", ch->pcdata->pkills, fread_number(fp));
+                KEY("PkillsArena", ch->pcdata->pkills_arena, fread_number(fp));
+
+                KEY("PriestRank", ch->pcdata->priest_rank, (fread_number(fp)));
 
                 break;
             case 'Q':
@@ -1268,6 +1327,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'V':
                 KEY("Version", ch->version, fread_number(fp));
                 KEY("Vers", ch->version, fread_number(fp));
+                KEY("VnumClairvoyance", ch->pcdata->vnum_clairvoyance, fread_number(fp));
 
                 if (!str_cmp(word, "Vnum"))
                 {

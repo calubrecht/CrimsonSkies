@@ -104,6 +104,13 @@ void do_write(CHAR_DATA *ch, char *argument)
         free_string(obj->short_descr);
         obj->short_descr = str_dup(buf);
 
+        // In case a player has lots of parchments, we don't want them to have to try to get the
+        // right one by "read 13.parchment".  Remove the color codes from here.  Add the title
+        // into the keywords (we should consider removing articles and prepositions).
+        sprintf(buf, "parchment %s", strip_color(argument));
+        free_string(obj->name);
+        obj->name = str_dup(buf);
+
         return;
     }
 
@@ -208,9 +215,8 @@ void do_read(CHAR_DATA *ch, char *argument)
     }
 
     // Show the character what they have read.
-    printf_to_char(ch, "%s\r\n", obj->extra_descr->description);
+    sendf(ch, "%s\r\n", obj->extra_descr->description);
 
     // Show the room
     act("$n reads a piece of parchment.", ch, NULL, NULL, TO_ROOM);
 }
-

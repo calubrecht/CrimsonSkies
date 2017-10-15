@@ -31,9 +31,6 @@
     #include <time.h>
 #endif
 
-/* Needed for automatic GSN assignment */
-#define IN_DB_C
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -494,6 +491,9 @@ void load_area(FILE * fp)
 
                     return;
                 }
+                break;
+            case 'A':
+                KEY("AreaFlags", pArea->area_flags, fread_flag(fp));
                 break;
             case 'B':
                 SKEY("Builders", pArea->builders);
@@ -1783,7 +1783,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_SANCTUARY))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("sanctuary");
+        af.type = gsn_sanctuary;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_NONE;
@@ -1795,7 +1795,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_HASTE))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("haste");
+        af.type = gsn_haste;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_DEX;
@@ -1808,7 +1808,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_PROTECT_EVIL))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("protection evil");
+        af.type = gsn_protection_evil;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_SAVES;
@@ -1820,7 +1820,7 @@ CHAR_DATA *create_mobile(MOB_INDEX_DATA * pMobIndex)
     if (IS_AFFECTED(mob, AFF_PROTECT_GOOD))
     {
         af.where = TO_AFFECTS;
-        af.type = skill_lookup("protection good");
+        af.type = gsn_protection_good;
         af.level = mob->level;
         af.duration = -1;
         af.location = APPLY_SAVES;
@@ -1994,6 +1994,7 @@ OBJ_DATA *create_object(OBJ_INDEX_DATA * pObjIndex)
         case ITEM_SHOVEL:
         case ITEM_FOG:
         case ITEM_PARCHMENT:
+        case ITEM_SEED:
             break;
     }
 
@@ -2960,7 +2961,7 @@ void do_memory(CHAR_DATA * ch, char *argument)
         // Read the output a line at a time and send it to the caller.
         while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
         {
-            printf_to_char(ch, "%s", buf);
+            sendf(ch, "%s", buf);
 
             // This is a little hacky, but the input from the system call only has a newline
             // where some clients need a newline and a carriage return in order to consistently
@@ -3972,6 +3973,9 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
+
+                KEY("Clan", class->clan, clan_lookup(fread_string(fp)));
+
                 break;
             case 'D':
                 KEY("DefGroup", class->default_group, str_dup(fread_word(fp)));
@@ -4041,7 +4045,7 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
-                KEY("Mana", class->fMana, fread_number(fp));
+                KEY("Mana", class->mana, fread_number(fp));
                 break;
             case 'N':
                 KEY("Name", class->name, fread_string(fp));
@@ -4340,6 +4344,9 @@ SKILLTYPE *fread_skill(FILE *fp)
         skill->rating[x] = -1;
     }
 
+    // Default all skills to ranged false.
+    skill->ranged = FALSE;
+
     for (; ; )
     {
         word = feof(fp) ? "End" : fread_word(fp);
@@ -4376,6 +4383,7 @@ SKILLTYPE *fread_skill(FILE *fp)
                 break;
             case 'R':
                 KEY("Race", skill->race, fread_number(fp));
+                KEY("Ranged", skill->ranged, fread_number(fp));
                 break;
             case 'S':
                 KEY("SpellFun", skill->spell_fun, spell_function_lookup(fread_string(fp)));
@@ -4651,104 +4659,3 @@ void load_statistics()
     return;
 
 } // end load_statistics
-
-/*
- * Assign GSN's to the proper skill.
- */
-void assign_gsn()
-{
-    ASSIGN_GSN(gsn_backstab, "backstab");
-    ASSIGN_GSN(gsn_dodge, "dodge");
-    ASSIGN_GSN(gsn_envenom, "envenom");
-    ASSIGN_GSN(gsn_hide, "hide");
-    ASSIGN_GSN(gsn_peek, "peek");
-    ASSIGN_GSN(gsn_pick_lock, "pick lock");
-    ASSIGN_GSN(gsn_sneak, "sneak");
-    ASSIGN_GSN(gsn_steal, "steal");
-    ASSIGN_GSN(gsn_disarm, "disarm");
-    ASSIGN_GSN(gsn_enhanced_damage, "enhanced damage");
-    ASSIGN_GSN(gsn_kick, "kick");
-    ASSIGN_GSN(gsn_parry, "parry");
-    ASSIGN_GSN(gsn_rescue, "rescue");
-    ASSIGN_GSN(gsn_second_attack, "second attack");
-    ASSIGN_GSN(gsn_third_attack, "third attack");
-    ASSIGN_GSN(gsn_blindness, "blindness");
-    ASSIGN_GSN(gsn_charm_person, "charm person");
-    ASSIGN_GSN(gsn_curse, "curse");
-    ASSIGN_GSN(gsn_invis, "invisibility");
-    ASSIGN_GSN(gsn_mass_invis, "mass invis");
-    ASSIGN_GSN(gsn_plague, "plague");
-    ASSIGN_GSN(gsn_poison, "poison");
-    ASSIGN_GSN(gsn_sleep, "sleep");
-    ASSIGN_GSN(gsn_fly, "fly");
-    ASSIGN_GSN(gsn_sanctuary, "sanctuary");
-    ASSIGN_GSN(gsn_axe, "axe");
-    ASSIGN_GSN(gsn_dagger, "dagger");
-    ASSIGN_GSN(gsn_flail, "flail");
-    ASSIGN_GSN(gsn_mace, "mace");
-    ASSIGN_GSN(gsn_polearm, "polearm");
-    ASSIGN_GSN(gsn_shield_block, "shield block");
-    ASSIGN_GSN(gsn_spear, "spear");
-    ASSIGN_GSN(gsn_sword, "sword");
-    ASSIGN_GSN(gsn_whip, "whip");
-    ASSIGN_GSN(gsn_bash, "bash");
-    ASSIGN_GSN(gsn_berserk, "berserk");
-    ASSIGN_GSN(gsn_dirt, "dirt");
-    ASSIGN_GSN(gsn_hand_to_hand, "hand to hand");
-    ASSIGN_GSN(gsn_trip, "trip");
-    ASSIGN_GSN(gsn_fast_healing, "fast healing");
-    ASSIGN_GSN(gsn_haggle, "haggle");
-    ASSIGN_GSN(gsn_lore, "lore");
-    ASSIGN_GSN(gsn_meditation, "meditation");
-    ASSIGN_GSN(gsn_scrolls, "scrolls");
-    ASSIGN_GSN(gsn_staves, "staves");
-    ASSIGN_GSN(gsn_wands, "wands");
-    ASSIGN_GSN(gsn_recall, "recall");
-    ASSIGN_GSN(gsn_dual_wield, "dual wield");
-    ASSIGN_GSN(gsn_weaken, "weaken");
-    ASSIGN_GSN(gsn_water_breathing, "water breathing");
-    ASSIGN_GSN(gsn_spellcraft, "spellcraft");
-    ASSIGN_GSN(gsn_swim, "swim");
-    ASSIGN_GSN(gsn_vitalizing_presence, "vitalizing presence");
-    ASSIGN_GSN(gsn_sense_affliction, "sense affliction");
-    ASSIGN_GSN(gsn_slow, "slow");
-    ASSIGN_GSN(gsn_immortal_blessing, "immortal blessing");
-    ASSIGN_GSN(gsn_enhanced_recovery, "enhanced recovery");
-    ASSIGN_GSN(gsn_bladesong, "bladesong");
-    ASSIGN_GSN(gsn_circle, "circle");
-    ASSIGN_GSN(gsn_disorientation, "disorientation");
-    ASSIGN_GSN(gsn_blind_fighting, "blind fighting");
-    ASSIGN_GSN(gsn_bless, "bless");
-    ASSIGN_GSN(gsn_song_of_dissonance, "song of dissonance");
-    ASSIGN_GSN(gsn_song_of_protection, "song of protection");
-    ASSIGN_GSN(gsn_enhanced_recall, "enhanced recall");
-    ASSIGN_GSN(gsn_circlestab, "circle stab");
-    ASSIGN_GSN(gsn_gore, "gore");
-    ASSIGN_GSN(gsn_ghost, "ghost");
-    ASSIGN_GSN(gsn_enchant_person, "enchant person");
-    ASSIGN_GSN(gsn_track, "track");
-    ASSIGN_GSN(gsn_acute_vision, "acute vision");
-    ASSIGN_GSN(gsn_butcher, "butcher");
-    ASSIGN_GSN(gsn_bandage, "bandage");
-    ASSIGN_GSN(gsn_quiet_movement, "quiet movement");
-    ASSIGN_GSN(gsn_camping, "camping");
-    ASSIGN_GSN(gsn_camouflage, "camouflage");
-    ASSIGN_GSN(gsn_ambush, "ambush");
-    ASSIGN_GSN(gsn_find_water, "find water");
-    ASSIGN_GSN(gsn_poison_prick, "poison prick");
-    ASSIGN_GSN(gsn_shiv, "shiv");
-    ASSIGN_GSN(gsn_protection_good, "protection good");
-    ASSIGN_GSN(gsn_protection_evil, "protection evil");
-    ASSIGN_GSN(gsn_protection_neutral, "protection neutral");
-    ASSIGN_GSN(gsn_escape, "escape");
-    ASSIGN_GSN(gsn_peer, "peer");
-    ASSIGN_GSN(gsn_bludgeon, "bludgeon");
-    ASSIGN_GSN(gsn_revolt, "revolt");
-    ASSIGN_GSN(gsn_imbue, "imbue");
-    ASSIGN_GSN(gsn_preserve, "preserve");
-    ASSIGN_GSN(gsn_haste, "haste");
-
-    if (global.last_boot_result == UNKNOWN)
-        global.last_boot_result = SUCCESS;
-
-} // end assign_gsn

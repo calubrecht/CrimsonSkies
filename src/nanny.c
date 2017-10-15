@@ -29,7 +29,7 @@
     #include <sys/types.h>
     #include <sys/time.h>
     #include <time.h>
-    #include <unistd.h>                /* OLC -- for close read write etc */
+    #include <unistd.h>  //OLC -- for close read write etc
 #endif
 
 #include <ctype.h>
@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>                /* printf_to_char */
+#include <stdarg.h>  // sendf
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -147,7 +147,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             // push the start of the input down for these menu options 4 rows so it doesn't ackwardly start
             // writing them over pieces of already rendered text.
             sprintf(buf, "%s%s%s", DOWN, DOWN, DOWN);
-            send_to_desc(buf, d);
+            write_to_desc(buf, d);
 
             switch( argument[0] )
             {
@@ -396,8 +396,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 // Turn string echoing back on and send them back to the login menu.
                 write_to_buffer(d, echo_on_str);
-                d->connected = CON_LOGIN_MENU;
-                show_login_menu(d);
+                send_to_desc("\r\n{R[{WPush Enter to Continue{R]{x ", d);
+                d->connected = CON_LOGIN_RETURN;  // Make them confirm before showing them the menu again
 
                 return;
             }
@@ -489,7 +489,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             {
                 case 'y':
                 case 'Y':
-                    sprintf(buf, "New character.\r\nGive me a password for %s: %s", ch->name, echo_off_str);
+                    sprintf(buf, "\r\nGive me a password for %s: %s", ch->name, echo_off_str);
                     send_to_desc(buf, d);
                     d->connected = CON_GET_NEW_PASSWORD;
 
@@ -683,15 +683,14 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->pcdata->true_sex = SEX_FEMALE;
                     break;
                 default:
-                    send_to_desc("That's not a sex.\r\nWhat IS your sex? ",
-                        d);
+                    send_to_desc("That's not a sex.\r\nWhat IS your sex? ", d);
                     return;
             }
 
             // reclass
             if (!IS_NULLSTR(settings.mud_name))
             {
-                printf_to_char(ch, "\r\n%s has many specialized reclasses although each character\r\n", settings.mud_name);
+                sendf(ch, "\r\n%s has many specialized reclasses although each character\r\n", settings.mud_name);
             }
             else
             {
@@ -699,7 +698,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
             }
 
             send_to_char("must start off as one of four base classes (you can reclass as early\r\n", ch);
-            send_to_char("level 10.  You will now select your initial base class.\r\n\r\n", ch);
+            send_to_char("level 10).  You will now select your initial base class.\r\n\r\n", ch);
 
             send_to_char("The following initial classes are available:\r\n", ch);
             for (iClass = 0; iClass < top_class; iClass++)
@@ -719,6 +718,8 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 }
 
             }
+
+            write_to_buffer(d, "\r\n");
             send_to_char("Select an initial class: ", ch);
             d->connected = CON_GET_NEW_CLASS;
             break;
@@ -771,22 +772,132 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                     ch->alignment = ALIGN_EVIL;
                     break;
                 default:
-                    send_to_desc("That's not a valid alignment.\r\n", d);
-                    send_to_desc("Which alignment (G/N/E)? ", d);
+                    send_to_char("That's not a valid alignment.\r\n", ch);
+                    send_to_char("Which alignment (G/N/E)? ", ch);
                     return;
             }
 
-            write_to_buffer(d, "\r\n");
+            send_to_char("\r\nWould you like to choose a merit for your character for 10cp (Y/N)?", ch);
+            d->connected = CON_ASK_MERIT;
 
+            break;
+        case CON_ASK_MERIT:
+            switch (argument[0])
+            {
+                case 'y':
+                case 'Y':
+                    send_to_char("\r\nThe following are valid merits:\r\n", ch);
+
+                    for (i = 0; merit_table[i].name != NULL; i++)
+                    {
+                        sendf(ch, "  {G*{x %s\r\n", merit_table[i].name);
+                    }
+
+                    send_to_char("\r\nPlease choose a merit: ", ch);
+
+                    d->connected = CON_CHOOSE_MERIT;
+                    return;
+                case 'n':
+                case 'N':
+                    // No merit, proceed to choose deity
+                    send_to_char("\r\nThe following are the deities available for you to follow:\r\n", ch);
+
+                    // Loop through the available deities and show the player only the
+                    // ones that they're allowed to take.
+                    for (i = 0; deity_table[i].name != NULL; i++)
+                    {
+                        if (deity_table[i].align != ALIGN_ALL)
+                        {
+                            if (deity_table[i].align != ch->alignment)
+                            {
+                                continue;
+                            }
+                        }
+
+                        sendf(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+                    }
+
+                    send_to_char("\r\nWhich deity do you wish to follow? ", ch);
+
+                    d->connected = CON_GET_DEITY;
+                    return;
+                default:
+                    // No valid, repeat ask
+                    send_to_char("Please choose yes or no ('Y' or 'N').\r\n", ch);
+                    return;
+            }
+
+            break;
+        case CON_CHOOSE_MERIT:
+            one_argument(argument, arg);
+            i = merit_lookup(argument);
+
+            if (i < 0)
+            {
+                send_to_char("That's not a valid merit.  Which merit do you want? ", ch);
+                return;
+            }
+
+            // Add 10 creation points and then add the merit
+            ch->pcdata->points += 10;
+            add_merit(ch, merit_table[i].merit);
+
+            // Deity is on deck
+            send_to_char("\r\n", ch);
+            send_to_char("The following are the deities available for you to follow:\r\n", ch);
+
+            // Loop through the available deities and show the player only the
+            // ones that they're allowed to take.
+            for (i = 0; deity_table[i].name != NULL; i++)
+            {
+                if (deity_table[i].align != ALIGN_ALL)
+                {
+                    if (deity_table[i].align != ch->alignment)
+                    {
+                        continue;
+                    }
+                }
+
+                sendf(ch, "  {G*{x %s, %s\r\n", deity_table[i].name, deity_table[i].description);
+            }
+
+            send_to_char("Which deity do you wish to follow? ", ch);
+
+            d->connected = CON_GET_DEITY;
+
+            return;
+        case CON_GET_DEITY:
+            one_argument(argument, arg);
+            i = deity_lookup(argument);
+
+            // Weed out invalid picks since deity_lookup will return anything (not just what was
+            // previously shown.
+            if (i < 0 || (deity_table[i].align != ch->alignment && deity_table[i].align != ALIGN_ALL))
+            {
+                send_to_char("That's not a valid deity for you.\r\n", ch);
+                send_to_char("Which deity do you wish to follow? ", ch);
+                return;
+            }
+
+            // It's valid, set the players deity.
+            ch->pcdata->deity = i;
+
+            // Prepare to take all the skills needed, setup default skills
+            send_to_char("\r\n", ch);
+
+            // Add the game basics group and the base group for the players class.
             group_add(ch, "rom basics", FALSE);
             group_add(ch, class_table[ch->class]->base_group, FALSE);
-            ch->pcdata->learned[gsn_recall] = 50;
-            send_to_desc("Do you wish to customize this character?\r\n", d);
-            send_to_desc("Customization takes time, but allows a wider range of skills and abilities.\r\n", d);
-            send_to_desc("Customize (Y/N)? ", d);
-            d->connected = CON_DEFAULT_CHOICE;
-            break;
 
+            // Skills they get for free
+            ch->pcdata->learned[gsn_recall] = 50;
+
+            send_to_char("Do you wish to customize this character?\r\n", ch);
+            send_to_char("Customization takes time, but allows a wider range of skills and abilities.\r\n", ch);
+            send_to_char("Customize (Y/N)? ", ch);
+            d->connected = CON_DEFAULT_CHOICE;
+
+            break;
         case CON_DEFAULT_CHOICE:
             write_to_buffer(d, "\r\n");
             switch (argument[0])
@@ -795,17 +906,22 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 case 'Y':
                     ch->gen_data = new_gen_data();
                     ch->gen_data->points_chosen = ch->pcdata->points;
-                    do_function(ch, &do_help, "group header");
+
+                    send_to_char("\r\nThe following skills and spells are available to your character:\r\n", ch);
+                    send_to_char("(this list may be seen again by typing 'list')\r\n\r\n", ch);
+
                     list_group_costs(ch);
-                    write_to_buffer(d, "You already have the following skills:\r\n");
-                    do_function(ch, &do_skills, "");
-                    do_function(ch, &do_help, "menu choice");
+
+                    // Commented out, they shouldn't have any skills at this point..
+                    //write_to_buffer(d, "You already have the following skills:\r\n");
+                    //do_function(ch, &do_skills, "");
+
+                    send_to_char("Choice: (list,add,drop,learned,info,help,done)? \r\n", ch);
                     d->connected = CON_GEN_GROUPS;
                     break;
                 case 'n':
                 case 'N':
-                    group_add(ch, class_table[ch->class]->default_group,
-                        TRUE);
+                    group_add(ch, class_table[ch->class]->default_group, TRUE);
                     write_to_buffer(d, "\r\n");
                     write_to_buffer(d, "Please pick a weapon from the following choices:\r\n");
                     buf[0] = '\0';
@@ -908,12 +1024,10 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 break;
             }
 
-            if (!parse_gen_groups(ch, argument))
-            {
-                send_to_char("Choices are: list,learned,premise,add,drop,info,help, and done.\r\n", ch);
-            }
+            parse_gen_groups(ch, argument);
 
-            do_function(ch, &do_help, "menu choice");
+            send_to_char("Choice: (list,add,drop,learned,info,help,done)? \r\n", ch);
+
             break;
 
         case CON_READ_IMOTD:
@@ -932,11 +1046,11 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
             if (!IS_NULLSTR(settings.login_greeting))
             {
-                printf_to_char(ch, "\r\n%s.\r\n\r\n", settings.login_greeting);
+                sendf(ch, "\r\n%s.\r\n\r\n", settings.login_greeting);
             }
             else if (!IS_NULLSTR(settings.mud_name))
             {
-                printf_to_char(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
+                sendf(ch, "\r\nWelcome to %s.\r\n\r\n", settings.mud_name);
             }
 
             // If the user is reclassing they will already be in the list, if not, add them.
@@ -954,6 +1068,7 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 // First time character bits
                 SET_BIT(ch->act, PLR_COLOR);
                 SET_BIT(ch->comm, COMM_TELNET_GA);
+                SET_BIT(ch->act, PLR_AUTOQUIT);
 
                 ch->perm_stat[class_table[ch->class]->attr_prime] += 3;
 
@@ -971,6 +1086,9 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
 
                 // Auto exit for first time players
                 SET_BIT(ch->act, PLR_AUTOEXIT);
+
+                // Will set auto loot by default
+                SET_BIT(ch->act, PLR_AUTOLOOT);
 
                 do_function(ch, &do_outfit, "");
                 obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP)), ch);
@@ -994,7 +1112,10 @@ void nanny(DESCRIPTOR_DATA * d, char *argument)
                 ch->pcdata->is_reclassing = FALSE;
 
                 char_from_room(ch);
-                char_to_room(ch, get_room_index(ROOM_VNUM_TEMPLE));
+
+                // This will transfer the player to their clan hall's altar.  If they aren't
+                // in a clan then ch->clan will be 0 and will go to the default altar.
+                char_to_room(ch, get_room_index(clan_table[ch->clan].hall));
 
                 // Outfit them with sub issue gear if they need it.
                 do_function(ch, &do_outfit, "");

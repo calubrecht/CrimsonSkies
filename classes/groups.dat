@@ -29,6 +29,12 @@ Sk 'second attack'
 End
 
 #GROUP
+Name 'barbarian basics'
+Sk 'sword'
+Sk 'second attack'
+End
+
+#GROUP
 Name 'enchantor basics'
 Sk 'dagger'
 End
@@ -55,6 +61,16 @@ End
 Name 'rogue basics'
 Sk 'dagger'
 Sk 'steal'
+End
+
+#GROUP
+Name 'psionicist basics'
+Sk 'dagger'
+End
+
+#GROUP
+Name 'priest basics'
+Sk 'mace'
 End
 
 #GROUP
@@ -112,6 +128,19 @@ Sk 'enhanced damage'
 Sk 'parry'
 Sk 'rescue'
 Sk 'third attack'
+End
+
+#GROUP
+Name 'barbarian default'
+Sk 'weaponsmaster'
+Sk 'shield block'
+Sk 'bash'
+Sk 'disarm'
+Sk 'enhanced damage'
+Sk 'parry'
+Sk 'rescue'
+Sk 'third attack'
+Sk 'natural refresh'
 End
 
 #GROUP
@@ -188,6 +217,34 @@ Sk 'shiv'
 End
 
 #GROUP
+Name 'psionicist default'
+Sk 'lore'
+Sk 'beguiling'
+Sk 'psionics'
+Sk 'detection'
+Sk 'enhancement'
+Sk 'illusion'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'transportation'
+Sk 'weather'
+End
+
+#GROUP
+Name 'priest default'
+Sk 'flail'
+Sk 'divination'
+Sk 'curative'
+Sk 'benedictions'
+Sk 'detection'
+Sk 'healing'
+Sk 'maladictions'
+Sk 'protective'
+Sk 'shield block'
+Sk 'transportation'
+End
+
+#GROUP
 Name 'weaponsmaster'
 Sk 'axe'
 Sk 'dagger'
@@ -238,6 +295,7 @@ Sk 'fireball'
 Sk 'lightning bolt'
 Sk 'magic missile'
 Sk 'shocking grasp'
+Sk 'ice blast'
 End
 
 #GROUP
@@ -357,6 +415,7 @@ Name 'illusion'
 Sk 'invis'
 Sk 'mass invis'
 Sk 'ventriloquate'
+Sk 'self projection'
 End
 
 #GROUP
@@ -419,6 +478,30 @@ End
 Name 'nature'
 Sk 'bark skin'
 Sk 'self growth'
+End
+
+#GROUP
+Name 'psionics'
+Sk 'psionic blast'
+Sk 'healing dream'
+Sk 'mental weight'
+Sk 'forget'
+Sk 'psionic focus'
+Sk 'clairvoyance'
+Sk 'psionic shield'
+Sk 'boost'
+End
+
+#GROUP
+Name 'divination'
+Sk 'agony'
+Sk 'holy presence'
+Sk 'displacement'
+Sk 'holy flame'
+Sk 'divine wisdom'
+Sk 'know religion'
+Sk 'guardian angel'
+Sk 'water walk'
 End
 
 #END

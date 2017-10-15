@@ -1,0 +1,611 @@
+#AREADATA
+Name Sylvan Clan Hall~
+Builders Crusher~
+VNUMs 10550 10599
+LevelRange 1 51
+Credits Crusher~
+Security 1
+Continent 2
+AreaFlags AB
+End
+
+
+
+#MOBILES
+#10550
+healer lara~
+Lara~
+Lara stands here, tending the altar.
+~
+A quiet elf with long flowing blond hair stands here tending to the altar.
+~
+elf~
+ABQVa DFHJ 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD B Z
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#10551
+elana cook~
+Elana~
+Elana stands here, over a huge stew kettle.
+~
+A fair young elven maiden, Elana possesses a graceful and attractive
+allure.  She has large, blue eyes, that twinkle as she smiles, noticing you
+looking at her.  Her skill in preparing the most savory and delicious elven
+dishes have earn the respect of those elves not already entranced by her
+beauty.
+~
+elf~
+ABV J 3 0
+23 0 1d1+999 1d1+99 1d8+20 beating
+-15 -15 -15 -15
+EFJ ABCD B Z
+stand stand female 1300
+AHMV ABCDEFGHIJK medium unknown
+#10552
+Lanac guard~
+Lanac~
+Lanac the bladesinger stands here ever watchful.
+~
+Lanac stands guard here, at the very entrance to the heart of the
+enchanted forest of the Sylvan.  His magical sword, "Singing Death" hums
+within it's sheath by Lanac's side.
+~
+elf~
+ABV HJ 3 0
+45 0 1d1+999 1d1+99 1d8+20 beating
+-15 -15 -15 -15
+EFJ ABCD B Z
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#10553
+elven guildmaster master~
+the elven guildmaster~
+The elven guildmaster is standing here.
+~
+Even though your guildmaster looks old and tired, you can clearly see the
+vast amount of knowledge she possesses. She is wearing fine magic clothing,
+and you notice that she is surrounded by a blue shimmering aura.
+~
+elf~
+ABJKRVb DEFJZ 3 0
+36 0 1d1+1999 1d1+999 3d8+24 magic
+-15 -15 -15 -15
+FG ABCD B Z
+stand stand female 0
+AHMV ABCDEFGHIJK medium unknown
+#0
+
+
+
+#OBJECTS
+#10550
+portal arcanis~
+a portal to the Arcanis port.~
+A portal to the Arcanis port.~
+unknown~
+portal ABT 0
+0 0 0 FGHIJLN 0
+0 0 0 P
+#10551
+portal Miden'nir~
+a portal to Miden'nir~
+A portal to Miden'nir~
+unknown~
+portal ABT 0
+0 0 0 AJKL 0
+0 0 0 P
+#10552
+sleeping pad willow~
+a sleeping pad~
+Several sleeping pads made of willow fronds, invite you to rest.~
+willow~
+furniture O P
+CFG FHJKPQ EHK 0 0
+1 0 0 P
+#10553
+fountain water~
+a gold-etched crystalline fountain~
+A gold-etched crystalline fountain stands here.~
+~
+fountain 0 0
+0 0 'water' 0 0
+0 0 0 P
+E
+fountain~
+It is very nice.  Made from fine white marble.
+~
+#10554
+sword singing death~
+a small sword named "Singing Death"~
+A small sword lays here vibrating gently.~
+mithril~
+weapon ABG AN
+sword 5 6 stab 0
+45 50 2000 P
+#10555
+elven way bread~
+a slice of elven way bread~
+A slice of elven way bread.~
+bread~
+food 0 A
+CD CD 0 0 0
+1 20 30 P
+#10556
+bowl broth~
+a bowl of broth~
+A bowl of broth sits here steaming.~
+broth~
+food 0 A
+BD BD 0 0 0
+1 20 20 P
+#10557
+shelves pit~
+the shelves~
+Shelves line the walls of the room, holding spare equipment~
+~
+container O 0
+10000 0 0 1000 100
+0 0 0 P
+#10558
+Lhedr-Eowyl pond~
+the pond~
+~
+~
+fountain 0 0
+0 0 'water' 0 0
+0 0 0 P
+E
+fountain~
+It is very nice.  Made from fine white marble.
+~
+#10559
+stone table~
+a large stone table~
+A beautifully carved stone table fills the room, with matching chairs.~
+wood~
+furniture 0 0
+F FHJKPQ DG 0 0
+0 0 0 P
+#10560
+whitestone circle~
+a whitestone circle~
+An elegantly-carved whitestone circle fills the room.~
+stone~
+furniture A 0
+AC EIJKN DG 0 0
+0 0 0 P
+#0
+
+
+
+#ROOMS
+#10550
+Heart of the Sylvan Forest~
+You stand before the very heart of the Sylvan forest, a place that is
+sacred to all elves save those whom are drow.  Huge vallenwood trees loom
+around the perimeter of this place, so closely grown together and magically
+bonded that there is no way in other than here.  A large boulder sits off to
+the side, obviously meant to block the entrance when needed. An elf stands
+guard here, wary of unwanted 'guests'.  Through the entrance, you see
+glimpses of the verdant gardens of the Hall of Moons.
+~
+0 0 3
+D2
+~
+~
+0 0 1818
+D4
+~
+~
+0 0 10551
+D6
+~
+~
+0 0 10552
+C sylvan~
+S
+#10551
+In the Trees~
+You stand amidst the leafy boughs of the Vallenwoods.  What looks to have
+once served as a bed, made entirely of woven branches and twigs, rests in
+the center of this small clearing.  Faint light penetrates this clearing
+from the sky above.
+~
+0 0 3
+D5
+~
+~
+0 0 10550
+C sylvan~
+S
+#10552
+The Garden of Spring~
+You are standing amidst a beautiful garden of blooming wildflowers and
+young trees.  The fragrance from the fauna is intoxicating, and brings to
+you memories of a beautiful spring morning, regardless of the weather
+outside of this garden.  A carefully cobbled pathway leads north to the Hall
+of Moons, and several smaller paths lead east and west.  To the southeast,
+you see the entrance.
+~
+0 0 0
+D0
+~
+~
+0 0 10553
+D1
+~
+~
+0 0 10568
+D3
+~
+~
+0 0 10565
+D9
+~
+~
+0 0 10550
+C sylvan~
+S
+#10553
+Entrance to the Hall of Moons~
+You have reached the entrance to the hall of Sylvan.  Around you, the
+courtyard continues, and before you are the doors that lead into the hall.
+To the north, you see the Hall of Moons, ancestral home to the ancient
+Sylvan elves.  The fragrance of the gardens extend from the south and
+west and to your east, you spy a small pond.
+~
+0 0 0
+D0
+~
+~
+0 0 10554
+D1
+~
+~
+0 0 10567
+D2
+~
+~
+0 0 10552
+D3
+~
+~
+0 0 10566
+C sylvan~
+S
+#10554
+The Hall of Moons~
+You have entered the hall proper.  Surrounding you are the 'walls' of the
+Hall of Moons, beautiful vallenwood trees physically and magically
+cultivated for thousands of years to provide protection.  The vallenwoods'
+leafy boughs provide a natural roof, and a magical light softly illuminates
+the entire hall from above.  A small pathway through these trees leads to the
+west, while the Hall continues to the north.
+~
+0 0 0
+D0
+~
+~
+0 0 10555
+D2
+~
+~
+0 0 10553
+D3
+~
+~
+0 0 10557
+C sylvan~
+S
+#10555
+The Speaker of the Moon's Circle~
+A wide circle surrounds this room, made of white crystal and glowing with
+a soft magical light.  Within the circle, there is a small platform where
+you can usually find the Speaker of Moons, the leader of all the houses of
+the Sylvan.  Unlike the rest of the Hall, this place does not have a
+roof, and you see the sky above.  At night, the moons and the circle of
+crystal provide more than adequate lighting.
+~
+0 0 0
+D0
+~
+~
+0 0 10556
+D2
+~
+~
+0 0 10554
+C sylvan~
+S
+#10556
+The Council Chambers~
+You have entered the Room of Council.  Tapestries hang along the walls of
+this room, where the Speaker of the Moons and the Senate usually meet to
+discuss the affairs of the Houses of Sylvan.  Several young elves clean
+and polish the huge stone table that dominates this room.
+~
+0 0 0
+D2
+~
+~
+0 0 10555
+C sylvan~
+S
+#10557
+The Dining Hall~
+A long table, covered with white silk fills this room.  An elf stands
+nearby, slowly stirring a stew kettle, over an open firepit.  Several elves
+are seated along the length of the table, eating what seems to be a
+delicious meal of Elana's stew and elven wine.
+~
+0 0 0
+D1
+~
+~
+0 0 10554
+D3
+~
+~
+0 0 10558
+C sylvan~
+S
+#10558
+The Altar of Sylvan~
+Large statues of elvish heroes line the walls of this room, and a
+beautifully carved altar, made of green marble, sit's at the center.  You
+feel as if the worries of the world have escaped you, and feel tempted to
+sit, rest and sleep just as a number of other elves in this room are doing
+now.  A young elf in white robes is kneeling at the altar, and prays to the
+gods and goddesses of Good.  A small staircase leads up to a second level,
+where you hear hushed voices and the quiet snore of a sleeping elf.
+~
+0 0 0
+D1
+~
+~
+0 0 10557
+D4
+~
+~
+0 0 10560
+D5
+~
+~
+0 0 10559
+C sylvan~
+S
+#10559
+The Moongates~
+Strong magical energy assaults you as you enter this room.  Here stand the
+the mystical Moongates.  Their function is to transport an elf to a
+destination in far-off places.
+~
+0 0 0
+D4
+~
+~
+0 0 10558
+C sylvan~
+S
+#10560
+Above the Altar~
+You are on a large, expansive platform above the Altar.  Sleeping pads
+surround you, some with elves, some without.  This is where many come to
+meditate and heal the physical and mental wounds of combat.  The soothing
+trickle of water emanates from a fountain at the southern end of the
+platform, which feeds a long, vanishing edge pool extending to the south.
+Running parallel to the pool are two walkways made of silver rope and ivory
+boards that lead into the foliage south.
+~
+0 0 0
+D2
+~
+~
+0 0 10561
+D5
+~
+~
+0 0 10558
+M 200 H 200
+C sylvan~
+S
+#10561
+Inside the Trunk of a Vallenwood~
+The cavernous body of this vallenwood has been magically altered to give
+it a towering internal capacity, filling the air with the presence of
+powerful magic.  There is no air circulation to speak of and many tiny dust
+motes are suspended in the air, flickering like golden sparks lit by the
+soft glow of several hundred magical spheres.
+~
+0 0 0
+D0
+~
+~
+0 0 10560
+D1
+~
+~
+0 0 10562
+C sylvan~
+S
+#10562
+Sylvan Storehouse~
+You are in the large vallenwood tree that serves as the storage area.
+Shelves line the walls, filled with equipment and magical items for all
+Sylvan to use.  The spiral stairs down to the merchant's caravan below.  A
+walkway of silvery rope and ivory boards leads into a separate and equally
+large vallenwood to the west.
+~
+0 0 0
+D3
+~
+~
+0 0 10561
+D5
+~
+~
+0 0 10563
+C sylvan~
+S
+#10563
+Base of a Vallenwood~
+A huge Vallenwood looms here.  A spiral staircase inside the ancient
+Vallenwood leads up to the mystic shelves which store spare equipment and
+items for use of the elves.  To the east you can spy the Garden Spring.
+~
+0 0 0
+D1
+~
+~
+0 0 10565
+D4
+~
+~
+0 0 10562
+C sylvan~
+S
+#10564
+Sylvan Guildmaster~
+You are standing in the cut out trunk of large Vallenwood tree.  On the
+walls hang many daggers, swords and items of magical creation.  In the back
+of the room stands an aged elf whose job is to assist with the training of
+the sapplings.
+~
+0 0 0
+D0
+~
+~
+0 0 10568
+C sylvan~
+S
+#10565
+The Garden of Spring~
+You are standing amidst a beautiful garden of blooming wildflowers and
+young trees.  The fragrance from the fauna is intoxicating, and brings to
+you memories of a beautiful spring morning, regardless of the weather
+outside of this garden.  A cobblestone pathway leads to the west, towards a
+merchant's wagon and above it, a large vallenwood tower.  The garden extends
+to the north and east.
+~
+0 0 0
+D0
+~
+~
+0 0 10566
+D1
+~
+~
+0 0 10552
+D3
+~
+~
+0 0 10563
+C sylvan~
+S
+#10566
+The Garden of Spring~
+You are standing amidst a beautiful garden of blooming wildflowers and
+young trees.  The fragrance from the fauna is intoxicating, and brings to
+you memories of a beautiful spring morning, regardless of the weather
+outside of this garden.  The garden extends to the south, and to your east,
+you see the entrance to the Hall of Moons.
+~
+0 0 0
+D1
+~
+~
+0 0 10553
+D2
+~
+~
+0 0 10565
+C sylvan~
+S
+#10567
+Enedeithel Pond~
+The 'Soul's Mirror' pond, it is said that looking upon it's reflective
+surface is to look into one's very soul.  Sacred to the Sylvan, this
+pond's water flows from a source deep below, which also supplies fresh water
+to the fountains throughout the Hall of Moons.  Sounds of metal clashing can
+be heard to the south, and to the west lies the entrance to the Hall of
+Moons.
+~
+0 0 0
+D2
+~
+~
+0 0 10568
+D3
+~
+~
+0 0 10553
+C sylvan~
+S
+#10568
+The Field of Song~
+A small enclosed area, the Field of Song is meant to test the mental and
+physical prowess of Sylvan's greatest, the bladesingers.  As you stand
+here, you notice several young apprentices follow an older elf to the east,
+towards a large vallenwood tower.  To the north, away from the sounds of
+mystical words and swords clashing, is a small pond.  A fragrance emanates
+from the Garden of Spring to the west.  A grove of vallenwood trees grows to
+the south.
+~
+0 0 0
+D0
+~
+~
+0 0 10567
+D2
+~
+~
+0 0 10564
+D3
+~
+~
+0 0 10552
+C sylvan~
+S
+#0
+
+
+
+#SPECIALS
+M 10553 spec_cast_mage
+S
+
+
+
+#RESETS
+M 0 10552 1 10550 1 Load Lanac
+E 0 10554 0 16 A small sword named "singing death" is loaded wielded of Lanac
+O 0 10560 0 10555 A whitestone circle loaded to The Speaker of the Moon's Circle
+O 0 10559 0 10556 A large stone table loaded to The Council Chambers
+M 0 10551 1 10557 1 Load Elana
+G 0 10555 0 A slice of elven way bread is given to Elana
+G 0 10556 0 A bowl of broth is given to Elana
+M 0 10550 1 10558 1 Load Lara
+O 0 10550 0 10559 A portal to the arcanis port. loaded to The Moongates
+O 0 10551 0 10559 A portal to miden'nir loaded to The Moongates
+O 0 10552 0 10560 A sleeping pad loaded to Above the Altar
+O 0 10553 0 10560 A gold-etched crystalline fountain loaded to Above the Altar
+O 0 10557 0 10562 The shelves loaded to Sylvan Storehouse
+M 0 10553 1 10564 1 Load the elven guildmaster
+O 0 10558 0 10567 The pond loaded to Enedeithel Pond
+S
+
+
+
+#SHOPS
+10551 19 0 0 0 0 100 100 1 23
+0
+
+
+
+#MOBPROGS
+#0
+
+#$

@@ -59,7 +59,6 @@ void do_disable(CHAR_DATA *ch, char *argument)
 {
     int i;
     DISABLED_DATA *p, *q;
-    char buf[100];
 
     if (IS_NPC(ch))
     {
@@ -82,9 +81,9 @@ void do_disable(CHAR_DATA *ch, char *argument)
 
         for (p = disabled_first; p; p = p->next)
         {
-            sprintf(buf, "%-21s %5d   %-12s\r\n", p->command->name, p->level, p->disabled_by);
-            send_to_char(buf, ch);
+            sendf(ch, "%-21s %5d   %-12s\r\n", p->command->name, p->level, p->disabled_by);
         }
+
         return;
     }
 

@@ -6,6 +6,7 @@ LevelRange 1 51
 Credits Rhien~
 Security 1
 Continent 2
+AreaFlags A
 End
 
 
@@ -171,7 +172,7 @@ Before you stands a tired looking bartender of average height.  He has
 short brown hair and looks as if he's been through the ringer a few times.  
 ~
 human~
-ABHVXYZ D 1 0
+ABHVXY D 1 0
 20 0 3d9+333 10d9+100 2d8+5 none
 -4 -4 -4 7
 EFNU 0 0 0
@@ -240,6 +241,110 @@ ABQVa DFH 3 0
 FHIK ABCD 0 0
 stand stand male 5000
 AHMV ABCDEFGHIJK medium unknown
+#715
+scribe shazman scribe~
+Shazman~
+Shazman the scribe of Red Oak is here.
+~
+The aged scribe stands at average height and has a long white beard.  He
+is wearing robes that are worn and has a parn of spectacles that make is eye
+seem very small behind them.  
+~
+human~
+ABVZ DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#716
+timor merchant~
+Timor~
+Timor, the shopkeeper
+~
+You see a half-elf sitting on a stool behind his counter.
+~
+human~
+ABV DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK BCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#717
+banker~
+The banker~
+A banker wearing a suit with black suspenders is here.
+~
+~
+human~
+ABLV DFH 3 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK BCD 0 0
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#718
+guildmaster master~
+the guildmaster~
+Your guildmaster is standing here.
+~
+A large warrior with chainmail armor and swords sheathed on both sides of
+his body stands here.  He has a trimmed black beard and scars to prove that
+he has seen much combat in his day.  
+~
+human~
+ABJKTVb DFJ 3 0
+36 0 1d1+1999 1d1+199 3d8+24 beating
+-20 -20 -20 -20
+ACDEIK ABCD LQ R
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#719
+mage guildmaster~
+the guildmaster~
+Your guildmaster stands here.
+~
+An old man peering through ancient tomes rests here.
+~
+human~
+ABJKRVb DF 2 0
+40 10 1d1+30000 1d1+499 5d8+5 pierce
+-15 -15 -15 -15
+FHN ABCD 0 0
+stand stand male 15000
+AHMV ABCDEFGHIJK medium unknown
+#720
+thief guildmaster~
+the guildmaster~
+Your guildmaster stands here.
+~
+The thief snickers are you while he spins a coin around his fingers with
+practised ease.  You wonder if it's your coin.  
+~
+human~
+ABJKRVb DF 2 0
+40 10 1d1+30000 1d1+499 5d8+5 pierce
+-15 -15 -15 -15
+FHN ABCD 0 0
+stand stand male 15000
+AHMV ABCDEFGHIJK medium unknown
+#721
+guildmaster master~
+the guildmaster~
+Your guildmaster is standing here.
+~
+Even though your guildmaster looks old and tired, you can clearly see the
+vast amount of knowledge she possesses. She is wearing fine magic clothing,
+and you notice that she is surrounded by a blue shimmering aura.
+~
+human~
+ABJKRVb DEFJZ 3 0
+36 0 1d1+1999 1d1+999 3d8+24 magic
+-15 -15 -15 -15
+FG ABCD B Z
+stand stand female 0
+AHMV ABCDEFGHIJK medium unknown
 #0
 
 
@@ -266,9 +371,9 @@ weapon 0 AN
 dagger 1 5 stab 0
 3 10 250 G
 A
-19 1
-A
 18 1
+A
+19 1
 #702
 red oak sword~
 a red oak sword~
@@ -278,9 +383,9 @@ weapon 0 AN
 sword 1 6 slice 0
 3 30 300 G
 A
-19 1
-A
 18 1
+A
+19 1
 #703
 red oak long sword~
 a red oak long sword~
@@ -290,9 +395,9 @@ weapon 0 AN
 sword 2 5 pierce 0
 9 50 900 G
 A
-19 1
-A
 18 1
+A
+19 1
 #704
 club~
 a red oak club~
@@ -484,14 +589,14 @@ light 0 A
 0 0 BDEFGH 0 0
 0 40 75 P
 E
+letters~
+They say, "Use 'hold lantern' to activate."
+~
+E
 lantern~
 It is a large and robust but somewhat battered oil lantern made from brass,
 equipped with a handle to make it handy and a hood to protect its flame.
 Some letters have been scratched on its bottom.
-~
-E
-letters~
-They say, "Use 'hold lantern' to activate."
 ~
 #724
 bag~
@@ -698,6 +803,70 @@ paper~
 parchment 0 A
 0 0 0 0 0
 1 10 100 P
+#749
+furry white seed~
+a furry white seed~
+A furry white seed lies here.~
+seed~
+seed 0 A
+BCDFGHJ BEF 0 0 0
+1 0 500 P
+#750
+milk thistle root~
+a milk thistle root~
+A milk thistle root lies here.~
+milk root~
+pill G AO
+10 'sanctuary' 'reserved' 'reserved' 'reserved'
+11 10 800 P
+#751
+carrot seed~
+a carrot seed~
+A carrot seed lies here.~
+seed~
+seed 0 A
+EFGHJ CDEF 0 0 0
+1 0 10 P
+#752
+carrot~
+a carrot~
+A carrot lies here.~
+food~
+food 0 A
+CD CD 0 0 0
+1 10 9 P
+#753
+pumpkin seed~
+a pumpkin seed~
+A pumpkin seed lies here.~
+seed~
+seed 0 A
+BEFGHJ CDEF 0 0 0
+1 0 10 P
+#754
+pumpkin~
+a pumpkin~
+A pumpkin lies here.~
+food~
+food 0 A
+CD CD 0 0 0
+1 10 9 P
+#755
+ash gray seed~
+an ash gray seed~
+An ash gray seed lies here.~
+seed~
+seed 0 A
+CEFGHJ CE 0 0 0
+1 0 500 P
+#756
+ash root~
+an ash root~
+An ash root lies here.~
+root~
+pill G AO
+10 'stone skin' 'reserved' 'reserved' 'reserved'
+11 10 800 P
 #0
 
 
@@ -736,10 +905,18 @@ canopy above the road and the surrounding buildings.  To the west the large
 gates of Red Oak stand sturdy and tall.  
 ~
 0 262144 1
+D0
+~
+~
+0 0 739
 D1
 ~
 ~
 0 0 702
+D2
+~
+~
+0 0 744
 D3
 ~
 ~
@@ -880,6 +1057,10 @@ Close to the east you can see the eastern gates of the city.  To the west
 heads towards the Town Center.  
 ~
 0 262144 1
+D0
+~
+~
+0 0 740
 D1
 ~
 ~
@@ -897,6 +1078,10 @@ canopy above the road and the surrounding buildings.  To the east the large
 gates of Red Oak stand sturdy and tall.  
 ~
 0 262144 1
+D1
+~
+~
+0 0 1812
 D3
 ~
 ~
@@ -1219,10 +1404,18 @@ D0
 ~
 ~
 0 0 704
+D1
+~
+~
+0 0 745
 D2
 ~
 ~
 0 0 727
+D3
+~
+~
+0 0 747
 S
 #727
 South Gate Road~
@@ -1236,10 +1429,18 @@ D0
 ~
 ~
 0 0 726
+D1
+~
+~
+0 0 751
 D2
 ~
 ~
 0 0 728
+D3
+~
+~
+0 0 749
 S
 #728
 South Gate Road~
@@ -1417,6 +1618,209 @@ D3
 ~
 0 0 725
 S
+#739
+Scribes Shop~
+You are standing in a room that has the scent of ink and old parchment. 
+There are no windows letting light in and the room is lit by a fire that's
+roaring in the fireplace.  At the end of the room is a long counter, behind
+the counter lies stacks and stacks of parchment.  
+~
+0 262144 1
+D2
+~
+~
+0 0 701
+S
+#740
+A Stone Archway to Timor's~
+You are standing at a stone arch-way stands over a cobblestone path that
+leads to a humble wooden establishment ahead.  A large wooden sign is
+hanging from the archway by thick bound rope.
+~
+0 0 0
+E
+sign~
+The sign reads: Timor's Seed Shop 
+~
+D0
+~
+~
+0 0 741
+D2
+~
+~
+0 0 707
+S
+#741
+Cobblestone Walkway~
+The cobblestone under your feet looks to be worn by time and the
+footsteps of many people over that have passed over it.  Directly to the
+north of you is the door to the wooden seed shack while a vast yard lays to
+the east.  
+~
+0 0 1
+D0
+~
+~
+0 0 742
+D1
+~
+~
+0 0 743
+D2
+~
+~
+0 0 740
+S
+#742
+Inside Timor's Shop~
+You are standing in a room with many many seeds, herbs and other type
+items covering the entire place.  A large counter stands in the back of the
+room and many of the better wares are laying behind the wooden stand.
+~
+0 8 0
+D2
+~
+~
+0 0 741
+S
+#743
+Timor's Garden~
+You are standing inside of Timor's garden.  The long yard has segmented
+gardens that are growing various types of produce and herbs.  Everything
+seems lush as the aroma of live vegetation fills the air.  
+~
+0 0 2
+D3
+~
+~
+0 0 741
+S
+#744
+Bank of Red Oak~
+You are standing in the lobby of the bank of Red Oak.  The floor is made
+of smooth marble with various tones of gray striated throughout it.  A
+banker sits behind the counter that is shielded from you with iron bars,
+only allowing for small items to pass between you and him.  
+~
+0 262152 0
+D0
+~
+~
+0 0 701
+S
+#745
+Warrior's Guild~
+You are standing inside of the warrior's guild of Red Oak.  Swords and
+daggers adorn the walls and the south of the clinking of sword on armor can
+be heard from the north.  
+~
+0 262184 0
+D0
+~
+~
+0 0 746
+D3
+~
+~
+0 0 726
+S
+#746
+Warrior's Guild~
+You are standing in a large room that has been crafted as a small arena
+of sorts.  A large and muscular warrior stands at the end of the room
+overseeing those who come to seek his training in the art of combat.  
+~
+0 262152 0
+D2
+~
+~
+0 0 745
+S
+#747
+Mage's Guild~
+As you enter this room you can feel the magic swirl about you.  Books
+are scattered about and magical symbols are drawn on the floor.  In the
+center of all of this sets a wizard's stone.  
+~
+0 40 0
+D0
+~
+~
+0 0 748
+D1
+~
+~
+0 0 726
+S
+#748
+Mage's Guild~
+The walls are lined with shelves filled with books and magical trinkets. 
+In the center of the room is a large crystal ball with swirling images
+emanating from it.  
+~
+0 8 0
+D2
+~
+~
+0 0 747
+S
+#749
+Thieve's Guild~
+You are standing in the thieves guild.  Everything is a little dingy and
+there are some odd looking characters standing about eyeing your every
+movement.  There are various short daggers, coin purses and knick knacks
+strewn about.  
+~
+0 40 0
+D1
+~
+~
+0 0 727
+D2
+~
+~
+0 0 750
+S
+#750
+Thieve's Guild~
+The open hidden panel behind you seems to shed no light in here, and you
+find yourself in complete darkness.  You feel the presence of someone in the
+room with you--was that a finger on your purse?!?  Quick!  Make a light!  
+~
+0 0 0
+D0
+~
+~
+0 0 749
+S
+#751
+Cleric's Guild~
+Many ornate tapestries hang from the walls depicting the various God's of
+the world or acts of those followers throughout time.  There are candles lit
+all along the wall and there is a distinct holy feeling about this place.  
+~
+0 40 0
+D2
+~
+~
+0 0 752
+D3
+~
+~
+0 0 727
+S
+#752
+Cleric's Guild~
+This is a small room with colored light filtering in from the stained
+glass.  A man with robes and an ornate staff waits here to train you.  
+~
+0 8 0
+D0
+~
+~
+0 0 751
+S
 #0
 
 
@@ -1427,6 +1831,7 @@ M 705 spec_cast_mage
 M 711 spec_executioner
 M 712 spec_thief
 M 714 spec_cast_adept
+M 721 spec_cast_mage
 S
 
 
@@ -1514,6 +1919,17 @@ G 0 743 0 A bottle of red oak lager is given to Leesaport the bartender
 G 0 744 0 A barrel of beer is given to Leesaport the bartender
 G 0 745 0 A shot of whisky is given to Leesaport the bartender
 M 0 714 1 738 1 Load the healer
+M 0 715 1 739 1 Load Shazman
+M 0 716 1 742 1 Load Timor
+G 0 749 0 A furry white seed is given to Timor
+G 0 751 0 A carrot seed is given to Timor
+G 0 753 0 A pumpkin seed is given to Timor
+G 0 755 0 An ash gray seed is given to Timor
+M 0 717 1 744 1 Load The banker
+M 0 718 1 746 1 Load the guildmaster
+M 0 719 1 748 1 Load the guildmaster
+M 0 720 1 750 1 Load the guildmaster
+M 0 721 1 752 1 Load the guildmaster
 S
 
 
@@ -1526,6 +1942,7 @@ S
 706 1 8 13 15 19 150 40 0 23
 707 9 0 0 0 0 100 50 0 23
 710 0 0 0 0 0 110 90 0 23
+716 0 0 0 0 0 100 50 0 23
 0
 
 

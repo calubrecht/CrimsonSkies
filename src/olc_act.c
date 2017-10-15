@@ -1137,7 +1137,7 @@ REDIT(redit_show)
     if (pRoom->clan > 0)
     {
         sprintf(buf, "Clan      : [%d] %s\r\n",
-            pRoom->clan, clan_table[pRoom->clan].name);
+            pRoom->clan, clan_table[pRoom->clan].friendly_name);
         strcat(buf1, buf);
     }
 
@@ -2378,6 +2378,15 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             send_to_char(buf, ch);
             break;
 
+        case ITEM_SEED:
+            sprintf(buf,
+                "[v0] Vnum to Grow: [%d]\r\n"
+                "[v1] Percent Bonus: [%d]\r\n",
+                obj->value[0],
+                obj->value[1]);
+            send_to_char(buf, ch);
+            break;
+
         case ITEM_FOUNTAIN:
             sprintf(buf,
                 "[v0] Liquid Total: [%d]\r\n"
@@ -2563,6 +2572,23 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num, char *
                     pObj->value[0] = atoi(argument);
                     break;
             }
+            break;
+        case ITEM_SEED:
+            switch (value_num)
+            {
+                default:
+                    send_to_char("Nature System:  Grow Seed.\r\n", ch);
+                    return FALSE;
+                case 0:
+                    send_to_char( "Vnum of object to grow SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char( "Bonus for growing SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+            }
+
             break;
         case ITEM_PORTAL:
             switch (value_num)
@@ -5309,7 +5335,7 @@ HEDIT(hedit_level)
 
     if (lev < -1 || lev > MAX_LEVEL)
     {
-        printf_to_char(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
+        sendf(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
             MAX_LEVEL);
         return FALSE;
     }
@@ -6234,6 +6260,33 @@ CEDIT(cedit_name)
     return TRUE;
 }
 
+CEDIT(cedit_clan)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  clan [clan name]\r\n", ch);
+        return FALSE;
+    }
+
+    class->clan = clan_lookup(argument);
+
+    if (class->clan == 0)
+    {
+        send_to_char("Clan cleared.\r\n", ch);
+    }
+    else
+    {
+        send_to_char("Clan set.\r\n", ch);
+    }
+
+    return TRUE;
+}
+
+
 CEDIT(cedit_whoname)
 {
     CLASSTYPE *class;
@@ -6411,11 +6464,11 @@ CEDIT(cedit_mana)
 
     if (!str_prefix(argument, "true"))
     {
-        class->fMana = TRUE;
+        class->mana = TRUE;
     }
     else if (!str_prefix(argument, "false"))
     {
-        class->fMana = FALSE;
+        class->mana = FALSE;
     }
     else
     {
@@ -6662,13 +6715,24 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     sprintf(buf, "HP Max:        [%d]\r\n", class->hp_max);
     send_to_char(buf, ch);
-    sprintf(buf, "Mana:          [%s]\r\n", class->fMana ? "True" : "False");
+    sprintf(buf, "Mana:          [%s]\r\n", class->mana ? "True" : "False");
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
     send_to_char(buf, ch);
     sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
+
+    if (class->clan > 0)
+    {
+        sprintf(buf, "Clan Specific: [%s]\r\n", clan_table[class->clan].friendly_name);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        send_to_char("Clan Specific: [None]\r\n", ch);
+    }
+
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);
     sprintf(buf, "Default Group: [%s]\r\n", class->default_group);
@@ -6715,6 +6779,7 @@ CEDIT(cedit_guild)
     char arg1[MAX_STRING_LENGTH];
     char arg2[MAX_STRING_LENGTH];
     int num, vnum;
+    ROOM_INDEX_DATA *room;
 
     EDIT_CLASS(ch, class);
 
@@ -6727,9 +6792,9 @@ CEDIT(cedit_guild)
     argument = one_argument(argument, arg1);
     argument = one_argument(argument, arg2);
     num = atoi(arg1);
-    vnum = atoi(arg1);
+    vnum = atoi(arg2);
 
-    if (!is_number(arg1) || !is_number(arg2) == '\0')
+    if (!is_number(arg1) || !is_number(arg2))
     {
         send_to_char("Syntax:  guild [#] Room_Vnum\r\n", ch);
         return FALSE;
@@ -6741,7 +6806,22 @@ CEDIT(cedit_guild)
         return FALSE;
     }
 
+    if (vnum > top_vnum_room)
+    {
+        send_to_char("That is a greater vnum than any existing room.\r\n", ch);
+        return FALSE;
+    }
+
+
+    if ((room = get_room_index(vnum)) == NULL)
+    {
+        send_to_char("That is an invalid room.\r\n", ch);
+        return FALSE;
+    }
+
     class->guild[num] = vnum;
+
+    sendf(ch, "Guild slot %d set to {c%s{x [Room %d].\r\n", num, room->name, vnum);
 
     return TRUE;
 }
@@ -7151,6 +7231,8 @@ SEDIT(sedit_show)
         send_to_char(buf, ch);
     }
 
+    sprintf(buf, "Ranged:       [%s]\n\r", skill->ranged ? "True" : "False");
+    send_to_char(buf, ch);
 
     send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
     send_to_char("--------------------------------------------------------\r\n", ch);
@@ -7453,7 +7535,7 @@ SEDIT(sedit_rating)
     }
 
     for (class_no = 0; class_no < top_class; class_no++)
-        if (!str_cmp(class_name, class_table[class_no]->name))
+        if (!str_prefix(class_name, class_table[class_no]->name))
             break;
 
     if (class_no >= top_class)
@@ -7487,3 +7569,30 @@ SEDIT(sedit_race)
     return TRUE;
 }
 
+SEDIT( sedit_ranged)
+{
+    SKILLTYPE *skill;
+    EDIT_SKILL(ch, skill);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  ranged [true/false]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+        skill->ranged = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+        skill->ranged = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  ranged [true/false]\r\n", ch );
+        return FALSE;
+    }
+
+    return TRUE;
+}

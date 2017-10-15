@@ -317,6 +317,7 @@ DECLARE_OLC_FUN(sedit_level);
 DECLARE_OLC_FUN(sedit_rating);
 DECLARE_OLC_FUN(sedit_race);
 DECLARE_OLC_FUN(sedit_damage);
+DECLARE_OLC_FUN(sedit_ranged);
 
 /* Class Editor */
 DECLARE_OLC_FUN(cedit_name);
@@ -340,6 +341,8 @@ DECLARE_OLC_FUN(cedit_spells);
 DECLARE_OLC_FUN(cedit_groups);
 DECLARE_OLC_FUN(cedit_isreclass);
 DECLARE_OLC_FUN(cedit_isenabled);
+DECLARE_OLC_FUN(cedit_clan);
+DECLARE_OLC_FUN(cedit_guild);
 
 /*
 * Macros

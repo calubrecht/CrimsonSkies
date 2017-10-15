@@ -228,10 +228,10 @@ void cold_effect(void *vo, int level, int dam, int target)
             AFFECT_DATA af;
 
             act("$n turns blue and shivers.", victim, NULL, NULL, TO_ROOM);
-            act("A chill sinks deep into your bones.", victim, NULL, NULL,
-                TO_CHAR);
+            act("A chill sinks deep into your bones.", victim, NULL, NULL, TO_CHAR);
+
             af.where = TO_AFFECTS;
-            af.type = skill_lookup("chill touch");
+            af.type = gsn_chill_touch;
             af.level = level;
             af.duration = 6;
             af.location = APPLY_STR;
@@ -332,11 +332,10 @@ void fire_effect(void *vo, int level, int dam, int target)
         {
             AFFECT_DATA af;
             act("$n is blinded by smoke!", victim, NULL, NULL, TO_ROOM);
-            act("Your eyes tear up from smoke...you can't see a thing!",
-                victim, NULL, NULL, TO_CHAR);
+            act("Your eyes tear up from smoke...you can't see a thing!", victim, NULL, NULL, TO_CHAR);
 
             af.where = TO_AFFECTS;
-            af.type = skill_lookup("fire breath");
+            af.type = gsn_fire_breath;
             af.level = level;
             af.duration = number_range(0, level / 10);
             af.location = APPLY_HITROLL;
@@ -649,7 +648,7 @@ bool stun_effect(CHAR_DATA *ch, CHAR_DATA *victim)
     // Testers can see the stun chance, this should help us trouble shoot issues and balance.
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Stun Chance {W%d%%{x]\r\n", chance);
+        sendf(ch, "[Stun Chance {W%d%%{x]\r\n", chance);
     }
 
     // The moment of truth

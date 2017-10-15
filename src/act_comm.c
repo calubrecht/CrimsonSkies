@@ -317,7 +317,6 @@ void do_replay(CHAR_DATA * ch, char *argument)
  */
 void do_auction(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -347,16 +346,16 @@ void do_auction(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\r\n", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
         }
 
         REMOVE_BIT(ch->comm, COMM_NOAUCTION);
     }
 
-    sprintf(buf, "{xYou auction '{m%s{x'\r\n", argument);
-    send_to_char(buf, ch);
+    argument = make_drunk(argument, ch);
+    sendf(ch, "{xYou auction '{m%s{x'\r\n", argument);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *victim;
@@ -369,8 +368,7 @@ void do_auction(CHAR_DATA * ch, char *argument)
             !IS_SET(victim->comm, COMM_NOAUCTION) &&
             !IS_SET(victim->comm, COMM_QUIET))
         {
-            act_new("{x$n auctions '{m$t{x'",
-                ch, argument, d->character, TO_VICT, POS_DEAD);
+            act_new("{x$n auctions '{m$t{x'", ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
 } // end do_auction
@@ -378,7 +376,6 @@ void do_auction(CHAR_DATA * ch, char *argument)
 /* RT chat replaced with ROM gossip */
 void do_gossip(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -411,8 +408,8 @@ void do_gossip(CHAR_DATA * ch, char *argument)
 
         REMOVE_BIT(ch->comm, COMM_NOGOSSIP);
 
-        sprintf(buf, "{xYou gossip '{W%s{x'\r\n", argument);
-        send_to_char(buf, ch);
+        argument = make_drunk(argument, ch);
+        sendf(ch, "{xYou gossip '{W%s{x'\r\n", argument);
 
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -437,7 +434,6 @@ void do_gossip(CHAR_DATA * ch, char *argument)
  */
 void do_cgossip(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (argument[0] == '\0')
@@ -470,8 +466,8 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
 
         REMOVE_BIT(ch->comm, COMM_NOCGOSSIP);
 
-        sprintf(buf, "{xYou clan gossip '{R%s{x'\r\n", argument);
-        send_to_char(buf, ch);
+        argument = make_drunk(argument, ch);
+        sendf(ch, "{xYou clan gossip '{R%s{x'\r\n", argument);
 
         for (d = descriptor_list; d != NULL; d = d->next)
         {
@@ -492,7 +488,7 @@ void do_cgossip(CHAR_DATA * ch, char *argument)
 } // end do_cgossip
 
 /*
- * OOC channel for out of character conversation.
+ * OOC channel for out of character conversation. (no drunk conversion on ooc)
  */
 void do_ooc(CHAR_DATA * ch, char *argument)
 {
@@ -550,6 +546,9 @@ void do_ooc(CHAR_DATA * ch, char *argument)
     }
 } // end do_gossip
 
+/*
+ * Grats channel for congratulations (no drunk conversion on grats)
+ */
 void do_grats(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -579,8 +578,7 @@ void do_grats(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(ch->comm, COMM_NOCHANNELS))
         {
-            send_to_char
-                ("The gods have revoked your channel priviliges.\r\n", ch);
+            send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
             return;
 
         }
@@ -607,7 +605,7 @@ void do_grats(CHAR_DATA * ch, char *argument)
     }
 }
 
-/* RT question channel */
+/* RT question channel (no drunk conversion on question/answer) */
 void do_question(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -664,7 +662,7 @@ void do_question(CHAR_DATA * ch, char *argument)
     }
 }
 
-/* RT answer channel - uses same line as questions */
+/* RT answer channel - uses same line as questions (no drunk conversion on answer) */
 void do_answer(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -724,7 +722,6 @@ void do_answer(CHAR_DATA * ch, char *argument)
 /* clan channels */
 void do_clantalk(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
 
     if (!is_clan(ch) || clan_table[ch->clan].independent)
@@ -750,15 +747,15 @@ void do_clantalk(CHAR_DATA * ch, char *argument)
 
     if (IS_SET(ch->comm, COMM_NOCHANNELS))
     {
-        send_to_char("The gods have revoked your channel priviliges.\r\n",
-            ch);
+        send_to_char("The gods have revoked your channel priviliges.\r\n", ch);
         return;
     }
 
     REMOVE_BIT(ch->comm, COMM_NOCLAN);
 
-    sprintf(buf, "{xYou clan '{G%s{x'\r\n", argument);
-    send_to_char(buf, ch);
+    argument = make_drunk(argument, ch);
+    sendf(ch, "{xYou clan '{G%s{x'\r\n", argument);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING &&
@@ -776,7 +773,7 @@ void do_clantalk(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * OOC Clan Talk
+ * OOC Clan Talk (no drunk conversion on oclan)
  */
 void do_oclantalk(CHAR_DATA *ch, char *argument)
 {
@@ -858,8 +855,7 @@ void do_immtalk(CHAR_DATA * ch, char *argument)
             IS_IMMORTAL(d->character) &&
             !IS_SET(d->character->comm, COMM_NOWIZ))
         {
-            act_new("{C$n: {W$t{x", ch, argument, d->character, TO_VICT,
-                POS_DEAD);
+            act_new("{C$n: {W$t{x", ch, argument, d->character, TO_VICT, POS_DEAD);
         }
     }
 
@@ -907,6 +903,9 @@ void do_pray(CHAR_DATA * ch, char *argument)
     }
 } // end do_pray
 
+/*
+ * Allows a player to say something to the awake people in the room who aren't asleep.
+ */
 void do_say(CHAR_DATA * ch, char *argument)
 {
     if (argument[0] == '\0')
@@ -915,10 +914,6 @@ void do_say(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // The old way only took these two lines, I'm leaving them here in case I want
-    // to roll back.
-    //act ("{x$n says '{g$T{x'", ch, NULL, argument, TO_ROOM);
-    //act ("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR);
 
     if (ch->in_room != NULL)
     {
@@ -926,11 +921,11 @@ void do_say(CHAR_DATA * ch, char *argument)
 
         to = ch->in_room->people;
 
+        argument = make_drunk(argument, ch);
         act_new("{xYou say '{g$T{x'", ch, NULL, argument, TO_CHAR, POS_RESTING);
 
         for (; to != NULL; to = to->next_in_room)
         {
-            // marker
             if (!IS_SET(to->affected_by, AFF_DEAFEN))
             {
                 act_new("{x$n says '{g$t{x'", ch, argument, to, TO_VICT, POS_RESTING);
@@ -948,11 +943,66 @@ void do_say(CHAR_DATA * ch, char *argument)
         for (mob = ch->in_room->people; mob != NULL; mob = mob_next)
         {
             mob_next = mob->next_in_room;
+
             if (IS_NPC(mob) && HAS_TRIGGER(mob, TRIG_SPEECH)
                 && mob->position == mob->pIndexData->default_pos)
+            {
                 mp_act_trigger(argument, mob, ch, NULL, NULL, TRIG_SPEECH);
+            }
         }
     }
+    return;
+}
+
+/*
+ * Allows a player to whisper something to the room (more of an RP say to denote inflection).
+ */
+void do_whisper(CHAR_DATA * ch, char *argument)
+{
+    if (argument[0] == '\0')
+    {
+        send_to_char("Whisper what?\r\n", ch);
+        return;
+    }
+
+
+    if (ch->in_room != NULL)
+    {
+        CHAR_DATA *to;
+
+        to = ch->in_room->people;
+
+        argument = make_drunk(argument, ch);
+        act_new("{xYou whisper '{c$T{x'", ch, NULL, argument, TO_CHAR, POS_RESTING);
+
+        for (; to != NULL; to = to->next_in_room)
+        {
+            if (!IS_SET(to->affected_by, AFF_DEAFEN))
+            {
+                act_new("{x$n whispers '{c$t{x'", ch, argument, to, TO_VICT, POS_RESTING);
+            }
+            else
+            {
+                act_new("{x$n appears to be whispering something but you cannot hear them because you're deaf.", ch, NULL, to, TO_VICT, POS_RESTING);
+            }
+        }
+    }
+
+    if (!IS_NPC(ch))
+    {
+        CHAR_DATA *mob, *mob_next;
+        for (mob = ch->in_room->people; mob != NULL; mob = mob_next)
+        {
+            mob_next = mob->next_in_room;
+
+            if (IS_NPC(mob) && HAS_TRIGGER(mob, TRIG_SPEECH)
+                && mob->position == mob->pIndexData->default_pos)
+            {
+                mp_act_trigger(argument, mob, ch, NULL, NULL, TRIG_SPEECH);
+            }
+        }
+    }
+
     return;
 }
 
@@ -998,12 +1048,12 @@ void do_tell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     if (victim->desc == NULL && !IS_NPC(victim))
     {
-        act("$N seems to have misplaced $S link...try again later.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'{x\r\n", PERS(ch, victim),
-            argument);
+        act("$N seems to have misplaced $S link...try again later.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'{x\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
@@ -1022,8 +1072,7 @@ void do_tell(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (
-        (IS_SET(victim->comm, COMM_QUIET)
+    if ((IS_SET(victim->comm, COMM_QUIET)
             || IS_SET(victim->comm, COMM_DEAF)) && !IS_IMMORTAL(ch))
     {
         act("$E is not receiving tells.", ch, 0, victim, TO_CHAR);
@@ -1034,23 +1083,19 @@ void do_tell(CHAR_DATA * ch, char *argument)
     {
         if (IS_NPC(victim))
         {
-            act("$E is AFK, and not receiving tells.", ch, NULL, victim,
-                TO_CHAR);
+            act("$E is AFK, and not receiving tells.", ch, NULL, victim, TO_CHAR);
             return;
         }
 
-        act("$E is AFK, but your tell will go through when $E returns.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act("$E is AFK, but your tell will go through when $E returns.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
     }
 
     act("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR);
-    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
-        POS_DEAD);
+    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT, POS_DEAD);
     victim->reply = ch;
 
     if (!IS_NPC(ch) && IS_NPC(victim) && HAS_TRIGGER(victim, TRIG_SPEECH))
@@ -1077,12 +1122,12 @@ void do_reply(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     if (victim->desc == NULL && !IS_NPC(victim))
     {
-        act("$N seems to have misplaced $S link...try again later.",
-            ch, NULL, victim, TO_CHAR);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act("$N seems to have misplaced $S link...try again later.", ch, NULL, victim, TO_CHAR);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
@@ -1094,13 +1139,11 @@ void do_reply(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (
-        (IS_SET(victim->comm, COMM_QUIET)
+    if ((IS_SET(victim->comm, COMM_QUIET)
             || IS_SET(victim->comm, COMM_DEAF)) && !IS_IMMORTAL(ch)
         && !IS_IMMORTAL(victim))
     {
-        act_new("$E is not receiving tells.", ch, 0, victim, TO_CHAR,
-            POS_DEAD);
+        act_new("$E is not receiving tells.", ch, 0, victim, TO_CHAR, POS_DEAD);
         return;
     }
 
@@ -1114,24 +1157,19 @@ void do_reply(CHAR_DATA * ch, char *argument)
     {
         if (IS_NPC(victim))
         {
-            act_new("$E is AFK, and not receiving tells.",
-                ch, NULL, victim, TO_CHAR, POS_DEAD);
+            act_new("$E is AFK, and not receiving tells.", ch, NULL, victim, TO_CHAR, POS_DEAD);
             return;
         }
 
-        act_new("$E is AFK, but your tell will go through when $E returns.",
-            ch, NULL, victim, TO_CHAR, POS_DEAD);
-        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim),
-            argument);
+        act_new("$E is AFK, but your tell will go through when $E returns.", ch, NULL, victim, TO_CHAR, POS_DEAD);
+        sprintf(buf, "{x%s tells you '{W%s{x'\r\n", PERS(ch, victim), argument);
         buf[0] = UPPER(buf[0]);
         add_buf(victim->pcdata->buffer, buf);
         return;
     }
 
-    act_new("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR,
-        POS_DEAD);
-    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT,
-        POS_DEAD);
+    act_new("{xYou tell $N '{W$t{x'", ch, argument, victim, TO_CHAR, POS_DEAD);
+    act_new("{x$n tells you '{W$t{x'", ch, argument, victim, TO_VICT, POS_DEAD);
     victim->reply = ch;
 
     return;
@@ -1153,8 +1191,10 @@ void do_yell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
 
     act("{xYou yell '{Y$t{x'", ch, argument, NULL, TO_CHAR);
+
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING
@@ -1426,7 +1466,7 @@ void do_save(CHAR_DATA * ch, char *argument)
 
     if (!IS_NULLSTR(settings.mud_name))
     {
-        printf_to_char(ch, "Saving.  Remember that %s has automatic saving.\r\n", settings.mud_name);
+        sendf(ch, "Saving.  Remember that %s has automatic saving.\r\n", settings.mud_name);
     }
     else
     {
@@ -1923,7 +1963,10 @@ void do_gtell(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     act("{xYou tell the group '{C$T{x'", ch, NULL, argument, TO_CHAR);
+
     for (gch = char_list; gch != NULL; gch = gch->next)
     {
         if (is_same_group(gch, ch))
@@ -2037,13 +2080,15 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     extern int top_group;
 
     // Players must be at least level 10 to reclass.
-    if (ch->level < 10) {
+    if (ch->level < 10)
+    {
         send_to_char("You must be at least level 10 to reclass.\r\n", ch);
         return;
     }
 
     // Immortals can't reclass.. they must set.
-    if (IS_NPC(ch) || IS_IMMORTAL(ch)) {
+    if (IS_NPC(ch) || IS_IMMORTAL(ch))
+    {
         send_to_char("Immortals cannot reclass, use set to change your class instead.\r\n", ch);
         return;
     }
@@ -2066,6 +2111,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     int iClass = 0;
     iClass = class_lookup(argument);
     int i = 0;
+    long merit = 0;
 
     // Check that it's a valid class and that the player can be that class
     if (iClass == -1)
@@ -2085,10 +2131,20 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("That reclass is currently disabled.\r\n", ch);
         return;
     }
+    else if (class_table[iClass]->clan > 0 && ch->clan != class_table[iClass]->clan)
+    {
+        sendf(ch, "That is a clan specific reclass only available to %s.\r\n", clan_table[class_table[iClass]->clan].friendly_name);
+        return;
+    }
 
     if (iClass == ENCHANTOR_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
     {
         send_to_char("Only mages can reclass into enchantors.\r\n", ch);
+        return;
+    }
+    else if (iClass == PSIONICIST_CLASS_LOOKUP && ch->class != MAGE_CLASS_LOOKUP)
+    {
+        send_to_char("Only mages can reclass into psionicists.\r\n", ch);
         return;
     }
     else if (iClass == HEALER_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
@@ -2096,9 +2152,10 @@ void do_reclass(CHAR_DATA * ch, char *argument)
         send_to_char("Only clerics can reclass into healers.\r\n", ch);
         return;
     }
-    else if (iClass == BLADESINGER_CLASS_LOOKUP && ch->race != ELF_RACE_LOOKUP)
+    else if (iClass == BLADESINGER_CLASS_LOOKUP
+        && (ch->race != ELF_RACE_LOOKUP && ch->race != HALF_ELF_RACE_LOOKUP && ch->race != WILD_ELF_RACE_LOOKUP && ch->race != SEA_ELF_RACE_LOOKUP))
     {
-        send_to_char("Only elves can be bladesingers.\r\n", ch);
+        send_to_char("Only elves can be bladesingers (excluding dark elves).\r\n", ch);
         return;
     }
     else if (iClass == RANGER_CLASS_LOOKUP &&
@@ -2110,6 +2167,27 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     else if (iClass == ROGUE_CLASS_LOOKUP && ch->class != THIEF_CLASS_LOOKUP)
     {
         send_to_char("Only thieves can reclass into a rogue.\r\n", ch);
+        return;
+    }
+    else if (iClass == PRIEST_CLASS_LOOKUP && ch->class != CLERIC_CLASS_LOOKUP)
+    {
+        send_to_char("Only clerics can reclass into a priest.\r\n", ch);
+        return;
+    }
+    else if (iClass == PRIEST_CLASS_LOOKUP && ch->pcdata->deity == 0)
+    {
+        // Must follow a god or goddess in order to reclass into a priest.
+        send_to_char("Athiest's may not reclass into a priest.\r\n", ch);
+        return;
+    }
+    else if (iClass == BARBARIAN_CLASS_LOOKUP && ch->class != WARRIOR_CLASS_LOOKUP)
+    {
+        send_to_char("Only warrior's can be barbarians.\r\n", ch);
+        return;
+    }
+    else if (iClass == BARBARIAN_CLASS_LOOKUP && ch->race == KENDER_RACE_LOOKUP)
+    {
+        send_to_char("Kender cannot be barbarians.\r\n", ch);
         return;
     }
 
@@ -2150,6 +2228,19 @@ void do_reclass(CHAR_DATA * ch, char *argument)
 
     ch->practice = 5;
     ch->practice += oldLevel / 5;
+
+    // Save the merits they had, we will use this to re-construct the merits at a later step.
+    merit = ch->pcdata->merit;
+
+    // Remove all merits the user had, we will re-add them later so any stats are correctly
+    // reapplied.
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        if (IS_SET(ch->pcdata->merit, merit_table[i].merit))
+        {
+            remove_merit(ch, merit_table[i].merit);
+        }
+    }
 
     // Reset the users stats back to default (they will have more trains now to up them quicker).
     for (i = 0; i < MAX_STATS; i++)
@@ -2211,6 +2302,16 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     // Reset points
     ch->pcdata->points = pc_race_table[ch->race].points;
 
+    // Reset the merits, we saved the long value which is the state of all merits, we
+    // will now reset it, then remove/re-add so their stat changes take affect.
+    for (i = 0; merit_table[i].name != NULL; i++)
+    {
+        if (IS_SET(merit, merit_table[i].merit))
+        {
+            add_merit(ch, merit_table[i].merit);
+        }
+    }
+
     // Add back in the base groups
     group_add(ch, "rom basics", FALSE);
     group_add(ch, class_table[ch->class]->base_group, FALSE);
@@ -2223,7 +2324,7 @@ void do_reclass(CHAR_DATA * ch, char *argument)
     send_to_char("Customization takes time, but allows a wider range of skills and abilities.\r\n", ch);
     send_to_char("Customize (Y/N)? ", ch);
 
-    // Move character to LIMBO so they can't be attacked or messed with while this 
+    // Move character to LIMBO so they can't be attacked or messed with while this
     // process is happening.  If they disconnect from reclass they will end up at
     // their last save point.  Reclassing players don't save.
     char_from_room(ch);
@@ -2295,6 +2396,8 @@ void do_direct(CHAR_DATA *ch, char *argument)
         return;
     }
 
+    argument = make_drunk(argument, ch);
+
     sprintf(buf, "{x$n says (to {g$N{x) '{g%s{x'", argument);
     act(buf, ch, NULL, victim, TO_NOTVICT);
 
@@ -2328,4 +2431,3 @@ void do_direct(CHAR_DATA *ch, char *argument)
     return;
 
 } // end do_direct
-

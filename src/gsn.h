@@ -20,15 +20,16 @@
  *  around, comes around.                                                  *
  **************************************************************************/
 
-/***************************************************************************
+ /***************************************************************************
  *  Portions of this code originated from a post made by Erwin Andreasen   *
  *  to the MERC/Envy mail list in January of 1998.  Additional code for    *
  *  assigning the GSN's originated from the Smaug code base and is needed  *
  *  to for setting the pointers in the skill table to the gsn where        *
  *  necessary.                                                             *
  *                                                                         *
- *  merc.h will have the global include for this file and then the IN_DB_C *
- *  flag will be set in db.c.  That should be all we need to set this up.  *
+ *  merc.h will have the global include for this file and then the         *
+ *  IN_GSN_C flag will be set in db.c.  That should be all we need to set  *
+ *  this up.                                                               *
  *                                                                         *
  *                                              - Rhien                    *
  **************************************************************************/
@@ -38,7 +39,7 @@
  * variable with be defined as an int in db.c and an extern in every
  * other file so they're accessible.
  */
-#ifdef IN_DB_C
+#ifdef IN_GSN_C
     #define DECLARE_GSN(gsn) int gsn;
 #else
     #define DECLARE_GSN(gsn) extern int gsn;
@@ -77,9 +78,11 @@ DECLARE_GSN(gsn_second_attack)
 DECLARE_GSN(gsn_third_attack)
 DECLARE_GSN(gsn_blindness)
 DECLARE_GSN(gsn_charm_person)
+DECLARE_GSN(gsn_change_sex)
 DECLARE_GSN(gsn_curse)
-DECLARE_GSN(gsn_invis)
-DECLARE_GSN(gsn_mass_invis)
+DECLARE_GSN(gsn_chill_touch)
+DECLARE_GSN(gsn_invisibility)
+DECLARE_GSN(gsn_mass_invisibility)
 DECLARE_GSN(gsn_plague)
 DECLARE_GSN(gsn_poison)
 DECLARE_GSN(gsn_sleep)
@@ -150,3 +153,61 @@ DECLARE_GSN(gsn_revolt)
 DECLARE_GSN(gsn_imbue)
 DECLARE_GSN(gsn_preserve)
 DECLARE_GSN(gsn_haste)
+DECLARE_GSN(gsn_giant_strength)
+DECLARE_GSN(gsn_armor)
+DECLARE_GSN(gsn_calm)
+DECLARE_GSN(gsn_detect_evil)
+DECLARE_GSN(gsn_detect_good)
+DECLARE_GSN(gsn_detect_hidden)
+DECLARE_GSN(gsn_detect_invis)
+DECLARE_GSN(gsn_detect_magic)
+DECLARE_GSN(gsn_faerie_fire)
+DECLARE_GSN(gsn_frenzy)
+DECLARE_GSN(gsn_infravision);
+DECLARE_GSN(gsn_pass_door);
+DECLARE_GSN(gsn_shield);
+DECLARE_GSN(gsn_stone_skin);
+DECLARE_GSN(gsn_life_boost);
+DECLARE_GSN(gsn_bark_skin);
+DECLARE_GSN(gsn_self_growth);
+DECLARE_GSN(gsn_cure_blindness);
+DECLARE_GSN(gsn_cure_light);
+DECLARE_GSN(gsn_cure_serious);
+DECLARE_GSN(gsn_cure_critical);
+DECLARE_GSN(gsn_cure_poison);
+DECLARE_GSN(gsn_refresh);
+DECLARE_GSN(gsn_cure_disease);
+DECLARE_GSN(gsn_gas_breath);
+DECLARE_GSN(gsn_fire_breath);
+DECLARE_GSN(gsn_high_explosive);
+DECLARE_GSN(gsn_heal);
+DECLARE_GSN(gsn_cancellation);
+DECLARE_GSN(gsn_remove_curse);
+DECLARE_GSN(gsn_healing_dream);
+DECLARE_GSN(gsn_mental_weight);
+DECLARE_GSN(gsn_forget);
+DECLARE_GSN(gsn_psionic_focus);
+DECLARE_GSN(gsn_clairvoyance);
+DECLARE_GSN(gsn_psionic_shield);
+DECLARE_GSN(gsn_boost);
+DECLARE_GSN(gsn_magic_resistance);
+DECLARE_GSN(gsn_prayer);
+DECLARE_GSN(gsn_agony);
+DECLARE_GSN(gsn_holy_presence);
+DECLARE_GSN(gsn_displacement);
+DECLARE_GSN(gsn_holy_flame);
+DECLARE_GSN(gsn_divine_wisdom);
+DECLARE_GSN(gsn_guardian_angel);
+DECLARE_GSN(gsn_water_walk);
+DECLARE_GSN(gsn_fourth_attack);
+DECLARE_GSN(gsn_warcry);
+DECLARE_GSN(gsn_cleanse);
+DECLARE_GSN(gsn_natural_refresh);
+DECLARE_GSN(gsn_power_swing);
+DECLARE_GSN(gsn_second_wind);
+DECLARE_GSN(gsn_magic_protection);
+DECLARE_GSN(gsn_precision_striking);
+DECLARE_GSN(gsn_detect_fireproof);
+DECLARE_GSN(gsn_survey_terrain);
+DECLARE_GSN(gsn_smokebomb);
+DECLARE_GSN(gsn_self_projection);

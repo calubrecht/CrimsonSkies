@@ -45,6 +45,33 @@
 #include "tables.h"
 
 /*
+ * Determines whether a mob with the specific ACT flag is in the room with the specified character
+ * and if so returns that mob (otherwise, a NULL is returned).
+ */
+CHAR_DATA *find_mob_by_act(CHAR_DATA * ch, long act_flag)
+{
+    CHAR_DATA *mob;
+
+    if (ch == NULL)
+    {
+        return NULL;
+    }
+
+    // Check for portal merchant
+    for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
+    {
+        if (mob != NULL && IS_NPC(mob) && IS_SET(mob->act, act_flag))
+        {
+            return mob;
+        }
+    }
+
+    return NULL;
+
+} // end find_mob_by_act
+
+
+/*
  * Command for a healer mob that can sell spell
  */
 void do_heal(CHAR_DATA * ch, char *argument)
@@ -92,56 +119,56 @@ void do_heal(CHAR_DATA * ch, char *argument)
     if (!str_prefix(arg, "light"))
     {
         spell = spell_cure_light;
-        sn = skill_lookup("cure light");
+        sn = gsn_cure_light;
         words = "judicandus dies";
         cost = 1000;
     }
     else if (!str_prefix(arg, "serious"))
     {
         spell = spell_cure_serious;
-        sn = skill_lookup("cure serious");
+        sn = gsn_cure_serious;
         words = "judicandus gzfuajg";
         cost = 1500;
     }
     else if (!str_prefix(arg, "critical"))
     {
         spell = spell_cure_critical;
-        sn = skill_lookup("cure critical");
+        sn = gsn_cure_critical;
         words = "judicandus qfuhuqar";
         cost = 2500;
     }
     else if (!str_prefix(arg, "heal"))
     {
         spell = spell_heal;
-        sn = skill_lookup("heal");
+        sn = gsn_heal;
         words = "pzar";
         cost = 5000;
     }
     else if (!str_prefix(arg, "blindness"))
     {
         spell = spell_cure_blindness;
-        sn = skill_lookup("cure blindness");
+        sn = gsn_cure_blindness;
         words = "judicandus noselacri";
         cost = 2000;
     }
     else if (!str_prefix(arg, "disease"))
     {
         spell = spell_cure_disease;
-        sn = skill_lookup("cure disease");
+        sn = gsn_cure_disease;
         words = "judicandus eugzagz";
         cost = 1500;
     }
     else if (!str_prefix(arg, "poison"))
     {
         spell = spell_cure_poison;
-        sn = skill_lookup("cure poison");
+        sn = gsn_cure_poison;
         words = "judicandus sausabru";
         cost = 2500;
     }
     else if (!str_prefix(arg, "uncurse") || !str_prefix(arg, "curse"))
     {
         spell = spell_remove_curse;
-        sn = skill_lookup("remove curse");
+        sn = gsn_remove_curse;
         words = "candussido judifgz";
         cost = 5000;
     }
@@ -155,14 +182,14 @@ void do_heal(CHAR_DATA * ch, char *argument)
     else if (!str_prefix(arg, "refresh") || !str_prefix(arg, "moves"))
     {
         spell = spell_refresh;
-        sn = skill_lookup("refresh");
+        sn = gsn_refresh;
         words = "candusima";
         cost = 500;
     }
     else if (!str_prefix(arg, "cancel"))
     {
         spell = spell_cancellation;
-        sn = skill_lookup("cancellation");
+        sn = gsn_cancellation;
         words = "clarivoix";
         cost = 4000;
     }
@@ -220,7 +247,7 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
     int cost = 0;
     int roll = 0;
 
-    if ((mob = find_portal_merchant(ch)) == NULL)
+    if ((mob = find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT)) == NULL)
     {
         send_to_char("You must find a portal merchant in order to purchase a portal.\r\n", ch);
         return;
@@ -349,27 +376,74 @@ void process_portal_merchant(CHAR_DATA * ch, char *argument)
 } // end do_portal
 
 /*
- * Determins whether a merchant who sells portals is in the same room
- * with the player and returns that mob.
+ * Duplicates a piece of parchment for a cost at a scribe.
  */
-CHAR_DATA *find_portal_merchant(CHAR_DATA * ch)
+void do_duplicate(CHAR_DATA *ch, char *argument)
 {
     CHAR_DATA *mob;
+    OBJ_DATA *obj;
+    OBJ_DATA *clone_obj;
+    int cost = 1000; // 10 gold
 
-    if (ch == NULL)
+    if ((mob = find_mob_by_act(ch, ACT_SCRIBE)) == NULL)
     {
-        return NULL;
+        send_to_char("You must find a scribe in order to duplicate pieces of parchment.\r\n", ch);
+        return;
     }
 
-    // Check for portal merchant
-    for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
+    // Not with people that can't be seen.. this will depend on the mob.. if the mob has detect hidden
+    // or detect invis they will see most people unless they are in another for of non-detect, etc.
+    if (!can_see(mob, ch))
     {
-        if (mob != NULL && IS_NPC(mob) && IS_SET(mob->act, ACT_IS_PORTAL_MERCHANT))
-        {
-            return mob;
-        }
+        act("{x$N says '{gI don't trade with folks I can't see, please make yourself 'visible'.'{x", ch, NULL, mob, TO_CHAR);
+        return;
     }
 
-    return NULL;
+    // No argument was sent, tell them how much it costs
+    if (IS_NULLSTR(argument))
+    {
+        act("{x$N says '{gI will duplicate a parchment for 10 gold pieces.  You may ask me to 'duplicate' a specific parchment in your possession.{x'", ch, NULL, mob, TO_CHAR);
+        return;
+    }
 
-} // end find_portal_merchant
+    if (cost > (ch->gold * 100 + ch->silver))
+    {
+        act("{x$N says '{gI apologize, but you do not appear to have enough wealth for my services.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    if ((obj = get_obj_carry(ch, argument, ch)) == NULL)
+    {
+        act("{x$N says '{gI do not see that you have that item.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Make sure the item is a piece of parchment.
+    if (obj->item_type != ITEM_PARCHMENT)
+    {
+        act("{x$N says '{gThat is not a piece of parchment.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Only copy the parchment if it has been written to.
+    if (obj->value[1] == FALSE)
+    {
+        act("{x$N says '{gThat parchment has not been written to yet, please provide one that has.'{x", ch, NULL, mob, TO_CHAR);
+        return;
+    }
+
+    // Deduct the cost and then clone the parchment.
+    deduct_cost(ch, cost);
+    mob->gold += cost / 100;
+    mob->silver += cost % 100;
+
+    clone_obj = create_object(obj->pIndexData);
+    clone_object(obj, clone_obj);
+    obj_to_char(clone_obj, ch);
+
+    act("$N dips his quill in ink and begins writing on a piece of parchment.", ch, NULL, mob, TO_ROOM);
+    act("$N hands you parchment with the identical text of your original.", ch, NULL, mob, TO_CHAR);
+
+    // A little lag
+    WAIT_STATE(ch, PULSE_VIOLENCE);
+}

@@ -5,6 +5,7 @@ Attrprime   dex
 Weapon      3701
 Guild       3028
 Guild       9639
+Guild       749
 Skilladept  75
 Thac0_00    20
 Thac0_32    -4
@@ -99,34 +100,37 @@ Sk 'enhanced damage' 25 5
 Sk 'curse' 26 2
 Sk 'energy drain' 26 2
 Sk 'haste' 26 2
+Sk 'detect fireproof' 26 2
 Sk 'control weather' 28 2
 Sk 'slow' 29 2
 Sk 'summon' 29 2
 Sk 'dispel magic' 30 2
 Sk 'fireball' 30 2
+Sk 'ice blast' 30 2
 Sk 'call lightning' 31 2
-Sk 'mass invis' 31 2
+Sk 'mass invisibility' 31 2
 Sk 'gate' 32 2
 Sk 'fog' 32 2
 Sk 'dispel fog' 32 2
 Sk 'heal' 33 2
-Sk 'acid breath' 33 2
 Sk 'cancellation' 34 2
+Sk 'self projection' 34 2
 Sk 'acid blast' 35 2
 Sk 'shield' 35 2
 Sk 'plague' 36 2
-Sk 'frost breath' 38 2
 Sk 'chain lightning' 39 2
 Sk 'stone skin' 40 2
 Sk 'word of recall' 40 2
 Sk 'sanctuary' 42 2
-Sk 'lightning breath' 43 2
 Sk 'portal' 45 4
-Sk 'gas breath' 47 2
 Sk 'calm' 50 2
 Sk 'nexus' 50 4
-Sk 'fire breath' 50 2
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
@@ -169,6 +173,33 @@ Sk 'bludgeon' 52 -1
 Sk 'revolt' 52 -1
 Sk 'imbue' 52 -1
 Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
+Sk 'healing dream' 52 -1
+Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
+Sk 'psionic focus' 52 -1
+Sk 'clairvoyance' 52 -1
+Sk 'psionic shield' 52 -1
+Sk 'boost' 52 -1
+Sk 'prayer' 52 -1
+Sk 'agony' 52 -1
+Sk 'holy presence' 52 -1
+Sk 'displacement' 52 -1
+Sk 'holy flame' 52 -1
+Sk 'divine wisdom' 52 -1
+Sk 'know religion' 52 -1
+Sk 'guardian angel' 52 -1
+Sk 'water walk' 52 -1
+Sk 'fourth attack' 52 -1
+Sk 'warcry' 52 -1
+Sk 'cleanse' 52 -1
+Sk 'natural refresh' 52 -1
+Sk 'power swing' 52 -1
+Sk 'second wind' 52 -1
+Sk 'magic protection' 52 -1
+Sk 'precision striking' 52 -1
+Sk 'survey terrain' 52 -1
+Sk 'smoke bomb' 52 -1
 Sk 'bless' 53 2
 Sk 'cause critical' 53 2
 Sk 'cause light' 53 2
@@ -219,20 +250,26 @@ Gr 'mage basics' 0
 Gr 'cleric basics' 0
 Gr 'thief basics' 0
 Gr 'warrior basics' 0
+Gr 'barbarian basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
 Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
+Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 40
 Gr 'warrior default' 0
+Gr 'barbarian default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
 Gr 'rogue default' 0
+Gr 'psionicist default' 0
+Gr 'priest default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 6
@@ -255,11 +292,32 @@ Gr 'transportation' 8
 Gr 'weather' 8
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
+Gr 'divination' 0
+* null race (0)
 Mult 0 100
+* human (1)
 Mult 1 100
+* elf (2)
 Mult 2 100
-Mult 3 125
-Mult 4 150
+* half elf (3)
+Mult 3 100
+* wild elf (4)
+Mult 4 100
+* sea elf (5)
 Mult 5 100
-Mult 6 150
+* dark elf (6)
+Mult 6 100
+* dwarf (7)
+Mult 7 125
+* hill dwarf (8)
+Mult 8 125
+* mountain dwarf (9)
+Mult 9 125
+* ogre (10)
+Mult 10 150
+* kender (11)
+Mult 11 100
+* minotaur (12)
+Mult 12 150
 End

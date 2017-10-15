@@ -108,6 +108,8 @@ char *format_obj_to_char(OBJ_DATA * obj, CHAR_DATA * ch, bool fShort)
         strcat(buf, "({YHumming{x) ");
     if (IS_OBJ_STAT(obj, ITEM_BURIED))
         strcat(buf, "({yBuried{x) ");
+    if (IS_OBJ_STAT(obj, ITEM_BURN_PROOF) && is_affected(ch, gsn_detect_fireproof))
+        strcat(buf, "({yFireproof{x) ");
 
     if (fShort)
     {
@@ -303,7 +305,9 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     if (!IS_NPC(ch))
     {
         if (IS_NPC(victim) && ch->pcdata->quest_mob > 0 && victim->pIndexData->vnum == ch->pcdata->quest_mob)
+        {
             strcat( buf, "[{RTARGET{x] ");
+        }
     }
 
     // Healers sense affliction
@@ -313,6 +317,7 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_plague) ||
             is_affected(victim, gsn_curse) ||
             is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_poison_prick) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
             is_affected(victim, gsn_song_of_dissonance) ||
@@ -323,7 +328,15 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     }
 
     if (!IS_NPC(victim) && IS_SET(victim->act, PLR_WANTED))
+    {
         strcat(buf, "({RWANTED{x) ");
+    }
+
+    if (!IS_NPC(victim) && victim->pcdata->pk_timer > 0)
+    {
+        strcat(buf, "({WHostile{x) ");
+    }
+
     if (victim->position == victim->start_pos
         && victim->long_descr[0] != '\0')
     {
@@ -333,9 +346,12 @@ void show_char_to_char_0(CHAR_DATA * victim, CHAR_DATA * ch)
     }
 
     strcat(buf, PERS(victim, ch));
-    if (!IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF)
+
+    // Removed title from what a person sees in the room.  In the future this is where we
+    // will put a persons nobility (official last name) on.
+    /*if (!IS_NPC(victim) && !IS_SET(ch->comm, COMM_BRIEF)
         && victim->position == POS_STANDING && ch->on == NULL)
-        strcat(buf, victim->pcdata->title);
+        strcat(buf, victim->pcdata->title);*/
 
     switch (victim->position)
     {
@@ -575,6 +591,7 @@ void show_char_to_char_1(CHAR_DATA * victim, CHAR_DATA * ch)
             is_affected(victim, gsn_plague) ||
             is_affected(victim, gsn_curse) ||
             is_affected(victim, gsn_poison) ||
+            is_affected(victim, gsn_poison_prick) ||
             is_affected(victim, gsn_slow) ||
             is_affected(victim, gsn_sleep) ||
             is_affected(victim, gsn_song_of_dissonance) ||
@@ -952,6 +969,30 @@ void do_autoassist(CHAR_DATA * ch, char *argument)
     }
 }
 
+/*
+ * Whether or not the player will attempt to quit out when the go link dead.
+ */
+void do_autoquit( CHAR_DATA *ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+
+    if (IS_SET(ch->act, PLR_AUTOQUIT))
+    {
+        send_to_char("You will no longer attempt to quit when you go linkdead.\r\n", ch);
+        REMOVE_BIT(ch->act, PLR_AUTOQUIT);
+    }
+    else
+    {
+        send_to_char("You will attempt to quit when you go linkdead.\r\n", ch);
+        SET_BIT(ch->act, PLR_AUTOQUIT);
+    }
+}
+
+
 void do_autoexit(CHAR_DATA * ch, char *argument)
 {
     if (IS_NPC(ch))
@@ -1050,6 +1091,7 @@ void do_autoall(CHAR_DATA *ch, char * argument)
         SET_BIT(ch->act, PLR_AUTOLOOT);
         SET_BIT(ch->act, PLR_AUTOSAC);
         SET_BIT(ch->act, PLR_AUTOSPLIT);
+        SET_BIT(ch->act, PLR_AUTOQUIT);
 
         send_to_char("All autos turned on.\r\n", ch);
     }
@@ -1061,6 +1103,7 @@ void do_autoall(CHAR_DATA *ch, char * argument)
         REMOVE_BIT(ch->act, PLR_AUTOLOOT);
         REMOVE_BIT(ch->act, PLR_AUTOSAC);
         REMOVE_BIT(ch->act, PLR_AUTOSPLIT);
+        REMOVE_BIT(ch->act, PLR_AUTOQUIT);
 
         send_to_char("All autos turned off.\r\n", ch);
     }
@@ -1287,6 +1330,7 @@ void do_look(CHAR_DATA * ch, char *argument)
     int number, count;
     ROOM_INDEX_DATA *location;
     ROOM_INDEX_DATA *original;
+    bool survey_improve = FALSE;
 
     if (ch->desc == NULL)
         return;
@@ -1332,18 +1376,26 @@ void do_look(CHAR_DATA * ch, char *argument)
     if (arg1[0] == '\0' || !str_cmp(arg1, "auto"))
     {
         /* 'look' or 'look auto' */
-        sprintf(buf, "{c%s [%s]{x", ch->in_room->name, ch->in_room->area->name);
+        sprintf(buf, "{c%s [%s]", ch->in_room->name, ch->in_room->area->name);
         send_to_char(buf, ch);
+
+        // Survey terrain for rangers, allows the to auto see what the terrain is in the room.
+        if (CHANCE_SKILL(ch, gsn_survey_terrain))
+        {
+            survey_improve = TRUE;
+            sprintf(buf, " [%s]", capitalize(flag_string(sector_flags, ch->in_room->sector_type)));
+            send_to_char(buf, ch);
+        }
 
         if ((IS_IMMORTAL(ch)
             && (IS_NPC(ch) || IS_SET(ch->act, PLR_HOLYLIGHT)))
             || IS_BUILDER(ch, ch->in_room->area))
         {
-            sprintf(buf, "{r [{RRoom %d{r]{x", ch->in_room->vnum);
+            sprintf(buf, "{r [{RRoom %d{r]", ch->in_room->vnum);
             send_to_char(buf, ch);
         }
 
-        send_to_char("\r\n", ch);
+        send_to_char("{x\r\n", ch);
 
         if (arg1[0] == '\0' || (!IS_NPC(ch) && !IS_SET(ch->comm, COMM_BRIEF)))
         {
@@ -1360,6 +1412,14 @@ void do_look(CHAR_DATA * ch, char *argument)
 
         show_list_to_char(ch->in_room->contents, ch, FALSE, FALSE);
         show_char_to_char(ch->in_room->people, ch);
+
+        // This check is down here so if the improve message fires off it doesn't print half
+        // way through the room display code (and in the middle of color code sequences).
+        if (survey_improve)
+        {
+            check_improve(ch, gsn_survey_terrain, TRUE, 1);
+        }
+
         return;
     }
 
@@ -1502,7 +1562,14 @@ void do_look(CHAR_DATA * ch, char *argument)
                 {
                     send_to_char(obj->description, ch);
                     send_to_char("\r\n", ch);
-                    show_lore(ch, obj);
+
+                    // Only show the lore on an item if it's not a container.
+                    if (obj->item_type != ITEM_CONTAINER
+                        && obj->item_type != ITEM_CORPSE_NPC
+                        && obj->item_type != ITEM_CORPSE_PC)
+                    {
+                        show_lore(ch, obj);
+                    }
                     return;
                 }
         }
@@ -1641,10 +1708,19 @@ void do_scan(CHAR_DATA * ch, char *argument)
         for (door = 0; door < 9; door++)
         {
             if ((pExit = ch->in_room->exit[door]) != NULL)
+            {
+                // Can't look through a closed door.
+                if (IS_SET(pExit->exit_info, EX_CLOSED))
+                {
+                    break;
+                }
+
                 scan_list(pExit->u1.to_room, ch, 1, door);
+            }
         }
         return;
     }
+
     else if (!str_cmp(arg1, "n") || !str_cmp(arg1, "north"))
         door = 0;
     else if (!str_cmp(arg1, "e") || !str_cmp(arg1, "east"))
@@ -1681,6 +1757,12 @@ void do_scan(CHAR_DATA * ch, char *argument)
     {
         if ((pExit = scan_room->exit[door]) != NULL)
         {
+            // If the door is closed then you can't see through it.
+            if (IS_SET(pExit->exit_info, EX_CLOSED))
+            {
+                break;
+            }
+
             scan_room = pExit->u1.to_room;
             scan_list(pExit->u1.to_room, ch, depth, door);
         }
@@ -1948,24 +2030,30 @@ void do_exits(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Show's a players worth both in money and other valued stats.
+ */
 void do_worth(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
-
+    // NPC's will only see stats that aren't in pcdata.
     if (IS_NPC(ch))
     {
-        sprintf(buf, "You have %ld gold and %ld silver.\r\n",
-            ch->gold, ch->silver);
-        send_to_char(buf, ch);
+        sendf(ch, "You have %ld gold and %ld silver.\r\n", ch->gold, ch->silver);
         return;
     }
 
-    sprintf(buf,
-        "You have %ld gold, %ld silver, %d quest points and %d experience (%d exp to level).\r\n",
-        ch->gold, ch->silver, ch->pcdata->quest_points, ch->exp,
-        (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
-
-    send_to_char(buf, ch);
+    // Show experience also, but only if less than level 51.
+    if (ch->level < LEVEL_HERO)
+    {
+        sendf(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
+        sendf(ch, "You have %d quest points and %d experience (%d exp to level).\r\n",
+            ch->pcdata->quest_points, ch->exp, (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
+    }
+    else
+    {
+        sendf(ch, "You carry %ld gold, %ld silver and have %s gold in the bank.\r\n", ch->gold, ch->silver, num_punct_long(ch->pcdata->bank_gold));
+        sendf(ch, "You have %d quest points.\r\n", ch->pcdata->quest_points);
+    }
 
     return;
 }
@@ -1983,6 +2071,8 @@ void do_score(CHAR_DATA * ch, char *argument)
     OBJ_DATA *wield;
     OBJ_DATA *dual_wield;
 
+    send_to_char("\r\n", ch);
+
     // Create the grid
     grid = create_grid(75);
 
@@ -1992,31 +2082,48 @@ void do_score(CHAR_DATA * ch, char *argument)
     sprintf(buf, "%s", capitalize(class_table[ch->class]->name));
 
     row = create_row_padded(grid, 0, 0, 2, 2);
-    sprintf(center_text, "{WScore for %s, %s %s{x",
-        capitalize(ch->name), pc_race_table[ch->race].article_name, IS_NPC(ch) ? "Mobile" : buf);
+
+    if (!IS_NPC(ch))
+    {
+        char rank[32];
+
+        if (ch->class == PRIEST_CLASS_LOOKUP)
+        {
+            sprintf(rank, " [%s]", priest_rank_table[ch->pcdata->priest_rank].name);
+        }
+        else
+        {
+            rank[0] = '\0';
+        }
+
+        sprintf(center_text, "{WScore for %s, %s %s%s{x",
+            capitalize(ch->name),
+            pc_race_table[ch->race].article_name,
+            buf,
+            rank);
+    }
+    else
+    {
+        sprintf(center_text, "{WScore for %s, an NPC{x", capitalize(ch->name));
+    }
+
     sprintf(center_text, "%s", center_string_padded(center_text, 71));
 
     row_append_cell(row, 75, center_text);
 
-    // Row 2 - Headers
-    row = create_row_padded(grid, 0, 0, 2, 2);
-    row_append_cell(row, 21, "     {WStats{x");
-    row_append_cell(row, 26, "    {WCurrent State{x");
-    row_append_cell(row, 28, "      {WPlayer Info{x");
-
-    // Row 3
+    // Row 2
     row = create_row_padded(grid, 0, 0, 2, 2);
 
     row_append_cell(row, 21, "  Str: {C%d{x({C%d{x)\n  Int: {C%d{x({C%d{x)\n  Wis: {C%d{x({C%d{x)\n  Dex: {C%d{x({C%d{x)\n  Con: {C%d{x({C%d{x)",
         ch->perm_stat[STAT_STR],
-        get_curr_stat (ch, STAT_STR),
+        get_curr_stat(ch, STAT_STR),
         ch->perm_stat[STAT_INT],
-        get_curr_stat (ch, STAT_INT),
+        get_curr_stat(ch, STAT_INT),
         ch->perm_stat[STAT_WIS],
-        get_curr_stat (ch, STAT_WIS),
+        get_curr_stat(ch, STAT_WIS),
         ch->perm_stat[STAT_DEX],
-        get_curr_stat (ch, STAT_DEX),
-        ch->perm_stat[STAT_CON], get_curr_stat (ch, STAT_CON));
+        get_curr_stat(ch, STAT_DEX),
+        ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
 
     // The immortal weight is boosted to a number that won't fit, just show 9999
     row_append_cell(row, 26, "    HP: {C%-4d{x of {C%-4d{x\n  Mana: {C%-4d{x of {C%-4d{x\n  Move: {C%-4d{x of {C%-4d{x\n Items: {C%-4d{x of {C%-4d{x\nWeight: {C%-4d{x of {C%-4d{x",
@@ -2026,23 +2133,19 @@ void do_score(CHAR_DATA * ch, char *argument)
 
     row_append_cell(row, 28, " Level: {C%d{x\nPlayed: {C%d hours{x\nGender: {C%s{x\n Align: {C%s{x\n   Age: {C%d{x",
         ch->level,
-        (ch->played + (int) (current_time - ch->logon)) / 3600,
+        hours_played(ch),
         ch->sex == 0 ? "No Gender" : ch->sex == 1 ? "Male" : "Female",
         IS_GOOD(ch) ? "Good" : IS_EVIL(ch) ? "Evil" : "Neutral",
         get_age(ch)
-     );
+    );
 
-    // Row 4 - Headers
-    row = create_row_padded(grid, 0, 0, 2, 2);
-    row_append_cell(row, 21, "     {WWorth{x");
-    row_append_cell(row, 26, "       {WBattle{x");
-    row_append_cell(row, 28, "  {WStatistics and Info{x");
+    // Row 3
+    row = create_row_padded(grid, 0, 0, 1, 1);
 
-    // Row 5
-    row = create_row_padded(grid, 0, 0, 2, 2);
-
-    row_append_cell(row, 21, "     Gold: {C%-4d{x\n   Silver: {C%-5d{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
-        ch->gold, ch->silver,
+    row_append_cell(row, 21, "     Gold: {C%-4ld{x\nBank Gold: {C%ld{x\n   Silver: {C%-5ld{x\n   Trains: {C%-3d{x\nPractices: {C%-3d{x\n Q-Points: {C%-5d{x",
+        ch->gold,
+        !IS_NPC(ch) ? ch->pcdata->bank_gold : 0,
+        ch->silver,
         ch->train, ch->practice,
         !IS_NPC(ch) ? ch->pcdata->quest_points : 0);
 
@@ -2053,38 +2156,90 @@ void do_score(CHAR_DATA * ch, char *argument)
     // If they are dual wielding (and have a secondary weapon wielded then show the hit roll/dam roll for that also.
     if (get_skill(ch, gsn_dual_wield) > 0 && dual_wield != NULL)
     {
-        row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d %d %d{x\n Dam Roll: {C%d %d %d{x\n    Saves: {C%d{x",
-            GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
-            capitalize(get_stance_name(ch)), ch->wimpy,
+        row_append_cell(row, 27, "Hit Roll: {CB:%d P:%d S:%d{x\nDam Roll: {CB:%d P:%d S:%d{x\n  Stance: {C%s{x\n   Wimpy: {C%d HP{x\n Casting: {CLevel %d{x\n   Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield), GET_HITROLL(ch, dual_wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield), GET_DAMROLL(ch, dual_wield),
-            ch->saving_throw
+            capitalize(get_stance_name(ch)), ch->wimpy,
+            casting_level(ch), get_saves(ch)
         );
     }
     else
     {
-        row_append_cell(row, 26, "AC Pierce: {C%d{x\n  AC Bash: {C%d{x\n AC Slash: {C%d{x\n AC Magic: {C%d{x\n   Stance: {C%s{x\nWimpy @HP: {C%d{x\n Hit Roll: {C%d %d{x\n Dam Roll: {C%d %d{x\n    Saves: {C%d{x",
-            GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC),
-            capitalize(get_stance_name(ch)), ch->wimpy,
+        row_append_cell(row, 27, "Hit Roll: {CB:%d P:%d{x\nDam Roll: {CB:%d P:%d{x\n  Stance: {C%s{x\n   Wimpy: {C%d HP{x\n Casting: {CLevel %d{x\n   Saves: {C%d{x",
             GET_HITROLL(ch, NULL), GET_HITROLL(ch, wield),
             GET_DAMROLL(ch, NULL), GET_DAMROLL(ch, wield),
-            ch->saving_throw
+            capitalize(get_stance_name(ch)), ch->wimpy,
+            casting_level(ch), get_saves(ch)
         );
     }
 
-    row_append_cell(row, 28, "   Player Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
+    row_append_cell(row, 27, "   Player Kills: {C%d{x\n    Arena Kills: {C%d{x\n  XP Next Level: {C%d{x\nCreation Points: {C%d{x\nPK Logout Timer: {C%d{x",
         !IS_NPC(ch) ? ch->pcdata->pkills : 0,
+        !IS_NPC(ch) ? ch->pcdata->pkills_arena : 0,
         !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0,
         !IS_NPC(ch) ? ch->pcdata->points : 0,
         !IS_NPC(ch) ? ch->pcdata->pk_timer : 0
     );
 
-    grid_to_char (grid, ch, TRUE);
+    // Row 4 - Additional Info
+    row = create_row_padded(grid, 0, 0, 2, 2);
+    sprintf(buf, "Deity: {C%-25s{x", deity_formatted_name(ch));
+    row_append_cell(row, 38, buf);
 
-    if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
+    row_append_cell(row, 37, "AC Pierce: {C%-4d{x   AC Bash: {C%-4d{x\n AC Slash: {C%-4d{x  AC Magic: {C%-4d{x",
+        GET_AC(ch, AC_PIERCE), GET_AC(ch, AC_BASH), GET_AC(ch, AC_SLASH), GET_AC(ch, AC_EXOTIC)
+    );
+
+    // Row 5 - Merits & Row 6 - Auto Functions
+    if (!IS_NPC(ch))
     {
-        do_function (ch, &do_affects, "");
+        row = create_row_padded(grid, 0, 0, 2, 2);
+        sprintf(buf, "Merit(s): %s", merit_list(ch));
+        row_append_cell(row, 75, buf);
+
+        row = create_row_padded(grid, 0, 0, 2, 2);
+
+        sprintf(buf, "     No Cancel [{C%c{x]    No Summon [{C%c{x]     Can Loot [{C%c{x]     No Follow [{C%c{x]\n"
+            , IS_SET(ch->act, PLR_NOCANCEL) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_NOSUMMON) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_CANLOOT) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_NOFOLLOW) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%s   Auto Assist [{C%c{x]    Auto Exit [{C%c{x]    Auto Gold [{C%c{x]     Auto Loot [{C%c{x]\n"
+            , buf
+            , IS_SET(ch->act, PLR_AUTOASSIST) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOEXIT) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOGOLD) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOLOOT) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%sAuto Sacrifice [{C%c{x]   Auto Split [{C%c{x]     TelnetGA [{C%c{x]  Compact Mode [{C%c{x]\n"
+            , buf
+            , IS_SET(ch->act, PLR_AUTOSAC) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOSPLIT) ? 'X' : ' '
+            , IS_SET(ch->comm, COMM_TELNET_GA) ? 'X' : ' '
+            , IS_SET(ch->comm, COMM_COMPACT) ? 'X' : ' '
+        );
+
+        sprintf(buf, "%s Combine Items [{C%c{x]    Auto Quit [{C%c{x]"
+            , buf
+            , IS_SET(ch->comm, COMM_COMBINE) ? 'X' : ' '
+            , IS_SET(ch->act, PLR_AUTOQUIT) ? 'X' : ' '
+        );
+
+        row_append_cell(row, 75, buf);
+
     }
+
+    // Finally, send the grid to the character
+    grid_to_char(grid, ch, TRUE);
+
+    if (IS_SET(ch->comm, COMM_SHOW_AFFECTS))
+    {
+        do_function(ch, &do_affects, "");
+    }
+
 }
 
 /*
@@ -2331,7 +2486,82 @@ void do_whoami(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     sprintf(buf, "You are logged on as %s.\r\n", ch->name);
     send_to_char(buf, ch);
-} // end do_whoami
+}
+
+/*
+ * This will be called from various who functions.  I used static variables since
+ * it will be called multiple times (and they won't need to be reallocated).  This
+ * will make it easier to re-use this formatting logic without having to edit every
+ * who function.
+ */
+char *who_list_formatter(CHAR_DATA *wch)
+{
+    static char buf[MAX_STRING_LENGTH];
+    static char info_buf[16];
+    static char rank[32];
+
+    // Work out the printing
+    switch (wch->level)
+    {
+        case MAX_LEVEL - 0:
+            sprintf(info_buf, "%s", " IMPLEMENTOR ");
+            break;
+        case MAX_LEVEL - 1:
+            sprintf(info_buf, "%s", "    ADMIN    ");
+            break;
+        case MAX_LEVEL - 2:
+            sprintf(info_buf, "%s", "    CODER    ");
+            break;
+        case MAX_LEVEL - 3:
+            sprintf(info_buf, "%s", "   BUILDER   ");
+            break;
+        case MAX_LEVEL - 4:
+            sprintf(info_buf, "%s", "    QUEST    ");
+            break;
+        case MAX_LEVEL - 5:
+            sprintf(info_buf, "%s", "  ROLE-PLAY  ");
+            break;
+        case MAX_LEVEL - 6:
+            sprintf(info_buf, "%s", "    STORY    ");
+            break;
+        case MAX_LEVEL - 7:
+            sprintf(info_buf, "%s", "   RETIRED   ");
+            break;
+        case MAX_LEVEL - 8:
+            sprintf(info_buf, "%s", "  TRIAL IMM  ");
+            break;
+        default:
+            sprintf(info_buf, "%2d %6s %s", wch->level,
+                wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
+                class_table[wch->class]->who_name);
+    }
+
+    // Priest rank
+    if (wch->class == PRIEST_CLASS_LOOKUP)
+    {
+       sprintf(rank, "%s ", priest_rank_table[wch->pcdata->priest_rank].name);
+    }
+    else
+    {
+       rank[0] = '\0';
+    }
+
+    sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s%s%s\r\n",
+        info_buf,
+        wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
+        wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
+        clan_table[wch->clan].who_name,
+        IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
+        IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
+        IS_TESTER(wch) ? "({WTester{x) " : "",
+        IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
+        wch->pcdata->pk_timer > 0 ? "({WHostile{x) " : "",
+        rank,
+        wch->name,
+        IS_NPC(wch) ? "" : wch->pcdata->title);
+
+    return buf;
+}
 
 /*
  * whois command allows a player to specifically look to see if another player
@@ -2342,7 +2572,6 @@ void do_whois(CHAR_DATA * ch, char *argument)
     char arg[MAX_INPUT_LENGTH];
     char buf[MAX_STRING_LENGTH];
     BUFFER *output;
-    char immbuf[15];
     DESCRIPTOR_DATA *d;
     bool found = FALSE;
 
@@ -2359,7 +2588,6 @@ void do_whois(CHAR_DATA * ch, char *argument)
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *wch;
-        char const *class;
 
         if (d->connected != CON_PLAYING || !can_see(ch, d->character))
             continue;
@@ -2372,75 +2600,7 @@ void do_whois(CHAR_DATA * ch, char *argument)
         if (!str_prefix(arg, wch->name))
         {
             found = TRUE;
-
-            /* work out the printing */
-            class = class_table[wch->class]->who_name;
-            switch (wch->level)
-            {
-                case MAX_LEVEL - 0:
-                    sprintf(immbuf, "%s", " IMPLEMENTOR ");
-                    break;
-                case MAX_LEVEL - 1:
-                    sprintf(immbuf, "%s", "    ADMIN    ");
-                    break;
-                case MAX_LEVEL - 2:
-                    sprintf(immbuf, "%s", "    CODER    ");
-                    break;
-                case MAX_LEVEL - 3:
-                    sprintf(immbuf, "%s", "   BUILDER   ");
-                    break;
-                case MAX_LEVEL - 4:
-                    sprintf(immbuf, "%s", "    QUEST    ");
-                    break;
-                case MAX_LEVEL - 5:
-                    sprintf(immbuf, "%s", "  ROLE-PLAY  ");
-                    break;
-                case MAX_LEVEL - 6:
-                    sprintf(immbuf, "%s", "    STORY    ");
-                    break;
-                case MAX_LEVEL - 7:
-                    sprintf(immbuf, "%s", "   RETIRED   ");
-                    break;
-                case MAX_LEVEL - 8:
-                    sprintf(immbuf, "%s", "  TRIAL IMM  ");
-                    break;
-                default:
-                    sprintf(immbuf, "%2d %6s %s", wch->level,
-                        wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                    class);
-            }
-
-            /* a little formatting */
-            if (!IS_IMMORTAL(wch))
-            {
-                sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
-                    wch->level,
-                    wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                class,
-                    wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                    wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                    clan_table[wch->clan].who_name,
-                    IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                    IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                    IS_TESTER(wch) ? "({WTester{x) " : "",
-                    IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                    wch->name,
-                    IS_NPC(wch) ? "" : wch->pcdata->title);
-            }
-            else
-            {
-                sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-                    immbuf,
-                    wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                    wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                    clan_table[wch->clan].who_name,
-                    IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                    IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                    IS_TESTER(wch) ? "({WTester{x) " : "",
-                    IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                    wch->name,
-                    IS_NPC(wch) ? "" : wch->pcdata->title);
-            }
+            sprintf(buf, "%s", who_list_formatter(wch));
             add_buf(output, buf);
         }
     }
@@ -2453,7 +2613,7 @@ void do_whois(CHAR_DATA * ch, char *argument)
 
     page_to_char(buf_string(output), ch);
     free_buf(output);
-} // end do_whois
+}
 
 /*
  * New 'who' command originally by Alander of Rivers of Mud.
@@ -2462,7 +2622,6 @@ void do_who(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
     char buf2[MAX_STRING_LENGTH];
-    char immbuf[15];
     BUFFER *output;
     DESCRIPTOR_DATA *d;
     extern int top_class;
@@ -2480,7 +2639,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     // This is a hack for Windows/Visual C++, the gcc compiler allows for variable length arrays so
     // top_class is the number of classes dynamically read in.  This is akin to the old
     // MAX_CLASS (which now defines the ceiling and not the actual max classes).
-    bool rgfClass[9];
+    bool rgfClass[12];
 #endif
 
     bool rgfRace[MAX_PC_RACE];
@@ -2550,7 +2709,9 @@ void do_who(CHAR_DATA * ch, char *argument)
                     if (iRace == 0 || iRace >= MAX_PC_RACE)
                     {
                         if (!str_prefix(arg, "clan"))
+                        {
                             fClan = TRUE;
+                        }
                         else
                         {
                             iClan = clan_lookup(arg);
@@ -2561,9 +2722,7 @@ void do_who(CHAR_DATA * ch, char *argument)
                             }
                             else
                             {
-                                send_to_char
-                                    ("That's not a valid race, class, or clan.\r\n",
-                                        ch);
+                                send_to_char("That's not a valid race, class, or clan.\r\n", ch);
                                 return;
                             }
                         }
@@ -2592,7 +2751,6 @@ void do_who(CHAR_DATA * ch, char *argument)
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         CHAR_DATA *wch;
-        char const *class;
 
         /*
          * Check for match against restrictions.
@@ -2616,79 +2774,7 @@ void do_who(CHAR_DATA * ch, char *argument)
             continue;
 
         nMatch++;
-
-        /*
-         * Figure out what to print for class.
-         */
-        class = class_table[wch->class]->who_name;
-        switch (wch->level)
-        {
-            case MAX_LEVEL - 0:
-                sprintf(immbuf, "%s", " IMPLEMENTOR ");
-                break;
-            case MAX_LEVEL - 1:
-                sprintf(immbuf, "%s", "    ADMIN    ");
-                break;
-            case MAX_LEVEL - 2:
-                sprintf(immbuf, "%s", "    CODER    ");
-                break;
-            case MAX_LEVEL - 3:
-                sprintf(immbuf, "%s", "   BUILDER   ");
-                break;
-            case MAX_LEVEL - 4:
-                sprintf(immbuf, "%s", "    QUEST    ");
-                break;
-            case MAX_LEVEL - 5:
-                sprintf(immbuf, "%s", "  ROLE-PLAY  ");
-                break;
-            case MAX_LEVEL - 6:
-                sprintf(immbuf, "%s", "    STORY    ");
-                break;
-            case MAX_LEVEL - 7:
-                sprintf(immbuf, "%s", "   RETIRED   ");
-                break;
-            case MAX_LEVEL - 8:
-                sprintf(immbuf, "%s", "  TRIAL IMM  ");
-                break;
-            default:
-                sprintf(immbuf, "%2d %6s %s", wch->level,
-                    wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-                class);
-        }
-
-    /*
-     * Format it up.
-     */
-        if (!IS_IMMORTAL(wch))
-        {
-            sprintf(buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s%s\r\n",
-                wch->level,
-                wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name : "     ",
-            class,
-                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                clan_table[wch->clan].who_name,
-                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                IS_TESTER(wch) ? "({WTester{x) " : "",
-                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                wch->name,
-                IS_NPC(wch) ? "" : wch->pcdata->title);
-        }
-        else
-        {
-            sprintf(buf, "[%s] %s%s%s%s%s%s%s%s%s\r\n",
-                immbuf,
-                wch->incog_level >= LEVEL_HERO ? "({wIncog{x) " : "",
-                wch->invis_level >= LEVEL_HERO ? "({wWizi{x) " : "",
-                clan_table[wch->clan].who_name,
-                IS_SET(wch->comm, COMM_AFK) ? "[{cAFK{x] " : "",
-                IS_SET(wch->comm, COMM_QUIET) ? "[{cQuiet{x] " : "",
-                IS_TESTER(wch) ? "({WTester{x) " : "",
-                IS_SET(wch->act, PLR_WANTED) ? "({RWANTED{x) " : "",
-                wch->name,
-                IS_NPC(wch) ? "" : wch->pcdata->title);
-        }
+        sprintf(buf, "%s", who_list_formatter(wch));
         add_buf(output, buf);
     }
 
@@ -2697,7 +2783,7 @@ void do_who(CHAR_DATA * ch, char *argument)
     page_to_char(buf_string(output), ch);
     free_buf(output);
     return;
-} // end do_who
+}
 
 /*
  * Counts and shows the number of players currently on as well as showing
@@ -2726,7 +2812,7 @@ void do_count(CHAR_DATA * ch, char *argument)
     sprintf(buf, "The most we've ever had on was {R%d{x.\r\n", statistics.max_players_online);
     send_to_char(buf, ch);
 
-} // end do_count
+}
 
 /*
  * Returns the current number of players online (connected == CON_PLAYING)
@@ -3140,25 +3226,24 @@ void do_description(CHAR_DATA * ch, char *argument)
                 if (buf[len] == '\r')
                 {
                     if (!found)
-                    {
-                        /* back it up */
+                    {   /* back it up */
                         if (len > 0)
                             len--;
+
                         found = TRUE;
                     }
                     else
-                    {            /* found the second one */
-
+                    {   /* found the second one */
                         buf[len + 1] = '\0';
                         free_string(ch->description);
                         ch->description = str_dup(buf);
                         send_to_char("Your description is:\r\n", ch);
-                        send_to_char(ch->description ? ch->description :
-                            "(None).\r\n", ch);
+                        send_to_char(ch->description ? ch->description : "(None).\r\n", ch);
                         return;
                     }
                 }
             }
+
             buf[0] = '\0';
             free_string(ch->description);
             ch->description = str_dup(buf);
@@ -3168,7 +3253,7 @@ void do_description(CHAR_DATA * ch, char *argument)
 
         if (!str_cmp(argument, "++") || !str_cmp(argument, "edit"))
         {
-            string_append( ch, &ch->description);
+            string_append(ch, &ch->description);
             return;
         }
         else if (!str_cmp(argument, "format"))
@@ -3209,8 +3294,6 @@ void do_description(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
 void do_report(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_INPUT_LENGTH];
@@ -3230,123 +3313,6 @@ void do_report(CHAR_DATA * ch, char *argument)
 
     return;
 }
-
-/*
- * The practice command can be used to both show a player all of their skills
- * and spells as well as actually practice them once they find a trainer.
- */
-void do_practice(CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    int sn;
-
-    if (IS_NPC(ch))
-        return;
-
-    if (argument[0] == '\0')
-    {
-        int col;
-
-        col = 0;
-        for (sn = 0; sn < top_sn; sn++)
-        {
-            if (skill_table[sn]->name == NULL)
-                break;
-
-            // If it is a racial skill, but not the players race then continue.
-            if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
-                continue;
-
-            if (ch->level < skill_table[sn]->skill_level[ch->class]
-                || ch->pcdata->learned[sn] < 1 /* skill is not known */)
-                continue;
-
-            sprintf(buf, "%-19.19s %3d%%  ",
-                skill_table[sn]->name, ch->pcdata->learned[sn]);
-            send_to_char(buf, ch);
-            if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
-        }
-
-        if (col % 3 != 0)
-            send_to_char("\r\n", ch);
-
-        sprintf(buf, "You have %d practice sessions left.\r\n", ch->practice);
-        send_to_char(buf, ch);
-    }
-    else
-    {
-        CHAR_DATA *mob;
-        int adept;
-
-        if (!IS_AWAKE(ch))
-        {
-            send_to_char("In your dreams, or what?\r\n", ch);
-            return;
-        }
-
-        for (mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room)
-        {
-            if (IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE))
-                break;
-        }
-
-        if (mob == NULL)
-        {
-            send_to_char("You can't do that here.\r\n", ch);
-            return;
-        }
-
-        if (ch->practice <= 0)
-        {
-            send_to_char("You have no practice sessions left.\r\n", ch);
-            return;
-        }
-
-        if ((sn = find_spell(ch, argument)) < 0 ||
-            (!IS_NPC(ch)
-                && (ch->level < skill_table[sn]->skill_level[ch->class]
-                    || ch->pcdata->learned[sn] < 1    /* skill is not known */
-                    || (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
-                    || skill_table[sn]->rating[ch->class] == 0)))
-        {
-            send_to_char("You can't practice that.\r\n", ch);
-            return;
-        }
-
-        adept = IS_NPC(ch) ? 100 : class_table[ch->class]->skill_adept;
-
-        if (ch->pcdata->learned[sn] >= adept)
-        {
-            sprintf(buf, "You are already learned at %s.\r\n", skill_table[sn]->name);
-            send_to_char(buf, ch);
-        }
-        else
-        {
-            ch->practice--;
-            ch->pcdata->learned[sn] +=
-                int_app[get_curr_stat(ch, STAT_INT)].learn /
-                skill_table[sn]->rating[ch->class];
-
-            if (ch->pcdata->learned[sn] < adept)
-            {
-                sprintf(buf, "You practice $T to %d%% proficiency.", ch->pcdata->learned[sn]);
-                act(buf, ch, NULL, skill_table[sn]->name, TO_CHAR);
-                act("$n practices $T.", ch, NULL, skill_table[sn]->name, TO_ROOM);
-            }
-            else
-            {
-                ch->pcdata->learned[sn] = adept;
-                act("You are now learned at $T.", ch, NULL, skill_table[sn]->name, TO_CHAR);
-                act("$n is now learned at $T.", ch, NULL, skill_table[sn]->name, TO_ROOM);
-            }
-        }
-    }
-
-    return;
-
-} // end do_practice
-
 
 
 /*
@@ -3515,9 +3481,9 @@ void do_stats(CHAR_DATA *ch, char *argument)
 {
     // Check if they just want the brief stats as was displayed in the old score command, if
     // so, show them then get out.
-    if (!IS_NULLSTR(argument) && !str_prefix(argument, "brief"))
+    if (IS_NULLSTR(argument))
     {
-        printf_to_char(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
+        sendf(ch, "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\r\n",
             ch->perm_stat[STAT_STR], get_curr_stat(ch,STAT_STR),
             ch->perm_stat[STAT_INT], get_curr_stat(ch,STAT_INT),
             ch->perm_stat[STAT_WIS], get_curr_stat(ch,STAT_WIS),
@@ -3528,10 +3494,10 @@ void do_stats(CHAR_DATA *ch, char *argument)
 
     char buf[MAX_STRING_LENGTH];
 
-    send_to_char("------------------------------------------------------\r\n", ch);
-    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class{x\r\n");
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
+    sprintf(buf, "{WStatistic       Permanent  Current  Max for Race/Class (with merits){x\r\n");
     send_to_char(buf, ch);
-    send_to_char("------------------------------------------------------\r\n", ch);
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
 
     sprintf(buf, "Strength        {W%-2d{x         %s%-2d{x       {W%-2d{x\r\n",
         ch->perm_stat[STAT_STR],
@@ -3568,7 +3534,7 @@ void do_stats(CHAR_DATA *ch, char *argument)
         get_max_train(ch, STAT_CON));
     send_to_char(buf, ch);
 
-    send_to_char("------------------------------------------------------\r\n", ch);
+    send_to_char("--------------------------------------------------------------------\r\n", ch);
 
     return;
 } // end do_stats
@@ -3583,6 +3549,8 @@ void do_class(CHAR_DATA *ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     char prime_stat[5];
     int i = 0;
+    int race = 0;
+    int col = 0;
 
     if (IS_NULLSTR(argument))
     {
@@ -3607,7 +3575,7 @@ void do_class(CHAR_DATA *ch, char *argument)
                 class_table[i]->is_reclass == FALSE ? "Base Class" : "Reclass",
                 class_table[i]->who_name,
                 prime_stat,
-                class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x",
+                class_table[i]->mana == TRUE ? "{GTrue{x" : "{RFalse{x",
                 class_table[i]->skill_adept,
                 class_table[i]->is_enabled == TRUE  ? "{GTrue{x" : "{RFalse{x"
                 );
@@ -3667,7 +3635,7 @@ void do_class(CHAR_DATA *ch, char *argument)
     sprintf(buf, "%-30s [%2d]\r\n", "{WHP Maximum Per Level{x:", class_table[i]->hp_max);
     send_to_char(buf, ch);
 
-    sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->fMana == TRUE ? "{GTrue{x" : "{RFalse{x");
+    sprintf(buf, "%-30s [%s]\r\n", "{WCasts at Level{x:", class_table[i]->mana == TRUE ? "{GTrue{x" : "{RFalse{x");
     send_to_char(buf, ch);
 
     sprintf(buf, "%-30s [%s]\r\n", "{WBase Group{x:", class_table[i]->base_group);
@@ -3675,6 +3643,24 @@ void do_class(CHAR_DATA *ch, char *argument)
 
     sprintf(buf, "%-30s [%s]\r\n", "{WDefault Group{x:", class_table[i]->default_group);
     send_to_char(buf, ch);
+
+    send_to_char("{WClass Multipliers{x:\r\n", ch);
+
+    for (race = 0;race < MAX_PC_RACE; race++)
+    {
+        col++;
+
+        sendf(ch, "  * %-16s %d", pc_race_table[race].name, pc_race_table[race].class_mult[i]);
+
+        if (col % 3 == 0)
+        {
+            send_to_char("\r\n", ch);
+        }
+
+    }
+
+    col = 0;
+    send_to_char("\r\n", ch);
 
     send_to_char("--------------------------------------------------------------------------------\r\n", ch);
     send_to_char("Note:  Some of these settings are the default and maybe influenced by other in\r\n", ch);
@@ -3706,62 +3692,6 @@ char *pers(CHAR_DATA *ch, CHAR_DATA *looker)
 } // end pers
 
 /*
- * Command to allow the player to show the terrain type of the room they
- * are in.
- */
-void do_terrain(CHAR_DATA *ch, char *argument)
-{
-
-    if (ch == NULL || ch->in_room == NULL)
-        return;
-
-    switch (ch->in_room->sector_type)
-    {
-        case(SECT_INSIDE) :
-            send_to_char("You are indoors.\r\n", ch);
-            break;
-        case(SECT_CITY) :
-            send_to_char("You see the city about you... not a lot of terrain.\r\n", ch);
-            break;
-        case(SECT_FIELD) :
-            send_to_char("The terrain is that of fields.\r\n", ch);
-            break;
-        case(SECT_FOREST) :
-            send_to_char("The terrain is that of the forest.\r\n", ch);
-            break;
-        case(SECT_HILLS) :
-            send_to_char("The terrain is that of the hills.\r\n", ch);
-            break;
-        case(SECT_MOUNTAIN) :
-            send_to_char("The terrain is that of the mountains.\r\n", ch);
-            break;
-        case(SECT_AIR) :
-            send_to_char("There is no terrain, your in the air!\r\n", ch);
-            break;
-        case(SECT_DESERT) :
-            send_to_char("The terrain is that of the desert.\r\n", ch);
-            break;
-        case(SECT_BEACH) :
-            send_to_char("The terrain is that of the beach.\r\n", ch);
-            break;
-        case(SECT_OCEAN) :
-            send_to_char("You are in the ocean!\r\n", ch);
-            break;
-        case(SECT_UNDERWATER) :
-            send_to_char("You are underwater!\r\n", ch);
-            break;
-        default:
-            send_to_char("The terrain type is undetermined.\r\n", ch);
-            bugf("Unhandled terrain type in do_terrain for vnum %d", ch->in_room->vnum);
-            break;
-    }
-
-    act("$n takes a look around $mself and examines the terrain.", ch, NULL, NULL, TO_ROOM);
-    return;
-
-} // end do_terrain
-
-/*
  * Game version and build information.
  */
 void do_version(CHAR_DATA *ch, char *argument)
@@ -3778,4 +3708,222 @@ void do_version(CHAR_DATA *ch, char *argument)
     }
 
     send_to_char(buf, ch);
+}
+
+/*
+ * Shows the gods and goddesses that are available for a player to choose from.
+ */
+void do_deity(CHAR_DATA *ch, char *argument)
+{
+    int x = 0;
+    char deity[12];
+
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WDeity       Description{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
+    for (x = 0; deity_table[x].name != NULL; x++)
+    {
+        // Mark with a * if the deity is the characters god or goddess.
+        if (!IS_NPC(ch) && ch->pcdata->deity == x)
+        {
+            sprintf(deity, "%s*", deity_table[x].name);
+        }
+        else
+        {
+            sprintf(deity, "%s", deity_table[x].name);
+        }
+
+        sendf(ch, "%-12s%s\r\n", deity, deity_table[x].description);
+    }
+
+    if (!IS_NPC(ch))
+    {
+        send_to_char("\r\n* denotes the deity or path you follow.\r\n", ch);
+    }
+}
+
+/*
+ * Currently just a list of the basic player available races.
+ */
+void do_race(CHAR_DATA *ch, char *argument)
+{
+    int race = 0;
+    char buf[MAX_STRING_LENGTH];
+    int x = 0;
+
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    send_to_char("{WRace             {WWho Name   Size       Str  Int  Wis  Dex  Con{x\r\n", ch);
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+
+    for (race = 1; race < MAX_PC_RACE; race++)
+    {
+        x++;
+
+        // Format the size from the size flags table, since capitalize is a static char function it can't be called
+        // twice in the printf which is why we're formatting it here.
+        sprintf(buf, "%s", capitalize(flag_string(size_flags, pc_race_table[race].size)));
+
+        sendf(ch, "%-16s %-10s %-6s (%d)  %d   %d   %d   %d   %d\r\n"
+            , capitalize(pc_race_table[race].name)
+            , pc_race_table[race].who_name, buf, pc_race_table[race].size
+            , pc_race_table[race].max_stats[STAT_STR]
+            , pc_race_table[race].max_stats[STAT_INT]
+            , pc_race_table[race].max_stats[STAT_WIS]
+            , pc_race_table[race].max_stats[STAT_DEX]
+            , pc_race_table[race].max_stats[STAT_CON]
+        );
+    }
+
+    send_to_char("--------------------------------------------------------------------------------\r\n", ch);
+    sendf(ch, "%d player chooseable races displayed.\r\n", x);
+
+    return;
+
+}
+
+/*
+ * Represents a deck of cards.
+ */
+static char * const deck[] =
+{
+    "2 of diamonds",
+    "3 of diamonds",
+    "4 of diamonds",
+    "5 of diamonds",
+    "6 of diamonds",
+    "7 of diamonds",
+    "8 of diamonds",
+    "9 of diamonds",
+    "10 of diamonds",
+    "jack of diamonds",
+    "queen of diamonds",
+    "king of diamonds",
+    "ace of diamonds",
+    "2 of hearts",
+    "3 of hearts",
+    "4 of hearts",
+    "5 of hearts",
+    "6 of hearts",
+    "7 of hearts",
+    "8 of hearts",
+    "9 of hearts",
+    "10 of hearts",
+    "jack of hearts",
+    "queen of hearts",
+    "king of hearts",
+    "ace of hearts",
+    "2 of spades",
+    "3 of spades",
+    "4 of spades",
+    "5 of spades",
+    "6 of spades",
+    "7 of spades",
+    "8 of spades",
+    "9 of spades",
+    "10 of spades",
+    "jack of spades",
+    "queen of spades",
+    "king of spades",
+    "ace of spades",
+    "2 of clubs",
+    "3 of clubs",
+    "4 of clubs",
+    "5 of clubs",
+    "6 of clubs",
+    "7 of clubs",
+    "8 of clubs",
+    "9 of clubs",
+    "10 of clubs",
+    "jack of clubs",
+    "queen of clubs",
+    "king of clubs",
+    "ace of clubs"
+};
+
+/*
+ * Draw is a simple command to allow a player to draw a random card from a
+ * deck.  We won't require that they have a deck of cards on them (yet).
+ * We're going to use Smaug's callback timer to give the appearance of
+ * shuffling.
+ */
+void do_draw(CHAR_DATA *ch, char *argument)
+{
+    int card;
+
+    switch (ch->substate)
+    {
+        default:
+            // Pass a "1" through so the next call here will continue to the actual drawing.  It
+            // will wait a static 6 pulses before the callback.
+            add_timer(ch, TIMER_DO_FUN, 6, do_draw, 1, argument);
+            send_to_char("You shuffle a deck of cards.\r\n", ch);
+            act("$n shuffles a deck of cards.", ch, NULL, NULL, TO_ROOM);
+            return;
+
+        case 1:
+            // Continue onward with drawing a card.
+            break;
+        case SUB_TIMER_DO_ABORT:
+            // The player stopped early which will cause them to not draw a card.
+            ch->substate = SUB_NONE;
+            send_to_char("You stop shuffling the deck early and do not draw a card.\r\n", ch);
+            act("$n stops shuffling the deck early and does not draw a card.", ch, NULL, NULL, TO_ROOM);
+            return;
+    }
+
+    // Reset the characters substate
+    ch->substate = SUB_NONE;
+
+    // Get a random card that we can reference from the static deck array, show the final result
+    // to both the player and the room.
+    card = number_range(0, 51);
+    act("You draw a $t from a deck of cards.", ch, deck[card], NULL, TO_CHAR);
+    act("$n draws a $t from a deck of cards.", ch, deck[card], NULL, TO_ROOM);
+
+    return;
+}
+
+/*
+ * tnl - To next level.  Simple command to show just how many experience points are needed until
+ * the next level.  Easier to write triggers off of then.
+ */
+void do_tnl(CHAR_DATA *ch, char *argument)
+{
+    sendf(ch, "You have %d experience points until the next level.\r\n",
+        !IS_NPC(ch) && ch->level < 51 ? (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp : 0);
+}
+
+/*
+ * Glance command to quickly spot check a person's health.
+ */
+void do_glance(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (ch == NULL)
+    {
+        return;
+    }
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("Glance at whom?\r\n", ch);
+        return;
+    }
+
+    if ((victim = get_char_room(ch, argument)) == NULL)
+    {
+        send_to_char("You don't see that individual.\r\n", ch);
+        return;
+    }
+
+    // Call the standard description function for looking at someone else.
+    sendf(ch, "%s", health_description(ch, victim));
+
+    // Show the room other than yourself.
+    act("$n glances at you.", ch, NULL, victim, TO_VICT);
+    act("$n glances at $N.", ch, NULL, victim, TO_NOTVICT);
+
+    return;
 }

@@ -36,9 +36,6 @@
     <ClCompile Include="src\comm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\const.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\db.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,15 +96,6 @@
     <ClCompile Include="src\act_mob.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\enchantor.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bladesinger.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\healer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,9 +129,6 @@
     <ClCompile Include="src\ini.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ranger.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\settings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -165,9 +150,6 @@
     <ClCompile Include="src\quest.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rogue.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\db_export.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -181,6 +163,60 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\grid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nature.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parchment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bank.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gsn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_bladesinger.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_enchantor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_rogue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_ranger.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_healer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_mage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_thief.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_warrior.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_cleric.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_psionicist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_priest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class_barbarian.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\merit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\language.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -285,12 +321,7 @@
     <None Include="area\trollden.are" />
     <None Include="area\valley.are" />
     <None Include="area\wyvern.are" />
-    <None Include="doc\MPDocs\examples.doc" />
-    <None Include="doc\MPDocs\hacker.doc" />
-    <None Include="doc\MPDocs\howto" />
     <None Include="doc\MPDocs\mobprog.doc" />
-    <None Include="doc\MPDocs\readme" />
-    <None Include="doc\MPDocs\surrender.hlp" />
     <None Include="doc\changes.olc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />
@@ -349,10 +380,24 @@
     <None Include="doc\supported-operating-systems.md" />
     <None Include="doc\setup-linux-ubuntu.md" />
     <None Include="doc\setup-linux-raspbian.md" />
+    <None Include="doc\setup-windows.md" />
+    <None Include="classes\priest.class" />
+    <None Include="classes\psionicist.class" />
+    <None Include="classes\rogue.class" />
+    <None Include="classes\barbarian.class" />
+    <None Include="doc\area-directions.md" />
+    <None Include="doc\mob-prog.md" />
+    <None Include="doc\mob-prog-implementation.md" />
+    <None Include="area\dungeon.are" />
+    <None Include="area\gray-mountains.are" />
+    <None Include="area\hall-sylvan.are" />
+    <None Include="area\hall-warhammer.are" />
+    <None Include="area\help-dict.are" />
+    <None Include="area\help-mud.are" />
+    <None Include="area\redoak.are" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="area\orphaned_helps.txt" />
-    <Text Include="doc\MPDocs\new_readme.txt" />
     <Text Include="doc\contrib.txt" />
     <Text Include="doc\drool.txt" />
     <Text Include="doc\port.txt" />
@@ -361,7 +406,6 @@
     <Text Include="doc\historical\vnum.txt" />
     <Text Include="doc\historical\trad.txt" />
     <Text Include="doc\historical\sites.txt" />
-    <Text Include="doc\historical\WindowsSupport.txt" />
     <Text Include="doc\historical\act.txt" />
     <Text Include="doc\historical\area.txt" />
     <Text Include="doc\historical\class.txt" />
@@ -372,5 +416,6 @@
     <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\historical\security.txt" />
     <Text Include="doc\historical\skill.txt" />
+    <Text Include="doc\mob-prog-examples.md" />
   </ItemGroup>
 </Project>

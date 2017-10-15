@@ -105,6 +105,15 @@ void do_settings(CHAR_DATA *ch, char *argument)
             "Shock Spread", settings.shock_spread ? "{GON{x" : "{ROFF{x");
         send_to_char(buf, ch);
 
+        sprintf(buf, "%-25s %-4d %-25s %-7s\r\n",
+            "Stat Surge", settings.stat_surge,
+            "Hours Affect Experience", settings.hours_affect_exp ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+
+        sprintf(buf, "%-25s %-7s\r\n",
+            "Focused Improves", settings.focused_improves ? "{GON{x" : "{ROFF{x");
+        send_to_char(buf, ch);
+
         send_to_char("\r\n", ch);
         send_to_char("--------------------------------------------------------------------------------\r\n", ch);
         send_to_char("{WGame Info{x\r\n", ch);
@@ -141,7 +150,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
+        send_to_char("                  loginwholist|improves\r\n", ch);
         return;
     }
 
@@ -252,7 +262,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
     {
         settings.login_who_list_enabled = !settings.login_who_list_enabled;
 
-        printf_to_char(ch, "The login who list enabled flag has been set to: %s.\r\n", settings.login_who_list_enabled ? "ON" : "OFF");
+        sendf(ch, "The login who list enabled flag has been set to: %s.\r\n", settings.login_who_list_enabled ? "ON" : "OFF");
         sprintf(buf, "$N has set the login who list enabled flag to: %s", settings.login_who_list_enabled ? "ON" : "OFF");
         wiznet(buf, ch, NULL, 0, 0, 0);
 
@@ -285,7 +295,29 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the login color prompt to %s.", bool_onoff(settings.login_color_prompt));
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Login color prompt has been turned %s.\r\n", bool_onoff(settings.login_color_prompt));
+        sendf(ch, "Login color prompt has been turned %s.\r\n", bool_onoff(settings.login_color_prompt));
+
+        save_settings();
+    }
+    else if (!str_prefix(arg1, "hoursexp"))
+    {
+        settings.hours_affect_exp = !settings.hours_affect_exp;
+
+        sprintf(buf, "$N has set the hours affect experience setting to %s.", bool_onoff(settings.hours_affect_exp));
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        sendf(ch, "Hours affecting experience has been turned %s.\r\n", bool_onoff(settings.hours_affect_exp));
+
+        save_settings();
+    }
+    else if (!str_prefix(arg1, "improves"))
+    {
+        settings.focused_improves = !settings.focused_improves;
+
+        sprintf(buf, "$N has set the focused improves setting to %s.", bool_onoff(settings.focused_improves));
+        wiznet(buf, ch, NULL, 0, 0, 0);
+
+        sendf(ch, "Focused improves has been turned %s.\r\n", bool_onoff(settings.focused_improves));
 
         save_settings();
     }
@@ -305,9 +337,24 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the web page URL to %s.", settings.web_page_url);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "Web page URL has been changed %s.\r\n", settings.web_page_url);
+        sendf(ch, "Web page URL has been changed %s.\r\n", settings.web_page_url);
 
         save_settings();
+    }
+    else if (!str_prefix(arg1, "statsurge"))
+    {
+        if (!IS_NULLSTR(arg2))
+        {
+            settings.stat_surge = atoi(arg2);
+            sendf(ch, "Stats can now be surged %d above their maximum.\r\n", settings.stat_surge);
+
+            save_settings();
+        }
+        else
+        {
+            send_to_char("Please enter a numeric value for the stat surge.\r\n", ch);
+            return;
+        }
     }
     else if (!str_prefix(arg1, "mudname"))
     {
@@ -325,7 +372,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the mud name to %s.", settings.mud_name);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "The mud's name has been set to %s.\r\n", settings.mud_name);
+        sendf(ch, "The mud's name has been set to %s.\r\n", settings.mud_name);
 
         save_settings();
     }
@@ -345,7 +392,7 @@ void do_settings(CHAR_DATA *ch, char *argument)
         sprintf(buf, "$N has set the login greeting to %s.", settings.login_greeting);
         wiznet(buf, ch, NULL, 0, 0, 0);
 
-        printf_to_char(ch, "The login greeting has been set to %s.\r\n", settings.login_greeting);
+        sendf(ch, "The login greeting has been set to %s.\r\n", settings.login_greeting);
 
         save_settings();
     }
@@ -354,7 +401,8 @@ void do_settings(CHAR_DATA *ch, char *argument)
         send_to_char("\r\n{YProvide an argument to set or toggle a setting.{x\r\n\r\n", ch);
         send_to_char("Syntax: settings <wizlock|newlock|doublegold|doubleexperience|\r\n", ch);
         send_to_char("                  gainconvert|shockspread|testmode|logincolorprompt\n\r", ch);
-        send_to_char("                  webpageurl|mudname|logingreeting>\r\n", ch);
+        send_to_char("                  webpageurl|mudname|logingreeting|statsurge|hoursexp>\r\n", ch);
+        send_to_char("                  loginwholist|improves\r\n", ch);
     }
 
 } // end do_settings
@@ -389,12 +437,16 @@ void load_settings()
     settings.whitelist_lock = iniparser_getboolean(ini, "Settings:WhiteListLock", FALSE);
     settings.login_color_prompt = iniparser_getboolean(ini, "Settings:LoginColorPrompt", FALSE);
     settings.login_who_list_enabled = iniparser_getboolean(ini, "Settings:LoginWhoListEnabled", TRUE);
+    settings.hours_affect_exp = iniparser_getboolean(ini, "Settings:HoursAffectExperience", TRUE);
+    settings.focused_improves = iniparser_getboolean(ini, "Settings:FocusedImproves", TRUE);
+
+    settings.stat_surge = iniparser_getint(ini, "Settings:StatSurge", 0);
 
     free_string(settings.web_page_url);
     settings.web_page_url = str_dup(iniparser_getstring(ini, "Settings:WebPageUrl", ""));
 
     free_string(settings.mud_name);
-    settings.mud_name = str_dup(iniparser_getstring(ini, "Settings:MudName", ""));
+    settings.mud_name = str_dup(iniparser_getstring(ini, "Settings:MudName", "Crimson Skies"));
 
     free_string(settings.login_greeting);
     settings.login_greeting = str_dup(iniparser_getstring(ini, "Settings:LoginGreeting", ""));
@@ -447,6 +499,9 @@ void save_settings(void)
     // Game Mechanics Settings
     fprintf(fp, "ShockSpread = %s\n", settings.shock_spread ? "True" : "False");
     fprintf(fp, "GainConvert = %s\n", settings.gain_convert ? "True" : "False");
+    fprintf(fp, "StatSurge = %d\n", settings.stat_surge);
+    fprintf(fp, "HoursAffectExperience = %s\n", settings.hours_affect_exp ? "True" : "False");
+    fprintf(fp, "FocusedImproves = %s\n", settings.focused_improves ? "True" : "False");
 
     // System Settings
     fprintf(fp, "LoginColorPrompt = %s\n", settings.login_color_prompt ? "True" : "False");

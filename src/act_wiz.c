@@ -189,6 +189,7 @@ void do_guild(CHAR_DATA * ch, char *argument)
         send_to_char("Syntax: guild <character> <clan name>\r\n", ch);
         return;
     }
+
     if ((victim = get_char_world(ch, arg1)) == NULL)
     {
         send_to_char("They aren't playing.\r\n", ch);
@@ -197,7 +198,11 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (!str_prefix(arg2, "none"))
     {
-        send_to_char("They are now clanless.\r\n", ch);
+        if (ch != victim)
+        {
+            send_to_char("They are now clanless.\r\n", ch);
+        }
+
         send_to_char("You are now a member of no clan!\r\n", victim);
         victim->clan = 0;
         return;
@@ -211,21 +216,43 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (clan_table[clan].independent)
     {
-        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        if (ch != victim)
+        {
+            sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
+            send_to_char(buf, ch);
+        }
+
         sprintf(buf, "You are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
     }
     else
     {
-        sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        if (ch != victim)
+        {
+            sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
+            send_to_char(buf, ch);
+        }
+
         sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
-        send_to_char(buf, ch);
+        send_to_char(buf, victim);
+
+        // They are in a new clan, if that clan has a recall point, set it.
+        if (!IS_NPC(victim))
+        {
+            ROOM_INDEX_DATA *location;
+
+            // Make sure the recall point is valid, then set it.
+            if ((location = get_room_index(clan_table[clan].recall_vnum)) != NULL)
+            {
+                victim->pcdata->recall_vnum = clan_table[clan].recall_vnum;
+                sendf(victim, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+            }
+        }
+
     }
 
     victim->clan = clan;
-} // end do_guild
+}
 
 /* RT nochannels command, for those spammers */
 void do_nochannels(CHAR_DATA * ch, char *argument)
@@ -1184,11 +1211,11 @@ void do_player_offline_stat(CHAR_DATA * ch, char *argument)
         sprintf(pfile, "%s", player_file_location(capitalize(argument)));
         sprintf(pfile_modified, "%s", file_last_modified(pfile));
 
-        printf_to_char(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
+        sendf(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
     }
     else
     {
-        printf_to_char(ch, "No player file exists for %s.\r\n", capitalize(argument));
+        sendf(ch, "No player file exists for %s.\r\n", capitalize(argument));
     }
 
     return;
@@ -1689,6 +1716,12 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         victim->alignment, victim->gold, victim->silver, victim->exp);
     send_to_char(buf, ch);
 
+    if (!IS_NPC(victim))
+    {
+        sprintf(buf, "Bank Gold: %ld  Clairvoyance Vnum: %d\r\n", victim->pcdata->bank_gold, ch->pcdata->vnum_clairvoyance);
+        send_to_char(buf, ch);
+    }
+
     sprintf(buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
         GET_AC(victim, AC_PIERCE), GET_AC(victim, AC_BASH),
         GET_AC(victim, AC_SLASH), GET_AC(victim, AC_EXOTIC));
@@ -1696,7 +1729,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     sprintf(buf,
         "Hit: %d  Dam: %d  Saves: %d  Size: %s  Position: %s  Wimpy: %d\r\n",
-        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), victim->saving_throw,
+        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), get_saves(victim),
         size_table[victim->size].name,
         position_table[victim->position].name, victim->wimpy);
     send_to_char(buf, ch);
@@ -1791,8 +1824,20 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     if (!IS_NPC(victim))
     {
-        sprintf(buf, "Security: %d.\r\n", victim->pcdata->security);    /* OLC */
-        send_to_char(buf, ch);    /* OLC */
+        // OLC
+        sendf(ch, "Security: %d  ", victim->pcdata->security);
+
+        if (victim->pcdata->improve_focus_gsn == 0)
+        {
+            sendf(ch, "Improving: (none)  Minutes until improvement: %d\r\n"
+                , victim->pcdata->improve_minutes);
+        }
+        else
+        {
+            sendf(ch, "Improving: %s  Minutes until improvement: %d\r\n"
+                , skill_table[victim->pcdata->improve_focus_gsn]->name
+                , victim->pcdata->improve_minutes);
+        }
     }
 
     sprintf(buf, "Short description: %s\r\nLong  description: %s",
@@ -2405,6 +2450,9 @@ void do_snoop(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Allows an immortal to switch into a mob.
+ */
 void do_switch(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH], buf[MAX_STRING_LENGTH];
@@ -2465,12 +2513,17 @@ void do_switch(CHAR_DATA * ch, char *argument)
     ch->desc->original = ch;
     victim->desc = ch->desc;
     ch->desc = NULL;
+
     /* change communications to match */
     if (ch->prompt != NULL)
+    {
         victim->prompt = str_dup(ch->prompt);
+    }
+
     victim->comm = ch->comm;
     victim->lines = ch->lines;
-    send_to_char("Ok.\r\n", victim);
+
+    sendf(victim, "You have switched into %s.\r\n", victim->short_descr);
     return;
 }
 
@@ -2992,7 +3045,9 @@ void do_advance(CHAR_DATA * ch, char *argument)
     {
         victim->level += 1;
         advance_level(victim, TRUE);
+        auto_train(victim);
     }
+
     sprintf(buf, "You are now level %d.\r\n", victim->level);
     send_to_char(buf, victim);
     victim->exp = exp_per_level(victim, victim->pcdata->points)
@@ -3000,6 +3055,50 @@ void do_advance(CHAR_DATA * ch, char *argument)
     victim->trust = 0;
     save_char_obj(victim);
     return;
+}
+
+/*
+ * Automatically trains stats in the order best for leveling.  For use with advance
+ * in order to setup level 51 test characters that are close to real stats.
+ */
+void auto_train(CHAR_DATA *ch)
+{
+    if (IS_NPC(ch))
+    {
+        return;
+    }
+
+    while (ch->train > 1)
+    {
+        ch->train -= 1;
+
+        if (ch->perm_stat[STAT_CON] < get_max_train(ch, STAT_CON))
+        {
+             ch->perm_stat[STAT_CON] += 1;
+        }
+        else if (ch->perm_stat[STAT_WIS] < get_max_train(ch, STAT_WIS))
+        {
+             ch->perm_stat[STAT_WIS] += 1;
+        }
+        else if (ch->perm_stat[STAT_INT] < get_max_train(ch, STAT_INT))
+        {
+             ch->perm_stat[STAT_INT] += 1;
+        }
+        else if (ch->perm_stat[STAT_STR] < get_max_train(ch, STAT_STR))
+        {
+             ch->perm_stat[STAT_STR] += 1;
+        }
+        else if (ch->perm_stat[STAT_DEX] < get_max_train(ch, STAT_DEX))
+        {
+             ch->perm_stat[STAT_DEX] += 1;
+        }
+        else
+        {
+            ch->pcdata->perm_hit += 10;
+            ch->max_hit += 10;
+            ch->hit += 10;
+        }
+    }
 }
 
 void do_trust(CHAR_DATA * ch, char *argument)
@@ -3900,7 +3999,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k questpoints\r\n", ch);
+        send_to_char("    1k questpoints deity merit[merit name|reset]\r\n", ch);
         return;
     }
 
@@ -4270,6 +4369,88 @@ void do_mset(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (!str_prefix(arg2, "deity"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("You cannot set an NPC's deity.\r\n", ch);
+            return;
+        }
+
+        int deity;
+        deity = deity_lookup(arg3);
+
+        if (deity < 0)
+        {
+            send_to_char("That's not a valid deity.\r\n", ch);
+            return;
+        }
+
+        victim->pcdata->deity = deity;
+
+        sendf(ch, "%s's deity has been set to %s, %s.\r\n", victim->name, deity_table[deity].name, deity_table[deity].description);
+        return;
+    }
+
+    if (!str_prefix(arg2, "merit"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("You cannot set merits on NPC's.\r\n", ch);
+            return;
+        }
+
+        int x;
+
+        if (!str_cmp(arg3, "clear") || !str_cmp(arg3, "reset"))
+        {
+            // Have to officially remove them one by one to reset any affects
+            // they might have.  Remove merit will check to see if they have it
+            // or not.
+            for (x = 0; merit_table[x].name != NULL; x++)
+            {
+                remove_merit(victim, merit_table[x].merit);
+            }
+
+            send_to_char("Merits cleared.\r\n", ch);
+            return;
+        }
+
+        bool found = FALSE;
+
+        for (x = 0; merit_table[x].name != NULL; x++)
+        {
+            if (LOWER(arg3[0]) == LOWER(merit_table[x].name[0]) && !str_prefix(arg3, merit_table[x].name))
+            {
+                if (IS_SET(victim->pcdata->merit, merit_table[x].merit))
+                {
+                    remove_merit(victim, merit_table[x].merit);
+                    sendf(ch, "%s removed from %s.\r\n", merit_table[x].name, victim->name);
+                }
+                else
+                {
+                    add_merit(victim, merit_table[x].merit);
+                    sendf(ch, "%s added to %s.\r\n", merit_table[x].name, victim->name);
+                }
+
+                found = TRUE;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            send_to_char("That merit was not found.\r\n\r\nThe following are valid merits:\r\n\r\n", ch);
+
+            for (x = 0; merit_table[x].name != NULL; x++)
+            {
+                sendf(ch, " * %s\r\n", merit_table[x].name);
+            }
+        }
+
+        return;
+    }
+
     if (!str_prefix(arg2, "group"))
     {
         if (!IS_NPC(victim))
@@ -4380,7 +4561,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         }
 
         victim->played = (value * 3600);
-        printf_to_char(ch, "%s's hours set to %d.\r\n", victim->name, value);
+        sendf(ch, "%s's hours set to %d.\r\n", victim->name, value);
 
         return;
     }
@@ -4397,8 +4578,8 @@ void do_mset(CHAR_DATA * ch, char *argument)
         victim->exp = victim->level * 1000;
         victim->pcdata->points = 40;
 
-        printf_to_char(ch, "%s has been set to 1k per level.\r\n", victim->name);
-        printf_to_char(victim, "%s has set you to 1k per level.\r\n", ch->name);
+        sendf(ch, "%s has been set to 1k per level.\r\n", victim->name);
+        sendf(victim, "%s has set you to 1k per level.\r\n", ch->name);
 
         sprintf(buf, "%s has set %s to 1k per level.", ch->name, victim->name);
         wiznet(buf, NULL, NULL, WIZ_SECURE, 0, 0);
@@ -4795,7 +4976,18 @@ void do_sockets(CHAR_DATA * ch, char *argument)
             default:
                 sprintf(state, "Unknown");
                 break;
+            case CON_GET_DEITY:
+                sprintf(state, "Get Deity");
+                break;
+            case CON_ASK_MERIT:
+            case CON_CHOOSE_MERIT:
+                sprintf(state, "Merit Selection");
+                break;
+            case CON_NEW_CHARACTER:
+                sprintf(state, "New Character");
+                break;
             case CON_LOGIN_MENU:
+            case CON_LOGIN_RETURN:
                 sprintf(state, "Login Menu");
                 break;
             case -15:
@@ -5534,7 +5726,11 @@ void do_forcetick(CHAR_DATA * ch, char *argument)
 {
     // We're going to show a WIZNET message for this
     char buf[100];
-    strcpy(buf, "$N forces a TICK ");
+
+    sprintf(buf, "%s forces time to move ahead.\r\n", ch->name);
+    send_to_all_char(buf);
+
+    sprintf(buf, "$N forces a TICK");
 
     update_handler(TRUE);
 
@@ -6096,7 +6292,13 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
     affect_strip_all(victim);
 
     // Reset's the char
-    reset_char(ch);
+    reset_char(victim);
+
+    // Set their pk timer to 0.
+    if (!IS_NPC(victim))
+    {
+        victim->pcdata->pk_timer = 0;
+    }
 
     // Show the user what was done.
     if (ch != victim)
@@ -6346,8 +6548,8 @@ void do_confiscate(CHAR_DATA *ch, char *argument)
     obj_from_char(obj);
     obj_to_char(obj, ch);
 
-    printf_to_char(ch, "You have confiscated %s from %s.\r\n", obj->short_descr, victim->name);
-    printf_to_char(victim, "%s has confiscated %s from you.\r\n", PERS(ch, victim), obj->short_descr);
+    sendf(ch, "You have confiscated %s from %s.\r\n", obj->short_descr, victim->name);
+    sendf(victim, "%s has confiscated %s from you.\r\n", PERS(ch, victim), obj->short_descr);
 
     return;
 
@@ -6520,7 +6722,7 @@ void do_clearreply(CHAR_DATA *ch, char *argument)
 
     // Unset the pointer to the previous character.
     victim->reply = NULL;
-    printf_to_char(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
+    sendf(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
 
     return;
 }
@@ -6647,13 +6849,110 @@ void do_playerlist(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Debug function to quickly test code without having to wire something up.
+ * Loads an offline character into the game and transfers them to the immortal (for
+ * implementors only).
  */
-void do_debug(CHAR_DATA * ch, char *argument)
+void do_pload(CHAR_DATA *ch, char *argument)
 {
-    send_to_char("Nothing to debug here.\r\n", ch);
-    return;
-} // end do_debug
+    DESCRIPTOR_DATA d;
+    bool exists = FALSE;
+    char name[MAX_INPUT_LENGTH];
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Load who?\r\n", ch);
+        return;
+    }
+
+    argument[0] = UPPER(argument[0]);
+    argument = one_argument(argument, name);
+
+    /* Dont want to load a second copy of a player who's already online! */
+    if (get_char_world(ch, name) != NULL)
+    {
+        send_to_char("That person is currently connected.\r\n", ch);
+        return;
+    }
+
+    exists = load_char_obj(&d, name); /* char pfile exists? */
+
+    if (!exists)
+    {
+        send_to_char("That player does not exist.\r\n", ch);
+        return;
+    }
+
+    d.character->desc = NULL;
+    d.character->next = char_list;
+    char_list = d.character;
+    d.connected = CON_PLAYING;
+    reset_char(d.character);
+
+    /* bring player to imm */
+    if (d.character->in_room != NULL)
+    {
+        if (d.character->was_in_room == NULL)
+        {
+            d.character->was_in_room = d.character->in_room;
+        }
+
+        char_to_room(d.character, ch->in_room); /* put in room imm is in */
+    }
+
+    sendf(ch, "You pull %s from the ether.\r\n", d.character->name);
+
+    if (d.character->pet != NULL)
+    {
+        char_to_room(d.character->pet, d.character->in_room);
+        act("$n has entered the game.", d.character->pet, NULL, NULL, TO_ROOM);
+    }
+
+}
+
+/*
+ * Meant to run after pload to unload a player.  This will transfer them back to where
+ * they came from and then force them to save and exit.  This code is common in many code
+ * bases, not sure where it originated.  Fixed a bug with room transfer and then another
+ * NULLing the was_in_room from comparing with the Moosehead Sled version.
+ */
+void do_punload(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+    char who[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, who);
+
+    if ((victim = get_char_world(ch, who)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    /* Person is legitametly logged on... was not ploaded.*/
+    if (victim->desc != NULL)
+    {
+        send_to_char("That player has a valid connection and cannot be unloaded.\r\n", ch);
+        return;
+    }
+
+    if (victim->was_in_room != NULL) /* return player and pet to orig room */
+    {
+        char_from_room(victim);
+        char_to_room(victim, victim->was_in_room);
+
+        if (victim->pet != NULL)
+        {
+            char_from_room(victim->pet);
+            char_to_room(victim->pet, victim->was_in_room);
+        }
+
+        ch->was_in_room = NULL;
+    }
+
+    sendf(ch, "You release %s back into the ether.\r\n", victim->name);
+    do_quit(victim, "");
+}
+
 
 /*
  * Checks all objects in the object list for problems.
@@ -6672,3 +6971,38 @@ void do_objcheck(CHAR_DATA * ch, char *argument)
     }
 
 } */ // end do_objcheck
+
+/*
+ * Debug function to quickly test code without having to wire something up.
+ */
+void do_debug(CHAR_DATA * ch, char *argument)
+{
+    //double x = difftime(current_time, ch->pcdata->last_note);
+    //x = x / 60;
+    //sendf(ch, "It has been %f minutes since you last sent a note.\r\n", x);
+
+    ch->pcdata->improve_focus_gsn = 164;
+
+/*  ROOM_INDEX_DATA *pRoomIndex;
+    AREA_DATA *pArea;
+    int vnum;
+
+    pArea = ch->in_room->area;
+
+    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
+    {
+        if ((pRoomIndex = get_room_index(vnum)))
+        {
+            if (pRoomIndex != NULL)
+            {
+                pRoomIndex->clan = clan_lookup("syvlan");
+                REMOVE_BIT(pRoomIndex->room_flags, ROOM_NO_GATE);
+            }
+        }
+    }
+*/
+    //do_restore(ch, "self");
+    //send_to_char("Ok.\r\n", ch);
+
+    return;
+} // end do_debug

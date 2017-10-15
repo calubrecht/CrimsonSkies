@@ -1,18 +1,15 @@
-To Do List
+wTo Do List
 ==========
 
 This is my to do list, mostly will be things big and small as I think about them.
 
   - Add custom recall field for each clan in the tables struct.
-  - Add command so anyone can go loner.
   - Add luck stat
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
   - do_reset and aedit_reset collision
-  - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
-  - Add ranged spells (fireball)
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
   - Number of connections per boot saved on count as well as most online ever.
   - Add profile command and/or way for user to store some OOC data like email.
@@ -26,15 +23,12 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug
-  - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
-  - Assassin class
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area so they save).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
-  - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
   - Save pc_race_table out to disk and load it in, add OLC for it.
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
@@ -86,6 +80,7 @@ This is my to do list, mostly will be things big and small as I think about them
   - Look at capitalization in names (e.g. disallow it, make it with capitalize).
   - Create command to reset a users password while they maybe offline
   - Make a function that will make a player visible with ACT messages from all invis states then implement it where that code is repeated.
+  - Function that makes someone invisible with no act messages.
   - Function to count an item type in a room, one for area (can be used to quickly make sure an item doesn't already exist in a room, like a campfire, etc).
   - Make sha256_crypt cross platform compatible (endian stuff)
   - Prune note spools, currently old notes don't load but they are kept in the file.
@@ -101,7 +96,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Clipboard command to allow a character to save notes.
   - Update name generator to find the maximum size of a name that's available and log it on startup.
   - fix (An Imm) when tells sometimes appearing when it shouldn't, copyover fixes.
-  - migrate skill_lookup calls to gsn_ checks for performance, especially in heavy hit spells like cancel and dispel
   - locate creature (similiar to locate object).
   - Ability to search note body's like subjects.
   - Delete expired notes by calling the save function, either on load or reboot.
@@ -115,27 +109,53 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bans to check both d->host and d->ip_address
   - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Drunk talk
   - Critical strike
   - Sliding saves bonus based on wisdom
   - Sliding magic damage bonus based on int
   - Extra chance attack on init based on dex (higher the dex, the higher the percent)
   - Sliding damage bonus based on strength for physical attacks (higher the strength, higher the bonus)
   - Pscionist spell to temporarly wipe facial recognition of who a player is.
-  - Support for area flags that save with the pfile (then add no-recall area, no magic area flags)
   - Help file update for notes to display supported spools
   - Command to list the spools available, with properties to denote immortal only
-  - Prefix class code files with class_.
   - rename player offline method.
   - bamfin/bamfout ->poofin/poofout (to match the commands used in the game)
-  - Tutorial on setting up mud from scratch
   - Documentation, ugg.
-  - First game startup, game name is not set.
+  - No magic area flag
   - Fix formatting string removing line breaks.
   - Find out why strings are saving funny (this was fixed in notes)  
-
-  - Ability to title parchment so it's labeled as parchment but you can tell what it is if you have lots of parchments.
-  - Ability to copy a parchment easily.
-
-  - Space before and after creation menus
   - All coloring on login menu to come from settings so no mismatched colors
+  - Update formatting on the stat command, use the grid code.
+  - Update ranged spells to support defense spells also (they only support offensive right now).
+  - Updated ranged spells to have a custom message for when the spell flies through another room.
+  - Update ranged spells to show the direction the spell came from.
+  - Don't allow picking up of buried items, Buried items possibly interfere with burying next item.
+  - Remove mass invis gsn, add invis flag when it's cast.
+  - Psion - Temporal Fracture
+  - Create function of all things to be removed in combat/damage.
+  - Slippery Mind for psion
+  - Remove armor class (AC) from the hit check, reduce damage from it though
+  - Room affects
+  - pk wholist
+  - jab skill for rogues that lowers dex
+  - damage adjustment based on int (up or down) on damage casting spells.
+  - nobility
+  - Make guardian angel spell mob disappear after the effect is gone from the mob.
+  - swims in message (floats in).
+  - add hitroll_bonus, damroll_bonus to class structure
+  - Secondary class stat
+  - barb, mud coat skill.
+  - enhance pain spell (more damage taken)
+  - psionict's chance to avoid psionic damage damage
+  - assassin class (strangle, assassinate, flash bomb)
+  - assassin surprise attack (moves a person into the next room and attacks in a single command)
+  - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
+  - Previous HP to affect your reclass HP
+  - Allow logout even in pk lag if the player is in a clan owned room of the clan they are in
+  - Priest spell (with cooldown) to prevent a person from entering a room for a tick
+  - Area flag that denotes a clan/kingdom hall.
+  - Hometown selection in creation
+  - Drunk in score or affects
+  - Make glance also show magic status if detect magic is up.
+  - Sheathed weapon
+  - Ability to enter a background history about your character
+  - whoisic (shows description, phyiscal appearnce and background).

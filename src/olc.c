@@ -359,6 +359,8 @@ const struct olc_cmd_type cedit_table[] =
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},
+    {   "clan",         cedit_clan      },
+    {   "guild",        cedit_guild     },
     {   "",             0,              }
 };
 
@@ -380,6 +382,7 @@ const struct olc_cmd_type sedit_table[] =
     {   "show",         sedit_show      },
     {   "race",         sedit_race      },
     {   "damage",       sedit_damage    },
+    {   "ranged",       sedit_ranged    },
     {   "?",            show_help       },
     {   "",             0,              }
 };

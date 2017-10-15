@@ -631,7 +631,7 @@ void spell_remove_faerie_fire(int sn, int level, CHAR_DATA * ch, void *vo, int t
         return;
     }
 
-    if (check_dispel(level + 3, victim, skill_lookup("faerie fire")))
+    if (check_dispel(level + 3, victim, gsn_faerie_fire))
     {
         act("The pink aura around $n fades away.", victim, NULL, NULL, TO_ROOM);
     }

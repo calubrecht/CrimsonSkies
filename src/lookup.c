@@ -185,3 +185,40 @@ int continent_lookup(const char *name)
 
     return 0;
 } // end int continent_lookup
+
+/*
+ * Returns the numeric value for the deity based on the provided name.
+ */
+int deity_lookup(const char *name)
+{
+    int x;
+
+    for (x = 0; deity_table[x].name != NULL; x++)
+    {
+        if (LOWER(name[0]) == LOWER(deity_table[x].name[0]) && !str_prefix(name, deity_table[x].name))
+        {
+            return x;
+        }
+    }
+
+    return -1;
+}
+
+/*
+ * Returns the numeric value for the merit based on the provided name.
+ */
+int merit_lookup(const char *name)
+{
+    int x;
+
+    for (x = 0; merit_table[x].name != NULL; x++)
+    {
+        if (LOWER(name[0]) == LOWER(merit_table[x].name[0]) && !str_prefix(name, merit_table[x].name))
+        {
+            return x;
+        }
+    }
+
+    return -1;
+}
+

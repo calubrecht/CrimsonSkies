@@ -6,6 +6,7 @@ LevelRange 1 51
 Credits (null)~
 Security 1
 Continent 2
+AreaFlags A
 End
 
 
@@ -46,6 +47,10 @@ through the trees and your hair.  Far to the east, you barely make out a
 city and to the west the Silver Sea lines the horizon.  
 ~
 0 0 2
+D0
+~
+~
+0 0 2485
 D1
 ~
 ~
@@ -218,10 +223,11 @@ D2
 0 0 1809
 S
 #1811
-A Dead End~
+Along the Northern Road~
 The nothern road comes to an abrupt end here at a rocky ledge that leads
 sharply down into the deep chasm's of the nothern valley.  To the west you
-can see a drab structure which appears to be some sort of prison.  
+can see a drab structure which appears to be some sort of prison.  To the
+northwest you can see the looming Gray Mountains in the distance.  
 ~
 0 0 2
 D2
@@ -232,6 +238,125 @@ D3
 ~
 ~
 0 0 15100
+D6
+~
+~
+0 0 2403
+S
+#1812
+Before the Gates of Red Oak~
+The sky glows with the light from the city of Red Oak.  The light from
+the torches placed on the gates illuminate the rutted, muddy ground sloping
+down to the east.  
+~
+0 0 4
+D1
+~
+~
+0 0 1813
+D3
+~
+~
+0 0 708
+S
+#1813
+Rutted Hill~
+Deep ruts mar the ground, created by carts pulled up the muddy hill to
+supply Red Oak with the needed goods to support it's population.  Some of
+the ruts are very wide and filled with water and muck.  
+~
+0 0 4
+D1
+~
+~
+0 0 1814
+D3
+~
+~
+0 0 1812
+S
+#1814
+Before the rutted hill~
+To the west is the "Great mudslide" as it is known throughout the world,
+the trade route to the west gate of Red Oak.  To the east lies the Great
+Forest.  The ground here is somewhat muddy with small ruts creating a swath
+of crisscrossing lines.  
+~
+0 0 2
+D1
+~
+~
+0 0 1815
+D3
+~
+~
+0 0 1813
+S
+#1815
+A small dirt road~
+To the west of you, the frontier town of Red Oak can be seen.  To the
+northeast, the Sylvan Forest can be seen.  
+~
+0 0 2
+D1
+~
+~
+0 0 1816
+D3
+~
+~
+0 0 1814
+S
+#1816
+A small dirt road~
+The road you are on continues off interminably to the east, while back to
+the west Red Oak can be seen glimmering in the light.  Huge trees, and lots
+of them, line the horizon to the northeast, their gentle leaves swaying in
+the light breeze.  
+~
+0 0 2
+D1
+~
+~
+0 0 1817
+D3
+~
+~
+0 0 1815
+S
+#1817
+A small road~
+Leaves drift by on the wind from the trees to the north.  You're sure the
+entrance to the Forest is around here somewhere.  Smells from the kitchen's
+in Red Oak are apparent as you glance back towards the town, to the west. 
+The road you are on continues off to the east, losing itself on the horizon.
+
+~
+0 0 2
+D1
+~
+~
+0 0 1818
+D3
+~
+~
+0 0 1816
+S
+#1818
+A small dirt road~
+The mighty trees of the Sylvan Forest rise before you to the north, their
+massive trunks twisting towards the sky in savage grace.  To the west, the
+sounds and smells of Red Oak are barely present.  
+~
+0 0 2
+D0
+~
+~
+0 0 10550
+D3
+~
+~
+0 0 1817
 S
 #0
 
@@ -245,6 +370,7 @@ S
 #RESETS
 D 0 1808 2 1
 O 0 31 0 1803 A bind stone loaded to Middle of a Huge Field
+O 0 31 0 1815 A bind stone loaded to A small dirt road
 S
 
 

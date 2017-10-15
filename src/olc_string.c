@@ -831,7 +831,7 @@ char *numlines(char *string)
    This is the punct snippet from Desden el Chaman Tibetano - Nov 1998
    Email: jlalbatros@mx2.redestb.es
 
-   This snippit can only be used once per sprintf, printf, printf_to_char, etc.  If used
+   This snippit can only be used once per sprintf, printf, printf_to_char, sendf, etc.  If used
    more than once the first value will always be returend.
 */
 char *num_punct(int foo)
@@ -854,8 +854,47 @@ char *num_punct(int foo)
             buf_new[index_new] = buf[nindex];
         }
         else
+        {
             buf_new[index_new] = buf[nindex];
+        }
     }
+
+    buf_new[index_new] = '\0';
+    return buf_new;
+}
+
+/*
+   This is the punct snippet from Desden el Chaman Tibetano - Nov 1998
+   Email: jlalbatros@mx2.redestb.es
+
+   This snippit can only be used once per sprintf, printf, printf_to_char, etc.  If used
+   more than once the first value will always be returend.
+*/
+char *num_punct_long(long foo)
+{
+    int index_new, rest, x;
+    unsigned int nindex;
+    char buf[16];
+    static char buf_new[16];
+
+    snprintf(buf, 16, "%ld", foo);
+    rest = strlen(buf) % 3;
+
+    for (nindex = index_new = 0; nindex < strlen(buf); nindex++, index_new++)
+    {
+        x = nindex - rest;
+        if (nindex != 0 && (x % 3) == 0)
+        {
+            buf_new[index_new] = ',';
+            index_new++;
+            buf_new[index_new] = buf[nindex];
+        }
+        else
+        {
+            buf_new[index_new] = buf[nindex];
+        }
+    }
+
     buf_new[index_new] = '\0';
     return buf_new;
 }

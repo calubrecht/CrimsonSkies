@@ -40,7 +40,7 @@ Syntax: color
         {M{{M     bright magenta {x{{x     clear (reset color)
         {{{{     {{ char         {x{{&{x     {&reverse text{x
         {{/     newline        {{*     beep
-        {{_{x     {_underline{x
+        {{_{x     {_underline{x{{- a tilde
 
         Color is written by Lope (ant@solace.mh.se)
 ~
@@ -90,11 +90,10 @@ When you log in, you will be informed if there are unread notes waiting.
 ~
 
 0 GOLD SILVER MONEY~
-Midgaard's economy is based on gold and silver coinage (and the lowly copper,
-which you as an adventurer are far too proud to carry).  Gold coins are worth
+The world's economy is based on gold and silver coinage.  Gold coins are worth
 100 silver coins, but are also four times as heavy (25 to the pound, as 
-opposed to 100 to the pound for silver). Gems can be bought to alleviate weight problems
-from the Midgaard jeweller, he charges a mere 10% more than they are worth.
+opposed to 100 to the pound for silver). Gems can be bought to alleviate weight
+problems from the a jeweller, he charges a mere 10% more than they are worth.
 10 gems weigh one pound, and they can be worth more than 100 gold pieces for
 the highest quality stones.
 ~
@@ -160,11 +159,14 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
         %r :  Display the room name you are in
         %e :  Display the exits from the room in NESWDU style
         %c :  Display a carriage return (useful for multi-line prompts)
+        %q :  Display quest points
+        %t :  Display time of the day
         %R :  Display the vnum you are in (IMMORTAL ONLY)
         %z :  Display the area name you are in (IMMORTAL ONLY)
         %i :  Displays the level your incognito at (IMMORTAL ONLY)
         %w :  Displays the level your wizi (hidden) at (IMMORTAL ONLY)
- 
+        %y :  Displays your current wimpy setting 
+
 Example:  PROMPT <%hhp %mm %vmv>
         Will set your prompt to "<10hp 100m 100mv>"
  
@@ -181,7 +183,7 @@ se,sw)                              kill flee case wimpy
 exits recall
 sleep wake rest stand               {R[{WOTHER{R]{x
                                     save quit logout
-                                    practice train
+                                    practice train improve
 
 {R[{WOBJECTS{R]{x                           {R[{WINFORMATION / COMMUNICATION{R]{x
 get put drop give use               help commands areas
@@ -417,10 +419,11 @@ Use STAND or WAKE to come back to a standing position.  You can
 also WAKE other sleeping characters.
 ~
 
-0 GTELL ; REPLY SAY TELL~
+0 GTELL ; REPLY SAY TELL WHISPER~
 Syntax: gtell <message>
 Syntax: say   <message>
 Syntax: tell  <character> <message>
+Syntax: whisper <message>
 
 All of these commands send messages to other players.  GTELL sends a message to
 all of the characters in your group, wherever they are, even if they are
@@ -540,7 +543,7 @@ to the mud implementors.
           Gabrielle Taylor          [Antoinette]
           Brian Moore                     [Zump]
           {w--------------------------------------
-          - {R[{WCrimson Skies 1.0{R] ({W1998-2017{R){w ----
+          - {R[{WCrimson Skies{R]     ({W1998-2017{R){w ----
           --------------------------------------{x
           Blake Pell                     [Rhien]
           {w--------------------------------------{x
@@ -571,6 +574,12 @@ to the mud implementors.
           --------------------------------------{x
           Michael Mraz                   [Rusty]
                                  [Kris Carlgren]
+
+          {w--------------------------------------
+          - {R[{WLoren Mud{R]{x                  -------
+          --------------------------------------{x
+          John Jackson                 [Khyldes]
+
           {w--------------------------------------
           - {R[{WVarious Code Contributions{R]{w -------
           --------------------------------------{x
@@ -603,6 +612,9 @@ to the mud implementors.
                                       [Morgenes]
                               [Tony Chamberlain]
                                      [Tuan Doan]
+                     [The Maniac of Mythran Mud]
+                                      [Dionysos]
+                                    [John Booth]
           {w--------------------------------------
           - {R[{WArea Contributions{R]{w ---------------
           --------------------------------------{x
@@ -977,7 +989,7 @@ There are penalties for using STEAL on other players.
 In order to STEAL successfully, you must practice the appropriate skill.
 ~
 
-0 PRACTICE~
+0 PRACTICE PRACTICES~
 Syntax: PRACTICE
         PRACTICE <skill|spell>
 
@@ -992,9 +1004,11 @@ The higher your intelligence, the more you will learn at each practice
 session.  The higher your wisdom, the more practice sessions you will
 have each time you gain a level.  Unused sessions are saved until you
 do use them.
+
+See also: IMPROVE
 ~
 
-0 TRAIN~
+0 TRAIN TRAINS~
 Syntax: train <str int wis dex con hp mana>
 
 TRAIN increases one of your attributes.  When you start the game, your
@@ -1529,18 +1543,24 @@ Syntax: cast blindness <victim>
 This spell renders the target character blind.
 ~
 
-0 'ACID BLAST' 'BURNING HANDS' 'COLOR SPRAY' FIREBALL 'LIGHTNING BOLT'
+0 'ACID BLAST' 'BURNING HANDS' 'COLOR SPRAY' FIREBALL 'LIGHTNING BOLT' 'ICE BLAST'
   'MAGIC MISSILE' 'SHOCKING GRASP'~
 Syntax: cast 'acid blast'     <victim>
 Syntax: cast 'burning hands'  <victim>
 Syntax: cast 'color spray'    <victim>
 Syntax: cast 'fireball'       <victim>
+Syntax  cast 'fireball'       <direction> <victim>
 Syntax: cast 'lightning bolt' <victim>
+Syntax: cast 'lightning bolt' <direction> <victim>
 Syntax: cast 'magic missile'  <victim>
+Syntax: cast 'magic missile'  <direction victim>
 Syntax: cast 'shocking grasp' <victim>
+Syntax: cast 'ice blast'      <victim>
+Syntax: cast 'ice blast'      <direction> <victim>
 
 These spells inflict damage on the victim.  The higher-level spells do
-more damage.
+more damage.  Spells such as fireball, lightning bolt and magic missle
+can be ranged in any direction for a number of rooms.
 ~
 
 0 'CALL LIGHTNING'~
@@ -1663,6 +1683,12 @@ reveal a characteristic red aura.
 Syntax: cast 'detect hidden'
 
 This spell enables the caster to detect sneaking creatures.
+~
+
+0 'DETECT FIREPROOF'~
+Syntax: cast 'detect fireproof'
+
+This spell enables the caster to see whether an item is currently fireproofed.
 ~
 
 0 'DETECT INVIS'~
@@ -1918,12 +1944,18 @@ High level mages may learn and cast these spells as well.
 
 0 'RACE HELP' 'RACE' 'RACES'~
 Crimson Skies has the following races for player characters:
-  Human     the standard race
-  Dwarf     good warriors and priests, cost 8 creation points
-  Elf       good thieves and mages, cost 5 creation points
-  Ogre      huge, tough warriors, cost 6 creation points
-  Kender    fast, excellent thieves, cost 5 creation points
-  Minotaur  good warriors, cost 5 creation points
+  * Human          The standard race
+  * Dwarf          Good warriors and priests, cost 8 creation points
+    Hill Dwarf
+    Mountain Dwarf
+  * Elf            Good thieves and mages, cost 5 creation points
+    Half Elf
+    Wild Elf
+    Sea Elf
+    Dark Elf
+  * Ogre           Huge, tough warriors, cost 6 creation points
+  * Kender         Fast, excellent thieves, cost 5 creation points
+  * Minotaur       Good warriors, cost 5 creation points
 
 Different races have different starting statistics, and also different
 stat maximums for magic items and training.  Different races may inherently
@@ -1932,6 +1964,9 @@ skills and spells.
 
 Creation points increase the amount of experience it takes to gain a level.
 For more information, see the help files for each race (i.e. 'help dwarf')
+
+The 'race' command will show you all available races for players to choose
+from as well as their size and maximum stats (before class adjustments).
 ~
 
 0 DWARF DWARVES~
@@ -1990,11 +2025,6 @@ staves		The use of staves and similar devices (see 'help brandish')
 wands		The use of wands and similar items (see 'help zap') 
 ~
 
-0 'GROUP HEADER'~
-The following skills and groups are available to your chacter:
-(this list may be seen again by typing list)
-~
-
 0 'GROUP HELP'~
 The following commands are available:
 list         display all groups and skills not yet bought
@@ -2005,9 +2035,6 @@ info <name>  list the skills or spells contained within a group
 help <name>  help on skills and groups, or other help topics
 done	     exit the character generation process
 ~
-
--1 'MENU CHOICE'~
-Choice (add,drop,list,help)?~
 
 0 'GROUPS' 'INFO'~
 The skill system allows you to fully customize your new character, making
@@ -2384,9 +2411,10 @@ the illusion group is very small, but it will be expanded in the future.
 Only thieves and mages can cast illusion spells, which consist of the 
 following:
 
-invis		turns the target invisible
-mass invis	turns the caster's group invisible
-ventriloquate	allows the caster to put words in someone's mouth
+invis		     turns the target invisible
+mass invis	     turns the caster's group invisible
+ventriloquate	 allows the caster to put words in someone's mouth
+self projection  projects an image out in front of the caster of themselves.
 ~
 
 0 MALADICTIONS~
@@ -2487,7 +2515,8 @@ learn this skill.
 Disarm is a somewhat showy and unreliable skill, designed to relieve your
 opponent of his weapon.  The best possible chance of disarming occurs when you
 are skilled both your own and your opponent's weapon. Only talented thieves
-and warriors may learn this skill.
+and warriors may learn this skill.  If your opponent is using a weapon in both
+hands then their secondary weapon will be switched to their primary arm.
 ~
 
 0 DODGE~
@@ -2571,6 +2600,12 @@ Training in third attack allows the character a chance at an additional strike
 in a combat, and increases the chance of a second attack as well.  Perfect
 third attack does NOT assure three attacks per round.  Only warriors and highly
 skilled thieves may learn this skill.
+~
+
+0 'FOURTH ATTACK'~
+Training in fourth attack allows the character a chance at an additional strike
+in a combat.  Fourth attack does NOT assure four attacks per round.  Only
+barbarians may learn this skill.
 ~
 
 0 HIDE SNEAK~
@@ -3073,11 +3108,22 @@ mobile inventory, except for items which are too high for you to clone.
 Strung extended descriptions on objects are not kept, however.
 ~
 
-0 SKILLS SPELLS~
+0 SKILLS SPELLS IMPROVEMENT IMPROVES~
 The skills and spells commands are used to display your character's list
 of available skills (or spells, as the case may be).  They are listed in
 order of level, with mana cost (for spells) or percentage (for skills)
 listed where applicable.
+
+You can increase your proficiency in skills and spells through a few
+different mechanisms.  First, you will gain practices as you increase
+the level of your character.  A practice can be used at a trainer to
+increase how well you know a spell/skill.  Second, a skill or spell
+will increase as you use it (intelligence helps this go faster).  Third
+you can focus on a single spell or skill at a time and over time you
+will get better at it (this also occurs faster with higher intelligence
+or with the fast learning merit).
+
+See also: PRACTICE
 ~
 
 0 OUTFIT~
@@ -3086,7 +3132,7 @@ a new set of sub issue gear (banner, weapon, helmet, shield, and vest),
 courtesy of the Mayor's warehouses.  Only empty equipment slots are affected.
 ~
 
-0 AUTO AUTOLIST AUTOLOOT AUTOGOLD AUTOSAC AUTOEXIT AUTOASSIST AUTOSPLIT AUTOALL~
+0 AUTO AUTOLIST AUTOLOOT AUTOGOLD AUTOSAC AUTOEXIT AUTOASSIST AUTOSPLIT AUTOQUIT AUTOALL~
 This mud uses various automatic actions to ease the boredom of always splitting
 gold and sacrificing corpses.  The commands are as follows:
 
@@ -3097,6 +3143,7 @@ autosac	  : sacrifice dead monsters (if autoloot is on, only empty corpes)
 autoexit  : display room exits upon entering a room
 autosplit : split up spoils from combat among your group members
 autoassit : makes you help group members in combat
+autoquit  : makes you quit the game on the next tick after you lose your link.
 autoall   : turns all autos on or off at once
 
 Typing a command sets the action , typing it again removes it. Use
@@ -3138,12 +3185,15 @@ it is higher.
 The gate spell is a powerful transportation magic that opens up a portal 
 between your character and another person or creature somewhere else in the
 world.  This portal will transport you and any pet you might have, but not
-other members of your group.  Monsters recieve a save against gate, and
+other members of your group.  Monsters receive a save against gate, and
 monster or players more than 3 levels higher than you can not be gated to at 
-all.  God rooms, private rooms, and no recall rooms cannot be gated to, and
-no recall rooms cannot be gated out of.  Finally, any god or hero is also 
-immune to gate, as well as in player who has no summon set.  Clan members 
-may not be gated to except by their fellow Clan members.
+all.  God rooms, private rooms, clan halls and no recall rooms cannot be 
+gated to, and no recall rooms cannot be gated out of.  Finally, any god 
+or hero is also immune to gate, as well as in player who has no summon 
+set.  Clan members may not be gated to except by their fellow clan
+members.  You can only gate to other areas in the same continent or
+to someone in limbo (you cannot gate out of limbo but can around it).
+To transport yourself to other continents use portal or nexus.
 ~
 
 0 AFFECTS AFFECT~
@@ -3281,17 +3331,12 @@ The clear command will clear the screen on mud clients that support it.
 
 0 STATS~
 Syntax: stats
-        stats brief
+        stats detail
 
 Shows your current stats (strength, intelligence, wisdom, dexterity
-and constitution) along with adjustments from spells and equipment
-that might raise it.
-
-The stats command will also show you the max stats your race/class
-combo can achieve.
-
-You can see a brief compacted version of the stats by additionally
-including a brief after the command (stats brief).
+and constitution).  Stats with the detail argument will show you
+stats along with adjustments from spells and equipment that might
+raise it and what the racial max should be.
 ~
 
 0 SWIM~
@@ -3331,10 +3376,16 @@ After reclass you will be level 1 again as the reclass.
 Current classes available for reclass:
 
    {G*{x Enchantor (Mage)
+   {G*{x Psionicist (Mage)
    {G*{x Healer (Cleric)
+   {G*{x Priest (Cleric, must follow a god or goddess)
    {G*{x Bladesinger (Any class, elves only)
    {G*{x Ranger (Warrior & Thieves)
    {G*{x Rogue (Thieves)
+   {G*{x Barbarian (Warrior, No Kender's)
+
+Use the 'class' command to see a list of all of the games classes
+with additional info on them from the game tables.
 ~
 
 0 WAVES OF WEARINESS~
@@ -3351,8 +3402,8 @@ See also:  reclass
 ~
 
 0 SACRIFICIAL HEAL~
-Sacrificial heal allows the healer to fully heal an individual although
-at great cost to their own health.
+Sacrificial heal allows the healer to transfer all of the health they
+have available to anotehr individual at great cost to themselves.
 ~
 
 0 MASS REFRESH~
@@ -3602,6 +3653,14 @@ to you who are currently in the room with you or are only one room away.
 If you include a direction with scan (such as 'scan north') you will peer
 in that direction and you will be able to see visible players and
 creatures as far as 3 rooms away.
+~
+
+0 PEER~
+Syntax: peer
+
+The peer skill allows rogue's to examine a room for signs of other individuals.
+They may not see them but they can accuractly guess how many others maybe
+hiding out of sight.
 ~
 
 0 TOUCH~
@@ -4038,6 +4097,13 @@ restoring visibility to all who pass through it.
 SEE ALSO: fog
 ~
 
+0 'SMOKE BOMB'~
+Syntax: smokebomb
+
+Allows a rogue to toss a smoke bomb into the room that will make it
+more difficult for people to see the room and other people.
+~
+
 52 CLEARREPLY~
 Syntax: clearreply <player name>
 
@@ -4151,12 +4217,13 @@ object permanent.  This can be used to create unique quest items for
 instance that make a bless or fireproof last forever.
 ~
 
-0 WRITE READ PARCHMENT PAPER~
+0 WRITE READ PARCHMENT PAPER DUPLICATE~
 Syntax: read <name of parchment>
 Syntax: write <name of parchment> <message to write>
 Syntax: write <name of parchment> edit
 Syntax: write <name of parchment> ++
 Syntax: write <name of parchment> title <title of parchment>
+Syntax: duplicate <name of parchment>
 
 Read and write allow you to interact with a piece of parchment that is
 an object that is saved and can be passed between players.  In order to
@@ -4177,8 +4244,358 @@ not violate any rules set forth by the immortals.
 Pieces of parchment can be purchased in stores such as the general store
 in Midgaard and Red Oak.  They may also be found at various locations
 around the world.
+
+There are also shops around the world that specialize in scribe services
+who are able to duplicate a piece of parchment in exchange for gold.
+You may use the 'duplicate' command to do so while in one of these shops.
+The first scribe shop in the world is off of Main Street in Red Oak.
+~
+0 RANGED SPELLS~
+There are some spells which can be ranged, or cast out of the room you're
+in and into another.  Fireball, lightning bolt and magic missile are
+examples of ones where the caster can strike an enemy from afar as long
+as they are in direct sight and can see the victim.
+~
+0 SEEDS GROWING~
+Seeds maybe purchased at shops across the world or found out in the
+environnment.  Seeds when planted will have a chance at growing into
+something else (perhaps edible, perhaps medicinal, perhaps magical).
+
+Seeds maybe planted with the 'bury' command.  Different terrain
+types will better support (or not) seed growth as well as other
+environmental factors.
+
+The first seed merchant in the world is located off of Main Street
+in the town of Red Oak.
+~
+0 PSIONICIST~
+Psionicist's are masters of the mind and have focused that ability
+into magics that affect themselves, others and the environment around
+them.  As a psionicist grows in power so will the strength of the powers
+that they manifest which is different than how traditional magic works.
+
+The psionicist's default group is psionics.
+
+See also: reclass
+~
+0 PSIONIC BLAST~
+Syntax: cast 'psionic blast' <target>
+
+Psionic blast is a damaging attack spell which unleashes a mental blast
+on the enemy of great power.  In instances the blast is powerful enough
+to disorient the target.
 ~
 
+0 HEALING DREAM~
+Syntax: cast 'healing dream' <target>
+
+When a psionicist goes to sleep their mental focus automatically enters
+into a state in which their regeneration is heightened.  This happens
+automatically without casting a spell.  They may also however cast
+this spell on others who are sleeping thus sharing the effect with a
+friend.  The act of waking will cause the effect to wear off.
+~
+
+0 MENTAL WEIGHT~
+Syntax: cast 'mental weight' <target>
+
+Mental weight is a maladiction like spell which allows a psionicist to
+make mental actions of the victim cost more (e.g. if landed any spell
+casted by the victim will cost more mana for the victim to cast).
+~
+
+0 FORGET~
+Syntax: cast 'forget' <target>
+
+The forget spell is a maladiction like spell which allows a psionicist
+to affect the memory of a victim.  In doing so, they victim will have
+a harder time executing spells and skill that they know.
+~
+
+0 PSIONIC FOCUS~
+Syntax: cast 'psionic focus'
+Syntax: cast 'psionic focus' <target>
+
+The psionic focus spell will help the recipient focus better which
+can assist in how well they hit.  For a psionicist, the spell may
+also enhance the effect of other spells when they are cast making it
+important for a psionicist to have on at all times.
+~
+
+0 CLAIRVOYANCE~
+Syntax to set target room: cast 'clairvoyance'
+Syntax to invoke the clairvoyant effect: clairvoyance
+
+Clairvoyance is the ability for a psionicist to view a place in which
+they are no longer at.  Their mind is able to travel and see what their
+physical eyes cannot.
+
+The clairvoyance spell is cast in the room where the psionicist wants
+to later view.  After the spell is cast they can use the clairvoyance
+command to see that location (that command takes a moment while the
+psionicist locates the place in their mind).  Should the spell effect
+be dispeled, cancelled or wear off then the it won't be usable until
+it is again cast.
+~
+
+0 PSIONIC SHIELD~
+Syntax: cast 'psionic shield'
+Syntax: cast 'psionic shield' <victim>
+
+The psionic shield is a basic protection spell which enhances both
+a targets armor class and saves.
+~
+
+0 BOOST~
+Syntax: cast 'boost' <victim> <attribute>
+
+The boost spell allows a psionicist to focus their energy into
+enhancing a single attribute of a target (those attributes being
+either strength, intelligence, wisdom, dexterity or constitution).
+
+The psionicist may re-cast this spell without having to cancel
+the effect off of themselves or the target if it is not them.
+~
+0 BANK BANKER DEPOSIT WITHDRAW EXCHANGE GOLD SILVER~
+Most towns and clan halls in the game will have a bank located somewhere
+within them where you can store your excess gold as well as convert
+silver to gold and the ability to transfer gold to another player who
+is in the game.  
+
+The bank offers the following options through the bank command:
+
+  bank balance:                  Displays your balance.
+  bank deposit # cointype:       Deposits a specific monetary type
+                                 e.g. bank deposit 39 gold
+  bank deposit all:              Deposits all coins
+  bank withdraw # cointype:      Withdraw a specific amount
+                                 e.g. bank withdraw 39 gold
+  bank exchange:                 Exchanges silver for gold
+  bank transfer 100 gold player: Transfer coins to another persons account
+                                 e.g. bank transfer 100 gold rhien
+~
+0 DEITY~
+Syntax: deity
+
+Lists all of the gods and goddesses that a player may choose from in
+creation as their roleplay deity.  Some game mechanics maybe based on
+the deity that you choose so choose wisely.
+~
+0 PRIESTS~
+Priests are holy and channel their power from their respective god or
+goddess which they must always show reverence to.
+
+In order for a priest to cast any of the spells given to them by their
+deity, they must have recently prayed (via the prayer command).
+
+Priests also gain power the longer than they worship their deity.  Those
+who are reverent and loyal will receive more power on the spells that
+are given to them by their deity.  The priests ranks in order are
+Novitiate, Deacon, Priest, Bishop, Archbishop, Cardinal and High Priest.
+
+The priests default spells are in divination (use 'info divination' to
+see their spell list).
+
+See also: reclass, prayer, divination
+~
+0 AGONY~
+Syntax: c 'agony' <target>
+
+Agony is a priest specific maladiction that allows them to inflict an
+agony on their victim in behalf of their deity.  The person affected
+will receive damage when they recall, word of recall, teleport or gate.
+
+If this is cast on an NPC it will lower their wisdom, intelligence and
+constitution.
+~
+0 HOLY PRESENCE~
+Syntax: c 'holy presence'
+        c 'holy presence' <target>
+
+Holy presence is a priest spell that will assist in allowing the target
+to receive less damage from foes.
+~
+0 DISPLACEMENT~
+Syntax: c 'displacement' <target>
+
+Displacement is a priest spell that if successful will force another
+player to recall.  This can be handy when fighting large groups of
+other characters.
+~
+0 HOLY FLAME~
+Syntax: c 'holy flame' <target>
+        c 'holy flame' <dirction> <target>
+
+Holy flame is a priest spell that both deals fire damage and inflicts
+a faerie fire on the fictim.  Holy flame is special in that it can be
+ranged for up to three rooms allowing the priest to cast it from outside
+of the room the victim is in.
+~
+0 DIVINE WISDOM~
+Syntax: c 'divine wisdom'
+        c 'divine wisdom' <target>
+
+Divine wisdom is a priest spell that allows the priest to bestow a boost
+in a target's wisdom.  The duration of the spell grows along with the
+priest's rank.
+~
+0 GUARDIAN ANGEL~
+Syntax: c 'guardian angel'
+
+The guardian angel spell is a priest spell that will allow the priest
+to call an angel to assist them in combating their foes.  If the priest
+is not fighting the angel will be grouped, charmed and will assist in
+fights as well as take orders.  If the priest is fighting, the angel
+will be summoned and will automatically initiate a rescue command to
+rescue the priest as their first act.
+~
+0 WATER WALK~
+Syntax: c 'water walk'
+
+Water walk is a priest spell that will allow the priest to walk on
+water.  This will not alleviate lag associated with walking over the
+ocean but it will remove all movement cost.  This spell cannot be
+cast on others.
+~
+0 KNOW RELIGION~
+Syntax: c 'know religion' <target>
+
+Know religion is a spell that will allow the caster to see what deity
+another character follows.
+~
+0 PRAYER~
+Syntax: prayer
+
+In order for priests to be able to cast any of the spells they have been
+granted by their god or godess, they must first pray.  Their prayers
+will last for an amount of time that can be seen with the affects command.
+~
+0 HOSTILE~
+The hostile flag will show in the who list if a player has recently been
+involved in player versus player or player kill (PVP or PK) combat.  You
+cannot logout of the game while you are hostile.
+~
+0 STAT SURGE~
+Stat surge is a setting which allows the game admins to allow for stats
+to be raised above their racial/class maximum by spells and bonuses on
+gear.
+~
+0 BARBARIAN~
+Barbarian's are warriors who are unable to wield any magic.  They have
+higher health and movement than a warrior as well as the ability to
+hit better and harder.  Barbarians are also known for their ability
+to catch a second wind at times when they are at low health.
+
+Barbarians special abilities include 4th attack, warcry, acute vision,
+cleanse, natural refresh, power swing and second wind.
+
+See also: reclass
+~
+0 WARCRY~
+Syntax: warcry
+
+Warcry is a barbarian skill which allows the barbarian to focus their
+power in a way that raisest their hit, damage and strength although
+slightly slowering their dexterity.  They all receive a small health
+boost upon execution.
+~
+0 CLEANSE~
+Syntax: cleanse
+
+Cleanse is a barbarian skill which allows the barbarian to effectively
+clear out physical debris from their eyes.  The barbarian must have a
+container filled with water on them in their inventory for this to work.
+~
+0 NATURAL REFRESH~
+Natural refresh is a barbarian skill which will allow the character to
+heal more movement every tick.
+~
+0 'POWER SWING' POWERSWING~
+Syntax: powerswing <victim>
+
+Power swing is a barbarian skill that allows a barbarian to deal a
+crushing blow onto their enemy.  Sometimes the attack can be powerful
+enough to daze their opponent.  Using a two handed can wield better
+results for this skill although it is not necessary to use.
+~
+0 MERITS~
+A merit is something that is added to a character that can give them a
+slightly boosted ability in one respect or another.  You may choose one
+at creation for 10cp that will follow you with your charater even
+through reclassing.  There will be opportunities to earn these through
+other in game mechanisms so that you may have more than one over time.
+
+Merit List:
+
+ * Damage Reduction
+ * Fast Learner
+ * Healthy
+ * Higher Constitution
+ * Higher Dexterity
+ * Higher Intelligence
+ * Higher Strength
+ * Higher Wisdom
+ * Light Footed
+ * Magic Affinity
+ * Magic Protection
+ * Perception
+~
+0 MERITLIST~
+Syntax: meritlist
+
+The merit list command will show you all merits that are currently in
+the game, whether a player can choose them at creation and which ones
+if any you currently have set on you.
+~
+0 'SECOND WIND'~
+Second wind is a barbarian skill which will give them a burst of energy
+when their health gets too low, possibly saving them in a fight.  Once
+this has happened another second won't occur for a set period of time.
+~
+0 DRAW~
+The draw command will allow a player a draw a random card from a deck
+of cards.  This is often used between players to determine who strikes
+first in a duel or events that require players to need to setup a
+random order.
+~
+0 'SURVEY TERRAIN'~
+Survey terrain is a passive ranger skill that will allow the ranger
+to see what the current rooms terrain type is next to the name of
+the room when looking at the room.
+~
+0 TNL~
+Syntax: tnl
+
+The tnl command will show you the amount of experience you need until
+you reach the next level.
+~
+0 EMPTY~
+Syntax: empty <source container> <destination container>
+        empty <container> into <container>
+        empty <container>
+        empty <container> self
+
+The empty command allows you to empty a container in various ways.
+You may empty one container into another.  You may empty a
+container onto the ground or you may empty a container into your
+inventory.
+
+Empty also allows you to empty a liquid container getting rid of
+it's contents so the drinking container maybe refilled.
+~
+0 GLANCE~
+Syntax: glance <target>
+
+Glance allows you to quickly check the vitality of another individual
+be it a character or a mob (you must be able to actually see them first).
+~
+0 SELF PROJECTION~
+Syntax: cast 'self projection'
+
+Self projection is an illusion spell that allows the caster to project
+an image of themselves out in front of them which in rare cases may
+cause an attack to miss with their swing.
+~
 0 QUEST PQUEST~
 
 syntax:  pquest request
@@ -4206,6 +4623,15 @@ clear the quest.  Of course, the questor will not be to pleased with you.
 Personal quest rewards come in the form of gold and quest points.  Quest
 points are shown in your score and may be saved up and used to purchase
 special items from the quest mob.  
+~
+0 KEYRING 'KEY RING'~
+Syntax: keyring show
+        keyring add <key>
+        kerying remove <1-10>
+
+The key ring will allow a player to store up to 10 keys at a time on
+a ring for safe keeping.  Rings that may have had a rot death timer
+triggered cannot be added.
 ~
 
 -1 $~
