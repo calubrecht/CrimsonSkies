@@ -2206,7 +2206,7 @@ void do_kill(CHAR_DATA * ch, char *argument)
     if (is_safe(ch, victim))
         return;
 
-    if (victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+    if (victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
@@ -2276,7 +2276,7 @@ void do_murder(CHAR_DATA * ch, char *argument)
         return;
 
     if (IS_NPC(victim) &&
-        victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+        victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;

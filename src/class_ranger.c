@@ -663,7 +663,7 @@ void do_ambush(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    if (IS_NPC(victim) && victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+    if (IS_NPC(victim) && victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;

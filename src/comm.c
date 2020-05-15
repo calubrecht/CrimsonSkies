@@ -126,7 +126,7 @@ int line_count(char *orig);
     */
 
     int close(int fd);
-    int gettimeofday(struct timeval * tp, struct timezone * tzp);
+    // int gettimeofday(struct timeval * tp, struct timezone * tzp);
     int select(int width, fd_set * readfds, fd_set * writefds, fd_set * exceptfds, struct timeval * timeout);
     int socket(int domain, int type, int protocol);
 #endif
