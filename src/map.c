@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -27,9 +27,9 @@
 /* Also, if you fix something could ya send me mail about, thanks         */
 /* PLEASE mail me if you use this ot like it, that way I will keep it up  */
 /**************************************************************************/
-/* MapArea -> when given a room, ch, x, and y,...                         */
+/* map_area -> when given a room, ch, x, and y,...                        */
 /*             this function will fill in values of map as it should      */
-/* ShowMap ->  will simply spit out the contents of map array             */
+/* show_map -> will simply spit out the contents of map array             */
 /*             Would look much nicer if you built your own areas          */
 /*             without all of the overlapping stock Rom has               */
 /* do_map  ->  core function, takes map size as argument                  */
@@ -47,7 +47,10 @@
 char *map[MAX_MAP][MAX_MAP];
 int offsets[10][2] ={ {-1, 0},{ 0, 1},{ 1, 0},{ 0,-1},{0.0},{0,0},{-1,-1},{-1,1},{1,-1},{1,1}};
 
-void MapArea(ROOM_INDEX_DATA *room, CHAR_DATA *ch, int x, int y, int min, int max)
+/*
+ * Method to handle the construction of the map of the surrounding areas.
+ */
+void map_area(ROOM_INDEX_DATA *room, CHAR_DATA *ch, int x, int y, int min, int max)
 {
     ROOM_INDEX_DATA *prospect_room;
     EXIT_DATA *pexit;
@@ -103,7 +106,7 @@ void MapArea(ROOM_INDEX_DATA *room, CHAR_DATA *ch, int x, int y, int min, int ma
 
             if (map[x + offsets[door][0]][y + offsets[door][1]] == NULL)
             {
-                MapArea(pexit->u1.to_room, ch, x+offsets[door][0], y+offsets[door][1], min, max);
+                map_area(pexit->u1.to_room, ch, x+offsets[door][0], y+offsets[door][1], min, max);
             }
 
         } /* end if exit there */
@@ -112,9 +115,12 @@ void MapArea(ROOM_INDEX_DATA *room, CHAR_DATA *ch, int x, int y, int min, int ma
     return;
 }
 
-void ShowMap(CHAR_DATA *ch, int min, int max)
+/*
+ * Method to handle the actual sending of the map to the player.
+ */
+void show_map(CHAR_DATA *ch, int min, int max)
 {
-    char buf[MAX_STRING_LENGTH*4];
+    char buf[MAX_STRING_LENGTH * 4];
     int x,y;
 
     for (x = min; x < max; ++x)
@@ -140,6 +146,10 @@ void ShowMap(CHAR_DATA *ch, int min, int max)
     return;
 }
 
+/*
+ * Command to show the player the ASCII map representation of the immediate
+ * area around them.
+ */
 void do_map(CHAR_DATA *ch, char *argument)
 {
     int size, center, x, y, min, max;
@@ -151,8 +161,8 @@ void do_map(CHAR_DATA *ch, char *argument)
     size = URANGE(7,size,36);
     center = MAX_MAP / 2;
 
-    min = MAX_MAP /2 - size / 2;
-    max = MAX_MAP /2 + size / 2;
+    min = MAX_MAP / 2 - size / 2;
+    max = MAX_MAP / 2 + size / 2;
 
     for (x = 0; x < MAX_MAP; ++x)
     {
@@ -163,11 +173,11 @@ void do_map(CHAR_DATA *ch, char *argument)
     }
 
     /* starts the mapping with the center room */
-    MapArea(ch->in_room, ch, center, center, min, max);
+    map_area(ch->in_room, ch, center, center, min, max);
 
     /* marks the center, where ch is */
-    map[center][center] = "{R*";
-    ShowMap(ch, min, max);
+    map[center][center] = "{R*{x";
+    show_map(ch, min, max);
 
     return;
 }

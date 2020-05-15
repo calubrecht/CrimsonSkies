@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -148,7 +148,6 @@ bool MOBtrigger = TRUE;              /* act() switch                 */
     int init_socket(int port);
     void init_descriptor(int control);
     bool read_from_descriptor(DESCRIPTOR_DATA * d);
-    bool write_to_descriptor(int desc, char *txt, int length, DESCRIPTOR_DATA *d);
 #endif
 
 /*
@@ -262,7 +261,24 @@ int main(int argc, char **argv)
     if (global.copyover)
         copyover_recover();
 
-    log_f("Crimson Skies is ready to rock on port %d.", port);
+    // Throw a log warning out if a whitelist is enabled.  This should be disabled by
+    // default but if for some reason it gets enabled we need to give the op a clue as
+    // to why people are being denied access.
+    if (settings.whitelist_lock)
+    {
+        log_f("WARNING: A whitelist lock is enabled in the game settings.  Only");
+        log_f("         hosts in the whitelist will be allowed to connect.");
+    }
+
+    if (!IS_NULLSTR(settings.mud_name))
+    {
+        log_f("%s is ready to rock on port %d.", strip_color(settings.mud_name), port);
+    }
+    else
+    {
+        log_f("The game is ready to rock on port %d.", port);
+    }
+
     global.game_loaded = TRUE;
 
     game_loop(control);
@@ -328,33 +344,6 @@ int init_socket(int port)
 
         exit(1);
     }
-
-// SO_DONTLINGER isn't defined and I don't know why we would ever
-// want to use it in our setup, if the below runs the connection would
-// linger for 1000 seconds at which it would block the rest of mud at
-// that time if it did.. if anything something shorter would be reasonable.
-#if defined(SO_DONTLINGER) && !defined(SYSV)
-    {
-        struct linger ld;
-
-        ld.l_onoff = 1;
-        ld.l_linger = 1000;
-
-        if (setsockopt(fd, SOL_SOCKET, SO_DONTLINGER,
-            (char *)&ld, sizeof(ld)) < 0)
-        {
-            perror("Init_socket: SO_DONTLINGER");
-
-#if defined(_WIN32)
-            closesocket(fd);
-#else
-            close(fd);
-#endif
-
-            exit(1);
-        }
-    }
-#endif
 
     sa = sa_zero;
 
@@ -689,11 +678,12 @@ void init_descriptor(int control)
 #if defined(_WIN32)
     int size;
     int desc;
-    size = sizeof(sock);
 #else
     size_t desc;
     socklen_t size;
 #endif
+
+    size = sizeof(sock);
 
     getsockname(control, (struct sockaddr *) &sock, &size);
     if ((desc = accept(control, (struct sockaddr *) &sock, &size)) < 0)
@@ -720,7 +710,18 @@ void init_descriptor(int control)
     dnew = new_descriptor();
 
     dnew->descriptor = desc;
-    dnew->connected = CON_COLOR;
+
+    // Do they get prompted on whether they want color or do they go straight
+    // to the login menu with color defaulted to true.
+    if (settings.login_color_prompt)
+    {
+        dnew->connected = CON_COLOR;
+    }
+    else
+    {
+        dnew->connected = CON_LOGIN_MENU;
+    }
+
     dnew->ansi = TRUE;
     dnew->showstr_head = NULL;
     dnew->showstr_point = NULL;
@@ -734,7 +735,12 @@ void init_descriptor(int control)
     if (getpeername(desc, (struct sockaddr *) &sock, &size) < 0)
     {
         perror("New_descriptor: getpeername");
+
+        free_string(dnew->host);
         dnew->host = str_dup("(unknown)");
+
+        free_string(dnew->ip_address);
+        dnew->ip_address = str_dup("(unknown)");
     }
     else
     {
@@ -748,14 +754,54 @@ void init_descriptor(int control)
         sprintf(buf, "%d.%d.%d.%d",
             (addr >> 24) & 0xFF, (addr >> 16) & 0xFF,
             (addr >> 8) & 0xFF, (addr)& 0xFF);
-        log_f("Sock.sinaddr:  %s", buf);
 
 #if !defined(_WIN32)
         from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), AF_INET);
 #else
         from = gethostbyaddr((char *)&sock.sin_addr, sizeof(sock.sin_addr), PF_INET);
 #endif
+        // Keep both the resolved host (if it exists) and the dotted ip_address.  This
+        // will make banning easier since the bans are based off of string comparisons (e.g.
+        // we can ban the dotted IP always and not have to also ban the host string as exists
+        // today).
         dnew->host = str_dup(from ? from->h_name : buf);
+        dnew->ip_address = str_dup(buf);
+
+        // Make a wiznet log message under sites when a new IP connects.
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        if (!str_cmp(buf, dnew->host))
+        {
+            sprintf(wiz_msg, "New connection: %s", buf);
+        }
+        else
+        {
+            sprintf(wiz_msg, "New connection: %s (%s)", dnew->host, buf);
+        }
+
+        log_f(wiz_msg);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+    }
+
+    if (settings.whitelist_lock && check_ban(dnew->host, BAN_WHITELIST))
+    {
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        write_to_descriptor(desc, "\n\rThis service is not available to the public.\r\n", dnew);
+
+        sprintf(wiz_msg, "Banned Site: Denying access via whitelist to %s", dnew->host);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+        log_f(wiz_msg);
+
+#if defined(_WIN32)
+        closesocket(desc);
+#else
+        close(desc);
+#endif
+
+        free_descriptor(dnew);
+
+        return;
     }
 
     /*
@@ -768,7 +814,13 @@ void init_descriptor(int control)
      */
     if (check_ban(dnew->host, BAN_ALL))
     {
-        write_to_descriptor(desc, "Your site has been banned from this mud.\r\n", 0, dnew);
+        write_to_descriptor(desc, "\r\nYour site has been banned from this mud.\r\n", dnew);
+
+        char wiz_msg[MAX_STRING_LENGTH];
+
+        sprintf(wiz_msg, "Banned Site: Denying access to %s.", dnew->host);
+        log_f(wiz_msg);
+        wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
 
 #if defined(_WIN32)
         closesocket(desc);
@@ -789,7 +841,16 @@ void init_descriptor(int control)
     /*
      * First Contact!
      */
-    write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", 0, dnew);
+    if (settings.login_color_prompt)
+    {
+        write_to_descriptor(desc, "\r\nDo you want color? (Y/N) -> ", dnew);
+    }
+    else
+    {
+        // No color prompt, show them the greeting and the menu.
+        show_greeting(dnew);
+        show_login_menu(dnew);
+    }
 
     return;
 }
@@ -811,7 +872,7 @@ void close_socket(DESCRIPTOR_DATA * dclose)
 
     if (dclose->snoop_by != NULL)
     {
-        write_to_buffer(dclose->snoop_by, "Your victim has left the game.\r\n", 0);
+        write_to_buffer(dclose->snoop_by, "Your victim has left the game.\r\n");
     }
 
     {
@@ -854,6 +915,11 @@ void close_socket(DESCRIPTOR_DATA * dclose)
             free_char(dclose->original ? dclose->original : dclose->character);
         }
     }
+    else if (dclose != NULL && dclose->host != NULL)
+    {
+        // Log that we've closed the link.
+        log_f("Closing link to %s", dclose->host);
+    }
 
     if (d_next == dclose)
     {
@@ -891,6 +957,10 @@ void close_socket(DESCRIPTOR_DATA * dclose)
     return;
 }
 
+/*
+ * Reads incoming data from the player's connection.  If the link has dropped an end of file (EOF)
+ * will be reported and false will be returned.
+ */
 bool read_from_descriptor(DESCRIPTOR_DATA * d)
 {
     int iStart;
@@ -904,7 +974,7 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
     if (iStart >= sizeof(d->inbuf) - 10)
     {
         log_f("%s input overflow!", d->host);
-        write_to_descriptor(d->descriptor, "\r\n*** PUT A LID ON IT!!! ***\r\n", 0, d);
+        write_to_descriptor(d->descriptor, "\r\n*** PUT A LID ON IT!!! ***\r\n", d);
         return FALSE;
     }
 
@@ -928,7 +998,17 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
         }
         else if (nRead == 0)
         {
-            log_string("EOF encountered on read.");
+            if (d == NULL || d->host == NULL)
+            {
+                log_string("read_from_descriptor: EOF encountered on read (null descriptor or host).");
+            }
+            else
+            {
+                char wiz_msg[MAX_STRING_LENGTH];
+                sprintf(wiz_msg, "Disconnected: %s", d->host);
+                log_f(wiz_msg);
+                wiznet(wiz_msg, NULL, NULL, WIZ_SITES, 0, 0);
+            }
             return FALSE;
         }
 #if defined( WIN32 )
@@ -958,7 +1038,31 @@ bool read_from_descriptor(DESCRIPTOR_DATA * d)
  */
 void read_from_buffer(DESCRIPTOR_DATA * d)
 {
-    int i, j, k;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    /*
+     * Shift the input buffer if there is a tilde in it.. essentially this will in
+     * effect cancel any pending commands that have been entered in (say you spmm bash
+     * in 3 times and are waiting for the lag to end, this will allow you to cancel the
+     * 2nd and 3rd ones, perhaps to react to a disarm that you need to re-arm.  Etc.
+     * Know, that it gimps the tilde.  You may choose another character here OR provide
+     * another way for a user to enter the tilde, perhaps in the colors codes code.
+     */
+    while (d->inbuf[i] != '~' && d->inbuf[i] != '\0')
+    {
+        i++;
+    }
+
+    if (d->inbuf[i] == '~')
+    {
+        i++;
+
+        for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
+        return;
+    }
 
     /*
      * Hold horses if pending command already.
@@ -982,7 +1086,7 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
     {
         if (k >= MAX_INPUT_LENGTH - 2)
         {
-            write_to_descriptor(d->descriptor, "Line too long.\r\n", 0, d);
+            write_to_descriptor(d->descriptor, "Line too long.\r\n", d);
 
             /* skip the rest of the line */
             for (; d->inbuf[i] != '\0'; i++)
@@ -1068,8 +1172,12 @@ void read_from_buffer(DESCRIPTOR_DATA * d)
      * Shift the input buffer.
      */
     while (d->inbuf[i] == '\n' || d->inbuf[i] == '\r')
+    {
         i++;
+    }
+
     for (j = 0; (d->inbuf[j] = d->inbuf[i + j]) != '\0'; j++);
+
     return;
 }
 
@@ -1085,13 +1193,21 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     {
         if (d->showstr_point)
         {
-            write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ", 0);
+            write_to_buffer(d, "\r\n{x[ ({RC{x)ontinue, ({RR{x)efresh, ({RB{x)ack, ({RH{x)elp, ({RE{x)nd, ({RT{x)op, ({RQ{x)uit, or {RRETURN{x ]: ");
+
+            // The paging prompt was not showing on mudlet without the telnet go ahead being sent, the
+            // issue arrising because there is no line terminator on the line above as a design choice,
+            // without that, mudlet waits for an extended period before rendering the line.
+            if (d->character && IS_SET(d->character->comm, COMM_TELNET_GA))
+            {
+                write_to_buffer(d, go_ahead_str);
+            }
         }
         else if (fPrompt && d->pString && d->connected == CON_PLAYING)
         {
             char buf[32];
             sprintf(buf,"{C%3.3d{x> ", line_count(*d->pString));
-            write_to_buffer(d, buf, 0);
+            write_to_buffer(d, buf);
         }
         else if (fPrompt && d->connected == CON_PLAYING)
         {
@@ -1105,9 +1221,7 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
             {
                 int percent;
                 char wound[100];
-                char *pbuff;
                 char buf[MSL];
-                char buffer[MSL * 2];
 
                 if (victim->max_hit > 0)
                     percent = victim->hit * 100 / victim->max_hit;
@@ -1133,21 +1247,20 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
 
                 sprintf(buf, "%s %s \r\n",
                     IS_NPC(victim) ? victim->short_descr : victim->name, wound);
+
                 buf[0] = UPPER(buf[0]);
-                pbuff = buffer;
-                colorconv(pbuff, buf, CH(d));
-                write_to_buffer(d, buffer, 0);
+                write_to_buffer(d, buf);
             }
 
             ch = d->original ? d->original : d->character;
             if (!IS_SET(ch->comm, COMM_COMPACT))
-                write_to_buffer(d, "\r\n", 2);
+                write_to_buffer(d, "\r\n");
 
             if (IS_SET(ch->comm, COMM_PROMPT))
                 bust_a_prompt(d->character);
 
             if (IS_SET(ch->comm, COMM_TELNET_GA))
-                write_to_buffer(d, go_ahead_str, 0);
+                write_to_buffer(d, go_ahead_str);
         }
     }
 
@@ -1164,16 +1277,16 @@ bool process_output(DESCRIPTOR_DATA * d, bool fPrompt)
     {
         if (d->character != NULL)
         {
-            write_to_buffer(d->snoop_by, d->character->name, 0);
+            write_to_buffer(d->snoop_by, d->character->name);
         }
-        write_to_buffer(d->snoop_by, "> ", 2);
-        write_to_buffer(d->snoop_by, d->outbuf, d->outtop);
+        write_to_buffer(d->snoop_by, "> ");
+        write_to_buffer(d->snoop_by, d->outbuf);
     }
 
     /*
      * OS-dependent output.
      */
-    if (!write_to_descriptor(d->descriptor, d->outbuf, d->outtop, d))
+    if (!write_to_descriptor(d->descriptor, d->outbuf, d))
     {
         d->outtop = 0;
         return FALSE;
@@ -1196,8 +1309,6 @@ void bust_a_prompt(CHAR_DATA * ch)
     const char *str;
     const char *i;
     char *point;
-    char *pbuff;
-    char buffer[MAX_STRING_LENGTH * 2];
     char doors[MAX_INPUT_LENGTH];
     EXIT_DATA *pexit;
     bool found;
@@ -1418,15 +1529,13 @@ void bust_a_prompt(CHAR_DATA * ch)
     }
 
     *point = '\0';
-    pbuff = buffer;
-    colorconv(pbuff, buf, ch);
-    write_to_buffer(ch->desc, buffer, 0);
-    send_to_char("{x", ch);
+    write_to_buffer(ch->desc, buf);
+    write_to_buffer(ch->desc, "{x");
 
     // Do we send the prefix to the line also?
     if (ch->prefix[0] != '\0')
     {
-        write_to_buffer(ch->desc, ch->prefix, 0);
+        write_to_buffer(ch->desc, ch->prefix);
     }
 
     return;
@@ -1435,13 +1544,12 @@ void bust_a_prompt(CHAR_DATA * ch)
 /*
  * Append onto an output buffer.
  */
-void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt, int length)
+void write_to_buffer(DESCRIPTOR_DATA *d, const char *txt)
 {
-    /*
-     * Find length in case caller didn't.
-     */
-    if (length <= 0)
-        length = strlen(txt);
+    int length = 0;
+
+    // Find the length
+    length = strlen(txt);
 
     // can't update null descriptor
     if (d == NULL)
@@ -1516,7 +1624,7 @@ void write_to_all_desc(char *txt)
 
     for (d = descriptor_list; d != NULL; d = d->next)
     {
-        write_to_descriptor(d->descriptor, txt, 0, d);
+        write_to_descriptor(d->descriptor, txt, d);
     }
 }
 
@@ -1586,8 +1694,9 @@ void send_to_all_char(char *txt)
  *   try lowering the max block size.
  * - Lope's color code moved into here so color can be used from the lowest level
  */
-bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
+bool write_to_descriptor(int desc, char *str, DESCRIPTOR_DATA *d)
 {
+    int length;
     register int iStart;
     register int nWrite;
     int nBlock;
@@ -1685,14 +1794,6 @@ bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
             }
             continue;
         }
-        else if (*point == '!')
-        {
-            ++point;
-            --point;
-            sprintf(buf2, "!");
-            add_buf(txt, buf2);
-            continue;
-        }
 
         buf[0] = *point;
         add_buf(txt, buf);
@@ -1708,12 +1809,14 @@ bool write_to_descriptor(int desc, char *str, int length, DESCRIPTOR_DATA *d)
         // POSIX
         if ((nWrite = write(desc, buf_string(txt) + iStart, nBlock)) < 0)
         {
+            free_buf(txt); // Add this here, seemed like it needed to be free'd success or fail
             return FALSE;
         }
 #else
         // Windows
         if ((nWrite = send(desc, buf_string(txt) + iStart, nBlock, 0)) < 0)
         {
+            free_buf(txt);
             return FALSE;
         }
 #endif
@@ -1905,8 +2008,8 @@ bool check_playing(DESCRIPTOR_DATA * d, char *name)
             && !str_cmp(name, dold->original
                 ? dold->original->name : dold->character->name))
         {
-            write_to_buffer(d, "That character is already playing.\r\n", 0);
-            write_to_buffer(d, "Do you wish to connect anyway (Y/N)?", 0);
+            write_to_buffer(d, "That character is already playing.\r\n");
+            write_to_buffer(d, "Do you wish to connect anyway (Y/N)?");
             d->connected = CON_BREAK_CONNECT;
             return TRUE;
         }
@@ -1940,7 +2043,7 @@ void send_to_char(const char *txt, CHAR_DATA *ch)
     {
         if (ch->desc != NULL)
         {
-            write_to_buffer(ch->desc, txt, strlen(txt));
+            write_to_buffer(ch->desc, txt);
         }
     }
 
@@ -1948,53 +2051,11 @@ void send_to_char(const char *txt, CHAR_DATA *ch)
 } // end send_to_char
 
 /*
- * Page to one descriptor using Lope's color.
+ * Page to one descriptor using Lope's color (wraps write_to_buffer)
  */
 void send_to_desc(const char *txt, DESCRIPTOR_DATA * d)
 {
-    const char *point;
-    char *point2;
-    char buf[MAX_STRING_LENGTH * 4];
-    int skip = 0;
-
-    buf[0] = '\0';
-    point2 = buf;
-    if (txt && d)
-    {
-        if (d->ansi == TRUE)
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    skip = color(*point, NULL, point2);
-                    while (skip-- > 0)
-                        ++point2;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer(d, buf, point2 - buf);
-        }
-        else
-        {
-            for (point = txt; *point; point++)
-            {
-                if (*point == '{')
-                {
-                    point++;
-                    continue;
-                }
-                *point2 = *point;
-                *++point2 = '\0';
-            }
-            *point2 = '\0';
-            write_to_buffer(d, buf, point2 - buf);
-        }
-    }
+    write_to_buffer(d, txt);
     return;
 }
 
@@ -2040,6 +2101,8 @@ void page_to_char(const char *txt, CHAR_DATA *ch)
 
 /*
  * String Pager
+ *
+ * Some logic updated from ACK mud and the ROM ICE project.
  */
 void show_string(struct descriptor_data *d, char *input)
 {
@@ -2050,6 +2113,7 @@ void show_string(struct descriptor_data *d, char *input)
     int space;
     int show_lines;
     int max_linecount;
+    bool newline = FALSE;
 
     if (d->character)
     {
@@ -2067,9 +2131,6 @@ void show_string(struct descriptor_data *d, char *input)
 
     if (show_lines == 0)
     {
-        // This bug line can be removed later if it's not ever hit which it appears
-        // it's not.  It called the old implementation of the string pager.
-        // marker
         bugf("show_string - show_lines == 0, returning without processing further");
         return;
     }
@@ -2120,8 +2181,8 @@ void show_string(struct descriptor_data *d, char *input)
             d->showstr_point = d->showstr_head;
             break;
         case 'H': /* Show some help */
-            write_to_buffer(d, "\r\nC, or Return = continue, R = redraw this page, B = back one page\r\n", 0);
-            write_to_buffer(d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\r\n", 0);
+            write_to_buffer(d, "\r\nC, or Return = continue, R = redraw this page, B = back one page\r\n");
+            write_to_buffer(d, "H = this help, E = End of document, T = Top of document, Q or other keys = exit.\r\n");
             return;
             break;
         case 'Q': /*otherwise, stop the text viewing */
@@ -2149,11 +2210,14 @@ void show_string(struct descriptor_data *d, char *input)
     }
 
     if (max_linecount > d->character->lines)
-        write_to_buffer(d, "\r\n", 0);
+    {
+        write_to_buffer(d, "\r\n");
+    }
 
     /* do any backing up necessary */
     if (lines < 0)
     {
+        // Back option which takes you back one page
         for (scan = d->showstr_point; scan > d->showstr_head; scan--)
         {
             if ((*scan == '\n') || (*scan == '\r'))
@@ -2170,6 +2234,7 @@ void show_string(struct descriptor_data *d, char *input)
     }
     else if (lines > 0)
     {
+        // End option that takes you to the last page
         for (scan = d->showstr_head; *scan; scan++)
         {
             if ((*scan == '\n') || (*scan == '\r'))
@@ -2187,27 +2252,35 @@ void show_string(struct descriptor_data *d, char *input)
 
     /* show a chunk */
     lines = 0;
-    toggle = 1;
+    space = (MAX_STRING_LENGTH * 4) - 100;
 
-    space = MAX_STRING_LENGTH * 2 - 100;
-    for (scan = buffer; ; scan++, d->showstr_point++)
+    for (scan = buffer;; scan++, d->showstr_point++)
     {
         space--;
-        if (((*scan = *d->showstr_point) == '\n' || *scan == '\r') && (toggle = -toggle) < 0 && space > 0)
-            lines++;
-        else if (!*scan || (d->character && !IS_NPC(d->character) && lines >= d->character->lines) || space <= 0)
+
+        if (((*scan = *d->showstr_point) == '\r' || *scan == '\n') && space > 0)
+        {
+            if (newline == FALSE)
+            {
+                newline = TRUE;
+                lines++;
+            }
+            else
+            {
+                newline = FALSE;
+            }
+        }
+        else if (!*scan || ( show_lines > 0 && lines >= show_lines) || space <= 0)
         {
             *scan = '\0';
-            write_to_buffer(d, buffer, strlen(buffer));
-
-           /* See if this is the end (or near the end) of the string */
+            write_to_buffer(d, buffer);
             for (chk = d->showstr_point; isspace(*chk); chk++);
             {
                 if (!*chk)
                 {
                     if (d->showstr_head)
                     {
-                        free_mem(d->showstr_head, strlen(d->showstr_head) + 1);
+                        free_mem(d->showstr_head, strlen( d->showstr_head ) + 1);
                         d->showstr_head = 0;
                     }
                     d->showstr_point = 0;
@@ -2215,9 +2288,13 @@ void show_string(struct descriptor_data *d, char *input)
             }
             return;
         }
+        else
+        {
+            newline = FALSE;
+        }
     }
-
     return;
+
 } // end void show_string
 
 void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *arg2, int type, int min_pos)
@@ -2235,8 +2312,6 @@ void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *a
     const char *str;
     const char *i;
     char *point;
-    char *pbuff;
-    char buffer[MSL * 2];
 
     /*
      * Discard null and zero-length messages.
@@ -2416,20 +2491,21 @@ void act_new(const char *format, CHAR_DATA * ch, const void *arg1, const void *a
                 ++point, ++i;
         }
 
-        *point++ = '\n';
         *point++ = '\r';
+        *point++ = '\n';
         *point = '\0';
-        /* Kludge to capitalize first letter of buffer, trying
+
+        /*
+         * Kludge to capitalize first letter of buffer, trying
          * to account for { color codes. -- JR 09/09/00
          */
         if (buf[0] == 123)
             buf[2] = UPPER(buf[2]);
         else
             buf[0] = UPPER(buf[0]);
-        pbuff = buffer;
-        colorconv(pbuff, buf, to);
+
         if (to->desc && (to->desc->connected == CON_PLAYING))
-            write_to_buffer(to->desc, buffer, 0); /* changed to buffer to reflect prev. fix */
+            write_to_buffer(to->desc, buf); /* changed to buffer to reflect prev. fix */
         else if (MOBtrigger)
             mp_act_trigger(buf, to, ch, arg1, arg2, TRIG_ACT);
     }
@@ -2483,97 +2559,7 @@ char *obj_short(OBJ_DATA *obj)
     return obj->short_descr;
 } // end obj_short
 
-int color(char type, CHAR_DATA *ch, char *string)
-{
-    char	code[20];
-    char	*p = '\0';
-
-    if (ch && IS_NPC(ch))
-        return(0);
-
-    switch (type)
-    {
-        default:
-            sprintf(code, CLEAR);
-            break;
-        case 'x':
-            sprintf(code, CLEAR);
-            break;
-        case 'b':
-            sprintf(code, C_BLUE);
-            break;
-        case 'c':
-            sprintf(code, C_CYAN);
-            break;
-        case 'g':
-            sprintf(code, C_GREEN);
-            break;
-        case 'm':
-            sprintf(code, C_MAGENTA);
-            break;
-        case 'r':
-            sprintf(code, C_RED);
-            break;
-        case 'w':
-            sprintf(code, C_WHITE);
-            break;
-        case 'y':
-            sprintf(code, C_YELLOW);
-            break;
-        case 'B':
-            sprintf(code, C_B_BLUE);
-            break;
-        case 'C':
-            sprintf(code, C_B_CYAN);
-            break;
-        case 'G':
-            sprintf(code, C_B_GREEN);
-            break;
-        case 'M':
-            sprintf(code, C_B_MAGENTA);
-            break;
-        case 'R':
-            sprintf(code, C_B_RED);
-            break;
-        case 'W':
-            sprintf(code, C_B_WHITE);
-            break;
-        case 'Y':
-            sprintf(code, C_B_YELLOW);
-            break;
-        case 'D':
-            sprintf(code, C_D_GREY);
-            break;
-        case '*':
-            sprintf(code, BLINK);
-            break;
-        case '/':
-            sprintf(code, "\r\n");
-            break;
-        case '_':
-            sprintf(code, UNDERLINE);  // Underline
-            break;
-        case '&':
-            sprintf(code, REVERSE);  // Reverse
-            break;
-        case '-':
-            sprintf(code, "~");
-            break;
-        case '{':
-            sprintf(code, "%c", '{');
-            break;
-    }
-
-    p = code;
-    while (*p != '\0')
-    {
-        *string = *p++;
-        *++string = '\0';
-    }
-
-    return(strlen(code));
-}
-
+/*
 void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
 {
     const char *point;
@@ -2616,7 +2602,7 @@ void colorconv(char *buffer, const char *txt, CHAR_DATA * ch)
         }
     }
     return;
-}
+} */
 
 /*
  * Function to remove color codes from a string.  Added to help remove color codes
@@ -2655,6 +2641,50 @@ char *strip_color(char *string)
     buf[count] = '\0';
     return buf;
 } // end strip_color
+
+/*
+ * Returns the display length of a string as it would be on the screen by
+ * skipping any color codes that are found.  This is a modified version of
+ * Quixadhal's code from SmaugFUSS.
+ */
+int color_strlen(const char *text)
+{
+    register unsigned int i = 0;
+    int len = 0;
+
+    // Ditch out of it's a null
+    if( !text || !*text )
+    {
+        return 0;
+    }
+
+    for(i = 0; i < strlen(text);)
+    {
+        switch (text[i])
+        {
+            case '{':
+                // It's a bracket which we will skip because it's not displayed, so increment
+                // the string counter, but not the display length.
+                i++;
+
+                // There is another character after the color code bracket, skip it also as it
+                // will not be displayed but only if it doesn't go out of the array bounds.
+                if (i < strlen(text))
+                {
+                    i++;
+                }
+
+                break;
+             default:
+                // This is a displayed character, both the display length and the string counter
+                // will be incremented.
+                len++;
+                i++;
+                break;
+        }
+    }
+    return len;
+}
 
 /* source: EOD, by John Booth <???> */
 void printf_to_desc(DESCRIPTOR_DATA * d, char *fmt, ...)
@@ -2720,13 +2750,13 @@ void twiddle()
     {
         if (d->ansi)
         {
-            write_to_descriptor(d->descriptor, buf, 0, d);
+            write_to_descriptor(d->descriptor, buf, d);
         }
         else
         {
             if (buf2[0] != '\0')
             {
-                write_to_descriptor(d->descriptor, buf2, 0, d);
+                write_to_descriptor(d->descriptor, buf2, d);
             }
         }
     }

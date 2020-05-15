@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -222,7 +222,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         // want to over do it here, so the ocean is the only sector type we
         // are really going to slow down since we don't want people swimming
         // the worlds length in the ocean.  - Rhien.
-        if (in_room->sector_type == SECT_OCEAN)
+        if (in_room->sector_type == SECT_OCEAN && !IS_IMMORTAL(ch))
         {
             // Ocean Lag, Phew
             WAIT_STATE(ch, 6);
@@ -280,23 +280,36 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
     {
         fch_next = fch->next_in_room;
 
-        if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM)
-            && fch->position < POS_STANDING)
+        // If the victim is charmed, make them stand up so they will follow.
+        if (fch->master == ch && IS_AFFECTED(fch, AFF_CHARM) && fch->position < POS_STANDING)
+        {
             do_function(fch, &do_stand, "");
+        }
 
-        if (fch->master == ch && fch->position == POS_STANDING
-            && can_see_room(fch, to_room))
+        if (fch->master == ch && fch->position == POS_STANDING && can_see_room(fch, to_room))
         {
 
-            if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
-                && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
+            if (IS_SET(ch->in_room->room_flags, ROOM_LAW) && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
             {
                 act("You can't bring $N into the city.", ch, NULL, fch, TO_CHAR);
                 act("You aren't allowed in the city.", fch, NULL, NULL, TO_CHAR);
                 continue;
             }
 
-            act("You follow $N.", fch, NULL, ch, TO_CHAR);
+            // If the players wisdom or intelligence is on the higher end then we're going to let
+            // them know the direction they followed, otherwise, they'll follow as they always did
+            // without the direction in the act message.
+            if (get_curr_stat(fch, STAT_INT) >= 20 || get_curr_stat(fch, STAT_WIS) >= 20)
+            {
+                char buf[MAX_STRING_LENGTH];
+                sprintf(buf, "You follow $N %s.", dir_name[door]);
+                act(buf, fch, NULL, ch, TO_CHAR);
+            }
+            else
+            {
+                act("You follow $N", fch, NULL, ch, TO_CHAR);
+            }
+
             move_char(fch, door, TRUE);
         }
     }
@@ -413,7 +426,7 @@ int find_door(CHAR_DATA * ch, char *arg)
 
     if ((pexit = ch->in_room->exit[door]) == NULL)
     {
-        act("I see no door $T here.", ch, NULL, arg, TO_CHAR);
+        act("I see no door $T of here.", ch, NULL, arg, TO_CHAR);
         return -1;
     }
 
@@ -1078,12 +1091,15 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("Maybe you should finish fighting first?\r\n", ch);
             return;
         }
+
         obj = get_obj_list(ch, argument, ch->in_room->contents);
+
         if (obj == NULL)
         {
             send_to_char("You don't see that here.\r\n", ch);
             return;
         }
+
         if (obj->item_type != ITEM_FURNITURE
             || (!IS_SET(obj->value[2], STAND_AT)
                 && !IS_SET(obj->value[2], STAND_ON)
@@ -1092,12 +1108,13 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("You can't seem to find a place to stand.\r\n", ch);
             return;
         }
+
         if (ch->on != obj && count_users(obj) >= obj->value[0])
         {
-            act_new("There's no room to stand on $p.",
-                ch, obj, NULL, TO_CHAR, POS_DEAD);
+            act_new("There's no room to stand on $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
             return;
         }
+
         ch->on = obj;
     }
 
@@ -1118,20 +1135,17 @@ void do_stand(CHAR_DATA * ch, char *argument)
             }
             else if (IS_SET(obj->value[2], STAND_AT))
             {
-                act_new("You wake and stand at $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand at $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands at $p.", ch, obj, NULL, TO_ROOM);
             }
             else if (IS_SET(obj->value[2], STAND_ON))
             {
-                act_new("You wake and stand on $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand on $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands on $p.", ch, obj, NULL, TO_ROOM);
             }
             else
             {
-                act_new("You wake and stand in $p.", ch, obj, NULL, TO_CHAR,
-                    POS_DEAD);
+                act_new("You wake and stand in $p.", ch, obj, NULL, TO_CHAR, POS_DEAD);
                 act("$n wakes and stands in $p.", ch, obj, NULL, TO_ROOM);
             }
             ch->position = POS_STANDING;
@@ -1172,6 +1186,9 @@ void do_stand(CHAR_DATA * ch, char *argument)
             send_to_char("You are already fighting!\r\n", ch);
             break;
     }
+
+    // Remove healing dream if they are no longer asleep
+    affect_strip(ch, gsn_healing_dream);
 
     return;
 } // end do_stand
@@ -1563,6 +1580,25 @@ void do_sleep(CHAR_DATA * ch, char *argument)
             break;
     }
 
+    // Now that the above code as run, we should know if they are asleep or not, psionicists
+    // can't cast healing dream on themselves because it can only be cast on sleeping people but
+    // when they sleep it will automatically take affect for them.
+    if (ch->position == POS_SLEEPING && ch->class == PSIONICIST_CLASS_LOOKUP)
+    {
+        AFFECT_DATA af;
+        affect_strip(ch, gsn_healing_dream);
+
+        af.where = TO_AFFECTS;
+        af.type = gsn_healing_dream;
+        af.level = ch->level;
+        af.duration = -1;
+        af.modifier = 0;
+        af.location = APPLY_NONE;
+        af.bitvector = 0;
+        affect_to_char(ch, &af);
+        send_to_char("You fall into a deep and restful sleep.\r\n", ch);
+    }
+
     return;
 } // end do_sleep
 
@@ -1646,14 +1682,18 @@ void do_sneak(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * A skill allowing a player to hide from being seen by most others
+ * who don't have acute vision.
+ */
 void do_hide(CHAR_DATA * ch, char *argument)
 {
     send_to_char("You attempt to hide.\r\n", ch);
 
     if (IS_AFFECTED(ch, AFF_HIDE))
+    {
         REMOVE_BIT(ch->affected_by, AFF_HIDE);
+    }
 
     if (number_percent() < get_skill(ch, gsn_hide))
     {
@@ -1661,7 +1701,9 @@ void do_hide(CHAR_DATA * ch, char *argument)
         check_improve(ch, gsn_hide, TRUE, 3);
     }
     else
+    {
         check_improve(ch, gsn_hide, FALSE, 3);
+    }
 
     return;
 }
@@ -1671,8 +1713,8 @@ void do_hide(CHAR_DATA * ch, char *argument)
  */
 void do_visible(CHAR_DATA * ch, char *argument)
 {
-    affect_strip(ch, gsn_invis);
-    affect_strip(ch, gsn_mass_invis);
+    affect_strip(ch, gsn_invisibility);
+    affect_strip(ch, gsn_mass_invisibility);
     affect_strip(ch, gsn_sneak);
     affect_strip(ch, gsn_quiet_movement);
     affect_strip(ch, gsn_camouflage);
@@ -1695,6 +1737,7 @@ void do_recall(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     CHAR_DATA *victim;
     ROOM_INDEX_DATA *location;
+    int recall_vnum = 0;
 
     if (IS_NPC(ch) && !IS_SET(ch->act, ACT_PET))
     {
@@ -1702,26 +1745,40 @@ void do_recall(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    // Cannot recall until a few ticks after battle.
+    // Cannot recall until a few ticks after battle with another player.
     if (!IS_NPC(ch) && ch->pcdata->pk_timer > 0)
     {
         send_to_char("You failed!\r\n", ch);
         return;
     }
 
+    // If this is a player and they have a custom recall set to a bind stone
+    // then use that, otherwise use the temple.
+    if (!IS_NPC(ch) && ch->pcdata->recall_vnum > 0)
+    {
+        recall_vnum = ch->pcdata->recall_vnum;
+    }
+    else
+    {
+        recall_vnum = ROOM_VNUM_TEMPLE;
+    }
+
     act("$n prays for transportation!", ch, 0, 0, TO_ROOM);
 
-    if ((location = get_room_index(ROOM_VNUM_TEMPLE)) == NULL)
+    if ((location = get_room_index(recall_vnum)) == NULL)
     {
         send_to_char("You are completely lost.\r\n", ch);
         return;
     }
 
     if (ch->in_room == location)
+    {
         return;
+    }
 
     if (IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
-        || IS_AFFECTED(ch, AFF_CURSE))
+        || IS_AFFECTED(ch, AFF_CURSE)
+        || IS_SET(ch->in_room->area->area_flags, AREA_NO_RECALL))
     {
         send_to_char("The gods have forsaken you.\r\n", ch);
         return;
@@ -1775,8 +1832,66 @@ void do_recall(CHAR_DATA * ch, char *argument)
     do_function(ch, &do_look, "auto");
 
     if (ch->pet != NULL)
+    {
         do_function(ch->pet, &do_recall, "");
+    }
 
+    // Priest, agony spell check/processing
+    agony_damage_check(ch);
+
+    return;
+}
+
+/*
+ * Command that will allow a player to set their recall point to the current
+ * room they are in if a bind stone is in the room.
+ */
+void do_bind(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    OBJ_DATA * obj;
+    ROOM_INDEX_DATA *location;
+
+    if (ch == NULL || IS_NPC(ch))
+    {
+        return;
+    }
+
+    // Reset the recall vnum to the temple of the reset argument is issued, this can
+    // be done without a bind stone in the room.
+    if (!IS_NULLSTR(argument) && (!str_cmp(argument, "reset")))
+    {
+        ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
+        send_to_char("Your recall point has been reset.\r\n", ch);
+        return;
+    }
+    else if ((location = get_room_index(ch->pcdata->recall_vnum)) == NULL)
+    {
+        // The recall vnum is null... reset it
+        ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
+        send_to_char("Your recall point has been reset.\r\n", ch);
+        return;
+    }
+
+    if (ch->in_room == NULL)
+    {
+        send_to_char("Failed!\r\n", ch);
+        return;
+    }
+
+    obj = get_obj_list(ch, "bindstone", ch->in_room->contents);
+
+    if (obj == NULL || obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
+    {
+        send_to_char("There is no bind stone here.\r\n", ch);
+        sprintf(buf, "Your current bind stone is set to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+        send_to_char(buf, ch);
+        return;
+    }
+
+    sprintf(buf, "Your recall point has been bound to {c%s{x in {c%s{x.\r\n", ch->in_room->name, ch->in_room->area->name);
+    send_to_char(buf, ch);
+    ch->pcdata->recall_vnum = ch->in_room->vnum;
     return;
 }
 
@@ -1980,11 +2095,12 @@ ROOM_INDEX_DATA *get_random_room(CHAR_DATA *ch)
         pRoomIndex != NULL; pRoomIndex = pRoomIndex->next)
         {
             /*
-             * Skip private/safe rooms, no hiding in there!
+             * Skip private/safe/arena rooms, no hiding in there!
              */
             if (IS_SET(pRoomIndex->room_flags, ROOM_PRIVATE)
                 || IS_SET(pRoomIndex->room_flags, ROOM_SOLITARY)
-                || IS_SET(pRoomIndex->room_flags, ROOM_SAFE))
+                || IS_SET(pRoomIndex->room_flags, ROOM_SAFE)
+                || IS_SET(pRoomIndex->room_flags, ROOM_ARENA))
                 continue;
 
             /*
@@ -2148,10 +2264,8 @@ void do_enter(CHAR_DATA * ch, char *argument)
                 if (IS_SET(ch->in_room->room_flags, ROOM_LAW)
                     && (IS_NPC(fch) && IS_SET(fch->act, ACT_AGGRESSIVE)))
                 {
-                    act("You can't bring $N into the city.",
-                        ch, NULL, fch, TO_CHAR);
-                    act("You aren't allowed in the city.",
-                        fch, NULL, NULL, TO_CHAR);
+                    act("You can't bring $N into the city.", ch, NULL, fch, TO_CHAR);
+                    act("You aren't allowed in the city.", fch, NULL, NULL, TO_CHAR);
                     continue;
                 }
 
@@ -2547,3 +2661,55 @@ void do_pathfind(CHAR_DATA *ch, char *argument)
 }
 
 /* End Path Find Code */
+
+/*
+ * Command to allow a player to knock on a door if it's closed, if
+ * players are on the other side of the door they will hear the knocking.
+ */
+void do_knock(CHAR_DATA * ch, char *argument)
+{
+    int door;
+    char arg[MAX_INPUT_LENGTH];
+
+    one_argument(argument, arg);
+
+    if (IS_NULLSTR(arg))
+    {
+        send_to_char ("Knock on what?\r\n", ch);
+        return;
+    }
+
+    if ((door = find_door(ch, arg)) >= 0)
+    {
+        ROOM_INDEX_DATA *to_room;
+        EXIT_DATA *pexit;
+        EXIT_DATA *pexit_rev;
+
+        pexit = ch->in_room->exit[door];
+
+        // See if the door in question is open, if it is you can't knock on it.
+        if (!IS_SET( pexit->exit_info, EX_CLOSED))
+        {
+            send_to_char("Why knock?  It's open.\r\n", ch);
+            return;
+        }
+
+        act("$n knocks on the $d.", ch, NULL, pexit->keyword, TO_ROOM);
+        act("You knock on the $d.", ch, NULL, pexit->keyword, TO_CHAR);
+
+        // The knock, from the other side of the door
+        if ((to_room = pexit->u1.to_room) != NULL
+            && (pexit_rev = to_room->exit[rev_dir[door]]) != NULL
+            && pexit_rev->u1.to_room == ch->in_room)
+        {
+            CHAR_DATA *rch;
+
+            for (rch = to_room->people; rch != NULL; rch = rch->next_in_room)
+            {
+                act("You hear someone knocking.", rch, NULL, pexit_rev->keyword, TO_CHAR);
+            }
+        }
+    }
+
+    return;
+}

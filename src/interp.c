@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -106,7 +106,7 @@ const struct cmd_type cmd_table[] = {
     {"order",     do_order,     POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"practice",  do_practice,  POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"rest",      do_rest,      POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
-    {"scan",      do_scan,      POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
+    {"scan",      do_scan,      POS_STANDING, 0,  LOG_NORMAL, TRUE},
     {"sit",       do_sit,       POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
     {"sockets",   do_sockets,   POS_DEAD,     L7, LOG_NORMAL, TRUE},
     {"stand",     do_stand,     POS_SLEEPING, 0,  LOG_NORMAL, TRUE},
@@ -115,6 +115,7 @@ const struct cmd_type cmd_table[] = {
     {"wield",     do_wear,      POS_RESTING,  0,  LOG_NORMAL, TRUE},
     {"wizhelp",   do_wizhelp,   POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"clear",     do_clear,     POS_DEAD,     0,  LOG_NORMAL, TRUE},
+    {"clearreply",do_clearreply,POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"second",    do_second,    POS_RESTING,  0,  LOG_NORMAL, FALSE},
     {"dual",      do_second,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
 
@@ -138,7 +139,6 @@ const struct cmd_type cmd_table[] = {
     {"report",    do_report,    POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"rules",     do_rules,     POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"score",     do_score,     POS_DEAD,     0, LOG_NORMAL, TRUE},
-    {"oldscore",  do_oldscore,  POS_DEAD,     0, LOG_NORMAL, FALSE},
     {"skills",    do_skills,    POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"socials",   do_socials,   POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"show",      do_show,      POS_DEAD,     0, LOG_NORMAL, TRUE},
@@ -209,6 +209,7 @@ const struct cmd_type cmd_table[] = {
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, TRUE},
     {"direct",          do_direct,      POS_RESTING,  0, LOG_NORMAL, TRUE},
     {">",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
+    {"@",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
 
     /*
      * Note commands.
@@ -260,6 +261,8 @@ const struct cmd_type cmd_table[] = {
     {"butcher",         do_butcher,     POS_STANDING, 0, LOG_NORMAL, TRUE},
 	{"ban",             do_ban,         POS_DEAD,    L2, LOG_ALWAYS, TRUE},
     {"bandage",         do_bandage,     POS_STANDING, 0, LOG_NORMAL, TRUE},
+    {"write",           do_write,       POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"read",            do_read,        POS_RESTING,  0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.
@@ -288,6 +291,14 @@ const struct cmd_type cmd_table[] = {
     {"track",           do_track,         POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"findwater",       do_find_water,    POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"stance",          do_stance,        POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"poisonprick",     do_poisonprick,   POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"shiv",            do_shiv,          POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"escape",          do_escape,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"peer",            do_peer,          POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"bludgeon",        do_bludgeon,      POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"revolt",          do_revolt,        POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"clairvoyance",    do_clairvoyance,  POS_RESTING,  0, LOG_NORMAL, FALSE},
+    {"prayer",          do_prayer,        POS_RESTING,  0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)
@@ -297,6 +308,8 @@ const struct cmd_type cmd_table[] = {
     /*
      * Miscellaneous commands.
      */
+    {"bank",            do_bank,        POS_STANDING, 0, LOG_ALWAYS, TRUE},
+    {"pquest",          do_pquest,      POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"map",             do_map,         POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"enter",           do_enter,       POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"follow",          do_follow,      POS_RESTING,  0, LOG_NORMAL, TRUE},
@@ -323,13 +336,15 @@ const struct cmd_type cmd_table[] = {
     {"terrain",         do_terrain,     POS_SITTING,  0, LOG_NORMAL, TRUE},
     {"version",         do_version,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"randomnames",     do_random_names,POS_DEAD,     0, LOG_NORMAL, TRUE},
+    {"bind",            do_bind,        POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"knock",           do_knock,       POS_SITTING,  0, LOG_NORMAL, TRUE},
     {"advance",         do_advance,     POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"copyover",        do_copyover,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"dump",            do_dump,        POS_DEAD, ML, LOG_ALWAYS, FALSE},
     {"trust",           do_trust,       POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"violate",         do_violate,     POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"allow",           do_allow,       POS_DEAD, L2, LOG_ALWAYS, TRUE},
-    {"deny",            do_deny,        POS_DEAD, L1, LOG_ALWAYS, TRUE},
+    {"deny",            do_deny,        POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"disconnect",      do_disconnect,  POS_DEAD, L3, LOG_ALWAYS, TRUE},
     {"flag",            do_flag,        POS_DEAD, L4, LOG_ALWAYS, TRUE},
     {"freeze",          do_freeze,      POS_DEAD, L4, LOG_ALWAYS, TRUE},
@@ -344,8 +359,9 @@ const struct cmd_type cmd_table[] = {
     {"wizlock",         do_wizlock,     POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"force",           do_force,       POS_DEAD, L7, LOG_ALWAYS, TRUE},
     {"load",            do_load,        POS_DEAD, L4, LOG_ALWAYS, TRUE},
-    {"newlock",         do_newlock,     POS_DEAD, L4, LOG_ALWAYS, TRUE},
+    {"newlock",         do_newlock,     POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"nochannels",      do_nochannels,  POS_DEAD, L5, LOG_ALWAYS, TRUE},
+    {"nopray",          do_nopray,      POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"noemote",         do_noemote,     POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"noshout",         do_noshout,     POS_DEAD, L5, LOG_ALWAYS, TRUE},
     {"notell",          do_notell,      POS_DEAD, L5, LOG_ALWAYS, TRUE},
@@ -367,21 +383,23 @@ const struct cmd_type cmd_table[] = {
     {"invis",           do_invis,       POS_DEAD, IM, LOG_NORMAL, FALSE},
     {"log",             do_log,         POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"logout",          do_quit,        POS_DEAD,  0, LOG_NORMAL, TRUE},
-    {"memory",          do_memory,      POS_DEAD, L3, LOG_NORMAL, TRUE},
+    {"memory",          do_memory,      POS_DEAD, L2, LOG_NORMAL, TRUE},
     {"mwhere",          do_mwhere,      POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"owhere",          do_owhere,      POS_DEAD, IM, LOG_NORMAL, TRUE},
-    {"peace",           do_peace,       POS_DEAD, L5, LOG_NORMAL, TRUE},
+    {"peace",           do_peace,       POS_DEAD, L7, LOG_NORMAL, TRUE},
     {"echo",            do_recho,       POS_DEAD, L6, LOG_ALWAYS, TRUE},
     {"return",          do_return,      POS_DEAD, L6, LOG_NORMAL, TRUE},
     {"snoop",           do_snoop,       POS_DEAD, L5, LOG_ALWAYS, TRUE},
+    {"snoopinfo",       do_snoopinfo,   POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"stat",            do_stat,        POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"stats",           do_stats,       POS_DEAD,  0, LOG_NORMAL, TRUE},
     {"string",          do_string,      POS_DEAD, L7, LOG_ALWAYS, TRUE},
     {"switch",          do_switch,      POS_DEAD, L6, LOG_ALWAYS, TRUE},
+    {"switchinfo",      do_switchinfo,  POS_DEAD, L6, LOG_ALWAYS, TRUE},
     {"wizinvis",        do_invis,       POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"vnum",            do_vnum,        POS_DEAD, L7, LOG_NORMAL, TRUE},
     {"zecho",           do_zecho,       POS_DEAD, L4, LOG_ALWAYS, TRUE},
-    {"clone",           do_clone,       POS_DEAD, L5, LOG_ALWAYS, TRUE},
+    {"clone",           do_clone,       POS_DEAD, L6, LOG_ALWAYS, TRUE},
     {"wiznet",          do_wiznet,      POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"imotd",           do_imotd,       POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"smote",           do_smote,       POS_DEAD, IM, LOG_NORMAL, TRUE},
@@ -392,15 +410,21 @@ const struct cmd_type cmd_table[] = {
     {"debug",           do_debug,       POS_DEAD, 1,  LOG_NEVER,  FALSE},
     {"forcetick",       do_forcetick,   POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"rename",          do_rename,      POS_DEAD, L6, LOG_ALWAYS, TRUE},
-    {"vnumgap",         do_vnumgap,     POS_DEAD, L1, LOG_NEVER,  TRUE},
+    {"vnumgap",         do_vnumgap,     POS_DEAD, L2, LOG_NEVER,  TRUE},
     {"exlist",          do_exlist,      POS_DEAD, L7, LOG_NEVER,  TRUE},
     {"pathfind",        do_pathfind,    POS_DEAD, L3, LOG_ALWAYS, TRUE},
     {"test",            do_test,        POS_DEAD, IM, LOG_NORMAL, TRUE},
     {"wizcancel",       do_wizcancel,   POS_DEAD, L5, LOG_ALWAYS, TRUE},
-    {"wizbless",        do_wizbless,    POS_DEAD, IM, LOG_ALWAYS, TRUE},
+    {"wizbless",        do_wizbless,    POS_DEAD, ML, LOG_ALWAYS, TRUE},
     {"confiscate",      do_confiscate,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"disable",         do_disable,     POS_DEAD, L3, LOG_ALWAYS, TRUE},
     {"crypt",           do_crypt,       POS_DEAD, L3, LOG_ALWAYS, TRUE},
+	{"dbexport",        do_dbexport,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
+    {"permanent",       do_permanent,   POS_DEAD, ML, LOG_ALWAYS, TRUE},
+    {"loner",           do_loner,       POS_SLEEPING, 1, LOG_NORMAL, TRUE},
+    {"linefeed",        do_linefeed,    POS_SLEEPING, 1, LOG_NORMAL, TRUE},
+    {"playerlist",      do_playerlist,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
+    {"duplicate",       do_duplicate,   POS_STANDING, 1, LOG_NORMAL, TRUE},
 
     /*
      * OLC
@@ -555,9 +579,9 @@ void interpret(CHAR_DATA * ch, char *argument)
 
     if (ch->desc != NULL && ch->desc->snoop_by != NULL)
     {
-        write_to_buffer(ch->desc->snoop_by, "% ", 2);
-        write_to_buffer(ch->desc->snoop_by, logline, 0);
-        write_to_buffer(ch->desc->snoop_by, "\r\n", 2);
+        write_to_buffer(ch->desc->snoop_by, "% ");
+        write_to_buffer(ch->desc->snoop_by, logline);
+        write_to_buffer(ch->desc->snoop_by, "\r\n");
     }
 
     if (timer)
@@ -933,21 +957,35 @@ void do_wizhelp(CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     int cmd;
     int col;
+    int level;
 
     col = 0;
-    for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
+
+    // The original command didn't have the outer loop which is serving as
+    // a hacky sort (this way, we don't have to create a strucure with our
+    // data and then sort it).
+    for (level = LEVEL_IMMORTAL; level <= MAX_LEVEL; level++)
     {
-        if (cmd_table[cmd].level > LEVEL_HERO
-            && cmd_table[cmd].level <= get_trust(ch) && cmd_table[cmd].show)
+        for (cmd = 0; cmd_table[cmd].name[0] != '\0'; cmd++)
         {
-            sprintf(buf, "%-12s", cmd_table[cmd].name);
-            send_to_char(buf, ch);
-            if (++col % 6 == 0)
-                send_to_char("\r\n", ch);
+            if (cmd_table[cmd].level > LEVEL_HERO
+                && cmd_table[cmd].level <= get_trust(ch)
+                && cmd_table[cmd].show
+                && cmd_table[cmd].level == level)
+            {
+                sprintf(buf, "[%d] %-12s", cmd_table[cmd].level, cmd_table[cmd].name);
+                send_to_char(buf, ch);
+
+                if (++col % 4 == 0)
+                    send_to_char("\r\n", ch);
+            }
         }
     }
 
-    if (col % 6 != 0)
+    if (col % 4 != 0)
+    {
         send_to_char("\r\n", ch);
+    }
+
     return;
 }

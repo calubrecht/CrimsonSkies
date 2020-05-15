@@ -103,7 +103,7 @@ A giant is here.
 ~
 The giant is about 8 feet tall, with arms of steel, and looks very strong.
 ~
-giant~
+unique~
 AG 0 2 0
 16 0 3d9+233 8d9+100 2d6+4 none
 -2 -2 -2 7
@@ -290,9 +290,9 @@ ABC ABC ABC 0 0
 stick~
 long, black stick~
 There is a long, black stick lying here.~
-oldstyle~
+obsidian~
 staff 0 AO
-4 10 10 'cure critical' 0
+15 10 10 'cure critical' 0
 11 10 4800 P
 #6507
 stick~
@@ -319,9 +319,9 @@ weapon 0 AN
 axe 2 7 cleave F
 17 50 4100 P
 A
-1 2
-A
 18 2
+A
+1 2
 #6510
 helmet~
 a dwarven helmet~
@@ -339,9 +339,9 @@ gem G AB
 0 0 0 0 0
 7 10 460 P
 A
-19 1
-A
 18 1
+A
+19 1
 #6512
 gloves~
 dwarven gloves~
@@ -351,9 +351,9 @@ armor 0 AH
 AC AC AC 0 0
 13 20 2000 P
 A
-2 1
-A
 1 1
+A
+2 1
 #6513
 note~
 a note~

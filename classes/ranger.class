@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'ranger basics'
 DefGroup    'ranger default'
 IsReclass   1
+IsEnabled   1
 Sk 'axe' 1 4
 Sk 'dagger' 1 2
 Sk 'flail' 1 4
@@ -62,6 +63,7 @@ Sk 'create water' 11 2
 Sk 'protection evil' 11 2
 Sk 'protection good' 11 2
 Sk 'disarm' 11 4
+Sk 'protection neutral' 11 2
 Sk 'create food' 12 2
 Sk 'third attack' 12 4
 Sk 'hide' 12 6
@@ -73,6 +75,7 @@ Sk 'haggle' 14 6
 Sk 'peek' 14 6
 Sk 'blindness' 15 2
 Sk 'trip' 15 8
+Sk 'locate bind' 15 2
 Sk 'cure poison' 16 2
 Sk 'floating disc' 16 2
 Sk 'infravision' 16 2
@@ -100,25 +103,29 @@ Sk 'fly' 22 2
 Sk 'summon' 22 2
 Sk 'energy drain' 23 2
 Sk 'heat metal' 23 2
+Sk 'identify' 23 2
 Sk 'create rose' 24 2
 Sk 'faerie fog' 24 2
 Sk 'pick lock' 25 8
 Sk 'track' 25 4
 Sk 'fireball' 26 2
+Sk 'ice blast' 26 2
 Sk 'plague' 26 2
 Sk 'flamestrike' 27 2
 Sk 'gate' 28 2
 Sk 'harm' 28 2
+Sk 'detect hidden' 29 2
+Sk 'detect invis' 29 2
 Sk 'haste' 29 2
 Sk 'dispel magic' 30 2
 Sk 'heal' 30 2
 Sk 'sanctuary' 30 2
 Sk 'word of recall' 30 2
 Sk 'acid blast' 32 2
+Sk 'detect poison' 32 2
 Sk 'slow' 32 2
 Sk 'dual wield' 32 6
 Sk 'cancellation' 34 2
-Sk 'acid breath' 34 2
 Sk 'bark skin' 34 1
 Sk 'chain lightning' 36 2
 Sk 'teleport' 36 2
@@ -127,22 +134,27 @@ Sk 'fog' 38 2
 Sk 'dispel fog' 38 2
 Sk 'portal' 40 4
 Sk 'shield' 40 2
-Sk 'frost breath' 40 2
+Sk 'detect evil' 43 2
+Sk 'detect good' 43 2
 Sk 'quiet movement' 43 1
 Sk 'demonfire' 45 2
 Sk 'nexus' 45 4
 Sk 'stone skin' 45 2
+Sk 'detect magic' 46 2
 Sk 'mass healing' 46 4
-Sk 'lightning breath' 46 2
 Sk 'ray of truth' 47 2
-Sk 'gas breath' 50 2
-Sk 'fire breath' 51 2
+Sk 'locate object' 49 2
 Sk 'reserved' 52 -1
 Sk 'bless' 52 -1
 Sk 'calm' 52 -1
 Sk 'frenzy' 52 -1
 Sk 'holy word' 52 -1
 Sk 'remove curse' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
@@ -166,14 +178,29 @@ Sk 'circle stab' 52 -1
 Sk 'remove faerie fire' 52 -1
 Sk 'gore' 52 -1
 Sk 'ghost' 52 -1
+Sk 'poison prick' 52 -1
+Sk 'shiv' 52 -1
+Sk 'escape' 52 -1
+Sk 'peer' 52 -1
+Sk 'bludgeon' 52 -1
+Sk 'revolt' 52 -1
+Sk 'imbue' 52 -1
+Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
+Sk 'healing dream' 52 -1
+Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
+Sk 'psionic focus' 52 -1
+Sk 'clairvoyance' 52 -1
+Sk 'psionic shield' 52 -1
+Sk 'boost' 52 -1
+Sk 'prayer' 52 -1
+Sk 'agony' 52 -1
+Sk 'holy presence' 52 -1
+Sk 'displacement' 52 -1
+Sk 'holy flame' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
-Sk 'detect evil' 53 2
-Sk 'detect good' 53 2
-Sk 'detect hidden' 53 2
-Sk 'detect invis' 53 2
-Sk 'detect magic' 53 2
-Sk 'detect poison' 53 2
 Sk 'enchant armor' 53 4
 Sk 'enchant weapon' 53 4
 Sk 'enchant person' 53 4
@@ -186,11 +213,9 @@ Sk 'restore weapon' 53 4
 Sk 'restore armor' 53 4
 Sk 'disenchant' 53 4
 Sk 'farsight' 53 2
-Sk 'identify' 53 2
 Sk 'invisibility' 53 2
 Sk 'know alignment' 53 2
-Sk 'locate object' 53 2
-Sk 'mass invis' 53 2
+Sk 'mass invisibility' 53 2
 Sk 'recharge' 53 2
 Sk 'sleep' 53 2
 Sk 'ventriloquate' 53 2
@@ -212,6 +237,9 @@ Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
+Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
+Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
@@ -220,6 +248,9 @@ Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 40
+Gr 'rogue default' 0
+Gr 'psionicist default' 0
+Gr 'priest default' 0
 Gr 'weaponsmaster' 20
 Gr 'attack' 0
 Gr 'beguiling' 0
@@ -227,7 +258,7 @@ Gr 'benedictions' 0
 Gr 'combat' 0
 Gr 'creation' 8
 Gr 'curative' 0
-Gr 'detection' 0
+Gr 'detection' 8
 Gr 'draconian' 0
 Gr 'enchantment' 0
 Gr 'enhancement' 9
@@ -242,6 +273,8 @@ Gr 'transportation' 8
 Gr 'weather' 6
 Gr 'bladesongs' 0
 Gr 'nature' 4
+Gr 'psionics' 0
+Gr 'divination' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

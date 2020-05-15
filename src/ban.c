@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -141,23 +141,56 @@ bool check_ban(char *site, int type)
     strcpy(host, capitalize(site));
     host[0] = LOWER(host[0]);
 
-    for (pban = ban_list; pban != NULL; pban = pban->next)
+    if (settings.whitelist_lock)
     {
-        if (!IS_SET(pban->ban_flags, type))
-            continue;
+        // The whitelist ban overrides regular bans and only works if the global setting for it
+        // is enabled.  This will only allow IP's that are in the list through as opposed to
+        // blocking specific IP's.
+        for (pban = ban_list; pban != NULL; pban = pban->next)
+        {
+            if (!IS_SET(pban->ban_flags, BAN_WHITELIST))
+                continue;
 
-        if (IS_SET(pban->ban_flags, BAN_PREFIX)
-            && IS_SET(pban->ban_flags, BAN_SUFFIX)
-            && strstr(pban->name, host) != NULL)
-            return TRUE;
+            // Exact match (assuming both prefix and suffix)
+            if (!str_cmp(pban->name, host))
+                return FALSE;
 
-        if (IS_SET(pban->ban_flags, BAN_PREFIX)
-            && !str_suffix(pban->name, host))
-            return TRUE;
+            if (IS_SET(pban->ban_flags, BAN_PREFIX)
+                && !str_suffix(pban->name, host))
+                return FALSE;
 
-        if (IS_SET(pban->ban_flags, BAN_SUFFIX)
-            && !str_prefix(pban->name, host))
-            return TRUE;
+            if (IS_SET(pban->ban_flags, BAN_SUFFIX)
+                && !str_prefix(pban->name, host))
+                return FALSE;
+
+        }
+
+        return TRUE;
+    }
+    else
+    {
+        for (pban = ban_list; pban != NULL; pban = pban->next)
+        {
+            if (!IS_SET(pban->ban_flags, type))
+                continue;
+
+            // Exact match
+            if (!str_cmp(pban->name, host))
+                return TRUE;
+
+            if (IS_SET(pban->ban_flags, BAN_PREFIX)
+                && IS_SET(pban->ban_flags, BAN_SUFFIX)
+                && strstr(pban->name, host) != NULL)
+                return TRUE;
+
+            if (IS_SET(pban->ban_flags, BAN_PREFIX)
+                && !str_suffix(pban->name, host))
+                return TRUE;
+
+            if (IS_SET(pban->ban_flags, BAN_SUFFIX)
+                && !str_prefix(pban->name, host))
+                return TRUE;
+        }
     }
 
     return FALSE;
@@ -190,20 +223,22 @@ void ban_site(CHAR_DATA * ch, char *argument, bool fPerm)
 
         buffer = new_buf();
 
-        add_buf(buffer, "Banned sites  level  type     status\r\n");
+        sprintf(buf, "%-38s    %-5s  %-9s  %s\r\n", "Banned Sites", "Level", "Type", "Status");
+        add_buf(buffer, buf);
+        add_buf(buffer, HEADER);
+
         for (pban = ban_list; pban != NULL; pban = pban->next)
         {
             sprintf(buf2, "%s%s%s",
                 IS_SET(pban->ban_flags, BAN_PREFIX) ? "*" : "",
                 pban->name,
                 IS_SET(pban->ban_flags, BAN_SUFFIX) ? "*" : "");
-            sprintf(buf, "%-12s    %-3d  %-7s  %s\r\n",
+            sprintf(buf, "%-38s    %-5d  %-9s  %s\r\n",
                 buf2, pban->level,
-                IS_SET(pban->ban_flags, BAN_NEWBIES) ? "newbies" :
-                IS_SET(pban->ban_flags, BAN_PERMIT) ? "permit" :
-                IS_SET(pban->ban_flags, BAN_ALL) ? "all" : "",
-                IS_SET(pban->ban_flags,
-                    BAN_PERMANENT) ? "perm" : "temp");
+                IS_SET(pban->ban_flags, BAN_NEWBIES) ? "Newbies" :
+                IS_SET(pban->ban_flags, BAN_ALL) ? "All" :
+                IS_SET(pban->ban_flags, BAN_WHITELIST) ? "Whitelist" : "",
+                IS_SET(pban->ban_flags, BAN_PERMANENT) ? "Permanent" : "Temp");
             add_buf(buffer, buf);
         }
 
@@ -221,13 +256,13 @@ void ban_site(CHAR_DATA * ch, char *argument, bool fPerm)
     {
         type = BAN_NEWBIES;
     }
-    else if (!str_prefix(arg2, "permit"))
+    else if (!str_prefix(arg2, "whitelist"))
     {
-        type = BAN_PERMIT;
+        type = BAN_WHITELIST;
     }
     else
     {
-        send_to_char("Acceptable ban types are all, newbies, and permit.\r\n", ch);
+        send_to_char("Acceptable ban types are all, newbies, whitelist.\r\n", ch);
         return;
     }
 
@@ -293,8 +328,18 @@ void ban_site(CHAR_DATA * ch, char *argument, bool fPerm)
     pban->next = ban_list;
     ban_list = pban;
     save_bans();
-    sprintf(buf, "%s has been banned.\r\n", pban->name);
-    send_to_char(buf, ch);
+
+    if (type != BAN_WHITELIST)
+    {
+        printf_to_char(ch, "%s has been banned.\r\n", pban->name);
+        return;
+    }
+    else
+    {
+        printf_to_char(ch, "%s has been added to the whitelist.\r\n", pban->name);
+        return;
+    }
+
     return;
 
 } // end ban_site

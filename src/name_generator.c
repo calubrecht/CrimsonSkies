@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -22,12 +22,12 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 04/16/2016            *
+ *  Name Generator (Written 12/16/1999, Last Updated 01/05/2017            *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
  *  list of name parts that can be pieced together with a high rate of     *
- *  returning a decent name.  There are two large tables of these parts    *
+ *  returning a decent name.  There is one large tables with these parts   *
  *  but in the grand scheme these take up minimial memory.  This was       *
  *  orignally written as a Java class for use in an applet back in the     *
  *  day, then converted to C# for use in a Windows Phone app (hold the     *
@@ -92,8 +92,9 @@ char *generate_random_name()
             name_part_table[last_index].last_part);
 
         // Checks to try to ensure a good name
-        if (name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)]
-            != name_part_table[last_index].last_part[0]
+        if (!IS_NULLSTR(name_part_table[first_index].first_part)
+            && !IS_NULLSTR(name_part_table[first_index].last_part)
+            && name_part_table[first_index].first_part[(strlen(name_part_table[first_index].first_part)-1)] != name_part_table[last_index].last_part[0]
             && first_index != last_index
             && file_exists(filename) == FALSE)
         {
@@ -153,9 +154,9 @@ void do_random_names(CHAR_DATA * ch, char *argument)
     {
         // Since the random function returns a static char we have to use it in
         // separate calls.
-        for (col = 0; col < 4; col++)
+        for (col = 0; col < 5; col++)
         {
-            sprintf(buf, "%-18s", generate_random_name());
+            sprintf(buf, "%-16s", generate_random_name());
             send_to_char(buf, ch);
         }
 
@@ -832,5 +833,40 @@ const struct name_part_type name_part_table[] = {
         {"Vand", "avar"},
         {"Brol", "tiac"},
         {"Laer", "su"},
-        {NULL, NULL},
+        {"Teo", "wen"},
+        {"Kyb", "ros"},
+        {"Beh", "shar"},
+        {"Ehyl", "olas"},
+        {"Kala", "inn"},
+        {"Cala", "'n"},
+        {"Bren", "igar"},
+        {"Bra", "egar"},
+        {"Bli", "ren"},
+        {"Sai", "teak"},
+        {"Neh", "zerin"},
+        {"Bena", "lit"},
+        {"Brock", "baal"},
+        {"Rumpt", "ten"},
+        {"Thas", "gerd"},
+        {"Eli", "jah"},
+        {"Kip", "xal"},
+        {"Court", "ney"},
+        {"Nien", "nay"},
+        {"Taly", "aral"},
+        {"Uru", "aste"},
+        {"Verd", "asza"},
+        {"Thad", "nak"},
+        {"Xok", "arna"},
+        {"Saph", "yre"},
+        {"Aeri", "akh"},
+        {"Ix", "inean"},
+        {"Ter", "ces"},
+        {"Anath", "sai"},
+        {"Jah", "iza"},
+        {"Tei", "iath"},
+        {"Nyl", "yiad"},
+        {"Oruv", "umo"},
+        {"Jyl", "dray"},
+        {"Jael", "ek"},
+        {NULL, NULL}
 };

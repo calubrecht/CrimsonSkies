@@ -6,6 +6,7 @@ LevelRange 1 51
 Credits (null)~
 Security 1
 Continent 1
+AreaFlags F
 End
 
 
@@ -20,7 +21,7 @@ A very route and gruff looking guard is here tasked with keeping the
 peace in the dueling grounds.  He looks very capable and is eyeing your
 every move.  
 ~
-giant~
+unique~
 ABTV CDFJVZ 3 3000
 45 30 1d1+3999 1d1+499 5d4+40 crush
 -25 -25 -25 -15

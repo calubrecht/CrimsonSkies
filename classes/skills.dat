@@ -481,7 +481,7 @@ SpellFun    spell_enchant_armor~
 Target      4
 MinPos      8
 MinMana     100
-Beats       24
+Beats       12
 MsgOff      !Enchant Armor!~
 Race        0
 End
@@ -492,7 +492,7 @@ SpellFun    spell_enchant_weapon~
 Target      4
 MinPos      8
 MinMana     100
-Beats       24
+Beats       12
 MsgOff      !Enchant Weapon!~
 Race        0
 End
@@ -638,7 +638,7 @@ Name        farsight~
 SpellFun    spell_farsight~
 Target      0
 MinPos      8
-MinMana     36
+MinMana     10
 Beats       20
 Damage      farsight~
 MsgOff      !Farsight!~
@@ -655,6 +655,20 @@ Beats       12
 Damage      fireball~
 MsgOff      !Fireball!~
 Race        0
+Ranged       1
+End
+
+#SKILL
+Name        ice blast~
+SpellFun    spell_ice_blast~
+Target      1
+MinPos      7
+MinMana     15
+Beats       12
+Damage      ice blast~
+MsgOff      !Ice Blast!~
+Race        0
+Ranged       1
 End
 
 #SKILL
@@ -848,6 +862,7 @@ Beats       12
 Damage      lightning bolt~
 MsgOff      !Lightning Bolt!~
 Race        0
+Ranged       1
 End
 
 #SKILL
@@ -871,6 +886,7 @@ Beats       12
 Damage      magic missile~
 MsgOff      !Magic Missile!~
 Race        0
+Ranged       1
 End
 
 #SKILL
@@ -885,7 +901,7 @@ Race        0
 End
 
 #SKILL
-Name        mass invis~
+Name        mass invisibility~
 SpellFun    spell_mass_invis~
 Target      0
 MinPos      8
@@ -2100,6 +2116,257 @@ MinPos      8
 MinMana     10
 Beats       12
 Race        0
+End
+
+#SKILL
+Name        locate bind~
+SpellFun    spell_locate_bind~
+Target      0
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      !Locate Bind!~
+Race        0
+End
+
+#SKILL
+Name        poison prick~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+MsgOff      The rogue's poison leaves your body.~
+Race        0
+End
+
+#SKILL
+Name        shiv~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Damage      shiv~
+Race        0
+End
+
+#SKILL
+Name        protection neutral~
+SpellFun    spell_protection_neutral~
+Target      3
+MinPos      8
+MinMana     5
+Beats       12
+MsgOff      You feel less protected.~
+Race        0
+End
+
+#SKILL
+Name        escape~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
+#SKILL
+Name        peer~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       6
+Race        0
+End
+
+#SKILL
+Name        bludgeon~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        revolt~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       24
+Race        0
+End
+
+#SKILL
+Name        imbue~
+SpellFun    spell_imbue~
+Target      2
+MinPos      8
+MinMana     50
+Beats       12
+MsgOff      Your magical ability is no longer augmented.~
+Race        0
+End
+
+#SKILL
+Name        preserve~
+SpellFun    spell_preserve~
+Target      4
+MinPos      8
+MinMana     200
+Beats       12
+MsgOff      You feel the strain from preserve dissipate.~
+Race        0
+End
+
+#SKILL
+Name        psionic blast~
+SpellFun    spell_psionic_blast~
+Target      1
+MinPos      7
+MinMana     20
+Beats       12
+Damage      psionic blast~
+MsgOff      !Psionic Blast!~
+Race        0
+End
+
+#SKILL
+Name        healing dream~
+SpellFun    spell_healing_dream~
+Target      2
+MinPos      8
+MinMana     40
+Beats       12
+MsgOff      The healing dream begins to fade.~
+Race        0
+End
+
+#SKILL
+Name        mental weight~
+SpellFun    spell_mental_weight~
+Target      1
+MinPos      8
+MinMana     30
+Beats       12
+MsgOff      You feel the mental burden lift away.~
+Race        0
+End
+
+#SKILL
+Name        forget~
+SpellFun    spell_forget~
+Target      1
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      Your mind feels clear again.~
+Race        0
+End
+
+#SKILL
+Name        psionic focus~
+SpellFun    spell_psionic_focus~
+Target      2
+MinPos      8
+MinMana     20
+Beats       0
+MsgOff      The psionic focus wears off.~
+Race        0
+End
+
+#SKILL
+Name        clairvoyance~
+SpellFun    spell_clairvoyance~
+Target      0
+MinPos      8
+MinMana     150
+Beats       0
+MsgOff      Your clairvoyance has faded.~
+Race        0
+End
+
+#SKILL
+Name        psionic shield~
+SpellFun    spell_psionic_shield~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      The psionic shield surrounding you dissipates.~
+Race        0
+End
+
+#SKILL
+Name        boost~
+SpellFun    spell_boost~
+Target      0
+MinPos      8
+MinMana     20
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        prayer~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      You feel the wisdom from your god fade.~
+Race        0
+End
+
+#SKILL
+Name        agony~
+SpellFun    spell_agony~
+Target      1
+MinPos      7
+MinMana     10
+Beats       12
+Damage      agony~
+MsgOff      You feel the veil of agony lift.~
+Race        0
+End
+
+#SKILL
+Name        holy presence~
+SpellFun    spell_holy_presence~
+Target      2
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      The holy presence protecting you fades.~
+Race        0
+End
+
+#SKILL
+Name        displacement~
+SpellFun    spell_displacement~
+Target      1
+MinPos      8
+MinMana     20
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        holy flame~
+SpellFun    spell_holy_flame~
+Target      1
+MinPos      7
+MinMana     15
+Beats       12
+Damage      holy flame~
+MsgOff      The holy flames around you subside.~
+Race        0
+Ranged       1
 End
 
 #END

@@ -14,6 +14,7 @@ Mana        0
 BaseGroup   'thief basics'
 DefGroup    'thief default'
 IsReclass   0
+IsEnabled   1
 Sk 'axe' 1 5
 Sk 'dagger' 1 2
 Sk 'flail' 1 6
@@ -72,6 +73,7 @@ Sk 'kick' 14 6
 Sk 'poison' 15 2
 Sk 'hand to hand' 15 6
 Sk 'meditation' 15 8
+Sk 'locate bind' 15 2
 Sk 'faerie fog' 16 2
 Sk 'farsight' 16 2
 Sk 'weaken' 16 2
@@ -79,6 +81,7 @@ Sk 'fast healing' 16 6
 Sk 'blindness' 17 2
 Sk 'protection evil' 17 2
 Sk 'protection good' 17 2
+Sk 'protection neutral' 17 2
 Sk 'identify' 18 2
 Sk 'lightning bolt' 18 2
 Sk 'fireproof' 19 2
@@ -101,29 +104,30 @@ Sk 'slow' 29 2
 Sk 'summon' 29 2
 Sk 'dispel magic' 30 2
 Sk 'fireball' 30 2
+Sk 'ice blast' 30 2
 Sk 'call lightning' 31 2
-Sk 'mass invis' 31 2
+Sk 'mass invisibility' 31 2
 Sk 'gate' 32 2
 Sk 'fog' 32 2
 Sk 'dispel fog' 32 2
 Sk 'heal' 33 2
-Sk 'acid breath' 33 2
 Sk 'cancellation' 34 2
 Sk 'acid blast' 35 2
 Sk 'shield' 35 2
 Sk 'plague' 36 2
-Sk 'frost breath' 38 2
 Sk 'chain lightning' 39 2
 Sk 'stone skin' 40 2
 Sk 'word of recall' 40 2
 Sk 'sanctuary' 42 2
-Sk 'lightning breath' 43 2
 Sk 'portal' 45 4
-Sk 'gas breath' 47 2
 Sk 'calm' 50 2
 Sk 'nexus' 50 4
-Sk 'fire breath' 50 2
 Sk 'reserved' 52 -1
+Sk 'acid breath' 52 -1
+Sk 'fire breath' 52 -1
+Sk 'frost breath' 52 -1
+Sk 'gas breath' 52 -1
+Sk 'lightning breath' 52 -1
 Sk 'spellcraft' 52 -1
 Sk 'vitalizing presence' 52 -1
 Sk 'life boost' 52 -1
@@ -158,6 +162,27 @@ Sk 'camping' 52 -1
 Sk 'camouflage' 52 -1
 Sk 'ambush' 52 -1
 Sk 'find water' 52 -1
+Sk 'poison prick' 52 -1
+Sk 'shiv' 52 -1
+Sk 'escape' 52 -1
+Sk 'peer' 52 -1
+Sk 'bludgeon' 52 -1
+Sk 'revolt' 52 -1
+Sk 'imbue' 52 -1
+Sk 'preserve' 52 -1
+Sk 'psionic blast' 52 -1
+Sk 'healing dream' 52 -1
+Sk 'mental weight' 52 -1
+Sk 'forget' 52 -1
+Sk 'psionic focus' 52 -1
+Sk 'clairvoyance' 52 -1
+Sk 'psionic shield' 52 -1
+Sk 'boost' 52 -1
+Sk 'prayer' 52 -1
+Sk 'agony' 52 -1
+Sk 'holy presence' 52 -1
+Sk 'displacement' 52 -1
+Sk 'holy flame' 52 -1
 Sk 'bless' 53 2
 Sk 'cause critical' 53 2
 Sk 'cause light' 53 2
@@ -212,6 +237,9 @@ Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
 Gr 'ranger basics' 0
+Gr 'rogue basics' 0
+Gr 'psionicist basics' 0
+Gr 'priest basics' 0
 Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 40
@@ -220,6 +248,9 @@ Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
 Gr 'ranger default' 0
+Gr 'rogue default' 0
+Gr 'psionicist default' 0
+Gr 'priest default' 0
 Gr 'weaponsmaster' 40
 Gr 'attack' 0
 Gr 'beguiling' 6
@@ -242,6 +273,8 @@ Gr 'transportation' 8
 Gr 'weather' 8
 Gr 'bladesongs' 0
 Gr 'nature' 0
+Gr 'psionics' 0
+Gr 'divination' 0
 Mult 0 100
 Mult 1 100
 Mult 2 100

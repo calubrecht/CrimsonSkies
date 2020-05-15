@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -96,7 +96,9 @@ DESCRIPTOR_DATA *new_descriptor(void)
     d->showstr_point = NULL;
     d->outsize = 2000;
     d->outbuf = alloc_mem(d->outsize);
-    d->name = str_dup(""); // Copyover
+    d->name = str_dup("");
+    d->host = str_dup("");
+    d->ip_address = str_dup("");
     return d;
 }
 
@@ -105,7 +107,9 @@ void free_descriptor(DESCRIPTOR_DATA * d)
     if (!IS_VALID(d))
         return;
 
+    free_string(d->name);
     free_string(d->host);
+    free_string(d->ip_address);
     free_mem(d->outbuf, d->outsize);
     INVALIDATE(d);
     d->next = descriptor_free;

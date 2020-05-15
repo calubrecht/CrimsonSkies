@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -40,6 +40,25 @@
 #include "recycle.h"
 
 /*
+ * Lookup a skill number by name.
+ */
+int skill_lookup(const char *name)
+{
+    int sn;
+
+    for (sn = 0; sn < top_sn; sn++)
+    {
+        if (skill_table[sn]->name == NULL)
+            break;
+        if (LOWER(name[0]) == LOWER(skill_table[sn]->name[0])
+            && !str_prefix(name, skill_table[sn]->name))
+            return sn;
+    }
+
+    return -1;
+}
+
+/*
  * Returns the skill proficiency for a requested sn (skill number).  This will return
  * what the person's % learned is and then factor in other environmental factors like
  * whether the player is drunk or stunned (lowers the %).  There is a CHANCE_SKILL
@@ -65,9 +84,13 @@ int get_skill(CHAR_DATA * ch, int sn)
     {
         // This is a player, get the skill %
         if (ch->level < skill_table[sn]->skill_level[ch->class])
+        {
             skill = 0;
+        }
         else
+        {
             skill = ch->pcdata->learned[sn];
+        }
     }
     else
     {
@@ -133,18 +156,38 @@ int get_skill(CHAR_DATA * ch, int sn)
             skill = 0;
     }
 
-    // Is the player stunned in any way?  If so, lower their %
-    if (ch->daze > 0)
+    // Is the player stunned in any way?  If so, lower their % (also, forget
+    // acts like a stun, we make tweak the % for forget later to make it less
+    // extreme since it lasts for 5 ticks and not a few seconds)
+    if (ch->daze > 0 || is_affected(ch, gsn_forget))
     {
         if (skill_table[sn]->spell_fun != spell_null)
+        {
+            // Spells
             skill /= 2;
+        }
         else
+        {
+            // Skills
             skill = 2 * skill / 3;
+        }
     }
 
     //  Are they drunk?
     if (!IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK] > 10)
+    {
         skill = 9 * skill / 10;
+    }
+
+    // If affected by psionic focus then will get a slight boost on their
+    // stat checks but only if they are a player (NPC's don't benefit from this
+    // portion specifically).  This currently comes after the stun affect, it's
+    // possible that may need to be altered (moved before stun) or have stun
+    // taken into account here also.
+    if (!IS_NPC(ch) && is_affected(ch, gsn_psionic_focus))
+    {
+        skill = (skill * 10) / 9;
+    }
 
     return URANGE(0, skill, 100);
 }
@@ -394,8 +437,17 @@ void do_gain(CHAR_DATA * ch, char *argument)
     act("$N tells you 'I do not understand...'", ch, NULL, trainer, TO_CHAR);
 }
 
-/* RT spells and skills show the players spells (or skills) */
+/*
+ * Command to show a player all of their spells, this will pass through to
+ * the show_spell_list function.
+ */
 void do_spells(CHAR_DATA * ch, char *argument)
+{
+    show_spell_list(ch, ch, argument);
+}
+
+/* RT spells and skills show the players spells (or skills) */
+void show_spell_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -417,16 +469,15 @@ void do_spells(CHAR_DATA * ch, char *argument)
             argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n", ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                 return;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf, "Levels must be between 1 and %d.\r\n",
-                    LEVEL_HERO);
-                send_to_char(buf, ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch_show);
                 return;
             }
 
@@ -435,8 +486,7 @@ void do_spells(CHAR_DATA * ch, char *argument)
                 argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",
-                        ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                     return;
                 }
                 min_lev = max_lev;
@@ -444,16 +494,14 @@ void do_spells(CHAR_DATA * ch, char *argument)
 
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
-                    sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",
-                        LEVEL_HERO);
-                    send_to_char(buf, ch);
+                    sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch_show);
                     return;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n", ch);
+                    send_to_char("That would be silly.\r\n", ch_show);
                     return;
                 }
             }
@@ -507,20 +555,38 @@ void do_spells(CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char("No spells found.\r\n", ch);
+        send_to_char("No spells found.\r\n", ch_show);
         return;
     }
 
     buffer = new_buf();
     for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
         if (spell_list[level][0] != '\0')
+        {
             add_buf(buffer, spell_list[level]);
+        }
+    }
+
     add_buf(buffer, "\r\n");
-    page_to_char(buf_string(buffer), ch);
+    page_to_char(buf_string(buffer), ch_show);
     free_buf(buffer);
 }
 
+/*
+ * Command to show a player their skills.  This passes the criteria
+ * through to the show_skill_list function.
+ */
 void do_skills(CHAR_DATA * ch, char *argument)
+{
+    show_skill_list(ch, ch, argument);
+}
+
+/*
+ * Displays a characters skill to the character listed in ch_show.  This could
+ * be the same character, or it could be an immortal from the stat command.
+ */
+void show_skill_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 {
     BUFFER *buffer;
     char arg[MAX_INPUT_LENGTH];
@@ -542,16 +608,15 @@ void do_skills(CHAR_DATA * ch, char *argument)
             argument = one_argument(argument, arg);
             if (!is_number(arg))
             {
-                send_to_char("Arguments must be numerical or all.\r\n", ch);
+                send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                 return;
             }
             max_lev = atoi(arg);
 
             if (max_lev < 1 || max_lev > LEVEL_HERO)
             {
-                sprintf(buf, "Levels must be between 1 and %d.\r\n",
-                    LEVEL_HERO);
-                send_to_char(buf, ch);
+                sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                send_to_char(buf, ch_show);
                 return;
             }
 
@@ -560,8 +625,7 @@ void do_skills(CHAR_DATA * ch, char *argument)
                 argument = one_argument(argument, arg);
                 if (!is_number(arg))
                 {
-                    send_to_char("Arguments must be numerical or all.\r\n",
-                        ch);
+                    send_to_char("Arguments must be numerical or all.\r\n", ch_show);
                     return;
                 }
                 min_lev = max_lev;
@@ -569,16 +633,14 @@ void do_skills(CHAR_DATA * ch, char *argument)
 
                 if (max_lev < 1 || max_lev > LEVEL_HERO)
                 {
-                    sprintf(buf,
-                        "Levels must be between 1 and %d.\r\n",
-                        LEVEL_HERO);
-                    send_to_char(buf, ch);
+                    sprintf(buf, "Levels must be between 1 and %d.\r\n", LEVEL_HERO);
+                    send_to_char(buf, ch_show);
                     return;
                 }
 
                 if (min_lev > max_lev)
                 {
-                    send_to_char("That would be silly.\r\n", ch);
+                    send_to_char("That would be silly.\r\n", ch_show);
                     return;
                 }
             }
@@ -632,16 +694,22 @@ void do_skills(CHAR_DATA * ch, char *argument)
 
     if (!found)
     {
-        send_to_char("No skills found.\r\n", ch);
+        send_to_char("No skills found.\r\n", ch_show);
         return;
     }
 
     buffer = new_buf();
+
     for (level = 0; level < LEVEL_HERO + 1; level++)
+    {
         if (skill_list[level][0] != '\0')
+        {
             add_buf(buffer, skill_list[level]);
+        }
+    }
+
     add_buf(buffer, "\r\n");
-    page_to_char(buf_string(buffer), ch);
+    page_to_char(buf_string(buffer), ch_show);
     free_buf(buffer);
 }
 

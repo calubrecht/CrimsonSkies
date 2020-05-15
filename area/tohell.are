@@ -6,6 +6,7 @@ LevelRange 32 51
 Credits [32 51] Strahd  Descent to Hell~
 Security 9
 Continent 0
+AreaFlags A
 End
 
 
@@ -1179,10 +1180,10 @@ the Vorpal Blade~
 A magnificently crafted blade lies here, humming softly.~
 oldstyle~
 weapon 0 AN
-sword 3 10 slice F
+sword 3 10 slice EF
 33 60 4800 P
 A
-19 4
+19 2
 #10408
 flaming claw~
 a flaming claw~
@@ -1463,7 +1464,7 @@ a figurine of a red dragon~
 You see a small figurine of a red dragon on the ground.~
 oldstyle~
 wand AG AO
-54 10 10 'mass invis' 0
+54 10 10 'mass invisibility' 0
 18 30 11000 P
 #10437
 figurine white dragon~
@@ -1517,8 +1518,7 @@ A
 black jumpsuit~
 a black jumpsuit~
 You see a black jumpsuit on the ground.~
-A
-oldstyle~
+oldstyle~
 armor A AD
 CD CD CD D 0
 45 40 13700 P

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -1148,124 +1148,6 @@ void do_give(CHAR_DATA * ch, char *argument)
 
 } // end do_give
 
-
-/* for poisoning weapons and food/drink */
-void do_envenom(CHAR_DATA * ch, char *argument)
-{
-    OBJ_DATA *obj;
-    AFFECT_DATA af;
-    int percent, skill;
-
-    /* find out what */
-    if (argument[0] == '\0')
-    {
-        send_to_char("Envenom what item?\r\n", ch);
-        return;
-    }
-
-    obj = get_obj_list(ch, argument, ch->carrying);
-
-    if (obj == NULL)
-    {
-        send_to_char("You don't have that item.\r\n", ch);
-        return;
-    }
-
-    if ((skill = get_skill(ch, gsn_envenom)) < 1)
-    {
-        send_to_char("Are you crazy? You'd poison yourself!\r\n", ch);
-        return;
-    }
-
-    if (obj->item_type == ITEM_FOOD || obj->item_type == ITEM_DRINK_CON)
-    {
-        if (IS_OBJ_STAT(obj, ITEM_BLESS)
-            || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
-        {
-            act("You fail to poison $p.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        if (number_percent() < skill)
-        {                        /* success! */
-            act("$n treats $p with deadly poison.", ch, obj, NULL, TO_ROOM);
-            act("You treat $p with deadly poison.", ch, obj, NULL, TO_CHAR);
-            if (!obj->value[3])
-            {
-                obj->value[3] = 1;
-                check_improve(ch, gsn_envenom, TRUE, 4);
-            }
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-
-        act("You fail to poison $p.", ch, obj, NULL, TO_CHAR);
-        if (!obj->value[3])
-            check_improve(ch, gsn_envenom, FALSE, 4);
-        WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-        return;
-    }
-
-    if (obj->item_type == ITEM_WEAPON)
-    {
-        if (IS_WEAPON_STAT(obj, WEAPON_FLAMING)
-            || IS_WEAPON_STAT(obj, WEAPON_FROST)
-            || IS_WEAPON_STAT(obj, WEAPON_VAMPIRIC)
-            || IS_WEAPON_STAT(obj, WEAPON_SHARP)
-            || IS_WEAPON_STAT(obj, WEAPON_VORPAL)
-            || IS_WEAPON_STAT(obj, WEAPON_SHOCKING)
-            || IS_OBJ_STAT(obj, ITEM_BLESS)
-            || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
-        {
-            act("You can't seem to envenom $p.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        if (obj->value[3] < 0
-            || attack_table[obj->value[3]].damage == DAM_BASH)
-        {
-            send_to_char("You can only envenom edged weapons.\r\n", ch);
-            return;
-        }
-
-        if (IS_WEAPON_STAT(obj, WEAPON_POISON))
-        {
-            act("$p is already envenomed.", ch, obj, NULL, TO_CHAR);
-            return;
-        }
-
-        percent = number_percent();
-        if (percent < skill)
-        {
-            separate_obj(obj);
-            af.where = TO_WEAPON;
-            af.type = gsn_poison;
-            af.level = ch->level * percent / 100;
-            af.duration = ch->level / 2 * percent / 100;
-            af.location = 0;
-            af.modifier = 0;
-            af.bitvector = WEAPON_POISON;
-            affect_to_obj(obj, &af);
-
-            act("$n coats $p with deadly venom.", ch, obj, NULL, TO_ROOM);
-            act("You coat $p with venom.", ch, obj, NULL, TO_CHAR);
-            check_improve(ch, gsn_envenom, TRUE, 3);
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-        else
-        {
-            act("You fail to envenom $p.", ch, obj, NULL, TO_CHAR);
-            check_improve(ch, gsn_envenom, FALSE, 3);
-            WAIT_STATE(ch, skill_table[gsn_envenom]->beats);
-            return;
-        }
-    }
-
-    act("You can't poison $p.", ch, obj, NULL, TO_CHAR);
-    return;
-}
-
 /*
  * Fills an item with a liquid.
  */
@@ -1879,8 +1761,8 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     {
         if (!remove_obj(ch, WEAR_ABOUT, fReplace))
             return;
-        act("$n wears $p about $s torso.", ch, obj, NULL, TO_ROOM);
-        act("You wear $p about your torso.", ch, obj, NULL, TO_CHAR);
+        act("$n wears $p about $s body.", ch, obj, NULL, TO_ROOM);
+        act("You wear $p about your body.", ch, obj, NULL, TO_CHAR);
         equip_char(ch, obj, WEAR_ABOUT);
         return;
     }
@@ -2035,7 +1917,33 @@ void wear_obj(CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace)
     return;
 }
 
-
+/*
+ * Removes all objects from a character.  This is silent and returns no
+ * message to the user, the caller will be responsible for that.
+ */
+void remove_all_obj(CHAR_DATA *ch)
+{
+    remove_obj(ch, WEAR_LIGHT, TRUE);
+    remove_obj(ch, WEAR_FINGER_L, TRUE);
+    remove_obj(ch, WEAR_FINGER_R, TRUE);
+    remove_obj(ch, WEAR_NECK_1, TRUE);
+    remove_obj(ch, WEAR_NECK_2, TRUE);
+    remove_obj(ch, WEAR_BODY, TRUE);
+    remove_obj(ch, WEAR_HEAD, TRUE);
+    remove_obj(ch, WEAR_LEGS, TRUE);
+    remove_obj(ch, WEAR_FEET, TRUE);
+    remove_obj(ch, WEAR_HANDS, TRUE);
+    remove_obj(ch, WEAR_ARMS, TRUE);
+    remove_obj(ch, WEAR_SHIELD, TRUE);
+    remove_obj(ch, WEAR_ABOUT, TRUE);
+    remove_obj(ch, WEAR_WAIST, TRUE);
+    remove_obj(ch, WEAR_WRIST_L, TRUE);
+    remove_obj(ch, WEAR_WRIST_R, TRUE);
+    remove_obj(ch, WEAR_WIELD, TRUE);
+    remove_obj(ch, WEAR_HOLD, TRUE);
+    remove_obj(ch, WEAR_FLOAT, TRUE);
+    remove_obj(ch, WEAR_SECONDARY_WIELD, TRUE);
+}
 
 void do_wear(CHAR_DATA * ch, char *argument)
 {
@@ -2076,8 +1984,9 @@ void do_wear(CHAR_DATA * ch, char *argument)
     return;
 }
 
-
-
+/*
+ * Removes a piece of gear from the characters body.
+ */
 void do_remove(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -2088,6 +1997,14 @@ void do_remove(CHAR_DATA * ch, char *argument)
     if (arg[0] == '\0')
     {
         send_to_char("Remove what?\r\n", ch);
+        return;
+    }
+
+    // Do they want to remove all their gear in one fell swoop?... allow
+    // only if not charmed.
+    if (!str_cmp(arg, "all") && !IS_AFFECTED(ch, AFF_CHARM))
+    {
+        remove_all_obj(ch);
         return;
     }
 
@@ -2507,194 +2424,6 @@ void do_zap(CHAR_DATA * ch, char *argument)
 }
 
 /*
- * Allows a player to steal an item from another.  If the player is a clanner they will
- * receive a WANTED flag it it fails.  Kender are acute at stealing or "finding misplaced
- * items).
- */
-void do_steal(CHAR_DATA * ch, char *argument)
-{
-    char buf[MAX_STRING_LENGTH];
-    char arg1[MAX_INPUT_LENGTH];
-    char arg2[MAX_INPUT_LENGTH];
-    CHAR_DATA *victim;
-    OBJ_DATA *obj;
-    int percent;
-
-    argument = one_argument(argument, arg1);
-    argument = one_argument(argument, arg2);
-
-    if (arg1[0] == '\0' || arg2[0] == '\0')
-    {
-        send_to_char("Steal what from whom?\r\n", ch);
-        return;
-    }
-
-    if ((victim = get_char_room(ch, arg2)) == NULL)
-    {
-        send_to_char("They aren't here.\r\n", ch);
-        return;
-    }
-
-    if (victim == ch)
-    {
-        send_to_char("That's pointless.\r\n", ch);
-        return;
-    }
-
-    if (is_safe(ch, victim))
-        return;
-
-    if (IS_NPC(victim) && victim->position == POS_FIGHTING)
-    {
-        send_to_char("Kill stealing is not permitted.\r\n"
-            "You'd better not -- you might get hit.\r\n", ch);
-        return;
-    }
-
-    if (victim->in_room != NULL && IS_SET(victim->in_room->room_flags, ROOM_ARENA))
-    {
-        send_to_char("You cannot steal in an arena.\r\n", ch);
-        return;
-    }
-
-    WAIT_STATE(ch, skill_table[gsn_steal]->beats);
-    percent = number_percent();
-
-    if (!IS_AWAKE(victim))
-        percent += 5;
-
-    if (!can_see(victim, ch))
-        percent += 5;
-
-    if (ch->race == KENDER_RACE_LOOKUP)
-        percent += 20;
-
-    if (((ch->level + 7 < victim->level || ch->level - 7 > victim->level)
-        && !IS_NPC(victim) && !IS_NPC(ch))
-        || (!IS_NPC(ch) && percent > get_skill(ch, gsn_steal))
-        || (!IS_NPC(ch) && !is_clan(ch)))
-    {
-        /*
-         * Failure.
-         */
-        send_to_char("Oops.\r\n", ch);
-        affect_strip(ch, gsn_sneak);
-        REMOVE_BIT(ch->affected_by, AFF_SNEAK);
-
-        act("$n tried to steal from you.\r\n", ch, NULL, victim, TO_VICT);
-        act("$n tried to steal from $N.\r\n", ch, NULL, victim, TO_NOTVICT);
-        switch (number_range(0, 3))
-        {
-            case 0:
-                sprintf(buf, "%s is a lousy thief!", ch->name);
-                break;
-            case 1:
-                sprintf(buf, "%s couldn't rob %s way out of a paper bag!",
-                    ch->name, (ch->sex == 2) ? "her" : "his");
-                break;
-            case 2:
-                sprintf(buf, "%s tried to rob me!", ch->name);
-                break;
-            case 3:
-                sprintf(buf, "Keep your hands out of there, %s!", ch->name);
-                break;
-        }
-        if (!IS_AWAKE(victim))
-            do_function(victim, &do_wake, "");
-        if (IS_AWAKE(victim))
-            do_function(victim, &do_yell, buf);
-        if (!IS_NPC(ch))
-        {
-            if (IS_NPC(victim))
-            {
-                check_improve(ch, gsn_steal, FALSE, 2);
-                multi_hit(victim, ch, TYPE_UNDEFINED);
-            }
-            else
-            {
-                sprintf(buf, "$N tried to steal from %s.", victim->name);
-                wiznet(buf, ch, NULL, WIZ_FLAGS, 0, 0);
-                if (!IS_SET(ch->act, PLR_WANTED))
-                {
-                    SET_BIT(ch->act, PLR_WANTED);
-                    send_to_char("*** You are now ({RWANTED{x)!! ***\r\n", ch);
-                    save_char_obj(ch);
-                }
-            }
-        }
-
-        return;
-    }
-
-    if (!str_cmp(arg1, "coin")
-        || !str_cmp(arg1, "coins")
-        || !str_cmp(arg1, "gold") || !str_cmp(arg1, "silver"))
-    {
-        int gold, silver;
-
-        gold = victim->gold * number_range(1, ch->level) / MAX_LEVEL;
-        silver = victim->silver * number_range(1, ch->level) / MAX_LEVEL;
-        if (gold <= 0 && silver <= 0)
-        {
-            send_to_char("You couldn't get any coins.\r\n", ch);
-            return;
-        }
-
-        ch->gold += gold;
-        ch->silver += silver;
-        victim->silver -= silver;
-        victim->gold -= gold;
-        if (silver <= 0)
-            sprintf(buf, "Bingo!  You got %d gold coins.\r\n", gold);
-        else if (gold <= 0)
-            sprintf(buf, "Bingo!  You got %d silver coins.\r\n", silver);
-        else
-            sprintf(buf, "Bingo!  You got %d silver and %d gold coins.\r\n",
-                silver, gold);
-
-        send_to_char(buf, ch);
-        check_improve(ch, gsn_steal, TRUE, 2);
-        return;
-    }
-
-    if ((obj = get_obj_carry(victim, arg1, ch)) == NULL)
-    {
-        send_to_char("You can't find it.\r\n", ch);
-        return;
-    }
-
-    if (!can_drop_obj(ch, obj)
-        || IS_SET(obj->extra_flags, ITEM_INVENTORY)
-        || obj->level > ch->level)
-    {
-        send_to_char("You can't pry it away.\r\n", ch);
-        return;
-    }
-
-    if (ch->carry_number + get_obj_number(obj) > can_carry_n(ch))
-    {
-        send_to_char("You have your hands full.\r\n", ch);
-        return;
-    }
-
-    if (ch->carry_weight + get_obj_weight(obj) > can_carry_w(ch))
-    {
-        send_to_char("You can't carry that much weight.\r\n", ch);
-        return;
-    }
-
-    separate_obj(obj);
-    obj_from_char(obj);
-    obj_to_char(obj, ch);
-    act("You pocket $p.", ch, obj, NULL, TO_CHAR);
-    check_improve(ch, gsn_steal, TRUE, 2);
-    send_to_char("Got it!\r\n", ch);
-    return;
-}
-
-
-
-/*
  * Shopping commands.
  */
 CHAR_DATA *find_keeper(CHAR_DATA * ch)
@@ -2907,10 +2636,19 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob, just pass this call down the line.
         process_portal_merchant(ch, argument);
+        return;
+    }
+
+    // Check to see if a quest master in the room, if so, send off the buy
+    // parameter from here and send it there.
+    if (find_quest_master(ch) != NULL)
+    {
+        sprintf(buf, "buy %s", argument);
+        do_pquest(ch, buf);
         return;
     }
 
@@ -3131,7 +2869,7 @@ void do_buy(CHAR_DATA * ch, char *argument)
 
         if (IS_SET(obj->extra_flags, ITEM_INVENTORY))
         {
-            t_obj = create_object(obj->pIndexData, obj->level);
+            t_obj = create_object(obj->pIndexData);
             t_obj->count = number;
 
             if (t_obj->timer > 0 && !IS_OBJ_STAT(t_obj, ITEM_HAD_TIMER))
@@ -3184,10 +2922,30 @@ void do_list(CHAR_DATA * ch, char *argument)
 
     // Check and see if it's a portal merchant, if not, continue on with
     // the normal list command.
-    if (find_portal_merchant(ch) != NULL)
+    if (find_mob_by_act(ch, ACT_IS_PORTAL_MERCHANT) != NULL)
     {
         // Make the call to act_mob.
         process_portal_merchant(ch, "");
+        return;
+    }
+
+    if (find_mob_by_act(ch, ACT_SCRIBE) != NULL)
+    {
+        // Make the call to act_mob.
+        do_duplicate(ch, "");
+        return;
+    }
+
+    if (find_mob_by_act(ch, ACT_BANKER) != NULL)
+    {
+        do_bank(ch, "");
+        return;
+    }
+
+    // Check to see if a quest master in the room.
+    if (find_quest_master(ch) != NULL)
+    {
+        do_pquest(ch, "list");
         return;
     }
 
@@ -3465,8 +3223,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
     // This is going to use stock gear in the game, if the vnums change or are
     // removed then this will *crash*.  We will set this gear to rot death in the off
     // chance that anyone tries to proliferate it.  Not as good as the real deal.
-    if ((IS_SET(ch->act, PLR_TESTER) && ch->level == 51)
-        || IS_IMMORTAL(ch))
+    if ((IS_TESTER(ch) && ch->level == 51) || IS_IMMORTAL(ch))
     {
         outfit(ch, WEAR_LIGHT, 9321);  // sceptre of might
         outfit(ch, WEAR_WIELD, 9401);  // sea sword
@@ -3532,7 +3289,7 @@ void do_outfit(CHAR_DATA * ch, char *argument)
             }
         }
 
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj_to_char(obj, ch);
         equip_char(ch, obj, WEAR_WIELD);
     }
@@ -3567,7 +3324,7 @@ void outfit(CHAR_DATA *ch, int wear_position, int vnum)
 
     if ((obj = get_eq_char(ch, wear_position)) == NULL)
     {
-        obj = create_object(get_obj_index(vnum), 0);
+        obj = create_object(get_obj_index(vnum));
         obj->cost = 0;
         obj_to_char(obj, ch);
         SET_BIT(obj->extra_flags, ITEM_ROT_DEATH);
@@ -3603,7 +3360,7 @@ void do_second(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    obj = get_obj_carry(ch, argument, ch); /* find the obj withing ch's inventory */
+    obj = get_obj_carry(ch, arg, ch); /* find the obj withing ch's inventory */
 
     if (obj == NULL)
     {
@@ -3846,7 +3603,8 @@ void do_bury(CHAR_DATA *ch, char *argument)
  * Command to dig in a room to look for buried items.  A shovel helps.  This
  * comes to us via the Smaug code base.
  */
-void do_dig(CHAR_DATA *ch, char *argument) {
+void do_dig(CHAR_DATA *ch, char *argument)
+{
     OBJ_DATA *obj;
     OBJ_DATA *startobj;
     bool found;
@@ -4125,15 +3883,26 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
 {
     // If we're working we nothing then we're doing nothing.
     if (obj == NULL || ch == NULL)
+    {
         return;
+    }
 
     // Player doesn't have the skill at all yet (or will never have it)
     if (ch->level < skill_table[gsn_lore]->skill_level[ch->class]
         || get_skill(ch, gsn_lore) == 0)
+    {
         return;
+    }
 
     if (ch->position == POS_FIGHTING)
+    {
         return;
+    }
+
+    if (obj->item_type == ITEM_PARCHMENT)
+    {
+        return;
+    }
 
     // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))

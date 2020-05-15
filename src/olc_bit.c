@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -243,7 +243,7 @@ const struct flag_type continent_flags[] = {
 };
 
 /*
- * Target flags for spells, this will allow us to save friendtly names in the
+ * Target flags for spells, this will allow us to save friendly names in the
  * skills.dat file and then look them up.
  */
 const struct flag_type target_flags[] =

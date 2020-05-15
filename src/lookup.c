@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -48,20 +48,6 @@ int flag_lookup(const char *name, const struct flag_type *flag_table)
     }
 
     return NO_FLAG;
-}
-
-int clan_lookup(const char *name)
-{
-    int clan;
-
-    for (clan = 0; clan < MAX_CLAN; clan++)
-    {
-        if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
-            && !str_prefix(name, clan_table[clan].name))
-            return clan;
-    }
-
-    return 0;
 }
 
 int position_lookup(const char *name)

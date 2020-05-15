@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -44,8 +44,6 @@ extern char strArea[MAX_INPUT_LENGTH];
 
 // Level to post a note
 #define NOTE_LEVEL 1
-
-#define HEADER "--------------------------------------------------------------------------------\r\n"
 
 /* local procedures */
 void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time);
@@ -383,6 +381,10 @@ void load_thread(char *name, NOTE_DATA **list, int type, time_t free_time)
     return;
 } // end void load_thread
 
+/*
+ * Writes a note out to the note file.  All notes are not saved over and over with each post, this file
+ * is appended to and then it's only totally saved when a note is removed.
+ */
 void append_note(NOTE_DATA *pnote)
 {
     FILE *fp;

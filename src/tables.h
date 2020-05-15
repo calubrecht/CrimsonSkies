@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -29,10 +29,12 @@ struct flag_type
 
 struct clan_type
 {
-    char 	*name;
-    char 	*who_name;
-    int 	hall;
-    bool	independent; /* true for loners */
+    char 	*name;          // Keyword name, no spaces
+    char 	*who_name;      // The name that should appear in the who list
+    char    *friendly_name; // Friendly unformatted name without color and with spacing
+    int 	hall;           // Death Transfer Room
+    bool	independent;    // True for loners/renegades, false for part of a real clan
+    bool    enabled;        // Whether or not this clan is enabled for use
 };
 
 struct position_type

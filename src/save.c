@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -85,7 +85,6 @@ void fread_char (CHAR_DATA * ch, FILE * fp);
 void fread_pet (CHAR_DATA * ch, FILE * fp);
 void fread_obj (CHAR_DATA * ch, FILE * fp);
 
-
 /*
  * Save a character and inventory.
  */
@@ -166,9 +165,6 @@ void save_char_obj(CHAR_DATA * ch)
     return;
 }
 
-
-// marker
-
 /*
  * Write the char.
  */
@@ -178,6 +174,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     int sn, gn, pos;
     extern int top_group;
 
+    // Although this could save a mob, it's never called from a place
+    // that allows that, so pcdata calls should be safe.
     fprintf(fp, "#%s\n", IS_NPC(ch) ? "MOB" : "PLAYER");
 
     fprintf(fp, "Name %s~\n", ch->name);
@@ -203,6 +201,9 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "TrustLevel %d\n", ch->trust);
     fprintf(fp, "Security %d\n", ch->pcdata->security);    /* OLC */
     fprintf(fp, "Played %d\n", ch->played + (int)(current_time - ch->logon));
+    fprintf(fp, "Pkilled %d\n", ch->pcdata->pkilled);
+    fprintf(fp, "Pkills %d\n", ch->pcdata->pkills);
+
     fprintf(fp, "Scroll %d\n", ch->lines);
     fprintf(fp, "Room %d\n", (ch->in_room == get_room_index(ROOM_VNUM_LIMBO)
         && ch->was_in_room != NULL)
@@ -212,15 +213,15 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     fprintf(fp, "HMV  %d %d %d %d %d %d\n",
         ch->hit, ch->max_hit, ch->mana, ch->max_mana, ch->move,
         ch->max_move);
-    if (ch->gold > 0)
-        fprintf(fp, "Gold %ld\n", ch->gold);
-    else
-        fprintf(fp, "Gold %d\n", 0);
-    if (ch->silver > 0)
-        fprintf(fp, "Silver %ld\n", ch->silver);
-    else
-        fprintf(fp, "Silver %d\n", 0);
+
+    fprintf(fp, "Gold %ld\n", ch->gold);
+    fprintf(fp, "Silver %ld\n", ch->silver);
+
+    // Money they have stored in the bank
+    fprintf(fp, "BankGold %ld\n", ch->pcdata->bank_gold);
+
     fprintf(fp, "Experience  %d\n", ch->exp);
+
     if (ch->act != 0)
         fprintf(fp, "Act  %s\n", print_flags(ch->act));
     if (ch->affected_by != 0)
@@ -270,6 +271,9 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
     else
     {
         fprintf(fp, "Password %s~\n", ch->pcdata->pwd);
+
+        // Recall vnum (if recall vnum is 0 then the default will be used)
+        fprintf(fp, "RecallVnum %d\n", ch->pcdata->recall_vnum);
 
         // Update the last available IP address
         if (ch->desc != NULL
@@ -321,6 +325,8 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
             ch->pcdata->condition[3]);
 
         fprintf(fp, "Stance %d\n", ch->stance);
+        fprintf(fp, "VnumClairvoyance %d\n", ch->pcdata->vnum_clairvoyance);
+        fprintf(fp, "PriestRank %d\n", ch->pcdata->priest_rank);
 
         // Notes
         fprintf(fp, "LastNote %ld\n", ch->pcdata->last_note);
@@ -331,6 +337,41 @@ void fwrite_char(CHAR_DATA * ch, FILE * fp)
         fprintf(fp, "LastStoryNote %ld\n", ch->pcdata->last_story);
         fprintf(fp, "LastHistory %ld\n", ch->pcdata->last_history);
         fprintf(fp, "LastImmNote %ld\n", ch->pcdata->last_immnote);
+
+        // Questing
+        if (ch->pcdata->quest_points != 0)
+        {
+            fprintf(fp, "QuestPoints %d\n", ch->pcdata->quest_points);
+        }
+
+        if (ch->pcdata->countdown != 0)
+        {
+            fprintf(fp, "QuestCount %d\n", ch->pcdata->countdown);
+        }
+
+        if (ch->pcdata->next_quest != 0)
+        {
+            fprintf(fp, "QuestNext %d\n", ch->pcdata->next_quest);
+        }
+        else if (ch->pcdata->countdown != 0)
+        {
+            fprintf(fp, "QuestNext %d\n", 10);
+        }
+
+        if (ch->pcdata->quest_obj != 0)
+        {
+            fprintf( fp, "QuestObj %d\n",  ch->pcdata->quest_obj);
+        }
+
+        if (ch->pcdata->quest_mob != 0)
+        {
+            fprintf( fp, "QuestMob %d\n",  ch->pcdata->quest_mob);
+        }
+
+        if (ch->pcdata->quest_giver != NULL)
+        {
+            fprintf( fp, "QuestGiver %d\n",  ch->pcdata->quest_giver->pIndexData->vnum);
+        }
 
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
@@ -619,7 +660,6 @@ void fwrite_obj(CHAR_DATA * ch, OBJ_DATA * obj, FILE * fp, int iNest)
 bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
 {
     char strsave[MAX_INPUT_LENGTH];
-    char buf[100];
     CHAR_DATA *ch;
     FILE *fp;
     bool found;
@@ -651,6 +691,12 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     ch->pcdata->security = 0;    /* OLC */
     ch->pcdata->is_reclassing = FALSE;
     ch->pcdata->pk_timer = 0;
+    ch->pcdata->pkills = 0;
+    ch->pcdata->pkilled = 0;
+    ch->pcdata->bank_gold = 0;
+    ch->pcdata->recall_vnum = 0;
+    ch->pcdata->vnum_clairvoyance = 1;
+    ch->pcdata->priest_rank = 0;
     ch->stance = STANCE_NORMAL;
 
     found = FALSE;
@@ -661,6 +707,7 @@ bool load_char_obj(DESCRIPTOR_DATA * d, char *name)
     sprintf(strsave, "%s%s%s", PLAYER_DIR, capitalize(name), ".gz");
     if ((fp = fopen(strsave, "r")) != NULL)
     {
+        char buf[100];
         fclose(fp);
         sprintf(buf, "gzip -dfq %s", strsave);
         system(buf);
@@ -926,6 +973,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
                 KEY("Bamfout", ch->pcdata->bamfout, fread_string(fp));
                 KEY("Bin", ch->pcdata->bamfin, fread_string(fp));
                 KEY("Bout", ch->pcdata->bamfout, fread_string(fp));
+                KEY("BankGold", ch->pcdata->bank_gold, fread_number(fp));
                 break;
 
             case 'C':
@@ -1115,10 +1163,31 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
 
                 KEYS("Prompt", ch->prompt, fread_string(fp));
                 KEY("Prom", ch->prompt, fread_string(fp));
-                break;
 
+                KEY("Pkilled", ch->pcdata->pkilled,fread_number(fp));
+                KEY("Pkills", ch->pcdata->pkills, fread_number(fp));
+
+                KEY("PriestRank", ch->pcdata->priest_rank, (fread_number(fp)));
+
+                break;
+            case 'Q':
+                KEY("QuestPoints", ch->pcdata->quest_points, fread_number(fp));
+                KEY("QuestNext", ch->pcdata->next_quest, fread_number(fp));
+                KEY("QuestCount", ch->pcdata->countdown, fread_number(fp));
+                KEY("QuestObj", ch->pcdata->quest_obj, fread_number(fp));
+                KEY("QuestMob", ch->pcdata->quest_mob, fread_number(fp));
+
+                if (!str_cmp(word, "QuestGiver"))
+                {
+                    ch->pcdata->quest_giver = get_quest_giver(fread_number(fp));
+                    fMatch = TRUE;
+                    break;
+                }
+
+                break;
             case 'R':
                 KEY("Race", ch->race, race_lookup(fread_string(fp)));
+                KEY("RecallVnum", ch->pcdata->recall_vnum, (fread_number(fp)));
 
                 if (!str_cmp(word, "Room"))
                 {
@@ -1205,6 +1274,7 @@ void fread_char(CHAR_DATA * ch, FILE * fp)
             case 'V':
                 KEY("Version", ch->version, fread_number(fp));
                 KEY("Vers", ch->version, fread_number(fp));
+                KEY("VnumClairvoyance", ch->pcdata->vnum_clairvoyance, fread_number(fp));
 
                 if (!str_cmp(word, "Vnum"))
                 {
@@ -1512,7 +1582,7 @@ void fread_obj(CHAR_DATA * ch, FILE * fp)
         }
         else
         {
-            obj = create_object(get_obj_index(vnum), -1);
+            obj = create_object(get_obj_index(vnum));
             new_format = TRUE;
         }
 
@@ -1649,9 +1719,7 @@ void fread_obj(CHAR_DATA * ch, FILE * fp)
                         if (!fVnum)
                         {
                             free_obj(obj);
-                            obj =
-                                create_object(get_obj_index(OBJ_VNUM_DUMMY),
-                                    0);
+                            obj = create_object(get_obj_index(OBJ_VNUM_DUMMY));
                         }
 
                         if (!new_format)

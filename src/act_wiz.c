@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -30,6 +30,7 @@
     #include <sys/time.h>
     #include <unistd.h>                /* For execl in copyover() */
     #include <time.h>
+    #include <dirent.h>
 #endif
 
 // General Includes
@@ -61,7 +62,7 @@ void do_wiznet(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "on"))
     {
-        send_to_char("Welcome to Wiznet!", ch);
+        send_to_char("Welcome to Wiznet!\r\n", ch);
         send_to_char("Syntax:  wiznet [on|off]\r\n", ch);
         SET_BIT(ch->wiznet, WIZ_ON);
         return;
@@ -69,7 +70,7 @@ void do_wiznet(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "off"))
     {
-        send_to_char("Signing off of Wiznet!", ch);
+        send_to_char("Signing off of Wiznet!\r\n", ch);
         send_to_char("Syntax:  wiznet [on|off]\r\n", ch);
         REMOVE_BIT(ch->wiznet, WIZ_ON);
         return;
@@ -210,18 +211,17 @@ void do_guild(CHAR_DATA * ch, char *argument)
 
     if (clan_table[clan].independent)
     {
-        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].name);
+        sprintf(buf, "They are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, ch);
-        sprintf(buf, "You are now a %s.\r\n", clan_table[clan].name);
+        sprintf(buf, "You are now a %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, victim);
     }
     else
     {
-        sprintf(buf, "They are now a member of clan %s.\r\n",
-            capitalize(clan_table[clan].name));
+        sprintf(buf, "They are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
         send_to_char(buf, ch);
-        sprintf(buf, "You are now a member of clan %s.\r\n",
-            capitalize(clan_table[clan].name));
+        sprintf(buf, "You are now a member of clan %s.\r\n", clan_table[clan].friendly_name);
+        send_to_char(buf, ch);
     }
 
     victim->clan = clan;
@@ -269,6 +269,55 @@ void do_nochannels(CHAR_DATA * ch, char *argument)
             victim);
         send_to_char("NOCHANNELS set.\r\n", ch);
         sprintf(buf, "$N revokes %s's channels.", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+
+    return;
+}
+
+/*
+ * A command that allows immortals to revoke someone's praying privledges.
+ */
+void do_nopray(CHAR_DATA * ch, char *argument)
+{
+    char arg[MAX_INPUT_LENGTH];
+    char buf[MAX_STRING_LENGTH];
+    CHAR_DATA *victim;
+
+    one_argument(argument, arg);
+
+    if (arg[0] == '\0')
+    {
+        send_to_char("Nopray whom?", ch);
+        return;
+    }
+
+    if ((victim = get_char_world(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (get_trust(victim) >= get_trust(ch))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (IS_SET(victim->comm, COMM_NOPRAY))
+    {
+        REMOVE_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have restored your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY removed.\r\n", ch);
+        sprintf(buf, "$N restores praying privileges to %s", victim->name);
+        wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
+    }
+    else
+    {
+        SET_BIT(victim->comm, COMM_NOPRAY);
+        send_to_char("The gods have revoked your praying privileges.\r\n", victim);
+        send_to_char("NOPRAY set.\r\n", ch);
+        sprintf(buf, "$N revokes %s's praying privileges.", victim->name);
         wiznet(buf, ch, NULL, WIZ_PENALTIES, WIZ_SECURE, 0);
     }
 
@@ -970,8 +1019,9 @@ void do_violate(CHAR_DATA * ch, char *argument)
     return;
 }
 
-/* RT to replace the 3 stat commands */
-
+/*
+ * RT to replace the 3 stat commands
+ */
 void do_stat(CHAR_DATA * ch, char *argument)
 {
     char arg[MAX_INPUT_LENGTH];
@@ -981,6 +1031,7 @@ void do_stat(CHAR_DATA * ch, char *argument)
     CHAR_DATA *victim;
 
     string = one_argument(argument, arg);
+
     if (arg[0] == '\0')
     {
         send_to_char("Syntax:\r\n", ch);
@@ -988,6 +1039,9 @@ void do_stat(CHAR_DATA * ch, char *argument)
         send_to_char("  stat obj <name>\r\n", ch);
         send_to_char("  stat mob <name>\r\n", ch);
         send_to_char("  stat room <number>\r\n", ch);
+        send_to_char("  stat skill <player name>\r\n", ch);
+        send_to_char("  stat spell <player name>\r\n", ch);
+        send_to_char("  stat offline <player name>\r\n", ch);
         return;
     }
 
@@ -1006,6 +1060,24 @@ void do_stat(CHAR_DATA * ch, char *argument)
     if (!str_cmp(arg, "char") || !str_cmp(arg, "mob"))
     {
         do_function(ch, &do_mstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "skill"))
+    {
+        do_function(ch, &do_skillstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "spell"))
+    {
+        do_function(ch, &do_spellstat, string);
+        return;
+    }
+
+    if (!str_cmp(arg, "offline"))
+    {
+        do_function(ch, &do_player_offline_stat, string);
         return;
     }
 
@@ -1033,6 +1105,93 @@ void do_stat(CHAR_DATA * ch, char *argument)
     }
 
     send_to_char("Nothing by that name found anywhere.\r\n", ch);
+}
+
+/*
+ * Immortal command to view another players skills.  This will be called
+ * from the stat command and not surfaced through the command list.
+ */
+void do_skillstat(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("Whose skills do you want to see?\r\n", ch);
+      return;
+    }
+
+    if ((victim = get_char_world(ch, argument)) == NULL)
+    {
+        send_to_char ("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (IS_NPC(victim))
+    {
+        send_to_char ("You can't do that on NPCs.\r\n", ch);
+        return;
+    }
+
+    show_skill_list(victim, ch, "all");
+    return;
+}
+
+/*
+ * Immortal command to view another players spells.  This will be called
+ * from the stat command and not surfaced through the command list.
+ */
+void do_spellstat(CHAR_DATA * ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("Whose spells do you want to see?\r\n", ch);
+      return;
+    }
+
+    if ((victim = get_char_world(ch, argument)) == NULL)
+    {
+        send_to_char ("They aren't here.\r\n", ch);
+        return;
+    }
+
+    if (IS_NPC(victim))
+    {
+        send_to_char ("You can't do that on NPCs.\r\n", ch);
+        return;
+    }
+
+    show_spell_list(victim, ch, "all");
+    return;
+}
+
+void do_player_offline_stat(CHAR_DATA * ch, char *argument)
+{
+    if (IS_NULLSTR(argument))
+    {
+      send_to_char ("You must provide the player's name whom you wish to stat?\r\n", ch);
+      return;
+    }
+
+    if (player_exists(argument))
+    {
+        char pfile[MAX_STRING_LENGTH];
+        char pfile_modified[MAX_STRING_LENGTH];
+
+        // Get the pfile location, it should exist if we get here.
+        sprintf(pfile, "%s", player_file_location(capitalize(argument)));
+        sprintf(pfile_modified, "%s", file_last_modified(pfile));
+
+        printf_to_char(ch, "A player file exists for %s, it was last modified on %s.\r\n", capitalize(argument), pfile_modified);
+    }
+    else
+    {
+        printf_to_char(ch, "No player file exists for %s.\r\n", capitalize(argument));
+    }
+
+    return;
 }
 
 void do_rstat(CHAR_DATA * ch, char *argument)
@@ -1389,19 +1548,19 @@ void do_ostat(CHAR_DATA * ch, char *argument)
             switch (paf->where)
             {
                 case TO_AFFECTS:
-                    sprintf(buf, "Adds %s affect.\n",
+                    sprintf(buf, "Adds %s affect.\r\n",
                         affect_bit_name(paf->bitvector));
                     break;
                 case TO_WEAPON:
-                    sprintf(buf, "Adds %s weapon flags.\n",
+                    sprintf(buf, "Adds %s weapon flags.\r\n",
                         weapon_bit_name(paf->bitvector));
                     break;
                 case TO_OBJECT:
-                    sprintf(buf, "Adds %s object flag.\n",
+                    sprintf(buf, "Adds %s object flag.\r\n",
                         extra_bit_name(paf->bitvector));
                     break;
                 case TO_IMMUNE:
-                    sprintf(buf, "Adds immunity to %s.\n",
+                    sprintf(buf, "Adds immunity to %s.\r\n",
                         imm_bit_name(paf->bitvector));
                     break;
                 case TO_RESIST:
@@ -1433,15 +1592,15 @@ void do_ostat(CHAR_DATA * ch, char *argument)
                 switch (paf->where)
                 {
                     case TO_AFFECTS:
-                        sprintf(buf, "Adds %s affect.\n",
+                        sprintf(buf, "Adds %s affect.\r\n",
                             affect_bit_name(paf->bitvector));
                         break;
                     case TO_OBJECT:
-                        sprintf(buf, "Adds %s object flag.\n",
+                        sprintf(buf, "Adds %s object flag.\r\n",
                             extra_bit_name(paf->bitvector));
                         break;
                     case TO_IMMUNE:
-                        sprintf(buf, "Adds immunity to %s.\n",
+                        sprintf(buf, "Adds immunity to %s.\r\n",
                             imm_bit_name(paf->bitvector));
                         break;
                     case TO_RESIST:
@@ -1530,6 +1689,12 @@ void do_mstat(CHAR_DATA * ch, char *argument)
         victim->alignment, victim->gold, victim->silver, victim->exp);
     send_to_char(buf, ch);
 
+    if (!IS_NPC(victim))
+    {
+        sprintf(buf, "Bank Gold: %ld  Clairvoyance Vnum: %d\r\n", victim->pcdata->bank_gold, ch->pcdata->vnum_clairvoyance);
+        send_to_char(buf, ch);
+    }
+
     sprintf(buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\r\n",
         GET_AC(victim, AC_PIERCE), GET_AC(victim, AC_BASH),
         GET_AC(victim, AC_SLASH), GET_AC(victim, AC_EXOTIC));
@@ -1537,7 +1702,7 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     sprintf(buf,
         "Hit: %d  Dam: %d  Saves: %d  Size: %s  Position: %s  Wimpy: %d\r\n",
-        GET_HITROLL(victim), GET_DAMROLL(victim), victim->saving_throw,
+        GET_HITROLL(victim, NULL), GET_DAMROLL(victim, NULL), victim->saving_throw,
         size_table[victim->size].name,
         position_table[victim->position].name, victim->wimpy);
     send_to_char(buf, ch);
@@ -1651,6 +1816,26 @@ void do_mstat(CHAR_DATA * ch, char *argument)
 
     for (paf = victim->affected; paf != NULL; paf = paf->next)
     {
+        if (paf->type < 0)
+        {
+            // There won't be negagive index entries in the skills table, something has
+            // gone wrong here, like eq trying to add an affect that doesn't exist.  Log
+            // the error and go on.
+            sprintf(buf, "%s had a bad affect type that does not map to a skill number (%d).", victim->name, paf->type);
+            bug(buf, 0);
+            wiznet(buf, NULL, NULL, WIZ_GENERAL, 0, 0);
+
+            sprintf(buf,
+                "Affect: 'unknown' modifies %s (%d) by %d for %d hours with bits %s, level %d.\r\n",
+                affect_loc_name(paf->location),
+                paf->location,
+                paf->modifier,
+                paf->duration, affect_bit_name(paf->bitvector), paf->level);
+            send_to_char(buf, ch);
+
+            continue;
+        }
+
         sprintf(buf,
             "Spell: '%s' modifies %s by %d for %d hours with bits %s, level %d.\r\n",
             skill_table[(int)paf->type]->name,
@@ -1677,6 +1862,7 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         send_to_char("Syntax:\r\n", ch);
         send_to_char("  vnum obj <name>\r\n", ch);
         send_to_char("  vnum mob <name>\r\n", ch);
+        send_to_char("  vnum room <name or owner>\r\n", ch);
         send_to_char("  vnum skill <skill or spell>\r\n", ch);
         return;
     }
@@ -1698,6 +1884,13 @@ void do_vnum(CHAR_DATA * ch, char *argument)
         do_function(ch, &do_slookup, string);
         return;
     }
+
+    if (!str_cmp(arg, "room"))
+    {
+        do_function(ch, &do_rfind, string);
+        return;
+    }
+
     /* do both */
     do_function(ch, &do_mfind, argument);
     do_function(ch, &do_ofind, argument);
@@ -1759,6 +1952,64 @@ void do_mfind(CHAR_DATA * ch, char *argument)
         send_to_char("No mobiles by that name.\r\n", ch);
 
     return;
+}
+
+/*
+ * Finds a room based off of searching the room name and/or the owner
+ * of the room. -Rhien, 12/24/2016
+ */
+void do_rfind(CHAR_DATA * ch, char *argument)
+{
+    ROOM_INDEX_DATA *room;
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    bool found = FALSE;
+    int x = 0;
+
+    if (strlen(argument) < 3)
+    {
+        send_to_char("You must provide at least 3 letters on your room search.\r\n", ch);
+        return;
+    }
+
+    buffer = new_buf();
+
+    // Go through all the rooms via the room hash
+    for (x = 0; x < MAX_KEY_HASH; x++)
+    {
+        for (room = room_index_hash[x]; room != NULL; room = room->next)
+        {
+            if (room->area == NULL)
+            {
+                // In theory this shouldn't happen, but...
+                sprintf(buf, "[%6d] (Bug: NULL Area)\r\n", room->vnum);
+                add_buf(buffer, buf);
+                continue;
+            }
+
+            if ((!IS_NULLSTR(room->name) && !str_infix(argument, room->name))
+                || (!IS_NULLSTR(room->owner) && !str_infix(argument, room->owner)))
+            {
+                sprintf(buf, "[%6d] {c%s{x in %s\r\n",
+                    room->vnum,
+                    room->name,
+                    room->area->name);
+                add_buf(buffer, buf);
+
+                found = TRUE;
+            }
+        }
+    }
+
+    if (!found)
+    {
+        send_to_char("Room(s) not found for your search.\r\n", ch);
+        return;
+    }
+
+    // Page it, then free the buffer
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
 }
 
 void do_ofind(CHAR_DATA * ch, char *argument)
@@ -2287,7 +2538,7 @@ void recursive_clone(CHAR_DATA * ch, OBJ_DATA * obj, OBJ_DATA * clone)
     {
         if (obj_check(ch, c_obj))
         {
-            t_obj = create_object(c_obj->pIndexData, 0);
+            t_obj = create_object(c_obj->pIndexData);
             clone_object(c_obj, t_obj);
             obj_to_obj(t_obj, clone);
             recursive_clone(ch, c_obj, t_obj);
@@ -2355,7 +2606,7 @@ void do_clone(CHAR_DATA * ch, char *argument)
             return;
         }
 
-        clone = create_object(obj->pIndexData, 0);
+        clone = create_object(obj->pIndexData);
         clone_object(obj, clone);
         if (obj->carried_by != NULL)
             obj_to_char(clone, ch);
@@ -2388,7 +2639,7 @@ void do_clone(CHAR_DATA * ch, char *argument)
         {
             if (obj_check(ch, obj))
             {
-                new_obj = create_object(obj->pIndexData, 0);
+                new_obj = create_object(obj->pIndexData);
                 clone_object(obj, new_obj);
                 recursive_clone(ch, obj, new_obj);
                 obj_to_char(new_obj, clone);
@@ -2527,7 +2778,7 @@ void do_oload(CHAR_DATA *ch, char *argument, int number)
     do
     {
         n++;
-        obj = create_object(pObjIndex, 0);
+        obj = create_object(pObjIndex);
 
         if (CAN_WEAR(obj, ITEM_TAKE))
         {
@@ -3159,19 +3410,51 @@ void do_notell(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * Stops all fighting in a room or in the world.
+ */
 void do_peace(CHAR_DATA * ch, char *argument)
 {
     CHAR_DATA *rch;
 
-    for (rch = ch->in_room->people; rch != NULL; rch = rch->next_in_room)
+    if (!str_cmp(argument, "all") || !str_cmp(argument, "global"))
     {
-        if (rch->fighting != NULL)
-            stop_fighting(rch, TRUE);
-        if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
-            REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+        for (rch = char_list; rch != NULL; rch = rch->next)
+        {
+            if (rch->fighting != NULL)
+            {
+                stop_fighting(rch, TRUE);
+            }
+
+            if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
+            {
+                REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+            }
+
+            act("$n calls peace to the room.", ch, NULL, rch, TO_VICT);
+        }
+
+        send_to_char("You call peace to the entire world.\r\n", ch);
+    }
+    else
+    {
+        for (rch = ch->in_room->people; rch != NULL; rch = rch->next_in_room)
+        {
+            if (rch->fighting != NULL)
+            {
+                stop_fighting(rch, TRUE);
+            }
+
+            if (IS_NPC(rch) && IS_SET(rch->act, ACT_AGGRESSIVE))
+            {
+                REMOVE_BIT(rch->act, ACT_AGGRESSIVE);
+            }
+        }
+
+        act("$n calls peace to the room.", ch, NULL, rch, TO_ROOM);
+        send_to_char("You call peace to the room.\r\n", ch);
     }
 
-    send_to_char("Ok.\r\n", ch);
     return;
 }
 
@@ -3623,7 +3906,7 @@ void do_mset(CHAR_DATA * ch, char *argument)
         send_to_char("    race group gold silver hp mana move prac\r\n", ch);
         send_to_char("    align train thirst hunger drunk full\r\n", ch);
         send_to_char("    security hours wanted[on|off] tester[on|off]\r\n", ch);
-        send_to_char("    1k\r\n", ch);
+        send_to_char("    1k questpoints\r\n", ch);
         return;
     }
 
@@ -4062,6 +4345,24 @@ void do_mset(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (!str_cmp(arg2, "questpoints"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("NPC's do not have quest points.\r\n", ch);
+            return;
+        }
+
+        if (value < 0 || value > 10000)
+        {
+            send_to_char("Valid range is 0 to 10,000\r\n", ch);
+            return;
+        }
+
+        victim->pcdata->quest_points = value;
+        return;
+    }
+
     if (!str_prefix(arg2, "hours"))
     {
         if (IS_NPC(victim))
@@ -4473,11 +4774,21 @@ void do_sockets(CHAR_DATA * ch, char *argument)
     char state[MAX_STRING_LENGTH];
     DESCRIPTOR_DATA *d;
     int count;
+    bool use_ip = FALSE;
+    char ip_address[MAX_STRING_LENGTH];
 
     count = 0;
     buf[0] = '\0';
 
     one_argument(argument, arg);
+
+    // Whether we show all dotted IP's instead of the host entry, this overrides
+    // using socket for a person
+    if (!str_cmp(arg, "ip"))
+    {
+        use_ip = TRUE;
+        arg[0] = '\0';
+    }
 
     sprintf(buf + strlen(buf), "{c--------------------------------------------------------------------------------{x\r\n");
     sprintf(buf + strlen(buf), "{c[{WDes{c][{WConnected State{x          {c][{WCharacter@IP Address{x                          {c]{x\r\n");
@@ -4489,6 +4800,9 @@ void do_sockets(CHAR_DATA * ch, char *argument)
         {
             default:
                 sprintf(state, "Unknown");
+                break;
+            case CON_LOGIN_MENU:
+                sprintf(state, "Login Menu");
                 break;
             case -15:
                 sprintf(state, "Get Email");
@@ -4552,6 +4866,15 @@ void do_sockets(CHAR_DATA * ch, char *argument)
                 break;
         }
 
+        if (!use_ip)
+        {
+            sprintf(ip_address, "%s", d->host);
+        }
+        else
+        {
+            sprintf(ip_address, "%s", d->ip_address);
+        }
+
         if (d->character != NULL && can_see(ch, d->character)
             && (arg[0] == '\0' || is_name(arg, d->character->name)
                 || (d->original && is_name(arg, d->original->name))))
@@ -4562,14 +4885,14 @@ void do_sockets(CHAR_DATA * ch, char *argument)
                 state,
                 d->original ? d->original->name :
                 d->character ? d->character->name : "(none)",
-                d->host);
+                ip_address);
         }
         else if (d->character == NULL)
         {
             sprintf(buf + strlen(buf), "{c[{W%3d{c][{W%-25s{c][{Wnobody@%s{c]{x\r\n",
                 d->descriptor,
                 state,
-                d->host);
+                ip_address);
             count++;
         }
     }
@@ -5036,16 +5359,14 @@ void do_copyover(CHAR_DATA * ch, char *argument)
 
             if (!d->character || d->connected < CON_PLAYING)
             {                        /* drop those logging on */
-                write_to_descriptor(d->descriptor,
-                    "\r\nSorry, we are rebooting. Come back in a few minutes.\r\n",
-                    0, d);
+                write_to_descriptor(d->descriptor, "\r\nSorry, we are rebooting. Come back in a few minutes.\r\n", d);
                 close_socket(d);    /* throw'em out */
             }
             else
             {
-                fprintf(fp, "%d %s %s\n", d->descriptor, och->name, d->host);
+                fprintf(fp, "%d %s %s %s\n", d->descriptor, och->name, d->host, d->ip_address);
                 save_char_obj(och);
-                write_to_descriptor(d->descriptor, buf, 0, d);
+                write_to_descriptor(d->descriptor, buf, d);
             }
         }
 
@@ -5091,6 +5412,7 @@ void copyover_load_descriptors()
     FILE *fp;
     char name[100];
     char host[MSL];
+    char ip_address[MSL];
     int desc;
 
     log_f("Copyover recovery initiated", 0);
@@ -5113,7 +5435,7 @@ void copyover_load_descriptors()
 
     for (;;)
     {
-        int errorcheck = fscanf(fp, "%d %s %s\n", &desc, name, host);
+        int errorcheck = fscanf(fp, "%d %s %s %s\n", &desc, name, host, ip_address);
 
         if (errorcheck < 0)
         {
@@ -5126,7 +5448,7 @@ void copyover_load_descriptors()
         }
 
         /* Write something, and check if it goes error-free */
-        if (!write_to_descriptor(desc, "\r\nRestoring from copyover...\r\n\r\n", 0, NULL))
+        if (!write_to_descriptor(desc, "\r\nRestoring from copyover...\r\n\r\n", NULL))
         {
 #if defined(_WIN32)
             _close(desc);        /* nope */
@@ -5140,6 +5462,7 @@ void copyover_load_descriptors()
         d->descriptor = desc;
 
         d->host = str_dup(host);
+        d->ip_address = str_dup(ip_address);
         d->next = descriptor_list;
         d->name = str_dup(name);
         descriptor_list = d;
@@ -5172,13 +5495,13 @@ void copyover_recover()
         if (!fOld)
         {
             /* Player file not found?! */
-            write_to_descriptor(d->descriptor, "[ {RFailure{x ]\r\nSomehow, your character was lost in the copyover. Sorry.\r\n", 0, d);
+            write_to_descriptor(d->descriptor, "[ {RFailure{x ]\r\nSomehow, your character was lost in the copyover. Sorry.\r\n", d);
             close_socket(d);
         }
         else
         {
             /* ok! */
-            write_to_descriptor(d->descriptor, "[ {GSuccess{x ]\r\n\r\nCopyover recovery complete.\r\n", 0, d);
+            write_to_descriptor(d->descriptor, "[ {GSuccess{x ]\r\n\r\nCopyover recovery complete.\r\n", d);
 
             /* Just In Case */
             if (!d->character->in_room)
@@ -5562,7 +5885,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (room != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\r\n", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+                        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5581,7 +5904,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\r\n", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
 
         return;
     }
@@ -5605,7 +5928,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (obj != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\r\n", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+                        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5624,7 +5947,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\r\n", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
     }
     else if (!str_cmp(arg, "mob"))
     {
@@ -5646,7 +5969,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
                     if (mob != NULL) {
                         endVnum = x - 1; // The last vnum that was used.
                         sprintf(buf, "Open VNUM Range: %d-%d\r\n", startVnum, endVnum);
-                        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+                        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
 
                         // Advance the position
                         startVnum = endVnum;
@@ -5665,7 +5988,7 @@ void do_vnumgap(CHAR_DATA * ch, char *argument)
 
         // And the last one...
         sprintf(buf, "Open VNUM Range: %d-%d\r\n", lastFoundVnum, vnumCeiling);
-        write_to_descriptor(ch->desc->descriptor, buf, 0, ch->desc);
+        write_to_descriptor(ch->desc->descriptor, buf, ch->desc);
     }
     else
     {
@@ -5778,6 +6101,9 @@ void do_wizcancel(CHAR_DATA * ch, char *argument)
     // This will remove all affects from the victim
     affect_strip_all(victim);
 
+    // Reset's the char
+    reset_char(ch);
+
     // Show the user what was done.
     if (ch != victim)
     {
@@ -5871,7 +6197,7 @@ void wizbless(CHAR_DATA * victim)
     af.modifier = 4;
     affect_to_char(victim, &af);
 
-    af.location = APPLY_SAVING_SPELL;
+    af.location = APPLY_SAVES;
     af.modifier = -5;
     affect_to_char(victim, &af);
 
@@ -5925,10 +6251,10 @@ void do_portal(CHAR_DATA *ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char("Syntax: portal <vnum>", ch);
-        send_to_char("        portal <vnum> <optional tick duration>", ch);
-        send_to_char("        portal <player name/mob name>", ch);
-        send_to_char("        portal <player name/mob name> <optional tick duration>", ch);
+        send_to_char("Syntax: portal <vnum>\r\n", ch);
+        send_to_char("        portal <vnum> <optional tick duration>\r\n", ch);
+        send_to_char("        portal <player name/mob name>\r\n", ch);
+        send_to_char("        portal <player name/mob name> <optional tick duration>\r\n", ch);
         return;
     }
 
@@ -5939,7 +6265,7 @@ void do_portal(CHAR_DATA *ch, char *argument)
     }
 
     // Create the portal object
-    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL), 0);
+    portal = create_object(get_obj_index(OBJ_VNUM_PORTAL));
     portal->value[3] = room->vnum;
 
     // Get the second argument which is the duration, if it's a number
@@ -6073,87 +6399,269 @@ void do_crypt(CHAR_DATA * ch, char *argument)
 } // end do_crypt
 
 /*
+ * Immortal command to show who is being snooped by who, Rhien 8/11/99
+ */
+void do_snoopinfo( CHAR_DATA *ch, char *argument )
+{
+    char buf[MAX_STRING_LENGTH];
+    char bufsnoop [100];
+    BUFFER *buffer;
+    CHAR_DATA *victim;
+
+    buffer = new_buf();
+
+    sprintf(buf, "\r\n[{WPlayer Name{x]    [{WSnooped by{x]\r\n");
+    send_to_char(buf, ch);
+
+    sprintf(buf, "-------------    ------------\r\n");
+    send_to_char(buf, ch);
+
+    for (victim = char_list; victim != NULL; victim = victim->next)
+    {
+        if ( victim->desc == NULL )
+        {
+            continue;
+        }
+
+        if (IS_NPC(victim)
+            || victim->desc->connected != CON_PLAYING
+            || !can_see(ch,victim)
+            || get_trust(victim) > get_trust(ch))
+        {
+             continue;
+        }
+
+        if (victim->desc->snoop_by != NULL)
+        {
+            sprintf(bufsnoop," %s", victim->desc->snoop_by->character->name);
+        }
+        else
+        {
+            continue;
+        }
+
+        if (ch->name == victim->name)
+        {
+            continue;
+        }
+
+        if (victim->desc->snoop_by->character->invis_level > ch->level)
+        {
+            sprintf(bufsnoop,"(An Imm)" );
+        }
+
+        sprintf(buf,"%-15s %-15s\r\n", victim->name, bufsnoop);
+        add_buf(buffer, buf);
+    }
+
+    page_to_char(buf_string(buffer), ch);
+    free_buf(buffer);
+
+    return;
+
+}
+
+/*
+ * Shows which characters are currently switched into other characters.
+ *    - Rhien, 3-23-00
+ */
+void do_switchinfo(CHAR_DATA *ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    CHAR_DATA *victim;
+    bool found=FALSE;
+
+    send_to_char("\r\n[{WSwitch Information{x]\r\n", ch);
+    send_to_char("--------------------\r\n", ch);
+
+    for (victim = char_list; victim != NULL; victim = victim->next)
+    {
+        if (IS_NPC(victim) && victim->desc != NULL && victim->desc->original != NULL)
+        {
+            if (victim->desc->original->invis_level > ch->level)
+            {
+                sprintf(buf, "(An Imm) is switched into %s\r\n", victim->short_descr);
+            }
+            else
+            {
+                sprintf(buf, "%s is switched into %s\r\n", victim->desc->original->name, victim->short_descr);
+            }
+
+            send_to_char(buf, ch);
+            found=TRUE;
+        }
+
+    } // end for
+
+    if (!found)
+    {
+        send_to_char("There are no switched characters at the moment.\r\n", ch);
+        return;
+    }
+
+} // end switchinfo
+
+/*
+ * Removes the ability for a person to reply to the person they were last
+ * speaking with.  This is useful for when an immortal goes wizi or incog
+ * and wants to cut a conversation off.
+ */
+void do_clearreply(CHAR_DATA *ch, char *argument)
+{
+    CHAR_DATA *victim;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("Syntax: clearreply <player name>\r\n", ch);
+        return;
+    }
+
+    victim = get_char_world(ch, argument);
+
+    if (!victim)
+    {
+        send_to_char("That player not found.\r\n", ch);
+        return;
+    }
+
+    // Unset the pointer to the previous character.
+    victim->reply = NULL;
+    printf_to_char(ch, "%s will no longer be able to reply to you.\r\n", victim->name);
+
+    return;
+}
+
+/*
+ * Makes any temporary spells on an object permanent.  This should only be a high level
+ * immortal command used to make quest items, etc.  It only makes the affects permanent for
+ * this instance of the object found.
+ */
+void do_permanent(CHAR_DATA * ch, char *argument)
+{
+    OBJ_DATA *obj;
+
+    if (IS_NULLSTR(argument))
+    {
+        send_to_char("On what item do you want to make the temporary affects permanent?\r\n", ch);
+        return;
+    }
+
+    obj = get_obj_here(ch, argument);
+
+    if (obj == NULL)
+    {
+        send_to_char("You do not see that here.\r\n", ch);
+        return;
+    }
+
+    // Look for any non permanent affects on the item, then set their duration
+    // to -1 which will make them permanent for just this item.
+    AFFECT_DATA *af;
+    int found = FALSE;
+
+    for (af = obj->affected; af != NULL; af = af->next)
+    {
+        if (af->duration > 0)
+        {
+            af->duration = -1;
+            found = TRUE;
+        }
+    }
+
+    // Show the the success or not.
+    if (found)
+    {
+        act("You have made the affects on $p permanent.", ch, obj, NULL, TO_CHAR);
+    }
+    else
+    {
+        act("There were no affects on $p that could be made permanent.", ch, obj, NULL, TO_CHAR);
+    }
+}
+
+/*
+ * Lists all players who have pfiles (this could get rather lengthy on a large mud).
+ */
+void do_playerlist(CHAR_DATA * ch, char *argument)
+{
+    #if defined(_WIN32)
+        send_to_char("This command is not currently supported on Windows.\r\n", ch);
+        return;
+    #else
+
+    char buf[MAX_STRING_LENGTH];
+    BUFFER *buffer;
+    DIR *dir;
+    struct dirent *ent;
+    int col = 1;
+    int pfiles_found = 0;
+
+    // Initialize the buffer
+    buffer = new_buf();
+
+    if ((dir = opendir(PLAYER_DIR)) != NULL)
+    {
+        // Print all the files and directories within directory
+        while ((ent = readdir(dir)) != NULL)
+        {
+            // Get regular files and skip those that start with a .
+            if (!IS_NULLSTR(ent->d_name)
+                && ent->d_type == DT_REG
+                && ent->d_name[0] != '.')
+            {
+                if (col % 5 == 0)
+                {
+                    sprintf(buf, "%-13s\r\n", ent->d_name);
+                    col = 0;
+                }
+                else
+                {
+                   sprintf(buf, "%-13s", ent->d_name);
+                }
+
+                col++;
+                pfiles_found++;
+
+                add_buf(buffer, buf);
+            }
+        }
+
+        closedir(dir);
+    }
+
+    // At the end, show how many pfiles were found.  We will add two line breaks
+    // if not on the last column (which would have appended one already to make
+    // for two.
+    if (col == 5)
+    {
+        sprintf(buf, "\r\n%d player files were found.\r\n", pfiles_found);
+    }
+    else
+    {
+        sprintf(buf, "\r\n\r\n%d player files were found.\r\n", pfiles_found);
+    }
+
+    add_buf(buffer, buf);
+
+    page_to_char(buf_string(buffer), ch);
+
+    free_buf(buffer);
+
+    return;
+
+    #endif
+}
+
+/*
  * Debug function to quickly test code without having to wire something up.
  */
 void do_debug(CHAR_DATA * ch, char *argument)
 {
-	if (ch->desc != NULL)
-	{
-		show_login_menu(ch->desc);
-	}
-
-    return;
-
-    int x = 5;
-    int y = 0;
-    char info[MSL];
-
-    // and crash!
-    sprintf(info, "%d / %d = %d\r\n", x, y, x / y);
-    send_to_char(info, ch);
-
-    return;
-
-    char buf[MAX_STRING_LENGTH];
-    char display_buf[MAX_STRING_LENGTH];
-    char *tokenPtr;
-
-    sprintf(buf, "One,Two,Three,Four,Five,Six");
-
-    // initialize the string tokenizer and receive pointer to first token
-    tokenPtr = strtok(buf, ",");
-
-    while (tokenPtr != NULL)
-    {
-        sprintf(display_buf, "token - %s\r\n", tokenPtr);
-        send_to_char(display_buf, ch);
-        send_to_char("original buf: ", ch);
-        send_to_char(buf, ch);
-        tokenPtr = strtok(NULL, " ,.\n");
-    }
-
-    send_to_char("original buf: ", ch);
-    send_to_char(buf, ch);
-
-    return;
-    ROOM_INDEX_DATA *pRoomIndex;
-    AREA_DATA *pArea;
-    //char buf[MAX_STRING_LENGTH];
-    bool found;
-    int vnum;
-    int col = 0;
-
-
-    pArea = ch->in_room->area;
-    found = FALSE;
-
-    for (vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++)
-    {
-        if ((pRoomIndex = get_room_index(vnum)))
-        {
-            if (IS_SET(pRoomIndex->room_flags, ROOM_ARENA))
-            {
-                found = TRUE;
-                sprintf(buf, "[%5d] %-17.16s",
-                    vnum, capitalize(pRoomIndex->name));
-
-                send_to_char(buf, ch);
-
-                if (++col % 3 == 0)
-                    send_to_char("\r\n", ch);
-            }
-
-        }
-    }
-
-    if (!found)
-    {
-        send_to_char("Room(s) not found in this area.\r\n", ch);
-        return;
-    }
-
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
+    printf_to_char(ch, "1: %d\r\n", number_bits(1));
+    printf_to_char(ch, "2: %d\r\n", number_bits(2));
+    printf_to_char(ch, "3: %d\r\n", number_bits(3));
+    printf_to_char(ch, "4: %d\r\n", number_bits(4));
+    printf_to_char(ch, "5: %d\r\n", number_bits(5));
 
     return;
 } // end do_debug

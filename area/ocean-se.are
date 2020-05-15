@@ -9,150 +9,7 @@ Continent 3
 End
 
 
-
 #MOBILES
-#11800
-tuna fish~
-a tuna fish~
-A tuna fish is swimming here.
-~
-An active and agile predator, the tuna has a sleek, streamlined body, and
-is among the fastest-swimming pelagic fish.  
-~
-fish~
-AG b 1 0
-5 0 2d6+60 2d9+100 1d6+1 none
-5 5 5 9
-0 0 R 0
-stand stand either 0
-AGHMVb ADEFKO small unknown
-F for W
-#11801
-octopus~
-a octopus~
-An octopus with long and moving tentacles is here.
-~
-An octopus is here with its eight tentacles moving to and fro in the
-water.  It's long tentacles have many very visible suction cups.  
-~
-fish~
-AG b 3 0
-30 0 6d12+853 15d9+100 4d6+8 suction
--9 -9 -9 6
-EFU 0 R 0
-stand stand either 0
-AGHMVW ABCDEFJKN medium unknown
-F par O
-#11802
-man o'war jellyfish~
-a man o'war~
-A man o'war jellyfish is here.
-~
-The man o'war has a white clear jelly like composition with long dangling
-tentacles flopping about.  It is aggresive in these parts and appears to be
-moving towards you.  
-~
-fish~
-AFG b 2 0
-25 0 5d10+550 12d9+100 2d10+7 none
--7 -7 -7 6
-EFU 0 R 0
-stand stand either 0
-AGHMVb ABCDEFHJKNO small unknown
-F for W
-#11803
-sea dragon~
-a {mmagenta{x sea dragon~
-A {mmagenta{x sea dragon is soring overhead.
-~
-A giant sea dragon is flying here.  It's multicolored scales are
-glistening in the sunlight as it's wings create giant ripples in the sea
-water.  
-~
-dragon~
-A DFJTV 1 0
-52 0 50d10+5500 26d9+100 6d7+20 none
--22 -22 -22 2
-FNU 0 BEH F
-stand stand none 5000
-AHMVZ ABCDEFGHIJKPQUVX giant unknown
-F vul I
-#11804
-seagull gull~
-a seagull~
-A seagull is flying overhead.
-~
-A long gray seagull is flaying overhead and floating along with the wind
-coming of the ocean.  
-~
-water fowl~
-AG Tb 2 0
-9 0 2d6+110 4d9+100 1d8+2 peck
-2 2 2 8
-F 0 R 0
-stand stand either 0
-AGHVW ACDEFHJKP small unknown
-#11805
-aboleths~
-an aboleth~
-An aboleth is here.
-~
-The aboleth resembles a bizarre eel, with long a tubular bodies that has
-a tail at one end and two fins near the head and another along the back.  
-~
-fish~
-AFG JVb 1 0
-44 0 25d10+2250 21d9+100 3d12+14 none
--14 -14 -14 4
-EFU 0 R 0
-stand stand either 0
-AGHMVW ABCDEFGHJKO huge unknown
-#11806
-dolphin~
-a dolphin~
-A dolphin is here.
-~
-The dolphin before you is long, gray and smooth.  It bobs quickly in and
-out of the water without a care in the world.  
-~
-fish~
-ABF b 3 0
-20 0 3d9+333 10d9+100 2d8+5 peck
--4 -4 -4 7
-EFM 0 R 0
-stand stand either 0
-AGHMVW ADEFHJKO medium unknown
-#11807
-sea hag~
-a sea hag~
-A sea hag is here searching for her next victim.
-~
-The sea hag floating here letting out soul splitting howls and searching
-for her next pray.  
-~
-human~
-AFR JTV 1 0
-44 0 25d10+2500 44d9+100 4d8+14 none
--15 -15 -15 -2
-FU R 0 J
-stand stand none 5000
-AHMV ABCDEFGHIJK medium unknown
-#11808
-jellyfish~
-a jellyfish~
-A jellyfish is here.
-~
-A jellyfish is here floating in the water with it's tentacles swaying to
-and fro.  You wouldn't want to step on it..  
-~
-fish~
-ABG b 2 0
-9 0 2d6+110 4d9+100 1d8+2 none
-2 2 2 8
-0 0 R 0
-stand stand none 0
-AGHMV ADEFJKNO medium unknown
-F for W
 #0
 
 
@@ -4165,6 +4022,56 @@ S
 
 
 #RESETS
+M 0 11000 100 11800 2 Load a tuna fish
+M 0 11005 100 11802 2 Load an aboleth
+M 0 11005 100 11806 2 Load an aboleth
+M 0 11003 100 11810 2 Load a {Csea{x dragon
+M 0 11000 100 11811 2 Load a tuna fish
+M 0 11008 100 11813 2 Load a jellyfish
+M 0 11008 100 11813 2 Load a jellyfish
+M 0 11008 100 11815 2 Load a seagull
+M 0 11008 100 11816 2 Load a seagull
+M 0 11000 100 11817 2 Load a tuna fish
+M 0 11000 100 11817 2 Load a tuna fish
+M 0 11008 100 11819 2 Load a seagull
+M 0 11003 100 11819 2 Load a {Csea{x dragon
+M 0 11001 100 11820 2 Load a octopus
+M 0 11002 100 11821 2 Load a man o'war
+M 0 11000 100 11822 2 Load a tuna fish
+M 0 11005 100 11822 2 Load an aboleth
+M 0 11006 100 11827 2 Load a dolphin
+M 0 11001 100 11828 2 Load a octopus
+M 0 11002 100 11828 2 Load a man o'war
+M 0 11000 100 11830 2 Load a tuna fish
+M 0 11000 100 11832 2 Load a tuna fish
+M 0 11005 100 11834 2 Load an aboleth
+M 0 11002 100 11835 2 Load a man o'war
+M 0 11008 100 11836 2 Load a seagull
+M 0 11005 100 11837 2 Load an aboleth
+M 0 11008 100 11838 2 Load a seagull
+M 0 11006 100 11842 2 Load a dolphin
+M 0 11006 100 11849 2 Load a dolphin
+M 0 11003 100 11850 2 Load a {Csea{x dragon
+M 0 11005 100 11852 2 Load an aboleth
+M 0 11005 100 11853 2 Load an aboleth
+M 0 11002 100 11857 2 Load a man o'war
+M 0 11005 100 11864 2 Load an aboleth
+M 0 11006 100 11866 2 Load a dolphin
+M 0 11008 100 11867 2 Load a seagull
+M 0 11001 100 11869 2 Load a octopus
+M 0 11005 100 11871 2 Load an aboleth
+M 0 11007 100 11873 2 Load a sea hag
+M 0 11000 100 11875 2 Load a tuna fish
+M 0 11003 100 11881 2 Load a {Csea{x dragon
+M 0 11002 100 11882 2 Load a man o'war
+M 0 11003 100 11888 2 Load a {Csea{x dragon
+M 0 11001 100 11890 2 Load a octopus
+M 0 11000 100 11891 2 Load a tuna fish
+M 0 11000 100 11891 2 Load a tuna fish
+M 0 11005 100 11892 2 Load an aboleth
+M 0 11003 100 11895 2 Load a {Csea{x dragon
+M 0 11006 100 11897 2 Load a dolphin
+M 0 11006 100 11899 2 Load a dolphin
 S
 
 

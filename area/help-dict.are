@@ -1,0 +1,36 @@
+#HELPS
+-1 NPC~
+An NPC is a non player character.
+~
+
+-1 MOBILE MOB~
+A mobile or "mob" is a non player creature in the game.
+~
+-1 WEAPON FLAGS FLAMING FROST VAMPIRIC SHARP VORPAL TWOHANDS SHOCKING POISON LEECH STUN~
+
+A flag on certain weapons change the behavior of a weapon.  The
+following flags exist:
+
+ *  Flaming: Causes more damage to fire vulnerable individuals and can
+             cause periodic blindness to a victim from smoke.
+ *    Frost: Causes more damage to cold vulnerable individuals and can
+             freeze and break potions in a victims inventory.
+ * Vampiric: Extracts health from a victim and transfers it to the
+             person wielding the weapon.
+ *    Sharp: A sharp flag causes a significant jump in weapon damage
+             on some attacks.
+ *   Vorpal: A vorpal weapon has a small chance to cleave an individuals
+             head off causing instant death.
+ * Shocking: Shocking causes more damage to individuals who are
+             vulnerable to lightning, it can break potions in a persons
+             inventory and potentially has a chance to stun.
+ *   Poison: Poison weapons have a small chance to poison the victim.
+ *    Leech: Extracts magic from a victim and transfers it to the
+             person wielding the weapon.
+ *     Stun: Has a chance to stun the victim upon hit.
+~
+
+0 $~
+
+#$
+

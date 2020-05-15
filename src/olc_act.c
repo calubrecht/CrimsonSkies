@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -712,7 +712,7 @@ AEDIT(aedit_show)
     sprintf(buf, "Credits :   [%s]\r\n", pArea->credits);
     send_to_char(buf, ch);
 
-    sprintf(buf, "Flags:      [%s]\r\n", flag_string(area_flags, pArea->area_flags));
+    sprintf(buf, "Area Flags: [%s]\r\n", flag_string(area_flags, pArea->area_flags));
     send_to_char(buf, ch);
 
     sprintf(buf, "Continent:  [%s]\r\n", continent_table[pArea->continent].name);
@@ -2137,7 +2137,7 @@ REDIT(redit_oreset)
         pReset->arg4 = 0;
         add_reset(pRoom, pReset, 0 /* Last slot */);
 
-        newobj = create_object(pObjIndex, number_fuzzy(olevel));
+        newobj = create_object(pObjIndex);
         obj_to_room(newobj, pRoom);
 
         sprintf(output, "%s (%d) has been loaded and added to resets.\r\n",
@@ -2159,7 +2159,7 @@ REDIT(redit_oreset)
             pReset->arg4 = 1;
             add_reset(pRoom, pReset, 0 /* Last slot */);
 
-            newobj = create_object(pObjIndex, number_fuzzy(olevel));
+            newobj = create_object(pObjIndex);
             newobj->cost = 0;
             obj_to_obj(newobj, to_obj);
 
@@ -2222,7 +2222,7 @@ REDIT(redit_oreset)
                 add_reset(pRoom, pReset, 0 /* Last slot */);
 
                 olevel = URANGE(0, to_mob->level - 2, LEVEL_HERO);
-                newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                newobj = create_object(pObjIndex);
 
                 if (to_mob->pIndexData->pShop)
                 {                        /* Shop-keeper? */
@@ -2257,12 +2257,12 @@ REDIT(redit_oreset)
                             break;
                     }
 
-                    newobj = create_object(pObjIndex, olevel);
+                    newobj = create_object(pObjIndex);
                     if (pReset->arg2 == WEAR_NONE)
                         SET_BIT(newobj->extra_flags, ITEM_INVENTORY);
                 }
                 else
-                    newobj = create_object(pObjIndex, number_fuzzy(olevel));
+                    newobj = create_object(pObjIndex);
 
                 obj_to_char(newobj, to_mob);
                 if (pReset->command == 'E')
@@ -2409,14 +2409,14 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
             sprintf(buf,
                 "[v0] Weight:     [%d kg]\r\n"
                 "[v1] Flags:      [%s]\r\n"
-                "[v2] Key:     %s [%d]\r\n"
+                "[v2] Key:        [%d] %s\r\n"
                 "[v3] Capacity    [%d]\r\n"
                 "[v4] Weight Mult [%d]\r\n",
                 obj->value[0],
                 flag_string(container_flags, obj->value[1]),
-                get_obj_index(obj->value[2])
-                ? get_obj_index(obj->value[2])->short_descr
-                : "none", obj->value[2], obj->value[3], obj->value[4]);
+                obj->value[2],
+                get_obj_index(obj->value[2]) ? get_obj_index(obj->value[2])->short_descr : "none",
+                obj->value[3], obj->value[4]);
             send_to_char(buf, ch);
             break;
 
@@ -2430,6 +2430,15 @@ void show_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * obj)
                 obj->value[1],
                 liq_table[obj->value[2]].liq_name,
                 obj->value[3] != 0 ? "Yes" : "No");
+            send_to_char(buf, ch);
+            break;
+
+        case ITEM_SEED:
+            sprintf(buf,
+                "[v0] Vnum to Grow: [%d]\r\n"
+                "[v1] Percent Bonus: [%d]\r\n",
+                obj->value[0],
+                obj->value[1]);
             send_to_char(buf, ch);
             break;
 
@@ -2618,6 +2627,23 @@ bool set_obj_values(CHAR_DATA * ch, OBJ_INDEX_DATA * pObj, int value_num, char *
                     pObj->value[0] = atoi(argument);
                     break;
             }
+            break;
+        case ITEM_SEED:
+            switch (value_num)
+            {
+                default:
+                    send_to_char("Nature System:  Grow Seed.\r\n", ch);
+                    return FALSE;
+                case 0:
+                    send_to_char( "Vnum of object to grow SET.\r\n\r\n", ch);
+                    pObj->value[0] = atoi(argument);
+                    break;
+                case 1:
+                    send_to_char( "Bonus for growing SET.\r\n\r\n", ch);
+                    pObj->value[1] = atoi(argument);
+                    break;
+            }
+
             break;
         case ITEM_PORTAL:
             switch (value_num)
@@ -6687,6 +6713,37 @@ CEDIT(cedit_isreclass)
 
 }
 
+CEDIT(cedit_isenabled)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument, "true"))
+    {
+        class->is_enabled = TRUE;
+    }
+    else if (!str_prefix(argument, "false"))
+    {
+        class->is_enabled = FALSE;
+    }
+    else
+    {
+        send_to_char("Syntax:  isenabled [TRUE/FALSE]\r\n", ch);
+        return FALSE;
+    }
+
+    send_to_char("Enabled flag set.\r\n", ch);
+    return TRUE;
+
+}
+
 // We don't support moons yet but we will and it will look like this, just
 // like the mana flag
 /*CEDIT( cedit_moon )
@@ -6864,6 +6921,8 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
+    send_to_char(buf, ch);
+    sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);
@@ -7347,6 +7406,8 @@ SEDIT(sedit_show)
         send_to_char(buf, ch);
     }
 
+    sprintf(buf, "Ranged:       [%s]\n\r", skill->ranged ? "True" : "False");
+    send_to_char(buf, ch);
 
     send_to_char("\r\nClass         Level  Rating  Class         Level  Rating\r\n", ch);
     send_to_char("--------------------------------------------------------\r\n", ch);
@@ -7649,7 +7710,7 @@ SEDIT(sedit_rating)
     }
 
     for (class_no = 0; class_no < top_class; class_no++)
-        if (!str_cmp(class_name, class_table[class_no]->name))
+        if (!str_prefix(class_name, class_table[class_no]->name))
             break;
 
     if (class_no >= top_class)
@@ -7683,3 +7744,30 @@ SEDIT(sedit_race)
     return TRUE;
 }
 
+SEDIT( sedit_ranged)
+{
+    SKILLTYPE *skill;
+    EDIT_SKILL(ch, skill);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  ranged [true/false]\r\n", ch);
+        return FALSE;
+    }
+
+    if (!str_prefix(argument,"true"))
+    {
+        skill->ranged = TRUE;
+    }
+    else if (!str_prefix(argument,"false"))
+    {
+        skill->ranged = FALSE;
+    }
+    else
+    {
+        send_to_char( "Syntax:  ranged [true/false]\r\n", ch );
+        return FALSE;
+    }
+
+    return TRUE;
+}

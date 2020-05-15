@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -38,19 +38,6 @@
 SKILLTYPE *             skill_table[MAX_SKILL];
 GROUPTYPE *             group_table[MAX_GROUP];
 CLASSTYPE *             class_table[MAX_CLASS];
-
-/* for clans */
-const struct clan_type clan_table[MAX_CLAN] = {
-    /*  name, who entry, death-transfer room, independent */
-    /* independent should be FALSE if is a real clan */
-    { "",           "",                      ROOM_VNUM_ALTAR, TRUE },
-    { "loner",      "[ {WLoner{x ] ",        ROOM_VNUM_ALTAR, TRUE },
-    { "renegade",   "[ {WRenegade{x ] ",     ROOM_VNUM_ALTAR, TRUE },
-    { "midgaard",   "[ {BMidgaard{x ] ",     ROOM_VNUM_ALTAR, FALSE },
-    { "newthalos",  "[ {cNew Thalos{x ] ",   ROOM_VNUM_ALTAR, FALSE },
-    { "redoakarmy", "[ {RRed Oak Army{x ] ", ROOM_VNUM_ALTAR, FALSE },
-    { "cult",       "[ {DCult{x ] ",         ROOM_VNUM_ALTAR, FALSE }
-};
 
 /* for position */
 const struct position_type position_table[] = {
@@ -99,6 +86,7 @@ const struct flag_type act_flags[] = {
     {"pet",            I, TRUE},
     {"train",          J, TRUE},
     {"practice",       K, TRUE},
+    {"banker",         L, TRUE},
     {"undead",         O, TRUE},
     {"cleric",         Q, TRUE},
     {"mage",           R, TRUE},
@@ -108,6 +96,7 @@ const struct flag_type act_flags[] = {
     {"nopurge",        V, TRUE},
     {"outdoors",       W, TRUE},
     {"indoors",        Y, TRUE},
+    {"scribe",         Z, TRUE},
     {"healer",        aa, TRUE},
     {"gain",          bb, TRUE},
     {"update_always", cc, TRUE},
@@ -327,6 +316,9 @@ const struct flag_type area_flags[] = {
     {"changed", AREA_CHANGED, TRUE},
     {"added", AREA_ADDED, TRUE},
     {"loading", AREA_LOADING, FALSE},
+    {"norecall", AREA_NO_RECALL, TRUE},
+    {"nosummon", AREA_NO_SUMMON, TRUE},
+    {"nogate", AREA_NO_GATE, TRUE},
     {NULL, 0, 0}
 };
 
@@ -437,6 +429,8 @@ const struct flag_type type_flags[] = {
     {"jewelry", ITEM_JEWELRY, TRUE},
     {"shovel", ITEM_SHOVEL, TRUE},
     {"fog", ITEM_FOG, TRUE},
+    {"parchment", ITEM_PARCHMENT, TRUE},
+    {"seed", ITEM_SEED, TRUE},
     {NULL, 0, 0}
 };
 
@@ -519,11 +513,6 @@ const struct flag_type apply_flags[] = {
     {"hitroll", APPLY_HITROLL, TRUE},
     {"damroll", APPLY_DAMROLL, TRUE},
     {"saves", APPLY_SAVES, TRUE},
-    {"savingpara", APPLY_SAVING_PARA, TRUE},
-    {"savingrod", APPLY_SAVING_ROD, TRUE},
-    {"savingpetri", APPLY_SAVING_PETRI, TRUE},
-    {"savingbreath", APPLY_SAVING_BREATH, TRUE},
-    {"savingspell", APPLY_SAVING_SPELL, TRUE},
     {"spellaffect", APPLY_SPELL_AFFECT, FALSE},
     {NULL, 0, 0}
 };
@@ -641,6 +630,8 @@ const struct flag_type weapon_type2[] = {
     {"twohands", WEAPON_TWO_HANDS, TRUE},
     {"shocking", WEAPON_SHOCKING, TRUE},
     {"poison", WEAPON_POISON, TRUE},
+    {"leech", WEAPON_LEECH, TRUE},
+    {"stun", WEAPON_STUN, TRUE},
     {NULL, 0, 0}
 };
 

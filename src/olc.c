@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Crimson Skies (CS-Mud) copyright (C) 1998-2016 by Blake Pell (Rhien)   *
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
  ***************************************************************************
  *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
  *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
@@ -263,7 +263,6 @@ const struct olc_cmd_type aedit_table[] = {
     { "create", aedit_create },
     { "filename", aedit_file },
     { "name", aedit_name },
-    /*  {   "recall",    aedit_recall    },   ROM OLC */
     { "reset", aedit_reset },
     { "security", aedit_security },
     { "show", aedit_show },
@@ -356,6 +355,7 @@ const struct olc_cmd_type cedit_table[] =
     {   "basegroup",    cedit_basegroup },
     {   "defgroup",     cedit_defgroup  },
     {   "isreclass",    cedit_isreclass },
+    {   "isenabled",    cedit_isenabled },
     {   "skills",       cedit_skills  	},
     {   "spells",       cedit_spells  	},
     {   "groups",       cedit_groups  	},
@@ -380,6 +380,7 @@ const struct olc_cmd_type sedit_table[] =
     {   "show",         sedit_show      },
     {   "race",         sedit_race      },
     {   "damage",       sedit_damage    },
+    {   "ranged",       sedit_ranged    },
     {   "?",            show_help       },
     {   "",             0,              }
 };
