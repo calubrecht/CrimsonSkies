@@ -189,7 +189,7 @@ void do_bash(CHAR_DATA * ch, char *argument)
         return;
 
     if (IS_NPC(victim) &&
-        victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+        victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
@@ -476,7 +476,7 @@ void do_rescue(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!IS_NPC(ch) && IS_NPC(victim))
+    if (!IS_NPC(ch) && IS_NPC(victim) && (victim->fighting == NULL || !IS_NPC(victim->fighting)))
     {
         send_to_char("Doesn't need your help!\r\n", ch);
         return;
@@ -494,7 +494,7 @@ void do_rescue(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (IS_NPC(fch) && !is_same_group(ch, victim))
+    if (IS_NPC(fch) && !(is_same_group(ch, victim) || IS_NPC(victim)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
