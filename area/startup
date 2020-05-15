@@ -3,7 +3,7 @@
 # With additions from Tony and Alander.
 
 # Set the port number.
-
+umask 007
 set port = 4000
 if ( "$1" != "" ) set port="$1"
 
