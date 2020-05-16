@@ -22,7 +22,7 @@
 
 /***************************************************************************
  *                                                                         *
- *  Name Generator (Written 12/16/1999, Last Updated 01/05/2017            *
+ *  Name Generator (Written 12/16/1999, Last Updated 04/18/2017)           *
  *                                                                         *
  *  This code will generate mostly good names.  Instead of writing a       *
  *  method that attempts to create the name parts I have included a mass   *
@@ -132,7 +132,7 @@ void init_name_parts()
     max_name_part = max_name_part - 1;
 
     log_f("STATUS: Initializing Random Name Table Count - %d entries (%s maximum possibilities)",
-        max_name_part, num_punct(max_name_part * max_name_part));
+    max_name_part, num_punct(max_name_part * max_name_part));
 
     // This would need to be be commented out or removed if moving this code to another mud.
     if (global.last_boot_result == UNKNOWN)
@@ -146,7 +146,6 @@ void init_name_parts()
  */
 void do_random_names(CHAR_DATA * ch, char *argument)
 {
-    char buf[MAX_STRING_LENGTH];
     int row = 0;
     int col = 0;
 
@@ -156,11 +155,10 @@ void do_random_names(CHAR_DATA * ch, char *argument)
         // separate calls.
         for (col = 0; col < 5; col++)
         {
-            sprintf(buf, "%-16s", generate_random_name());
-            send_to_char(buf, ch);
+            sendf(ch, "%-16s", generate_random_name());
         }
 
-        send_to_char("\r\n", ch);
+        sendf(ch, "\r\n");
     }
 
     return;
@@ -868,5 +866,86 @@ const struct name_part_type name_part_table[] = {
         {"Oruv", "umo"},
         {"Jyl", "dray"},
         {"Jael", "ek"},
+        {"Dra", "lles"},
+        {"Drag", "reya"},
+        {"Drak", "atis"},
+        {"Rai", "je"},
+        {"Turp", "ifer"},
+        {"Necru", "inin"},
+        {"Thana", "aelynn"},
+        {"Gann", "uine"},
+        {"Thra", "hio"},
+        {"Seri", "phyril"},
+        {"Nic", "esan"},
+        {"Akar", "rog"},
+        {"Azer", "ola"},
+        {"Grim", "ixis"},
+        {"Gav", "aria"},
+        {"Bal", "myl"},
+        {"Taer", "ntym"},
+        {"Rias", "tus"},
+        {"Xol", "ollo"},
+        {"Lei", "torex"},
+        {"Bok", "nog"},
+        {"Hiph", "estus"},
+        {"Jyx", "leia"},
+        {"Anca", "adar"},
+        {"Anne", "mari"},
+        {"Dala", "uil"},
+        {"Asan", "onne"},
+        {"Div", "orak"},
+        {"Dron", "och"},
+        {"Har", "chon"},
+        {"Irae", "yna"},
+        {"Ira", "idan"},
+        {"Kend", "iren"},
+        {"Lag", "orine"},
+        {"Las", "adoria"},
+        {"Maud", "thys"},
+        {"Kher", "ajen"},
+        {"Ise", "kari"},
+        {"Jaus", "taren"},
+        {"Guat", "horal"},
+        {"Delu", "scius"},
+        {"Deri", "shi"},
+        {"Clin", "denn"},
+        {"Naza", "wn"},
+        {"Nara", "belle"},
+        {"Neth", "thael"},
+        {"Opith", "ochi"},
+        {"Gua", "oran"},
+        {"Aeth", "anea"},
+        {"Joss", "aryne"},
+        {"Ous", "obos"},
+        {"Thren", "ibis"},
+        {"Ru", "drim"},
+        {"Rhea", "drem"},
+        {"Pyth", "dram"},
+        {"Pith", "drek"},
+        {"Broll", "gam"},
+        {"Ciaph", "bine"},
+        {"Balin", "maar"},
+        {"Brea", "inik"},
+        {"Ciat", "inic"},
+        {"Hart", "iael"},
+        {"Izzi", "sar"},
+        {"Maes", "ater"},
+        {"Meis", "atar"},
+        {"Narth", "itir"},
+        {"Kyrl", "mira"},
+        {"Saer", "mara"},
+        {"Bran", "ovar"},
+        {"Daeg", "agor"},
+        {"Arga", "ezrin"},
+        {"Belin", "dae"},
+        {"Seles", "grim"},
+        {"Sael", "syn"},
+        {"Rhaul", "stia"},
+        {"Sav", "elly"},
+        {"Thz", "bor"},
+        {"Vaeli", "cena"},
+        {"Vlad", "myr"},
+        {"Hiem", "essa"},
+        {"Sach", "assa"},
         {NULL, NULL}
 };

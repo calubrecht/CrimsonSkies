@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -50,6 +50,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>1000000</StackReserveSize>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)\area\*.*" "$(SolutionDir)$(Configuration)\"</Command>
@@ -73,12 +74,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\class_barbarian.c" />
     <ClCompile Include="src\class_cleric.c" />
     <ClCompile Include="src\class_mage.c" />
     <ClCompile Include="src\class_priest.c" />
     <ClCompile Include="src\class_psionicist.c" />
     <ClCompile Include="src\class_thief.c" />
     <ClCompile Include="src\class_warrior.c" />
+    <ClCompile Include="src\language.c" />
     <ClCompile Include="src\gsn.c" />
     <ClCompile Include="src\act_comm.c" />
     <ClCompile Include="src\act_info.c" />
@@ -92,7 +95,6 @@
     <ClCompile Include="src\class_bladesinger.c" />
     <ClCompile Include="src\clan.c" />
     <ClCompile Include="src\comm.c" />
-    <ClCompile Include="src\const.c" />
     <ClCompile Include="src\db.c" />
     <ClCompile Include="src\db_export.c" />
     <ClCompile Include="src\disable.c" />
@@ -111,6 +113,7 @@
     <ClCompile Include="src\lookup.c" />
     <ClCompile Include="src\magic.c" />
     <ClCompile Include="src\map.c" />
+    <ClCompile Include="src\merit.c" />
     <ClCompile Include="src\misc.c" />
     <ClCompile Include="src\mob_cmds.c" />
     <ClCompile Include="src\mob_prog.c" />
@@ -175,14 +178,20 @@
     <None Include="area\draconia.are" />
     <None Include="area\dream.are" />
     <None Include="area\drow.are" />
+    <None Include="area\dungeon.are" />
     <None Include="area\dwarven.are" />
     <None Include="area\clouds.are" />
     <None Include="area\eastern.are" />
     <None Include="area\galaxy.are" />
     <None Include="area\gnome.are" />
     <None Include="area\grave.are" />
+    <None Include="area\gray-mountains.are" />
     <None Include="area\grove.are" />
+    <None Include="area\hall-sylvan.are" />
+    <None Include="area\hall-warhammer.are" />
     <None Include="area\haon.are" />
+    <None Include="area\help-dict.are" />
+    <None Include="area\help-mud.are" />
     <None Include="area\help.are" />
     <None Include="area\hitower.are" />
     <None Include="area\hood.are" />
@@ -221,6 +230,7 @@
     <None Include="area\proto.are" />
     <None Include="area\pyramid.are" />
     <None Include="area\redferne.are" />
+    <None Include="area\redoak.are" />
     <None Include="area\school.are" />
     <None Include="area\seacastle.are" />
     <None Include="area\sewer.are" />
@@ -235,6 +245,7 @@
     <None Include="area\valley.are" />
     <None Include="area\warlock-keep.are" />
     <None Include="area\wyvern.are" />
+    <None Include="classes\barbarian.class" />
     <None Include="classes\bladesinger.class" />
     <None Include="classes\class.lst" />
     <None Include="classes\cleric.class" />
@@ -242,20 +253,21 @@
     <None Include="classes\groups.dat" />
     <None Include="classes\healer.class" />
     <None Include="classes\mage.class" />
+    <None Include="classes\priest.class" />
+    <None Include="classes\psionicist.class" />
     <None Include="classes\ranger.class" />
+    <None Include="classes\rogue.class" />
     <None Include="classes\skills.dat" />
     <None Include="classes\thief.class" />
     <None Include="classes\warrior.class" />
+    <None Include="doc\area-directions.md" />
     <None Include="doc\changes.olc" />
     <None Include="doc\historical\telnet.html" />
     <None Include="doc\historical\license.doc" />
     <None Include="doc\index.md" />
-    <None Include="doc\MPDocs\examples.doc" />
-    <None Include="doc\MPDocs\hacker.doc" />
-    <None Include="doc\MPDocs\howto" />
+    <None Include="doc\mob-prog-implementation.md" />
+    <None Include="doc\mob-prog.md" />
     <None Include="doc\MPDocs\mobprog.doc" />
-    <None Include="doc\MPDocs\readme" />
-    <None Include="doc\MPDocs\surrender.hlp" />
     <None Include="doc\historical\README.merc" />
     <None Include="doc\README.quickmud" />
     <None Include="doc\README.rom" />
@@ -264,6 +276,7 @@
     <None Include="doc\historical\Rom2.4.doc" />
     <None Include="doc\setup-linux-raspbian.md" />
     <None Include="doc\setup-linux-ubuntu.md" />
+    <None Include="doc\setup-windows.md" />
     <None Include="doc\supported-operating-systems.md" />
     <None Include="README.md" />
     <None Include="src\Makefile" />
@@ -286,7 +299,7 @@
     <Text Include="doc\historical\hacker.txt" />
     <Text Include="doc\historical\license.txt" />
     <Text Include="doc\historical\memory.txt" />
-    <Text Include="doc\MPDocs\new_readme.txt" />
+    <Text Include="doc\mob-prog-examples.md" />
     <Text Include="doc\historical\pfile.txt" />
     <Text Include="doc\port.txt" />
     <Text Include="doc\historical\security.txt" />
@@ -295,7 +308,6 @@
     <Text Include="doc\sky.txt" />
     <Text Include="doc\historical\trad.txt" />
     <Text Include="doc\historical\vnum.txt" />
-    <Text Include="doc\historical\WindowsSupport.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

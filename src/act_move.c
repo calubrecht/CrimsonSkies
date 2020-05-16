@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include "merc.h"
 #include "interp.h"
+#include "tables.h"
 
 // The supported directions, there are corresponding DIR_* constants that are in merc.h that are in the 
 // same order as this.
@@ -115,6 +116,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
     {
         int iGuild;
         int move;
+        bool water_walk = FALSE;
 
         // Is it a guild room?  If so, see if they can go in.
         if (IS_SET(to_room->room_flags, ROOM_GUILD))
@@ -147,6 +149,14 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             }
         }
 
+        // Ocean, see if they have water walk on.
+        if (in_room->sector_type == SECT_WATER_NOSWIM
+            || to_room->sector_type == SECT_WATER_NOSWIM
+            || to_room->sector_type == SECT_OCEAN)
+        {
+            water_walk = is_affected(ch, gsn_water_walk);
+        }
+
         // Water or ocean.. although we let people swim now with a skill, so
         // the no swim only makes it a requirement that they have swim.
         if ((in_room->sector_type == SECT_WATER_NOSWIM
@@ -161,9 +171,11 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
              */
             found = has_item_type(ch, ITEM_BOAT);
 
-            // Immortal gets a courtesy boat.
-            if (IS_IMMORTAL(ch))
+            // Immortal gets a courtesy boat, so do those with the water walk spell on.
+            if (IS_IMMORTAL(ch) || water_walk)
+            {
                 found = TRUE;
+            }
 
             // Check swim skill, this should be the last one as we're going to deal
             // some damage and return out at this point if none of the other cases
@@ -196,13 +208,13 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
             }
         }
 
-        move = movement_loss[UMIN(SECT_MAX - 1, in_room->sector_type)]
-            + movement_loss[UMIN(SECT_MAX - 1, to_room->sector_type)];
+        move = movement_loss[UMIN(SECT_MAX - 1, in_room->sector_type)] + movement_loss[UMIN(SECT_MAX - 1, to_room->sector_type)];
+        move /= 2;
 
-        move /= 2;                /* i.e. the average */
-
-        // Immortals don't lose movement
-        if (IS_IMMORTAL(ch))
+        // Immortals don't lose movement, also, players on water with the water walk
+        // spell on don't lose movement (water walk will only be true if they're on
+        // water somewhere and have the spell on).
+        if (IS_IMMORTAL(ch) || water_walk)
             move = 0;
 
         /* conditional effects */
@@ -211,6 +223,12 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
 
         if (IS_AFFECTED(ch, AFF_SLOW))
             move *= 2;
+
+        // Merit - Light Footed, 25% chance of a 20% movement reduction cost
+        if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_LIGHT_FOOTED && CHANCE(25)))
+        {
+            move = (move * 8) / 10;
+        }
 
         if (ch->move < move)
         {
@@ -225,7 +243,7 @@ void move_char(CHAR_DATA * ch, int door, bool follow)
         if (in_room->sector_type == SECT_OCEAN && !IS_IMMORTAL(ch))
         {
             // Ocean Lag, Phew
-            WAIT_STATE(ch, 6);
+            WAIT_STATE(ch, 12);
         }
         else
         {
@@ -1648,6 +1666,12 @@ void do_wake(CHAR_DATA * ch, char *argument)
     return;
 } // end do_wake
 
+/*
+ * Skill that allows the player to walk quietly so others don't see them enter
+ * or exit a room, also hides them from players without acute vision or who don't
+ * have their detect spells up.  This is a skill, but people who have the light
+ * footed merit also have access to it.
+ */
 void do_sneak(CHAR_DATA * ch, char *argument)
 {
     AFFECT_DATA af;
@@ -1660,7 +1684,14 @@ void do_sneak(CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (number_percent() < get_skill(ch, gsn_sneak))
+    bool light_footed = FALSE;
+
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_LIGHT_FOOTED))
+    {
+        light_footed = TRUE;
+    }
+
+    if ((number_percent() < get_skill(ch, gsn_sneak)) || light_footed)
     {
         check_improve(ch, gsn_sneak, TRUE, 3);
         af.where = TO_AFFECTS;
@@ -1861,6 +1892,20 @@ void do_bind(CHAR_DATA * ch, char *argument)
     // be done without a bind stone in the room.
     if (!IS_NULLSTR(argument) && (!str_cmp(argument, "reset")))
     {
+        // If they're in a clan, reset them to their clan's recall, otherwise, use the temple.
+        if (is_clan(ch))
+        {
+            ROOM_INDEX_DATA *location;
+
+            // Make sure the recall point is valid, then set it.
+            if ((location = get_room_index(clan_table[ch->clan].recall_vnum)) != NULL)
+            {
+                ch->pcdata->recall_vnum = clan_table[ch->clan].recall_vnum;
+                sendf(ch, "Your recall point has been reset to {c%s{x in {c%s{x.\r\n", location->name, location->area->name);
+                return;
+            }
+        }
+
         ch->pcdata->recall_vnum = ROOM_VNUM_TEMPLE;
         send_to_char("Your recall point has been reset.\r\n", ch);
         return;
@@ -1879,6 +1924,9 @@ void do_bind(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // This looks for objects with the keyword bindstone in the keywords, fear not though, we will
+    // actually check it to make sure it's the bindstone vnum as to prevent hacks from things like
+    // parchments being named with this in the keywords.
     obj = get_obj_list(ch, "bindstone", ch->in_room->contents);
 
     if (obj == NULL || obj->pIndexData == NULL || obj->pIndexData->vnum != OBJ_VNUM_BIND_STONE)
@@ -1895,6 +1943,9 @@ void do_bind(CHAR_DATA * ch, char *argument)
     return;
 }
 
+/*
+ * The ability to train a stat, health, mana or movement.
+ */
 void do_train(CHAR_DATA * ch, char *argument)
 {
     char buf[MAX_STRING_LENGTH];
@@ -1903,16 +1954,19 @@ void do_train(CHAR_DATA * ch, char *argument)
     char *pOutput = NULL;
     int cost;
 
+    // Must be a player to train
     if (IS_NPC(ch))
+    {
         return;
+    }
 
-    /*
-     * Check for trainer.
-     */
+    // Check for a trainer.
     for (mob = ch->in_room->people; mob; mob = mob->next_in_room)
     {
         if (IS_NPC(mob) && IS_SET(mob->act, ACT_TRAIN))
+        {
             break;
+        }
     }
 
     if (mob == NULL)
@@ -1932,81 +1986,66 @@ void do_train(CHAR_DATA * ch, char *argument)
 
     if (!str_cmp(argument, "str"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_STR)
-            cost = 1;
         stat = STAT_STR;
         pOutput = "strength";
     }
-
     else if (!str_cmp(argument, "int"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_INT)
-            cost = 1;
         stat = STAT_INT;
         pOutput = "intelligence";
     }
-
     else if (!str_cmp(argument, "wis"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_WIS)
-            cost = 1;
         stat = STAT_WIS;
         pOutput = "wisdom";
     }
-
     else if (!str_cmp(argument, "dex"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_DEX)
-            cost = 1;
         stat = STAT_DEX;
         pOutput = "dexterity";
     }
 
     else if (!str_cmp(argument, "con"))
     {
-        if (class_table[ch->class]->attr_prime == STAT_CON)
-            cost = 1;
         stat = STAT_CON;
         pOutput = "constitution";
     }
-
     else if (!str_cmp(argument, "hp"))
+    {
         cost = 1;
-
+    }
     else if (!str_cmp(argument, "mana"))
+    {
         cost = 1;
-
+    }
     else
     {
         strcpy(buf, "You can train:");
+
         if (ch->perm_stat[STAT_STR] < get_max_train(ch, STAT_STR))
+        {
             strcat(buf, " str");
+        }
         if (ch->perm_stat[STAT_INT] < get_max_train(ch, STAT_INT))
+        {
             strcat(buf, " int");
+        }
         if (ch->perm_stat[STAT_WIS] < get_max_train(ch, STAT_WIS))
+        {
             strcat(buf, " wis");
+        }
         if (ch->perm_stat[STAT_DEX] < get_max_train(ch, STAT_DEX))
+        {
             strcat(buf, " dex");
+        }
         if (ch->perm_stat[STAT_CON] < get_max_train(ch, STAT_CON))
+        {
             strcat(buf, " con");
-        strcat(buf, " hp mana");
-
-        if (buf[strlen(buf) - 1] != ':')
-        {
-            strcat(buf, ".\r\n");
-            send_to_char(buf, ch);
-        }
-        else
-        {
-            /*
-             * This message dedicated to Jordan ... you big stud!
-             */
-            act("You have nothing left to train, you $T!",
-                ch, NULL,
-                ch->sex == SEX_MALE ? "big stud" :
-                ch->sex == SEX_FEMALE ? "hot babe" : "wild thing", TO_CHAR);
         }
 
+        // hp and mana are always available to train as long as trains exist.
+        strcat(buf, " hp mana\r\n");
+        send_to_char(buf, ch);
         return;
     }
 
@@ -2044,21 +2083,25 @@ void do_train(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    // Make sure they are not going over the maximum amount of the stat for
+    // their race/class (with any special modifiers as defined in get_max_train).
     if (ch->perm_stat[stat] >= get_max_train(ch, stat))
     {
         act("Your $T is already at maximum.", ch, NULL, pOutput, TO_CHAR);
         return;
     }
 
+    // Check that they have enough trains
     if (cost > ch->train)
     {
         send_to_char("You don't have enough training sessions.\r\n", ch);
         return;
     }
 
+    // Deduct the train, up the stat.
     ch->train -= cost;
-
     ch->perm_stat[stat] += 1;
+
     act("Your $T increases!", ch, NULL, pOutput, TO_CHAR);
     act("$n's $T increases!", ch, NULL, pOutput, TO_ROOM);
     return;

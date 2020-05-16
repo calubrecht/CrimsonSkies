@@ -2961,7 +2961,7 @@ void do_memory(CHAR_DATA * ch, char *argument)
         // Read the output a line at a time and send it to the caller.
         while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
         {
-            printf_to_char(ch, "%s", buf);
+            sendf(ch, "%s", buf);
 
             // This is a little hacky, but the input from the system call only has a newline
             // where some clients need a newline and a carriage return in order to consistently
@@ -3973,6 +3973,9 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
+
+                KEY("Clan", class->clan, clan_lookup(fread_string(fp)));
+
                 break;
             case 'D':
                 KEY("DefGroup", class->default_group, str_dup(fread_word(fp)));
@@ -4042,7 +4045,7 @@ bool load_class(char *fname)
                     fMatch = TRUE;
                     break;
                 }
-                KEY("Mana", class->fMana, fread_number(fp));
+                KEY("Mana", class->mana, fread_number(fp));
                 break;
             case 'N':
                 KEY("Name", class->name, fread_string(fp));

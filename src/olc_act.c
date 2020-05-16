@@ -1192,7 +1192,7 @@ REDIT(redit_show)
     if (pRoom->clan > 0)
     {
         sprintf(buf, "Clan      : [%d] %s\r\n",
-            pRoom->clan, clan_table[pRoom->clan].name);
+            pRoom->clan, clan_table[pRoom->clan].friendly_name);
         strcat(buf1, buf);
     }
 
@@ -5564,7 +5564,7 @@ HEDIT(hedit_level)
 
     if (lev < -1 || lev > MAX_LEVEL)
     {
-        printf_to_char(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
+        sendf(ch, "HEdit : levels are between -1 and %d inclusive.\r\n",
             MAX_LEVEL);
         return FALSE;
     }
@@ -6489,6 +6489,33 @@ CEDIT(cedit_name)
     return TRUE;
 }
 
+CEDIT(cedit_clan)
+{
+    CLASSTYPE *class;
+
+    EDIT_CLASS(ch, class);
+
+    if (argument[0] == '\0')
+    {
+        send_to_char("Syntax:  clan [clan name]\r\n", ch);
+        return FALSE;
+    }
+
+    class->clan = clan_lookup(argument);
+
+    if (class->clan == 0)
+    {
+        send_to_char("Clan cleared.\r\n", ch);
+    }
+    else
+    {
+        send_to_char("Clan set.\r\n", ch);
+    }
+
+    return TRUE;
+}
+
+
 CEDIT(cedit_whoname)
 {
     CLASSTYPE *class;
@@ -6666,11 +6693,11 @@ CEDIT(cedit_mana)
 
     if (!str_prefix(argument, "true"))
     {
-        class->fMana = TRUE;
+        class->mana = TRUE;
     }
     else if (!str_prefix(argument, "false"))
     {
-        class->fMana = FALSE;
+        class->mana = FALSE;
     }
     else
     {
@@ -6917,13 +6944,24 @@ CEDIT(cedit_show)
     send_to_char(buf, ch);
     sprintf(buf, "HP Max:        [%d]\r\n", class->hp_max);
     send_to_char(buf, ch);
-    sprintf(buf, "Mana:          [%s]\r\n", class->fMana ? "True" : "False");
+    sprintf(buf, "Mana:          [%s]\r\n", class->mana ? "True" : "False");
     send_to_char(buf, ch);
     //sprintf(buf, "Moon:          [%s]\r\n",class->fMoon ? "True" : "False");
     sprintf(buf, "Is Reclass:    [%s]\r\n", class->is_reclass ? "True" : "False");
     send_to_char(buf, ch);
     sprintf(buf, "Is Enabled:    [%s]\r\n", class->is_enabled ? "True" : "False");
     send_to_char(buf, ch);
+
+    if (class->clan > 0)
+    {
+        sprintf(buf, "Clan Specific: [%s]\r\n", clan_table[class->clan].friendly_name);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        send_to_char("Clan Specific: [None]\r\n", ch);
+    }
+
     sprintf(buf, "Base Group:    [%s]\r\n", class->base_group);
     send_to_char(buf, ch);
     sprintf(buf, "Default Group: [%s]\r\n", class->default_group);
@@ -6970,6 +7008,7 @@ CEDIT(cedit_guild)
     char arg1[MAX_STRING_LENGTH];
     char arg2[MAX_STRING_LENGTH];
     int num, vnum;
+    ROOM_INDEX_DATA *room;
 
     EDIT_CLASS(ch, class);
 
@@ -6982,9 +7021,9 @@ CEDIT(cedit_guild)
     argument = one_argument(argument, arg1);
     argument = one_argument(argument, arg2);
     num = atoi(arg1);
-    vnum = atoi(arg1);
+    vnum = atoi(arg2);
 
-    if (!is_number(arg1) || !is_number(arg2) == '\0')
+    if (!is_number(arg1) || !is_number(arg2))
     {
         send_to_char("Syntax:  guild [#] Room_Vnum\r\n", ch);
         return FALSE;
@@ -6996,7 +7035,22 @@ CEDIT(cedit_guild)
         return FALSE;
     }
 
+    if (vnum > top_vnum_room)
+    {
+        send_to_char("That is a greater vnum than any existing room.\r\n", ch);
+        return FALSE;
+    }
+
+
+    if ((room = get_room_index(vnum)) == NULL)
+    {
+        send_to_char("That is an invalid room.\r\n", ch);
+        return FALSE;
+    }
+
     class->guild[num] = vnum;
+
+    sendf(ch, "Guild slot %d set to {c%s{x [Room %d].\r\n", num, room->name, vnum);
 
     return TRUE;
 }

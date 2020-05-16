@@ -6,7 +6,6 @@ Crimson Skies is an open source MUD starting from ROM 2.4b6.  Useful features fr
 keeping the feel of play that the Diku->Merc->Rom family of muds has brought the community over the years.
 
   - [CS-Mud Documentation and Tutorials](./doc/index.md)
-  - Development Game Server Address:  66.244.102.112, Port 4000
 
 If you would like to contribute areas, code, etc. feel free to contact me and/or issue a pull request when you're
 contribution is complete.  If you have found a bug, file an issue here with details or steps to recreate so I can 
@@ -31,7 +30,7 @@ provide new documentation and archive old documentation as I can find it.  The b
 old resource was the rom mailing list but alas it does not exist at it's old locations
 which were at:
 
-  - [http://www.the-infinite.org/lists/romlist](http://www.the-infinite.org/lists/romlist)
+  - [https://www.mail-archive.com/search?l=rom@rom.org](https://www.mail-archive.com/search?l=rom@rom.org)
 
 Here are some related resources that are thanksfully still active.
 
@@ -42,8 +41,9 @@ Here are some related resources that are thanksfully still active.
 
 ## License 
 
-I have no specific license for my code at this time, but as this is a ROM/Merc/Diku deritivate it must 
-adhear to the licenses set before it from those code bases.  
+As this is a ROM/Merc/Diku deritivate it must adhear to the licenses set before it from those code bases.  I
+request that you leave any attributions on the login screen as the credits refer to the Diku lineage (including
+mine).  The credits menu should provide ample space should you keep the menu system.
 
 ## Contact Me
 

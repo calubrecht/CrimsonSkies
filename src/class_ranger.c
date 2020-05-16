@@ -41,6 +41,7 @@
  *    - Quiet Movement                                                     *
  *    - Camp                                                               *
  *    - Camouflage                                                         *
+ *    - Survey Terrain                                                     *
  *    - Track (hunt.c)                                                     *
  *                                                                         *
  ***************************************************************************/
@@ -663,7 +664,7 @@ void do_ambush(CHAR_DATA *ch, char *argument)
         return;
     }
 
-    if (IS_NPC(victim) && victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+    if (IS_NPC(victim) && victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
@@ -739,7 +740,7 @@ void do_find_water(CHAR_DATA *ch, char *argument)
     OBJ_DATA *spring;
 
     // Check if they have the skill
-    if (get_skill(ch,gsn_find_water) == 0
+    if (get_skill(ch, gsn_find_water) == 0
         ||(!IS_NPC(ch)
         && ch->level < skill_table[gsn_find_water]->skill_level[ch->class]))
     {

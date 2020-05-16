@@ -64,7 +64,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     // No experience if the person is charmed or they are in the arena.
     if (IS_SET(gch->affected_by, AFF_CHARM)
         || IS_SET(gch->in_room->room_flags, ROOM_ARENA))
+    {
         return 0;
+    }
 
     xp = 0;
     level_range = victim->level - gch->level;
@@ -122,7 +124,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     // If level range is greater than 4 between player and victim then
     // give them a sliding bonus
     if (level_range > 4)
+    {
         base_exp = 160 + 20 * (level_range - 4);
+    }
 
     // Instead adding up the base, going to create slight increase here
     // that can be tweaked as needed.
@@ -165,22 +169,29 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
 
     /* more exp at the low levels */
     if (gch->level < 6)
+    {
         xp = 10 * xp / (gch->level + 4);
+    }
 
     /* less at high */
     if (gch->level > 43)
+    {
         xp = 15 * xp / (gch->level - 25);
+    }
 
-    /* reduce for playing time */
+    /* reduce for playing time if the game setting for this is toggled on */
+    if (settings.hours_affect_exp)
     {
         /* compute quarter-hours per level */
-        time_per_level = 4 *
-            (gch->played + (int)(current_time - gch->logon)) / 3600
-            / gch->level;
-
+        time_per_level = 4 * hours_played(gch) / gch->level;
         time_per_level = URANGE(2, time_per_level, 12);
-        if (gch->level < 15)    /* make it a curve */
+
+        /* make it a curve */
+        if (gch->level < 15)
+        {
             time_per_level = UMAX(time_per_level, (15 - gch->level));
+        }
+
         xp = xp * time_per_level / 12;
     }
 
@@ -189,7 +200,9 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     if ((gch->class == RANGER_CLASS_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
         || (gch->race == ELF_RACE_LOOKUP && gch->in_room->sector_type == SECT_FOREST)
         || (gch->race == DWARF_RACE_LOOKUP && gch->in_room->sector_type == SECT_MOUNTAIN))
+    {
         xp = xp * 20 / 19;
+    }
 
     /* randomize the rewards */
     xp = number_range(xp * 3 / 4, xp * 5 / 4);
@@ -201,9 +214,12 @@ int xp_compute(CHAR_DATA * gch, CHAR_DATA * victim, int total_levels)
     xp = (xp * (100 + (get_curr_stat(gch, STAT_INT) * 4))) / 100;
 
     // Double experience bonus (this must be the last check to truly double
-    // the calculation.
-    if (settings.double_exp)
+    // the calculation.  Also, people with the fast learner merit get this all
+    // the time (they don't get double the double experience however)
+    if (settings.double_exp || (!IS_NPC(gch) && IS_SET(gch->pcdata->merit, MERIT_FAST_LEARNER)))
+    {
         xp *= 2;
+    }
 
     return xp;
 }
@@ -354,11 +370,21 @@ void advance_level(CHAR_DATA * ch, bool hide)
         + get_curr_stat(ch, STAT_WIS)) / 5);
 
     // Not a magic type class (e.g. mage or cleric or their tree of reclasses)
-    if (!class_table[ch->class]->fMana)
+    if (!class_table[ch->class]->mana)
+    {
         add_mana /= 2;
+    }
 
     add_move = number_range(1, (get_curr_stat(ch, STAT_CON) + get_curr_stat(ch, STAT_DEX)) / 6);
+
+    // Practices are based off of wisdom
     add_prac = wis_app[get_curr_stat(ch, STAT_WIS)].practice;
+
+    // Merit - Fast Learner (1 additional practice per level).
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+    {
+        add_prac += 1;
+    }
 
     add_hp = add_hp * 9 / 10;
     add_mana = add_mana * 9 / 10;
@@ -376,6 +402,31 @@ void advance_level(CHAR_DATA * ch, bool hide)
             // These classes are heavy on the mana usage, they'll get a slight bonus per level.
             add_mana += 2;
             break;
+        case BARBARIAN_CLASS_LOOKUP:
+            // Barbarians have no spells and have to walk everywhere, give them a fairly large
+            // movement bonus on level.
+            add_move += 4;
+            break;
+    }
+
+    // Merit - Constitution
+    if (IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION))
+    {
+        add_hp += 2;
+    }
+
+    // The merits for wisdom and intelligence are seperate checks so if someone has both
+    // they will get 2 mana instead of 1.
+    // Merit - Intelligence
+    if (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE))
+    {
+        add_mana += 1;
+    }
+
+    // Merit - Wisdom
+    if (IS_SET(ch->pcdata->merit, MERIT_WISDOM))
+    {
+        add_mana += 1;
     }
 
     add_train = 1;

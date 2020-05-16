@@ -648,7 +648,7 @@ bool stun_effect(CHAR_DATA *ch, CHAR_DATA *victim)
     // Testers can see the stun chance, this should help us trouble shoot issues and balance.
     if (IS_TESTER(ch))
     {
-        printf_to_char(ch, "[Stun Chance {W%d%%{x]\r\n", chance);
+        sendf(ch, "[Stun Chance {W%d%%{x]\r\n", chance);
     }
 
     // The moment of truth

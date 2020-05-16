@@ -40,7 +40,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
+#include <unistd.h>  // OLC -- for close read write etc
 #endif
 
 #include <ctype.h>
@@ -48,7 +48,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>                /* printf_to_char */
+#include <stdarg.h> // sendf
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -65,11 +65,11 @@ void show_greeting(DESCRIPTOR_DATA *d)
 
     if (help_greeting[0] == '.')
     {
-        send_to_desc(help_greeting + 1, d);
+        write_to_descriptor(d->descriptor, help_greeting + 1, d);
     }
     else
     {
-        send_to_desc(help_greeting, d);
+        write_to_descriptor(d->descriptor, help_greeting, d);
     }
 }
 
@@ -79,28 +79,26 @@ void show_greeting(DESCRIPTOR_DATA *d)
 */
 void show_random_names(DESCRIPTOR_DATA *d)
 {
-    char buf[MAX_STRING_LENGTH];
     int row = 0;
     int col = 0;
 
     show_menu_top(d);
     show_menu_header("Random Names", d);
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
     for (row = 0; row < 8; row++)
     {
-        send_to_desc("{w   |    {g", d);
+        write_to_descriptor(d->descriptor, "{w   |    {g", d);
 
         // Since the random function returns a static char we have to use it in
         // separate calls.
 
         for (col = 0; col < 4; col++)
         {
-            sprintf(buf, "%-16s", generate_random_name());
-            send_to_desc(buf, d);
+            writef(d, "%-16s", generate_random_name());
         }
 
-        send_to_desc("{w    |\r\n", d);
+        write_to_descriptor(d->descriptor, "{w    |\r\n", d);
     }
 
     show_menu_bottom(d);
@@ -115,51 +113,40 @@ void show_random_names(DESCRIPTOR_DATA *d)
 */
 void show_login_credits(DESCRIPTOR_DATA *d)
 {
-    char buf[MAX_STRING_LENGTH];
+    int space = 0;
+    int x = 0;
 
     show_menu_top(d);
     show_menu_header("Credits", d);
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
-    // This is a hacky, fix this later to remove the spaces without checking the length like this in an if statement.
-    if (strlen(VERSION) == 3)
+    // This line should dynamically space up to a version number
+    writef(d, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)", VERSION);
+
+    space = 40 - strlen(VERSION);
+
+    for (x = 0; x < space; x++)
     {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 4)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 5)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                   |\r\n", VERSION);
-    }
-    else if (strlen(VERSION) == 6)
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                  |\r\n", VERSION);
-    }
-    else
-    {
-        sprintf(buf, "{w   |    {G*{x {WCrimson Skies{w %s (1998-2017)                                     |\r\n", VERSION);
+        write_to_descriptor(d->descriptor, " ", d);
     }
 
-    send_to_desc(buf, d);
-    send_to_desc("{w   |          Blake Pell (Rhien)                                            |\r\n", d);
+    write_to_descriptor(d->descriptor, "|\r\n", d);
 
-    send_to_desc("{w   |    {G*{x {WROM 2.4{w (1993-1998)                                               |\r\n", d);
-    send_to_desc("{w   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
-    send_to_desc("{w   |    {G*{x {WMerc DikuMud{w (1991-1993)                                          |\r\n", d);
-    send_to_desc("{w   |          Michael Chastain, Michael Quan, Mitchel Tse                   |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |          Blake Pell (Rhien)                                            |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |    {G*{x {WROM 2.4{w (1993-1998)                                               |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |          Russ Taylor, Gabrielle Taylor, Brian Moore                    |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |    {G*{x {WMerc DikuMud{w (1991-1993)                                          |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |          Michael Chastain, Michael Quan, Mitchel Tse                   |\r\n", d);
 
-    send_to_desc("{w   |    {G*{x {WDikuMud{w (1993-1998)                                               |\r\n", d);
-    send_to_desc("{w   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
-    send_to_desc("{w   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |    {G*{x {WDikuMud{w (1993-1998)                                               |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |          Katja Nyboe, Tom Madsen, Hans Henrik Staerfeldt,              |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |          Michael Seifert, Sebastian Hammer                             |\r\n", d);
 
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w   |    {G*{w Detailed additional credits can be viewed in game via the         |\r\n", d);
-    send_to_desc("{w   |      credits command.  These additional credits include the names of   |\r\n", d);
-    send_to_desc("{w   |      many who have contributed through the mud community over the      |\r\n", d);
-    send_to_desc("{w   |      years where those contributions have been used here.              |\r\n", d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, "{w   |    {G*{w Detailed additional credits can be viewed in game via the         |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |      credits command.  These additional credits include the names of   |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |      many who have contributed through the mud community over the      |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w   |      years where those contributions have been used here.              |\r\n", d);
 
     show_menu_bottom(d);
 
@@ -180,9 +167,9 @@ void show_login_who(DESCRIPTOR_DATA *d)
 
     show_menu_top(d);
     show_menu_header("Online Players", d);
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, "{w   |                            {R( {WImmortals {R){w                               |\r\n", d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
     for (dl = descriptor_list; dl != NULL; dl = dl->next)
     {
@@ -206,17 +193,17 @@ void show_login_who(DESCRIPTOR_DATA *d)
         // Start a row?
         if (end_row)
         {
-            send_to_desc("{w   |    ", d);
+            write_to_descriptor(d->descriptor, "{w   |    ", d);
             end_row = FALSE;
         }
 
         sprintf(buf, "{g%-16s{x", ch->name);
-        send_to_desc(buf, d);
+        write_to_descriptor(d->descriptor, buf, d);
 
         // End a row?
         if (col % 4 == 0)
         {
-            send_to_desc("{w|\r\n", d);
+            write_to_descriptor(d->descriptor, "{w|\r\n", d);
             end_row = TRUE;
         }
     }
@@ -224,30 +211,30 @@ void show_login_who(DESCRIPTOR_DATA *d)
     // Fill out the rest of the last row if it wasn't a full row
     while (col % 4 != 0)
     {
-        send_to_desc("                ", d);
+        write_to_descriptor(d->descriptor, "                ", d);
         col++;
     }
 
     if (count > 0 && end_row == FALSE)
     {
         // End that row
-        send_to_desc("    {w|\r\n", d);
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, "    {w|\r\n", d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
 
     // Display if there are no immortals online.
     if (count == 0)
     {
-        send_to_desc("{w   |    * {CThere are no immortals currently online.{w                          |\r\n", d);
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, "{w   |    * {CThere are no immortals currently online.{w                          |\r\n", d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
 
-    send_to_desc("{w   |                             {R( {WMortals {R){w                                |\r\n", d);
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, "{w   |                             {R( {WMortals {R){w                                |\r\n", d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
     total_count += count;
 
@@ -278,17 +265,17 @@ void show_login_who(DESCRIPTOR_DATA *d)
         // Start a row?
         if (end_row)
         {
-            send_to_desc("{w   |    ", d);
+            write_to_descriptor(d->descriptor, "{w   |    ", d);
             end_row = FALSE;
         }
 
         sprintf(buf, "{g%-16s{x", ch->name);
-        send_to_desc(buf, d);
+        write_to_descriptor(d->descriptor, buf, d);
 
         // End a row?
         if (col % 4 == 0)
         {
-            send_to_desc("    {w|\r\n", d);
+            write_to_descriptor(d->descriptor, "    {w|\r\n", d);
             end_row = TRUE;
         }
 
@@ -297,26 +284,26 @@ void show_login_who(DESCRIPTOR_DATA *d)
     // Fill out the rest of the last row if it wasn't a full row
     while (col % 4 != 0)
     {
-        send_to_desc("                ", d);
+        write_to_descriptor(d->descriptor, "                ", d);
         col++;
     }
 
     if (count > 0 && end_row == FALSE)
     {
         // End that row
-        send_to_desc("    {w|\r\n", d);
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, "    {w|\r\n", d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
     else if (count > 0 && end_row == TRUE)
     {
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
 
     // Display if there are no mortals online.
     if (count == 0)
     {
-        send_to_desc("{w   |    * {CThere are no mortals currently online.{w                            |\r\n", d);
-        send_to_desc(BLANK_MENU_LINE, d);
+        write_to_descriptor(d->descriptor, "{w   |    * {CThere are no mortals currently online.{w                            |\r\n", d);
+        write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     }
 
     total_count += count;
@@ -324,7 +311,7 @@ void show_login_who(DESCRIPTOR_DATA *d)
     if (total_count > 0)
     {
         sprintf(buf, "{w   |    Total Players Online: %-3d                                           |\r\n", total_count);
-        send_to_desc(buf, d);
+        write_to_descriptor(d->descriptor, buf, d);
     }
 
     show_menu_bottom(d);
@@ -350,10 +337,10 @@ void show_login_menu(DESCRIPTOR_DATA *d)
     bool ban_all = check_ban(d->host, BAN_ALL);
 
     // The login menu header
-    send_to_desc("\r\n", d);
+    write_to_descriptor(d->descriptor, "\r\n", d);
     show_menu_top(d);
     show_menu_header("Login Menu", d);
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
 
     //send_to_desc(" \\_|       {W-=-=-=-=-=-=))) {RHidden {rLands: {WLogin Menu {w(((=-=-=-=-=-=-{x        |\r\n", d);
     //send_to_desc("{w \\_|       {W-=-=-=-=-=-=))) {RCrimson {rSkies: {WLogin Menu {w(((=-=-=-=-=-=-{w        |\r\n", d);
@@ -400,7 +387,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
         strcat(buf, "Open{w                 |\r\n");
     }
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     // Column 2.1 - Play existing character, the login option is disabled if the player is banned or the game is wizlocked.
     if (ban_all || settings.wizlock)
@@ -433,7 +420,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
         }
     }
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     // Column 3.1 - Who is currently online
     if (settings.login_who_list_enabled)
@@ -442,7 +429,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
             settings.login_menu_light_color,
             settings.login_menu_dark_color);
 
-        send_to_desc(buf, d);
+        write_to_descriptor(d->descriptor, buf, d);
     }
 
     // Column 4.1 - Random name generator
@@ -450,26 +437,26 @@ void show_login_menu(DESCRIPTOR_DATA *d)
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     // Column 5.1 - Credits
     sprintf(buf, "{w   |    {w(%sC{w)%sredits{w                                                           |\r\n",
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     // Column 6.1 & 6.2 - Quit and System Time
     sprintf(buf, "{w   |    {w(%sQ{w)%suit{w                                                              |\r\n",
         settings.login_menu_light_color,
         settings.login_menu_dark_color);
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     // Column 7.1 - Prompt
-    send_to_desc(BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
     sprintf(buf, "{w   |     {WYour selection? {w->                                                 |\r\n");
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     show_menu_bottom(d);
 
@@ -486,7 +473,7 @@ void show_login_menu(DESCRIPTOR_DATA *d)
         strcat(buf, RIGHT);
     }
 
-    send_to_desc(buf, d);
+    write_to_descriptor(d->descriptor, buf, d);
 
     return;
 }
@@ -496,8 +483,8 @@ void show_login_menu(DESCRIPTOR_DATA *d)
  */
 void show_menu_top(DESCRIPTOR_DATA *d)
 {
-    send_to_desc("{w  _________________________________________________________________________\r\n", d);
-    send_to_desc("{w /`                                                                        \\\r\n", d);
+    write_to_descriptor(d->descriptor, "{w  _________________________________________________________________________\r\n", d);
+    write_to_descriptor(d->descriptor, "{w /`                                                                        \\\r\n", d);
 }
 
 /*
@@ -505,9 +492,9 @@ void show_menu_top(DESCRIPTOR_DATA *d)
  */
 void show_menu_bottom(DESCRIPTOR_DATA *d)
 {
-    send_to_desc(BLANK_MENU_LINE, d);
-    send_to_desc("{w / |  -==================================================================-  |\r\n", d);
-    send_to_desc("{w \\/________________________________________________________________________/{x\r\n", d);
+    write_to_descriptor(d->descriptor, BLANK_MENU_LINE, d);
+    write_to_descriptor(d->descriptor, "{w / |  -==================================================================-  |\r\n", d);
+    write_to_descriptor(d->descriptor, "{w \\/________________________________________________________________________/{x\r\n", d);
 }
 
 /*
@@ -524,5 +511,5 @@ void show_menu_header(char *caption, DESCRIPTOR_DATA *d)
     sprintf(center_text, "%s", center_string_padded(center_text, 73));
 
     sprintf(buf2, buf, center_text);
-    send_to_desc(buf2, d);
+    write_to_descriptor(d->descriptor, buf2, d);
 }

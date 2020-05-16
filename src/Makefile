@@ -42,7 +42,9 @@ crypt: $(CRYPTOBJ_FILES)
 	$(CC) -o $(CRYPTEXE) $(CRYPTOBJ_FILES) $(L_FLAGS)
 
 clean:
+	-mv obj/sqlite/sqlite3.o obj/sqlite/sqlite3.temp 2>/dev/null; true
 	$(RM) -f $(OBJ_FILES) $(EXE) *~ *.bak *.orig *.rej
+	-mv obj/sqlite/sqlite3.temp obj/sqlite/sqlite3.o 2>/dev/null; true
 
 distro:
 	make clean

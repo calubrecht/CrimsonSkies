@@ -831,7 +831,7 @@ char *numlines(char *string)
    This is the punct snippet from Desden el Chaman Tibetano - Nov 1998
    Email: jlalbatros@mx2.redestb.es
 
-   This snippit can only be used once per sprintf, printf, printf_to_char, etc.  If used
+   This snippit can only be used once per sprintf, printf, printf_to_char, sendf, etc.  If used
    more than once the first value will always be returend.
 */
 char *num_punct(int foo)

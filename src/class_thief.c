@@ -205,7 +205,7 @@ void do_backstab(CHAR_DATA * ch, char *argument)
         return;
 
     if (IS_NPC(victim) &&
-        victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+        victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
@@ -480,7 +480,7 @@ void do_dirt(CHAR_DATA * ch, char *argument)
         return;
 
     if (IS_NPC(victim) &&
-        victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+        victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;
@@ -561,6 +561,11 @@ void do_dirt(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (IS_TESTER(ch))
+    {
+        sendf(ch, "[Dirt Kick Chance {W%d%%{x]\r\n", chance);
+    }
+
     /* now the attack */
     if (number_percent() < chance)
     {
@@ -633,7 +638,7 @@ void do_trip(CHAR_DATA * ch, char *argument)
         return;
 
     if (IS_NPC(victim) &&
-        victim->fighting != NULL && !is_same_group(ch, victim->fighting))
+        victim->fighting != NULL && !(is_same_group(ch, victim->fighting) || IS_NPC(victim->fighting)))
     {
         send_to_char("Kill stealing is not permitted.\r\n", ch);
         return;

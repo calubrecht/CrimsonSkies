@@ -939,11 +939,11 @@ You flirt with yourself -- what ARE you trying to gain!?!?!?
 $n flirts with $mself, wonder what $e is trying to accomplish?
  
 tip 1 0
-You tip your hat gallantly.
-$n gallantly tips $s hat.
-You tip your hat to $N.
-$n gallantly tips $s hat to $N.
-$n gallantly tips $s hat to you.
+You tip your head in respect.
+$n tips $s head in respect.
+You tip your head in respect to $N.
+$n tips $s head in respect to $N.
+$n tips $s head in respect to you.
 But there is no one here to impress?!?!
 #
  
@@ -1747,21 +1747,6 @@ You kiss falls to the ground with no one to go to.
 You blow a kiss to yourself... isn't the world beautiful?
 $n blows a kiss to $mself, obviously very in love.
  
-beer 0 0
-You pull out a six-pack.
-$n starts to juggle a six-pack of beer.
-You toss a bottle of beer at $N.
-$n tosses a bottle of beer at $N ... let's just hope $e'll catch it!
-$n tossed you a bottle of beer... I think $e wants something...
-The bottle crashes to the floor and shatters.
-You pop off the top and down a beer.
-$n pops the top off a bottle of beer and downs it in one gulp.
- 
-bcatch 0 0
-You reach out and rescue the bottle from its flight.
-$n reaches out and grabs the bottle of beer tossed to $m.
-#
- 
 claw 0 0
 You tighten your hands into a fist.
 $n clenches $s fists until blood drips from them...
@@ -1831,17 +1816,6 @@ You get even MORE frustrated when you can't find anyone to throttle!
 You scream in frustration at your own stupidity!
 $n screams in frustration at $s own stupidity!
  
-homework
-Your suddenly remember that you have to defend your thesis today...
-$n looks stricken.  Could $e have blown off some important homework?
-#
- 
-puff
-You mimic Puff at her most annoying.
-$n says, "Did you know that I'm written in C?"
-#
- 
-
 yae
 You sigh, burdened with Yet Another Eeediot.
 $n sighs, burdened with Yet Another Eeediot.

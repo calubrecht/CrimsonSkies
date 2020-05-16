@@ -61,6 +61,7 @@ void tick_update        (void);
 void half_tick_update   (void);
 void shore_update       (void);
 void environment_update (void);
+void improves_update    (void);
 
 /* used for saving */
 int save_number = 0;
@@ -131,6 +132,11 @@ void update_handler(bool forced)
         // making a longer term method, something that occurs every 10 minutes or so.  We'll start
         // here though as it's writing out very litte.
         save_statistics();
+
+        // This will process the skills people are focusing on to improve.  This must run
+        // once a minute, it will decriment the minutes left on the pcdata and adjust upward
+        // any skill that has improved (then reset the timer).
+        improves_update();
     }
 
     // Just firing the tick, not messing with violence, mobiles or areas.
@@ -141,7 +147,7 @@ void update_handler(bool forced)
 
     /*
      * The tick update is the big event where lots of updates occur.  ROM traditionally runs
-     * ticks at random times around a minute, we're going to do one ever 40 seconds (as defined
+     * ticks at random times around a minute, we're going to do one every 40 seconds (as defined
      * in merc.h).
      */
     if (--pulse_tick <= 0)
@@ -265,7 +271,13 @@ int hit_gain(CHAR_DATA * ch)
     // once they wake.
     if (is_affected(ch, gsn_healing_dream))
     {
-        gain += number_range(25, 35);
+        gain += number_range(40, 70);
+    }
+
+    // Merit - Healthy
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_HEALTHY))
+    {
+        gain += number_range(15, 25);
     }
 
     // Rangers camping - regen bonus is greater at night than during
@@ -317,17 +329,20 @@ int mana_gain(CHAR_DATA * ch)
     }
     else
     {
-        gain = (get_curr_stat(ch, STAT_WIS)
-            + get_curr_stat(ch, STAT_INT) + ch->level) / 2;
+        gain = (get_curr_stat(ch, STAT_WIS) + get_curr_stat(ch, STAT_INT) + ch->level) / 2;
         number = number_percent();
+
         if (number < get_skill(ch, gsn_meditation))
         {
             gain += number * gain / 100;
             if (ch->mana < ch->max_mana)
                 check_improve(ch, gsn_meditation, TRUE, 8);
         }
-        if (!class_table[ch->class]->fMana)
+
+        if (!class_table[ch->class]->mana)
+        {
             gain /= 2;
+        }
 
         switch (ch->position)
         {
@@ -483,6 +498,18 @@ int move_gain(CHAR_DATA * ch)
             gain += number_range(15, 25);
         }
     }
+
+    // Barbarians, natural refresh skill gives a boost in movement regen.
+    if (number_percent() < get_skill(ch, gsn_natural_refresh))
+    {
+        gain += ch->level / 2;
+
+        if (ch->move < ch->max_move)
+        {
+            check_improve(ch, gsn_natural_refresh, TRUE, 6);
+        }
+    }
+
 
     return UMIN(gain, ch->max_move - ch->move);
 
@@ -792,7 +819,7 @@ void weather_update(void)
 
 /*
  * Update all chars, including mobs.
-*/
+ */
 void char_update(void)
 {
     CHAR_DATA *ch;
@@ -824,10 +851,31 @@ void char_update(void)
         if (!IS_NPC(ch))
         {
             if (IS_IMMORTAL(ch))
+            {
                 ch->pcdata->pk_timer = 0;
+            }
+
+            // This will be reduced to none... tell them their hostile timer is over.
+            if (ch->pcdata->pk_timer == 1)
+            {
+                send_to_char("You are no longer hostile.\r\n", ch);
+            }
 
             if (ch->pcdata->pk_timer)
+            {
                 --ch->pcdata->pk_timer;
+            }
+
+        }
+
+        // Things that need to happen to players only.
+        if (!IS_NPC(ch))
+        {
+            // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
+            calculate_priest_rank(ch);
+
+            // Add any merit affects on (or back on) if they aren't on the player (checks done in this procedure).
+            apply_merit_affects(ch);
         }
 
         if (IS_AWAKE(ch))
@@ -1031,8 +1079,6 @@ void char_update(void)
             damage(ch, ch, 1, TYPE_UNDEFINED, DAM_NONE, FALSE);
         }
 
-        // If their a priest, calculate the priest rank (all needed checks are done in this procedure).
-        calculate_priest_rank(ch);
     }
 
     /*
@@ -1058,7 +1104,7 @@ void char_update(void)
             save_char_obj(ch);
         }
 
-        if (ch == ch_quit)
+        if (ch == ch_quit || (!IS_NPC(ch) && !ch->desc && IS_SET(ch->act,PLR_AUTOQUIT)))
         {
             do_function(ch, &do_quit, "");
         }
@@ -1441,10 +1487,14 @@ bool on_shore(CHAR_DATA *ch)
     int door;
 
     if (!ch || !ch->in_room)
+    {
         return FALSE;
+    }
 
     if (ch->in_room->sector_type == SECT_OCEAN)
+    {
         return FALSE;
+    }
 
     for (door = 0; door < MAX_DIR; door++)
     {
@@ -1456,10 +1506,12 @@ bool on_shore(CHAR_DATA *ch)
         }
 
         if (scan_room->sector_type == SECT_OCEAN)
+        {
             return TRUE;
+        }
     }
     return FALSE;
-} // end on_shore
+}
 
 /*
  * Updates for characters on the shore which are players that are next to an ocean room.
@@ -1487,11 +1539,11 @@ void shore_update()
     for (d = descriptor_list; d != NULL; d = d->next)
     {
         if (d->connected == CON_PLAYING
-            &&   d->character
-            &&   IS_OUTSIDE(d->character)
+            && d->character
+            && IS_OUTSIDE(d->character)
             && IS_AWAKE(d->character)
             && d->character->in_room
-            &&   on_shore(d->character))
+            && on_shore(d->character))
         {
             send_to_char(buf, d->character);
         }
@@ -1531,8 +1583,7 @@ void environment_update()
 
             // Water breathing won't help their movement loss but it will keep them from
             // drowning.
-            if (ch->move <= 0 &&
-                !is_affected(ch, gsn_water_breathing))
+            if (ch->move <= 0 && !is_affected(ch, gsn_water_breathing))
             {
                 send_to_char("You gasp for air as water fills your lungs!\r\n", ch);
                 ch->hit -= (UMAX(1, (ch->hit / 6)));
@@ -1542,8 +1593,12 @@ void environment_update()
             {
                 // Everyone loses movement treading water in the ocean.  Consider adding
                 // swim skill to lessen this, also maybe make stronger people lose less.
-                send_to_char("You struggle to tread water in the ocean.\r\n", ch);
-                ch->move -= 10;
+                // Priest's who are affected by water walking are exempt.
+                if (!is_affected(ch, gsn_water_walk))
+                {
+                    send_to_char("You struggle to tread water in the ocean.\r\n", ch);
+                    ch->move -= 10;
+                }
 
                 // Don't allow movement to go below 0
                 if (ch->move < 0)
@@ -1611,3 +1666,21 @@ void timer_update(CHAR_DATA *ch)
     }
 } // end timer_update
 
+/*
+ * Loops through only the players in the game and sees if they have improved
+ * on the skill they are focused on.
+ */
+void improves_update()
+{
+    DESCRIPTOR_DATA *d;
+
+    for (d = descriptor_list; d != NULL; d = d->next)
+    {
+        if (d->connected == CON_PLAYING
+            && d->character
+            && d->character->in_room)
+        {
+            check_time_improve(d->character);
+        }
+    }
+}

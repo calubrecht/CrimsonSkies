@@ -22,7 +22,7 @@
 
 // We're going to use this to indicate the version of this release which
 // is arbitrary to the person implementing the game.
-#define VERSION "1.2.0"
+#define VERSION "2017.10.15"
 
 #define args(list) list
 #define DECLARE_DO_FUN(fun)       DO_FUN    fun
@@ -116,9 +116,9 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define MAX_GROUP          100  // top_group
 #define MAX_IN_GROUP       20
 #define MAX_ALIAS          10
-#define MAX_CLASS          11   // top_class
-#define MAX_PC_RACE        7
-#define MAX_CLAN           7
+#define MAX_CLASS          12   // top_class
+#define MAX_PC_RACE        13
+#define MAX_CLAN           9
 #define MAX_DAMAGE_MESSAGE 41
 #define MAX_LEVEL          60
 #define LEVEL_HERO         51
@@ -187,6 +187,7 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define ROGUE_CLASS_LOOKUP                      8
 #define PSIONICIST_CLASS_LOOKUP                 9
 #define PRIEST_CLASS_LOOKUP                     10
+#define BARBARIAN_CLASS_LOOKUP                  11
 
 /*
  * PC Race Lookup
@@ -194,10 +195,16 @@ typedef void SPELL_FUN (int sn, int level, CHAR_DATA *ch, void *vo, int target);
 #define NONE_RACE_LOOKUP                        0
 #define HUMAN_RACE_LOOKUP                       1
 #define ELF_RACE_LOOKUP                         2
-#define DWARF_RACE_LOOKUP                       3
-#define GIANT_RACE_LOOKUP                       4
-#define KENDER_RACE_LOOKUP                      5
-#define MINOTAUR_RACE_LOOKUP                    6
+#define HALF_ELF_RACE_LOOKUP                    3
+#define WILD_ELF_RACE_LOOKUP                    4
+#define SEA_ELF_RACE_LOOKUP                     5
+#define DARK_ELF_RACE_LOOKUP                    6
+#define DWARF_RACE_LOOKUP                       7
+#define HILL_DWARF_RACE_LOOKUP                  8
+#define MOUNTAIN_DWARF_RACE_LOOKUP              9
+#define OGRE_RACE_LOOKUP                        10
+#define KENDER_RACE_LOOKUP                      11
+#define MINOTAUR_RACE_LOOKUP                    12
 
 /*
  * Priest ranks
@@ -275,6 +282,9 @@ struct weather_data
 /*
  * Connected state for a channel.
  */
+#define CON_CHOOSE_MERIT            -21
+#define CON_ASK_MERIT               -20
+#define CON_GET_DEITY               -19
 #define CON_NEW_CHARACTER           -18
 #define CON_LOGIN_RETURN            -17
 #define CON_LOGIN_MENU              -16
@@ -335,31 +345,32 @@ struct descriptor_data
  */
 struct str_app_type
 {
-    int    todam;
-    int    carry;
-    int    wield;
+    int todam;
+    int carry;
+    int wield;
 };
 
 struct int_app_type
 {
-    int    learn;
+    int learn;            // How fast individuals learn from using skills, higher is better
+    int improve_minutes;  // How many online minutes between improve a skill, lower is better
 };
 
 struct wis_app_type
 {
-    int    practice;
+    int practice;
+    int saves_bonus;    // Bonus the players saves
 };
 
 struct dex_app_type
 {
-    int    defensive;      // AC Bonus
-    int    hitroll_bonus;  // Hit Roll Bonus
+    int defensive;      // AC Bonus
+    int hitroll_bonus;  // Hit Roll Bonus
 };
 
 struct con_app_type
 {
-    int    hitp;
-    int    shock;
+    int hitp;
 };
 
 /*
@@ -413,7 +424,7 @@ struct    shop_data
 /*
  * Per-class stuff.
  */
-#define MAX_GUILD  2
+#define MAX_GUILD  3
 #define MAX_STATS  5
 #define STAT_STR   0
 #define STAT_INT   1
@@ -434,11 +445,12 @@ struct class_type
     int     thac0_32;          /* Thac0 for level 32          */
     int     hp_min;            /* Min hp gained on leveling   */
     int     hp_max;            /* Max hp gained on leveling   */
-    bool    fMana;             /* Class gains mana on level   */
+    bool    mana;              /* Class gains mana on level   */
     char *  base_group;        /* base skills gained          */
     char *  default_group;     /* default skills gained       */
     bool    is_reclass;        /* Whether the class is a reclass (or a base class) */
     bool    is_enabled;        /* Whether the class is enabled for public use */
+    int     clan;              /* The clan number if this is a clan specific reclass */
 };
 
 /*
@@ -469,6 +481,17 @@ struct item_type
     char *    name;
 };
 
+
+/*
+ * Tables that can be exported via db_export and the flag_type that table maps to.
+ */
+struct export_flags_type
+{
+    char  *table_name;
+    char  *friendly_name;
+    const struct flag_type *flags;
+};
+
 /*
  * This will hold the continent int lookup value and name.
  */
@@ -476,6 +499,17 @@ struct continent_type
 {
     int       type;
     char *    name;
+};
+
+/*
+ * Structure for a merit including the bit, the name, a description and
+ * whether it can be choosen from the login menu.
+ */
+struct merit_type
+{
+    long   merit;
+    char * name;
+    bool   chooseable;
 };
 
 struct weapon_type
@@ -615,8 +649,11 @@ struct settings_data
     bool test_mode;          // Whether the entire game is put into test mode
     bool login_color_prompt; // Whether or not the Do you want color? prompt will appear on login
     // Game Mechanics
-    bool shock_spread; // Shocking effect spreads under water.
-    bool gain_convert; // Whether or not gain convert is enabled.
+    bool shock_spread;       // Shocking effect spreads under water.
+    bool gain_convert;       // Whether or not gain convert is enabled.
+    int stat_surge;          // How far above the players natural stat a spell can take it.
+    bool hours_affect_exp;   // Whether hours affect experience
+    bool focused_improves;   // Whether or not you improve skills via the improvement system.
     // Info
     char *web_page_url;
     char *mud_name;
@@ -683,6 +720,16 @@ struct global_data
 };
 
 /*
+ * Drunk struct
+ */
+struct struckdrunk
+{
+    int     min_drunk_level;
+    int     number_of_rep;
+    char    *replacement[11];
+};
+
+/*
  * Character Sub States / Timers (from Smaug)
  */
 typedef enum
@@ -713,10 +760,11 @@ typedef enum
  * in special.c or for loading).
  * Defined in #MOBILES.
  */
-#define MOB_VNUM_FIDO       3090
-#define MOB_VNUM_PATROLMAN  2106
-#define GROUP_VNUM_TROLLS   2100
-#define GROUP_VNUM_OGRES    2101
+#define MOB_VNUM_FIDO            3090
+#define MOB_VNUM_PATROLMAN       2106
+#define VNUM_GUARDIAN_ANGEL        10
+#define GROUP_VNUM_TROLLS        2100
+#define GROUP_VNUM_OGRES         2101
 
 /* RT ASCII conversions -- used so we can have letters in this file */
 #define A            1
@@ -1046,11 +1094,13 @@ typedef enum
 #define SIZE_LARGE   3
 #define SIZE_HUGE    4
 #define SIZE_GIANT   5
+#define SIZE_DRAGON  6
 
 /* alignments */
-#define ALIGN_EVIL      1
-#define ALIGN_NEUTRAL   2
-#define ALIGN_GOOD		3
+#define ALIGN_EVIL      1   // Evil folks
+#define ALIGN_NEUTRAL   2   // Neutral folks
+#define ALIGN_GOOD		3   // Good folks
+#define ALIGN_ALL       4   // This is going to be used for gods who accept anyone (not a true alignment)
 
 /*
  * Well known object virtual numbers.
@@ -1294,6 +1344,15 @@ typedef enum
 #define ROOM_VNUM_SCHOOL   3700
 
 /*
+ * Clan specifc altar's and recalls
+ */
+#define ROOM_VNUM_SYLVAN_ALTER     10560
+#define ROOM_VNUM_SYLVAN_RECALL     1815
+#define ROOM_VNUM_WARHAMMER_ALTER  10607
+#define ROOM_VNUM_WARHAMMER_RECALL   903
+#define ROOM_VNUM_REDOAK_ALTAR       704
+
+/*
  * Room flags.
  * Used in #ROOMS.
  */
@@ -1445,6 +1504,7 @@ typedef enum
 #define PLR_AUTOSAC         (F)
 #define PLR_AUTOGOLD        (G)
 #define PLR_AUTOSPLIT       (H)
+#define PLR_AUTOQUIT        (I)
 #define PLR_QUESTOR         (J)
 
 /* Special Flags */
@@ -1519,6 +1579,21 @@ typedef enum
 #define WIZ_SPAM            (T)
 #define WIZ_GENERAL         (U)
 #define WIZ_BANK            (V)
+
+// Merits
+#define MERIT_MAGIC_AFFINITY     (A)
+#define MERIT_MAGIC_PROTECTION   (B)
+#define MERIT_DAMAGE_REDUCTION   (C)
+#define MERIT_LIGHT_FOOTED       (D)
+#define MERIT_PERCEPTION         (E)
+#define MERIT_PRECISION_STRIKING (F)
+#define MERIT_FAST_LEARNER       (G)
+#define MERIT_HEALTHY            (H)
+#define MERIT_CONSTITUTION       (I)
+#define MERIT_INTELLIGENCE       (J)
+#define MERIT_WISDOM             (K)
+#define MERIT_STRENGTH           (L)
+#define MERIT_DEXTERITY          (M)
 
 /*
  * Prototype for a mob.
@@ -1726,10 +1801,16 @@ struct pc_data
     int             quest_obj;         // Vassago - Questing
     int             quest_mob;         // Vassago - Questing
     int             pkills;            // The number of player kills a character has.
+    int             pkills_arena;      // The number of player kills a character has in the arena.
     int             pkilled;           // The number of times a player has been killed.
     long            bank_gold;         // The amount of gold a player has in the bank.
     int             vnum_clairvoyance; // If the user has set a clairvoyance vnum, this is it
     int             priest_rank;       // If the user is a priest, this is the integer value of their rank.
+    int             deity;             // The deity if any that the user follows
+    long            merit;
+    int             key_ring[10];      // The keys that can be stored on a key ring.
+    int             improve_focus_gsn; // GSN of the skill the player is focusing on to improve.
+    int             improve_minutes;   // Number of minutes until the next improve for the player.
 };
 
 /* Data for generating characters -- only used during generation */
@@ -2170,6 +2251,7 @@ void    ext_toggle_bits         (EXT_BV *var, EXT_BV *bits);
 #define IS_GHOST(ch)  (is_affected(ch,gsn_ghost))
 #define IS_DAY()      (time_info.hour > 5 && time_info.hour < 20)
 #define IS_NIGHT()    (!IS_DAY())
+#define IS_FIGHTING(ch) (ch->fighting != NULL)
 
 /*
  * Object macros.
@@ -2223,6 +2305,7 @@ extern    const    struct    spec_type        spec_table[];
 extern    const    struct    liq_type         liq_table[];
 extern    const    struct    dispel_type      dispel_table[];
 extern    const    struct    priest_rank_type priest_rank_table[];
+extern    const    struct    export_flags_type export_flags_table[];
 extern             struct    social_type      social_table[MAX_SOCIALS];
 //extern             struct    skill_type      skill_table    [MAX_SKILL];
 //extern    const    struct    class_type      class_table    [MAX_CLASS];
@@ -2352,8 +2435,10 @@ RID      *get_random_room    (CHAR_DATA *ch);
 void     set_title           (CHAR_DATA *ch, char *title);
 bool     char_in_list        (CHAR_DATA *ch);
 char     *pers               (CHAR_DATA *ch, CHAR_DATA *looker);
+char     *who_list_formatter (CHAR_DATA *wch);
 int      player_online_count (void);
 bool     check_fog           (CHAR_DATA * ch);
+
 
 /* act_move.c */
 void     move_char           (CHAR_DATA *ch, int door, bool follow);
@@ -2366,11 +2451,14 @@ void     show_lore           (CHAR_DATA *ch, OBJ_DATA *obj);
 void     remove_all_obj      (CHAR_DATA *ch);
 bool     remove_obj          (CHAR_DATA * ch, int iWear, bool fReplace);
 void     wear_obj            (CHAR_DATA * ch, OBJ_DATA * obj, bool fReplace);
+bool     empty_obj           (OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room);
 
 /* act_wiz.c */
 void     wiznet                    (char *string, CHAR_DATA *ch, OBJ_DATA *obj, long flag, long flag_skip, int min_level);
 void     copyover_recover          (void);
 void     copyover_load_descriptors (void);
+void     auto_train                (CHAR_DATA *ch);
+
 
 /* alias.c */
 void     substitute_alias    (DESCRIPTOR_DATA *d, char *input);
@@ -2387,12 +2475,13 @@ void     send_to_char        (const char *txt, CHAR_DATA *ch);
 void     page_to_char        (const char *txt, CHAR_DATA *ch);
 //void     act                 (const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type);
 void     act_new             (const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2, int type, int min_pos);
-void     printf_to_char      (CHAR_DATA *, char *, ...);
-void     printf_to_desc      (DESCRIPTOR_DATA *, char *, ...);
+void     sendf               (CHAR_DATA *, char *, ...);
 bool     write_to_descriptor (int desc, char *txt, DESCRIPTOR_DATA *d);
+bool     write_to_desc       (char *str, DESCRIPTOR_DATA *d);
 void     write_to_all_desc   (char *txt);
 void     send_to_all_char    (char *txt);
 void     copyover_broadcast  (char *txt, bool show_last_result);
+void     writef              (DESCRIPTOR_DATA * d, char *fmt, ...);
 
 /* db.c */
 void     reset_area          (AREA_DATA * pArea);        /* OLC */
@@ -2499,6 +2588,8 @@ int     stance_defensive_modifier (CHAR_DATA *ch);
 int     stance_offensive_modifier (CHAR_DATA *ch);
 void    disarm(CHAR_DATA * ch, CHAR_DATA * victim);
 void    set_fighting(CHAR_DATA * ch, CHAR_DATA * victim);
+int     standard_modifier(CHAR_DATA *ch, CHAR_DATA *victim);
+
 
 /* clan.c */
 bool   is_clan            (CHAR_DATA *ch);
@@ -2595,10 +2686,14 @@ void   make_ghost         (CHAR_DATA *ch);
 char * get_room_name      (int vnum);
 char * get_area_name      (int vnum);
 bool   same_continent     (int vnum_one, int vnum_two);
+bool  same_continent_char (CHAR_DATA *ch, CHAR_DATA *victim);
 int    hours_played       (CHAR_DATA *ch);
 bool   obj_in_room        (CHAR_DATA *ch, int vnum);
 int    obj_affect_modifier(OBJ_DATA *obj, int location);
 bool   in_same_room       (CHAR_DATA *ch, CHAR_DATA *victim);
+bool   leads_grouped_mob  (CHAR_DATA *ch, int mob_vnum);
+char * deity_formatted_name (CHAR_DATA *ch);
+char *health_description  (CHAR_DATA *ch, CHAR_DATA *victim);
 
 /* recycle.c */
 TIMER *new_timer          (void);
@@ -2618,6 +2713,14 @@ void      obj_cast_spell (int sn, int level, CHAR_DATA *ch, CHAR_DATA *victim, O
 bool      check_dispel   (int dis_level, CHAR_DATA * victim, int sn);
 CHAR_DATA *get_target    (CHAR_DATA *ch, char *argument, bool ranged);
 bool      saves_dispel   (int dis_level, int spell_level, int duration);
+int       casting_level  (CHAR_DATA *ch);
+int       get_saves      (CHAR_DATA *ch);
+
+/* merit.c */
+void add_merit(CHAR_DATA *ch, long merit);
+void remove_merit(CHAR_DATA *ch, long merit);
+void apply_merit_affects(CHAR_DATA *ch);
+char *merit_list(CHAR_DATA *ch);
 
 /* mob_prog.c */
 void    program_flow       (int vnum, char *source, CHAR_DATA *mob, CHAR_DATA *ch, const void *arg1, const void *arg2);
@@ -2652,6 +2755,7 @@ void    list_group_known (CHAR_DATA *ch);
 int     exp_per_level    (CHAR_DATA *ch, int points);
 void    check_improve    (CHAR_DATA *ch, int sn, bool success, int multiplier);
 bool    check_skill_improve (CHAR_DATA * ch, int sn, int success_multiplier, int failure_multiplier);
+void    check_time_improve(CHAR_DATA * ch);
 int     group_lookup     (const char *name);
 void    gn_add           (CHAR_DATA *ch, int gn);
 void    gn_remove        (CHAR_DATA *ch, int gn);
@@ -2707,6 +2811,8 @@ AREA_DATA *get_area_data    (int vnum);
 int    race_lookup          (const char *name);
 int    item_lookup          (const char *name);
 int    liq_lookup           (const char *name);
+int    deity_lookup         (const char *name);
+int    merit_lookup         (const char *name);
 
 /* log.c */
 void   bug                  (const char *str, int param);
@@ -2742,6 +2848,12 @@ CHAR_DATA *   find_mob_by_act(CHAR_DATA * ch, long act_flag);
 /* class_priest.c */
 void          agony_damage_check(CHAR_DATA *ch);
 void          calculate_priest_rank(CHAR_DATA * ch);
+
+/* class_barbarian.c */
+void          second_wind(CHAR_DATA * ch);
+
+/* drunk.c */
+char *make_drunk(char *string, CHAR_DATA *ch);
 
 #undef    CD
 #undef    MID

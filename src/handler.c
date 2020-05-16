@@ -690,6 +690,7 @@ void reset_char(CHAR_DATA * ch)
     {
         ch->sex = ch->pcdata->true_sex;
     }
+
 }
 
 /*
@@ -726,17 +727,40 @@ int get_curr_stat(CHAR_DATA * ch, int stat)
     int max;
 
     if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
+    {
         max = 25;
-
+    }
     else
     {
-        max = pc_race_table[ch->race].max_stats[stat] + 4;
+        // Stock ROM allowed players to go above their max stat by 4 with spells, this
+        // is now a setting with 0 being the default.  Everyone getting into the 20's
+        // for stats makes much less diversity.. spells are still useful without this
+        // because they can help protect against maladictions.  Game admin can then set
+        // this to their liking.
+        max = pc_race_table[ch->race].max_stats[stat] + settings.stat_surge;
 
+        // This is legit, the primary stat for your class gets you a +2 bonus over
+        // your racial max.
         if (class_table[ch->class]->attr_prime == stat)
+        {
             max += 2;
+        }
 
-        if (ch->race == race_lookup("human"))
+        // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
+        if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
+            || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+            || (IS_SET(ch->pcdata->merit, MERIT_STRENGTH) && stat == STAT_STR)
+            || (IS_SET(ch->pcdata->merit, MERIT_DEXTERITY) && stat == STAT_DEX)
+            || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
+        {
             max += 1;
+        }
+
+        // And why not.
+        if (ch->race == race_lookup("human"))
+        {
+            max += 1;
+        }
 
         max = UMIN(max, 25);
     }
@@ -754,15 +778,34 @@ int get_max_train(CHAR_DATA * ch, int stat)
     int max;
 
     if (IS_NPC(ch) || ch->level > LEVEL_IMMORTAL)
+    {
         return 25;
+    }
 
+    // Get the max stats for the players race for the requested stat
     max = pc_race_table[ch->race].max_stats[stat];
+
+    // Modify based off of the what the player's classes primary stat is
     if (class_table[ch->class]->attr_prime == stat)
     {
         if (ch->race == race_lookup("human"))
+        {
             max += 3;
+        }
         else
+        {
             max += 2;
+        }
+    }
+
+    // Merit - Constitution, Intelligence, Wisdom (these up the max by 1)
+    if ((IS_SET(ch->pcdata->merit, MERIT_CONSTITUTION) && stat == STAT_CON)
+        || (IS_SET(ch->pcdata->merit, MERIT_INTELLIGENCE) && stat == STAT_INT)
+        || (IS_SET(ch->pcdata->merit, MERIT_STRENGTH) && stat == STAT_STR)
+        || (IS_SET(ch->pcdata->merit, MERIT_DEXTERITY) && stat == STAT_DEX)
+        || (IS_SET(ch->pcdata->merit, MERIT_WISDOM) && stat == STAT_WIS))
+    {
+        max += 1;
     }
 
     return UMIN(max, 25);
@@ -2965,6 +3008,8 @@ char *extra_bit_name(int extra_flags)
         strcat(buf, " burn_proof");
     if (extra_flags & ITEM_NOUNCURSE)
         strcat(buf, " no_uncurse");
+    if (extra_flags & ITEM_MELT_DROP)
+        strcat(buf, " melt_drop");
     return (buf[0] != '\0') ? buf + 1 : "none";
 }
 
@@ -3717,7 +3762,8 @@ void make_ghost(CHAR_DATA *ch)
 } // end make_ghost
 
 /*
- * Will determine if two vnums are on the same continent.
+ * Will determine if two vnums are on the same continent.  This is a raw vnum
+ * comparison that doesn't account for limbo.  Limbo != Midgaard
  */
 bool same_continent(int vnum_one, int vnum_two)
 {
@@ -3750,6 +3796,32 @@ bool same_continent(int vnum_one, int vnum_two)
     }
 
 } // end bool same_continent
+
+/*
+ * Determines if two players are on the same continent.  Limbo is treated
+ * differently in that a victim in Limbo is seen as on the same continent.
+ * This will allow someone to gate to someone in Limbo, but not gate from
+ * Limbo out.
+ */
+bool same_continent_char(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    // Something is null / gone wrong, return that they are not on the
+    // same continent.
+    if (ch == NULL || victim == NULL || ch->in_room == NULL || victim->in_room == NULL)
+    {
+        return FALSE;
+    }
+
+    // They are on the same continet OR the victim is in Limbo.
+    if (ch->in_room->area->continent == victim->in_room->area->continent
+        || victim->in_room->area->continent == 0)
+    {
+        return TRUE;
+    }
+
+    // They are not on the same continent.
+    return FALSE;
+}
 
 /*
  * The number of hours that a player has played.  For a mob, this will return
@@ -3795,3 +3867,108 @@ bool in_same_room(CHAR_DATA *ch, CHAR_DATA *victim)
 
     return FALSE;
 }
+
+/*
+ * Determins whether the character leads group that has the specified mob
+ * in it.  This important for figuring out if a player already has a charmy
+ * they have summoned via a skill.
+ */
+bool leads_grouped_mob(CHAR_DATA *ch, int mob_vnum)
+{
+    CHAR_DATA *fch;
+
+    // Make sure that the player doesn't already the specified mob grouped.
+    for (fch = char_list; fch != NULL; fch = fch->next)
+    {
+        if (fch->master == ch && IS_NPC(fch))
+        {
+            if (fch->pIndexData->vnum == mob_vnum)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
+}
+
+/*
+ * Return ascii name of an affect bit vector.
+ */
+char *deity_formatted_name(CHAR_DATA *ch)
+{
+    static char buf[64];
+
+    if (IS_NPC(ch))
+    {
+        sprintf(buf, "None");
+        return buf;
+    }
+
+    // Name and description
+    sprintf(buf, "%s, %s", deity_table[ch->pcdata->deity].name, deity_table[ch->pcdata->deity].description);
+
+    return buf;
+}
+
+/*
+ * Returns the standard description of a person's health.  This requires both the person looking and the
+ * person receiving as it will shift their name in certain circumstances (e.g. to someone if their blind).
+ */
+char *health_description(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    static char buf[128];
+    int percent;
+
+    // Reset, we don't want to strcat onto the last copy.
+    buf[0] = '\0';
+
+    if (victim->max_hit > 0)
+    {
+        percent = (100 * victim->hit) / victim->max_hit;
+    }
+    else
+    {
+        percent = -1;
+    }
+
+    strcpy(buf, PERS(victim, ch));
+
+    if (percent >= 100)
+    {
+        strcat(buf, " is in excellent condition.\r\n");
+    }
+    else if (percent >= 90)
+    {
+        strcat(buf, " has a few scratches.\r\n");
+    }
+    else if (percent >= 75)
+    {
+        strcat(buf, " has some small wounds and bruises.\r\n");
+    }
+    else if (percent >= 50)
+    {
+        strcat(buf, " has quite a few wounds.\r\n");
+    }
+    else if (percent >= 30)
+    {
+        strcat(buf, " has some big nasty wounds and scratches.\r\n");
+    }
+    else if (percent >= 15)
+    {
+        strcat(buf, " looks pretty hurt.\r\n");
+    }
+    else if (percent >= 0)
+    {
+        strcat(buf, " is in awful condition.\r\n");
+    }
+    else
+    {
+        strcat(buf, " is bleeding to death.\r\n");
+    }
+
+    buf[0] = UPPER(buf[0]);
+
+    return buf;
+}
+

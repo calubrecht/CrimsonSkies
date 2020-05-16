@@ -868,7 +868,7 @@ void save_other_helps(CHAR_DATA * ch)
             save_helps(fp, ha);
 
             if (ch)
-                printf_to_char(ch, "%s\r\n", ha->filename);
+                sendf(ch, "%s\r\n", ha->filename);
 
             fprintf(fp, "#$\n");
             fclose(fp);
@@ -1032,12 +1032,17 @@ void save_class(int num)
     fprintf(fp, "Thac0_32    %d\n", class_table[num]->thac0_32);
     fprintf(fp, "Hpmin       %d\n", class_table[num]->hp_min);
     fprintf(fp, "Hpmax       %d\n", class_table[num]->hp_max);
-    fprintf(fp, "Mana        %d\n", class_table[num]->fMana);
+    fprintf(fp, "Mana        %d\n", class_table[num]->mana);
     //fprintf( fp, "Expbase     %d\n",       class_table[num]->exp_base         );
     fprintf(fp, "BaseGroup   '%s'\n", class_table[num]->base_group);
     fprintf(fp, "DefGroup    '%s'\n", class_table[num]->default_group);
     fprintf(fp, "IsReclass   %d\n", class_table[num]->is_reclass);
     fprintf(fp, "IsEnabled   %d\n", class_table[num]->is_enabled);
+
+    if (class_table[num]->clan)
+    {
+        fprintf(fp, "Clan %s~\n", clan_table[class_table[num]->clan].name);
+    }
 
     for (lev = 0; lev < MAX_LEVEL; lev++)
     {
@@ -1061,11 +1066,15 @@ void save_class(int num)
         }
     }
 
+    // TODO, fill in the class multipliers in the race table.
     for (race = 0; race < MAX_PC_RACE; race++)
     {
         if (pc_race_table[race].name == NULL || pc_race_table[race].name[0] == '\0')
             break;
 
+        // Save the multipler, but also a comment with the race name so it actually
+        // means something if we look at it.
+        fprintf(fp, "* %s (%d)\n", pc_race_table[race].name, race);
         fprintf(fp, "Mult %d %d\n", race, pc_race_table[race].class_mult[num]);
     }
 

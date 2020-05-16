@@ -93,7 +93,7 @@ time_t end_timer(struct timeval *stime)
 } // end end_timer
 
 /*
- * Subtracts two times.  
+ * Subtracts two times.
  */
 void subtract_times(struct timeval *etime, struct timeval *stime)
 {

@@ -202,6 +202,21 @@ void assign_gsn()
     ASSIGN_GSN(gsn_holy_presence, "holy presence");
     ASSIGN_GSN(gsn_displacement, "displacement");
     ASSIGN_GSN(gsn_holy_flame, "holy flame");
+    ASSIGN_GSN(gsn_divine_wisdom, "divine wisdom");
+    ASSIGN_GSN(gsn_guardian_angel, "guardian angel");
+    ASSIGN_GSN(gsn_water_walk, "water walk");
+    ASSIGN_GSN(gsn_fourth_attack, "fourth attack");
+    ASSIGN_GSN(gsn_warcry, "warcry");
+    ASSIGN_GSN(gsn_cleanse, "cleanse");
+    ASSIGN_GSN(gsn_natural_refresh, "natural refresh");
+    ASSIGN_GSN(gsn_power_swing, "power swing");
+    ASSIGN_GSN(gsn_second_wind, "second wind");
+    ASSIGN_GSN(gsn_magic_protection, "magic protection");
+    ASSIGN_GSN(gsn_precision_striking, "precision striking");
+    ASSIGN_GSN(gsn_detect_fireproof, "detect fireproof");
+    ASSIGN_GSN(gsn_survey_terrain, "survey terrain");
+    ASSIGN_GSN(gsn_smokebomb, "smoke bomb");
+    ASSIGN_GSN(gsn_self_projection, "self projection");
 
     if (global.last_boot_result == UNKNOWN)
     {

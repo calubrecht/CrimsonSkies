@@ -5,6 +5,7 @@ Attrprime   str
 Weapon      3702
 Guild       3022
 Guild       9633
+Guild       745
 Skilladept  75
 Thac0_00    20
 Thac0_32    -10
@@ -191,6 +192,22 @@ Sk 'agony' 52 -1
 Sk 'holy presence' 52 -1
 Sk 'displacement' 52 -1
 Sk 'holy flame' 52 -1
+Sk 'divine wisdom' 52 -1
+Sk 'know religion' 52 -1
+Sk 'guardian angel' 52 -1
+Sk 'water walk' 52 -1
+Sk 'fourth attack' 52 -1
+Sk 'warcry' 52 -1
+Sk 'cleanse' 52 -1
+Sk 'natural refresh' 52 -1
+Sk 'power swing' 52 -1
+Sk 'second wind' 52 -1
+Sk 'magic protection' 52 -1
+Sk 'precision striking' 52 -1
+Sk 'detect fireproof' 52 -1
+Sk 'survey terrain' 52 -1
+Sk 'smoke bomb' 52 -1
+Sk 'self projection' 52 -1
 Sk 'change sex' 53 2
 Sk 'charm person' 53 2
 Sk 'detect evil' 53 2
@@ -233,6 +250,7 @@ Gr 'mage basics' 0
 Gr 'cleric basics' 0
 Gr 'thief basics' 0
 Gr 'warrior basics' 0
+Gr 'barbarian basics' 0
 Gr 'enchantor basics' 0
 Gr 'healer basics' 0
 Gr 'bladesinger basics' 0
@@ -244,6 +262,7 @@ Gr 'mage default' 0
 Gr 'cleric default' 0
 Gr 'thief default' 0
 Gr 'warrior default' 40
+Gr 'barbarian default' 0
 Gr 'enchantor default' 0
 Gr 'healer default' 0
 Gr 'bladesinger default' 0
@@ -275,11 +294,30 @@ Gr 'bladesongs' 0
 Gr 'nature' 0
 Gr 'psionics' 0
 Gr 'divination' 0
+* null race (0)
 Mult 0 100
+* human (1)
 Mult 1 100
-Mult 2 120
+* elf (2)
+Mult 2 125
+* half elf (3)
 Mult 3 100
-Mult 4 105
+* wild elf (4)
+Mult 4 100
+* sea elf (5)
 Mult 5 125
+* dark elf (6)
 Mult 6 125
+* dwarf (7)
+Mult 7 100
+* hill dwarf (8)
+Mult 8 100
+* mountain dwarf (9)
+Mult 9 100
+* ogre (10)
+Mult 10 125
+* kender (11)
+Mult 11 125
+* minotaur (12)
+Mult 12 125
 End

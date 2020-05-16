@@ -2949,6 +2949,12 @@ void do_list(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (find_mob_by_act(ch, ACT_IS_HEALER) != NULL)
+    {
+        do_heal(ch, "");
+        return;
+    }
+
     if (IS_SET(ch->in_room->room_flags, ROOM_PET_SHOP))
     {
         ROOM_INDEX_DATA *pRoomIndexNext;
@@ -3907,12 +3913,12 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     // Skill check
     if (CHANCE_SKILL(ch, gsn_lore))
     {
-        send_to_char("\r\nYour knowledge of this objects lore has garnered you this additional information:\r\n", ch);
+        send_to_char("\r\nYour lore has garnered you this additional information:\r\n", ch);
         check_improve(ch, gsn_lore, TRUE, 9);
     }
     else
     {
-        send_to_char("\r\nYou can't seem to recall any additional information about the lore of this item.\r\n", ch);
+        send_to_char("\r\nYou can't seem to recall any lore of this item.\r\n", ch);
         check_improve(ch, gsn_lore, FALSE, 9);
         return;
     }
@@ -4077,3 +4083,380 @@ void show_lore(CHAR_DATA * ch, OBJ_DATA *obj)
     }
 
 } // end show_lore
+
+  /*
+   * Empties an objects contents into another object or a room.  This is brought to us
+   * by the Smaug code base.
+   */
+bool empty_obj(OBJ_DATA *obj, OBJ_DATA *dest_obj, ROOM_INDEX_DATA *dest_room)
+{
+    OBJ_DATA *temp_obj, *temp_obj_next;
+    CHAR_DATA *ch = obj->carried_by;
+    bool moved_some = FALSE;
+
+    if (!obj)
+    {
+        bug("empty_obj: NULL obj", 0);
+        return FALSE;
+    }
+
+    // Move the contents from one container to another.
+    if (dest_obj || (!dest_room && !ch && (dest_obj = obj->in_obj) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+
+            // Make sure the destination object is a container and that it can hold the
+            // weight.
+            if (dest_obj->item_type == ITEM_CONTAINER
+                && (get_obj_weight(temp_obj) + get_true_weight(dest_obj) > (dest_obj->value[0] * 10)
+                || get_obj_weight(temp_obj) > (dest_obj->value[3] * 10)))
+                continue;
+
+            // Remove the object from one container, put it into the next.  No need to separate
+            // because we're taking it all.
+            obj_from_obj(temp_obj);
+            obj_to_obj(temp_obj, dest_obj);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the the provided room.
+    if (dest_room || (!ch && (dest_room = obj->in_room) != NULL))
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_room(temp_obj, dest_room);
+            moved_some = TRUE;
+        }
+
+        return moved_some;
+    }
+
+    // Move the contents from one container to the character who is holding the container.
+    if (ch)
+    {
+        for (temp_obj = obj->contains; temp_obj; temp_obj = temp_obj_next)
+        {
+            temp_obj_next = temp_obj->next_content;
+            obj_from_obj(temp_obj);
+            obj_to_char(temp_obj, ch);
+            moved_some = TRUE;
+        }
+        return moved_some;
+    }
+
+    // If we got here then we were not provided the correct inputs, log it.
+    bug("empty_obj: could not determine a destination for vnum %d", obj->pIndexData->vnum);
+    return FALSE;
+}
+
+/*
+ * The ability to empty a container into another container, empty a liquid container
+ * or dump a container into your inventory.  This code originated from a piece Smaug who
+ * acquired it from Crimson Blade (Noplex, Krowe, Emberlyna, Lanthos).  It was originally
+ * part of liquids.c in Smaug.
+ */
+void do_empty(CHAR_DATA *ch, char *argument)
+{
+    OBJ_DATA *obj;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    if ((!str_cmp(arg2, "into") || !str_cmp(arg2, "in")) && argument[0] != '\0')
+    {
+        argument = one_argument(argument, arg2);
+    }
+
+    if (arg1[0] == '\0')
+    {
+        send_to_char("Empty what?\r\n", ch);
+        return;
+    }
+
+    if ((obj = get_obj_carry(ch, arg1, ch)) == NULL)
+    {
+        send_to_char("You aren't carrying that.\r\n", ch);
+        return;
+    }
+
+    if (obj->count > 1)
+    {
+        separate_obj(obj);
+    }
+
+    switch (obj->item_type)
+    {
+        default:
+            act("You shake $p in an attempt to empty it...", ch, obj, NULL, TO_CHAR);
+            act("$n begins to shake $p in an attempt to empty it...", ch, obj, NULL, TO_ROOM);
+            return;
+        case ITEM_DRINK_CON:
+            if (obj->value[1] < 1)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+            act("You empty $p.", ch, obj, NULL, TO_CHAR);
+            act("$n empties $p.", ch, obj, NULL, TO_ROOM);
+            obj->value[1] = 0;
+            return;
+        case ITEM_CONTAINER:
+            if (IS_SET(obj->value[1], CONT_CLOSED))
+            {
+                act("The $d is closed.", ch, NULL, obj->name, TO_CHAR);
+                return;
+            }
+
+            if (!obj->contains)
+            {
+                send_to_char("It's already empty.\r\n", ch);
+                return;
+            }
+
+            if (arg2[0] == '\0')
+            {
+                if (IS_SET (ch->in_room->room_flags, ROOM_ARENA))
+                {
+                    send_to_char ("No littering in the arena.\r\n", ch);
+                    return;
+                }
+
+                if (empty_obj(obj, NULL, ch->in_room))
+                {
+                    act("You empty the contents of $p onto the ground.", ch, obj, NULL, TO_CHAR);
+                    act("$n empties the contents of $p onto the ground.", ch, obj, NULL, TO_ROOM);
+                }
+                else
+                {
+                    send_to_char("Hmmm... didn't work.\r\n", ch);
+                }
+            }
+            else
+            {
+                OBJ_DATA *dest = get_obj_here(ch, arg2);
+
+                if (!str_prefix("self", arg2))
+                {
+                    if (empty_obj(obj, NULL, NULL))
+                    {
+                        act("You empty the contents of $p into your inventory.", ch, obj, NULL, TO_CHAR);
+                        act("$n empties the contents of $p into $s inventory.", ch, obj, NULL, TO_ROOM);
+                    }
+
+                    return;
+                }
+
+                if (!dest)
+                {
+                    send_to_char("You can't find it.\r\n", ch);
+                    return;
+                }
+
+                if (dest == obj)
+                {
+                    send_to_char("You can't empty something into itself!\r\n", ch);
+                    return;
+                }
+
+                if (dest->item_type != ITEM_CONTAINER)
+                {
+                    send_to_char("That's not a container!\r\n", ch);
+                    return;
+
+                }
+                if (IS_SET(dest->value[1], CONT_CLOSED))
+                {
+                    act("The $d is closed.", ch, NULL, dest->name, TO_CHAR);
+                    return;
+                }
+
+                separate_obj(dest);
+
+                if (empty_obj(obj, dest, NULL))
+                {
+                    act("You empty the contents of $p into $P.", ch, obj, dest, TO_CHAR);
+                    act("$n empties the contents of $p into $P.", ch, obj, dest, TO_ROOM);
+                }
+                else
+                {
+                    act("$P is too full.", ch, obj, dest, TO_CHAR);
+                }
+            }
+
+        return;
+    }
+}
+
+/*
+ * Command to allow players to store up to 10 keys in a keyring
+ * Contributed by Khlydes of LorenMud.
+ */
+void do_keyring(CHAR_DATA * ch, char * argument)
+{
+    OBJ_INDEX_DATA * obj;
+    OBJ_DATA * obj2;
+    OBJ_DATA * object;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char buf[MAX_INPUT_LENGTH];
+    int i, key[10];
+    bool found = FALSE;
+
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
+
+    for (i = 0; i < 10; i++)
+    {
+        key[i] = ch->pcdata->key_ring[i];
+    }
+
+    if (IS_NULLSTR(arg1))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "show"))
+    {
+        send_to_char("The available keys on your key ring are:\r\n", ch);
+
+        for (i = 0; i < 10; i++)
+        {
+            if (key[i] != -1)
+            {
+                obj = get_obj_index(key[i]);
+
+                if (obj != NULL && obj->item_type == ITEM_KEY)
+                {
+                    sprintf(buf, "%2d.   %s\r\n", (i + 1), obj->short_descr);
+                }
+                else
+                {
+                    sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+                    ch->pcdata->key_ring[i] = -1;
+                }
+            }
+            else
+            {
+                sprintf(buf, "%2d.   (empty)\r\n", (i + 1));
+            }
+
+            send_to_char(buf, ch);
+        }
+
+        return;
+    }
+
+    if (IS_NULLSTR(arg2))
+    {
+        send_to_char("Syntax: keyring show\r\n", ch);
+        send_to_char("        keyring add <key>\r\n", ch);
+        send_to_char("        kerying remove <1-10>\r\n", ch);
+        return;
+    }
+
+    if (!str_cmp(arg1, "add"))
+    {
+        if ((object = get_obj_carry(ch, arg2, ch)) == NULL)
+        {
+            send_to_char("You do not have that key.\r\n", ch);
+        }
+        else
+        {
+            if (object->item_type != ITEM_KEY)
+            {
+                send_to_char("That is not a key.\r\n", ch);
+            }
+            else if (object->timer > 0)
+            {
+                // If the key has a timer that means it's on the clock to crumbling, putting
+                // it on the key ring would create a loophole to avoid that mechansim.  Rot
+                // death items are ok as long as they haven't been triggered.
+                send_to_char("That key is too fragile to add to your key ring.\r\n", ch);
+            }
+            else
+            {
+                for (i = 0; i < 10; i++)
+                {
+                    if (key[i] == -1)
+                    {
+                        // Set they key onto the ring, they separate it and extract it.  Separating it
+                        // will only take one of the keys from the inventory if multiple exist that have
+                        // been consolidated.
+                        ch->pcdata->key_ring[i] = object->pIndexData->vnum;
+                        separate_obj(object);
+                        extract_obj(object);
+                        send_to_char("The key has been added to your key ring.\r\n", ch);
+                        found = TRUE;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    send_to_char("Your key ring is full, you must remove a key first.\r\n", ch);
+                }
+            }
+        }
+
+        return;
+    }
+
+    if (!is_number(arg2))
+    {
+        send_to_char("You must choose a key between 1 and 10.\r\n", ch);
+        return;
+    }
+
+    int value = atoi(arg2);
+
+    if (!str_cmp(arg1, "remove"))
+    {
+        if (value < 1 || value > 10)
+        {
+            send_to_char("You must remove a key from 1 to 10.\r\n", ch);
+            return;
+        }
+        else
+        {
+            value -= 1;
+            obj2 = create_object(get_obj_index(ch->pcdata->key_ring[value]));
+
+            // This key is getting removed, unset it from the ring
+            ch->pcdata->key_ring[value] = -1;
+
+            if (obj2 != NULL && obj2->item_type == ITEM_KEY)
+            {
+                sprintf(buf, "You have removed %s from your key ring.\r\n", obj2->short_descr);
+                obj_to_char(obj2, ch);
+            }
+            else
+            {
+                // Only extract the object if it's not null (extracting a NULL object will crash)
+                if (obj2 != NULL)
+                {
+                    bugf("Invalid key found in do_keyring (e.g. it's not a key, find out how it got there): vnum = %d.", obj2->pIndexData->vnum);
+                    extract_obj(obj2);  // No need to separate, just extract
+                }
+
+                // One way or another, the key was invalid if we get here (perhaps an area was removed?)
+                sprintf(buf, "They key crumbled in your hands.\r\n");
+            }
+
+            send_to_char(buf, ch);
+        }
+    }
+
+    return;
+}
