@@ -1,15 +1,13 @@
-To Do List
+wTo Do List
 ==========
 
 This is my to do list, mostly will be things big and small as I think about them.
 
   - Add custom recall field for each clan in the tables struct.
-  - Add command so anyone can go loner.
   - Add luck stat
   - Anti-magic areas
   - Add more items to be sold in Midgaard for 15-20 levels.
   - do_reset and aedit_reset collision
-  - Add bank, determine monetary type to bank (consider getting rid of silver)
   - Add throwing
   - Add languages
   - Sector to display color on exits or another mechansim which is togglable (green for forest, blue for water, etc.)
@@ -25,15 +23,12 @@ This is my to do list, mostly will be things big and small as I think about them
   - Update score with telnetga,compact mode, prompt, combine items, brief
   - Code to search through items in bag or pit.
   - Note cleanup, note forward bug
-  - Add red oak village in the center of the Arcanis continent.
   - Clan halls for Midgaard, New Thalos, Red Oak and the to be named elven city.
-  - Assassin class
   - Surge spell for certain classes, allows them to cast at heightened
     level for a much higher mana consumption.  
   - Dropped items in ocean sink (for fun, add them to a lost and found pit in the immortals area so they save).
   - Ability to catch a cold if in the cold weather/tundra.
   - Ability to be affected random affects, having more energy, feeling weak, etc.
-  - Load class multipliers from file (uncomment out the code in db.c).  Make pc_race_table not a const so it can be updated.
   - Save pc_race_table out to disk and load it in, add OLC for it.
   - gedit - delete a group (test what happens when a player logs in with said group then).
   - Make the game not crash if a player with an invalid class logs in.
@@ -114,7 +109,6 @@ This is my to do list, mostly will be things big and small as I think about them
   - Bans to check both d->host and d->ip_address
   - Reformat socket command, show both d->host and d->ip_address
   - Preserve group after copyover
-  - Drunk talk
   - Critical strike
   - Sliding saves bonus based on wisdom
   - Sliding magic damage bonus based on int
@@ -138,10 +132,30 @@ This is my to do list, mostly will be things big and small as I think about them
   - Remove mass invis gsn, add invis flag when it's cast.
   - Psion - Temporal Fracture
   - Create function of all things to be removed in combat/damage.
-  - Psionics boosts based on the hours they've played.
   - Slippery Mind for psion
-  - Priest Recall Agony A: Foe takes 2d6 damage.
-  - Remove armor class from the hit check, reduce damage from it though
-  - Priest rank in who
-  - Cleanup whois/who, shouldn't be two cases for immortal/not immortal duplicating a lot of the formatting.
+  - Remove armor class (AC) from the hit check, reduce damage from it though
   - Room affects
+  - pk wholist
+  - jab skill for rogues that lowers dex
+  - damage adjustment based on int (up or down) on damage casting spells.
+  - nobility
+  - Make guardian angel spell mob disappear after the effect is gone from the mob.
+  - swims in message (floats in).
+  - add hitroll_bonus, damroll_bonus to class structure
+  - Secondary class stat
+  - barb, mud coat skill.
+  - enhance pain spell (more damage taken)
+  - psionict's chance to avoid psionic damage damage
+  - assassin class (strangle, assassinate, flash bomb)
+  - assassin surprise attack (moves a person into the next room and attacks in a single command)
+  - Merits, make only "choosable" one's availble from creation, update the look to search for both or filter those out.
+  - Previous HP to affect your reclass HP
+  - Allow logout even in pk lag if the player is in a clan owned room of the clan they are in
+  - Priest spell (with cooldown) to prevent a person from entering a room for a tick
+  - Area flag that denotes a clan/kingdom hall.
+  - Hometown selection in creation
+  - Drunk in score or affects
+  - Make glance also show magic status if detect magic is up.
+  - Sheathed weapon
+  - Ability to enter a background history about your character
+  - whoisic (shows description, phyiscal appearnce and background).

@@ -6,6 +6,7 @@ LevelRange 5 50
 Credits [ 5 50] Generic Olympus~
 Security 9
 Continent 1
+AreaFlags A
 End
 
 
@@ -739,6 +740,10 @@ continues up the mountain, but part of it is gone.  There is no way to
 continue by land.
 ~
 0 0 5
+D0
+~
+~
+0 0 10600
 D2
 ~
 ~
@@ -1534,6 +1539,7 @@ D 0 921 1 2
 D 0 922 3 2
 D 0 937 3 1
 D 0 939 4 1
+O 0 31 0 903 A bind stone loaded to Mountain
 M 0 923 10 904 2 Load A citizen
 M 0 923 10 905 2 Load A citizen
 M 0 923 10 906 2 Load A citizen

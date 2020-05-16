@@ -118,6 +118,7 @@ const struct cmd_type cmd_table[] = {
     {"clearreply",do_clearreply,POS_DEAD,     IM, LOG_NORMAL, TRUE},
     {"second",    do_second,    POS_RESTING,  0,  LOG_NORMAL, FALSE},
     {"dual",      do_second,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
+    {"glance",    do_glance,    POS_RESTING,  0,  LOG_NORMAL, TRUE},
 
     /*
      * Informational commands.
@@ -165,6 +166,7 @@ const struct cmd_type cmd_table[] = {
     {"autoloot",  do_autoloot,    POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"autosac",   do_autosac,     POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"autosplit", do_autosplit,   POS_DEAD,     0, LOG_NORMAL, TRUE},
+    {"autoquit",  do_autoquit,    POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"brief",     do_brief,       POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"color",     do_color,       POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"combine",   do_combine,     POS_DEAD,     0, LOG_NORMAL, TRUE},
@@ -189,25 +191,30 @@ const struct cmd_type cmd_table[] = {
      * Communication commands.
      */
     {"afk",             do_afk,         POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"ask",             do_question,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"answer",          do_answer,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"deaf",            do_deaf,        POS_DEAD,     0, LOG_NORMAL, TRUE},
     {"emote",           do_emote,       POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {",",               do_emote,       POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"pmote",           do_pmote,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"gossip",          do_gossip,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"cgossip",         do_cgossip,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"ooc",             do_ooc,         POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"grats",           do_grats,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"gtell",           do_gtell,       POS_DEAD,     0, LOG_NORMAL, TRUE},
+    {";",               do_gtell,       POS_DEAD,     0, LOG_NORMAL, FALSE},
     {"question",        do_question,    POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"quiet",           do_quiet,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
-    {"reply",           do_reply,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"reply",           do_reply,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"replay",          do_replay,      POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"say",             do_say,         POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"'",               do_say,         POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"shout",           do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"yell",            do_yell,        POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"pray",            do_pray,        POS_DEAD,     0, LOG_ALWAYS, TRUE},
     {"immtalk",         do_immtalk,     POS_DEAD,    IM, LOG_NORMAL, TRUE},
     {"direct",          do_direct,      POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"whisper",         do_whisper,     POS_RESTING,  0, LOG_NORMAL, TRUE},
     {">",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"@",               do_direct,      POS_RESTING,  0, LOG_NORMAL, FALSE},
 
@@ -263,6 +270,7 @@ const struct cmd_type cmd_table[] = {
     {"bandage",         do_bandage,     POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"write",           do_write,       POS_RESTING,  0, LOG_NORMAL, TRUE},
     {"read",            do_read,        POS_RESTING,  0, LOG_NORMAL, TRUE},
+    {"empty",           do_empty,       POS_RESTING,  0, LOG_NORMAL, TRUE},
 
     /*
      * Combat commands.
@@ -297,8 +305,12 @@ const struct cmd_type cmd_table[] = {
     {"peer",            do_peer,          POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"bludgeon",        do_bludgeon,      POS_FIGHTING, 0, LOG_NORMAL, FALSE},
     {"revolt",          do_revolt,        POS_STANDING, 0, LOG_NORMAL, FALSE},
+    {"smokebomb",       do_smokebomb,     POS_STANDING, 0, LOG_NORMAL, FALSE},
     {"clairvoyance",    do_clairvoyance,  POS_RESTING,  0, LOG_NORMAL, FALSE},
     {"prayer",          do_prayer,        POS_RESTING,  0, LOG_NORMAL, FALSE},
+    {"warcry",          do_warcry,        POS_FIGHTING, 0, LOG_NORMAL, FALSE},
+    {"cleanse",         do_cleanse,       POS_RESTING,  0, LOG_NORMAL, FALSE},
+    {"powerswing",      do_power_swing,   POS_FIGHTING, 0, LOG_NORMAL, FALSE},
 
     /*
      * Mob command interpreter (placed here for faster scan...)
@@ -333,6 +345,7 @@ const struct cmd_type cmd_table[] = {
     {"guildlist",       do_guildlist,   POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"land",            do_land,        POS_STANDING, 0, LOG_NORMAL, TRUE},
     {"class",           do_class,       POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"race",            do_race,        POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"terrain",         do_terrain,     POS_SITTING,  0, LOG_NORMAL, TRUE},
     {"version",         do_version,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
     {"randomnames",     do_random_names,POS_DEAD,     0, LOG_NORMAL, TRUE},
@@ -421,10 +434,18 @@ const struct cmd_type cmd_table[] = {
     {"crypt",           do_crypt,       POS_DEAD, L3, LOG_ALWAYS, TRUE},
 	{"dbexport",        do_dbexport,    POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"permanent",       do_permanent,   POS_DEAD, ML, LOG_ALWAYS, TRUE},
+    {"pload",           do_pload,       POS_DEAD, ML, LOG_ALWAYS, TRUE},
+    {"punload",         do_punload,     POS_DEAD, ML, LOG_ALWAYS, TRUE },
     {"loner",           do_loner,       POS_SLEEPING, 1, LOG_NORMAL, TRUE},
     {"linefeed",        do_linefeed,    POS_SLEEPING, 1, LOG_NORMAL, TRUE},
     {"playerlist",      do_playerlist,  POS_DEAD, L2, LOG_ALWAYS, TRUE},
     {"duplicate",       do_duplicate,   POS_STANDING, 1, LOG_NORMAL, TRUE},
+    {"deity",           do_deity,       POS_DEAD,  1, LOG_NORMAL, TRUE},
+    {"meritlist",       do_meritlist,   POS_DEAD, 1, LOG_NORMAL, TRUE},
+    {"draw",            do_draw,        POS_RESTING, 1, LOG_NORMAL, TRUE},
+    {"tnl",             do_tnl,         POS_DEAD, 1, LOG_NORMAL, TRUE},
+    {"keyring",         do_keyring,     POS_SLEEPING, 0, LOG_NORMAL, TRUE},
+    {"improve",         do_improve,     POS_DEAD, 1, LOG_NORMAL, TRUE},
 
     /*
      * OLC

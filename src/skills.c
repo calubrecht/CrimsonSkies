@@ -716,18 +716,18 @@ void show_skill_list(CHAR_DATA * ch, CHAR_DATA * ch_show, char *argument)
 /* shows skills, groups and costs (only if not bought) */
 void list_group_costs(CHAR_DATA * ch)
 {
-    char buf[100];
     int gn, sn, col;
     extern int top_group;
+    bool found_groups = FALSE;
+    bool found_skills = FALSE;
 
     if (IS_NPC(ch))
         return;
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "group", "cp",
-        "group", "cp", "group", "cp");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Group", "CP", "Group", "CP", "Group", "CP");
+    sendf(ch, HEADER);
 
     for (gn = 0; gn < top_group; gn++)
     {
@@ -738,22 +738,34 @@ void list_group_costs(CHAR_DATA * ch)
             && !ch->pcdata->group_known[gn]
             && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", group_table[gn]->name,
-                group_table[gn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_groups = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", group_table[gn]->name, group_table[gn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
+
     if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_groups)
+    {
+        sendf(ch, "{WThere are no groups left to take.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s\r\n", "skill", "cp",
-        "skill", "cp", "skill", "cp");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Skill", "CP", "Skill", "CP", "Skill", "CP");
+    sendf(ch, HEADER);
 
     for (sn = 0; sn < top_sn; sn++)
     {
@@ -769,64 +781,84 @@ void list_group_costs(CHAR_DATA * ch)
             && skill_table[sn]->spell_fun == spell_null
             && skill_table[sn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", skill_table[sn]->name,
-                skill_table[sn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_skills = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", skill_table[sn]->name, skill_table[sn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
 
-    sprintf(buf, "Creation points: %d\r\n", ch->pcdata->points);
-    send_to_char(buf, ch);
-    sprintf(buf, "Experience per level: %d\r\n",
-        exp_per_level(ch, ch->gen_data->points_chosen));
-    send_to_char(buf, ch);
+    if (col % 3 != 0)
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_skills)
+    {
+        sendf(ch, "{WThere are no skills left to take.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
+    sendf(ch, "{WCreation points:      {G%d{x\r\n", ch->pcdata->points);
+    sendf(ch, "{WExperience per level: {G%d{x\r\n\r\n", exp_per_level(ch, ch->gen_data->points_chosen));
+
     return;
 }
 
 void list_group_chosen(CHAR_DATA * ch)
 {
-    char buf[100];
     int gn, sn, col;
     extern int top_group;
+    bool found_groups = FALSE;
+    bool found_skills = FALSE;
 
     if (IS_NPC(ch))
         return;
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "group", "cp", "group",
-        "cp", "group", "cp\r\n");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Group", "CP", "Group", "CP", "Group", "CP");
+    sendf(ch, HEADER);
 
     for (gn = 0; gn < top_group; gn++)
     {
         if (group_table[gn]->name == NULL)
             break;
 
-        if (ch->gen_data->group_chosen[gn]
-            && group_table[gn]->rating[ch->class] > 0)
+        if (ch->gen_data->group_chosen[gn] && group_table[gn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", group_table[gn]->name,
-                group_table[gn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_groups = TRUE;
+            sendf(ch, "{W%-18s {G%-5d{x ", group_table[gn]->name, group_table[gn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
+
     if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_groups)
+    {
+        sendf(ch, "{WNo groups have yet been choosen.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
 
     col = 0;
 
-    sprintf(buf, "%-18s %-5s %-18s %-5s %-18s %-5s", "skill", "cp", "skill",
-        "cp", "skill", "cp\r\n");
-    send_to_char(buf, ch);
+    sendf(ch, "{C%-18s %-5s %-18s %-5s %-18s %-5s{x\r\n", "Skill", "CP", "Skill", "CP", "Skill", "CP");
+    sendf(ch, HEADER);
 
     for (sn = 0; sn < top_sn; sn++)
     {
@@ -837,25 +869,34 @@ void list_group_chosen(CHAR_DATA * ch)
         if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
             continue;
 
-        if (ch->gen_data->skill_chosen[sn]
-            && skill_table[sn]->rating[ch->class] > 0)
+        if (ch->gen_data->skill_chosen[sn] && skill_table[sn]->rating[ch->class] > 0)
         {
-            sprintf(buf, "%-18s %-5d ", skill_table[sn]->name,
-                skill_table[sn]->rating[ch->class]);
-            send_to_char(buf, ch);
+            found_skills = TRUE;
+
+            sendf(ch, "{W%-18s {G%-5d{x ", skill_table[sn]->name, skill_table[sn]->rating[ch->class]);
+
             if (++col % 3 == 0)
-                send_to_char("\r\n", ch);
+            {
+                sendf(ch, "\r\n");
+            }
         }
     }
-    if (col % 3 != 0)
-        send_to_char("\r\n", ch);
-    send_to_char("\r\n", ch);
 
-    sprintf(buf, "Creation points: %d\r\n", ch->gen_data->points_chosen);
-    send_to_char(buf, ch);
-    sprintf(buf, "Experience per level: %d\r\n",
-        exp_per_level(ch, ch->gen_data->points_chosen));
-    send_to_char(buf, ch);
+    if (col % 3 != 0)
+    {
+        sendf(ch, "\r\n");
+    }
+
+    if (!found_skills)
+    {
+        sendf(ch, "{WNo skills have yet been choosen.{x\r\n");
+    }
+
+    sendf(ch, HEADER);
+    sendf(ch, "\r\n");
+    sendf(ch, "{WCreation points:      {G%d{x\r\n", ch->pcdata->points);
+    sendf(ch, "{WExperience per level: {G%d{x\r\n\r\n", exp_per_level(ch, ch->gen_data->points_chosen));
+
     return;
 }
 
@@ -1045,12 +1086,6 @@ bool parse_gen_groups(CHAR_DATA * ch, char *argument)
         return TRUE;
     }
 
-    if (!str_prefix(arg, "premise"))
-    {
-        do_function(ch, &do_help, "premise");
-        return TRUE;
-    }
-
     if (!str_prefix(arg, "list"))
     {
         list_group_costs(ch);
@@ -1170,23 +1205,31 @@ void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
         || ch->pcdata->learned[sn] == 0 || ch->pcdata->learned[sn] == 100)
         return;                    /* skill is not known */
 
-    /* check to see if the character has a chance to learn */
+    // Check to see if the character has a chance to learn.  Intelligence
+    // factors in, the rating of the skill for the player factors in, it gets
+    // easier the higher level you are.
     chance = 10 * int_app[get_curr_stat(ch, STAT_INT)].learn;
-    chance /= (multiplier * skill_table[sn]->rating[ch->class] * 4);
+    chance /= (multiplier * abs(skill_table[sn]->rating[ch->class]) * 4);
     chance += ch->level;
 
+    // Merit - Fast Learner (additional 5% on the initial chance to learn)
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+    {
+        chance += 50;
+    }
+
     if (number_range(1, 1000) > chance)
+    {
         return;
+    }
 
-    /* now that the character has a CHANCE to learn, see if they really have */
-
+    // Now that the character has a CHANCE to learn, see if they really have.
     if (success)
     {
         chance = URANGE(5, 100 - ch->pcdata->learned[sn], 95);
         if (number_percent() < chance)
         {
-            sprintf(buf, "You have become better at %s!\r\n",
-                skill_table[sn]->name);
+            sprintf(buf, "You have become better at %s!\r\n", skill_table[sn]->name);
             send_to_char(buf, ch);
             ch->pcdata->learned[sn]++;
             gain_exp(ch, 2 * skill_table[sn]->rating[ch->class]);
@@ -1198,13 +1241,93 @@ void check_improve(CHAR_DATA * ch, int sn, bool success, int multiplier)
         chance = URANGE(5, ch->pcdata->learned[sn] / 2, 30);
         if (number_percent() < chance)
         {
-            sprintf(buf,
-                "You learn from your mistakes, and your %s skill improves.\r\n",
-                skill_table[sn]->name);
+            sprintf(buf, "You learn from your mistakes, and your %s skill improves.\r\n", skill_table[sn]->name);
             send_to_char(buf, ch);
             ch->pcdata->learned[sn] += number_range(1, 3);
             ch->pcdata->learned[sn] = UMIN(ch->pcdata->learned[sn], 100);
             gain_exp(ch, 2 * skill_table[sn]->rating[ch->class]);
+        }
+    }
+}
+
+/*
+ * Checks to see if it's time to for a player to improve the skill they've focused on
+ * via the improve command.  This is based solely on their int, there is a minutes
+ * between improves in the int_app table.
+ */
+void check_time_improve(CHAR_DATA * ch)
+{
+    int sn = 0;
+
+    // If the system is turned off, ditch out.
+    if (!settings.focused_improves)
+        return;
+
+    // Only for players
+    if (IS_NPC(ch))
+        return;
+
+    // The player hasn't focused on a skill.
+    if (ch->pcdata->improve_focus_gsn == 0)
+        return;
+
+    sn = ch->pcdata->improve_focus_gsn;
+
+    // Can't improve if they don't have the skill or it's already at 100.
+    if (ch->level < skill_table[sn]->skill_level[ch->class]
+        || skill_table[sn]->rating[ch->class] == 0
+        || ch->pcdata->learned[sn] == 0
+        || ch->pcdata->learned[sn] == 100)
+        return;
+
+    // Subtract 1 minute
+    ch->pcdata->improve_minutes -= 1;
+
+    // Fast learners get a 25% chance of gaining an additional minute
+    if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER) && CHANCE(25))
+    {
+        ch->pcdata->improve_minutes -= 1;
+    }
+
+    // Improve
+    if (ch->pcdata->improve_minutes <= 0)
+    {
+        // Reset their next improve time based on their int, increase the skill, make sure
+        // it's not over 100.
+        ch->pcdata->improve_minutes = int_app[get_curr_stat(ch, STAT_INT)].improve_minutes;
+
+        // Chance for a higher raise, again, based on intelligence.
+        int chance = get_curr_stat(ch, STAT_INT) * 4;
+
+        // 15% higher chance if you have the merit fast learner.
+        if (IS_SET(ch->pcdata->merit, MERIT_FAST_LEARNER))
+        {
+            chance += 15;
+        }
+
+        // Moment of truth, is it a 1%, 2% or 3% increase.
+        if (CHANCE(chance))
+        {
+            ch->pcdata->learned[sn] += number_range(2, 3);
+        }
+        else
+        {
+            ch->pcdata->learned[sn]++;
+        }
+
+        // Ensure a max of only 100
+        ch->pcdata->learned[sn] = UMIN(ch->pcdata->learned[sn], 100);
+
+        if (ch->pcdata->learned[sn] == 100)
+        {
+            sendf(ch, "You are now fully learned at %s!\r\n", skill_table[sn]->name);
+
+            // Reset the focus to nothing.
+            ch->pcdata->improve_focus_gsn = 0;
+        }
+        else
+        {
+            sendf(ch, "You have become better at %s!\r\n", skill_table[sn]->name);
         }
     }
 }
@@ -1357,3 +1480,186 @@ bool is_racial_skill(CHAR_DATA * ch, int sn)
 
 } // end is_racial_skill
 
+  /*
+  * The practice command can be used to both show a player all of their skills
+  * and spells as well as actually practice them once they find a trainer.
+  */
+void do_practice(CHAR_DATA * ch, char *argument)
+{
+    char buf[MAX_STRING_LENGTH];
+    int sn;
+
+    if (IS_NPC(ch))
+        return;
+
+    if (argument[0] == '\0')
+    {
+        int col;
+
+        col = 0;
+        for (sn = 0; sn < top_sn; sn++)
+        {
+            if (skill_table[sn]->name == NULL)
+                break;
+
+            // If it is a racial skill, but not the players race then continue.
+            if (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+                continue;
+
+            if (ch->level < skill_table[sn]->skill_level[ch->class]
+                || ch->pcdata->learned[sn] < 1 /* skill is not known */)
+                continue;
+
+            sprintf(buf, "%-19.19s %3d%%  ",
+                skill_table[sn]->name, ch->pcdata->learned[sn]);
+            send_to_char(buf, ch);
+            if (++col % 3 == 0)
+                send_to_char("\r\n", ch);
+        }
+
+        if (col % 3 != 0)
+            send_to_char("\r\n", ch);
+
+        sprintf(buf, "You have %d practice sessions left.\r\n", ch->practice);
+        send_to_char(buf, ch);
+    }
+    else
+    {
+        CHAR_DATA *mob;
+        int adept;
+
+        if (!IS_AWAKE(ch))
+        {
+            send_to_char("In your dreams, or what?\r\n", ch);
+            return;
+        }
+
+        for (mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room)
+        {
+            if (IS_NPC(mob) && IS_SET(mob->act, ACT_PRACTICE))
+                break;
+        }
+
+        if (mob == NULL)
+        {
+            send_to_char("You can't do that here.\r\n", ch);
+            return;
+        }
+
+        if (ch->practice <= 0)
+        {
+            send_to_char("You have no practice sessions left.\r\n", ch);
+            return;
+        }
+
+        if ((sn = find_spell(ch, argument)) < 0 ||
+            (!IS_NPC(ch)
+                && (ch->level < skill_table[sn]->skill_level[ch->class]
+                    || ch->pcdata->learned[sn] < 1    /* skill is not known */
+                    || (skill_table[sn]->race > 0 && skill_table[sn]->race != ch->race)
+                    || skill_table[sn]->rating[ch->class] == 0)))
+        {
+            send_to_char("You can't practice that.\r\n", ch);
+            return;
+        }
+
+        adept = IS_NPC(ch) ? 100 : class_table[ch->class]->skill_adept;
+
+        if (ch->pcdata->learned[sn] >= adept)
+        {
+            sprintf(buf, "You are already learned at %s.\r\n", skill_table[sn]->name);
+            send_to_char(buf, ch);
+        }
+        else
+        {
+            ch->practice--;
+            ch->pcdata->learned[sn] +=
+                int_app[get_curr_stat(ch, STAT_INT)].learn /
+                skill_table[sn]->rating[ch->class];
+
+            if (ch->pcdata->learned[sn] < adept)
+            {
+                sprintf(buf, "You practice $T to %d%% proficiency.", ch->pcdata->learned[sn]);
+                act(buf, ch, NULL, skill_table[sn]->name, TO_CHAR);
+                act("$n practices $T.", ch, NULL, skill_table[sn]->name, TO_ROOM);
+            }
+            else
+            {
+                ch->pcdata->learned[sn] = adept;
+                act("You are now learned at $T.", ch, NULL, skill_table[sn]->name, TO_CHAR);
+                act("$n is now learned at $T.", ch, NULL, skill_table[sn]->name, TO_ROOM);
+            }
+        }
+    }
+
+    return;
+
+}
+
+/*
+ * Tells a player what they are improving on and how long they still have until their
+ * focusing on that skill pays off.  Also allows the player to set the skill they want
+ * to focus on.
+ */
+void do_improve(CHAR_DATA * ch, char *argument)
+{
+    if (IS_NPC(ch))
+    {
+        send_to_char("NPC's cannot improve skills.\r\n", ch);
+    }
+
+    // Setting to allow this to be turned off.
+    if (!settings.focused_improves)
+    {
+        send_to_char("The improves system has been turned off.  You will still improve on your skills\r\n", ch);
+        send_to_char("and spells through using them.\r\n", ch);
+        return;
+    }
+
+    int sn = 0;
+
+    // No input was entered, so show them what they are focused on (or not)
+    if (IS_NULLSTR(argument))
+    {
+        sn = ch->pcdata->improve_focus_gsn;
+
+        // They haven't focused on any specific skill, they can't on that specific skill or they're
+        // already at 100% for it.
+        if (sn == 0
+            || ch->level < skill_table[sn]->skill_level[ch->class]
+            || skill_table[sn]->rating[ch->class] == 0
+            || ch->pcdata->learned[sn] == 0
+            || ch->pcdata->learned[sn] == 100)
+        {
+            send_to_char("You are not currently focused on improving any skills.\r\n", ch);
+            return;
+        }
+
+        sendf(ch, "You have %d minute%s left until you improve on %s (%d%).\r\n"
+            , ch->pcdata->improve_minutes
+            , ch->pcdata->improve_minutes > 1 ? "s" : ""
+            , skill_table[sn]->name
+            , ch->pcdata->learned[sn]);
+        return;
+    }
+
+    // If we got here, there is an new skill we need to look, validate and try to set.
+    sn = skill_lookup(argument);
+
+    if (sn == -1
+        || sn == 0
+        || ch->level < skill_table[sn]->skill_level[ch->class]
+        || skill_table[sn]->rating[ch->class] == 0
+        || ch->pcdata->learned[sn] == 0
+        || ch->pcdata->learned[sn] == 100)
+    {
+        send_to_char("That is not a valid skill or spell that you can improve on.\r\n", ch);
+        return;
+    }
+    else
+    {
+        sendf(ch, "You are now focused on improving %s (%d%).\r\n", skill_table[sn]->name, ch->pcdata->learned[sn]);
+        ch->pcdata->improve_focus_gsn = sn;
+    }
+
+}

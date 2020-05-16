@@ -29,6 +29,12 @@ Sk 'second attack'
 End
 
 #GROUP
+Name 'barbarian basics'
+Sk 'sword'
+Sk 'second attack'
+End
+
+#GROUP
 Name 'enchantor basics'
 Sk 'dagger'
 End
@@ -122,6 +128,19 @@ Sk 'enhanced damage'
 Sk 'parry'
 Sk 'rescue'
 Sk 'third attack'
+End
+
+#GROUP
+Name 'barbarian default'
+Sk 'weaponsmaster'
+Sk 'shield block'
+Sk 'bash'
+Sk 'disarm'
+Sk 'enhanced damage'
+Sk 'parry'
+Sk 'rescue'
+Sk 'third attack'
+Sk 'natural refresh'
 End
 
 #GROUP
@@ -396,6 +415,7 @@ Name 'illusion'
 Sk 'invis'
 Sk 'mass invis'
 Sk 'ventriloquate'
+Sk 'self projection'
 End
 
 #GROUP
@@ -478,6 +498,10 @@ Sk 'agony'
 Sk 'holy presence'
 Sk 'displacement'
 Sk 'holy flame'
+Sk 'divine wisdom'
+Sk 'know religion'
+Sk 'guardian angel'
+Sk 'water walk'
 End
 
 #END

@@ -182,13 +182,13 @@ int casting_level(CHAR_DATA *ch)
         return level;
 
     // Non mana classes cast below level, a level 51 will cast around level 38/39.
-    if (!class_table[ch->class]->fMana)
+    if (!class_table[ch->class]->mana)
     {
         level = 3 * level / 4;
     }
 
     // Giants lose a casting level
-    if (ch->race == GIANT_RACE_LOOKUP)
+    if (ch->race == OGRE_RACE_LOOKUP)
     {
         level -= 1;
     }
@@ -199,16 +199,24 @@ int casting_level(CHAR_DATA *ch)
         level += 1;
     }
 
-    // Spellcraft skill gains a bonus, making it a super useful skill
+    // Spellcraft skill gains a bonus, making it a super useful skill, this will
+    // require the skill check to pass though so it's not a given.
     if (CHANCE_SKILL(ch, gsn_spellcraft))
+    {
+        level += 1;
+    }
+
+    // Merit - Magic Affinity
+    if (!IS_NPC(ch) && IS_SET(ch->pcdata->merit, MERIT_MAGIC_AFFINITY))
     {
         level += 1;
     }
 
     // Mage and mage reclassese get a bonus casting level, they are the
     // masters of spells.
-    if (ch->class == MAGE_CLASS_LOOKUP ||
-        ch->class == ENCHANTOR_CLASS_LOOKUP)
+    if (ch->class == MAGE_CLASS_LOOKUP
+        || ch->class == PSIONICIST_CLASS_LOOKUP
+        || ch->class == ENCHANTOR_CLASS_LOOKUP)
     {
         level += 1;
     }
@@ -234,6 +242,35 @@ int casting_level(CHAR_DATA *ch)
 } // end casting_level
 
 /*
+ * Returns the saves for a player.  Saves are calculated elsewhere and stored in the
+ * saving_throw field.  This will return that with any other real time code based
+ * modifications we want to make such as bonuses or penalities based off of stats
+ * or those for class/race combos, etc.
+ */
+int get_saves(CHAR_DATA * ch)
+{
+    int saves = 0;
+
+    if (ch != NULL)
+    {
+        // Get their saves
+        saves = ch->saving_throw;
+
+        // If they are a player, run through any mods we have.
+        if (!IS_NPC(ch))
+        {
+            saves += wis_app[get_curr_stat(ch, STAT_WIS)].saves_bonus;
+        }
+
+        return saves;
+    }
+    else
+    {
+        return saves;
+    }
+}
+
+/*
  * Compute a saving throw.
  * Negative apply's to saving_throw make saving throw better (subtracting a negative raises
  * the chance of saving), adding to the save variable here for certain cases also helps the
@@ -243,11 +280,13 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
 {
     int save;
 
-    save = 50 + (victim->level - level) * 5 - victim->saving_throw * 2;
+    save = 50 + (victim->level - level) * 5 - get_saves(victim) * 2;
 
     // Beserk offers some magic resistance
     if (IS_AFFECTED(victim, AFF_BERSERK))
+    {
         save += victim->level / 2;
+    }
 
     // Check immunity, resistance and vulnerabilty
     switch (check_immune(victim, dam_type))
@@ -274,7 +313,7 @@ bool saves_spell(int level, CHAR_DATA * victim, int dam_type)
         break;
     }
 
-    if (!IS_NPC(victim) && class_table[victim->class]->fMana)
+    if (!IS_NPC(victim) && class_table[victim->class]->mana)
     {
         save = 9 * save / 10;
     }
@@ -950,6 +989,7 @@ const struct dispel_type dispel_table[] = {
     { &gsn_detect_hidden, "$n can no longer detect hidden."},
     { &gsn_detect_invis, "$n can no longer detect invisibility."},
     { &gsn_detect_magic, "$n can no longer detect magic."},
+    { &gsn_detect_fireproof, ""},
     { &gsn_enhanced_recovery, ""},
     { &gsn_faerie_fire, "The pink outline around $n fades away."},
     { &gsn_fly, "$n falls to the ground!"},
@@ -988,6 +1028,9 @@ const struct dispel_type dispel_table[] = {
     { &gsn_agony, "The veil of agony over $n lifts."},
     { &gsn_holy_presence, "The holy presence protecting $n fades."},
     { &gsn_holy_flame, "The holy flames around $n fade."},
+    { &gsn_divine_wisdom, "The divine wisdom leaves $n's soul."},
+    { &gsn_water_walk, "$n's blessing of water walking fades."},
+    { &gsn_self_projection, "$n's self projection disappears."},
     {NULL, NULL}
 };
 
@@ -1027,9 +1070,14 @@ void spell_armor(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     af.location = APPLY_AC;
     af.bitvector = 0;
     affect_to_char(victim, &af);
+
     send_to_char("You feel someone protecting you.\r\n", victim);
+
     if (ch != victim)
+    {
         act("$N is protected by your magic.", ch, NULL, victim, TO_CHAR);
+    }
+
     return;
 }
 
@@ -1493,10 +1541,7 @@ void spell_detect_good(int sn, int level, CHAR_DATA * ch, void *vo,
     return;
 }
 
-
-
-void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1523,14 +1568,18 @@ void spell_detect_hidden(int sn, int level, CHAR_DATA * ch, void *vo,
     af.modifier = 0;
     af.bitvector = AFF_DETECT_HIDDEN;
     affect_to_char(victim, &af);
+
     send_to_char("Your awareness improves.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
-void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1557,14 +1606,18 @@ void spell_detect_invis(int sn, int level, CHAR_DATA * ch, void *vo,
     af.location = APPLY_NONE;
     af.bitvector = AFF_DETECT_INVIS;
     affect_to_char(victim, &af);
+
     send_to_char("Your eyes tingle.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
-void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
     AFFECT_DATA af;
@@ -1591,29 +1644,78 @@ void spell_detect_magic(int sn, int level, CHAR_DATA * ch, void *vo,
     af.location = APPLY_NONE;
     af.bitvector = AFF_DETECT_MAGIC;
     affect_to_char(victim, &af);
+
     send_to_char("Your eyes tingle.\r\n", victim);
+
     if (ch != victim)
+    {
         send_to_char("Ok.\r\n", ch);
+    }
+
     return;
 }
 
 
 
-void spell_detect_poison(int sn, int level, CHAR_DATA * ch, void *vo,
-    int target)
+void spell_detect_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     OBJ_DATA *obj = (OBJ_DATA *)vo;
 
     if (obj->item_type == ITEM_DRINK_CON || obj->item_type == ITEM_FOOD)
     {
         if (obj->value[3] != 0)
+        {
             send_to_char("You smell poisonous fumes.\r\n", ch);
+        }
         else
+        {
             send_to_char("It looks delicious.\r\n", ch);
+        }
     }
     else
     {
         send_to_char("It doesn't look poisoned.\r\n", ch);
+    }
+
+    return;
+}
+
+/*
+ * A spell that will allow the caster to detect fireproofed items when examined.
+ */
+void spell_detect_fireproof(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, gsn_detect_fireproof))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N can already sense fireproofed items.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your awareness to detect fireproofed items improves.\r\n", victim);
+
+    if (ch != victim)
+    {
+        send_to_char("Ok.\r\n", ch);
     }
 
     return;
@@ -1888,6 +1990,7 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     if ((victim = get_char_world(ch, target_name)) == NULL
         || victim == ch
         || victim->in_room == NULL
+        || victim->in_room->clan
         || !can_see_room(ch, victim->in_room)
         || IS_SET(victim->in_room->room_flags, ROOM_SAFE)
         || IS_SET(victim->in_room->room_flags, ROOM_PRIVATE)
@@ -1900,6 +2003,7 @@ void spell_gate(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || IS_SET(ch->in_room->area->area_flags, AREA_NO_GATE)
         || victim->level >= level + 3
         || (is_clan(victim) && !is_same_clan(ch, victim))
+        || !same_continent_char(ch, victim)
         || (!IS_NPC(victim) && victim->level >= LEVEL_IMMORTAL)
         || (IS_NPC(victim) && IS_SET(victim->imm_flags, IMM_SUMMON))
         || (IS_NPC(victim) && saves_spell(level, victim, DAM_OTHER)))
@@ -2510,17 +2614,18 @@ void spell_plague(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         return;
     }
 
-    if (saves_spell(level, victim, DAM_DISEASE) ||
-        (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
+    if (saves_spell(level, victim, DAM_DISEASE) || (IS_NPC(victim) && IS_SET(victim->act, ACT_UNDEAD)))
     {
-        if (ch == victim)
-        {
-            send_to_char("You feel momentarily ill, but it passes.\r\n", ch);
-        }
-        else
-        {
-            act("$N seems to be unaffected.", ch, NULL, victim, TO_CHAR);
-        }
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        act("$n looks slightly ill, but it passes.", victim, NULL, NULL, TO_ROOM);
+        return;
+    }
+
+    // Merit - Healthy (50% chance to avoiding plague after it passes the saves check)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_HEALTHY) && CHANCE(50))
+    {
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        act("$n looks slightly ill, but it passes.", victim, NULL, NULL, TO_ROOM);
         return;
     }
 
@@ -2558,13 +2663,12 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
             if (IS_OBJ_STAT(obj, ITEM_BLESS)
                 || IS_OBJ_STAT(obj, ITEM_BURN_PROOF))
             {
-                act("Your spell fails to corrupt $p.", ch, obj, NULL,
-                    TO_CHAR);
+                act("Your spell fails to corrupt $p.", ch, obj, NULL, TO_CHAR);
                 return;
             }
+
             obj->value[3] = 1;
-            act("$p is infused with poisonous vapors.", ch, obj, NULL,
-                TO_ALL);
+            act("$p is infused with poisonous vapors.", ch, obj, NULL, TO_ALL);
             return;
         }
 
@@ -2617,8 +2721,15 @@ void spell_poison(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (saves_spell(level, victim, DAM_POISON))
     {
-        act("$n turns slightly green, but it passes.", victim, NULL, NULL,
-            TO_ROOM);
+        act("$n turns slightly green, but it passes.", victim, NULL, NULL, TO_ROOM);
+        send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
+        return;
+    }
+
+    // Merit - Healthy (50% chance to avoiding plague after it passes the saves check)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_HEALTHY) && CHANCE(50))
+    {
+        act("$n turns slightly green, but it passes.", victim, NULL, NULL, TO_ROOM);
         send_to_char("You feel momentarily ill, but it passes.\r\n", victim);
         return;
     }
@@ -2967,7 +3078,7 @@ void spell_slow(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         affect_strip(victim, gsn_haste);
         if (skill_table[gsn_haste]->msg_off)
         {
-            printf_to_char(ch, "%s\r\n", skill_table[gsn_haste]->msg_off);
+            sendf(ch, "%s\r\n", skill_table[gsn_haste]->msg_off);
         }
 
         return;
@@ -3677,7 +3788,8 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
         || IS_SET(victim->in_room->room_flags, ROOM_NO_GATE)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_GATE)
         || IS_SET(ch->in_room->room_flags, ROOM_NO_RECALL)
-        || victim->level >= level + 3 || (!IS_NPC(victim) && victim->level >= LEVEL_HERO)    /* NOT trust */
+        || victim->level >= level + 3
+        || (!IS_NPC(victim) && victim->level >= LEVEL_HERO)    /* NOT trust */
         || (IS_NPC(victim) && IS_SET(victim->imm_flags, IMM_SUMMON))
         || (IS_NPC(victim) && saves_spell(level, victim, DAM_NONE))
         || (is_clan(victim) && !is_same_clan(ch, victim)))
@@ -3687,11 +3799,11 @@ void spell_portal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     stone = get_eq_char(ch, WEAR_HOLD);
+
     if (!IS_IMMORTAL(ch)
         && (stone == NULL || stone->item_type != ITEM_WARP_STONE))
     {
-        send_to_char("You lack the proper component for this spell.\r\n",
-            ch);
+        send_to_char("You lack the proper component for this spell.\r\n", ch);
         return;
     }
 
@@ -3753,11 +3865,11 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     stone = get_eq_char(ch, WEAR_HOLD);
+
     if (!IS_IMMORTAL(ch)
         && (stone == NULL || stone->item_type != ITEM_WARP_STONE))
     {
-        send_to_char("You lack the proper component for this spell.\r\n",
-            ch);
+        send_to_char("You lack the proper component for this spell.\r\n", ch);
         return;
     }
 
@@ -3792,10 +3904,8 @@ void spell_nexus(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (to_room->people != NULL)
     {
-        act("$p rises up from the ground.", to_room->people, portal, NULL,
-            TO_ROOM);
-        act("$p rises up from the ground.", to_room->people, portal, NULL,
-            TO_CHAR);
+        act("$p rises up from the ground.", to_room->people, portal, NULL, TO_ROOM);
+        act("$p rises up from the ground.", to_room->people, portal, NULL, TO_CHAR);
     }
 }
 
@@ -3878,7 +3988,13 @@ void spell_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     // Slightly higher density in the forests
     if (ch->in_room->sector_type == SECT_FOREST)
     {
-        density += 5;
+        density += 10;
+    }
+
+    // Much higher on the ocean where water is abundant to make the fog
+    if (ch->in_room->sector_type == SECT_OCEAN)
+    {
+        density += 20;
     }
 
     density = URANGE(5, density, 100);
@@ -3942,6 +4058,53 @@ void spell_dispel_fog(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 }
 
 /*
+ * Self projection spell (Illusion group) - Puts a shifted image of a person in
+ * front of them that can disorient the attacker causing them to miss in their strike.
+ * This should only be castable on one's self.
+ */
+void spell_self_projection(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            // You cannot re-add this spell to someone else, this will stop people with lower
+            // casting levels from replacing someone elses spells.
+            act("$N's image is already projecting out in front of them.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 24;
+    af.modifier = 0;
+    af.location = APPLY_NONE;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("Your image projects out slightly in front of you.\r\n", victim);
+    act("$n's image shifts out in front of $m.", victim, NULL, NULL, TO_ROOM);
+
+    if (ch != victim)
+    {
+        act("$N's image projects out in front of $M.", ch, NULL, victim, TO_CHAR);
+    }
+
+    return;
+}
+
+
+/*
  * Returns the spell function for the specified name.  This will allow loading from
  * a file (although this has to be updated which isn't ideal but is necessary).  By
  * switching for the 7th character we can cut down the number of checks run.  All
@@ -4003,12 +4166,14 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_detect_good")) return spell_detect_good;
             if (!str_cmp(name, "spell_detect_magic")) return spell_detect_magic;
             if (!str_cmp(name, "spell_detect_poison")) return spell_detect_poison;
+            if (!str_cmp(name, "spell_detect_fireproof")) return spell_detect_fireproof;
             if (!str_cmp(name, "spell_dispel_evil")) return spell_dispel_evil;
             if (!str_cmp(name, "spell_dispel_good")) return spell_dispel_good;
             if (!str_cmp(name, "spell_disenchant")) return spell_disenchant;
             if (!str_cmp(name, "spell_demonfire")) return spell_demonfire;
             if (!str_cmp(name, "spell_dispel_fog")) return spell_dispel_fog;
             if (!str_cmp(name, "spell_displacement")) return spell_displacement;
+            if (!str_cmp(name, "spell_divine_wisdom")) return spell_divine_wisdom;
             break;
         case 'e':
             if (!str_cmp(name, "spell_earthquake")) return spell_earthquake;
@@ -4039,6 +4204,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_giant_strength")) return spell_giant_strength;
             if (!str_cmp(name, "spell_gas_breath")) return spell_gas_breath;
             if (!str_cmp(name, "spell_general_purpose")) return spell_general_purpose;
+            if (!str_cmp(name, "spell_guardian_angel")) return spell_guardian_angel;
             break;
         case 'h':
             if (!str_cmp(name, "spell_haste")) return spell_haste;
@@ -4062,6 +4228,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             break;
         case 'k':
             if (!str_cmp(name, "spell_know_alignment")) return spell_know_alignment;
+            if (!str_cmp(name, "spell_know_religion")) return spell_know_religion;
             break;
         case 'l':
             if (!str_cmp(name, "spell_locate_object")) return spell_locate_object;
@@ -4122,6 +4289,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_song_of_protection")) return spell_song_of_protection;
             if (!str_cmp(name, "spell_song_of_dissonance")) return spell_song_of_dissonance;
             if (!str_cmp(name, "spell_self_growth")) return spell_self_growth;
+            if (!str_cmp(name, "spell_self_projection")) return spell_self_projection;
             break;
         case 't':
             if (!str_cmp(name, "spell_teleport")) return spell_teleport;
@@ -4137,6 +4305,7 @@ SPELL_FUN *spell_function_lookup(char *name)
             if (!str_cmp(name, "spell_withering_enchant")) return spell_withering_enchant;
             if (!str_cmp(name, "spell_wizard_mark")) return spell_wizard_mark;
             if (!str_cmp(name, "spell_waves_of_weariness")) return spell_waves_of_weariness;
+            if (!str_cmp(name, "spell_water_walk")) return spell_water_walk;
             break;
     }
 
@@ -4299,6 +4468,12 @@ char *spell_name_lookup(SPELL_FUN *spell)
     if (spell == spell_holy_presence) return "spell_holy_presence";
     if (spell == spell_displacement) return "spell_displacement";
     if (spell == spell_holy_flame) return "spell_holy_flame";
+    if (spell == spell_divine_wisdom) return "spell_divine_wisdom";
+    if (spell == spell_know_religion) return "spell_know_religion";
+    if (spell == spell_guardian_angel) return "spell_guardian_angel";
+    if (spell == spell_water_walk) return "spell_water_walk";
+    if (spell == spell_detect_fireproof) return "spell_detect_fireproof";
+    if (spell == spell_self_projection) return "spell_self_projection";
 
     return "reserved";
 

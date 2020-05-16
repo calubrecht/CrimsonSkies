@@ -6,6 +6,7 @@ LevelRange 15 30
 Credits {15 30} Twilight Blade Dancer's Inn~
 Security 9
 Continent 2
+AreaFlags A
 End
 
 
@@ -166,19 +167,17 @@ weapon AGI AN
 sword 4 4 pierce D
 25 50 1500 P
 A
-2 1
-A
 18 2
+A
+2 1
 #6952
 bar stool~
 a bar stool~
 A bar stool sits here.~
 wood~
 furniture 0 0
-0 0 0 0 0
+0 0 EH 0 0
 0 1 50 P
-A
-64 -10
 #6953
 chest wooden~
 a wooden chest~
@@ -206,9 +205,9 @@ weapon G AN
 mace 4 4 pound 0
 25 30 50 P
 A
-19 1
-A
 18 1
+A
+19 1
 #6956
 dagger~
 a small dagger~
@@ -218,9 +217,9 @@ weapon JQa AN
 dagger 5 5 stab 0
 20 30 500 P
 A
-18 2
-A
 17 5
+A
+18 2
 #6957
 wooden pitchfork~
 a wooden pitchfork~
@@ -238,9 +237,9 @@ armor GI AG
 AC AC AC 0 0
 14 40 1000 P
 A
-2 2
-A
 14 50
+A
+2 2
 #6959
 loaf hard bread~
 a loaf of hard bread~

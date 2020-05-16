@@ -263,10 +263,10 @@ void do_bash(CHAR_DATA * ch, char *argument)
     check_wanted(ch, victim);
 } // end do_bash
 
-  /*
-  * Disarm a creature.
-  * Caller must check for successful attack.
-  */
+/*
+ * Disarm a creature.
+ * Caller must check for successful attack.
+ */
 void disarm(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     OBJ_DATA *obj;
@@ -290,10 +290,13 @@ void disarm(CHAR_DATA * ch, CHAR_DATA * victim)
     obj_from_char(obj);
 
     if (IS_OBJ_STAT(obj, ITEM_NODROP) || IS_OBJ_STAT(obj, ITEM_INVENTORY))
+    {
         obj_to_char(obj, victim);
+    }
     else
     {
         obj_to_room(obj, victim->in_room);
+
         if (IS_NPC(victim) && victim->wait == 0 && can_see_obj(victim, obj))
         {
             separate_obj(obj);
@@ -301,17 +304,19 @@ void disarm(CHAR_DATA * ch, CHAR_DATA * victim)
         }
     }
 
-    // Can't dual with without a primary, consider changing this to moving the
-    // dual wielded weapon to the primary arm.
+    // If they were wielding a secondary weapon, move it to their primary arm.
     if ((vobj = get_eq_char(victim, WEAR_SECONDARY_WIELD)) != NULL)
     {
-        act("$n stops using $p.", victim, vobj, NULL, TO_ROOM);
-        act("You stop using $p.", victim, vobj, NULL, TO_CHAR);
-        unequip_char(victim, vobj);
+        obj_from_char(vobj);
+        obj_to_char(vobj, victim);
+        equip_char(victim, vobj, WEAR_WIELD);
+        act("You switch $p to your swordarm.", victim, vobj, NULL, TO_CHAR);
+        act("$n switches $p to $s swordarm.", victim, vobj, NULL, TO_ROOM);
     }
 
-    // A bladesinger can't use bladesong without their weapon
-    if (is_affected(victim, gsn_bladesong))
+    // A bladesinger can't use bladesong without their weapon, if they didn't have
+    // something to switch to it then the bladesong affect goes *poof*
+    if (is_affected(victim, gsn_bladesong) && get_eq_char(victim, WEAR_WIELD) == NULL)
     {
         affect_strip(victim, gsn_bladesong);
     }
@@ -501,6 +506,7 @@ void do_rescue(CHAR_DATA * ch, char *argument)
     }
 
     WAIT_STATE(ch, skill_table[gsn_rescue]->beats);
+
     if (number_percent() > get_skill(ch, gsn_rescue))
     {
         send_to_char("You fail the rescue.\r\n", ch);
@@ -513,9 +519,12 @@ void do_rescue(CHAR_DATA * ch, char *argument)
     act("$n rescues $N!", ch, NULL, victim, TO_NOTVICT);
     check_improve(ch, gsn_rescue, TRUE, 1);
 
+    // Stop the fighting
     stop_fighting(fch, FALSE);
     stop_fighting(victim, FALSE);
+    stop_fighting (ch, FALSE); // Gets rid of the extra attack round technique/bug
 
+    // Check wanted, reset fighting.
     check_wanted(ch, fch);
     set_fighting(ch, fch);
     set_fighting(fch, ch);

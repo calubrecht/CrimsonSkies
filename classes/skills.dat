@@ -2369,4 +2369,177 @@ Race        0
 Ranged       1
 End
 
+#SKILL
+Name        divine wisdom~
+SpellFun    spell_divine_wisdom~
+Target      2
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      The divine wisdom leaves your soul.~
+Race        0
+End
+
+#SKILL
+Name        know religion~
+SpellFun    spell_know_religion~
+Target      2
+MinPos      8
+MinMana     5
+Beats       12
+Race        0
+End
+
+#SKILL
+Name        guardian angel~
+SpellFun    spell_guardian_angel~
+Target      0
+MinPos      7
+MinMana     50
+Beats       12
+MsgOff      The guardian angel fades from existence.~
+Race        0
+End
+
+#SKILL
+Name        water walk~
+SpellFun    spell_water_walk~
+Target      3
+MinPos      8
+MinMana     20
+Beats       12
+MsgOff      You feel the blessing of water walking fade.~
+Race        0
+End
+
+#SKILL
+Name        fourth attack~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       0
+MsgOff      !Fourth Attack!~
+Race        0
+End
+
+#SKILL
+Name        warcry~
+SpellFun    spell_null~
+Target      0
+MinPos      7
+MinMana     0
+Beats       24
+MsgOff      You feel your pulse slow down.~
+Race        0
+End
+
+#SKILL
+Name        cleanse~
+SpellFun    spell_null~
+Target      0
+MinPos      5
+MinMana     0
+Beats       24
+MsgOff      !Cleanse!~
+Race        0
+End
+
+#SKILL
+Name        natural refresh~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
+#SKILL
+Name        power swing~
+SpellFun    spell_null~
+Target      1
+MinPos      7
+MinMana     0
+Beats       24
+Damage      power swing~
+MsgOff      !Powerswing!~
+Race        0
+End
+
+#SKILL
+Name        second wind~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
+#SKILL
+Name        magic protection~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      Your magical protection fades.~
+Race        0
+End
+
+#SKILL
+Name        precision striking~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+Race        0
+End
+
+#SKILL
+Name        detect fireproof~
+SpellFun    spell_detect_fireproof~
+Target      3
+MinPos      8
+MinMana     5
+Beats       12
+MsgOff      You are no longer able to detect fireproofed items.~
+Race        0
+End
+
+#SKILL
+Name        survey terrain~
+SpellFun    spell_null~
+Target      0
+MinPos      0
+MinMana     0
+Beats       0
+MsgOff      !Survey Terrain!~
+Race        0
+End
+
+#SKILL
+Name        smoke bomb~
+SpellFun    spell_null~
+Target      0
+MinPos      8
+MinMana     0
+Beats       24
+MsgOff      !SmokeBomb!~
+Race        0
+End
+
+#SKILL
+Name        self projection~
+SpellFun    spell_self_projection~
+Target      3
+MinPos      8
+MinMana     10
+Beats       12
+MsgOff      Your projected image suddenly disappears.~
+Race        0
+End
+
 #END

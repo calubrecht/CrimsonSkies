@@ -1,28 +1,37 @@
 /***************************************************************************
-*  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
-***************************************************************************
-*  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
-*  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
-*                                                                         *
-*  Merc Diku Mud improvments copyright (C) 1992, 1993 by Michael          *
-*  Chastain, Michael Quan, and Mitchell Tse.                              *
-*                                                                         *
-*  ROM 2.4 improvements copyright (C) 1993-1998 Russ Taylor, Gabrielle    *
-*  Taylor and Brian Moore                                                 *
-*                                                                         *
-*  In order to use any part of this Diku Mud, you must comply with        *
-*  both the original Diku license in 'license.doc' as well the Merc       *
-*  license in 'license.txt' as well as the ROM license.  In particular,   *
-*  you may not remove these copyright notices.                            *
-*                                                                         *
-*  Much time and thought has gone into this software and you are          *
-*  benefitting.  We hope that you share your changes too.  What goes      *
-*  around, comes around.                                                  *
-**************************************************************************/
+ *  Crimson Skies (CS-Mud) copyright (C) 1998-2017 by Blake Pell (Rhien)   *
+ ***************************************************************************
+ *  Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
+ *  Michael Seifert, Hans Henrik Strfeldt, Tom Madsen, and Katja Nyboe.    *
+ *                                                                         *
+ *  Merc Diku Mud improvments copyright (C) 1992, 1993 by Michael          *
+ *  Chastain, Michael Quan, and Mitchell Tse.                              *
+ *                                                                         *
+ *  ROM 2.4 improvements copyright (C) 1993-1998 Russ Taylor, Gabrielle    *
+ *  Taylor and Brian Moore                                                 *
+ *                                                                         *
+ *  In order to use any part of this Diku Mud, you must comply with        *
+ *  both the original Diku license in 'license.doc' as well the Merc       *
+ *  license in 'license.txt' as well as the ROM license.  In particular,   *
+ *  you may not remove these copyright notices.                            *
+ *                                                                         *
+ *  Much time and thought has gone into this software and you are          *
+ *  benefitting.  We hope that you share your changes too.  What goes      *
+ *  around, comes around.                                                  *
+ **************************************************************************/
 
 /***************************************************************************
-*  Priest Class                                                            *
-***************************************************************************/
+ *  Priest Class                                                            *
+ *                                                                          *
+ *  Priest's are specialized clerics who attain their powers from their     *
+ *  respective deity.  All players who are a priest must follow a god or    *
+ *  goddess.  A priest or priestess must have prayed recently via the       *
+ *  prayer command in order to use their advanced spells that go above      *
+ *  and beyond those of a normal cleric.                                    *
+ *                                                                          *
+ ***************************************************************************/
+
+// TODO - Desperate Prayer, crucify
 
 // System Specific Includes
 #if defined(_WIN32)
@@ -42,6 +51,7 @@
 #include "interp.h"
 #include "magic.h"
 #include "recycle.h"
+#include "tables.h"
 
 extern char *target_name;
 
@@ -56,8 +66,8 @@ const struct priest_rank_type priest_rank_table[] = {
     { PRIEST_RANK_PRIEST,      "Priest",       250},
     { PRIEST_RANK_BISHOP,      "Bishop",       500},
     { PRIEST_RANK_ARCHBISHOP,  "Archbishop",   750},
-    { PRIEST_RANK_CARDINAL,    "Cardinal",    1000},
-    { PRIEST_RANK_HIGH_PRIEST, "High Priest", 1500}
+    { PRIEST_RANK_CARDINAL,    "Cardinal",    1250},
+    { PRIEST_RANK_HIGH_PRIEST, "High Priest", 2000}
 };
 
 /*
@@ -66,7 +76,10 @@ const struct priest_rank_type priest_rank_table[] = {
  */
 void calculate_priest_rank(CHAR_DATA *ch)
 {
-    if (ch == NULL || IS_NPC(ch) || ch->class != PRIEST_CLASS_LOOKUP)
+    // We don't need to calculate if they're not a priest or a high priest.
+    if (ch == NULL || IS_NPC(ch)
+        || ch->class != PRIEST_CLASS_LOOKUP
+        || ch->pcdata->priest_rank == PRIEST_RANK_HIGH_PRIEST)
     {
         return;
     }
@@ -89,7 +102,7 @@ void calculate_priest_rank(CHAR_DATA *ch)
     {
         ch->pcdata->priest_rank = rank;
 
-        printf_to_char(ch, "You have attained the priest rank of %s.\r\n", priest_rank_table[rank].name);
+        sendf(ch, "You have attained the priest rank of %s.\r\n", priest_rank_table[rank].name);
         log_f("%s has attained the priest rank %s.", ch->name, priest_rank_table[rank].name);
 
         save_char_obj(ch);
@@ -108,6 +121,12 @@ void do_prayer(CHAR_DATA * ch, char *argument)
 {
     if (ch == NULL)
     {
+        return;
+    }
+
+    if (IS_FIGHTING(ch))
+    {
+        send_to_char("You cannot concentrate enough.\r\n", ch);
         return;
     }
 
@@ -433,8 +452,8 @@ void spell_holy_flame(int sn, int level, CHAR_DATA *ch, void *vo,int target)
     // end receiving higher values.
     static const int dam_each[] =
     {
-      0,
-      0,    0,   1,   1,   1,      1,   1,   1,   1,   5,
+      3,
+      3,    3,   4,   4,   5,      6,   7,   8,   9,  10,
       10,  15,  20,  25,  30,     35,  40,  45,  50,  55,
       60,  65,  70,  75,  80,     82,  84,  86,  88,  90,
       92,  94,  96,  98, 100,    102, 104, 106, 108, 110,
@@ -453,36 +472,270 @@ void spell_holy_flame(int sn, int level, CHAR_DATA *ch, void *vo,int target)
         dam = (dam * 2) / 3;
     }
 
-    // Do the damage
+    // Look for faerie fire, if it's not there in any form then add it
+    if (!IS_AFFECTED(victim, AFF_FAERIE_FIRE)
+        && !is_affected(victim, gsn_faerie_fire)
+        && !is_affected(victim, gsn_holy_flame))
+    {
+        af.where = TO_AFFECTS;
+        af.type = sn;
+        af.level = level;
+        af.duration = level / 5; // (10 ticks at 51)
+        af.location = APPLY_AC;
+        af.modifier = number_range(1, 3) * level; // Chance of higher or lower modifier than faerie fire
+        af.bitvector = AFF_FAERIE_FIRE;
+        affect_to_char(victim, &af);
+
+        send_to_char("Holy flames errupt all about you!\r\n", victim);
+        act("$n is surrounded by holy flames.", victim, NULL, NULL, TO_ROOM);
+
+        // If the victim is not in the same room (e.g. the holy flame was ranged, then
+        // show the caster the message since they would not have seen the TO_ROOM message).
+        if (ch->in_room != victim->in_room)
+        {
+            act("$N is surrounded by holy flames.", ch, NULL, victim, TO_CHAR);
+        }
+    }
+
+    // Finally, do the damage
     damage(ch, victim, dam, sn, DAM_FIRE, TRUE);
 
-    // Look for faerie fire, if it's on the victim then return, otherwise
-    // add the affect.
-    if (IS_AFFECTED(victim, AFF_FAERIE_FIRE)
-        || is_affected(victim, gsn_faerie_fire)
-        || is_affected(victim, gsn_holy_flame))
+    return;
+}
+
+/*
+ * A spell which bestows a divine wisdom onto the recipient.  E.g. ups their wisdom.
+ */
+void spell_divine_wisdom(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
     {
         return;
+    }
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+        else
+        {
+            act("$N is already instilled with a divine wisdom.", ch, NULL, victim, TO_CHAR);
+            return;
+        }
     }
 
     af.where = TO_AFFECTS;
     af.type = sn;
     af.level = level;
-    af.duration = level / 5; // (10 ticks at 51)
-    af.location = APPLY_AC;
-    af.modifier = number_range(1, 3) * level; // Chance of higher or lower modifier than faerie fire
-    af.bitvector = AFF_FAERIE_FIRE;
+    af.duration = (level / 2) + (ch->pcdata->priest_rank * 2);
+    af.location = APPLY_WIS;
+    af.modifier = 2;
+    af.bitvector = 0;
     affect_to_char(victim, &af);
 
-    send_to_char("Holy flames errupt all about you!\r\n", victim);
-    act("$n is surrounded by holy flames.", victim, NULL, NULL, TO_ROOM);
+    send_to_char("You feel a divine wisdom instilled into your soul.\r\n", victim);
+    act("$N is instilled with a divine wisdom.", victim, NULL, victim, TO_ROOM);
+    return;
+}
 
-    // If the victim is not in the same room (e.g. the holy flame was ranged, then
-    // show the caster the message since they would not have seen the TO_ROOM message).
-    if (ch->in_room != victim->in_room)
+/*
+ * A spell which allows the priest to know another players religion
+ */
+void spell_know_religion(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
     {
-        act("$N is surrounded by holy flames.", ch, NULL, victim, TO_CHAR);
+        return;
+    }
+
+    // NPC's don't have religion (although that would be interesting in the future...)
+    if (IS_NPC(victim))
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    // Deity check
+    if (victim->pcdata->deity == 0)
+    {
+        sendf(ch, "%s does not follow a god or goddess.\r\n", PERS(victim, ch));
+    }
+    else
+    {
+        sendf(ch, "%s is a follower of %s, %s\r\n"
+                                , PERS(victim, ch)
+                                , deity_table[victim->pcdata->deity].name
+                                , deity_table[victim->pcdata->deity].description);
     }
 
     return;
 }
+
+/*
+ * Guardian angel is a spell that will allow a priest to summon a single charmie that
+ * will instantly initiate a rescue on them.
+ */
+void spell_guardian_angel(int sn, int level, CHAR_DATA *ch, void *vo, int target)
+{
+    MOB_INDEX_DATA *pMobIndex;
+    int i;
+    CHAR_DATA *mob;
+    AFFECT_DATA af;
+    char buf[MAX_STRING_LENGTH];
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
+    // Check if they already lead a guardian
+    if (leads_grouped_mob(ch, VNUM_GUARDIAN_ANGEL))
+    {
+        send_to_char("You may only have one guardian angel at a time.\r\n", ch);
+        return;
+    }
+
+    // Check to make sure that the guardian angel vnum actually exists, if not,
+    // report it.
+    if ((pMobIndex = get_mob_index(VNUM_GUARDIAN_ANGEL)) == NULL)
+    {
+        send_to_char("You failed.\r\n", ch);
+        bugf("spell_guardian_angel: no vnum %d for mob", VNUM_GUARDIAN_ANGEL);
+        return;
+    }
+
+    // Create the guardian
+    mob = create_mobile(pMobIndex);
+
+    // Hit points, level, saves and the hitroll/damroll.
+    mob->max_hit = UMIN(ch->max_hit, 1000); // Lowest of 1000 or the players max hit
+    mob->hit = mob->max_hit;
+    mob->level = 9 * (level / 10);    // 10% below the casters level
+    mob->saving_throw = -1 * (level / 5);
+    mob->hitroll = level / 2;
+    mob->damroll = level / 3;
+
+    // Armor class
+    for (i = 0; i < 4; i++)
+    {
+        mob->armor[i] = level * -3;
+    }
+
+    // Dice rolls for the mob
+    mob->damage[DICE_NUMBER] = level / 10;
+    mob->damage[DICE_TYPE] = level / 5;
+
+    // Set the stats of the guardian to those of the player
+    for (i = 0; i < MAX_STATS; i++)
+    {
+        mob->perm_stat[i] = ch->perm_stat[i];
+    }
+
+    // Tailor the short and long descriptions
+    sprintf(buf, "A guardian angel of %s", deity_table[ch->pcdata->deity].name);
+    free_string(mob->short_descr);
+    mob->short_descr = str_dup(buf);
+
+    sprintf(buf, "A guardian angel of %s levitates above the ground.\r\n", deity_table[ch->pcdata->deity].name);
+    free_string(mob->long_descr);
+    mob->long_descr = str_dup(buf);
+
+    // Send the guardian to the room
+    char_to_room(mob, ch->in_room);
+
+    // Show the message to the room
+    act("$n has summoned $N!", ch, NULL, mob, TO_ROOM);
+    act("$N appears in the room and is bound to your will.", ch, NULL, mob, TO_CHAR);
+
+    // Add the follow to the players group with the player aqs the leader
+    add_follower(mob, ch);
+    mob->leader = ch;
+
+    // Set the affect on the guardian with the charm bit
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = level;
+    af.modifier = 0;
+    af.location = 0;
+    af.bitvector = AFF_CHARM;
+    affect_to_char(mob, &af);
+
+    // Remove the guardian affect from the player if it exists, it will be re-added
+    if (is_affected(ch, sn))
+    {
+        affect_strip(ch, sn);
+    }
+
+    // Add the guardian bit onto the player, but remove the charm first
+    af.bitvector = 0;
+    affect_to_char(ch, &af);
+
+    // If the player is currently fighting and the guardian angel has been called
+    // during combat then have it try to rescue right off the bat.
+    if (IS_FIGHTING(ch))
+    {
+        do_function(mob, &do_rescue, ch->name);
+    }
+
+    return;
+}
+
+/*
+ * A divination spell that allows a priest to walk on water for a tick.  This can't
+ * and shouldn't be cast on everyone, we don't want the whole mud negating water
+ * restrictions like the oceans.  The lag in the ocean should still take affect, just
+ * not the movement cost.
+ */
+void spell_water_walk(int sn, int level, CHAR_DATA * ch, void *vo, int target)
+{
+    CHAR_DATA *victim = (CHAR_DATA *)vo;
+    AFFECT_DATA af;
+
+    // Must be prayed to cast
+    if(!prayer_check(ch))
+    {
+        return;
+    }
+
+    // This will only work on themselves.
+    if (victim != ch)
+    {
+        send_to_char("You failed.\r\n", ch);
+        return;
+    }
+
+    if (is_affected(victim, sn))
+    {
+        if (victim == ch)
+        {
+            // Remove the affect so it can be re-added to yourself
+            affect_strip(victim, sn);
+        }
+    }
+
+    af.where = TO_AFFECTS;
+    af.type = sn;
+    af.level = level;
+    af.duration = 1;
+    af.location = APPLY_NONE;
+    af.modifier = 0;
+    af.bitvector = 0;
+    affect_to_char(victim, &af);
+
+    send_to_char("You are blessed with the ability to walk on water.\r\n", victim);
+    act("$N has been blessed with the ability to walk on water.", victim, NULL, victim, TO_ROOM);
+    return;
+}
+

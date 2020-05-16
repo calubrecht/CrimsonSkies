@@ -364,7 +364,7 @@ void spell_imbue(int sn, int level, CHAR_DATA *ch, void *vo, int target)
     return;
 }
 
-/* 
+/*
  * Attack - Demonfire Spell (RT replacement demonfire spell )
  */
 void spell_demonfire(int sn, int level, CHAR_DATA * ch, void *vo, int target)
@@ -380,15 +380,19 @@ void spell_demonfire(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 
     if (victim != ch)
     {
-        act("$n calls forth the demons of Hell upon $N!",
-            ch, NULL, victim, TO_ROOM);
-        act("$n has assailed you with the demons of Hell!",
-            ch, NULL, victim, TO_VICT);
+        act("$n calls forth the demons of Hell upon $N!", ch, NULL, victim, TO_ROOM);
+        act("$n has assailed you with the demons of Hell!", ch, NULL, victim, TO_VICT);
         send_to_char("You conjure forth the demons of hell!\r\n", ch);
     }
+
     dam = dice(level, 10);
+
     if (saves_spell(level, victim, DAM_NEGATIVE))
+    {
         dam /= 2;
+    }
+
+    // Damage, with a chance to curse at a lower level.
     damage(ch, victim, dam, sn, DAM_NEGATIVE, TRUE);
     spell_curse(gsn_curse, 3 * level / 4, ch, (void *)victim, TARGET_CHAR);
 }
@@ -690,7 +694,7 @@ void spell_heat_metal(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 void spell_ray_of_truth(int sn, int level, CHAR_DATA * ch, void *vo, int target)
 {
     CHAR_DATA *victim = (CHAR_DATA *)vo;
-    int dam, align;
+    int dam;
 
     if (IS_EVIL(ch))
     {
@@ -712,17 +716,15 @@ void spell_ray_of_truth(int sn, int level, CHAR_DATA * ch, void *vo, int target)
     }
 
     dam = dice(level, 10);
+
     if (saves_spell(level, victim, DAM_HOLY))
+    {
         dam /= 2;
+    }
 
-    align = victim->alignment;
-    align -= 350;
+    dam = (dam * 350 * 350) / 1000000;
 
-    if (align < -1000)
-        align = -1000 + (align + 1000) / 3;
-
-    dam = (dam * align * align) / 1000000;
-
+    // Damage, and then a chance to blind also but at a lower casting level.
     damage(ch, victim, dam, sn, DAM_HOLY, TRUE);
     spell_blindness(gsn_blindness, 3 * level / 4, ch, (void *)victim, TARGET_CHAR);
 }

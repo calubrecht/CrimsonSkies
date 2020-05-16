@@ -1,6 +1,6 @@
 #!/bin/csh
 # Written by Furey.
-# With additions from Tony and Alander.
+# With additions from Tony, Alander & Rhien.
 
 # Set the port number.
 umask 007
@@ -32,4 +32,10 @@ while ( 1 )
 	exit 0
     endif
     sleep 10
+
+    # If the core file exists, move it so we can examine it later, we should
+    # consider only keeping the last few.
+    if ( -e core ) then
+    mv ./core ../core/$index.core
+    endif
 end

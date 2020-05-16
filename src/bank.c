@@ -143,7 +143,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
     // Now work out what to do...
     if (is_name(arg1, "balance"))
     {
-        printf_to_char(ch, "You have %s gold coin%s stored in the bank.\r\n", num_punct_long(ch->pcdata->bank_gold), ch->pcdata->bank_gold == 0 || ch->pcdata->bank_gold > 1 ? "s" : "");
+        sendf(ch, "You have %s gold coin%s stored in the bank.\r\n", num_punct_long(ch->pcdata->bank_gold), ch->pcdata->bank_gold == 0 || ch->pcdata->bank_gold > 1 ? "s" : "");
         return;
     }
 
@@ -180,7 +180,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
                 ch->pcdata->bank_gold += amount;
 
                 // Show the balance
-                printf_to_char(ch, "You deposit %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
+                sendf(ch, "You deposit %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
                     amount, amount == 0 || amount > 1 ? "s" : "",
                     ch->pcdata->bank_gold, ch->pcdata->bank_gold == 0 || ch->pcdata->bank_gold > 1 ? "s" : "");
 
@@ -225,7 +225,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
             ch->gold = 0;
 
             // Show the balance
-            printf_to_char(ch, "You deposit %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
+            sendf(ch, "You deposit %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
                 amount, amount == 0 || amount > 1 ? "s" : "",
                 ch->pcdata->bank_gold, ch->pcdata->bank_gold == 0 || ch->pcdata->bank_gold > 1 ? "s" : "");
 
@@ -297,7 +297,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
                 ch->pcdata->bank_gold -= amount;
                 victim->pcdata->bank_gold += amount;
 
-                printf_to_char(ch, "You transfer %ld gold to %s.\r\n", amount, victim->name);
+                sendf(ch, "You transfer %ld gold to %s.\r\n", amount, victim->name);
 
                 sprintf(buf, "[{GBANK{x] %s has transferred %ld gold to your account.\r\n", ch->name, amount);
                 sprintf(wiz_buf, "[{GBANK{x] %s has transferred %ld gold to %s.", ch->name, amount, victim->name);
@@ -332,7 +332,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
         long silver = ch->silver % 100;
         long silver_exchanged = ch->silver - silver;
 
-        printf_to_char(ch, "You exchange %ld silver for %ld gold.\r\n", silver_exchanged, gold);
+        sendf(ch, "You exchange %ld silver for %ld gold.\r\n", silver_exchanged, gold);
 
         ch->gold += ch->silver / 100;
         ch->silver = ch->silver % 100;
@@ -373,7 +373,7 @@ void do_bank(CHAR_DATA * ch, char *argument)
                 ch->gold += amount;
 
                 // Show the balance
-                printf_to_char(ch, "You withdraw %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
+                sendf(ch, "You withdraw %ld gold coin%s.  Your balance is now %ld gold coin%s.\r\n",
                     amount, amount == 0 || amount > 1 ? "s" : "",
                     ch->pcdata->bank_gold, ch->pcdata->bank_gold == 0 || ch->pcdata->bank_gold > 1 ? "s" : "");
 

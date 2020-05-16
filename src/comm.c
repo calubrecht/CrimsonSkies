@@ -47,7 +47,7 @@
 #else
 #include <sys/types.h>
 #include <sys/time.h>
-#include <unistd.h>                /* OLC -- for close read write etc */
+#include <unistd.h>  //  OLC -- for close read write etc
 #include <time.h>
 #endif
 
@@ -57,7 +57,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>                /* printf_to_char */
+#include <stdarg.h>  // for sendf
 #include "merc.h"
 #include "interp.h"
 #include "recycle.h"
@@ -1349,8 +1349,10 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = " ";
                 break;
             case 'e':
+                // The exits that are visible from the current room.
                 found = FALSE;
                 doors[0] = '\0';
+
                 for (door = 0; door < MAX_DIR; door++)
                 {
                     if ((pexit = ch->in_room->exit[door]) != NULL
@@ -1364,14 +1366,17 @@ void bust_a_prompt(CHAR_DATA * ch)
                         strcat(doors, dir_name[door]);
                     }
                 }
+
                 if (!found)
                 {
                     strcat(doors, "none");
                 }
+
                 sprintf(buf2, "%s", doors);
                 i = buf2;
                 break;
             case 'c':
+                // Ability to add a carriage return to the prompt.
                 sprintf(buf2, "%s", "\r\n");
                 i = buf2;
                 break;
@@ -1386,6 +1391,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'H':
+                // Maximum HP a player currently is able of having
                 sprintf(buf2, "%d", ch->max_hit);
                 i = buf2;
                 break;
@@ -1400,6 +1406,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'M':
+                // Maximum mana a player currently is able of having
                 sprintf(buf2, "%d", ch->max_mana);
                 i = buf2;
                 break;
@@ -1413,55 +1420,65 @@ void bust_a_prompt(CHAR_DATA * ch)
                 break;
             }
             case 'V':
+                // Maximum movement a player currently is able of having
                 sprintf(buf2, "%d", ch->max_move);
                 i = buf2;
                 break;
             case 'x':
+                // The amount of experience in total a player has
                 sprintf(buf2, "%d", ch->exp);
                 i = buf2;
                 break;
             case 'X':
+                // The experience a user has until their next level.
                 sprintf(buf2, "%d", IS_NPC(ch) ? 0 :
-                    (ch->level + 1) * exp_per_level(ch,
-                        ch->pcdata->
-                        points) - ch->exp);
+                    (ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp);
                 i = buf2;
                 break;
             case 'g':
+                // Gold the character has on them
                 sprintf(buf2, "%ld", ch->gold);
                 i = buf2;
                 break;
             case 's':
+                // Silver the character has on them
                 sprintf(buf2, "%ld", ch->silver);
                 i = buf2;
                 break;
             case 'S':
+                // Battle stance
                 sprintf(buf2, "%s", capitalize(get_stance_name(ch)));
                 i = buf2;
                 break;
+            case 't':
+                // Time of the day
+                sprintf(buf2, "%d%s", (time_info.hour % 12 == 0) ? 12 : time_info.hour % 12, time_info.hour >= 12 ? "pm" : "am");
+                i = buf2;
+                break;
             case 'a':
-                if (ch->level > 9)
-                    sprintf(buf2, "%d", ch->alignment);
-                else
-                    sprintf(buf2, "%s",
-                        IS_GOOD(ch) ? "good" : IS_EVIL(ch) ? "evil" :
-                        "neutral");
+                // Alignment
+                sprintf(buf2, "%s", IS_GOOD(ch) ? "good" : IS_EVIL(ch) ? "evil" : "neutral");
                 i = buf2;
                 break;
             case 'r':
+                // The name of the room a player is in.
                 if (ch->in_room != NULL)
+                {
                     sprintf(buf2, "%s",
                         ((!IS_NPC
-                            (ch) && IS_SET(ch->act, PLR_HOLYLIGHT))
+                        (ch) && IS_SET(ch->act, PLR_HOLYLIGHT))
                             || (!IS_AFFECTED(ch, AFF_BLIND)
-                                && !room_is_dark(ch->
-                                    in_room))) ? ch->in_room->
-                        name : "darkness");
+                                && !room_is_dark(ch->in_room))) ? ch->in_room->name : "darkness");
+                }
                 else
+                {
                     sprintf(buf2, " ");
+                }
+
                 i = buf2;
                 break;
             case 'R':
+                // The vnum of the room the player is in (Immortal only)
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
                 {
                     sprintf(buf2, "%d", ch->in_room->vnum);
@@ -1470,6 +1487,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 {
                     sprintf(buf2, " ");
                 }
+
                 i = buf2;
                 break;
             case 'w':
@@ -1498,6 +1516,7 @@ void bust_a_prompt(CHAR_DATA * ch)
                 i = buf2;
                 break;
             case 'z':
+                // The name of the area a player is in (immortal only)
                 if (IS_IMMORTAL(ch) && ch->in_room != NULL)
                 {
                     sprintf(buf2, "%s", ch->in_room->area->name);
@@ -1508,20 +1527,43 @@ void bust_a_prompt(CHAR_DATA * ch)
                 }
                 i = buf2;
                 break;
+            case 'y':
+                // What the players current wimpy is set at (the HP at which they auto flee)
+                sprintf(buf2, "%d", ch->wimpy);
+                i = buf2;
+                break;
+            case 'q':
+                // Quest Points (Which are only for players, not for NPC's)
+                if (!IS_NPC(ch) && ch->pcdata != NULL)
+                {
+                    sprintf(buf2, "%d", ch->pcdata->quest_points);
+                }
+                else
+                {
+                    sprintf(buf2, "%d", 0);
+                }
+
+                i = buf2;
+                break;
             case '%':
+                // The ability to show a percent sign.
                 sprintf(buf2, "%%");
                 i = buf2;
                 break;
             case 'o':
+                // The name of the OLC editor the player is currently in.
                 sprintf(buf2, "%s", olc_ed_name(ch));
                 i = buf2;
                 break;
             case 'O':
+                // The vnum from OLC the player is currently editing.
                 sprintf(buf2, "%s", olc_ed_vnum(ch));
                 i = buf2;
                 break;
         }
+
         ++str;
+
         while ((*point = *i) != '\0')
         {
             ++point, ++i;
@@ -1684,6 +1726,37 @@ void send_to_all_char(char *txt)
         {
             send_to_char(txt, ch);
         }
+    }
+}
+
+/*
+ * Lowest level output function.  Shorthand for write_to_descriptor if the DESCRIPTOR_DATA
+ * isn't null.
+ */
+bool write_to_desc(char *str, DESCRIPTOR_DATA *d)
+{
+    if (d != NULL)
+    {
+        return write_to_descriptor(d->descriptor, str, d);
+    }
+
+    return FALSE;
+}
+
+/*
+ * printf support for low level write to descriptor.
+ */
+void writef(DESCRIPTOR_DATA * d, char *fmt, ...)
+{
+    char buf[MAX_STRING_LENGTH];
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(buf, fmt, args);
+    va_end(args);
+
+    if (d != NULL)
+    {
+        write_to_descriptor(d->descriptor, buf, d);
     }
 }
 
@@ -2686,19 +2759,12 @@ int color_strlen(const char *text)
     return len;
 }
 
-/* source: EOD, by John Booth <???> */
-void printf_to_desc(DESCRIPTOR_DATA * d, char *fmt, ...)
-{
-    char buf[MSL];
-    va_list args;
-    va_start(args, fmt);
-    vsprintf(buf, fmt, args);
-    va_end(args);
-
-    send_to_desc(buf, d);
-}
-
-void printf_to_char(CHAR_DATA * ch, char *fmt, ...)
+/*
+ * Written by John Booth, EOD (as printf_to_char), renamed to sendf for easier
+ * coding as we make this a standard.  This assumes nothing will be larger
+ * than MAX_STRING_LENGTH and in the end passes the call down to send_to_char.
+ */
+void sendf(CHAR_DATA * ch, char *fmt, ...)
 {
     char buf[MAX_STRING_LENGTH];
     va_list args;
@@ -2820,6 +2886,9 @@ void shutdown_request(int a)
     // This trick will allow the core to still be dumped even after we've handled the signal.
     // Alas, all good things must come to an end.
     signal(a, SIG_DFL);
+
+    // Force core?
+    abort();
 
 #if defined( _WIN32 )
     global.shutdown = TRUE;

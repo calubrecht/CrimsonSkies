@@ -1,0 +1,363 @@
+#AREADATA
+Name War Hammer Clan Hall~
+Builders Rhien~
+VNUMs 10600 10619
+LevelRange 1 51
+Credits Rhien~
+Security 1
+Continent 1
+AreaFlags B
+End
+
+
+
+#MOBILES
+#10600
+thunder oakenforge~
+Thunder~
+Thunder Oakenforge stands here guarding the Hall of Thanes.
+~
+Thunder Oakenforge stands here at the entrance to the Hall of Thanes. 
+His is short with a dark brown beard, dark brown eyes and a hardened
+leathery appearance of his skin.  The study dwarf has a battle axe in hand
+as he stands ever alert.  
+~
+dwarf~
+ABV HJ 3 0
+45 0 1d1+999 1d1+99 1d8+20 beating
+-15 -15 -15 -15
+EFJ ABCD BLQ RZ
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#10601
+healer Gills~
+Gills McNair~
+Gills McNair stands here tending the injured dwarves.
+~
+A stout dwarven druid stands here tending injured dwarves.
+~
+dwarf~
+ABQVa DFHJ 2 0
+40 0 1d1+999 1d1+999 2d4+30 divine
+-15 -15 -15 -15
+FHIK ABCD BLQ RZ
+stand stand male 0
+AHMV ABCDEFGHIJK medium unknown
+#10602
+dwarven guildmaster master~
+the dwarven guildmaster~
+The dwarven guildmaster is standing here.
+~
+A great dwarven warrior fully equiped with finely crafted platmail and
+battle axes slung over his back stands here waiting to assist you with your
+training.  
+~
+dwarf~
+ABJKRVb DEFJZ 3 0
+36 0 1d1+1999 1d1+999 3d8+24 magic
+-15 -15 -15 -15
+FG ABCD BLQ RZ
+stand stand female 0
+AHMV ABCDEFGHIJK medium unknown
+#10603
+Girhog bartender~
+Girhog~
+Girhog stands here tending the bar.
+~
+A taller than average dwarf stands here tending the bar.  Although
+working he still has a pair of battle axes and a keen eye on everyone.  His
+long beard is a mix of brown and gray whiskers.  
+~
+dwarf~
+ABV J 3 0
+23 0 1d1+999 1d1+99 1d8+20 beating
+-15 -15 -15 -15
+EFJ ABCD BLQ RZ
+stand stand male 1300
+AHMV ABCDEFGHIJK medium unknown
+#0
+
+
+
+#OBJECTS
+#10600
+stone table~
+a large stone table~
+A beautifully carved stone table fills the room, with matching chairs.~
+wood~
+furniture 0 0
+ABC FHJKPQ DG 0 0
+0 0 0 P
+#10601
+sleeping pad willow~
+a sleeping pad~
+Several sleeping pads placed inside the carved out portions of the wall lay here.~
+willow~
+furniture O P
+CFG FHJKPQ EHK 0 0
+1 0 0 P
+#10602
+rack shelves pit~
+the shelves~
+Racks of shelves line the walls, holding spare equipment.~
+~
+container O 0
+10000 0 0 1000 100
+0 0 0 P
+#10603
+iron chair~
+an oaken barstool~
+An oaken barstool sits here.~
+iron~
+furniture 0 0
+BD EIJKN E 0 0
+1 1 0 P
+#10604
+potpie pot pie~
+a big pot pie~
+A big pot pie has been left here.~
+food~
+food 0 A
+CE DF 0 0 0
+0 20 22 P
+#10605
+bowl broth~
+a bowl of broth~
+A bowl of broth sits here steaming.~
+broth~
+food 0 A
+BD BD 0 0 0
+1 20 20 P
+#0
+
+
+
+#ROOMS
+#10600
+Entrance to the Hall of Thanes~
+You are standing at the entrance to the Hall of Thanes which has been dug
+directly into the side of the mountain.  Intricate statues of dwarven Thanes
+of old have been carved into the rock walls that extend farther into the
+mountain.  
+~
+0 28 0
+D0
+~
+~
+0 0 10601
+D2
+~
+~
+0 0 901
+C warhammer~
+S
+#10601
+A passageway in the Mountain~
+The tunnel continues into the mountainside.  The floor appears to be
+heavily trodden with many shod footsteps.  The countless poundings have left
+it with a stain sheen.  A few shadows flit about the room from the torch
+sconces upon the wall.  
+~
+0 16 0
+D0
+~
+~
+0 0 10602
+D2
+~
+~
+0 0 10600
+C warhammer~
+S
+#10602
+Hall of Thanes~
+You are standing in Hall of Thanes.  This large room has been carved
+completely out with huge stone pillars providing support for the ceiling. 
+The image of dwarven Thanes of old have been carved into many of the pillars
+almost as if they were life like.  
+~
+0 16 0
+D0
+~
+~
+0 0 10605
+D1
+~
+~
+0 0 10604
+D2
+~
+~
+0 0 10601
+D3
+~
+~
+0 0 10603
+C warhammer~
+S
+#10603
+Cleric's Altar~
+You are in a small room with many bottles of herbs and liquids of all
+colors stored in cabinets that have been carved into the walls.  There are
+beds layed out for those injuried who are being tended to.  Torches line the
+walls that flicker ever so slightly.  
+~
+0 16 0
+D1
+~
+~
+0 0 10602
+C warhammer~
+S
+#10604
+Dwarven Guild~
+You are standing in the guildmasters quarters.  Battle axes, maces and
+large finely crafted pices of platmail hang from all walls of the room.  A
+fire burns in a huge furnance and a large dwarven battlerager waits at the
+end of the room.  
+~
+0 16 0
+D3
+~
+~
+0 0 10602
+C warhammer~
+S
+#10605
+Hall of Thanes~
+You are standing at the end of the Hall of Thanes.  Farther to the north
+there is a small archway that leads into the court of Thanes where the great
+dwarven war council meets.  There is also a stone carved stairwell that
+leads down into the area of the hall where the dwarves rest and store their
+massive reserve of weapons and armor.  
+~
+0 16 0
+D0
+~
+~
+0 0 10606
+D2
+~
+~
+0 0 10602
+D5
+~
+~
+0 0 10607
+C warhammer~
+S
+#10606
+Court of Thanes~
+A large room with a massive stone table set into the very center of it.
+The place appears to be where meetings of high importance take place.  There
+are seven ornate chairs set about the table, with a large throne-like chair
+at the northmost side.
+~
+0 16 0
+D2
+~
+~
+0 0 10605
+C warhammer~
+S
+#10607
+Dwarven Room of Rest~
+You are standing in a large stone room with carved out spaces in the
+stone on the walls where many sleeping pads rest.  There is a trickle of
+water coming through the walls which keeps filled a pool of water in the
+corner of the room.  
+~
+0 24 0
+D0
+~
+~
+0 0 10608
+D1
+~
+~
+0 0 10609
+D3
+~
+~
+0 0 10610
+D4
+~
+~
+0 0 10605
+M 200 H 200
+C warhammer~
+S
+#10608
+The Dwarven Armory~
+Large torch bearing chandelier's hang from the ceiling illuminating the
+enourmous racks of armor, weapons and items that have been forged and saved
+for the good of the dwarven kingdom.
+~
+0 24 0
+D2
+~
+~
+0 0 10607
+C warhammer~
+S
+#10609
+Practice Room~
+You are standing in a large hall that is traditionally used for the
+dwarves to practice their combat skills.  Axes, swords, daggers and sets of
+finely crafted dwarven armor hang from the walls.  
+~
+0 24 0
+D3
+~
+~
+0 0 10607
+C warhammer~
+S
+#10610
+The Pub~
+You are standing in the pub, torches line the walls and raucous dwarves
+sing war hymns about the battles of old.  A stout dwarven lass stands behind
+an oaken bar ready to serve up food and drink.  
+~
+0 24 0
+D1
+~
+~
+0 0 10607
+C warhammer~
+S
+#0
+
+
+
+#SPECIALS
+M 10602 spec_cast_mage
+S
+
+
+
+#RESETS
+M 0 10600 1 10600 1 Load Thunder
+M 0 10601 1 10603 1 Load Gills McNair
+M 0 10602 1 10604 1 Load the dwarven guildmaster
+O 0 10600 0 10606 A large stone table loaded to Court of Thanes
+O 0 10601 0 10607 A sleeping pad loaded to Dwarven Room of Rest
+O 0 10602 0 10608 The shelves loaded to The Dwarven Armory
+O 0 10603 0 10610 An oaken barstool loaded to The Pub
+M 0 10603 1 10610 1 Load Girhog
+G 0 10604 0 A big pot pie is given to Girhog
+G 0 10605 0 A bowl of broth is given to Girhog
+S
+
+
+
+#SHOPS
+10603 19 0 0 0 0 100 100 1 23
+0
+
+
+
+#MOBPROGS
+#0
+
+#$

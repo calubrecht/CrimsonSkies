@@ -561,6 +561,11 @@ void do_dirt(CHAR_DATA * ch, char *argument)
         return;
     }
 
+    if (IS_TESTER(ch))
+    {
+        sendf(ch, "[Dirt Kick Chance {W%d%%{x]\r\n", chance);
+    }
+
     /* now the attack */
     if (number_percent() < chance)
     {

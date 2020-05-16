@@ -215,7 +215,7 @@ void do_read(CHAR_DATA *ch, char *argument)
     }
 
     // Show the character what they have read.
-    printf_to_char(ch, "%s\r\n", obj->extra_descr->description);
+    sendf(ch, "%s\r\n", obj->extra_descr->description);
 
     // Show the room
     act("$n reads a piece of parchment.", ch, NULL, NULL, TO_ROOM);

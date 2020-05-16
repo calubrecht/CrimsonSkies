@@ -42,6 +42,7 @@
  */
 void check_assist(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim);
+bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim);
 void check_wanted(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_parry(CHAR_DATA * ch, CHAR_DATA * victim);
 bool check_shield_block(CHAR_DATA * ch, CHAR_DATA * victim);
@@ -68,16 +69,28 @@ void violence_update(void)
     {
         ch_next = ch->next;
 
+        // They aren't fighting (or are somehow in a null room), exit out.
         if ((victim = ch->fighting) == NULL || ch->in_room == NULL)
+        {
             continue;
+        }
 
+        // The character must be awake and in the same room with the victim for
+        // battle to be processed.
         if (IS_AWAKE(ch) && ch->in_room == victim->in_room)
+        {
             multi_hit(ch, victim, TYPE_UNDEFINED);
+        }
         else
+        {
+            // If they're not in the same room or not awake, stop fighting.
             stop_fighting(ch, FALSE);
+        }
 
         if ((victim = ch->fighting) == NULL)
+        {
             continue;
+        }
 
         // Fun for the whole family!
         check_assist(ch, victim);
@@ -85,9 +98,13 @@ void violence_update(void)
         if (IS_NPC(ch))
         {
             if (HAS_TRIGGER(ch, TRIG_FIGHT))
+            {
                 mp_percent_trigger(ch, victim, NULL, NULL, TRIG_FIGHT);
+            }
             if (HAS_TRIGGER(ch, TRIG_HPCNT))
+            {
                 mp_hprct_trigger(ch, victim);
+            }
         }
     }
 
@@ -241,7 +258,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
     chance = get_skill(ch, gsn_third_attack) / 4;
 
     if (IS_AFFECTED(ch, AFF_SLOW))
-        chance = 0;;
+        chance /= 4;
 
     if (number_percent() < chance)
     {
@@ -252,7 +269,22 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 5 (Dual Wield #1)
+    // Attack 5 (4rd attack skill) (few classes will have this, barbarian's only at first)
+    chance = get_skill(ch, gsn_fourth_attack) / 4;
+
+    if (IS_AFFECTED(ch, AFF_SLOW))
+        chance /= 4;
+
+    if (number_percent() < chance)
+    {
+        one_hit(ch, victim, dt, FALSE);
+        check_improve(ch, gsn_fourth_attack, TRUE, 6);
+
+        if (ch->fighting != victim)
+            return;
+    }
+
+    // Attack 6 (Dual Wield #1)
     if (number_percent() < get_skill(ch, gsn_dual_wield))
     {
         one_hit(ch, victim, dt, TRUE);
@@ -261,7 +293,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 6 (Dual Wield #2  + Haste)
+    // Attack 7 (Dual Wield #2  + Haste)
     if (IS_AFFECTED(ch, AFF_HASTE) &&
         number_percent() < get_skill(ch, gsn_dual_wield))
     {
@@ -271,7 +303,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 7 (Bladesong)
+    // Attack 8 (Bladesong)
     if (is_affected(ch, gsn_bladesong))
     {
         one_hit(ch, victim, dt, FALSE);
@@ -280,7 +312,7 @@ void multi_hit(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
             return;
     }
 
-    // Attack 8 (Stance Offensive), 60% chance of bonus attack
+    // Attack 9 (Stance Offensive), 60% chance of bonus attack
     if (ch->stance == STANCE_OFFENSIVE && CHANCE(60))
     {
         one_hit(ch, victim, dt, FALSE);
@@ -943,17 +975,10 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
      */
     if (dt >= TYPE_HIT && ch != victim)
     {
-        if (check_parry(ch, victim))
-        {
-            return FALSE;
-        }
-
-        if (check_dodge(ch, victim))
-        {
-            return FALSE;
-        }
-
-        if (check_shield_block(ch, victim))
+        if (check_parry(ch, victim)
+            || check_dodge(ch, victim)
+            || check_shield_block(ch, victim)
+            || check_self_projection(ch, victim))
         {
             return FALSE;
         }
@@ -982,6 +1007,12 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
             victim->in_room->sector_type == SECT_OCEAN))
     {
         dam *= 2;
+    }
+
+    // Damage Reduction Merit, -5% damage (needs to be at the end of the damage modifiers)
+    if (!IS_NPC(victim) && IS_SET(victim->pcdata->merit, MERIT_DAMAGE_REDUCTION))
+    {
+        dam = (19 * dam) / 20;
     }
 
     if (show)
@@ -1039,6 +1070,10 @@ bool damage(CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, int dam_type, b
     {
         victim->hit = 1;
     }
+
+    // Barbarians, see if they hit their second wind which gives them a chance to
+    // boost their health under certain circumstances.
+    second_wind(victim);
 
     update_pos(victim);
 
@@ -1637,7 +1672,40 @@ bool check_dodge(CHAR_DATA * ch, CHAR_DATA * victim)
     act("$N dodges your attack.", ch, NULL, victim, TO_CHAR);
     check_improve(victim, gsn_dodge, TRUE, 6);
     return TRUE;
-} // end bool check_dodge
+}
+
+/*
+ * Check to see if self projection stops an attack
+ */
+bool check_self_projection(CHAR_DATA * ch, CHAR_DATA * victim)
+{
+    // First, check for self projection, if it's not on the victim then get out here.
+    if (!is_affected(victim, gsn_self_projection))
+    {
+        return FALSE;
+    }
+
+    // 4% base chance
+    int chance = 4;
+
+    // If the attacker has the precision striking merit then half the chance.
+    if (is_affected(ch, gsn_precision_striking))
+    {
+        chance /= 2;
+    }
+
+    // The chance to fail
+    if (!CHANCE(chance))
+    {
+        return FALSE;
+    }
+
+    act("$n's attack misses as they swing at your self projection.", ch, NULL, victim, TO_VICT);
+    act("You swing $N's self projection and miss.", ch, NULL, victim, TO_CHAR);
+
+    return TRUE;
+}
+
 
 /*
  * Set position of a victim.
@@ -1680,7 +1748,7 @@ void set_fighting(CHAR_DATA * ch, CHAR_DATA * victim)
 {
     if (ch->fighting != NULL)
     {
-        bug("Set_fighting: already fighting", 0);
+        //bug("Set_fighting: already fighting", 0);
         return;
     }
 
@@ -2479,6 +2547,13 @@ void toast(CHAR_DATA *ch, CHAR_DATA *victim)
         ch->pcdata->pkills++;
     }
 
+    // If it's in the arena, any kill between a player and a player is good, tally
+    // it in the arena kills stat.
+    if (!IS_NPC(victim) && !IS_NPC(ch) && IS_SET(ch->in_room->room_flags, ROOM_ARENA))
+    {
+        ch->pcdata->pkills_arena++;
+    }
+
     // Send it to all the players
     send_to_all_char(buf);
 
@@ -2827,4 +2902,67 @@ char *get_stance_name(CHAR_DATA *ch)
     }
 
     return buf;
+}
+
+/*
+ * A standard modifier for physical type skill attacks.  This is a percent plus or
+ * minus the ch should get on skills where it's used based off of the state of the
+ * player and the victim (things like blinds, hastes, etc.).
+ */
+int standard_modifier(CHAR_DATA *ch, CHAR_DATA *victim)
+{
+    int mod = 0;
+
+    // Haste
+    if (IS_AFFECTED(ch, AFF_HASTE) && !IS_AFFECTED(victim, AFF_HASTE))
+    {
+        mod += 5;
+    }
+    else if (!IS_AFFECTED(ch, AFF_HASTE) && IS_AFFECTED(victim, AFF_HASTE))
+    {
+        mod -= 5;
+    }
+
+    // Slow
+    if (IS_AFFECTED(ch, AFF_SLOW))
+    {
+        mod -= 5;
+    }
+
+    if (IS_AFFECTED(victim, AFF_SLOW))
+    {
+        mod += 5;
+    }
+
+    // Blind
+    if (IS_AFFECTED(ch, AFF_BLIND))
+    {
+        mod -= 10;
+
+        if (CHANCE_SKILL(ch, gsn_blind_fighting))
+        {
+            // They passed a blind fighting check, give them some back.
+            mod += 5;
+        }
+    }
+
+    if (IS_AFFECTED(victim, AFF_BLIND))
+    {
+        mod += 10;
+
+        if (CHANCE_SKILL(victim, gsn_blind_fighting))
+        {
+            // They passed a blind fighting check, give them some back.
+            mod -= 5;
+        }
+    }
+
+    // Show to testers
+    if (IS_TESTER(ch))
+    {
+        sendf(ch, "[Standard Modifier {W%d{x]\r\n", mod);
+    }
+
+    return mod;
+
 }

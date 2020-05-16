@@ -26,6 +26,13 @@
  *                                                                         *
  ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *  NOTE - When creating a grid only use \n otherwise the spacing at the   *
+ *         end of the line will be off by one.                             *
+ *                                                                         *
+ ***************************************************************************/
+
  // System Specific Includes
 #if defined(_WIN32)
 #include <sys/types.h>
@@ -471,18 +478,18 @@ void row_to_char(GRID_ROW *row, CHAR_DATA *ch)
         {
             if (i == 0)
             {
-                printf_to_char(ch, "%c", row->grid->border_left);
+                sendf(ch, "%c", row->grid->border_left);
             }
             else
             {
-                printf_to_char(ch, "%c", row->grid->border_internal);
+                sendf(ch, "%c", row->grid->border_internal);
             }
 
-            printf_to_char(ch, "%s", ptrs[i][n]);
+            sendf(ch, "%s", ptrs[i][n]);
             free(ptrs[i][n]);
         }
 
-        printf_to_char(ch, "%-*c\r\n", filler, row->grid->border_right);
+        sendf(ch, "%-*c\r\n", filler, row->grid->border_right);
     }
 
     for (i = 0; i < row->columns; ++i)
@@ -502,26 +509,26 @@ void grid_to_char(GRID_DATA *grid, CHAR_DATA *ch, bool destroy)
     GRID_ROW *row;
     int i;
 
-    printf_to_char(ch, "%c", grid->border_corner);
+    sendf(ch, "%c", grid->border_corner);
 
     for (i = 0; i < grid->width - 1; ++i)
     {
-        printf_to_char(ch, "%c", grid->border_top);
+        sendf(ch, "%c", grid->border_top);
     }
 
-    printf_to_char(ch, "%c\r\n", grid->border_corner);
+    sendf(ch, "%c\r\n", grid->border_corner);
 
     for (row = grid->first_row; row; row = row->next)
     {
         row_to_char(row, ch);
-        printf_to_char(ch, "%c", grid->border_corner);
+        sendf(ch, "%c", grid->border_corner);
 
         for (i = 0; i < grid->width - 1; ++i)
         {
-            printf_to_char(ch, "%c", grid->border_bottom);
+            sendf(ch, "%c", grid->border_bottom);
         }
 
-        printf_to_char(ch, "%c\r\n", grid->border_corner);
+        sendf(ch, "%c\r\n", grid->border_corner);
     }
 
     if (destroy)
